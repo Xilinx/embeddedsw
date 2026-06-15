@@ -1,0 +1,1273 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xqspipsu__hw_8c" kind="file">
+    <compoundname>xqspipsu_hw.c</compoundname>
+    <includes refid="xqspipsu_8h" local="yes">xqspipsu.h</includes>
+    <includes refid="xqspipsu__control_8h" local="yes">xqspipsu_control.h</includes>
+    <incdepgraph>
+      <node id="201">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="196">
+        <label>xqspipsu_hw.c</label>
+        <link refid="xqspipsu_hw.c"/>
+        <childnode refid="197" relation="include">
+        </childnode>
+        <childnode refid="207" relation="include">
+        </childnode>
+      </node>
+      <node id="199">
+        <label>xqspipsu_hw.h</label>
+        <link refid="xqspipsu__hw_8h"/>
+        <childnode refid="200" relation="include">
+        </childnode>
+        <childnode refid="201" relation="include">
+        </childnode>
+        <childnode refid="202" relation="include">
+        </childnode>
+        <childnode refid="203" relation="include">
+        </childnode>
+      </node>
+      <node id="202">
+        <label>xil_io.h</label>
+      </node>
+      <node id="204">
+        <label>xil_cache.h</label>
+      </node>
+      <node id="206">
+        <label>xil_util.h</label>
+      </node>
+      <node id="197">
+        <label>xqspipsu.h</label>
+        <link refid="xqspipsu_8h"/>
+        <childnode refid="198" relation="include">
+        </childnode>
+        <childnode refid="199" relation="include">
+        </childnode>
+        <childnode refid="204" relation="include">
+        </childnode>
+        <childnode refid="205" relation="include">
+        </childnode>
+        <childnode refid="206" relation="include">
+        </childnode>
+      </node>
+      <node id="205">
+        <label>xil_mem.h</label>
+      </node>
+      <node id="198">
+        <label>xstatus.h</label>
+      </node>
+      <node id="200">
+        <label>xil_types.h</label>
+      </node>
+      <node id="207">
+        <label>xqspipsu_control.h</label>
+        <link refid="xqspipsu__control_8h"/>
+      </node>
+      <node id="203">
+        <label>xparameters.h</label>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__qspipsu__api_1gaf5c0853d67052b9b05af03946e51c4c2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XQspiPsu_FillTxFifo</definition>
+        <argsstring>(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg, u32 Size)</argsstring>
+        <name>XQspiPsu_FillTxFifo</name>
+        <param>
+          <type><ref refid="struct_x_qspi_psu" kindref="compound">XQspiPsu</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_qspi_psu___msg" kindref="compound">XQspiPsu_Msg</ref> *</type>
+          <declname>Msg</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Size</declname>
+        </param>
+        <briefdescription>
+<para>Fills the TX FIFO as long as there is room in the FIFO or the bytes required to be transmitted. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_qspi_psu" kindref="compound">XQspiPsu</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Msg</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the structure containing transfer data. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Size</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of bytes to be transmitted.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/src/xqspipsu_hw.c" line="71" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/src/xqspipsu_hw.c" bodystart="71" bodyend="106"/>
+        <references refid="struct_x_qspi_psu___config_1a4048264c3ac6b3455c0295eeacac874b" compoundref="xqspipsu_8h" startline="206">XQspiPsu_Config::BaseAddress</references>
+        <references refid="struct_x_qspi_psu_1a9b3aa272eb335fecaaa8f47fd2ed9241" compoundref="xqspipsu_8h" startline="230">XQspiPsu::Config</references>
+        <references refid="struct_x_qspi_psu_1ae6039f5b4f8cdf2e528931ec383deb31" compoundref="xqspipsu_8h" startline="231">XQspiPsu::IsReady</references>
+        <references refid="struct_x_qspi_psu___msg_1a09fc20d95cb26f29a649207d0b495f58" compoundref="xqspipsu_8h" startline="184">XQspiPsu_Msg::TxBfrPtr</references>
+        <references refid="struct_x_qspi_psu_1a489eab59d93d119fe5776f8d440ec2bd" compoundref="xqspipsu_8h" startline="237">XQspiPsu::TxBytes</references>
+        <references refid="group__qspipsu_1ga4884f0160746c6696598ef6dda1fc9ff" compoundref="xqspipsu__hw_8h" startline="395">XQSPIPSU_TXD_OFFSET</references>
+        <references refid="group__qspipsu_1ga584ee0482b95d3f49353438ca58fb180" compoundref="xqspipsu__hw_8h" startline="999">XQspiPsu_WriteReg</references>
+        <referencedby refid="group__qspipsu__api_1gaa77c471d9c50c3671a2f2a7c28707f4d" compoundref="xqspipsu__xfer_8c" startline="160" endline="183">XQspiPsu_IntrSendData</referencedby>
+        <referencedby refid="group__qspipsu__api_1gad8adcb1fd07106bb0add26e24a4c0084" compoundref="xqspipsu__xfer_8c" startline="64" endline="83">XQspiPsu_PolledSendData</referencedby>
+        <referencedby refid="group__qspipsu__api_1ga58406ccb7e182a93cd3a47c060de091e" compoundref="xqspipsu__hw_8c" startline="122" endline="134">XQspiPsu_TXSetup</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__qspipsu__api_1ga58406ccb7e182a93cd3a47c060de091e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XQspiPsu_TXSetup</definition>
+        <argsstring>(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg)</argsstring>
+        <name>XQspiPsu_TXSetup</name>
+        <param>
+          <type><ref refid="struct_x_qspi_psu" kindref="compound">XQspiPsu</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_qspi_psu___msg" kindref="compound">XQspiPsu_Msg</ref> *</type>
+          <declname>Msg</declname>
+        </param>
+        <briefdescription>
+<para>Checks the TX buffer in the message and setup the TX FIFO as required. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_qspi_psu" kindref="compound">XQspiPsu</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Msg</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the structure containing transfer data.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/src/xqspipsu_hw.c" line="122" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/src/xqspipsu_hw.c" bodystart="122" bodyend="134"/>
+        <references refid="struct_x_qspi_psu___msg_1a420a0720c6eb8d77aae09c829185b160" compoundref="xqspipsu_8h" startline="186">XQspiPsu_Msg::ByteCount</references>
+        <references refid="struct_x_qspi_psu_1ae6039f5b4f8cdf2e528931ec383deb31" compoundref="xqspipsu_8h" startline="231">XQspiPsu::IsReady</references>
+        <references refid="struct_x_qspi_psu_1a2a11cb56ad7d4b388a4669359156ab0b" compoundref="xqspipsu_8h" startline="233">XQspiPsu::SendBufferPtr</references>
+        <references refid="struct_x_qspi_psu___msg_1a09fc20d95cb26f29a649207d0b495f58" compoundref="xqspipsu_8h" startline="184">XQspiPsu_Msg::TxBfrPtr</references>
+        <references refid="struct_x_qspi_psu_1a489eab59d93d119fe5776f8d440ec2bd" compoundref="xqspipsu_8h" startline="237">XQspiPsu::TxBytes</references>
+        <references refid="group__qspipsu__api_1gaf5c0853d67052b9b05af03946e51c4c2" compoundref="xqspipsu__hw_8c" startline="71" endline="106">XQspiPsu_FillTxFifo</references>
+        <referencedby refid="group__qspipsu__api_1ga8b201a022bb63afbaaf9afad23064761" compoundref="xqspipsu__hw_8c" startline="336" endline="399">XQspiPsu_TXRXSetup</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__qspipsu__api_1ga0467a9580fe9018adfd4302fbd91e404" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XQspiPsu_SetupRxDma</definition>
+        <argsstring>(const XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg)</argsstring>
+        <name>XQspiPsu_SetupRxDma</name>
+        <param>
+          <type>const <ref refid="struct_x_qspi_psu" kindref="compound">XQspiPsu</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_qspi_psu___msg" kindref="compound">XQspiPsu_Msg</ref> *</type>
+          <declname>Msg</declname>
+        </param>
+        <briefdescription>
+<para>Sets up the RX DMA operation. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_qspi_psu" kindref="compound">XQspiPsu</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Msg</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the structure containing transfer data.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/src/xqspipsu_hw.c" line="149" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/src/xqspipsu_hw.c" bodystart="149" bodyend="195"/>
+        <references refid="struct_x_qspi_psu___config_1a4048264c3ac6b3455c0295eeacac874b" compoundref="xqspipsu_8h" startline="206">XQspiPsu_Config::BaseAddress</references>
+        <references refid="struct_x_qspi_psu___msg_1a420a0720c6eb8d77aae09c829185b160" compoundref="xqspipsu_8h" startline="186">XQspiPsu_Msg::ByteCount</references>
+        <references refid="struct_x_qspi_psu_1a9b3aa272eb335fecaaa8f47fd2ed9241" compoundref="xqspipsu_8h" startline="230">XQspiPsu::Config</references>
+        <references refid="struct_x_qspi_psu___config_1a400769b796e581c883c34c63320c51b3" compoundref="xqspipsu_8h" startline="210">XQspiPsu_Config::IsCacheCoherent</references>
+        <references refid="struct_x_qspi_psu_1ae6039f5b4f8cdf2e528931ec383deb31" compoundref="xqspipsu_8h" startline="231">XQspiPsu::IsReady</references>
+        <references refid="struct_x_qspi_psu___msg_1a1fb697c64fd14580822f4baf50f26df1" compoundref="xqspipsu_8h" startline="185">XQspiPsu_Msg::RxBfrPtr</references>
+        <references refid="struct_x_qspi_psu_1ac45ddbc82ca891a58fbc9f25150fce30" compoundref="xqspipsu_8h" startline="238">XQspiPsu::RxBytes</references>
+        <references refid="group__qspipsu_1ga3b9c82ef758ea9e8bfda707130051091" compoundref="xqspipsu__hw_8h" startline="656">XQSPIPSU_QSPIDMA_DST_ADDR_OFFSET</references>
+        <references refid="group__qspipsu_1ga584ee0482b95d3f49353438ca58fb180" compoundref="xqspipsu__hw_8h" startline="999">XQspiPsu_WriteReg</references>
+        <referencedby refid="group__qspipsu__api_1gad77b041e10c03756bd0e3c197a63a2e3" compoundref="xqspipsu__hw_8c" startline="301" endline="319">XQspiPsu_RXSetup</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__qspipsu__api_1ga03fb04c8187cf51d256a9196430c6224" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XQspiPsu_Setup64BRxDma</definition>
+        <argsstring>(const XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg)</argsstring>
+        <name>XQspiPsu_Setup64BRxDma</name>
+        <param>
+          <type>const <ref refid="struct_x_qspi_psu" kindref="compound">XQspiPsu</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_qspi_psu___msg" kindref="compound">XQspiPsu_Msg</ref> *</type>
+          <declname>Msg</declname>
+        </param>
+        <briefdescription>
+<para>Sets up the RX DMA operation on a 32-bit Machine For 64-bit DMA transfers. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_qspi_psu" kindref="compound">XQspiPsu</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Msg</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the structure containing transfer data.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/src/xqspipsu_hw.c" line="211" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/src/xqspipsu_hw.c" bodystart="211" bodyend="246"/>
+        <references refid="struct_x_qspi_psu___config_1a4048264c3ac6b3455c0295eeacac874b" compoundref="xqspipsu_8h" startline="206">XQspiPsu_Config::BaseAddress</references>
+        <references refid="struct_x_qspi_psu___msg_1a420a0720c6eb8d77aae09c829185b160" compoundref="xqspipsu_8h" startline="186">XQspiPsu_Msg::ByteCount</references>
+        <references refid="struct_x_qspi_psu_1a9b3aa272eb335fecaaa8f47fd2ed9241" compoundref="xqspipsu_8h" startline="230">XQspiPsu::Config</references>
+        <references refid="struct_x_qspi_psu_1ae6039f5b4f8cdf2e528931ec383deb31" compoundref="xqspipsu_8h" startline="231">XQspiPsu::IsReady</references>
+        <references refid="struct_x_qspi_psu___msg_1a95b9e43bb920ea5055db6b1971d7f780" compoundref="xqspipsu_8h" startline="193">XQspiPsu_Msg::RxAddr64bit</references>
+        <references refid="struct_x_qspi_psu_1ac45ddbc82ca891a58fbc9f25150fce30" compoundref="xqspipsu_8h" startline="238">XQspiPsu::RxBytes</references>
+        <references refid="group__qspipsu_1ga3b9c82ef758ea9e8bfda707130051091" compoundref="xqspipsu__hw_8h" startline="656">XQSPIPSU_QSPIDMA_DST_ADDR_OFFSET</references>
+        <references refid="group__qspipsu_1ga584ee0482b95d3f49353438ca58fb180" compoundref="xqspipsu__hw_8h" startline="999">XQspiPsu_WriteReg</references>
+        <referencedby refid="group__qspipsu__api_1gad77b041e10c03756bd0e3c197a63a2e3" compoundref="xqspipsu__hw_8c" startline="301" endline="319">XQspiPsu_RXSetup</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__qspipsu__api_1ga02f2ea05785dff6887625c5ef088a73b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XQspiPsu_SetIOMode</definition>
+        <argsstring>(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg)</argsstring>
+        <name>XQspiPsu_SetIOMode</name>
+        <param>
+          <type><ref refid="struct_x_qspi_psu" kindref="compound">XQspiPsu</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_qspi_psu___msg" kindref="compound">XQspiPsu_Msg</ref> *</type>
+          <declname>Msg</declname>
+        </param>
+        <briefdescription>
+<para>Reads remaining bytes after the completion of a DMA transfer using I/O mode. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_qspi_psu" kindref="compound">XQspiPsu</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Msg</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the structure containing transfer data.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if successful.</para></listitem><listitem><para>XST_FAILURE if transfer fails.</para></listitem><listitem><para>XST_DEVICE_BUSY if a transfer is already in progress.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/src/xqspipsu_hw.c" line="265" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/src/xqspipsu_hw.c" bodystart="265" bodyend="286"/>
+        <references refid="struct_x_qspi_psu___config_1a4048264c3ac6b3455c0295eeacac874b" compoundref="xqspipsu_8h" startline="206">XQspiPsu_Config::BaseAddress</references>
+        <references refid="struct_x_qspi_psu___msg_1a420a0720c6eb8d77aae09c829185b160" compoundref="xqspipsu_8h" startline="186">XQspiPsu_Msg::ByteCount</references>
+        <references refid="struct_x_qspi_psu_1a9b3aa272eb335fecaaa8f47fd2ed9241" compoundref="xqspipsu_8h" startline="230">XQspiPsu::Config</references>
+        <references refid="struct_x_qspi_psu_1ae6039f5b4f8cdf2e528931ec383deb31" compoundref="xqspipsu_8h" startline="231">XQspiPsu::IsReady</references>
+        <references refid="struct_x_qspi_psu_1a1e1d64fc74cfc2442eedaf0eb3f97263" compoundref="xqspipsu_8h" startline="246">XQspiPsu::IsUnaligned</references>
+        <references refid="struct_x_qspi_psu_1abcf49b02b0b90a7eecf9fb5ba40ac0b3" compoundref="xqspipsu_8h" startline="241">XQspiPsu::ReadMode</references>
+        <references refid="struct_x_qspi_psu___msg_1a1fb697c64fd14580822f4baf50f26df1" compoundref="xqspipsu_8h" startline="185">XQspiPsu_Msg::RxBfrPtr</references>
+        <references refid="struct_x_qspi_psu_1ac45ddbc82ca891a58fbc9f25150fce30" compoundref="xqspipsu_8h" startline="238">XQspiPsu::RxBytes</references>
+        <references refid="group__qspipsu_1ga1d76a2f706f3988da79345132e484303" compoundref="xqspipsu__hw_8h" startline="97">XQSPIPSU_CFG_OFFSET</references>
+        <references refid="group__qspipsu__api_1gafd11c8b8f44530c3670d2ac7497fb2fc" compoundref="xqspipsu_8h" startline="287">XQSPIPSU_READMODE_IO</references>
+        <references refid="group__qspipsu_1gab88bcdb0f53b21b79cd0805cfd14cb89" compoundref="xqspipsu__hw_8h" startline="981">XQspiPsu_ReadReg</references>
+        <references refid="group__qspipsu_1ga584ee0482b95d3f49353438ca58fb180" compoundref="xqspipsu__hw_8h" startline="999">XQspiPsu_WriteReg</references>
+        <referencedby refid="group__qspipsu__api_1ga872f5fe8dbac27ca8867387e2185069d" compoundref="xqspipsu__xfer_8c" startline="199" endline="237">XQspiPsu_IntrRecvData</referencedby>
+        <referencedby refid="group__qspipsu__api_1ga18829cabd2b37c4cf9fb2efa0632c398" compoundref="xqspipsu__xfer_8c" startline="101" endline="145">XQspiPsu_PolledRecvData</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__qspipsu__api_1gad77b041e10c03756bd0e3c197a63a2e3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XQspiPsu_RXSetup</definition>
+        <argsstring>(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg)</argsstring>
+        <name>XQspiPsu_RXSetup</name>
+        <param>
+          <type><ref refid="struct_x_qspi_psu" kindref="compound">XQspiPsu</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_qspi_psu___msg" kindref="compound">XQspiPsu_Msg</ref> *</type>
+          <declname>Msg</declname>
+        </param>
+        <briefdescription>
+<para>Checks the RX buffers in the message and setup the RX DMA as required. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_qspi_psu" kindref="compound">XQspiPsu</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Msg</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the structure containing transfer data.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/src/xqspipsu_hw.c" line="301" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/src/xqspipsu_hw.c" bodystart="301" bodyend="319"/>
+        <references refid="struct_x_qspi_psu___msg_1a420a0720c6eb8d77aae09c829185b160" compoundref="xqspipsu_8h" startline="186">XQspiPsu_Msg::ByteCount</references>
+        <references refid="struct_x_qspi_psu_1ae6039f5b4f8cdf2e528931ec383deb31" compoundref="xqspipsu_8h" startline="231">XQspiPsu::IsReady</references>
+        <references refid="struct_x_qspi_psu_1abcf49b02b0b90a7eecf9fb5ba40ac0b3" compoundref="xqspipsu_8h" startline="241">XQspiPsu::ReadMode</references>
+        <references refid="struct_x_qspi_psu___msg_1a95b9e43bb920ea5055db6b1971d7f780" compoundref="xqspipsu_8h" startline="193">XQspiPsu_Msg::RxAddr64bit</references>
+        <references refid="struct_x_qspi_psu_1ac45ddbc82ca891a58fbc9f25150fce30" compoundref="xqspipsu_8h" startline="238">XQspiPsu::RxBytes</references>
+        <references refid="struct_x_qspi_psu___msg_1ac9a904e6a2fa8d5668e554615a59bbb5" compoundref="xqspipsu_8h" startline="194">XQspiPsu_Msg::Xfer64bit</references>
+        <references refid="group__qspipsu__api_1ga6e5ef224ee243dc64228ad60155a3f8b" compoundref="xqspipsu_8h" startline="286">XQSPIPSU_READMODE_DMA</references>
+        <references refid="group__qspipsu__api_1gad6a88bdae8e13bd8cd48bb9e6d565610" compoundref="xqspipsu_8h" startline="343">XQSPIPSU_RXADDR_OVER_32BIT</references>
+        <references refid="group__qspipsu__api_1ga03fb04c8187cf51d256a9196430c6224" compoundref="xqspipsu__hw_8c" startline="211" endline="246">XQspiPsu_Setup64BRxDma</references>
+        <references refid="group__qspipsu__api_1ga0467a9580fe9018adfd4302fbd91e404" compoundref="xqspipsu__hw_8c" startline="149" endline="195">XQspiPsu_SetupRxDma</references>
+        <referencedby refid="group__qspipsu__api_1ga8b201a022bb63afbaaf9afad23064761" compoundref="xqspipsu__hw_8c" startline="336" endline="399">XQspiPsu_TXRXSetup</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__qspipsu__api_1ga8b201a022bb63afbaaf9afad23064761" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XQspiPsu_TXRXSetup</definition>
+        <argsstring>(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg, u32 *GenFifoEntry)</argsstring>
+        <name>XQspiPsu_TXRXSetup</name>
+        <param>
+          <type><ref refid="struct_x_qspi_psu" kindref="compound">XQspiPsu</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_qspi_psu___msg" kindref="compound">XQspiPsu_Msg</ref> *</type>
+          <declname>Msg</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>GenFifoEntry</declname>
+        </param>
+        <briefdescription>
+<para>Checks the TX/RX buffers in the message and setups up the GENFIFO entries, TX FIFO, or RX DMA as required. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_qspi_psu" kindref="compound">XQspiPsu</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Msg</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the structure containing transfer data. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>GenFifoEntry</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the variable in which GENFIFO mask is returned to calling function</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/src/xqspipsu_hw.c" line="336" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/src/xqspipsu_hw.c" bodystart="336" bodyend="399"/>
+        <references refid="struct_x_qspi_psu___msg_1a2c11ea724a05dd7d68b8e4adcb7ac46e" compoundref="xqspipsu_8h" startline="188">XQspiPsu_Msg::Flags</references>
+        <references refid="struct_x_qspi_psu_1ae6039f5b4f8cdf2e528931ec383deb31" compoundref="xqspipsu_8h" startline="231">XQspiPsu::IsReady</references>
+        <references refid="struct_x_qspi_psu_1a5464cdad6cf047e5228f13cb3a761c3f" compoundref="xqspipsu_8h" startline="234">XQspiPsu::RecvBufferPtr</references>
+        <references refid="struct_x_qspi_psu_1ac45ddbc82ca891a58fbc9f25150fce30" compoundref="xqspipsu_8h" startline="238">XQspiPsu::RxBytes</references>
+        <references refid="struct_x_qspi_psu_1a2a11cb56ad7d4b388a4669359156ab0b" compoundref="xqspipsu_8h" startline="233">XQspiPsu::SendBufferPtr</references>
+        <references refid="struct_x_qspi_psu_1a489eab59d93d119fe5776f8d440ec2bd" compoundref="xqspipsu_8h" startline="237">XQspiPsu::TxBytes</references>
+        <references refid="group__qspipsu__api_1gacdde904168f5899e4ba6ccd59c360849" compoundref="xqspipsu_8h" startline="339">XQSPIPSU_MSG_FLAG_RX</references>
+        <references refid="group__qspipsu__api_1gae82f60c2162c93b8e302125914d8aab6" compoundref="xqspipsu_8h" startline="340">XQSPIPSU_MSG_FLAG_TX</references>
+        <references refid="group__qspipsu__api_1gad77b041e10c03756bd0e3c197a63a2e3" compoundref="xqspipsu__hw_8c" startline="301" endline="319">XQspiPsu_RXSetup</references>
+        <references refid="group__qspipsu__api_1ga58406ccb7e182a93cd3a47c060de091e" compoundref="xqspipsu__hw_8c" startline="122" endline="134">XQspiPsu_TXSetup</references>
+        <referencedby refid="group__qspipsu__api_1ga08036c2fa8996e246d9d529fd2302af9" compoundref="xqspipsu__control_8c" startline="67" endline="116">XQspiPsu_GenFifoEntryData</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__qspipsu__api_1ga7fc4cdebc35bb7b5d3ca9128917c131c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XQspiPsu_GenFifoEntryDataLen</definition>
+        <argsstring>(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg, u32 *GenFifoEntry)</argsstring>
+        <name>XQspiPsu_GenFifoEntryDataLen</name>
+        <param>
+          <type><ref refid="struct_x_qspi_psu" kindref="compound">XQspiPsu</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_qspi_psu___msg" kindref="compound">XQspiPsu_Msg</ref> *</type>
+          <declname>Msg</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>GenFifoEntry</declname>
+        </param>
+        <briefdescription>
+<para>Writes the data length to GENFIFO entries to be transmitted or received. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_qspi_psu" kindref="compound">XQspiPsu</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Msg</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the structure containing transfer data. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>GenFifoEntry</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the variable in which GENFIFO mask is returned to the calling function.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if successful.</para></listitem><listitem><para>XST_FAILURE if transfer fails.</para></listitem><listitem><para>XST_DEVICE_BUSY if a transfer is already in progress. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/src/xqspipsu_hw.c" line="417" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/src/xqspipsu_hw.c" bodystart="417" bodyend="471"/>
+        <references refid="struct_x_qspi_psu___config_1a4048264c3ac6b3455c0295eeacac874b" compoundref="xqspipsu_8h" startline="206">XQspiPsu_Config::BaseAddress</references>
+        <references refid="struct_x_qspi_psu___msg_1a420a0720c6eb8d77aae09c829185b160" compoundref="xqspipsu_8h" startline="186">XQspiPsu_Msg::ByteCount</references>
+        <references refid="struct_x_qspi_psu_1a9b3aa272eb335fecaaa8f47fd2ed9241" compoundref="xqspipsu_8h" startline="230">XQspiPsu::Config</references>
+        <references refid="struct_x_qspi_psu_1ae6039f5b4f8cdf2e528931ec383deb31" compoundref="xqspipsu_8h" startline="231">XQspiPsu::IsReady</references>
+        <references refid="group__qspipsu_1ga3bfe2023b6a6ce56e9d13f130bd1c86d" compoundref="xqspipsu__hw_8h" startline="489">XQSPIPSU_GEN_FIFO_OFFSET</references>
+        <references refid="group__qspipsu__api_1ga9910c1e3f79127836cade9970a9df537" compoundref="xqspipsu_8h" startline="313">XQSPIPSU_GENFIFO_EXP_START</references>
+        <references refid="group__qspipsu_1gaa8a6c468b32dd07920d5a47ec6294d79" compoundref="xqspipsu__hw_8h" startline="898">XQSPIPSU_GENFIFO_IMM_DATA_MASK</references>
+        <references refid="group__qspipsu_1ga584ee0482b95d3f49353438ca58fb180" compoundref="xqspipsu__hw_8h" startline="999">XQspiPsu_WriteReg</references>
+        <referencedby refid="group__qspipsu__api_1ga08036c2fa8996e246d9d529fd2302af9" compoundref="xqspipsu__control_8c" startline="67" endline="116">XQspiPsu_GenFifoEntryData</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__qspipsu__api_1ga6f3b7fc81ae5c50ee3ea373d80b4b542" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XQspiPsu_CreatePollDataConfig</definition>
+        <argsstring>(const XQspiPsu *InstancePtr, const XQspiPsu_Msg *FlashMsg)</argsstring>
+        <name>XQspiPsu_CreatePollDataConfig</name>
+        <param>
+          <type>const <ref refid="struct_x_qspi_psu" kindref="compound">XQspiPsu</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>const <ref refid="struct_x_qspi_psu___msg" kindref="compound">XQspiPsu_Msg</ref> *</type>
+          <declname>FlashMsg</declname>
+        </param>
+        <briefdescription>
+<para>Creates Poll configuration register data to write. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_qspi_psu" kindref="compound">XQspiPsu</ref> instance.</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>FlashMsg</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the structure containing transfer data.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/src/xqspipsu_hw.c" line="485" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/src/xqspipsu_hw.c" bodystart="485" bodyend="511"/>
+        <references refid="struct_x_qspi_psu_1a04675183fe2c3b312d0866a2a2f9b906" compoundref="xqspipsu_8h" startline="243">XQspiPsu::GenFifoBus</references>
+        <references refid="struct_x_qspi_psu_1ae6039f5b4f8cdf2e528931ec383deb31" compoundref="xqspipsu_8h" startline="231">XQspiPsu::IsReady</references>
+        <references refid="struct_x_qspi_psu___msg_1a3899d4d75a4cb3e0cdacbd659b53c8df" compoundref="xqspipsu_8h" startline="192">XQspiPsu_Msg::PollBusMask</references>
+        <references refid="struct_x_qspi_psu___msg_1a1a7d94d20674d2af431203e779c3a58a" compoundref="xqspipsu_8h" startline="189">XQspiPsu_Msg::PollData</references>
+        <references refid="group__qspipsu__api_1ga2d896ad5edf8b15e6dbd4d7a87517a35" compoundref="xqspipsu_8h" startline="293">XQSPIPSU_SELECT_FLASH_BUS_LOWER</references>
+        <referencedby refid="group__qspipsu__api_1gae55fa60e803534f990c0493b67eb02f1" compoundref="xqspipsu__control_8c" startline="132" endline="202">XQspiPsu_PollDataConfig</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__qspipsu__api_1gae7bfe0aff5a064a01b0f822f46b26deb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XQspiPsu_SelectSpiMode</definition>
+        <argsstring>(u8 SpiMode)</argsstring>
+        <name>XQspiPsu_SelectSpiMode</name>
+        <param>
+          <type>u8</type>
+          <declname>SpiMode</declname>
+        </param>
+        <briefdescription>
+<para>Selects SPI mode - x1 or x2 or x4. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>SpiMode</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>spi or dual or quad. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Mask to set desired SPI mode in GENFIFO entry. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/src/xqspipsu_hw.c" line="523" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/src/xqspipsu_hw.c" bodystart="523" bodyend="550"/>
+        <references refid="group__qspipsu__api_1gaa57e6e6b6efaaa981a9a81ae9db3d78a" compoundref="xqspipsu_8h" startline="298">XQSPIPSU_SELECT_MODE_DUALSPI</references>
+        <references refid="group__qspipsu__api_1ga6750df2d9d9169fdef76bfc957ae501c" compoundref="xqspipsu_8h" startline="299">XQSPIPSU_SELECT_MODE_QUADSPI</references>
+        <references refid="group__qspipsu__api_1ga185ba58041ded76c03bb18ad69e783af" compoundref="xqspipsu_8h" startline="297">XQSPIPSU_SELECT_MODE_SPI</references>
+        <referencedby refid="group__qspipsu__api_1ga08036c2fa8996e246d9d529fd2302af9" compoundref="xqspipsu__control_8c" startline="67" endline="116">XQspiPsu_GenFifoEntryData</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__qspipsu__api_1gae720bdee9a521b160e1e364053b66b61" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XQspiPsu_SetDefaultConfig</definition>
+        <argsstring>(XQspiPsu *InstancePtr)</argsstring>
+        <name>XQspiPsu_SetDefaultConfig</name>
+        <param>
+          <type><ref refid="struct_x_qspi_psu" kindref="compound">XQspiPsu</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Enables and initializes DMA Mode, set little endain, disable poll timeout, clears prescalar bits and reset thresholds. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_qspi_psu" kindref="compound">XQspiPsu</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/src/xqspipsu_hw.c" line="564" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/src/xqspipsu_hw.c" bodystart="564" bodyend="616"/>
+        <references refid="struct_x_qspi_psu___config_1a4048264c3ac6b3455c0295eeacac874b" compoundref="xqspipsu_8h" startline="206">XQspiPsu_Config::BaseAddress</references>
+        <references refid="struct_x_qspi_psu_1a9b3aa272eb335fecaaa8f47fd2ed9241" compoundref="xqspipsu_8h" startline="230">XQspiPsu::Config</references>
+        <references refid="group__qspipsu_1ga1d76a2f706f3988da79345132e484303" compoundref="xqspipsu__hw_8h" startline="97">XQSPIPSU_CFG_OFFSET</references>
+        <references refid="group__qspipsu_1ga5a8034417fd3c9846c968679c1cad859" compoundref="xqspipsu__hw_8h" startline="545">XQSPIPSU_GF_THRESHOLD_OFFSET</references>
+        <references refid="group__qspipsu_1ga4636d144794bb35424cacd6f6d49781a" compoundref="xqspipsu__hw_8h" startline="466">XQSPIPSU_LPBK_DLY_ADJ_OFFSET</references>
+        <references refid="group__qspipsu_1gab88bcdb0f53b21b79cd0805cfd14cb89" compoundref="xqspipsu__hw_8h" startline="981">XQspiPsu_ReadReg</references>
+        <references refid="group__qspipsu_1ga33bc760357127168b3a665f969036421" compoundref="xqspipsu__hw_8h" startline="427">XQSPIPSU_TX_THRESHOLD_OFFSET</references>
+        <references refid="group__qspipsu_1ga584ee0482b95d3f49353438ca58fb180" compoundref="xqspipsu__hw_8h" startline="999">XQspiPsu_WriteReg</references>
+        <referencedby refid="group__qspipsu__api_1ga799b60ee7157ed46b84475677aa0dc03" compoundref="xqspipsu_8c" startline="260" endline="273">XQspiPsu_Reset</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__qspipsu__api_1gaa04d433c594d66417be2c4f83c092203" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XQspiPsu_ReadRxFifo</definition>
+        <argsstring>(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg, s32 Size)</argsstring>
+        <name>XQspiPsu_ReadRxFifo</name>
+        <param>
+          <type><ref refid="struct_x_qspi_psu" kindref="compound">XQspiPsu</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_qspi_psu___msg" kindref="compound">XQspiPsu_Msg</ref> *</type>
+          <declname>Msg</declname>
+        </param>
+        <param>
+          <type>s32</type>
+          <declname>Size</declname>
+        </param>
+        <briefdescription>
+<para>Reads the specified number of bytes from RX FIFO. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_qspi_psu" kindref="compound">XQspiPsu</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Msg</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the structure containing transfer data. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Size</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of bytes to be read.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/src/xqspipsu_hw.c" line="631" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/src/xqspipsu_hw.c" bodystart="631" bodyend="663"/>
+        <references refid="struct_x_qspi_psu___config_1a4048264c3ac6b3455c0295eeacac874b" compoundref="xqspipsu_8h" startline="206">XQspiPsu_Config::BaseAddress</references>
+        <references refid="struct_x_qspi_psu_1a9b3aa272eb335fecaaa8f47fd2ed9241" compoundref="xqspipsu_8h" startline="230">XQspiPsu::Config</references>
+        <references refid="struct_x_qspi_psu_1ae6039f5b4f8cdf2e528931ec383deb31" compoundref="xqspipsu_8h" startline="231">XQspiPsu::IsReady</references>
+        <references refid="struct_x_qspi_psu___msg_1a1fb697c64fd14580822f4baf50f26df1" compoundref="xqspipsu_8h" startline="185">XQspiPsu_Msg::RxBfrPtr</references>
+        <references refid="struct_x_qspi_psu_1ac45ddbc82ca891a58fbc9f25150fce30" compoundref="xqspipsu_8h" startline="238">XQspiPsu::RxBytes</references>
+        <references refid="group__qspipsu_1gab88bcdb0f53b21b79cd0805cfd14cb89" compoundref="xqspipsu__hw_8h" startline="981">XQspiPsu_ReadReg</references>
+        <references refid="group__qspipsu_1ga68b0b4316693414546980dea7baaf0a4" compoundref="xqspipsu__hw_8h" startline="412">XQSPIPSU_RXD_OFFSET</references>
+        <referencedby refid="group__qspipsu__api_1gae7900ea73e245de8f091d4d4c201fe76" compoundref="xqspipsu__hw_8c" startline="678" endline="706">XQspiPsu_IORead</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__qspipsu__api_1gae7900ea73e245de8f091d4d4c201fe76" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XQspiPsu_IORead</definition>
+        <argsstring>(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg, u32 StatusReg)</argsstring>
+        <name>XQspiPsu_IORead</name>
+        <param>
+          <type><ref refid="struct_x_qspi_psu" kindref="compound">XQspiPsu</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_qspi_psu___msg" kindref="compound">XQspiPsu_Msg</ref> *</type>
+          <declname>Msg</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>StatusReg</declname>
+        </param>
+        <briefdescription>
+<para>Reads data from RXFifo in I/O mode. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_qspi_psu" kindref="compound">XQspiPsu</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Msg</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the structure containing transfer data. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>StatusReg</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Interrupt status Register value.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/src/xqspipsu_hw.c" line="678" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/src/xqspipsu_hw.c" bodystart="678" bodyend="706"/>
+        <references refid="struct_x_qspi_psu___config_1a4048264c3ac6b3455c0295eeacac874b" compoundref="xqspipsu_8h" startline="206">XQspiPsu_Config::BaseAddress</references>
+        <references refid="struct_x_qspi_psu_1a9b3aa272eb335fecaaa8f47fd2ed9241" compoundref="xqspipsu_8h" startline="230">XQspiPsu::Config</references>
+        <references refid="struct_x_qspi_psu_1ae6039f5b4f8cdf2e528931ec383deb31" compoundref="xqspipsu_8h" startline="231">XQspiPsu::IsReady</references>
+        <references refid="struct_x_qspi_psu_1ac45ddbc82ca891a58fbc9f25150fce30" compoundref="xqspipsu_8h" startline="238">XQspiPsu::RxBytes</references>
+        <references refid="group__qspipsu_1gab88bcdb0f53b21b79cd0805cfd14cb89" compoundref="xqspipsu__hw_8h" startline="981">XQspiPsu_ReadReg</references>
+        <references refid="group__qspipsu__api_1gaa04d433c594d66417be2c4f83c092203" compoundref="xqspipsu__hw_8c" startline="631" endline="663">XQspiPsu_ReadRxFifo</references>
+        <referencedby refid="group__qspipsu__api_1ga872f5fe8dbac27ca8867387e2185069d" compoundref="xqspipsu__xfer_8c" startline="199" endline="237">XQspiPsu_IntrRecvData</referencedby>
+        <referencedby refid="group__qspipsu__api_1ga18829cabd2b37c4cf9fb2efa0632c398" compoundref="xqspipsu__xfer_8c" startline="101" endline="145">XQspiPsu_PolledRecvData</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2020<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2022<sp/>-<sp/>2025<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="37"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xqspipsu_8h" kindref="compound">xqspipsu.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xqspipsu__control_8h" kindref="compound">xqspipsu_control.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined<sp/>(__aarch64__)</highlight></codeline>
+<codeline lineno="42"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_smc.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="44"><highlight class="preprocessor"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="71" refid="group__qspipsu__api_1gaf5c0853d67052b9b05af03946e51c4c2" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__qspipsu__api_1gaf5c0853d67052b9b05af03946e51c4c2" kindref="member">XQspiPsu_FillTxFifo</ref>(<ref refid="struct_x_qspi_psu" kindref="compound">XQspiPsu</ref><sp/>*InstancePtr,<sp/><ref refid="struct_x_qspi_psu___msg" kindref="compound">XQspiPsu_Msg</ref><sp/>*Msg,<sp/>u32<sp/>Size)</highlight></codeline>
+<codeline lineno="72"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Count<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Data<sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(Msg<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(Size<sp/>!=<sp/>0U);</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_qspi_psu_1ae6039f5b4f8cdf2e528931ec383deb31" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>DEBUG</highlight></codeline>
+<codeline lineno="81"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;\nXQspiPsu_FillTxFifo\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="83"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>((InstancePtr-&gt;<ref refid="struct_x_qspi_psu_1a489eab59d93d119fe5776f8d440ec2bd" kindref="member">TxBytes</ref><sp/>&gt;<sp/>0)<sp/>&amp;&amp;<sp/>(Count<sp/>&lt;<sp/>Size))<sp/>{</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_qspi_psu_1a489eab59d93d119fe5776f8d440ec2bd" kindref="member">TxBytes</ref><sp/>&gt;=<sp/>4)<sp/>{</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)Xil_MemCpy((u8<sp/>*)&amp;Data,<sp/>Msg-&gt;<ref refid="struct_x_qspi_psu___msg_1a09fc20d95cb26f29a649207d0b495f58" kindref="member">TxBfrPtr</ref>,<sp/>4);</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Msg-&gt;<ref refid="struct_x_qspi_psu___msg_1a09fc20d95cb26f29a649207d0b495f58" kindref="member">TxBfrPtr</ref><sp/>+=<sp/>4;</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_qspi_psu_1a489eab59d93d119fe5776f8d440ec2bd" kindref="member">TxBytes</ref><sp/>-=<sp/>4;</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Count<sp/>+=<sp/>4U;</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)Xil_MemCpy((u8<sp/>*)&amp;Data,<sp/>Msg-&gt;<ref refid="struct_x_qspi_psu___msg_1a09fc20d95cb26f29a649207d0b495f58" kindref="member">TxBfrPtr</ref>,</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)InstancePtr-&gt;<ref refid="struct_x_qspi_psu_1a489eab59d93d119fe5776f8d440ec2bd" kindref="member">TxBytes</ref>);</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Msg-&gt;<ref refid="struct_x_qspi_psu___msg_1a09fc20d95cb26f29a649207d0b495f58" kindref="member">TxBfrPtr</ref><sp/>+=<sp/>InstancePtr-&gt;<ref refid="struct_x_qspi_psu_1a489eab59d93d119fe5776f8d440ec2bd" kindref="member">TxBytes</ref>;</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Count<sp/>+=<sp/>(u32)InstancePtr-&gt;<ref refid="struct_x_qspi_psu_1a489eab59d93d119fe5776f8d440ec2bd" kindref="member">TxBytes</ref>;</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_qspi_psu_1a489eab59d93d119fe5776f8d440ec2bd" kindref="member">TxBytes</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__qspipsu_1ga584ee0482b95d3f49353438ca58fb180" kindref="member">XQspiPsu_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_qspi_psu_1a9b3aa272eb335fecaaa8f47fd2ed9241" kindref="member">Config</ref>.<ref refid="struct_x_qspi_psu___config_1a4048264c3ac6b3455c0295eeacac874b" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__qspipsu_1ga4884f0160746c6696598ef6dda1fc9ff" kindref="member">XQSPIPSU_TXD_OFFSET</ref>,<sp/>Data);</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>DEBUG</highlight></codeline>
+<codeline lineno="99"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;\nData<sp/>is<sp/>%08x\r\n&quot;</highlight><highlight class="normal">,<sp/>Data);</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="101"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_qspi_psu_1a489eab59d93d119fe5776f8d440ec2bd" kindref="member">TxBytes</ref><sp/>&lt;<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_qspi_psu_1a489eab59d93d119fe5776f8d440ec2bd" kindref="member">TxBytes</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="106"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"></highlight></codeline>
+<codeline lineno="108"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="122" refid="group__qspipsu__api_1ga58406ccb7e182a93cd3a47c060de091e" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__qspipsu__api_1ga58406ccb7e182a93cd3a47c060de091e" kindref="member">XQspiPsu_TXSetup</ref>(<ref refid="struct_x_qspi_psu" kindref="compound">XQspiPsu</ref><sp/>*InstancePtr,<sp/><ref refid="struct_x_qspi_psu___msg" kindref="compound">XQspiPsu_Msg</ref><sp/>*Msg)</highlight></codeline>
+<codeline lineno="123"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(Msg<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_qspi_psu_1ae6039f5b4f8cdf2e528931ec383deb31" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>DEBUG</highlight></codeline>
+<codeline lineno="128"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;\nXQspiPsu_TXSetup\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="130"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_qspi_psu_1a489eab59d93d119fe5776f8d440ec2bd" kindref="member">TxBytes</ref><sp/>=<sp/>(s32)Msg-&gt;<ref refid="struct_x_qspi_psu___msg_1a420a0720c6eb8d77aae09c829185b160" kindref="member">ByteCount</ref>;</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_qspi_psu_1a2a11cb56ad7d4b388a4669359156ab0b" kindref="member">SendBufferPtr</ref><sp/>=<sp/>Msg-&gt;<ref refid="struct_x_qspi_psu___msg_1a09fc20d95cb26f29a649207d0b495f58" kindref="member">TxBfrPtr</ref>;</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"></highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__qspipsu__api_1gaf5c0853d67052b9b05af03946e51c4c2" kindref="member">XQspiPsu_FillTxFifo</ref>(InstancePtr,<sp/>Msg,<sp/>(u32)XQSPIPSU_TXD_DEPTH);</highlight></codeline>
+<codeline lineno="134"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"></highlight></codeline>
+<codeline lineno="136"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="149" refid="group__qspipsu__api_1ga0467a9580fe9018adfd4302fbd91e404" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__qspipsu__api_1ga0467a9580fe9018adfd4302fbd91e404" kindref="member">XQspiPsu_SetupRxDma</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_qspi_psu" kindref="compound">XQspiPsu</ref><sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_qspi_psu___msg" kindref="compound">XQspiPsu_Msg</ref><sp/>*Msg)</highlight></codeline>
+<codeline lineno="151"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>s32<sp/>Remainder;</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>s32<sp/>DmaRxBytes;</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR<sp/>AddrTemp;</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"></highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(Msg<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_qspi_psu_1ae6039f5b4f8cdf2e528931ec383deb31" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>DEBUG</highlight></codeline>
+<codeline lineno="160"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;\nXQspiPsu_SetupRxDma\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="162"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>AddrTemp<sp/>=<sp/>((UINTPTR)(Msg-&gt;<ref refid="struct_x_qspi_psu___msg_1a1fb697c64fd14580822f4baf50f26df1" kindref="member">RxBfrPtr</ref>)<sp/>&amp;<sp/>XQSPIPSU_QSPIDMA_DST_ADDR_MASK);</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Check<sp/>for<sp/>RXBfrPtr<sp/>to<sp/>be<sp/>word<sp/>aligned<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__qspipsu_1ga584ee0482b95d3f49353438ca58fb180" kindref="member">XQspiPsu_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_qspi_psu_1a9b3aa272eb335fecaaa8f47fd2ed9241" kindref="member">Config</ref>.<ref refid="struct_x_qspi_psu___config_1a4048264c3ac6b3455c0295eeacac874b" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__qspipsu_1ga3b9c82ef758ea9e8bfda707130051091" kindref="member">XQSPIPSU_QSPIDMA_DST_ADDR_OFFSET</ref>,<sp/>(u32)AddrTemp);</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"></highlight></codeline>
+<codeline lineno="168"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined(__aarch64__)<sp/>||<sp/>defined(__arch64__)</highlight></codeline>
+<codeline lineno="169"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>AddrTemp<sp/>=<sp/>((UINTPTR)(Msg-&gt;<ref refid="struct_x_qspi_psu___msg_1a1fb697c64fd14580822f4baf50f26df1" kindref="member">RxBfrPtr</ref>)<sp/>&gt;&gt;<sp/>32U);</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__qspipsu_1ga584ee0482b95d3f49353438ca58fb180" kindref="member">XQspiPsu_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_qspi_psu_1a9b3aa272eb335fecaaa8f47fd2ed9241" kindref="member">Config</ref>.<ref refid="struct_x_qspi_psu___config_1a4048264c3ac6b3455c0295eeacac874b" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XQSPIPSU_QSPIDMA_DST_ADDR_MSB_OFFSET,<sp/>(u32)AddrTemp<sp/>&amp;</highlight></codeline>
+<codeline lineno="172"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XQSPIPSU_QSPIDMA_DST_ADDR_MSB_MASK);</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="174"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__qspipsu_1ga584ee0482b95d3f49353438ca58fb180" kindref="member">XQspiPsu_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_qspi_psu_1a9b3aa272eb335fecaaa8f47fd2ed9241" kindref="member">Config</ref>.<ref refid="struct_x_qspi_psu___config_1a4048264c3ac6b3455c0295eeacac874b" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XQSPIPSU_QSPIDMA_DST_ADDR_MSB_OFFSET,<sp/>0U);</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="177"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Remainder<sp/>=<sp/>InstancePtr-&gt;<ref refid="struct_x_qspi_psu_1ac45ddbc82ca891a58fbc9f25150fce30" kindref="member">RxBytes</ref><sp/>%<sp/>4;</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DmaRxBytes<sp/>=<sp/>InstancePtr-&gt;<ref refid="struct_x_qspi_psu_1ac45ddbc82ca891a58fbc9f25150fce30" kindref="member">RxBytes</ref>;</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Remainder<sp/>!=<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>This<sp/>is<sp/>done<sp/>to<sp/>make<sp/>Dma<sp/>bytes<sp/>aligned<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="182"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DmaRxBytes<sp/>=<sp/>InstancePtr-&gt;<ref refid="struct_x_qspi_psu_1ac45ddbc82ca891a58fbc9f25150fce30" kindref="member">RxBytes</ref><sp/>-<sp/>Remainder;</highlight></codeline>
+<codeline lineno="183"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Msg-&gt;<ref refid="struct_x_qspi_psu___msg_1a420a0720c6eb8d77aae09c829185b160" kindref="member">ByteCount</ref><sp/>=<sp/>(u32)DmaRxBytes;</highlight></codeline>
+<codeline lineno="184"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="185"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined(EL1_NONSECURE)<sp/>&amp;&amp;<sp/>(EL1_NONSECURE==1U)</highlight></codeline>
+<codeline lineno="186"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_qspi_psu_1a9b3aa272eb335fecaaa8f47fd2ed9241" kindref="member">Config</ref>.<ref refid="struct_x_qspi_psu___config_1a400769b796e581c883c34c63320c51b3" kindref="member">IsCacheCoherent</ref><sp/>==<sp/>0U)<sp/>{</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_DCacheInvalidateRange((INTPTR)Msg-&gt;<ref refid="struct_x_qspi_psu___msg_1a1fb697c64fd14580822f4baf50f26df1" kindref="member">RxBfrPtr</ref>,<sp/>(INTPTR)Msg-&gt;<ref refid="struct_x_qspi_psu___msg_1a420a0720c6eb8d77aae09c829185b160" kindref="member">ByteCount</ref>);</highlight></codeline>
+<codeline lineno="188"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="190"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_DCacheInvalidateRange((INTPTR)Msg-&gt;<ref refid="struct_x_qspi_psu___msg_1a1fb697c64fd14580822f4baf50f26df1" kindref="member">RxBfrPtr</ref>,<sp/>(INTPTR)Msg-&gt;<ref refid="struct_x_qspi_psu___msg_1a420a0720c6eb8d77aae09c829185b160" kindref="member">ByteCount</ref>);</highlight></codeline>
+<codeline lineno="191"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="192"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Write<sp/>no.<sp/>of<sp/>words<sp/>to<sp/>DMA<sp/>DST<sp/>SIZE<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="193"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__qspipsu_1ga584ee0482b95d3f49353438ca58fb180" kindref="member">XQspiPsu_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_qspi_psu_1a9b3aa272eb335fecaaa8f47fd2ed9241" kindref="member">Config</ref>.<ref refid="struct_x_qspi_psu___config_1a4048264c3ac6b3455c0295eeacac874b" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="194"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XQSPIPSU_QSPIDMA_DST_SIZE_OFFSET,<sp/>(u32)DmaRxBytes);</highlight></codeline>
+<codeline lineno="195"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="196"><highlight class="normal"></highlight></codeline>
+<codeline lineno="197"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="211" refid="group__qspipsu__api_1ga03fb04c8187cf51d256a9196430c6224" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__qspipsu__api_1ga03fb04c8187cf51d256a9196430c6224" kindref="member">XQspiPsu_Setup64BRxDma</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_qspi_psu" kindref="compound">XQspiPsu</ref><sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="212"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_qspi_psu___msg" kindref="compound">XQspiPsu_Msg</ref><sp/>*Msg)</highlight></codeline>
+<codeline lineno="213"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="214"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>s32<sp/>Remainder;</highlight></codeline>
+<codeline lineno="215"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>s32<sp/>DmaRxBytes;</highlight></codeline>
+<codeline lineno="216"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>AddrTemp;</highlight></codeline>
+<codeline lineno="217"><highlight class="normal"></highlight></codeline>
+<codeline lineno="218"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="219"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(Msg<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="220"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_qspi_psu_1ae6039f5b4f8cdf2e528931ec383deb31" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="221"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>DEBUG</highlight></codeline>
+<codeline lineno="222"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;\nXQspiPsu_Setup64BRxDma\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="223"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="224"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>AddrTemp<sp/>=<sp/>Msg-&gt;<ref refid="struct_x_qspi_psu___msg_1a95b9e43bb920ea5055db6b1971d7f780" kindref="member">RxAddr64bit</ref><sp/>&amp;<sp/>XQSPIPSU_QSPIDMA_DST_ADDR_MASK;</highlight></codeline>
+<codeline lineno="225"><highlight class="normal"></highlight></codeline>
+<codeline lineno="226"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__qspipsu_1ga584ee0482b95d3f49353438ca58fb180" kindref="member">XQspiPsu_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_qspi_psu_1a9b3aa272eb335fecaaa8f47fd2ed9241" kindref="member">Config</ref>.<ref refid="struct_x_qspi_psu___config_1a4048264c3ac6b3455c0295eeacac874b" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="227"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__qspipsu_1ga3b9c82ef758ea9e8bfda707130051091" kindref="member">XQSPIPSU_QSPIDMA_DST_ADDR_OFFSET</ref>,<sp/>(u32)AddrTemp);</highlight></codeline>
+<codeline lineno="228"><highlight class="normal"></highlight></codeline>
+<codeline lineno="229"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>AddrTemp<sp/>=<sp/>(Msg-&gt;<ref refid="struct_x_qspi_psu___msg_1a95b9e43bb920ea5055db6b1971d7f780" kindref="member">RxAddr64bit</ref><sp/>&gt;&gt;<sp/>32);</highlight></codeline>
+<codeline lineno="230"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__qspipsu_1ga584ee0482b95d3f49353438ca58fb180" kindref="member">XQspiPsu_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_qspi_psu_1a9b3aa272eb335fecaaa8f47fd2ed9241" kindref="member">Config</ref>.<ref refid="struct_x_qspi_psu___config_1a4048264c3ac6b3455c0295eeacac874b" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="231"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XQSPIPSU_QSPIDMA_DST_ADDR_MSB_OFFSET,<sp/>(u32)AddrTemp<sp/>&amp;</highlight></codeline>
+<codeline lineno="232"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XQSPIPSU_QSPIDMA_DST_ADDR_MSB_MASK);</highlight></codeline>
+<codeline lineno="233"><highlight class="normal"></highlight></codeline>
+<codeline lineno="234"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Remainder<sp/>=<sp/>InstancePtr-&gt;<ref refid="struct_x_qspi_psu_1ac45ddbc82ca891a58fbc9f25150fce30" kindref="member">RxBytes</ref><sp/>%<sp/>4;</highlight></codeline>
+<codeline lineno="235"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DmaRxBytes<sp/>=<sp/>InstancePtr-&gt;<ref refid="struct_x_qspi_psu_1ac45ddbc82ca891a58fbc9f25150fce30" kindref="member">RxBytes</ref>;</highlight></codeline>
+<codeline lineno="236"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Remainder<sp/>!=<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="237"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>This<sp/>is<sp/>done<sp/>to<sp/>make<sp/>Dma<sp/>bytes<sp/>aligned<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="238"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DmaRxBytes<sp/>=<sp/>InstancePtr-&gt;<ref refid="struct_x_qspi_psu_1ac45ddbc82ca891a58fbc9f25150fce30" kindref="member">RxBytes</ref><sp/>-<sp/>Remainder;</highlight></codeline>
+<codeline lineno="239"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Msg-&gt;<ref refid="struct_x_qspi_psu___msg_1a420a0720c6eb8d77aae09c829185b160" kindref="member">ByteCount</ref><sp/>=<sp/>(u32)DmaRxBytes;</highlight></codeline>
+<codeline lineno="240"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="241"><highlight class="normal"></highlight></codeline>
+<codeline lineno="242"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Write<sp/>no.<sp/>of<sp/>words<sp/>to<sp/>DMA<sp/>DST<sp/>SIZE<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="243"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__qspipsu_1ga584ee0482b95d3f49353438ca58fb180" kindref="member">XQspiPsu_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_qspi_psu_1a9b3aa272eb335fecaaa8f47fd2ed9241" kindref="member">Config</ref>.<ref refid="struct_x_qspi_psu___config_1a4048264c3ac6b3455c0295eeacac874b" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="244"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XQSPIPSU_QSPIDMA_DST_SIZE_OFFSET,<sp/>(u32)DmaRxBytes);</highlight></codeline>
+<codeline lineno="245"><highlight class="normal"></highlight></codeline>
+<codeline lineno="246"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="247"><highlight class="normal"></highlight></codeline>
+<codeline lineno="248"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="265" refid="group__qspipsu__api_1ga02f2ea05785dff6887625c5ef088a73b" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__qspipsu__api_1ga02f2ea05785dff6887625c5ef088a73b" kindref="member">XQspiPsu_SetIOMode</ref>(<ref refid="struct_x_qspi_psu" kindref="compound">XQspiPsu</ref><sp/>*InstancePtr,<sp/><ref refid="struct_x_qspi_psu___msg" kindref="compound">XQspiPsu_Msg</ref><sp/>*Msg)</highlight></codeline>
+<codeline lineno="266"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="267"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="268"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(Msg<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="269"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_qspi_psu_1ae6039f5b4f8cdf2e528931ec383deb31" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="270"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>DEBUG</highlight></codeline>
+<codeline lineno="271"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;\nXQspiPsu_DMARXComplete\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="272"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="273"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="274"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Read<sp/>remaining<sp/>bytes<sp/>using<sp/>IO<sp/>mode<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="275"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((InstancePtr-&gt;<ref refid="struct_x_qspi_psu_1ac45ddbc82ca891a58fbc9f25150fce30" kindref="member">RxBytes</ref><sp/>%<sp/>4)<sp/>!=<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="276"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__qspipsu_1ga584ee0482b95d3f49353438ca58fb180" kindref="member">XQspiPsu_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_qspi_psu_1a9b3aa272eb335fecaaa8f47fd2ed9241" kindref="member">Config</ref>.<ref refid="struct_x_qspi_psu___config_1a4048264c3ac6b3455c0295eeacac874b" kindref="member">BaseAddress</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__qspipsu_1ga1d76a2f706f3988da79345132e484303" kindref="member">XQSPIPSU_CFG_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="277"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<ref refid="group__qspipsu_1gab88bcdb0f53b21b79cd0805cfd14cb89" kindref="member">XQspiPsu_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_qspi_psu_1a9b3aa272eb335fecaaa8f47fd2ed9241" kindref="member">Config</ref>.<ref refid="struct_x_qspi_psu___config_1a4048264c3ac6b3455c0295eeacac874b" kindref="member">BaseAddress</ref>,<sp/><ref refid="group__qspipsu_1ga1d76a2f706f3988da79345132e484303" kindref="member">XQSPIPSU_CFG_OFFSET</ref>)<sp/>&amp;</highlight></codeline>
+<codeline lineno="278"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>~XQSPIPSU_CFG_MODE_EN_MASK));</highlight></codeline>
+<codeline lineno="279"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_qspi_psu_1abcf49b02b0b90a7eecf9fb5ba40ac0b3" kindref="member">ReadMode</ref><sp/>=<sp/><ref refid="group__qspipsu__api_1gafd11c8b8f44530c3670d2ac7497fb2fc" kindref="member">XQSPIPSU_READMODE_IO</ref>;</highlight></codeline>
+<codeline lineno="280"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Msg-&gt;<ref refid="struct_x_qspi_psu___msg_1a420a0720c6eb8d77aae09c829185b160" kindref="member">ByteCount</ref><sp/>=<sp/>(u32)InstancePtr-&gt;<ref refid="struct_x_qspi_psu_1ac45ddbc82ca891a58fbc9f25150fce30" kindref="member">RxBytes</ref><sp/>%<sp/>4U;</highlight></codeline>
+<codeline lineno="281"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Msg-&gt;<ref refid="struct_x_qspi_psu___msg_1a1fb697c64fd14580822f4baf50f26df1" kindref="member">RxBfrPtr</ref><sp/>+=<sp/>(InstancePtr-&gt;<ref refid="struct_x_qspi_psu_1ac45ddbc82ca891a58fbc9f25150fce30" kindref="member">RxBytes</ref><sp/>-<sp/>(InstancePtr-&gt;<ref refid="struct_x_qspi_psu_1ac45ddbc82ca891a58fbc9f25150fce30" kindref="member">RxBytes</ref><sp/>%<sp/>4));</highlight></codeline>
+<codeline lineno="282"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_qspi_psu_1a1e1d64fc74cfc2442eedaf0eb3f97263" kindref="member">IsUnaligned</ref><sp/>=<sp/>1;</highlight></codeline>
+<codeline lineno="283"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(u32)<sp/>TRUE;</highlight></codeline>
+<codeline lineno="284"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="285"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(u32)<sp/>FALSE;</highlight></codeline>
+<codeline lineno="286"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="287"><highlight class="normal"></highlight></codeline>
+<codeline lineno="288"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="301" refid="group__qspipsu__api_1gad77b041e10c03756bd0e3c197a63a2e3" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__qspipsu__api_1gad77b041e10c03756bd0e3c197a63a2e3" kindref="member">XQspiPsu_RXSetup</ref>(<ref refid="struct_x_qspi_psu" kindref="compound">XQspiPsu</ref><sp/>*InstancePtr,<sp/><ref refid="struct_x_qspi_psu___msg" kindref="compound">XQspiPsu_Msg</ref><sp/>*Msg)</highlight></codeline>
+<codeline lineno="302"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="303"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="304"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(Msg<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="305"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_qspi_psu_1ae6039f5b4f8cdf2e528931ec383deb31" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="306"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>DEBUG</highlight></codeline>
+<codeline lineno="307"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;\nXQspiPsu_RXSetup\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="308"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="309"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_qspi_psu_1ac45ddbc82ca891a58fbc9f25150fce30" kindref="member">RxBytes</ref><sp/>=<sp/>(s32)Msg-&gt;<ref refid="struct_x_qspi_psu___msg_1a420a0720c6eb8d77aae09c829185b160" kindref="member">ByteCount</ref>;</highlight></codeline>
+<codeline lineno="310"><highlight class="normal"></highlight></codeline>
+<codeline lineno="311"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>if<sp/>(InstancePtr-&gt;<ref refid="struct_x_qspi_psu_1abcf49b02b0b90a7eecf9fb5ba40ac0b3" kindref="member">ReadMode</ref><sp/>==<sp/><ref refid="group__qspipsu__api_1ga6e5ef224ee243dc64228ad60155a3f8b" kindref="member">XQSPIPSU_READMODE_DMA</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="312"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((Msg-&gt;<ref refid="struct_x_qspi_psu___msg_1a95b9e43bb920ea5055db6b1971d7f780" kindref="member">RxAddr64bit</ref><sp/>&gt;=<sp/><ref refid="group__qspipsu__api_1gad6a88bdae8e13bd8cd48bb9e6d565610" kindref="member">XQSPIPSU_RXADDR_OVER_32BIT</ref>)<sp/>||</highlight></codeline>
+<codeline lineno="313"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(Msg-&gt;<ref refid="struct_x_qspi_psu___msg_1ac9a904e6a2fa8d5668e554615a59bbb5" kindref="member">Xfer64bit</ref><sp/>!=<sp/>(u8)0U))<sp/>{</highlight></codeline>
+<codeline lineno="314"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__qspipsu__api_1ga03fb04c8187cf51d256a9196430c6224" kindref="member">XQspiPsu_Setup64BRxDma</ref>(InstancePtr,<sp/>Msg);</highlight></codeline>
+<codeline lineno="315"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="316"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__qspipsu__api_1ga0467a9580fe9018adfd4302fbd91e404" kindref="member">XQspiPsu_SetupRxDma</ref>(InstancePtr,<sp/>Msg);</highlight></codeline>
+<codeline lineno="317"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="318"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="319"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="320"><highlight class="normal"></highlight></codeline>
+<codeline lineno="321"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="336" refid="group__qspipsu__api_1ga8b201a022bb63afbaaf9afad23064761" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__qspipsu__api_1ga8b201a022bb63afbaaf9afad23064761" kindref="member">XQspiPsu_TXRXSetup</ref>(<ref refid="struct_x_qspi_psu" kindref="compound">XQspiPsu</ref><sp/>*InstancePtr,<sp/><ref refid="struct_x_qspi_psu___msg" kindref="compound">XQspiPsu_Msg</ref><sp/>*Msg,</highlight></codeline>
+<codeline lineno="337"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>*GenFifoEntry)</highlight></codeline>
+<codeline lineno="338"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="339"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="340"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(Msg<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="341"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(GenFifoEntry<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="342"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_qspi_psu_1ae6039f5b4f8cdf2e528931ec383deb31" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="343"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>DEBUG</highlight></codeline>
+<codeline lineno="344"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;\nXQspiPsu_TXRXSetup\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="345"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="346"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Transmit<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="347"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(((Msg-&gt;<ref refid="struct_x_qspi_psu___msg_1a2c11ea724a05dd7d68b8e4adcb7ac46e" kindref="member">Flags</ref><sp/>&amp;<sp/><ref refid="group__qspipsu__api_1gae82f60c2162c93b8e302125914d8aab6" kindref="member">XQSPIPSU_MSG_FLAG_TX</ref>)<sp/>!=<sp/>(u32)FALSE)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="348"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((Msg-&gt;<ref refid="struct_x_qspi_psu___msg_1a2c11ea724a05dd7d68b8e4adcb7ac46e" kindref="member">Flags</ref><sp/>&amp;<sp/><ref refid="group__qspipsu__api_1gacdde904168f5899e4ba6ccd59c360849" kindref="member">XQSPIPSU_MSG_FLAG_RX</ref>)<sp/>==<sp/>(u32)FALSE))<sp/>{</highlight></codeline>
+<codeline lineno="349"><highlight class="normal"></highlight></codeline>
+<codeline lineno="350"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*GenFifoEntry<sp/>|=<sp/>XQSPIPSU_GENFIFO_DATA_XFER;</highlight></codeline>
+<codeline lineno="351"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*GenFifoEntry<sp/>|=<sp/>XQSPIPSU_GENFIFO_TX;</highlight></codeline>
+<codeline lineno="352"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Discard<sp/>RX<sp/>data<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="353"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*GenFifoEntry<sp/>&amp;=<sp/>~XQSPIPSU_GENFIFO_RX;</highlight></codeline>
+<codeline lineno="354"><highlight class="normal"></highlight></codeline>
+<codeline lineno="355"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Setup<sp/>data<sp/>to<sp/>be<sp/>TXed<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="356"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__qspipsu__api_1ga58406ccb7e182a93cd3a47c060de091e" kindref="member">XQspiPsu_TXSetup</ref>(InstancePtr,<sp/>Msg);</highlight></codeline>
+<codeline lineno="357"><highlight class="normal"></highlight></codeline>
+<codeline lineno="358"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_qspi_psu_1a5464cdad6cf047e5228f13cb3a761c3f" kindref="member">RecvBufferPtr</ref><sp/>=<sp/>NULL;</highlight></codeline>
+<codeline lineno="359"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_qspi_psu_1ac45ddbc82ca891a58fbc9f25150fce30" kindref="member">RxBytes</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="360"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="361"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*Receive*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="362"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(((Msg-&gt;<ref refid="struct_x_qspi_psu___msg_1a2c11ea724a05dd7d68b8e4adcb7ac46e" kindref="member">Flags</ref><sp/>&amp;<sp/><ref refid="group__qspipsu__api_1gacdde904168f5899e4ba6ccd59c360849" kindref="member">XQSPIPSU_MSG_FLAG_RX</ref>)<sp/>!=<sp/>(u32)FALSE)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="363"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((Msg-&gt;<ref refid="struct_x_qspi_psu___msg_1a2c11ea724a05dd7d68b8e4adcb7ac46e" kindref="member">Flags</ref><sp/>&amp;<sp/><ref refid="group__qspipsu__api_1gae82f60c2162c93b8e302125914d8aab6" kindref="member">XQSPIPSU_MSG_FLAG_TX</ref>)<sp/>==<sp/>(u32)FALSE))<sp/>{</highlight></codeline>
+<codeline lineno="364"><highlight class="normal"></highlight></codeline>
+<codeline lineno="365"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>TX<sp/>auto<sp/>fill<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="366"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*GenFifoEntry<sp/>&amp;=<sp/>~XQSPIPSU_GENFIFO_TX;</highlight></codeline>
+<codeline lineno="367"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Setup<sp/>RX<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="368"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*GenFifoEntry<sp/>|=<sp/>XQSPIPSU_GENFIFO_DATA_XFER;</highlight></codeline>
+<codeline lineno="369"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*GenFifoEntry<sp/>|=<sp/>XQSPIPSU_GENFIFO_RX;</highlight></codeline>
+<codeline lineno="370"><highlight class="normal"></highlight></codeline>
+<codeline lineno="371"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Setup<sp/>DMA<sp/>for<sp/>data<sp/>to<sp/>be<sp/>RXed<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="372"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__qspipsu__api_1gad77b041e10c03756bd0e3c197a63a2e3" kindref="member">XQspiPsu_RXSetup</ref>(InstancePtr,<sp/>Msg);</highlight></codeline>
+<codeline lineno="373"><highlight class="normal"></highlight></codeline>
+<codeline lineno="374"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_qspi_psu_1a2a11cb56ad7d4b388a4669359156ab0b" kindref="member">SendBufferPtr</ref><sp/>=<sp/>NULL;</highlight></codeline>
+<codeline lineno="375"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_qspi_psu_1a489eab59d93d119fe5776f8d440ec2bd" kindref="member">TxBytes</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="376"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="377"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>If<sp/>only<sp/>dummy<sp/>is<sp/>requested<sp/>as<sp/>a<sp/>separate<sp/>entry<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="378"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(((Msg-&gt;<ref refid="struct_x_qspi_psu___msg_1a2c11ea724a05dd7d68b8e4adcb7ac46e" kindref="member">Flags</ref><sp/>&amp;<sp/><ref refid="group__qspipsu__api_1gae82f60c2162c93b8e302125914d8aab6" kindref="member">XQSPIPSU_MSG_FLAG_TX</ref>)<sp/>==<sp/>(u32)FALSE)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="379"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((Msg-&gt;<ref refid="struct_x_qspi_psu___msg_1a2c11ea724a05dd7d68b8e4adcb7ac46e" kindref="member">Flags</ref><sp/>&amp;<sp/><ref refid="group__qspipsu__api_1gacdde904168f5899e4ba6ccd59c360849" kindref="member">XQSPIPSU_MSG_FLAG_RX</ref>)<sp/>==<sp/>(u32)FALSE))<sp/>{</highlight></codeline>
+<codeline lineno="380"><highlight class="normal"></highlight></codeline>
+<codeline lineno="381"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*GenFifoEntry<sp/>|=<sp/>XQSPIPSU_GENFIFO_DATA_XFER;</highlight></codeline>
+<codeline lineno="382"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*GenFifoEntry<sp/>&amp;=<sp/>~(XQSPIPSU_GENFIFO_TX<sp/>|<sp/>XQSPIPSU_GENFIFO_RX);</highlight></codeline>
+<codeline lineno="383"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_qspi_psu_1a489eab59d93d119fe5776f8d440ec2bd" kindref="member">TxBytes</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="384"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_qspi_psu_1ac45ddbc82ca891a58fbc9f25150fce30" kindref="member">RxBytes</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="385"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_qspi_psu_1a2a11cb56ad7d4b388a4669359156ab0b" kindref="member">SendBufferPtr</ref><sp/>=<sp/>NULL;</highlight></codeline>
+<codeline lineno="386"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_qspi_psu_1a5464cdad6cf047e5228f13cb3a761c3f" kindref="member">RecvBufferPtr</ref><sp/>=<sp/>NULL;</highlight></codeline>
+<codeline lineno="387"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="388"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Dummy<sp/>and<sp/>cmd<sp/>sent<sp/>by<sp/>upper<sp/>layer<sp/>to<sp/>received<sp/>data<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="389"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(((Msg-&gt;<ref refid="struct_x_qspi_psu___msg_1a2c11ea724a05dd7d68b8e4adcb7ac46e" kindref="member">Flags</ref><sp/>&amp;<sp/><ref refid="group__qspipsu__api_1gae82f60c2162c93b8e302125914d8aab6" kindref="member">XQSPIPSU_MSG_FLAG_TX</ref>)<sp/>!=<sp/>(u32)FALSE)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="390"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((Msg-&gt;<ref refid="struct_x_qspi_psu___msg_1a2c11ea724a05dd7d68b8e4adcb7ac46e" kindref="member">Flags</ref><sp/>&amp;<sp/><ref refid="group__qspipsu__api_1gacdde904168f5899e4ba6ccd59c360849" kindref="member">XQSPIPSU_MSG_FLAG_RX</ref>)<sp/>!=<sp/>(u32)FALSE))<sp/>{</highlight></codeline>
+<codeline lineno="391"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*GenFifoEntry<sp/>|=<sp/>XQSPIPSU_GENFIFO_DATA_XFER;</highlight></codeline>
+<codeline lineno="392"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*GenFifoEntry<sp/>|=<sp/>(XQSPIPSU_GENFIFO_TX<sp/>|<sp/>XQSPIPSU_GENFIFO_RX);</highlight></codeline>
+<codeline lineno="393"><highlight class="normal"></highlight></codeline>
+<codeline lineno="394"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Setup<sp/>data<sp/>to<sp/>be<sp/>TXed<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="395"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__qspipsu__api_1ga58406ccb7e182a93cd3a47c060de091e" kindref="member">XQspiPsu_TXSetup</ref>(InstancePtr,<sp/>Msg);</highlight></codeline>
+<codeline lineno="396"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Setup<sp/>DMA<sp/>for<sp/>data<sp/>to<sp/>be<sp/>RXed<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="397"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__qspipsu__api_1gad77b041e10c03756bd0e3c197a63a2e3" kindref="member">XQspiPsu_RXSetup</ref>(InstancePtr,<sp/>Msg);</highlight></codeline>
+<codeline lineno="398"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="399"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="400"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="417" refid="group__qspipsu__api_1ga7fc4cdebc35bb7b5d3ca9128917c131c" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__qspipsu__api_1ga7fc4cdebc35bb7b5d3ca9128917c131c" kindref="member">XQspiPsu_GenFifoEntryDataLen</ref>(<ref refid="struct_x_qspi_psu" kindref="compound">XQspiPsu</ref><sp/>*InstancePtr,<sp/><ref refid="struct_x_qspi_psu___msg" kindref="compound">XQspiPsu_Msg</ref><sp/>*Msg,</highlight></codeline>
+<codeline lineno="418"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>*GenFifoEntry)</highlight></codeline>
+<codeline lineno="419"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="420"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>TempCount;</highlight></codeline>
+<codeline lineno="421"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>ImmData;</highlight></codeline>
+<codeline lineno="422"><highlight class="normal"></highlight></codeline>
+<codeline lineno="423"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="424"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(Msg<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="425"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(GenFifoEntry<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="426"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_qspi_psu_1ae6039f5b4f8cdf2e528931ec383deb31" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="427"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>DEBUG</highlight></codeline>
+<codeline lineno="428"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;\nXQspiPsu_GenFifoEntryDataLen\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="429"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="430"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="431"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Msg-&gt;<ref refid="struct_x_qspi_psu___msg_1a420a0720c6eb8d77aae09c829185b160" kindref="member">ByteCount</ref><sp/>&lt;=<sp/><ref refid="group__qspipsu_1gaa8a6c468b32dd07920d5a47ec6294d79" kindref="member">XQSPIPSU_GENFIFO_IMM_DATA_MASK</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="432"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*GenFifoEntry<sp/>&amp;=<sp/>~(u32)<ref refid="group__qspipsu_1gaa8a6c468b32dd07920d5a47ec6294d79" kindref="member">XQSPIPSU_GENFIFO_IMM_DATA_MASK</ref>;</highlight></codeline>
+<codeline lineno="433"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*GenFifoEntry<sp/>|=<sp/>Msg-&gt;<ref refid="struct_x_qspi_psu___msg_1a420a0720c6eb8d77aae09c829185b160" kindref="member">ByteCount</ref>;</highlight></codeline>
+<codeline lineno="434"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#ifdef<sp/>DEBUG</highlight></codeline>
+<codeline lineno="435"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;\nFifoEntry=%08x\r\n&quot;</highlight><highlight class="normal">,<sp/>*GenFifoEntry);</highlight></codeline>
+<codeline lineno="436"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#endif</highlight></codeline>
+<codeline lineno="437"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__qspipsu_1ga584ee0482b95d3f49353438ca58fb180" kindref="member">XQspiPsu_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_qspi_psu_1a9b3aa272eb335fecaaa8f47fd2ed9241" kindref="member">Config</ref>.<ref refid="struct_x_qspi_psu___config_1a4048264c3ac6b3455c0295eeacac874b" kindref="member">BaseAddress</ref>,<sp/><ref refid="group__qspipsu_1ga3bfe2023b6a6ce56e9d13f130bd1c86d" kindref="member">XQSPIPSU_GEN_FIFO_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="438"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*GenFifoEntry);</highlight></codeline>
+<codeline lineno="439"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="440"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TempCount<sp/>=<sp/>Msg-&gt;<ref refid="struct_x_qspi_psu___msg_1a420a0720c6eb8d77aae09c829185b160" kindref="member">ByteCount</ref>;</highlight></codeline>
+<codeline lineno="441"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Exponent<sp/>=<sp/>8;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>2^8<sp/>=<sp/>256<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="442"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ImmData<sp/>=<sp/>TempCount<sp/>&amp;<sp/>0xFFU;</highlight></codeline>
+<codeline lineno="443"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Exponent<sp/>entries<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="444"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*GenFifoEntry<sp/>|=<sp/>XQSPIPSU_GENFIFO_EXP;</highlight></codeline>
+<codeline lineno="445"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(TempCount<sp/>!=<sp/>0U)<sp/>{</highlight></codeline>
+<codeline lineno="446"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((TempCount<sp/>&amp;<sp/><ref refid="group__qspipsu__api_1ga9910c1e3f79127836cade9970a9df537" kindref="member">XQSPIPSU_GENFIFO_EXP_START</ref>)<sp/>!=<sp/>(u32)FALSE)<sp/>{</highlight></codeline>
+<codeline lineno="447"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*GenFifoEntry<sp/>&amp;=<sp/>~(u32)<ref refid="group__qspipsu_1gaa8a6c468b32dd07920d5a47ec6294d79" kindref="member">XQSPIPSU_GENFIFO_IMM_DATA_MASK</ref>;</highlight></codeline>
+<codeline lineno="448"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*GenFifoEntry<sp/>|=<sp/>Exponent;</highlight></codeline>
+<codeline lineno="449"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#ifdef<sp/>DEBUG</highlight></codeline>
+<codeline lineno="450"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;\nFifoEntry=%08x\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="451"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*GenFifoEntry);</highlight></codeline>
+<codeline lineno="452"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#endif</highlight></codeline>
+<codeline lineno="453"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__qspipsu_1ga584ee0482b95d3f49353438ca58fb180" kindref="member">XQspiPsu_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_qspi_psu_1a9b3aa272eb335fecaaa8f47fd2ed9241" kindref="member">Config</ref>.<ref refid="struct_x_qspi_psu___config_1a4048264c3ac6b3455c0295eeacac874b" kindref="member">BaseAddress</ref>,<sp/><ref refid="group__qspipsu_1ga3bfe2023b6a6ce56e9d13f130bd1c86d" kindref="member">XQSPIPSU_GEN_FIFO_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="454"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*GenFifoEntry);</highlight></codeline>
+<codeline lineno="455"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="456"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TempCount<sp/>=<sp/>TempCount<sp/>&gt;&gt;<sp/>1;</highlight></codeline>
+<codeline lineno="457"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Exponent++;</highlight></codeline>
+<codeline lineno="458"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="459"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Immediate<sp/>entry<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="460"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*GenFifoEntry<sp/>&amp;=<sp/>~(u32)XQSPIPSU_GENFIFO_EXP;</highlight></codeline>
+<codeline lineno="461"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((ImmData<sp/>&amp;<sp/>0xFFU)<sp/>!=<sp/>(u32)FALSE)<sp/>{</highlight></codeline>
+<codeline lineno="462"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*GenFifoEntry<sp/>&amp;=<sp/>~(u32)<ref refid="group__qspipsu_1gaa8a6c468b32dd07920d5a47ec6294d79" kindref="member">XQSPIPSU_GENFIFO_IMM_DATA_MASK</ref>;</highlight></codeline>
+<codeline lineno="463"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*GenFifoEntry<sp/>|=<sp/>ImmData<sp/>&amp;<sp/>0xFFU;</highlight></codeline>
+<codeline lineno="464"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#ifdef<sp/>DEBUG</highlight></codeline>
+<codeline lineno="465"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;\nFifoEntry=%08x\r\n&quot;</highlight><highlight class="normal">,<sp/>*GenFifoEntry);</highlight></codeline>
+<codeline lineno="466"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#endif</highlight></codeline>
+<codeline lineno="467"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__qspipsu_1ga584ee0482b95d3f49353438ca58fb180" kindref="member">XQspiPsu_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_qspi_psu_1a9b3aa272eb335fecaaa8f47fd2ed9241" kindref="member">Config</ref>.<ref refid="struct_x_qspi_psu___config_1a4048264c3ac6b3455c0295eeacac874b" kindref="member">BaseAddress</ref>,<sp/><ref refid="group__qspipsu_1ga3bfe2023b6a6ce56e9d13f130bd1c86d" kindref="member">XQSPIPSU_GEN_FIFO_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="468"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*GenFifoEntry);</highlight></codeline>
+<codeline lineno="469"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="470"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="471"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="472"><highlight class="normal"></highlight></codeline>
+<codeline lineno="473"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="485" refid="group__qspipsu__api_1ga6f3b7fc81ae5c50ee3ea373d80b4b542" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__qspipsu__api_1ga6f3b7fc81ae5c50ee3ea373d80b4b542" kindref="member">XQspiPsu_CreatePollDataConfig</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_qspi_psu" kindref="compound">XQspiPsu</ref><sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="486"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_qspi_psu___msg" kindref="compound">XQspiPsu_Msg</ref><sp/>*FlashMsg)</highlight></codeline>
+<codeline lineno="487"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="488"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>ConfigData<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="489"><highlight class="normal"></highlight></codeline>
+<codeline lineno="490"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="491"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(FlashMsg<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="492"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_qspi_psu_1ae6039f5b4f8cdf2e528931ec383deb31" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="493"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>DEBUG</highlight></codeline>
+<codeline lineno="494"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;\nXQspiPsu_CreatePollDataConfig\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="495"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="496"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="497"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((InstancePtr-&gt;<ref refid="struct_x_qspi_psu_1a04675183fe2c3b312d0866a2a2f9b906" kindref="member">GenFifoBus</ref><sp/>&amp;<sp/>XQSPIPSU_GENFIFO_BUS_UPPER)<sp/>!=<sp/>(u32)FALSE)<sp/>{</highlight></codeline>
+<codeline lineno="498"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ConfigData<sp/>=<sp/>(u32)<ref refid="group__qspipsu__api_1ga2d896ad5edf8b15e6dbd4d7a87517a35" kindref="member">XQSPIPSU_SELECT_FLASH_BUS_LOWER</ref><sp/>&lt;&lt;</highlight></codeline>
+<codeline lineno="499"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XQSPIPSU_POLL_CFG_EN_MASK_UPPER_SHIFT;</highlight></codeline>
+<codeline lineno="500"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="501"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((InstancePtr-&gt;<ref refid="struct_x_qspi_psu_1a04675183fe2c3b312d0866a2a2f9b906" kindref="member">GenFifoBus</ref><sp/>&amp;<sp/>XQSPIPSU_GENFIFO_BUS_LOWER)<sp/>!=<sp/>(u32)FALSE)<sp/>{</highlight></codeline>
+<codeline lineno="502"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ConfigData<sp/>|=<sp/>(u32)<ref refid="group__qspipsu__api_1ga2d896ad5edf8b15e6dbd4d7a87517a35" kindref="member">XQSPIPSU_SELECT_FLASH_BUS_LOWER</ref><sp/>&lt;&lt;</highlight></codeline>
+<codeline lineno="503"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XQSPIPSU_POLL_CFG_EN_MASK_LOWER_SHIFT;</highlight></codeline>
+<codeline lineno="504"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="505"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ConfigData<sp/>|=<sp/>(u32)(((u32)FlashMsg-&gt;<ref refid="struct_x_qspi_psu___msg_1a3899d4d75a4cb3e0cdacbd659b53c8df" kindref="member">PollBusMask</ref><sp/>&lt;&lt;</highlight></codeline>
+<codeline lineno="506"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XQSPIPSU_POLL_CFG_MASK_EN_SHIFT)<sp/>&amp;<sp/>XQSPIPSU_POLL_CFG_MASK_EN_MASK);</highlight></codeline>
+<codeline lineno="507"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ConfigData<sp/>|=<sp/>(u32)(((u32)FlashMsg-&gt;<ref refid="struct_x_qspi_psu___msg_1a1a7d94d20674d2af431203e779c3a58a" kindref="member">PollData</ref><sp/>&lt;&lt;</highlight></codeline>
+<codeline lineno="508"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XQSPIPSU_POLL_CFG_DATA_VALUE_SHIFT)</highlight></codeline>
+<codeline lineno="509"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;<sp/>XQSPIPSU_POLL_CFG_DATA_VALUE_MASK);</highlight></codeline>
+<codeline lineno="510"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>ConfigData;</highlight></codeline>
+<codeline lineno="511"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="512"><highlight class="normal"></highlight></codeline>
+<codeline lineno="513"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="523" refid="group__qspipsu__api_1gae7bfe0aff5a064a01b0f822f46b26deb" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__qspipsu__api_1gae7bfe0aff5a064a01b0f822f46b26deb" kindref="member">XQspiPsu_SelectSpiMode</ref>(u8<sp/>SpiMode)</highlight></codeline>
+<codeline lineno="524"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="525"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Mask;</highlight></codeline>
+<codeline lineno="526"><highlight class="normal"></highlight></codeline>
+<codeline lineno="527"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(SpiMode<sp/>&gt;<sp/>0U);</highlight></codeline>
+<codeline lineno="528"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>DEBUG</highlight></codeline>
+<codeline lineno="529"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;\nXQspiPsu_SelectSpiMode\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="530"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="531"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="532"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">switch</highlight><highlight class="normal"><sp/>(SpiMode)<sp/>{</highlight></codeline>
+<codeline lineno="533"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="group__qspipsu__api_1gaa57e6e6b6efaaa981a9a81ae9db3d78a" kindref="member">XQSPIPSU_SELECT_MODE_DUALSPI</ref>:</highlight></codeline>
+<codeline lineno="534"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Mask<sp/>=<sp/>XQSPIPSU_GENFIFO_MODE_DUALSPI;</highlight></codeline>
+<codeline lineno="535"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="536"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="group__qspipsu__api_1ga6750df2d9d9169fdef76bfc957ae501c" kindref="member">XQSPIPSU_SELECT_MODE_QUADSPI</ref>:</highlight></codeline>
+<codeline lineno="537"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Mask<sp/>=<sp/>XQSPIPSU_GENFIFO_MODE_QUADSPI;</highlight></codeline>
+<codeline lineno="538"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="539"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="group__qspipsu__api_1ga185ba58041ded76c03bb18ad69e783af" kindref="member">XQSPIPSU_SELECT_MODE_SPI</ref>:</highlight></codeline>
+<codeline lineno="540"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Mask<sp/>=<sp/>XQSPIPSU_GENFIFO_MODE_SPI;</highlight></codeline>
+<codeline lineno="541"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="542"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="543"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Mask<sp/>=<sp/>XQSPIPSU_GENFIFO_MODE_SPI;</highlight></codeline>
+<codeline lineno="544"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="545"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="546"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>DEBUG</highlight></codeline>
+<codeline lineno="547"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;\nSPIMode<sp/>is<sp/>%08x\r\n&quot;</highlight><highlight class="normal">,<sp/>SpiMode);</highlight></codeline>
+<codeline lineno="548"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="549"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Mask;</highlight></codeline>
+<codeline lineno="550"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="551"><highlight class="normal"></highlight></codeline>
+<codeline lineno="552"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="564" refid="group__qspipsu__api_1gae720bdee9a521b160e1e364053b66b61" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__qspipsu__api_1gae720bdee9a521b160e1e364053b66b61" kindref="member">XQspiPsu_SetDefaultConfig</ref>(<ref refid="struct_x_qspi_psu" kindref="compound">XQspiPsu</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="565"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="566"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>ConfigReg;</highlight></codeline>
+<codeline lineno="567"><highlight class="normal"></highlight></codeline>
+<codeline lineno="568"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="569"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>DEBUG</highlight></codeline>
+<codeline lineno="570"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;\nXQspiPsu_SetDefaultConfig\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="571"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="572"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="573"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Default<sp/>value<sp/>to<sp/>config<sp/>register<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="574"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ConfigReg<sp/>=<sp/><ref refid="group__qspipsu_1gab88bcdb0f53b21b79cd0805cfd14cb89" kindref="member">XQspiPsu_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_qspi_psu_1a9b3aa272eb335fecaaa8f47fd2ed9241" kindref="member">Config</ref>.<ref refid="struct_x_qspi_psu___config_1a4048264c3ac6b3455c0295eeacac874b" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="575"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__qspipsu_1ga1d76a2f706f3988da79345132e484303" kindref="member">XQSPIPSU_CFG_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="576"><highlight class="normal"></highlight></codeline>
+<codeline lineno="577"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>DMA<sp/>mode<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="578"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ConfigReg<sp/>&amp;=<sp/>~XQSPIPSU_CFG_MODE_EN_MASK;</highlight></codeline>
+<codeline lineno="579"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ConfigReg<sp/>|=<sp/>XQSPIPSU_CFG_MODE_EN_DMA_MASK;</highlight></codeline>
+<codeline lineno="580"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Manual<sp/>start<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="581"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ConfigReg<sp/>|=<sp/>XQSPIPSU_CFG_GEN_FIFO_START_MODE_MASK;</highlight></codeline>
+<codeline lineno="582"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Little<sp/>endain<sp/>by<sp/>default<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="583"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ConfigReg<sp/>&amp;=<sp/>~XQSPIPSU_CFG_ENDIAN_MASK;</highlight></codeline>
+<codeline lineno="584"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Disable<sp/>poll<sp/>timeout<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="585"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ConfigReg<sp/>&amp;=<sp/>~XQSPIPSU_CFG_EN_POLL_TO_MASK;</highlight></codeline>
+<codeline lineno="586"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Set<sp/>hold<sp/>bit<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="587"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ConfigReg<sp/>|=<sp/>XQSPIPSU_CFG_WP_HOLD_MASK;</highlight></codeline>
+<codeline lineno="588"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Clear<sp/>prescalar<sp/>by<sp/>default<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="589"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ConfigReg<sp/>&amp;=<sp/>~(u32)XQSPIPSU_CFG_BAUD_RATE_DIV_MASK;</highlight></codeline>
+<codeline lineno="590"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>CPOL<sp/>CPHA<sp/>00<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="591"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ConfigReg<sp/>&amp;=<sp/>~(u32)XQSPIPSU_CFG_CLK_PHA_MASK;</highlight></codeline>
+<codeline lineno="592"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ConfigReg<sp/>&amp;=<sp/>~(u32)XQSPIPSU_CFG_CLK_POL_MASK;</highlight></codeline>
+<codeline lineno="593"><highlight class="normal"></highlight></codeline>
+<codeline lineno="594"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__qspipsu_1ga584ee0482b95d3f49353438ca58fb180" kindref="member">XQspiPsu_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_qspi_psu_1a9b3aa272eb335fecaaa8f47fd2ed9241" kindref="member">Config</ref>.<ref refid="struct_x_qspi_psu___config_1a4048264c3ac6b3455c0295eeacac874b" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="595"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__qspipsu_1ga1d76a2f706f3988da79345132e484303" kindref="member">XQSPIPSU_CFG_OFFSET</ref>,<sp/>ConfigReg);</highlight></codeline>
+<codeline lineno="596"><highlight class="normal"></highlight></codeline>
+<codeline lineno="597"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Set<sp/>by<sp/>default<sp/>to<sp/>allow<sp/>for<sp/>high<sp/>frequencies<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="598"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__qspipsu_1ga584ee0482b95d3f49353438ca58fb180" kindref="member">XQspiPsu_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_qspi_psu_1a9b3aa272eb335fecaaa8f47fd2ed9241" kindref="member">Config</ref>.<ref refid="struct_x_qspi_psu___config_1a4048264c3ac6b3455c0295eeacac874b" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="599"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__qspipsu_1ga4636d144794bb35424cacd6f6d49781a" kindref="member">XQSPIPSU_LPBK_DLY_ADJ_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="600"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__qspipsu_1gab88bcdb0f53b21b79cd0805cfd14cb89" kindref="member">XQspiPsu_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_qspi_psu_1a9b3aa272eb335fecaaa8f47fd2ed9241" kindref="member">Config</ref>.<ref refid="struct_x_qspi_psu___config_1a4048264c3ac6b3455c0295eeacac874b" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="601"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__qspipsu_1ga4636d144794bb35424cacd6f6d49781a" kindref="member">XQSPIPSU_LPBK_DLY_ADJ_OFFSET</ref>)<sp/>|</highlight></codeline>
+<codeline lineno="602"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XQSPIPSU_LPBK_DLY_ADJ_USE_LPBK_MASK);</highlight></codeline>
+<codeline lineno="603"><highlight class="normal"></highlight></codeline>
+<codeline lineno="604"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Reset<sp/>thresholds<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="605"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__qspipsu_1ga584ee0482b95d3f49353438ca58fb180" kindref="member">XQspiPsu_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_qspi_psu_1a9b3aa272eb335fecaaa8f47fd2ed9241" kindref="member">Config</ref>.<ref refid="struct_x_qspi_psu___config_1a4048264c3ac6b3455c0295eeacac874b" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="606"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__qspipsu_1ga33bc760357127168b3a665f969036421" kindref="member">XQSPIPSU_TX_THRESHOLD_OFFSET</ref>,<sp/>XQSPIPSU_TX_FIFO_THRESHOLD_RESET_VAL);</highlight></codeline>
+<codeline lineno="607"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__qspipsu_1ga584ee0482b95d3f49353438ca58fb180" kindref="member">XQspiPsu_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_qspi_psu_1a9b3aa272eb335fecaaa8f47fd2ed9241" kindref="member">Config</ref>.<ref refid="struct_x_qspi_psu___config_1a4048264c3ac6b3455c0295eeacac874b" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="608"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XQSPIPSU_RX_THRESHOLD_OFFSET,<sp/>XQSPIPSU_RX_FIFO_THRESHOLD_RESET_VAL);</highlight></codeline>
+<codeline lineno="609"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__qspipsu_1ga584ee0482b95d3f49353438ca58fb180" kindref="member">XQspiPsu_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_qspi_psu_1a9b3aa272eb335fecaaa8f47fd2ed9241" kindref="member">Config</ref>.<ref refid="struct_x_qspi_psu___config_1a4048264c3ac6b3455c0295eeacac874b" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="610"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__qspipsu_1ga5a8034417fd3c9846c968679c1cad859" kindref="member">XQSPIPSU_GF_THRESHOLD_OFFSET</ref>,<sp/>XQSPIPSU_GEN_FIFO_THRESHOLD_RESET_VAL);</highlight></codeline>
+<codeline lineno="611"><highlight class="normal"></highlight></codeline>
+<codeline lineno="612"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>DMA<sp/>init<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="613"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__qspipsu_1ga584ee0482b95d3f49353438ca58fb180" kindref="member">XQspiPsu_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_qspi_psu_1a9b3aa272eb335fecaaa8f47fd2ed9241" kindref="member">Config</ref>.<ref refid="struct_x_qspi_psu___config_1a4048264c3ac6b3455c0295eeacac874b" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="614"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XQSPIPSU_QSPIDMA_DST_CTRL_OFFSET,</highlight></codeline>
+<codeline lineno="615"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XQSPIPSU_QSPIDMA_DST_CTRL_RESET_VAL);</highlight></codeline>
+<codeline lineno="616"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="617"><highlight class="normal"></highlight></codeline>
+<codeline lineno="618"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="631" refid="group__qspipsu__api_1gaa04d433c594d66417be2c4f83c092203" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__qspipsu__api_1gaa04d433c594d66417be2c4f83c092203" kindref="member">XQspiPsu_ReadRxFifo</ref>(<ref refid="struct_x_qspi_psu" kindref="compound">XQspiPsu</ref><sp/>*InstancePtr,<sp/><ref refid="struct_x_qspi_psu___msg" kindref="compound">XQspiPsu_Msg</ref><sp/>*Msg,<sp/>s32<sp/>Size)</highlight></codeline>
+<codeline lineno="632"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="633"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>s32<sp/>Count<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="634"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Data;</highlight></codeline>
+<codeline lineno="635"><highlight class="normal"></highlight></codeline>
+<codeline lineno="636"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="637"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(Msg<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="638"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(Size<sp/>&gt;<sp/>0);</highlight></codeline>
+<codeline lineno="639"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_qspi_psu_1ae6039f5b4f8cdf2e528931ec383deb31" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="640"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>DEBUG</highlight></codeline>
+<codeline lineno="641"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;\nXQspiPsu_ReadRxFifo\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="642"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="643"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>((InstancePtr-&gt;<ref refid="struct_x_qspi_psu_1ac45ddbc82ca891a58fbc9f25150fce30" kindref="member">RxBytes</ref><sp/>!=<sp/>0)<sp/>&amp;&amp;<sp/>(Count<sp/>&lt;<sp/>Size))<sp/>{</highlight></codeline>
+<codeline lineno="644"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Data<sp/>=<sp/><ref refid="group__qspipsu_1gab88bcdb0f53b21b79cd0805cfd14cb89" kindref="member">XQspiPsu_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_qspi_psu_1a9b3aa272eb335fecaaa8f47fd2ed9241" kindref="member">Config</ref>.<ref refid="struct_x_qspi_psu___config_1a4048264c3ac6b3455c0295eeacac874b" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="645"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__qspipsu_1ga68b0b4316693414546980dea7baaf0a4" kindref="member">XQSPIPSU_RXD_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="646"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>DEBUG</highlight></codeline>
+<codeline lineno="647"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;\nData<sp/>is<sp/>%08x\r\n&quot;</highlight><highlight class="normal">,<sp/>Data);</highlight></codeline>
+<codeline lineno="648"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="649"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_qspi_psu_1ac45ddbc82ca891a58fbc9f25150fce30" kindref="member">RxBytes</ref><sp/>&gt;=<sp/>4)<sp/>{</highlight></codeline>
+<codeline lineno="650"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)Xil_MemCpy(Msg-&gt;<ref refid="struct_x_qspi_psu___msg_1a1fb697c64fd14580822f4baf50f26df1" kindref="member">RxBfrPtr</ref>,<sp/>(u8<sp/>*)&amp;Data,<sp/>4);</highlight></codeline>
+<codeline lineno="651"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_qspi_psu_1ac45ddbc82ca891a58fbc9f25150fce30" kindref="member">RxBytes</ref><sp/>-=<sp/>4;</highlight></codeline>
+<codeline lineno="652"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Msg-&gt;<ref refid="struct_x_qspi_psu___msg_1a1fb697c64fd14580822f4baf50f26df1" kindref="member">RxBfrPtr</ref><sp/>+=<sp/>4;</highlight></codeline>
+<codeline lineno="653"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Count<sp/>+=<sp/>4;</highlight></codeline>
+<codeline lineno="654"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="655"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Read<sp/>unaligned<sp/>bytes<sp/>(&lt;<sp/>4<sp/>bytes)<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="656"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)Xil_MemCpy(Msg-&gt;<ref refid="struct_x_qspi_psu___msg_1a1fb697c64fd14580822f4baf50f26df1" kindref="member">RxBfrPtr</ref>,<sp/>(u8<sp/>*)&amp;Data,</highlight></codeline>
+<codeline lineno="657"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)InstancePtr-&gt;<ref refid="struct_x_qspi_psu_1ac45ddbc82ca891a58fbc9f25150fce30" kindref="member">RxBytes</ref>);</highlight></codeline>
+<codeline lineno="658"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Msg-&gt;<ref refid="struct_x_qspi_psu___msg_1a1fb697c64fd14580822f4baf50f26df1" kindref="member">RxBfrPtr</ref><sp/>+=<sp/>InstancePtr-&gt;<ref refid="struct_x_qspi_psu_1ac45ddbc82ca891a58fbc9f25150fce30" kindref="member">RxBytes</ref>;</highlight></codeline>
+<codeline lineno="659"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Count<sp/>+=<sp/>InstancePtr-&gt;<ref refid="struct_x_qspi_psu_1ac45ddbc82ca891a58fbc9f25150fce30" kindref="member">RxBytes</ref>;</highlight></codeline>
+<codeline lineno="660"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_qspi_psu_1ac45ddbc82ca891a58fbc9f25150fce30" kindref="member">RxBytes</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="661"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="662"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="663"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="664"><highlight class="normal"></highlight></codeline>
+<codeline lineno="665"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="678" refid="group__qspipsu__api_1gae7900ea73e245de8f091d4d4c201fe76" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__qspipsu__api_1gae7900ea73e245de8f091d4d4c201fe76" kindref="member">XQspiPsu_IORead</ref>(<ref refid="struct_x_qspi_psu" kindref="compound">XQspiPsu</ref><sp/>*InstancePtr,<sp/><ref refid="struct_x_qspi_psu___msg" kindref="compound">XQspiPsu_Msg</ref><sp/>*Msg,</highlight></codeline>
+<codeline lineno="679"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>StatusReg)</highlight></codeline>
+<codeline lineno="680"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="681"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>s32<sp/>RxThr;</highlight></codeline>
+<codeline lineno="682"><highlight class="normal"></highlight></codeline>
+<codeline lineno="683"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="684"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(Msg<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="685"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_qspi_psu_1ae6039f5b4f8cdf2e528931ec383deb31" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="686"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>DEBUG</highlight></codeline>
+<codeline lineno="687"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;\nXQspiPsu_IORXComplete\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="688"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="689"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="690"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((StatusReg<sp/>&amp;<sp/>XQSPIPSU_ISR_RXNEMPTY_MASK)<sp/>!=<sp/>0U)<sp/>{</highlight></codeline>
+<codeline lineno="691"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="692"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Check<sp/>if<sp/>PIO<sp/>RX<sp/>is<sp/>complete<sp/>and</highlight></codeline>
+<codeline lineno="693"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>update<sp/>RxBytes</highlight></codeline>
+<codeline lineno="694"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="695"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RxThr<sp/>=<sp/>(s32)<ref refid="group__qspipsu_1gab88bcdb0f53b21b79cd0805cfd14cb89" kindref="member">XQspiPsu_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_qspi_psu_1a9b3aa272eb335fecaaa8f47fd2ed9241" kindref="member">Config</ref>.<ref refid="struct_x_qspi_psu___config_1a4048264c3ac6b3455c0295eeacac874b" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="696"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XQSPIPSU_RX_THRESHOLD_OFFSET);</highlight></codeline>
+<codeline lineno="697"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RxThr<sp/>=<sp/>RxThr*4;</highlight></codeline>
+<codeline lineno="698"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__qspipsu__api_1gaa04d433c594d66417be2c4f83c092203" kindref="member">XQspiPsu_ReadRxFifo</ref>(InstancePtr,<sp/>Msg,<sp/>RxThr);</highlight></codeline>
+<codeline lineno="699"><highlight class="normal"></highlight></codeline>
+<codeline lineno="700"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="701"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="702"><highlight class="normal"></highlight></codeline>
+<codeline lineno="703"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((StatusReg<sp/>&amp;<sp/>XQSPIPSU_ISR_GENFIFOEMPTY_MASK)<sp/>!=<sp/>0U)<sp/>{</highlight></codeline>
+<codeline lineno="704"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__qspipsu__api_1gaa04d433c594d66417be2c4f83c092203" kindref="member">XQspiPsu_ReadRxFifo</ref>(InstancePtr,<sp/>Msg,<sp/>InstancePtr-&gt;<ref refid="struct_x_qspi_psu_1ac45ddbc82ca891a58fbc9f25150fce30" kindref="member">RxBytes</ref>);</highlight></codeline>
+<codeline lineno="705"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="706"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="707"><highlight class="normal"></highlight></codeline>
+<codeline lineno="708"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined<sp/>(ARMR5)<sp/>||<sp/>defined<sp/>(__aarch64__)<sp/>||<sp/>defined<sp/>(__MICROBLAZE__)<sp/>||<sp/>defined<sp/>(__riscv)</highlight></codeline>
+<codeline lineno="709"><highlight class="preprocessor"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="729"><highlight class="normal">s32<sp/>XQspipsu_Set_TapDelay(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_qspi_psu" kindref="compound">XQspiPsu</ref><sp/>*InstancePtr,<sp/>u32<sp/>TapdelayBypass,</highlight></codeline>
+<codeline lineno="730"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>LPBKDelay,<sp/>u32<sp/>Datadelay)</highlight></codeline>
+<codeline lineno="731"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="732"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>s32<sp/>Status;</highlight></codeline>
+<codeline lineno="733"><highlight class="normal"></highlight></codeline>
+<codeline lineno="734"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="735"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_qspi_psu_1ae6039f5b4f8cdf2e528931ec383deb31" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="736"><highlight class="normal"></highlight></codeline>
+<codeline lineno="737"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="738"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Do<sp/>not<sp/>allow<sp/>to<sp/>modify<sp/>the<sp/>Control<sp/>Register<sp/>while<sp/>a<sp/>transfer<sp/>is<sp/>in</highlight></codeline>
+<codeline lineno="739"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>progress.<sp/>Not<sp/>thread-safe.</highlight></codeline>
+<codeline lineno="740"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="741"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_qspi_psu_1ad253a7c807935d5b3178966e74f6821c" kindref="member">IsBusy</ref><sp/>==<sp/>(u32)TRUE)<sp/>{</highlight></codeline>
+<codeline lineno="742"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(s32)XST_DEVICE_BUSY;</highlight></codeline>
+<codeline lineno="743"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="744"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined<sp/>(__aarch64__)<sp/>&amp;&amp;<sp/>(EL1_NONSECURE<sp/>==<sp/>1)<sp/>&amp;&amp;<sp/>!defined<sp/>(versal)</highlight></codeline>
+<codeline lineno="745"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_Smc(MMIO_WRITE_SMC_FID,<sp/>(u64)(XPS_SYS_CTRL_BASEADDR<sp/>+</highlight></codeline>
+<codeline lineno="746"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__qspipsu_1ga0bbc5a63a23f12de8b6feb217e0f317b" kindref="member">IOU_TAPDLY_BYPASS_OFFSET</ref>)<sp/>|<sp/>((u64)(0x4)<sp/>&lt;&lt;<sp/>32),</highlight></codeline>
+<codeline lineno="747"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u64)TapdelayBypass,<sp/>0,<sp/>0,<sp/>0,<sp/>0,<sp/>0);</highlight></codeline>
+<codeline lineno="748"><highlight class="normal"></highlight><highlight class="preprocessor">#elif<sp/>defined<sp/>(versal)</highlight></codeline>
+<codeline lineno="749"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__qspipsu_1ga584ee0482b95d3f49353438ca58fb180" kindref="member">XQspiPsu_WriteReg</ref>(<ref refid="group__qspipsu_1ga49734e127e6359b15c1ce7f117748c36" kindref="member">XQSPIPS_BASEADDR</ref>,<sp/><ref refid="group__qspipsu_1ga0bbc5a63a23f12de8b6feb217e0f317b" kindref="member">IOU_TAPDLY_BYPASS_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="750"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TapdelayBypass);</highlight></codeline>
+<codeline lineno="751"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="752"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__qspipsu_1ga584ee0482b95d3f49353438ca58fb180" kindref="member">XQspiPsu_WriteReg</ref>(XPS_SYS_CTRL_BASEADDR,<sp/><ref refid="group__qspipsu_1ga0bbc5a63a23f12de8b6feb217e0f317b" kindref="member">IOU_TAPDLY_BYPASS_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="753"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TapdelayBypass);</highlight></codeline>
+<codeline lineno="754"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="755"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__qspipsu_1ga584ee0482b95d3f49353438ca58fb180" kindref="member">XQspiPsu_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_qspi_psu_1a9b3aa272eb335fecaaa8f47fd2ed9241" kindref="member">Config</ref>.<ref refid="struct_x_qspi_psu___config_1a4048264c3ac6b3455c0295eeacac874b" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="756"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__qspipsu_1ga4636d144794bb35424cacd6f6d49781a" kindref="member">XQSPIPSU_LPBK_DLY_ADJ_OFFSET</ref>,<sp/>LPBKDelay);</highlight></codeline>
+<codeline lineno="757"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__qspipsu_1ga584ee0482b95d3f49353438ca58fb180" kindref="member">XQspiPsu_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_qspi_psu_1a9b3aa272eb335fecaaa8f47fd2ed9241" kindref="member">Config</ref>.<ref refid="struct_x_qspi_psu___config_1a4048264c3ac6b3455c0295eeacac874b" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="758"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__qspipsu_1gab365948c6ecd1f11c876a6b374e17194" kindref="member">XQSPIPSU_DATA_DLY_ADJ_OFFSET</ref>,<sp/>Datadelay);</highlight></codeline>
+<codeline lineno="759"><highlight class="normal"></highlight></codeline>
+<codeline lineno="760"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(s32)XST_SUCCESS;</highlight></codeline>
+<codeline lineno="761"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="762"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="763"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="764"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="765"><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/src/xqspipsu_hw.c"/>
+  </compounddef>
+</doxygen>

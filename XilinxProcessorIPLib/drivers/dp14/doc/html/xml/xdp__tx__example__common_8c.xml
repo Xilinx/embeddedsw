@@ -1,0 +1,491 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xdp__tx__example__common_8c" kind="file">
+    <compoundname>xdp_tx_example_common.c</compoundname>
+    <includes refid="xdp__tx__example__common_8h" local="yes">xdp_tx_example_common.h</includes>
+    <includes local="yes">xil_printf.h</includes>
+    <incdepgraph>
+      <node id="180">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="183">
+        <label>xil_io.h</label>
+      </node>
+      <node id="182">
+        <label>xdp_hw.h</label>
+        <link refid="xdp__hw_8h"/>
+        <childnode refid="183" relation="include">
+        </childnode>
+        <childnode refid="179" relation="include">
+        </childnode>
+      </node>
+      <node id="184">
+        <label>xstatus.h</label>
+      </node>
+      <node id="185">
+        <label>xvidc.h</label>
+      </node>
+      <node id="181">
+        <label>xil_types.h</label>
+      </node>
+      <node id="176">
+        <label>xdp_tx_example_common.c</label>
+        <link refid="xdp_tx_example_common.c"/>
+        <childnode refid="177" relation="include">
+        </childnode>
+        <childnode refid="186" relation="include">
+        </childnode>
+      </node>
+      <node id="177">
+        <label>xdp_tx_example_common.h</label>
+        <link refid="xdp__tx__example__common_8h"/>
+        <childnode refid="178" relation="include">
+        </childnode>
+        <childnode refid="186" relation="include">
+        </childnode>
+        <childnode refid="179" relation="include">
+        </childnode>
+      </node>
+      <node id="179">
+        <label>xparameters.h</label>
+      </node>
+      <node id="178">
+        <label>xdp.h</label>
+        <link refid="xdp_8h"/>
+        <childnode refid="179" relation="include">
+        </childnode>
+        <childnode refid="180" relation="include">
+        </childnode>
+        <childnode refid="181" relation="include">
+        </childnode>
+        <childnode refid="182" relation="include">
+        </childnode>
+        <childnode refid="184" relation="include">
+        </childnode>
+        <childnode refid="185" relation="include">
+        </childnode>
+      </node>
+      <node id="186">
+        <label>xil_printf.h</label>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xdp__tx__example__common_8c_1a7c034a613a50d4f4e39670b2dca19847" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void Dptx_StartVideoStream</definition>
+        <argsstring>(XDp *InstancePtr)</argsstring>
+        <name>Dptx_StartVideoStream</name>
+        <param>
+          <type><ref refid="struct_x_dp" kindref="compound">XDp</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function will start sending a video stream over the main link. </para>        </briefdescription>
+        <detaileddescription>
+<para>The settings to be used are as follows:<itemizedlist>
+<listitem><para>8 bits per color.</para></listitem><listitem><para>Video timing and screen resolution used:</para></listitem><listitem><para>The connected monitor&apos;s preferred timing is used to determine the video resolution (and associated timings) for the stream.</para></listitem></itemizedlist>
+</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dp" kindref="compound">XDp</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>The Dptx_StreamSrc* are intentionally left for the user to implement since configuration of the stream source is application-specific. </para><simplesectsep/><para>The Extended Display Identification Data (EDID) is read in order to obtain the video resolution and timings. If this read fails, a resolution of 640x480 is used at a refresh rate of 60Hz. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14/examples/xdp_tx_example_common.c" line="45" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14/examples/xdp_tx_example_common.c" bodystart="246" bodyend="329"/>
+      </memberdef>
+      <memberdef kind="function" id="xdp__tx__example__common_8c_1aa048b03b5dc7408a4dd444f631eb6f30" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 Dptx_Run</definition>
+        <argsstring>(XDp *InstancePtr)</argsstring>
+        <name>Dptx_Run</name>
+        <param>
+          <type><ref refid="struct_x_dp" kindref="compound">XDp</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function will configure and establish a link with the receiver device, afterwards, a video stream will start to be sent over the main link. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dp" kindref="compound">XDp</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>LaneCount</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the number of lanes to use over the main link. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>LinkRate</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the link rate to use over the main link.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if main link was successfully established.</para></listitem><listitem><para>XST_FAILURE otherwise.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14/examples/xdp_tx_example_common.c" line="65" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14/examples/xdp_tx_example_common.c" bodystart="65" bodyend="81"/>
+        <references refid="xdp__tx__example__common_8c_1a6700facd123226784319febf7189c092" compoundref="xdp__tx__example__common_8c" startline="137" endline="223">Dptx_StartLink</references>
+        <referencedby refid="xdp__tx__audio__example_8c_1aed37a94e3e46be308096977d47387cd9" compoundref="xdp__tx__audio__example_8c" startline="111" endline="143">Dptx_AudioExample</referencedby>
+        <referencedby refid="xdp__tx__timer__example_8c_1a9a7742f5011d10d33ee87f85ca43ec47" compoundref="xdp__tx__timer__example_8c" startline="111" endline="148">Dptx_TimerExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xdp__tx__example__common_8c_1a7890171f707168d57a1ee86a34eede68" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 Dptx_SetupExample</definition>
+        <argsstring>(XDp *InstancePtr, u16 DeviceId)</argsstring>
+        <name>Dptx_SetupExample</name>
+        <param>
+          <type><ref refid="struct_x_dp" kindref="compound">XDp</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u16</type>
+          <declname>DeviceId</declname>
+        </param>
+        <briefdescription>
+<para>This function will setup and initialize the DisplayPort TX core. </para>        </briefdescription>
+        <detaileddescription>
+<para>The core&apos;s configuration parameters will be retrieved based on the configuration to the DisplayPort TX core instance with the specified device ID.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dp" kindref="compound">XDp</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DeviceId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the unique device ID of the DisplayPort TX core instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if the device configuration was found and obtained and if the main link was successfully established.</para></listitem><listitem><para>XST_FAILURE otherwise.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14/examples/xdp_tx_example_common.c" line="101" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14/examples/xdp_tx_example_common.c" bodystart="101" bodyend="122"/>
+        <references refid="struct_x_dp___config_1a26db9b137de6560d3b2690f0d4acaed0" compoundref="xdp_8h" startline="515">XDp_Config::BaseAddr</references>
+        <references refid="group__dp_1ga99e89fe4b5550c32cef410fffab99318" compoundref="xdp_8c" startline="164" endline="200">XDp_CfgInitialize</references>
+        <references refid="group__dp_1ga85f185599e63935fa41e46ca249d4a3a" compoundref="xdp_8c" startline="217" endline="240">XDp_Initialize</references>
+        <references refid="group__dp_1ga3b19afc9bd46c30641f6c0b43bba8fe2" compoundref="xdp__sinit_8c" startline="74" endline="88">XDp_LookupConfig</references>
+        <referencedby refid="xdp__tx__audio__example_8c_1aed37a94e3e46be308096977d47387cd9" compoundref="xdp__tx__audio__example_8c" startline="111" endline="143">Dptx_AudioExample</referencedby>
+        <referencedby refid="xdp__tx__intr__example_8c_1aa5cf97e952b9d7bad78ef1e92c269ed2" compoundref="xdp__tx__intr__example_8c" startline="153" endline="187">Dptx_IntrExample</referencedby>
+        <referencedby refid="xdp__tx__mst__example_8c_1ae95f017cde2207801a80bdb8fd27ef12" compoundref="xdp__tx__mst__example_8c" startline="124" endline="163">Dptx_MstExample</referencedby>
+        <referencedby refid="xdp__tx__poll__example_8c_1a6eb91db0f5c6fa82fddb124c5716aae8" compoundref="xdp__tx__poll__example_8c" startline="97" endline="120">Dptx_PollExample</referencedby>
+        <referencedby refid="xdp__tx__timer__example_8c_1a9a7742f5011d10d33ee87f85ca43ec47" compoundref="xdp__tx__timer__example_8c" startline="111" endline="148">Dptx_TimerExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xdp__tx__example__common_8c_1a6700facd123226784319febf7189c092" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 Dptx_StartLink</definition>
+        <argsstring>(XDp *InstancePtr)</argsstring>
+        <name>Dptx_StartLink</name>
+        <param>
+          <type><ref refid="struct_x_dp" kindref="compound">XDp</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function will configure and establish a link with the receiver device. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dp" kindref="compound">XDp</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS the if main link was successfully established.</para></listitem><listitem><para>XST_FAILURE otherwise.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14/examples/xdp_tx_example_common.c" line="137" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14/examples/xdp_tx_example_common.c" bodystart="137" bodyend="223"/>
+        <references refid="struct_x_dp___config_1a26db9b137de6560d3b2690f0d4acaed0" compoundref="xdp_8h" startline="515">XDp_Config::BaseAddr</references>
+        <references refid="struct_x_dp_1aa45ebd510e1e83bc9ebdcd1178b33290" compoundref="xdp_8h" startline="1439">XDp::Config</references>
+        <references refid="struct_x_dp___tx_link_config_1a86b3dae5f9896de8c18734aadbf3d23b" compoundref="xdp_8h" startline="571">XDp_TxLinkConfig::LaneCount</references>
+        <references refid="struct_x_dp___tx_1ae63e057dfdae91215b4361fe98e0600d" compoundref="xdp_8h" startline="955">XDp_Tx::LinkConfig</references>
+        <references refid="struct_x_dp___tx_link_config_1ad18e2c135b9a5e26d39d7322d5a0d575" compoundref="xdp_8h" startline="573">XDp_TxLinkConfig::LinkRate</references>
+        <references refid="struct_x_dp___tx_link_config_1aa7ce05bdbb77f099987f327918c92e5a" compoundref="xdp_8h" startline="581">XDp_TxLinkConfig::MaxLaneCount</references>
+        <references refid="struct_x_dp___tx_link_config_1a1cb767e2205df48354b391fbf205fe40" compoundref="xdp_8h" startline="583">XDp_TxLinkConfig::MaxLinkRate</references>
+        <references refid="struct_x_dp___tx_link_config_1ad339d9961828fbb419a0f39c47e16351" compoundref="xdp_8h" startline="591">XDp_TxLinkConfig::PeLevel</references>
+        <references refid="struct_x_dp___tx_link_config_1aa3d917e88adb041f86fb32ea448c9a97" compoundref="xdp_8h" startline="589">XDp_TxLinkConfig::VsLevel</references>
+        <references refid="group__dp_1gaddf35ab387f5403190bd36a30f64f8ee" compoundref="xdp__hw_8h" startline="3156">XDp_ReadReg</references>
+        <referencedby refid="xdp__tx__mst__example_8c_1a02657a34bba30ff571b25e0b8992f081" compoundref="xdp__tx__mst__example_8c" startline="181" endline="367">Dptx_MstExampleRun</referencedby>
+        <referencedby refid="xdp__tx__example__common_8h_1aa048b03b5dc7408a4dd444f631eb6f30" compoundref="xdp__tx__example__common_8c" startline="65" endline="81">Dptx_Run</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Contains a design example using the <ref refid="struct_x_dp" kindref="compound">XDp</ref> driver (operating in TX mode). </para>    </briefdescription>
+    <detaileddescription>
+<para>It performs a self test on the DisplayPort TX core by training the main link at the maximum common capabilities between the TX and RX and checking the lane status.</para><para><simplesect kind="note"><para>The DisplayPort TX core does not work alone - video/audio sources need to be set up in the system correctly, as well as setting up the output path (for example, configuring the hardware system with the DisplayPort TX core output to an FMC card with DisplayPort output capabilities. Some platform initialization will need to happen prior to calling <ref refid="struct_x_dp" kindref="compound">XDp</ref> driver functions. See XAPP1178 as a reference.</para></simplesect>
+<preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+1.0   als  01/20/15 Initial creation.
+5.1   ms   01/23/17 Added xil_printf statement in main function to
+                    ensure that &quot;Successfully ran&quot; and &quot;Failed&quot; strings
+                    are available in all examples. This is a fix for
+                    CR-965028.
+</preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/*******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2014<sp/>-<sp/>2020<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="38"><highlight class="comment">/*******************************<sp/>Include<sp/>Files<sp/>********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xdp__tx__example__common_8h" kindref="compound">xdp_tx_example_common.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_printf.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Function<sp/>Prototypes<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>Dptx_StartVideoStream(<ref refid="struct_x_dp" kindref="compound">XDp</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Function<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="65" refid="xdp__tx__example__common_8h_1aa048b03b5dc7408a4dd444f631eb6f30" refkind="member"><highlight class="normal">u32<sp/><ref refid="xdp__tx__example__common_8c_1aa048b03b5dc7408a4dd444f631eb6f30" kindref="member">Dptx_Run</ref>(<ref refid="struct_x_dp" kindref="compound">XDp</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="66"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Status;</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Configure<sp/>and<sp/>establish<sp/>a<sp/>link.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="xdp__tx__example__common_8c_1a6700facd123226784319febf7189c092" kindref="member">Dptx_StartLink</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>==<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Start<sp/>the<sp/>video<sp/>stream.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Dptx_StartVideoStream(InstancePtr);</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;&lt;--<sp/>Failed<sp/>to<sp/>establish/train<sp/>the<sp/>link.\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Successfully<sp/>ran<sp/>dp_tx_common<sp/>Example\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="81"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"></highlight></codeline>
+<codeline lineno="83"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="101" refid="xdp__tx__example__common_8h_1a7890171f707168d57a1ee86a34eede68" refkind="member"><highlight class="normal">u32<sp/><ref refid="xdp__tx__example__common_8c_1a7890171f707168d57a1ee86a34eede68" kindref="member">Dptx_SetupExample</ref>(<ref refid="struct_x_dp" kindref="compound">XDp</ref><sp/>*InstancePtr,<sp/>u16<sp/>DeviceId)</highlight></codeline>
+<codeline lineno="102"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_dp___config" kindref="compound">XDp_Config</ref><sp/>*ConfigPtr;</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Status;</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"></highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Obtain<sp/>the<sp/>device<sp/>configuration<sp/>for<sp/>the<sp/>DisplayPort<sp/>TX<sp/>core.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ConfigPtr<sp/>=<sp/><ref refid="group__dp_1ga3b19afc9bd46c30641f6c0b43bba8fe2" kindref="member">XDp_LookupConfig</ref>(DeviceId);</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!ConfigPtr)<sp/>{</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Copy<sp/>the<sp/>device<sp/>configuration<sp/>into<sp/>the<sp/>InstancePtr&apos;s<sp/>Config</highlight></codeline>
+<codeline lineno="112"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>structure.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dp_1ga99e89fe4b5550c32cef410fffab99318" kindref="member">XDp_CfgInitialize</ref>(InstancePtr,<sp/>ConfigPtr,<sp/>ConfigPtr-&gt;<ref refid="struct_x_dp___config_1a26db9b137de6560d3b2690f0d4acaed0" kindref="member">BaseAddr</ref>);</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"></highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Initialize<sp/>the<sp/>DisplayPort<sp/>TX<sp/>core.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__dp_1ga85f185599e63935fa41e46ca249d4a3a" kindref="member">XDp_Initialize</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"></highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="122"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"></highlight></codeline>
+<codeline lineno="124"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="137" refid="xdp__tx__example__common_8h_1a6700facd123226784319febf7189c092" refkind="member"><highlight class="normal">u32<sp/><ref refid="xdp__tx__example__common_8c_1a6700facd123226784319febf7189c092" kindref="member">Dptx_StartLink</ref>(<ref refid="struct_x_dp" kindref="compound">XDp</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="138"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>VsLevelTx;</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>PeLevelTx;</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Status;</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>LaneCount;</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>LinkRate;</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"></highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Obtain<sp/>the<sp/>capabilities<sp/>of<sp/>the<sp/>RX<sp/>device<sp/>by<sp/>reading<sp/>the<sp/>monitor&apos;s</highlight></codeline>
+<codeline lineno="146"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>DPCD.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XDp_TxGetRxCapabilities(InstancePtr);</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"></highlight></codeline>
+<codeline lineno="152"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>(TRAIN_USE_MAX_LINK<sp/>==<sp/>1)</highlight></codeline>
+<codeline lineno="153"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LaneCount<sp/>=<sp/>InstancePtr-&gt;TxInstance.<ref refid="struct_x_dp___tx_1ae63e057dfdae91215b4361fe98e0600d" kindref="member">LinkConfig</ref>.<ref refid="struct_x_dp___tx_link_config_1aa7ce05bdbb77f099987f327918c92e5a" kindref="member">MaxLaneCount</ref>;</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LinkRate<sp/>=<sp/>InstancePtr-&gt;TxInstance.<ref refid="struct_x_dp___tx_1ae63e057dfdae91215b4361fe98e0600d" kindref="member">LinkConfig</ref>.<ref refid="struct_x_dp___tx_link_config_1a1cb767e2205df48354b391fbf205fe40" kindref="member">MaxLinkRate</ref>;</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="156"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LaneCount<sp/>=<sp/>TRAIN_USE_LANE_COUNT;</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LinkRate<sp/>=<sp/>TRAIN_USE_LINK_RATE;</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="159"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Check<sp/>if<sp/>the<sp/>link<sp/>is<sp/>already<sp/>trained<sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XDp_TxCheckLinkStatus(InstancePtr,<sp/>LaneCount);</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>==<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;-&gt;<sp/>Link<sp/>is<sp/>already<sp/>trained<sp/>on<sp/>%d<sp/>lanes.\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LaneCount);</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="group__dp_1gaddf35ab387f5403190bd36a30f64f8ee" kindref="member">XDp_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_dp_1aa45ebd510e1e83bc9ebdcd1178b33290" kindref="member">Config</ref>.<ref refid="struct_x_dp___config_1a26db9b137de6560d3b2690f0d4acaed0" kindref="member">BaseAddr</ref>,</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDP_TX_LINK_BW_SET)<sp/>==<sp/>LinkRate)<sp/>{</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;-&gt;<sp/>Link<sp/>needs<sp/>to<sp/>be<sp/>re-trained<sp/>%d<sp/>Mbps.\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(270<sp/>*<sp/>LinkRate));</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;-&gt;<sp/>Link<sp/>is<sp/>already<sp/>trained<sp/>at<sp/>%d<sp/>Mbps.\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="172"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(270<sp/>*<sp/>LinkRate));</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>==<sp/>XST_FAILURE)<sp/>{</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;-&gt;<sp/>Needs<sp/>training.\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Either<sp/>a<sp/>connection<sp/>does<sp/>not<sp/>exist<sp/>or<sp/>the<sp/>supplied<sp/>lane<sp/>count</highlight></codeline>
+<codeline lineno="181"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>is<sp/>invalid.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="182"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;-&gt;<sp/>Error<sp/>checking<sp/>link<sp/>status.\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="183"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="184"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="185"><highlight class="normal"></highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDp_TxSetEnhancedFrameMode(InstancePtr,<sp/>1);</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDp_TxSetDownspread(InstancePtr,<sp/>0);</highlight></codeline>
+<codeline lineno="188"><highlight class="normal"></highlight></codeline>
+<codeline lineno="189"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>(TRAIN_USE_MAX_LINK<sp/>==<sp/>1)</highlight></codeline>
+<codeline lineno="190"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Configure<sp/>the<sp/>main<sp/>link<sp/>based<sp/>on<sp/>the<sp/>maximum<sp/>common<sp/>capabilities<sp/>of</highlight></codeline>
+<codeline lineno="191"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>the<sp/>DisplayPort<sp/>TX<sp/>core<sp/>and<sp/>the<sp/>receiver<sp/>device.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="192"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XDp_TxCfgMainLinkMax(InstancePtr);</highlight></codeline>
+<codeline lineno="193"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="194"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="195"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="196"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="197"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDp_TxSetLinkRate(InstancePtr,<sp/>LinkRate);</highlight></codeline>
+<codeline lineno="198"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDp_TxSetLaneCount(InstancePtr,<sp/>LaneCount);</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="200"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="201"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Train<sp/>the<sp/>link.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="202"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;******************************************\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XDp_TxEstablishLink(InstancePtr);</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;!!!<sp/>Training<sp/>failed<sp/>!!!\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="206"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;******************************************\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="207"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="208"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="209"><highlight class="normal"></highlight></codeline>
+<codeline lineno="210"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VsLevelTx<sp/>=<sp/><ref refid="group__dp_1gaddf35ab387f5403190bd36a30f64f8ee" kindref="member">XDp_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_dp_1aa45ebd510e1e83bc9ebdcd1178b33290" kindref="member">Config</ref>.<ref refid="struct_x_dp___config_1a26db9b137de6560d3b2690f0d4acaed0" kindref="member">BaseAddr</ref>,</highlight></codeline>
+<codeline lineno="211"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDP_TX_PHY_VOLTAGE_DIFF_LANE_0);</highlight></codeline>
+<codeline lineno="212"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PeLevelTx<sp/>=<sp/><ref refid="group__dp_1gaddf35ab387f5403190bd36a30f64f8ee" kindref="member">XDp_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_dp_1aa45ebd510e1e83bc9ebdcd1178b33290" kindref="member">Config</ref>.<ref refid="struct_x_dp___config_1a26db9b137de6560d3b2690f0d4acaed0" kindref="member">BaseAddr</ref>,</highlight></codeline>
+<codeline lineno="213"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDP_TX_PHY_POSTCURSOR_LANE_0);</highlight></codeline>
+<codeline lineno="214"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;!!!<sp/>Training<sp/>passed<sp/>at<sp/>LR:0x%02lx<sp/>LC:%d<sp/>!!!\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="215"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;TxInstance.<ref refid="struct_x_dp___tx_1ae63e057dfdae91215b4361fe98e0600d" kindref="member">LinkConfig</ref>.<ref refid="struct_x_dp___tx_link_config_1ad18e2c135b9a5e26d39d7322d5a0d575" kindref="member">LinkRate</ref>,</highlight></codeline>
+<codeline lineno="216"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;TxInstance.<ref refid="struct_x_dp___tx_1ae63e057dfdae91215b4361fe98e0600d" kindref="member">LinkConfig</ref>.<ref refid="struct_x_dp___tx_link_config_1a86b3dae5f9896de8c18734aadbf3d23b" kindref="member">LaneCount</ref>);</highlight></codeline>
+<codeline lineno="217"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;VS:%d<sp/>(TX:%d)<sp/>PE:%d<sp/>(TX:%d)\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="218"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;TxInstance.<ref refid="struct_x_dp___tx_1ae63e057dfdae91215b4361fe98e0600d" kindref="member">LinkConfig</ref>.<ref refid="struct_x_dp___tx_link_config_1aa3d917e88adb041f86fb32ea448c9a97" kindref="member">VsLevel</ref>,<sp/>VsLevelTx,</highlight></codeline>
+<codeline lineno="219"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;TxInstance.<ref refid="struct_x_dp___tx_1ae63e057dfdae91215b4361fe98e0600d" kindref="member">LinkConfig</ref>.<ref refid="struct_x_dp___tx_link_config_1ad339d9961828fbb419a0f39c47e16351" kindref="member">PeLevel</ref>,<sp/>PeLevelTx);</highlight></codeline>
+<codeline lineno="220"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;******************************************\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="221"><highlight class="normal"></highlight></codeline>
+<codeline lineno="222"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="223"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="224"><highlight class="normal"></highlight></codeline>
+<codeline lineno="225"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="246"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>Dptx_StartVideoStream(<ref refid="struct_x_dp" kindref="compound">XDp</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="247"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="248"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Status;</highlight></codeline>
+<codeline lineno="249"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Edid[<ref refid="group__dp_1ga4a6b990a56de167b138735574691d1da" kindref="member">XDP_EDID_BLOCK_SIZE</ref>];</highlight></codeline>
+<codeline lineno="250"><highlight class="normal"></highlight></codeline>
+<codeline lineno="251"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Set<sp/>the<sp/>bits<sp/>per<sp/>color.<sp/>If<sp/>not<sp/>set,<sp/>the<sp/>default<sp/>is<sp/>6.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="252"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDp_TxCfgMsaSetBpc(InstancePtr,<sp/><ref refid="group__dp_1gae7857f0219e87862a523ec78336d4faa" kindref="member">XDP_TX_STREAM_ID1</ref>,<sp/>8);</highlight></codeline>
+<codeline lineno="253"><highlight class="normal"></highlight></codeline>
+<codeline lineno="254"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Set<sp/>synchronous<sp/>clock<sp/>mode.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="255"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDp_TxCfgMsaEnSynchClkMode(InstancePtr,<sp/><ref refid="group__dp_1gae7857f0219e87862a523ec78336d4faa" kindref="member">XDP_TX_STREAM_ID1</ref>,<sp/>1);</highlight></codeline>
+<codeline lineno="256"><highlight class="normal"></highlight></codeline>
+<codeline lineno="257"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDp_TxClearMsaValues(InstancePtr,<sp/><ref refid="group__dp_1gae7857f0219e87862a523ec78336d4faa" kindref="member">XDP_TX_STREAM_ID1</ref>);</highlight></codeline>
+<codeline lineno="258"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDp_TxClearMsaValues(InstancePtr,<sp/><ref refid="group__dp_1ga74a3a01459e94ca3eecee72e9aad042b" kindref="member">XDP_TX_STREAM_ID2</ref>);</highlight></codeline>
+<codeline lineno="259"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDp_TxClearMsaValues(InstancePtr,<sp/><ref refid="group__dp_1ga5bec8a7f84bc6239f59af4fa3221ab31" kindref="member">XDP_TX_STREAM_ID3</ref>);</highlight></codeline>
+<codeline lineno="260"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDp_TxClearMsaValues(InstancePtr,<sp/><ref refid="group__dp_1ga0688827d05a434af1576aae67f158ee9" kindref="member">XDP_TX_STREAM_ID4</ref>);</highlight></codeline>
+<codeline lineno="261"><highlight class="normal"></highlight></codeline>
+<codeline lineno="262"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Choose<sp/>a<sp/>method<sp/>for<sp/>selecting<sp/>the<sp/>video<sp/>mode.<sp/>There<sp/>are<sp/>3<sp/>ways<sp/>to<sp/>do<sp/>this:</highlight></codeline>
+<codeline lineno="263"><highlight class="comment"><sp/>*<sp/>1)<sp/>Use<sp/>the<sp/>preferred<sp/>timing<sp/>from<sp/>the<sp/>monitor&apos;s<sp/>EDID:</highlight></codeline>
+<codeline lineno="264"><highlight class="comment"><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Edid[XDP_EDID_BLOCK_SIZE];</highlight></codeline>
+<codeline lineno="265"><highlight class="comment"><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/>XDp_TxGetEdid(InstancePtr,<sp/>Edid);</highlight></codeline>
+<codeline lineno="266"><highlight class="comment"><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/>XDp_TxCfgMsaUseEdidPreferredTiming(InstancePtr,<sp/>XDP_TX_STREAM_ID1,</highlight></codeline>
+<codeline lineno="267"><highlight class="comment"><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Edid);</highlight></codeline>
+<codeline lineno="268"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="269"><highlight class="comment"><sp/>*<sp/>2)<sp/>Use<sp/>a<sp/>standard<sp/>video<sp/>timing<sp/>mode<sp/>(see<sp/>mode_table.h):</highlight></codeline>
+<codeline lineno="270"><highlight class="comment"><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/>XDp_TxCfgMsaUseStandardVideoMode(InstancePtr,<sp/>XDP_TX_STREAM_ID1,</highlight></codeline>
+<codeline lineno="271"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XVIDC_VM_640x480_60_P);</highlight></codeline>
+<codeline lineno="272"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="273"><highlight class="comment"><sp/>*<sp/>3)<sp/>Use<sp/>a<sp/>custom<sp/>configuration<sp/>for<sp/>the<sp/>main<sp/>stream<sp/>attributes<sp/>(MSA):</highlight></codeline>
+<codeline lineno="274"><highlight class="comment"><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/>XDp_TxMainStreamAttributes<sp/>MsaConfigCustom;</highlight></codeline>
+<codeline lineno="275"><highlight class="comment"><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/>MsaConfigCustom.Dmt.HResolution<sp/>=<sp/>1280;</highlight></codeline>
+<codeline lineno="276"><highlight class="comment"><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/>MsaConfigCustom.Dmt.VResolution<sp/>=<sp/>1024;</highlight></codeline>
+<codeline lineno="277"><highlight class="comment"><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/>MsaConfigCustom.Dmt.PixelClkKhz<sp/>=<sp/>108000;</highlight></codeline>
+<codeline lineno="278"><highlight class="comment"><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/>MsaConfigCustom.Dmt.HSyncPolarity<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="279"><highlight class="comment"><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/>MsaConfigCustom.Dmt.VSyncPolarity<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="280"><highlight class="comment"><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/>MsaConfigCustom.Dmt.HFrontPorch<sp/>=<sp/>48;</highlight></codeline>
+<codeline lineno="281"><highlight class="comment"><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/>MsaConfigCustom.Dmt.HSyncPulseWidth<sp/>=<sp/>112;</highlight></codeline>
+<codeline lineno="282"><highlight class="comment"><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/>MsaConfigCustom.Dmt.HBackPorch<sp/>=<sp/>248;</highlight></codeline>
+<codeline lineno="283"><highlight class="comment"><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/>MsaConfigCustom.Dmt.VFrontPorch<sp/>=<sp/>1;</highlight></codeline>
+<codeline lineno="284"><highlight class="comment"><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/>MsaConfigCustom.Dmt.VSyncPulseWidth<sp/>=<sp/>3;</highlight></codeline>
+<codeline lineno="285"><highlight class="comment"><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/>MsaConfigCustom.Dmt.VBackPorch<sp/>=<sp/>38;</highlight></codeline>
+<codeline lineno="286"><highlight class="comment"><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/>XDp_TxCfgMsaUseCustom(InstancePtr,<sp/>XDP_TX_STREAM_ID1,</highlight></codeline>
+<codeline lineno="287"><highlight class="comment"><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;MsaConfigCustom,<sp/>1);</highlight></codeline>
+<codeline lineno="288"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="289"><highlight class="comment"><sp/>*<sp/>To<sp/>override<sp/>the<sp/>user<sp/>pixel<sp/>width:</highlight></codeline>
+<codeline lineno="290"><highlight class="comment"><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;TxInstance.MsaConfig[_STREAM#_].OverrideUserPixelWidth<sp/>=<sp/>1;</highlight></codeline>
+<codeline lineno="291"><highlight class="comment"><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;TxInstance.MsaConfig[_STREAM#_].UserPixelWidth<sp/>=</highlight></codeline>
+<codeline lineno="292"><highlight class="comment"><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>_DESIRED_VALUE_;</highlight></codeline>
+<codeline lineno="293"><highlight class="comment"><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/>Then,<sp/>use<sp/>one<sp/>of<sp/>the<sp/>methods<sp/>above<sp/>to<sp/>calculate<sp/>the<sp/>rest<sp/>of<sp/>the<sp/>MSA.</highlight></codeline>
+<codeline lineno="294"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="295"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XDp_TxGetEdid(InstancePtr,<sp/>Edid);</highlight></codeline>
+<codeline lineno="296"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>==<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="297"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDp_TxCfgMsaUseEdidPreferredTiming(InstancePtr,</highlight></codeline>
+<codeline lineno="298"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dp_1gae7857f0219e87862a523ec78336d4faa" kindref="member">XDP_TX_STREAM_ID1</ref>,<sp/>Edid);</highlight></codeline>
+<codeline lineno="299"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="300"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="301"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDp_TxCfgMsaUseStandardVideoMode(InstancePtr,<sp/><ref refid="group__dp_1gae7857f0219e87862a523ec78336d4faa" kindref="member">XDP_TX_STREAM_ID1</ref>,</highlight></codeline>
+<codeline lineno="302"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XVIDC_VM_640x480_60_P);</highlight></codeline>
+<codeline lineno="303"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="304"><highlight class="normal"></highlight></codeline>
+<codeline lineno="305"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Disable<sp/>MST<sp/>for<sp/>this<sp/>example.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="306"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDp_TxMstDisable(InstancePtr);</highlight></codeline>
+<codeline lineno="307"><highlight class="normal"></highlight></codeline>
+<codeline lineno="308"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Disable<sp/>main<sp/>stream<sp/>to<sp/>force<sp/>sending<sp/>of<sp/>IDLE<sp/>patterns.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="309"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDp_TxDisableMainLink(InstancePtr);</highlight></codeline>
+<codeline lineno="310"><highlight class="normal"></highlight></codeline>
+<codeline lineno="311"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Reset<sp/>the<sp/>transmitter.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="312"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dp_1ga37923d04a0f4bff0d0e3a392d226b83e" kindref="member">XDp_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_dp_1aa45ebd510e1e83bc9ebdcd1178b33290" kindref="member">Config</ref>.<ref refid="struct_x_dp___config_1a26db9b137de6560d3b2690f0d4acaed0" kindref="member">BaseAddr</ref>,<sp/>XDP_TX_SOFT_RESET,</highlight></codeline>
+<codeline lineno="313"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDP_TX_SOFT_RESET_VIDEO_STREAM_ALL_MASK);</highlight></codeline>
+<codeline lineno="314"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dp_1ga37923d04a0f4bff0d0e3a392d226b83e" kindref="member">XDp_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_dp_1aa45ebd510e1e83bc9ebdcd1178b33290" kindref="member">Config</ref>.<ref refid="struct_x_dp___config_1a26db9b137de6560d3b2690f0d4acaed0" kindref="member">BaseAddr</ref>,<sp/>XDP_TX_SOFT_RESET,<sp/>0x0);</highlight></codeline>
+<codeline lineno="315"><highlight class="normal"></highlight></codeline>
+<codeline lineno="316"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Set<sp/>the<sp/>DisplayPort<sp/>TX<sp/>video<sp/>mode.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="317"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDp_TxSetVideoMode(InstancePtr,<sp/><ref refid="group__dp_1gae7857f0219e87862a523ec78336d4faa" kindref="member">XDP_TX_STREAM_ID1</ref>);</highlight></codeline>
+<codeline lineno="318"><highlight class="normal"></highlight></codeline>
+<codeline lineno="319"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Configure<sp/>video<sp/>stream<sp/>source<sp/>or<sp/>generator<sp/>here.<sp/>These<sp/>function<sp/>need</highlight></codeline>
+<codeline lineno="320"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>to<sp/>be<sp/>implemented<sp/>in<sp/>order<sp/>for<sp/>video<sp/>to<sp/>be<sp/>displayed<sp/>and<sp/>is<sp/>hardware</highlight></codeline>
+<codeline lineno="321"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>system<sp/>specific.<sp/>It<sp/>is<sp/>up<sp/>to<sp/>the<sp/>user<sp/>to<sp/>implement<sp/>these</highlight></codeline>
+<codeline lineno="322"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>functions.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="323"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Dptx_StreamSrcSetup(InstancePtr);</highlight></codeline>
+<codeline lineno="324"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Dptx_StreamSrcConfigure(InstancePtr);</highlight></codeline>
+<codeline lineno="325"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Dptx_StreamSrcSync(InstancePtr);</highlight></codeline>
+<codeline lineno="326"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="327"><highlight class="normal"></highlight></codeline>
+<codeline lineno="328"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDp_TxEnableMainLink(InstancePtr);</highlight></codeline>
+<codeline lineno="329"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14/examples/xdp_tx_example_common.c"/>
+  </compounddef>
+</doxygen>

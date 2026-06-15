@@ -1,0 +1,794 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xllfifo_8c" kind="file">
+    <compoundname>xllfifo.c</compoundname>
+    <includes local="yes">xstatus.h</includes>
+    <includes refid="xllfifo_8h" local="yes">xllfifo.h</includes>
+    <includes local="yes">xil_assert.h</includes>
+    <incdepgraph>
+      <node id="15">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="6">
+        <label>xllfifo.c</label>
+        <link refid="xllfifo.c"/>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>xllfifo.h</label>
+        <link refid="xllfifo_8h"/>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+      </node>
+      <node id="14">
+        <label>xil_io.h</label>
+      </node>
+      <node id="10">
+        <label>xenv.h</label>
+      </node>
+      <node id="11">
+        <label>xdebug.h</label>
+      </node>
+      <node id="9">
+        <label>xstreamer.h</label>
+        <link refid="xstreamer_8h"/>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>xstatus.h</label>
+      </node>
+      <node id="12">
+        <label>xil_types.h</label>
+      </node>
+      <node id="13">
+        <label>xllfifo_hw.h</label>
+        <link refid="xllfifo__hw_8h"/>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__llfifo_1ga9ab678f3af0afefab24bc4f670a50bf6" prot="public" static="no">
+        <name>FIFO_WIDTH_BYTES</name>
+        <initializer>4</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo.c" line="49" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo.c" bodystart="49" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__llfifo_1gae2da9fa947a6e50edd41375ddc4c9964" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XLlFifo_iRxOccupancy</definition>
+        <argsstring>(XLlFifo *InstancePtr)</argsstring>
+        <name>XLlFifo_iRxOccupancy</name>
+        <param>
+          <type><ref refid="struct_x_ll_fifo" kindref="compound">XLlFifo</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>XLlFifo_iRxOccupancy returns the number of 32-bit words available (occupancy) to be read from the receive channel of the FIFO, specified by <emphasis>InstancePtr</emphasis>. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>references the FIFO on which to operate.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XLlFifo_iRxOccupancy returns the occupancy count in 32-bit words for the specified FIFO. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo.c" line="99" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo.c" bodystart="99" bodyend="105"/>
+        <references refid="struct_x_ll_fifo_1a458030a162537427b617cbb204a701fd" compoundref="xllfifo_8h" startline="193">XLlFifo::BaseAddress</references>
+        <references refid="group__llfifo_1ga9c4bbf51bc4b0410b61ef3933776a63c" compoundref="xllfifo__hw_8h" startline="68">XLLF_RDFO_OFFSET</references>
+        <references refid="group__llfifo_1ga7526eab563fa4e0fe8b60474e96afe55" compoundref="xllfifo__hw_8h" startline="182">XLlFifo_ReadReg</references>
+        <referencedby refid="group__llfifo_1ga874c22807476dc0ffec670c38f452443" compoundref="xllfifo_8c" startline="314" endline="368">XLlFifo_CfgInitialize</referencedby>
+        <referencedby refid="group__llfifo_1ga3debde0a34325b3f314d15fe6f43a7ee" compoundref="xllfifo_8c" startline="441" endline="479">XLlFifo_Initialize</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__llfifo_1gaad292ddf2a2c9dde261b93da802c8080" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XLlFifo_iRxGetLen</definition>
+        <argsstring>(XLlFifo *InstancePtr)</argsstring>
+        <name>XLlFifo_iRxGetLen</name>
+        <param>
+          <type><ref refid="struct_x_ll_fifo" kindref="compound">XLlFifo</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>XLlFifo_iRxGetLen notifies the hardware that the program is ready to receive the next frame from the receive channel of the FIFO specified by <emphasis>InstancePtr</emphasis>. </para>        </briefdescription>
+        <detaileddescription>
+<para>Note that the program must first call XLlFifo_iRxGetLen before pulling data out of the receive channel of the FIFO with XLlFifo_Read.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>references the FIFO on which to operate.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XLlFifo_iRxGetLen returns the number of bytes available in the next frame. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo.c" line="122" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo.c" bodystart="122" bodyend="128"/>
+        <references refid="struct_x_ll_fifo_1a458030a162537427b617cbb204a701fd" compoundref="xllfifo_8h" startline="193">XLlFifo::BaseAddress</references>
+        <references refid="group__llfifo_1ga267285e6015808291ef6671038cba888" compoundref="xllfifo__hw_8h" startline="71">XLLF_RLF_OFFSET</references>
+        <references refid="group__llfifo_1ga7526eab563fa4e0fe8b60474e96afe55" compoundref="xllfifo__hw_8h" startline="182">XLlFifo_ReadReg</references>
+        <referencedby refid="group__llfifo_1ga874c22807476dc0ffec670c38f452443" compoundref="xllfifo_8c" startline="314" endline="368">XLlFifo_CfgInitialize</referencedby>
+        <referencedby refid="group__llfifo_1ga3debde0a34325b3f314d15fe6f43a7ee" compoundref="xllfifo_8c" startline="441" endline="479">XLlFifo_Initialize</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__llfifo_1ga18bc620d388cbca83d63cc1c6ef33225" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XLlFifo_iRead_Aligned</definition>
+        <argsstring>(XLlFifo *InstancePtr, void *BufPtr, unsigned WordCount)</argsstring>
+        <name>XLlFifo_iRead_Aligned</name>
+        <param>
+          <type><ref refid="struct_x_ll_fifo" kindref="compound">XLlFifo</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>BufPtr</declname>
+        </param>
+        <param>
+          <type>unsigned</type>
+          <declname>WordCount</declname>
+        </param>
+        <briefdescription>
+<para>XLlFifo_iRead_Aligned reads, <emphasis>WordCount</emphasis>, words from the FIFO referenced by <emphasis>InstancePtr</emphasis> to the block of memory, referenced by <emphasis>BufPtr</emphasis>. </para>        </briefdescription>
+        <detaileddescription>
+<para>XLlFifo_iRead_Aligned assumes that <emphasis>BufPtr</emphasis> is already aligned according to the following hardware limitations: ppc - aligned on 32 bit boundaries to avoid performance penalties from unaligned exception handling. microblaze - aligned on 32 bit boundaries as microblaze does not handle unaligned transfers.</para><para>Care must be taken to ensure that the number of words read with one or more calls to <ref refid="group__llfifo_1gaadc3685592b060c0d864850e86be5c03" kindref="member">XLlFifo_Read()</ref> does not exceed the number of bytes (rounded up to the nearest whole 32 bit word) available given from the last call to <ref refid="group__llfifo_1ga53af32ae6901462cc8d6fb9adc04655e" kindref="member">XLlFifo_RxGetLen()</ref>.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>references the FIFO on which to operate.</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>BufPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>specifies the memory address to place the data read.</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>WordCount</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>specifies the number of 32 bit words to read.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XLlFifo_iRead_Aligned always returns XST_SUCCESS. Error handling is otherwise handled through hardware exceptions and interrupts. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo.c" line="158" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo.c" bodystart="158" bodyend="183"/>
+        <references refid="group__llfifo_1gaed3ae31c8c24f46139fbd709027329ec" compoundref="xllfifo_8c" startline="389" endline="397">XLlFifo_RxGetWord</references>
+        <referencedby refid="group__llfifo_1ga874c22807476dc0ffec670c38f452443" compoundref="xllfifo_8c" startline="314" endline="368">XLlFifo_CfgInitialize</referencedby>
+        <referencedby refid="group__llfifo_1ga3debde0a34325b3f314d15fe6f43a7ee" compoundref="xllfifo_8c" startline="441" endline="479">XLlFifo_Initialize</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__llfifo_1gac02405b23499d780e7bc1dfe371281a6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XLlFifo_iTxVacancy</definition>
+        <argsstring>(XLlFifo *InstancePtr)</argsstring>
+        <name>XLlFifo_iTxVacancy</name>
+        <param>
+          <type><ref refid="struct_x_ll_fifo" kindref="compound">XLlFifo</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>XLlFifo_iTxVacancy returns the number of unused 32 bit words available (vacancy) in the send channel of the FIFO, specified by <emphasis>InstancePtr</emphasis>. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>references the FIFO on which to operate.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XLlFifo_iTxVacancy returns the vacancy count in 32-bit words for the specified FIFO. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo.c" line="197" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo.c" bodystart="197" bodyend="203"/>
+        <references refid="struct_x_ll_fifo_1a458030a162537427b617cbb204a701fd" compoundref="xllfifo_8h" startline="193">XLlFifo::BaseAddress</references>
+        <references refid="group__llfifo_1gab77ae26c2fe9b0ac15ebdbf0c6c30960" compoundref="xllfifo__hw_8h" startline="62">XLLF_TDFV_OFFSET</references>
+        <references refid="group__llfifo_1ga7526eab563fa4e0fe8b60474e96afe55" compoundref="xllfifo__hw_8h" startline="182">XLlFifo_ReadReg</references>
+        <referencedby refid="xllfifo__interrupt__example_8c_1a38cd37c9e86c6d514d731db7bc520a0b" compoundref="xllfifo__interrupt__example_8c" startline="351" endline="378">TxSend</referencedby>
+        <referencedby refid="group__llfifo_1ga874c22807476dc0ffec670c38f452443" compoundref="xllfifo_8c" startline="314" endline="368">XLlFifo_CfgInitialize</referencedby>
+        <referencedby refid="group__llfifo_1ga3debde0a34325b3f314d15fe6f43a7ee" compoundref="xllfifo_8c" startline="441" endline="479">XLlFifo_Initialize</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__llfifo_1gaa49ecc1529434fd932d8a65d63a1a04d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XLlFifo_iTxSetLen</definition>
+        <argsstring>(XLlFifo *InstancePtr, u32 Bytes)</argsstring>
+        <name>XLlFifo_iTxSetLen</name>
+        <param>
+          <type><ref refid="struct_x_ll_fifo" kindref="compound">XLlFifo</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Bytes</declname>
+        </param>
+        <briefdescription>
+<para>XLlFifo_iTxSetLen begins a hardware transfer of data out of the transmit channel of the FIFO, specified by <emphasis>InstancePtr</emphasis>. </para>        </briefdescription>
+        <detaileddescription>
+<para><emphasis>Bytes</emphasis> specifies the number of bytes in the frame to transmit.</para><para>Note that <emphasis>Bytes</emphasis> (rounded up to the nearest whole 32 bit word) must be same number of words just written using one or more calls to <ref refid="group__llfifo_1ga9be5556d593980195e43a31ffb37e0fe" kindref="member">XLlFifo_iWrite_Aligned()</ref></para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>references the FIFO on which to operate.</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Bytes</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>specifies the number of bytes to transmit.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>N/A </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo.c" line="223" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo.c" bodystart="223" bodyend="229"/>
+        <references refid="struct_x_ll_fifo_1a458030a162537427b617cbb204a701fd" compoundref="xllfifo_8h" startline="193">XLlFifo::BaseAddress</references>
+        <references refid="group__llfifo_1gac14e6d7e1116f9a43c0adfbe93422fa7" compoundref="xllfifo__hw_8h" startline="65">XLLF_TLF_OFFSET</references>
+        <references refid="group__llfifo_1gacd283ce73981f7f9eab94f8bb421bc78" compoundref="xllfifo__hw_8h" startline="214">XLlFifo_WriteReg</references>
+        <referencedby refid="xllfifo__interrupt__example_8c_1a38cd37c9e86c6d514d731db7bc520a0b" compoundref="xllfifo__interrupt__example_8c" startline="351" endline="378">TxSend</referencedby>
+        <referencedby refid="group__llfifo_1ga874c22807476dc0ffec670c38f452443" compoundref="xllfifo_8c" startline="314" endline="368">XLlFifo_CfgInitialize</referencedby>
+        <referencedby refid="group__llfifo_1ga3debde0a34325b3f314d15fe6f43a7ee" compoundref="xllfifo_8c" startline="441" endline="479">XLlFifo_Initialize</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__llfifo_1ga9be5556d593980195e43a31ffb37e0fe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XLlFifo_iWrite_Aligned</definition>
+        <argsstring>(XLlFifo *InstancePtr, void *BufPtr, unsigned WordCount)</argsstring>
+        <name>XLlFifo_iWrite_Aligned</name>
+        <param>
+          <type><ref refid="struct_x_ll_fifo" kindref="compound">XLlFifo</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>BufPtr</declname>
+        </param>
+        <param>
+          <type>unsigned</type>
+          <declname>WordCount</declname>
+        </param>
+        <briefdescription>
+<para>XLlFifo_iWrite_Aligned writes, <emphasis>WordCount</emphasis>, words to the FIFO referenced by <emphasis>InstancePtr</emphasis> from the block of memory, referenced by <emphasis>BufPtr</emphasis>. </para>        </briefdescription>
+        <detaileddescription>
+<para>XLlFifo_iWrite_Aligned assumes that <emphasis>BufPtr</emphasis> is already aligned according to the following hardware limitations: ppc - aligned on 32 bit boundaries to avoid performance penalties from unaligned exception handling. microblaze - aligned on 32 bit boundaries as microblaze does not handle unaligned transfers.</para><para>Care must be taken to ensure that the number of words written with one or more calls to <ref refid="group__llfifo_1ga9be5556d593980195e43a31ffb37e0fe" kindref="member">XLlFifo_iWrite_Aligned()</ref> matches the number of bytes (rounded up to the nearest whole 32 bit word) given in the next call to <ref refid="group__llfifo_1gaa49ecc1529434fd932d8a65d63a1a04d" kindref="member">XLlFifo_iTxSetLen()</ref>.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>references the FIFO on which to operate.</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>BufPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>specifies the memory address to place the data read.</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>WordCount</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>specifies the number of 32 bit words to read.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XLlFifo_iWrite_Aligned always returns XST_SUCCESS. Error handling is otherwise handled through hardware exceptions and interrupts.</para></simplesect>
+<simplesect kind="note"><para></para></simplesect>
+C Signature: int XLlFifo_iWrite_Aligned(<ref refid="struct_x_ll_fifo" kindref="compound">XLlFifo</ref> *InstancePtr, void *BufPtr, unsigned WordCount); </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo.c" line="264" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo.c" bodystart="264" bodyend="290"/>
+        <references refid="group__llfifo_1ga29654d755dce84b861022179c99ca7a3" compoundref="xllfifo_8c" startline="415" endline="424">XLlFifo_TxPutWord</references>
+        <referencedby refid="group__llfifo_1ga874c22807476dc0ffec670c38f452443" compoundref="xllfifo_8c" startline="314" endline="368">XLlFifo_CfgInitialize</referencedby>
+        <referencedby refid="group__llfifo_1ga3debde0a34325b3f314d15fe6f43a7ee" compoundref="xllfifo_8c" startline="441" endline="479">XLlFifo_Initialize</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__llfifo_1ga874c22807476dc0ffec670c38f452443" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XLlFifo_CfgInitialize</definition>
+        <argsstring>(XLlFifo *InstancePtr, XLlFifo_Config *Config, UINTPTR EffectiveAddress)</argsstring>
+        <name>XLlFifo_CfgInitialize</name>
+        <param>
+          <type><ref refid="struct_x_ll_fifo" kindref="compound">XLlFifo</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>XLlFifo_Config *</type>
+          <declname>Config</declname>
+        </param>
+        <param>
+          <type>UINTPTR</type>
+          <declname>EffectiveAddress</declname>
+        </param>
+        <briefdescription>
+<para>XLlFifo_CfgInitialize initializes an XPS_ll_Fifo device along with the <emphasis>InstancePtr</emphasis> that references it. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the Axi Streaming FIFO instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Config</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>references the structure holding the hardware configuration for the Axi Streaming FIFO core to initialize. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>EffectiveAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the device base address in the virtual memory address space. The caller is responsible for keeping the address mapping from EffectiveAddr to the device physical base address unchanged once this function is invoked. Unexpected errors may occur if the address mapping changes after this function is called. If address translation is not used, use Config-&gt;BaseAddress for this parameters, passing the physical address instead.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>N/A </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo.c" line="314" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo.c" bodystart="314" bodyend="368"/>
+        <references refid="struct_x_ll_fifo_1a593dff237ef5044964cbf10333c04aa3" compoundref="xllfifo_8h" startline="201">XLlFifo::Axi4BaseAddress</references>
+        <references refid="struct_x_ll_fifo_1a458030a162537427b617cbb204a701fd" compoundref="xllfifo_8h" startline="193">XLlFifo::BaseAddress</references>
+        <references refid="struct_x_ll_fifo_1a9e2342496ea8183c012567d7c89851b3" compoundref="xllfifo_8h" startline="205">XLlFifo::Datainterface</references>
+        <references refid="struct_x_ll_fifo_1a69af28eeb0077b9960d636cc57a646ae" compoundref="xllfifo_8h" startline="215">XLlFifo::IntId</references>
+        <references refid="struct_x_ll_fifo_1a1b4a31737951ce9c8cc86d11d03616f4" compoundref="xllfifo_8h" startline="216">XLlFifo::IntrParent</references>
+        <references refid="struct_x_ll_fifo_1abe388bb422699248b26a9d76652474b1" compoundref="xllfifo_8h" startline="197">XLlFifo::IsReady</references>
+        <references refid="struct_x_ll_fifo_1a456fbf87ce23b1334c67b386722b1434" compoundref="xllfifo_8h" startline="208">XLlFifo::RxStreamer</references>
+        <references refid="struct_x_ll_fifo_1a13363fb4d5d45a5725b7427b36c44817" compoundref="xllfifo_8h" startline="211">XLlFifo::TxStreamer</references>
+        <references refid="group__llfifo_1ga5331d2736e9b1b516b4262d8e3f11690" compoundref="xllfifo__hw_8h" startline="72">XLLF_LLR_OFFSET</references>
+        <references refid="group__llfifo_1ga11c4da53ae9b166832186f9a817fba6d" compoundref="xllfifo__hw_8h" startline="121">XLLF_RDFR_RESET_MASK</references>
+        <references refid="group__llfifo_1ga18bc620d388cbca83d63cc1c6ef33225" compoundref="xllfifo_8c" startline="158" endline="183">XLlFifo_iRead_Aligned</references>
+        <references refid="group__llfifo_1gaad292ddf2a2c9dde261b93da802c8080" compoundref="xllfifo_8c" startline="122" endline="128">XLlFifo_iRxGetLen</references>
+        <references refid="group__llfifo_1gae2da9fa947a6e50edd41375ddc4c9964" compoundref="xllfifo_8c" startline="99" endline="105">XLlFifo_iRxOccupancy</references>
+        <references refid="group__llfifo_1gaa49ecc1529434fd932d8a65d63a1a04d" compoundref="xllfifo_8c" startline="223" endline="229">XLlFifo_iTxSetLen</references>
+        <references refid="group__llfifo_1gac02405b23499d780e7bc1dfe371281a6" compoundref="xllfifo_8c" startline="197" endline="203">XLlFifo_iTxVacancy</references>
+        <references refid="group__llfifo_1ga9be5556d593980195e43a31ffb37e0fe" compoundref="xllfifo_8c" startline="264" endline="290">XLlFifo_iWrite_Aligned</references>
+        <references refid="group__llfifo_1gaf3739a78b92f17cead0d831757b3a134" compoundref="xllfifo_8h" startline="416">XLlFifo_RxReset</references>
+        <references refid="group__llfifo_1ga922419fdcd342fa709fb07ec1a9e5577" compoundref="xllfifo_8h" startline="536">XLlFifo_TxReset</references>
+        <references refid="group__llfifo_1gacd283ce73981f7f9eab94f8bb421bc78" compoundref="xllfifo__hw_8h" startline="214">XLlFifo_WriteReg</references>
+        <references refid="group__llfifo_1ga52ec29cc3b758b6a2b857d883ac69d4a" compoundref="xstreamer_8c" startline="170" endline="184">XStrm_RxInitialize</references>
+        <references refid="group__llfifo_1ga8a67c77f811a505b658e06642eb9c964" compoundref="xstreamer_8c" startline="214" endline="228">XStrm_TxInitialize</references>
+        <referencedby refid="xllfifo__interrupt__example_8c_1ad6e0b8d034840adde059c0f167cc04ef" compoundref="xllfifo__interrupt__example_8c" startline="227" endline="331">XLlFifoInterruptExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__llfifo_1gaed3ae31c8c24f46139fbd709027329ec" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XLlFifo_RxGetWord</definition>
+        <argsstring>(XLlFifo *InstancePtr)</argsstring>
+        <name>XLlFifo_RxGetWord</name>
+        <param>
+          <type><ref refid="struct_x_ll_fifo" kindref="compound">XLlFifo</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>XLlFifo_RxGetWord reads one 32 bit word from the FIFO specified by <emphasis>InstancePtr</emphasis>. </para>        </briefdescription>
+        <detaileddescription>
+<para>XLlFifo_RxGetLen or XLlFifo_iRxGetLen must be called before calling XLlFifo_RxGetWord. Otherwise, the hardware will raise an <emphasis>Over Read Exception</emphasis>.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>references the FIFO on which to operate.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XLlFifo_RxGetWord returns the 32 bit word read from the FIFO.</para></simplesect>
+<simplesect kind="note"><para>C-style signature: u32 <ref refid="group__llfifo_1gaed3ae31c8c24f46139fbd709027329ec" kindref="member">XLlFifo_RxGetWord(XLlFifo *InstancePtr)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo.c" line="389" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo.c" bodystart="389" bodyend="397"/>
+        <references refid="struct_x_ll_fifo_1a9e2342496ea8183c012567d7c89851b3" compoundref="xllfifo_8h" startline="205">XLlFifo::Datainterface</references>
+        <references refid="group__llfifo_1ga256c51f97ca57cc89c9b51449f3601e1" compoundref="xllfifo__hw_8h" startline="70">XLLF_AXI4_RDFD_OFFSET</references>
+        <references refid="group__llfifo_1ga93e049a21e43548bf03161b4a4394440" compoundref="xllfifo__hw_8h" startline="69">XLLF_RDFD_OFFSET</references>
+        <references refid="group__llfifo_1ga7526eab563fa4e0fe8b60474e96afe55" compoundref="xllfifo__hw_8h" startline="182">XLlFifo_ReadReg</references>
+        <referencedby refid="group__llfifo_1ga18bc620d388cbca83d63cc1c6ef33225" compoundref="xllfifo_8c" startline="158" endline="183">XLlFifo_iRead_Aligned</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__llfifo_1ga29654d755dce84b861022179c99ca7a3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XLlFifo_TxPutWord</definition>
+        <argsstring>(XLlFifo *InstancePtr, u32 Word)</argsstring>
+        <name>XLlFifo_TxPutWord</name>
+        <param>
+          <type><ref refid="struct_x_ll_fifo" kindref="compound">XLlFifo</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Word</declname>
+        </param>
+        <briefdescription>
+<para>XLlFifo_TxPutWord writes the 32 bit word, <emphasis>Word</emphasis> to the FIFO specified by <emphasis>InstancePtr</emphasis>. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>references the FIFO on which to operate. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Word</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the data word to be written to FIFO.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>N/A</para></simplesect>
+<simplesect kind="note"><para>C-style signature: void <ref refid="group__llfifo_1ga29654d755dce84b861022179c99ca7a3" kindref="member">XLlFifo_TxPutWord(XLlFifo *InstancePtr, u32 Word)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo.c" line="415" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo.c" bodystart="415" bodyend="424"/>
+        <references refid="struct_x_ll_fifo_1a9e2342496ea8183c012567d7c89851b3" compoundref="xllfifo_8h" startline="205">XLlFifo::Datainterface</references>
+        <references refid="group__llfifo_1ga7a72ef43b9e2ca7e28a9e939012f1044" compoundref="xllfifo__hw_8h" startline="64">XLLF_AXI4_TDFD_OFFSET</references>
+        <references refid="group__llfifo_1gaeca8c86badc0df67426442f9bb6a5195" compoundref="xllfifo__hw_8h" startline="63">XLLF_TDFD_OFFSET</references>
+        <references refid="group__llfifo_1gacd283ce73981f7f9eab94f8bb421bc78" compoundref="xllfifo__hw_8h" startline="214">XLlFifo_WriteReg</references>
+        <referencedby refid="xllfifo__interrupt__example_8c_1a38cd37c9e86c6d514d731db7bc520a0b" compoundref="xllfifo__interrupt__example_8c" startline="351" endline="378">TxSend</referencedby>
+        <referencedby refid="group__llfifo_1ga9be5556d593980195e43a31ffb37e0fe" compoundref="xllfifo_8c" startline="264" endline="290">XLlFifo_iWrite_Aligned</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__llfifo_1ga3debde0a34325b3f314d15fe6f43a7ee" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XLlFifo_Initialize</definition>
+        <argsstring>(XLlFifo *InstancePtr, UINTPTR BaseAddress)</argsstring>
+        <name>XLlFifo_Initialize</name>
+        <param>
+          <type><ref refid="struct_x_ll_fifo" kindref="compound">XLlFifo</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <briefdescription>
+<para>XLlFifo_Initialize initializes an XPS_ll_Fifo device along with the <emphasis>InstancePtr</emphasis> that references it. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>references the memory instance to be associated with the FIFO device upon initialization.</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the processor address used to access the base address of the Fifo device.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>N/A </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo.c" line="441" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo.c" bodystart="441" bodyend="479"/>
+        <references refid="struct_x_ll_fifo_1a593dff237ef5044964cbf10333c04aa3" compoundref="xllfifo_8h" startline="201">XLlFifo::Axi4BaseAddress</references>
+        <references refid="struct_x_ll_fifo_1a458030a162537427b617cbb204a701fd" compoundref="xllfifo_8h" startline="193">XLlFifo::BaseAddress</references>
+        <references refid="struct_x_ll_fifo_1abe388bb422699248b26a9d76652474b1" compoundref="xllfifo_8h" startline="197">XLlFifo::IsReady</references>
+        <references refid="struct_x_ll_fifo_1a456fbf87ce23b1334c67b386722b1434" compoundref="xllfifo_8h" startline="208">XLlFifo::RxStreamer</references>
+        <references refid="struct_x_ll_fifo_1a13363fb4d5d45a5725b7427b36c44817" compoundref="xllfifo_8h" startline="211">XLlFifo::TxStreamer</references>
+        <references refid="group__llfifo_1ga5331d2736e9b1b516b4262d8e3f11690" compoundref="xllfifo__hw_8h" startline="72">XLLF_LLR_OFFSET</references>
+        <references refid="group__llfifo_1ga11c4da53ae9b166832186f9a817fba6d" compoundref="xllfifo__hw_8h" startline="121">XLLF_RDFR_RESET_MASK</references>
+        <references refid="group__llfifo_1ga18bc620d388cbca83d63cc1c6ef33225" compoundref="xllfifo_8c" startline="158" endline="183">XLlFifo_iRead_Aligned</references>
+        <references refid="group__llfifo_1gaad292ddf2a2c9dde261b93da802c8080" compoundref="xllfifo_8c" startline="122" endline="128">XLlFifo_iRxGetLen</references>
+        <references refid="group__llfifo_1gae2da9fa947a6e50edd41375ddc4c9964" compoundref="xllfifo_8c" startline="99" endline="105">XLlFifo_iRxOccupancy</references>
+        <references refid="group__llfifo_1gaa49ecc1529434fd932d8a65d63a1a04d" compoundref="xllfifo_8c" startline="223" endline="229">XLlFifo_iTxSetLen</references>
+        <references refid="group__llfifo_1gac02405b23499d780e7bc1dfe371281a6" compoundref="xllfifo_8c" startline="197" endline="203">XLlFifo_iTxVacancy</references>
+        <references refid="group__llfifo_1ga9be5556d593980195e43a31ffb37e0fe" compoundref="xllfifo_8c" startline="264" endline="290">XLlFifo_iWrite_Aligned</references>
+        <references refid="group__llfifo_1gaf3739a78b92f17cead0d831757b3a134" compoundref="xllfifo_8h" startline="416">XLlFifo_RxReset</references>
+        <references refid="group__llfifo_1ga922419fdcd342fa709fb07ec1a9e5577" compoundref="xllfifo_8h" startline="536">XLlFifo_TxReset</references>
+        <references refid="group__llfifo_1gacd283ce73981f7f9eab94f8bb421bc78" compoundref="xllfifo__hw_8h" startline="214">XLlFifo_WriteReg</references>
+        <references refid="group__llfifo_1ga52ec29cc3b758b6a2b857d883ac69d4a" compoundref="xstreamer_8c" startline="170" endline="184">XStrm_RxInitialize</references>
+        <references refid="group__llfifo_1ga8a67c77f811a505b658e06642eb9c964" compoundref="xstreamer_8c" startline="214" endline="228">XStrm_TxInitialize</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2005<sp/>-<sp/>2020<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2023<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="42"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xstatus.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xllfifo_8h" kindref="compound">xllfifo.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_assert.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>FIFO_WIDTH_BYTES<sp/>4</highlight></codeline>
+<codeline lineno="50"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="52"><highlight class="comment"><sp/>*<sp/>Implementation<sp/>Notes:</highlight></codeline>
+<codeline lineno="53"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="54"><highlight class="comment"><sp/>*<sp/>This<sp/>Fifo<sp/>driver<sp/>makes<sp/>use<sp/>of<sp/>a<sp/>byte<sp/>streamer<sp/>driver<sp/>(xstreamer.h).<sp/>The<sp/>code</highlight></codeline>
+<codeline lineno="55"><highlight class="comment"><sp/>*<sp/>is<sp/>structured<sp/>like<sp/>so:</highlight></codeline>
+<codeline lineno="56"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="57"><highlight class="comment"><sp/>*<sp/>+--------------------+</highlight></codeline>
+<codeline lineno="58"><highlight class="comment"><sp/>*<sp/>|<sp/><sp/><sp/><sp/><sp/>llfifo<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|</highlight></codeline>
+<codeline lineno="59"><highlight class="comment"><sp/>*<sp/>|<sp/><sp/><sp/>+----------------+</highlight></codeline>
+<codeline lineno="60"><highlight class="comment"><sp/>*<sp/>|<sp/><sp/><sp/>|<sp/>+--------------+</highlight></codeline>
+<codeline lineno="61"><highlight class="comment"><sp/>*<sp/>|<sp/><sp/><sp/>|<sp/>|<sp/><sp/>xstreamer<sp/><sp/><sp/>|</highlight></codeline>
+<codeline lineno="62"><highlight class="comment"><sp/>*<sp/>|<sp/><sp/><sp/>|<sp/>+--------------+</highlight></codeline>
+<codeline lineno="63"><highlight class="comment"><sp/>*<sp/>|<sp/><sp/><sp/>+----------------+</highlight></codeline>
+<codeline lineno="64"><highlight class="comment"><sp/>*<sp/>|<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|</highlight></codeline>
+<codeline lineno="65"><highlight class="comment"><sp/>*<sp/>+--------------------+</highlight></codeline>
+<codeline lineno="66"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="67"><highlight class="comment"><sp/>*<sp/>Initialization</highlight></codeline>
+<codeline lineno="68"><highlight class="comment"><sp/>*<sp/>At<sp/>initialization<sp/>time<sp/>this<sp/>driver<sp/>(llfifo)<sp/>sets<sp/>up<sp/>the<sp/>streamer<sp/>objects<sp/>to</highlight></codeline>
+<codeline lineno="69"><highlight class="comment"><sp/>*<sp/>use<sp/>routines<sp/>in<sp/>this<sp/>driver<sp/>(llfifo)<sp/>to<sp/>perform<sp/>the<sp/>actual<sp/>I/O<sp/>to<sp/>the<sp/>H/W</highlight></codeline>
+<codeline lineno="70"><highlight class="comment"><sp/>*<sp/>FIFO<sp/>core.</highlight></codeline>
+<codeline lineno="71"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="72"><highlight class="comment"><sp/>*<sp/>Operation</highlight></codeline>
+<codeline lineno="73"><highlight class="comment"><sp/>*<sp/>Once<sp/>the<sp/>streamer<sp/>objects<sp/>are<sp/>set<sp/>up,<sp/>the<sp/>API<sp/>routines<sp/>in<sp/>this<sp/>driver,<sp/>just</highlight></codeline>
+<codeline lineno="74"><highlight class="comment"><sp/>*<sp/>call<sp/>through<sp/>to<sp/>the<sp/>streamer<sp/>driver<sp/>to<sp/>perform<sp/>the<sp/>read/write<sp/>operations.</highlight></codeline>
+<codeline lineno="75"><highlight class="comment"><sp/>*<sp/>The<sp/>streamer<sp/>driver<sp/>will<sp/>eventually<sp/>make<sp/>calls<sp/>back<sp/>into<sp/>the<sp/>routines<sp/>(which</highlight></codeline>
+<codeline lineno="76"><highlight class="comment"><sp/>*<sp/>reside<sp/>in<sp/>this<sp/>driver)<sp/>given<sp/>at<sp/>initialization<sp/>to<sp/>perform<sp/>the<sp/>actual<sp/>I/O.</highlight></codeline>
+<codeline lineno="77"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="78"><highlight class="comment"><sp/>*<sp/>Interrupts</highlight></codeline>
+<codeline lineno="79"><highlight class="comment"><sp/>*<sp/>Interrupts<sp/>are<sp/>handled<sp/>in<sp/>the<sp/>OS/Application<sp/>layer<sp/>above<sp/>this<sp/>driver.</highlight></codeline>
+<codeline lineno="80"><highlight class="comment"><sp/>******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="81"><highlight class="normal"></highlight></codeline>
+<codeline lineno="82"><highlight class="normal">xdbg_stmnt(u32<sp/>_xllfifo_rr_value;)</highlight></codeline>
+<codeline lineno="83"><highlight class="normal">xdbg_stmnt(u32<sp/>_xllfifo_ipie_value;)</highlight></codeline>
+<codeline lineno="84"><highlight class="normal">xdbg_stmnt(u32<sp/>_xllfifo_ipis_value;)</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"></highlight></codeline>
+<codeline lineno="86"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="99" refid="group__llfifo_1gae2da9fa947a6e50edd41375ddc4c9964" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__llfifo_1gae2da9fa947a6e50edd41375ddc4c9964" kindref="member">XLlFifo_iRxOccupancy</ref>(<ref refid="struct_x_ll_fifo" kindref="compound">XLlFifo</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="100"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr);</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"></highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="group__llfifo_1ga7526eab563fa4e0fe8b60474e96afe55" kindref="member">XLlFifo_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_ll_fifo_1a458030a162537427b617cbb204a701fd" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__llfifo_1ga9c4bbf51bc4b0410b61ef3933776a63c" kindref="member">XLLF_RDFO_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="105"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"></highlight></codeline>
+<codeline lineno="107"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="122" refid="group__llfifo_1gaad292ddf2a2c9dde261b93da802c8080" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__llfifo_1gaad292ddf2a2c9dde261b93da802c8080" kindref="member">XLlFifo_iRxGetLen</ref>(<ref refid="struct_x_ll_fifo" kindref="compound">XLlFifo</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="123"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr);</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"></highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="group__llfifo_1ga7526eab563fa4e0fe8b60474e96afe55" kindref="member">XLlFifo_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_ll_fifo_1a458030a162537427b617cbb204a701fd" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__llfifo_1ga267285e6015808291ef6671038cba888" kindref="member">XLLF_RLF_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="128"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"></highlight></codeline>
+<codeline lineno="130"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="158" refid="group__llfifo_1ga18bc620d388cbca83d63cc1c6ef33225" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__llfifo_1ga18bc620d388cbca83d63cc1c6ef33225" kindref="member">XLlFifo_iRead_Aligned</ref>(<ref refid="struct_x_ll_fifo" kindref="compound">XLlFifo</ref><sp/>*InstancePtr,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*BufPtr,</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/>WordCount)</highlight></codeline>
+<codeline lineno="160"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/>WordsRemaining<sp/>=<sp/>WordCount;</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>*BufPtrIdx<sp/>=<sp/>(u32<sp/>*)BufPtr;</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"></highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xdbg_printf(XDBG_DEBUG_FIFO_RX,<sp/></highlight><highlight class="stringliteral">&quot;XLlFifo_iRead_Aligned:<sp/>start\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr);</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(BufPtr);</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>assert<sp/>buffer<sp/>is<sp/>32<sp/>bit<sp/>aligned<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(((UINTPTR)BufPtr<sp/>&amp;<sp/>0x3)<sp/>==<sp/>0x0);</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xdbg_printf(XDBG_DEBUG_FIFO_RX,<sp/></highlight><highlight class="stringliteral">&quot;XLlFifo_iRead_Aligned:<sp/>after<sp/>asserts\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"></highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(WordsRemaining)<sp/>{</highlight></codeline>
+<codeline lineno="172"><highlight class="normal"></highlight><highlight class="comment">/*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xdbg_printf(XDBG_DEBUG_FIFO_RX,</highlight></codeline>
+<codeline lineno="173"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;XLlFifo_iRead_Aligned:<sp/>WordsRemaining:<sp/>%d\n&quot;,</highlight></codeline>
+<codeline lineno="174"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>WordsRemaining);</highlight></codeline>
+<codeline lineno="175"><highlight class="comment">*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*BufPtrIdx<sp/>=<sp/><ref refid="group__llfifo_1gaed3ae31c8c24f46139fbd709027329ec" kindref="member">XLlFifo_RxGetWord</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BufPtrIdx++;</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>WordsRemaining--;</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xdbg_printf(XDBG_DEBUG_FIFO_RX,</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;XLlFifo_iRead_Aligned:<sp/>returning<sp/>SUCCESS\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="182"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="183"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="184"><highlight class="normal"></highlight></codeline>
+<codeline lineno="185"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="197" refid="group__llfifo_1gac02405b23499d780e7bc1dfe371281a6" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__llfifo_1gac02405b23499d780e7bc1dfe371281a6" kindref="member">XLlFifo_iTxVacancy</ref>(<ref refid="struct_x_ll_fifo" kindref="compound">XLlFifo</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="198"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr);</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"></highlight></codeline>
+<codeline lineno="201"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="group__llfifo_1ga7526eab563fa4e0fe8b60474e96afe55" kindref="member">XLlFifo_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_ll_fifo_1a458030a162537427b617cbb204a701fd" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="202"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__llfifo_1gab77ae26c2fe9b0ac15ebdbf0c6c30960" kindref="member">XLLF_TDFV_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="203"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"></highlight></codeline>
+<codeline lineno="205"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="223" refid="group__llfifo_1gaa49ecc1529434fd932d8a65d63a1a04d" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__llfifo_1gaa49ecc1529434fd932d8a65d63a1a04d" kindref="member">XLlFifo_iTxSetLen</ref>(<ref refid="struct_x_ll_fifo" kindref="compound">XLlFifo</ref><sp/>*InstancePtr,<sp/>u32<sp/>Bytes)</highlight></codeline>
+<codeline lineno="224"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="225"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr);</highlight></codeline>
+<codeline lineno="226"><highlight class="normal"></highlight></codeline>
+<codeline lineno="227"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__llfifo_1gacd283ce73981f7f9eab94f8bb421bc78" kindref="member">XLlFifo_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_ll_fifo_1a458030a162537427b617cbb204a701fd" kindref="member">BaseAddress</ref>,<sp/><ref refid="group__llfifo_1gac14e6d7e1116f9a43c0adfbe93422fa7" kindref="member">XLLF_TLF_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="228"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Bytes);</highlight></codeline>
+<codeline lineno="229"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="230"><highlight class="normal"></highlight></codeline>
+<codeline lineno="231"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="264" refid="group__llfifo_1ga9be5556d593980195e43a31ffb37e0fe" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__llfifo_1ga9be5556d593980195e43a31ffb37e0fe" kindref="member">XLlFifo_iWrite_Aligned</ref>(<ref refid="struct_x_ll_fifo" kindref="compound">XLlFifo</ref><sp/>*InstancePtr,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*BufPtr,</highlight></codeline>
+<codeline lineno="265"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/>WordCount)</highlight></codeline>
+<codeline lineno="266"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="267"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/>WordsRemaining<sp/>=<sp/>WordCount;</highlight></codeline>
+<codeline lineno="268"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>*BufPtrIdx<sp/>=<sp/>(u32<sp/>*)BufPtr;</highlight></codeline>
+<codeline lineno="269"><highlight class="normal"></highlight></codeline>
+<codeline lineno="270"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xdbg_printf(XDBG_DEBUG_FIFO_TX,</highlight></codeline>
+<codeline lineno="271"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;XLlFifo_iWrite_Aligned:<sp/>Inst:<sp/>%p;<sp/>Buff:<sp/>%p;<sp/>Count:<sp/>%d\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="272"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr,<sp/>BufPtr,<sp/>WordCount);</highlight></codeline>
+<codeline lineno="273"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr);</highlight></codeline>
+<codeline lineno="274"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(BufPtr);</highlight></codeline>
+<codeline lineno="275"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>assert<sp/>buffer<sp/>is<sp/>32<sp/>bit<sp/>aligned<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="276"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(((UINTPTR)BufPtr<sp/>&amp;<sp/>0x3)<sp/>==<sp/>0x0);</highlight></codeline>
+<codeline lineno="277"><highlight class="normal"></highlight></codeline>
+<codeline lineno="278"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xdbg_printf(XDBG_DEBUG_FIFO_TX,</highlight></codeline>
+<codeline lineno="279"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;XLlFifo_iWrite_Aligned:<sp/>WordsRemaining:<sp/>%d\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="280"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>WordsRemaining);</highlight></codeline>
+<codeline lineno="281"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(WordsRemaining)<sp/>{</highlight></codeline>
+<codeline lineno="282"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__llfifo_1ga29654d755dce84b861022179c99ca7a3" kindref="member">XLlFifo_TxPutWord</ref>(InstancePtr,<sp/>*BufPtrIdx);</highlight></codeline>
+<codeline lineno="283"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BufPtrIdx++;</highlight></codeline>
+<codeline lineno="284"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>WordsRemaining--;</highlight></codeline>
+<codeline lineno="285"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="286"><highlight class="normal"></highlight></codeline>
+<codeline lineno="287"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xdbg_printf(XDBG_DEBUG_FIFO_TX,</highlight></codeline>
+<codeline lineno="288"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;XLlFifo_iWrite_Aligned:<sp/>returning<sp/>SUCCESS\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="289"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="290"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="291"><highlight class="normal"></highlight></codeline>
+<codeline lineno="292"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="314" refid="group__llfifo_1ga874c22807476dc0ffec670c38f452443" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__llfifo_1ga874c22807476dc0ffec670c38f452443" kindref="member">XLlFifo_CfgInitialize</ref>(<ref refid="struct_x_ll_fifo" kindref="compound">XLlFifo</ref><sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="315"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XLlFifo_Config<sp/>*Config,<sp/>UINTPTR<sp/>EffectiveAddress)</highlight></codeline>
+<codeline lineno="316"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="317"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr);</highlight></codeline>
+<codeline lineno="318"><highlight class="normal"></highlight></codeline>
+<codeline lineno="319"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(!Config)<sp/>{</highlight></codeline>
+<codeline lineno="320"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_INVALID_PARAM;</highlight></codeline>
+<codeline lineno="321"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="322"><highlight class="normal"></highlight></codeline>
+<codeline lineno="323"><highlight class="normal"></highlight></codeline>
+<codeline lineno="324"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Clear<sp/>instance<sp/>memory<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="325"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>memset(InstancePtr,<sp/>0,<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(<ref refid="struct_x_ll_fifo" kindref="compound">XLlFifo</ref>));</highlight></codeline>
+<codeline lineno="326"><highlight class="normal"></highlight></codeline>
+<codeline lineno="327"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="328"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>We<sp/>don&apos;t<sp/>care<sp/>about<sp/>the<sp/>physical<sp/>base<sp/>address,<sp/>just<sp/>copy<sp/>the</highlight></codeline>
+<codeline lineno="329"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>processor<sp/>address<sp/>over<sp/>it.</highlight></codeline>
+<codeline lineno="330"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="331"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_ll_fifo_1a458030a162537427b617cbb204a701fd" kindref="member">BaseAddress</ref><sp/>=<sp/>EffectiveAddress;</highlight></codeline>
+<codeline lineno="332"><highlight class="normal"></highlight></codeline>
+<codeline lineno="333"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_ll_fifo_1abe388bb422699248b26a9d76652474b1" kindref="member">IsReady</ref><sp/>=<sp/>XIL_COMPONENT_IS_READY;</highlight></codeline>
+<codeline lineno="334"><highlight class="normal"></highlight></codeline>
+<codeline lineno="335"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_ll_fifo_1a9e2342496ea8183c012567d7c89851b3" kindref="member">Datainterface</ref><sp/>=<sp/>Config-&gt;Datainterface;</highlight></codeline>
+<codeline lineno="336"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_ll_fifo_1a593dff237ef5044964cbf10333c04aa3" kindref="member">Axi4BaseAddress</ref><sp/>=<sp/>Config-&gt;Axi4BaseAddress;</highlight></codeline>
+<codeline lineno="337"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_ll_fifo_1a9e2342496ea8183c012567d7c89851b3" kindref="member">Datainterface</ref><sp/>==<sp/>0)</highlight></codeline>
+<codeline lineno="338"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_ll_fifo_1a593dff237ef5044964cbf10333c04aa3" kindref="member">Axi4BaseAddress</ref><sp/>=<sp/>EffectiveAddress;</highlight></codeline>
+<codeline lineno="339"><highlight class="normal"></highlight></codeline>
+<codeline lineno="340"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>SDT</highlight></codeline>
+<codeline lineno="341"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_ll_fifo_1a69af28eeb0077b9960d636cc57a646ae" kindref="member">IntId</ref><sp/>=<sp/>Config-&gt;IntId;</highlight></codeline>
+<codeline lineno="342"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_ll_fifo_1a1b4a31737951ce9c8cc86d11d03616f4" kindref="member">IntrParent</ref><sp/>=<sp/>Config-&gt;IntrParent;</highlight></codeline>
+<codeline lineno="343"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="344"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="345"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__llfifo_1ga922419fdcd342fa709fb07ec1a9e5577" kindref="member">XLlFifo_TxReset</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="346"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__llfifo_1gaf3739a78b92f17cead0d831757b3a134" kindref="member">XLlFifo_RxReset</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="347"><highlight class="normal"></highlight></codeline>
+<codeline lineno="348"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="349"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Reset<sp/>the<sp/>core<sp/>and<sp/>generate<sp/>the<sp/>external<sp/>reset<sp/>by<sp/>writing<sp/>to</highlight></codeline>
+<codeline lineno="350"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>the<sp/>Local<sp/>Link/AXI<sp/>Streaming<sp/>Reset<sp/>Register.</highlight></codeline>
+<codeline lineno="351"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="352"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__llfifo_1gacd283ce73981f7f9eab94f8bb421bc78" kindref="member">XLlFifo_WriteReg</ref>((InstancePtr)-&gt;BaseAddress,<sp/><ref refid="group__llfifo_1ga5331d2736e9b1b516b4262d8e3f11690" kindref="member">XLLF_LLR_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="353"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__llfifo_1ga11c4da53ae9b166832186f9a817fba6d" kindref="member">XLLF_RDFR_RESET_MASK</ref>);</highlight></codeline>
+<codeline lineno="354"><highlight class="normal"></highlight></codeline>
+<codeline lineno="355"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__llfifo_1ga52ec29cc3b758b6a2b857d883ac69d4a" kindref="member">XStrm_RxInitialize</ref>(&amp;(InstancePtr-&gt;<ref refid="struct_x_ll_fifo_1a456fbf87ce23b1334c67b386722b1434" kindref="member">RxStreamer</ref>),<sp/>FIFO_WIDTH_BYTES,</highlight></codeline>
+<codeline lineno="356"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*)InstancePtr,</highlight></codeline>
+<codeline lineno="357"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XStrm_XferFnType)<ref refid="group__llfifo_1ga18bc620d388cbca83d63cc1c6ef33225" kindref="member">XLlFifo_iRead_Aligned</ref>,</highlight></codeline>
+<codeline lineno="358"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XStrm_GetLenFnType)<ref refid="group__llfifo_1gaad292ddf2a2c9dde261b93da802c8080" kindref="member">XLlFifo_iRxGetLen</ref>,</highlight></codeline>
+<codeline lineno="359"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XStrm_GetOccupancyFnType)<ref refid="group__llfifo_1gae2da9fa947a6e50edd41375ddc4c9964" kindref="member">XLlFifo_iRxOccupancy</ref>);</highlight></codeline>
+<codeline lineno="360"><highlight class="normal"></highlight></codeline>
+<codeline lineno="361"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__llfifo_1ga8a67c77f811a505b658e06642eb9c964" kindref="member">XStrm_TxInitialize</ref>(&amp;(InstancePtr-&gt;<ref refid="struct_x_ll_fifo_1a13363fb4d5d45a5725b7427b36c44817" kindref="member">TxStreamer</ref>),<sp/>FIFO_WIDTH_BYTES,</highlight></codeline>
+<codeline lineno="362"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*)InstancePtr,</highlight></codeline>
+<codeline lineno="363"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XStrm_XferFnType)<ref refid="group__llfifo_1ga9be5556d593980195e43a31ffb37e0fe" kindref="member">XLlFifo_iWrite_Aligned</ref>,</highlight></codeline>
+<codeline lineno="364"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XStrm_SetLenFnType)<ref refid="group__llfifo_1gaa49ecc1529434fd932d8a65d63a1a04d" kindref="member">XLlFifo_iTxSetLen</ref>,</highlight></codeline>
+<codeline lineno="365"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XStrm_GetVacancyFnType)<ref refid="group__llfifo_1gac02405b23499d780e7bc1dfe371281a6" kindref="member">XLlFifo_iTxVacancy</ref>);</highlight></codeline>
+<codeline lineno="366"><highlight class="normal"></highlight></codeline>
+<codeline lineno="367"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="368"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="369"><highlight class="normal"></highlight></codeline>
+<codeline lineno="370"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="389" refid="group__llfifo_1gaed3ae31c8c24f46139fbd709027329ec" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__llfifo_1gaed3ae31c8c24f46139fbd709027329ec" kindref="member">XLlFifo_RxGetWord</ref>(<ref refid="struct_x_ll_fifo" kindref="compound">XLlFifo</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="390"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="391"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_ll_fifo_1a9e2342496ea8183c012567d7c89851b3" kindref="member">Datainterface</ref>)</highlight></codeline>
+<codeline lineno="392"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="group__llfifo_1ga7526eab563fa4e0fe8b60474e96afe55" kindref="member">XLlFifo_ReadReg</ref>((InstancePtr)-&gt;Axi4BaseAddress,</highlight></codeline>
+<codeline lineno="393"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__llfifo_1ga256c51f97ca57cc89c9b51449f3601e1" kindref="member">XLLF_AXI4_RDFD_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="394"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="395"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="group__llfifo_1ga7526eab563fa4e0fe8b60474e96afe55" kindref="member">XLlFifo_ReadReg</ref>((InstancePtr)-&gt;Axi4BaseAddress,</highlight></codeline>
+<codeline lineno="396"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__llfifo_1ga93e049a21e43548bf03161b4a4394440" kindref="member">XLLF_RDFD_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="397"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="398"><highlight class="normal"></highlight></codeline>
+<codeline lineno="399"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="415" refid="group__llfifo_1ga29654d755dce84b861022179c99ca7a3" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__llfifo_1ga29654d755dce84b861022179c99ca7a3" kindref="member">XLlFifo_TxPutWord</ref>(<ref refid="struct_x_ll_fifo" kindref="compound">XLlFifo</ref><sp/>*InstancePtr,<sp/>u32<sp/>Word)</highlight></codeline>
+<codeline lineno="416"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="417"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_ll_fifo_1a9e2342496ea8183c012567d7c89851b3" kindref="member">Datainterface</ref>)</highlight></codeline>
+<codeline lineno="418"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__llfifo_1gacd283ce73981f7f9eab94f8bb421bc78" kindref="member">XLlFifo_WriteReg</ref>((InstancePtr)-&gt;Axi4BaseAddress,</highlight></codeline>
+<codeline lineno="419"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__llfifo_1ga7a72ef43b9e2ca7e28a9e939012f1044" kindref="member">XLLF_AXI4_TDFD_OFFSET</ref>,<sp/>(Word));</highlight></codeline>
+<codeline lineno="420"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="421"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__llfifo_1gacd283ce73981f7f9eab94f8bb421bc78" kindref="member">XLlFifo_WriteReg</ref>((InstancePtr)-&gt;Axi4BaseAddress,</highlight></codeline>
+<codeline lineno="422"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__llfifo_1gaeca8c86badc0df67426442f9bb6a5195" kindref="member">XLLF_TDFD_OFFSET</ref>,<sp/>(Word));</highlight></codeline>
+<codeline lineno="423"><highlight class="normal"></highlight></codeline>
+<codeline lineno="424"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="425"><highlight class="normal"></highlight></codeline>
+<codeline lineno="426"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="441" refid="group__llfifo_1ga3debde0a34325b3f314d15fe6f43a7ee" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__llfifo_1ga3debde0a34325b3f314d15fe6f43a7ee" kindref="member">XLlFifo_Initialize</ref>(<ref refid="struct_x_ll_fifo" kindref="compound">XLlFifo</ref><sp/>*InstancePtr,<sp/>UINTPTR<sp/>BaseAddress)</highlight></codeline>
+<codeline lineno="442"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="443"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr);</highlight></codeline>
+<codeline lineno="444"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(BaseAddress);</highlight></codeline>
+<codeline lineno="445"><highlight class="normal"></highlight></codeline>
+<codeline lineno="446"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Clear<sp/>instance<sp/>memory<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="447"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>memset(InstancePtr,<sp/>0,<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(<ref refid="struct_x_ll_fifo" kindref="compound">XLlFifo</ref>));</highlight></codeline>
+<codeline lineno="448"><highlight class="normal"></highlight></codeline>
+<codeline lineno="449"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="450"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>We<sp/>don&apos;t<sp/>care<sp/>about<sp/>the<sp/>physical<sp/>base<sp/>address,<sp/>just<sp/>copy<sp/>the</highlight></codeline>
+<codeline lineno="451"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>processor<sp/>address<sp/>over<sp/>it.</highlight></codeline>
+<codeline lineno="452"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="453"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_ll_fifo_1a458030a162537427b617cbb204a701fd" kindref="member">BaseAddress</ref><sp/>=<sp/>BaseAddress;</highlight></codeline>
+<codeline lineno="454"><highlight class="normal"></highlight></codeline>
+<codeline lineno="455"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_ll_fifo_1abe388bb422699248b26a9d76652474b1" kindref="member">IsReady</ref><sp/>=<sp/>XIL_COMPONENT_IS_READY;</highlight></codeline>
+<codeline lineno="456"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_ll_fifo_1a593dff237ef5044964cbf10333c04aa3" kindref="member">Axi4BaseAddress</ref><sp/>=<sp/>BaseAddress;</highlight></codeline>
+<codeline lineno="457"><highlight class="normal"></highlight></codeline>
+<codeline lineno="458"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__llfifo_1ga922419fdcd342fa709fb07ec1a9e5577" kindref="member">XLlFifo_TxReset</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="459"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__llfifo_1gaf3739a78b92f17cead0d831757b3a134" kindref="member">XLlFifo_RxReset</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="460"><highlight class="normal"></highlight></codeline>
+<codeline lineno="461"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="462"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Reset<sp/>the<sp/>core<sp/>and<sp/>generate<sp/>the<sp/>external<sp/>reset<sp/>by<sp/>writing<sp/>to</highlight></codeline>
+<codeline lineno="463"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>the<sp/>Local<sp/>Link/AXI<sp/>Streaming<sp/>Reset<sp/>Register.</highlight></codeline>
+<codeline lineno="464"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="465"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__llfifo_1gacd283ce73981f7f9eab94f8bb421bc78" kindref="member">XLlFifo_WriteReg</ref>((InstancePtr)-&gt;BaseAddress,<sp/><ref refid="group__llfifo_1ga5331d2736e9b1b516b4262d8e3f11690" kindref="member">XLLF_LLR_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="466"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__llfifo_1ga11c4da53ae9b166832186f9a817fba6d" kindref="member">XLLF_RDFR_RESET_MASK</ref>);</highlight></codeline>
+<codeline lineno="467"><highlight class="normal"></highlight></codeline>
+<codeline lineno="468"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__llfifo_1ga52ec29cc3b758b6a2b857d883ac69d4a" kindref="member">XStrm_RxInitialize</ref>(&amp;(InstancePtr-&gt;<ref refid="struct_x_ll_fifo_1a456fbf87ce23b1334c67b386722b1434" kindref="member">RxStreamer</ref>),<sp/>FIFO_WIDTH_BYTES,</highlight></codeline>
+<codeline lineno="469"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*)InstancePtr,</highlight></codeline>
+<codeline lineno="470"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XStrm_XferFnType)<ref refid="group__llfifo_1ga18bc620d388cbca83d63cc1c6ef33225" kindref="member">XLlFifo_iRead_Aligned</ref>,</highlight></codeline>
+<codeline lineno="471"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XStrm_GetLenFnType)<ref refid="group__llfifo_1gaad292ddf2a2c9dde261b93da802c8080" kindref="member">XLlFifo_iRxGetLen</ref>,</highlight></codeline>
+<codeline lineno="472"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XStrm_GetOccupancyFnType)<ref refid="group__llfifo_1gae2da9fa947a6e50edd41375ddc4c9964" kindref="member">XLlFifo_iRxOccupancy</ref>);</highlight></codeline>
+<codeline lineno="473"><highlight class="normal"></highlight></codeline>
+<codeline lineno="474"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__llfifo_1ga8a67c77f811a505b658e06642eb9c964" kindref="member">XStrm_TxInitialize</ref>(&amp;(InstancePtr-&gt;<ref refid="struct_x_ll_fifo_1a13363fb4d5d45a5725b7427b36c44817" kindref="member">TxStreamer</ref>),<sp/>FIFO_WIDTH_BYTES,</highlight></codeline>
+<codeline lineno="475"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*)InstancePtr,</highlight></codeline>
+<codeline lineno="476"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XStrm_XferFnType)<ref refid="group__llfifo_1ga9be5556d593980195e43a31ffb37e0fe" kindref="member">XLlFifo_iWrite_Aligned</ref>,</highlight></codeline>
+<codeline lineno="477"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XStrm_SetLenFnType)<ref refid="group__llfifo_1gaa49ecc1529434fd932d8a65d63a1a04d" kindref="member">XLlFifo_iTxSetLen</ref>,</highlight></codeline>
+<codeline lineno="478"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XStrm_GetVacancyFnType)<ref refid="group__llfifo_1gac02405b23499d780e7bc1dfe371281a6" kindref="member">XLlFifo_iTxVacancy</ref>);</highlight></codeline>
+<codeline lineno="479"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo.c"/>
+  </compounddef>
+</doxygen>

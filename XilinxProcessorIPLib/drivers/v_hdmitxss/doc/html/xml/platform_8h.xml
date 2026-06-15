@@ -1,0 +1,244 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="platform_8h" kind="file">
+    <compoundname>platform.h</compoundname>
+    <includes refid="platform__config_8h" local="yes">platform_config.h</includes>
+    <includedby refid="hdcp__key__utility_8c" local="yes">hdcp_key_utility.c</includedby>
+    <includedby refid="_i2_s_2xhdmi__example_8h" local="yes">xhdmi_example.h</includedby>
+    <includedby refid="_pass_through_2xhdmi__example_8h" local="yes">xhdmi_example.h</includedby>
+    <includedby refid="_pass_through_versal_2xhdmi__example_8h" local="yes">xhdmi_example.h</includedby>
+    <includedby refid="_repeater_2xhdmi__example_8h" local="yes">xhdmi_example.h</includedby>
+    <includedby refid="_repeater_professional_2xhdmi__example_8h" local="yes">xhdmi_example.h</includedby>
+    <includedby refid="_tx_only_2xhdmi__example_8h" local="yes">xhdmi_example.h</includedby>
+    <incdepgraph>
+      <node id="207">
+        <label>platform.h</label>
+        <link refid="platform.h"/>
+        <childnode refid="208" relation="include">
+        </childnode>
+      </node>
+      <node id="208">
+        <label>platform_config.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="236">
+        <label>xhdmi_menu.c</label>
+      </node>
+      <node id="234">
+        <label>xhdmi_menu.h</label>
+        <childnode refid="225" relation="include">
+        </childnode>
+        <childnode refid="227" relation="include">
+        </childnode>
+        <childnode refid="228" relation="include">
+        </childnode>
+        <childnode refid="231" relation="include">
+        </childnode>
+        <childnode refid="232" relation="include">
+        </childnode>
+        <childnode refid="235" relation="include">
+        </childnode>
+        <childnode refid="236" relation="include">
+        </childnode>
+      </node>
+      <node id="231">
+        <label>xhdmi_example.c</label>
+      </node>
+      <node id="228">
+        <label>xhdmi_example.h</label>
+        <childnode refid="229" relation="include">
+        </childnode>
+        <childnode refid="230" relation="include">
+        </childnode>
+        <childnode refid="231" relation="include">
+        </childnode>
+      </node>
+      <node id="233">
+        <label>xhdcp.c</label>
+      </node>
+      <node id="235">
+        <label>xhdmi_example.c</label>
+      </node>
+      <node id="223">
+        <label>xhdmi_example.c</label>
+      </node>
+      <node id="232">
+        <label>xhdmi_example.h</label>
+        <childnode refid="233" relation="include">
+        </childnode>
+        <childnode refid="234" relation="include">
+        </childnode>
+        <childnode refid="235" relation="include">
+        </childnode>
+      </node>
+      <node id="220">
+        <label>xhdmi_example.h</label>
+        <childnode refid="221" relation="include">
+        </childnode>
+        <childnode refid="222" relation="include">
+        </childnode>
+        <childnode refid="223" relation="include">
+        </childnode>
+      </node>
+      <node id="218">
+        <label>xhdmi_example.c</label>
+      </node>
+      <node id="215">
+        <label>xhdmi_example.h</label>
+        <childnode refid="216" relation="include">
+        </childnode>
+        <childnode refid="217" relation="include">
+        </childnode>
+        <childnode refid="218" relation="include">
+        </childnode>
+      </node>
+      <node id="213">
+        <label>xhdmi_example.c</label>
+      </node>
+      <node id="211">
+        <label>xhdmi_example.h</label>
+        <childnode refid="212" relation="include">
+        </childnode>
+        <childnode refid="213" relation="include">
+        </childnode>
+      </node>
+      <node id="227">
+        <label>xhdmi_example.c</label>
+      </node>
+      <node id="225">
+        <label>xhdmi_example.h</label>
+        <childnode refid="226" relation="include">
+        </childnode>
+        <childnode refid="227" relation="include">
+        </childnode>
+      </node>
+      <node id="224">
+        <label>xhdmi_menu.c</label>
+      </node>
+      <node id="222">
+        <label>xhdmi_menu.h</label>
+        <childnode refid="220" relation="include">
+        </childnode>
+        <childnode refid="223" relation="include">
+        </childnode>
+        <childnode refid="224" relation="include">
+        </childnode>
+      </node>
+      <node id="230">
+        <label>xhdcp.c</label>
+      </node>
+      <node id="229">
+        <label>xhdcp.h</label>
+        <childnode refid="230" relation="include">
+        </childnode>
+        <childnode refid="228" relation="include">
+        </childnode>
+      </node>
+      <node id="209">
+        <label>platform.h</label>
+        <link refid="platform.h"/>
+        <childnode refid="210" relation="include">
+        </childnode>
+        <childnode refid="211" relation="include">
+        </childnode>
+        <childnode refid="215" relation="include">
+        </childnode>
+        <childnode refid="220" relation="include">
+        </childnode>
+        <childnode refid="225" relation="include">
+        </childnode>
+        <childnode refid="228" relation="include">
+        </childnode>
+        <childnode refid="232" relation="include">
+        </childnode>
+      </node>
+      <node id="219">
+        <label>xhdmi_menu.c</label>
+      </node>
+      <node id="217">
+        <label>xhdmi_menu.h</label>
+        <childnode refid="215" relation="include">
+        </childnode>
+        <childnode refid="218" relation="include">
+        </childnode>
+        <childnode refid="219" relation="include">
+        </childnode>
+      </node>
+      <node id="214">
+        <label>xhdmi_menu.c</label>
+      </node>
+      <node id="212">
+        <label>xhdmi_menu.h</label>
+        <childnode refid="213" relation="include">
+        </childnode>
+        <childnode refid="211" relation="include">
+        </childnode>
+        <childnode refid="214" relation="include">
+        </childnode>
+      </node>
+      <node id="216">
+        <label>xhdcp.c</label>
+      </node>
+      <node id="221">
+        <label>xhdcp.c</label>
+      </node>
+      <node id="226">
+        <label>xhdcp.c</label>
+      </node>
+      <node id="210">
+        <label>hdcp_key_utility.c</label>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="platform_8h_1afddcfa5cf23f52259c9da7f926a4af57" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void init_platform</definition>
+        <argsstring>()</argsstring>
+        <name>init_platform</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/platforms/platform.h" line="12" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/platforms/platform.c" bodystart="60" bodyend="73"/>
+      </memberdef>
+      <memberdef kind="function" id="platform_8h_1a074e46b818accd4588b2fdf6dee7ec00" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void cleanup_platform</definition>
+        <argsstring>()</argsstring>
+        <name>cleanup_platform</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/platforms/platform.h" line="13" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/platforms/platform.c" bodystart="76" bodyend="79"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2008<sp/>-<sp/>2020<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>__PLATFORM_H_</highlight></codeline>
+<codeline lineno="8"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>__PLATFORM_H_</highlight></codeline>
+<codeline lineno="9"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;platform_config.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>init_platform();</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>cleanup_platform();</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/platforms/platform.h"/>
+  </compounddef>
+</doxygen>

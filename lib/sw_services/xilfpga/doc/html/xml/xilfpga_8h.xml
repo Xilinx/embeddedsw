@@ -1,0 +1,828 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xilfpga_8h" kind="file">
+    <compoundname>xilfpga.h</compoundname>
+    <includes local="yes">xil_io.h</includes>
+    <includes local="yes">xil_types.h</includes>
+    <includes local="yes">xil_assert.h</includes>
+    <includes local="yes">xil_printf.h</includes>
+    <includes local="yes">xil_util.h</includes>
+    <includes local="yes">xparameters.h</includes>
+    <includes local="yes">xfpga_config.h</includes>
+    <includedby refid="xilfpga__versal_8c" local="yes">xilfpga_versal.c</includedby>
+    <includedby refid="xilfpga__ipi__pcap_8c" local="yes">xilfpga_ipi_pcap.c</includedby>
+    <includedby refid="xilfpga__pcap_8c" local="yes">xilfpga_pcap.c</includedby>
+    <includedby refid="xilfpga_8c" local="yes">xilfpga.c</includedby>
+    <includedby refid="xfpga__load__bitstream__example_8c" local="yes">xfpga_load_bitstream_example.c</includedby>
+    <includedby refid="xfpga__partialbitstream__load__example_8c" local="yes">xfpga_partialbitstream_load_example.c</includedby>
+    <includedby refid="xfpga__readback__example_8c" local="yes">xfpga_readback_example.c</includedby>
+    <includedby refid="xfpga__reg__readback__example_8c" local="yes">xfpga_reg_readback_example.c</includedby>
+    <incdepgraph>
+      <node id="61">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="59">
+        <label>xil_io.h</label>
+      </node>
+      <node id="65">
+        <label>xfpga_config.h</label>
+      </node>
+      <node id="63">
+        <label>xil_util.h</label>
+      </node>
+      <node id="60">
+        <label>xil_types.h</label>
+      </node>
+      <node id="64">
+        <label>xparameters.h</label>
+      </node>
+      <node id="62">
+        <label>xil_printf.h</label>
+      </node>
+      <node id="58">
+        <label>xilfpga.h</label>
+        <link refid="xilfpga.h"/>
+        <childnode refid="59" relation="include">
+        </childnode>
+        <childnode refid="60" relation="include">
+        </childnode>
+        <childnode refid="61" relation="include">
+        </childnode>
+        <childnode refid="62" relation="include">
+        </childnode>
+        <childnode refid="63" relation="include">
+        </childnode>
+        <childnode refid="64" relation="include">
+        </childnode>
+        <childnode refid="65" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="69">
+        <label>xilfpga_pcap.c</label>
+        <link refid="xilfpga__pcap_8c"/>
+      </node>
+      <node id="73">
+        <label>xfpga_readback_example.c</label>
+        <link refid="xfpga__readback__example_8c"/>
+      </node>
+      <node id="72">
+        <label>xfpga_partialbitstream_load_example.c</label>
+        <link refid="xfpga__partialbitstream__load__example_8c"/>
+      </node>
+      <node id="71">
+        <label>xfpga_load_bitstream_example.c</label>
+        <link refid="xfpga__load__bitstream__example_8c"/>
+      </node>
+      <node id="68">
+        <label>xilfpga_ipi_pcap.c</label>
+        <link refid="xilfpga__ipi__pcap_8c"/>
+      </node>
+      <node id="67">
+        <label>xilfpga_versal.c</label>
+        <link refid="xilfpga__versal_8c"/>
+      </node>
+      <node id="70">
+        <label>xilfpga.c</label>
+        <link refid="xilfpga_8c"/>
+      </node>
+      <node id="66">
+        <label>xilfpga.h</label>
+        <link refid="xilfpga.h"/>
+        <childnode refid="67" relation="include">
+        </childnode>
+        <childnode refid="68" relation="include">
+        </childnode>
+        <childnode refid="69" relation="include">
+        </childnode>
+        <childnode refid="70" relation="include">
+        </childnode>
+        <childnode refid="71" relation="include">
+        </childnode>
+        <childnode refid="72" relation="include">
+        </childnode>
+        <childnode refid="73" relation="include">
+        </childnode>
+        <childnode refid="74" relation="include">
+        </childnode>
+      </node>
+      <node id="74">
+        <label>xfpga_reg_readback_example.c</label>
+        <link refid="xfpga__reg__readback__example_8c"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_x_fpgatag" prot="public">XFpgatag</innerclass>
+      <sectiondef kind="user-defined">
+      <memberdef kind="typedef" id="xilfpga_8h_1a2e73b67f19f7d94e00988c853ff4599b" prot="public" static="no">
+        <type>struct <ref refid="struct_x_fpgatag" kindref="compound">XFpgatag</ref></type>
+        <definition>typedef struct XFpgatag XFpga</definition>
+        <argsstring></argsstring>
+        <name>XFpga</name>
+        <briefdescription>
+<para>Structure to the XFpga instance. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilfpga/src/xilfpga.h" line="142" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xilfpga__versal_1gaef5fb78d2b7e74b3a4f3b18ebf0a3599" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XFpga_Initialize</definition>
+        <argsstring>(XFpga *InstancePtr)</argsstring>
+        <name>XFpga_Initialize</name>
+        <param>
+          <type><ref refid="xilfpga_8h_1a2e73b67f19f7d94e00988c853ff4599b" kindref="member">XFpga</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This API, when called, initializes the XFPGA interface with default settings. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XFpga structure.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Returns Status<itemizedlist>
+<listitem><para>XFPGA_SUCCESS on success</para></listitem><listitem><para>Error code on failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilfpga/src/xilfpga.h" line="254" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilfpga/src/interface/versal/xilfpga_versal.c" bodystart="108" bodyend="130"/>
+        <references refid="struct_x_fpgatag_1a31407cee8cfa8d58cea94bda3147e757" compoundref="xilfpga_8h" startline="122">XFpgatag::XFpga_WriteToPl</references>
+        <references refid="struct_x_fpgatag_1af817a3d9e50e29ae60448178d216df29" compoundref="xilfpga_8h" startline="128">XFpgatag::XFpga_GetConfigData</references>
+        <references refid="struct_x_fpgatag_1a112c731b7c08c57308e95856658fae97" compoundref="xilfpga_8h" startline="127">XFpgatag::XFpga_GetConfigReg</references>
+        <references refid="struct_x_fpgatag_1a6af355b88beaac6b872a53c13285514b" compoundref="xilfpga_8h" startline="126">XFpgatag::XFpga_GetInterfaceStatus</references>
+        <referencedby refid="xfpga__load__bitstream__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xfpga__load__bitstream__example_8c" startline="93" endline="128">main</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xilfpga__zynq__versal_1gab9954493b57ad172167f25a3aa1b0eb0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XFpga_ValidateImage</definition>
+        <argsstring>(XFpga *InstancePtr, UINTPTR BitstreamImageAddr, UINTPTR KeyAddr, u32 Size, u32 Flags)</argsstring>
+        <name>XFpga_ValidateImage</name>
+        <param>
+          <type><ref refid="xilfpga_8h_1a2e73b67f19f7d94e00988c853ff4599b" kindref="member">XFpga</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BitstreamImageAddr</declname>
+        </param>
+        <param>
+          <type>UINTPTR</type>
+          <declname>KeyAddr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Size</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Flags</declname>
+        </param>
+        <briefdescription>
+<para>This function is used to validate the bitstream image. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XFpga structure</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>BitstreamImageAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Linear memory bitstream image base address</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>KeyAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Aes key address which is used for decryption.</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Size</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Used to store size of bitstream image.</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Flags</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Flags are used to specify the type of bitstream file.<itemizedlist>
+<listitem><para>BIT(0) - Bitstream type<itemizedlist>
+<listitem><para>0 - Full bitstream</para></listitem><listitem><para>1 - Partial bitstream</para></listitem></itemizedlist>
+</para></listitem><listitem><para>BIT(1) - Authentication using DDR<itemizedlist>
+<listitem><para>1 - Enable</para></listitem><listitem><para>0 - Disable</para></listitem></itemizedlist>
+</para></listitem><listitem><para>BIT(2) - Authentication using OCM<itemizedlist>
+<listitem><para>1 - Enable</para></listitem><listitem><para>0 - Disable</para></listitem></itemizedlist>
+</para></listitem><listitem><para>BIT(3) - User-key Encryption<itemizedlist>
+<listitem><para>1 - Enable</para></listitem><listitem><para>0 - Disable</para></listitem></itemizedlist>
+</para></listitem><listitem><para>BIT(4) - Device-key Encryption<itemizedlist>
+<listitem><para>1 - Enable</para></listitem><listitem><para>0 - Disable</para></listitem></itemizedlist>
+</para></listitem></itemizedlist>
+</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Codes as mentioned in <ref refid="xilfpga_8h" kindref="compound">xilfpga.h</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilfpga/src/xilfpga.h" line="255" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilfpga/src/xilfpga.c" bodystart="234" bodyend="271"/>
+        <references refid="struct_x_fpgatag_1a17d90caf2f96a1c0ce3a309015fd32ae" compoundref="xilfpga_8h" startline="120">XFpgatag::XFpga_ValidateBitstream</references>
+        <references refid="struct_x_fpgatag_1a43bcd659f5043721bf8f99df22330a19" compoundref="xilfpga_8h" startline="138">XFpgatag::WriteInfo</references>
+        <references refid="struct_x_fpga___write_1ab3ba8d05e4395ac2f404282ac8acd2ca" compoundref="xilfpga__versal_8h" startline="78">XFpga_Write::BitstreamAddr</references>
+        <references refid="struct_x_fpga___write_1a3213fec12e94e571eadb705e21efe982" compoundref="xilfpga__versal_8h" startline="81">XFpga_Write::Flags</references>
+        <references refid="struct_x_fpga___write_1a6a67375da15c7c9b5ba870fae38bf434" compoundref="xilfpga__versal_8h" startline="79">XFpga_Write::KeyAddr</references>
+        <references refid="struct_x_fpga___write_1af17c38a1a35ad02470377430f894e403" compoundref="xilfpga__versal_8h" startline="80">XFpga_Write::Size</references>
+        <referencedby refid="group__xilfpga__zynq__versal_1ga44b0cd1361ba0ff98ceed775997bc23b" compoundref="xilfpga_8c" startline="140" endline="202">XFpga_BitStream_Load</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xilfpga__zynq__versal_1ga44b0cd1361ba0ff98ceed775997bc23b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XFpga_BitStream_Load</definition>
+        <argsstring>(XFpga *InstancePtr, UINTPTR BitstreamImageAddr, UINTPTR KeyAddr, u32 Size, u32 Flags)</argsstring>
+        <name>XFpga_BitStream_Load</name>
+        <param>
+          <type><ref refid="xilfpga_8h_1a2e73b67f19f7d94e00988c853ff4599b" kindref="member">XFpga</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BitstreamImageAddr</declname>
+        </param>
+        <param>
+          <type>UINTPTR</type>
+          <declname>KeyAddr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Size</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Flags</declname>
+        </param>
+        <briefdescription>
+<para>The API is used to load the bitstream file into the PL region. </para>        </briefdescription>
+        <detaileddescription>
+<para>It supports AMD Vivadoâ„¢ Design Suite generated bitstream (*.bit, *.bin) and Bootgen-generated bitstream (*.bin) loading, Passing valid bitstream size(Size) information is mandatory for Vivado Design Suite generated bitstream, For Bootgen-generated bitstreams bitstream size is taken from the bitstream header.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XFpga structure.</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>BitstreamImageAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Linear memory bitstream image base address</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>KeyAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>AES key address which is used for decryption.</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Size</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Used to store size of bitstream image.</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Flags</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Flags are used to specify the type of bitstream file.<itemizedlist>
+<listitem><para>BIT(0) - Bitstream type<itemizedlist>
+<listitem><para>0 - Full bitstream</para></listitem><listitem><para>1 - Partial bitstream</para></listitem></itemizedlist>
+</para></listitem><listitem><para>BIT(1) - Authentication using DDR<itemizedlist>
+<listitem><para>1 - Enable</para></listitem><listitem><para>0 - Disable</para></listitem></itemizedlist>
+</para></listitem><listitem><para>BIT(2) - Authentication using OCM<itemizedlist>
+<listitem><para>1 - Enable</para></listitem><listitem><para>0 - Disable</para></listitem></itemizedlist>
+</para></listitem><listitem><para>BIT(3) - User-key Encryption<itemizedlist>
+<listitem><para>1 - Enable</para></listitem><listitem><para>0 - Disable</para></listitem></itemizedlist>
+</para></listitem><listitem><para>BIT(4) - Device-key Encryption<itemizedlist>
+<listitem><para>1 - Enable</para></listitem><listitem><para>0 - Disable</para></listitem></itemizedlist>
+</para></listitem></itemizedlist>
+</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XFPGA_SUCCESS on success</para></listitem><listitem><para>Error code on failure.</para></listitem><listitem><para>XFPGA_VALIDATE_ERROR.</para></listitem><listitem><para>XFPGA_PRE_CONFIG_ERROR.</para></listitem><listitem><para>XFPGA_WRITE_BITSTREAM_ERROR.</para></listitem><listitem><para>XFPGA_POST_CONFIG_ERROR. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilfpga/src/xilfpga.h" line="258" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilfpga/src/xilfpga.c" bodystart="140" bodyend="202"/>
+        <references refid="group__xilfpga__zynq__versal_1gab9954493b57ad172167f25a3aa1b0eb0" compoundref="xilfpga_8c" startline="234" endline="271">XFpga_ValidateImage</references>
+        <references refid="struct_x_fpgatag_1a43bcd659f5043721bf8f99df22330a19" compoundref="xilfpga_8h" startline="138">XFpgatag::WriteInfo</references>
+        <references refid="struct_x_fpga___write_1ab3ba8d05e4395ac2f404282ac8acd2ca" compoundref="xilfpga__versal_8h" startline="78">XFpga_Write::BitstreamAddr</references>
+        <references refid="struct_x_fpga___write_1a3213fec12e94e571eadb705e21efe982" compoundref="xilfpga__versal_8h" startline="81">XFpga_Write::Flags</references>
+        <references refid="struct_x_fpga___write_1a6a67375da15c7c9b5ba870fae38bf434" compoundref="xilfpga__versal_8h" startline="79">XFpga_Write::KeyAddr</references>
+        <references refid="struct_x_fpga___write_1af17c38a1a35ad02470377430f894e403" compoundref="xilfpga__versal_8h" startline="80">XFpga_Write::Size</references>
+        <references refid="group__xilfpga__zynq__versal_1gade4f3d3efdce2034be71f597e84a667c" compoundref="xilfpga_8c" startline="279" endline="303">XFpga_PL_Preconfig</references>
+        <references refid="group__xilfpga__zynq__versal_1ga3801d1f23178289fb912ecc61cdc018d" compoundref="xilfpga_8c" startline="334" endline="371">XFpga_Write_Pl</references>
+        <references refid="group__xilfpga__zynq__versal_1gae97b4dd15b87b8a9931a242bb855e031" compoundref="xilfpga_8c" startline="380" endline="405">XFpga_PL_PostConfig</references>
+        <referencedby refid="xfpga__load__bitstream__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xfpga__load__bitstream__example_8c" startline="93" endline="128">main</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xilfpga__zynq__versal_1gade4f3d3efdce2034be71f597e84a667c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XFpga_PL_Preconfig</definition>
+        <argsstring>(XFpga *InstancePtr)</argsstring>
+        <name>XFpga_PL_Preconfig</name>
+        <param>
+          <type><ref refid="xilfpga_8h_1a2e73b67f19f7d94e00988c853ff4599b" kindref="member">XFpga</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function prepares the FPGA to receive configuration data. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the pointer to the XFpga.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Codes as mentioned in <ref refid="xilfpga_8h" kindref="compound">xilfpga.h</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilfpga/src/xilfpga.h" line="261" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilfpga/src/xilfpga.c" bodystart="279" bodyend="303"/>
+        <references refid="struct_x_fpgatag_1a542049e29b0804aabea8bcc577d71b47" compoundref="xilfpga_8h" startline="121">XFpgatag::XFpga_PreConfig</references>
+        <referencedby refid="group__xilfpga__zynq__versal_1ga44b0cd1361ba0ff98ceed775997bc23b" compoundref="xilfpga_8c" startline="140" endline="202">XFpga_BitStream_Load</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xilfpga__zynq__versal_1ga3801d1f23178289fb912ecc61cdc018d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XFpga_Write_Pl</definition>
+        <argsstring>(XFpga *InstancePtr, UINTPTR BitstreamImageAddr, UINTPTR KeyAddr, u32 Size, u32 Flags)</argsstring>
+        <name>XFpga_Write_Pl</name>
+        <param>
+          <type><ref refid="xilfpga_8h_1a2e73b67f19f7d94e00988c853ff4599b" kindref="member">XFpga</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BitstreamImageAddr</declname>
+        </param>
+        <param>
+          <type>UINTPTR</type>
+          <declname>KeyAddr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Size</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Flags</declname>
+        </param>
+        <briefdescription>
+<para>This function writes the count bytes of configuration data into the PL. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XFpga structure</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>BitstreamImageAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Linear memory bitstream image base address</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>KeyAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Aes key address which is used for decryption.</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Size</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Used to store size of bitstream image.</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Flags</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Flags are used to specify the type of bitstream file.<itemizedlist>
+<listitem><para>BIT(0) - Bitstream type<itemizedlist>
+<listitem><para>0 - Full bitstream</para></listitem><listitem><para>1 - Partial bitstream</para></listitem></itemizedlist>
+</para></listitem><listitem><para>BIT(1) - Authentication using DDR<itemizedlist>
+<listitem><para>1 - Enable</para></listitem><listitem><para>0 - Disable</para></listitem></itemizedlist>
+</para></listitem><listitem><para>BIT(2) - Authentication using OCM<itemizedlist>
+<listitem><para>1 - Enable</para></listitem><listitem><para>0 - Disable</para></listitem></itemizedlist>
+</para></listitem><listitem><para>BIT(3) - User-key Encryption<itemizedlist>
+<listitem><para>1 - Enable</para></listitem><listitem><para>0 - Disable</para></listitem></itemizedlist>
+</para></listitem><listitem><para>BIT(4) - Device-key Encryption<itemizedlist>
+<listitem><para>1 - Enable</para></listitem><listitem><para>0 - Disable</para></listitem></itemizedlist>
+</para></listitem></itemizedlist>
+</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Codes as mentioned in <ref refid="xilfpga_8h" kindref="compound">xilfpga.h</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilfpga/src/xilfpga.h" line="262" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilfpga/src/xilfpga.c" bodystart="334" bodyend="371"/>
+        <references refid="struct_x_fpgatag_1a31407cee8cfa8d58cea94bda3147e757" compoundref="xilfpga_8h" startline="122">XFpgatag::XFpga_WriteToPl</references>
+        <references refid="struct_x_fpgatag_1a43bcd659f5043721bf8f99df22330a19" compoundref="xilfpga_8h" startline="138">XFpgatag::WriteInfo</references>
+        <references refid="struct_x_fpga___write_1ab3ba8d05e4395ac2f404282ac8acd2ca" compoundref="xilfpga__versal_8h" startline="78">XFpga_Write::BitstreamAddr</references>
+        <references refid="struct_x_fpga___write_1a3213fec12e94e571eadb705e21efe982" compoundref="xilfpga__versal_8h" startline="81">XFpga_Write::Flags</references>
+        <references refid="struct_x_fpga___write_1a6a67375da15c7c9b5ba870fae38bf434" compoundref="xilfpga__versal_8h" startline="79">XFpga_Write::KeyAddr</references>
+        <references refid="struct_x_fpga___write_1af17c38a1a35ad02470377430f894e403" compoundref="xilfpga__versal_8h" startline="80">XFpga_Write::Size</references>
+        <referencedby refid="group__xilfpga__zynq__versal_1ga44b0cd1361ba0ff98ceed775997bc23b" compoundref="xilfpga_8c" startline="140" endline="202">XFpga_BitStream_Load</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xilfpga__zynq__versal_1gae97b4dd15b87b8a9931a242bb855e031" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XFpga_PL_PostConfig</definition>
+        <argsstring>(XFpga *InstancePtr)</argsstring>
+        <name>XFpga_PL_PostConfig</name>
+        <param>
+          <type><ref refid="xilfpga_8h_1a2e73b67f19f7d94e00988c853ff4599b" kindref="member">XFpga</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function sets the FPGA to the operating state after writing. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XFpga structure</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Codes as mentioned in <ref refid="xilfpga_8h" kindref="compound">xilfpga.h</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilfpga/src/xilfpga.h" line="264" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilfpga/src/xilfpga.c" bodystart="380" bodyend="405"/>
+        <references refid="struct_x_fpgatag_1a3e5baa8aaa7b73f6cd31737b2465515c" compoundref="xilfpga_8h" startline="123">XFpgatag::XFpga_PostConfig</references>
+        <referencedby refid="group__xilfpga__zynq__versal_1ga44b0cd1361ba0ff98ceed775997bc23b" compoundref="xilfpga_8c" startline="140" endline="202">XFpga_BitStream_Load</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xilfpga__zynq__versal_1ga5e98e018395a91d666b1bf5322ead85a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XFpga_GetPlConfigData</definition>
+        <argsstring>(XFpga *InstancePtr, UINTPTR ReadbackAddr, u32 NumFrames)</argsstring>
+        <name>XFpga_GetPlConfigData</name>
+        <param>
+          <type><ref refid="xilfpga_8h_1a2e73b67f19f7d94e00988c853ff4599b" kindref="member">XFpga</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>UINTPTR</type>
+          <declname>ReadbackAddr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>NumFrames</declname>
+        </param>
+        <briefdescription>
+<para>This function provides functionality to read back the PL configuration data. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XFpga structure</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ReadbackAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Address which is used to store the PL readback data.</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>NumFrames</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The number of FPGA configuration frames to read.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XFPGA_SUCCESS, if successful</para></listitem><listitem><para>XFPGA_FAILURE, if unsuccessful</para></listitem><listitem><para>XFPGA_OPS_NOT_IMPLEMENTED, if implementation not exists. </para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para><itemizedlist>
+<listitem><para>This API is not supported for the Versal platform. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilfpga/src/xilfpga.h" line="266" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilfpga/src/xilfpga.c" bodystart="426" bodyend="451"/>
+        <references refid="struct_x_fpgatag_1af817a3d9e50e29ae60448178d216df29" compoundref="xilfpga_8h" startline="128">XFpgatag::XFpga_GetConfigData</references>
+        <references refid="struct_x_fpgatag_1acd5464c8e6c66bf80aa0139efe016bb7" compoundref="xilfpga_8h" startline="136">XFpgatag::ReadInfo</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xilfpga__zynq__versal_1ga16b3f58643bb4ca44b5f76cb15ca3c27" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XFpga_GetPlConfigReg</definition>
+        <argsstring>(XFpga *InstancePtr, UINTPTR ReadbackAddr, u32 ConfigRegAddr)</argsstring>
+        <name>XFpga_GetPlConfigReg</name>
+        <param>
+          <type><ref refid="xilfpga_8h_1a2e73b67f19f7d94e00988c853ff4599b" kindref="member">XFpga</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>UINTPTR</type>
+          <declname>ReadbackAddr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>ConfigRegAddr</declname>
+        </param>
+        <briefdescription>
+<para>This function provides PL specific configuration register values. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XFpga structure</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ReadbackAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Address which is used to store the PL Configuration register data.</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ConfigRegAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Configuration register address as mentioned in the UG570.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XFPGA_SUCCESS if, successful</para></listitem><listitem><para>XFPGA_FAILURE if, unsuccessful</para></listitem><listitem><para>XFPGA_OPS_NOT_IMPLEMENTED, if implementation not exists. </para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para><itemizedlist>
+<listitem><para>This API is not supported for the Versal platform. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilfpga/src/xilfpga.h" line="268" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilfpga/src/xilfpga.c" bodystart="473" bodyend="511"/>
+        <references refid="struct_x_fpgatag_1a112c731b7c08c57308e95856658fae97" compoundref="xilfpga_8h" startline="127">XFpgatag::XFpga_GetConfigReg</references>
+        <references refid="struct_x_fpgatag_1acd5464c8e6c66bf80aa0139efe016bb7" compoundref="xilfpga_8h" startline="136">XFpgatag::ReadInfo</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xilfpga__zynq__versal_1ga2f8e3aaa97c67aaaae6521f75f989e59" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XFpga_InterfaceStatus</definition>
+        <argsstring>(XFpga *InstancePtr)</argsstring>
+        <name>XFpga_InterfaceStatus</name>
+        <param>
+          <type><ref refid="xilfpga_8h_1a2e73b67f19f7d94e00988c853ff4599b" kindref="member">XFpga</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function provides the status of the PL programming interface. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XFpga structure</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Status of the PL programming interface</para></simplesect>
+<simplesect kind="note"><para><itemizedlist>
+<listitem><para>This API is not supported for the Versal platform. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilfpga/src/xilfpga.h" line="270" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilfpga/src/xilfpga.c" bodystart="619" bodyend="638"/>
+        <references refid="struct_x_fpgatag_1a6af355b88beaac6b872a53c13285514b" compoundref="xilfpga_8h" startline="126">XFpgatag::XFpga_GetInterfaceStatus</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2018<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2023<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="99"><highlight class="preprocessor">#ifndef<sp/>XILFPGA_H</highlight></codeline>
+<codeline lineno="100"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XILFPGA_H</highlight></codeline>
+<codeline lineno="101"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="102"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="103"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="105"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="106"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="107"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_io.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="108"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="109"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_assert.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="110"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_printf.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="111"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_util.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="112"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xparameters.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="113"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xfpga_config.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="114"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight></codeline>
+<codeline lineno="119" refid="struct_x_fpgatag" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_x_fpgatag" kindref="compound">XFpgatag</ref>{</highlight></codeline>
+<codeline lineno="120" refid="struct_x_fpgatag_1a17d90caf2f96a1c0ce3a309015fd32ae" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>(*<ref refid="struct_x_fpgatag_1a17d90caf2f96a1c0ce3a309015fd32ae" kindref="member">XFpga_ValidateBitstream</ref>)(</highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_x_fpgatag" kindref="compound">XFpgatag</ref><sp/>*InstancePtr);<sp/></highlight></codeline>
+<codeline lineno="121" refid="struct_x_fpgatag_1a542049e29b0804aabea8bcc577d71b47" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>(*<ref refid="struct_x_fpgatag_1a542049e29b0804aabea8bcc577d71b47" kindref="member">XFpga_PreConfig</ref>)(</highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_x_fpgatag" kindref="compound">XFpgatag</ref><sp/>*InstancePtr);<sp/></highlight></codeline>
+<codeline lineno="122" refid="struct_x_fpgatag_1a31407cee8cfa8d58cea94bda3147e757" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>(*<ref refid="struct_x_fpgatag_1a31407cee8cfa8d58cea94bda3147e757" kindref="member">XFpga_WriteToPl</ref>)(</highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_x_fpgatag" kindref="compound">XFpgatag</ref><sp/>*InstancePtr);<sp/></highlight></codeline>
+<codeline lineno="123" refid="struct_x_fpgatag_1a3e5baa8aaa7b73f6cd31737b2465515c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>(*<ref refid="struct_x_fpgatag_1a3e5baa8aaa7b73f6cd31737b2465515c" kindref="member">XFpga_PostConfig</ref>)(</highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_x_fpgatag" kindref="compound">XFpgatag</ref><sp/>*InstancePtr);<sp/></highlight></codeline>
+<codeline lineno="124" refid="struct_x_fpgatag_1a088ada7ce0d61319dafb5bfd85290cb1" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>(*<ref refid="struct_x_fpgatag_1a088ada7ce0d61319dafb5bfd85290cb1" kindref="member">XFpga_GetFeatureList</ref>)(</highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_x_fpgatag" kindref="compound">XFpgatag</ref><sp/>*InstancePtr);<sp/></highlight></codeline>
+<codeline lineno="125"><highlight class="preprocessor">#ifndef<sp/>versal</highlight></codeline>
+<codeline lineno="126" refid="struct_x_fpgatag_1a6af355b88beaac6b872a53c13285514b" refkind="member"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>(*<ref refid="struct_x_fpgatag_1a6af355b88beaac6b872a53c13285514b" kindref="member">XFpga_GetInterfaceStatus</ref>)(void);<sp/></highlight></codeline>
+<codeline lineno="127" refid="struct_x_fpgatag_1a112c731b7c08c57308e95856658fae97" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>(*<ref refid="struct_x_fpgatag_1a112c731b7c08c57308e95856658fae97" kindref="member">XFpga_GetConfigReg</ref>)(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_x_fpgatag" kindref="compound">XFpgatag</ref><sp/>*InstancePtr);<sp/></highlight></codeline>
+<codeline lineno="128" refid="struct_x_fpgatag_1af817a3d9e50e29ae60448178d216df29" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>(*<ref refid="struct_x_fpgatag_1af817a3d9e50e29ae60448178d216df29" kindref="member">XFpga_GetConfigData</ref>)(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_x_fpgatag" kindref="compound">XFpgatag</ref><sp/>*InstancePtr);<sp/></highlight></codeline>
+<codeline lineno="129"><highlight class="preprocessor">#ifdef<sp/>XFPGA_FRAME_READBACK</highlight></codeline>
+<codeline lineno="130"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>(*XFpga_SetConfigReg)(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_x_fpgatag" kindref="compound">XFpgatag</ref><sp/>*InstancePtr,<sp/>u32<sp/>mask,<sp/>u32<sp/>Data);<sp/></highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>(*XFpga_GetFrameData)(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_x_fpgatag" kindref="compound">XFpgatag</ref><sp/>*InstancePtr,<sp/>UINTPTR<sp/>ReadbackAddr,<sp/>u32<sp/>NumFrames,<sp/>u32<sp/>FarAddr);<sp/></highlight></codeline>
+<codeline lineno="132"><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="133"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#ifndef<sp/>XFPGA_SECURE_IPI_MODE_EN</highlight></codeline>
+<codeline lineno="134" refid="struct_x_fpgatag_1a95e48f781a288df71e5ee599d78532b6" refkind="member"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XFpga_Info<sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_fpgatag_1a95e48f781a288df71e5ee599d78532b6" kindref="member">PLInfo</ref>;<sp/></highlight></codeline>
+<codeline lineno="135"><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="136" refid="struct_x_fpgatag_1acd5464c8e6c66bf80aa0139efe016bb7" refkind="member"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_fpga___read" kindref="compound">XFpga_Read</ref><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_fpgatag_1acd5464c8e6c66bf80aa0139efe016bb7" kindref="member">ReadInfo</ref>;<sp/></highlight></codeline>
+<codeline lineno="137"><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="138" refid="struct_x_fpgatag_1a43bcd659f5043721bf8f99df22330a19" refkind="member"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_fpga___write" kindref="compound">XFpga_Write</ref><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_fpgatag_1a43bcd659f5043721bf8f99df22330a19" kindref="member">WriteInfo</ref>;<sp/></highlight></codeline>
+<codeline lineno="139"><highlight class="preprocessor">#ifdef<sp/>XFPGA_GET_FEATURE_LIST</highlight></codeline>
+<codeline lineno="140"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>FeatureList;</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="142"><highlight class="preprocessor"></highlight><highlight class="normal">}<ref refid="xilfpga_8h_1a2e73b67f19f7d94e00988c853ff4599b" kindref="member">XFpga</ref>;</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="144"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="145"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="146"><highlight class="comment">@cond<sp/>internal</highlight></codeline>
+<codeline lineno="147"><highlight class="comment"></highlight></codeline>
+<codeline lineno="148"><highlight class="comment">*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="149"><highlight class="normal"></highlight></codeline>
+<codeline lineno="150"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XFPGA_SUCCESS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x0U)</highlight></codeline>
+<codeline lineno="151"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XFPGA_FAILURE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x1U)</highlight></codeline>
+<codeline lineno="152"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XFPGA_VALIDATE_ERROR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x2U)</highlight></codeline>
+<codeline lineno="153"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XFPGA_PRE_CONFIG_ERROR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x3U)</highlight></codeline>
+<codeline lineno="154"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XFPGA_WRITE_BITSTREAM_ERROR<sp/><sp/><sp/><sp/><sp/>(0x4U)</highlight></codeline>
+<codeline lineno="155"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XFPGA_POST_CONFIG_ERROR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x5U)</highlight></codeline>
+<codeline lineno="156"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XFPGA_OPS_NOT_IMPLEMENTED<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x6U)</highlight></codeline>
+<codeline lineno="157"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XFPGA_INVALID_PARAM<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x8U)</highlight></codeline>
+<codeline lineno="158"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="159"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>versal</highlight></codeline>
+<codeline lineno="160"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XFPGA_FULLBIT_EN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000000U)</highlight></codeline>
+<codeline lineno="161"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XFPGA_PARTIAL_EN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000001U)</highlight></codeline>
+<codeline lineno="162"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XFPGA_AUTHENTICATION_DDR_EN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000002U)</highlight></codeline>
+<codeline lineno="163"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XFPGA_AUTHENTICATION_OCM_EN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000004U)</highlight></codeline>
+<codeline lineno="164"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="165"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XFPGA_ENCRYPTION_USERKEY_EN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000008U)</highlight></codeline>
+<codeline lineno="166"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#ifndef<sp/>versal</highlight></codeline>
+<codeline lineno="167"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XFPGA_ENCRYPTION_DEVKEY_EN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000010U)</highlight></codeline>
+<codeline lineno="168"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XFPGA_ONLY_BIN_EN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000020U)</highlight></codeline>
+<codeline lineno="169"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XFPGA_READ_BACK_EN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000040U)</highlight></codeline>
+<codeline lineno="170"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XFPGA_REG_READ_BACK_EN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000080U)</highlight></codeline>
+<codeline lineno="171"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="172"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>FPGA<sp/>invalid<sp/>interface<sp/>status<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="173"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XFPGA_INVALID_INTERFACE_STATUS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xFFFFFFFFU)</highlight></codeline>
+<codeline lineno="174"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="175"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="176"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>XILFPGA<sp/>Component<sp/>version<sp/>info<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="177"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XFPGA_MAJOR_VERSION<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>6U</highlight></codeline>
+<codeline lineno="178"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XFPGA_MINOR_VERSION<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>5U</highlight></codeline>
+<codeline lineno="179"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="180"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>versal</highlight></codeline>
+<codeline lineno="181"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XFPGA_SECURE_FLAGS<sp/><sp/><sp/><sp/><sp/><sp/>(<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="182"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XFPGA_AUTHENTICATION_DDR_EN<sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="183"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>XFPGA_AUTHENTICATION_OCM_EN<sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="184"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>XFPGA_ENCRYPTION_USERKEY_EN<sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="185"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>XFPGA_ENCRYPTION_DEVKEY_EN<sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="186"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>)</highlight></codeline>
+<codeline lineno="187"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="188"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XFPGA_AUTH_ENC_USERKEY_DDR<sp/><sp/><sp/><sp/><sp/><sp/>(<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="189"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XFPGA_AUTHENTICATION_DDR_EN<sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="190"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>XFPGA_ENCRYPTION_USERKEY_EN<sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="191"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>)</highlight></codeline>
+<codeline lineno="192"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="193"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XFPGA_AUTH_ENC_DEVKEY_DDR<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="194"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XFPGA_AUTHENTICATION_DDR_EN<sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="195"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>XFPGA_ENCRYPTION_DEVKEY_EN<sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="196"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>)</highlight></codeline>
+<codeline lineno="197"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="198"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XFPGA_AUTH_ENC_USERKEY_OCM<sp/><sp/><sp/><sp/><sp/><sp/>(<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="199"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XFPGA_AUTHENTICATION_OCM_EN<sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="200"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>XFPGA_ENCRYPTION_USERKEY_EN<sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="201"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>)</highlight></codeline>
+<codeline lineno="202"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="203"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XFPGA_AUTH_ENC_DEVKEY_OCM<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="204"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XFPGA_AUTHENTICATION_OCM_EN<sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="205"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>XFPGA_ENCRYPTION_DEVKEY_EN<sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="206"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>)</highlight></codeline>
+<codeline lineno="207"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>FPGA<sp/>Configuration<sp/>Registers<sp/>Offsets<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="208"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>CRC<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0U<sp/><sp/></highlight><highlight class="comment">/*<sp/>Status<sp/>Register<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="209"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>FAR1<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1U<sp/><sp/></highlight><highlight class="comment">/*<sp/>Frame<sp/>Address<sp/>Register<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="210"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>FDRI<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>2U<sp/><sp/></highlight><highlight class="comment">/*<sp/>FDRI<sp/>Register<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="211"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>FDRO<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>3U<sp/><sp/></highlight><highlight class="comment">/*<sp/>FDRO<sp/>Register<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="212"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CMD<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>4U<sp/><sp/></highlight><highlight class="comment">/*<sp/>Command<sp/>Register<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="213"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CTL0<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>5U<sp/><sp/></highlight><highlight class="comment">/*<sp/>Control<sp/>Register<sp/>0<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="214"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>6U<sp/><sp/></highlight><highlight class="comment">/*<sp/>MASK<sp/>Register<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="215"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>STAT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>7U<sp/><sp/></highlight><highlight class="comment">/*<sp/>Status<sp/>Register<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="216"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>LOUT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>8U<sp/><sp/></highlight><highlight class="comment">/*<sp/>LOUT<sp/>Register<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="217"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>COR0<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>9U<sp/><sp/></highlight><highlight class="comment">/*<sp/>Configuration<sp/>Options<sp/>Register<sp/>0<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="218"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>MFWR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>10U<sp/></highlight><highlight class="comment">/*<sp/>MFWR<sp/>Register<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="219"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CBC<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>11U<sp/></highlight><highlight class="comment">/*<sp/>CBC<sp/>Register<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="220"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>IDCODE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>12U<sp/></highlight><highlight class="comment">/*<sp/>IDCODE<sp/>Register<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="221"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>AXSS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>13U<sp/></highlight><highlight class="comment">/*<sp/>AXSS<sp/>Register<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="222"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>COR1<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>14U<sp/></highlight><highlight class="comment">/*<sp/>Configuration<sp/>Options<sp/>Register<sp/>1<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="223"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>WBSTAR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>16U<sp/></highlight><highlight class="comment">/*<sp/>Warm<sp/>Boot<sp/>Start<sp/>Address<sp/>Register<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="224"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>TIMER<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>17U<sp/></highlight><highlight class="comment">/*<sp/>Watchdog<sp/>Timer<sp/>Register<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="225"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>BOOTSTS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>22U<sp/></highlight><highlight class="comment">/*<sp/>Boot<sp/>History<sp/>Status<sp/>Register<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="226"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CTL1<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>24U<sp/></highlight><highlight class="comment">/*<sp/>Control<sp/>Register<sp/>1<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="227"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="228"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XFPGA_PDI_LOAD<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000000U)</highlight></codeline>
+<codeline lineno="229"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XFPGA_DELAYED_PDI_LOAD<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000001U)</highlight></codeline>
+<codeline lineno="230"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="231"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="232"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>Xfpga_Printf(DebugType,<sp/>...)<sp/>\</highlight></codeline>
+<codeline lineno="233"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>if<sp/>((DebugType)<sp/>!=<sp/>0U)<sp/>\</highlight></codeline>
+<codeline lineno="234"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{xil_printf<sp/>(__VA_ARGS__);<sp/>}</highlight></codeline>
+<codeline lineno="235"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="236"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XFPGA_ERR_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xFFU)</highlight></codeline>
+<codeline lineno="237"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XFPGA_ERR_INTERFACE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xFFFFFF00U)</highlight></codeline>
+<codeline lineno="238"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XFPGA_UPDATE_ERR(XfpgaErr,<sp/>InterfaceErr)<sp/>\</highlight></codeline>
+<codeline lineno="239"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(((InterfaceErr)&amp;XFPGA_ERR_INTERFACE_MASK)<sp/>+<sp/>\</highlight></codeline>
+<codeline lineno="240"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((XfpgaErr)&amp;XFPGA_ERR_MASK))</highlight></codeline>
+<codeline lineno="241"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="243"><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="244"><highlight class="normal"></highlight></codeline>
+<codeline lineno="245"><highlight class="normal"></highlight></codeline>
+<codeline lineno="246"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>XFPGA_GET_FEATURE_LIST</highlight></codeline>
+<codeline lineno="247"><highlight class="preprocessor"></highlight><highlight class="normal">u32<sp/><ref refid="struct_x_fpgatag_1a088ada7ce0d61319dafb5bfd85290cb1" kindref="member">XFpga_GetFeatureList</ref>(<ref refid="struct_x_fpgatag" kindref="compound">XFpga</ref><sp/>*InstancePtr,<sp/>u32<sp/>*FeatureList);</highlight></codeline>
+<codeline lineno="248"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="249"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="250"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>XFPGA_GET_VERSION_INFO</highlight></codeline>
+<codeline lineno="251"><highlight class="preprocessor"></highlight><highlight class="normal">u32<sp/>XFpga_GetVersion(u32<sp/>*Version);</highlight></codeline>
+<codeline lineno="252"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="253"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="254"><highlight class="normal">u32<sp/><ref refid="group__xilfpga__versal_1gaef5fb78d2b7e74b3a4f3b18ebf0a3599" kindref="member">XFpga_Initialize</ref>(<ref refid="struct_x_fpgatag" kindref="compound">XFpga</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="255"><highlight class="normal">u32<sp/><ref refid="group__xilfpga__zynq__versal_1gab9954493b57ad172167f25a3aa1b0eb0" kindref="member">XFpga_ValidateImage</ref>(<ref refid="struct_x_fpgatag" kindref="compound">XFpga</ref><sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="256"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR<sp/>BitstreamImageAddr,</highlight></codeline>
+<codeline lineno="257"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR<sp/>KeyAddr,<sp/>u32<sp/>Size,<sp/>u32<sp/>Flags);</highlight></codeline>
+<codeline lineno="258"><highlight class="normal">u32<sp/><ref refid="group__xilfpga__zynq__versal_1ga44b0cd1361ba0ff98ceed775997bc23b" kindref="member">XFpga_BitStream_Load</ref>(<ref refid="struct_x_fpgatag" kindref="compound">XFpga</ref><sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="259"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR<sp/>BitstreamImageAddr,</highlight></codeline>
+<codeline lineno="260"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR<sp/>KeyAddr,<sp/>u32<sp/>Size,<sp/>u32<sp/>Flags);</highlight></codeline>
+<codeline lineno="261"><highlight class="normal">u32<sp/><ref refid="group__xilfpga__zynq__versal_1gade4f3d3efdce2034be71f597e84a667c" kindref="member">XFpga_PL_Preconfig</ref>(<ref refid="struct_x_fpgatag" kindref="compound">XFpga</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="262"><highlight class="normal">u32<sp/><ref refid="group__xilfpga__zynq__versal_1ga3801d1f23178289fb912ecc61cdc018d" kindref="member">XFpga_Write_Pl</ref>(<ref refid="struct_x_fpgatag" kindref="compound">XFpga</ref><sp/>*InstancePtr,UINTPTR<sp/>BitstreamImageAddr,</highlight></codeline>
+<codeline lineno="263"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR<sp/>KeyAddr,<sp/>u32<sp/>Size,<sp/>u32<sp/>Flags);</highlight></codeline>
+<codeline lineno="264"><highlight class="normal">u32<sp/><ref refid="group__xilfpga__zynq__versal_1gae97b4dd15b87b8a9931a242bb855e031" kindref="member">XFpga_PL_PostConfig</ref>(<ref refid="struct_x_fpgatag" kindref="compound">XFpga</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="265"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>versal</highlight></codeline>
+<codeline lineno="266"><highlight class="preprocessor"></highlight><highlight class="normal">u32<sp/><ref refid="group__xilfpga__zynq__versal_1ga5e98e018395a91d666b1bf5322ead85a" kindref="member">XFpga_GetPlConfigData</ref>(<ref refid="struct_x_fpgatag" kindref="compound">XFpga</ref><sp/>*InstancePtr,<sp/>UINTPTR<sp/>ReadbackAddr,</highlight></codeline>
+<codeline lineno="267"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>NumFrames);</highlight></codeline>
+<codeline lineno="268"><highlight class="normal">u32<sp/><ref refid="group__xilfpga__zynq__versal_1ga16b3f58643bb4ca44b5f76cb15ca3c27" kindref="member">XFpga_GetPlConfigReg</ref>(<ref refid="struct_x_fpgatag" kindref="compound">XFpga</ref><sp/>*InstancePtr,<sp/>UINTPTR<sp/>ReadbackAddr,</highlight></codeline>
+<codeline lineno="269"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>ConfigRegAddr);</highlight></codeline>
+<codeline lineno="270"><highlight class="normal">u32<sp/><ref refid="group__xilfpga__zynq__versal_1ga2f8e3aaa97c67aaaae6521f75f989e59" kindref="member">XFpga_InterfaceStatus</ref>(<ref refid="struct_x_fpgatag" kindref="compound">XFpga</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="271"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>XFPGA_FRAME_READBACK</highlight></codeline>
+<codeline lineno="272"><highlight class="preprocessor"></highlight><highlight class="normal">u32<sp/>XFpga_SetPlConfigReg(<ref refid="struct_x_fpgatag" kindref="compound">XFpga</ref><sp/>*InstancePtr,<sp/>u32<sp/>mask,<sp/>u32<sp/>Data);</highlight></codeline>
+<codeline lineno="273"><highlight class="normal">u32<sp/>XFpga_GetPlFrameData(<ref refid="struct_x_fpgatag" kindref="compound">XFpga</ref><sp/>*InstancePtr,<sp/>UINTPTR<sp/>ReadbackAddr,</highlight></codeline>
+<codeline lineno="274"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>NumFrames,<sp/>u32<sp/>FarAddr);</highlight></codeline>
+<codeline lineno="275"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="276"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#pragma<sp/>message<sp/>(&quot;From<sp/>2023.1<sp/>release<sp/>onwards<sp/>the<sp/>XilFPGA<sp/>BSP<sp/>user<sp/>configuration<sp/><sp/>flags<sp/>&apos;reg_readback_en&apos;<sp/>and<sp/><sp/>&apos;data_readback_en&apos;<sp/>will<sp/>be<sp/>disabled<sp/>by<sp/>default<sp/>but<sp/>users<sp/>can<sp/>still<sp/>be<sp/>able<sp/>to<sp/>enable<sp/>these<sp/>flags<sp/>as<sp/>needed&quot;)</highlight></codeline>
+<codeline lineno="277"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="278"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="279"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="280"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="281"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="282"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="283"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/></highlight><highlight class="comment">/*<sp/>XILFPGA_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="284"><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilfpga/src/xilfpga.h"/>
+  </compounddef>
+</doxygen>

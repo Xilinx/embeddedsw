@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_1298f4e88d9c0552302bff9aac32ac75" kind="dir">
+    <compoundname>examples</compoundname>
+    <innerfile refid="xvidc__edid__print__example_8c">xvidc_edid_print_example.c</innerfile>
+    <innerfile refid="xvidc__edid__print__example_8h">xvidc_edid_print_example.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/examples/"/>
+  </compounddef>
+</doxygen>

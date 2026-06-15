@@ -1,0 +1,281 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_mcdma___config" kind="struct" prot="public">
+    <compoundname>XMcdma_Config</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_mcdma___config_1a66ac16869a65296de35db713f9312d26" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* XMcdma_Config::Name</definition>
+        <argsstring></argsstring>
+        <name>Name</name>
+        <briefdescription>
+<para>Unique name of the device. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" line="239" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" bodystart="239" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mcdma___config_1ab340d250a2f0e64a4ae6ed39b9cad3d9" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XMcdma_Config::BaseAddress</definition>
+        <argsstring></argsstring>
+        <name>BaseAddress</name>
+        <briefdescription>
+<para>Base address of the MCDMA device. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" line="241" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" bodystart="241" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mcdma___config_1a9c92534f9c990bffbe86b8aca1644c45" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int XMcdma_Config::AddrWidth</definition>
+        <argsstring></argsstring>
+        <name>AddrWidth</name>
+        <briefdescription>
+<para>Address width in bits (32 or 64) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" line="242" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" bodystart="242" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mcdma___config_1a92bdc244e0a0d8d2279f5240c17d06c6" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int XMcdma_Config::Has_SingleIntr</definition>
+        <argsstring></argsstring>
+        <name>Has_SingleIntr</name>
+        <briefdescription>
+<para>Single interrupt mode flag. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" line="243" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" bodystart="243" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mcdma___config_1a3d06abc0040974e1bcb8498f9fc73af0" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int XMcdma_Config::HasMM2S</definition>
+        <argsstring></argsstring>
+        <name>HasMM2S</name>
+        <briefdescription>
+<para>Has Memory to Stream channels. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" line="244" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" bodystart="244" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mcdma___config_1aa8646596b52cde81185b444c77c860be" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int XMcdma_Config::HasMM2SDRE</definition>
+        <argsstring></argsstring>
+        <name>HasMM2SDRE</name>
+        <briefdescription>
+<para>Has MM2S Data Realignment Engine. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" line="245" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" bodystart="245" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mcdma___config_1a0fe70774d7e6271ea2d9e01b7901f8db" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int XMcdma_Config::TxNumChannels</definition>
+        <argsstring></argsstring>
+        <name>TxNumChannels</name>
+        <briefdescription>
+<para>Number of transmit (MM2S) channels. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" line="246" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" bodystart="246" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mcdma___config_1a528a2bc7de13b6781bdafd098e7dabe0" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int XMcdma_Config::HasS2MM</definition>
+        <argsstring></argsstring>
+        <name>HasS2MM</name>
+        <briefdescription>
+<para>Has Stream to Memory channels. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" line="247" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" bodystart="247" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mcdma___config_1a02deee48e37a3d110b9b73951545431b" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int XMcdma_Config::HasS2MMDRE</definition>
+        <argsstring></argsstring>
+        <name>HasS2MMDRE</name>
+        <briefdescription>
+<para>Has S2MM Data Realignment Engine. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" line="248" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" bodystart="248" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mcdma___config_1a22d52f35f62e24b590eaf36f5cd6fbff" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int XMcdma_Config::RxNumChannels</definition>
+        <argsstring></argsstring>
+        <name>RxNumChannels</name>
+        <briefdescription>
+<para>Number of receive (S2MM) channels. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" line="249" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" bodystart="249" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mcdma___config_1a1e991d2b499f80b2910f924ead19723c" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int XMcdma_Config::MM2SDataWidth</definition>
+        <argsstring></argsstring>
+        <name>MM2SDataWidth</name>
+        <briefdescription>
+<para>MM2S data width in bits. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" line="250" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" bodystart="250" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mcdma___config_1acc4eb9569f3afdc48cda8a3acdf58466" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int XMcdma_Config::S2MMDataWidth</definition>
+        <argsstring></argsstring>
+        <name>S2MMDataWidth</name>
+        <briefdescription>
+<para>S2MM data bus width in bits. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" line="251" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" bodystart="251" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mcdma___config_1ae6ed355e9cef69a8eaded6a065e83edb" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XMcdma_Config::MaxTransferlen</definition>
+        <argsstring></argsstring>
+        <name>MaxTransferlen</name>
+        <briefdescription>
+<para>Maximum transfer length per transaction. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" line="252" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" bodystart="252" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mcdma___config_1a24e242cca5a5e545e4a080f4a597d363" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int XMcdma_Config::HasStsCntrlStrm</definition>
+        <argsstring></argsstring>
+        <name>HasStsCntrlStrm</name>
+        <briefdescription>
+<para>Status/Control stream interface present. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" line="253" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" bodystart="253" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mcdma___config_1ae8d6937f256149b1efb82eedf7bdf7a1" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int XMcdma_Config::HasRxLength</definition>
+        <argsstring></argsstring>
+        <name>HasRxLength</name>
+        <briefdescription>
+<para>Receive length reporting capability. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" line="254" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" bodystart="254" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mcdma___config_1a746e43b0ae3189009b0fb9d5fa7e31cf" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XMcdma_Config::IsTxCacheCoherent</definition>
+        <argsstring></argsstring>
+        <name>IsTxCacheCoherent</name>
+        <briefdescription>
+<para>Describes whether Cache Coherent or not. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" line="255" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" bodystart="255" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mcdma___config_1a684dc7ea5cdb55218ea4a10f22a811d4" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XMcdma_Config::IsRxCacheCoherent</definition>
+        <argsstring></argsstring>
+        <name>IsRxCacheCoherent</name>
+        <briefdescription>
+<para>Describes whether Cache Coherent or not. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" line="256" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" bodystart="256" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mcdma___config_1a39faf37a9f8e16f291e2529972be90c9" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XMcdma_Config::IntrId[32]</definition>
+        <argsstring>[32]</argsstring>
+        <name>IntrId</name>
+        <briefdescription>
+<para>Bits[11:0] Interrupt-id Bits[15:12] trigger type and level flags. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" line="258" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" bodystart="258" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mcdma___config_1aecfd0da0fde054b0df5221d5133cc866" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XMcdma_Config::IntrParent</definition>
+        <argsstring></argsstring>
+        <name>IntrParent</name>
+        <briefdescription>
+<para>Bit[0] Interrupt parent type Bit[64/32:1] Parent base address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" line="259" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" bodystart="259" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" line="235" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" bodystart="235" bodyend="261"/>
+    <listofallmembers>
+      <member refid="struct_x_mcdma___config_1a9c92534f9c990bffbe86b8aca1644c45" prot="public" virt="non-virtual"><scope>XMcdma_Config</scope><name>AddrWidth</name></member>
+      <member refid="struct_x_mcdma___config_1ab340d250a2f0e64a4ae6ed39b9cad3d9" prot="public" virt="non-virtual"><scope>XMcdma_Config</scope><name>BaseAddress</name></member>
+      <member refid="struct_x_mcdma___config_1a92bdc244e0a0d8d2279f5240c17d06c6" prot="public" virt="non-virtual"><scope>XMcdma_Config</scope><name>Has_SingleIntr</name></member>
+      <member refid="struct_x_mcdma___config_1a3d06abc0040974e1bcb8498f9fc73af0" prot="public" virt="non-virtual"><scope>XMcdma_Config</scope><name>HasMM2S</name></member>
+      <member refid="struct_x_mcdma___config_1aa8646596b52cde81185b444c77c860be" prot="public" virt="non-virtual"><scope>XMcdma_Config</scope><name>HasMM2SDRE</name></member>
+      <member refid="struct_x_mcdma___config_1ae8d6937f256149b1efb82eedf7bdf7a1" prot="public" virt="non-virtual"><scope>XMcdma_Config</scope><name>HasRxLength</name></member>
+      <member refid="struct_x_mcdma___config_1a528a2bc7de13b6781bdafd098e7dabe0" prot="public" virt="non-virtual"><scope>XMcdma_Config</scope><name>HasS2MM</name></member>
+      <member refid="struct_x_mcdma___config_1a02deee48e37a3d110b9b73951545431b" prot="public" virt="non-virtual"><scope>XMcdma_Config</scope><name>HasS2MMDRE</name></member>
+      <member refid="struct_x_mcdma___config_1a24e242cca5a5e545e4a080f4a597d363" prot="public" virt="non-virtual"><scope>XMcdma_Config</scope><name>HasStsCntrlStrm</name></member>
+      <member refid="struct_x_mcdma___config_1a39faf37a9f8e16f291e2529972be90c9" prot="public" virt="non-virtual"><scope>XMcdma_Config</scope><name>IntrId</name></member>
+      <member refid="struct_x_mcdma___config_1aecfd0da0fde054b0df5221d5133cc866" prot="public" virt="non-virtual"><scope>XMcdma_Config</scope><name>IntrParent</name></member>
+      <member refid="struct_x_mcdma___config_1a684dc7ea5cdb55218ea4a10f22a811d4" prot="public" virt="non-virtual"><scope>XMcdma_Config</scope><name>IsRxCacheCoherent</name></member>
+      <member refid="struct_x_mcdma___config_1a746e43b0ae3189009b0fb9d5fa7e31cf" prot="public" virt="non-virtual"><scope>XMcdma_Config</scope><name>IsTxCacheCoherent</name></member>
+      <member refid="struct_x_mcdma___config_1ae6ed355e9cef69a8eaded6a065e83edb" prot="public" virt="non-virtual"><scope>XMcdma_Config</scope><name>MaxTransferlen</name></member>
+      <member refid="struct_x_mcdma___config_1a1e991d2b499f80b2910f924ead19723c" prot="public" virt="non-virtual"><scope>XMcdma_Config</scope><name>MM2SDataWidth</name></member>
+      <member refid="struct_x_mcdma___config_1a66ac16869a65296de35db713f9312d26" prot="public" virt="non-virtual"><scope>XMcdma_Config</scope><name>Name</name></member>
+      <member refid="struct_x_mcdma___config_1a22d52f35f62e24b590eaf36f5cd6fbff" prot="public" virt="non-virtual"><scope>XMcdma_Config</scope><name>RxNumChannels</name></member>
+      <member refid="struct_x_mcdma___config_1acc4eb9569f3afdc48cda8a3acdf58466" prot="public" virt="non-virtual"><scope>XMcdma_Config</scope><name>S2MMDataWidth</name></member>
+      <member refid="struct_x_mcdma___config_1a0fe70774d7e6271ea2d9e01b7901f8db" prot="public" virt="non-virtual"><scope>XMcdma_Config</scope><name>TxNumChannels</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

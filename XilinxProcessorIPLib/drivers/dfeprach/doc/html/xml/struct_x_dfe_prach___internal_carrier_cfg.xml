@@ -1,0 +1,69 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_dfe_prach___internal_carrier_cfg" kind="struct" prot="public">
+    <compoundname>XDfePrach_InternalCarrierCfg</compoundname>
+    <includes local="no">xdfeprach.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_dfe_prach___internal_carrier_cfg_1a8c6eb3fd95388139e2b44f655803043e" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfePrach_InternalCarrierCfg::Enable</definition>
+        <argsstring></argsstring>
+        <name>Enable</name>
+        <briefdescription>
+<para><verbatim>     [0,1] Enable/Disable CC while still reserving its
+</verbatim> slot in the TDM - set by helper functions when building the configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" line="317" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" bodystart="317" bodyend="-1"/>
+        <referencedby refid="group__dfeprach_1ga845bf47ab36b74fa4de75447b7436740" compoundref="xdfeprach_8c" startline="2246" endline="2282">XDfePrach_AddCCtoCCCfgMB</referencedby>
+        <referencedby refid="group__dfeprach_1gae8a50582ea8e6fcf4a3316719028dea0" compoundref="xdfeprach_8c" startline="2346" endline="2362">XDfePrach_RemoveCCfromCCCfgMB</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_prach___internal_carrier_cfg_1a498e8db8822d426a821a872935be35e5" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfePrach_InternalCarrierCfg::SCS</definition>
+        <argsstring></argsstring>
+        <name>SCS</name>
+        <briefdescription>
+<para>[0-4] CC sub-carrier spacing. </para>        </briefdescription>
+        <detaileddescription>
+<para>Required to determine Slot boundaries:<itemizedlist>
+<listitem><para>0: 15KHz spacing</para></listitem><listitem><para>1: 30KHz spacing</para></listitem><listitem><para>2: 60KHz spacing</para></listitem><listitem><para>3: 120KHz spacing</para></listitem><listitem><para>4: 240KHz spacing </para></listitem></itemizedlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" line="320" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" bodystart="320" bodyend="-1"/>
+        <referencedby refid="group__dfeprach_1ga845bf47ab36b74fa4de75447b7436740" compoundref="xdfeprach_8c" startline="2246" endline="2282">XDfePrach_AddCCtoCCCfgMB</referencedby>
+        <referencedby refid="group__dfeprach_1gab7c5663ad84ff2b078cb3e935ecff7b3" compoundref="xdfeprach_8c" startline="2163" endline="2187">XDfePrach_GetCarrierCfgMB</referencedby>
+        <referencedby refid="group__dfeprach_1ga78670773998ae979bef41149fd8bc950" compoundref="xdfeprach_8c" startline="2409" endline="2422">XDfePrach_UpdateCCinCCCfgMB</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_prach___internal_carrier_cfg_1a0e94cb0447ecf7d3dd2799926ce3d80c" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfePrach_InternalCarrierCfg::CCRate</definition>
+        <argsstring></argsstring>
+        <name>CCRate</name>
+        <briefdescription>
+<para>[0-3] The sample rate for the CC. </para>        </briefdescription>
+        <detaileddescription>
+<para>This is also the decimation rate required to decimate the CC down to Fc/16 Ms/s:<itemizedlist>
+<listitem><para>0: Fc/16 Ms/s, implies 1x decimation to get to Fc/16 Ms/s)</para></listitem><listitem><para>1: Fc/8 MS/s, implies 2x decimation to get to Fc/16 Ms/s)</para></listitem><listitem><para>2: Fc/4 MS/s, implies 4x decimation to get to Fc/16 Ms/s)</para></listitem><listitem><para>3: Fc/2 MS/s, implies 8x decimation to get to Fc/16 Ms/s) </para></listitem></itemizedlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" line="327" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" bodystart="327" bodyend="-1"/>
+        <referencedby refid="group__dfeprach_1ga845bf47ab36b74fa4de75447b7436740" compoundref="xdfeprach_8c" startline="2246" endline="2282">XDfePrach_AddCCtoCCCfgMB</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Internal Configuration for a single CC. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" line="316" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" bodystart="316" bodyend="334"/>
+    <listofallmembers>
+      <member refid="struct_x_dfe_prach___internal_carrier_cfg_1a0e94cb0447ecf7d3dd2799926ce3d80c" prot="public" virt="non-virtual"><scope>XDfePrach_InternalCarrierCfg</scope><name>CCRate</name></member>
+      <member refid="struct_x_dfe_prach___internal_carrier_cfg_1a8c6eb3fd95388139e2b44f655803043e" prot="public" virt="non-virtual"><scope>XDfePrach_InternalCarrierCfg</scope><name>Enable</name></member>
+      <member refid="struct_x_dfe_prach___internal_carrier_cfg_1a498e8db8822d426a821a872935be35e5" prot="public" virt="non-virtual"><scope>XDfePrach_InternalCarrierCfg</scope><name>SCS</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,256 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xiomodule__extra_8c" kind="file">
+    <compoundname>xiomodule_extra.c</compoundname>
+    <includes refid="xiomodule_8h" local="yes">xiomodule.h</includes>
+    <includes refid="xiomodule__i_8h" local="yes">xiomodule_i.h</includes>
+    <includes local="yes">xil_types.h</includes>
+    <includes local="yes">xil_assert.h</includes>
+    <incdepgraph>
+      <node id="45">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="37">
+        <label>xiomodule_extra.c</label>
+        <link refid="xiomodule_extra.c"/>
+        <childnode refid="38" relation="include">
+        </childnode>
+        <childnode refid="44" relation="include">
+        </childnode>
+        <childnode refid="43" relation="include">
+        </childnode>
+        <childnode refid="45" relation="include">
+        </childnode>
+      </node>
+      <node id="42">
+        <label>xil_io.h</label>
+      </node>
+      <node id="44">
+        <label>xiomodule_i.h</label>
+        <link refid="xiomodule__i_8h"/>
+        <childnode refid="38" relation="include">
+        </childnode>
+      </node>
+      <node id="38">
+        <label>xiomodule.h</label>
+        <link refid="xiomodule_8h"/>
+        <childnode refid="39" relation="include">
+        </childnode>
+        <childnode refid="40" relation="include">
+        </childnode>
+        <childnode refid="43" relation="include">
+        </childnode>
+      </node>
+      <node id="39">
+        <label>xstatus.h</label>
+      </node>
+      <node id="43">
+        <label>xil_types.h</label>
+      </node>
+      <node id="40">
+        <label>xiomodule_l.h</label>
+        <link refid="xiomodule__l_8h"/>
+        <childnode refid="39" relation="include">
+        </childnode>
+        <childnode refid="41" relation="include">
+        </childnode>
+      </node>
+      <node id="41">
+        <label>xiomodule_io.h</label>
+        <link refid="xiomodule__io_8h"/>
+        <childnode refid="42" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__iomodule_1gad52755c9c41e1753703652d7a9c879fa" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XIOModule_DiscreteSet</definition>
+        <argsstring>(XIOModule *InstancePtr, u32 Channel, u32 Mask)</argsstring>
+        <name>XIOModule_DiscreteSet</name>
+        <param>
+          <type><ref refid="struct_x_i_o_module" kindref="compound">XIOModule</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Channel</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Mask</declname>
+        </param>
+        <briefdescription>
+<para>Set output discrete(s) to logic 1 for the specified GPO channel. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to an <ref refid="struct_x_i_o_module" kindref="compound">XIOModule</ref> instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Channel</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains the channel of the GPIO (1, 2, 3 or 4) to operate on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the set of bits that will be set to 1 in the discrete data register. All other bits in the data register are unaffected.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule.h" line="517" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule_extra.c" bodystart="67" bodyend="89"/>
+        <references refid="struct_x_i_o_module_1ae5c5a9e707642378f9e46a235bf7a3c6" compoundref="xiomodule_8h" startline="433">XIOModule::BaseAddress</references>
+        <references refid="struct_x_i_o_module_1ae52b176be0e933fa2a882feb0e6af143" compoundref="xiomodule_8h" startline="460">XIOModule::GpoValue</references>
+        <references refid="struct_x_i_o_module_1a0cee7cfb4687662370f0900c9c0b31d0" compoundref="xiomodule_8h" startline="434">XIOModule::IsReady</references>
+        <references refid="group__iomodule_1ga829c77e3efe996211599f9a2a6bb4890" compoundref="xiomodule__l_8h" startline="384">XIOModule_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__iomodule_1ga4aa314f25c8472dceb0e9021ca8d7b10" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XIOModule_DiscreteClear</definition>
+        <argsstring>(XIOModule *InstancePtr, u32 Channel, u32 Mask)</argsstring>
+        <name>XIOModule_DiscreteClear</name>
+        <param>
+          <type><ref refid="struct_x_i_o_module" kindref="compound">XIOModule</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Channel</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Mask</declname>
+        </param>
+        <briefdescription>
+<para>Set output discrete(s) to logic 0 for the specified GPO channel. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to an <ref refid="struct_x_i_o_module" kindref="compound">XIOModule</ref> instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Channel</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains the channel of the GPIO (1, 2, 3 or 4) to operate on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the set of bits that will be set to 0 in the discrete data register. All other bits in the data register are unaffected.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule.h" line="518" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule_extra.c" bodystart="107" bodyend="131"/>
+        <references refid="struct_x_i_o_module_1ae5c5a9e707642378f9e46a235bf7a3c6" compoundref="xiomodule_8h" startline="433">XIOModule::BaseAddress</references>
+        <references refid="struct_x_i_o_module_1ae52b176be0e933fa2a882feb0e6af143" compoundref="xiomodule_8h" startline="460">XIOModule::GpoValue</references>
+        <references refid="struct_x_i_o_module_1a0cee7cfb4687662370f0900c9c0b31d0" compoundref="xiomodule_8h" startline="434">XIOModule::IsReady</references>
+        <references refid="group__iomodule_1ga829c77e3efe996211599f9a2a6bb4890" compoundref="xiomodule__l_8h" startline="384">XIOModule_WriteReg</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2011<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022<sp/>-<sp/>2023<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="34"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xiomodule_8h" kindref="compound">xiomodule.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xiomodule__i_8h" kindref="compound">xiomodule_i.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_assert.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="67" refid="group__iomodule_1gad52755c9c41e1753703652d7a9c879fa" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__iomodule_1gad52755c9c41e1753703652d7a9c879fa" kindref="member">XIOModule_DiscreteSet</ref>(<ref refid="struct_x_i_o_module" kindref="compound">XIOModule</ref><sp/>*<sp/>InstancePtr,<sp/>u32<sp/>Channel,<sp/>u32<sp/>Mask)</highlight></codeline>
+<codeline lineno="68"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Current;</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>DataOffset;</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_i_o_module_1a0cee7cfb4687662370f0900c9c0b31d0" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid((Channel<sp/>&gt;=<sp/>1U)<sp/>&amp;&amp;<sp/>(Channel<sp/>&lt;=<sp/>XGPO_DEVICE_COUNT));</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="77"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Calculate<sp/>the<sp/>offset<sp/>to<sp/>the<sp/>data<sp/>register<sp/>of<sp/>the<sp/>GPO</highlight></codeline>
+<codeline lineno="78"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DataOffset<sp/>=<sp/>((Channel<sp/>-<sp/>1U)<sp/>*<sp/>XGPO_CHAN_OFFSET)<sp/>+<sp/>XGPO_DATA_OFFSET;</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"></highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="82"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Read<sp/>the<sp/>contents<sp/>from<sp/>the<sp/>instance,<sp/>merge<sp/>in<sp/>Mask<sp/>and<sp/>write</highlight></codeline>
+<codeline lineno="83"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>back<sp/>results</highlight></codeline>
+<codeline lineno="84"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Current<sp/>=<sp/>InstancePtr-&gt;<ref refid="struct_x_i_o_module_1ae52b176be0e933fa2a882feb0e6af143" kindref="member">GpoValue</ref>[Channel<sp/>-<sp/>1U];</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Current<sp/>|=<sp/>Mask;</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__iomodule_1ga829c77e3efe996211599f9a2a6bb4890" kindref="member">XIOModule_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_i_o_module_1ae5c5a9e707642378f9e46a235bf7a3c6" kindref="member">BaseAddress</ref>,<sp/>DataOffset,<sp/>Current);</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_i_o_module_1ae52b176be0e933fa2a882feb0e6af143" kindref="member">GpoValue</ref>[Channel<sp/>-<sp/>1U]<sp/>=<sp/>Current;</highlight></codeline>
+<codeline lineno="89"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight></codeline>
+<codeline lineno="91"><highlight class="normal"></highlight></codeline>
+<codeline lineno="92"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="107" refid="group__iomodule_1ga4aa314f25c8472dceb0e9021ca8d7b10" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__iomodule_1ga4aa314f25c8472dceb0e9021ca8d7b10" kindref="member">XIOModule_DiscreteClear</ref>(<ref refid="struct_x_i_o_module" kindref="compound">XIOModule</ref><sp/>*<sp/>InstancePtr,</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Channel,</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Mask)</highlight></codeline>
+<codeline lineno="110"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Current;</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>DataOffset;</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"></highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_i_o_module_1a0cee7cfb4687662370f0900c9c0b31d0" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid((Channel<sp/>&gt;=<sp/>1U)<sp/>&amp;&amp;<sp/>(Channel<sp/>&lt;=<sp/>XGPO_DEVICE_COUNT));</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"></highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="119"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Calculate<sp/>the<sp/>offset<sp/>to<sp/>the<sp/>data<sp/>register<sp/>of<sp/>the<sp/>GPO</highlight></codeline>
+<codeline lineno="120"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DataOffset<sp/>=<sp/>((Channel<sp/>-<sp/>1U)<sp/>*<sp/>XGPO_CHAN_OFFSET)<sp/>+<sp/>XGPO_DATA_OFFSET;</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"></highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="124"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Read<sp/>the<sp/>contents<sp/>from<sp/>the<sp/>instance,<sp/>merge<sp/>in<sp/>Mask<sp/>and<sp/>write</highlight></codeline>
+<codeline lineno="125"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>back<sp/>results</highlight></codeline>
+<codeline lineno="126"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Current<sp/>=<sp/>InstancePtr-&gt;<ref refid="struct_x_i_o_module_1ae52b176be0e933fa2a882feb0e6af143" kindref="member">GpoValue</ref>[Channel<sp/>-<sp/>1U];</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Current<sp/>&amp;=<sp/>~Mask;</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__iomodule_1ga829c77e3efe996211599f9a2a6bb4890" kindref="member">XIOModule_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_i_o_module_1ae5c5a9e707642378f9e46a235bf7a3c6" kindref="member">BaseAddress</ref>,<sp/>DataOffset,<sp/>Current);</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_i_o_module_1ae52b176be0e933fa2a882feb0e6af143" kindref="member">GpoValue</ref>[Channel<sp/>-<sp/>1U]<sp/>=<sp/>Current;</highlight></codeline>
+<codeline lineno="131"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule_extra.c"/>
+  </compounddef>
+</doxygen>

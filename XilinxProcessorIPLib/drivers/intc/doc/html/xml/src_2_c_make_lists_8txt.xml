@@ -1,0 +1,113 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="src_2_c_make_lists_8txt" kind="file">
+    <compoundname>src/CMakeLists.txt</compoundname>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="src_2_c_make_lists_8txt_1a54c485e67dd34ffad55b0061b65a2fb5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>if</definition>
+        <argsstring>((EXISTS&quot;${INTC_DIR}/INTCConfig.cmake&quot;) AND DRIVER_INSTANCES) message(FATAL_ERROR&quot;INTC cascade mode supports at most $</argsstring>
+        <name>if</name>
+        <param>
+          <type>(EXISTS&quot;${INTC_DIR}/INTCConfig.cmake&quot;) AND</type>
+          <declname>DRIVER_INSTANCES</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/CMakeLists.txt" line="13" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/CMakeLists.txt" bodystart="13" bodyend="36"/>
+      </memberdef>
+      <memberdef kind="function" id="src_2_c_make_lists_8txt_1aa8aa13b67a170bd56f906c02abbac438" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>driver</type>
+        <definition>driver instances</definition>
+        <argsstring>(XINTC_MAX_CASCADE_CONTROLLERS)</argsstring>
+        <name>instances</name>
+        <param>
+          <type><ref refid="group__intc_1ga83c73f41c10e5cb7be5c1fc0b1f05993" kindref="member">XINTC_MAX_CASCADE_CONTROLLERS</ref></type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/CMakeLists.txt" line="36" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#<sp/>Copyright<sp/>(C)<sp/>2023<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="2"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#<sp/>Copyright<sp/>(c)<sp/>2021<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="preprocessor"></highlight><highlight class="normal">cmake_minimum_required(VERSION<sp/>3.15)</highlight></codeline>
+<codeline lineno="5"><highlight class="normal">project(intc)</highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal">find_package(common)</highlight></codeline>
+<codeline lineno="8"><highlight class="normal">set(INTC_DIR<sp/>&quot;${CMAKE_CURRENT_SOURCE_DIR}</highlight><highlight class="stringliteral">&quot;)</highlight></codeline>
+<codeline lineno="9"><highlight class="stringliteral">find_package(INTC<sp/>QUIET)</highlight></codeline>
+<codeline lineno="10"><highlight class="stringliteral">set(defs<sp/>&quot;</highlight><highlight class="stringliteral">&quot;)</highlight></codeline>
+<codeline lineno="11"><highlight class="stringliteral">list(APPEND<sp/>defs<sp/>&quot;</highlight><highlight class="normal">#ifndef<sp/>XINTC_DRV_CONFIG_H_\n</highlight><highlight class="stringliteral">&quot;)</highlight></codeline>
+<codeline lineno="12"><highlight class="stringliteral">list(APPEND<sp/>defs<sp/>&quot;</highlight><highlight class="normal">#define<sp/>XINTC_DRV_CONFIG_H_\n\n</highlight><highlight class="stringliteral">&quot;)</highlight></codeline>
+<codeline lineno="13"><highlight class="stringliteral">if<sp/>((EXISTS<sp/>&quot;</highlight><highlight class="normal">${INTC_DIR}/INTCConfig.cmake</highlight><highlight class="stringliteral">&quot;)<sp/>AND</highlight></codeline>
+<codeline lineno="14"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>DRIVER_INSTANCES)</highlight></codeline>
+<codeline lineno="15"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>set(max_intr<sp/>0)</highlight></codeline>
+<codeline lineno="16"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>set(is_cascade<sp/>0)</highlight></codeline>
+<codeline lineno="17"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>foreach(ELEMENT<sp/>${TOTAL_DRIVER_PROP_LIST})</highlight></codeline>
+<codeline lineno="18"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>foreach(ENTRY<sp/>${ELEMENT})</highlight></codeline>
+<codeline lineno="19"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>list(GET<sp/>${ENTRY}<sp/>5<sp/>max_intr_temp)</highlight></codeline>
+<codeline lineno="20"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>if(max_intr_temp<sp/>GREATER<sp/>max_intr)</highlight></codeline>
+<codeline lineno="21"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>set(max_intr<sp/>${max_intr_temp})</highlight></codeline>
+<codeline lineno="22"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>endif()</highlight></codeline>
+<codeline lineno="23"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>list(GET<sp/>${ENTRY}<sp/>8<sp/>intc_type)</highlight></codeline>
+<codeline lineno="24"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>if(intc_type<sp/>GREATER<sp/>0)</highlight></codeline>
+<codeline lineno="25"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>set(is_cascade<sp/>1)</highlight></codeline>
+<codeline lineno="26"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>endif()</highlight></codeline>
+<codeline lineno="27"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>endforeach()</highlight></codeline>
+<codeline lineno="28"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>endforeach()</highlight></codeline>
+<codeline lineno="29"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>list(LENGTH<sp/>DRIVER_INSTANCES<sp/>drv_instances)</highlight></codeline>
+<codeline lineno="30"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>list(APPEND<sp/>defs<sp/>&quot;</highlight><highlight class="normal">#define<sp/>XPAR_INTC_NUM_DRV_INSTANCES<sp/>${drv_instances}\n</highlight><highlight class="stringliteral">&quot;)</highlight></codeline>
+<codeline lineno="31"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>if(is_cascade)</highlight></codeline>
+<codeline lineno="32"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#<sp/>Must<sp/>match<sp/>XINTC_MAX_CASCADE_CONTROLLERS<sp/>in<sp/>xintc.h<sp/>(u8<sp/>global<sp/>IDs,<sp/>8<sp/>*<sp/>32<sp/>=<sp/>256).</highlight></codeline>
+<codeline lineno="33"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>set(max_cascade_controllers<sp/>8)</highlight></codeline>
+<codeline lineno="34"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>if(drv_instances<sp/>GREATER<sp/>max_cascade_controllers)</highlight></codeline>
+<codeline lineno="35"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>message(FATAL_ERROR</highlight></codeline>
+<codeline lineno="36"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;</highlight><highlight class="normal">INTC<sp/>cascade<sp/>mode<sp/>supports<sp/>at<sp/>most<sp/>${max_cascade_controllers}<sp/>driver<sp/>instances<sp/></highlight><highlight class="stringliteral">&quot;</highlight></codeline>
+<codeline lineno="37"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;</highlight><highlight class="normal">(<ref refid="group__intc_1ga83c73f41c10e5cb7be5c1fc0b1f05993" kindref="member">XINTC_MAX_CASCADE_CONTROLLERS</ref>);<sp/>found<sp/>${drv_instances}.</highlight><highlight class="stringliteral">&quot;)</highlight></codeline>
+<codeline lineno="38"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>endif()</highlight></codeline>
+<codeline lineno="39"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>math(EXPR<sp/>max_intr_cascade<sp/>&quot;</highlight><highlight class="normal">${drv_instances}<sp/>*<sp/>32</highlight><highlight class="stringliteral">&quot;)</highlight></codeline>
+<codeline lineno="40"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>list(APPEND<sp/>defs<sp/>&quot;</highlight><highlight class="normal">#define<sp/>XPAR_INTC_MAX_NUM_INTR_INPUTS<sp/>${max_intr_cascade}\n</highlight><highlight class="stringliteral">&quot;)</highlight></codeline>
+<codeline lineno="41"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>else()</highlight></codeline>
+<codeline lineno="42"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#<sp/>Non-cascade<sp/>mode:<sp/>use<sp/>the<sp/>actual<sp/>max_intr<sp/>from<sp/>loop</highlight></codeline>
+<codeline lineno="43"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>list(APPEND<sp/>defs<sp/>&quot;</highlight><highlight class="normal">#define<sp/>XPAR_INTC_MAX_NUM_INTR_INPUTS<sp/>${max_intr}\n</highlight><highlight class="stringliteral">&quot;)</highlight></codeline>
+<codeline lineno="44"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>endif()</highlight></codeline>
+<codeline lineno="45"><highlight class="stringliteral">endif()</highlight></codeline>
+<codeline lineno="46"><highlight class="stringliteral">list(APPEND<sp/>defs<sp/>&quot;</highlight><highlight class="normal">\n#endif</highlight><highlight class="stringliteral">&quot;)</highlight></codeline>
+<codeline lineno="47"><highlight class="stringliteral">file(WRITE<sp/>${CMAKE_CURRENT_SOURCE_DIR}/xintc_drv_config.h<sp/>${defs})</highlight></codeline>
+<codeline lineno="48"><highlight class="stringliteral">collector_create<sp/>(PROJECT_LIB_HEADERS<sp/>&quot;</highlight><highlight class="normal">${CMAKE_CURRENT_SOURCE_DIR}</highlight><highlight class="stringliteral">&quot;)</highlight></codeline>
+<codeline lineno="49"><highlight class="stringliteral">collector_create<sp/>(PROJECT_LIB_SOURCES<sp/>&quot;</highlight><highlight class="normal">${CMAKE_CURRENT_SOURCE_DIR}</highlight><highlight class="stringliteral">&quot;)</highlight></codeline>
+<codeline lineno="50"><highlight class="stringliteral">include_directories(${CMAKE_BINARY_DIR}/include)</highlight></codeline>
+<codeline lineno="51"><highlight class="stringliteral">collect<sp/>(PROJECT_LIB_SOURCES<sp/>xintc.c)</highlight></codeline>
+<codeline lineno="52"><highlight class="stringliteral">collect<sp/>(PROJECT_LIB_HEADERS<sp/>xintc.h)</highlight></codeline>
+<codeline lineno="53"><highlight class="stringliteral">collect<sp/>(PROJECT_LIB_HEADERS<sp/>xintc_drv_config.h)</highlight></codeline>
+<codeline lineno="54"><highlight class="stringliteral">collect<sp/>(PROJECT_LIB_SOURCES<sp/>xintc_g.c)</highlight></codeline>
+<codeline lineno="55"><highlight class="stringliteral">collect<sp/>(PROJECT_LIB_HEADERS<sp/>xintc_i.h)</highlight></codeline>
+<codeline lineno="56"><highlight class="stringliteral">collect<sp/>(PROJECT_LIB_SOURCES<sp/>xintc_intr.c)</highlight></codeline>
+<codeline lineno="57"><highlight class="stringliteral">collect<sp/>(PROJECT_LIB_SOURCES<sp/>xintc_l.c)</highlight></codeline>
+<codeline lineno="58"><highlight class="stringliteral">collect<sp/>(PROJECT_LIB_HEADERS<sp/>xintc_l.h)</highlight></codeline>
+<codeline lineno="59"><highlight class="stringliteral">collect<sp/>(PROJECT_LIB_SOURCES<sp/>xintc_options.c)</highlight></codeline>
+<codeline lineno="60"><highlight class="stringliteral">collect<sp/>(PROJECT_LIB_SOURCES<sp/>xintc_selftest.c)</highlight></codeline>
+<codeline lineno="61"><highlight class="stringliteral">collector_list<sp/>(_sources<sp/>PROJECT_LIB_SOURCES)</highlight></codeline>
+<codeline lineno="62"><highlight class="stringliteral">collector_list<sp/>(_headers<sp/>PROJECT_LIB_HEADERS)</highlight></codeline>
+<codeline lineno="63"><highlight class="stringliteral">file(COPY<sp/>${_headers}<sp/>DESTINATION<sp/>${CMAKE_BINARY_DIR}/include)</highlight></codeline>
+<codeline lineno="64"><highlight class="stringliteral">add_library(intc<sp/>STATIC<sp/>${_sources})</highlight></codeline>
+<codeline lineno="65"><highlight class="stringliteral">set_target_properties(intc<sp/>PROPERTIES<sp/>LINKER_LANGUAGE<sp/>C)</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/CMakeLists.txt"/>
+  </compounddef>
+</doxygen>

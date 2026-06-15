@@ -1,0 +1,372 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xsecure__plat__aes_8h" kind="file">
+    <compoundname>xsecure_plat_aes.h</compoundname>
+    <includes local="yes">xsecure_aes.h</includes>
+    <includedby refid="xsecure__keyunwrap_8c" local="yes">xsecure_keyunwrap.c</includedby>
+    <includedby refid="xsecure__plat__aes_8c" local="yes">xsecure_plat_aes.c</includedby>
+    <incdepgraph>
+      <node id="2450">
+        <label>xsecure_plat_aes.h</label>
+        <link refid="xsecure_plat_aes.h"/>
+        <childnode refid="2451" relation="include">
+        </childnode>
+      </node>
+      <node id="2451">
+        <label>xsecure_aes.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="2453">
+        <label>xsecure_keyunwrap.c</label>
+        <link refid="xsecure__keyunwrap_8c"/>
+      </node>
+      <node id="2454">
+        <label>xsecure_plat_aes.c</label>
+        <link refid="xsecure__plat__aes_8c"/>
+      </node>
+      <node id="2452">
+        <label>xsecure_plat_aes.h</label>
+        <link refid="xsecure_plat_aes.h"/>
+        <childnode refid="2453" relation="include">
+        </childnode>
+        <childnode refid="2454" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__xsecure__aes__server__apis_1ga54f245411d6dc8248fde64c3727d0210" prot="public" static="no">
+        <name>XSECURE_AES_ECB_MODE_EN</name>
+        <initializer>(1U)</initializer>
+        <briefdescription>
+<para>AES ECB Mode Enable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_plat_aes.h" line="42" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_plat_aes.h" bodystart="42" bodyend="-1"/>
+        <referencedby refid="group__xsecure__aes__server__apis_1ga42ab2048d7363ba51f6d9c4e9c93d88e" compoundref="xsecure__plat__aes_8c" startline="96" endline="123">XSecure_AesEcbCfg</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__aes__server__apis_1ga9c335ab77abaf46efb54cdd08a16c7d6" prot="public" static="no">
+        <name>XSECURE_AES_ECB_MODE_DIS</name>
+        <initializer>(0U)</initializer>
+        <briefdescription>
+<para>AES ECB Mode Enable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_plat_aes.h" line="43" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_plat_aes.h" bodystart="43" bodyend="-1"/>
+        <referencedby refid="group__xsecure__aes__server__apis_1ga42ab2048d7363ba51f6d9c4e9c93d88e" compoundref="xsecure__plat__aes_8c" startline="96" endline="123">XSecure_AesEcbCfg</referencedby>
+        <referencedby refid="group__xsecure__aes__server__apis_1ga6422d39ce630dc928daba92a65da4c56" compoundref="xsecure__plat__aes_8c" startline="148" endline="185">XSecure_AesEcbDecrypt</referencedby>
+        <referencedby refid="group__xsecure__aes__server__apis_1ga4da9ead453ef1dbeebefeebb377eb94d" compoundref="xsecure__plat__aes_8c" startline="211" endline="345">XSecure_AesKeyUnwrap</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__aes__server__apis_1gaa26b61acf33b45fed961e0e3a59f7baa" prot="public" static="no">
+        <name>XSECURE_AES_64BIT_BLOCK_SIZE</name>
+        <initializer>(8U)</initializer>
+        <briefdescription>
+<para>AES 64-bit block size in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_plat_aes.h" line="44" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_plat_aes.h" bodystart="44" bodyend="-1"/>
+        <referencedby refid="group__xsecure__aes__server__apis_1ga4da9ead453ef1dbeebefeebb377eb94d" compoundref="xsecure__plat__aes_8c" startline="211" endline="345">XSecure_AesKeyUnwrap</referencedby>
+        <referencedby refid="group__xsecure__keyunwrap__server__apis_1gaf1df351e91ee42e7c281b2e676ffda7b" compoundref="xsecure__keyunwrap_8c" startline="185" endline="283">XSecure_KeyUnwrap</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xsecure__aes__server__apis_1ga42ab2048d7363ba51f6d9c4e9c93d88e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XSecure_AesEcbCfg</definition>
+        <argsstring>(XSecure_Aes *InstancePtr, u32 EcbModeFlag)</argsstring>
+        <name>XSecure_AesEcbCfg</name>
+        <param>
+          <type>XSecure_Aes *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>EcbModeFlag</declname>
+        </param>
+        <briefdescription>
+<para>This function sets AES ECB mode. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XSecure_Aes instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>EcbModeFlag</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Flag to enable/disable ECB mode</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - On Success</para></listitem><listitem><para>XSECURE_AES_INVALID_PARAM - On invalid parameter</para></listitem><listitem><para>XSECURE_AES_STATE_MISMATCH_ERROR - On state mismatch </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Validate the input arguments </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_plat_aes.c" line="96" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_plat_aes.c" bodystart="96" bodyend="123"/>
+        <references refid="group__xsecure__aes__server__apis_1ga9c335ab77abaf46efb54cdd08a16c7d6" compoundref="xsecure__plat__aes_8h" startline="43">XSECURE_AES_ECB_MODE_DIS</references>
+        <references refid="group__xsecure__aes__server__apis_1ga54f245411d6dc8248fde64c3727d0210" compoundref="xsecure__plat__aes_8h" startline="42">XSECURE_AES_ECB_MODE_EN</references>
+        <references refid="group__xsecure__helper__server__apis_1ga48aafede9c9ae68ab7f9e4b6b49d6be2" compoundref="versal__net_2xsecure__plat_8h" startline="71">XSECURE_AES_ECB_OFFSET</references>
+        <references refid="group__xsecure__aes__client__apis_1gaf7eae7e456a1d11d550afb26e22ea199" compoundref="xsecure__aesclient_8h" startline="87">XSECURE_AES_INVALID_PARAM</references>
+        <references refid="spartanup_2xsecure__error_8h_1a0411cd49bb5b71852cecd93bcbf0ca2dacc47a7e8e079ea3b61729bb366e5b8e2" compoundref="spartanup_2xsecure__error_8h" startline="85">XSECURE_AES_STATE_MISMATCH_ERROR</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__aes__server__apis_1ga6422d39ce630dc928daba92a65da4c56" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XSecure_AesEcbDecrypt</definition>
+        <argsstring>(XSecure_Aes *InstancePtr, u64 KeyAddr, XSecure_AesKeySize KeySize, u64 InDataAddr, u64 OutDataAddr, u32 Size)</argsstring>
+        <name>XSecure_AesEcbDecrypt</name>
+        <param>
+          <type>XSecure_Aes *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u64</type>
+          <declname>KeyAddr</declname>
+        </param>
+        <param>
+          <type><ref refid="group__xsecure__aes__client__apis_1ga55cd9d64e04cce6a57d729b67a5f0c47" kindref="member">XSecure_AesKeySize</ref></type>
+          <declname>KeySize</declname>
+        </param>
+        <param>
+          <type>u64</type>
+          <declname>InDataAddr</declname>
+        </param>
+        <param>
+          <type>u64</type>
+          <declname>OutDataAddr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Size</declname>
+        </param>
+        <briefdescription>
+<para>This function writes AES key into XSECURE_AES_USER_KEY_7 and decrypts the data in ECB mode. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XSecure_Aes instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>KeyAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Address of the key to be programmed in XSECURE_AES_USER_KEY_7 </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>KeySize</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Size of the AES key to be used for decryption: XSECURE_AES_KEY_SIZE_128 for 128 bit key size or XSECURE_AES_KEY_SIZE_256 for 256 bit key size </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>InDataAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Address of the encrypted data which needs to be decrypted </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>OutDataAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Address of output buffer where the decrypted data to be updated </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Size</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Size of data to be decrypted in bytes. Data shall be 16 byte aligned for non-last chunks and 4 byte aligned when it is the last chunk</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - On Success</para></listitem><listitem><para>XST_FAILURE - On Failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Validate input arguments and write AES key</para></listitem><listitem><para>Validate and put AES in ECB and decryption mode</para></listitem><listitem><para>Clear AES Key </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_plat_aes.c" line="148" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_plat_aes.c" bodystart="148" bodyend="185"/>
+        <references refid="group__xsecure__aes__server__apis_1ga9c335ab77abaf46efb54cdd08a16c7d6" compoundref="xsecure__plat__aes_8h" startline="43">XSECURE_AES_ECB_MODE_DIS</references>
+        <references refid="group__xsecure__helper__server__apis_1ga48aafede9c9ae68ab7f9e4b6b49d6be2" compoundref="versal__net_2xsecure__plat_8h" startline="71">XSECURE_AES_ECB_OFFSET</references>
+        <references refid="group__xsecure__aes__client__apis_1gga3be7525f93a2e54baa60c3b1a9df262cab5c84ff4a7f15af959065b2e66aa088f" compoundref="xsecure__aesclient_8h" startline="75">XSECURE_AES_USER_KEY_7</references>
+        <references refid="group__xsecure__aes__client__apis_1ga3150fb8656509ac0217c44c9609776cc" compoundref="xsecure__aesclient_8c" startline="419" endline="468">XSecure_AesDecryptUpdate</references>
+        <references refid="group__xsecure__aes__client__apis_1gaa3c4b19232e0c5fa8cf14d69410e31e7" compoundref="xsecure__aesclient_8c" startline="524" endline="549">XSecure_AesKeyZero</references>
+        <references refid="group__xsecure__aes__client__apis_1ga056f80ac76299a3ed41102b9f21237e7" compoundref="xsecure__aesclient_8c" startline="568" endline="597">XSecure_AesWriteKey</references>
+        <references refid="group__xsecure__helper__server__apis_1gaabad70194ca8d8f8a4ed207eb2bc4af9" compoundref="versal_2xsecure__plat_8h" startline="60">XSECURE_DISABLE_BYTE_SWAP</references>
+        <references refid="group__xsecure__generic__server__apis_1ga7d9385d1d7121998a9be90e90d3a8f7b" compoundref="core_2util_2xsecure__utils_8c" startline="64" endline="70">XSecure_SetReset</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__aes__server__apis_1ga4da9ead453ef1dbeebefeebb377eb94d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XSecure_AesKeyUnwrap</definition>
+        <argsstring>(XSecure_Aes *InstancePtr, u8 *EphAesKey, XSecure_AesKeySize KeySize, u8 *AesWrapKey, u64 OutDataAddr, u32 Size)</argsstring>
+        <name>XSecure_AesKeyUnwrap</name>
+        <param>
+          <type>XSecure_Aes *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>EphAesKey</declname>
+        </param>
+        <param>
+          <type><ref refid="group__xsecure__aes__client__apis_1ga55cd9d64e04cce6a57d729b67a5f0c47" kindref="member">XSecure_AesKeySize</ref></type>
+          <declname>KeySize</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>AesWrapKey</declname>
+        </param>
+        <param>
+          <type>u64</type>
+          <declname>OutDataAddr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Size</declname>
+        </param>
+        <briefdescription>
+<para>This function unwraps the given AES wrapped key. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XSecure_Aes instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>EphAesKey</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Address of the key to be programmed in XSECURE_AES_USER_KEY_7 </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>KeySize</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Size of the AES key to be used for decryption: XSECURE_AES_KEY_SIZE_128 for 128 bit key size or XSECURE_AES_KEY_SIZE_256 for 256 bit key size </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>AesWrapKey</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Address of the wrapped key which needs to be decrypted </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>OutDataAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Address of output buffer where the decrypted data to be updated </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Size</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Size of data to be decrypted in bytes. Data shall be 16 byte aligned for non-last chunks and 4 byte aligned when it is the last chunk</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - On success.</para></listitem><listitem><para>XSECURE_ERR_AES_KEY_SIZE_NOT_SUPPORTED - If AES key size is invalid.</para></listitem><listitem><para>XSECURE_ERR_AES_KEY_UNWRAP_FAILED_ERROR - If key unwrap is failed.</para></listitem><listitem><para>XST_FAILURE - On failure. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Validate input arguments and write AES key</para></listitem><listitem><para>Copy initial value</para></listitem><listitem><para>XOR initial value with Round value</para></listitem><listitem><para>Validate and put AES in ECB and decryption mode</para></listitem><listitem><para>Loop counter mismatch indicates potential fault injection attack</para></listitem><listitem><para>Copy key to destination</para></listitem><listitem><para>Clear AES Key </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_plat_aes.c" line="211" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_plat_aes.c" bodystart="211" bodyend="345"/>
+        <references refid="group__xsecure__aes__server__apis_1gab2f78b9aec19c60f8d29b4ba55f180a4" compoundref="xsecure__plat__aes_8c" startline="42">XSECURE_AES_128BIT_MAX_KEY_BLOCK_ROUNDS</references>
+        <references refid="group__xsecure__aes__server__apis_1gad12e8fdc37fd38e9a10b3979b495e364" compoundref="xsecure__plat__aes_8c" startline="41">XSECURE_AES_256BIT_MAX_KEY_BLOCK_ROUNDS</references>
+        <references refid="group__xsecure__aes__server__apis_1gaa26b61acf33b45fed961e0e3a59f7baa" compoundref="xsecure__plat__aes_8h" startline="44">XSECURE_AES_64BIT_BLOCK_SIZE</references>
+        <references refid="group__xsecure__aes__server__apis_1ga9c335ab77abaf46efb54cdd08a16c7d6" compoundref="xsecure__plat__aes_8h" startline="43">XSECURE_AES_ECB_MODE_DIS</references>
+        <references refid="group__xsecure__helper__server__apis_1ga48aafede9c9ae68ab7f9e4b6b49d6be2" compoundref="versal__net_2xsecure__plat_8h" startline="71">XSECURE_AES_ECB_OFFSET</references>
+        <references refid="group__xsecure__aes__server__apis_1ga1bceb3750312b5c32f292ad571f75683" compoundref="xsecure__plat__aes_8c" startline="43">XSECURE_AES_KEY_WRAP_INIT_DEF_VAL</references>
+        <references refid="group__xsecure__aes__server__apis_1ga7eec200e8b013181f73f91c773195844" compoundref="xsecure__plat__aes_8c" startline="40">XSECURE_AES_KEY_WRAP_MAX_ROUNDS</references>
+        <references refid="group__xsecure__aes__client__apis_1gga3be7525f93a2e54baa60c3b1a9df262cab5c84ff4a7f15af959065b2e66aa088f" compoundref="xsecure__aesclient_8h" startline="75">XSECURE_AES_USER_KEY_7</references>
+        <references refid="group__xsecure__aes__client__apis_1ga3150fb8656509ac0217c44c9609776cc" compoundref="xsecure__aesclient_8c" startline="419" endline="468">XSecure_AesDecryptUpdate</references>
+        <references refid="group__xsecure__aes__client__apis_1gaa3c4b19232e0c5fa8cf14d69410e31e7" compoundref="xsecure__aesclient_8c" startline="524" endline="549">XSecure_AesKeyZero</references>
+        <references refid="group__xsecure__aes__client__apis_1ga056f80ac76299a3ed41102b9f21237e7" compoundref="xsecure__aesclient_8c" startline="568" endline="597">XSecure_AesWriteKey</references>
+        <references refid="group__xsecure__helper__server__apis_1gaabad70194ca8d8f8a4ed207eb2bc4af9" compoundref="versal_2xsecure__plat_8h" startline="60">XSECURE_DISABLE_BYTE_SWAP</references>
+        <references refid="versal__2ve__2vm_2xsecure__error_8h_1ab04a0655cd1e3bcac5e8f48c18df1a57af10eedc347b4d363632e86345fcde6c5" compoundref="versal__2ve__2vm_2xsecure__error_8h" startline="353">XSECURE_ERR_AES_KEY_SIZE_NOT_SUPPORTED</references>
+        <references refid="versal__net_2xsecure__error_8h_1ac36f475ca5b446f4fde4c9b90bec77c8af31181814d92e3cc60868a6cc99cd48c" compoundref="versal__net_2xsecure__error_8h" startline="217">XSECURE_ERR_AES_KEY_UNWRAP_FAILED_ERROR</references>
+        <references refid="group__xsecure__generic__server__apis_1ga7d9385d1d7121998a9be90e90d3a8f7b" compoundref="core_2util_2xsecure__utils_8c" startline="64" endline="70">XSecure_SetReset</references>
+        <referencedby refid="group__xsecure__keyunwrap__server__apis_1gaf1df351e91ee42e7c281b2e676ffda7b" compoundref="xsecure__keyunwrap_8c" startline="185" endline="283">XSecure_KeyUnwrap</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file contains Versal Net specific code for Xilsecure aes server. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date        Changes
+<hruler/>
+
+5.2   kpt   06/20/23 Initial release
+5.4   yog   04/29/24 Fixed doxygen grouping.
+      kpt   06/13/24 Added AES key unwrap with padding support.</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************ed.</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2023<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="30"><highlight class="preprocessor">#ifndef<sp/>XSECURE_PLAT_AES_H</highlight></codeline>
+<codeline lineno="31"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_PLAT_AES_H</highlight></codeline>
+<codeline lineno="32"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="34"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="36"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xsecure_aes.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42" refid="group__xsecure__aes__server__apis_1ga54f245411d6dc8248fde64c3727d0210" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_AES_ECB_MODE_EN<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1U)<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="43" refid="group__xsecure__aes__server__apis_1ga9c335ab77abaf46efb54cdd08a16c7d6" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_AES_ECB_MODE_DIS<sp/><sp/><sp/><sp/><sp/><sp/>(0U)<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="44" refid="group__xsecure__aes__server__apis_1gaa26b61acf33b45fed961e0e3a59f7baa" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_AES_64BIT_BLOCK_SIZE<sp/><sp/>(8U)<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="46"><highlight class="preprocessor"></highlight><highlight class="comment">/*****************************<sp/>Type<sp/>Definitions******************************/</highlight><highlight class="preprocessor">\</highlight></codeline>
+<codeline lineno="47"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="48"><highlight class="preprocessor"></highlight><highlight class="comment">/*****************************<sp/>Function<sp/>Prototypes<sp/>***************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__aes__server__apis_1ga42ab2048d7363ba51f6d9c4e9c93d88e" kindref="member">XSecure_AesEcbCfg</ref>(XSecure_Aes<sp/>*InstancePtr,<sp/>u32<sp/>EcbModeFlag);</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__aes__server__apis_1ga6422d39ce630dc928daba92a65da4c56" kindref="member">XSecure_AesEcbDecrypt</ref>(XSecure_Aes<sp/>*InstancePtr,<sp/>u64<sp/>KeyAddr,<sp/><ref refid="group__xsecure__aes__client__apis_1ga55cd9d64e04cce6a57d729b67a5f0c47" kindref="member">XSecure_AesKeySize</ref><sp/>KeySize,<sp/>u64<sp/>InDataAddr,</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>OutDataAddr,<sp/>u32<sp/>Size);</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__aes__server__apis_1ga4da9ead453ef1dbeebefeebb377eb94d" kindref="member">XSecure_AesKeyUnwrap</ref>(XSecure_Aes<sp/>*InstancePtr,<sp/>u8<sp/>*EphAesKey,<sp/><ref refid="group__xsecure__aes__client__apis_1ga55cd9d64e04cce6a57d729b67a5f0c47" kindref="member">XSecure_AesKeySize</ref><sp/>KeySize,<sp/>u8<sp/>*AesWrapKey,</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>OutDataAddr,<sp/>u32<sp/>Size);</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Variable<sp/>Prototypes<sp/><sp/>***************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="60"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="62"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XSECURE_PLAT_AES_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_plat_aes.h"/>
+  </compounddef>
+</doxygen>

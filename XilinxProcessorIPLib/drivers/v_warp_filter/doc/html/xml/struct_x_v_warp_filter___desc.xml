@@ -1,0 +1,202 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_v_warp_filter___desc" kind="struct" prot="public">
+    <compoundname>XVWarpFilter_Desc</compoundname>
+    <includes local="no">xv_warp_filter_l2.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_v_warp_filter___desc_1a1ac2edb287dbed0ed117ed87910d43dd" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XVWarpFilter_Desc::height</definition>
+        <argsstring></argsstring>
+        <name>height</name>
+        <briefdescription>
+<para>Frame height in pixels. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_filter/src/xv_warp_filter_l2.h" line="26" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_filter/src/xv_warp_filter_l2.h" bodystart="26" bodyend="-1"/>
+        <referencedby refid="xv__warp__filter__l2_8h_1a9361e89ab2628382c9b3c396385ef6ac" compoundref="xv__warp__filter__l2_8c" startline="147" endline="181">XVWarpFilter_ProgramDescriptor</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v_warp_filter___desc_1ab07050939774db4079cb2bed2b563250" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XVWarpFilter_Desc::width</definition>
+        <argsstring></argsstring>
+        <name>width</name>
+        <briefdescription>
+<para>Frame width in pixels. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_filter/src/xv_warp_filter_l2.h" line="27" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_filter/src/xv_warp_filter_l2.h" bodystart="27" bodyend="-1"/>
+        <referencedby refid="xv__warp__filter__l2_8h_1a9361e89ab2628382c9b3c396385ef6ac" compoundref="xv__warp__filter__l2_8c" startline="147" endline="181">XVWarpFilter_ProgramDescriptor</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v_warp_filter___desc_1a8d0c8fd658235918fe4460d2f46c4599" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XVWarpFilter_Desc::stride</definition>
+        <argsstring></argsstring>
+        <name>stride</name>
+        <briefdescription>
+<para>Line stride in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_filter/src/xv_warp_filter_l2.h" line="28" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_filter/src/xv_warp_filter_l2.h" bodystart="28" bodyend="-1"/>
+        <referencedby refid="xv__warp__filter__l2_8h_1a9361e89ab2628382c9b3c396385ef6ac" compoundref="xv__warp__filter__l2_8c" startline="147" endline="181">XVWarpFilter_ProgramDescriptor</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v_warp_filter___desc_1a8d2ecc6c4378086ff943f999504f5bda" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XVWarpFilter_Desc::format</definition>
+        <argsstring></argsstring>
+        <name>format</name>
+        <briefdescription>
+<para>Pixel format. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_filter/src/xv_warp_filter_l2.h" line="29" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_filter/src/xv_warp_filter_l2.h" bodystart="29" bodyend="-1"/>
+        <referencedby refid="xv__warp__filter__l2_8h_1a9361e89ab2628382c9b3c396385ef6ac" compoundref="xv__warp__filter__l2_8c" startline="147" endline="181">XVWarpFilter_ProgramDescriptor</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v_warp_filter___desc_1a55020e68d609eed2b9c291760ae72aa4" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XVWarpFilter_Desc::valid_seg</definition>
+        <argsstring></argsstring>
+        <name>valid_seg</name>
+        <briefdescription>
+<para>Number of valid segments in remap vector. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_filter/src/xv_warp_filter_l2.h" line="30" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_filter/src/xv_warp_filter_l2.h" bodystart="30" bodyend="-1"/>
+        <referencedby refid="xv__warp__filter__l2_8h_1a9361e89ab2628382c9b3c396385ef6ac" compoundref="xv__warp__filter__l2_8c" startline="147" endline="181">XVWarpFilter_ProgramDescriptor</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v_warp_filter___desc_1a0383b969aa4cbc03667ae675bbded38d" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XVWarpFilter_Desc::lblock_count</definition>
+        <argsstring></argsstring>
+        <name>lblock_count</name>
+        <briefdescription>
+<para>Number of output blocks from first core. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_filter/src/xv_warp_filter_l2.h" line="31" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_filter/src/xv_warp_filter_l2.h" bodystart="31" bodyend="-1"/>
+        <referencedby refid="xv__warp__filter__l2_8h_1a9361e89ab2628382c9b3c396385ef6ac" compoundref="xv__warp__filter__l2_8c" startline="147" endline="181">XVWarpFilter_ProgramDescriptor</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v_warp_filter___desc_1ad521fabeca20175245ec472a9b0336bf" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XVWarpFilter_Desc::line_num</definition>
+        <argsstring></argsstring>
+        <name>line_num</name>
+        <briefdescription>
+<para>Line number for second core to start reading. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_filter/src/xv_warp_filter_l2.h" line="32" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_filter/src/xv_warp_filter_l2.h" bodystart="32" bodyend="-1"/>
+        <referencedby refid="xv__warp__filter__l2_8h_1a9361e89ab2628382c9b3c396385ef6ac" compoundref="xv__warp__filter__l2_8c" startline="147" endline="181">XVWarpFilter_ProgramDescriptor</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v_warp_filter___desc_1a66321637e8c61156792fc1392147d272" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XVWarpFilter_Desc::reserved</definition>
+        <argsstring></argsstring>
+        <name>reserved</name>
+        <briefdescription>
+<para>Reserved field. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_filter/src/xv_warp_filter_l2.h" line="33" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_filter/src/xv_warp_filter_l2.h" bodystart="33" bodyend="-1"/>
+        <referencedby refid="xv__warp__filter__l2_8h_1a9361e89ab2628382c9b3c396385ef6ac" compoundref="xv__warp__filter__l2_8c" startline="147" endline="181">XVWarpFilter_ProgramDescriptor</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v_warp_filter___desc_1ad89f9aa93f93cb631736f844c59a11da" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XVWarpFilter_Desc::src_buf_addr</definition>
+        <argsstring></argsstring>
+        <name>src_buf_addr</name>
+        <briefdescription>
+<para>Source buffer address (plane 0) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_filter/src/xv_warp_filter_l2.h" line="34" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_filter/src/xv_warp_filter_l2.h" bodystart="34" bodyend="-1"/>
+        <referencedby refid="xv__warp__filter__l2_8h_1a9361e89ab2628382c9b3c396385ef6ac" compoundref="xv__warp__filter__l2_8c" startline="147" endline="181">XVWarpFilter_ProgramDescriptor</referencedby>
+        <referencedby refid="xv__warp__filter__l2_8h_1aa8d061d684764e13c37c196c9c48673c" compoundref="xv__warp__filter__l2_8c" startline="199" endline="222">XVWarpFilter_update_src_frame_addr</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v_warp_filter___desc_1a5d1f219eb5c411f4b17512934cb2df83" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XVWarpFilter_Desc::seg_table_addr</definition>
+        <argsstring></argsstring>
+        <name>seg_table_addr</name>
+        <briefdescription>
+<para>Segment table address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_filter/src/xv_warp_filter_l2.h" line="41" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_filter/src/xv_warp_filter_l2.h" bodystart="41" bodyend="-1"/>
+        <referencedby refid="xv__warp__filter__l2_8h_1a9361e89ab2628382c9b3c396385ef6ac" compoundref="xv__warp__filter__l2_8c" startline="147" endline="181">XVWarpFilter_ProgramDescriptor</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v_warp_filter___desc_1ae210c672213c05618a49476e6594a1e5" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XVWarpFilter_Desc::dest_buf_addr</definition>
+        <argsstring></argsstring>
+        <name>dest_buf_addr</name>
+        <briefdescription>
+<para>Destination buffer address (plane 0) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_filter/src/xv_warp_filter_l2.h" line="42" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_filter/src/xv_warp_filter_l2.h" bodystart="42" bodyend="-1"/>
+        <referencedby refid="xv__warp__filter__l2_8h_1a9361e89ab2628382c9b3c396385ef6ac" compoundref="xv__warp__filter__l2_8c" startline="147" endline="181">XVWarpFilter_ProgramDescriptor</referencedby>
+        <referencedby refid="xv__warp__filter__l2_8h_1ad2c8629eed8816db1b5ea7bb216c6859" compoundref="xv__warp__filter__l2_8c" startline="241" endline="259">XVWarpFilter_update_dst_frame_addr</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v_warp_filter___desc_1ad40f467d016b3dc46d948f43792cf603" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XVWarpFilter_Desc::Warp_NextDescAddr</definition>
+        <argsstring></argsstring>
+        <name>Warp_NextDescAddr</name>
+        <briefdescription>
+<para>Address of next descriptor in chain. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_filter/src/xv_warp_filter_l2.h" line="53" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_filter/src/xv_warp_filter_l2.h" bodystart="53" bodyend="-1"/>
+        <referencedby refid="xv__warp__filter__l2_8h_1a2beaf0788fe8923fd1d6fd7b0af4575a" compoundref="xv__warp__filter__l2_8c" startline="104" endline="121">XVWarpFilter_ClearNumOfDescriptors</referencedby>
+        <referencedby refid="xv__warp__filter__l2_8h_1a9361e89ab2628382c9b3c396385ef6ac" compoundref="xv__warp__filter__l2_8c" startline="147" endline="181">XVWarpFilter_ProgramDescriptor</referencedby>
+        <referencedby refid="xv__warp__filter__l2_8h_1a446d0c857e8e351f8c9c3c08e9aa54bd" compoundref="xv__warp__filter__l2_8c" startline="59" endline="87">XVWarpFilter_SetNumOfDescriptors</referencedby>
+        <referencedby refid="xv__warp__filter__l2_8h_1ad2c8629eed8816db1b5ea7bb216c6859" compoundref="xv__warp__filter__l2_8c" startline="241" endline="259">XVWarpFilter_update_dst_frame_addr</referencedby>
+        <referencedby refid="xv__warp__filter__l2_8h_1aa8d061d684764e13c37c196c9c48673c" compoundref="xv__warp__filter__l2_8c" startline="199" endline="222">XVWarpFilter_update_src_frame_addr</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Warp filter descriptor structure. </para>    </briefdescription>
+    <detaileddescription>
+<para>This structure defines the descriptor format for warp filter operations, containing frame dimensions, buffer addresses, and control information. </para>    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_filter/src/xv_warp_filter_l2.h" line="25" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_filter/src/xv_warp_filter_l2.h" bodystart="25" bodyend="54"/>
+    <listofallmembers>
+      <member refid="struct_x_v_warp_filter___desc_1ae210c672213c05618a49476e6594a1e5" prot="public" virt="non-virtual"><scope>XVWarpFilter_Desc</scope><name>dest_buf_addr</name></member>
+      <member refid="struct_x_v_warp_filter___desc_1a8d2ecc6c4378086ff943f999504f5bda" prot="public" virt="non-virtual"><scope>XVWarpFilter_Desc</scope><name>format</name></member>
+      <member refid="struct_x_v_warp_filter___desc_1a1ac2edb287dbed0ed117ed87910d43dd" prot="public" virt="non-virtual"><scope>XVWarpFilter_Desc</scope><name>height</name></member>
+      <member refid="struct_x_v_warp_filter___desc_1a0383b969aa4cbc03667ae675bbded38d" prot="public" virt="non-virtual"><scope>XVWarpFilter_Desc</scope><name>lblock_count</name></member>
+      <member refid="struct_x_v_warp_filter___desc_1ad521fabeca20175245ec472a9b0336bf" prot="public" virt="non-virtual"><scope>XVWarpFilter_Desc</scope><name>line_num</name></member>
+      <member refid="struct_x_v_warp_filter___desc_1a66321637e8c61156792fc1392147d272" prot="public" virt="non-virtual"><scope>XVWarpFilter_Desc</scope><name>reserved</name></member>
+      <member refid="struct_x_v_warp_filter___desc_1a5d1f219eb5c411f4b17512934cb2df83" prot="public" virt="non-virtual"><scope>XVWarpFilter_Desc</scope><name>seg_table_addr</name></member>
+      <member refid="struct_x_v_warp_filter___desc_1ad89f9aa93f93cb631736f844c59a11da" prot="public" virt="non-virtual"><scope>XVWarpFilter_Desc</scope><name>src_buf_addr</name></member>
+      <member refid="struct_x_v_warp_filter___desc_1a8d0c8fd658235918fe4460d2f46c4599" prot="public" virt="non-virtual"><scope>XVWarpFilter_Desc</scope><name>stride</name></member>
+      <member refid="struct_x_v_warp_filter___desc_1a55020e68d609eed2b9c291760ae72aa4" prot="public" virt="non-virtual"><scope>XVWarpFilter_Desc</scope><name>valid_seg</name></member>
+      <member refid="struct_x_v_warp_filter___desc_1ad40f467d016b3dc46d948f43792cf603" prot="public" virt="non-virtual"><scope>XVWarpFilter_Desc</scope><name>Warp_NextDescAddr</name></member>
+      <member refid="struct_x_v_warp_filter___desc_1ab07050939774db4079cb2bed2b563250" prot="public" virt="non-virtual"><scope>XVWarpFilter_Desc</scope><name>width</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

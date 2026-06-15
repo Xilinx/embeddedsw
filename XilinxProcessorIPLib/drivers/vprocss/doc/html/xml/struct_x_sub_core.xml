@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_sub_core" kind="struct" prot="public">
+    <compoundname>XSubCore</compoundname>
+    <includes local="no">xvprocss.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_sub_core_1ae3f261fd466ec00e34e5f2d5c88df9ee" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XSubCore::IsPresent</definition>
+        <argsstring></argsstring>
+        <name>IsPresent</name>
+        <briefdescription>
+<para>Flag to indicate if sub-core is present in the design. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss.h" line="322" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss.h" bodystart="322" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_sub_core_1a49c394a043a79d0aa1bce532bf025b3d" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XSubCore::AddrOffset</definition>
+        <argsstring></argsstring>
+        <name>AddrOffset</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss.h" line="327" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss.h" bodystart="327" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Sub-Core Configuration Table. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss.h" line="321" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss.h" bodystart="320" bodyend="329"/>
+    <listofallmembers>
+      <member refid="struct_x_sub_core_1a49c394a043a79d0aa1bce532bf025b3d" prot="public" virt="non-virtual"><scope>XSubCore</scope><name>AddrOffset</name></member>
+      <member refid="struct_x_sub_core_1ae3f261fd466ec00e34e5f2d5c88df9ee" prot="public" virt="non-virtual"><scope>XSubCore</scope><name>IsPresent</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

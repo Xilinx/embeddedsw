@@ -1,0 +1,266 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_dp" kind="struct" prot="public">
+    <compoundname>XDp</compoundname>
+    <includes local="no">xdp.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_dp_1aa45ebd510e1e83bc9ebdcd1178b33290" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_dp___config" kindref="compound">XDp_Config</ref></type>
+        <definition>XDp_Config XDp::Config</definition>
+        <argsstring></argsstring>
+        <name>Config</name>
+        <briefdescription>
+<para>Configuration structure for the DisplayPort TX core. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" line="1590" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" bodystart="1590" bodyend="-1"/>
+        <referencedby refid="group__dp_1ga99e89fe4b5550c32cef410fffab99318" compoundref="xdp_8c" startline="220" endline="272">XDp_CfgInitialize</referencedby>
+        <referencedby refid="group__dp_1gaa1d4f025616d218cff6dc47ca3456ff4" compoundref="xdp_8c" startline="2637" endline="2654">XDp_IsLaneCountValid</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp_1acd280866d275718d5ee5345d91f3770e" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDp::IsReady</definition>
+        <argsstring></argsstring>
+        <name>IsReady</name>
+        <briefdescription>
+<para>Device is initialized and ready. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" line="1593" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" bodystart="1593" bodyend="-1"/>
+        <referencedby refid="group__dp_1ga99e89fe4b5550c32cef410fffab99318" compoundref="xdp_8c" startline="220" endline="272">XDp_CfgInitialize</referencedby>
+        <referencedby refid="group__dp_1ga85f185599e63935fa41e46ca249d4a3a" compoundref="xdp_8c" startline="289" endline="312">XDp_Initialize</referencedby>
+        <referencedby refid="group__dp_1ga5d95fcd5fa78f5ad7ac1bbfc112ea5f3" compoundref="xdp__intr_8c" startline="75" endline="94">XDp_InterruptHandler</referencedby>
+        <referencedby refid="group__dp_1ga506720dc403caa084533c26e52ae464b" compoundref="xdp__selftest_8c" startline="117" endline="140">XDp_SelfTest</referencedby>
+        <referencedby refid="group__dp_1ga82deff65c3a8f1a090bcda332df3a7ee" compoundref="xdp_8c" startline="2562" endline="2581">XDp_WaitUs</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp_1a5f370fbb0ce48221b04b4f558a84a982" prot="public" static="no" mutable="no">
+        <type><ref refid="group__dp_1ga0ca611069a383f672c9d2fe3574ffd4f" kindref="member">XDp_TimerHandler</ref></type>
+        <definition>XDp_TimerHandler XDp::UserTimerWaitUs</definition>
+        <argsstring></argsstring>
+        <name>UserTimerWaitUs</name>
+        <briefdescription>
+<para>Custom user function for delay/sleep. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" line="1595" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" bodystart="1595" bodyend="-1"/>
+        <referencedby refid="group__dp_1ga7e31cad17809d5e67bade4c08a4b6c93" compoundref="xdp_8c" startline="2532" endline="2542">XDp_SetUserTimerHandler</referencedby>
+        <referencedby refid="group__dp_1ga82deff65c3a8f1a090bcda332df3a7ee" compoundref="xdp_8c" startline="2562" endline="2581">XDp_WaitUs</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp_1aeac9ef9a7568a32e53007f53e782c63a" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XDp::UserTimerPtr</definition>
+        <argsstring></argsstring>
+        <name>UserTimerPtr</name>
+        <briefdescription>
+<para>Pointer to a timer instance used by the custom user delay/sleep function. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" line="1597" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" bodystart="1597" bodyend="-1"/>
+        <referencedby refid="group__dp_1ga7e31cad17809d5e67bade4c08a4b6c93" compoundref="xdp_8c" startline="2532" endline="2542">XDp_SetUserTimerHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp_1a84612160696db794db90d65ba7c17815" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_dp___tx" kindref="compound">XDp_Tx</ref></type>
+        <definition>XDp_Tx XDp::TxInstance</definition>
+        <argsstring></argsstring>
+        <name>TxInstance</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" line="1601" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" bodystart="1601" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp_1a25b334e88733a5d700f1b7502d843437" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_dp___rx" kindref="compound">XDp_Rx</ref></type>
+        <definition>XDp_Rx XDp::RxInstance</definition>
+        <argsstring></argsstring>
+        <name>RxInstance</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" line="1602" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" bodystart="1602" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp_1ab15b4d1c841518520e1a4f9f262f4f04" prot="public" static="no" mutable="no">
+        <type>union XDp::@0</type>
+        <definition>union XDp::@0 XDp::@1</definition>
+        <argsstring></argsstring>
+        <name>@1</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" line="1603" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>The <ref refid="struct_x_dp" kindref="compound">XDp</ref> instance data. </para>    </briefdescription>
+    <detaileddescription>
+<para>The user is required to allocate a variable of this type for every <ref refid="struct_x_dp" kindref="compound">XDp</ref> device in the system. A pointer to a variable of this type is then passed to the driver API functions. </para>    </detaileddescription>
+    <collaborationgraph>
+      <node id="8">
+        <label>XDp_RxPort</label>
+        <link refid="struct_x_dp___rx_port"/>
+        <childnode refid="9" relation="usage">
+          <edgelabel>IicMap</edgelabel>
+        </childnode>
+        <childnode refid="10" relation="usage">
+          <edgelabel>DpcdMap</edgelabel>
+        </childnode>
+      </node>
+      <node id="15">
+        <label>XDp_TxLinkConfig</label>
+        <link refid="struct_x_dp___tx_link_config"/>
+      </node>
+      <node id="4">
+        <label>XDp_MainStreamAttributes</label>
+        <link refid="struct_x_dp___main_stream_attributes"/>
+      </node>
+      <node id="11">
+        <label>XDp_Config</label>
+        <link refid="struct_x_dp___config"/>
+      </node>
+      <node id="7">
+        <label>XDp_SbMsgLinkAddressReplyPortDetail</label>
+        <link refid="struct_x_dp___sb_msg_link_address_reply_port_detail"/>
+      </node>
+      <node id="6">
+        <label>XDp_SbMsgLinkAddressReplyDeviceInfo</label>
+        <link refid="struct_x_dp___sb_msg_link_address_reply_device_info"/>
+        <childnode refid="7" relation="usage">
+          <edgelabel>PortDetails</edgelabel>
+        </childnode>
+      </node>
+      <node id="19">
+        <label>XDp_TxBoardChar</label>
+        <link refid="struct_x_dp___tx_board_char"/>
+      </node>
+      <node id="20">
+        <label>XDp_TxLttprConfig</label>
+        <link refid="struct_x_dp___tx_lttpr_config"/>
+      </node>
+      <node id="10">
+        <label>XDp_RxDpcdMap</label>
+        <link refid="struct_x_dp___rx_dpcd_map"/>
+      </node>
+      <node id="14">
+        <label>XDp_TxTopologyNode</label>
+        <link refid="struct_x_dp___tx_topology_node"/>
+      </node>
+      <node id="2">
+        <label>XDp_Rx</label>
+        <link refid="struct_x_dp___rx"/>
+        <childnode refid="3" relation="usage">
+          <edgelabel>LinkConfig</edgelabel>
+        </childnode>
+        <childnode refid="4" relation="usage">
+          <edgelabel>MsaConfig</edgelabel>
+        </childnode>
+        <childnode refid="5" relation="usage">
+          <edgelabel>Topology</edgelabel>
+        </childnode>
+      </node>
+      <node id="1">
+        <label>XDp</label>
+        <link refid="struct_x_dp"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>RxInstance</edgelabel>
+        </childnode>
+        <childnode refid="11" relation="usage">
+          <edgelabel>Config</edgelabel>
+        </childnode>
+        <childnode refid="12" relation="usage">
+          <edgelabel>TxInstance</edgelabel>
+        </childnode>
+      </node>
+      <node id="12">
+        <label>XDp_Tx</label>
+        <link refid="struct_x_dp___tx"/>
+        <childnode refid="13" relation="usage">
+          <edgelabel>Topology</edgelabel>
+        </childnode>
+        <childnode refid="15" relation="usage">
+          <edgelabel>LinkConfig</edgelabel>
+        </childnode>
+        <childnode refid="4" relation="usage">
+          <edgelabel>MsaConfig</edgelabel>
+        </childnode>
+        <childnode refid="16" relation="usage">
+          <edgelabel>RxConfig</edgelabel>
+        </childnode>
+        <childnode refid="17" relation="usage">
+          <edgelabel>MstStreamConfig</edgelabel>
+        </childnode>
+        <childnode refid="18" relation="usage">
+          <edgelabel>VscPacket</edgelabel>
+        </childnode>
+        <childnode refid="19" relation="usage">
+          <edgelabel>BoardChar</edgelabel>
+        </childnode>
+        <childnode refid="20" relation="usage">
+          <edgelabel>LttprConfig</edgelabel>
+        </childnode>
+      </node>
+      <node id="13">
+        <label>XDp_TxTopology</label>
+        <link refid="struct_x_dp___tx_topology"/>
+        <childnode refid="14" relation="usage">
+          <edgelabel>SinkList</edgelabel>
+          <edgelabel>NodeTable</edgelabel>
+        </childnode>
+      </node>
+      <node id="9">
+        <label>XDp_RxIicMapEntry</label>
+        <link refid="struct_x_dp___rx_iic_map_entry"/>
+      </node>
+      <node id="17">
+        <label>XDp_TxMstStream</label>
+        <link refid="struct_x_dp___tx_mst_stream"/>
+      </node>
+      <node id="5">
+        <label>XDp_RxTopology</label>
+        <link refid="struct_x_dp___rx_topology"/>
+        <childnode refid="6" relation="usage">
+          <edgelabel>LinkAddressInfo</edgelabel>
+        </childnode>
+        <childnode refid="8" relation="usage">
+          <edgelabel>Ports</edgelabel>
+        </childnode>
+      </node>
+      <node id="3">
+        <label>XDp_RxLinkConfig</label>
+        <link refid="struct_x_dp___rx_link_config"/>
+      </node>
+      <node id="16">
+        <label>XDp_TxSinkConfig</label>
+        <link refid="struct_x_dp___tx_sink_config"/>
+      </node>
+      <node id="18">
+        <label>XDp_TxVscExtPacket</label>
+        <link refid="struct_x_dp___tx_vsc_ext_packet"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" line="1589" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" bodystart="1589" bodyend="1604"/>
+    <listofallmembers>
+      <member refid="struct_x_dp_1aa45ebd510e1e83bc9ebdcd1178b33290" prot="public" virt="non-virtual"><scope>XDp</scope><name>Config</name></member>
+      <member refid="struct_x_dp_1acd280866d275718d5ee5345d91f3770e" prot="public" virt="non-virtual"><scope>XDp</scope><name>IsReady</name></member>
+      <member refid="struct_x_dp_1a25b334e88733a5d700f1b7502d843437" prot="public" virt="non-virtual"><scope>XDp</scope><name>RxInstance</name></member>
+      <member refid="struct_x_dp_1a84612160696db794db90d65ba7c17815" prot="public" virt="non-virtual"><scope>XDp</scope><name>TxInstance</name></member>
+      <member refid="struct_x_dp_1aeac9ef9a7568a32e53007f53e782c63a" prot="public" virt="non-virtual"><scope>XDp</scope><name>UserTimerPtr</name></member>
+      <member refid="struct_x_dp_1a5f370fbb0ce48221b04b4f558a84a982" prot="public" virt="non-virtual"><scope>XDp</scope><name>UserTimerWaitUs</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

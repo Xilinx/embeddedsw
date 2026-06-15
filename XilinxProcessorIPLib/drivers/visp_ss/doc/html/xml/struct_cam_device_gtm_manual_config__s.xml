@@ -1,0 +1,85 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_cam_device_gtm_manual_config__s" kind="struct" prot="public">
+    <compoundname>CamDeviceGtmManualConfig_s</compoundname>
+    <includes local="no">cam_device_gtm_api.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_cam_device_gtm_manual_config__s_1a6ba63f55c95d12e3716bcae2a49ed7d3" prot="public" static="no" mutable="no">
+        <type><ref refid="group____cam__device__gtm_1gadeab7ed41f03538aa35a4165cdc63cfc" kindref="member">CamDeviceGtmColorWeightConfig_t</ref></type>
+        <definition>CamDeviceGtmColorWeightConfig_t CamDeviceGtmManualConfig_s::colorWeightCfg</definition>
+        <argsstring></argsstring>
+        <name>colorWeightCfg</name>
+        <briefdescription>
+<para>Color weight configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" line="189" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" bodystart="189" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_gtm_manual_config__s_1a8b4eff94b42dc668f1e652894c49a443" prot="public" static="no" mutable="no">
+        <type><ref refid="group____cam__device__gtm_1ga58f6b592bd0e7cb071072ba6c918e547" kindref="member">CamDeviceGtmBlackWhiteCorrectionConfig_t</ref></type>
+        <definition>CamDeviceGtmBlackWhiteCorrectionConfig_t CamDeviceGtmManualConfig_s::blackWhiteCorrectionCfg</definition>
+        <argsstring></argsstring>
+        <name>blackWhiteCorrectionCfg</name>
+        <briefdescription>
+<para>Black white correction configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" line="190" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" bodystart="190" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_gtm_manual_config__s_1ae345b6d1c7b36247e1c6bfef78305a4c" prot="public" static="no" mutable="no">
+        <type><ref refid="group____cam__device__gtm_1ga02b73b28514819d177bf6d4e1f5979a4" kindref="member">CamDeviceGtmCurveConfig_t</ref></type>
+        <definition>CamDeviceGtmCurveConfig_t CamDeviceGtmManualConfig_s::curveCfg</definition>
+        <argsstring></argsstring>
+        <name>curveCfg</name>
+        <briefdescription>
+<para>Curve configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" line="191" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" bodystart="191" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>VsCamDevice GTM current configuration. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="427">
+        <label>CamDeviceGtmCurveConfig_s</label>
+        <link refid="struct_cam_device_gtm_curve_config__s"/>
+      </node>
+      <node id="425">
+        <label>CamDeviceGtmManualConfig_s</label>
+        <link refid="struct_cam_device_gtm_manual_config__s"/>
+        <childnode refid="426" relation="usage">
+          <edgelabel>blackWhiteCorrectionCfg</edgelabel>
+        </childnode>
+        <childnode refid="427" relation="usage">
+          <edgelabel>curveCfg</edgelabel>
+        </childnode>
+        <childnode refid="428" relation="usage">
+          <edgelabel>colorWeightCfg</edgelabel>
+        </childnode>
+      </node>
+      <node id="428">
+        <label>CamDeviceGtmColorWeightConfig_s</label>
+        <link refid="struct_cam_device_gtm_color_weight_config__s"/>
+      </node>
+      <node id="426">
+        <label>CamDeviceGtmBlackWhiteCorrectionConfig_s</label>
+        <link refid="struct_cam_device_gtm_black_white_correction_config__s"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" line="188" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" bodystart="187" bodyend="192"/>
+    <listofallmembers>
+      <member refid="struct_cam_device_gtm_manual_config__s_1a8b4eff94b42dc668f1e652894c49a443" prot="public" virt="non-virtual"><scope>CamDeviceGtmManualConfig_s</scope><name>blackWhiteCorrectionCfg</name></member>
+      <member refid="struct_cam_device_gtm_manual_config__s_1a6ba63f55c95d12e3716bcae2a49ed7d3" prot="public" virt="non-virtual"><scope>CamDeviceGtmManualConfig_s</scope><name>colorWeightCfg</name></member>
+      <member refid="struct_cam_device_gtm_manual_config__s_1ae345b6d1c7b36247e1c6bfef78305a4c" prot="public" virt="non-virtual"><scope>CamDeviceGtmManualConfig_s</scope><name>curveCfg</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

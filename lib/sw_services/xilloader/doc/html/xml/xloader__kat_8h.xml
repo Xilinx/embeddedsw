@@ -1,0 +1,357 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xloader__kat_8h" kind="file">
+    <compoundname>xloader_kat.h</compoundname>
+    <includes local="yes">xplmi.h</includes>
+    <includes refid="xloader_8h" local="yes">xloader.h</includes>
+    <includes refid="xloader__auth__enc_8h" local="yes">xloader_auth_enc.h</includes>
+    <includedby refid="xloader_8c" local="yes">xloader.c</includedby>
+    <includedby refid="xloader__auth__enc_8c" local="yes">xloader_auth_enc.c</includedby>
+    <includedby refid="xloader__kat_8c" local="yes">xloader_kat.c</includedby>
+    <includedby refid="xloader__secure_8c" local="yes">xloader_secure.c</includedby>
+    <includedby refid="2vp_2server_2xloader__plat_8c" local="yes">xloader_plat.c</includedby>
+    <includedby refid="net_2server_2xloader__plat_8c" local="yes">xloader_plat.c</includedby>
+    <incdepgraph>
+      <node id="696">
+        <label>xplmi_util.h</label>
+      </node>
+      <node id="694">
+        <label>xsecure_rsa.h</label>
+      </node>
+      <node id="680">
+        <label>xplmi.h</label>
+      </node>
+      <node id="686">
+        <label>xcfupmc.h</label>
+      </node>
+      <node id="700">
+        <label>xloader_plat_secure.h</label>
+      </node>
+      <node id="685">
+        <label>xplmi_dma.h</label>
+      </node>
+      <node id="693">
+        <label>xsecure_sha_common.h</label>
+      </node>
+      <node id="679">
+        <label>xloader_kat.h</label>
+        <link refid="xloader_kat.h"/>
+        <childnode refid="680" relation="include">
+        </childnode>
+        <childnode refid="681" relation="include">
+        </childnode>
+        <childnode refid="692" relation="include">
+        </childnode>
+      </node>
+      <node id="697">
+        <label>xil_util.h</label>
+      </node>
+      <node id="684">
+        <label>xplmi_debug.h</label>
+      </node>
+      <node id="687">
+        <label>xloader_defs.h</label>
+        <link refid="xloader__defs_8h"/>
+        <childnode refid="688" relation="include">
+        </childnode>
+        <childnode refid="689" relation="include">
+        </childnode>
+      </node>
+      <node id="682">
+        <label>xilpdi.h</label>
+      </node>
+      <node id="691">
+        <label>xsecure_init.h</label>
+      </node>
+      <node id="695">
+        <label>xsecure_aes.h</label>
+      </node>
+      <node id="698">
+        <label>xplmi_tamper.h</label>
+      </node>
+      <node id="692">
+        <label>xloader_auth_enc.h</label>
+        <link refid="xloader__auth__enc_8h"/>
+        <childnode refid="681" relation="include">
+        </childnode>
+        <childnode refid="693" relation="include">
+        </childnode>
+        <childnode refid="682" relation="include">
+        </childnode>
+        <childnode refid="694" relation="include">
+        </childnode>
+        <childnode refid="695" relation="include">
+        </childnode>
+        <childnode refid="696" relation="include">
+        </childnode>
+        <childnode refid="697" relation="include">
+        </childnode>
+        <childnode refid="690" relation="include">
+        </childnode>
+        <childnode refid="698" relation="include">
+        </childnode>
+        <childnode refid="699" relation="include">
+        </childnode>
+        <childnode refid="700" relation="include">
+        </childnode>
+      </node>
+      <node id="689">
+        <label>xil_types.h</label>
+      </node>
+      <node id="681">
+        <label>xloader.h</label>
+        <link refid="xloader_8h"/>
+        <childnode refid="682" relation="include">
+        </childnode>
+        <childnode refid="683" relation="include">
+        </childnode>
+        <childnode refid="684" relation="include">
+        </childnode>
+        <childnode refid="685" relation="include">
+        </childnode>
+        <childnode refid="686" relation="include">
+        </childnode>
+        <childnode refid="687" relation="include">
+        </childnode>
+        <childnode refid="690" relation="include">
+        </childnode>
+        <childnode refid="691" relation="include">
+        </childnode>
+      </node>
+      <node id="688">
+        <label>xil_printf.h</label>
+      </node>
+      <node id="690">
+        <label>xplmi_hw.h</label>
+      </node>
+      <node id="683">
+        <label>xplmi_status.h</label>
+      </node>
+      <node id="699">
+        <label>xpuf.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="706">
+        <label>xloader_plat.c</label>
+        <link refid="2vp_2server_2xloader__plat_8c"/>
+      </node>
+      <node id="702">
+        <label>xloader.c</label>
+        <link refid="xloader_8c"/>
+      </node>
+      <node id="704">
+        <label>xloader_kat.c</label>
+        <link refid="xloader__kat_8c"/>
+      </node>
+      <node id="701">
+        <label>xloader_kat.h</label>
+        <link refid="xloader_kat.h"/>
+        <childnode refid="702" relation="include">
+        </childnode>
+        <childnode refid="703" relation="include">
+        </childnode>
+        <childnode refid="704" relation="include">
+        </childnode>
+        <childnode refid="705" relation="include">
+        </childnode>
+        <childnode refid="706" relation="include">
+        </childnode>
+        <childnode refid="707" relation="include">
+        </childnode>
+      </node>
+      <node id="705">
+        <label>xloader_secure.c</label>
+        <link refid="xloader__secure_8c"/>
+      </node>
+      <node id="703">
+        <label>xloader_auth_enc.c</label>
+        <link refid="xloader__auth__enc_8c"/>
+      </node>
+      <node id="707">
+        <label>xloader_plat.c</label>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xloader__kat_8h_1a65b65ad6b29899a52ba236cc53649540" prot="public" static="no">
+        <name>XLOADER_PPDI_KAT_MASK</name>
+        <initializer>(0x03U)</initializer>
+        <briefdescription>
+<para>PPDI KAT mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_kat.h" line="40" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_kat.h" bodystart="40" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xloader__kat__apis_1ga4fdf03478ad3c8bf86deac1e28d4ddda" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XLoader_Sha3Kat</definition>
+        <argsstring>(XilPdi *PdiPtr)</argsstring>
+        <name>XLoader_Sha3Kat</name>
+        <param>
+          <type><ref refid="struct_xil_pdi" kindref="compound">XilPdi</ref> *</type>
+          <declname>PdiPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function runs SHA3 KAT. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>PdiPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is pointer to the xilpdi instance</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS on success</para></listitem><listitem><para>XST_FAILURE if setting SHA3 data context lost fails</para></listitem><listitem><para>XLOADER_ERR_KAT_FAILED on SHA3 KAT failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Update KAT status</para></listitem><listitem><para>Set the data context of previous SHA operation</para></listitem><listitem><para>Skip running the KAT for SHA3 if it is already run KAT will be run only when the CRYPTO_KAT_EN bits in eFUSE are set If KAT fails device will go into a secure lockdown state</para></listitem><listitem><para>Update KAT status </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_kat.h" line="46" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_kat.c" bodystart="60" bodyend="95"/>
+        <references refid="group__xloader__kat__apis_1ga43a415ea9b49abb198cae9ba6f9eb0b5" compoundref="xloader__kat_8c" startline="105" endline="110">XLoader_ClearKatOnPPDI</references>
+        <references refid="struct_xil_pdi_1a8ed51e3954f76687de0b4e0528598dcf" compoundref="xloader_8h" startline="379">XilPdi::PlmKatStatus</references>
+        <referencedby refid="group__xloader__server__apis_1gaadc121bcc59feb4ece3c40802d81987b" compoundref="xloader_8c" startline="420" endline="594">XLoader_PdiInit</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xloader__kat__apis_1ga43a415ea9b49abb198cae9ba6f9eb0b5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XLoader_ClearKatOnPPDI</definition>
+        <argsstring>(XilPdi *PdiPtr, u32 PlmKatMask)</argsstring>
+        <name>XLoader_ClearKatOnPPDI</name>
+        <param>
+          <type><ref refid="struct_xil_pdi" kindref="compound">XilPdi</ref> *</type>
+          <declname>PdiPtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>PlmKatMask</declname>
+        </param>
+        <briefdescription>
+<para>This function updates the KAT status. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>PdiPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is pointer to the <ref refid="struct_xil_pdi" kindref="compound">XilPdi</ref> instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>PlmKatMask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the mask of the KAT that is going to run </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_kat.h" line="47" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_kat.c" bodystart="105" bodyend="110"/>
+        <references refid="struct_xil_pdi_1abfb2bdf4aada2ee8b70475e9dc179edc" compoundref="xloader_8h" startline="363">XilPdi::PdiType</references>
+        <referencedby refid="group__xloader__kat__apis_1ga4fdf03478ad3c8bf86deac1e28d4ddda" compoundref="xloader__kat_8c" startline="60" endline="95">XLoader_Sha3Kat</referencedby>
+        <referencedby refid="group__xloader__kat__apis_1ga70adfd9ae96a869e8adbbc1d01f70916" compoundref="xloader__kat_8c" startline="155" endline="215">XLoader_AesKatTest</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xloader__kat__apis_1ga70adfd9ae96a869e8adbbc1d01f70916" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XLoader_AesKatTest</definition>
+        <argsstring>(XLoader_SecureParams *SecurePtr)</argsstring>
+        <name>XLoader_AesKatTest</name>
+        <param>
+          <type><ref refid="struct_x_loader___secure_params" kindref="compound">XLoader_SecureParams</ref> *</type>
+          <declname>SecurePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function performs KAT test on AES crypto Engine. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>SecurePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_loader___secure_params" kindref="compound">XLoader_SecureParams</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS on success</para></listitem><listitem><para>XST_FAILURE if setting AES data context lost fails</para></listitem><listitem><para>XLOADER_ERR_KAT_FAILED on AES DPACM or AES decrypt KAT failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Update KAT status based on the user configuration</para></listitem><listitem><para>Set the data context of previous AES operation</para></listitem><listitem><para>Skip running the KAT for AES DPACM or AES if it is already run KAT will be run only when the CRYPTO_KAT_EN bits in eFUSE are set If KAT fails device will go into a secure lockdown state</para></listitem><listitem><para>Update KAT status in RTC area</para></listitem><listitem><para>Update KAT status based on the user configuration</para></listitem><listitem><para>Update KAT status in RTC area </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_kat.h" line="49" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_kat.c" bodystart="155" bodyend="215"/>
+        <references refid="group__xloader__kat__apis_1ga43a415ea9b49abb198cae9ba6f9eb0b5" compoundref="xloader__kat_8c" startline="105" endline="110">XLoader_ClearKatOnPPDI</references>
+        <references refid="struct_x_loader___secure_params_1a52a99323f052ec7000d558dd6125357d" compoundref="xloader__auth__enc_8h" startline="773">XLoader_SecureParams::PdiPtr</references>
+        <references refid="xloader__auth__enc_8h_1a27bdc13f6dce3d58ba3e844eb8b8473d" compoundref="xloader__auth__enc_8h" startline="259">XLOADER_EFUSE_SEC_MISC1_OFFSET</references>
+        <references refid="xloader__auth__enc_8h_1ab20915f5ef825e824567de29f54a0bf9" compoundref="xloader__auth__enc_8h" startline="261">XLOADER_EFUSE_SEC_DPA_DIS_MASK</references>
+        <references refid="struct_xil_pdi_1a8ed51e3954f76687de0b4e0528598dcf" compoundref="xloader_8h" startline="379">XilPdi::PlmKatStatus</references>
+        <references refid="struct_x_loader___secure_params_1a74d4252aad479886e11b3d2f3e4b210d" compoundref="xloader__auth__enc_8h" startline="800">XLoader_SecureParams::AesInstPtr</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file contains all KAT related data. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date       Changes
+----- ---- ---------- ----------------------------------------------------------------------------
+2.4     rpu  04/15/2026 First release
+</preformatted></para><para><simplesect kind="note"><para></para></simplesect>
+</para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/***************************************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">***************************************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/**************************************************************************************************/</highlight></codeline>
+<codeline lineno="25"><highlight class="preprocessor">#ifndef<sp/>XLOADER_KAT_H</highlight></codeline>
+<codeline lineno="26"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XLOADER_KAT_H</highlight></codeline>
+<codeline lineno="27"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="29"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="31"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>******************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xplmi.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xloader_8h" kindref="compound">xloader.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>PLM_SECURE_EXCLUDE</highlight></codeline>
+<codeline lineno="36"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xloader__auth__enc_8h" kindref="compound">xloader_auth_enc.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="38"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>******************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40" refid="xloader__kat_8h_1a65b65ad6b29899a52ba236cc53649540" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XLOADER_PPDI_KAT_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x03U)<sp/></highlight></codeline>
+<codeline lineno="41"><highlight class="preprocessor"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>**************************************************/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="42"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>****************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Function<sp/>Prototypes<sp/>************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xloader__kat__apis_1ga4fdf03478ad3c8bf86deac1e28d4ddda" kindref="member">XLoader_Sha3Kat</ref>(<ref refid="struct_xil_pdi" kindref="compound">XilPdi</ref><sp/>*PdiPtr);</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__xloader__kat__apis_1ga43a415ea9b49abb198cae9ba6f9eb0b5" kindref="member">XLoader_ClearKatOnPPDI</ref>(<ref refid="struct_xil_pdi" kindref="compound">XilPdi</ref><sp/>*PdiPtr,<sp/>u32<sp/>PlmKatMask);</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>PLM_SECURE_EXCLUDE</highlight></codeline>
+<codeline lineno="49"><highlight class="preprocessor"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xloader__kat__apis_1ga70adfd9ae96a869e8adbbc1d01f70916" kindref="member">XLoader_AesKatTest</ref>(<ref refid="struct_x_loader___secure_params" kindref="compound">XLoader_SecureParams</ref><sp/>*SecurePtr);</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined(VERSAL_2VE_2VM)<sp/>||<sp/>defined(VERSAL_2VP_P)</highlight></codeline>
+<codeline lineno="51"><highlight class="preprocessor"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XLoader_Sha2256Kat(<ref refid="struct_x_loader___secure_params" kindref="compound">XLoader_SecureParams</ref><sp/>*SecurePtr);</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XLoader_Shake256Kat(<ref refid="struct_x_loader___secure_params" kindref="compound">XLoader_SecureParams</ref><sp/>*SecurePtr);</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XLoader_LmsSha2256Kat(<ref refid="struct_x_loader___secure_params" kindref="compound">XLoader_SecureParams</ref><sp/>*SecurePtr);</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XLoader_LmsShake256Kat(<ref refid="struct_x_loader___secure_params" kindref="compound">XLoader_SecureParams</ref><sp/>*SecurePtr);</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XLoader_HssShake256Kat(<ref refid="struct_x_loader___secure_params" kindref="compound">XLoader_SecureParams</ref><sp/>*SecurePtr);</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XLoader_HssSha256Kat(<ref refid="struct_x_loader___secure_params" kindref="compound">XLoader_SecureParams</ref><sp/>*SecurePtr);</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="58"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>PLM_SECURE_EXCLUDE<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="59"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="61"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="63"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XLOADER_KAT_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_kat.h"/>
+  </compounddef>
+</doxygen>

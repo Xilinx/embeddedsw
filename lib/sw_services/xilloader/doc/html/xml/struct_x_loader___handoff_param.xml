@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_loader___handoff_param" kind="struct" prot="public">
+    <compoundname>XLoader_HandoffParam</compoundname>
+    <includes local="no">xloader.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_loader___handoff_param_1a9149d79347f1485a5c06f77f1a805486" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XLoader_HandoffParam::CpuSettings</definition>
+        <argsstring></argsstring>
+        <name>CpuSettings</name>
+        <briefdescription>
+<para>CPU settings. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader.h" line="343" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader.h" bodystart="343" bodyend="-1"/>
+        <referencedby refid="group__xloader__server__apis_1gabdd3f08598453e93f5b6ce59411c1824" compoundref="server_2xloader__plat_8c" startline="366" endline="466">XLoader_StartImage</referencedby>
+        <referencedby refid="group__xloader__server__apis_1gaafe5cd1245a7aaf54eb6c3d1a1146578" compoundref="server_2xloader__plat_8c" startline="1330" endline="1373">XLoader_UpdateHandoffParam</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_loader___handoff_param_1aeaf52ae88fb8bc84f26ef7d6b6d9557a" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XLoader_HandoffParam::HandoffAddr</definition>
+        <argsstring></argsstring>
+        <name>HandoffAddr</name>
+        <briefdescription>
+<para>Handoff address for CPU. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader.h" line="344" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader.h" bodystart="344" bodyend="-1"/>
+        <referencedby refid="group__xloader__server__apis_1gabdd3f08598453e93f5b6ce59411c1824" compoundref="server_2xloader__plat_8c" startline="366" endline="466">XLoader_StartImage</referencedby>
+        <referencedby refid="group__xloader__server__apis_1gaafe5cd1245a7aaf54eb6c3d1a1146578" compoundref="server_2xloader__plat_8c" startline="1330" endline="1373">XLoader_UpdateHandoffParam</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This stores the handoff Address of the different cpu&apos;s. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader.h" line="342" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader.h" bodystart="342" bodyend="345"/>
+    <listofallmembers>
+      <member refid="struct_x_loader___handoff_param_1a9149d79347f1485a5c06f77f1a805486" prot="public" virt="non-virtual"><scope>XLoader_HandoffParam</scope><name>CpuSettings</name></member>
+      <member refid="struct_x_loader___handoff_param_1aeaf52ae88fb8bc84f26ef7d6b6d9557a" prot="public" virt="non-virtual"><scope>XLoader_HandoffParam</scope><name>HandoffAddr</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

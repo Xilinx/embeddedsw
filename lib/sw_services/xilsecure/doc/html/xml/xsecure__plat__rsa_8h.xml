@@ -1,0 +1,801 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xsecure__plat__rsa_8h" kind="file">
+    <compoundname>xsecure_plat_rsa.h</compoundname>
+    <includes local="yes">xsecure_config.h</includes>
+    <includes local="yes">xil_types.h</includes>
+    <includes local="yes">xsecure_rsa_core.h</includes>
+    <includes refid="xsecure__rsa__q_8h" local="yes">xsecure_rsa_q.h</includes>
+    <includes refid="xsecure__mgf_8h" local="yes">xsecure_mgf.h</includes>
+    <includes local="yes">Rsa.h</includes>
+    <includedby refid="xsecure__keyunwrap_8c" local="yes">xsecure_keyunwrap.c</includedby>
+    <includedby refid="xsecure__plat__rsa_8c" local="yes">xsecure_plat_rsa.c</includedby>
+    <includedby refid="net_2xsecure__plat__kat_8h" local="yes">xsecure_plat_kat.h</includedby>
+    <includedby refid="net_2xsecure__plat__ipihandler_8c" local="yes">xsecure_plat_ipihandler.c</includedby>
+    <incdepgraph>
+      <node id="3344">
+        <label>xsecure_plat_rsa.h</label>
+        <link refid="xsecure_plat_rsa.h"/>
+        <childnode refid="3345" relation="include">
+        </childnode>
+        <childnode refid="3346" relation="include">
+        </childnode>
+        <childnode refid="3347" relation="include">
+        </childnode>
+        <childnode refid="3348" relation="include">
+        </childnode>
+        <childnode refid="3350" relation="include">
+        </childnode>
+        <childnode refid="3349" relation="include">
+        </childnode>
+      </node>
+      <node id="3351">
+        <label>xsecure_sha.h</label>
+      </node>
+      <node id="3349">
+        <label>Rsa.h</label>
+      </node>
+      <node id="3348">
+        <label>xsecure_rsa_q.h</label>
+        <link refid="xsecure__rsa__q_8h"/>
+        <childnode refid="3345" relation="include">
+        </childnode>
+        <childnode refid="3346" relation="include">
+        </childnode>
+        <childnode refid="3347" relation="include">
+        </childnode>
+        <childnode refid="3349" relation="include">
+        </childnode>
+      </node>
+      <node id="3345">
+        <label>xsecure_config.h</label>
+      </node>
+      <node id="3346">
+        <label>xil_types.h</label>
+      </node>
+      <node id="3350">
+        <label>xsecure_mgf.h</label>
+        <link refid="xsecure__mgf_8h"/>
+        <childnode refid="3346" relation="include">
+        </childnode>
+        <childnode refid="3351" relation="include">
+        </childnode>
+      </node>
+      <node id="3347">
+        <label>xsecure_rsa_core.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="3354">
+        <label>xsecure_plat_rsa.c</label>
+        <link refid="xsecure__plat__rsa_8c"/>
+      </node>
+      <node id="3356">
+        <label>xsecure_kat_ipihandler.c</label>
+        <link refid="xsecure__kat__ipihandler_8c"/>
+      </node>
+      <node id="3352">
+        <label>xsecure_plat_rsa.h</label>
+        <link refid="xsecure_plat_rsa.h"/>
+        <childnode refid="3353" relation="include">
+        </childnode>
+        <childnode refid="3354" relation="include">
+        </childnode>
+        <childnode refid="3355" relation="include">
+        </childnode>
+        <childnode refid="3361" relation="include">
+        </childnode>
+      </node>
+      <node id="3357">
+        <label>xsecure_ellipticplat.c</label>
+        <link refid="xsecure__ellipticplat_8c"/>
+      </node>
+      <node id="3353">
+        <label>xsecure_keyunwrap.c</label>
+        <link refid="xsecure__keyunwrap_8c"/>
+      </node>
+      <node id="3358">
+        <label>xsecure_plat.c</label>
+        <link refid="versal__net_2xsecure__plat_8c"/>
+      </node>
+      <node id="3360">
+        <label>xsecure_plat_kat_ipihandler.c</label>
+        <link refid="versal__net_2xsecure__plat__kat__ipihandler_8c"/>
+      </node>
+      <node id="3359">
+        <label>xsecure_plat_kat.c</label>
+        <link refid="net_2xsecure__plat__kat_8c"/>
+      </node>
+      <node id="3355">
+        <label>xsecure_plat_kat.h</label>
+        <link refid="net_2xsecure__plat__kat_8h"/>
+        <childnode refid="3356" relation="include">
+        </childnode>
+        <childnode refid="3357" relation="include">
+        </childnode>
+        <childnode refid="3354" relation="include">
+        </childnode>
+        <childnode refid="3358" relation="include">
+        </childnode>
+        <childnode refid="3359" relation="include">
+        </childnode>
+        <childnode refid="3360" relation="include">
+        </childnode>
+      </node>
+      <node id="3361">
+        <label>xsecure_plat_ipihandler.c</label>
+        <link refid="net_2xsecure__plat__ipihandler_8c"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_x_secure___rsa_oaep_param" prot="public">XSecure_RsaOaepParam</innerclass>
+    <innerclass refid="struct_x_secure___rsa_key" prot="public">XSecure_RsaKey</innerclass>
+    <innerclass refid="struct_x_secure___rsa_pub_key" prot="public">XSecure_RsaPubKey</innerclass>
+    <innerclass refid="struct_x_secure___rsa_priv_key" prot="public">XSecure_RsaPrivKey</innerclass>
+    <innerclass refid="struct_x_secure___rsa_key_pair" prot="public">XSecure_RsaKeyPair</innerclass>
+    <innerclass refid="struct_x_secure___rsa_key_gen_param" prot="public">XSecure_RsaKeyGenParam</innerclass>
+    <innerclass refid="struct_x_secure___rsa_key_mgmt" prot="public">XSecure_RsaKeyMgmt</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__xsecure__rsa__server__apis_1gaa653fc0677efc4a466e7f5360dbc2abe" prot="public" static="no">
+        <name>externC</name>
+        <initializer>extern</initializer>
+        <briefdescription>
+<para>For compilation in C++. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_plat_rsa.h" line="47" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_plat_rsa.h" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__rsa__server__apis_1gaef98b03d932368574ec1123184b9a9e4" prot="public" static="no">
+        <name>XSECURE_RSA_KEY_GEN_SIZE_IN_BYTES</name>
+        <initializer>(<ref refid="group__xsecure__rsa__zynqmp__apis_1ga347aecc336477793453c4d4d7ff4883a" kindref="member">XSECURE_RSA_3072_SIZE_WORDS</ref> * 4U)</initializer>
+        <briefdescription>
+<para>RSA default key size in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_plat_rsa.h" line="68" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_plat_rsa.h" bodystart="68" bodyend="-1"/>
+        <referencedby refid="group__xsecure__keyunwrap__example__apis_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xilsecure__versal__net__keyunwrap__client__example_8c" startline="233" endline="358">main</referencedby>
+        <referencedby refid="group__xsecure__keyunwrap__server__apis_1gaf1df351e91ee42e7c281b2e676ffda7b" compoundref="xsecure__keyunwrap_8c" startline="185" endline="283">XSecure_KeyUnwrap</referencedby>
+        <referencedby refid="group__xsecure__rsa__server__apis_1ga7fe869dab6a634c2866f9ec26ee8cec0" compoundref="xsecure__plat__rsa_8c" startline="346" endline="378">XSecure_RsaOaepDecrypt</referencedby>
+        <referencedby refid="group__xsecure__rsa__server__apis_1gab519747faf9ccf8e016d20e5713838c9" compoundref="xsecure__plat__rsa_8c" startline="310" endline="331">XSecure_RsaOaepEncrypt</referencedby>
+        <referencedby refid="group__xsecure__kat__server__apis_1gaeef1675ed072c8187d88b630df7204c3" compoundref="net_2xsecure__plat__kat_8c" startline="201" endline="267">XSecure_RsaPwct</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__rsa__server__apis_1ga8430c1d49dac67e602bf5d2353391a12" prot="public" static="no">
+        <name>XSECURE_RSA_KEY_GEN_SIZE_IN_WORDS</name>
+        <initializer>(<ref refid="group__xsecure__rsa__server__apis_1gaef98b03d932368574ec1123184b9a9e4" kindref="member">XSECURE_RSA_KEY_GEN_SIZE_IN_BYTES</ref> / 4U)</initializer>
+        <briefdescription>
+<para>RSA key generation size in words. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_plat_rsa.h" line="70" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_plat_rsa.h" bodystart="70" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__rsa__server__apis_1ga7208f94ae70d33d48b34e75b434c0073" prot="public" static="no">
+        <name>XSECURE_RSA_MAX_KEY_GEN_SUPPORT</name>
+        <initializer>(2U)</initializer>
+        <briefdescription>
+<para>Maximum keys that needs to be generated. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_plat_rsa.h" line="71" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_plat_rsa.h" bodystart="71" bodyend="-1"/>
+        <referencedby refid="group__xsecure__rsa__server__apis_1ga76632037ef8961e99b8b9b210d5f75f1" compoundref="xsecure__plat__rsa_8c" startline="731" endline="741">XSecure_GetRsaPrivateKey</referencedby>
+        <referencedby refid="group__xsecure__rsa__server__apis_1gaa40ad2688c9e7d2e756a29fa88bfaa27" compoundref="xsecure__plat__rsa_8c" startline="751" endline="761">XSecure_GetRsaPublicKey</referencedby>
+        <referencedby refid="group__xsecure__rsa__server__apis_1ga547d58774dd7e1821688203999e1b5e2" compoundref="xsecure__plat__rsa_8c" startline="562" endline="610">XSecure_RsaDestroyKeyInUse</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__rsa__server__apis_1ga7d26ce58d6af4dd85a0035b344866a6a" prot="public" static="no">
+        <name>XSECURE_RSA_KEY_STATUS_WAIT</name>
+        <initializer>(1U)</initializer>
+        <briefdescription>
+<para>RSA key status wait. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_plat_rsa.h" line="72" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_plat_rsa.h" bodystart="72" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__rsa__server__apis_1ga87e50dc58dc742b7bb0a503d9da9010f" prot="public" static="no">
+        <name>XSECURE_RSA_2048_QUANT_SIZE</name>
+        <initializer>(5U)</initializer>
+        <briefdescription>
+<para>RSA maximum quant size for 2048 bit key. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_plat_rsa.h" line="73" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_plat_rsa.h" bodystart="73" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__rsa__server__apis_1ga94a80f11f44f1b6bacbfdc15a255f79f" prot="public" static="no">
+        <name>XSECURE_RSA_3072_QUANT_SIZE</name>
+        <initializer>(2U)</initializer>
+        <briefdescription>
+<para>RSA maximum quant size for 3072 bit key. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_plat_rsa.h" line="74" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_plat_rsa.h" bodystart="74" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__rsa__server__apis_1ga5f2670f692577853698a7590066e4448" prot="public" static="no">
+        <name>XSECURE_RSA_4096_QUANT_SIZE</name>
+        <initializer>(1U)</initializer>
+        <briefdescription>
+<para>RSA maximum quant size for 4096 bit key. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_plat_rsa.h" line="75" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_plat_rsa.h" bodystart="75" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__rsa__server__apis_1ga792bca395c9fc54f30431664005fb637" prot="public" static="no">
+        <name>XSECURE_RSA_PUBLIC_EXPONENT</name>
+        <initializer>(0x10001U)</initializer>
+        <briefdescription>
+<para>RSA public exponent value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_plat_rsa.h" line="77" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_plat_rsa.h" bodystart="77" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__rsa__server__apis_1gac68769cb4d2f865843c2e77b2b5c3fbd" prot="public" static="no">
+        <name>XSECURE_RSA_PUB_EXP_SIZE</name>
+        <initializer>(4U)</initializer>
+        <briefdescription>
+<para>RSA public exponent size. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_plat_rsa.h" line="78" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_plat_rsa.h" bodystart="78" bodyend="-1"/>
+        <referencedby refid="group__xsecure__kat__server__apis_1gaeef1675ed072c8187d88b630df7204c3" compoundref="net_2xsecure__plat__kat_8c" startline="201" endline="267">XSecure_RsaPwct</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__rsa__server__apis_1gabef6161746737e2b747db7961bddfe3f" prot="public" static="no">
+        <name>XSECURE_KEY_PAIR_GEN_POLL_INTERVAL</name>
+        <initializer>(100U)</initializer>
+        <briefdescription>
+<para>Key pair generation poll interval. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_plat_rsa.h" line="79" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_plat_rsa.h" bodystart="79" bodyend="-1"/>
+        <referencedby refid="group__xsecure__rsa__server__apis_1ga164469228a4eea6357072fee975418de" compoundref="xsecure__plat__rsa_8c" startline="389" endline="405">XSecure_AddRsaKeyPairGenerationToScheduler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__rsa__server__apis_1ga38e1b28752d6069910cf90fb422e9cca" prot="public" static="no">
+        <name>XSECURE_ECDSA_RSA_SOFT_RESET</name>
+        <initializer>(0xF1200040U)</initializer>
+        <briefdescription>
+<para>ECDSA/RSA soft reset address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_plat_rsa.h" line="80" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_plat_rsa.h" bodystart="80" bodyend="-1"/>
+        <referencedby refid="group__xsecure__rsa__qmode__apis_1gab93e9d20b03a5821f0b533b3c0a1f681" compoundref="xsecure__rsa__q_8c" startline="119" endline="141">XSecure_RsaExp</referencedby>
+        <referencedby refid="group__xsecure__rsa__qmode__apis_1gae1a74baadcd5d96038076e38a6af64e1" compoundref="xsecure__rsa__q_8c" startline="73" endline="96">XSecure_RsaExpCRT</referencedby>
+        <referencedby refid="group__xsecure__rsa__qmode__apis_1ga6d3412455d770af7b891c3c90df4dffd" compoundref="xsecure__rsa__q_8c" startline="166" endline="189">XSecure_RsaExpopt</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__rsa__server__apis_1gacba3eaa97a1cf39d9022dddcaded8e1b" prot="public" static="no">
+        <name>XSECURE_RSA_SIZE_IN_BYTES</name>
+        <initializer>(512U)</initializer>
+        <briefdescription>
+<para>512 bytes for 4096 bit data </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_plat_rsa.h" line="81" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_plat_rsa.h" bodystart="81" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__rsa__server__apis_1ga3889ef0cd21d5b09ffa60be16ce88140" prot="public" static="no">
+        <name>XSECURE_PRIME_FACTOR_P_SIZE</name>
+        <initializer>(<ref refid="group__xsecure__rsa__server__apis_1gaef98b03d932368574ec1123184b9a9e4" kindref="member">XSECURE_RSA_KEY_GEN_SIZE_IN_BYTES</ref> &gt;&gt; 1U)</initializer>
+        <briefdescription>
+<para>size of first prime factor(P) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_plat_rsa.h" line="82" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_plat_rsa.h" bodystart="82" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__rsa__server__apis_1gaea22c8d9e551a75beb81099592d63ada" prot="public" static="no">
+        <name>XSECURE_PRIME_FACTOR_Q_SIZE</name>
+        <initializer>(<ref refid="group__xsecure__rsa__server__apis_1gaef98b03d932368574ec1123184b9a9e4" kindref="member">XSECURE_RSA_KEY_GEN_SIZE_IN_BYTES</ref> &gt;&gt; 1U)</initializer>
+        <briefdescription>
+<para>size of first prime factor(Q) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_plat_rsa.h" line="83" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_plat_rsa.h" bodystart="83" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__rsa__server__apis_1ga127677299bd2c7d46a4cf8941e91ccc3" prot="public" static="no">
+        <name>XSECURE_PRIME_FACTOR_MAX_P_SIZE</name>
+        <initializer>(<ref refid="group__xsecure__rsa__qmode__apis_1gacba3eaa97a1cf39d9022dddcaded8e1b" kindref="member">XSECURE_RSA_SIZE_IN_BYTES</ref> &gt;&gt; 1U)</initializer>
+        <briefdescription>
+<para>256 bytes size of first prime factor(P) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_plat_rsa.h" line="84" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_plat_rsa.h" bodystart="84" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__rsa__server__apis_1gae905dfaa14a252d9b935b0f5ce8e7583" prot="public" static="no">
+        <name>XSECURE_PRIME_FACTOR_MAX_Q_SIZE</name>
+        <initializer>(<ref refid="group__xsecure__rsa__qmode__apis_1gacba3eaa97a1cf39d9022dddcaded8e1b" kindref="member">XSECURE_RSA_SIZE_IN_BYTES</ref> &gt;&gt; 1U)</initializer>
+        <briefdescription>
+<para>256 bytes size of first prime factor(Q) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_plat_rsa.h" line="85" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_plat_rsa.h" bodystart="85" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="group__xsecure__rsa__server__apis_1ga24e04211fc631eaf86b412fc9abe7b1c" prot="public" static="no">
+        <name>XSecure_RsaKeyOpState</name>
+        <enumvalue id="group__xsecure__rsa__server__apis_1gga24e04211fc631eaf86b412fc9abe7b1cac6ccb393b8497af5e79d534f528abe87" prot="public">
+          <name>XSECURE_RSA_KEY_DEFAULT_STATE</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+<para>Default state. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__rsa__server__apis_1gga24e04211fc631eaf86b412fc9abe7b1caa55c1eab894644e0f5b3410506fdf043" prot="public">
+          <name>XSECURE_RSA_KEY_INIT_STATE</name>
+          <briefdescription>
+<para>Key initialized state. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__rsa__server__apis_1gga24e04211fc631eaf86b412fc9abe7b1caf4a0e971bca81263da9108061c8ff7c8" prot="public">
+          <name>XSECURE_RSA_KEY_GEN_STATE</name>
+          <briefdescription>
+<para>Key generate state. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__rsa__server__apis_1gga24e04211fc631eaf86b412fc9abe7b1ca217467319e81eb7e6182a65a4a0d26e6" prot="public">
+          <name>XSECURE_RSA_KEY_READY_STATE</name>
+          <briefdescription>
+<para>Key ready state. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>Enum to hold RSA key operation states. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_plat_rsa.h" line="91" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_plat_rsa.h" bodystart="91" bodyend="96"/>
+      </memberdef>
+      <memberdef kind="enum" id="group__xsecure__rsa__server__apis_1gae6588655f860a271678b5a24946f0aa2" prot="public" static="no">
+        <name>XSecure_RsaKeyStatus</name>
+        <enumvalue id="group__xsecure__rsa__server__apis_1ggae6588655f860a271678b5a24946f0aa2ad9950e80f504bd868c4243acf7840dd8" prot="public">
+          <name>XSECURE_RSA_KEY_FREE</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+<para>RSA key is free. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__rsa__server__apis_1ggae6588655f860a271678b5a24946f0aa2ac4e3192cdb9e2c4efdc27756aeb4b9a9" prot="public">
+          <name>XSECURE_RSA_KEY_AVAIL</name>
+          <briefdescription>
+<para>RSA key is available. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>Enum to hold RSA key status. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_plat_rsa.h" line="99" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_plat_rsa.h" bodystart="99" bodyend="102"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="group__xsecure__rsa__server__apis_1gacec31676c4d3a965576c93b61a8be2e9" prot="public" static="no">
+        <type><ref refid="struct_rsa_key_pair" kindref="compound">RsaKeyPair</ref></type>
+        <definition>typedef RsaKeyPair XSecure_RsaKeyPtr</definition>
+        <argsstring></argsstring>
+        <name>XSecure_RsaKeyPtr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_plat_rsa.h" line="88" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_plat_rsa.h" bodystart="88" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xsecure__rsa__server__apis_1gab519747faf9ccf8e016d20e5713838c9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XSecure_RsaOaepEncrypt</definition>
+        <argsstring>(XSecure_Rsa *InstancePtr, XSecure_RsaOaepParam *OaepParam)</argsstring>
+        <name>XSecure_RsaOaepEncrypt</name>
+        <param>
+          <type><ref refid="struct_x_secure___rsa" kindref="compound">XSecure_Rsa</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_secure___rsa_oaep_param" kindref="compound">XSecure_RsaOaepParam</ref> *</type>
+          <declname>OaepParam</declname>
+        </param>
+        <briefdescription>
+<para>This function encodes the given message using RSA OAEP and encrypts it. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_secure___rsa" kindref="compound">XSecure_Rsa</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>OaepParam</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_secure___rsa_oaep_param" kindref="compound">XSecure_RsaOaepParam</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - On success.</para></listitem><listitem><para>XSECURE_RSA_OAEP_INVALID_PARAM - On invalid parameter.</para></listitem><listitem><para>XST_FAILURE - On failure. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_plat_rsa.c" line="310" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_plat_rsa.c" bodystart="310" bodyend="331"/>
+        <references refid="struct_x_secure___rsa_oaep_param_1aa512ea4ccd203ba5598c4de743b12d79" compoundref="xsecure__plat__rsa_8h" startline="110">XSecure_RsaOaepParam::OutputDataAddr</references>
+        <references refid="group__xsecure__rsa__server__apis_1gaef98b03d932368574ec1123184b9a9e4" compoundref="xsecure__plat__rsa_8h" startline="68">XSECURE_RSA_KEY_GEN_SIZE_IN_BYTES</references>
+        <references refid="versal__2ve__2vm_2xsecure__error_8h_1ab04a0655cd1e3bcac5e8f48c18df1a57a47cbf5e8493b601f5bc54ce0a2cc4145" compoundref="versal__2ve__2vm_2xsecure__error_8h" startline="156">XSECURE_RSA_OAEP_INVALID_PARAM</references>
+        <references refid="group__xsecure__rsa__server__apis_1gafc7c87fceab6593e002f7e3b9e15fccc" compoundref="core_2rsa_2xsecure__rsa_8c" startline="312" endline="340">XSecure_RsaPublicEncrypt_64Bit</references>
+        <referencedby refid="group__xsecure__kat__server__apis_1gaeef1675ed072c8187d88b630df7204c3" compoundref="net_2xsecure__plat__kat_8c" startline="201" endline="267">XSecure_RsaPwct</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__rsa__server__apis_1ga7fe869dab6a634c2866f9ec26ee8cec0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XSecure_RsaOaepDecrypt</definition>
+        <argsstring>(XSecure_RsaPrivKey *PrivKey, XSecure_RsaOaepParam *OaepParam)</argsstring>
+        <name>XSecure_RsaOaepDecrypt</name>
+        <param>
+          <type><ref refid="struct_x_secure___rsa_priv_key" kindref="compound">XSecure_RsaPrivKey</ref> *</type>
+          <declname>PrivKey</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_secure___rsa_oaep_param" kindref="compound">XSecure_RsaOaepParam</ref> *</type>
+          <declname>OaepParam</declname>
+        </param>
+        <briefdescription>
+<para>This function decodes the given message and decrypts it using RSA OAEP. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>PrivKey</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_secure___rsa_priv_key" kindref="compound">XSecure_RsaPrivKey</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>OaepParam</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_secure___rsa_oaep_param" kindref="compound">XSecure_RsaOaepParam</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - On success.</para></listitem><listitem><para>XSECURE_RSA_OAEP_INVALID_PARAM - On invalid parameter.</para></listitem><listitem><para>XST_FAILURE - On failure. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Reverse Output of CRT function </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_plat_rsa.c" line="346" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_plat_rsa.c" bodystart="346" bodyend="378"/>
+        <references refid="struct_x_secure___rsa_priv_key_1a1333525ee3c21e019e5ee394e86a75dc" compoundref="xsecure__plat__rsa_8h" startline="141">XSecure_RsaPrivKey::DP</references>
+        <references refid="struct_x_secure___rsa_priv_key_1a68680ead2f2e5d4bbf4091da728a6c17" compoundref="xsecure__plat__rsa_8h" startline="142">XSecure_RsaPrivKey::DQ</references>
+        <references refid="struct_x_secure___rsa_oaep_param_1aec83801a64f9afa4244ceb8900611946" compoundref="xsecure__plat__rsa_8h" startline="109">XSecure_RsaOaepParam::InputDataAddr</references>
+        <references refid="struct_x_secure___rsa_priv_key_1a1ff01afef4ff856ce2a52a056a089efd" compoundref="xsecure__plat__rsa_8h" startline="137">XSecure_RsaPrivKey::Mod</references>
+        <references refid="struct_x_secure___rsa_priv_key_1a644d7816cda6767e94b41e0b7926a0e5" compoundref="xsecure__plat__rsa_8h" startline="139">XSecure_RsaPrivKey::P</references>
+        <references refid="struct_x_secure___rsa_priv_key_1a66702d27a5c235ee08bfd64b2784dc0b" compoundref="xsecure__plat__rsa_8h" startline="140">XSecure_RsaPrivKey::Q</references>
+        <references refid="struct_x_secure___rsa_priv_key_1a2a80c813dc8f88e478f1f1ad0319870a" compoundref="xsecure__plat__rsa_8h" startline="143">XSecure_RsaPrivKey::QInv</references>
+        <references refid="group__xsecure__generic__server__apis_1ga8fc10049426f8541ee568885a9d03902" compoundref="core_2util_2xsecure__utils_8h" startline="55">XSECURE_BYTE_IN_BITS</references>
+        <references refid="group__xsecure__rsa__server__apis_1gaef98b03d932368574ec1123184b9a9e4" compoundref="xsecure__plat__rsa_8h" startline="68">XSECURE_RSA_KEY_GEN_SIZE_IN_BYTES</references>
+        <references refid="versal__2ve__2vm_2xsecure__error_8h_1ab04a0655cd1e3bcac5e8f48c18df1a57a47cbf5e8493b601f5bc54ce0a2cc4145" compoundref="versal__2ve__2vm_2xsecure__error_8h" startline="156">XSECURE_RSA_OAEP_INVALID_PARAM</references>
+        <references refid="group__xsecure__rsa__qmode__apis_1gae1a74baadcd5d96038076e38a6af64e1" compoundref="xsecure__rsa__q_8c" startline="73" endline="96">XSecure_RsaExpCRT</references>
+        <referencedby refid="group__xsecure__keyunwrap__server__apis_1gaf1df351e91ee42e7c281b2e676ffda7b" compoundref="xsecure__keyunwrap_8c" startline="185" endline="283">XSecure_KeyUnwrap</referencedby>
+        <referencedby refid="group__xsecure__kat__server__apis_1gaeef1675ed072c8187d88b630df7204c3" compoundref="net_2xsecure__plat__kat_8c" startline="201" endline="267">XSecure_RsaPwct</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__rsa__server__apis_1ga76632037ef8961e99b8b9b210d5f75f1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="struct_x_secure___rsa_priv_key" kindref="compound">XSecure_RsaPrivKey</ref> *</type>
+        <definition>XSecure_RsaPrivKey * XSecure_GetRsaPrivateKey</definition>
+        <argsstring>(u32 RsaIdx)</argsstring>
+        <name>XSecure_GetRsaPrivateKey</name>
+        <param>
+          <type>u32</type>
+          <declname>RsaIdx</declname>
+        </param>
+        <briefdescription>
+<para>This function returns RSA private key. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>RsaIdx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Index of the RSA key to retrieve.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>Pointer to <ref refid="struct_x_secure___rsa_priv_key" kindref="compound">XSecure_RsaPrivKey</ref> or NULL otherwise. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_plat_rsa.c" line="731" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_plat_rsa.c" bodystart="731" bodyend="741"/>
+        <references refid="group__xsecure__rsa__server__apis_1ga7208f94ae70d33d48b34e75b434c0073" compoundref="xsecure__plat__rsa_8h" startline="71">XSECURE_RSA_MAX_KEY_GEN_SUPPORT</references>
+        <referencedby refid="group__xsecure__keyunwrap__server__apis_1gaf1df351e91ee42e7c281b2e676ffda7b" compoundref="xsecure__keyunwrap_8c" startline="185" endline="283">XSecure_KeyUnwrap</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__rsa__server__apis_1gaa40ad2688c9e7d2e756a29fa88bfaa27" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="struct_x_secure___rsa_pub_key" kindref="compound">XSecure_RsaPubKey</ref> *</type>
+        <definition>XSecure_RsaPubKey * XSecure_GetRsaPublicKey</definition>
+        <argsstring>(u32 RsaIdx)</argsstring>
+        <name>XSecure_GetRsaPublicKey</name>
+        <param>
+          <type>u32</type>
+          <declname>RsaIdx</declname>
+        </param>
+        <briefdescription>
+<para>This function returns RSA public key. </para>        </briefdescription>
+        <detaileddescription>
+<para>API to retrieve RSA KEY in use index.</para><para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>Pointer to <ref refid="struct_x_secure___rsa_pub_key" kindref="compound">XSecure_RsaPubKey</ref> or NULL otherwise. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_plat_rsa.c" line="751" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_plat_rsa.c" bodystart="751" bodyend="761"/>
+        <references refid="group__xsecure__rsa__server__apis_1ga7208f94ae70d33d48b34e75b434c0073" compoundref="xsecure__plat__rsa_8h" startline="71">XSECURE_RSA_MAX_KEY_GEN_SUPPORT</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__rsa__server__apis_1gabc66468fdd66a559fa567f631fbae91c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XSecure_GetRsaKeyInUseIdx</definition>
+        <argsstring>(void)</argsstring>
+        <name>XSecure_GetRsaKeyInUseIdx</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function returns RSA key inuse index. </para>        </briefdescription>
+        <detaileddescription>
+<para>API to destroy key pair that is in use.</para><para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>KeyInUse To indicate the key that is in use </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_plat_rsa.c" line="542" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_plat_rsa.c" bodystart="542" bodyend="551"/>
+        <references refid="struct_x_secure___rsa_key_mgmt_1a9b34d39a9f35f55fb2e29bf9c9fbbcd5" compoundref="xsecure__plat__rsa_8h" startline="163">XSecure_RsaKeyMgmt::KeyInUse</references>
+        <references refid="group__xsecure__rsa__server__apis_1ggae6588655f860a271678b5a24946f0aa2ac4e3192cdb9e2c4efdc27756aeb4b9a9" compoundref="xsecure__plat__rsa_8h" startline="101">XSECURE_RSA_KEY_AVAIL</references>
+        <referencedby refid="group__xsecure__keyunwrap__server__apis_1gaf1df351e91ee42e7c281b2e676ffda7b" compoundref="xsecure__keyunwrap_8c" startline="185" endline="283">XSecure_KeyUnwrap</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__rsa__server__apis_1ga547d58774dd7e1821688203999e1b5e2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XSecure_RsaDestroyKeyInUse</definition>
+        <argsstring>(void)</argsstring>
+        <name>XSecure_RsaDestroyKeyInUse</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function destroys the RSA key in use. </para>        </briefdescription>
+        <detaileddescription>
+<para>API to add key pair generation to scheduler.</para><para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - On success.</para></listitem><listitem><para>XST_FAILURE - On failure. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_plat_rsa.c" line="562" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_plat_rsa.c" bodystart="562" bodyend="610"/>
+        <references refid="struct_x_secure___rsa_key_gen_param_1a681e56f131a246f453d4c6f7eb890031" compoundref="xsecure__plat__rsa_8h" startline="156">XSecure_RsaKeyGenParam::IsRsaKeyAvail</references>
+        <references refid="struct_x_secure___rsa_key_mgmt_1ae329c4c1f8394e1c90d05fe72d3667ec" compoundref="xsecure__plat__rsa_8h" startline="161">XSecure_RsaKeyMgmt::Key</references>
+        <references refid="struct_x_secure___rsa_key_mgmt_1a9b34d39a9f35f55fb2e29bf9c9fbbcd5" compoundref="xsecure__plat__rsa_8h" startline="163">XSecure_RsaKeyMgmt::KeyInUse</references>
+        <references refid="struct_x_secure___rsa_key_gen_param_1a1ca8ed045094de17ea26475d21d026da" compoundref="xsecure__plat__rsa_8h" startline="154">XSecure_RsaKeyGenParam::KeyPair</references>
+        <references refid="struct_x_secure___rsa_key_pair_1a4cbc2c3fb83154bef4f3465b06d0175e" compoundref="xsecure__plat__rsa_8h" startline="148">XSecure_RsaKeyPair::PrivKey</references>
+        <references refid="struct_x_secure___rsa_key_pair_1a76b76d6d6d2944c158c9042aba476259" compoundref="xsecure__plat__rsa_8h" startline="149">XSecure_RsaKeyPair::PubKey</references>
+        <references refid="group__xsecure__rsa__server__apis_1ga164469228a4eea6357072fee975418de" compoundref="xsecure__plat__rsa_8c" startline="389" endline="405">XSecure_AddRsaKeyPairGenerationToScheduler</references>
+        <references refid="group__xsecure__rsa__server__apis_1ggae6588655f860a271678b5a24946f0aa2ac4e3192cdb9e2c4efdc27756aeb4b9a9" compoundref="xsecure__plat__rsa_8h" startline="101">XSECURE_RSA_KEY_AVAIL</references>
+        <references refid="group__xsecure__rsa__server__apis_1ga7208f94ae70d33d48b34e75b434c0073" compoundref="xsecure__plat__rsa_8h" startline="71">XSECURE_RSA_MAX_KEY_GEN_SUPPORT</references>
+        <references refid="group__xsecure__common__apis_1ga9256d68fdb87398a39ca9c81e9460ca5" compoundref="net_2xsecure__plat__defs_8h" startline="83">XSECURE_RTCA_RSA_KEY_STATUS_MASK</references>
+        <references refid="group__xsecure__common__apis_1gad4836d8e994c2e4a78549e2e77ae5bc0" compoundref="net_2xsecure__plat__defs_8h" startline="81">XSECURE_RTCA_RSA_KEY_STATUS_REG</references>
+        <references refid="group__xsecure__generic__server__apis_1ga4e096b508706aab2c2dd4b70452fb620" compoundref="core_2util_2xsecure__utils_8h" startline="63">XSECURE_ZERO</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__rsa__server__apis_1ga164469228a4eea6357072fee975418de" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XSecure_AddRsaKeyPairGenerationToScheduler</definition>
+        <argsstring>(void)</argsstring>
+        <name>XSecure_AddRsaKeyPairGenerationToScheduler</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function adds periodic task of generation RSA key pair to scheduler. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - On success.</para></listitem><listitem><para>XSECURE_ERR_ADD_TASK_SCHEDULER - If failed to add task to scheduler. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_plat_rsa.c" line="389" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_plat_rsa.c" bodystart="389" bodyend="405"/>
+        <references refid="group__xsecure__utils__apis_1gad317bd5f7cf522c602b9f00246d34d97" compoundref="spartanup_2xsecure__utils_8h" startline="70">XSECURE_DEBUG_GENERAL</references>
+        <references refid="group__xsecure__rsa__server__apis_1gabef6161746737e2b747db7961bddfe3f" compoundref="xsecure__plat__rsa_8h" startline="79">XSECURE_KEY_PAIR_GEN_POLL_INTERVAL</references>
+        <references refid="group__xsecure__common__apis_1ga693c54d224d1fa8ca68b215023b2b359" compoundref="xsecure__defs_8h" startline="85">XSecure_Printf</references>
+        <referencedby refid="group__xsecure__generic__server__apis_1gae97f3300511e1fce60d35fac22781594" compoundref="xsecure__init_8c" startline="143" endline="179">XSecure_Init</referencedby>
+        <referencedby refid="group__xsecure__rsa__server__apis_1ga547d58774dd7e1821688203999e1b5e2" compoundref="xsecure__plat__rsa_8c" startline="562" endline="610">XSecure_RsaDestroyKeyInUse</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file contains hardware interface related information for RSA device. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date        Changes
+<hruler/>
+
+5.2   kpt  06/25/23 Initial release
+5.3   am   09/28/23 Added wrapper function prototypes for third-party&apos;s RSA APIs
+      kpt  12/13/23 Added XSecure_RsaOperationParam
+      kpt  12/13/23 Added RSA CRT support for keyunwrap
+5.3   ng   01/28/24 Added SDT support
+      ng   03/26/24 Fixed header include in SDT flow
+      ss   04/05/24 Fixed doxygen warnings
+5.4   yog  04/29/24 Fixed doxygen grouping and doxygen warnings.
+      kpt  05/26/24 Added support RSA CRT and Expopt operation.
+      kpt  06/13/24 Add support for RSA key generation.
+      kpt  06/30/24 Added XSECURE_PRIME_FACTOR_MAX_P_SIZE and
+                    XSECURE_PRIME_FACTOR_MAX_Q_SIZE
+      kal  07/24/24 Code refactoring changes for versal_2ve_2vm</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="40"><highlight class="preprocessor">#ifndef<sp/>XSECURE_PLAT_RSA_H_</highlight></codeline>
+<codeline lineno="41"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_PLAT_RSA_H_</highlight></codeline>
+<codeline lineno="42"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="44"><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="45"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>externC<sp/>extern<sp/>&quot;C&quot;</highlight></codeline>
+<codeline lineno="46"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="47" refid="group__xsecure__rsa__server__apis_1gaa653fc0677efc4a466e7f5360dbc2abe" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>externC<sp/>extern</highlight></codeline>
+<codeline lineno="48"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="49"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>SDT</highlight></codeline>
+<codeline lineno="54"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xsecure_config.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="56"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>PLM_RSA_EXCLUDE</highlight></codeline>
+<codeline lineno="58"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xsecure_rsa_core.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xsecure__rsa__q_8h" kindref="compound">xsecure_rsa_q.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xsecure__mgf_8h" kindref="compound">xsecure_mgf.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;Rsa.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>XSECURE_RSA_KEY_GEN_SIZE_IN_BYTES</highlight></codeline>
+<codeline lineno="68" refid="group__xsecure__rsa__server__apis_1gaef98b03d932368574ec1123184b9a9e4" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_RSA_KEY_GEN_SIZE_IN_BYTES<sp/>(XSECURE_RSA_3072_SIZE_WORDS<sp/>*<sp/>4U)<sp/></highlight></codeline>
+<codeline lineno="69"><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="70" refid="group__xsecure__rsa__server__apis_1ga8430c1d49dac67e602bf5d2353391a12" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_RSA_KEY_GEN_SIZE_IN_WORDS<sp/>(XSECURE_RSA_KEY_GEN_SIZE_IN_BYTES<sp/>/<sp/>4U)<sp/></highlight></codeline>
+<codeline lineno="71" refid="group__xsecure__rsa__server__apis_1ga7208f94ae70d33d48b34e75b434c0073" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_RSA_MAX_KEY_GEN_SUPPORT<sp/>(2U)<sp/></highlight></codeline>
+<codeline lineno="72" refid="group__xsecure__rsa__server__apis_1ga7d26ce58d6af4dd85a0035b344866a6a" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_RSA_KEY_STATUS_WAIT<sp/><sp/><sp/><sp/><sp/>(1U)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="73" refid="group__xsecure__rsa__server__apis_1ga87e50dc58dc742b7bb0a503d9da9010f" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_RSA_2048_QUANT_SIZE<sp/><sp/><sp/><sp/><sp/>(5U)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="74" refid="group__xsecure__rsa__server__apis_1ga94a80f11f44f1b6bacbfdc15a255f79f" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_RSA_3072_QUANT_SIZE<sp/><sp/><sp/><sp/><sp/>(2U)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="75" refid="group__xsecure__rsa__server__apis_1ga5f2670f692577853698a7590066e4448" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_RSA_4096_QUANT_SIZE<sp/><sp/><sp/><sp/><sp/>(1U)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="77" refid="group__xsecure__rsa__server__apis_1ga792bca395c9fc54f30431664005fb637" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_RSA_PUBLIC_EXPONENT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x10001U)<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="78" refid="group__xsecure__rsa__server__apis_1gac68769cb4d2f865843c2e77b2b5c3fbd" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_RSA_PUB_EXP_SIZE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(4U)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="79" refid="group__xsecure__rsa__server__apis_1gabef6161746737e2b747db7961bddfe3f" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_KEY_PAIR_GEN_POLL_INTERVAL<sp/>(100U)<sp/></highlight></codeline>
+<codeline lineno="80" refid="group__xsecure__rsa__server__apis_1ga38e1b28752d6069910cf90fb422e9cca" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_ECDSA_RSA_SOFT_RESET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xF1200040U)<sp/></highlight></codeline>
+<codeline lineno="81" refid="group__xsecure__rsa__server__apis_1gacba3eaa97a1cf39d9022dddcaded8e1b" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_RSA_SIZE_IN_BYTES<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(512U)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="82" refid="group__xsecure__rsa__server__apis_1ga3889ef0cd21d5b09ffa60be16ce88140" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_PRIME_FACTOR_P_SIZE<sp/><sp/><sp/><sp/><sp/>(XSECURE_RSA_KEY_GEN_SIZE_IN_BYTES<sp/>&gt;&gt;<sp/>1U)<sp/><sp/></highlight></codeline>
+<codeline lineno="83" refid="group__xsecure__rsa__server__apis_1gaea22c8d9e551a75beb81099592d63ada" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_PRIME_FACTOR_Q_SIZE<sp/><sp/><sp/><sp/><sp/>(XSECURE_RSA_KEY_GEN_SIZE_IN_BYTES<sp/>&gt;&gt;<sp/>1U)<sp/><sp/></highlight></codeline>
+<codeline lineno="84" refid="group__xsecure__rsa__server__apis_1ga127677299bd2c7d46a4cf8941e91ccc3" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_PRIME_FACTOR_MAX_P_SIZE<sp/>(XSECURE_RSA_SIZE_IN_BYTES<sp/>&gt;&gt;<sp/>1U)<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="85" refid="group__xsecure__rsa__server__apis_1gae905dfaa14a252d9b935b0f5ce8e7583" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_PRIME_FACTOR_MAX_Q_SIZE<sp/>(XSECURE_RSA_SIZE_IN_BYTES<sp/>&gt;&gt;<sp/>1U)<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="87"><highlight class="preprocessor"></highlight><highlight class="comment">/*****************************<sp/>Type<sp/>Definitions<sp/>******************************/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="88"><highlight class="preprocessor"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/><ref refid="struct_rsa_key_pair" kindref="compound">RsaKeyPair</ref><sp/><ref refid="struct_rsa_key_pair" kindref="compound">XSecure_RsaKeyPtr</ref>;</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"></highlight></codeline>
+<codeline lineno="91" refid="group__xsecure__rsa__server__apis_1ga24e04211fc631eaf86b412fc9abe7b1c" refkind="member"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="92" refid="group__xsecure__rsa__server__apis_1gga24e04211fc631eaf86b412fc9abe7b1cac6ccb393b8497af5e79d534f528abe87" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__rsa__server__apis_1gga24e04211fc631eaf86b412fc9abe7b1cac6ccb393b8497af5e79d534f528abe87" kindref="member">XSECURE_RSA_KEY_DEFAULT_STATE</ref><sp/>=<sp/>0,<sp/></highlight></codeline>
+<codeline lineno="93" refid="group__xsecure__rsa__server__apis_1gga24e04211fc631eaf86b412fc9abe7b1caa55c1eab894644e0f5b3410506fdf043" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__rsa__server__apis_1gga24e04211fc631eaf86b412fc9abe7b1caa55c1eab894644e0f5b3410506fdf043" kindref="member">XSECURE_RSA_KEY_INIT_STATE</ref>,<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="94" refid="group__xsecure__rsa__server__apis_1gga24e04211fc631eaf86b412fc9abe7b1caf4a0e971bca81263da9108061c8ff7c8" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__rsa__server__apis_1gga24e04211fc631eaf86b412fc9abe7b1caf4a0e971bca81263da9108061c8ff7c8" kindref="member">XSECURE_RSA_KEY_GEN_STATE</ref>,<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="95" refid="group__xsecure__rsa__server__apis_1gga24e04211fc631eaf86b412fc9abe7b1ca217467319e81eb7e6182a65a4a0d26e6" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__rsa__server__apis_1gga24e04211fc631eaf86b412fc9abe7b1ca217467319e81eb7e6182a65a4a0d26e6" kindref="member">XSECURE_RSA_KEY_READY_STATE</ref><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="96"><highlight class="normal">}<sp/><ref refid="group__xsecure__rsa__server__apis_1ga24e04211fc631eaf86b412fc9abe7b1c" kindref="member">XSecure_RsaKeyOpState</ref>;</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"></highlight></codeline>
+<codeline lineno="99" refid="group__xsecure__rsa__server__apis_1gae6588655f860a271678b5a24946f0aa2" refkind="member"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="100" refid="group__xsecure__rsa__server__apis_1ggae6588655f860a271678b5a24946f0aa2ad9950e80f504bd868c4243acf7840dd8" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__rsa__server__apis_1ggae6588655f860a271678b5a24946f0aa2ad9950e80f504bd868c4243acf7840dd8" kindref="member">XSECURE_RSA_KEY_FREE</ref><sp/>=<sp/>0,<sp/></highlight></codeline>
+<codeline lineno="101" refid="group__xsecure__rsa__server__apis_1ggae6588655f860a271678b5a24946f0aa2ac4e3192cdb9e2c4efdc27756aeb4b9a9" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__rsa__server__apis_1ggae6588655f860a271678b5a24946f0aa2ac4e3192cdb9e2c4efdc27756aeb4b9a9" kindref="member">XSECURE_RSA_KEY_AVAIL</ref><sp/></highlight></codeline>
+<codeline lineno="102"><highlight class="normal">}<sp/><ref refid="group__xsecure__rsa__server__apis_1gae6588655f860a271678b5a24946f0aa2" kindref="member">XSecure_RsaKeyStatus</ref>;</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"></highlight></codeline>
+<codeline lineno="108" refid="struct_x_secure___rsa_oaep_param" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="109" refid="struct_x_secure___rsa_oaep_param_1aec83801a64f9afa4244ceb8900611946" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/><ref refid="struct_x_secure___rsa_oaep_param_1aec83801a64f9afa4244ceb8900611946" kindref="member">InputDataAddr</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="110" refid="struct_x_secure___rsa_oaep_param_1aa512ea4ccd203ba5598c4de743b12d79" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/><ref refid="struct_x_secure___rsa_oaep_param_1aa512ea4ccd203ba5598c4de743b12d79" kindref="member">OutputDataAddr</ref>;<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="111" refid="struct_x_secure___rsa_oaep_param_1a8ab8492d15282d35d4dc00b0ba02fdaa" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/><ref refid="struct_x_secure___rsa_oaep_param_1a8ab8492d15282d35d4dc00b0ba02fdaa" kindref="member">OptionalLabelAddr</ref>;<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="112" refid="struct_x_secure___rsa_oaep_param_1abdedfcfe1370c2f75622c5af01166bcf" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_secure___rsa_oaep_param_1abdedfcfe1370c2f75622c5af01166bcf" kindref="member">InputDataSize</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="113" refid="struct_x_secure___rsa_oaep_param_1abc732af71d66ec9a66a84abf44c52749" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_secure___rsa_oaep_param_1abc732af71d66ec9a66a84abf44c52749" kindref="member">OutputDataSize</ref>;<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="114" refid="struct_x_secure___rsa_oaep_param_1ad9041bb24d56ea51df16c9b4046ae310" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_secure___rsa_oaep_param_1ad9041bb24d56ea51df16c9b4046ae310" kindref="member">OptionalLabelSize</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="115" refid="struct_x_secure___rsa_oaep_param_1af3ada34163356c6f6dabaf1217119829" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*<ref refid="struct_x_secure___rsa_oaep_param_1af3ada34163356c6f6dabaf1217119829" kindref="member">ShaInstancePtr</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="116" refid="struct_x_secure___rsa_oaep_param_1a08d92ae0a9bc81faf738335de219ee13" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSecure_ShaMode<sp/><ref refid="struct_x_secure___rsa_oaep_param_1a08d92ae0a9bc81faf738335de219ee13" kindref="member">ShaType</ref>;<sp/></highlight></codeline>
+<codeline lineno="117"><highlight class="normal">}<sp/><ref refid="struct_x_secure___rsa_oaep_param" kindref="compound">XSecure_RsaOaepParam</ref>;</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"></highlight></codeline>
+<codeline lineno="120" refid="struct_x_secure___rsa_key" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="121" refid="struct_x_secure___rsa_key_1aed040e601a44dabe9ba442b5dcb2fccb" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>*<ref refid="struct_x_secure___rsa_key_1aed040e601a44dabe9ba442b5dcb2fccb" kindref="member">Modulus</ref>;<sp/><sp/></highlight></codeline>
+<codeline lineno="122" refid="struct_x_secure___rsa_key_1aa772cad4cb82aace8a2f3d60146c7aad" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>*<ref refid="struct_x_secure___rsa_key_1aa772cad4cb82aace8a2f3d60146c7aad" kindref="member">P</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="123" refid="struct_x_secure___rsa_key_1a313c81ddfea342c96215098e525dbef4" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>*<ref refid="struct_x_secure___rsa_key_1a313c81ddfea342c96215098e525dbef4" kindref="member">Q</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="124" refid="struct_x_secure___rsa_key_1affa3502fd4372a391ab06615b60f85c5" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>*<ref refid="struct_x_secure___rsa_key_1affa3502fd4372a391ab06615b60f85c5" kindref="member">DP</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="125" refid="struct_x_secure___rsa_key_1a66035086590bbf85f2b3331f13eedbfa" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>*<ref refid="struct_x_secure___rsa_key_1a66035086590bbf85f2b3331f13eedbfa" kindref="member">DQ</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="126" refid="struct_x_secure___rsa_key_1aa277f58b9a5068a30d0a746ffbc0ffb9" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>*<ref refid="struct_x_secure___rsa_key_1aa277f58b9a5068a30d0a746ffbc0ffb9" kindref="member">QInv</ref>;<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="127"><highlight class="normal">}<sp/><ref refid="struct_x_secure___rsa_key" kindref="compound">XSecure_RsaKey</ref>;</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"></highlight></codeline>
+<codeline lineno="130" refid="struct_x_secure___rsa_pub_key" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="131" refid="struct_x_secure___rsa_pub_key_1a93596537a0e341100aa149f0055e87d9" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Mod[<ref refid="group__xsecure__rsa__server__apis_1gaef98b03d932368574ec1123184b9a9e4" kindref="member">XSECURE_RSA_KEY_GEN_SIZE_IN_BYTES</ref>];<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="132" refid="struct_x_secure___rsa_pub_key_1a24daf4b9ad862d50688156a1220e6350" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>PubExp[<ref refid="group__xsecure__rsa__server__apis_1ga8430c1d49dac67e602bf5d2353391a12" kindref="member">XSECURE_RSA_KEY_GEN_SIZE_IN_WORDS</ref>];<sp/></highlight></codeline>
+<codeline lineno="133"><highlight class="normal">}<sp/><ref refid="struct_x_secure___rsa_pub_key" kindref="compound">XSecure_RsaPubKey</ref>;</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"></highlight></codeline>
+<codeline lineno="136" refid="struct_x_secure___rsa_priv_key" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="137" refid="struct_x_secure___rsa_priv_key_1a1ff01afef4ff856ce2a52a056a089efd" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Mod[<ref refid="group__xsecure__rsa__server__apis_1gaef98b03d932368574ec1123184b9a9e4" kindref="member">XSECURE_RSA_KEY_GEN_SIZE_IN_BYTES</ref>];<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="138" refid="struct_x_secure___rsa_priv_key_1ab72bd3935d3bba53528b9fd4022ca581" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Exp[<ref refid="group__xsecure__rsa__server__apis_1gaef98b03d932368574ec1123184b9a9e4" kindref="member">XSECURE_RSA_KEY_GEN_SIZE_IN_BYTES</ref>];<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="139" refid="struct_x_secure___rsa_priv_key_1a644d7816cda6767e94b41e0b7926a0e5" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>P[<ref refid="group__xsecure__rsa__server__apis_1ga3889ef0cd21d5b09ffa60be16ce88140" kindref="member">XSECURE_PRIME_FACTOR_P_SIZE</ref>];<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="140" refid="struct_x_secure___rsa_priv_key_1a66702d27a5c235ee08bfd64b2784dc0b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Q[<ref refid="group__xsecure__rsa__server__apis_1gaea22c8d9e551a75beb81099592d63ada" kindref="member">XSECURE_PRIME_FACTOR_Q_SIZE</ref>];<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="141" refid="struct_x_secure___rsa_priv_key_1a1333525ee3c21e019e5ee394e86a75dc" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>DP[<ref refid="group__xsecure__rsa__server__apis_1ga3889ef0cd21d5b09ffa60be16ce88140" kindref="member">XSECURE_PRIME_FACTOR_P_SIZE</ref>];<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="142" refid="struct_x_secure___rsa_priv_key_1a68680ead2f2e5d4bbf4091da728a6c17" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>DQ[<ref refid="group__xsecure__rsa__server__apis_1gaea22c8d9e551a75beb81099592d63ada" kindref="member">XSECURE_PRIME_FACTOR_Q_SIZE</ref>];<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="143" refid="struct_x_secure___rsa_priv_key_1a2a80c813dc8f88e478f1f1ad0319870a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>QInv[<ref refid="group__xsecure__rsa__server__apis_1gaea22c8d9e551a75beb81099592d63ada" kindref="member">XSECURE_PRIME_FACTOR_Q_SIZE</ref>];<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="144"><highlight class="normal">}<ref refid="struct_x_secure___rsa_priv_key" kindref="compound">XSecure_RsaPrivKey</ref>;</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"></highlight></codeline>
+<codeline lineno="147" refid="struct_x_secure___rsa_key_pair" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="148" refid="struct_x_secure___rsa_key_pair_1a4cbc2c3fb83154bef4f3465b06d0175e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_secure___rsa_priv_key" kindref="compound">XSecure_RsaPrivKey</ref>*<sp/><ref refid="struct_x_secure___rsa_key_pair_1a4cbc2c3fb83154bef4f3465b06d0175e" kindref="member">PrivKey</ref>;<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="149" refid="struct_x_secure___rsa_key_pair_1a76b76d6d6d2944c158c9042aba476259" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_secure___rsa_pub_key" kindref="compound">XSecure_RsaPubKey</ref>*<sp/><ref refid="struct_x_secure___rsa_key_pair_1a76b76d6d6d2944c158c9042aba476259" kindref="member">PubKey</ref>;<sp/></highlight></codeline>
+<codeline lineno="150"><highlight class="normal">}<sp/><ref refid="struct_x_secure___rsa_key_pair" kindref="compound">XSecure_RsaKeyPair</ref>;</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"></highlight></codeline>
+<codeline lineno="153" refid="struct_x_secure___rsa_key_gen_param" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="154" refid="struct_x_secure___rsa_key_gen_param_1a1ca8ed045094de17ea26475d21d026da" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_secure___rsa_key_pair" kindref="compound">XSecure_RsaKeyPair</ref><sp/><ref refid="struct_x_secure___rsa_key_gen_param_1a1ca8ed045094de17ea26475d21d026da" kindref="member">KeyPair</ref>;<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="155" refid="struct_x_secure___rsa_key_gen_param_1ad0223ef23fd91d3a10244a210b3a5a41" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_secure___rsa_key_gen_param_1ad0223ef23fd91d3a10244a210b3a5a41" kindref="member">QuantSize</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="156" refid="struct_x_secure___rsa_key_gen_param_1a681e56f131a246f453d4c6f7eb890031" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_secure___rsa_key_gen_param_1a681e56f131a246f453d4c6f7eb890031" kindref="member">IsRsaKeyAvail</ref>;<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="157"><highlight class="normal">}<sp/><ref refid="struct_x_secure___rsa_key_gen_param" kindref="compound">XSecure_RsaKeyGenParam</ref>;</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"></highlight></codeline>
+<codeline lineno="160" refid="struct_x_secure___rsa_key_mgmt" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="161" refid="struct_x_secure___rsa_key_mgmt_1ae329c4c1f8394e1c90d05fe72d3667ec" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_secure___rsa_key_gen_param" kindref="compound">XSecure_RsaKeyGenParam</ref><sp/>Key[<ref refid="group__xsecure__rsa__server__apis_1ga7208f94ae70d33d48b34e75b434c0073" kindref="member">XSECURE_RSA_MAX_KEY_GEN_SUPPORT</ref>];</highlight></codeline>
+<codeline lineno="163" refid="struct_x_secure___rsa_key_mgmt_1a9b34d39a9f35f55fb2e29bf9c9fbbcd5" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_secure___rsa_key_mgmt_1a9b34d39a9f35f55fb2e29bf9c9fbbcd5" kindref="member">KeyInUse</ref>;<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="164"><highlight class="normal">}<sp/><ref refid="struct_x_secure___rsa_key_mgmt" kindref="compound">XSecure_RsaKeyMgmt</ref>;</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"></highlight></codeline>
+<codeline lineno="166"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Function<sp/>Prototypes<sp/>***************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="167"><highlight class="normal"></highlight></codeline>
+<codeline lineno="168"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__rsa__server__apis_1gab519747faf9ccf8e016d20e5713838c9" kindref="member">XSecure_RsaOaepEncrypt</ref>(<ref refid="struct_x_secure___rsa" kindref="compound">XSecure_Rsa</ref><sp/>*InstancePtr,<sp/><ref refid="struct_x_secure___rsa_oaep_param" kindref="compound">XSecure_RsaOaepParam</ref><sp/>*OaepParam);</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__rsa__server__apis_1ga7fe869dab6a634c2866f9ec26ee8cec0" kindref="member">XSecure_RsaOaepDecrypt</ref>(<ref refid="struct_x_secure___rsa_priv_key" kindref="compound">XSecure_RsaPrivKey</ref><sp/>*PrivKey,<sp/><ref refid="struct_x_secure___rsa_oaep_param" kindref="compound">XSecure_RsaOaepParam</ref><sp/>*OaepParam);</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><ref refid="struct_x_secure___rsa_priv_key" kindref="compound">XSecure_RsaPrivKey</ref>*<sp/><ref refid="group__xsecure__rsa__server__apis_1ga76632037ef8961e99b8b9b210d5f75f1" kindref="member">XSecure_GetRsaPrivateKey</ref>(u32<sp/>RsaIdx);</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><ref refid="struct_x_secure___rsa_pub_key" kindref="compound">XSecure_RsaPubKey</ref>*<sp/><ref refid="group__xsecure__rsa__server__apis_1gaa40ad2688c9e7d2e756a29fa88bfaa27" kindref="member">XSecure_GetRsaPublicKey</ref>(u32<sp/>RsaIdx);</highlight></codeline>
+<codeline lineno="173"><highlight class="normal">u32<sp/><ref refid="group__xsecure__rsa__server__apis_1gabc66468fdd66a559fa567f631fbae91c" kindref="member">XSecure_GetRsaKeyInUseIdx</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="175"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__rsa__server__apis_1ga547d58774dd7e1821688203999e1b5e2" kindref="member">XSecure_RsaDestroyKeyInUse</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="177"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__rsa__server__apis_1ga164469228a4eea6357072fee975418de" kindref="member">XSecure_AddRsaKeyPairGenerationToScheduler</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"></highlight></codeline>
+<codeline lineno="179"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/></highlight><highlight class="comment">/*<sp/>PLM_RSA_EXCLUDE_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="180"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="182"><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XSECURE_PLAT_RSA_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_plat_rsa.h"/>
+  </compounddef>
+</doxygen>

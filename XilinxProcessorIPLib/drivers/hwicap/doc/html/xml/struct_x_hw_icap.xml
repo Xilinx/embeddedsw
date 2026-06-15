@@ -1,0 +1,258 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_hw_icap" kind="struct" prot="public">
+    <compoundname>XHwIcap</compoundname>
+    <includes local="no">xhwicap.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_hw_icap_1aab0ffe813aa173907a53fbdfe62de599" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_hw_icap___config" kindref="compound">XHwIcap_Config</ref></type>
+        <definition>XHwIcap_Config XHwIcap::HwIcapConfig</definition>
+        <argsstring></argsstring>
+        <name>HwIcapConfig</name>
+        <briefdescription>
+<para>Instance of the config struct. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap.h" line="255" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap.h" bodystart="255" bodyend="-1"/>
+        <referencedby refid="xhwicap__intr__example_8c_1ad30f00094bfccf190e8f4400fc5842c1" compoundref="xhwicap__intr__example_8c" startline="205" endline="306">HwIcapIntrExample</referencedby>
+        <referencedby refid="group__hwicap_1ga2493ca18331cba6eb2162449b7dab66e" compoundref="xhwicap_8c" startline="761" endline="781">XHwIcap_Abort</referencedby>
+        <referencedby refid="group__hwicap_1gad497b5129aff666181e85457f1c5f678" compoundref="xhwicap_8c" startline="157" endline="262">XHwIcap_CfgInitialize</referencedby>
+        <referencedby refid="group__hwicap_1ga27e9ac291323ef043303367460b70de0" compoundref="xhwicap_8c" startline="528" endline="661">XHwIcap_DeviceRead</referencedby>
+        <referencedby refid="group__hwicap_1gaab446328af0c5b397eeaee15088bf8e8" compoundref="xhwicap_8c" startline="300" endline="503">XHwIcap_DeviceWrite</referencedby>
+        <referencedby refid="group__hwicap_1ga92dbad9de7f4a4e41fcde30fc2ebda1c" compoundref="xhwicap_8c" startline="719" endline="746">XHwIcap_FlushFifo</referencedby>
+        <referencedby refid="group__hwicap_1ga305707eb013da39d038183c7f0d8fed9" compoundref="xhwicap__srp_8c" startline="180" endline="239">XHwIcap_GetConfigReg</referencedby>
+        <referencedby refid="group__hwicap_1ga6c516a5e0cb9f928e591a152cd567dca" compoundref="xhwicap_8c" startline="677" endline="705">XHwIcap_Reset</referencedby>
+        <referencedby refid="group__hwicap_1ga0716d6a3c65aabb73344bee9c4c9cfc7" compoundref="xhwicap__selftest_8c" startline="67" endline="132">XHwIcap_SelfTest</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hw_icap_1a7e038eb9c938aaedaf156b772fc4de0c" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XHwIcap::IsReady</definition>
+        <argsstring></argsstring>
+        <name>IsReady</name>
+        <briefdescription>
+<para>Device is initialized and ready. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap.h" line="256" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap.h" bodystart="256" bodyend="-1"/>
+        <referencedby refid="group__hwicap_1ga2493ca18331cba6eb2162449b7dab66e" compoundref="xhwicap_8c" startline="761" endline="781">XHwIcap_Abort</referencedby>
+        <referencedby refid="group__hwicap_1gad497b5129aff666181e85457f1c5f678" compoundref="xhwicap_8c" startline="157" endline="262">XHwIcap_CfgInitialize</referencedby>
+        <referencedby refid="group__hwicap_1gaff2a2db509296264ad44270798b4bed2" compoundref="xhwicap__srp_8c" startline="130" endline="160">XHwIcap_CommandCapture</referencedby>
+        <referencedby refid="group__hwicap_1ga7c4b2410acc62af539dac03005668754" compoundref="xhwicap__srp_8c" startline="85" endline="113">XHwIcap_CommandDesync</referencedby>
+        <referencedby refid="group__hwicap_1ga27e9ac291323ef043303367460b70de0" compoundref="xhwicap_8c" startline="528" endline="661">XHwIcap_DeviceRead</referencedby>
+        <referencedby refid="group__hwicap_1gafdb7b9947a1e1610a214814c1b19a0a1" compoundref="xhwicap__device__read__frame_8c" startline="81" endline="205">XHwIcap_DeviceReadFrame</referencedby>
+        <referencedby refid="group__hwicap_1gaab446328af0c5b397eeaee15088bf8e8" compoundref="xhwicap_8c" startline="300" endline="503">XHwIcap_DeviceWrite</referencedby>
+        <referencedby refid="group__hwicap_1ga7b2b996ebb5c5268a07d39e9add552dc" compoundref="xhwicap__device__write__frame_8c" startline="86" endline="246">XHwIcap_DeviceWriteFrame</referencedby>
+        <referencedby refid="group__hwicap_1ga92dbad9de7f4a4e41fcde30fc2ebda1c" compoundref="xhwicap_8c" startline="719" endline="746">XHwIcap_FlushFifo</referencedby>
+        <referencedby refid="group__hwicap_1ga305707eb013da39d038183c7f0d8fed9" compoundref="xhwicap__srp_8c" startline="180" endline="239">XHwIcap_GetConfigReg</referencedby>
+        <referencedby refid="group__hwicap_1ga6c516a5e0cb9f928e591a152cd567dca" compoundref="xhwicap_8c" startline="677" endline="705">XHwIcap_Reset</referencedby>
+        <referencedby refid="group__hwicap_1ga0716d6a3c65aabb73344bee9c4c9cfc7" compoundref="xhwicap__selftest_8c" startline="67" endline="132">XHwIcap_SelfTest</referencedby>
+        <referencedby refid="group__hwicap_1gaa2f2f23cf842c10f443509f8861a194a" compoundref="xhwicap__intr_8c" startline="77" endline="86">XHwIcap_SetInterruptHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hw_icap_1a1034ea22a5d2bb5a3eab6e5abe6a6423" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int XHwIcap::IsPolled</definition>
+        <argsstring></argsstring>
+        <name>IsPolled</name>
+        <briefdescription>
+<para>Device is in polled mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap.h" line="257" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap.h" bodystart="257" bodyend="-1"/>
+        <referencedby refid="group__hwicap_1gad497b5129aff666181e85457f1c5f678" compoundref="xhwicap_8c" startline="157" endline="262">XHwIcap_CfgInitialize</referencedby>
+        <referencedby refid="group__hwicap_1gaab446328af0c5b397eeaee15088bf8e8" compoundref="xhwicap_8c" startline="300" endline="503">XHwIcap_DeviceWrite</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hw_icap_1a1e2e190f1bd74c7aa6fbe31288ee6619" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XHwIcap::DeviceIdCode</definition>
+        <argsstring></argsstring>
+        <name>DeviceIdCode</name>
+        <briefdescription>
+<para>IDCODE of targeted device. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap.h" line="258" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap.h" bodystart="258" bodyend="-1"/>
+        <referencedby refid="group__hwicap_1ga7b2b996ebb5c5268a07d39e9add552dc" compoundref="xhwicap__device__write__frame_8c" startline="86" endline="246">XHwIcap_DeviceWriteFrame</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hw_icap_1a1fbb30f90288a5c42de2e456b6ca510e" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XHwIcap::DeviceFamily</definition>
+        <argsstring></argsstring>
+        <name>DeviceFamily</name>
+        <briefdescription>
+<para>Targeted device family. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap.h" line="259" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap.h" bodystart="259" bodyend="-1"/>
+        <referencedby refid="group__hwicap_1gad497b5129aff666181e85457f1c5f678" compoundref="xhwicap_8c" startline="157" endline="262">XHwIcap_CfgInitialize</referencedby>
+        <referencedby refid="group__hwicap_1gafdb7b9947a1e1610a214814c1b19a0a1" compoundref="xhwicap__device__read__frame_8c" startline="81" endline="205">XHwIcap_DeviceReadFrame</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hw_icap_1abd5f77c5e222b3372623794a6d8bb05c" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XHwIcap::BytesPerFrame</definition>
+        <argsstring></argsstring>
+        <name>BytesPerFrame</name>
+        <briefdescription>
+<para>Number of Bytes per minor Frame. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap.h" line="260" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap.h" bodystart="260" bodyend="-1"/>
+        <referencedby refid="group__hwicap_1gad497b5129aff666181e85457f1c5f678" compoundref="xhwicap_8c" startline="157" endline="262">XHwIcap_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hw_icap_1a3f9285b94c87fa0052336a7fdeb75bf4" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XHwIcap::WordsPerFrame</definition>
+        <argsstring></argsstring>
+        <name>WordsPerFrame</name>
+        <briefdescription>
+<para>Number of Words per minor Frame. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap.h" line="261" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap.h" bodystart="261" bodyend="-1"/>
+        <referencedby refid="xhwicap__read__frame__polled__example_8c_1a16ff4504349dbf3a25d488972402d87a" compoundref="xhwicap__read__frame__polled__example_8c" startline="147" endline="207">HwIcapReadFramePolledExample</referencedby>
+        <referencedby refid="group__hwicap_1gad497b5129aff666181e85457f1c5f678" compoundref="xhwicap_8c" startline="157" endline="262">XHwIcap_CfgInitialize</referencedby>
+        <referencedby refid="group__hwicap_1gafdb7b9947a1e1610a214814c1b19a0a1" compoundref="xhwicap__device__read__frame_8c" startline="81" endline="205">XHwIcap_DeviceReadFrame</referencedby>
+        <referencedby refid="group__hwicap_1ga7b2b996ebb5c5268a07d39e9add552dc" compoundref="xhwicap__device__write__frame_8c" startline="86" endline="246">XHwIcap_DeviceWriteFrame</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hw_icap_1af4c66d859cd2f9dd0b5a49ae5172181f" prot="public" static="no" mutable="no">
+        <type>u32 *</type>
+        <definition>u32* XHwIcap::SendBufferPtr</definition>
+        <argsstring></argsstring>
+        <name>SendBufferPtr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap.h" line="268" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap.h" bodystart="268" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hw_icap_1a694bf48b4c008d20e058cb5f610f35f5" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XHwIcap::RequestedWords</definition>
+        <argsstring></argsstring>
+        <name>RequestedWords</name>
+        <briefdescription>
+<para>Number of Words to transfer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap.h" line="270" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap.h" bodystart="270" bodyend="-1"/>
+        <referencedby refid="group__hwicap_1ga27e9ac291323ef043303367460b70de0" compoundref="xhwicap_8c" startline="528" endline="661">XHwIcap_DeviceRead</referencedby>
+        <referencedby refid="group__hwicap_1gaab446328af0c5b397eeaee15088bf8e8" compoundref="xhwicap_8c" startline="300" endline="503">XHwIcap_DeviceWrite</referencedby>
+        <referencedby refid="group__hwicap_1ga9cf1ff1dd1056a11f65a903c47492842" compoundref="xhwicap__intr_8c" startline="105" endline="170">XHwIcap_IntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hw_icap_1a6d23e949e46c1a0d88dd6ea065dc70c0" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XHwIcap::RemainingWords</definition>
+        <argsstring></argsstring>
+        <name>RemainingWords</name>
+        <briefdescription>
+<para>Number of Words left to transfer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap.h" line="271" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap.h" bodystart="271" bodyend="-1"/>
+        <referencedby refid="group__hwicap_1ga27e9ac291323ef043303367460b70de0" compoundref="xhwicap_8c" startline="528" endline="661">XHwIcap_DeviceRead</referencedby>
+        <referencedby refid="group__hwicap_1gaab446328af0c5b397eeaee15088bf8e8" compoundref="xhwicap_8c" startline="300" endline="503">XHwIcap_DeviceWrite</referencedby>
+        <referencedby refid="group__hwicap_1ga9cf1ff1dd1056a11f65a903c47492842" compoundref="xhwicap__intr_8c" startline="105" endline="170">XHwIcap_IntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hw_icap_1a6f6de856eedef3b63c0df360781984d6" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int XHwIcap::IsTransferInProgress</definition>
+        <argsstring></argsstring>
+        <name>IsTransferInProgress</name>
+        <briefdescription>
+<para>A transfer is in progress. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap.h" line="272" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap.h" bodystart="272" bodyend="-1"/>
+        <referencedby refid="group__hwicap_1gad497b5129aff666181e85457f1c5f678" compoundref="xhwicap_8c" startline="157" endline="262">XHwIcap_CfgInitialize</referencedby>
+        <referencedby refid="group__hwicap_1ga27e9ac291323ef043303367460b70de0" compoundref="xhwicap_8c" startline="528" endline="661">XHwIcap_DeviceRead</referencedby>
+        <referencedby refid="group__hwicap_1gaab446328af0c5b397eeaee15088bf8e8" compoundref="xhwicap_8c" startline="300" endline="503">XHwIcap_DeviceWrite</referencedby>
+        <referencedby refid="group__hwicap_1ga9cf1ff1dd1056a11f65a903c47492842" compoundref="xhwicap__intr_8c" startline="105" endline="170">XHwIcap_IntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hw_icap_1aab5f5571907cba99091ede9d3cadd039" prot="public" static="no" mutable="no">
+        <type><ref refid="group__hwicap_1gac66fc3c032512dfc47f97bc87d97ca4b" kindref="member">XHwIcap_StatusHandler</ref></type>
+        <definition>XHwIcap_StatusHandler XHwIcap::StatusHandler</definition>
+        <argsstring></argsstring>
+        <name>StatusHandler</name>
+        <briefdescription>
+<para>Interrupt handler callback. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap.h" line="273" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap.h" bodystart="273" bodyend="-1"/>
+        <referencedby refid="group__hwicap_1gad497b5129aff666181e85457f1c5f678" compoundref="xhwicap_8c" startline="157" endline="262">XHwIcap_CfgInitialize</referencedby>
+        <referencedby refid="group__hwicap_1ga9cf1ff1dd1056a11f65a903c47492842" compoundref="xhwicap__intr_8c" startline="105" endline="170">XHwIcap_IntrHandler</referencedby>
+        <referencedby refid="group__hwicap_1gaa2f2f23cf842c10f443509f8861a194a" compoundref="xhwicap__intr_8c" startline="77" endline="86">XHwIcap_SetInterruptHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hw_icap_1a6b08114ef8b6d6478e9ae4890e68f671" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XHwIcap::StatusRef</definition>
+        <argsstring></argsstring>
+        <name>StatusRef</name>
+        <briefdescription>
+<para>Callback ref. </para>        </briefdescription>
+        <detaileddescription>
+<para>for the interrupt handler </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap.h" line="274" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap.h" bodystart="274" bodyend="-1"/>
+        <referencedby refid="group__hwicap_1ga9cf1ff1dd1056a11f65a903c47492842" compoundref="xhwicap__intr_8c" startline="105" endline="170">XHwIcap_IntrHandler</referencedby>
+        <referencedby refid="group__hwicap_1gaa2f2f23cf842c10f443509f8861a194a" compoundref="xhwicap__intr_8c" startline="77" endline="86">XHwIcap_SetInterruptHandler</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>The <ref refid="struct_x_hw_icap" kindref="compound">XHwIcap</ref> driver instance data. </para>    </briefdescription>
+    <detaileddescription>
+<para>The user is required to allocate a variable of this type for every HwIcap device in the system. A pointer to a variable of this type is then passed to the driver API functions. </para>    </detaileddescription>
+    <collaborationgraph>
+      <node id="1">
+        <label>XHwIcap</label>
+        <link refid="struct_x_hw_icap"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>HwIcapConfig</edgelabel>
+        </childnode>
+      </node>
+      <node id="2">
+        <label>XHwIcap_Config</label>
+        <link refid="struct_x_hw_icap___config"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap.h" line="254" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap.h" bodystart="254" bodyend="277"/>
+    <listofallmembers>
+      <member refid="struct_x_hw_icap_1abd5f77c5e222b3372623794a6d8bb05c" prot="public" virt="non-virtual"><scope>XHwIcap</scope><name>BytesPerFrame</name></member>
+      <member refid="struct_x_hw_icap_1a1fbb30f90288a5c42de2e456b6ca510e" prot="public" virt="non-virtual"><scope>XHwIcap</scope><name>DeviceFamily</name></member>
+      <member refid="struct_x_hw_icap_1a1e2e190f1bd74c7aa6fbe31288ee6619" prot="public" virt="non-virtual"><scope>XHwIcap</scope><name>DeviceIdCode</name></member>
+      <member refid="struct_x_hw_icap_1aab0ffe813aa173907a53fbdfe62de599" prot="public" virt="non-virtual"><scope>XHwIcap</scope><name>HwIcapConfig</name></member>
+      <member refid="struct_x_hw_icap_1a1034ea22a5d2bb5a3eab6e5abe6a6423" prot="public" virt="non-virtual"><scope>XHwIcap</scope><name>IsPolled</name></member>
+      <member refid="struct_x_hw_icap_1a7e038eb9c938aaedaf156b772fc4de0c" prot="public" virt="non-virtual"><scope>XHwIcap</scope><name>IsReady</name></member>
+      <member refid="struct_x_hw_icap_1a6f6de856eedef3b63c0df360781984d6" prot="public" virt="non-virtual"><scope>XHwIcap</scope><name>IsTransferInProgress</name></member>
+      <member refid="struct_x_hw_icap_1a6d23e949e46c1a0d88dd6ea065dc70c0" prot="public" virt="non-virtual"><scope>XHwIcap</scope><name>RemainingWords</name></member>
+      <member refid="struct_x_hw_icap_1a694bf48b4c008d20e058cb5f610f35f5" prot="public" virt="non-virtual"><scope>XHwIcap</scope><name>RequestedWords</name></member>
+      <member refid="struct_x_hw_icap_1af4c66d859cd2f9dd0b5a49ae5172181f" prot="public" virt="non-virtual"><scope>XHwIcap</scope><name>SendBufferPtr</name></member>
+      <member refid="struct_x_hw_icap_1aab5f5571907cba99091ede9d3cadd039" prot="public" virt="non-virtual"><scope>XHwIcap</scope><name>StatusHandler</name></member>
+      <member refid="struct_x_hw_icap_1a6b08114ef8b6d6478e9ae4890e68f671" prot="public" virt="non-virtual"><scope>XHwIcap</scope><name>StatusRef</name></member>
+      <member refid="struct_x_hw_icap_1a3f9285b94c87fa0052336a7fdeb75bf4" prot="public" virt="non-virtual"><scope>XHwIcap</scope><name>WordsPerFrame</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

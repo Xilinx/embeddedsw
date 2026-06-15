@@ -1,0 +1,435 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__xsecure__hmac__apis" kind="group">
+    <compoundname>xsecure_hmac_apis</compoundname>
+    <title>XilSecure HMAC APIs</title>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xsecure__hmac__apis_1gab977507dd0a832ea26acb027352c6d5e" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int XSecure_PreProcessKey</definition>
+        <argsstring>(XSecure_Hmac *InstancePtr, u64 KeyAddr, u32 KeyLen, u32 KeyOut, u32 KeyOutLen)</argsstring>
+        <name>XSecure_PreProcessKey</name>
+        <param>
+          <type>XSecure_Hmac *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u64</type>
+          <declname>KeyAddr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>KeyLen</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>KeyOut</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>KeyOutLen</declname>
+        </param>
+        <briefdescription>
+<para>This function pre process the key to SHA3 block length and the final key is been stored into the K0 array. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the pointer to the XSecure_Hmac instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>KeyAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the variable which holds the address of key for HMAC </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>KeyLen</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>variable holds the length of the key </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>KeyOut</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the variable which holds the output key buffer&apos;s address </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>KeyOutLen</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the variable which specifies the output key length based on SHA mode</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - If initialization was successful.</para></listitem><listitem><para>XST_FAILURE - On failure. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>KDF uses this path, for UDS 48 bytes key in DICE</para></listitem><listitem><para>if Key provided is of SHA 3 block length </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/hmac/xsecure_hmac.c" line="43" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/hmac/xsecure_hmac.c" bodystart="270" bodyend="312"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__hmac__apis_1ga51230606b0883423ae6ff93223d7c018" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void XSecure_HmacXor</definition>
+        <argsstring>(const u32 *Data, const u8 Value, u32 *Result)</argsstring>
+        <name>XSecure_HmacXor</name>
+        <param>
+          <type>const u32 *</type>
+          <declname>Data</declname>
+        </param>
+        <param>
+          <type>const u8</type>
+          <declname>Value</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>Result</declname>
+        </param>
+        <briefdescription>
+<para>This function performs XOR operation on provided data of SHA3 block length with constant provided on whole bytes of data and result is been updated. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the pointer which holds data to be XORed. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Value</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>with which XOR operation to be performed. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Result</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the pointer of SHA3 block length array which is been updated with the result. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/hmac/xsecure_hmac.c" line="45" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/hmac/xsecure_hmac.c" bodystart="326" bodyend="338"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__hmac__apis_1ga326185e9709790ef9dc6d0eb61da6ab9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XSecure_HmacInit</definition>
+        <argsstring>(XSecure_Hmac *InstancePtr, XSecure_Sha3 *Sha3InstancePtr, u64 KeyAddr, u32 KeyLen)</argsstring>
+        <name>XSecure_HmacInit</name>
+        <param>
+          <type>XSecure_Hmac *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>XSecure_Sha3 *</type>
+          <declname>Sha3InstancePtr</declname>
+        </param>
+        <param>
+          <type>u64</type>
+          <declname>KeyAddr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>KeyLen</declname>
+        </param>
+        <briefdescription>
+<para>This function initializes the HMAC instance. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the pointer to the XSecure_Hmac instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Sha3InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the pointer to the XSecure_Sha3 instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>KeyAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>holds the address of HMAC key. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>KeyLen</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>variable holds the length of the key.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - If initialization was successful.</para></listitem><listitem><para>XSECURE_HMAC_INVALID_PARAM - If any input parameter is invalid.</para></listitem><listitem><para>XST_FAILURE - On failure. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Calculate K0 xor ipad</para></listitem><listitem><para>Calculate K0 Xor Opad</para></listitem><listitem><para>Set SHA under reset </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/hmac/xsecure_hmac.c" line="75" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/hmac/xsecure_hmac.c" bodystart="75" bodyend="128"/>
+        <references refid="group__xsecure__sha__server__apis_1ga307c72605e3713972b4f4fb2d53ea20e" compoundref="xsecure__sha1_8c" startline="45">K0</references>
+        <references refid="versal__2ve__2vm_2xsecure__error_8h_1ab04a0655cd1e3bcac5e8f48c18df1a57a6cbcb896914e6bfc67d9df759f6e111c" compoundref="versal__2ve__2vm_2xsecure__error_8h" startline="184">XSECURE_HMAC_INVALID_PARAM</references>
+        <references refid="group__xsecure__hmac__apis_1ga10fbad789f61dc129bbc3e64dbba56da" compoundref="xsecure__hmac_8c" startline="55">XSECURE_HMAC_IPAD_VALUE</references>
+        <references refid="group__xsecure__hmac__apis_1gaa628ce44643bcd057dca75465ffc152d" compoundref="xsecure__hmac_8c" startline="56">XSECURE_HMAC_OPAD_VALUE</references>
+        <references refid="group__xsecure__generic__server__apis_1ga7d9385d1d7121998a9be90e90d3a8f7b" compoundref="core_2util_2xsecure__utils_8c" startline="64" endline="70">XSecure_SetReset</references>
+        <references refid="group__xsecure__sha__example__apis_1gab861d4c865c5fd4a955a54426cce4522" compoundref="xilsecure__spartanup__sha__server__example_8c" startline="70">XSECURE_SHA3_384</references>
+        <references refid="group__xsecure__helper__server__apis_1ga5cc13ecb6d06e87d8e2c4fec6ba9347d" compoundref="versal__2ve__2vm_2xsecure__plat_8h" startline="110">XSECURE_SHA3_BLOCK_LEN</references>
+        <references refid="versal_2xsecure__sha__hw_8h_1aa515a3b9b62a6133e3fef54a222e3648" compoundref="versal_2xsecure__sha__hw_8h" startline="59">XSECURE_SHA3_RESET_OFFSET</references>
+        <references refid="group__xsecure__sha__client__apis_1ggad25387a8cba5004407abe70e310752c1a40386d74147a901cee80b9ccf82c4f5b" compoundref="xsecure__shaclient_8h" startline="55">XSECURE_SHA_UNINITIALIZED</references>
+        <references refid="group__xsecure__sha__server__apis_1ga4ab55c7a66ee2aff3891fb58c6a8c728" compoundref="core_2sha_2sha__pmx_2xsecure__sha_8c" startline="808" endline="813">XSecure_ShaStart</references>
+        <references refid="group__xsecure__sha__server__apis_1gabb79b8c3a70ce2451a66133bbf18fcc4" compoundref="core_2sha_2sha__pmx_2xsecure__sha_8c" startline="832" endline="835">XSecure_ShaUpdate</references>
+        <referencedby refid="group__xsecure__kdf__server__apis_1ga4ce6b83111541227a82cb8f566a02106" compoundref="xsecure__kdf_8c" startline="59" endline="161">XSecure_Hkdf</referencedby>
+        <referencedby refid="group__xsecure__kat__server__apis_1ga7563c34e1bcf0f8490519bdd513b9c65" compoundref="2ve__2vm_2xsecure__plat__kat_8c" startline="1408" endline="1461">XSecure_HmacKat</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__hmac__apis_1gaec1f83f5e69e2ba5d879cd97eab498eb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XSecure_HmacUpdate</definition>
+        <argsstring>(XSecure_Hmac *InstancePtr, u64 DataAddr, u32 Len)</argsstring>
+        <name>XSecure_HmacUpdate</name>
+        <param>
+          <type>XSecure_Hmac *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u64</type>
+          <declname>DataAddr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Len</declname>
+        </param>
+        <briefdescription>
+<para>This function updates the data to be authenticated, which can be called repeatedly with chunks of the message to be authenticated (len bytes at data). </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the pointer to the XSecure_Hmac instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DataAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>holds the address of data to be updated. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Len</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>variable holds the length of data.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - If initialization was successful.</para></listitem><listitem><para>XSECURE_HMAC_INVALID_PARAM - If any input parameter is invalid.</para></listitem><listitem><para>XST_FAILURE - On failure. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Set SHA under reset </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/hmac/xsecure_hmac.c" line="146" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/hmac/xsecure_hmac.c" bodystart="146" bodyend="170"/>
+        <references refid="versal__2ve__2vm_2xsecure__error_8h_1ab04a0655cd1e3bcac5e8f48c18df1a57a6cbcb896914e6bfc67d9df759f6e111c" compoundref="versal__2ve__2vm_2xsecure__error_8h" startline="184">XSECURE_HMAC_INVALID_PARAM</references>
+        <references refid="group__xsecure__generic__server__apis_1ga7d9385d1d7121998a9be90e90d3a8f7b" compoundref="core_2util_2xsecure__utils_8c" startline="64" endline="70">XSecure_SetReset</references>
+        <references refid="group__xsecure__helper__server__apis_1ga5cc13ecb6d06e87d8e2c4fec6ba9347d" compoundref="versal__2ve__2vm_2xsecure__plat_8h" startline="110">XSECURE_SHA3_BLOCK_LEN</references>
+        <references refid="versal_2xsecure__sha__hw_8h_1aa515a3b9b62a6133e3fef54a222e3648" compoundref="versal_2xsecure__sha__hw_8h" startline="59">XSECURE_SHA3_RESET_OFFSET</references>
+        <references refid="group__xsecure__sha__server__apis_1gabb79b8c3a70ce2451a66133bbf18fcc4" compoundref="core_2sha_2sha__pmx_2xsecure__sha_8c" startline="832" endline="835">XSecure_ShaUpdate</references>
+        <referencedby refid="group__xsecure__kdf__server__apis_1ga4ce6b83111541227a82cb8f566a02106" compoundref="xsecure__kdf_8c" startline="59" endline="161">XSecure_Hkdf</referencedby>
+        <referencedby refid="group__xsecure__kat__server__apis_1ga7563c34e1bcf0f8490519bdd513b9c65" compoundref="2ve__2vm_2xsecure__plat__kat_8c" startline="1408" endline="1461">XSecure_HmacKat</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__hmac__apis_1ga19b58a827d01b838233e4b98fb95b0f7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XSecure_HmacFinal</definition>
+        <argsstring>(XSecure_Hmac *InstancePtr, XSecure_HmacRes *Hmac)</argsstring>
+        <name>XSecure_HmacFinal</name>
+        <param>
+          <type>XSecure_Hmac *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>XSecure_HmacRes *</type>
+          <declname>Hmac</declname>
+        </param>
+        <briefdescription>
+<para>This function calculates the final HMAC. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the pointer to the XSecure_Hmac instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Hmac</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the pointer of 48 bits which holds the resultant HMAC.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - If initialization was successful.</para></listitem><listitem><para>XSECURE_HMAC_INVALID_PARAM - If any input parameter is invalid.</para></listitem><listitem><para>XST_FAILURE - On failure.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>Though HMAC can be truncated, as the truncation of data may lead to security implications, this function always fills the HMAC pointer with 48 bytes of data. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Calculate final hash on IPAD || MSG </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/hmac/xsecure_hmac.c" line="190" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/hmac/xsecure_hmac.c" bodystart="190" bodyend="251"/>
+        <references refid="versal__2ve__2vm_2xsecure__error_8h_1ab04a0655cd1e3bcac5e8f48c18df1a57a6cbcb896914e6bfc67d9df759f6e111c" compoundref="versal__2ve__2vm_2xsecure__error_8h" startline="184">XSECURE_HMAC_INVALID_PARAM</references>
+        <references refid="group__xsecure__generic__server__apis_1ga7d9385d1d7121998a9be90e90d3a8f7b" compoundref="core_2util_2xsecure__utils_8c" startline="64" endline="70">XSecure_SetReset</references>
+        <references refid="group__xsecure__sha__example__apis_1gab861d4c865c5fd4a955a54426cce4522" compoundref="xilsecure__spartanup__sha__server__example_8c" startline="70">XSECURE_SHA3_384</references>
+        <references refid="group__xsecure__helper__server__apis_1ga5cc13ecb6d06e87d8e2c4fec6ba9347d" compoundref="versal__2ve__2vm_2xsecure__plat_8h" startline="110">XSECURE_SHA3_BLOCK_LEN</references>
+        <references refid="versal_2xsecure__sha__hw_8h_1aa515a3b9b62a6133e3fef54a222e3648" compoundref="versal_2xsecure__sha__hw_8h" startline="59">XSECURE_SHA3_RESET_OFFSET</references>
+        <references refid="group__xsecure__sha__server__apis_1ga681f3c347149b5d4254611f833ab93cf" compoundref="core_2sha_2sha__pmx_2xsecure__sha_8c" startline="874" endline="879">XSecure_ShaFinish</references>
+        <references refid="group__xsecure__sha__server__apis_1ga4ab55c7a66ee2aff3891fb58c6a8c728" compoundref="core_2sha_2sha__pmx_2xsecure__sha_8c" startline="808" endline="813">XSecure_ShaStart</references>
+        <references refid="group__xsecure__sha__server__apis_1gabb79b8c3a70ce2451a66133bbf18fcc4" compoundref="core_2sha_2sha__pmx_2xsecure__sha_8c" startline="832" endline="835">XSecure_ShaUpdate</references>
+        <referencedby refid="group__xsecure__kdf__server__apis_1ga4ce6b83111541227a82cb8f566a02106" compoundref="xsecure__kdf_8c" startline="59" endline="161">XSecure_Hkdf</referencedby>
+        <referencedby refid="group__xsecure__kat__server__apis_1ga7563c34e1bcf0f8490519bdd513b9c65" compoundref="2ve__2vm_2xsecure__plat__kat_8c" startline="1408" endline="1461">XSecure_HmacKat</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__xsecure__hmac__apis_1ga8e3d7c4584d74d887627b067d18b6741" prot="public" static="no">
+        <name>XSECURE_HMAC_8BIT_SHIFT</name>
+        <initializer>(8U)</initializer>
+        <briefdescription>
+<para>8 Bit shift for HMAC </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/hmac/xsecure_hmac.c" line="50" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/hmac/xsecure_hmac.c" bodystart="50" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__hmac__apis_1gaea404628e0dc0b38de0148dc52efc332" prot="public" static="no">
+        <name>XSECURE_HMAC_16BIT_SHIFT</name>
+        <initializer>(16U)</initializer>
+        <briefdescription>
+<para>16 Bit shift for HMAC </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/hmac/xsecure_hmac.c" line="51" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/hmac/xsecure_hmac.c" bodystart="51" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__hmac__apis_1ga4aa385971dc58a6bcfbc4cb2c070ce14" prot="public" static="no">
+        <name>XSECURE_HMAC_24BIT_SHIFT</name>
+        <initializer>(24U)</initializer>
+        <briefdescription>
+<para>24 Bit shift for HMAC </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/hmac/xsecure_hmac.c" line="52" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/hmac/xsecure_hmac.c" bodystart="52" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__hmac__apis_1ga733f0326ed9e68235daf7ecf8e2ef0cb" prot="public" static="no">
+        <name>XSECURE_HMAC_WORD_LEN</name>
+        <initializer>(4U)</initializer>
+        <briefdescription>
+<para>HMAC word length. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/hmac/xsecure_hmac.c" line="53" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/hmac/xsecure_hmac.c" bodystart="53" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__hmac__apis_1ga10fbad789f61dc129bbc3e64dbba56da" prot="public" static="no">
+        <name>XSECURE_HMAC_IPAD_VALUE</name>
+        <initializer>(0x36U)</initializer>
+        <briefdescription>
+<para>HMAC IPAD value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/hmac/xsecure_hmac.c" line="55" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/hmac/xsecure_hmac.c" bodystart="55" bodyend="-1"/>
+        <referencedby refid="group__xsecure__hmac__apis_1ga326185e9709790ef9dc6d0eb61da6ab9" compoundref="xsecure__hmac_8c" startline="75" endline="128">XSecure_HmacInit</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__hmac__apis_1gaa628ce44643bcd057dca75465ffc152d" prot="public" static="no">
+        <name>XSECURE_HMAC_OPAD_VALUE</name>
+        <initializer>(0x5CU)</initializer>
+        <briefdescription>
+<para>HMAC OPAD value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/hmac/xsecure_hmac.c" line="56" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/hmac/xsecure_hmac.c" bodystart="56" bodyend="-1"/>
+        <referencedby refid="group__xsecure__hmac__apis_1ga326185e9709790ef9dc6d0eb61da6ab9" compoundref="xsecure__hmac_8c" startline="75" endline="128">XSecure_HmacInit</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__hmac__apis_1ga5b36ab175c1a950101c679977e06e6d2" prot="public" static="no">
+        <name>XSECURE_HMAC_MODULE_MAJOR_VERSION</name>
+        <initializer>(6U)</initializer>
+        <briefdescription>
+<para>HMAC module major version. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_2ve_2vm/xsecure_server_hmacalginfo.h" line="40" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_2ve_2vm/xsecure_server_hmacalginfo.h" bodystart="40" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__hmac__apis_1ga3788ab95d3bef608f29d32d48aba11d1" prot="public" static="no">
+        <name>XSECURE_HMAC_MODULE_MINOR_VERSION</name>
+        <initializer>(1U)</initializer>
+        <briefdescription>
+<para>HMAC module minor version. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_2ve_2vm/xsecure_server_hmacalginfo.h" line="41" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_2ve_2vm/xsecure_server_hmacalginfo.h" bodystart="41" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__hmac__apis_1ga5b36ab175c1a950101c679977e06e6d2" prot="public" static="no">
+        <name>XSECURE_HMAC_MODULE_MAJOR_VERSION</name>
+        <initializer>(6U)</initializer>
+        <briefdescription>
+<para>HMAC module major version. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_server_hmacalginfo.h" line="40" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_server_hmacalginfo.h" bodystart="40" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__hmac__apis_1ga3788ab95d3bef608f29d32d48aba11d1" prot="public" static="no">
+        <name>XSECURE_HMAC_MODULE_MINOR_VERSION</name>
+        <initializer>(1U)</initializer>
+        <briefdescription>
+<para>HMAC module minor version. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_server_hmacalginfo.h" line="41" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_server_hmacalginfo.h" bodystart="41" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

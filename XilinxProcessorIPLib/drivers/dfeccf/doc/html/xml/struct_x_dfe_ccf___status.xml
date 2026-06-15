@@ -1,0 +1,77 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_dfe_ccf___status" kind="struct" prot="public">
+    <compoundname>XDfeCcf_Status</compoundname>
+    <includes local="no">xdfeccf.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_dfe_ccf___status_1ab78ac3eb12e3ea828f6dde34c258e8c1" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfeCcf_Status::Overflow</definition>
+        <argsstring></argsstring>
+        <name>Overflow</name>
+        <briefdescription>
+<para>[0,1] Mask overflow events </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" line="395" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" bodystart="395" bodyend="-1"/>
+        <referencedby refid="group__dfeccf_1ga6ced5736831794879ad88390a58e6a3e" compoundref="xdfeccf__intr_8c" startline="130" endline="151">XDfeCcf_ClearEventStatus</referencedby>
+        <referencedby refid="group__dfeccf_1ga5a08588a90ca50aca0e8667e8692618b" compoundref="xdfeccf__intr_8c" startline="102" endline="117">XDfeCcf_GetEventStatus</referencedby>
+        <referencedby refid="group__dfeccf_1gab4d92a6803379d258e013f46b5be16a0" compoundref="xdfeccf__intr_8c" startline="208" endline="225">XDfeCcf_GetInterruptMask</referencedby>
+        <referencedby refid="group__dfeccf_1ga23a4ce2ee3c9bf313b65a3b932c0278b" compoundref="xdfeccf__multi_add_c_c__1x_n_r100__3x_n_r20__example_8c" startline="118" endline="204">XDfeCcf_multiAddCC_1xNR100_3xNR20_Example</referencedby>
+        <referencedby refid="xdfeccf__pass__through__example_8c_1a6e4a59a64bb3ee3a50a0ea8802942969" compoundref="xdfeccf__pass__through__example_8c" startline="61" endline="162">XDfeCcf_PassThroughExample</referencedby>
+        <referencedby refid="group__dfeccf_1gaad3c846e9293c67f7b80fd933da9ce77" compoundref="xdfeccf__intr_8c" startline="164" endline="196">XDfeCcf_SetInterruptMask</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_ccf___status_1a64f494d148062c29e4bdfd2eee5a5897" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfeCcf_Status::CCUpdate</definition>
+        <argsstring></argsstring>
+        <name>CCUpdate</name>
+        <briefdescription>
+<para>[0,1] Mask CC update events </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" line="396" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" bodystart="396" bodyend="-1"/>
+        <referencedby refid="group__dfeccf_1ga6ced5736831794879ad88390a58e6a3e" compoundref="xdfeccf__intr_8c" startline="130" endline="151">XDfeCcf_ClearEventStatus</referencedby>
+        <referencedby refid="group__dfeccf_1ga5a08588a90ca50aca0e8667e8692618b" compoundref="xdfeccf__intr_8c" startline="102" endline="117">XDfeCcf_GetEventStatus</referencedby>
+        <referencedby refid="group__dfeccf_1gab4d92a6803379d258e013f46b5be16a0" compoundref="xdfeccf__intr_8c" startline="208" endline="225">XDfeCcf_GetInterruptMask</referencedby>
+        <referencedby refid="group__dfeccf_1ga23a4ce2ee3c9bf313b65a3b932c0278b" compoundref="xdfeccf__multi_add_c_c__1x_n_r100__3x_n_r20__example_8c" startline="118" endline="204">XDfeCcf_multiAddCC_1xNR100_3xNR20_Example</referencedby>
+        <referencedby refid="xdfeccf__pass__through__example_8c_1a6e4a59a64bb3ee3a50a0ea8802942969" compoundref="xdfeccf__pass__through__example_8c" startline="61" endline="162">XDfeCcf_PassThroughExample</referencedby>
+        <referencedby refid="group__dfeccf_1gaad3c846e9293c67f7b80fd933da9ce77" compoundref="xdfeccf__intr_8c" startline="164" endline="196">XDfeCcf_SetInterruptMask</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_ccf___status_1a18b5b8ebcd0324b23abdda08a124f4b1" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfeCcf_Status::CCSequenceError</definition>
+        <argsstring></argsstring>
+        <name>CCSequenceError</name>
+        <briefdescription>
+<para>[0,1] Mask CC sequence mismatch events </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" line="397" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" bodystart="397" bodyend="-1"/>
+        <referencedby refid="group__dfeccf_1ga6ced5736831794879ad88390a58e6a3e" compoundref="xdfeccf__intr_8c" startline="130" endline="151">XDfeCcf_ClearEventStatus</referencedby>
+        <referencedby refid="group__dfeccf_1ga5a08588a90ca50aca0e8667e8692618b" compoundref="xdfeccf__intr_8c" startline="102" endline="117">XDfeCcf_GetEventStatus</referencedby>
+        <referencedby refid="group__dfeccf_1gab4d92a6803379d258e013f46b5be16a0" compoundref="xdfeccf__intr_8c" startline="208" endline="225">XDfeCcf_GetInterruptMask</referencedby>
+        <referencedby refid="group__dfeccf_1ga23a4ce2ee3c9bf313b65a3b932c0278b" compoundref="xdfeccf__multi_add_c_c__1x_n_r100__3x_n_r20__example_8c" startline="118" endline="204">XDfeCcf_multiAddCC_1xNR100_3xNR20_Example</referencedby>
+        <referencedby refid="xdfeccf__pass__through__example_8c_1a6e4a59a64bb3ee3a50a0ea8802942969" compoundref="xdfeccf__pass__through__example_8c" startline="61" endline="162">XDfeCcf_PassThroughExample</referencedby>
+        <referencedby refid="group__dfeccf_1gaad3c846e9293c67f7b80fd933da9ce77" compoundref="xdfeccf__intr_8c" startline="164" endline="196">XDfeCcf_SetInterruptMask</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Event status and interrupt mask. </para>    </briefdescription>
+    <detaileddescription>
+<para><simplesect kind="note"><para>The structure for XDfeCcf_InterruptMask is the same as that of <ref refid="struct_x_dfe_ccf___status" kindref="compound">XDfeCcf_Status</ref> </para></simplesect>
+</para>    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" line="394" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" bodystart="394" bodyend="398"/>
+    <listofallmembers>
+      <member refid="struct_x_dfe_ccf___status_1a18b5b8ebcd0324b23abdda08a124f4b1" prot="public" virt="non-virtual"><scope>XDfeCcf_Status</scope><name>CCSequenceError</name></member>
+      <member refid="struct_x_dfe_ccf___status_1a64f494d148062c29e4bdfd2eee5a5897" prot="public" virt="non-virtual"><scope>XDfeCcf_Status</scope><name>CCUpdate</name></member>
+      <member refid="struct_x_dfe_ccf___status_1ab78ac3eb12e3ea828f6dde34c258e8c1" prot="public" virt="non-virtual"><scope>XDfeCcf_Status</scope><name>Overflow</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

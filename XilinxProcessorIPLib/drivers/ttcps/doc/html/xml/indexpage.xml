@@ -1,0 +1,88 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="indexpage" kind="page">
+    <compoundname>index</compoundname>
+    <title>ttcps</title>
+    <detaileddescription>
+<para>This is the driver for one 16-bit timer counter in the Triple Timer Counter (TTC) module in the Ps block.The TTC module provides three independent timer/counter modules that can each be clocked using either the system clock (pclk) or an externally driven clock (ext_clk). In addition, each counter can independently prescale its selected clock input (divided by 2 to 65536). Counters can be set to decrement or increment.</para><para>Each of the counters can be programmed to generate interrupt pulses: . At a regular, predefined period, that is on a timed interval . When the counter registers overflow . When the count matches any one of the three &apos;match&apos; registers</para><para>Therefore, up to six different events can trigger a timer interrupt: three match interrupts, an overflow interrupt, an interval interrupt and an event timer interrupt. Note that the overflow interrupt and the interval interrupt are mutually exclusive.</para><para><bold>Initialization &amp; Configuration</bold></para><para>An <ref refid="struct_x_ttc_ps___config" kindref="compound">XTtcPs_Config</ref> structure is used to configure a driver instance. Information in the <ref refid="struct_x_ttc_ps___config" kindref="compound">XTtcPs_Config</ref> structure is the hardware properties about the device.</para><para>A driver instance is initialized through XTtcPs_CfgInitialize(InstancePtr, CfgPtr, EffectiveAddr). Where CfgPtr is a pointer to the <ref refid="struct_x_ttc_ps___config" kindref="compound">XTtcPs_Config</ref> structure, it can be looked up statically through XTtcPs_LookupConfig(BaseAddress), or passed in by the caller. The EffectiveAddr can be the static base address of the device or virtual mapped address if address translation is supported.</para><para><bold>Interrupts</bold></para><para>Interrupt handler is not provided by the driver, as handling of interrupt is application specific.</para><para><bold>stack usage(in bytes)</bold> <verbatim>    XTtcPs_LookupConfig : 32
+    XTtcPs_CfgInitialize : 80
+    XTtcPs_SetMatchValue : 32
+    XTtcPs_GetMatchValue : 48
+    XTtcPs_SetPrescaler : 48
+    XTtcPs_GetPrescaler : 48
+    XTtcPs_CalcIntervalFromFreq : 48
+    XTtcPs_SetOptions : 48
+    XTtcPs_GetOptions : 48
+    XTtcPs_SelfTest : 48
+    XTtcPs_InterruptHandler : 48
+    XTtcPs_SetStatusHandler : 48
+</verbatim></para><para><bold>Memory foot-print(in bytes)</bold> <verbatim>    XTtcPs_LookupConfig : 72
+    XTtcPs_CfgInitialize : 304
+    XTtcPs_SetMatchValue : 168
+    XTtcPs_GetMatchValue : 176
+    XTtcPs_SetPrescaler : 172
+    XTtcPs_GetPrescaler : 152
+    XTtcPs_CalcIntervalFromFreq : 228
+    XTtcPs_SetOptions : 424
+    XTtcPs_GetOptions : 200
+    XTtcPs_SelfTest : 148
+    XTtcPs_InterruptHandler : 88
+    XTtcPs_SetStatusHandler : 140
+</verbatim></para><para><bold>Execution Time(in usec)</bold> <verbatim>    XTtcPs_LookupConfig : 8.31
+    TtcPs_CfgInitialize : 1.30
+    XTtcPs_SetMatchValue : 1.10
+    XTtcPs_GetMatchValue : 1.00
+    XTtcPs_SetPrescaler : 1.09
+    XTtcPs_GetPrescaler : 1.00
+    XTtcPs_CalcIntervalFromFreq : 1.29
+    XTtcPs_SetOptions: 1.91
+    XTtcPs_GetOptions: 2.55
+    XTtcPs_SelfTest: .85
+</verbatim></para><para><bold>Assumptions of Use</bold> <verbatim>    1.The default setting for a timer/counter is:
+     - Overflow Mode
+     - Internal clock (pclk) selected
+     - Counter disabled
+     - All Interrupts disabled
+     - Output waveforms disabled
+</verbatim></para><para><bold>Compiler Name</bold> <verbatim>  gcc
+</verbatim></para><para><bold>Compiler version</bold> <verbatim>  8.2.0
+</verbatim></para><para><bold>Compiler options</bold> <verbatim>    -DARMR5 -Wall -O0 -g3 -c -fmessage-length=0 -MT&quot;$@&quot; -mcpu=cortex-r5 -mfloat-abi=hard  -mfpu=vfpv3-d16 -I&lt;include_path&gt;
+    -Wall -O0 -g3 -c -fmessage-length=0 -MT&quot;$@&quot; -mcpu=cortex-a72 -I&lt;include_path&gt;
+    -Wall -O0 -g3 -c -fmessage-length=0 -MT&quot;$@&quot; -I&lt;include_path&gt;
+</verbatim></para><para><bold>User Defined data types</bold> <verbatim>    u8      1 byte
+    u16     2 bytes
+    u32     4 bytes / 1 word
+    u64     8 bytes / double word
+</verbatim></para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who    Date     Changes
+<hruler/>
+
+1.00a drg/jz 01/20/10 First release..
+2.0   adk    12/10/13 Updated as per the New Tcl API&apos;s
+3.0     pkp    12/09/14 Added support for Zynq Ultrascale Mp.Also code
+                modified for MISRA-C:2012 compliance.
+3.2   mus    10/28/16 Modified XTtcPs_GetCounterValue and XTtcPs_SetInterval
+                      macros to return 32 bit values for zynq ultrascale+mpsoc
+      ms   01/23/17 Modified xil_printf statement in main function for all
+                    examples to ensure that &quot;Successfully ran&quot; and &quot;Failed&quot;
+                    strings are available in all examples. This is a fix
+                    for CR-965028.
+      ms   03/17/17 Added readme.txt file in examples folder for doxygen
+                    generation.
+3.4   ms   04/18/17 Modified tcl file to add suffix U for all macros
+                    definitions of ttcps in xparameters.h
+3.5   srm  10/06/17 Added new typedef XMatchRegValue for match register width
+3.8   aru  12/19/18 Modified in XTtcPs_ClearInterruptStatus function to clear
+                    Interrupt status register by reading instead of writing it.
+3.14   mus 02/22/21 Updated XTtcPs_ClearInterruptStatus to fix compiler warning.
+                    It fixes CR#1084697.
+3.16  adk  04/19/22 Fix infinite loop in the examples by adding polled
+                      timeout loop.
+3.18  adk  04/14/23 Added support for system device-tree flow.
+3.21  ml   01/27/25 Added support for multiple counters in SDT flow.
+3.21  ml   04/03/25 Added a global structure to store all handlers in a table.
+3.23  bdk  12/08/25 Updated comments to support SDT flow for Doxygen
+                    documentation.
+</preformatted> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

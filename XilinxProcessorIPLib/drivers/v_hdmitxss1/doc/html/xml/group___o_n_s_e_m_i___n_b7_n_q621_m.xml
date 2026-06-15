@@ -1,0 +1,967 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group___o_n_s_e_m_i___n_b7_n_q621_m" kind="group">
+    <compoundname>ONSEMI_NB7NQ621M</compoundname>
+    <title>ONSEMI_NB7NQ621M</title>
+    <innerclass refid="struct_onsemi___register_field" prot="public">Onsemi_RegisterField</innerclass>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="group___o_n_s_e_m_i___n_b7_n_q621_m_1ga980d994dbabc11143336e92116be5da4" prot="public" static="no">
+        <name>Onsemi_DeviceType</name>
+        <enumvalue id="group___o_n_s_e_m_i___n_b7_n_q621_m_1gga980d994dbabc11143336e92116be5da4a63aa0edd59c81f99a72548cdc3f2f144" prot="public">
+          <name>TX_R0_TMDS</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group___o_n_s_e_m_i___n_b7_n_q621_m_1gga980d994dbabc11143336e92116be5da4a928ffbb897d5c9b706479f404d032b45" prot="public">
+          <name>TX_R0_TMDS_14_L</name>
+          <initializer>= 21</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group___o_n_s_e_m_i___n_b7_n_q621_m_1gga980d994dbabc11143336e92116be5da4a7c37a35af3f8fb8c9e9a86cbacf7ad1f" prot="public">
+          <name>TX_R0_TMDS_14_H</name>
+          <initializer>= 33</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group___o_n_s_e_m_i___n_b7_n_q621_m_1gga980d994dbabc11143336e92116be5da4a36dc7ba93da4c5c435ff8efce409be15" prot="public">
+          <name>TX_R0_TMDS_20</name>
+          <initializer>= 45</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group___o_n_s_e_m_i___n_b7_n_q621_m_1gga980d994dbabc11143336e92116be5da4a0104c475eebc4286b4206b986b964452" prot="public">
+          <name>TX_R0_FRL</name>
+          <initializer>= 57</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group___o_n_s_e_m_i___n_b7_n_q621_m_1gga980d994dbabc11143336e92116be5da4accdfbf6fb20a784fb8f53782de92ec00" prot="public">
+          <name>RX_R0</name>
+          <initializer>= 69</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group___o_n_s_e_m_i___n_b7_n_q621_m_1gga980d994dbabc11143336e92116be5da4a93e98dcccaf2f2da165cd4f1703b9de9" prot="public">
+          <name>TX_R1_TMDS_14_LL</name>
+          <initializer>= 90</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group___o_n_s_e_m_i___n_b7_n_q621_m_1gga980d994dbabc11143336e92116be5da4a32c77151addc0aeaef3a579105b946a7" prot="public">
+          <name>TX_R1_TMDS_14_L</name>
+          <initializer>= 99</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group___o_n_s_e_m_i___n_b7_n_q621_m_1gga980d994dbabc11143336e92116be5da4a4ebdb355aada4233b794e905120dd7f5" prot="public">
+          <name>TX_R1_TMDS_14</name>
+          <initializer>= 108</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group___o_n_s_e_m_i___n_b7_n_q621_m_1gga980d994dbabc11143336e92116be5da4a43c06a7ec2c6a2bce3c54f5926250bce" prot="public">
+          <name>TX_R1_TMDS_20</name>
+          <initializer>= 117</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group___o_n_s_e_m_i___n_b7_n_q621_m_1gga980d994dbabc11143336e92116be5da4a7c1a4cc56c36c884b594d46704b78a4f" prot="public">
+          <name>TX_R1_FRL</name>
+          <initializer>= 126</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group___o_n_s_e_m_i___n_b7_n_q621_m_1gga980d994dbabc11143336e92116be5da4a4daf864d8654498094a7daddf0d15cc8" prot="public">
+          <name>TX_R1_FRL_10G</name>
+          <initializer>= 135</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group___o_n_s_e_m_i___n_b7_n_q621_m_1gga980d994dbabc11143336e92116be5da4af74e52413eb89b112e818dca026f94a9" prot="public">
+          <name>TX_R1_FRL_12G</name>
+          <initializer>= 144</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group___o_n_s_e_m_i___n_b7_n_q621_m_1gga980d994dbabc11143336e92116be5da4a3d0e1eb493f4b37124ee19985707edc7" prot="public">
+          <name>RX_R1_TMDS_14</name>
+          <initializer>= 153</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group___o_n_s_e_m_i___n_b7_n_q621_m_1gga980d994dbabc11143336e92116be5da4a22d2e5555284c8508f7a9cf14d93ab4f" prot="public">
+          <name>RX_R1_TMDS_20</name>
+          <initializer>= 162</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group___o_n_s_e_m_i___n_b7_n_q621_m_1gga980d994dbabc11143336e92116be5da4a7081f134d2f14dbd28dd5877a8ea033f" prot="public">
+          <name>RX_R1_FRL</name>
+          <initializer>= 171</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group___o_n_s_e_m_i___n_b7_n_q621_m_1gga980d994dbabc11143336e92116be5da4aa5f18b3c35267138c2ba3ec03ab3626d" prot="public">
+          <name>TX_R2_TMDS_14_L</name>
+          <initializer>= 180</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group___o_n_s_e_m_i___n_b7_n_q621_m_1gga980d994dbabc11143336e92116be5da4afc0585c0196fbdd299a11f402b9cd834" prot="public">
+          <name>TX_R2_TMDS_14_H</name>
+          <initializer>= 196</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group___o_n_s_e_m_i___n_b7_n_q621_m_1gga980d994dbabc11143336e92116be5da4a5fd18aafa4d71972ca8d3484eb305540" prot="public">
+          <name>TX_R2_TMDS_20</name>
+          <initializer>= 208</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group___o_n_s_e_m_i___n_b7_n_q621_m_1gga980d994dbabc11143336e92116be5da4ac0d071bab848252745e2c70c9a087946" prot="public">
+          <name>TX_R2_FRL</name>
+          <initializer>= 220</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group___o_n_s_e_m_i___n_b7_n_q621_m_1gga980d994dbabc11143336e92116be5da4af3f150775c637fdc1192e0fa5db31903" prot="public">
+          <name>RX_R2_TMDS_14</name>
+          <initializer>= 232</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group___o_n_s_e_m_i___n_b7_n_q621_m_1gga980d994dbabc11143336e92116be5da4aae0568394246566e02a72cf92d5c8306" prot="public">
+          <name>RX_R2_TMDS_20</name>
+          <initializer>= 241</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group___o_n_s_e_m_i___n_b7_n_q621_m_1gga980d994dbabc11143336e92116be5da4a0521af527c10195325bbf9a6f4fec196" prot="public">
+          <name>RX_R2_FRL</name>
+          <initializer>= 250</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group___o_n_s_e_m_i___n_b7_n_q621_m_1gga980d994dbabc11143336e92116be5da4a49755e4299a32cf34d0a26a4e3832a7e" prot="public">
+          <name>TX_R3_TMDS_14_L</name>
+          <initializer>= 271</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group___o_n_s_e_m_i___n_b7_n_q621_m_1gga980d994dbabc11143336e92116be5da4a5967abe59cb9e03efe3f758c1b7d5e70" prot="public">
+          <name>TX_R3_TMDS_14_H</name>
+          <initializer>= TX_R3_TMDS_14_L + 21</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group___o_n_s_e_m_i___n_b7_n_q621_m_1gga980d994dbabc11143336e92116be5da4a071c285a0964520d16d57738b434c9bc" prot="public">
+          <name>TX_R3_TMDS_20</name>
+          <initializer>= TX_R3_TMDS_14_H + 21</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group___o_n_s_e_m_i___n_b7_n_q621_m_1gga980d994dbabc11143336e92116be5da4acc90364564b078215836b70de874ba12" prot="public">
+          <name>TX_R3_FRL</name>
+          <initializer>= TX_R3_TMDS_20 + 21</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group___o_n_s_e_m_i___n_b7_n_q621_m_1gga980d994dbabc11143336e92116be5da4a735862b1c35428e6758fc7bf8c3b91df" prot="public">
+          <name>RX_R3_TMDS_14</name>
+          <initializer>= TX_R3_FRL + 21</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group___o_n_s_e_m_i___n_b7_n_q621_m_1gga980d994dbabc11143336e92116be5da4af7ca7f15206d14231b588ce1b219c899" prot="public">
+          <name>RX_R3_TMDS_20</name>
+          <initializer>= RX_R3_TMDS_14 + 21</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group___o_n_s_e_m_i___n_b7_n_q621_m_1gga980d994dbabc11143336e92116be5da4a1a41691c49c84d53dae07fed0be1a80a" prot="public">
+          <name>RX_R3_FRL</name>
+          <initializer>= RX_R3_TMDS_20 + 21</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>FRL Character Rate Enumeration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/onsemi_nb7nq621m.h" line="70" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/onsemi_nb7nq621m.h" bodystart="70" bodyend="105"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group___o_n_s_e_m_i___n_b7_n_q621_m_1gaf765b2cbc5bdae5de39f3290253f1e4f" prot="public" static="no" mutable="no">
+        <type>const <ref refid="struct_onsemi___register_field" kindref="compound">Onsemi_RegisterField</ref></type>
+        <definition>const Onsemi_RegisterField OnsemiRegisterFields[]</definition>
+        <argsstring>[]</argsstring>
+        <name>OnsemiRegisterFields</name>
+        <briefdescription>
+<para>This table contains the values to be programmed to ONSEMI device. </para>        </briefdescription>
+        <detaileddescription>
+<para>Each entry is of the format: 1) Device Type 2) Register Address 3) Values </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/onsemi_nb7nq621m.c" line="51" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/onsemi_nb7nq621m.c" bodystart="51" bodyend="-1"/>
+        <referencedby refid="group___o_n_s_e_m_i___n_b7_n_q621_m_1ga3932656cdb0c50d3030080fdf9d187ef" compoundref="onsemi__nb7nq621m_8c" startline="1200" endline="1213">ONSEMI_NB7NQ621M_RegisterLibraryDump</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group___o_n_s_e_m_i___n_b7_n_q621_m_1ga1bd7f9287b856fbd3f79ef2b2f95adf7" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>unsigned</type>
+        <definition>static unsigned ONSEMI_NB7NQ621M_I2cSend</definition>
+        <argsstring>(void *IicPtr, u16 SlaveAddr, u8 *MsgPtr, unsigned ByteCount, u8 Option)</argsstring>
+        <name>ONSEMI_NB7NQ621M_I2cSend</name>
+        <param>
+          <type>void *</type>
+          <declname>IicPtr</declname>
+        </param>
+        <param>
+          <type>u16</type>
+          <declname>SlaveAddr</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>MsgPtr</declname>
+        </param>
+        <param>
+          <type>unsigned</type>
+          <declname>ByteCount</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Option</declname>
+        </param>
+        <briefdescription>
+<para>This function send the IIC data to ONSEMI_NB7NQ621M. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>IicPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>IIC instance pointer. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>SlaveAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains the 7 bit IIC address of the device to send the specified data to. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>MsgPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>points to the data to be sent. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ByteCount</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the number of bytes to be sent. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Option</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>indicates whether to hold or free the bus after transmitting the data.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The number of bytes sent.</para><simplesectsep/><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/onsemi_nb7nq621m.c" line="580" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/onsemi_nb7nq621m.c" bodystart="645" bodyend="687"/>
+      </memberdef>
+      <memberdef kind="function" id="group___o_n_s_e_m_i___n_b7_n_q621_m_1gafaf95099a67317660e469a5d57654a9d" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>unsigned</type>
+        <definition>static unsigned ONSEMI_NB7NQ621M_I2cRecv</definition>
+        <argsstring>(void *IicPtr, u16 SlaveAddr, u8 *BufPtr, unsigned ByteCount, u8 Option)</argsstring>
+        <name>ONSEMI_NB7NQ621M_I2cRecv</name>
+        <param>
+          <type>void *</type>
+          <declname>IicPtr</declname>
+        </param>
+        <param>
+          <type>u16</type>
+          <declname>SlaveAddr</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>BufPtr</declname>
+        </param>
+        <param>
+          <type>unsigned</type>
+          <declname>ByteCount</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Option</declname>
+        </param>
+        <briefdescription>
+<para>This function send the IIC data to ONSEMI_NB7NQ621M. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>IicPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>IIC instance pointer. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>SlaveAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains the 7 bit IIC address of the device to send the specified data to. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>BufPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>points to the memory to write the data. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ByteCount</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the number of bytes to be sent. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Option</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>indicates whether to hold or free the bus after transmitting the data.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The number of bytes sent.</para><simplesectsep/><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/onsemi_nb7nq621m.c" line="582" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/onsemi_nb7nq621m.c" bodystart="709" bodyend="746"/>
+      </memberdef>
+      <memberdef kind="function" id="group___o_n_s_e_m_i___n_b7_n_q621_m_1ga6a9208a713a9d69b3a6d63f40bd578f7" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u8</type>
+        <definition>static u8 ONSEMI_NB7NQ621M_GetRegister</definition>
+        <argsstring>(void *IicPtr, u8 I2CSlaveAddress, u8 RegisterAddress)</argsstring>
+        <name>ONSEMI_NB7NQ621M_GetRegister</name>
+        <param>
+          <type>void *</type>
+          <declname>IicPtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>I2CSlaveAddress</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>RegisterAddress</declname>
+        </param>
+        <briefdescription>
+<para>This function send a single byte to the ONSEMI NB7NQ621M. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>I2CBaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the baseaddress of the I2C core. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>I2CSlaveAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 7-bit I2C slave address.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS Initialization was successful.</para></listitem><listitem><para>XST_FAILURE I2C write error.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/onsemi_nb7nq621m.c" line="584" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/onsemi_nb7nq621m.c" bodystart="795" bodyend="806"/>
+      </memberdef>
+      <memberdef kind="function" id="group___o_n_s_e_m_i___n_b7_n_q621_m_1gab4ab20260c782417e0048554648a801f" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int ONSEMI_NB7NQ621M_SetRegister</definition>
+        <argsstring>(void *IicPtr, u8 I2CSlaveAddress, u8 RegisterAddress, u8 Value)</argsstring>
+        <name>ONSEMI_NB7NQ621M_SetRegister</name>
+        <param>
+          <type>void *</type>
+          <declname>IicPtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>I2CSlaveAddress</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>RegisterAddress</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Value</declname>
+        </param>
+        <briefdescription>
+<para>This function send a single byte to the ONSEMI NB7NQ621M. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>I2CBaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the baseaddress of the I2C core. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>I2CSlaveAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 7-bit I2C slave address.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS Initialization was successful.</para></listitem><listitem><para>XST_FAILURE I2C write error.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/onsemi_nb7nq621m.c" line="586" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/onsemi_nb7nq621m.c" bodystart="763" bodyend="778"/>
+      </memberdef>
+      <memberdef kind="function" id="group___o_n_s_e_m_i___n_b7_n_q621_m_1ga137f0bf469bfc29758da13b6dfe8aca4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int ONSEMI_NB7NQ621M_Init</definition>
+        <argsstring>(void *IicPtr, u8 I2CSlaveAddress, u8 Revision, u8 IsTx)</argsstring>
+        <name>ONSEMI_NB7NQ621M_Init</name>
+        <param>
+          <type>void *</type>
+          <declname>IicPtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>I2CSlaveAddress</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Revision</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>IsTx</declname>
+        </param>
+        <briefdescription>
+<para>This function initializes the ONSEMI NB7NQ621M with default values for use with the Video FMC. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>I2CBaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the baseaddress of the I2C core. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>I2CSlaveAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 7-bit I2C slave address. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Revision</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the revision number of the ONSEMI device. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>IsTx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>specifies if the configuration is for TX or RX.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS Initialization was successful.</para></listitem><listitem><para>XST_FAILURE I2C write error.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/onsemi_nb7nq621m.c" line="866" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/onsemi_nb7nq621m.c" bodystart="866" bodyend="927"/>
+      </memberdef>
+      <memberdef kind="function" id="group___o_n_s_e_m_i___n_b7_n_q621_m_1ga2a8bc4fa80976de9b5d9e8e8e070784f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int ONSEMI_NB7NQ621M_CheckDeviceID</definition>
+        <argsstring>(void *IicPtr, u8 I2CSlaveAddress)</argsstring>
+        <name>ONSEMI_NB7NQ621M_CheckDeviceID</name>
+        <param>
+          <type>void *</type>
+          <declname>IicPtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>I2CSlaveAddress</declname>
+        </param>
+        <briefdescription>
+<para>This function checks the ONSEMI NB7NQ621M device ID. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>I2CBaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the baseaddress of the I2C core. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>I2CSlaveAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 7-bit I2C slave address.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS Initialization was successful.</para></listitem><listitem><para>XST_FAILURE I2C write error.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/onsemi_nb7nq621m.c" line="944" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/onsemi_nb7nq621m.c" bodystart="944" bodyend="974"/>
+        <referencedby refid="group___o_n_s_e_m_i___n_b7_n_q621_m_1gab6760c6fb0727ceecd530d08b20cca96" compoundref="onsemi__nb7nq621m_8c" startline="1228" endline="1264">ONSEMI_NB7NQ621M_RegisterDump</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group___o_n_s_e_m_i___n_b7_n_q621_m_1ga433132f50e696e116cdb516571b86072" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u8</type>
+        <definition>u8 ONSEMI_NB7NQ621M_CheckDeviceVersion</definition>
+        <argsstring>(void *IicPtr, u8 I2CSlaveAddress)</argsstring>
+        <name>ONSEMI_NB7NQ621M_CheckDeviceVersion</name>
+        <param>
+          <type>void *</type>
+          <declname>IicPtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>I2CSlaveAddress</declname>
+        </param>
+        <briefdescription>
+<para>This function checks the ONSEMI NB7NQ621M Device Revision Number. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>I2CBaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the baseaddress of the I2C core. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>I2CSlaveAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 7-bit I2C slave address.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS Initialization was successful.</para></listitem><listitem><para>XST_FAILURE I2C write error.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/onsemi_nb7nq621m.c" line="991" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/onsemi_nb7nq621m.c" bodystart="991" bodyend="1010"/>
+      </memberdef>
+      <memberdef kind="function" id="group___o_n_s_e_m_i___n_b7_n_q621_m_1ga889c7576a2aa608de7b1fb633cbb06e1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int ONSEMI_NB7NQ621M_LineRateReconfig</definition>
+        <argsstring>(void *IicPtr, u8 I2CSlaveAddress, u8 Revision, u8 IsFRL, u64 LineRate, u8 IsTx)</argsstring>
+        <name>ONSEMI_NB7NQ621M_LineRateReconfig</name>
+        <param>
+          <type>void *</type>
+          <declname>IicPtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>I2CSlaveAddress</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Revision</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>IsFRL</declname>
+        </param>
+        <param>
+          <type>u64</type>
+          <declname>LineRate</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>IsTx</declname>
+        </param>
+        <briefdescription>
+<para>This function reconfigures the ONSEMI NB7NQ621M cable redriver. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>I2CBaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the baseaddress of the I2C core. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>I2CSlaveAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 7-bit I2C slave address. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Revision</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the revision number of the ONSEMI device. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>IsFRL</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>specifies if the mode is FRL or TMDS. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>LineRate</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>specifies the linerate. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>IsTx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>specifies if the configuration is for TX or RX.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS Initialization was successful.</para></listitem><listitem><para>XST_FAILURE I2C write error.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/onsemi_nb7nq621m.c" line="1031" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/onsemi_nb7nq621m.c" bodystart="1031" bodyend="1186"/>
+      </memberdef>
+      <memberdef kind="function" id="group___o_n_s_e_m_i___n_b7_n_q621_m_1ga3932656cdb0c50d3030080fdf9d187ef" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void ONSEMI_NB7NQ621M_RegisterLibraryDump</definition>
+        <argsstring>(void)</argsstring>
+        <name>ONSEMI_NB7NQ621M_RegisterLibraryDump</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function prints out all the contents from OnsemiRegisterFields array. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>None</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/onsemi_nb7nq621m.c" line="1200" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/onsemi_nb7nq621m.c" bodystart="1200" bodyend="1213"/>
+        <references refid="group___o_n_s_e_m_i___n_b7_n_q621_m_1gaf765b2cbc5bdae5de39f3290253f1e4f" compoundref="onsemi__nb7nq621m_8c" startline="51">OnsemiRegisterFields</references>
+      </memberdef>
+      <memberdef kind="function" id="group___o_n_s_e_m_i___n_b7_n_q621_m_1gab6760c6fb0727ceecd530d08b20cca96" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void ONSEMI_NB7NQ621M_RegisterDump</definition>
+        <argsstring>(void *IicPtr, u8 I2CSlaveAddress)</argsstring>
+        <name>ONSEMI_NB7NQ621M_RegisterDump</name>
+        <param>
+          <type>void *</type>
+          <declname>IicPtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>I2CSlaveAddress</declname>
+        </param>
+        <briefdescription>
+<para>This function displays a registerdump of the ONSEMI NB7NQ621M device. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>I2CBaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the baseaddress of the I2C core. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>I2CSlaveAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 7-bit I2C slave address.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/onsemi_nb7nq621m.c" line="1228" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/onsemi_nb7nq621m.c" bodystart="1228" bodyend="1264"/>
+        <references refid="group___o_n_s_e_m_i___n_b7_n_q621_m_1ga2a8bc4fa80976de9b5d9e8e8e070784f" compoundref="onsemi__nb7nq621m_8c" startline="944" endline="974">ONSEMI_NB7NQ621M_CheckDeviceID</references>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group___o_n_s_e_m_i___n_b7_n_q621_m_1ga0b9e575e9af23ae9be286cb3c575d66e" prot="public" static="no">
+        <name>I2C_REPEATED_START</name>
+        <initializer>XIIC_REPEATED_START</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/onsemi_nb7nq621m.c" line="38" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/onsemi_nb7nq621m.c" bodystart="38" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___o_n_s_e_m_i___n_b7_n_q621_m_1gae97924b7877c5f26955e82ab97470b95" prot="public" static="no">
+        <name>I2C_STOP</name>
+        <initializer>XIIC_STOP</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/onsemi_nb7nq621m.c" line="39" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/onsemi_nb7nq621m.c" bodystart="39" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___o_n_s_e_m_i___n_b7_n_q621_m_1ga2d4c1d29c96a3f1b1df99aebd6f9342d" prot="public" static="no">
+        <name>REG04_BIT7_LANE_CTRL_GLOBAL</name>
+        <initializer>0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/onsemi_nb7nq621m.h" line="52" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/onsemi_nb7nq621m.h" bodystart="52" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___o_n_s_e_m_i___n_b7_n_q621_m_1gabb47b2144ddfb3f754a34cf53fa7bddd" prot="public" static="no">
+        <name>REG04_BIT7_LANE_CTRL_INDIVIDUAL</name>
+        <initializer>1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/onsemi_nb7nq621m.h" line="53" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/onsemi_nb7nq621m.h" bodystart="53" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___o_n_s_e_m_i___n_b7_n_q621_m_1ga08d8563da6d89b95275da64e94b8dd5d" prot="public" static="no">
+        <name>REG04_BIT6_LANE_SWAP_DISABLE</name>
+        <initializer>0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/onsemi_nb7nq621m.h" line="55" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/onsemi_nb7nq621m.h" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___o_n_s_e_m_i___n_b7_n_q621_m_1ga071fd2c9ae991fe90b898b83a5c2e5d7" prot="public" static="no">
+        <name>REG04_BIT6_LANE_SWAP_ENABLE</name>
+        <initializer>1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/onsemi_nb7nq621m.h" line="56" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/onsemi_nb7nq621m.h" bodystart="56" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___o_n_s_e_m_i___n_b7_n_q621_m_1ga837a32af24007fdc9e378c12afb27895" prot="public" static="no">
+        <name>REG04_BIT53_MODE_TMDS_HIZ</name>
+        <initializer>0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/onsemi_nb7nq621m.h" line="58" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/onsemi_nb7nq621m.h" bodystart="58" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___o_n_s_e_m_i___n_b7_n_q621_m_1ga54f3e76371813cd05aa230060c993708" prot="public" static="no">
+        <name>REG04_BIT53_MODE_TMDS_300</name>
+        <initializer>1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/onsemi_nb7nq621m.h" line="59" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/onsemi_nb7nq621m.h" bodystart="59" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___o_n_s_e_m_i___n_b7_n_q621_m_1ga4705f5bc8a6f8e8b1e658cbbb0be4210" prot="public" static="no">
+        <name>REG04_BIT53_MODE_TMDS_200</name>
+        <initializer>2</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/onsemi_nb7nq621m.h" line="60" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/onsemi_nb7nq621m.h" bodystart="60" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___o_n_s_e_m_i___n_b7_n_q621_m_1ga5c0714c33b9b6241c30fd9e56afeabe4" prot="public" static="no">
+        <name>REG04_BIT53_MODE_TMDS_100</name>
+        <initializer>3</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/onsemi_nb7nq621m.h" line="61" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/onsemi_nb7nq621m.h" bodystart="61" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___o_n_s_e_m_i___n_b7_n_q621_m_1gaa41c1f819eb01bace837e50f03e371af" prot="public" static="no">
+        <name>REG04_BIT53_MODE_FRL_DC</name>
+        <initializer>4</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/onsemi_nb7nq621m.h" line="62" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/onsemi_nb7nq621m.h" bodystart="62" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___o_n_s_e_m_i___n_b7_n_q621_m_1gae8f2b4ce752dc4f3b0657fbebadb94bb" prot="public" static="no">
+        <name>REG04_BIT53_MODE_FRL_AC</name>
+        <initializer>6</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/onsemi_nb7nq621m.h" line="63" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/onsemi_nb7nq621m.h" bodystart="63" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___o_n_s_e_m_i___n_b7_n_q621_m_1ga2e19b1affd4bc4526d04acfa298ed246" prot="public" static="no">
+        <name>REG04_BIT53_MODE_ML</name>
+        <initializer>7</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/onsemi_nb7nq621m.h" line="64" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/onsemi_nb7nq621m.h" bodystart="64" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><preformatted></preformatted></para><para><preformatted>MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who    Date     Changes
+<hruler/>
+
+X.XX  XX     YY/MM/DD
+1.00  GM     19/05/14 Initial release.
+1.01  KU     21/08/30 RX FRL settings updated for VCU118
+1.02  ssh    22/08/12 Updated Rx settings which were tested using vck190
+                        and are passing Rx Phy Compliance
+</preformatted></para><para><preformatted></preformatted></para><para><preformatted>MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who    Date     Changes
+<hruler/>
+
+X.XX  XX     YY/MM/DD
+1.00  YH     18/12/24 Initial release.
+</preformatted> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

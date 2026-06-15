@@ -1,0 +1,330 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_vproc_ss___context_data" kind="struct" prot="public">
+    <compoundname>XVprocSs_ContextData</compoundname>
+    <includes local="no">xvprocss.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_vproc_ss___context_data_1a4ea15beae039b9b0a7ae82ec89d57c80" prot="public" static="no" mutable="no">
+        <type>XVidC_VideoWindow</type>
+        <definition>XVidC_VideoWindow XVprocSs_ContextData::RdWindow</definition>
+        <argsstring></argsstring>
+        <name>RdWindow</name>
+        <briefdescription>
+<para>window for Zoom/Pip feature support </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss.h" line="294" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss.h" bodystart="294" bodyend="-1"/>
+        <referencedby refid="xvprocss_8h_1a55d0807b3f476d2608a8c49b44388fec" compoundref="xvprocss_8c" startline="999" endline="1025">XVprocSs_GetZoomPipWindow</referencedby>
+        <referencedby refid="group__vprocss_1gac644ac3d0f02790c168ebdc82c202179" compoundref="xvprocss__router_8c" startline="449" endline="689">XVprocSs_SetupRouterDataFlow</referencedby>
+        <referencedby refid="xvprocss_8h_1a8293d3dc637bc8c481b205d2272b4fc2" compoundref="xvprocss_8c" startline="923" endline="983">XVprocSs_SetZoomPipWindow</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vproc_ss___context_data_1a79a5e7387a84068901a397e67c494e4d" prot="public" static="no" mutable="no">
+        <type>XVidC_VideoWindow</type>
+        <definition>XVidC_VideoWindow XVprocSs_ContextData::WrWindow</definition>
+        <argsstring></argsstring>
+        <name>WrWindow</name>
+        <briefdescription>
+<para>window for Zoom/Pip feature support </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss.h" line="295" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss.h" bodystart="295" bodyend="-1"/>
+        <referencedby refid="xvprocss_8h_1a55d0807b3f476d2608a8c49b44388fec" compoundref="xvprocss_8c" startline="999" endline="1025">XVprocSs_GetZoomPipWindow</referencedby>
+        <referencedby refid="group__vprocss_1gac644ac3d0f02790c168ebdc82c202179" compoundref="xvprocss__router_8c" startline="449" endline="689">XVprocSs_SetupRouterDataFlow</referencedby>
+        <referencedby refid="xvprocss_8h_1a8293d3dc637bc8c481b205d2272b4fc2" compoundref="xvprocss_8c" startline="923" endline="983">XVprocSs_SetZoomPipWindow</referencedby>
+        <referencedby refid="xvprocss_8h_1a4bdc6a00278cb1c847429d7498f8505e" compoundref="xvprocss_8c" startline="874" endline="907">XVprocSs_UpdateZoomPipWindow</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vproc_ss___context_data_1a77a8ad41b6cc8dc4800d859b33a6762b" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XVprocSs_ContextData::DeintBufAddr</definition>
+        <argsstring></argsstring>
+        <name>DeintBufAddr</name>
+        <briefdescription>
+<para>Deinterlacer field buffer Addr. </para>        </briefdescription>
+        <detaileddescription>
+<para>in DDR </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss.h" line="297" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss.h" bodystart="297" bodyend="-1"/>
+        <referencedby refid="xvprocss_8h_1aac138624e6b5449040be8bd02710a512" compoundref="xvprocss_8c" startline="373" endline="524">XVprocSs_CfgInitialize</referencedby>
+        <referencedby refid="group__vprocss_1gac644ac3d0f02790c168ebdc82c202179" compoundref="xvprocss__router_8c" startline="449" endline="689">XVprocSs_SetupRouterDataFlow</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vproc_ss___context_data_1a1a149725ed4dd88fcff95af968d91239" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XVprocSs_ContextData::PixelWidthInBits</definition>
+        <argsstring></argsstring>
+        <name>PixelWidthInBits</name>
+        <briefdescription>
+<para>Number of bits required to store 1 pixel. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss.h" line="298" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss.h" bodystart="298" bodyend="-1"/>
+        <referencedby refid="xvprocss_8h_1acc2dd89a8c01c86bf6093d842db67262" compoundref="xvprocss_8c" startline="2486" endline="2536">XVprocSs_ReportSubcoreStatus</referencedby>
+        <referencedby refid="group__vprocss_1gab5d63a660b49c3f252366e48befcbf30" compoundref="xvprocss__vdma_8c" startline="374" endline="432">XVprocSs_VdmaSetWinToDnScaleMode</referencedby>
+        <referencedby refid="group__vprocss_1ga8d81441b93df3b6c3d4d09583b17c97e" compoundref="xvprocss__vdma_8c" startline="443" endline="498">XVprocSs_VdmaSetWinToUpScaleMode</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vproc_ss___context_data_1a1f6d058b4f99c7ee70b88b652b829ed0" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XVprocSs_ContextData::RtngTable[XVPROCSS_SUBCORE_MAX]</definition>
+        <argsstring>[XVPROCSS_SUBCORE_MAX]</argsstring>
+        <name>RtngTable</name>
+        <briefdescription>
+<para>Storage for computed routing map. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss.h" line="300" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss.h" bodystart="300" bodyend="-1"/>
+        <referencedby refid="group__vprocss_1gac6e004a449df139f4d5115f5add5604d" compoundref="xvprocss__router_8c" startline="184" endline="399">XVprocSs_BuildRoutingTable</referencedby>
+        <referencedby refid="group__vprocss_1ga01bf97a1cd3199edccad43e56ca67c4c" compoundref="xvprocss__router_8c" startline="410" endline="437">XVprocSs_ProgRouterMux</referencedby>
+        <referencedby refid="xvprocss_8h_1abe70027604ba640917538338703b4a7f" compoundref="xvprocss_8c" startline="2634" endline="2682">XVprocSs_ReportSubsystemConfig</referencedby>
+        <referencedby refid="group__vprocss_1gac644ac3d0f02790c168ebdc82c202179" compoundref="xvprocss__router_8c" startline="449" endline="689">XVprocSs_SetupRouterDataFlow</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vproc_ss___context_data_1aa02a961464f60d239452ebc287a02b98" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XVprocSs_ContextData::StartCore[XVPROCSS_SUBCORE_MAX]</definition>
+        <argsstring>[XVPROCSS_SUBCORE_MAX]</argsstring>
+        <name>StartCore</name>
+        <briefdescription>
+<para>Enable flag to start sub-core. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss.h" line="301" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss.h" bodystart="301" bodyend="-1"/>
+        <referencedby refid="xvprocss_8h_1ab65fda7ce63456d82274a463a4d4b72a" compoundref="xvprocss_8c" startline="747" endline="777">XVprocSs_Reset</referencedby>
+        <referencedby refid="group__vprocss_1gac644ac3d0f02790c168ebdc82c202179" compoundref="xvprocss__router_8c" startline="449" endline="689">XVprocSs_SetupRouterDataFlow</referencedby>
+        <referencedby refid="xvprocss_8h_1a0f673d448bb7702661b702519de94fd9" compoundref="xvprocss_8c" startline="643" endline="683">XVprocSs_Start</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vproc_ss___context_data_1aa726534c304cb8438dcee4b6fc5f502f" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XVprocSs_ContextData::RtrNumCores</definition>
+        <argsstring></argsstring>
+        <name>RtrNumCores</name>
+        <briefdescription>
+<para>Number of sub-cores in routing map. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss.h" line="302" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss.h" bodystart="302" bodyend="-1"/>
+        <referencedby refid="group__vprocss_1gac6e004a449df139f4d5115f5add5604d" compoundref="xvprocss__router_8c" startline="184" endline="399">XVprocSs_BuildRoutingTable</referencedby>
+        <referencedby refid="group__vprocss_1ga01bf97a1cd3199edccad43e56ca67c4c" compoundref="xvprocss__router_8c" startline="410" endline="437">XVprocSs_ProgRouterMux</referencedby>
+        <referencedby refid="group__vprocss_1gac644ac3d0f02790c168ebdc82c202179" compoundref="xvprocss__router_8c" startline="449" endline="689">XVprocSs_SetupRouterDataFlow</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vproc_ss___context_data_1ac81c1474fea35a89b9f6830a87692aec" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XVprocSs_ContextData::ScaleMode</definition>
+        <argsstring></argsstring>
+        <name>ScaleMode</name>
+        <briefdescription>
+<para>Stored computed scaling mode - UP/DN/1:1. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss.h" line="303" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss.h" bodystart="303" bodyend="-1"/>
+        <referencedby refid="group__vprocss_1gac6e004a449df139f4d5115f5add5604d" compoundref="xvprocss__router_8c" startline="184" endline="399">XVprocSs_BuildRoutingTable</referencedby>
+        <referencedby refid="group__vprocss_1gac644ac3d0f02790c168ebdc82c202179" compoundref="xvprocss__router_8c" startline="449" endline="689">XVprocSs_SetupRouterDataFlow</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vproc_ss___context_data_1a2295b97e85e14cba835e65ce302a7076" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XVprocSs_ContextData::ZoomEn</definition>
+        <argsstring></argsstring>
+        <name>ZoomEn</name>
+        <briefdescription>
+<para>Flag to store Zoom feature state. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss.h" line="304" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss.h" bodystart="304" bodyend="-1"/>
+        <referencedby refid="xvprocss_8h_1a84b1254cbeac02b7f81b1b90c721e84d" compoundref="xvprocss_8c" startline="1079" endline="1093">XVprocSs_SetPipMode</referencedby>
+        <referencedby refid="xvprocss_8h_1a799db27e282d2762ee5cf4be40e70712" compoundref="xvprocss_8c" startline="1045" endline="1059">XVprocSs_SetZoomMode</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vproc_ss___context_data_1a153a8ddde9a7c9d7b4fd9abb01339af2" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XVprocSs_ContextData::PipEn</definition>
+        <argsstring></argsstring>
+        <name>PipEn</name>
+        <briefdescription>
+<para>Flag to store PIP feature state. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss.h" line="305" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss.h" bodystart="305" bodyend="-1"/>
+        <referencedby refid="xvprocss_8h_1a84b1254cbeac02b7f81b1b90c721e84d" compoundref="xvprocss_8c" startline="1079" endline="1093">XVprocSs_SetPipMode</referencedby>
+        <referencedby refid="xvprocss_8h_1a799db27e282d2762ee5cf4be40e70712" compoundref="xvprocss_8c" startline="1045" endline="1059">XVprocSs_SetZoomMode</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vproc_ss___context_data_1adeb3dc191f2aa011b52f7d8d503e71ab" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XVprocSs_ContextData::VidInWidth</definition>
+        <argsstring></argsstring>
+        <name>VidInWidth</name>
+        <briefdescription>
+<para>Input H Active. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss.h" line="306" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss.h" bodystart="306" bodyend="-1"/>
+        <referencedby refid="group__vprocss_1gac6e004a449df139f4d5115f5add5604d" compoundref="xvprocss__router_8c" startline="184" endline="399">XVprocSs_BuildRoutingTable</referencedby>
+        <referencedby refid="group__vprocss_1gac644ac3d0f02790c168ebdc82c202179" compoundref="xvprocss__router_8c" startline="449" endline="689">XVprocSs_SetupRouterDataFlow</referencedby>
+        <referencedby refid="group__vprocss_1ga8d81441b93df3b6c3d4d09583b17c97e" compoundref="xvprocss__vdma_8c" startline="443" endline="498">XVprocSs_VdmaSetWinToUpScaleMode</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vproc_ss___context_data_1a554de1e27e74f1a96cf0823093ac17f4" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XVprocSs_ContextData::VidInHeight</definition>
+        <argsstring></argsstring>
+        <name>VidInHeight</name>
+        <briefdescription>
+<para>Input V Active. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss.h" line="307" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss.h" bodystart="307" bodyend="-1"/>
+        <referencedby refid="group__vprocss_1gac6e004a449df139f4d5115f5add5604d" compoundref="xvprocss__router_8c" startline="184" endline="399">XVprocSs_BuildRoutingTable</referencedby>
+        <referencedby refid="group__vprocss_1gac644ac3d0f02790c168ebdc82c202179" compoundref="xvprocss__router_8c" startline="449" endline="689">XVprocSs_SetupRouterDataFlow</referencedby>
+        <referencedby refid="group__vprocss_1ga8d81441b93df3b6c3d4d09583b17c97e" compoundref="xvprocss__vdma_8c" startline="443" endline="498">XVprocSs_VdmaSetWinToUpScaleMode</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vproc_ss___context_data_1a03fb0a6f829e3ae161da411174b06333" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XVprocSs_ContextData::PixelHStepSize</definition>
+        <argsstring></argsstring>
+        <name>PixelHStepSize</name>
+        <briefdescription>
+<para>Increment step size for Pip/Zoom window. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss.h" line="308" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss.h" bodystart="308" bodyend="-1"/>
+        <referencedby refid="xvprocss_8h_1a8293d3dc637bc8c481b205d2272b4fc2" compoundref="xvprocss_8c" startline="923" endline="983">XVprocSs_SetZoomPipWindow</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vproc_ss___context_data_1a8e3923646d6b89ff1970f62e0d63d259" prot="public" static="no" mutable="no">
+        <type>XVidC_ColorFormat</type>
+        <definition>XVidC_ColorFormat XVprocSs_ContextData::StrmCformat</definition>
+        <argsstring></argsstring>
+        <name>StrmCformat</name>
+        <briefdescription>
+<para>processing pipe color format </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss.h" line="309" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss.h" bodystart="309" bodyend="-1"/>
+        <referencedby refid="group__vprocss_1gac6e004a449df139f4d5115f5add5604d" compoundref="xvprocss__router_8c" startline="184" endline="399">XVprocSs_BuildRoutingTable</referencedby>
+        <referencedby refid="xvprocss_8h_1a34d1e25e364c4699c60ee30839f141f7" compoundref="xvprocss_8c" startline="2327" endline="2346">XVprocSs_SetPIPBackgroundColor</referencedby>
+        <referencedby refid="group__vprocss_1gac644ac3d0f02790c168ebdc82c202179" compoundref="xvprocss__router_8c" startline="449" endline="689">XVprocSs_SetupRouterDataFlow</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vproc_ss___context_data_1a3e2a334b8f135ad9e1eb1d860c8fa694" prot="public" static="no" mutable="no">
+        <type>XVidC_ColorFormat</type>
+        <definition>XVidC_ColorFormat XVprocSs_ContextData::CscIn</definition>
+        <argsstring></argsstring>
+        <name>CscIn</name>
+        <briefdescription>
+<para>CSC core input color format. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss.h" line="310" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss.h" bodystart="310" bodyend="-1"/>
+        <referencedby refid="group__vprocss_1gac6e004a449df139f4d5115f5add5604d" compoundref="xvprocss__router_8c" startline="184" endline="399">XVprocSs_BuildRoutingTable</referencedby>
+        <referencedby refid="group__vprocss_1gac644ac3d0f02790c168ebdc82c202179" compoundref="xvprocss__router_8c" startline="449" endline="689">XVprocSs_SetupRouterDataFlow</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vproc_ss___context_data_1a9f81ff065d74d35606a3f1b72133cd96" prot="public" static="no" mutable="no">
+        <type>XVidC_ColorFormat</type>
+        <definition>XVidC_ColorFormat XVprocSs_ContextData::CscOut</definition>
+        <argsstring></argsstring>
+        <name>CscOut</name>
+        <briefdescription>
+<para>CSC core output color format. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss.h" line="311" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss.h" bodystart="311" bodyend="-1"/>
+        <referencedby refid="group__vprocss_1gac6e004a449df139f4d5115f5add5604d" compoundref="xvprocss__router_8c" startline="184" endline="399">XVprocSs_BuildRoutingTable</referencedby>
+        <referencedby refid="group__vprocss_1gac644ac3d0f02790c168ebdc82c202179" compoundref="xvprocss__router_8c" startline="449" endline="689">XVprocSs_SetupRouterDataFlow</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vproc_ss___context_data_1ac529cc738b0a6263f3f2d9d43e521461" prot="public" static="no" mutable="no">
+        <type>XVidC_ColorFormat</type>
+        <definition>XVidC_ColorFormat XVprocSs_ContextData::HcrIn</definition>
+        <argsstring></argsstring>
+        <name>HcrIn</name>
+        <briefdescription>
+<para>horiz. </para>        </briefdescription>
+        <detaileddescription>
+<para>cresmplr core input color format </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss.h" line="312" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss.h" bodystart="312" bodyend="-1"/>
+        <referencedby refid="group__vprocss_1gac6e004a449df139f4d5115f5add5604d" compoundref="xvprocss__router_8c" startline="184" endline="399">XVprocSs_BuildRoutingTable</referencedby>
+        <referencedby refid="group__vprocss_1gac644ac3d0f02790c168ebdc82c202179" compoundref="xvprocss__router_8c" startline="449" endline="689">XVprocSs_SetupRouterDataFlow</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vproc_ss___context_data_1a2a14c0f46d29da1f0f630e33d3f07151" prot="public" static="no" mutable="no">
+        <type>XVidC_ColorFormat</type>
+        <definition>XVidC_ColorFormat XVprocSs_ContextData::HcrOut</definition>
+        <argsstring></argsstring>
+        <name>HcrOut</name>
+        <briefdescription>
+<para>horiz. </para>        </briefdescription>
+        <detaileddescription>
+<para>cresmplr core output color format </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss.h" line="313" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss.h" bodystart="313" bodyend="-1"/>
+        <referencedby refid="group__vprocss_1gac6e004a449df139f4d5115f5add5604d" compoundref="xvprocss__router_8c" startline="184" endline="399">XVprocSs_BuildRoutingTable</referencedby>
+        <referencedby refid="group__vprocss_1gac644ac3d0f02790c168ebdc82c202179" compoundref="xvprocss__router_8c" startline="449" endline="689">XVprocSs_SetupRouterDataFlow</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vproc_ss___context_data_1a8f080227d4a5195ea3ec54dc12206e33" prot="public" static="no" mutable="no">
+        <type>XLboxColorId</type>
+        <definition>XLboxColorId XVprocSs_ContextData::LboxBkgndColor</definition>
+        <argsstring></argsstring>
+        <name>LboxBkgndColor</name>
+        <briefdescription>
+<para>Lbox background color. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss.h" line="314" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss.h" bodystart="314" bodyend="-1"/>
+        <referencedby refid="xvprocss_8h_1a34d1e25e364c4699c60ee30839f141f7" compoundref="xvprocss_8c" startline="2327" endline="2346">XVprocSs_SetPIPBackgroundColor</referencedby>
+        <referencedby refid="group__vprocss_1gac644ac3d0f02790c168ebdc82c202179" compoundref="xvprocss__router_8c" startline="449" endline="689">XVprocSs_SetupRouterDataFlow</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Video Processing Subsystem context scratch pad memory. </para>    </briefdescription>
+    <detaileddescription>
+<para>This contains internal flags, state variables, routing table and other meta-data required by the subsystem. Each instance of the subsystem will have its own context data memory </para>    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss.h" line="293" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss.h" bodystart="292" bodyend="315"/>
+    <listofallmembers>
+      <member refid="struct_x_vproc_ss___context_data_1a3e2a334b8f135ad9e1eb1d860c8fa694" prot="public" virt="non-virtual"><scope>XVprocSs_ContextData</scope><name>CscIn</name></member>
+      <member refid="struct_x_vproc_ss___context_data_1a9f81ff065d74d35606a3f1b72133cd96" prot="public" virt="non-virtual"><scope>XVprocSs_ContextData</scope><name>CscOut</name></member>
+      <member refid="struct_x_vproc_ss___context_data_1a77a8ad41b6cc8dc4800d859b33a6762b" prot="public" virt="non-virtual"><scope>XVprocSs_ContextData</scope><name>DeintBufAddr</name></member>
+      <member refid="struct_x_vproc_ss___context_data_1ac529cc738b0a6263f3f2d9d43e521461" prot="public" virt="non-virtual"><scope>XVprocSs_ContextData</scope><name>HcrIn</name></member>
+      <member refid="struct_x_vproc_ss___context_data_1a2a14c0f46d29da1f0f630e33d3f07151" prot="public" virt="non-virtual"><scope>XVprocSs_ContextData</scope><name>HcrOut</name></member>
+      <member refid="struct_x_vproc_ss___context_data_1a8f080227d4a5195ea3ec54dc12206e33" prot="public" virt="non-virtual"><scope>XVprocSs_ContextData</scope><name>LboxBkgndColor</name></member>
+      <member refid="struct_x_vproc_ss___context_data_1a153a8ddde9a7c9d7b4fd9abb01339af2" prot="public" virt="non-virtual"><scope>XVprocSs_ContextData</scope><name>PipEn</name></member>
+      <member refid="struct_x_vproc_ss___context_data_1a03fb0a6f829e3ae161da411174b06333" prot="public" virt="non-virtual"><scope>XVprocSs_ContextData</scope><name>PixelHStepSize</name></member>
+      <member refid="struct_x_vproc_ss___context_data_1a1a149725ed4dd88fcff95af968d91239" prot="public" virt="non-virtual"><scope>XVprocSs_ContextData</scope><name>PixelWidthInBits</name></member>
+      <member refid="struct_x_vproc_ss___context_data_1a4ea15beae039b9b0a7ae82ec89d57c80" prot="public" virt="non-virtual"><scope>XVprocSs_ContextData</scope><name>RdWindow</name></member>
+      <member refid="struct_x_vproc_ss___context_data_1a1f6d058b4f99c7ee70b88b652b829ed0" prot="public" virt="non-virtual"><scope>XVprocSs_ContextData</scope><name>RtngTable</name></member>
+      <member refid="struct_x_vproc_ss___context_data_1aa726534c304cb8438dcee4b6fc5f502f" prot="public" virt="non-virtual"><scope>XVprocSs_ContextData</scope><name>RtrNumCores</name></member>
+      <member refid="struct_x_vproc_ss___context_data_1ac81c1474fea35a89b9f6830a87692aec" prot="public" virt="non-virtual"><scope>XVprocSs_ContextData</scope><name>ScaleMode</name></member>
+      <member refid="struct_x_vproc_ss___context_data_1aa02a961464f60d239452ebc287a02b98" prot="public" virt="non-virtual"><scope>XVprocSs_ContextData</scope><name>StartCore</name></member>
+      <member refid="struct_x_vproc_ss___context_data_1a8e3923646d6b89ff1970f62e0d63d259" prot="public" virt="non-virtual"><scope>XVprocSs_ContextData</scope><name>StrmCformat</name></member>
+      <member refid="struct_x_vproc_ss___context_data_1a554de1e27e74f1a96cf0823093ac17f4" prot="public" virt="non-virtual"><scope>XVprocSs_ContextData</scope><name>VidInHeight</name></member>
+      <member refid="struct_x_vproc_ss___context_data_1adeb3dc191f2aa011b52f7d8d503e71ab" prot="public" virt="non-virtual"><scope>XVprocSs_ContextData</scope><name>VidInWidth</name></member>
+      <member refid="struct_x_vproc_ss___context_data_1a79a5e7387a84068901a397e67c494e4d" prot="public" virt="non-virtual"><scope>XVprocSs_ContextData</scope><name>WrWindow</name></member>
+      <member refid="struct_x_vproc_ss___context_data_1a2295b97e85e14cba835e65ce302a7076" prot="public" virt="non-virtual"><scope>XVprocSs_ContextData</scope><name>ZoomEn</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

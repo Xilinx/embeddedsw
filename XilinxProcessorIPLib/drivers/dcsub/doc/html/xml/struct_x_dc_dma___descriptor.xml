@@ -1,0 +1,384 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_dc_dma___descriptor" kind="struct" prot="public">
+    <compoundname>XDcDma_Descriptor</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_dc_dma___descriptor_1a9653f513a31f022f1a08adaf4fd14a4f" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDcDma_Descriptor::Id</definition>
+        <argsstring></argsstring>
+        <name>Id</name>
+        <bitfield> 16</bitfield>
+        <briefdescription>
+<para>Identifier. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" line="54" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" bodystart="54" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dc_dma___descriptor_1a27f8005bb7c4d572ce9082d86d01dec4" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDcDma_Descriptor::Control_Lo</definition>
+        <argsstring></argsstring>
+        <name>Control_Lo</name>
+        <bitfield> 16</bitfield>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" line="55" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dc_dma___descriptor_1a6170e982d6bd41eafad014a141390f6a" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDcDma_Descriptor::Control_Hi</definition>
+        <argsstring></argsstring>
+        <name>Control_Hi</name>
+        <bitfield> 16</bitfield>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" line="57" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dc_dma___descriptor_1ab7e2c8a48bd47482d9ef5b93f1bb21bf" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDcDma_Descriptor::Data_Size_Lo</definition>
+        <argsstring></argsstring>
+        <name>Data_Size_Lo</name>
+        <bitfield> 16</bitfield>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" line="58" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" bodystart="58" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dc_dma___descriptor_1a518ce2c22e00de9ac9f116155e91defe" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDcDma_Descriptor::Data_Size_Hi</definition>
+        <argsstring></argsstring>
+        <name>Data_Size_Hi</name>
+        <bitfield> 16</bitfield>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" line="60" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" bodystart="60" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dc_dma___descriptor_1af69bed6c351594c071ddb669cc1b07ce" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDcDma_Descriptor::Src_Addr_Lo</definition>
+        <argsstring></argsstring>
+        <name>Src_Addr_Lo</name>
+        <bitfield> 16</bitfield>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" line="61" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" bodystart="61" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dc_dma___descriptor_1a4b9c0ad138e91b2939136791e0dae224" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDcDma_Descriptor::Src_Addr_Hi</definition>
+        <argsstring></argsstring>
+        <name>Src_Addr_Hi</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" line="63" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" bodystart="63" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dc_dma___descriptor_1a248d46babd348160438102c6158836c0" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDcDma_Descriptor::Next_Desc_Addr_Lo</definition>
+        <argsstring></argsstring>
+        <name>Next_Desc_Addr_Lo</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" line="65" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" bodystart="65" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dc_dma___descriptor_1a5c5566c44168c25b3cb714d490c36f23" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDcDma_Descriptor::Next_Desc_Addr_Hi</definition>
+        <argsstring></argsstring>
+        <name>Next_Desc_Addr_Hi</name>
+        <bitfield> 16</bitfield>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" line="67" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" bodystart="67" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dc_dma___descriptor_1a12397315fa9d00d02ec4a60723086abf" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDcDma_Descriptor::TLB_prefetch_en</definition>
+        <argsstring></argsstring>
+        <name>TLB_prefetch_en</name>
+        <bitfield> 1</bitfield>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" line="68" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" bodystart="68" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dc_dma___descriptor_1abb0c50531568fc3c555dad4c9a5241ad" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDcDma_Descriptor::TLB_prefetch_blk_size</definition>
+        <argsstring></argsstring>
+        <name>TLB_prefetch_blk_size</name>
+        <bitfield> 14</bitfield>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" line="69" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" bodystart="69" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dc_dma___descriptor_1a49ac4decf5f8132957b9dfc57a6cc827" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDcDma_Descriptor::TLB_prefetch_blk_off_lo</definition>
+        <argsstring></argsstring>
+        <name>TLB_prefetch_blk_off_lo</name>
+        <bitfield> 1</bitfield>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" line="70" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" bodystart="70" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dc_dma___descriptor_1a13d6044911ebed45baa905697951bcfb" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDcDma_Descriptor::TL_prefetch_blk_off_hi</definition>
+        <argsstring></argsstring>
+        <name>TL_prefetch_blk_off_hi</name>
+        <bitfield> 13</bitfield>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" line="71" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" bodystart="71" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dc_dma___descriptor_1a3daeb0305e3ec5f19a82c67433599433" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDcDma_Descriptor::Line_Tile</definition>
+        <argsstring></argsstring>
+        <name>Line_Tile</name>
+        <bitfield> 1</bitfield>
+        <briefdescription>
+<para>0 - Line, 1 - Tile </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" line="72" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" bodystart="72" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dc_dma___descriptor_1a339404e630c22fe19cbb30ce5a9c6dae" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDcDma_Descriptor::Line_Size</definition>
+        <argsstring></argsstring>
+        <name>Line_Size</name>
+        <bitfield> 18</bitfield>
+        <briefdescription>
+<para>Bytes per line. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" line="73" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" bodystart="73" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dc_dma___descriptor_1a0e76405c2a885bd4f8730ffae5fee452" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDcDma_Descriptor::Line_Stride</definition>
+        <argsstring></argsstring>
+        <name>Line_Stride</name>
+        <bitfield> 14</bitfield>
+        <briefdescription>
+<para>Stride in 16 byte resolution. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" line="75" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" bodystart="75" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dc_dma___descriptor_1a51d0043b6ab78ccf731a923d5de41677" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDcDma_Descriptor::Tile_Type</definition>
+        <argsstring></argsstring>
+        <name>Tile_Type</name>
+        <bitfield> 1</bitfield>
+        <briefdescription>
+<para>0 - 32x4 1 - 64x4 </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" line="76" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" bodystart="76" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dc_dma___descriptor_1a6cd86c8156f56010d957a22db787e6f6" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDcDma_Descriptor::Tile_Pitch</definition>
+        <argsstring></argsstring>
+        <name>Tile_Pitch</name>
+        <bitfield> 14</bitfield>
+        <briefdescription>
+<para>Addr between 2 rows of tiles in unit of 32 bytes. </para>        </briefdescription>
+        <detaileddescription>
+<para>N/A for raster </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" line="77" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" bodystart="77" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dc_dma___descriptor_1aac1d1c778fad1562fed5991a6a5addf3" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDcDma_Descriptor::Target_Addr</definition>
+        <argsstring></argsstring>
+        <name>Target_Addr</name>
+        <bitfield> 1</bitfield>
+        <briefdescription>
+<para>0 for DP / SDP, 1 - Cursor RAM </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" line="78" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" bodystart="78" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dc_dma___descriptor_1a7ab497690c9352612655cdd9d429f24b" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDcDma_Descriptor::Intr_Enable</definition>
+        <argsstring></argsstring>
+        <name>Intr_Enable</name>
+        <bitfield> 1</bitfield>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" line="79" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" bodystart="79" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dc_dma___descriptor_1af75d4a06273d55cca42c1cd4bba9997c" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDcDma_Descriptor::Reserved_1</definition>
+        <argsstring></argsstring>
+        <name>Reserved_1</name>
+        <bitfield> 1</bitfield>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" line="80" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" bodystart="80" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dc_dma___descriptor_1a3e702aa353e124c0d1fd8fb95f6b1b3b" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDcDma_Descriptor::Presentation_TS_Lo</definition>
+        <argsstring></argsstring>
+        <name>Presentation_TS_Lo</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" line="82" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" bodystart="82" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dc_dma___descriptor_1a03f7cd9d17965ddad1174f96a09651a5" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDcDma_Descriptor::Presentation_TS_Hi</definition>
+        <argsstring></argsstring>
+        <name>Presentation_TS_Hi</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" line="84" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" bodystart="84" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dc_dma___descriptor_1a6d7e809a6bcb648699b61acb155778bf" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDcDma_Descriptor::Reserved_2</definition>
+        <argsstring></argsstring>
+        <name>Reserved_2</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" line="86" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" bodystart="86" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dc_dma___descriptor_1a9a6fcb7d8379705a0ca7b49b2430a7a1" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDcDma_Descriptor::Checksum</definition>
+        <argsstring></argsstring>
+        <name>Checksum</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" line="88" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" bodystart="88" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" line="53" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" bodystart="53" bodyend="89"/>
+    <listofallmembers>
+      <member refid="struct_x_dc_dma___descriptor_1a9a6fcb7d8379705a0ca7b49b2430a7a1" prot="public" virt="non-virtual"><scope>XDcDma_Descriptor</scope><name>Checksum</name></member>
+      <member refid="struct_x_dc_dma___descriptor_1a6170e982d6bd41eafad014a141390f6a" prot="public" virt="non-virtual"><scope>XDcDma_Descriptor</scope><name>Control_Hi</name></member>
+      <member refid="struct_x_dc_dma___descriptor_1a27f8005bb7c4d572ce9082d86d01dec4" prot="public" virt="non-virtual"><scope>XDcDma_Descriptor</scope><name>Control_Lo</name></member>
+      <member refid="struct_x_dc_dma___descriptor_1a518ce2c22e00de9ac9f116155e91defe" prot="public" virt="non-virtual"><scope>XDcDma_Descriptor</scope><name>Data_Size_Hi</name></member>
+      <member refid="struct_x_dc_dma___descriptor_1ab7e2c8a48bd47482d9ef5b93f1bb21bf" prot="public" virt="non-virtual"><scope>XDcDma_Descriptor</scope><name>Data_Size_Lo</name></member>
+      <member refid="struct_x_dc_dma___descriptor_1a9653f513a31f022f1a08adaf4fd14a4f" prot="public" virt="non-virtual"><scope>XDcDma_Descriptor</scope><name>Id</name></member>
+      <member refid="struct_x_dc_dma___descriptor_1a7ab497690c9352612655cdd9d429f24b" prot="public" virt="non-virtual"><scope>XDcDma_Descriptor</scope><name>Intr_Enable</name></member>
+      <member refid="struct_x_dc_dma___descriptor_1a339404e630c22fe19cbb30ce5a9c6dae" prot="public" virt="non-virtual"><scope>XDcDma_Descriptor</scope><name>Line_Size</name></member>
+      <member refid="struct_x_dc_dma___descriptor_1a0e76405c2a885bd4f8730ffae5fee452" prot="public" virt="non-virtual"><scope>XDcDma_Descriptor</scope><name>Line_Stride</name></member>
+      <member refid="struct_x_dc_dma___descriptor_1a3daeb0305e3ec5f19a82c67433599433" prot="public" virt="non-virtual"><scope>XDcDma_Descriptor</scope><name>Line_Tile</name></member>
+      <member refid="struct_x_dc_dma___descriptor_1a5c5566c44168c25b3cb714d490c36f23" prot="public" virt="non-virtual"><scope>XDcDma_Descriptor</scope><name>Next_Desc_Addr_Hi</name></member>
+      <member refid="struct_x_dc_dma___descriptor_1a248d46babd348160438102c6158836c0" prot="public" virt="non-virtual"><scope>XDcDma_Descriptor</scope><name>Next_Desc_Addr_Lo</name></member>
+      <member refid="struct_x_dc_dma___descriptor_1a03f7cd9d17965ddad1174f96a09651a5" prot="public" virt="non-virtual"><scope>XDcDma_Descriptor</scope><name>Presentation_TS_Hi</name></member>
+      <member refid="struct_x_dc_dma___descriptor_1a3e702aa353e124c0d1fd8fb95f6b1b3b" prot="public" virt="non-virtual"><scope>XDcDma_Descriptor</scope><name>Presentation_TS_Lo</name></member>
+      <member refid="struct_x_dc_dma___descriptor_1af75d4a06273d55cca42c1cd4bba9997c" prot="public" virt="non-virtual"><scope>XDcDma_Descriptor</scope><name>Reserved_1</name></member>
+      <member refid="struct_x_dc_dma___descriptor_1a6d7e809a6bcb648699b61acb155778bf" prot="public" virt="non-virtual"><scope>XDcDma_Descriptor</scope><name>Reserved_2</name></member>
+      <member refid="struct_x_dc_dma___descriptor_1a4b9c0ad138e91b2939136791e0dae224" prot="public" virt="non-virtual"><scope>XDcDma_Descriptor</scope><name>Src_Addr_Hi</name></member>
+      <member refid="struct_x_dc_dma___descriptor_1af69bed6c351594c071ddb669cc1b07ce" prot="public" virt="non-virtual"><scope>XDcDma_Descriptor</scope><name>Src_Addr_Lo</name></member>
+      <member refid="struct_x_dc_dma___descriptor_1aac1d1c778fad1562fed5991a6a5addf3" prot="public" virt="non-virtual"><scope>XDcDma_Descriptor</scope><name>Target_Addr</name></member>
+      <member refid="struct_x_dc_dma___descriptor_1a6cd86c8156f56010d957a22db787e6f6" prot="public" virt="non-virtual"><scope>XDcDma_Descriptor</scope><name>Tile_Pitch</name></member>
+      <member refid="struct_x_dc_dma___descriptor_1a51d0043b6ab78ccf731a923d5de41677" prot="public" virt="non-virtual"><scope>XDcDma_Descriptor</scope><name>Tile_Type</name></member>
+      <member refid="struct_x_dc_dma___descriptor_1a13d6044911ebed45baa905697951bcfb" prot="public" virt="non-virtual"><scope>XDcDma_Descriptor</scope><name>TL_prefetch_blk_off_hi</name></member>
+      <member refid="struct_x_dc_dma___descriptor_1a49ac4decf5f8132957b9dfc57a6cc827" prot="public" virt="non-virtual"><scope>XDcDma_Descriptor</scope><name>TLB_prefetch_blk_off_lo</name></member>
+      <member refid="struct_x_dc_dma___descriptor_1abb0c50531568fc3c555dad4c9a5241ad" prot="public" virt="non-virtual"><scope>XDcDma_Descriptor</scope><name>TLB_prefetch_blk_size</name></member>
+      <member refid="struct_x_dc_dma___descriptor_1a12397315fa9d00d02ec4a60723086abf" prot="public" virt="non-virtual"><scope>XDcDma_Descriptor</scope><name>TLB_prefetch_en</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

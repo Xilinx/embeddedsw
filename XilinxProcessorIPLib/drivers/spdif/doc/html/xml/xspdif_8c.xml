@@ -1,0 +1,676 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xspdif_8c" kind="file">
+    <compoundname>xspdif.c</compoundname>
+    <includes refid="xspdif_8h" local="yes">xspdif.h</includes>
+    <includes refid="xspdif__chsts_8h" local="yes">xspdif_chsts.h</includes>
+    <includes refid="xspdif__hw_8h" local="yes">xspdif_hw.h</includes>
+    <includes local="yes">xil_assert.h</includes>
+    <includes local="yes">xstatus.h</includes>
+    <includes local="yes">xil_types.h</includes>
+    <incdepgraph>
+      <node id="6">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="5">
+        <label>xil_io.h</label>
+      </node>
+      <node id="9">
+        <label>xspdif_chsts.h</label>
+        <link refid="xspdif__chsts_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>xspdif.c</label>
+        <link refid="xspdif.c"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>xspdif.h</label>
+        <link refid="xspdif_8h"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>xspdif_hw.h</label>
+        <link refid="xspdif__hw_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>xstatus.h</label>
+      </node>
+      <node id="8">
+        <label>xil_types.h</label>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__spdif_1gae87580b959a0579a9af0c02345037704" prot="public" static="no">
+        <name>XSPDIF_SOFT_RESET_REGISTER_VALUE</name>
+        <initializer>0X0A</initializer>
+        <briefdescription>
+<para>Soft Reset Register value to reset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif.c" line="34" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif.c" bodystart="34" bodyend="-1"/>
+        <referencedby refid="group__spdif_1gae803b59eab34cf53ffcfb147b367f88f" compoundref="xspdif_8c" startline="132" endline="138">XSpdif_SoftReset</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__spdif_1ga0fd1a9a8dba71df82291f9d0307366a3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XSpdif_CfgInitialize</definition>
+        <argsstring>(XSpdif *InstancePtr, XSpdif_Config *CfgPtr, UINTPTR EffectiveAddr)</argsstring>
+        <name>XSpdif_CfgInitialize</name>
+        <param>
+          <type><ref refid="struct_x_spdif" kindref="compound">XSpdif</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_spdif___config" kindref="compound">XSpdif_Config</ref> *</type>
+          <declname>CfgPtr</declname>
+        </param>
+        <param>
+          <type>UINTPTR</type>
+          <declname>EffectiveAddr</declname>
+        </param>
+        <briefdescription>
+<para>This function initializes the <ref refid="struct_x_spdif" kindref="compound">XSpdif</ref>. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function must be called prior to using the core. Initialization of the <ref refid="struct_x_spdif" kindref="compound">XSpdif</ref> includes setting up the instance data, and ensuring the hardware is in a quiescent state.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_spdif" kindref="compound">XSpdif</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CfgPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>points to the configuration structure associated with the <ref refid="struct_x_spdif" kindref="compound">XSpdif</ref>. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>EffectiveAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the device. If address translation is being used, then this parameter must reflect the virtual base address. Otherwise, the physical address should be used.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS : if successful.</para></listitem><listitem><para>XST_FAILURE : if version mismatched.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif.c" line="69" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif.c" bodystart="69" bodyend="95"/>
+        <references refid="struct_x_spdif___config_1acdcb872d4328715153ab3ccd5ef44e09" compoundref="xspdif_8h" startline="91">XSpdif_Config::BaseAddress</references>
+        <references refid="struct_x_spdif_1a067162378b1d3419846e343962d2ce0f" compoundref="xspdif_8h" startline="109">XSpdif::Config</references>
+        <references refid="struct_x_spdif_1a29ca7bc4583f440ed962a38bfae1efc8" compoundref="xspdif_8h" startline="105">XSpdif::IsReady</references>
+        <references refid="group__spdif_1ga1c7b903ef4c7052aa0f3b11350946594" compoundref="xspdif_8c" startline="106" endline="123">XSpdif_Enable</references>
+        <references refid="group__spdif_1gab68e148095ed0fec2cccdea00c9a5169" compoundref="xspdif__selftest_8c" startline="54" endline="69">XSpdif_SelfTest</references>
+        <referencedby refid="xspdif__selftest__example_8c_1a50de2762a3b3a4c20b90c24914d8159b" compoundref="xspdif__selftest__example_8c" startline="111" endline="134">SpdifSelfTestExample</referencedby>
+        <referencedby refid="group__spdif_1ga7812aeb4de2b5ab5ca456f865ec70279" compoundref="xspdif__sinit_8c" startline="155" endline="172">XSpdif_Initialize</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__spdif_1ga1c7b903ef4c7052aa0f3b11350946594" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XSpdif_Enable</definition>
+        <argsstring>(XSpdif *InstancePtr, u8 Enable)</argsstring>
+        <name>XSpdif_Enable</name>
+        <param>
+          <type><ref refid="struct_x_spdif" kindref="compound">XSpdif</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Enable</declname>
+        </param>
+        <briefdescription>
+<para>This function enables/disables the <ref refid="struct_x_spdif" kindref="compound">XSpdif</ref>. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_spdif" kindref="compound">XSpdif</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Enable</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>specifies TRUE/FALSE value to either enable or disable the <ref refid="struct_x_spdif" kindref="compound">XSpdif</ref>. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif.c" line="106" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif.c" bodystart="106" bodyend="123"/>
+        <references refid="struct_x_spdif___config_1acdcb872d4328715153ab3ccd5ef44e09" compoundref="xspdif_8h" startline="91">XSpdif_Config::BaseAddress</references>
+        <references refid="struct_x_spdif_1a067162378b1d3419846e343962d2ce0f" compoundref="xspdif_8h" startline="109">XSpdif::Config</references>
+        <references refid="struct_x_spdif_1ad5c4744b9e4947f80e431a6ab5f13510" compoundref="xspdif_8h" startline="107">XSpdif::IsStarted</references>
+        <references refid="group__spdif_1ga2fc47b801ec55e2dd7bcebb2bf117422" compoundref="xspdif__hw_8h" startline="53">XSPDIF_CONTROL_REGISTER_OFFSET</references>
+        <references refid="group__spdif_1ga6c809f933049ee2d66fb43f023c3bb32" compoundref="xspdif__hw_8h" startline="76">XSPDIF_CORE_ENABLE_MASK</references>
+        <references refid="group__spdif_1ga8a5504bdf152f4699dda951a971b5ce5" compoundref="xspdif__hw_8h" startline="179">XSpdif_ReadReg</references>
+        <references refid="group__spdif_1ga315b6c9b02574277d0f5e66f6bb55888" compoundref="xspdif__hw_8h" startline="201">XSpdif_WriteReg</references>
+        <referencedby refid="group__spdif_1ga0fd1a9a8dba71df82291f9d0307366a3" compoundref="xspdif_8c" startline="69" endline="95">XSpdif_CfgInitialize</referencedby>
+        <referencedby refid="group__spdif_1gab68e148095ed0fec2cccdea00c9a5169" compoundref="xspdif__selftest_8c" startline="54" endline="69">XSpdif_SelfTest</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__spdif_1gae803b59eab34cf53ffcfb147b367f88f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XSpdif_SoftReset</definition>
+        <argsstring>(XSpdif *InstancePtr)</argsstring>
+        <name>XSpdif_SoftReset</name>
+        <param>
+          <type><ref refid="struct_x_spdif" kindref="compound">XSpdif</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function is used to soft reset the interrupt registers. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the XSPDIF instance. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif.c" line="132" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif.c" bodystart="132" bodyend="138"/>
+        <references refid="struct_x_spdif___config_1acdcb872d4328715153ab3ccd5ef44e09" compoundref="xspdif_8h" startline="91">XSpdif_Config::BaseAddress</references>
+        <references refid="struct_x_spdif_1a067162378b1d3419846e343962d2ce0f" compoundref="xspdif_8h" startline="109">XSpdif::Config</references>
+        <references refid="group__spdif_1gafcc4d1467e4b02bb63d8ed3ca103c384" compoundref="xspdif__hw_8h" startline="50">XSPDIF_SOFT_RESET_REGISTER_OFFSET</references>
+        <references refid="group__spdif_1gae87580b959a0579a9af0c02345037704" compoundref="xspdif_8c" startline="34">XSPDIF_SOFT_RESET_REGISTER_VALUE</references>
+        <references refid="group__spdif_1ga315b6c9b02574277d0f5e66f6bb55888" compoundref="xspdif__hw_8h" startline="201">XSpdif_WriteReg</references>
+        <referencedby refid="group__spdif_1gab68e148095ed0fec2cccdea00c9a5169" compoundref="xspdif__selftest_8c" startline="54" endline="69">XSpdif_SelfTest</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__spdif_1gabe3f017617a1beda897955974c20fc9d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XSpdif_ResetFifo</definition>
+        <argsstring>(XSpdif *InstancePtr)</argsstring>
+        <name>XSpdif_ResetFifo</name>
+        <param>
+          <type><ref refid="struct_x_spdif" kindref="compound">XSpdif</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function resets the Fifo. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_spdif" kindref="compound">XSpdif</ref> instance. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif.c" line="147" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif.c" bodystart="147" bodyend="162"/>
+        <references refid="struct_x_spdif___config_1acdcb872d4328715153ab3ccd5ef44e09" compoundref="xspdif_8h" startline="91">XSpdif_Config::BaseAddress</references>
+        <references refid="struct_x_spdif_1a067162378b1d3419846e343962d2ce0f" compoundref="xspdif_8h" startline="109">XSpdif::Config</references>
+        <references refid="group__spdif_1ga2fc47b801ec55e2dd7bcebb2bf117422" compoundref="xspdif__hw_8h" startline="53">XSPDIF_CONTROL_REGISTER_OFFSET</references>
+        <references refid="group__spdif_1ga6c809f933049ee2d66fb43f023c3bb32" compoundref="xspdif__hw_8h" startline="76">XSPDIF_CORE_ENABLE_MASK</references>
+        <references refid="group__spdif_1ga8a5504bdf152f4699dda951a971b5ce5" compoundref="xspdif__hw_8h" startline="179">XSpdif_ReadReg</references>
+        <references refid="group__spdif_1ga315b6c9b02574277d0f5e66f6bb55888" compoundref="xspdif__hw_8h" startline="201">XSpdif_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__spdif_1ga663de6a5b3129b9af53363b95ddd1c8c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XSpdif_SetClkConfig</definition>
+        <argsstring>(XSpdif *InstancePtr, u8 Clk_DivNum)</argsstring>
+        <name>XSpdif_SetClkConfig</name>
+        <param>
+          <type><ref refid="struct_x_spdif" kindref="compound">XSpdif</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Clk_DivNum</declname>
+        </param>
+        <briefdescription>
+<para>This function sets the clock configuration bits. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the Spdif instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Clk_DivNum</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the clock division number. Clk_DivNum value can be only 4,8,16,24,32,48,or 64. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif.c" line="173" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif.c" bodystart="173" bodyend="220"/>
+        <references refid="struct_x_spdif___config_1acdcb872d4328715153ab3ccd5ef44e09" compoundref="xspdif_8h" startline="91">XSpdif_Config::BaseAddress</references>
+        <references refid="struct_x_spdif_1a067162378b1d3419846e343962d2ce0f" compoundref="xspdif_8h" startline="109">XSpdif::Config</references>
+        <references refid="group__spdif_1ga8f58bf3843cffb58c16ba3c37b6f1a43" compoundref="xspdif__hw_8h" startline="140">XSPDIF_CLK_16</references>
+        <references refid="group__spdif_1gacc90df3f63b69ba547aef9449439bdeb" compoundref="xspdif__hw_8h" startline="142">XSPDIF_CLK_24</references>
+        <references refid="group__spdif_1ga76f09af6af8a8a42a954d4f3c3b4ead1" compoundref="xspdif__hw_8h" startline="144">XSPDIF_CLK_32</references>
+        <references refid="group__spdif_1gab9e50bd11dea15481ab6f1c7d89083a8" compoundref="xspdif__hw_8h" startline="136">XSPDIF_CLK_4</references>
+        <references refid="group__spdif_1ga2b1a583d97411e32ac6d37a13c749d0b" compoundref="xspdif__hw_8h" startline="146">XSPDIF_CLK_48</references>
+        <references refid="group__spdif_1ga4c885709bc23885156fa806853159a42" compoundref="xspdif__hw_8h" startline="148">XSPDIF_CLK_64</references>
+        <references refid="group__spdif_1gae02f06715593696d6dd15f3a2428bfac" compoundref="xspdif__hw_8h" startline="138">XSPDIF_CLK_8</references>
+        <references refid="group__spdif_1ga69580f92443ed12502c008a1457fe1be" compoundref="xspdif__hw_8h" startline="88">XSPDIF_CLOCK_CONFIG_BITS_MASK</references>
+        <references refid="group__spdif_1gac175833095028d13a1fb8704219cb01f" compoundref="xspdif__hw_8h" startline="85">XSPDIF_CLOCK_CONFIG_BITS_SHIFT</references>
+        <references refid="group__spdif_1ga2fc47b801ec55e2dd7bcebb2bf117422" compoundref="xspdif__hw_8h" startline="53">XSPDIF_CONTROL_REGISTER_OFFSET</references>
+        <references refid="group__spdif_1ga8a5504bdf152f4699dda951a971b5ce5" compoundref="xspdif__hw_8h" startline="179">XSpdif_ReadReg</references>
+        <references refid="group__spdif_1ga315b6c9b02574277d0f5e66f6bb55888" compoundref="xspdif__hw_8h" startline="201">XSpdif_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__spdif_1gaf65b0871fbd61f85bff84b47ab5fc397" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XSpdif_GetFs</definition>
+        <argsstring>(XSpdif *InstancePtr, u32 AudClk)</argsstring>
+        <name>XSpdif_GetFs</name>
+        <param>
+          <type><ref refid="struct_x_spdif" kindref="compound">XSpdif</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>AudClk</declname>
+        </param>
+        <briefdescription>
+<para>This function calculates the Sampling Frequency (Fs) and returns it&apos;s value. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_spdif" kindref="compound">XSpdif</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>AudClk</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the audio clock frequency value in Hz.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>- Returns the sampling frequency value in Hz. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif.c" line="231" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif.c" bodystart="231" bodyend="239"/>
+        <references refid="struct_x_spdif___config_1acdcb872d4328715153ab3ccd5ef44e09" compoundref="xspdif_8h" startline="91">XSpdif_Config::BaseAddress</references>
+        <references refid="struct_x_spdif_1a067162378b1d3419846e343962d2ce0f" compoundref="xspdif_8h" startline="109">XSpdif::Config</references>
+        <references refid="group__spdif_1ga8a5504bdf152f4699dda951a971b5ce5" compoundref="xspdif__hw_8h" startline="179">XSpdif_ReadReg</references>
+        <references refid="group__spdif_1ga20f9c3bca0884af7fdfa9bf0c5f2d86f" compoundref="xspdif__hw_8h" startline="93">XSPDIF_SAMPLE_CLOCK_COUNT_MASK</references>
+        <references refid="group__spdif_1ga0dcf2448b7e5e551ec1989723967e4b9" compoundref="xspdif__hw_8h" startline="56">XSPDIF_STATUS_REGISTER_OFFSET</references>
+      </memberdef>
+      <memberdef kind="function" id="group__spdif_1ga6cc58a923df8991119d2ae9d894b5225" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XSpdif_Rx_GetChStat</definition>
+        <argsstring>(XSpdif *InstancePtr, u8 *ChStatBuf)</argsstring>
+        <name>XSpdif_Rx_GetChStat</name>
+        <param>
+          <type><ref refid="struct_x_spdif" kindref="compound">XSpdif</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>ChStatBuf</declname>
+        </param>
+        <briefdescription>
+<para>This function reads all the Channel Status registers and writes to a buffer. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_spdif" kindref="compound">XSpdif</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ChStatBuf</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to a buffer. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif.c" line="249" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif.c" bodystart="249" bodyend="263"/>
+        <references refid="struct_x_spdif___config_1acdcb872d4328715153ab3ccd5ef44e09" compoundref="xspdif_8h" startline="91">XSpdif_Config::BaseAddress</references>
+        <references refid="struct_x_spdif_1a067162378b1d3419846e343962d2ce0f" compoundref="xspdif_8h" startline="109">XSpdif::Config</references>
+        <references refid="group__spdif_1ga52d7b2b64993516fbb98d29dd8878be6" compoundref="xspdif__hw_8h" startline="59">XSPDIF_CHANNEL_STATUS_REGISTER0_OFFSET</references>
+        <references refid="group__spdif_1ga8a5504bdf152f4699dda951a971b5ce5" compoundref="xspdif__hw_8h" startline="179">XSpdif_ReadReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__spdif_1gab42041ee833dc5963d3d87f83bb05197" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XSpdif_Rx_GetChA_UserData</definition>
+        <argsstring>(XSpdif *InstancePtr, u8 *ChA_UserDataBuf)</argsstring>
+        <name>XSpdif_Rx_GetChA_UserData</name>
+        <param>
+          <type><ref refid="struct_x_spdif" kindref="compound">XSpdif</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>ChA_UserDataBuf</declname>
+        </param>
+        <briefdescription>
+<para>This function reads the Channel A user data and writes to a buffer. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the XSPDIF instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ChA_UserDataBuf</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to a buffer. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif.c" line="273" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif.c" bodystart="273" bodyend="287"/>
+        <references refid="struct_x_spdif___config_1acdcb872d4328715153ab3ccd5ef44e09" compoundref="xspdif_8h" startline="91">XSpdif_Config::BaseAddress</references>
+        <references refid="struct_x_spdif_1a067162378b1d3419846e343962d2ce0f" compoundref="xspdif_8h" startline="109">XSpdif::Config</references>
+        <references refid="group__spdif_1ga657a7152cbcaf8adee25c4dc9fb6f299" compoundref="xspdif__hw_8h" startline="62">XSPDIF_CHANNEL_A_USER_DATA_REGISTER0_OFFSET</references>
+        <references refid="group__spdif_1ga8a5504bdf152f4699dda951a971b5ce5" compoundref="xspdif__hw_8h" startline="179">XSpdif_ReadReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__spdif_1ga838302566560f7a0aeae1f154b2b615f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XSpdif_Rx_GetChB_UserData</definition>
+        <argsstring>(XSpdif *InstancePtr, u8 *ChB_UserDataBuf)</argsstring>
+        <name>XSpdif_Rx_GetChB_UserData</name>
+        <param>
+          <type><ref refid="struct_x_spdif" kindref="compound">XSpdif</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>ChB_UserDataBuf</declname>
+        </param>
+        <briefdescription>
+<para>This function reads the Channel B user data and writes to a buffer. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the XSPDIF instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ChB_UserDataBuf</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to a buffer. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif.c" line="297" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif.c" bodystart="297" bodyend="312"/>
+        <references refid="struct_x_spdif___config_1acdcb872d4328715153ab3ccd5ef44e09" compoundref="xspdif_8h" startline="91">XSpdif_Config::BaseAddress</references>
+        <references refid="struct_x_spdif_1a067162378b1d3419846e343962d2ce0f" compoundref="xspdif_8h" startline="109">XSpdif::Config</references>
+        <references refid="group__spdif_1ga1711efa0e12d7e74ddfbc21e4ffd519d" compoundref="xspdif__hw_8h" startline="65">XSPDIF_CHANNEL_B_USER_DATA_REGISTER0_OFFSET</references>
+        <references refid="group__spdif_1ga8a5504bdf152f4699dda951a971b5ce5" compoundref="xspdif__hw_8h" startline="179">XSpdif_ReadReg</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/*******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2017<sp/>-<sp/>2020<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>2022-2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment"><sp/>******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="24"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xspdif_8h" kindref="compound">xspdif.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xspdif__chsts_8h" kindref="compound">xspdif_chsts.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xspdif__hw_8h" kindref="compound">xspdif_hw.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_assert.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xstatus.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34" refid="group__spdif_1gae87580b959a0579a9af0c02345037704" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSPDIF_SOFT_RESET_REGISTER_VALUE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0X0A</highlight></codeline>
+<codeline lineno="35"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="69" refid="group__spdif_1ga0fd1a9a8dba71df82291f9d0307366a3" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__spdif_1ga0fd1a9a8dba71df82291f9d0307366a3" kindref="member">XSpdif_CfgInitialize</ref>(<ref refid="struct_x_spdif" kindref="compound">XSpdif</ref><sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_spdif___config" kindref="compound">XSpdif_Config</ref><sp/>*CfgPtr,</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR<sp/>EffectiveAddr)</highlight></codeline>
+<codeline lineno="72"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Status;</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(CfgPtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(EffectiveAddr<sp/>!=<sp/>0);</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Setup<sp/>the<sp/>instance<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_spdif_1a067162378b1d3419846e343962d2ce0f" kindref="member">Config</ref><sp/>=<sp/>*CfgPtr;</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_spdif_1a067162378b1d3419846e343962d2ce0f" kindref="member">Config</ref>.<ref refid="struct_x_spdif___config_1acdcb872d4328715153ab3ccd5ef44e09" kindref="member">BaseAddress</ref><sp/>=<sp/>EffectiveAddr;</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"></highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Run<sp/>the<sp/>self<sp/>test.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__spdif_1gab68e148095ed0fec2cccdea00c9a5169" kindref="member">XSpdif_SelfTest</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"></highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Disable<sp/>the<sp/>core<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__spdif_1ga1c7b903ef4c7052aa0f3b11350946594" kindref="member">XSpdif_Enable</ref>(InstancePtr,<sp/>FALSE);</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Set<sp/>the<sp/>flag<sp/>to<sp/>indicate<sp/>the<sp/>driver<sp/>is<sp/>ready<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_spdif_1a29ca7bc4583f440ed962a38bfae1efc8" kindref="member">IsReady</ref><sp/>=<sp/>(u32)(XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"></highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="95"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"></highlight></codeline>
+<codeline lineno="97"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="106" refid="group__spdif_1ga1c7b903ef4c7052aa0f3b11350946594" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__spdif_1ga1c7b903ef4c7052aa0f3b11350946594" kindref="member">XSpdif_Enable</ref>(<ref refid="struct_x_spdif" kindref="compound">XSpdif</ref><sp/>*InstancePtr,<sp/>u8<sp/>Enable)</highlight></codeline>
+<codeline lineno="107"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>RegValue<sp/>=<sp/><ref refid="group__spdif_1ga8a5504bdf152f4699dda951a971b5ce5" kindref="member">XSpdif_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_spdif_1a067162378b1d3419846e343962d2ce0f" kindref="member">Config</ref>.<ref refid="struct_x_spdif___config_1acdcb872d4328715153ab3ccd5ef44e09" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__spdif_1ga2fc47b801ec55e2dd7bcebb2bf117422" kindref="member">XSPDIF_CONTROL_REGISTER_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"></highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Enable)<sp/>{</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegValue<sp/>|=<sp/><ref refid="group__spdif_1ga6c809f933049ee2d66fb43f023c3bb32" kindref="member">XSPDIF_CORE_ENABLE_MASK</ref>;</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_spdif_1ad5c4744b9e4947f80e431a6ab5f13510" kindref="member">IsStarted</ref><sp/>=<sp/>(XIL_COMPONENT_IS_STARTED);</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegValue<sp/>&amp;=<sp/>~<ref refid="group__spdif_1ga6c809f933049ee2d66fb43f023c3bb32" kindref="member">XSPDIF_CORE_ENABLE_MASK</ref>;</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_spdif_1ad5c4744b9e4947f80e431a6ab5f13510" kindref="member">IsStarted</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"></highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__spdif_1ga315b6c9b02574277d0f5e66f6bb55888" kindref="member">XSpdif_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_spdif_1a067162378b1d3419846e343962d2ce0f" kindref="member">Config</ref>.<ref refid="struct_x_spdif___config_1acdcb872d4328715153ab3ccd5ef44e09" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__spdif_1ga2fc47b801ec55e2dd7bcebb2bf117422" kindref="member">XSPDIF_CONTROL_REGISTER_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegValue);</highlight></codeline>
+<codeline lineno="123"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"></highlight></codeline>
+<codeline lineno="125"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="132" refid="group__spdif_1gae803b59eab34cf53ffcfb147b367f88f" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__spdif_1gae803b59eab34cf53ffcfb147b367f88f" kindref="member">XSpdif_SoftReset</ref>(<ref refid="struct_x_spdif" kindref="compound">XSpdif</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"></highlight></codeline>
+<codeline lineno="134"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__spdif_1ga315b6c9b02574277d0f5e66f6bb55888" kindref="member">XSpdif_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_spdif_1a067162378b1d3419846e343962d2ce0f" kindref="member">Config</ref>.<ref refid="struct_x_spdif___config_1acdcb872d4328715153ab3ccd5ef44e09" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__spdif_1gafcc4d1467e4b02bb63d8ed3ca103c384" kindref="member">XSPDIF_SOFT_RESET_REGISTER_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__spdif_1gae87580b959a0579a9af0c02345037704" kindref="member">XSPDIF_SOFT_RESET_REGISTER_VALUE</ref>);</highlight></codeline>
+<codeline lineno="138"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"></highlight></codeline>
+<codeline lineno="140"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="147" refid="group__spdif_1gabe3f017617a1beda897955974c20fc9d" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__spdif_1gabe3f017617a1beda897955974c20fc9d" kindref="member">XSpdif_ResetFifo</ref>(<ref refid="struct_x_spdif" kindref="compound">XSpdif</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"></highlight></codeline>
+<codeline lineno="149"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Val;</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>RegValue<sp/>=<sp/><ref refid="group__spdif_1ga8a5504bdf152f4699dda951a971b5ce5" kindref="member">XSpdif_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_spdif_1a067162378b1d3419846e343962d2ce0f" kindref="member">Config</ref>.<ref refid="struct_x_spdif___config_1acdcb872d4328715153ab3ccd5ef44e09" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__spdif_1ga2fc47b801ec55e2dd7bcebb2bf117422" kindref="member">XSPDIF_CONTROL_REGISTER_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"></highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegValue<sp/>|=<sp/><ref refid="group__spdif_1ga6c809f933049ee2d66fb43f023c3bb32" kindref="member">XSPDIF_CORE_ENABLE_MASK</ref>;</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Val<sp/>=<sp/>(RegValue<sp/>&amp;<sp/>(~<ref refid="group__spdif_1ga6c809f933049ee2d66fb43f023c3bb32" kindref="member">XSPDIF_CORE_ENABLE_MASK</ref>));</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__spdif_1ga315b6c9b02574277d0f5e66f6bb55888" kindref="member">XSpdif_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_spdif_1a067162378b1d3419846e343962d2ce0f" kindref="member">Config</ref>.<ref refid="struct_x_spdif___config_1acdcb872d4328715153ab3ccd5ef44e09" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__spdif_1ga2fc47b801ec55e2dd7bcebb2bf117422" kindref="member">XSPDIF_CONTROL_REGISTER_OFFSET</ref>,<sp/>RegValue);</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__spdif_1ga315b6c9b02574277d0f5e66f6bb55888" kindref="member">XSpdif_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_spdif_1a067162378b1d3419846e343962d2ce0f" kindref="member">Config</ref>.<ref refid="struct_x_spdif___config_1acdcb872d4328715153ab3ccd5ef44e09" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__spdif_1ga2fc47b801ec55e2dd7bcebb2bf117422" kindref="member">XSPDIF_CONTROL_REGISTER_OFFSET</ref>,<sp/>Val);</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"></highlight></codeline>
+<codeline lineno="162"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="173" refid="group__spdif_1ga663de6a5b3129b9af53363b95ddd1c8c" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__spdif_1ga663de6a5b3129b9af53363b95ddd1c8c" kindref="member">XSpdif_SetClkConfig</ref>(<ref refid="struct_x_spdif" kindref="compound">XSpdif</ref><sp/>*InstancePtr,<sp/>u8<sp/>Clk_DivNum)</highlight></codeline>
+<codeline lineno="174"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>NumToBits;</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Check<sp/>for<sp/>Clock<sp/>Division<sp/>Value<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">switch</highlight><highlight class="normal"><sp/>(Clk_DivNum)<sp/>{</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="group__spdif_1gab9e50bd11dea15481ab6f1c7d89083a8" kindref="member">XSPDIF_CLK_4</ref><sp/>:</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>NumToBits<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="182"><highlight class="normal"></highlight></codeline>
+<codeline lineno="183"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="group__spdif_1gae02f06715593696d6dd15f3a2428bfac" kindref="member">XSPDIF_CLK_8</ref><sp/>:</highlight></codeline>
+<codeline lineno="184"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>NumToBits<sp/>=<sp/>1;</highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"></highlight></codeline>
+<codeline lineno="187"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="group__spdif_1ga8f58bf3843cffb58c16ba3c37b6f1a43" kindref="member">XSPDIF_CLK_16</ref><sp/>:</highlight></codeline>
+<codeline lineno="188"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>NumToBits<sp/>=<sp/>2;</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"></highlight></codeline>
+<codeline lineno="191"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="group__spdif_1gacc90df3f63b69ba547aef9449439bdeb" kindref="member">XSPDIF_CLK_24</ref><sp/>:</highlight></codeline>
+<codeline lineno="192"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>NumToBits<sp/>=<sp/>3;</highlight></codeline>
+<codeline lineno="193"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="194"><highlight class="normal"></highlight></codeline>
+<codeline lineno="195"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="group__spdif_1ga76f09af6af8a8a42a954d4f3c3b4ead1" kindref="member">XSPDIF_CLK_32</ref><sp/>:</highlight></codeline>
+<codeline lineno="196"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>NumToBits<sp/>=<sp/>4;</highlight></codeline>
+<codeline lineno="197"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="198"><highlight class="normal"></highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="group__spdif_1ga2b1a583d97411e32ac6d37a13c749d0b" kindref="member">XSPDIF_CLK_48</ref><sp/>:</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>NumToBits<sp/>=<sp/>5;</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="202"><highlight class="normal"></highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="group__spdif_1ga4c885709bc23885156fa806853159a42" kindref="member">XSPDIF_CLK_64</ref><sp/>:</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>NumToBits<sp/>=<sp/>6;</highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="206"><highlight class="normal"></highlight></codeline>
+<codeline lineno="207"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal"><sp/>:</highlight></codeline>
+<codeline lineno="208"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>NumToBits<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="209"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Clk_DivNum<sp/>value<sp/>can<sp/>be<sp/>only<sp/>4,8,16,24,32,48,or<sp/>64.\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="210"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="211"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="212"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>RegValue<sp/>=<sp/><ref refid="group__spdif_1ga8a5504bdf152f4699dda951a971b5ce5" kindref="member">XSpdif_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_spdif_1a067162378b1d3419846e343962d2ce0f" kindref="member">Config</ref>.<ref refid="struct_x_spdif___config_1acdcb872d4328715153ab3ccd5ef44e09" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="213"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__spdif_1ga2fc47b801ec55e2dd7bcebb2bf117422" kindref="member">XSPDIF_CONTROL_REGISTER_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="214"><highlight class="normal"></highlight></codeline>
+<codeline lineno="215"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegValue<sp/>&amp;=<sp/>~<ref refid="group__spdif_1ga69580f92443ed12502c008a1457fe1be" kindref="member">XSPDIF_CLOCK_CONFIG_BITS_MASK</ref>;</highlight></codeline>
+<codeline lineno="216"><highlight class="normal"></highlight></codeline>
+<codeline lineno="217"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegValue<sp/>|=<sp/>(NumToBits<sp/>&lt;&lt;<sp/><ref refid="group__spdif_1gac175833095028d13a1fb8704219cb01f" kindref="member">XSPDIF_CLOCK_CONFIG_BITS_SHIFT</ref>);</highlight></codeline>
+<codeline lineno="218"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__spdif_1ga315b6c9b02574277d0f5e66f6bb55888" kindref="member">XSpdif_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_spdif_1a067162378b1d3419846e343962d2ce0f" kindref="member">Config</ref>.<ref refid="struct_x_spdif___config_1acdcb872d4328715153ab3ccd5ef44e09" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="219"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__spdif_1ga2fc47b801ec55e2dd7bcebb2bf117422" kindref="member">XSPDIF_CONTROL_REGISTER_OFFSET</ref>,<sp/>RegValue);</highlight></codeline>
+<codeline lineno="220"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="221"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="231" refid="group__spdif_1gaf65b0871fbd61f85bff84b47ab5fc397" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__spdif_1gaf65b0871fbd61f85bff84b47ab5fc397" kindref="member">XSpdif_GetFs</ref>(<ref refid="struct_x_spdif" kindref="compound">XSpdif</ref><sp/>*InstancePtr,<sp/>u32<sp/>AudClk)</highlight></codeline>
+<codeline lineno="232"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="233"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Fs;</highlight></codeline>
+<codeline lineno="234"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>RegValue<sp/>=<sp/><ref refid="group__spdif_1ga8a5504bdf152f4699dda951a971b5ce5" kindref="member">XSpdif_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_spdif_1a067162378b1d3419846e343962d2ce0f" kindref="member">Config</ref>.<ref refid="struct_x_spdif___config_1acdcb872d4328715153ab3ccd5ef44e09" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="235"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__spdif_1ga0dcf2448b7e5e551ec1989723967e4b9" kindref="member">XSPDIF_STATUS_REGISTER_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="236"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegValue<sp/>&amp;=<sp/><ref refid="group__spdif_1ga20f9c3bca0884af7fdfa9bf0c5f2d86f" kindref="member">XSPDIF_SAMPLE_CLOCK_COUNT_MASK</ref>;</highlight></codeline>
+<codeline lineno="237"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Fs<sp/>=<sp/>AudClk/(RegValue*64);</highlight></codeline>
+<codeline lineno="238"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Fs;</highlight></codeline>
+<codeline lineno="239"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="240"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="249" refid="group__spdif_1ga6cc58a923df8991119d2ae9d894b5225" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__spdif_1ga6cc58a923df8991119d2ae9d894b5225" kindref="member">XSpdif_Rx_GetChStat</ref>(<ref refid="struct_x_spdif" kindref="compound">XSpdif</ref><sp/>*InstancePtr,<sp/>u8<sp/>*ChStatBuf)</highlight></codeline>
+<codeline lineno="250"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="251"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>RegOffset<sp/>=<sp/><ref refid="group__spdif_1ga52d7b2b64993516fbb98d29dd8878be6" kindref="member">XSPDIF_CHANNEL_STATUS_REGISTER0_OFFSET</ref>;</highlight></codeline>
+<codeline lineno="252"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>*pBuf32<sp/>=<sp/>(u32<sp/>*)<sp/>ChStatBuf;</highlight></codeline>
+<codeline lineno="253"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>NumBytes<sp/>=<sp/>24;</highlight></codeline>
+<codeline lineno="254"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="255"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(ChStatBuf<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="256"><highlight class="normal"></highlight></codeline>
+<codeline lineno="257"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>NumBytes;<sp/>i<sp/>+=<sp/>4)<sp/>{</highlight></codeline>
+<codeline lineno="258"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*pBuf32<sp/>=<sp/><ref refid="group__spdif_1ga8a5504bdf152f4699dda951a971b5ce5" kindref="member">XSpdif_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_spdif_1a067162378b1d3419846e343962d2ce0f" kindref="member">Config</ref>.<ref refid="struct_x_spdif___config_1acdcb872d4328715153ab3ccd5ef44e09" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="259"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegOffset);</highlight></codeline>
+<codeline lineno="260"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>pBuf32++;</highlight></codeline>
+<codeline lineno="261"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegOffset<sp/>+=<sp/>4;</highlight></codeline>
+<codeline lineno="262"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="263"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="264"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="273" refid="group__spdif_1gab42041ee833dc5963d3d87f83bb05197" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__spdif_1gab42041ee833dc5963d3d87f83bb05197" kindref="member">XSpdif_Rx_GetChA_UserData</ref>(<ref refid="struct_x_spdif" kindref="compound">XSpdif</ref><sp/>*InstancePtr,<sp/>u8<sp/>*ChA_UserDataBuf)</highlight></codeline>
+<codeline lineno="274"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="275"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>RegOffset<sp/>=<sp/><ref refid="group__spdif_1ga657a7152cbcaf8adee25c4dc9fb6f299" kindref="member">XSPDIF_CHANNEL_A_USER_DATA_REGISTER0_OFFSET</ref>;</highlight></codeline>
+<codeline lineno="276"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>*pBuf32<sp/>=<sp/>(u32<sp/>*)<sp/>ChA_UserDataBuf;</highlight></codeline>
+<codeline lineno="277"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>NumBytes<sp/>=<sp/>24;</highlight></codeline>
+<codeline lineno="278"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="279"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(ChA_UserDataBuf<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="280"><highlight class="normal"></highlight></codeline>
+<codeline lineno="281"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>NumBytes;<sp/>i<sp/>+=<sp/>4)<sp/>{</highlight></codeline>
+<codeline lineno="282"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*pBuf32<sp/>=<sp/><ref refid="group__spdif_1ga8a5504bdf152f4699dda951a971b5ce5" kindref="member">XSpdif_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_spdif_1a067162378b1d3419846e343962d2ce0f" kindref="member">Config</ref>.<ref refid="struct_x_spdif___config_1acdcb872d4328715153ab3ccd5ef44e09" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="283"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegOffset);</highlight></codeline>
+<codeline lineno="284"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>pBuf32++;</highlight></codeline>
+<codeline lineno="285"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegOffset<sp/>+=<sp/>4;</highlight></codeline>
+<codeline lineno="286"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="287"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="288"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="297" refid="group__spdif_1ga838302566560f7a0aeae1f154b2b615f" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__spdif_1ga838302566560f7a0aeae1f154b2b615f" kindref="member">XSpdif_Rx_GetChB_UserData</ref>(<ref refid="struct_x_spdif" kindref="compound">XSpdif</ref><sp/>*InstancePtr,<sp/>u8<sp/>*ChB_UserDataBuf)</highlight></codeline>
+<codeline lineno="298"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="299"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>RegOffset<sp/>=<sp/><ref refid="group__spdif_1ga1711efa0e12d7e74ddfbc21e4ffd519d" kindref="member">XSPDIF_CHANNEL_B_USER_DATA_REGISTER0_OFFSET</ref>;</highlight></codeline>
+<codeline lineno="300"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>*pBuf32<sp/>=<sp/>(u32<sp/>*)<sp/>ChB_UserDataBuf;</highlight></codeline>
+<codeline lineno="301"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>NumBytes<sp/>=<sp/>24;</highlight></codeline>
+<codeline lineno="302"><highlight class="normal"></highlight></codeline>
+<codeline lineno="303"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="304"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(ChB_UserDataBuf<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="305"><highlight class="normal"></highlight></codeline>
+<codeline lineno="306"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>NumBytes;<sp/>i<sp/>+=<sp/>4)<sp/>{</highlight></codeline>
+<codeline lineno="307"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*pBuf32<sp/>=<sp/><ref refid="group__spdif_1ga8a5504bdf152f4699dda951a971b5ce5" kindref="member">XSpdif_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_spdif_1a067162378b1d3419846e343962d2ce0f" kindref="member">Config</ref>.<ref refid="struct_x_spdif___config_1acdcb872d4328715153ab3ccd5ef44e09" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="308"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegOffset);</highlight></codeline>
+<codeline lineno="309"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>pBuf32++;</highlight></codeline>
+<codeline lineno="310"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegOffset<sp/>+=<sp/>4;</highlight></codeline>
+<codeline lineno="311"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="312"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif.c"/>
+  </compounddef>
+</doxygen>

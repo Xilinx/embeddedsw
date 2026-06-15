@@ -1,0 +1,130 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_z_dma___transfer" kind="struct" prot="public">
+    <compoundname>XZDma_Transfer</compoundname>
+    <includes local="no">xzdma.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_z_dma___transfer_1ab626fca02248c80daf58098a181ca3ac" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XZDma_Transfer::SrcAddr</definition>
+        <argsstring></argsstring>
+        <name>SrcAddr</name>
+        <briefdescription>
+<para>Source address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma.h" line="361" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma.h" bodystart="361" bodyend="-1"/>
+        <referencedby refid="xzdma__linear__example_8c_1a910e85a529128bf68b6ebf34ff403edb" compoundref="xzdma__linear__example_8c" startline="179" endline="369">XZDma_LinearExample</referencedby>
+        <referencedby refid="xzdma__linkedlist__example_8c_1a8eaf63cf61558e3f6df72461882a5f38" compoundref="xzdma__linkedlist__example_8c" startline="171" endline="336">XZDma_LinkedListExample</referencedby>
+        <referencedby refid="xzdma__simple__example_8c_1aebcaa07fcc29d54aad629d7735a9cb07" compoundref="xzdma__simple__example_8c" startline="201" endline="373">XZDma_SimpleExample</referencedby>
+        <referencedby refid="xzdma__readonlymode__example_8c_1af71ec0de7cd3c5ec4b6ec49ee901c62f" compoundref="xzdma__readonlymode__example_8c" startline="147" endline="268">XZDma_SimpleReadOnlyExample</referencedby>
+        <referencedby refid="xzdma__writeonlymode__example_8c_1aa41225599b937564211d0a7c122ebfd2" compoundref="xzdma__writeonlymode__example_8c" startline="161" endline="324">XZDma_WriteOnlyExample</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_z_dma___transfer_1a58c7a594323c25396fcf6e234dc6c11a" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XZDma_Transfer::DstAddr</definition>
+        <argsstring></argsstring>
+        <name>DstAddr</name>
+        <briefdescription>
+<para>Destination Address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma.h" line="362" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma.h" bodystart="362" bodyend="-1"/>
+        <referencedby refid="xzdma__linear__example_8c_1a910e85a529128bf68b6ebf34ff403edb" compoundref="xzdma__linear__example_8c" startline="179" endline="369">XZDma_LinearExample</referencedby>
+        <referencedby refid="xzdma__linkedlist__example_8c_1a8eaf63cf61558e3f6df72461882a5f38" compoundref="xzdma__linkedlist__example_8c" startline="171" endline="336">XZDma_LinkedListExample</referencedby>
+        <referencedby refid="xzdma__simple__example_8c_1aebcaa07fcc29d54aad629d7735a9cb07" compoundref="xzdma__simple__example_8c" startline="201" endline="373">XZDma_SimpleExample</referencedby>
+        <referencedby refid="xzdma__readonlymode__example_8c_1af71ec0de7cd3c5ec4b6ec49ee901c62f" compoundref="xzdma__readonlymode__example_8c" startline="147" endline="268">XZDma_SimpleReadOnlyExample</referencedby>
+        <referencedby refid="xzdma__writeonlymode__example_8c_1aa41225599b937564211d0a7c122ebfd2" compoundref="xzdma__writeonlymode__example_8c" startline="161" endline="324">XZDma_WriteOnlyExample</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_z_dma___transfer_1a7303e49ce16dc93c4dc80cf1502e7c06" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XZDma_Transfer::Size</definition>
+        <argsstring></argsstring>
+        <name>Size</name>
+        <briefdescription>
+<para>Size of the data to be transferred. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma.h" line="363" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma.h" bodystart="363" bodyend="-1"/>
+        <referencedby refid="xzdma__linear__example_8c_1a910e85a529128bf68b6ebf34ff403edb" compoundref="xzdma__linear__example_8c" startline="179" endline="369">XZDma_LinearExample</referencedby>
+        <referencedby refid="xzdma__linkedlist__example_8c_1a8eaf63cf61558e3f6df72461882a5f38" compoundref="xzdma__linkedlist__example_8c" startline="171" endline="336">XZDma_LinkedListExample</referencedby>
+        <referencedby refid="xzdma__simple__example_8c_1aebcaa07fcc29d54aad629d7735a9cb07" compoundref="xzdma__simple__example_8c" startline="201" endline="373">XZDma_SimpleExample</referencedby>
+        <referencedby refid="xzdma__readonlymode__example_8c_1af71ec0de7cd3c5ec4b6ec49ee901c62f" compoundref="xzdma__readonlymode__example_8c" startline="147" endline="268">XZDma_SimpleReadOnlyExample</referencedby>
+        <referencedby refid="xzdma__writeonlymode__example_8c_1aa41225599b937564211d0a7c122ebfd2" compoundref="xzdma__writeonlymode__example_8c" startline="161" endline="324">XZDma_WriteOnlyExample</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_z_dma___transfer_1a7ccda9fdafdc8f2a411787b440ee6e5b" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XZDma_Transfer::SrcCoherent</definition>
+        <argsstring></argsstring>
+        <name>SrcCoherent</name>
+        <briefdescription>
+<para>Source coherent. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma.h" line="364" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma.h" bodystart="364" bodyend="-1"/>
+        <referencedby refid="xzdma__linear__example_8c_1a910e85a529128bf68b6ebf34ff403edb" compoundref="xzdma__linear__example_8c" startline="179" endline="369">XZDma_LinearExample</referencedby>
+        <referencedby refid="xzdma__linkedlist__example_8c_1a8eaf63cf61558e3f6df72461882a5f38" compoundref="xzdma__linkedlist__example_8c" startline="171" endline="336">XZDma_LinkedListExample</referencedby>
+        <referencedby refid="xzdma__simple__example_8c_1aebcaa07fcc29d54aad629d7735a9cb07" compoundref="xzdma__simple__example_8c" startline="201" endline="373">XZDma_SimpleExample</referencedby>
+        <referencedby refid="xzdma__readonlymode__example_8c_1af71ec0de7cd3c5ec4b6ec49ee901c62f" compoundref="xzdma__readonlymode__example_8c" startline="147" endline="268">XZDma_SimpleReadOnlyExample</referencedby>
+        <referencedby refid="xzdma__writeonlymode__example_8c_1aa41225599b937564211d0a7c122ebfd2" compoundref="xzdma__writeonlymode__example_8c" startline="161" endline="324">XZDma_WriteOnlyExample</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_z_dma___transfer_1aaf0d133df3120caf3c40e6dc7d7685fb" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XZDma_Transfer::DstCoherent</definition>
+        <argsstring></argsstring>
+        <name>DstCoherent</name>
+        <briefdescription>
+<para>Destination coherent. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma.h" line="365" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma.h" bodystart="365" bodyend="-1"/>
+        <referencedby refid="xzdma__linear__example_8c_1a910e85a529128bf68b6ebf34ff403edb" compoundref="xzdma__linear__example_8c" startline="179" endline="369">XZDma_LinearExample</referencedby>
+        <referencedby refid="xzdma__linkedlist__example_8c_1a8eaf63cf61558e3f6df72461882a5f38" compoundref="xzdma__linkedlist__example_8c" startline="171" endline="336">XZDma_LinkedListExample</referencedby>
+        <referencedby refid="xzdma__simple__example_8c_1aebcaa07fcc29d54aad629d7735a9cb07" compoundref="xzdma__simple__example_8c" startline="201" endline="373">XZDma_SimpleExample</referencedby>
+        <referencedby refid="xzdma__readonlymode__example_8c_1af71ec0de7cd3c5ec4b6ec49ee901c62f" compoundref="xzdma__readonlymode__example_8c" startline="147" endline="268">XZDma_SimpleReadOnlyExample</referencedby>
+        <referencedby refid="xzdma__writeonlymode__example_8c_1aa41225599b937564211d0a7c122ebfd2" compoundref="xzdma__writeonlymode__example_8c" startline="161" endline="324">XZDma_WriteOnlyExample</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_z_dma___transfer_1a63c6d6be1dec3e2b2520c96a3f5be3d6" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XZDma_Transfer::Pause</definition>
+        <argsstring></argsstring>
+        <name>Pause</name>
+        <briefdescription>
+<para>Will pause data transmission after this transfer only for SG mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma.h" line="366" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma.h" bodystart="366" bodyend="-1"/>
+        <referencedby refid="xzdma__linear__example_8c_1a910e85a529128bf68b6ebf34ff403edb" compoundref="xzdma__linear__example_8c" startline="179" endline="369">XZDma_LinearExample</referencedby>
+        <referencedby refid="xzdma__linkedlist__example_8c_1a8eaf63cf61558e3f6df72461882a5f38" compoundref="xzdma__linkedlist__example_8c" startline="171" endline="336">XZDma_LinkedListExample</referencedby>
+        <referencedby refid="xzdma__simple__example_8c_1aebcaa07fcc29d54aad629d7735a9cb07" compoundref="xzdma__simple__example_8c" startline="201" endline="373">XZDma_SimpleExample</referencedby>
+        <referencedby refid="xzdma__readonlymode__example_8c_1af71ec0de7cd3c5ec4b6ec49ee901c62f" compoundref="xzdma__readonlymode__example_8c" startline="147" endline="268">XZDma_SimpleReadOnlyExample</referencedby>
+        <referencedby refid="xzdma__writeonlymode__example_8c_1aa41225599b937564211d0a7c122ebfd2" compoundref="xzdma__writeonlymode__example_8c" startline="161" endline="324">XZDma_WriteOnlyExample</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef contains the fields for transfer of data. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma.h" line="360" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma.h" bodystart="360" bodyend="368"/>
+    <listofallmembers>
+      <member refid="struct_x_z_dma___transfer_1a58c7a594323c25396fcf6e234dc6c11a" prot="public" virt="non-virtual"><scope>XZDma_Transfer</scope><name>DstAddr</name></member>
+      <member refid="struct_x_z_dma___transfer_1aaf0d133df3120caf3c40e6dc7d7685fb" prot="public" virt="non-virtual"><scope>XZDma_Transfer</scope><name>DstCoherent</name></member>
+      <member refid="struct_x_z_dma___transfer_1a63c6d6be1dec3e2b2520c96a3f5be3d6" prot="public" virt="non-virtual"><scope>XZDma_Transfer</scope><name>Pause</name></member>
+      <member refid="struct_x_z_dma___transfer_1a7303e49ce16dc93c4dc80cf1502e7c06" prot="public" virt="non-virtual"><scope>XZDma_Transfer</scope><name>Size</name></member>
+      <member refid="struct_x_z_dma___transfer_1ab626fca02248c80daf58098a181ca3ac" prot="public" virt="non-virtual"><scope>XZDma_Transfer</scope><name>SrcAddr</name></member>
+      <member refid="struct_x_z_dma___transfer_1a7ccda9fdafdc8f2a411787b440ee6e5b" prot="public" virt="non-virtual"><scope>XZDma_Transfer</scope><name>SrcCoherent</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

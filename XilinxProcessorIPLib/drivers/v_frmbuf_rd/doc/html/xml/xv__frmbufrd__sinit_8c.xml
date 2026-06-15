@@ -1,0 +1,227 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xv__frmbufrd__sinit_8c" kind="file">
+    <compoundname>xv_frmbufrd_sinit.c</compoundname>
+    <includes local="yes">xstatus.h</includes>
+    <includes refid="xv__frmbufrd_8h" local="yes">xv_frmbufrd.h</includes>
+    <incdepgraph>
+      <node id="109">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="110">
+        <label>xil_io.h</label>
+      </node>
+      <node id="105">
+        <label>xv_frmbufrd_sinit.c</label>
+        <link refid="xv_frmbufrd_sinit.c"/>
+        <childnode refid="106" relation="include">
+        </childnode>
+        <childnode refid="107" relation="include">
+        </childnode>
+      </node>
+      <node id="106">
+        <label>xstatus.h</label>
+      </node>
+      <node id="111">
+        <label>xv_frmbufrd_hw.h</label>
+        <link refid="xv__frmbufrd__hw_8h"/>
+      </node>
+      <node id="107">
+        <label>xv_frmbufrd.h</label>
+        <link refid="xv__frmbufrd_8h"/>
+        <childnode refid="108" relation="include">
+        </childnode>
+        <childnode refid="109" relation="include">
+        </childnode>
+        <childnode refid="106" relation="include">
+        </childnode>
+        <childnode refid="110" relation="include">
+        </childnode>
+        <childnode refid="111" relation="include">
+        </childnode>
+      </node>
+      <node id="108">
+        <label>xil_types.h</label>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="xv__frmbufrd__sinit_8c_1ac7a143e20d81293f8dbfd3badffa2a9e" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_v__frmbufrd___config" kindref="compound">XV_frmbufrd_Config</ref></type>
+        <definition>XV_frmbufrd_Config XV_frmbufrd_ConfigTable[]</definition>
+        <argsstring>[]</argsstring>
+        <name>XV_frmbufrd_ConfigTable</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd_sinit.c" line="21" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd_g.c" bodystart="25" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xv__frmbufrd__sinit_8c_1a0983221284d2f9d0c561b983667df513" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="struct_x_v__frmbufrd___config" kindref="compound">XV_frmbufrd_Config</ref> *</type>
+        <definition>XV_frmbufrd_Config* XV_frmbufrd_LookupConfig</definition>
+        <argsstring>(UINTPTR BaseAddress)</argsstring>
+        <name>XV_frmbufrd_LookupConfig</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <briefdescription>
+<para>Looks up the configuration for a frame buffer reader instance based on the given base address. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function searches the XV_frmbufrd_ConfigTable for an entry whose BaseAddress matches the specified BaseAddress. If BaseAddress is zero (0), the function returns the first entry in the table. If a matching entry is found, a pointer to its configuration structure is returned. If no matching entry is found, NULL is returned.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The base address of the device to look up.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>A pointer to the configuration structure if found, or NULL otherwise. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd_sinit.c" line="92" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd_sinit.c" bodystart="92" bodyend="106"/>
+        <references refid="struct_x_v__frmbufrd___config_1aa366cec21bbbce04854f5e5c105d7203" compoundref="xv__frmbufrd_8h" startline="54">XV_frmbufrd_Config::Name</references>
+        <referencedby refid="xv__frmbufrd__sinit_8c_1a5874eb0bc848f5dd08cd408e0115d8f7" compoundref="xv__frmbufrd__sinit_8c" startline="123" endline="137">XV_frmbufrd_Initialize</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xv__frmbufrd__sinit_8c_1a5874eb0bc848f5dd08cd408e0115d8f7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XV_frmbufrd_Initialize</definition>
+        <argsstring>(XV_frmbufrd *InstancePtr, UINTPTR BaseAddress)</argsstring>
+        <name>XV_frmbufrd_Initialize</name>
+        <param>
+          <type><ref refid="struct_x_v__frmbufrd" kindref="compound">XV_frmbufrd</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <briefdescription>
+<para>Initializes the frame buffer read core instance. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function looks up the configuration for the frame buffer read core using the provided base address, and initializes the core instance with the found configuration. If the configuration is not found, the function sets the instance as not ready and returns an error code.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_v__frmbufrd" kindref="compound">XV_frmbufrd</ref> instance to be initialized. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Base address of the device to initialize.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if initialization was successful.</para></listitem><listitem><para>XST_DEVICE_NOT_FOUND if the configuration could not be found. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd_sinit.c" line="123" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd_sinit.c" bodystart="123" bodyend="137"/>
+        <references refid="struct_x_v__frmbufrd___config_1a6229f3b0866dac75bd3f425693f886f4" compoundref="xv__frmbufrd_8h" startline="56">XV_frmbufrd_Config::BaseAddress</references>
+        <references refid="struct_x_v__frmbufrd_1a4eaed8d81587971809682b514a80455a" compoundref="xv__frmbufrd_8h" startline="126">XV_frmbufrd::IsReady</references>
+        <references refid="xv__frmbufrd_8c_1ae27c0ffab1b0eba3b0227dfaaf98b329" compoundref="xv__frmbufrd_8c" startline="29" endline="48">XV_frmbufrd_CfgInitialize</references>
+        <references refid="xv__frmbufrd_8h_1a0983221284d2f9d0c561b983667df513" compoundref="xv__frmbufrd__sinit_8c" startline="92" endline="106">XV_frmbufrd_LookupConfig</references>
+        <referencedby refid="group__v__frmbuf__rd_1gadc1c4c534e72cdcf6a19cf837da61470" compoundref="xv__frmbufrd__l2_8c" startline="248" endline="267">XVFrmbufRd_Initialize</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">//<sp/>==============================================================</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Copyright<sp/>(c)<sp/>1986<sp/>-<sp/>2021<sp/>Xilinx<sp/>Inc.<sp/>All<sp/>rights<sp/>reserved.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Copyright<sp/>2022-2025<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="comment">//<sp/>SPDX-License-Identifier:<sp/>MIT</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="comment">//<sp/>==============================================================</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="preprocessor">#ifndef<sp/>__linux__</highlight></codeline>
+<codeline lineno="14"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xstatus.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="17"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xparameters.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="19"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xv__frmbufrd_8h" kindref="compound">xv_frmbufrd.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/><ref refid="struct_x_v__frmbufrd___config" kindref="compound">XV_frmbufrd_Config</ref><sp/>XV_frmbufrd_ConfigTable[];</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="24"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><ref refid="struct_x_v__frmbufrd___config" kindref="compound">XV_frmbufrd_Config</ref><sp/>*<ref refid="xv__frmbufrd_8h_1a0983221284d2f9d0c561b983667df513" kindref="member">XV_frmbufrd_LookupConfig</ref>(u16<sp/>DeviceId)<sp/>{</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_x_v__frmbufrd___config" kindref="compound">XV_frmbufrd_Config</ref><sp/>*ConfigPtr<sp/>=<sp/>NULL;</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Index;</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(Index<sp/>=<sp/>0;<sp/>Index<sp/>&lt;<sp/>XPAR_XV_FRMBUFRD_NUM_INSTANCES;<sp/>Index++)<sp/>{</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(XV_frmbufrd_ConfigTable[Index].DeviceId<sp/>==<sp/>DeviceId)<sp/>{</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ConfigPtr<sp/>=<sp/>&amp;XV_frmbufrd_ConfigTable[Index];</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>ConfigPtr;</highlight></codeline>
+<codeline lineno="48"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xv__frmbufrd_8h_1a5874eb0bc848f5dd08cd408e0115d8f7" kindref="member">XV_frmbufrd_Initialize</ref>(<ref refid="struct_x_v__frmbufrd" kindref="compound">XV_frmbufrd</ref><sp/>*InstancePtr,<sp/>u16<sp/>DeviceId)<sp/>{</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_x_v__frmbufrd___config" kindref="compound">XV_frmbufrd_Config</ref><sp/>*ConfigPtr;</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/>ConfigPtr<sp/>=<sp/><ref refid="xv__frmbufrd_8h_1a0983221284d2f9d0c561b983667df513" kindref="member">XV_frmbufrd_LookupConfig</ref>(DeviceId);</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(ConfigPtr<sp/>==<sp/>NULL)<sp/>{</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_v__frmbufrd_1a4eaed8d81587971809682b514a80455a" kindref="member">IsReady</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(XST_DEVICE_NOT_FOUND);</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="xv__frmbufrd_8c_1ae27c0ffab1b0eba3b0227dfaaf98b329" kindref="member">XV_frmbufrd_CfgInitialize</ref>(InstancePtr,</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ConfigPtr,</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ConfigPtr-&gt;<ref refid="struct_x_v__frmbufrd___config_1a6229f3b0866dac75bd3f425693f886f4" kindref="member">BaseAddress</ref>);</highlight></codeline>
+<codeline lineno="78"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="80"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="92" refid="xv__frmbufrd__sinit_8c_1a0983221284d2f9d0c561b983667df513" refkind="member"><highlight class="normal"><ref refid="struct_x_v__frmbufrd___config" kindref="compound">XV_frmbufrd_Config</ref><sp/>*<ref refid="xv__frmbufrd_8h_1a0983221284d2f9d0c561b983667df513" kindref="member">XV_frmbufrd_LookupConfig</ref>(UINTPTR<sp/>BaseAddress)<sp/>{</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_x_v__frmbufrd___config" kindref="compound">XV_frmbufrd_Config</ref><sp/>*ConfigPtr<sp/>=<sp/>NULL;</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"></highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Index;</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"></highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(Index<sp/>=<sp/>0;<sp/>XV_frmbufrd_ConfigTable[Index].<ref refid="struct_x_v__frmbufrd___config_1aa366cec21bbbce04854f5e5c105d7203" kindref="member">Name</ref><sp/>!=<sp/>NULL;<sp/>Index++)<sp/>{</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((XV_frmbufrd_ConfigTable[Index].BaseAddress<sp/>==<sp/>BaseAddress)<sp/>||</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>!BaseAddress)<sp/>{</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ConfigPtr<sp/>=<sp/>&amp;XV_frmbufrd_ConfigTable[Index];</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"></highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>ConfigPtr;</highlight></codeline>
+<codeline lineno="106"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"></highlight></codeline>
+<codeline lineno="123" refid="xv__frmbufrd__sinit_8c_1a5874eb0bc848f5dd08cd408e0115d8f7" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xv__frmbufrd_8h_1a5874eb0bc848f5dd08cd408e0115d8f7" kindref="member">XV_frmbufrd_Initialize</ref>(<ref refid="struct_x_v__frmbufrd" kindref="compound">XV_frmbufrd</ref><sp/>*InstancePtr,<sp/>UINTPTR<sp/>BaseAddress)<sp/>{</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_x_v__frmbufrd___config" kindref="compound">XV_frmbufrd_Config</ref><sp/>*ConfigPtr;</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"></highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"></highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/>ConfigPtr<sp/>=<sp/><ref refid="xv__frmbufrd_8h_1a0983221284d2f9d0c561b983667df513" kindref="member">XV_frmbufrd_LookupConfig</ref>(BaseAddress);</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(ConfigPtr<sp/>==<sp/>NULL)<sp/>{</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_v__frmbufrd_1a4eaed8d81587971809682b514a80455a" kindref="member">IsReady</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(XST_DEVICE_NOT_FOUND);</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"></highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="xv__frmbufrd_8c_1ae27c0ffab1b0eba3b0227dfaaf98b329" kindref="member">XV_frmbufrd_CfgInitialize</ref>(InstancePtr,</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ConfigPtr,</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ConfigPtr-&gt;<ref refid="struct_x_v__frmbufrd___config_1a6229f3b0866dac75bd3f425693f886f4" kindref="member">BaseAddress</ref>);</highlight></codeline>
+<codeline lineno="137"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="139"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd_sinit.c"/>
+  </compounddef>
+</doxygen>

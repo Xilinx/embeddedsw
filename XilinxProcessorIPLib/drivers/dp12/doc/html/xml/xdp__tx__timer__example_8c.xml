@@ -1,0 +1,338 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xdp__tx__timer__example_8c" kind="file">
+    <compoundname>xdp_tx_timer_example.c</compoundname>
+    <includes refid="xdp__tx__example__common_8h" local="yes">xdp_tx_example_common.h</includes>
+    <includes local="yes">xtmrctr.h</includes>
+    <includes local="yes">xil_printf.h</includes>
+    <incdepgraph>
+      <node id="247">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="250">
+        <label>xil_io.h</label>
+      </node>
+      <node id="249">
+        <label>xdp_hw.h</label>
+        <link refid="xdp__hw_8h"/>
+        <childnode refid="250" relation="include">
+        </childnode>
+        <childnode refid="246" relation="include">
+        </childnode>
+      </node>
+      <node id="254">
+        <label>xtmrctr.h</label>
+      </node>
+      <node id="251">
+        <label>xstatus.h</label>
+      </node>
+      <node id="252">
+        <label>xvidc.h</label>
+      </node>
+      <node id="245">
+        <label>xdp.h</label>
+        <link refid="xdp_8h"/>
+        <childnode refid="246" relation="include">
+        </childnode>
+        <childnode refid="247" relation="include">
+        </childnode>
+        <childnode refid="248" relation="include">
+        </childnode>
+        <childnode refid="249" relation="include">
+        </childnode>
+        <childnode refid="251" relation="include">
+        </childnode>
+        <childnode refid="252" relation="include">
+        </childnode>
+      </node>
+      <node id="248">
+        <label>xil_types.h</label>
+      </node>
+      <node id="246">
+        <label>xparameters.h</label>
+      </node>
+      <node id="253">
+        <label>xil_printf.h</label>
+      </node>
+      <node id="243">
+        <label>xdp_tx_timer_example.c</label>
+        <link refid="xdp_tx_timer_example.c"/>
+        <childnode refid="244" relation="include">
+        </childnode>
+        <childnode refid="254" relation="include">
+        </childnode>
+        <childnode refid="253" relation="include">
+        </childnode>
+      </node>
+      <node id="244">
+        <label>xdp_tx_example_common.h</label>
+        <link refid="xdp__tx__example__common_8h"/>
+        <childnode refid="245" relation="include">
+        </childnode>
+        <childnode refid="253" relation="include">
+        </childnode>
+        <childnode refid="246" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="xdp__tx__timer__example_8c_1af8a158e87cd80ec49fdfad0ec2c8b302" prot="public" static="no" mutable="no">
+        <type>XTmrCtr</type>
+        <definition>XTmrCtr TimerCounterInst</definition>
+        <argsstring></argsstring>
+        <name>TimerCounterInst</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/examples/xdp_tx_timer_example.c" line="57" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/examples/xdp_tx_timer_example.c" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xdp__tx__timer__example_8c_1a9a7742f5011d10d33ee87f85ca43ec47" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 Dptx_TimerExample</definition>
+        <argsstring>(XDp *InstancePtr, u16 DeviceId, XTmrCtr *TimerCounterPtr, XDp_TimerHandler UserSleepFunc)</argsstring>
+        <name>Dptx_TimerExample</name>
+        <param>
+          <type><ref refid="struct_x_dp" kindref="compound">XDp</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u16</type>
+          <declname>DeviceId</declname>
+        </param>
+        <param>
+          <type>XTmrCtr *</type>
+          <declname>TimerCounterPtr</declname>
+        </param>
+        <param>
+          <type><ref refid="group__dp_1ga0ca611069a383f672c9d2fe3574ffd4f" kindref="member">XDp_TimerHandler</ref></type>
+          <declname>UserSleepFunc</declname>
+        </param>
+        <briefdescription>
+<para>The main entry point for the timer example using the <ref refid="struct_x_dp" kindref="compound">XDp</ref> driver. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function will set up the system and the custom sleep handler. If this is successful, link training will commence and a video stream will start being sent over the main link.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dp" kindref="compound">XDp</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DeviceId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the unique device ID of the DisplayPort TX core instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>TimerCounterPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the timer instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>UserSleepFunc</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the custom handler for sleep.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if the system was set up correctly and link training was successful.</para></listitem><listitem><para>XST_FAILURE otherwise.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/examples/xdp_tx_timer_example.c" line="51" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/examples/xdp_tx_timer_example.c" bodystart="111" bodyend="148"/>
+        <references refid="xdp__tx__example__common_8c_1aa048b03b5dc7408a4dd444f631eb6f30" compoundref="xdp__tx__example__common_8c" startline="65" endline="81">Dptx_Run</references>
+        <references refid="xdp__tx__example__common_8c_1a7890171f707168d57a1ee86a34eede68" compoundref="xdp__tx__example__common_8c" startline="101" endline="122">Dptx_SetupExample</references>
+        <references refid="group__dp_1ga7e31cad17809d5e67bade4c08a4b6c93" compoundref="xdp_8c" startline="1665" endline="1675">XDp_SetUserTimerHandler</references>
+        <referencedby refid="xdp__tx__timer__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xdp__tx__timer__example_8c" startline="74" endline="88">main</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xdp__tx__timer__example_8c_1a655c4bb88112b8cf5779c5130b4fce1a" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void Dptx_CustomWaitUs</definition>
+        <argsstring>(void *InstancePtr, u32 MicroSeconds)</argsstring>
+        <name>Dptx_CustomWaitUs</name>
+        <param>
+          <type>void *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>MicroSeconds</declname>
+        </param>
+        <briefdescription>
+<para>This function is used to override the driver&apos;s default sleep functionality. </para>        </briefdescription>
+        <detaileddescription>
+<para>For MicroBlaze systems, the XDp_WaitUs driver function&apos;s default behavior is to use the MB_Sleep function from microblaze_sleep.h, which is implemented in software and only has millisecond accuracy. For this reason, using a hardware timer is preferable. For ARM/Zynq SoC systems, the SoC&apos;s timer is used - XDp_WaitUs will ignore this custom timer handler.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dp" kindref="compound">XDp</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>Use the XDp_SetUserTimerHandler driver function to set this function as the handler for when the XDp_WaitUs driver function is called. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/examples/xdp_tx_timer_example.c" line="53" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/examples/xdp_tx_timer_example.c" bodystart="168" bodyend="183"/>
+      </memberdef>
+      <memberdef kind="function" id="xdp__tx__timer__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int main</definition>
+        <argsstring>(void)</argsstring>
+        <name>main</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function is the main function of the XDptx timer example. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>None.</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if the timer example finished successfully.</para></listitem><listitem><para>XST_FAILURE otherwise.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/examples/xdp_tx_timer_example.c" line="74" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/examples/xdp_tx_timer_example.c" bodystart="74" bodyend="88"/>
+        <references refid="xdp__tx__timer__example_8c_1a9a7742f5011d10d33ee87f85ca43ec47" compoundref="xdp__tx__timer__example_8c" startline="111" endline="148">Dptx_TimerExample</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Contains a design example using the <ref refid="struct_x_dp" kindref="compound">XDp</ref> driver (operating in TX mode) with a user-defined hook for delay. </para>    </briefdescription>
+    <detaileddescription>
+<para>The reasoning behind this is that MicroBlaze sleep is not very accurate without a hardware timer. For systems that have a hardware timer, the user may override the default MicroBlaze sleep with a function that will use the hardware timer.</para><para><simplesect kind="note"><para>This example requires an AXI timer in the system. </para><simplesectsep/><para>For this example to display output, the user will need to implement initialization of the system (Dptx_PlatformInit) and, after training is complete, implement configuration of the video stream source in order to provide the DisplayPort core with input (Dptx_StreamSrc* - called in <ref refid="xdp__tx__example__common_8c" kindref="compound">xdp_tx_example_common.c</ref>). See XAPP1178 for reference. </para><simplesectsep/><para>The functions Dptx_PlatformInit and Dptx_StreamSrc* are declared extern in <ref refid="xdp__tx__example__common_8h" kindref="compound">xdp_tx_example_common.h</ref> and are left up to the user to implement.</para></simplesect>
+<preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+1.0   als  01/20/15 Initial creation.
+5.1   ms   01/23/17 Added xil_printf statement in main function to
+                    ensure that &quot;Successfully ran&quot; and &quot;Failed&quot; strings
+                    are available in all examples. This is a fix for
+                    CR-965028.
+</preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/*******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2014<sp/>-<sp/>2020<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>2022-2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">*******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="43"><highlight class="comment">/*******************************<sp/>Include<sp/>Files<sp/>********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xdp__tx__example__common_8h" kindref="compound">xdp_tx_example_common.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xtmrctr.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_printf.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Function<sp/>Prototypes<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal">u32<sp/><ref refid="xdp__tx__timer__example_8c_1a9a7742f5011d10d33ee87f85ca43ec47" kindref="member">Dptx_TimerExample</ref>(<ref refid="struct_x_dp" kindref="compound">XDp</ref><sp/>*InstancePtr,<sp/>u16<sp/>DeviceId,</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XTmrCtr<sp/>*TimerCounterPtr,<sp/><ref refid="group__dp_1ga0ca611069a383f672c9d2fe3574ffd4f" kindref="member">XDp_TimerHandler</ref><sp/>UserSleepFunc);</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>Dptx_CustomWaitUs(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*InstancePtr,<sp/>u32<sp/>MicroSeconds);</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight><highlight class="comment">/***************************<sp/>Variable<sp/>Declarations<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal">XTmrCtr<sp/>TimerCounterInst;<sp/></highlight><highlight class="comment">/*<sp/>The<sp/>timer<sp/>counter<sp/>instance.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Function<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="74" refid="xdp__tx__timer__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xdp__rx__mst__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" kindref="member">main</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="75"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Status;</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"></highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Run<sp/>the<sp/>XDptx<sp/>timer<sp/>example.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="xdp__tx__timer__example_8c_1a9a7742f5011d10d33ee87f85ca43ec47" kindref="member">Dptx_TimerExample</ref>(&amp;DpInstance,<sp/>DPTX_DEVICE_ID,</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;TimerCounterInst,<sp/>&amp;Dptx_CustomWaitUs);</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;dp_tx_timer<sp/>Example<sp/>Failed\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"></highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Successfully<sp/>ran<sp/>dp_tx_timer<sp/>Example\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="88"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"></highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="111" refid="xdp__tx__timer__example_8c_1a9a7742f5011d10d33ee87f85ca43ec47" refkind="member"><highlight class="normal">u32<sp/><ref refid="xdp__tx__timer__example_8c_1a9a7742f5011d10d33ee87f85ca43ec47" kindref="member">Dptx_TimerExample</ref>(<ref refid="struct_x_dp" kindref="compound">XDp</ref><sp/>*InstancePtr,<sp/>u16<sp/>DeviceId,</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XTmrCtr<sp/>*TimerCounterPtr,<sp/><ref refid="group__dp_1ga0ca611069a383f672c9d2fe3574ffd4f" kindref="member">XDp_TimerHandler</ref><sp/>UserSleepFunc)</highlight></codeline>
+<codeline lineno="113"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Status;</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"></highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Use<sp/>single-stream<sp/>transport<sp/>(SST)<sp/>mode<sp/>for<sp/>this<sp/>example.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDp_TxMstCfgModeDisable(InstancePtr);</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"></highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Do<sp/>platform<sp/>initialization<sp/>here.<sp/>This<sp/>is<sp/>hardware<sp/>system<sp/>specific<sp/>-</highlight></codeline>
+<codeline lineno="120"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>it<sp/>is<sp/>up<sp/>to<sp/>the<sp/>user<sp/>to<sp/>implement<sp/>this<sp/>function.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Dptx_PlatformInit();</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*******************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="123"><highlight class="normal"></highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Set<sp/>a<sp/>custom<sp/>timer<sp/>handler<sp/>for<sp/>improved<sp/>delay<sp/>accuracy<sp/>on<sp/>MicroBlaze</highlight></codeline>
+<codeline lineno="125"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>systems<sp/>since<sp/>the<sp/>driver<sp/>does<sp/>not<sp/>assume/have<sp/>a<sp/>dependency<sp/>on<sp/>the</highlight></codeline>
+<codeline lineno="126"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>system<sp/>having<sp/>a<sp/>timer<sp/>in<sp/>the<sp/>FPGA.</highlight></codeline>
+<codeline lineno="127"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Note:<sp/>This<sp/>only<sp/>has<sp/>an<sp/>affect<sp/>for<sp/>MicroBlaze<sp/>systems<sp/>since<sp/>the<sp/>Zynq</highlight></codeline>
+<codeline lineno="128"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>ARM<sp/>SoC<sp/>contains<sp/>a<sp/>timer,<sp/>which<sp/>is<sp/>used<sp/>when<sp/>the<sp/>driver<sp/>calls<sp/>the</highlight></codeline>
+<codeline lineno="129"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>delay<sp/>function.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dp_1ga7e31cad17809d5e67bade4c08a4b6c93" kindref="member">XDp_SetUserTimerHandler</ref>(InstancePtr,<sp/>UserSleepFunc,<sp/>TimerCounterPtr);</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"></highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="xdp__tx__example__common_8c_1a7890171f707168d57a1ee86a34eede68" kindref="member">Dptx_SetupExample</ref>(InstancePtr,<sp/>DeviceId);</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"></highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDp_TxEnableTrainAdaptive(InstancePtr,<sp/>TRAIN_ADAPTIVE);</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDp_TxSetHasRedriverInPath(InstancePtr,<sp/>TRAIN_HAS_REDRIVER);</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"></highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>A<sp/>sink<sp/>monitor<sp/>must<sp/>be<sp/>connected<sp/>at<sp/>this<sp/>point.<sp/>See<sp/>the<sp/>polling<sp/>or</highlight></codeline>
+<codeline lineno="141"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>interrupt<sp/>examples<sp/>for<sp/>how<sp/>to<sp/>wait<sp/>for<sp/>a<sp/>connection<sp/>event.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="xdp__tx__example__common_8c_1aa048b03b5dc7408a4dd444f631eb6f30" kindref="member">Dptx_Run</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"></highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="148"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"></highlight></codeline>
+<codeline lineno="150"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="168"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>Dptx_CustomWaitUs(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*InstancePtr,<sp/>u32<sp/>MicroSeconds)</highlight></codeline>
+<codeline lineno="169"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_dp" kindref="compound">XDp</ref><sp/>*XDp_InstancePtr<sp/>=<sp/>(<ref refid="struct_x_dp" kindref="compound">XDp</ref><sp/>*)InstancePtr;</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>TimerVal;</highlight></codeline>
+<codeline lineno="172"><highlight class="normal"></highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XTmrCtr_Start(XDp_InstancePtr-&gt;<ref refid="struct_x_dp_1aeac9ef9a7568a32e53007f53e782c63a" kindref="member">UserTimerPtr</ref>,<sp/>0);</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"></highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Wait<sp/>specified<sp/>number<sp/>of<sp/>useconds.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">do</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TimerVal<sp/>=<sp/>XTmrCtr_GetValue(XDp_InstancePtr-&gt;<ref refid="struct_x_dp_1aeac9ef9a7568a32e53007f53e782c63a" kindref="member">UserTimerPtr</ref>,<sp/>0);</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(TimerVal<sp/>&lt;<sp/>(MicroSeconds<sp/>*</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XDp_InstancePtr-&gt;<ref refid="struct_x_dp_1aa45ebd510e1e83bc9ebdcd1178b33290" kindref="member">Config</ref>.<ref refid="struct_x_dp___config_1a9a0799787a21f54ae0eddb8de0b7cf14" kindref="member">SAxiClkHz</ref><sp/>/<sp/>1000000)));</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"></highlight></codeline>
+<codeline lineno="182"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XTmrCtr_Stop(XDp_InstancePtr-&gt;<ref refid="struct_x_dp_1aeac9ef9a7568a32e53007f53e782c63a" kindref="member">UserTimerPtr</ref>,<sp/>0);</highlight></codeline>
+<codeline lineno="183"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/examples/xdp_tx_timer_example.c"/>
+  </compounddef>
+</doxygen>

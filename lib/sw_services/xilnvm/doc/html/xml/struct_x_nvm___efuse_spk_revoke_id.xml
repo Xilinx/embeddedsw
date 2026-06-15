@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_nvm___efuse_spk_revoke_id" kind="struct" prot="public">
+    <compoundname>XNvm_EfuseSpkRevokeId</compoundname>
+    <includes local="no">xnvm_efuse.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_nvm___efuse_spk_revoke_id_1a9af9e72317acbc8d906a3e8efd859ea3" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XNvm_EfuseSpkRevokeId::RevokeIdNum</definition>
+        <argsstring></argsstring>
+        <name>RevokeIdNum</name>
+        <briefdescription>
+<para>Revoke ID Bit number. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="275" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="275" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_spk_revoke_id_1a5fd9b01fdb69a9c2b9814725734f56f1" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XNvm_EfuseSpkRevokeId::PrgmSpkRevokeId</definition>
+        <argsstring></argsstring>
+        <name>PrgmSpkRevokeId</name>
+        <briefdescription>
+<para>Flag to determine whether to program SPK revoke ID or not. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="276" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="276" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Efuse SPK revoke ID. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="274" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="274" bodyend="277"/>
+    <listofallmembers>
+      <member refid="struct_x_nvm___efuse_spk_revoke_id_1a5fd9b01fdb69a9c2b9814725734f56f1" prot="public" virt="non-virtual"><scope>XNvm_EfuseSpkRevokeId</scope><name>PrgmSpkRevokeId</name></member>
+      <member refid="struct_x_nvm___efuse_spk_revoke_id_1a9af9e72317acbc8d906a3e8efd859ea3" prot="public" virt="non-virtual"><scope>XNvm_EfuseSpkRevokeId</scope><name>RevokeIdNum</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

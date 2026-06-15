@@ -1,0 +1,75 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_asu___comm_channel_info" kind="struct" prot="public">
+    <compoundname>XAsu_CommChannelInfo</compoundname>
+    <includes local="no">xasu_sharedmem.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_asu___comm_channel_info_1a40df16fef64bd58b3717924af3c0c8ff" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAsu_CommChannelInfo::CommChannelInfoHeader</definition>
+        <argsstring></argsstring>
+        <name>CommChannelInfoHeader</name>
+        <briefdescription>
+<para>Communication channel information header. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.h" line="175" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.h" bodystart="175" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___comm_channel_info_1aae88a6b5fc1371423e75ba0eff863c25" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAsu_CommChannelInfo::NumOfIpiChannels</definition>
+        <argsstring></argsstring>
+        <name>NumOfIpiChannels</name>
+        <briefdescription>
+<para>Number of IPI channels to be enabled. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.h" line="176" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.h" bodystart="176" bodyend="-1"/>
+        <referencedby refid="group__xasu__sharedmem__apis_1gab7baf8908fd849424cefb1738edb74fc" compoundref="xasu__sharedmem_8c" startline="58" endline="69">XAsu_GetIpiMask</referencedby>
+        <referencedby refid="group__xasu__sharedmem__apis_1ga7c6b10e8c9e75576ca858d70529e24e4" compoundref="xasu__sharedmem_8c" startline="82" endline="96">XAsu_GetSubsysIdFromIpiMask</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___comm_channel_info_1ae163920888661eaf6ac17e3357546105" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_asu___comm_channel" kindref="compound">XAsu_CommChannel</ref></type>
+        <definition>XAsu_CommChannel XAsu_CommChannelInfo::Channel[XASU_MAX_IPI_CHANNELS]</definition>
+        <argsstring>[XASU_MAX_IPI_CHANNELS]</argsstring>
+        <name>Channel</name>
+        <briefdescription>
+<para>Communication channels information. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.h" line="177" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.h" bodystart="177" bodyend="-1"/>
+        <referencedby refid="group__xasu__sharedmem__apis_1gab7baf8908fd849424cefb1738edb74fc" compoundref="xasu__sharedmem_8c" startline="58" endline="69">XAsu_GetIpiMask</referencedby>
+        <referencedby refid="group__xasu__sharedmem__apis_1ga7c6b10e8c9e75576ca858d70529e24e4" compoundref="xasu__sharedmem_8c" startline="82" endline="96">XAsu_GetSubsysIdFromIpiMask</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This structure contains information of all communication channels. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="43">
+        <label>XAsu_CommChannel</label>
+        <link refid="struct_x_asu___comm_channel"/>
+      </node>
+      <node id="42">
+        <label>XAsu_CommChannelInfo</label>
+        <link refid="struct_x_asu___comm_channel_info"/>
+        <childnode refid="43" relation="usage">
+          <edgelabel>Channel</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.h" line="174" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.h" bodystart="174" bodyend="178"/>
+    <listofallmembers>
+      <member refid="struct_x_asu___comm_channel_info_1ae163920888661eaf6ac17e3357546105" prot="public" virt="non-virtual"><scope>XAsu_CommChannelInfo</scope><name>Channel</name></member>
+      <member refid="struct_x_asu___comm_channel_info_1a40df16fef64bd58b3717924af3c0c8ff" prot="public" virt="non-virtual"><scope>XAsu_CommChannelInfo</scope><name>CommChannelInfoHeader</name></member>
+      <member refid="struct_x_asu___comm_channel_info_1aae88a6b5fc1371423e75ba0eff863c25" prot="public" virt="non-virtual"><scope>XAsu_CommChannelInfo</scope><name>NumOfIpiChannels</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

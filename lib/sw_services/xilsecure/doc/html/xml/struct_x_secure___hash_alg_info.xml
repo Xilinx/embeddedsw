@@ -1,0 +1,105 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_secure___hash_alg_info" kind="struct" prot="public">
+    <compoundname>XSecure_HashAlgInfo</compoundname>
+    <includes local="no">xsecure_mgf.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_secure___hash_alg_info_1ae3302b269d249878b73bb94363200795" prot="public" static="no" mutable="no">
+        <type>XSecure_ShaMode</type>
+        <definition>XSecure_ShaMode XSecure_HashAlgInfo::Shatype</definition>
+        <argsstring></argsstring>
+        <name>Shatype</name>
+        <briefdescription>
+<para>SHA type for MGF. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_mgf.h" line="50" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_mgf.h" bodystart="50" bodyend="-1"/>
+        <referencedby refid="group__xsecure__mgf__server__apis_1ga51accda21580807193b7f1309a153c52" compoundref="xsecure__mgf_8c" startline="230" endline="301">XSecure_MaskGenFunc</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___hash_alg_info_1a2d651b4f8029fd1bde167f52f7b0a680" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSecure_HashAlgInfo::HashLen</definition>
+        <argsstring></argsstring>
+        <name>HashLen</name>
+        <briefdescription>
+<para>Hash length for MGF. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_mgf.h" line="51" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_mgf.h" bodystart="51" bodyend="-1"/>
+        <referencedby refid="group__xsecure__mgf__server__apis_1ga51accda21580807193b7f1309a153c52" compoundref="xsecure__mgf_8c" startline="230" endline="301">XSecure_MaskGenFunc</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___hash_alg_info_1a6c89a5bf973d16144020ebece7415504" prot="public" static="no" mutable="no">
+        <type>int(*</type>
+        <definition>int(* XSecure_HashAlgInfo::ShaStart)(XSecure_ShaMode Shatype, void *InstancePtr)</definition>
+        <argsstring>)(XSecure_ShaMode Shatype, void *InstancePtr)</argsstring>
+        <name>ShaStart</name>
+        <briefdescription>
+<para>Function pointer to SHA start. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_mgf.h" line="52" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_mgf.h" bodystart="52" bodyend="-1"/>
+        <referencedby refid="group__xsecure__mgf__server__apis_1ga51accda21580807193b7f1309a153c52" compoundref="xsecure__mgf_8c" startline="230" endline="301">XSecure_MaskGenFunc</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___hash_alg_info_1aaec31389331a3137f07364a5852286c0" prot="public" static="no" mutable="no">
+        <type>int(*</type>
+        <definition>int(* XSecure_HashAlgInfo::ShaUpdate)(XSecure_ShaMode Shatype, void *InstancePtr, u64 InputDataAddr, u32 Size)</definition>
+        <argsstring>)(XSecure_ShaMode Shatype, void *InstancePtr, u64 InputDataAddr, u32 Size)</argsstring>
+        <name>ShaUpdate</name>
+        <briefdescription>
+<para>Function pointer to SHA update. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_mgf.h" line="53" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_mgf.h" bodystart="53" bodyend="-1"/>
+        <referencedby refid="group__xsecure__mgf__server__apis_1ga51accda21580807193b7f1309a153c52" compoundref="xsecure__mgf_8c" startline="230" endline="301">XSecure_MaskGenFunc</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___hash_alg_info_1a1252ac9d152a5cbb5731d66d19e6f634" prot="public" static="no" mutable="no">
+        <type>int(*</type>
+        <definition>int(* XSecure_HashAlgInfo::ShaFinish)(XSecure_ShaMode Shatype, void *InstancePtr, u64 HashAddr)</definition>
+        <argsstring>)(XSecure_ShaMode Shatype, void *InstancePtr, u64 HashAddr)</argsstring>
+        <name>ShaFinish</name>
+        <briefdescription>
+<para>Function pointer to SHA finish. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_mgf.h" line="54" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_mgf.h" bodystart="54" bodyend="-1"/>
+        <referencedby refid="group__xsecure__mgf__server__apis_1ga51accda21580807193b7f1309a153c52" compoundref="xsecure__mgf_8c" startline="230" endline="301">XSecure_MaskGenFunc</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___hash_alg_info_1ae683bb56bc7d3ddc71dfc799f36e74c3" prot="public" static="no" mutable="no">
+        <type>int(*</type>
+        <definition>int(* XSecure_HashAlgInfo::ShaDigest)(XSecure_ShaMode Shatype, void *InstancePtr, u64 InputDataAddr, u32 Size, u64 HashAddr)</definition>
+        <argsstring>)(XSecure_ShaMode Shatype, void *InstancePtr, u64 InputDataAddr, u32 Size, u64 HashAddr)</argsstring>
+        <name>ShaDigest</name>
+        <briefdescription>
+<para>Function pointer to SHA digest. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_mgf.h" line="55" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_mgf.h" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Structure for Hash Algorithm Info. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_mgf.h" line="49" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_mgf.h" bodystart="49" bodyend="56"/>
+    <listofallmembers>
+      <member refid="struct_x_secure___hash_alg_info_1a2d651b4f8029fd1bde167f52f7b0a680" prot="public" virt="non-virtual"><scope>XSecure_HashAlgInfo</scope><name>HashLen</name></member>
+      <member refid="struct_x_secure___hash_alg_info_1ae683bb56bc7d3ddc71dfc799f36e74c3" prot="public" virt="non-virtual"><scope>XSecure_HashAlgInfo</scope><name>ShaDigest</name></member>
+      <member refid="struct_x_secure___hash_alg_info_1a1252ac9d152a5cbb5731d66d19e6f634" prot="public" virt="non-virtual"><scope>XSecure_HashAlgInfo</scope><name>ShaFinish</name></member>
+      <member refid="struct_x_secure___hash_alg_info_1a6c89a5bf973d16144020ebece7415504" prot="public" virt="non-virtual"><scope>XSecure_HashAlgInfo</scope><name>ShaStart</name></member>
+      <member refid="struct_x_secure___hash_alg_info_1ae3302b269d249878b73bb94363200795" prot="public" virt="non-virtual"><scope>XSecure_HashAlgInfo</scope><name>Shatype</name></member>
+      <member refid="struct_x_secure___hash_alg_info_1aaec31389331a3137f07364a5852286c0" prot="public" virt="non-virtual"><scope>XSecure_HashAlgInfo</scope><name>ShaUpdate</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

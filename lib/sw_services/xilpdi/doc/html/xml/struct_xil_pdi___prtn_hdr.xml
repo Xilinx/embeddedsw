@@ -1,0 +1,383 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_xil_pdi___prtn_hdr" kind="struct" prot="public">
+    <compoundname>XilPdi_PrtnHdr</compoundname>
+    <includes local="no">xilpdi_plat.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_xil_pdi___prtn_hdr_1a895970f87fc8414aa672ad99914e5b6e" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XilPdi_PrtnHdr::EncDataWordLen</definition>
+        <argsstring></argsstring>
+        <name>EncDataWordLen</name>
+        <briefdescription>
+<para>Enc word length of partition. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal/xilpdi_plat.h" line="220" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal/xilpdi_plat.h" bodystart="220" bodyend="-1"/>
+        <referencedby refid="group__xilpdi__apis_1ga68f9d9d52845d0060f3a12877e54e1cf" compoundref="xilpdi_8c" startline="230" endline="274">XilPdi_ValidatePrtnHdr</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_pdi___prtn_hdr_1af9e907e03b6e473919d71225e9c01cc3" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XilPdi_PrtnHdr::UnEncDataWordLen</definition>
+        <argsstring></argsstring>
+        <name>UnEncDataWordLen</name>
+        <briefdescription>
+<para>Unencrypted word length. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal/xilpdi_plat.h" line="221" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal/xilpdi_plat.h" bodystart="221" bodyend="-1"/>
+        <referencedby refid="group__xilpdi__apis_1ga68f9d9d52845d0060f3a12877e54e1cf" compoundref="xilpdi_8c" startline="230" endline="274">XilPdi_ValidatePrtnHdr</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_pdi___prtn_hdr_1acf49ffc72ab5ba2487058e156c127bbc" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XilPdi_PrtnHdr::TotalDataWordLen</definition>
+        <argsstring></argsstring>
+        <name>TotalDataWordLen</name>
+        <briefdescription>
+<para>Total word length including the authentication certificate if any. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal/xilpdi_plat.h" line="222" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal/xilpdi_plat.h" bodystart="222" bodyend="-1"/>
+        <referencedby refid="group__xilpdi__apis_1ga68f9d9d52845d0060f3a12877e54e1cf" compoundref="xilpdi_8c" startline="230" endline="274">XilPdi_ValidatePrtnHdr</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_pdi___prtn_hdr_1a493168287112dc213614402f3c888a4d" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XilPdi_PrtnHdr::NextPrtnOfst</definition>
+        <argsstring></argsstring>
+        <name>NextPrtnOfst</name>
+        <briefdescription>
+<para>Addr of the next partition header. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal/xilpdi_plat.h" line="224" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal/xilpdi_plat.h" bodystart="224" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_pdi___prtn_hdr_1a08358f8a45ba4a594ae909824a1109db" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XilPdi_PrtnHdr::DstnExecutionAddr</definition>
+        <argsstring></argsstring>
+        <name>DstnExecutionAddr</name>
+        <briefdescription>
+<para>Execution address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal/xilpdi_plat.h" line="225" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal/xilpdi_plat.h" bodystart="225" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_pdi___prtn_hdr_1ad501f0ae859edae42425842cae330cc2" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XilPdi_PrtnHdr::DstnLoadAddr</definition>
+        <argsstring></argsstring>
+        <name>DstnLoadAddr</name>
+        <briefdescription>
+<para>Load address in DDR/TCM. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal/xilpdi_plat.h" line="226" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal/xilpdi_plat.h" bodystart="226" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_pdi___prtn_hdr_1ab45a333795fa39a0d914e6b9d3bb4716" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XilPdi_PrtnHdr::DataWordOfst</definition>
+        <argsstring></argsstring>
+        <name>DataWordOfst</name>
+        <briefdescription>
+<para>Data word offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal/xilpdi_plat.h" line="227" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal/xilpdi_plat.h" bodystart="227" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_pdi___prtn_hdr_1aae89de186db19b9994dbd44ddce7dea4" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XilPdi_PrtnHdr::PrtnAttrb</definition>
+        <argsstring></argsstring>
+        <name>PrtnAttrb</name>
+        <briefdescription>
+<para>Partition attributes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal/xilpdi_plat.h" line="228" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal/xilpdi_plat.h" bodystart="228" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_pdi___prtn_hdr_1a287282430e25f0eff3aafdf7508e0098" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XilPdi_PrtnHdr::SectionCount</definition>
+        <argsstring></argsstring>
+        <name>SectionCount</name>
+        <briefdescription>
+<para>Section count. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal/xilpdi_plat.h" line="229" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal/xilpdi_plat.h" bodystart="229" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_pdi___prtn_hdr_1a2ac6579f16b9310aaa420bf3b8f5d898" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XilPdi_PrtnHdr::ChecksumWordOfst</definition>
+        <argsstring></argsstring>
+        <name>ChecksumWordOfst</name>
+        <briefdescription>
+<para>Address to checksum when enabled. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal/xilpdi_plat.h" line="230" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal/xilpdi_plat.h" bodystart="230" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_pdi___prtn_hdr_1a353550d6619decdd3b4b1061995f4a3c" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XilPdi_PrtnHdr::PrtnId</definition>
+        <argsstring></argsstring>
+        <name>PrtnId</name>
+        <briefdescription>
+<para>Partition ID. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal/xilpdi_plat.h" line="231" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal/xilpdi_plat.h" bodystart="231" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_pdi___prtn_hdr_1ad6fbc8a8b6b3d9c8a68a91b535af35e3" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XilPdi_PrtnHdr::AuthCertificateOfst</definition>
+        <argsstring></argsstring>
+        <name>AuthCertificateOfst</name>
+        <briefdescription>
+<para>Address to the authentication certificate when enabled. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal/xilpdi_plat.h" line="232" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal/xilpdi_plat.h" bodystart="232" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_pdi___prtn_hdr_1a4ea5ee18207500ad4e47a681bd5ee405" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XilPdi_PrtnHdr::PrtnIv</definition>
+        <argsstring>[3U]</argsstring>
+        <name>PrtnIv</name>
+        <briefdescription>
+<para>IV of the partition&apos;s SH. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal/xilpdi_plat.h" line="234" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal/xilpdi_plat.h" bodystart="234" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_pdi___prtn_hdr_1acec99762a25b436025232c78924084bf" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XilPdi_PrtnHdr::EncStatus</definition>
+        <argsstring></argsstring>
+        <name>EncStatus</name>
+        <briefdescription>
+<para>Encryption Status/Key Selection. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal/xilpdi_plat.h" line="235" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal/xilpdi_plat.h" bodystart="235" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_pdi___prtn_hdr_1ac5bbf60084c96786d1a5fb3fc609bd75" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XilPdi_PrtnHdr::KekIv</definition>
+        <argsstring>[3U]</argsstring>
+        <name>KekIv</name>
+        <briefdescription>
+<para>KEK IV for partition decryption. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal/xilpdi_plat.h" line="236" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal/xilpdi_plat.h" bodystart="236" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_pdi___prtn_hdr_1a985764d0523625b287b6fe3319b8f3c8" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XilPdi_PrtnHdr::EncRevokeID</definition>
+        <argsstring></argsstring>
+        <name>EncRevokeID</name>
+        <briefdescription>
+<para>Revocation ID of partition for encrypted partition. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal/xilpdi_plat.h" line="237" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal/xilpdi_plat.h" bodystart="237" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_pdi___prtn_hdr_1add0a78a7cc2e688731cbe9dae7a6be93" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XilPdi_PrtnHdr::Reserved</definition>
+        <argsstring>[9U]</argsstring>
+        <name>Reserved</name>
+        <briefdescription>
+<para>Reserved. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal/xilpdi_plat.h" line="238" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal/xilpdi_plat.h" bodystart="238" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_pdi___prtn_hdr_1ac09284fbea3185b62d456830807e8b23" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XilPdi_PrtnHdr::Checksum</definition>
+        <argsstring></argsstring>
+        <name>Checksum</name>
+        <briefdescription>
+<para>checksum of the partition header </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal/xilpdi_plat.h" line="239" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal/xilpdi_plat.h" bodystart="239" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_pdi___prtn_hdr_1a82cacb6324c398686a19f32c3b36a1f7" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XilPdi_PrtnHdr::MeasuredBootAddr</definition>
+        <argsstring></argsstring>
+        <name>MeasuredBootAddr</name>
+        <briefdescription>
+<para>Single Byte Measured Boot Address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" line="277" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" bodystart="277" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_pdi___prtn_hdr_1a5be7fcd63fb54dcc5343ae41c31dca89" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XilPdi_PrtnHdr::AuthenticationHdr</definition>
+        <argsstring></argsstring>
+        <name>AuthenticationHdr</name>
+        <briefdescription>
+<para>Authentication Header. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" line="278" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" bodystart="278" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_pdi___prtn_hdr_1a3000e9d4ed8b937d8c9bb83f72a78556" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XilPdi_PrtnHdr::HashBlockSize</definition>
+        <argsstring></argsstring>
+        <name>HashBlockSize</name>
+        <briefdescription>
+<para>HashBlock Size in words. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" line="279" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" bodystart="279" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_pdi___prtn_hdr_1ab50da54f84ee60707d2a21fd79fc2c13" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XilPdi_PrtnHdr::HashBlockOffset</definition>
+        <argsstring></argsstring>
+        <name>HashBlockOffset</name>
+        <briefdescription>
+<para>HashBlock word offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" line="280" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" bodystart="280" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_pdi___prtn_hdr_1a570a6e92f84d9229d1f0badaf54f412a" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XilPdi_PrtnHdr::TotalPpkSize</definition>
+        <argsstring></argsstring>
+        <name>TotalPpkSize</name>
+        <briefdescription>
+<para>Total PPK size including alignment. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" line="281" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" bodystart="281" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_pdi___prtn_hdr_1a9878e8dd997d0556d264e5b43be98f5b" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XilPdi_PrtnHdr::ActualPpkSize</definition>
+        <argsstring></argsstring>
+        <name>ActualPpkSize</name>
+        <briefdescription>
+<para>Actual PPK size. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" line="282" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" bodystart="282" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_pdi___prtn_hdr_1a6a7193709f05d00dec4f0e1cfff37813" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XilPdi_PrtnHdr::TotalHBSignSize</definition>
+        <argsstring></argsstring>
+        <name>TotalHBSignSize</name>
+        <briefdescription>
+<para>Total HashBlock signature size. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" line="283" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" bodystart="283" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_pdi___prtn_hdr_1a5babc77477c587b9ae1a9b4f0de8735a" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XilPdi_PrtnHdr::ActualHBSignSize</definition>
+        <argsstring></argsstring>
+        <name>ActualHBSignSize</name>
+        <briefdescription>
+<para>Actual HashBlock signature size. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" line="284" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" bodystart="284" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Structure to store the partition header details. </para>    </briefdescription>
+    <detaileddescription>
+<para>It contains all the information of partition header in order. </para>    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal/xilpdi_plat.h" line="219" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal/xilpdi_plat.h" bodystart="219" bodyend="240"/>
+    <listofallmembers>
+      <member refid="struct_xil_pdi___prtn_hdr_1a5babc77477c587b9ae1a9b4f0de8735a" prot="public" virt="non-virtual"><scope>XilPdi_PrtnHdr</scope><name>ActualHBSignSize</name></member>
+      <member refid="struct_xil_pdi___prtn_hdr_1a9878e8dd997d0556d264e5b43be98f5b" prot="public" virt="non-virtual"><scope>XilPdi_PrtnHdr</scope><name>ActualPpkSize</name></member>
+      <member refid="struct_xil_pdi___prtn_hdr_1ad6fbc8a8b6b3d9c8a68a91b535af35e3" prot="public" virt="non-virtual"><scope>XilPdi_PrtnHdr</scope><name>AuthCertificateOfst</name></member>
+      <member refid="struct_xil_pdi___prtn_hdr_1a5be7fcd63fb54dcc5343ae41c31dca89" prot="public" virt="non-virtual"><scope>XilPdi_PrtnHdr</scope><name>AuthenticationHdr</name></member>
+      <member refid="struct_xil_pdi___prtn_hdr_1ac09284fbea3185b62d456830807e8b23" prot="public" virt="non-virtual"><scope>XilPdi_PrtnHdr</scope><name>Checksum</name></member>
+      <member refid="struct_xil_pdi___prtn_hdr_1a2ac6579f16b9310aaa420bf3b8f5d898" prot="public" virt="non-virtual"><scope>XilPdi_PrtnHdr</scope><name>ChecksumWordOfst</name></member>
+      <member refid="struct_xil_pdi___prtn_hdr_1ab45a333795fa39a0d914e6b9d3bb4716" prot="public" virt="non-virtual"><scope>XilPdi_PrtnHdr</scope><name>DataWordOfst</name></member>
+      <member refid="struct_xil_pdi___prtn_hdr_1a08358f8a45ba4a594ae909824a1109db" prot="public" virt="non-virtual"><scope>XilPdi_PrtnHdr</scope><name>DstnExecutionAddr</name></member>
+      <member refid="struct_xil_pdi___prtn_hdr_1ad501f0ae859edae42425842cae330cc2" prot="public" virt="non-virtual"><scope>XilPdi_PrtnHdr</scope><name>DstnLoadAddr</name></member>
+      <member refid="struct_xil_pdi___prtn_hdr_1a895970f87fc8414aa672ad99914e5b6e" prot="public" virt="non-virtual"><scope>XilPdi_PrtnHdr</scope><name>EncDataWordLen</name></member>
+      <member refid="struct_xil_pdi___prtn_hdr_1a985764d0523625b287b6fe3319b8f3c8" prot="public" virt="non-virtual"><scope>XilPdi_PrtnHdr</scope><name>EncRevokeID</name></member>
+      <member refid="struct_xil_pdi___prtn_hdr_1acec99762a25b436025232c78924084bf" prot="public" virt="non-virtual"><scope>XilPdi_PrtnHdr</scope><name>EncStatus</name></member>
+      <member refid="struct_xil_pdi___prtn_hdr_1ab50da54f84ee60707d2a21fd79fc2c13" prot="public" virt="non-virtual"><scope>XilPdi_PrtnHdr</scope><name>HashBlockOffset</name></member>
+      <member refid="struct_xil_pdi___prtn_hdr_1a3000e9d4ed8b937d8c9bb83f72a78556" prot="public" virt="non-virtual"><scope>XilPdi_PrtnHdr</scope><name>HashBlockSize</name></member>
+      <member refid="struct_xil_pdi___prtn_hdr_1ac5bbf60084c96786d1a5fb3fc609bd75" prot="public" virt="non-virtual"><scope>XilPdi_PrtnHdr</scope><name>KekIv</name></member>
+      <member refid="struct_xil_pdi___prtn_hdr_1a82cacb6324c398686a19f32c3b36a1f7" prot="public" virt="non-virtual"><scope>XilPdi_PrtnHdr</scope><name>MeasuredBootAddr</name></member>
+      <member refid="struct_xil_pdi___prtn_hdr_1a493168287112dc213614402f3c888a4d" prot="public" virt="non-virtual"><scope>XilPdi_PrtnHdr</scope><name>NextPrtnOfst</name></member>
+      <member refid="struct_xil_pdi___prtn_hdr_1aae89de186db19b9994dbd44ddce7dea4" prot="public" virt="non-virtual"><scope>XilPdi_PrtnHdr</scope><name>PrtnAttrb</name></member>
+      <member refid="struct_xil_pdi___prtn_hdr_1a353550d6619decdd3b4b1061995f4a3c" prot="public" virt="non-virtual"><scope>XilPdi_PrtnHdr</scope><name>PrtnId</name></member>
+      <member refid="struct_xil_pdi___prtn_hdr_1a4ea5ee18207500ad4e47a681bd5ee405" prot="public" virt="non-virtual"><scope>XilPdi_PrtnHdr</scope><name>PrtnIv</name></member>
+      <member refid="struct_xil_pdi___prtn_hdr_1add0a78a7cc2e688731cbe9dae7a6be93" prot="public" virt="non-virtual"><scope>XilPdi_PrtnHdr</scope><name>Reserved</name></member>
+      <member refid="struct_xil_pdi___prtn_hdr_1a287282430e25f0eff3aafdf7508e0098" prot="public" virt="non-virtual"><scope>XilPdi_PrtnHdr</scope><name>SectionCount</name></member>
+      <member refid="struct_xil_pdi___prtn_hdr_1acf49ffc72ab5ba2487058e156c127bbc" prot="public" virt="non-virtual"><scope>XilPdi_PrtnHdr</scope><name>TotalDataWordLen</name></member>
+      <member refid="struct_xil_pdi___prtn_hdr_1a6a7193709f05d00dec4f0e1cfff37813" prot="public" virt="non-virtual"><scope>XilPdi_PrtnHdr</scope><name>TotalHBSignSize</name></member>
+      <member refid="struct_xil_pdi___prtn_hdr_1a570a6e92f84d9229d1f0badaf54f412a" prot="public" virt="non-virtual"><scope>XilPdi_PrtnHdr</scope><name>TotalPpkSize</name></member>
+      <member refid="struct_xil_pdi___prtn_hdr_1af9e907e03b6e473919d71225e9c01cc3" prot="public" virt="non-virtual"><scope>XilPdi_PrtnHdr</scope><name>UnEncDataWordLen</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

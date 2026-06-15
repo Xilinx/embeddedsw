@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_asu___hmac_kat_cb_state" kind="struct" prot="public">
+    <compoundname>XAsu_HmacKatCbState</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_asu___hmac_kat_cb_state_1ab298d2ac1db3c78507f112faad984efe" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>volatile u8 XAsu_HmacKatCbState::Notify</definition>
+        <argsstring></argsstring>
+        <name>Notify</name>
+        <briefdescription>
+<para>Completion flag. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_hmac.c" line="80" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_hmac.c" bodystart="80" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___hmac_kat_cb_state_1a6f0e17f2170112ecd787d7f3b4669ba5" prot="public" static="no" mutable="no">
+        <type>s32</type>
+        <definition>volatile s32 XAsu_HmacKatCbState::CallBackStatus</definition>
+        <argsstring></argsstring>
+        <name>CallBackStatus</name>
+        <briefdescription>
+<para>Callback status. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_hmac.c" line="81" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_hmac.c" bodystart="81" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Per-invocation KAT callback state, passed through CallBackRefPtr. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_hmac.c" line="79" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_hmac.c" bodystart="79" bodyend="82"/>
+    <listofallmembers>
+      <member refid="struct_x_asu___hmac_kat_cb_state_1a6f0e17f2170112ecd787d7f3b4669ba5" prot="public" virt="non-virtual"><scope>XAsu_HmacKatCbState</scope><name>CallBackStatus</name></member>
+      <member refid="struct_x_asu___hmac_kat_cb_state_1ab298d2ac1db3c78507f112faad984efe" prot="public" virt="non-virtual"><scope>XAsu_HmacKatCbState</scope><name>Notify</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,830 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xemacps__example_8h" kind="file">
+    <compoundname>xemacps_example.h</compoundname>
+    <includes local="no">stdio.h</includes>
+    <includes local="no">stdlib.h</includes>
+    <includes local="yes">xparameters.h</includes>
+    <includes local="yes">xil_types.h</includes>
+    <includes local="yes">xil_assert.h</includes>
+    <includes local="yes">xil_io.h</includes>
+    <includes local="yes">xil_exception.h</includes>
+    <includes local="yes">xil_cache.h</includes>
+    <includes local="yes">xil_printf.h</includes>
+    <includes refid="xemacps_8h" local="yes">xemacps.h</includes>
+    <includes local="yes">xinterrupt_wrap.h</includes>
+    <includes local="yes">sleep.h</includes>
+    <includes local="yes">xparameters_ps.h</includes>
+    <includes local="yes">xpseudo_asm.h</includes>
+    <includedby refid="xemacps__example__intr__dma_8c" local="yes">xemacps_example_intr_dma.c</includedby>
+    <includedby refid="xemacps__example__util_8c" local="yes">xemacps_example_util.c</includedby>
+    <incdepgraph>
+      <node id="97">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="98">
+        <label>xil_io.h</label>
+      </node>
+      <node id="109">
+        <label>sleep.h</label>
+      </node>
+      <node id="105">
+        <label>xemacps_bd.h</label>
+        <link refid="xemacps__bd_8h"/>
+        <childnode refid="106" relation="include">
+        </childnode>
+        <childnode refid="96" relation="include">
+        </childnode>
+        <childnode refid="97" relation="include">
+        </childnode>
+      </node>
+      <node id="94">
+        <label>stdlib.h</label>
+      </node>
+      <node id="100">
+        <label>xil_cache.h</label>
+      </node>
+      <node id="107">
+        <label>xemacps_bdring.h</label>
+        <link refid="xemacps__bdring_8h"/>
+      </node>
+      <node id="110">
+        <label>xparameters_ps.h</label>
+      </node>
+      <node id="104">
+        <label>xemacps_hw.h</label>
+        <link refid="xemacps__hw_8h"/>
+        <childnode refid="96" relation="include">
+        </childnode>
+        <childnode refid="97" relation="include">
+        </childnode>
+        <childnode refid="98" relation="include">
+        </childnode>
+      </node>
+      <node id="108">
+        <label>xinterrupt_wrap.h</label>
+      </node>
+      <node id="106">
+        <label>string.h</label>
+      </node>
+      <node id="103">
+        <label>xstatus.h</label>
+      </node>
+      <node id="102">
+        <label>xemacps.h</label>
+        <link refid="xemacps_8h"/>
+        <childnode refid="96" relation="include">
+        </childnode>
+        <childnode refid="97" relation="include">
+        </childnode>
+        <childnode refid="103" relation="include">
+        </childnode>
+        <childnode refid="104" relation="include">
+        </childnode>
+        <childnode refid="105" relation="include">
+        </childnode>
+        <childnode refid="107" relation="include">
+        </childnode>
+      </node>
+      <node id="99">
+        <label>xil_exception.h</label>
+      </node>
+      <node id="96">
+        <label>xil_types.h</label>
+      </node>
+      <node id="95">
+        <label>xparameters.h</label>
+      </node>
+      <node id="101">
+        <label>xil_printf.h</label>
+      </node>
+      <node id="92">
+        <label>xemacps_example.h</label>
+        <link refid="xemacps_example.h"/>
+        <childnode refid="93" relation="include">
+        </childnode>
+        <childnode refid="94" relation="include">
+        </childnode>
+        <childnode refid="95" relation="include">
+        </childnode>
+        <childnode refid="96" relation="include">
+        </childnode>
+        <childnode refid="97" relation="include">
+        </childnode>
+        <childnode refid="98" relation="include">
+        </childnode>
+        <childnode refid="99" relation="include">
+        </childnode>
+        <childnode refid="100" relation="include">
+        </childnode>
+        <childnode refid="101" relation="include">
+        </childnode>
+        <childnode refid="102" relation="include">
+        </childnode>
+        <childnode refid="108" relation="include">
+        </childnode>
+        <childnode refid="109" relation="include">
+        </childnode>
+        <childnode refid="110" relation="include">
+        </childnode>
+        <childnode refid="111" relation="include">
+        </childnode>
+      </node>
+      <node id="93">
+        <label>stdio.h</label>
+      </node>
+      <node id="111">
+        <label>xpseudo_asm.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="113">
+        <label>xemacps_example_intr_dma.c</label>
+        <link refid="xemacps__example__intr__dma_8c"/>
+      </node>
+      <node id="114">
+        <label>xemacps_example_util.c</label>
+        <link refid="xemacps__example__util_8c"/>
+      </node>
+      <node id="112">
+        <label>xemacps_example.h</label>
+        <link refid="xemacps_example.h"/>
+        <childnode refid="113" relation="include">
+        </childnode>
+        <childnode refid="114" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xemacps__example_8h_1a4b7e32dde5e321fbce28d0d6c51e6b73" prot="public" static="no">
+        <name>EMACPS_LOOPBACK_SPEED</name>
+        <initializer>100	/* 100Mbps */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/examples/xemacps_example.h" line="74" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/examples/xemacps_example.h" bodystart="74" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xemacps__example_8h_1a18d025a8f60fc79db13ce0deea163081" prot="public" static="no">
+        <name>EMACPS_LOOPBACK_SPEED_1G</name>
+        <initializer>1000	/* 1000Mbps */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/examples/xemacps_example.h" line="75" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/examples/xemacps_example.h" bodystart="75" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xemacps__example_8h_1a85ee59a8e77f5393a51681eb20e58296" prot="public" static="no">
+        <name>EMACPS_LOOPBACK_SPEED_2_5G</name>
+        <initializer>2500	/* 5000Mbps */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/examples/xemacps_example.h" line="76" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/examples/xemacps_example.h" bodystart="76" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xemacps__example_8h_1ad33169a742d9af5162b28135e2fdc460" prot="public" static="no">
+        <name>EMACPS_LOOPBACK_SPEED_5G</name>
+        <initializer>5000	/* 5000Mbps */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/examples/xemacps_example.h" line="77" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/examples/xemacps_example.h" bodystart="77" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xemacps__example_8h_1a0889e0d023727b5f4dbb221a84357bf5" prot="public" static="no">
+        <name>EMACPS_LOOPBACK_SPEED_10G</name>
+        <initializer>10000	/* 10000Mbps */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/examples/xemacps_example.h" line="78" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/examples/xemacps_example.h" bodystart="78" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xemacps__example_8h_1a3ffe234ab02e95e6a573ef6814b6049d" prot="public" static="no">
+        <name>EMACPS_PHY_DELAY_SEC</name>
+        <initializer>4	/* Amount of time to delay waiting on
+					   PHY to reset */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/examples/xemacps_example.h" line="80" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/examples/xemacps_example.h" bodystart="79" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xemacps__example_8h_1a92f9abd246c63abc5d20e30ce951df1d" prot="public" static="no">
+        <name>EMACPS_SLCR_DIV_MASK</name>
+        <initializer>0xFC0FC0FF</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/examples/xemacps_example.h" line="81" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/examples/xemacps_example.h" bodystart="81" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xemacps__example_8h_1a8d51e16fef506c934d1130594b5ac97a" prot="public" static="no">
+        <name>CSU_VERSION</name>
+        <initializer>0xFFCA0044</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/examples/xemacps_example.h" line="83" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/examples/xemacps_example.h" bodystart="83" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xemacps__example_8h_1a0c6dff4b5002b24f291471c759f793d5" prot="public" static="no">
+        <name>PLATFORM_MASK</name>
+        <initializer>0xF000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/examples/xemacps_example.h" line="84" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/examples/xemacps_example.h" bodystart="84" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xemacps__example_8h_1a57473bcf8cb401ff2fd5bdbdadfb0352" prot="public" static="no">
+        <name>PLATFORM_SILICON</name>
+        <initializer>0x0000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/examples/xemacps_example.h" line="85" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/examples/xemacps_example.h" bodystart="85" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xemacps__example_8h_1aaa35230d8a0477c4744cdcdc3021294e" prot="public" static="no">
+        <name>VERSAL_VERSION</name>
+        <initializer>0xF11A0004</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/examples/xemacps_example.h" line="86" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/examples/xemacps_example.h" bodystart="86" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xemacps__example_8h_1aca979a0fb402fce4d50d7321e25d81e3" prot="public" static="no">
+        <name>PLATFORM_MASK_VERSAL</name>
+        <initializer>0xF000000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/examples/xemacps_example.h" line="87" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/examples/xemacps_example.h" bodystart="87" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xemacps__example_8h_1a70ac2b500a08666d9bab082ad0cf464b" prot="public" static="no">
+        <name>PLATFORM_VERSALEMU</name>
+        <initializer>0x1000000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/examples/xemacps_example.h" line="88" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/examples/xemacps_example.h" bodystart="88" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xemacps__example_8h_1ad5bfc94552408ee3fa3ad7756b174fe2" prot="public" static="no">
+        <name>PLATFORM_VERSALSIL</name>
+        <initializer>0x0000000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/examples/xemacps_example.h" line="89" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/examples/xemacps_example.h" bodystart="89" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="xemacps__example_8h_1ab49a35288c6ffd316b5a90151796a1a4" prot="public" static="no">
+        <type>char</type>
+        <definition>typedef char EthernetFrame[XEMACPS_MAX_VLAN_FRAME_SIZE_JUMBO]</definition>
+        <argsstring>[XEMACPS_MAX_VLAN_FRAME_SIZE_JUMBO]</argsstring>
+        <name>EthernetFrame</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/examples/xemacps_example.h" line="103" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/examples/xemacps_example.h" bodystart="104" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="xemacps__example_8h_1af169f998f391478a8093609218c7238f" prot="public" static="no" mutable="no">
+        <type><ref refid="group__emacps_1ga7510da8ed2cb292c5abdbcc18cc26c67" kindref="member">XEmacPs</ref></type>
+        <definition>XEmacPs EmacPsInstance</definition>
+        <argsstring></argsstring>
+        <name>EmacPsInstance</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/examples/xemacps_example.h" line="128" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/examples/xemacps_example_util.c" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xemacps__example_8h_1a88d65ab4bb2931ae85c86b693be10ba8" prot="public" static="no" mutable="no">
+        <type>char</type>
+        <definition>char EmacPsMAC[]</definition>
+        <argsstring>[]</argsstring>
+        <name>EmacPsMAC</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/examples/xemacps_example.h" line="129" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/examples/xemacps_example_util.c" bodystart="51" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xemacps__example_8h_1ab233df143b982e62c5dc2d849208fbc2" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 Platform</definition>
+        <argsstring></argsstring>
+        <name>Platform</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/examples/xemacps_example.h" line="130" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/examples/xemacps_example_util.c" bodystart="53" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xemacps__example_8h_1a41079be478a2cf38c6540495fad571a6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void EmacPsUtilSetupUart</definition>
+        <argsstring>(void)</argsstring>
+        <name>EmacPsUtilSetupUart</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/examples/xemacps_example.h" line="114" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="xemacps__example_8h_1a0bc7c575f2858a89f9496f83dc6052d4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void EmacPsUtilFrameHdrFormatMAC</definition>
+        <argsstring>(EthernetFrame *FramePtr, char *DestAddr)</argsstring>
+        <name>EmacPsUtilFrameHdrFormatMAC</name>
+        <param>
+          <type>EthernetFrame *</type>
+          <declname>FramePtr</declname>
+        </param>
+        <param>
+          <type>char *</type>
+          <declname>DestAddr</declname>
+        </param>
+        <briefdescription>
+<para>Set the MAC addresses in the frame. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>FramePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the pointer to the frame. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DestAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the Destination MAC address.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/examples/xemacps_example.h" line="115" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/examples/xemacps_example_util.c" bodystart="68" bodyend="83"/>
+        <referencedby refid="xemacps__example__intr__dma_8c_1afa31ff7ff7de0863dde3919fa1602671" compoundref="xemacps__example__intr__dma_8c" startline="718" endline="1036">EmacPsDmaSingleFrameIntrExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xemacps__example_8h_1a6fddc02339ce2adea5260e2401572eb8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void EmacPsUtilFrameHdrFormatType</definition>
+        <argsstring>(EthernetFrame *FramePtr, u16 FrameType)</argsstring>
+        <name>EmacPsUtilFrameHdrFormatType</name>
+        <param>
+          <type>EthernetFrame *</type>
+          <declname>FramePtr</declname>
+        </param>
+        <param>
+          <type>u16</type>
+          <declname>FrameType</declname>
+        </param>
+        <briefdescription>
+<para>Set the frame type for the specified frame. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>FramePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the pointer to the frame. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>FrameType</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the Type to set in frame.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/examples/xemacps_example.h" line="116" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/examples/xemacps_example_util.c" bodystart="98" bodyend="114"/>
+        <referencedby refid="xemacps__example__intr__dma_8c_1afa31ff7ff7de0863dde3919fa1602671" compoundref="xemacps__example__intr__dma_8c" startline="718" endline="1036">EmacPsDmaSingleFrameIntrExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xemacps__example_8h_1a745c2dd310df9fc6a3067ec7c426d9b5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void EmacPsUtilFrameSetPayloadData</definition>
+        <argsstring>(EthernetFrame *FramePtr, u32 PayloadSize)</argsstring>
+        <name>EmacPsUtilFrameSetPayloadData</name>
+        <param>
+          <type>EthernetFrame *</type>
+          <declname>FramePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>PayloadSize</declname>
+        </param>
+        <briefdescription>
+<para>This function places a pattern in the payload section of a frame. </para>        </briefdescription>
+        <detaileddescription>
+<para>The pattern is a 8 bit incrementing series of numbers starting with 0. Once the pattern reaches 256, then the pattern changes to a 16 bit incrementing pattern: <preformatted>
+  0, 1, 2, ... 254, 255, 00, 00, 00, 01, 00, 02, ...
+</preformatted></para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>FramePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the frame to change. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>PayloadSize</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the number of bytes in the payload that will be set.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/examples/xemacps_example.h" line="117" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/examples/xemacps_example_util.c" bodystart="134" bodyend="167"/>
+        <referencedby refid="xemacps__example__intr__dma_8c_1afa31ff7ff7de0863dde3919fa1602671" compoundref="xemacps__example__intr__dma_8c" startline="718" endline="1036">EmacPsDmaSingleFrameIntrExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xemacps__example_8h_1a9bf345bfd8b6008fd32c436c1c8f049e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>LONG</type>
+        <definition>LONG EmacPsUtilFrameVerify</definition>
+        <argsstring>(EthernetFrame *CheckFrame, EthernetFrame *ActualFrame)</argsstring>
+        <name>EmacPsUtilFrameVerify</name>
+        <param>
+          <type>EthernetFrame *</type>
+          <declname>CheckFrame</declname>
+        </param>
+        <param>
+          <type>EthernetFrame *</type>
+          <declname>ActualFrame</declname>
+        </param>
+        <briefdescription>
+<para>This function verifies the frame data against a CheckFrame. </para>        </briefdescription>
+        <detaileddescription>
+<para>Validation occurs by comparing the ActualFrame to the header of the CheckFrame. If the headers match, then the payload of ActualFrame is verified for the same pattern Util_FrameSetPayloadData() generates.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>CheckFrame</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to a frame containing the 14 byte header that should be present in the ActualFrame parameter. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ActualFrame</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to a frame to validate.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful, else XST_FAILURE.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/examples/xemacps_example.h" line="118" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/examples/xemacps_example_util.c" bodystart="185" bodyend="249"/>
+        <referencedby refid="xemacps__example__intr__dma_8c_1afa31ff7ff7de0863dde3919fa1602671" compoundref="xemacps__example__intr__dma_8c" startline="718" endline="1036">EmacPsDmaSingleFrameIntrExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xemacps__example_8h_1af60ff561f93957fc82d6625103a3ec5c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void EmacPsUtilFrameMemClear</definition>
+        <argsstring>(EthernetFrame *FramePtr)</argsstring>
+        <name>EmacPsUtilFrameMemClear</name>
+        <param>
+          <type>EthernetFrame *</type>
+          <declname>FramePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function sets all bytes of a frame to 0. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>FramePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the frame itself.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/examples/xemacps_example.h" line="120" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/examples/xemacps_example_util.c" bodystart="262" bodyend="271"/>
+        <referencedby refid="xemacps__example__intr__dma_8c_1afa31ff7ff7de0863dde3919fa1602671" compoundref="xemacps__example__intr__dma_8c" startline="718" endline="1036">EmacPsDmaSingleFrameIntrExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xemacps__example_8h_1a8ff518e7c0944664378ea423ee46bf30" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>LONG</type>
+        <definition>LONG EmacPsUtilEnterLoopback</definition>
+        <argsstring>(XEmacPs *XEmacPsInstancePtr, u32 Speed)</argsstring>
+        <name>EmacPsUtilEnterLoopback</name>
+        <param>
+          <type><ref refid="group__emacps_1ga7510da8ed2cb292c5abdbcc18cc26c67" kindref="member">XEmacPs</ref> *</type>
+          <declname>XEmacPsInstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Speed</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/examples/xemacps_example.h" line="121" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/examples/xemacps_example_util.c" bodystart="669" bodyend="701"/>
+      </memberdef>
+      <memberdef kind="function" id="xemacps__example_8h_1a115c0926c08893ef3e71c68f7622576a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void EmacPsUtilstrncpy</definition>
+        <argsstring>(char *Destination, const char *Source, u32 n)</argsstring>
+        <name>EmacPsUtilstrncpy</name>
+        <param>
+          <type>char *</type>
+          <declname>Destination</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>Source</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>n</declname>
+        </param>
+        <briefdescription>
+<para>This function copies data from source to destination for n bytes. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Destination</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the targeted string to copy to. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Source</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the source string to copy from. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>n</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is number of bytes to be copied.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>This function is similar to strncpy(), however strncpy will stop either at null byte or n bytes is been copied. This function will copy n bytes without checking the content. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/examples/xemacps_example.h" line="122" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/examples/xemacps_example_util.c" bodystart="288" bodyend="294"/>
+      </memberdef>
+      <memberdef kind="function" id="xemacps__example_8h_1a776b1bc0336021ef0b3542c13ba81e83" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void EmacPsUtilErrorTrap</definition>
+        <argsstring>(const char *Message)</argsstring>
+        <name>EmacPsUtilErrorTrap</name>
+        <param>
+          <type>const char *</type>
+          <declname>Message</declname>
+        </param>
+        <briefdescription>
+<para>This function is called by example code when an error is detected. </para>        </briefdescription>
+        <detaileddescription>
+<para>It can be set as a breakpoint with a debugger or it can be used to print out the given message if there is a UART or STDIO device.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Message</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the text explaining the error</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/examples/xemacps_example.h" line="123" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/examples/xemacps_example_util.c" bodystart="717" bodyend="728"/>
+        <referencedby refid="xemacps__example__intr__dma_8c_1aa91855dbce2897b52a49dd1e100c4f38" compoundref="xemacps__example__intr__dma_8c" startline="407" endline="698">EmacPsDmaIntrExample</referencedby>
+        <referencedby refid="xemacps__example__intr__dma_8c_1afa31ff7ff7de0863dde3919fa1602671" compoundref="xemacps__example__intr__dma_8c" startline="718" endline="1036">EmacPsDmaSingleFrameIntrExample</referencedby>
+        <referencedby refid="xemacps__example__intr__dma_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xemacps__example__intr__dma_8c" startline="344" endline="378">main</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xemacps__example_8h_1a907ad3930dc1eefe5a53a0b82b715091" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void EmacpsDelay</definition>
+        <argsstring>(u32 delay)</argsstring>
+        <name>EmacpsDelay</name>
+        <param>
+          <type>u32</type>
+          <declname>delay</declname>
+        </param>
+        <briefdescription>
+<para>This function provides delays in seconds. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>delay</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>in seconds</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>for microblaze the delay is not accurate and it need to tuned. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/examples/xemacps_example.h" line="124" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/examples/xemacps_example_util.c" bodystart="654" bodyend="666"/>
+        <referencedby refid="xemacps__example__intr__dma_8c_1aa91855dbce2897b52a49dd1e100c4f38" compoundref="xemacps__example__intr__dma_8c" startline="407" endline="698">EmacPsDmaIntrExample</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Defines common data types, prototypes, and includes the proper headers for use with the EMACPS example code residing in this directory. </para>    </briefdescription>
+    <detaileddescription>
+<para>This file along with <ref refid="xemacps__example__util_8c" kindref="compound">xemacps_example_util.c</ref> are utilized with the specific example code in the other source code files provided. These examples are designed to be compiled and utilized within the SDK standalone BSP development environment.</para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+1.00a wsy  01/10/10 First release
+1.01a asa  02/27/12 Hash define added for EMACPS_SLCR_DIV_MASK.
+1.05a asa  09/22/13 The EthernetFrame is made cache line aligned (32 bytes).
+                                  Fix for CR #663885.
+3.0   hk   02/20/15 Increase array sizes to add support for jumbo frames.
+3.2   mus  02//16 Added support support to INTC controller
+3.3   kpc  12/09/16 Fixed issue when -O2 is enabled
+3.9   hk   01/23/19 Update versal emulation specific fixes.
+           03/20/19 Fix alignment pragmas for IAR compiler.
+</preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2010<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022<sp/>-<sp/>2024<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="37"><highlight class="preprocessor">#ifndef<sp/>XEMACPS_EXAMPLE_H</highlight></codeline>
+<codeline lineno="38"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XEMACPS_EXAMPLE_H</highlight></codeline>
+<codeline lineno="39"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="41"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="43"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;stdio.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;stdlib.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xparameters.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_assert.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_io.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_exception.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_cache.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_printf.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xemacps_8h" kindref="compound">xemacps.h</ref>&quot;</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>defines<sp/>XEmacPs<sp/>API<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>SDT</highlight></codeline>
+<codeline lineno="57"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xinterrupt_wrap.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="59"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#ifdef<sp/>XPAR_INTC_0_DEVICE_ID</highlight></codeline>
+<codeline lineno="60"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xintc.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="62"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xscugic.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="64"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="65"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>__MICROBLAZE__</highlight></codeline>
+<codeline lineno="67"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;sleep.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xparameters_ps.h&quot;</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>defines<sp/>XPAR<sp/>values<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpseudo_asm.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="71"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>EMACPS_LOOPBACK_SPEED<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>100<sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>100Mbps<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="75"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>EMACPS_LOOPBACK_SPEED_1G<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1000<sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>1000Mbps<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="76"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>EMACPS_LOOPBACK_SPEED_2_5G<sp/><sp/><sp/><sp/><sp/><sp/>2500<sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>5000Mbps<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="77"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>EMACPS_LOOPBACK_SPEED_5G<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>5000<sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>5000Mbps<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="78"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>EMACPS_LOOPBACK_SPEED_10G<sp/><sp/><sp/><sp/><sp/><sp/><sp/>10000<sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>10000Mbps<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="79"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>EMACPS_PHY_DELAY_SEC<sp/><sp/><sp/><sp/><sp/>4<sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Amount<sp/>of<sp/>time<sp/>to<sp/>delay<sp/>waiting<sp/>on</highlight></codeline>
+<codeline lineno="80"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PHY<sp/>to<sp/>reset<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="81"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>EMACPS_SLCR_DIV_MASK<sp/><sp/><sp/><sp/>0xFC0FC0FF</highlight></codeline>
+<codeline lineno="82"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="83"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>CSU_VERSION<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xFFCA0044</highlight></codeline>
+<codeline lineno="84"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PLATFORM_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xF000</highlight></codeline>
+<codeline lineno="85"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PLATFORM_SILICON<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0000</highlight></codeline>
+<codeline lineno="86"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>VERSAL_VERSION<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xF11A0004</highlight></codeline>
+<codeline lineno="87"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PLATFORM_MASK_VERSAL<sp/><sp/><sp/><sp/>0xF000000</highlight></codeline>
+<codeline lineno="88"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PLATFORM_VERSALEMU<sp/><sp/><sp/><sp/><sp/><sp/>0x1000000</highlight></codeline>
+<codeline lineno="89"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PLATFORM_VERSALSIL<sp/><sp/><sp/><sp/><sp/><sp/>0x0000000</highlight></codeline>
+<codeline lineno="90"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="91"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="92"><highlight class="normal"></highlight></codeline>
+<codeline lineno="93"><highlight class="normal"></highlight></codeline>
+<codeline lineno="94"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="95"><highlight class="normal"></highlight></codeline>
+<codeline lineno="96"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="97"><highlight class="comment"><sp/>*<sp/>Define<sp/>an<sp/>aligned<sp/>data<sp/>type<sp/>for<sp/>an<sp/>ethernet<sp/>frame.<sp/>This<sp/>declaration<sp/>is</highlight></codeline>
+<codeline lineno="98"><highlight class="comment"><sp/>*<sp/>specific<sp/>to<sp/>the<sp/>GNU<sp/>compiler</highlight></codeline>
+<codeline lineno="99"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="100"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__ICCARM__</highlight></codeline>
+<codeline lineno="101"><highlight class="preprocessor"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>EthernetFrame[XEMACPS_MAX_VLAN_FRAME_SIZE_JUMBO];</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="103"><highlight class="preprocessor"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>EthernetFrame[XEMACPS_MAX_VLAN_FRAME_SIZE_JUMBO]</highlight></codeline>
+<codeline lineno="104"><highlight class="normal">__attribute__<sp/>((aligned(64)));</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="106"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="107"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="108"><highlight class="normal"></highlight></codeline>
+<codeline lineno="109"><highlight class="normal"></highlight></codeline>
+<codeline lineno="110"><highlight class="normal"></highlight></codeline>
+<codeline lineno="111"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="112"><highlight class="comment"><sp/>*<sp/>Utility<sp/>functions<sp/>implemented<sp/>in<sp/>xemacps_example_util.c</highlight></codeline>
+<codeline lineno="113"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="114"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>EmacPsUtilSetupUart(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xemacps__example_8h_1a0bc7c575f2858a89f9496f83dc6052d4" kindref="member">EmacPsUtilFrameHdrFormatMAC</ref>(EthernetFrame<sp/>*FramePtr,<sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*DestAddr);</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xemacps__example_8h_1a6fddc02339ce2adea5260e2401572eb8" kindref="member">EmacPsUtilFrameHdrFormatType</ref>(EthernetFrame<sp/>*FramePtr,<sp/>u16<sp/>FrameType);</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xemacps__example_8h_1a745c2dd310df9fc6a3067ec7c426d9b5" kindref="member">EmacPsUtilFrameSetPayloadData</ref>(EthernetFrame<sp/>*FramePtr,<sp/>u32<sp/>PayloadSize);</highlight></codeline>
+<codeline lineno="118"><highlight class="normal">LONG<sp/><ref refid="xemacps__example_8h_1a9bf345bfd8b6008fd32c436c1c8f049e" kindref="member">EmacPsUtilFrameVerify</ref>(EthernetFrame<sp/>*CheckFrame,</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>EthernetFrame<sp/>*ActualFrame);</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xemacps__example_8h_1af60ff561f93957fc82d6625103a3ec5c" kindref="member">EmacPsUtilFrameMemClear</ref>(EthernetFrame<sp/>*FramePtr);</highlight></codeline>
+<codeline lineno="121"><highlight class="normal">LONG<sp/>EmacPsUtilEnterLoopback(<ref refid="struct_x_emac_ps___instance" kindref="compound">XEmacPs</ref><sp/>*XEmacPsInstancePtr,<sp/>u32<sp/>Speed);</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xemacps__example_8h_1a115c0926c08893ef3e71c68f7622576a" kindref="member">EmacPsUtilstrncpy</ref>(</highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*Destination,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*Source,<sp/>u32<sp/>n);</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xemacps__example_8h_1a776b1bc0336021ef0b3542c13ba81e83" kindref="member">EmacPsUtilErrorTrap</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*Message);</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xemacps__example_8h_1a907ad3930dc1eefe5a53a0b82b715091" kindref="member">EmacpsDelay</ref>(u32<sp/>delay);</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"></highlight></codeline>
+<codeline lineno="126"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="127"><highlight class="normal"></highlight></codeline>
+<codeline lineno="128"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/><ref refid="struct_x_emac_ps___instance" kindref="compound">XEmacPs</ref><sp/>EmacPsInstance;<sp/><sp/></highlight><highlight class="comment">/*<sp/>Device<sp/>instance<sp/>used<sp/>throughout<sp/>examples<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="129"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>EmacPsMAC[];<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Local<sp/>MAC<sp/>address<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="130"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>u32<sp/>Platform;</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"></highlight></codeline>
+<codeline lineno="132"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="133"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="135"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="136"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XEMACPS_EXAMPLE_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/examples/xemacps_example.h"/>
+  </compounddef>
+</doxygen>

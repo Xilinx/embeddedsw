@@ -1,0 +1,447 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xgpio__intr_8c" kind="file">
+    <compoundname>xgpio_intr.c</compoundname>
+    <includes refid="xgpio_8h" local="yes">xgpio.h</includes>
+    <incdepgraph>
+      <node id="72">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="75">
+        <label>xil_io.h</label>
+      </node>
+      <node id="69">
+        <label>xgpio_intr.c</label>
+        <link refid="xgpio_intr.c"/>
+        <childnode refid="70" relation="include">
+        </childnode>
+      </node>
+      <node id="74">
+        <label>xgpio_l.h</label>
+        <link refid="xgpio__l_8h"/>
+        <childnode refid="71" relation="include">
+        </childnode>
+        <childnode refid="72" relation="include">
+        </childnode>
+        <childnode refid="75" relation="include">
+        </childnode>
+      </node>
+      <node id="70">
+        <label>xgpio.h</label>
+        <link refid="xgpio_8h"/>
+        <childnode refid="71" relation="include">
+        </childnode>
+        <childnode refid="72" relation="include">
+        </childnode>
+        <childnode refid="73" relation="include">
+        </childnode>
+        <childnode refid="74" relation="include">
+        </childnode>
+      </node>
+      <node id="73">
+        <label>xstatus.h</label>
+      </node>
+      <node id="71">
+        <label>xil_types.h</label>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__gpio__api_1ga116bf1509220aa688f76f80501eb0d9e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XGpio_InterruptGlobalEnable</definition>
+        <argsstring>(XGpio *InstancePtr)</argsstring>
+        <name>XGpio_InterruptGlobalEnable</name>
+        <param>
+          <type><ref refid="struct_x_gpio" kindref="compound">XGpio</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Enables the interrupt output signal. </para>        </briefdescription>
+        <detaileddescription>
+<para>Interrupts enabled through <ref refid="group__gpio__api_1gaa5b62394f65ecbb6566d91412616509c" kindref="member">XGpio_InterruptEnable()</ref> will not be passed through until the global enable bit is set by this function. This function is designed to allow all interrupts (both channels) to be enabled easily for exiting a critical section. This function will assert if the hardware device has not been built with interrupt capabilities.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>GPIO instance to operate on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpio/src/xgpio.h" line="158" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpio/src/xgpio_intr.c" bodystart="69" bodyend="77"/>
+        <references refid="struct_x_gpio_1ad4f1e3dea77b3d89d4c67b61516eabfe" compoundref="xgpio_8h" startline="110">XGpio::BaseAddress</references>
+        <references refid="struct_x_gpio_1acd2357402ecaeff664407202ce6d9a81" compoundref="xgpio_8h" startline="112">XGpio::InterruptPresent</references>
+        <references refid="struct_x_gpio_1a3652328c3d29797110949baaaff300fc" compoundref="xgpio_8h" startline="111">XGpio::IsReady</references>
+        <references refid="group__gpio__api_1ga0b576e472f8ad06f166d9107de3b0348" compoundref="xgpio__l_8h" startline="105">XGPIO_GIE_GINTR_ENABLE_MASK</references>
+        <references refid="group__gpio__api_1ga389241f63fd0ce9af2c1f6dc0f69dcb3" compoundref="xgpio__l_8h" startline="77">XGPIO_GIE_OFFSET</references>
+        <references refid="group__gpio__api_1ga2cd75ed11bd48af96704b073fa65ef22" compoundref="xgpio__l_8h" startline="136">XGpio_WriteReg</references>
+        <referencedby refid="xgpio__intr__tapp__example_8c_1aaede834b6dfed995921f6bc52359f157" compoundref="xgpio__intr__tapp__example_8c" startline="252" endline="304">GpioIntrExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__gpio__api_1ga6241d0ae28815c258bb89a61ce0a6366" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XGpio_InterruptGlobalDisable</definition>
+        <argsstring>(XGpio *InstancePtr)</argsstring>
+        <name>XGpio_InterruptGlobalDisable</name>
+        <param>
+          <type><ref refid="struct_x_gpio" kindref="compound">XGpio</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Disables the interrupt output signal. </para>        </briefdescription>
+        <detaileddescription>
+<para>Interrupts enabled through <ref refid="group__gpio__api_1gaa5b62394f65ecbb6566d91412616509c" kindref="member">XGpio_InterruptEnable()</ref> will no longer be passed through until the global enable bit is set by <ref refid="group__gpio__api_1ga116bf1509220aa688f76f80501eb0d9e" kindref="member">XGpio_InterruptGlobalEnable()</ref>. This function is designed to allow all interrupts (both channels) to be disabled easily for entering a critical section. This function will assert if the hardware device has not been built with interrupt capabilities.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>GPIO instance to operate on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpio/src/xgpio.h" line="159" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpio/src/xgpio_intr.c" bodystart="95" bodyend="104"/>
+        <references refid="struct_x_gpio_1ad4f1e3dea77b3d89d4c67b61516eabfe" compoundref="xgpio_8h" startline="110">XGpio::BaseAddress</references>
+        <references refid="struct_x_gpio_1acd2357402ecaeff664407202ce6d9a81" compoundref="xgpio_8h" startline="112">XGpio::InterruptPresent</references>
+        <references refid="struct_x_gpio_1a3652328c3d29797110949baaaff300fc" compoundref="xgpio_8h" startline="111">XGpio::IsReady</references>
+        <references refid="group__gpio__api_1ga389241f63fd0ce9af2c1f6dc0f69dcb3" compoundref="xgpio__l_8h" startline="77">XGPIO_GIE_OFFSET</references>
+        <references refid="group__gpio__api_1ga2cd75ed11bd48af96704b073fa65ef22" compoundref="xgpio__l_8h" startline="136">XGpio_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__gpio__api_1gaa5b62394f65ecbb6566d91412616509c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XGpio_InterruptEnable</definition>
+        <argsstring>(XGpio *InstancePtr, u32 Mask)</argsstring>
+        <name>XGpio_InterruptEnable</name>
+        <param>
+          <type><ref refid="struct_x_gpio" kindref="compound">XGpio</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Mask</declname>
+        </param>
+        <briefdescription>
+<para>Enable interrupts. </para>        </briefdescription>
+        <detaileddescription>
+<para>The global interrupt must also be enabled by calling <ref refid="group__gpio__api_1ga116bf1509220aa688f76f80501eb0d9e" kindref="member">XGpio_InterruptGlobalEnable()</ref> for interrupts to occur. This function will assert if the hardware device has not been built with interrupt capabilities.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>GPIO instance to operate on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Mask to enable. Bit positions of 1 are enabled. This mask is formed by OR&apos;ing bits from XGPIO_IR* bits which are contained in <ref refid="xgpio__l_8h" kindref="compound">xgpio_l.h</ref>.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpio/src/xgpio.h" line="160" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpio/src/xgpio_intr.c" bodystart="122" bodyend="139"/>
+        <references refid="struct_x_gpio_1ad4f1e3dea77b3d89d4c67b61516eabfe" compoundref="xgpio_8h" startline="110">XGpio::BaseAddress</references>
+        <references refid="struct_x_gpio_1acd2357402ecaeff664407202ce6d9a81" compoundref="xgpio_8h" startline="112">XGpio::InterruptPresent</references>
+        <references refid="struct_x_gpio_1a3652328c3d29797110949baaaff300fc" compoundref="xgpio_8h" startline="111">XGpio::IsReady</references>
+        <references refid="group__gpio__api_1ga4f62e4ffa9e47cd55133c583134f4f57" compoundref="xgpio__l_8h" startline="79">XGPIO_IER_OFFSET</references>
+        <references refid="group__gpio__api_1ga7199da4092b92413af00c613c8cffa57" compoundref="xgpio__l_8h" startline="156">XGpio_ReadReg</references>
+        <references refid="group__gpio__api_1ga2cd75ed11bd48af96704b073fa65ef22" compoundref="xgpio__l_8h" startline="136">XGpio_WriteReg</references>
+        <referencedby refid="xgpio__intr__tapp__example_8c_1aaede834b6dfed995921f6bc52359f157" compoundref="xgpio__intr__tapp__example_8c" startline="252" endline="304">GpioIntrExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__gpio__api_1ga21c295f935fdc4e37c9f958b3652fbf6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XGpio_InterruptDisable</definition>
+        <argsstring>(XGpio *InstancePtr, u32 Mask)</argsstring>
+        <name>XGpio_InterruptDisable</name>
+        <param>
+          <type><ref refid="struct_x_gpio" kindref="compound">XGpio</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Mask</declname>
+        </param>
+        <briefdescription>
+<para>Disable interrupts. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function allows specific interrupts for each channel to be disabled. This function will assert if the hardware device has not been built with interrupt capabilities.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>GPIO instance to operate on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Mask to disable. Bits set to 1 are disabled. This mask is formed by OR&apos;ing bits from XGPIO_IR* bits which are contained in <ref refid="xgpio__l_8h" kindref="compound">xgpio_l.h</ref>.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpio/src/xgpio.h" line="161" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpio/src/xgpio_intr.c" bodystart="157" bodyend="173"/>
+        <references refid="struct_x_gpio_1ad4f1e3dea77b3d89d4c67b61516eabfe" compoundref="xgpio_8h" startline="110">XGpio::BaseAddress</references>
+        <references refid="struct_x_gpio_1acd2357402ecaeff664407202ce6d9a81" compoundref="xgpio_8h" startline="112">XGpio::InterruptPresent</references>
+        <references refid="struct_x_gpio_1a3652328c3d29797110949baaaff300fc" compoundref="xgpio_8h" startline="111">XGpio::IsReady</references>
+        <references refid="group__gpio__api_1ga4f62e4ffa9e47cd55133c583134f4f57" compoundref="xgpio__l_8h" startline="79">XGPIO_IER_OFFSET</references>
+        <references refid="group__gpio__api_1ga7199da4092b92413af00c613c8cffa57" compoundref="xgpio__l_8h" startline="156">XGpio_ReadReg</references>
+        <references refid="group__gpio__api_1ga2cd75ed11bd48af96704b073fa65ef22" compoundref="xgpio__l_8h" startline="136">XGpio_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__gpio__api_1ga5138b55159f8b2387f5cf16079b40bbe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XGpio_InterruptClear</definition>
+        <argsstring>(XGpio *InstancePtr, u32 Mask)</argsstring>
+        <name>XGpio_InterruptClear</name>
+        <param>
+          <type><ref refid="struct_x_gpio" kindref="compound">XGpio</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Mask</declname>
+        </param>
+        <briefdescription>
+<para>Clears pending interrupts with the provided mask. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function should be called after the software has serviced the interrupts that are pending. This function will assert if the hardware device has not been built with interrupt capabilities.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>GPIO instance to operate on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Mask to clear pending interrupts. Bit positions of 1 are cleared. This mask is formed by OR&apos;ing bits from XGPIO_IR* bits which are contained in <ref refid="xgpio__l_8h" kindref="compound">xgpio_l.h</ref>.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpio/src/xgpio.h" line="162" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpio/src/xgpio_intr.c" bodystart="191" bodyend="210"/>
+        <references refid="struct_x_gpio_1ad4f1e3dea77b3d89d4c67b61516eabfe" compoundref="xgpio_8h" startline="110">XGpio::BaseAddress</references>
+        <references refid="struct_x_gpio_1acd2357402ecaeff664407202ce6d9a81" compoundref="xgpio_8h" startline="112">XGpio::InterruptPresent</references>
+        <references refid="struct_x_gpio_1a3652328c3d29797110949baaaff300fc" compoundref="xgpio_8h" startline="111">XGpio::IsReady</references>
+        <references refid="group__gpio__api_1ga6cbde8210cb1476b67ca87eccacbc2ed" compoundref="xgpio__l_8h" startline="78">XGPIO_ISR_OFFSET</references>
+        <references refid="group__gpio__api_1ga7199da4092b92413af00c613c8cffa57" compoundref="xgpio__l_8h" startline="156">XGpio_ReadReg</references>
+        <references refid="group__gpio__api_1ga2cd75ed11bd48af96704b073fa65ef22" compoundref="xgpio__l_8h" startline="136">XGpio_WriteReg</references>
+        <referencedby refid="xgpio__intr__tapp__example_8c_1a11b79a03b5bf53310d0f20adeca131d6" compoundref="xgpio__intr__tapp__example_8c" startline="437" endline="446">GpioHandler</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__gpio__api_1ga1e5e23001aa3d35febe4859270ede71e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XGpio_InterruptGetEnabled</definition>
+        <argsstring>(XGpio *InstancePtr)</argsstring>
+        <name>XGpio_InterruptGetEnabled</name>
+        <param>
+          <type><ref refid="struct_x_gpio" kindref="compound">XGpio</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Returns the interrupt enable mask. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function will assert if the hardware device has not been built with interrupt capabilities.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>GPIO instance to operate on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>A mask of bits made from XGPIO_IR* bits which are contained in <ref refid="xgpio__l_8h" kindref="compound">xgpio_l.h</ref>.</para><simplesectsep/><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpio/src/xgpio.h" line="163" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpio/src/xgpio_intr.c" bodystart="227" bodyend="234"/>
+        <references refid="struct_x_gpio_1ad4f1e3dea77b3d89d4c67b61516eabfe" compoundref="xgpio_8h" startline="110">XGpio::BaseAddress</references>
+        <references refid="struct_x_gpio_1acd2357402ecaeff664407202ce6d9a81" compoundref="xgpio_8h" startline="112">XGpio::InterruptPresent</references>
+        <references refid="struct_x_gpio_1a3652328c3d29797110949baaaff300fc" compoundref="xgpio_8h" startline="111">XGpio::IsReady</references>
+        <references refid="group__gpio__api_1ga4f62e4ffa9e47cd55133c583134f4f57" compoundref="xgpio__l_8h" startline="79">XGPIO_IER_OFFSET</references>
+        <references refid="group__gpio__api_1ga7199da4092b92413af00c613c8cffa57" compoundref="xgpio__l_8h" startline="156">XGpio_ReadReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__gpio__api_1ga95b0fa50ff962243ea284a4a767fe01e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XGpio_InterruptGetStatus</definition>
+        <argsstring>(XGpio *InstancePtr)</argsstring>
+        <name>XGpio_InterruptGetStatus</name>
+        <param>
+          <type><ref refid="struct_x_gpio" kindref="compound">XGpio</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Returns the status of interrupt signals. </para>        </briefdescription>
+        <detaileddescription>
+<para>Any bit in the mask set to 1 indicates that the channel associated with the bit has asserted an interrupt condition. This function will assert if the hardware device has not been built with interrupt capabilities.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>GPIO instance to operate on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>A pointer to a mask of bits made from XGPIO_IR* bits which are contained in <ref refid="xgpio__l_8h" kindref="compound">xgpio_l.h</ref>.</para></simplesect>
+The interrupt status indicates the status of the device regardless if the interrupts from the devices have been enabled or not through <ref refid="group__gpio__api_1gaa5b62394f65ecbb6566d91412616509c" kindref="member">XGpio_InterruptEnable()</ref>. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpio/src/xgpio.h" line="164" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpio/src/xgpio_intr.c" bodystart="255" bodyend="263"/>
+        <references refid="struct_x_gpio_1ad4f1e3dea77b3d89d4c67b61516eabfe" compoundref="xgpio_8h" startline="110">XGpio::BaseAddress</references>
+        <references refid="struct_x_gpio_1acd2357402ecaeff664407202ce6d9a81" compoundref="xgpio_8h" startline="112">XGpio::InterruptPresent</references>
+        <references refid="struct_x_gpio_1a3652328c3d29797110949baaaff300fc" compoundref="xgpio_8h" startline="111">XGpio::IsReady</references>
+        <references refid="group__gpio__api_1ga6cbde8210cb1476b67ca87eccacbc2ed" compoundref="xgpio__l_8h" startline="78">XGPIO_ISR_OFFSET</references>
+        <references refid="group__gpio__api_1ga7199da4092b92413af00c613c8cffa57" compoundref="xgpio__l_8h" startline="156">XGpio_ReadReg</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2002<sp/>-<sp/>2021<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2022<sp/>-<sp/>2024<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="38"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xgpio_8h" kindref="compound">xgpio.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="69" refid="group__gpio__api_1ga116bf1509220aa688f76f80501eb0d9e" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__gpio__api_1ga116bf1509220aa688f76f80501eb0d9e" kindref="member">XGpio_InterruptGlobalEnable</ref>(<ref refid="struct_x_gpio" kindref="compound">XGpio</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="70"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_gpio_1a3652328c3d29797110949baaaff300fc" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_gpio_1acd2357402ecaeff664407202ce6d9a81" kindref="member">InterruptPresent</ref><sp/>==<sp/>TRUE);</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__gpio__api_1ga2cd75ed11bd48af96704b073fa65ef22" kindref="member">XGpio_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_gpio_1ad4f1e3dea77b3d89d4c67b61516eabfe" kindref="member">BaseAddress</ref>,<sp/><ref refid="group__gpio__api_1ga389241f63fd0ce9af2c1f6dc0f69dcb3" kindref="member">XGPIO_GIE_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__gpio__api_1ga0b576e472f8ad06f166d9107de3b0348" kindref="member">XGPIO_GIE_GINTR_ENABLE_MASK</ref>);</highlight></codeline>
+<codeline lineno="77"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight></codeline>
+<codeline lineno="79"><highlight class="normal"></highlight></codeline>
+<codeline lineno="80"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="95" refid="group__gpio__api_1ga6241d0ae28815c258bb89a61ce0a6366" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__gpio__api_1ga6241d0ae28815c258bb89a61ce0a6366" kindref="member">XGpio_InterruptGlobalDisable</ref>(<ref refid="struct_x_gpio" kindref="compound">XGpio</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="96"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_gpio_1a3652328c3d29797110949baaaff300fc" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_gpio_1acd2357402ecaeff664407202ce6d9a81" kindref="member">InterruptPresent</ref><sp/>==<sp/>TRUE);</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"></highlight></codeline>
+<codeline lineno="101"><highlight class="normal"></highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__gpio__api_1ga2cd75ed11bd48af96704b073fa65ef22" kindref="member">XGpio_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_gpio_1ad4f1e3dea77b3d89d4c67b61516eabfe" kindref="member">BaseAddress</ref>,<sp/><ref refid="group__gpio__api_1ga389241f63fd0ce9af2c1f6dc0f69dcb3" kindref="member">XGPIO_GIE_OFFSET</ref>,<sp/>0x0);</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"></highlight></codeline>
+<codeline lineno="104"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"></highlight></codeline>
+<codeline lineno="106"><highlight class="normal"></highlight></codeline>
+<codeline lineno="107"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="122" refid="group__gpio__api_1gaa5b62394f65ecbb6566d91412616509c" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__gpio__api_1gaa5b62394f65ecbb6566d91412616509c" kindref="member">XGpio_InterruptEnable</ref>(<ref refid="struct_x_gpio" kindref="compound">XGpio</ref><sp/>*InstancePtr,<sp/>u32<sp/>Mask)</highlight></codeline>
+<codeline lineno="123"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Register;</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"></highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_gpio_1a3652328c3d29797110949baaaff300fc" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_gpio_1acd2357402ecaeff664407202ce6d9a81" kindref="member">InterruptPresent</ref><sp/>==<sp/>TRUE);</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"></highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="131"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Read<sp/>the<sp/>interrupt<sp/>enable<sp/>register<sp/>and<sp/>only<sp/>enable<sp/>the<sp/>specified</highlight></codeline>
+<codeline lineno="132"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>interrupts<sp/>without<sp/>disabling<sp/>or<sp/>enabling<sp/>any<sp/>others.</highlight></codeline>
+<codeline lineno="133"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="134"><highlight class="normal"></highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Register<sp/>=<sp/><ref refid="group__gpio__api_1ga7199da4092b92413af00c613c8cffa57" kindref="member">XGpio_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_gpio_1ad4f1e3dea77b3d89d4c67b61516eabfe" kindref="member">BaseAddress</ref>,<sp/><ref refid="group__gpio__api_1ga4f62e4ffa9e47cd55133c583134f4f57" kindref="member">XGPIO_IER_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__gpio__api_1ga2cd75ed11bd48af96704b073fa65ef22" kindref="member">XGpio_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_gpio_1ad4f1e3dea77b3d89d4c67b61516eabfe" kindref="member">BaseAddress</ref>,<sp/><ref refid="group__gpio__api_1ga4f62e4ffa9e47cd55133c583134f4f57" kindref="member">XGPIO_IER_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Register<sp/>|<sp/>Mask);</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"></highlight></codeline>
+<codeline lineno="139"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"></highlight></codeline>
+<codeline lineno="141"><highlight class="normal"></highlight></codeline>
+<codeline lineno="142"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="157" refid="group__gpio__api_1ga21c295f935fdc4e37c9f958b3652fbf6" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__gpio__api_1ga21c295f935fdc4e37c9f958b3652fbf6" kindref="member">XGpio_InterruptDisable</ref>(<ref refid="struct_x_gpio" kindref="compound">XGpio</ref><sp/>*InstancePtr,<sp/>u32<sp/>Mask)</highlight></codeline>
+<codeline lineno="158"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Register;</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"></highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_gpio_1a3652328c3d29797110949baaaff300fc" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_gpio_1acd2357402ecaeff664407202ce6d9a81" kindref="member">InterruptPresent</ref><sp/>==<sp/>TRUE);</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"></highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="166"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Read<sp/>the<sp/>interrupt<sp/>enable<sp/>register<sp/>and<sp/>only<sp/>disable<sp/>the<sp/>specified</highlight></codeline>
+<codeline lineno="167"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>interrupts<sp/>without<sp/>enabling<sp/>or<sp/>disabling<sp/>any<sp/>others.</highlight></codeline>
+<codeline lineno="168"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Register<sp/>=<sp/><ref refid="group__gpio__api_1ga7199da4092b92413af00c613c8cffa57" kindref="member">XGpio_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_gpio_1ad4f1e3dea77b3d89d4c67b61516eabfe" kindref="member">BaseAddress</ref>,<sp/><ref refid="group__gpio__api_1ga4f62e4ffa9e47cd55133c583134f4f57" kindref="member">XGPIO_IER_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__gpio__api_1ga2cd75ed11bd48af96704b073fa65ef22" kindref="member">XGpio_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_gpio_1ad4f1e3dea77b3d89d4c67b61516eabfe" kindref="member">BaseAddress</ref>,<sp/><ref refid="group__gpio__api_1ga4f62e4ffa9e47cd55133c583134f4f57" kindref="member">XGPIO_IER_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Register<sp/>&amp;<sp/>(~Mask));</highlight></codeline>
+<codeline lineno="172"><highlight class="normal"></highlight></codeline>
+<codeline lineno="173"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"></highlight></codeline>
+<codeline lineno="175"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="191" refid="group__gpio__api_1ga5138b55159f8b2387f5cf16079b40bbe" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__gpio__api_1ga5138b55159f8b2387f5cf16079b40bbe" kindref="member">XGpio_InterruptClear</ref>(<ref refid="struct_x_gpio" kindref="compound">XGpio</ref><sp/>*<sp/>InstancePtr,<sp/>u32<sp/>Mask)</highlight></codeline>
+<codeline lineno="192"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="193"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Register;</highlight></codeline>
+<codeline lineno="194"><highlight class="normal"></highlight></codeline>
+<codeline lineno="195"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="196"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_gpio_1a3652328c3d29797110949baaaff300fc" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="197"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_gpio_1acd2357402ecaeff664407202ce6d9a81" kindref="member">InterruptPresent</ref><sp/>==<sp/>TRUE);</highlight></codeline>
+<codeline lineno="198"><highlight class="normal"></highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="200"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Read<sp/>the<sp/>interrupt<sp/>status<sp/>register<sp/>and<sp/>only<sp/>clear<sp/>the<sp/>interrupts</highlight></codeline>
+<codeline lineno="201"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>that<sp/>are<sp/>specified<sp/>without<sp/>affecting<sp/>any<sp/>others.<sp/><sp/>Since<sp/>the<sp/>register</highlight></codeline>
+<codeline lineno="202"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>is<sp/>a<sp/>toggle<sp/>on<sp/>write,<sp/>make<sp/>sure<sp/>any<sp/>bits<sp/>to<sp/>be<sp/>written<sp/>are<sp/>already</highlight></codeline>
+<codeline lineno="203"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>set.</highlight></codeline>
+<codeline lineno="204"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Register<sp/>=<sp/><ref refid="group__gpio__api_1ga7199da4092b92413af00c613c8cffa57" kindref="member">XGpio_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_gpio_1ad4f1e3dea77b3d89d4c67b61516eabfe" kindref="member">BaseAddress</ref>,<sp/><ref refid="group__gpio__api_1ga6cbde8210cb1476b67ca87eccacbc2ed" kindref="member">XGPIO_ISR_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="206"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__gpio__api_1ga2cd75ed11bd48af96704b073fa65ef22" kindref="member">XGpio_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_gpio_1ad4f1e3dea77b3d89d4c67b61516eabfe" kindref="member">BaseAddress</ref>,<sp/><ref refid="group__gpio__api_1ga6cbde8210cb1476b67ca87eccacbc2ed" kindref="member">XGPIO_ISR_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="207"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Register<sp/>&amp;<sp/>Mask);</highlight></codeline>
+<codeline lineno="208"><highlight class="normal"></highlight></codeline>
+<codeline lineno="209"><highlight class="normal"></highlight></codeline>
+<codeline lineno="210"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="211"><highlight class="normal"></highlight></codeline>
+<codeline lineno="212"><highlight class="normal"></highlight></codeline>
+<codeline lineno="213"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="227" refid="group__gpio__api_1ga1e5e23001aa3d35febe4859270ede71e" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__gpio__api_1ga1e5e23001aa3d35febe4859270ede71e" kindref="member">XGpio_InterruptGetEnabled</ref>(<ref refid="struct_x_gpio" kindref="compound">XGpio</ref><sp/>*<sp/>InstancePtr)</highlight></codeline>
+<codeline lineno="228"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="229"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="230"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_gpio_1a3652328c3d29797110949baaaff300fc" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="231"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_gpio_1acd2357402ecaeff664407202ce6d9a81" kindref="member">InterruptPresent</ref><sp/>==<sp/>TRUE);</highlight></codeline>
+<codeline lineno="232"><highlight class="normal"></highlight></codeline>
+<codeline lineno="233"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="group__gpio__api_1ga7199da4092b92413af00c613c8cffa57" kindref="member">XGpio_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_gpio_1ad4f1e3dea77b3d89d4c67b61516eabfe" kindref="member">BaseAddress</ref>,<sp/><ref refid="group__gpio__api_1ga4f62e4ffa9e47cd55133c583134f4f57" kindref="member">XGPIO_IER_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="234"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="235"><highlight class="normal"></highlight></codeline>
+<codeline lineno="236"><highlight class="normal"></highlight></codeline>
+<codeline lineno="237"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="255" refid="group__gpio__api_1ga95b0fa50ff962243ea284a4a767fe01e" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__gpio__api_1ga95b0fa50ff962243ea284a4a767fe01e" kindref="member">XGpio_InterruptGetStatus</ref>(<ref refid="struct_x_gpio" kindref="compound">XGpio</ref><sp/>*<sp/>InstancePtr)</highlight></codeline>
+<codeline lineno="256"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="257"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="258"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_gpio_1a3652328c3d29797110949baaaff300fc" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="259"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_gpio_1acd2357402ecaeff664407202ce6d9a81" kindref="member">InterruptPresent</ref><sp/>==<sp/>TRUE);</highlight></codeline>
+<codeline lineno="260"><highlight class="normal"></highlight></codeline>
+<codeline lineno="261"><highlight class="normal"></highlight></codeline>
+<codeline lineno="262"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="group__gpio__api_1ga7199da4092b92413af00c613c8cffa57" kindref="member">XGpio_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_gpio_1ad4f1e3dea77b3d89d4c67b61516eabfe" kindref="member">BaseAddress</ref>,<sp/><ref refid="group__gpio__api_1ga6cbde8210cb1476b67ca87eccacbc2ed" kindref="member">XGPIO_ISR_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="263"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpio/src/xgpio_intr.c"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,60 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_visp___ss" kind="struct" prot="public">
+    <compoundname>XVisp_Ss</compoundname>
+    <includes local="no">xvisp_ss.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_visp___ss_1a969c0538a973cb96e4d942605924da15" prot="public" static="no" mutable="no">
+        <type><ref refid="structxvisp__ss___config" kindref="compound">xvisp_ss_Config</ref></type>
+        <definition>xvisp_ss_Config XVisp_Ss::Config</definition>
+        <argsstring></argsstring>
+        <name>Config</name>
+        <briefdescription>
+<para>Hardware Configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.h" line="102" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.h" bodystart="102" bodyend="-1"/>
+        <referencedby refid="xvisp__ss_8c_1ae48c7ad91c20c72f07341b52b40c25a7" compoundref="xvisp__ss_8c" startline="74" endline="94">XVisp_Ss_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_visp___ss_1a85479e6b81ae9114d8c30c47cfb61e5f" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XVisp_Ss::IsReady</definition>
+        <argsstring></argsstring>
+        <name>IsReady</name>
+        <briefdescription>
+<para>Device and the driver instance are initialized. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.h" line="103" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.h" bodystart="103" bodyend="-1"/>
+        <referencedby refid="xvisp__ss_8c_1ae48c7ad91c20c72f07341b52b40c25a7" compoundref="xvisp__ss_8c" startline="74" endline="94">XVisp_Ss_CfgInitialize</referencedby>
+        <referencedby refid="group__visp__ss__api_1ga485a78abe4444e082e2152f784565d52" compoundref="xvisp__ss__sinit_8c" startline="131" endline="147">XVisp_Ss_Initialize</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Driver instance data. </para>    </briefdescription>
+    <detaileddescription>
+<para>An instance must be allocated for each VISP SS core in use. </para>    </detaileddescription>
+    <collaborationgraph>
+      <node id="1116">
+        <label>xvisp_ss_Config</label>
+        <link refid="structxvisp__ss___config"/>
+      </node>
+      <node id="1115">
+        <label>XVisp_Ss</label>
+        <link refid="struct_x_visp___ss"/>
+        <childnode refid="1116" relation="usage">
+          <edgelabel>Config</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.h" line="101" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.h" bodystart="101" bodyend="104"/>
+    <listofallmembers>
+      <member refid="struct_x_visp___ss_1a969c0538a973cb96e4d942605924da15" prot="public" virt="non-virtual"><scope>XVisp_Ss</scope><name>Config</name></member>
+      <member refid="struct_x_visp___ss_1a85479e6b81ae9114d8c30c47cfb61e5f" prot="public" virt="non-virtual"><scope>XVisp_Ss</scope><name>IsReady</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

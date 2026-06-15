@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_011ca227dd82c68d852c850de5438e88" kind="dir">
+    <compoundname>examples</compoundname>
+    <innerdir refid="dir_b04db8575930cfc551ce076a1d0f443b">sp701_ref_design</innerdir>
+    <innerdir refid="dir_05ccabae96eb51a59da0c41d5202af97">xmipi_ref_design</innerdir>
+    <innerdir refid="dir_da716e0b6cef9daa03a8e679a4f371c5">xmipi_scu200_hpio_example</innerdir>
+    <innerdir refid="dir_f1c06c4141019da0806792b07ad9c952">xmipi_scu200_xp5io_example</innerdir>
+    <innerdir refid="dir_e90096a1ce1380230a751f8bb28834ef">xmipi_vck_example</innerdir>
+    <innerdir refid="dir_7c73327987c57f6349086a3b80061dc4">xmipi_vek280_example</innerdir>
+    <innerdir refid="dir_61dece8b52812c6d87aa9f2a273ca647">xmipi_vek385_cphy_example</innerdir>
+    <innerdir refid="dir_e563fbcb7bed84a9efd0ae5a618e5639">xmipi_vek385_dphy_example</innerdir>
+    <innerfile refid="xcsiss__intr__example_8c">xcsiss_intr_example.c</innerfile>
+    <innerfile refid="xcsiss__selftest__example_8c">xcsiss_selftest_example.c</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/"/>
+  </compounddef>
+</doxygen>

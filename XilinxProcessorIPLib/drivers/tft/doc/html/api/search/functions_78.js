@@ -1,0 +1,24 @@
+var searchData=
+[
+  ['xtft_5fcfginitialize',['XTft_CfgInitialize',['../group__tft.html#ga7cb92a2667272b013b8fccb0df1307ad',1,'xtft.c']]],
+  ['xtft_5fclearscreen',['XTft_ClearScreen',['../group__tft.html#ga4181b68f12ba322250de4e29ef453abe',1,'xtft.c']]],
+  ['xtft_5fdisabledisplay',['XTft_DisableDisplay',['../group__tft.html#ga5324d540859b06ca950fbf07d466a7fe',1,'xtft.c']]],
+  ['xtft_5fenabledisplay',['XTft_EnableDisplay',['../group__tft.html#ga308d28143a386bcde54db714f43ae737',1,'xtft.c']]],
+  ['xtft_5ffillscreen',['XTft_FillScreen',['../group__tft.html#gad4dd01f62992007c014fc4a13d39abdf',1,'xtft.c']]],
+  ['xtft_5fgetpixel',['XTft_GetPixel',['../group__tft.html#ga577850dbb8a67f20b52c42a818074381',1,'xtft.c']]],
+  ['xtft_5fgetvsyncstatus',['XTft_GetVsyncStatus',['../group__tft.html#gacc8325682d029d3618ff0a7d6ee265dc',1,'xtft.c']]],
+  ['xtft_5fintrdisable',['XTft_IntrDisable',['../group__tft.html#ga1bc1f7d9c152c6e661cd125f4c190dd8',1,'xtft.c']]],
+  ['xtft_5fintrenable',['XTft_IntrEnable',['../group__tft.html#ga3241465696077377ea4000f4caca21a7',1,'xtft.c']]],
+  ['xtft_5flookupconfig',['XTft_LookupConfig',['../group__tft.html#ga6fbdb38685fd32b2c564a93b5fe70bf3',1,'xtft_sinit.c']]],
+  ['xtft_5freadreg',['XTft_ReadReg',['../group__tft.html#ga254efd25fdc63b78691a33ed565ae759',1,'xtft.c']]],
+  ['xtft_5fscannormal',['XTft_ScanNormal',['../group__tft.html#ga62eadbfc2233460b7ae8003c34347c01',1,'xtft.c']]],
+  ['xtft_5fscanreverse',['XTft_ScanReverse',['../group__tft.html#gaab5334330486fb514c230f98702d485a',1,'xtft.c']]],
+  ['xtft_5fscroll',['XTft_Scroll',['../group__tft.html#ga40c2b5ed76baff0d64b5a78b67620184',1,'xtft.c']]],
+  ['xtft_5fsetcolor',['XTft_SetColor',['../group__tft.html#ga689206aec1006c6231f4b10062a8eeb0',1,'xtft.c']]],
+  ['xtft_5fsetframebaseaddr',['XTft_SetFrameBaseAddr',['../group__tft.html#ga56ccbb6cd6478cd5bd330ef70f733b4a',1,'xtft.c']]],
+  ['xtft_5fsetpixel',['XTft_SetPixel',['../group__tft.html#ga4efcd245e6e68c56641138123e3f67cc',1,'xtft.c']]],
+  ['xtft_5fsetpos',['XTft_SetPos',['../group__tft.html#gabb17655cf7670fad99d96f1e92692b05',1,'xtft.c']]],
+  ['xtft_5fsetposchar',['XTft_SetPosChar',['../group__tft.html#ga7416b0a7b68676ae4791aef9816683de',1,'xtft.c']]],
+  ['xtft_5fwrite',['XTft_Write',['../group__tft.html#ga1cc88ecc501ab053fdccbcb270315068',1,'xtft.c']]],
+  ['xtft_5fwritereg',['XTft_WriteReg',['../group__tft.html#ga6c43a240d09cc381fef702e397b2d24b',1,'xtft.c']]]
+];

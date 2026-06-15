@@ -1,0 +1,83 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_dfe_mix___mixer_status" kind="struct" prot="public">
+    <compoundname>XDfeMix_MixerStatus</compoundname>
+    <includes local="no">xdfemix.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_dfe_mix___mixer_status_1a3db666bd974f78bf0c3ae724dc48263e" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfeMix_MixerStatus::Stage</definition>
+        <argsstring></argsstring>
+        <name>Stage</name>
+        <briefdescription>
+<para>[0-3] Earliest stage in which overflow occurred. </para>        </briefdescription>
+        <detaileddescription>
+<para><itemizedlist>
+<listitem><para>0 = COMPLEX_MULT: Complex multiplier output overflowed and has been saturated.</para></listitem><listitem><para>1 = FIRST_ADDER: First antenna adder output overflowed and has been saturated. Downlink Only.</para></listitem><listitem><para>2 = SECOND_ADDER: Second antenna adder output overflowed and has been saturated. Downlink MAX_CCIDs &gt; 4 Only.</para></listitem><listitem><para>3 = THIRD_ADDER: Third antenna adder output overflowed and has been saturated. Downlink MAX_CCIDs &gt; 8 Only. </para></listitem></itemizedlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" line="474" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" bodystart="474" bodyend="-1"/>
+        <referencedby refid="group__dfemix_1ga234e33372e58ae0665ae2988a73a5b3c" compoundref="xdfemix_8c" startline="3473" endline="3498">XDfeMix_GetMixerStatus</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_mix___mixer_status_1a9ea50126700f9438bb4c7ee5923d00ca" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfeMix_MixerStatus::Antenna</definition>
+        <argsstring></argsstring>
+        <name>Antenna</name>
+        <briefdescription>
+<para><verbatim>      [0-7] Lowest numbered antenna in which overflow
+</verbatim> occurred. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" line="483" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" bodystart="483" bodyend="-1"/>
+        <referencedby refid="group__dfemix_1ga234e33372e58ae0665ae2988a73a5b3c" compoundref="xdfemix_8c" startline="3473" endline="3498">XDfeMix_GetMixerStatus</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_mix___mixer_status_1a5fba6ea15b8339aeb3509e31314a68cc" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfeMix_MixerStatus::NcoId</definition>
+        <argsstring></argsstring>
+        <name>NcoId</name>
+        <briefdescription>
+<para><verbatim>    [0-15] NCO on which overflow occurred, with lowest
+</verbatim> antenna taking priority (only relevant to overflow in COMPLEX_MULT stage). </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" line="485" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" bodystart="485" bodyend="-1"/>
+        <referencedby refid="group__dfemix_1ga234e33372e58ae0665ae2988a73a5b3c" compoundref="xdfemix_8c" startline="3473" endline="3498">XDfeMix_GetMixerStatus</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_mix___mixer_status_1ac690f5e35dd1fd9e456596050312d3b4" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfeMix_MixerStatus::Mode</definition>
+        <argsstring></argsstring>
+        <name>Mode</name>
+        <briefdescription>
+<para><verbatim>   [0-1] In Switchable the mode of core when the overflow
+</verbatim> occurred. </para>        </briefdescription>
+        <detaileddescription>
+<para><itemizedlist>
+<listitem><para>0 = DOWNLINK: Overflow occurred while core is in downlink.</para></listitem><listitem><para>1 = UPLINK: Overflow occurred while core is in uplink. </para></listitem></itemizedlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" line="488" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" bodystart="488" bodyend="-1"/>
+        <referencedby refid="group__dfemix_1ga234e33372e58ae0665ae2988a73a5b3c" compoundref="xdfemix_8c" startline="3473" endline="3498">XDfeMix_GetMixerStatus</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Mixer status. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" line="473" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" bodystart="473" bodyend="492"/>
+    <listofallmembers>
+      <member refid="struct_x_dfe_mix___mixer_status_1a9ea50126700f9438bb4c7ee5923d00ca" prot="public" virt="non-virtual"><scope>XDfeMix_MixerStatus</scope><name>Antenna</name></member>
+      <member refid="struct_x_dfe_mix___mixer_status_1ac690f5e35dd1fd9e456596050312d3b4" prot="public" virt="non-virtual"><scope>XDfeMix_MixerStatus</scope><name>Mode</name></member>
+      <member refid="struct_x_dfe_mix___mixer_status_1a5fba6ea15b8339aeb3509e31314a68cc" prot="public" virt="non-virtual"><scope>XDfeMix_MixerStatus</scope><name>NcoId</name></member>
+      <member refid="struct_x_dfe_mix___mixer_status_1a3db666bd974f78bf0c3ae724dc48263e" prot="public" virt="non-virtual"><scope>XDfeMix_MixerStatus</scope><name>Stage</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

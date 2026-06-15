@@ -1,0 +1,263 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group____cam__device__cpd" kind="group">
+    <compoundname>_cam_device_cpd</compoundname>
+    <title>VsCamDevice E01C21 Device_CPD Definitions</title>
+    <innerclass refid="struct_cam_device_expand_config__s" prot="public">CamDeviceExpandConfig_s</innerclass>
+    <innerclass refid="struct_cam_device_cpd_config__s" prot="public">CamDeviceCpdConfig_s</innerclass>
+    <innerclass refid="struct_cam_device_cpd_status__s" prot="public">CamDeviceCpdStatus_s</innerclass>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="group____cam__device__cpd_1gad7b14b8932491381828966c649214e1b" prot="public" static="no">
+        <name>CamDeviceCpdType_e</name>
+        <enumvalue id="group____cam__device__cpd_1ggad7b14b8932491381828966c649214e1bad4b79fc6fd386221b7787ad305ff366c" prot="public">
+          <name>CAMDEV_CPD_TYPE_INAVLID</name>
+          <briefdescription>
+<para>CPD module mode is invalid. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__cpd_1ggad7b14b8932491381828966c649214e1ba57692357094e44c1e4e25372887f740b" prot="public">
+          <name>CAMDEV_CPD_TYPE_EXPAND</name>
+          <briefdescription>
+<para>CPD module working on expand mode. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>VsCamDevice CPD type enumeration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/cpd_v1_1/cam_device_cpd_api.h" line="53" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/cpd_v1_1/cam_device_cpd_api.h" bodystart="53" bodyend="56"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="group____cam__device__cpd_1gacbb6e0a8f12d4a7c3aa5966c094e0325" prot="public" static="no">
+        <type>enum <ref refid="group____cam__device__cpd_1gad7b14b8932491381828966c649214e1b" kindref="member">CamDeviceCpdType_e</ref></type>
+        <definition>typedef enum CamDeviceCpdType_e CamDeviceCpdType_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceCpdType_t</name>
+        <briefdescription>
+<para>VsCamDevice CPD type enumeration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/cpd_v1_1/cam_device_cpd_api.h" line="56" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__cpd_1ga770ebba776000646b8c3865596aa59b9" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_expand_config__s" kindref="compound">CamDeviceExpandConfig_s</ref></type>
+        <definition>typedef struct CamDeviceExpandConfig_s CamDeviceExpandConfig_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceExpandConfig_t</name>
+        <briefdescription>
+<para>VsCamDevice expand configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/cpd_v1_1/cam_device_cpd_api.h" line="68" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__cpd_1gab009b35a53e4f7f2bc35b56e934edd5e" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_cpd_config__s" kindref="compound">CamDeviceCpdConfig_s</ref></type>
+        <definition>typedef struct CamDeviceCpdConfig_s CamDeviceCpdConfig_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceCpdConfig_t</name>
+        <briefdescription>
+<para>VsCamDevice CPD configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/cpd_v1_1/cam_device_cpd_api.h" line="77" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__cpd_1ga4326e6042bff4d1a5e141c7188e7beb6" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_cpd_status__s" kindref="compound">CamDeviceCpdStatus_s</ref></type>
+        <definition>typedef struct CamDeviceCpdStatus_s CamDeviceCpdStatus_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceCpdStatus_t</name>
+        <briefdescription>
+<para>VsCamDevice CPD status structure. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/cpd_v1_1/cam_device_cpd_api.h" line="88" column="1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group____cam__device__cpd_1gac4a4094a7660e43f9bb6de2d1eff5913" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceCpdSetConfig</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, CamDeviceCpdType_t cpdType, const CamDeviceCpdConfig_t *pCpdCfg)</argsstring>
+        <name>VsiCamDeviceCpdSetConfig</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type><ref refid="group____cam__device__cpd_1gacbb6e0a8f12d4a7c3aa5966c094e0325" kindref="member">CamDeviceCpdType_t</ref></type>
+          <declname>cpdType</declname>
+        </param>
+        <param>
+          <type>const <ref refid="group____cam__device__cpd_1gab009b35a53e4f7f2bc35b56e934edd5e" kindref="member">CamDeviceCpdConfig_t</ref> *</type>
+          <declname>pCpdCfg</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/cpd_v1_1/cam_device_cpd_api.h" line="113" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/cpd/cam_device_cpd_api.c" bodystart="19" bodyend="62"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__cpd_1ga6cc64a256052a614bc6b1ba286a9573d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceCpdGetConfig</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, CamDeviceCpdType_t cpdType, CamDeviceCpdConfig_t *pCpdCfg)</argsstring>
+        <name>VsiCamDeviceCpdGetConfig</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type><ref refid="group____cam__device__cpd_1gacbb6e0a8f12d4a7c3aa5966c094e0325" kindref="member">CamDeviceCpdType_t</ref></type>
+          <declname>cpdType</declname>
+        </param>
+        <param>
+          <type><ref refid="group____cam__device__cpd_1gab009b35a53e4f7f2bc35b56e934edd5e" kindref="member">CamDeviceCpdConfig_t</ref> *</type>
+          <declname>pCpdCfg</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/cpd_v1_1/cam_device_cpd_api.h" line="143" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/cpd/cam_device_cpd_api.c" bodystart="66" bodyend="109"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__cpd_1gaa6525862cfbe04e0994a9af4a7f4416c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceCpdExpandEnable</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice)</argsstring>
+        <name>VsiCamDeviceCpdExpandEnable</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/cpd_v1_1/cam_device_cpd_api.h" line="167" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/cpd/cam_device_cpd_api.c" bodystart="113" bodyend="146"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__cpd_1ga515d3c536dfa4a1ba290e82d3d89e3cd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceCpdExpandDisable</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice)</argsstring>
+        <name>VsiCamDeviceCpdExpandDisable</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/cpd_v1_1/cam_device_cpd_api.h" line="189" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/cpd/cam_device_cpd_api.c" bodystart="150" bodyend="184"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__cpd_1gad6ae978cd7e4682f2664aacdc6ecd51e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceCpdExpandGetStatus</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, CamDeviceCpdStatus_t *pStatus)</argsstring>
+        <name>VsiCamDeviceCpdExpandGetStatus</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type><ref refid="group____cam__device__cpd_1ga4326e6042bff4d1a5e141c7188e7beb6" kindref="member">CamDeviceCpdStatus_t</ref> *</type>
+          <declname>pStatus</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/cpd_v1_1/cam_device_cpd_api.h" line="216" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/cpd/cam_device_cpd_api.c" bodystart="188" bodyend="227"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__cpd_1gaf21c3db9ecb16fd78720bd4528cbce6d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceCpdReset</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice)</argsstring>
+        <name>VsiCamDeviceCpdReset</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/cpd_v1_1/cam_device_cpd_api.h" line="244" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/cpd/cam_device_cpd_api.c" bodystart="231" bodyend="265"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__cpd_1gadd33aca77d38063599b24ede035a25c6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceCpdGetVersion</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, uint32_t *pVersion)</argsstring>
+        <name>VsiCamDeviceCpdGetVersion</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type>uint32_t *</type>
+          <declname>pVersion</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/cpd_v1_1/cam_device_cpd_api.h" line="265" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/cpd/cam_device_cpd_api.c" bodystart="268" bodyend="307"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group____cam__device__cpd_1ga6e00bcecb0aa2fe7157cefddb2fc8c65" prot="public" static="no">
+        <name>CAMDEV_CPD_CURVE_X_SIZE</name>
+        <initializer>64</initializer>
+        <briefdescription>
+<para>The number of coordinates CPD curve on the X-axis 64. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/cpd_v1_1/cam_device_cpd_api.h" line="45" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/cpd_v1_1/cam_device_cpd_api.h" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group____cam__device__cpd_1gaff10bbc8f71553e19cc8c63024dcaaf3" prot="public" static="no">
+        <name>CAMDEV_CPD_CURVE_Y_SIZE</name>
+        <initializer>64</initializer>
+        <briefdescription>
+<para>The number of coordinates CPD curve on the Y-axis 64. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/cpd_v1_1/cam_device_cpd_api.h" line="46" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/cpd_v1_1/cam_device_cpd_api.h" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Provides interfaces for controlling the compand module working in the ISP pipeline. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

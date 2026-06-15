@@ -1,0 +1,293 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_vtc" kind="struct" prot="public">
+    <compoundname>XVtc</compoundname>
+    <includes local="no">xvtc.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_vtc_1aa0ba20aaf69c3c3c5ab04d54ec9e6158" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_vtc___config" kindref="compound">XVtc_Config</ref></type>
+        <definition>XVtc_Config XVtc::Config</definition>
+        <argsstring></argsstring>
+        <name>Config</name>
+        <briefdescription>
+<para>Hardware Configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vtc/src/xvtc.h" line="551" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vtc/src/xvtc.h" bodystart="551" bodyend="-1"/>
+        <referencedby refid="group__vtc_1ga4f99134583ebed63ee1ad5c85bd8e616" compoundref="xvtc_8c" startline="218" endline="248">XVtc_CfgInitialize</referencedby>
+        <referencedby refid="group__vtc_1ga5ba151c8fe1e5b01f6cf76e3ebd69f48" compoundref="xvtc_8c" startline="429" endline="446">XVtc_Disable</referencedby>
+        <referencedby refid="group__vtc_1gad35c4cf17655f24578f2c0db2d93fcc8" compoundref="xvtc_8c" startline="2644" endline="2656">XVtc_DisableAdaptiveSync</referencedby>
+        <referencedby refid="group__vtc_1gacfcf93230ec6c68bd94841fc64c3a54f" compoundref="xvtc_8c" startline="394" endline="413">XVtc_DisableDetector</referencedby>
+        <referencedby refid="group__vtc_1ga24e096bb7515165b5bf238d0d1030c5f" compoundref="xvtc_8c" startline="360" endline="379">XVtc_DisableGenerator</referencedby>
+        <referencedby refid="group__vtc_1gaa11af9b1872e9f105aa60ac7c616fda7" compoundref="xvtc_8c" startline="328" endline="345">XVtc_Enable</referencedby>
+        <referencedby refid="group__vtc_1gaa36b5697cb3b4e864879347cd88e19de" compoundref="xvtc_8c" startline="295" endline="312">XVtc_EnableDetector</referencedby>
+        <referencedby refid="group__vtc_1ga77b77fdba574799d9c78b2c7c15f8f27" compoundref="xvtc_8c" startline="263" endline="280">XVtc_EnableGenerator</referencedby>
+        <referencedby refid="group__vtc_1ga97b58d69b1752d2d1542a49d2cdb8b1d" compoundref="xvtc_8c" startline="1010" endline="1028">XVtc_GetDelay</referencedby>
+        <referencedby refid="group__vtc_1ga7f87049e38a6abab9495ed52f81ed279" compoundref="xvtc_8c" startline="1652" endline="1793">XVtc_GetDetector</referencedby>
+        <referencedby refid="group__vtc_1gaa42a49953fb922a5bd8851f4d0b7e9c3" compoundref="xvtc_8c" startline="1252" endline="1289">XVtc_GetDetectorHoriOffset</referencedby>
+        <referencedby refid="group__vtc_1ga3e7cf680b0bc9623c6430daa9ff8fadd" compoundref="xvtc_8c" startline="580" endline="619">XVtc_GetDetectorPolarity</referencedby>
+        <referencedby refid="group__vtc_1ga48898cf9a0c2c38d5e2f0d520c9ffdba" compoundref="xvtc_8c" startline="1094" endline="1117">XVtc_GetFSync</referencedby>
+        <referencedby refid="group__vtc_1ga6a6e924c03e591c88f48ceda4c073ffd" compoundref="xvtc_8c" startline="1519" endline="1633">XVtc_GetGenerator</referencedby>
+        <referencedby refid="group__vtc_1ga7bbbedce0f72517db6b0fdb4593ccca2" compoundref="xvtc_8c" startline="1195" endline="1232">XVtc_GetGeneratorHoriOffset</referencedby>
+        <referencedby refid="group__vtc_1gae46a82175546ee8c77ec9b9ab11353c3" compoundref="xvtc_8c" startline="523" endline="562">XVtc_GetPolarity</referencedby>
+        <referencedby refid="group__vtc_1ga6d52d08c551b4f6887f8d63220d89736" compoundref="xvtc_8c" startline="848" endline="868">XVtc_GetSkipLine</referencedby>
+        <referencedby refid="group__vtc_1gaaefcaab9a4b1a05895f813eb45ba0006" compoundref="xvtc_8c" startline="929" endline="949">XVtc_GetSkipPixel</referencedby>
+        <referencedby refid="group__vtc_1ga84f6b9eda3791aee51ec5414a62cbb92" compoundref="xvtc_8c" startline="731" endline="787">XVtc_GetSource</referencedby>
+        <referencedby refid="group__vtc_1ga970f3fda51300164bf853b5e27469444" compoundref="xvtc_8c" startline="1808" endline="1820">XVtc_GetVersion</referencedby>
+        <referencedby refid="group__vtc_1gaa1bfbc5a9734c912172b3d3e630af06e" compoundref="xvtc_8c" startline="2613" endline="2629">XVtc_SetAdaptiveSyncMode</referencedby>
+        <referencedby refid="group__vtc_1gabfb3ffcd7f3ac258e1503b28c8f2a17c" compoundref="xvtc_8c" startline="969" endline="989">XVtc_SetDelay</referencedby>
+        <referencedby refid="group__vtc_1gacb67e4e6e1ca2fb525ccc9a4fd3bad06" compoundref="xvtc_8c" startline="1050" endline="1073">XVtc_SetFSync</referencedby>
+        <referencedby refid="group__vtc_1gaa2248614b46aa69717878b3706b11a52" compoundref="xvtc_8c" startline="1307" endline="1500">XVtc_SetGenerator</referencedby>
+        <referencedby refid="group__vtc_1ga93ca3256bd11b14fc2ed960028121e27" compoundref="xvtc_8c" startline="1130" endline="1175">XVtc_SetGeneratorHoriOffset</referencedby>
+        <referencedby refid="group__vtc_1ga048e84bcc5ac0f05cdd7423a40fe7574" compoundref="xvtc_8c" startline="463" endline="505">XVtc_SetPolarity</referencedby>
+        <referencedby refid="group__vtc_1gae88f7a15a28b29c5596a1bd8510c17b7" compoundref="xvtc_8c" startline="806" endline="827">XVtc_SetSkipLine</referencedby>
+        <referencedby refid="group__vtc_1ga84bc76452bd91c18af247a67e9cfdf4a" compoundref="xvtc_8c" startline="887" endline="908">XVtc_SetSkipPixel</referencedby>
+        <referencedby refid="group__vtc_1ga261e22d0a41a468263c0a1624da3bbf9" compoundref="xvtc_8c" startline="636" endline="713">XVtc_SetSource</referencedby>
+        <referencedby refid="group__vtc_1ga2ee6ed1a4d73cbff9d50a0b5ff657440" compoundref="xvtc_8c" startline="2672" endline="2679">XVtc_SetVfpStretchLimit</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vtc_1a5335230298b2e9ab01b10e1eee440ffe" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XVtc::IsReady</definition>
+        <argsstring></argsstring>
+        <name>IsReady</name>
+        <briefdescription>
+<para>Core and the driver instance are initialized. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vtc/src/xvtc.h" line="552" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vtc/src/xvtc.h" bodystart="552" bodyend="-1"/>
+        <referencedby refid="group__vtc_1ga4f99134583ebed63ee1ad5c85bd8e616" compoundref="xvtc_8c" startline="218" endline="248">XVtc_CfgInitialize</referencedby>
+        <referencedby refid="group__vtc_1ga307c8e4b44e9bd683417dafd2ed1bee3" compoundref="xvtc_8c" startline="2257" endline="2309">XVtc_ConvSignal2Timing</referencedby>
+        <referencedby refid="group__vtc_1ga6910114e5f29cce64d2f8b28680f7a34" compoundref="xvtc_8c" startline="2133" endline="2234">XVtc_ConvTiming2Signal</referencedby>
+        <referencedby refid="group__vtc_1gaa8293ea90f04203f688a9c10ed728d76" compoundref="xvtc_8c" startline="2326" endline="2397">XVtc_ConvTiming2VideoMode</referencedby>
+        <referencedby refid="group__vtc_1ga8780c13efbb57b70fb1d2c56b41ea875" compoundref="xvtc_8c" startline="1839" endline="2110">XVtc_ConvVideoMode2Timing</referencedby>
+        <referencedby refid="group__vtc_1ga5ba151c8fe1e5b01f6cf76e3ebd69f48" compoundref="xvtc_8c" startline="429" endline="446">XVtc_Disable</referencedby>
+        <referencedby refid="group__vtc_1gad35c4cf17655f24578f2c0db2d93fcc8" compoundref="xvtc_8c" startline="2644" endline="2656">XVtc_DisableAdaptiveSync</referencedby>
+        <referencedby refid="group__vtc_1gacfcf93230ec6c68bd94841fc64c3a54f" compoundref="xvtc_8c" startline="394" endline="413">XVtc_DisableDetector</referencedby>
+        <referencedby refid="group__vtc_1ga24e096bb7515165b5bf238d0d1030c5f" compoundref="xvtc_8c" startline="360" endline="379">XVtc_DisableGenerator</referencedby>
+        <referencedby refid="group__vtc_1gaa11af9b1872e9f105aa60ac7c616fda7" compoundref="xvtc_8c" startline="328" endline="345">XVtc_Enable</referencedby>
+        <referencedby refid="group__vtc_1gaa36b5697cb3b4e864879347cd88e19de" compoundref="xvtc_8c" startline="295" endline="312">XVtc_EnableDetector</referencedby>
+        <referencedby refid="group__vtc_1ga77b77fdba574799d9c78b2c7c15f8f27" compoundref="xvtc_8c" startline="263" endline="280">XVtc_EnableGenerator</referencedby>
+        <referencedby refid="group__vtc_1ga97b58d69b1752d2d1542a49d2cdb8b1d" compoundref="xvtc_8c" startline="1010" endline="1028">XVtc_GetDelay</referencedby>
+        <referencedby refid="group__vtc_1ga7f87049e38a6abab9495ed52f81ed279" compoundref="xvtc_8c" startline="1652" endline="1793">XVtc_GetDetector</referencedby>
+        <referencedby refid="group__vtc_1gaa42a49953fb922a5bd8851f4d0b7e9c3" compoundref="xvtc_8c" startline="1252" endline="1289">XVtc_GetDetectorHoriOffset</referencedby>
+        <referencedby refid="group__vtc_1ga3e7cf680b0bc9623c6430daa9ff8fadd" compoundref="xvtc_8c" startline="580" endline="619">XVtc_GetDetectorPolarity</referencedby>
+        <referencedby refid="group__vtc_1gaed71897afabea7f6d822d6029281f51c" compoundref="xvtc_8c" startline="2544" endline="2563">XVtc_GetDetectorTiming</referencedby>
+        <referencedby refid="group__vtc_1gab2eb3d00933a01dd7efa7304aac078f3" compoundref="xvtc_8c" startline="2580" endline="2594">XVtc_GetDetectorVideoMode</referencedby>
+        <referencedby refid="group__vtc_1ga48898cf9a0c2c38d5e2f0d520c9ffdba" compoundref="xvtc_8c" startline="1094" endline="1117">XVtc_GetFSync</referencedby>
+        <referencedby refid="group__vtc_1ga6a6e924c03e591c88f48ceda4c073ffd" compoundref="xvtc_8c" startline="1519" endline="1633">XVtc_GetGenerator</referencedby>
+        <referencedby refid="group__vtc_1ga7bbbedce0f72517db6b0fdb4593ccca2" compoundref="xvtc_8c" startline="1195" endline="1232">XVtc_GetGeneratorHoriOffset</referencedby>
+        <referencedby refid="group__vtc_1ga6cced4b647adfcc9c2752562f16cb970" compoundref="xvtc_8c" startline="2476" endline="2496">XVtc_GetGeneratorTiming</referencedby>
+        <referencedby refid="group__vtc_1ga20899ccb40d270b4ad8c1e483edc2908" compoundref="xvtc_8c" startline="2513" endline="2527">XVtc_GetGeneratorVideoMode</referencedby>
+        <referencedby refid="group__vtc_1gae46a82175546ee8c77ec9b9ab11353c3" compoundref="xvtc_8c" startline="523" endline="562">XVtc_GetPolarity</referencedby>
+        <referencedby refid="group__vtc_1ga6d52d08c551b4f6887f8d63220d89736" compoundref="xvtc_8c" startline="848" endline="868">XVtc_GetSkipLine</referencedby>
+        <referencedby refid="group__vtc_1gaaefcaab9a4b1a05895f813eb45ba0006" compoundref="xvtc_8c" startline="929" endline="949">XVtc_GetSkipPixel</referencedby>
+        <referencedby refid="group__vtc_1ga84f6b9eda3791aee51ec5414a62cbb92" compoundref="xvtc_8c" startline="731" endline="787">XVtc_GetSource</referencedby>
+        <referencedby refid="group__vtc_1gaf4c9f950bb8be8ec38f650d3752c8007" compoundref="xvtc__intr_8c" startline="145" endline="187">XVtc_IntrHandler</referencedby>
+        <referencedby refid="group__vtc_1gaa1bfbc5a9734c912172b3d3e630af06e" compoundref="xvtc_8c" startline="2613" endline="2629">XVtc_SetAdaptiveSyncMode</referencedby>
+        <referencedby refid="group__vtc_1ga2c8331343095cb78377c7887cb62d87b" compoundref="xvtc__intr_8c" startline="229" endline="273">XVtc_SetCallBack</referencedby>
+        <referencedby refid="group__vtc_1gabfb3ffcd7f3ac258e1503b28c8f2a17c" compoundref="xvtc_8c" startline="969" endline="989">XVtc_SetDelay</referencedby>
+        <referencedby refid="group__vtc_1gacb67e4e6e1ca2fb525ccc9a4fd3bad06" compoundref="xvtc_8c" startline="1050" endline="1073">XVtc_SetFSync</referencedby>
+        <referencedby refid="group__vtc_1gaa2248614b46aa69717878b3706b11a52" compoundref="xvtc_8c" startline="1307" endline="1500">XVtc_SetGenerator</referencedby>
+        <referencedby refid="group__vtc_1ga93ca3256bd11b14fc2ed960028121e27" compoundref="xvtc_8c" startline="1130" endline="1175">XVtc_SetGeneratorHoriOffset</referencedby>
+        <referencedby refid="group__vtc_1ga8a126ab6ac29d2d2cd5bcb88e62025de" compoundref="xvtc_8c" startline="2414" endline="2430">XVtc_SetGeneratorTiming</referencedby>
+        <referencedby refid="group__vtc_1ga19ed8df536bcf06c316b0bb77af606d7" compoundref="xvtc_8c" startline="2447" endline="2459">XVtc_SetGeneratorVideoMode</referencedby>
+        <referencedby refid="group__vtc_1ga048e84bcc5ac0f05cdd7423a40fe7574" compoundref="xvtc_8c" startline="463" endline="505">XVtc_SetPolarity</referencedby>
+        <referencedby refid="group__vtc_1gae88f7a15a28b29c5596a1bd8510c17b7" compoundref="xvtc_8c" startline="806" endline="827">XVtc_SetSkipLine</referencedby>
+        <referencedby refid="group__vtc_1ga84bc76452bd91c18af247a67e9cfdf4a" compoundref="xvtc_8c" startline="887" endline="908">XVtc_SetSkipPixel</referencedby>
+        <referencedby refid="group__vtc_1ga261e22d0a41a468263c0a1624da3bbf9" compoundref="xvtc_8c" startline="636" endline="713">XVtc_SetSource</referencedby>
+        <referencedby refid="group__vtc_1ga2ee6ed1a4d73cbff9d50a0b5ff657440" compoundref="xvtc_8c" startline="2672" endline="2679">XVtc_SetVfpStretchLimit</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vtc_1afc1d783cc40c73852563d14195c8cec1" prot="public" static="no" mutable="no">
+        <type><ref refid="group__vtc_1ga1826de1f3a657dd456ac9feb1a371de0" kindref="member">XVtc_CallBack</ref></type>
+        <definition>XVtc_CallBack XVtc::FrameSyncCallBack</definition>
+        <argsstring></argsstring>
+        <name>FrameSyncCallBack</name>
+        <briefdescription>
+<para>Callback for Frame Sync interrupt. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vtc/src/xvtc.h" line="556" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vtc/src/xvtc.h" bodystart="556" bodyend="-1"/>
+        <referencedby refid="group__vtc_1ga4f99134583ebed63ee1ad5c85bd8e616" compoundref="xvtc_8c" startline="218" endline="248">XVtc_CfgInitialize</referencedby>
+        <referencedby refid="group__vtc_1gaf4c9f950bb8be8ec38f650d3752c8007" compoundref="xvtc__intr_8c" startline="145" endline="187">XVtc_IntrHandler</referencedby>
+        <referencedby refid="group__vtc_1ga2c8331343095cb78377c7887cb62d87b" compoundref="xvtc__intr_8c" startline="229" endline="273">XVtc_SetCallBack</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vtc_1af2d20af9a4c67fae06d045205f9c0b46" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XVtc::FrameSyncRef</definition>
+        <argsstring></argsstring>
+        <name>FrameSyncRef</name>
+        <briefdescription>
+<para>To be passed to the Frame Sync interrupt callback. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vtc/src/xvtc.h" line="558" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vtc/src/xvtc.h" bodystart="558" bodyend="-1"/>
+        <referencedby refid="group__vtc_1gaf4c9f950bb8be8ec38f650d3752c8007" compoundref="xvtc__intr_8c" startline="145" endline="187">XVtc_IntrHandler</referencedby>
+        <referencedby refid="group__vtc_1ga2c8331343095cb78377c7887cb62d87b" compoundref="xvtc__intr_8c" startline="229" endline="273">XVtc_SetCallBack</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vtc_1ac2b191b25140fb6c1a47b9f3372845c9" prot="public" static="no" mutable="no">
+        <type><ref refid="group__vtc_1ga1826de1f3a657dd456ac9feb1a371de0" kindref="member">XVtc_CallBack</ref></type>
+        <definition>XVtc_CallBack XVtc::LockCallBack</definition>
+        <argsstring></argsstring>
+        <name>LockCallBack</name>
+        <briefdescription>
+<para>Callback for Signal Lock interrupt. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vtc/src/xvtc.h" line="561" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vtc/src/xvtc.h" bodystart="561" bodyend="-1"/>
+        <referencedby refid="group__vtc_1ga4f99134583ebed63ee1ad5c85bd8e616" compoundref="xvtc_8c" startline="218" endline="248">XVtc_CfgInitialize</referencedby>
+        <referencedby refid="group__vtc_1gaf4c9f950bb8be8ec38f650d3752c8007" compoundref="xvtc__intr_8c" startline="145" endline="187">XVtc_IntrHandler</referencedby>
+        <referencedby refid="group__vtc_1ga2c8331343095cb78377c7887cb62d87b" compoundref="xvtc__intr_8c" startline="229" endline="273">XVtc_SetCallBack</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vtc_1ab83385d3fa1d78fea80ca14bf4afec74" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XVtc::LockRef</definition>
+        <argsstring></argsstring>
+        <name>LockRef</name>
+        <briefdescription>
+<para>To be passed to the Signal Lock interrupt callback. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vtc/src/xvtc.h" line="563" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vtc/src/xvtc.h" bodystart="563" bodyend="-1"/>
+        <referencedby refid="group__vtc_1gaf4c9f950bb8be8ec38f650d3752c8007" compoundref="xvtc__intr_8c" startline="145" endline="187">XVtc_IntrHandler</referencedby>
+        <referencedby refid="group__vtc_1ga2c8331343095cb78377c7887cb62d87b" compoundref="xvtc__intr_8c" startline="229" endline="273">XVtc_SetCallBack</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vtc_1a211c18a43472d3662aada08224d02fc1" prot="public" static="no" mutable="no">
+        <type><ref refid="group__vtc_1ga1826de1f3a657dd456ac9feb1a371de0" kindref="member">XVtc_CallBack</ref></type>
+        <definition>XVtc_CallBack XVtc::DetectorCallBack</definition>
+        <argsstring></argsstring>
+        <name>DetectorCallBack</name>
+        <briefdescription>
+<para>Callback for Detector interrupt. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vtc/src/xvtc.h" line="566" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vtc/src/xvtc.h" bodystart="566" bodyend="-1"/>
+        <referencedby refid="group__vtc_1ga4f99134583ebed63ee1ad5c85bd8e616" compoundref="xvtc_8c" startline="218" endline="248">XVtc_CfgInitialize</referencedby>
+        <referencedby refid="group__vtc_1gaf4c9f950bb8be8ec38f650d3752c8007" compoundref="xvtc__intr_8c" startline="145" endline="187">XVtc_IntrHandler</referencedby>
+        <referencedby refid="group__vtc_1ga2c8331343095cb78377c7887cb62d87b" compoundref="xvtc__intr_8c" startline="229" endline="273">XVtc_SetCallBack</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vtc_1a39ef314881f4d5a9694a473f8f6fa781" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XVtc::DetectorRef</definition>
+        <argsstring></argsstring>
+        <name>DetectorRef</name>
+        <briefdescription>
+<para>To be passed to the Detector interrupt callback. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vtc/src/xvtc.h" line="567" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vtc/src/xvtc.h" bodystart="567" bodyend="-1"/>
+        <referencedby refid="group__vtc_1gaf4c9f950bb8be8ec38f650d3752c8007" compoundref="xvtc__intr_8c" startline="145" endline="187">XVtc_IntrHandler</referencedby>
+        <referencedby refid="group__vtc_1ga2c8331343095cb78377c7887cb62d87b" compoundref="xvtc__intr_8c" startline="229" endline="273">XVtc_SetCallBack</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vtc_1a9ca302f40ef88e65cd689dcd3f059654" prot="public" static="no" mutable="no">
+        <type><ref refid="group__vtc_1ga1826de1f3a657dd456ac9feb1a371de0" kindref="member">XVtc_CallBack</ref></type>
+        <definition>XVtc_CallBack XVtc::GeneratorCallBack</definition>
+        <argsstring></argsstring>
+        <name>GeneratorCallBack</name>
+        <briefdescription>
+<para>Callback for Generator interrupt. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vtc/src/xvtc.h" line="570" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vtc/src/xvtc.h" bodystart="570" bodyend="-1"/>
+        <referencedby refid="group__vtc_1ga4f99134583ebed63ee1ad5c85bd8e616" compoundref="xvtc_8c" startline="218" endline="248">XVtc_CfgInitialize</referencedby>
+        <referencedby refid="group__vtc_1gaf4c9f950bb8be8ec38f650d3752c8007" compoundref="xvtc__intr_8c" startline="145" endline="187">XVtc_IntrHandler</referencedby>
+        <referencedby refid="group__vtc_1ga2c8331343095cb78377c7887cb62d87b" compoundref="xvtc__intr_8c" startline="229" endline="273">XVtc_SetCallBack</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vtc_1a4219c199623018d841fbf94efe711e81" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XVtc::GeneratorRef</definition>
+        <argsstring></argsstring>
+        <name>GeneratorRef</name>
+        <briefdescription>
+<para>To be passed to the Generator interrupt callback. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vtc/src/xvtc.h" line="572" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vtc/src/xvtc.h" bodystart="572" bodyend="-1"/>
+        <referencedby refid="group__vtc_1gaf4c9f950bb8be8ec38f650d3752c8007" compoundref="xvtc__intr_8c" startline="145" endline="187">XVtc_IntrHandler</referencedby>
+        <referencedby refid="group__vtc_1ga2c8331343095cb78377c7887cb62d87b" compoundref="xvtc__intr_8c" startline="229" endline="273">XVtc_SetCallBack</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vtc_1a65339fc541d5f64d5c2097737c66abb4" prot="public" static="no" mutable="no">
+        <type><ref refid="group__vtc_1ga3cff614d597fc9508b72f7d5d5ae86e4" kindref="member">XVtc_ErrorCallBack</ref></type>
+        <definition>XVtc_ErrorCallBack XVtc::ErrCallBack</definition>
+        <argsstring></argsstring>
+        <name>ErrCallBack</name>
+        <briefdescription>
+<para>Callback for Error interrupt. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vtc/src/xvtc.h" line="575" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vtc/src/xvtc.h" bodystart="575" bodyend="-1"/>
+        <referencedby refid="group__vtc_1ga4f99134583ebed63ee1ad5c85bd8e616" compoundref="xvtc_8c" startline="218" endline="248">XVtc_CfgInitialize</referencedby>
+        <referencedby refid="group__vtc_1gaf4c9f950bb8be8ec38f650d3752c8007" compoundref="xvtc__intr_8c" startline="145" endline="187">XVtc_IntrHandler</referencedby>
+        <referencedby refid="group__vtc_1ga2c8331343095cb78377c7887cb62d87b" compoundref="xvtc__intr_8c" startline="229" endline="273">XVtc_SetCallBack</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vtc_1a6083662e87d0418a68134511d63d6741" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XVtc::ErrRef</definition>
+        <argsstring></argsstring>
+        <name>ErrRef</name>
+        <briefdescription>
+<para>To be passed to the Error interrupt callback. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vtc/src/xvtc.h" line="576" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vtc/src/xvtc.h" bodystart="576" bodyend="-1"/>
+        <referencedby refid="group__vtc_1gaf4c9f950bb8be8ec38f650d3752c8007" compoundref="xvtc__intr_8c" startline="145" endline="187">XVtc_IntrHandler</referencedby>
+        <referencedby refid="group__vtc_1ga2c8331343095cb78377c7887cb62d87b" compoundref="xvtc__intr_8c" startline="229" endline="273">XVtc_SetCallBack</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>The <ref refid="struct_x_vtc" kindref="compound">XVtc</ref> driver instance data. </para>    </briefdescription>
+    <detaileddescription>
+<para>An instance must be allocated for each VTC core in use. </para>    </detaileddescription>
+    <collaborationgraph>
+      <node id="2">
+        <label>XVtc_Config</label>
+        <link refid="struct_x_vtc___config"/>
+      </node>
+      <node id="1">
+        <label>XVtc</label>
+        <link refid="struct_x_vtc"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>Config</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vtc/src/xvtc.h" line="550" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vtc/src/xvtc.h" bodystart="550" bodyend="578"/>
+    <listofallmembers>
+      <member refid="struct_x_vtc_1aa0ba20aaf69c3c3c5ab04d54ec9e6158" prot="public" virt="non-virtual"><scope>XVtc</scope><name>Config</name></member>
+      <member refid="struct_x_vtc_1a211c18a43472d3662aada08224d02fc1" prot="public" virt="non-virtual"><scope>XVtc</scope><name>DetectorCallBack</name></member>
+      <member refid="struct_x_vtc_1a39ef314881f4d5a9694a473f8f6fa781" prot="public" virt="non-virtual"><scope>XVtc</scope><name>DetectorRef</name></member>
+      <member refid="struct_x_vtc_1a65339fc541d5f64d5c2097737c66abb4" prot="public" virt="non-virtual"><scope>XVtc</scope><name>ErrCallBack</name></member>
+      <member refid="struct_x_vtc_1a6083662e87d0418a68134511d63d6741" prot="public" virt="non-virtual"><scope>XVtc</scope><name>ErrRef</name></member>
+      <member refid="struct_x_vtc_1afc1d783cc40c73852563d14195c8cec1" prot="public" virt="non-virtual"><scope>XVtc</scope><name>FrameSyncCallBack</name></member>
+      <member refid="struct_x_vtc_1af2d20af9a4c67fae06d045205f9c0b46" prot="public" virt="non-virtual"><scope>XVtc</scope><name>FrameSyncRef</name></member>
+      <member refid="struct_x_vtc_1a9ca302f40ef88e65cd689dcd3f059654" prot="public" virt="non-virtual"><scope>XVtc</scope><name>GeneratorCallBack</name></member>
+      <member refid="struct_x_vtc_1a4219c199623018d841fbf94efe711e81" prot="public" virt="non-virtual"><scope>XVtc</scope><name>GeneratorRef</name></member>
+      <member refid="struct_x_vtc_1a5335230298b2e9ab01b10e1eee440ffe" prot="public" virt="non-virtual"><scope>XVtc</scope><name>IsReady</name></member>
+      <member refid="struct_x_vtc_1ac2b191b25140fb6c1a47b9f3372845c9" prot="public" virt="non-virtual"><scope>XVtc</scope><name>LockCallBack</name></member>
+      <member refid="struct_x_vtc_1ab83385d3fa1d78fea80ca14bf4afec74" prot="public" virt="non-virtual"><scope>XVtc</scope><name>LockRef</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

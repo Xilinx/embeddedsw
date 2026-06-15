@@ -1,0 +1,60 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_asu___ocp_ude_key_encrypt" kind="struct" prot="public">
+    <compoundname>XAsu_OcpUdeKeyEncrypt</compoundname>
+    <includes local="no">xasu_ocpinfo.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_asu___ocp_ude_key_encrypt_1aefc8f560af9956ce96269c0671904a55" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XAsu_OcpUdeKeyEncrypt::UdeEncPvtKeyAddr</definition>
+        <argsstring></argsstring>
+        <name>UdeEncPvtKeyAddr</name>
+        <briefdescription>
+<para>Address of the UDE Encrypted Private Key. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_ocpinfo.h" line="139" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_ocpinfo.h" bodystart="139" bodyend="-1"/>
+        <referencedby refid="group__xasu__ocp__client__apis_1ga56ee81058035dc435d3cc4597c769b10" compoundref="xasu__ocp_8c" startline="371" endline="420">XAsu_OcpUdeKeysEncrypt</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___ocp_ude_key_encrypt_1af51069cc503e1ada4c3ed809c44052b1" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAsu_OcpUdeKeyEncrypt::UdeKeyId</definition>
+        <argsstring></argsstring>
+        <name>UdeKeyId</name>
+        <briefdescription>
+<para>ID of the UDE Key either 3/4/5. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_ocpinfo.h" line="140" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_ocpinfo.h" bodystart="140" bodyend="-1"/>
+        <referencedby refid="group__xasu__ocp__client__apis_1ga56ee81058035dc435d3cc4597c769b10" compoundref="xasu__ocp_8c" startline="371" endline="420">XAsu_OcpUdeKeysEncrypt</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___ocp_ude_key_encrypt_1ad46fef59567ae55e511965f1762251f8" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAsu_OcpUdeKeyEncrypt::Reserved</definition>
+        <argsstring></argsstring>
+        <name>Reserved</name>
+        <briefdescription>
+<para>Reserved. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_ocpinfo.h" line="141" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_ocpinfo.h" bodystart="141" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This structure contains information related to UDE private key encryption. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_ocpinfo.h" line="138" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_ocpinfo.h" bodystart="138" bodyend="142"/>
+    <listofallmembers>
+      <member refid="struct_x_asu___ocp_ude_key_encrypt_1ad46fef59567ae55e511965f1762251f8" prot="public" virt="non-virtual"><scope>XAsu_OcpUdeKeyEncrypt</scope><name>Reserved</name></member>
+      <member refid="struct_x_asu___ocp_ude_key_encrypt_1aefc8f560af9956ce96269c0671904a55" prot="public" virt="non-virtual"><scope>XAsu_OcpUdeKeyEncrypt</scope><name>UdeEncPvtKeyAddr</name></member>
+      <member refid="struct_x_asu___ocp_ude_key_encrypt_1af51069cc503e1ada4c3ed809c44052b1" prot="public" virt="non-virtual"><scope>XAsu_OcpUdeKeyEncrypt</scope><name>UdeKeyId</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

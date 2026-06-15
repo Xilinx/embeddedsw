@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_asu___rsa_r_mod_n" kind="struct" prot="public">
+    <compoundname>XAsu_RsaRModN</compoundname>
+    <includes local="no">xasu_rsainfo.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_asu___rsa_r_mod_n_1ab9410bd4d06ed27b2c9b8f27134525d7" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_asu___rsa_r_r_mod_n" kindref="compound">XAsu_RsaRRModN</ref></type>
+        <definition>XAsu_RsaRRModN XAsu_RsaRModN::RRModn</definition>
+        <argsstring></argsstring>
+        <name>RRModn</name>
+        <briefdescription>
+<para>Contains R square modN component. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_rsainfo.h" line="136" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_rsainfo.h" bodystart="136" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___rsa_r_mod_n_1a55462c4e9d8d6d449019228ce0651adf" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAsu_RsaRModN::Rn[XRSA_MAX_KEY_SIZE_IN_WORDS]</definition>
+        <argsstring>[XRSA_MAX_KEY_SIZE_IN_WORDS]</argsstring>
+        <name>Rn</name>
+        <briefdescription>
+<para>R modN exponent value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_rsainfo.h" line="137" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_rsainfo.h" bodystart="137" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This structure contains RSA exponent values (R mod N, R square mod N). </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="133">
+        <label>XAsu_RsaRRModN</label>
+        <link refid="struct_x_asu___rsa_r_r_mod_n"/>
+      </node>
+      <node id="132">
+        <label>XAsu_RsaRModN</label>
+        <link refid="struct_x_asu___rsa_r_mod_n"/>
+        <childnode refid="133" relation="usage">
+          <edgelabel>RRModn</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_rsainfo.h" line="135" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_rsainfo.h" bodystart="135" bodyend="138"/>
+    <listofallmembers>
+      <member refid="struct_x_asu___rsa_r_mod_n_1a55462c4e9d8d6d449019228ce0651adf" prot="public" virt="non-virtual"><scope>XAsu_RsaRModN</scope><name>Rn</name></member>
+      <member refid="struct_x_asu___rsa_r_mod_n_1ab9410bd4d06ed27b2c9b8f27134525d7" prot="public" virt="non-virtual"><scope>XAsu_RsaRModN</scope><name>RRModn</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

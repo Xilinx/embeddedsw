@@ -1,0 +1,1518 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xdevcfg_8c" kind="file">
+    <compoundname>xdevcfg.c</compoundname>
+    <includes refid="xdevcfg_8h" local="yes">xdevcfg.h</includes>
+    <incdepgraph>
+      <node id="10">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="8">
+        <label>xil_io.h</label>
+      </node>
+      <node id="4">
+        <label>xdevcfg.c</label>
+        <link refid="xdevcfg.c"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>xdevcfg.h</label>
+        <link refid="xdevcfg_8h"/>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+      </node>
+      <node id="9">
+        <label>xstatus.h</label>
+      </node>
+      <node id="7">
+        <label>xil_types.h</label>
+      </node>
+      <node id="6">
+        <label>xdevcfg_hw.h</label>
+        <link refid="xdevcfg__hw_8h"/>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__devcfg_1gafcaaa8ac67cf7316c54d1cba36e83e08" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XDcfg_CfgInitialize</definition>
+        <argsstring>(XDcfg *InstancePtr, XDcfg_Config *ConfigPtr, u32 EffectiveAddress)</argsstring>
+        <name>XDcfg_CfgInitialize</name>
+        <param>
+          <type><ref refid="struct_x_dcfg" kindref="compound">XDcfg</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_dcfg___config" kindref="compound">XDcfg_Config</ref> *</type>
+          <declname>ConfigPtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>EffectiveAddress</declname>
+        </param>
+        <briefdescription>
+<para>Initialize the Device Config Interface driver. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function must be called before other functions of the driver are called.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dcfg" kindref="compound">XDcfg</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ConfigPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the config structure. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>EffectiveAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address for the device. It could be a virtual address if address translation is supported in the system, otherwise it is the physical address.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if initialization was successful.</para></listitem><listitem><para>XST_DEVICE_IS_STARTED if the device has already been started.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>The very first APB access to the Device Configuration Interface block needs to be a write to the UNLOCK register with the value of 0x757BDF0D. This step is to be done once after reset, any other APB access has to come after this. The APB access is considered illegal if the step is not done or if it is done incorrectly. Furthermore, if any of efuse_sec_cfg[5:0] is high, the following additional actions would be carried out. In other words, if all bits are low, the following steps are not done.<orderedlist>
+<listitem><para>AES is disabled</para></listitem><listitem><para>All APB writes disabled</para></listitem><listitem><para>SoC debug fully enabled </para></listitem></orderedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg.c" line="109" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg.c" bodystart="109" bodyend="149"/>
+        <references refid="struct_x_dcfg___config_1a97b0e40ed1632649e15eedea77e84a82" compoundref="xdevcfg_8h" startline="188">XDcfg_Config::BaseAddr</references>
+        <references refid="struct_x_dcfg_1aa781f458f64d74c8147d10f09683301e" compoundref="xdevcfg_8h" startline="201">XDcfg::Config</references>
+        <references refid="struct_x_dcfg_1acd5816f6958bdbe2081d586d2b613f27" compoundref="xdevcfg_8h" startline="202">XDcfg::IsReady</references>
+        <references refid="struct_x_dcfg_1a8c0b292203540ec4fa43ef3a8b633bbd" compoundref="xdevcfg_8h" startline="203">XDcfg::IsStarted</references>
+        <references refid="group__devcfg_1ga2ed83e25f13a262faf75dfd55bae3522" compoundref="xdevcfg_8h" startline="223">XDcfg_Unlock</references>
+        <referencedby refid="xdevcfg__selftest__example_8c_1afcc9080c658869d88656386b9337961b" compoundref="xdevcfg__selftest__example_8c" startline="125" endline="160">DcfgSelfTestExample</referencedby>
+        <referencedby refid="xdevcfg__interrupt__example_8c_1a9af298cf6df14b196fb9f7c2fd6a74d3" compoundref="xdevcfg__interrupt__example_8c" startline="187" endline="336">XDcfg_IntrExample</referencedby>
+        <referencedby refid="xdevcfg__polled__example_8c_1a0f17ee455230bb2036927786e473c3ea" compoundref="xdevcfg__polled__example_8c" startline="164" endline="286">XDcfgPolledExample</referencedby>
+        <referencedby refid="xdevcfg__reg__readback__example_8c_1ac458c0e7a6b69852fe7cf17952ad0aaa" compoundref="xdevcfg__reg__readback__example_8c" startline="162" endline="314">XDcfgRegReadExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__devcfg_1gabb2094cb7d36f83c4c150a3b18e8aad0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDcfg_EnablePCAP</definition>
+        <argsstring>(XDcfg *InstancePtr)</argsstring>
+        <name>XDcfg_EnablePCAP</name>
+        <param>
+          <type><ref refid="struct_x_dcfg" kindref="compound">XDcfg</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>The functions enables the PCAP interface by setting the PCAP mode bit in the control register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dcfg" kindref="compound">XDcfg</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>Enable FPGA programming from PCAP interface. Enabling this bit disables all the external interfaces from programming of FPGA except for ICAP. The user needs to ensure that the FPGA is programmed through either PCAP or ICAP. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg.c" line="167" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg.c" bodystart="167" bodyend="183"/>
+        <references refid="struct_x_dcfg___config_1a97b0e40ed1632649e15eedea77e84a82" compoundref="xdevcfg_8h" startline="188">XDcfg_Config::BaseAddr</references>
+        <references refid="struct_x_dcfg_1aa781f458f64d74c8147d10f09683301e" compoundref="xdevcfg_8h" startline="201">XDcfg::Config</references>
+        <references refid="struct_x_dcfg_1acd5816f6958bdbe2081d586d2b613f27" compoundref="xdevcfg_8h" startline="202">XDcfg::IsReady</references>
+        <references refid="group__devcfg_1ga31ebfed655e59d8ee204b253e04ee024" compoundref="xdevcfg__hw_8h" startline="53">XDCFG_CTRL_OFFSET</references>
+        <references refid="group__devcfg_1gade98fb162f4954144b33a71eb81a25e3" compoundref="xdevcfg__hw_8h" startline="87">XDCFG_CTRL_PCAP_MODE_MASK</references>
+        <references refid="group__devcfg_1ga77561dc2e9ea13137f50a8193b8fbcd3" compoundref="xdevcfg__hw_8h" startline="432">XDcfg_ReadReg</references>
+        <references refid="group__devcfg_1ga8ae617fbb2b3e148a8b2489e90fbdea3" compoundref="xdevcfg__hw_8h" startline="450">XDcfg_WriteReg</references>
+        <referencedby refid="xdevcfg__interrupt__example_8c_1a9af298cf6df14b196fb9f7c2fd6a74d3" compoundref="xdevcfg__interrupt__example_8c" startline="187" endline="336">XDcfg_IntrExample</referencedby>
+        <referencedby refid="xdevcfg__polled__example_8c_1a0f17ee455230bb2036927786e473c3ea" compoundref="xdevcfg__polled__example_8c" startline="164" endline="286">XDcfgPolledExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__devcfg_1ga7f73a84f734f2e1996a029d8e5934b9c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDcfg_DisablePCAP</definition>
+        <argsstring>(XDcfg *InstancePtr)</argsstring>
+        <name>XDcfg_DisablePCAP</name>
+        <param>
+          <type><ref refid="struct_x_dcfg" kindref="compound">XDcfg</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>The functions disables the PCAP interface by clearing the PCAP mode bit in the control register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dcfg" kindref="compound">XDcfg</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg.c" line="198" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg.c" bodystart="198" bodyend="214"/>
+        <references refid="struct_x_dcfg___config_1a97b0e40ed1632649e15eedea77e84a82" compoundref="xdevcfg_8h" startline="188">XDcfg_Config::BaseAddr</references>
+        <references refid="struct_x_dcfg_1aa781f458f64d74c8147d10f09683301e" compoundref="xdevcfg_8h" startline="201">XDcfg::Config</references>
+        <references refid="struct_x_dcfg_1acd5816f6958bdbe2081d586d2b613f27" compoundref="xdevcfg_8h" startline="202">XDcfg::IsReady</references>
+        <references refid="group__devcfg_1ga31ebfed655e59d8ee204b253e04ee024" compoundref="xdevcfg__hw_8h" startline="53">XDCFG_CTRL_OFFSET</references>
+        <references refid="group__devcfg_1gade98fb162f4954144b33a71eb81a25e3" compoundref="xdevcfg__hw_8h" startline="87">XDCFG_CTRL_PCAP_MODE_MASK</references>
+        <references refid="group__devcfg_1ga77561dc2e9ea13137f50a8193b8fbcd3" compoundref="xdevcfg__hw_8h" startline="432">XDcfg_ReadReg</references>
+        <references refid="group__devcfg_1ga8ae617fbb2b3e148a8b2489e90fbdea3" compoundref="xdevcfg__hw_8h" startline="450">XDcfg_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__devcfg_1gacc8c10b5cc877595c1ade09e1a589296" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDcfg_SetControlRegister</definition>
+        <argsstring>(XDcfg *InstancePtr, u32 Mask)</argsstring>
+        <name>XDcfg_SetControlRegister</name>
+        <param>
+          <type><ref refid="struct_x_dcfg" kindref="compound">XDcfg</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Mask</declname>
+        </param>
+        <briefdescription>
+<para>The function sets the contents of the Control Register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dcfg" kindref="compound">XDcfg</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 32 bit mask data to be written to the Register. The mask definitions are defined in the <ref refid="xdevcfg__hw_8h" kindref="compound">xdevcfg_hw.h</ref> file.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg.c" line="230" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg.c" bodystart="230" bodyend="246"/>
+        <references refid="struct_x_dcfg___config_1a97b0e40ed1632649e15eedea77e84a82" compoundref="xdevcfg_8h" startline="188">XDcfg_Config::BaseAddr</references>
+        <references refid="struct_x_dcfg_1aa781f458f64d74c8147d10f09683301e" compoundref="xdevcfg_8h" startline="201">XDcfg::Config</references>
+        <references refid="struct_x_dcfg_1acd5816f6958bdbe2081d586d2b613f27" compoundref="xdevcfg_8h" startline="202">XDcfg::IsReady</references>
+        <references refid="group__devcfg_1ga31ebfed655e59d8ee204b253e04ee024" compoundref="xdevcfg__hw_8h" startline="53">XDCFG_CTRL_OFFSET</references>
+        <references refid="group__devcfg_1ga77561dc2e9ea13137f50a8193b8fbcd3" compoundref="xdevcfg__hw_8h" startline="432">XDcfg_ReadReg</references>
+        <references refid="group__devcfg_1ga8ae617fbb2b3e148a8b2489e90fbdea3" compoundref="xdevcfg__hw_8h" startline="450">XDcfg_WriteReg</references>
+        <referencedby refid="xdevcfg__interrupt__example_8c_1a9af298cf6df14b196fb9f7c2fd6a74d3" compoundref="xdevcfg__interrupt__example_8c" startline="187" endline="336">XDcfg_IntrExample</referencedby>
+        <referencedby refid="group__devcfg_1ga2c24756b9d6f8e81b620d27a86379e15" compoundref="xdevcfg__selftest_8c" startline="58" endline="88">XDcfg_SelfTest</referencedby>
+        <referencedby refid="group__devcfg_1ga5a7a69cfe6e10770f82089bdd277955d" compoundref="xdevcfg_8c" startline="767" endline="921">XDcfg_Transfer</referencedby>
+        <referencedby refid="xdevcfg__polled__example_8c_1a0f17ee455230bb2036927786e473c3ea" compoundref="xdevcfg__polled__example_8c" startline="164" endline="286">XDcfgPolledExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__devcfg_1gaeb69ef133b53618e896a4776b9e8f337" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDcfg_ClearControlRegister</definition>
+        <argsstring>(XDcfg *InstancePtr, u32 Mask)</argsstring>
+        <name>XDcfg_ClearControlRegister</name>
+        <param>
+          <type><ref refid="struct_x_dcfg" kindref="compound">XDcfg</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Mask</declname>
+        </param>
+        <briefdescription>
+<para>The function Clears the specified bit positions of the Control Register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dcfg" kindref="compound">XDcfg</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 32 bit value which holds the bit positions to be cleared.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg.c" line="261" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg.c" bodystart="261" bodyend="277"/>
+        <references refid="struct_x_dcfg___config_1a97b0e40ed1632649e15eedea77e84a82" compoundref="xdevcfg_8h" startline="188">XDcfg_Config::BaseAddr</references>
+        <references refid="struct_x_dcfg_1aa781f458f64d74c8147d10f09683301e" compoundref="xdevcfg_8h" startline="201">XDcfg::Config</references>
+        <references refid="struct_x_dcfg_1acd5816f6958bdbe2081d586d2b613f27" compoundref="xdevcfg_8h" startline="202">XDcfg::IsReady</references>
+        <references refid="group__devcfg_1ga31ebfed655e59d8ee204b253e04ee024" compoundref="xdevcfg__hw_8h" startline="53">XDCFG_CTRL_OFFSET</references>
+        <references refid="group__devcfg_1ga77561dc2e9ea13137f50a8193b8fbcd3" compoundref="xdevcfg__hw_8h" startline="432">XDcfg_ReadReg</references>
+        <references refid="group__devcfg_1ga8ae617fbb2b3e148a8b2489e90fbdea3" compoundref="xdevcfg__hw_8h" startline="450">XDcfg_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__devcfg_1ga81a254369eea778c17c212cc95056c26" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XDcfg_GetControlRegister</definition>
+        <argsstring>(XDcfg *InstancePtr)</argsstring>
+        <name>XDcfg_GetControlRegister</name>
+        <param>
+          <type><ref refid="struct_x_dcfg" kindref="compound">XDcfg</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>The function reads the contents of the Control Register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dcfg" kindref="compound">XDcfg</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>A 32-bit value representing the contents of the Control Register. Use the XDCFG_CTRL_*_MASK constants defined in <ref refid="xdevcfg__hw_8h" kindref="compound">xdevcfg_hw.h</ref> to interpret the returned value.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg.c" line="294" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg.c" bodystart="294" bodyend="306"/>
+        <references refid="struct_x_dcfg___config_1a97b0e40ed1632649e15eedea77e84a82" compoundref="xdevcfg_8h" startline="188">XDcfg_Config::BaseAddr</references>
+        <references refid="struct_x_dcfg_1aa781f458f64d74c8147d10f09683301e" compoundref="xdevcfg_8h" startline="201">XDcfg::Config</references>
+        <references refid="struct_x_dcfg_1acd5816f6958bdbe2081d586d2b613f27" compoundref="xdevcfg_8h" startline="202">XDcfg::IsReady</references>
+        <references refid="group__devcfg_1ga31ebfed655e59d8ee204b253e04ee024" compoundref="xdevcfg__hw_8h" startline="53">XDCFG_CTRL_OFFSET</references>
+        <references refid="group__devcfg_1ga77561dc2e9ea13137f50a8193b8fbcd3" compoundref="xdevcfg__hw_8h" startline="432">XDcfg_ReadReg</references>
+        <referencedby refid="group__devcfg_1ga2c24756b9d6f8e81b620d27a86379e15" compoundref="xdevcfg__selftest_8c" startline="58" endline="88">XDcfg_SelfTest</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__devcfg_1ga1e0516cd9cdc5066e98e3c3c195c1d3c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDcfg_SetLockRegister</definition>
+        <argsstring>(XDcfg *InstancePtr, u32 Data)</argsstring>
+        <name>XDcfg_SetLockRegister</name>
+        <param>
+          <type><ref refid="struct_x_dcfg" kindref="compound">XDcfg</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Data</declname>
+        </param>
+        <briefdescription>
+<para>The function sets the contents of the Lock Register. </para>        </briefdescription>
+        <detaileddescription>
+<para>These bits can only be set to a 1. They will be cleared after a Power On Reset.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dcfg" kindref="compound">XDcfg</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 32 bit data to be written to the Register.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg.c" line="322" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg.c" bodystart="322" bodyend="332"/>
+        <references refid="struct_x_dcfg___config_1a97b0e40ed1632649e15eedea77e84a82" compoundref="xdevcfg_8h" startline="188">XDcfg_Config::BaseAddr</references>
+        <references refid="struct_x_dcfg_1aa781f458f64d74c8147d10f09683301e" compoundref="xdevcfg_8h" startline="201">XDcfg::Config</references>
+        <references refid="struct_x_dcfg_1acd5816f6958bdbe2081d586d2b613f27" compoundref="xdevcfg_8h" startline="202">XDcfg::IsReady</references>
+        <references refid="group__devcfg_1gad126a845b17979d640cd2dd00eab29f9" compoundref="xdevcfg__hw_8h" startline="54">XDCFG_LOCK_OFFSET</references>
+        <references refid="group__devcfg_1ga8ae617fbb2b3e148a8b2489e90fbdea3" compoundref="xdevcfg__hw_8h" startline="450">XDcfg_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__devcfg_1gad3df072e27abfff9beb69cb09567a8c1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XDcfg_GetLockRegister</definition>
+        <argsstring>(XDcfg *InstancePtr)</argsstring>
+        <name>XDcfg_GetLockRegister</name>
+        <param>
+          <type><ref refid="struct_x_dcfg" kindref="compound">XDcfg</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>The function reads the contents of the Lock Register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dcfg" kindref="compound">XDcfg</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>A 32-bit value representing the contents of the Lock Register. Use the XDCFG_CR_*_MASK constants defined in <ref refid="xdevcfg__hw_8h" kindref="compound">xdevcfg_hw.h</ref> to interpret the returned value.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg.c" line="349" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg.c" bodystart="349" bodyend="361"/>
+        <references refid="struct_x_dcfg___config_1a97b0e40ed1632649e15eedea77e84a82" compoundref="xdevcfg_8h" startline="188">XDcfg_Config::BaseAddr</references>
+        <references refid="struct_x_dcfg_1aa781f458f64d74c8147d10f09683301e" compoundref="xdevcfg_8h" startline="201">XDcfg::Config</references>
+        <references refid="struct_x_dcfg_1acd5816f6958bdbe2081d586d2b613f27" compoundref="xdevcfg_8h" startline="202">XDcfg::IsReady</references>
+        <references refid="group__devcfg_1gad126a845b17979d640cd2dd00eab29f9" compoundref="xdevcfg__hw_8h" startline="54">XDCFG_LOCK_OFFSET</references>
+        <references refid="group__devcfg_1ga77561dc2e9ea13137f50a8193b8fbcd3" compoundref="xdevcfg__hw_8h" startline="432">XDcfg_ReadReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__devcfg_1ga89e1eef15fcfe06cd0e8d8dd7e804ad1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDcfg_SetConfigRegister</definition>
+        <argsstring>(XDcfg *InstancePtr, u32 Data)</argsstring>
+        <name>XDcfg_SetConfigRegister</name>
+        <param>
+          <type><ref refid="struct_x_dcfg" kindref="compound">XDcfg</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Data</declname>
+        </param>
+        <briefdescription>
+<para>The function sets the contents of the Configuration Register with the given value. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dcfg" kindref="compound">XDcfg</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 32 bit data to be written to the Register.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg.c" line="377" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg.c" bodystart="377" bodyend="387"/>
+        <references refid="struct_x_dcfg___config_1a97b0e40ed1632649e15eedea77e84a82" compoundref="xdevcfg_8h" startline="188">XDcfg_Config::BaseAddr</references>
+        <references refid="struct_x_dcfg_1aa781f458f64d74c8147d10f09683301e" compoundref="xdevcfg_8h" startline="201">XDcfg::Config</references>
+        <references refid="struct_x_dcfg_1acd5816f6958bdbe2081d586d2b613f27" compoundref="xdevcfg_8h" startline="202">XDcfg::IsReady</references>
+        <references refid="group__devcfg_1ga3fafe11b95af8da04f385c9313a6958b" compoundref="xdevcfg__hw_8h" startline="55">XDCFG_CFG_OFFSET</references>
+        <references refid="group__devcfg_1ga8ae617fbb2b3e148a8b2489e90fbdea3" compoundref="xdevcfg__hw_8h" startline="450">XDcfg_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__devcfg_1ga3b46b8db6ea49d8c066fefe0d137b2c9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XDcfg_GetConfigRegister</definition>
+        <argsstring>(XDcfg *InstancePtr)</argsstring>
+        <name>XDcfg_GetConfigRegister</name>
+        <param>
+          <type><ref refid="struct_x_dcfg" kindref="compound">XDcfg</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>The function reads the contents of the Configuration Register with the given value. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dcfg" kindref="compound">XDcfg</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>A 32-bit value representing the contents of the Config Register. Use the XDCFG_CFG_*_MASK constants defined in <ref refid="xdevcfg__hw_8h" kindref="compound">xdevcfg_hw.h</ref> to interpret the returned value.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg.c" line="405" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg.c" bodystart="405" bodyend="415"/>
+        <references refid="struct_x_dcfg___config_1a97b0e40ed1632649e15eedea77e84a82" compoundref="xdevcfg_8h" startline="188">XDcfg_Config::BaseAddr</references>
+        <references refid="struct_x_dcfg_1aa781f458f64d74c8147d10f09683301e" compoundref="xdevcfg_8h" startline="201">XDcfg::Config</references>
+        <references refid="struct_x_dcfg_1acd5816f6958bdbe2081d586d2b613f27" compoundref="xdevcfg_8h" startline="202">XDcfg::IsReady</references>
+        <references refid="group__devcfg_1ga3fafe11b95af8da04f385c9313a6958b" compoundref="xdevcfg__hw_8h" startline="55">XDCFG_CFG_OFFSET</references>
+        <references refid="group__devcfg_1ga77561dc2e9ea13137f50a8193b8fbcd3" compoundref="xdevcfg__hw_8h" startline="432">XDcfg_ReadReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__devcfg_1gae7a3e8052f73c370990b77dae5751a36" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDcfg_SetStatusRegister</definition>
+        <argsstring>(XDcfg *InstancePtr, u32 Data)</argsstring>
+        <name>XDcfg_SetStatusRegister</name>
+        <param>
+          <type><ref refid="struct_x_dcfg" kindref="compound">XDcfg</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Data</declname>
+        </param>
+        <briefdescription>
+<para>The function sets the contents of the Status Register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dcfg" kindref="compound">XDcfg</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 32 bit data to be written to the Register.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg.c" line="430" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg.c" bodystart="430" bodyend="440"/>
+        <references refid="struct_x_dcfg___config_1a97b0e40ed1632649e15eedea77e84a82" compoundref="xdevcfg_8h" startline="188">XDcfg_Config::BaseAddr</references>
+        <references refid="struct_x_dcfg_1aa781f458f64d74c8147d10f09683301e" compoundref="xdevcfg_8h" startline="201">XDcfg::Config</references>
+        <references refid="struct_x_dcfg_1acd5816f6958bdbe2081d586d2b613f27" compoundref="xdevcfg_8h" startline="202">XDcfg::IsReady</references>
+        <references refid="group__devcfg_1ga6646b7874a5c9cc7bcdba6072bb4ff72" compoundref="xdevcfg__hw_8h" startline="58">XDCFG_STATUS_OFFSET</references>
+        <references refid="group__devcfg_1ga8ae617fbb2b3e148a8b2489e90fbdea3" compoundref="xdevcfg__hw_8h" startline="450">XDcfg_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__devcfg_1gaaacacd5169ad7a79f09d08858f58dc8e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XDcfg_GetStatusRegister</definition>
+        <argsstring>(XDcfg *InstancePtr)</argsstring>
+        <name>XDcfg_GetStatusRegister</name>
+        <param>
+          <type><ref refid="struct_x_dcfg" kindref="compound">XDcfg</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>The function reads the contents of the Status Register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dcfg" kindref="compound">XDcfg</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>A 32-bit value representing the contents of the Status Register. Use the XDCFG_STATUS_*_MASK constants defined in <ref refid="xdevcfg__hw_8h" kindref="compound">xdevcfg_hw.h</ref> to interpret the returned value.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg.c" line="457" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg.c" bodystart="457" bodyend="469"/>
+        <references refid="struct_x_dcfg___config_1a97b0e40ed1632649e15eedea77e84a82" compoundref="xdevcfg_8h" startline="188">XDcfg_Config::BaseAddr</references>
+        <references refid="struct_x_dcfg_1aa781f458f64d74c8147d10f09683301e" compoundref="xdevcfg_8h" startline="201">XDcfg::Config</references>
+        <references refid="struct_x_dcfg_1acd5816f6958bdbe2081d586d2b613f27" compoundref="xdevcfg_8h" startline="202">XDcfg::IsReady</references>
+        <references refid="group__devcfg_1ga77561dc2e9ea13137f50a8193b8fbcd3" compoundref="xdevcfg__hw_8h" startline="432">XDcfg_ReadReg</references>
+        <references refid="group__devcfg_1ga6646b7874a5c9cc7bcdba6072bb4ff72" compoundref="xdevcfg__hw_8h" startline="58">XDCFG_STATUS_OFFSET</references>
+      </memberdef>
+      <memberdef kind="function" id="group__devcfg_1ga332a5c7c856e8f6637cafaa3ec69eaca" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDcfg_SetRomShadowRegister</definition>
+        <argsstring>(XDcfg *InstancePtr, u32 Data)</argsstring>
+        <name>XDcfg_SetRomShadowRegister</name>
+        <param>
+          <type><ref refid="struct_x_dcfg" kindref="compound">XDcfg</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Data</declname>
+        </param>
+        <briefdescription>
+<para>The function sets the contents of the ROM Shadow Control Register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dcfg" kindref="compound">XDcfg</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 32 bit data to be written to the Register.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>This register is can only be written and is used to control the RAM shadow of 32 bit 4K page ROM pages in user mode </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg.c" line="485" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg.c" bodystart="485" bodyend="496"/>
+        <references refid="struct_x_dcfg___config_1a97b0e40ed1632649e15eedea77e84a82" compoundref="xdevcfg_8h" startline="188">XDcfg_Config::BaseAddr</references>
+        <references refid="struct_x_dcfg_1aa781f458f64d74c8147d10f09683301e" compoundref="xdevcfg_8h" startline="201">XDcfg::Config</references>
+        <references refid="struct_x_dcfg_1acd5816f6958bdbe2081d586d2b613f27" compoundref="xdevcfg_8h" startline="202">XDcfg::IsReady</references>
+        <references refid="group__devcfg_1ga895856e5cf4578a328a12bb0f0287826" compoundref="xdevcfg__hw_8h" startline="63">XDCFG_ROM_SHADOW_OFFSET</references>
+        <references refid="group__devcfg_1ga8ae617fbb2b3e148a8b2489e90fbdea3" compoundref="xdevcfg__hw_8h" startline="450">XDcfg_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__devcfg_1ga5573651d2f14ff760e36d551a49fa919" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XDcfg_GetSoftwareIdRegister</definition>
+        <argsstring>(XDcfg *InstancePtr)</argsstring>
+        <name>XDcfg_GetSoftwareIdRegister</name>
+        <param>
+          <type><ref refid="struct_x_dcfg" kindref="compound">XDcfg</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>The function reads the contents of the Software ID Register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dcfg" kindref="compound">XDcfg</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>32 Bit boot software ID.</para></simplesect>
+<simplesect kind="note"><para>This register is locked for write once the system enters usermode. Hence API for reading the register only is provided. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg.c" line="511" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg.c" bodystart="511" bodyend="523"/>
+        <references refid="struct_x_dcfg___config_1a97b0e40ed1632649e15eedea77e84a82" compoundref="xdevcfg_8h" startline="188">XDcfg_Config::BaseAddr</references>
+        <references refid="struct_x_dcfg_1aa781f458f64d74c8147d10f09683301e" compoundref="xdevcfg_8h" startline="201">XDcfg::Config</references>
+        <references refid="struct_x_dcfg_1acd5816f6958bdbe2081d586d2b613f27" compoundref="xdevcfg_8h" startline="202">XDcfg::IsReady</references>
+        <references refid="group__devcfg_1ga77561dc2e9ea13137f50a8193b8fbcd3" compoundref="xdevcfg__hw_8h" startline="432">XDcfg_ReadReg</references>
+        <references refid="group__devcfg_1gad56285ef89202c084bad1724cc3f8df1" compoundref="xdevcfg__hw_8h" startline="65">XDCFG_SW_ID_OFFSET</references>
+      </memberdef>
+      <memberdef kind="function" id="group__devcfg_1ga2739b6bce23b6e02a9076c0eba8664d4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDcfg_SetMiscControlRegister</definition>
+        <argsstring>(XDcfg *InstancePtr, u32 Mask)</argsstring>
+        <name>XDcfg_SetMiscControlRegister</name>
+        <param>
+          <type><ref refid="struct_x_dcfg" kindref="compound">XDcfg</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Mask</declname>
+        </param>
+        <briefdescription>
+<para>The function sets the bit mask for the feature in Miscellaneous Control Register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dcfg" kindref="compound">XDcfg</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the bit-mask of the feature to be set.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg.c" line="539" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg.c" bodystart="539" bodyend="555"/>
+        <references refid="struct_x_dcfg___config_1a97b0e40ed1632649e15eedea77e84a82" compoundref="xdevcfg_8h" startline="188">XDcfg_Config::BaseAddr</references>
+        <references refid="struct_x_dcfg_1aa781f458f64d74c8147d10f09683301e" compoundref="xdevcfg_8h" startline="201">XDcfg::Config</references>
+        <references refid="struct_x_dcfg_1acd5816f6958bdbe2081d586d2b613f27" compoundref="xdevcfg_8h" startline="202">XDcfg::IsReady</references>
+        <references refid="group__devcfg_1ga80ad10863ac12916d347046e8263f5b2" compoundref="xdevcfg__hw_8h" startline="67">XDCFG_MCTRL_OFFSET</references>
+        <references refid="group__devcfg_1ga77561dc2e9ea13137f50a8193b8fbcd3" compoundref="xdevcfg__hw_8h" startline="432">XDcfg_ReadReg</references>
+        <references refid="group__devcfg_1ga8ae617fbb2b3e148a8b2489e90fbdea3" compoundref="xdevcfg__hw_8h" startline="450">XDcfg_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__devcfg_1gaee0dfc6838f33d700fc4b8a5549b0473" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XDcfg_GetMiscControlRegister</definition>
+        <argsstring>(XDcfg *InstancePtr)</argsstring>
+        <name>XDcfg_GetMiscControlRegister</name>
+        <param>
+          <type><ref refid="struct_x_dcfg" kindref="compound">XDcfg</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>The function reads the contents of the Miscellaneous Control Register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dcfg" kindref="compound">XDcfg</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>32 Bit boot software ID.</para></simplesect>
+<simplesect kind="note"><para>This register is locked for write once the system enters usermode. Hence API to reading the register only is provided. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg.c" line="570" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg.c" bodystart="570" bodyend="582"/>
+        <references refid="struct_x_dcfg___config_1a97b0e40ed1632649e15eedea77e84a82" compoundref="xdevcfg_8h" startline="188">XDcfg_Config::BaseAddr</references>
+        <references refid="struct_x_dcfg_1aa781f458f64d74c8147d10f09683301e" compoundref="xdevcfg_8h" startline="201">XDcfg::Config</references>
+        <references refid="struct_x_dcfg_1acd5816f6958bdbe2081d586d2b613f27" compoundref="xdevcfg_8h" startline="202">XDcfg::IsReady</references>
+        <references refid="group__devcfg_1ga80ad10863ac12916d347046e8263f5b2" compoundref="xdevcfg__hw_8h" startline="67">XDCFG_MCTRL_OFFSET</references>
+        <references refid="group__devcfg_1ga77561dc2e9ea13137f50a8193b8fbcd3" compoundref="xdevcfg__hw_8h" startline="432">XDcfg_ReadReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__devcfg_1gab3412c2881ffaa15fd3615770a4225a7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XDcfg_IsDmaBusy</definition>
+        <argsstring>(XDcfg *InstancePtr)</argsstring>
+        <name>XDcfg_IsDmaBusy</name>
+        <param>
+          <type><ref refid="struct_x_dcfg" kindref="compound">XDcfg</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function checks if DMA command queue is full. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dcfg" kindref="compound">XDcfg</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS is the DMA is busy XST_FAILURE if the DMA is idle</para></simplesect>
+<simplesect kind="note"><para>The DMA queue has a depth of two. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg.c" line="597" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg.c" bodystart="597" bodyend="615"/>
+        <references refid="struct_x_dcfg___config_1a97b0e40ed1632649e15eedea77e84a82" compoundref="xdevcfg_8h" startline="188">XDcfg_Config::BaseAddr</references>
+        <references refid="struct_x_dcfg_1aa781f458f64d74c8147d10f09683301e" compoundref="xdevcfg_8h" startline="201">XDcfg::Config</references>
+        <references refid="struct_x_dcfg_1acd5816f6958bdbe2081d586d2b613f27" compoundref="xdevcfg_8h" startline="202">XDcfg::IsReady</references>
+        <references refid="group__devcfg_1ga77561dc2e9ea13137f50a8193b8fbcd3" compoundref="xdevcfg__hw_8h" startline="432">XDcfg_ReadReg</references>
+        <references refid="group__devcfg_1ga48a0c155d061c98656101cb19a87f0a0" compoundref="xdevcfg__hw_8h" startline="301">XDCFG_STATUS_DMA_CMD_Q_F_MASK</references>
+        <references refid="group__devcfg_1ga6646b7874a5c9cc7bcdba6072bb4ff72" compoundref="xdevcfg__hw_8h" startline="58">XDCFG_STATUS_OFFSET</references>
+        <referencedby refid="group__devcfg_1ga5a7a69cfe6e10770f82089bdd277955d" compoundref="xdevcfg_8c" startline="767" endline="921">XDcfg_Transfer</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__devcfg_1gafda6d24be18657370c15e1e893a0ab05" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDcfg_InitiateDma</definition>
+        <argsstring>(XDcfg *InstancePtr, u32 SourcePtr, u32 DestPtr, u32 SrcWordLength, u32 DestWordLength)</argsstring>
+        <name>XDcfg_InitiateDma</name>
+        <param>
+          <type><ref refid="struct_x_dcfg" kindref="compound">XDcfg</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>SourcePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>DestPtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>SrcWordLength</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>DestWordLength</declname>
+        </param>
+        <briefdescription>
+<para>This function initiates the DMA transfer. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dcfg" kindref="compound">XDcfg</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>SourcePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains a pointer to the source memory where the data is to be transferred from. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>SrcWordLength</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the number of words (32 bit) to be transferred for the source transfer. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DestPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains a pointer to the destination memory where the data is to be transferred to. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DestWordLength</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the number of words (32 bit) to be transferred for the Destination transfer.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>It is the responsibility of the caller function to ensure that correct values are passed to this function. <verbatim>    The 2 LSBs of the SourcePtr (Source)/ DestPtr (Destination)
+</verbatim> address when equal to 2�b01 indicates the last DMA command of an overall transfer. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg.c" line="642" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg.c" bodystart="642" bodyend="661"/>
+        <references refid="struct_x_dcfg___config_1a97b0e40ed1632649e15eedea77e84a82" compoundref="xdevcfg_8h" startline="188">XDcfg_Config::BaseAddr</references>
+        <references refid="struct_x_dcfg_1aa781f458f64d74c8147d10f09683301e" compoundref="xdevcfg_8h" startline="201">XDcfg::Config</references>
+        <references refid="group__devcfg_1ga24e1d08d2aa66c6fe2a8be9086ef9a41" compoundref="xdevcfg__hw_8h" startline="60">XDCFG_DMA_DEST_ADDR_OFFSET</references>
+        <references refid="group__devcfg_1gaffc13cbb412f77e54b0ecf2f25e205ee" compoundref="xdevcfg__hw_8h" startline="62">XDCFG_DMA_DEST_LEN_OFFSET</references>
+        <references refid="group__devcfg_1ga18c6f2aab3a27da352296a1324ed73b4" compoundref="xdevcfg__hw_8h" startline="59">XDCFG_DMA_SRC_ADDR_OFFSET</references>
+        <references refid="group__devcfg_1gaaf9fa64a65762a428ba36bd38a80ab80" compoundref="xdevcfg__hw_8h" startline="61">XDCFG_DMA_SRC_LEN_OFFSET</references>
+        <references refid="group__devcfg_1ga8ae617fbb2b3e148a8b2489e90fbdea3" compoundref="xdevcfg__hw_8h" startline="450">XDcfg_WriteReg</references>
+        <referencedby refid="xdevcfg__reg__readback__example_8c_1af9cf92cccf467028f2ac04b532a100c0" compoundref="xdevcfg__reg__readback__example_8c" startline="334" endline="419">XDcfg_GetConfigReg</referencedby>
+        <referencedby refid="group__devcfg_1ga5a7a69cfe6e10770f82089bdd277955d" compoundref="xdevcfg_8c" startline="767" endline="921">XDcfg_Transfer</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__devcfg_1ga854da0ebff47a61888b1ecf137533873" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>static u32 XDcfg_PcapReadback</definition>
+        <argsstring>(XDcfg *InstancePtr, u32 SourcePtr, u32 SrcWordLength, u32 DestPtr, u32 DestWordLength)</argsstring>
+        <name>XDcfg_PcapReadback</name>
+        <param>
+          <type><ref refid="struct_x_dcfg" kindref="compound">XDcfg</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>SourcePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>SrcWordLength</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>DestPtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>DestWordLength</declname>
+        </param>
+        <briefdescription>
+<para>This function Implements the DMA Read Command. </para>        </briefdescription>
+        <detaileddescription>
+<para>This command is used to transfer the image data from FPGA to the external memory.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dcfg" kindref="compound">XDcfg</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>SourcePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains a pointer to the source memory where the data is to be transferred from. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>SrcWordLength</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the number of words (32 bit) to be transferred for the source transfer. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DestPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains a pointer to the destination memory where the data is to be transferred to. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DestWordLength</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the number of words (32 bit) to be transferred for the Destination transfer.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>- XST_INVALID_PARAM if source address/length is invalid.<itemizedlist>
+<listitem><para>XST_SUCCESS if DMA transfer initiated properly.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg.c" line="685" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg.c" bodystart="685" bodyend="723"/>
+      </memberdef>
+      <memberdef kind="function" id="group__devcfg_1ga5a7a69cfe6e10770f82089bdd277955d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XDcfg_Transfer</definition>
+        <argsstring>(XDcfg *InstancePtr, void *SourcePtr, u32 SrcWordLength, void *DestPtr, u32 DestWordLength, u32 TransferType)</argsstring>
+        <name>XDcfg_Transfer</name>
+        <param>
+          <type><ref refid="struct_x_dcfg" kindref="compound">XDcfg</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>SourcePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>SrcWordLength</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>DestPtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>DestWordLength</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>TransferType</declname>
+        </param>
+        <briefdescription>
+<para>This function starts the DMA transfer. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function only starts the operation and returns before the operation may be completed. If the interrupt is enabled, an interrupt will be generated when the operation is completed, otherwise it is necessary to poll the Status register to determine when it is completed. It is the responsibility of the caller to determine when the operation is completed by handling the generated interrupt or polling the Status Register.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dcfg" kindref="compound">XDcfg</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>SourcePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains a pointer to the source memory where the data is to be transferred from. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>SrcWordLength</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the number of words (32 bit) to be transferred for the source transfer. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DestPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains a pointer to the destination memory where the data is to be transferred to. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DestWordLength</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the number of words (32 bit) to be transferred for the Destination transfer. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>TransferType</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains the type of PCAP transfer being requested. The definitions can be found in the <ref refid="xdevcfg_8h" kindref="compound">xdevcfg.h</ref> file. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS.if DMA transfer initiated successfully</para></listitem><listitem><para>XST_DEVICE_BUSY if DMA is busy</para></listitem><listitem><para>XST_INVALID_PARAM if invalid Source / Destination address is sent or an invalid Source / Destination length is sent</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>It is the responsibility of the caller to ensure that the cache is flushed and invalidated both before the DMA operation is started and after the DMA operation completes if the memory pointed to is cached. The caller must also ensure that the pointers contain physical address rather than a virtual address if address translation is being used. <verbatim>    The 2 LSBs of the SourcePtr (Source)/ DestPtr (Destination)
+</verbatim> address when equal to 2�b01 indicates the last DMA command of an overall transfer. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg.c" line="767" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg.c" bodystart="767" bodyend="921"/>
+        <references refid="struct_x_dcfg___config_1a97b0e40ed1632649e15eedea77e84a82" compoundref="xdevcfg_8h" startline="188">XDcfg_Config::BaseAddr</references>
+        <references refid="struct_x_dcfg_1aa781f458f64d74c8147d10f09683301e" compoundref="xdevcfg_8h" startline="201">XDcfg::Config</references>
+        <references refid="struct_x_dcfg_1acd5816f6958bdbe2081d586d2b613f27" compoundref="xdevcfg_8h" startline="202">XDcfg::IsReady</references>
+        <references refid="group__devcfg_1ga31ebfed655e59d8ee204b253e04ee024" compoundref="xdevcfg__hw_8h" startline="53">XDCFG_CTRL_OFFSET</references>
+        <references refid="group__devcfg_1ga16cb1e4072240a97799a685fad35234f" compoundref="xdevcfg__hw_8h" startline="88">XDCFG_CTRL_PCAP_RATE_EN_MASK</references>
+        <references refid="group__devcfg_1gafda6d24be18657370c15e1e893a0ab05" compoundref="xdevcfg_8c" startline="642" endline="661">XDcfg_InitiateDma</references>
+        <references refid="group__devcfg_1gab3412c2881ffaa15fd3615770a4225a7" compoundref="xdevcfg_8c" startline="597" endline="615">XDcfg_IsDmaBusy</references>
+        <references refid="group__devcfg_1ga80ad10863ac12916d347046e8263f5b2" compoundref="xdevcfg__hw_8h" startline="67">XDCFG_MCTRL_OFFSET</references>
+        <references refid="group__devcfg_1gaa5d7d25bc3d66e24bce45553e863b731" compoundref="xdevcfg__hw_8h" startline="390">XDCFG_MCTRL_PCAP_LPBK_MASK</references>
+        <references refid="group__devcfg_1ga77561dc2e9ea13137f50a8193b8fbcd3" compoundref="xdevcfg__hw_8h" startline="432">XDcfg_ReadReg</references>
+        <references refid="group__devcfg_1gacc8c10b5cc877595c1ade09e1a589296" compoundref="xdevcfg_8c" startline="230" endline="246">XDcfg_SetControlRegister</references>
+        <references refid="group__devcfg_1ga6646b7874a5c9cc7bcdba6072bb4ff72" compoundref="xdevcfg__hw_8h" startline="58">XDCFG_STATUS_OFFSET</references>
+        <references refid="group__devcfg_1ga2adb521e9dab8223c16f2ebbfccc830f" compoundref="xdevcfg__hw_8h" startline="352">XDCFG_STATUS_PCFG_INIT_MASK</references>
+        <references refid="group__devcfg_1ga8ae617fbb2b3e148a8b2489e90fbdea3" compoundref="xdevcfg__hw_8h" startline="450">XDcfg_WriteReg</references>
+        <referencedby refid="xdevcfg__reg__readback__example_8c_1af9cf92cccf467028f2ac04b532a100c0" compoundref="xdevcfg__reg__readback__example_8c" startline="334" endline="419">XDcfg_GetConfigReg</referencedby>
+        <referencedby refid="xdevcfg__interrupt__example_8c_1a9af298cf6df14b196fb9f7c2fd6a74d3" compoundref="xdevcfg__interrupt__example_8c" startline="187" endline="336">XDcfg_IntrExample</referencedby>
+        <referencedby refid="xdevcfg__polled__example_8c_1a0f17ee455230bb2036927786e473c3ea" compoundref="xdevcfg__polled__example_8c" startline="164" endline="286">XDcfgPolledExample</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2010<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2023<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="65"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xdevcfg_8h" kindref="compound">xdevcfg.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="76"><highlight class="normal"></highlight></codeline>
+<codeline lineno="77"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight></codeline>
+<codeline lineno="79"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="109" refid="group__devcfg_1gafcaaa8ac67cf7316c54d1cba36e83e08" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__devcfg_1gafcaaa8ac67cf7316c54d1cba36e83e08" kindref="member">XDcfg_CfgInitialize</ref>(<ref refid="struct_x_dcfg" kindref="compound">XDcfg</ref><sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_dcfg___config" kindref="compound">XDcfg_Config</ref><sp/>*ConfigPtr,<sp/>u32<sp/>EffectiveAddress)</highlight></codeline>
+<codeline lineno="111"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(ConfigPtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"></highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="116"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>If<sp/>the<sp/>device<sp/>is<sp/>started,<sp/>disallow<sp/>the<sp/>initialize<sp/>and<sp/>return<sp/>a</highlight></codeline>
+<codeline lineno="117"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>status<sp/>indicating<sp/>it<sp/>is<sp/>started.<sp/>This<sp/>allows<sp/>the<sp/>user<sp/>to<sp/>stop<sp/>the</highlight></codeline>
+<codeline lineno="118"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>device<sp/>and<sp/>reinitialize,<sp/>but<sp/>prevents<sp/>a<sp/>user<sp/>from<sp/>inadvertently</highlight></codeline>
+<codeline lineno="119"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>initializing.</highlight></codeline>
+<codeline lineno="120"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_dcfg_1a8c0b292203540ec4fa43ef3a8b633bbd" kindref="member">IsStarted</ref><sp/>==<sp/>XIL_COMPONENT_IS_STARTED)<sp/>{</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_DEVICE_IS_STARTED;</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"></highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="126"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Copy<sp/>configuration<sp/>into<sp/>instance.</highlight></codeline>
+<codeline lineno="127"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="128"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="129"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_dcfg_1aa781f458f64d74c8147d10f09683301e" kindref="member">Config</ref>.DeviceId<sp/>=<sp/>ConfigPtr-&gt;DeviceId;</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="131"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="133"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Save<sp/>the<sp/>base<sp/>address<sp/>pointer<sp/>such<sp/>that<sp/>the<sp/>registers<sp/>of<sp/>the<sp/>block</highlight></codeline>
+<codeline lineno="134"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>can<sp/>be<sp/>accessed<sp/>and<sp/>indicate<sp/>it<sp/>has<sp/>not<sp/>been<sp/>started<sp/>yet.</highlight></codeline>
+<codeline lineno="135"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_dcfg_1aa781f458f64d74c8147d10f09683301e" kindref="member">Config</ref>.<ref refid="struct_x_dcfg___config_1a97b0e40ed1632649e15eedea77e84a82" kindref="member">BaseAddr</ref><sp/>=<sp/>EffectiveAddress;</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_dcfg_1a8c0b292203540ec4fa43ef3a8b633bbd" kindref="member">IsStarted</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"></highlight></codeline>
+<codeline lineno="139"><highlight class="normal"></highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Unlock<sp/>the<sp/>Device<sp/>Configuration<sp/>Interface<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__devcfg_1ga2ed83e25f13a262faf75dfd55bae3522" kindref="member">XDcfg_Unlock</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"></highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="144"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Indicate<sp/>the<sp/>instance<sp/>is<sp/>ready<sp/>to<sp/>use,<sp/>successfully<sp/>initialized.</highlight></codeline>
+<codeline lineno="145"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_dcfg_1acd5816f6958bdbe2081d586d2b613f27" kindref="member">IsReady</ref><sp/>=<sp/>XIL_COMPONENT_IS_READY;</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"></highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="149"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"></highlight></codeline>
+<codeline lineno="151"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="167" refid="group__devcfg_1gabb2094cb7d36f83c4c150a3b18e8aad0" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__devcfg_1gabb2094cb7d36f83c4c150a3b18e8aad0" kindref="member">XDcfg_EnablePCAP</ref>(<ref refid="struct_x_dcfg" kindref="compound">XDcfg</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="168"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>CtrlReg;</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="171"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Assert<sp/>the<sp/>arguments.</highlight></codeline>
+<codeline lineno="172"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_dcfg_1acd5816f6958bdbe2081d586d2b613f27" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"></highlight></codeline>
+<codeline lineno="176"><highlight class="normal"></highlight></codeline>
+<codeline lineno="177"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CtrlReg<sp/>=<sp/><ref refid="group__devcfg_1ga77561dc2e9ea13137f50a8193b8fbcd3" kindref="member">XDcfg_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_dcfg_1aa781f458f64d74c8147d10f09683301e" kindref="member">Config</ref>.<ref refid="struct_x_dcfg___config_1a97b0e40ed1632649e15eedea77e84a82" kindref="member">BaseAddr</ref>,</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__devcfg_1ga31ebfed655e59d8ee204b253e04ee024" kindref="member">XDCFG_CTRL_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"></highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__devcfg_1ga8ae617fbb2b3e148a8b2489e90fbdea3" kindref="member">XDcfg_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_dcfg_1aa781f458f64d74c8147d10f09683301e" kindref="member">Config</ref>.<ref refid="struct_x_dcfg___config_1a97b0e40ed1632649e15eedea77e84a82" kindref="member">BaseAddr</ref>,<sp/><ref refid="group__devcfg_1ga31ebfed655e59d8ee204b253e04ee024" kindref="member">XDCFG_CTRL_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(CtrlReg<sp/>|<sp/><ref refid="group__devcfg_1gade98fb162f4954144b33a71eb81a25e3" kindref="member">XDCFG_CTRL_PCAP_MODE_MASK</ref>));</highlight></codeline>
+<codeline lineno="182"><highlight class="normal"></highlight></codeline>
+<codeline lineno="183"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="184"><highlight class="normal"></highlight></codeline>
+<codeline lineno="185"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="198" refid="group__devcfg_1ga7f73a84f734f2e1996a029d8e5934b9c" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__devcfg_1ga7f73a84f734f2e1996a029d8e5934b9c" kindref="member">XDcfg_DisablePCAP</ref>(<ref refid="struct_x_dcfg" kindref="compound">XDcfg</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="199"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>CtrlReg;</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="202"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Assert<sp/>the<sp/>arguments.</highlight></codeline>
+<codeline lineno="203"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="204"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_dcfg_1acd5816f6958bdbe2081d586d2b613f27" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="206"><highlight class="normal"></highlight></codeline>
+<codeline lineno="207"><highlight class="normal"></highlight></codeline>
+<codeline lineno="208"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CtrlReg<sp/>=<sp/><ref refid="group__devcfg_1ga77561dc2e9ea13137f50a8193b8fbcd3" kindref="member">XDcfg_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_dcfg_1aa781f458f64d74c8147d10f09683301e" kindref="member">Config</ref>.<ref refid="struct_x_dcfg___config_1a97b0e40ed1632649e15eedea77e84a82" kindref="member">BaseAddr</ref>,</highlight></codeline>
+<codeline lineno="209"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__devcfg_1ga31ebfed655e59d8ee204b253e04ee024" kindref="member">XDCFG_CTRL_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="210"><highlight class="normal"></highlight></codeline>
+<codeline lineno="211"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__devcfg_1ga8ae617fbb2b3e148a8b2489e90fbdea3" kindref="member">XDcfg_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_dcfg_1aa781f458f64d74c8147d10f09683301e" kindref="member">Config</ref>.<ref refid="struct_x_dcfg___config_1a97b0e40ed1632649e15eedea77e84a82" kindref="member">BaseAddr</ref>,<sp/><ref refid="group__devcfg_1ga31ebfed655e59d8ee204b253e04ee024" kindref="member">XDCFG_CTRL_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="212"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(CtrlReg<sp/>&amp;<sp/>(<sp/>~<ref refid="group__devcfg_1gade98fb162f4954144b33a71eb81a25e3" kindref="member">XDCFG_CTRL_PCAP_MODE_MASK</ref>)));</highlight></codeline>
+<codeline lineno="213"><highlight class="normal"></highlight></codeline>
+<codeline lineno="214"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="215"><highlight class="normal"></highlight></codeline>
+<codeline lineno="216"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="230" refid="group__devcfg_1gacc8c10b5cc877595c1ade09e1a589296" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__devcfg_1gacc8c10b5cc877595c1ade09e1a589296" kindref="member">XDcfg_SetControlRegister</ref>(<ref refid="struct_x_dcfg" kindref="compound">XDcfg</ref><sp/>*InstancePtr,<sp/>u32<sp/>Mask)</highlight></codeline>
+<codeline lineno="231"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="232"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>CtrlReg;</highlight></codeline>
+<codeline lineno="233"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="234"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Assert<sp/>the<sp/>arguments.</highlight></codeline>
+<codeline lineno="235"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="236"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="237"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_dcfg_1acd5816f6958bdbe2081d586d2b613f27" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="238"><highlight class="normal"></highlight></codeline>
+<codeline lineno="239"><highlight class="normal"></highlight></codeline>
+<codeline lineno="240"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CtrlReg<sp/>=<sp/><ref refid="group__devcfg_1ga77561dc2e9ea13137f50a8193b8fbcd3" kindref="member">XDcfg_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_dcfg_1aa781f458f64d74c8147d10f09683301e" kindref="member">Config</ref>.<ref refid="struct_x_dcfg___config_1a97b0e40ed1632649e15eedea77e84a82" kindref="member">BaseAddr</ref>,</highlight></codeline>
+<codeline lineno="241"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__devcfg_1ga31ebfed655e59d8ee204b253e04ee024" kindref="member">XDCFG_CTRL_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="242"><highlight class="normal"></highlight></codeline>
+<codeline lineno="243"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__devcfg_1ga8ae617fbb2b3e148a8b2489e90fbdea3" kindref="member">XDcfg_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_dcfg_1aa781f458f64d74c8147d10f09683301e" kindref="member">Config</ref>.<ref refid="struct_x_dcfg___config_1a97b0e40ed1632649e15eedea77e84a82" kindref="member">BaseAddr</ref>,<sp/><ref refid="group__devcfg_1ga31ebfed655e59d8ee204b253e04ee024" kindref="member">XDCFG_CTRL_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="244"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(CtrlReg<sp/>|<sp/>Mask));</highlight></codeline>
+<codeline lineno="245"><highlight class="normal"></highlight></codeline>
+<codeline lineno="246"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="247"><highlight class="normal"></highlight></codeline>
+<codeline lineno="248"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="261" refid="group__devcfg_1gaeb69ef133b53618e896a4776b9e8f337" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__devcfg_1gaeb69ef133b53618e896a4776b9e8f337" kindref="member">XDcfg_ClearControlRegister</ref>(<ref refid="struct_x_dcfg" kindref="compound">XDcfg</ref><sp/>*InstancePtr,<sp/>u32<sp/>Mask)</highlight></codeline>
+<codeline lineno="262"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="263"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>CtrlReg;</highlight></codeline>
+<codeline lineno="264"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="265"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Assert<sp/>the<sp/>arguments.</highlight></codeline>
+<codeline lineno="266"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="267"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="268"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_dcfg_1acd5816f6958bdbe2081d586d2b613f27" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="269"><highlight class="normal"></highlight></codeline>
+<codeline lineno="270"><highlight class="normal"></highlight></codeline>
+<codeline lineno="271"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CtrlReg<sp/>=<sp/><ref refid="group__devcfg_1ga77561dc2e9ea13137f50a8193b8fbcd3" kindref="member">XDcfg_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_dcfg_1aa781f458f64d74c8147d10f09683301e" kindref="member">Config</ref>.<ref refid="struct_x_dcfg___config_1a97b0e40ed1632649e15eedea77e84a82" kindref="member">BaseAddr</ref>,</highlight></codeline>
+<codeline lineno="272"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__devcfg_1ga31ebfed655e59d8ee204b253e04ee024" kindref="member">XDCFG_CTRL_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="273"><highlight class="normal"></highlight></codeline>
+<codeline lineno="274"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__devcfg_1ga8ae617fbb2b3e148a8b2489e90fbdea3" kindref="member">XDcfg_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_dcfg_1aa781f458f64d74c8147d10f09683301e" kindref="member">Config</ref>.<ref refid="struct_x_dcfg___config_1a97b0e40ed1632649e15eedea77e84a82" kindref="member">BaseAddr</ref>,<sp/><ref refid="group__devcfg_1ga31ebfed655e59d8ee204b253e04ee024" kindref="member">XDCFG_CTRL_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="275"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(CtrlReg<sp/>&amp;<sp/>~Mask));</highlight></codeline>
+<codeline lineno="276"><highlight class="normal"></highlight></codeline>
+<codeline lineno="277"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="278"><highlight class="normal"></highlight></codeline>
+<codeline lineno="279"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="294" refid="group__devcfg_1ga81a254369eea778c17c212cc95056c26" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__devcfg_1ga81a254369eea778c17c212cc95056c26" kindref="member">XDcfg_GetControlRegister</ref>(<ref refid="struct_x_dcfg" kindref="compound">XDcfg</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="295"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="296"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="297"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Assert<sp/>the<sp/>arguments.</highlight></codeline>
+<codeline lineno="298"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="299"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="300"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_dcfg_1acd5816f6958bdbe2081d586d2b613f27" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="301"><highlight class="normal"></highlight></codeline>
+<codeline lineno="302"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="303"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Read<sp/>the<sp/>Control<sp/>Register<sp/>and<sp/>return<sp/>the<sp/>value.</highlight></codeline>
+<codeline lineno="304"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="305"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="group__devcfg_1ga77561dc2e9ea13137f50a8193b8fbcd3" kindref="member">XDcfg_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_dcfg_1aa781f458f64d74c8147d10f09683301e" kindref="member">Config</ref>.<ref refid="struct_x_dcfg___config_1a97b0e40ed1632649e15eedea77e84a82" kindref="member">BaseAddr</ref>,<sp/><ref refid="group__devcfg_1ga31ebfed655e59d8ee204b253e04ee024" kindref="member">XDCFG_CTRL_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="306"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="307"><highlight class="normal"></highlight></codeline>
+<codeline lineno="308"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="322" refid="group__devcfg_1ga1e0516cd9cdc5066e98e3c3c195c1d3c" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__devcfg_1ga1e0516cd9cdc5066e98e3c3c195c1d3c" kindref="member">XDcfg_SetLockRegister</ref>(<ref refid="struct_x_dcfg" kindref="compound">XDcfg</ref><sp/>*InstancePtr,<sp/>u32<sp/>Data)</highlight></codeline>
+<codeline lineno="323"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="324"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="325"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Assert<sp/>the<sp/>arguments.</highlight></codeline>
+<codeline lineno="326"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="327"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="328"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_dcfg_1acd5816f6958bdbe2081d586d2b613f27" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="329"><highlight class="normal"></highlight></codeline>
+<codeline lineno="330"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__devcfg_1ga8ae617fbb2b3e148a8b2489e90fbdea3" kindref="member">XDcfg_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_dcfg_1aa781f458f64d74c8147d10f09683301e" kindref="member">Config</ref>.<ref refid="struct_x_dcfg___config_1a97b0e40ed1632649e15eedea77e84a82" kindref="member">BaseAddr</ref>,<sp/><ref refid="group__devcfg_1gad126a845b17979d640cd2dd00eab29f9" kindref="member">XDCFG_LOCK_OFFSET</ref>,<sp/>Data);</highlight></codeline>
+<codeline lineno="331"><highlight class="normal"></highlight></codeline>
+<codeline lineno="332"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="333"><highlight class="normal"></highlight></codeline>
+<codeline lineno="334"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="349" refid="group__devcfg_1gad3df072e27abfff9beb69cb09567a8c1" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__devcfg_1gad3df072e27abfff9beb69cb09567a8c1" kindref="member">XDcfg_GetLockRegister</ref>(<ref refid="struct_x_dcfg" kindref="compound">XDcfg</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="350"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="351"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="352"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Assert<sp/>the<sp/>arguments.</highlight></codeline>
+<codeline lineno="353"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="354"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="355"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_dcfg_1acd5816f6958bdbe2081d586d2b613f27" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="356"><highlight class="normal"></highlight></codeline>
+<codeline lineno="357"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="358"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Read<sp/>the<sp/>Lock<sp/>Register<sp/>and<sp/>return<sp/>the<sp/>value.</highlight></codeline>
+<codeline lineno="359"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="360"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="group__devcfg_1ga77561dc2e9ea13137f50a8193b8fbcd3" kindref="member">XDcfg_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_dcfg_1aa781f458f64d74c8147d10f09683301e" kindref="member">Config</ref>.<ref refid="struct_x_dcfg___config_1a97b0e40ed1632649e15eedea77e84a82" kindref="member">BaseAddr</ref>,<sp/><ref refid="group__devcfg_1gad126a845b17979d640cd2dd00eab29f9" kindref="member">XDCFG_LOCK_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="361"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="362"><highlight class="normal"></highlight></codeline>
+<codeline lineno="363"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="377" refid="group__devcfg_1ga89e1eef15fcfe06cd0e8d8dd7e804ad1" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__devcfg_1ga89e1eef15fcfe06cd0e8d8dd7e804ad1" kindref="member">XDcfg_SetConfigRegister</ref>(<ref refid="struct_x_dcfg" kindref="compound">XDcfg</ref><sp/>*InstancePtr,<sp/>u32<sp/>Data)</highlight></codeline>
+<codeline lineno="378"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="379"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="380"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Assert<sp/>the<sp/>arguments.</highlight></codeline>
+<codeline lineno="381"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="382"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="383"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_dcfg_1acd5816f6958bdbe2081d586d2b613f27" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="384"><highlight class="normal"></highlight></codeline>
+<codeline lineno="385"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__devcfg_1ga8ae617fbb2b3e148a8b2489e90fbdea3" kindref="member">XDcfg_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_dcfg_1aa781f458f64d74c8147d10f09683301e" kindref="member">Config</ref>.<ref refid="struct_x_dcfg___config_1a97b0e40ed1632649e15eedea77e84a82" kindref="member">BaseAddr</ref>,<sp/><ref refid="group__devcfg_1ga3fafe11b95af8da04f385c9313a6958b" kindref="member">XDCFG_CFG_OFFSET</ref>,<sp/>Data);</highlight></codeline>
+<codeline lineno="386"><highlight class="normal"></highlight></codeline>
+<codeline lineno="387"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="388"><highlight class="normal"></highlight></codeline>
+<codeline lineno="389"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="405" refid="group__devcfg_1ga3b46b8db6ea49d8c066fefe0d137b2c9" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__devcfg_1ga3b46b8db6ea49d8c066fefe0d137b2c9" kindref="member">XDcfg_GetConfigRegister</ref>(<ref refid="struct_x_dcfg" kindref="compound">XDcfg</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="406"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="407"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="408"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Assert<sp/>the<sp/>arguments.</highlight></codeline>
+<codeline lineno="409"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="410"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="411"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_dcfg_1acd5816f6958bdbe2081d586d2b613f27" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="412"><highlight class="normal"></highlight></codeline>
+<codeline lineno="413"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="group__devcfg_1ga77561dc2e9ea13137f50a8193b8fbcd3" kindref="member">XDcfg_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_dcfg_1aa781f458f64d74c8147d10f09683301e" kindref="member">Config</ref>.<ref refid="struct_x_dcfg___config_1a97b0e40ed1632649e15eedea77e84a82" kindref="member">BaseAddr</ref>,<sp/><ref refid="group__devcfg_1ga3fafe11b95af8da04f385c9313a6958b" kindref="member">XDCFG_CFG_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="414"><highlight class="normal"></highlight></codeline>
+<codeline lineno="415"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="416"><highlight class="normal"></highlight></codeline>
+<codeline lineno="417"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="430" refid="group__devcfg_1gae7a3e8052f73c370990b77dae5751a36" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__devcfg_1gae7a3e8052f73c370990b77dae5751a36" kindref="member">XDcfg_SetStatusRegister</ref>(<ref refid="struct_x_dcfg" kindref="compound">XDcfg</ref><sp/>*InstancePtr,<sp/>u32<sp/>Data)</highlight></codeline>
+<codeline lineno="431"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="432"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="433"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Assert<sp/>the<sp/>arguments.</highlight></codeline>
+<codeline lineno="434"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="435"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="436"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_dcfg_1acd5816f6958bdbe2081d586d2b613f27" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="437"><highlight class="normal"></highlight></codeline>
+<codeline lineno="438"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__devcfg_1ga8ae617fbb2b3e148a8b2489e90fbdea3" kindref="member">XDcfg_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_dcfg_1aa781f458f64d74c8147d10f09683301e" kindref="member">Config</ref>.<ref refid="struct_x_dcfg___config_1a97b0e40ed1632649e15eedea77e84a82" kindref="member">BaseAddr</ref>,<sp/><ref refid="group__devcfg_1ga6646b7874a5c9cc7bcdba6072bb4ff72" kindref="member">XDCFG_STATUS_OFFSET</ref>,<sp/>Data);</highlight></codeline>
+<codeline lineno="439"><highlight class="normal"></highlight></codeline>
+<codeline lineno="440"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="441"><highlight class="normal"></highlight></codeline>
+<codeline lineno="442"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="457" refid="group__devcfg_1gaaacacd5169ad7a79f09d08858f58dc8e" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__devcfg_1gaaacacd5169ad7a79f09d08858f58dc8e" kindref="member">XDcfg_GetStatusRegister</ref>(<ref refid="struct_x_dcfg" kindref="compound">XDcfg</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="458"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="459"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="460"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Assert<sp/>the<sp/>arguments.</highlight></codeline>
+<codeline lineno="461"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="462"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="463"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_dcfg_1acd5816f6958bdbe2081d586d2b613f27" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="464"><highlight class="normal"></highlight></codeline>
+<codeline lineno="465"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="466"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Read<sp/>the<sp/>Status<sp/>Register<sp/>and<sp/>return<sp/>the<sp/>value.</highlight></codeline>
+<codeline lineno="467"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="468"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="group__devcfg_1ga77561dc2e9ea13137f50a8193b8fbcd3" kindref="member">XDcfg_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_dcfg_1aa781f458f64d74c8147d10f09683301e" kindref="member">Config</ref>.<ref refid="struct_x_dcfg___config_1a97b0e40ed1632649e15eedea77e84a82" kindref="member">BaseAddr</ref>,<sp/><ref refid="group__devcfg_1ga6646b7874a5c9cc7bcdba6072bb4ff72" kindref="member">XDCFG_STATUS_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="469"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="470"><highlight class="normal"></highlight></codeline>
+<codeline lineno="471"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="485" refid="group__devcfg_1ga332a5c7c856e8f6637cafaa3ec69eaca" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__devcfg_1ga332a5c7c856e8f6637cafaa3ec69eaca" kindref="member">XDcfg_SetRomShadowRegister</ref>(<ref refid="struct_x_dcfg" kindref="compound">XDcfg</ref><sp/>*InstancePtr,<sp/>u32<sp/>Data)</highlight></codeline>
+<codeline lineno="486"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="487"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="488"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Assert<sp/>the<sp/>arguments.</highlight></codeline>
+<codeline lineno="489"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="490"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="491"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_dcfg_1acd5816f6958bdbe2081d586d2b613f27" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="492"><highlight class="normal"></highlight></codeline>
+<codeline lineno="493"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__devcfg_1ga8ae617fbb2b3e148a8b2489e90fbdea3" kindref="member">XDcfg_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_dcfg_1aa781f458f64d74c8147d10f09683301e" kindref="member">Config</ref>.<ref refid="struct_x_dcfg___config_1a97b0e40ed1632649e15eedea77e84a82" kindref="member">BaseAddr</ref>,<sp/><ref refid="group__devcfg_1ga895856e5cf4578a328a12bb0f0287826" kindref="member">XDCFG_ROM_SHADOW_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="494"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Data);</highlight></codeline>
+<codeline lineno="495"><highlight class="normal"></highlight></codeline>
+<codeline lineno="496"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="497"><highlight class="normal"></highlight></codeline>
+<codeline lineno="498"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="511" refid="group__devcfg_1ga5573651d2f14ff760e36d551a49fa919" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__devcfg_1ga5573651d2f14ff760e36d551a49fa919" kindref="member">XDcfg_GetSoftwareIdRegister</ref>(<ref refid="struct_x_dcfg" kindref="compound">XDcfg</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="512"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="513"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="514"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Assert<sp/>the<sp/>arguments.</highlight></codeline>
+<codeline lineno="515"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="516"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="517"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_dcfg_1acd5816f6958bdbe2081d586d2b613f27" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="518"><highlight class="normal"></highlight></codeline>
+<codeline lineno="519"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="520"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Read<sp/>the<sp/>Software<sp/>ID<sp/>Register<sp/>and<sp/>return<sp/>the<sp/>value.</highlight></codeline>
+<codeline lineno="521"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="522"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="group__devcfg_1ga77561dc2e9ea13137f50a8193b8fbcd3" kindref="member">XDcfg_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_dcfg_1aa781f458f64d74c8147d10f09683301e" kindref="member">Config</ref>.<ref refid="struct_x_dcfg___config_1a97b0e40ed1632649e15eedea77e84a82" kindref="member">BaseAddr</ref>,<sp/><ref refid="group__devcfg_1gad56285ef89202c084bad1724cc3f8df1" kindref="member">XDCFG_SW_ID_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="523"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="524"><highlight class="normal"></highlight></codeline>
+<codeline lineno="525"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="539" refid="group__devcfg_1ga2739b6bce23b6e02a9076c0eba8664d4" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__devcfg_1ga2739b6bce23b6e02a9076c0eba8664d4" kindref="member">XDcfg_SetMiscControlRegister</ref>(<ref refid="struct_x_dcfg" kindref="compound">XDcfg</ref><sp/>*InstancePtr,<sp/>u32<sp/>Mask)</highlight></codeline>
+<codeline lineno="540"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="541"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>RegData;</highlight></codeline>
+<codeline lineno="542"><highlight class="normal"></highlight></codeline>
+<codeline lineno="543"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="544"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Assert<sp/>the<sp/>arguments.</highlight></codeline>
+<codeline lineno="545"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="546"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="547"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_dcfg_1acd5816f6958bdbe2081d586d2b613f27" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="548"><highlight class="normal"></highlight></codeline>
+<codeline lineno="549"><highlight class="normal"></highlight></codeline>
+<codeline lineno="550"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegData<sp/>=<sp/><ref refid="group__devcfg_1ga77561dc2e9ea13137f50a8193b8fbcd3" kindref="member">XDcfg_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_dcfg_1aa781f458f64d74c8147d10f09683301e" kindref="member">Config</ref>.<ref refid="struct_x_dcfg___config_1a97b0e40ed1632649e15eedea77e84a82" kindref="member">BaseAddr</ref>,</highlight></codeline>
+<codeline lineno="551"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__devcfg_1ga80ad10863ac12916d347046e8263f5b2" kindref="member">XDCFG_MCTRL_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="552"><highlight class="normal"></highlight></codeline>
+<codeline lineno="553"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__devcfg_1ga8ae617fbb2b3e148a8b2489e90fbdea3" kindref="member">XDcfg_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_dcfg_1aa781f458f64d74c8147d10f09683301e" kindref="member">Config</ref>.<ref refid="struct_x_dcfg___config_1a97b0e40ed1632649e15eedea77e84a82" kindref="member">BaseAddr</ref>,<sp/><ref refid="group__devcfg_1ga80ad10863ac12916d347046e8263f5b2" kindref="member">XDCFG_MCTRL_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="554"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(RegData<sp/>|<sp/>Mask));</highlight></codeline>
+<codeline lineno="555"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="556"><highlight class="normal"></highlight></codeline>
+<codeline lineno="557"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="570" refid="group__devcfg_1gaee0dfc6838f33d700fc4b8a5549b0473" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__devcfg_1gaee0dfc6838f33d700fc4b8a5549b0473" kindref="member">XDcfg_GetMiscControlRegister</ref>(<ref refid="struct_x_dcfg" kindref="compound">XDcfg</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="571"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="572"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="573"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Assert<sp/>the<sp/>arguments.</highlight></codeline>
+<codeline lineno="574"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="575"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="576"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_dcfg_1acd5816f6958bdbe2081d586d2b613f27" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="577"><highlight class="normal"></highlight></codeline>
+<codeline lineno="578"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="579"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Read<sp/>the<sp/>Miscellaneous<sp/>Control<sp/>Register<sp/>and<sp/>return<sp/>the<sp/>value.</highlight></codeline>
+<codeline lineno="580"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="581"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="group__devcfg_1ga77561dc2e9ea13137f50a8193b8fbcd3" kindref="member">XDcfg_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_dcfg_1aa781f458f64d74c8147d10f09683301e" kindref="member">Config</ref>.<ref refid="struct_x_dcfg___config_1a97b0e40ed1632649e15eedea77e84a82" kindref="member">BaseAddr</ref>,<sp/><ref refid="group__devcfg_1ga80ad10863ac12916d347046e8263f5b2" kindref="member">XDCFG_MCTRL_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="582"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="583"><highlight class="normal"></highlight></codeline>
+<codeline lineno="584"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="597" refid="group__devcfg_1gab3412c2881ffaa15fd3615770a4225a7" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__devcfg_1gab3412c2881ffaa15fd3615770a4225a7" kindref="member">XDcfg_IsDmaBusy</ref>(<ref refid="struct_x_dcfg" kindref="compound">XDcfg</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="598"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="599"><highlight class="normal"></highlight></codeline>
+<codeline lineno="600"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>RegData;</highlight></codeline>
+<codeline lineno="601"><highlight class="normal"></highlight></codeline>
+<codeline lineno="602"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="603"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_dcfg_1acd5816f6958bdbe2081d586d2b613f27" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="604"><highlight class="normal"></highlight></codeline>
+<codeline lineno="605"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Read<sp/>the<sp/>PCAP<sp/>status<sp/>register<sp/>for<sp/>DMA<sp/>status<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="606"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegData<sp/>=<sp/><ref refid="group__devcfg_1ga77561dc2e9ea13137f50a8193b8fbcd3" kindref="member">XDcfg_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_dcfg_1aa781f458f64d74c8147d10f09683301e" kindref="member">Config</ref>.<ref refid="struct_x_dcfg___config_1a97b0e40ed1632649e15eedea77e84a82" kindref="member">BaseAddr</ref>,</highlight></codeline>
+<codeline lineno="607"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__devcfg_1ga6646b7874a5c9cc7bcdba6072bb4ff72" kindref="member">XDCFG_STATUS_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="608"><highlight class="normal"></highlight></codeline>
+<codeline lineno="609"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((RegData<sp/>&amp;<sp/><ref refid="group__devcfg_1ga48a0c155d061c98656101cb19a87f0a0" kindref="member">XDCFG_STATUS_DMA_CMD_Q_F_MASK</ref>)<sp/>==</highlight></codeline>
+<codeline lineno="610"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDCFG_STATUS_DMA_CMD_Q_F_MASK)<sp/>{</highlight></codeline>
+<codeline lineno="611"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="612"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="613"><highlight class="normal"></highlight></codeline>
+<codeline lineno="614"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="615"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="616"><highlight class="normal"></highlight></codeline>
+<codeline lineno="617"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="642" refid="group__devcfg_1gafda6d24be18657370c15e1e893a0ab05" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__devcfg_1gafda6d24be18657370c15e1e893a0ab05" kindref="member">XDcfg_InitiateDma</ref>(<ref refid="struct_x_dcfg" kindref="compound">XDcfg</ref><sp/>*InstancePtr,<sp/>u32<sp/>SourcePtr,<sp/>u32<sp/>DestPtr,</highlight></codeline>
+<codeline lineno="643"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>SrcWordLength,<sp/>u32<sp/>DestWordLength)</highlight></codeline>
+<codeline lineno="644"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="645"><highlight class="normal"></highlight></codeline>
+<codeline lineno="646"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__devcfg_1ga8ae617fbb2b3e148a8b2489e90fbdea3" kindref="member">XDcfg_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_dcfg_1aa781f458f64d74c8147d10f09683301e" kindref="member">Config</ref>.<ref refid="struct_x_dcfg___config_1a97b0e40ed1632649e15eedea77e84a82" kindref="member">BaseAddr</ref>,</highlight></codeline>
+<codeline lineno="647"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__devcfg_1ga18c6f2aab3a27da352296a1324ed73b4" kindref="member">XDCFG_DMA_SRC_ADDR_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="648"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SourcePtr);</highlight></codeline>
+<codeline lineno="649"><highlight class="normal"></highlight></codeline>
+<codeline lineno="650"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__devcfg_1ga8ae617fbb2b3e148a8b2489e90fbdea3" kindref="member">XDcfg_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_dcfg_1aa781f458f64d74c8147d10f09683301e" kindref="member">Config</ref>.<ref refid="struct_x_dcfg___config_1a97b0e40ed1632649e15eedea77e84a82" kindref="member">BaseAddr</ref>,</highlight></codeline>
+<codeline lineno="651"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__devcfg_1ga24e1d08d2aa66c6fe2a8be9086ef9a41" kindref="member">XDCFG_DMA_DEST_ADDR_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="652"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DestPtr);</highlight></codeline>
+<codeline lineno="653"><highlight class="normal"></highlight></codeline>
+<codeline lineno="654"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__devcfg_1ga8ae617fbb2b3e148a8b2489e90fbdea3" kindref="member">XDcfg_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_dcfg_1aa781f458f64d74c8147d10f09683301e" kindref="member">Config</ref>.<ref refid="struct_x_dcfg___config_1a97b0e40ed1632649e15eedea77e84a82" kindref="member">BaseAddr</ref>,</highlight></codeline>
+<codeline lineno="655"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__devcfg_1gaaf9fa64a65762a428ba36bd38a80ab80" kindref="member">XDCFG_DMA_SRC_LEN_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="656"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SrcWordLength);</highlight></codeline>
+<codeline lineno="657"><highlight class="normal"></highlight></codeline>
+<codeline lineno="658"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__devcfg_1ga8ae617fbb2b3e148a8b2489e90fbdea3" kindref="member">XDcfg_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_dcfg_1aa781f458f64d74c8147d10f09683301e" kindref="member">Config</ref>.<ref refid="struct_x_dcfg___config_1a97b0e40ed1632649e15eedea77e84a82" kindref="member">BaseAddr</ref>,</highlight></codeline>
+<codeline lineno="659"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__devcfg_1gaffc13cbb412f77e54b0ecf2f25e205ee" kindref="member">XDCFG_DMA_DEST_LEN_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="660"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DestWordLength);</highlight></codeline>
+<codeline lineno="661"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="662"><highlight class="normal"></highlight></codeline>
+<codeline lineno="663"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="685"><highlight class="keyword">static</highlight><highlight class="normal"><sp/>u32<sp/>XDcfg_PcapReadback(<ref refid="struct_x_dcfg" kindref="compound">XDcfg</ref><sp/>*InstancePtr,<sp/>u32<sp/>SourcePtr,</highlight></codeline>
+<codeline lineno="686"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>SrcWordLength,<sp/>u32<sp/>DestPtr,</highlight></codeline>
+<codeline lineno="687"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>DestWordLength)</highlight></codeline>
+<codeline lineno="688"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="689"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>IntrReg;</highlight></codeline>
+<codeline lineno="690"><highlight class="normal"></highlight></codeline>
+<codeline lineno="691"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="692"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Send<sp/>READ<sp/>Frame<sp/>command<sp/>to<sp/>FPGA</highlight></codeline>
+<codeline lineno="693"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="694"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__devcfg_1gafda6d24be18657370c15e1e893a0ab05" kindref="member">XDcfg_InitiateDma</ref>(InstancePtr,<sp/>SourcePtr,<sp/><ref refid="group__devcfg_1ga40ccdd2b121359e65b1f95e5f32be3d8" kindref="member">XDCFG_DMA_INVALID_ADDRESS</ref>,</highlight></codeline>
+<codeline lineno="695"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SrcWordLength,<sp/>0);</highlight></codeline>
+<codeline lineno="696"><highlight class="normal"></highlight></codeline>
+<codeline lineno="697"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="698"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Store<sp/>the<sp/>enabled<sp/>interrupts<sp/>to<sp/>enable<sp/>before<sp/>the<sp/>actual<sp/>read</highlight></codeline>
+<codeline lineno="699"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>transfer<sp/>is<sp/>initiated<sp/>and<sp/>Disable<sp/>all<sp/>the<sp/>interrupts<sp/>temporarily.</highlight></codeline>
+<codeline lineno="700"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="701"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IntrReg<sp/>=<sp/><ref refid="group__devcfg_1ga879fec56ba0f64d3b2128f11e2b022f0" kindref="member">XDcfg_IntrGetEnabled</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="702"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__devcfg_1gab7606b370c10d68d61402bed68955a80" kindref="member">XDcfg_IntrDisable</ref>(InstancePtr,<sp/>XDCFG_IXR_ALL_MASK);</highlight></codeline>
+<codeline lineno="703"><highlight class="normal"></highlight></codeline>
+<codeline lineno="704"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="705"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Wait<sp/>till<sp/>you<sp/>get<sp/>the<sp/>DMA<sp/>done<sp/>for<sp/>the<sp/>read<sp/>command<sp/>sent</highlight></codeline>
+<codeline lineno="706"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="707"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>((<ref refid="group__devcfg_1ga77561dc2e9ea13137f50a8193b8fbcd3" kindref="member">XDcfg_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_dcfg_1aa781f458f64d74c8147d10f09683301e" kindref="member">Config</ref>.<ref refid="struct_x_dcfg___config_1a97b0e40ed1632649e15eedea77e84a82" kindref="member">BaseAddr</ref>,</highlight></codeline>
+<codeline lineno="708"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__devcfg_1ga5abc2123bae0a1d3512d41be98ca477c" kindref="member">XDCFG_INT_STS_OFFSET</ref>)<sp/>&amp;</highlight></codeline>
+<codeline lineno="709"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__devcfg_1gae46a37df60109876c5f96d62dc6b9f78" kindref="member">XDCFG_IXR_D_P_DONE_MASK</ref>)<sp/>!=</highlight></codeline>
+<codeline lineno="710"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDCFG_IXR_D_P_DONE_MASK);</highlight></codeline>
+<codeline lineno="711"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="712"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Enable<sp/>the<sp/>previously<sp/>stored<sp/>Interrupts<sp/>.</highlight></codeline>
+<codeline lineno="713"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="714"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__devcfg_1gab9c70f073e4522d6085c0059bc385aa9" kindref="member">XDcfg_IntrEnable</ref>(InstancePtr,<sp/>IntrReg);</highlight></codeline>
+<codeline lineno="715"><highlight class="normal"></highlight></codeline>
+<codeline lineno="716"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="717"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Initiate<sp/>the<sp/>DMA<sp/>write<sp/>command.</highlight></codeline>
+<codeline lineno="718"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="719"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__devcfg_1gafda6d24be18657370c15e1e893a0ab05" kindref="member">XDcfg_InitiateDma</ref>(InstancePtr,<sp/><ref refid="group__devcfg_1ga40ccdd2b121359e65b1f95e5f32be3d8" kindref="member">XDCFG_DMA_INVALID_ADDRESS</ref>,<sp/>(u32)DestPtr,</highlight></codeline>
+<codeline lineno="720"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0,<sp/>DestWordLength);</highlight></codeline>
+<codeline lineno="721"><highlight class="normal"></highlight></codeline>
+<codeline lineno="722"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="723"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="724"><highlight class="normal"></highlight></codeline>
+<codeline lineno="725"><highlight class="normal"></highlight></codeline>
+<codeline lineno="726"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="767" refid="group__devcfg_1ga5a7a69cfe6e10770f82089bdd277955d" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__devcfg_1ga5a7a69cfe6e10770f82089bdd277955d" kindref="member">XDcfg_Transfer</ref>(<ref refid="struct_x_dcfg" kindref="compound">XDcfg</ref><sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="768"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*SourcePtr,<sp/>u32<sp/>SrcWordLength,</highlight></codeline>
+<codeline lineno="769"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*DestPtr,<sp/>u32<sp/>DestWordLength,</highlight></codeline>
+<codeline lineno="770"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>TransferType)</highlight></codeline>
+<codeline lineno="771"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="772"><highlight class="normal"></highlight></codeline>
+<codeline lineno="773"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>CtrlReg;</highlight></codeline>
+<codeline lineno="774"><highlight class="normal"></highlight></codeline>
+<codeline lineno="775"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="776"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_dcfg_1acd5816f6958bdbe2081d586d2b613f27" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="777"><highlight class="normal"></highlight></codeline>
+<codeline lineno="778"><highlight class="normal"></highlight></codeline>
+<codeline lineno="779"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="group__devcfg_1gab3412c2881ffaa15fd3615770a4225a7" kindref="member">XDcfg_IsDmaBusy</ref>(InstancePtr)<sp/>==<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="780"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_DEVICE_BUSY;</highlight></codeline>
+<codeline lineno="781"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="782"><highlight class="normal"></highlight></codeline>
+<codeline lineno="783"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="784"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Check<sp/>whether<sp/>the<sp/>fabric<sp/>is<sp/>in<sp/>initialized<sp/>state</highlight></codeline>
+<codeline lineno="785"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="786"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((<ref refid="group__devcfg_1ga77561dc2e9ea13137f50a8193b8fbcd3" kindref="member">XDcfg_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_dcfg_1aa781f458f64d74c8147d10f09683301e" kindref="member">Config</ref>.<ref refid="struct_x_dcfg___config_1a97b0e40ed1632649e15eedea77e84a82" kindref="member">BaseAddr</ref>,<sp/><ref refid="group__devcfg_1ga6646b7874a5c9cc7bcdba6072bb4ff72" kindref="member">XDCFG_STATUS_OFFSET</ref>)</highlight></codeline>
+<codeline lineno="787"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;<sp/><ref refid="group__devcfg_1ga2adb521e9dab8223c16f2ebbfccc830f" kindref="member">XDCFG_STATUS_PCFG_INIT_MASK</ref>)<sp/>==<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="788"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="789"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>We<sp/>don&apos;t<sp/>need<sp/>to<sp/>check<sp/>PCFG_INIT<sp/>to<sp/>be<sp/>high<sp/>for</highlight></codeline>
+<codeline lineno="790"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>non-encrypted<sp/>loopback<sp/>transfers.</highlight></codeline>
+<codeline lineno="791"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="792"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(TransferType<sp/>!=<sp/>XDCFG_CONCURRENT_NONSEC_READ_WRITE)<sp/>{</highlight></codeline>
+<codeline lineno="793"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="794"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="795"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="796"><highlight class="normal"></highlight></codeline>
+<codeline lineno="797"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((TransferType<sp/>==<sp/>XDCFG_SECURE_PCAP_WRITE)<sp/>||</highlight></codeline>
+<codeline lineno="798"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(TransferType<sp/>==<sp/>XDCFG_NON_SECURE_PCAP_WRITE))<sp/>{</highlight></codeline>
+<codeline lineno="799"><highlight class="normal"></highlight></codeline>
+<codeline lineno="800"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Check<sp/>for<sp/>valid<sp/>source<sp/>pointer<sp/>and<sp/>length<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="801"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((!SourcePtr)<sp/>||<sp/>(SrcWordLength<sp/>==<sp/>0))<sp/>{</highlight></codeline>
+<codeline lineno="802"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_INVALID_PARAM;</highlight></codeline>
+<codeline lineno="803"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="804"><highlight class="normal"></highlight></codeline>
+<codeline lineno="805"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Clear<sp/>internal<sp/>PCAP<sp/>loopback<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="806"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CtrlReg<sp/>=<sp/><ref refid="group__devcfg_1ga77561dc2e9ea13137f50a8193b8fbcd3" kindref="member">XDcfg_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_dcfg_1aa781f458f64d74c8147d10f09683301e" kindref="member">Config</ref>.<ref refid="struct_x_dcfg___config_1a97b0e40ed1632649e15eedea77e84a82" kindref="member">BaseAddr</ref>,</highlight></codeline>
+<codeline lineno="807"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__devcfg_1ga80ad10863ac12916d347046e8263f5b2" kindref="member">XDCFG_MCTRL_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="808"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__devcfg_1ga8ae617fbb2b3e148a8b2489e90fbdea3" kindref="member">XDcfg_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_dcfg_1aa781f458f64d74c8147d10f09683301e" kindref="member">Config</ref>.<ref refid="struct_x_dcfg___config_1a97b0e40ed1632649e15eedea77e84a82" kindref="member">BaseAddr</ref>,</highlight></codeline>
+<codeline lineno="809"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__devcfg_1ga80ad10863ac12916d347046e8263f5b2" kindref="member">XDCFG_MCTRL_OFFSET</ref>,<sp/>(CtrlReg<sp/>&amp;</highlight></codeline>
+<codeline lineno="810"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>~(<ref refid="group__devcfg_1gaa5d7d25bc3d66e24bce45553e863b731" kindref="member">XDCFG_MCTRL_PCAP_LPBK_MASK</ref>)));</highlight></codeline>
+<codeline lineno="811"><highlight class="normal"></highlight></codeline>
+<codeline lineno="812"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(TransferType<sp/>==<sp/>XDCFG_NON_SECURE_PCAP_WRITE)<sp/>{</highlight></codeline>
+<codeline lineno="813"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="814"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Clear<sp/>QUARTER_PCAP_RATE_EN<sp/>bit</highlight></codeline>
+<codeline lineno="815"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>so<sp/>that<sp/>the<sp/>PCAP<sp/>data<sp/>is<sp/>transmitted<sp/>every<sp/>clock</highlight></codeline>
+<codeline lineno="816"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="817"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CtrlReg<sp/>=<sp/><ref refid="group__devcfg_1ga77561dc2e9ea13137f50a8193b8fbcd3" kindref="member">XDcfg_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_dcfg_1aa781f458f64d74c8147d10f09683301e" kindref="member">Config</ref>.<ref refid="struct_x_dcfg___config_1a97b0e40ed1632649e15eedea77e84a82" kindref="member">BaseAddr</ref>,</highlight></codeline>
+<codeline lineno="818"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__devcfg_1ga31ebfed655e59d8ee204b253e04ee024" kindref="member">XDCFG_CTRL_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="819"><highlight class="normal"></highlight></codeline>
+<codeline lineno="820"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__devcfg_1ga8ae617fbb2b3e148a8b2489e90fbdea3" kindref="member">XDcfg_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_dcfg_1aa781f458f64d74c8147d10f09683301e" kindref="member">Config</ref>.<ref refid="struct_x_dcfg___config_1a97b0e40ed1632649e15eedea77e84a82" kindref="member">BaseAddr</ref>,</highlight></codeline>
+<codeline lineno="821"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__devcfg_1ga31ebfed655e59d8ee204b253e04ee024" kindref="member">XDCFG_CTRL_OFFSET</ref>,<sp/>(CtrlReg<sp/>&amp;</highlight></codeline>
+<codeline lineno="822"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>~<ref refid="group__devcfg_1ga16cb1e4072240a97799a685fad35234f" kindref="member">XDCFG_CTRL_PCAP_RATE_EN_MASK</ref>));</highlight></codeline>
+<codeline lineno="823"><highlight class="normal"></highlight></codeline>
+<codeline lineno="824"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="825"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(TransferType<sp/>==<sp/>XDCFG_SECURE_PCAP_WRITE)<sp/>{</highlight></codeline>
+<codeline lineno="826"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="827"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>AES<sp/>engine<sp/>handles<sp/>only<sp/>8<sp/>bit<sp/>data<sp/>every<sp/>clock<sp/>cycle.</highlight></codeline>
+<codeline lineno="828"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Hence,<sp/>Encrypted<sp/>PCAP<sp/>data<sp/>which<sp/>is<sp/>32<sp/>bit<sp/>data<sp/>can</highlight></codeline>
+<codeline lineno="829"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>only<sp/>be<sp/>sent<sp/>in<sp/>every<sp/>4<sp/>clock<sp/>cycles.<sp/>Set<sp/>the<sp/>control</highlight></codeline>
+<codeline lineno="830"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>register<sp/>QUARTER_PCAP_RATE_EN<sp/>bit<sp/>to<sp/>achieve<sp/>this</highlight></codeline>
+<codeline lineno="831"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>operation.</highlight></codeline>
+<codeline lineno="832"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="833"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__devcfg_1gacc8c10b5cc877595c1ade09e1a589296" kindref="member">XDcfg_SetControlRegister</ref>(InstancePtr,</highlight></codeline>
+<codeline lineno="834"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__devcfg_1ga16cb1e4072240a97799a685fad35234f" kindref="member">XDCFG_CTRL_PCAP_RATE_EN_MASK</ref>);</highlight></codeline>
+<codeline lineno="835"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="836"><highlight class="normal"></highlight></codeline>
+<codeline lineno="837"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__devcfg_1gafda6d24be18657370c15e1e893a0ab05" kindref="member">XDcfg_InitiateDma</ref>(InstancePtr,<sp/>(u32)SourcePtr,</highlight></codeline>
+<codeline lineno="838"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)DestPtr,<sp/>SrcWordLength,<sp/>DestWordLength);</highlight></codeline>
+<codeline lineno="839"><highlight class="normal"></highlight></codeline>
+<codeline lineno="840"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="841"><highlight class="normal"></highlight></codeline>
+<codeline lineno="842"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(TransferType<sp/>==<sp/>XDCFG_PCAP_READBACK)<sp/>{</highlight></codeline>
+<codeline lineno="843"><highlight class="normal"></highlight></codeline>
+<codeline lineno="844"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((!DestPtr)<sp/>||<sp/>(DestWordLength<sp/>==<sp/>0))<sp/>{</highlight></codeline>
+<codeline lineno="845"><highlight class="normal"></highlight></codeline>
+<codeline lineno="846"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_INVALID_PARAM;</highlight></codeline>
+<codeline lineno="847"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="848"><highlight class="normal"></highlight></codeline>
+<codeline lineno="849"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Clear<sp/>internal<sp/>PCAP<sp/>loopback<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="850"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CtrlReg<sp/>=<sp/><ref refid="group__devcfg_1ga77561dc2e9ea13137f50a8193b8fbcd3" kindref="member">XDcfg_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_dcfg_1aa781f458f64d74c8147d10f09683301e" kindref="member">Config</ref>.<ref refid="struct_x_dcfg___config_1a97b0e40ed1632649e15eedea77e84a82" kindref="member">BaseAddr</ref>,</highlight></codeline>
+<codeline lineno="851"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__devcfg_1ga80ad10863ac12916d347046e8263f5b2" kindref="member">XDCFG_MCTRL_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="852"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__devcfg_1ga8ae617fbb2b3e148a8b2489e90fbdea3" kindref="member">XDcfg_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_dcfg_1aa781f458f64d74c8147d10f09683301e" kindref="member">Config</ref>.<ref refid="struct_x_dcfg___config_1a97b0e40ed1632649e15eedea77e84a82" kindref="member">BaseAddr</ref>,</highlight></codeline>
+<codeline lineno="853"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__devcfg_1ga80ad10863ac12916d347046e8263f5b2" kindref="member">XDCFG_MCTRL_OFFSET</ref>,<sp/>(CtrlReg<sp/>&amp;</highlight></codeline>
+<codeline lineno="854"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>~(<ref refid="group__devcfg_1gaa5d7d25bc3d66e24bce45553e863b731" kindref="member">XDCFG_MCTRL_PCAP_LPBK_MASK</ref>)));</highlight></codeline>
+<codeline lineno="855"><highlight class="normal"></highlight></codeline>
+<codeline lineno="856"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="857"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>For<sp/>PCAP<sp/>readback<sp/>of<sp/>FPGA<sp/>configuration<sp/>register<sp/>or<sp/>memory,</highlight></codeline>
+<codeline lineno="858"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>the<sp/>read<sp/>command<sp/>is<sp/>first<sp/>sent<sp/>(written)<sp/>to<sp/>the<sp/>FPGA<sp/>fabric</highlight></codeline>
+<codeline lineno="859"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>which<sp/>responds<sp/>by<sp/>returning<sp/>the<sp/>required<sp/>read<sp/>data.<sp/>Read<sp/>data</highlight></codeline>
+<codeline lineno="860"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>from<sp/>the<sp/>FPGA<sp/>is<sp/>captured<sp/>if<sp/>pcap_radata_v<sp/>is<sp/>active.A<sp/>DMA</highlight></codeline>
+<codeline lineno="861"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>read<sp/>transfer<sp/>is<sp/>required<sp/>to<sp/>obtain<sp/>the<sp/>readback<sp/>command,</highlight></codeline>
+<codeline lineno="862"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>which<sp/>is<sp/>then<sp/>sent<sp/>to<sp/>the<sp/>FPGA,<sp/>followed<sp/>by<sp/>a<sp/>DMA<sp/>write</highlight></codeline>
+<codeline lineno="863"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>transfer<sp/>to<sp/>support<sp/>this<sp/>mode<sp/>of<sp/>operation.</highlight></codeline>
+<codeline lineno="864"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="865"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XDcfg_PcapReadback(InstancePtr,</highlight></codeline>
+<codeline lineno="866"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)SourcePtr,<sp/>SrcWordLength,</highlight></codeline>
+<codeline lineno="867"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)DestPtr,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DestWordLength);</highlight></codeline>
+<codeline lineno="868"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="869"><highlight class="normal"></highlight></codeline>
+<codeline lineno="870"><highlight class="normal"></highlight></codeline>
+<codeline lineno="871"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((TransferType<sp/>==<sp/>XDCFG_CONCURRENT_SECURE_READ_WRITE)<sp/>||</highlight></codeline>
+<codeline lineno="872"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(TransferType<sp/>==<sp/>XDCFG_CONCURRENT_NONSEC_READ_WRITE))<sp/>{</highlight></codeline>
+<codeline lineno="873"><highlight class="normal"></highlight></codeline>
+<codeline lineno="874"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((!SourcePtr)<sp/>||<sp/>(SrcWordLength<sp/>==<sp/>0)<sp/>||</highlight></codeline>
+<codeline lineno="875"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(!DestPtr)<sp/>||<sp/>(DestWordLength<sp/>==<sp/>0))<sp/>{</highlight></codeline>
+<codeline lineno="876"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_INVALID_PARAM;</highlight></codeline>
+<codeline lineno="877"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="878"><highlight class="normal"></highlight></codeline>
+<codeline lineno="879"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(TransferType<sp/>==<sp/>XDCFG_CONCURRENT_NONSEC_READ_WRITE)<sp/>{</highlight></codeline>
+<codeline lineno="880"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Enable<sp/>internal<sp/>PCAP<sp/>loopback<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="881"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CtrlReg<sp/>=<sp/><ref refid="group__devcfg_1ga77561dc2e9ea13137f50a8193b8fbcd3" kindref="member">XDcfg_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_dcfg_1aa781f458f64d74c8147d10f09683301e" kindref="member">Config</ref>.<ref refid="struct_x_dcfg___config_1a97b0e40ed1632649e15eedea77e84a82" kindref="member">BaseAddr</ref>,</highlight></codeline>
+<codeline lineno="882"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__devcfg_1ga80ad10863ac12916d347046e8263f5b2" kindref="member">XDCFG_MCTRL_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="883"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__devcfg_1ga8ae617fbb2b3e148a8b2489e90fbdea3" kindref="member">XDcfg_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_dcfg_1aa781f458f64d74c8147d10f09683301e" kindref="member">Config</ref>.<ref refid="struct_x_dcfg___config_1a97b0e40ed1632649e15eedea77e84a82" kindref="member">BaseAddr</ref>,</highlight></codeline>
+<codeline lineno="884"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__devcfg_1ga80ad10863ac12916d347046e8263f5b2" kindref="member">XDCFG_MCTRL_OFFSET</ref>,<sp/>(CtrlReg<sp/>|</highlight></codeline>
+<codeline lineno="885"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__devcfg_1gaa5d7d25bc3d66e24bce45553e863b731" kindref="member">XDCFG_MCTRL_PCAP_LPBK_MASK</ref>));</highlight></codeline>
+<codeline lineno="886"><highlight class="normal"></highlight></codeline>
+<codeline lineno="887"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="888"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Clear<sp/>QUARTER_PCAP_RATE_EN<sp/>bit</highlight></codeline>
+<codeline lineno="889"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>so<sp/>that<sp/>the<sp/>PCAP<sp/>data<sp/>is<sp/>transmitted<sp/>every<sp/>clock</highlight></codeline>
+<codeline lineno="890"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="891"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CtrlReg<sp/>=<sp/><ref refid="group__devcfg_1ga77561dc2e9ea13137f50a8193b8fbcd3" kindref="member">XDcfg_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_dcfg_1aa781f458f64d74c8147d10f09683301e" kindref="member">Config</ref>.<ref refid="struct_x_dcfg___config_1a97b0e40ed1632649e15eedea77e84a82" kindref="member">BaseAddr</ref>,</highlight></codeline>
+<codeline lineno="892"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__devcfg_1ga31ebfed655e59d8ee204b253e04ee024" kindref="member">XDCFG_CTRL_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="893"><highlight class="normal"></highlight></codeline>
+<codeline lineno="894"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__devcfg_1ga8ae617fbb2b3e148a8b2489e90fbdea3" kindref="member">XDcfg_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_dcfg_1aa781f458f64d74c8147d10f09683301e" kindref="member">Config</ref>.<ref refid="struct_x_dcfg___config_1a97b0e40ed1632649e15eedea77e84a82" kindref="member">BaseAddr</ref>,</highlight></codeline>
+<codeline lineno="895"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__devcfg_1ga31ebfed655e59d8ee204b253e04ee024" kindref="member">XDCFG_CTRL_OFFSET</ref>,<sp/>(CtrlReg<sp/>&amp;</highlight></codeline>
+<codeline lineno="896"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>~<ref refid="group__devcfg_1ga16cb1e4072240a97799a685fad35234f" kindref="member">XDCFG_CTRL_PCAP_RATE_EN_MASK</ref>));</highlight></codeline>
+<codeline lineno="897"><highlight class="normal"></highlight></codeline>
+<codeline lineno="898"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="899"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(TransferType<sp/>==<sp/>XDCFG_CONCURRENT_SECURE_READ_WRITE)<sp/>{</highlight></codeline>
+<codeline lineno="900"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Clear<sp/>internal<sp/>PCAP<sp/>loopback<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="901"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CtrlReg<sp/>=<sp/><ref refid="group__devcfg_1ga77561dc2e9ea13137f50a8193b8fbcd3" kindref="member">XDcfg_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_dcfg_1aa781f458f64d74c8147d10f09683301e" kindref="member">Config</ref>.<ref refid="struct_x_dcfg___config_1a97b0e40ed1632649e15eedea77e84a82" kindref="member">BaseAddr</ref>,</highlight></codeline>
+<codeline lineno="902"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__devcfg_1ga80ad10863ac12916d347046e8263f5b2" kindref="member">XDCFG_MCTRL_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="903"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__devcfg_1ga8ae617fbb2b3e148a8b2489e90fbdea3" kindref="member">XDcfg_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_dcfg_1aa781f458f64d74c8147d10f09683301e" kindref="member">Config</ref>.<ref refid="struct_x_dcfg___config_1a97b0e40ed1632649e15eedea77e84a82" kindref="member">BaseAddr</ref>,</highlight></codeline>
+<codeline lineno="904"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__devcfg_1ga80ad10863ac12916d347046e8263f5b2" kindref="member">XDCFG_MCTRL_OFFSET</ref>,<sp/>(CtrlReg<sp/>&amp;</highlight></codeline>
+<codeline lineno="905"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>~(<ref refid="group__devcfg_1gaa5d7d25bc3d66e24bce45553e863b731" kindref="member">XDCFG_MCTRL_PCAP_LPBK_MASK</ref>)));</highlight></codeline>
+<codeline lineno="906"><highlight class="normal"></highlight></codeline>
+<codeline lineno="907"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="908"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Set<sp/>the<sp/>QUARTER_PCAP_RATE_EN<sp/>bit</highlight></codeline>
+<codeline lineno="909"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>so<sp/>that<sp/>the<sp/>PCAP<sp/>data<sp/>is<sp/>transmitted<sp/>every<sp/>4<sp/>clock</highlight></codeline>
+<codeline lineno="910"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>cycles,<sp/>this<sp/>is<sp/>required<sp/>for<sp/>encrypted<sp/>data.</highlight></codeline>
+<codeline lineno="911"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="912"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__devcfg_1gacc8c10b5cc877595c1ade09e1a589296" kindref="member">XDcfg_SetControlRegister</ref>(InstancePtr,</highlight></codeline>
+<codeline lineno="913"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__devcfg_1ga16cb1e4072240a97799a685fad35234f" kindref="member">XDCFG_CTRL_PCAP_RATE_EN_MASK</ref>);</highlight></codeline>
+<codeline lineno="914"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="915"><highlight class="normal"></highlight></codeline>
+<codeline lineno="916"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__devcfg_1gafda6d24be18657370c15e1e893a0ab05" kindref="member">XDcfg_InitiateDma</ref>(InstancePtr,<sp/>(u32)SourcePtr,</highlight></codeline>
+<codeline lineno="917"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)DestPtr,<sp/>SrcWordLength,<sp/>DestWordLength);</highlight></codeline>
+<codeline lineno="918"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="919"><highlight class="normal"></highlight></codeline>
+<codeline lineno="920"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="921"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg.c"/>
+  </compounddef>
+</doxygen>

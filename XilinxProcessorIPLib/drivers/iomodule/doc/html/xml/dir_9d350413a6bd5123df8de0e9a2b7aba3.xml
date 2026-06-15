@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_9d350413a6bd5123df8de0e9a2b7aba3" kind="dir">
+    <compoundname>examples</compoundname>
+    <innerfile refid="xiomodule__intr__example_8c">xiomodule_intr_example.c</innerfile>
+    <innerfile refid="xiomodule__intr__setup__example_8c">xiomodule_intr_setup_example.c</innerfile>
+    <innerfile refid="xiomodule__low__level__example_8c">xiomodule_low_level_example.c</innerfile>
+    <innerfile refid="xiomodule__selftest__example_8c">xiomodule_selftest_example.c</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/examples/"/>
+  </compounddef>
+</doxygen>

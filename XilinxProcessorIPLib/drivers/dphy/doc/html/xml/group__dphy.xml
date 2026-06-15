@@ -1,0 +1,1446 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__dphy" kind="group">
+    <compoundname>dphy</compoundname>
+    <title>Overview</title>
+    <innerclass refid="struct_x_dphy___config" prot="public">XDphy_Config</innerclass>
+    <innerclass refid="struct_x_dphy" prot="public">XDphy</innerclass>
+      <sectiondef kind="user-defined">
+      <header>DPHY Modes</header>
+      <memberdef kind="define" id="group__dphy_1ga7eff1ba8d33bade4ca4a2d0cd5a66e2e" prot="public" static="no">
+        <name>XDPHY_MODE_MIN</name>
+        <initializer>0</initializer>
+        <briefdescription>
+<para>Lower limit for Mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.h" line="128" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.h" bodystart="129" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dphy_1gac8777d601264f6f0451d119d635d5547" prot="public" static="no">
+        <name>XDPHY_LOW_POWER_MODE</name>
+        <initializer>0</initializer>
+        <briefdescription>
+<para>Lane in Low Power Mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.h" line="129" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.h" bodystart="130" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dphy_1gaa3c596aa6d06c5f514e78e6b94fd6bf8" prot="public" static="no">
+        <name>XDPHY_HIGH_POWER_MODE</name>
+        <initializer>1</initializer>
+        <briefdescription>
+<para>Lane in High Power Mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.h" line="130" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.h" bodystart="131" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dphy_1ga5fd3c9a2402bf6a9c106186237745916" prot="public" static="no">
+        <name>XDPHY_ESCAPE_MODE</name>
+        <initializer>2</initializer>
+        <briefdescription>
+<para>Lane in Escape Mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.h" line="131" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.h" bodystart="132" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dphy_1ga83a8245fb8aa24e9a745ad81f66767a7" prot="public" static="no">
+        <name>XDPHY_MODE_MAX</name>
+        <initializer>2</initializer>
+        <briefdescription>
+<para>Upper Limit for mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.h" line="132" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.h" bodystart="133" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dphy_1gad526fba138789830b02aca34e757145b" prot="public" static="no">
+        <name>XDPHY_MAX_LANES_V10</name>
+        <initializer>4</initializer>
+        <briefdescription>
+<para>V1.0 supports 4 Lanes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.h" line="133" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.h" bodystart="134" bodyend="-1"/>
+        <referencedby refid="group__dphy_1ga0d72a217f030e5c452ce1e61c92f1a29" compoundref="xdphy_8c" startline="98" endline="261">XDphy_Configure</referencedby>
+        <referencedby refid="group__dphy_1ga08901fa94d34b59883610d1590165919" compoundref="xdphy_8c" startline="295" endline="446">XDphy_GetInfo</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>DPHY Info Handles</header>
+      <memberdef kind="define" id="group__dphy_1gaa1d99410ba62847260787dfe41fbe04f" prot="public" static="no">
+        <name>XDPHY_HANDLE_MIN</name>
+        <initializer>0</initializer>
+        <briefdescription>
+<para>Lower Bound for XDPHY_HANDLE. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.h" line="139" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.h" bodystart="140" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dphy_1ga1ec5ec6f1d8ac8d7a6356bb13343325c" prot="public" static="no">
+        <name>XDPHY_HANDLE_IDELAY</name>
+        <initializer>0</initializer>
+        <briefdescription>
+<para>Handle for IDELAY Reg. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.h" line="140" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.h" bodystart="141" bodyend="-1"/>
+        <referencedby refid="group__dphy_1ga0d72a217f030e5c452ce1e61c92f1a29" compoundref="xdphy_8c" startline="98" endline="261">XDphy_Configure</referencedby>
+        <referencedby refid="group__dphy_1ga08901fa94d34b59883610d1590165919" compoundref="xdphy_8c" startline="295" endline="446">XDphy_GetInfo</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__dphy_1gaca6c78233546e7273afd557897339463" prot="public" static="no">
+        <name>XDPHY_HANDLE_INIT_TIMER</name>
+        <initializer>1</initializer>
+        <briefdescription>
+<para>Handle for Initialization Timer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.h" line="141" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.h" bodystart="142" bodyend="-1"/>
+        <referencedby refid="group__dphy_1ga0d72a217f030e5c452ce1e61c92f1a29" compoundref="xdphy_8c" startline="98" endline="261">XDphy_Configure</referencedby>
+        <referencedby refid="group__dphy_1ga08901fa94d34b59883610d1590165919" compoundref="xdphy_8c" startline="295" endline="446">XDphy_GetInfo</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__dphy_1ga1f5ca25326171d6b8cb5132f946bdbbf" prot="public" static="no">
+        <name>XDPHY_HANDLE_WAKEUP</name>
+        <initializer>2</initializer>
+        <briefdescription>
+<para>Handle for Wakeup timer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.h" line="142" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.h" bodystart="143" bodyend="-1"/>
+        <referencedby refid="group__dphy_1ga0d72a217f030e5c452ce1e61c92f1a29" compoundref="xdphy_8c" startline="98" endline="261">XDphy_Configure</referencedby>
+        <referencedby refid="group__dphy_1ga08901fa94d34b59883610d1590165919" compoundref="xdphy_8c" startline="295" endline="446">XDphy_GetInfo</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__dphy_1ga15385f55f404bccfe3e4e278ce70a16a" prot="public" static="no">
+        <name>XDPHY_HANDLE_HSTIMEOUT</name>
+        <initializer>3</initializer>
+        <briefdescription>
+<para>Handle for HS Timeout. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.h" line="143" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.h" bodystart="144" bodyend="-1"/>
+        <referencedby refid="group__dphy_1ga0d72a217f030e5c452ce1e61c92f1a29" compoundref="xdphy_8c" startline="98" endline="261">XDphy_Configure</referencedby>
+        <referencedby refid="group__dphy_1ga08901fa94d34b59883610d1590165919" compoundref="xdphy_8c" startline="295" endline="446">XDphy_GetInfo</referencedby>
+        <referencedby refid="group__dphy_1ga0e170cc371483fc64fd515d1cc301ee4" compoundref="xdphy__selftest_8c" startline="62" endline="74">XDphy_SelfTest</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__dphy_1gaebf0cf546a1583bb760192a048237186" prot="public" static="no">
+        <name>XDPHY_HANDLE_ESCTIMEOUT</name>
+        <initializer>4</initializer>
+        <briefdescription>
+<para>Handle for Escape Timeout. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.h" line="144" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.h" bodystart="145" bodyend="-1"/>
+        <referencedby refid="group__dphy_1ga0d72a217f030e5c452ce1e61c92f1a29" compoundref="xdphy_8c" startline="98" endline="261">XDphy_Configure</referencedby>
+        <referencedby refid="group__dphy_1ga08901fa94d34b59883610d1590165919" compoundref="xdphy_8c" startline="295" endline="446">XDphy_GetInfo</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__dphy_1ga463bc6fb3c22165f08b03a9f5517a790" prot="public" static="no">
+        <name>XDPHY_HANDLE_CLKLANE</name>
+        <initializer>5</initializer>
+        <briefdescription>
+<para>Handle for Clock Lane. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.h" line="145" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.h" bodystart="146" bodyend="-1"/>
+        <referencedby refid="group__dphy_1ga0d72a217f030e5c452ce1e61c92f1a29" compoundref="xdphy_8c" startline="98" endline="261">XDphy_Configure</referencedby>
+        <referencedby refid="group__dphy_1ga08901fa94d34b59883610d1590165919" compoundref="xdphy_8c" startline="295" endline="446">XDphy_GetInfo</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__dphy_1ga60bfd702fffbc997a2a575f847c8a722" prot="public" static="no">
+        <name>XDPHY_HANDLE_DLANE0</name>
+        <initializer>6</initializer>
+        <briefdescription>
+<para>Handle for Data Lane 0. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.h" line="146" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.h" bodystart="147" bodyend="-1"/>
+        <referencedby refid="group__dphy_1ga0d72a217f030e5c452ce1e61c92f1a29" compoundref="xdphy_8c" startline="98" endline="261">XDphy_Configure</referencedby>
+        <referencedby refid="group__dphy_1ga08901fa94d34b59883610d1590165919" compoundref="xdphy_8c" startline="295" endline="446">XDphy_GetInfo</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__dphy_1ga569bb12c29b24059c354a5c05f200258" prot="public" static="no">
+        <name>XDPHY_HANDLE_DLANE1</name>
+        <initializer>7</initializer>
+        <briefdescription>
+<para>Handle for Data Lane 1. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.h" line="147" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.h" bodystart="148" bodyend="-1"/>
+        <referencedby refid="group__dphy_1ga0d72a217f030e5c452ce1e61c92f1a29" compoundref="xdphy_8c" startline="98" endline="261">XDphy_Configure</referencedby>
+        <referencedby refid="group__dphy_1ga08901fa94d34b59883610d1590165919" compoundref="xdphy_8c" startline="295" endline="446">XDphy_GetInfo</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__dphy_1gaa979f3f4c507dfbdbc19b501423c4779" prot="public" static="no">
+        <name>XDPHY_HANDLE_DLANE2</name>
+        <initializer>8</initializer>
+        <briefdescription>
+<para>Handle for Data Lane 2. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.h" line="148" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.h" bodystart="149" bodyend="-1"/>
+        <referencedby refid="group__dphy_1ga0d72a217f030e5c452ce1e61c92f1a29" compoundref="xdphy_8c" startline="98" endline="261">XDphy_Configure</referencedby>
+        <referencedby refid="group__dphy_1ga08901fa94d34b59883610d1590165919" compoundref="xdphy_8c" startline="295" endline="446">XDphy_GetInfo</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__dphy_1ga67bee2a87d8a5d2f7e41f0040d483506" prot="public" static="no">
+        <name>XDPHY_HANDLE_DLANE3</name>
+        <initializer>9</initializer>
+        <briefdescription>
+<para>Handle for Data Lane 3. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.h" line="149" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.h" bodystart="150" bodyend="-1"/>
+        <referencedby refid="group__dphy_1ga0d72a217f030e5c452ce1e61c92f1a29" compoundref="xdphy_8c" startline="98" endline="261">XDphy_Configure</referencedby>
+        <referencedby refid="group__dphy_1ga08901fa94d34b59883610d1590165919" compoundref="xdphy_8c" startline="295" endline="446">XDphy_GetInfo</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__dphy_1gac5509a1d6033303f285032a111128be6" prot="public" static="no">
+        <name>XDPHY_HANDLE_HSSETTLE</name>
+        <initializer>10</initializer>
+        <briefdescription>
+<para>Handle for HS SETTLE. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.h" line="150" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.h" bodystart="151" bodyend="-1"/>
+        <referencedby refid="group__dphy_1ga0d72a217f030e5c452ce1e61c92f1a29" compoundref="xdphy_8c" startline="98" endline="261">XDphy_Configure</referencedby>
+        <referencedby refid="group__dphy_1ga08901fa94d34b59883610d1590165919" compoundref="xdphy_8c" startline="295" endline="446">XDphy_GetInfo</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__dphy_1ga8d2ed1a0a9d87868e5f4c5a69cc5665c" prot="public" static="no">
+        <name>XDPHY_HANDLE_DLANE4</name>
+        <initializer>11</initializer>
+        <briefdescription>
+<para>Handle for Data Lane 4. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.h" line="151" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.h" bodystart="152" bodyend="-1"/>
+        <referencedby refid="group__dphy_1ga0d72a217f030e5c452ce1e61c92f1a29" compoundref="xdphy_8c" startline="98" endline="261">XDphy_Configure</referencedby>
+        <referencedby refid="group__dphy_1ga08901fa94d34b59883610d1590165919" compoundref="xdphy_8c" startline="295" endline="446">XDphy_GetInfo</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__dphy_1gaa4115746a2dbb20451de53c675ab5f96" prot="public" static="no">
+        <name>XDPHY_HANDLE_DLANE5</name>
+        <initializer>12</initializer>
+        <briefdescription>
+<para>Handle for Data Lane 5. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.h" line="152" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.h" bodystart="153" bodyend="-1"/>
+        <referencedby refid="group__dphy_1ga0d72a217f030e5c452ce1e61c92f1a29" compoundref="xdphy_8c" startline="98" endline="261">XDphy_Configure</referencedby>
+        <referencedby refid="group__dphy_1ga08901fa94d34b59883610d1590165919" compoundref="xdphy_8c" startline="295" endline="446">XDphy_GetInfo</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__dphy_1ga1febae8b6fb1f34709b502c4dcdb6d1d" prot="public" static="no">
+        <name>XDPHY_HANDLE_DLANE6</name>
+        <initializer>13</initializer>
+        <briefdescription>
+<para>Handle for Data Lane 6. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.h" line="153" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.h" bodystart="154" bodyend="-1"/>
+        <referencedby refid="group__dphy_1ga0d72a217f030e5c452ce1e61c92f1a29" compoundref="xdphy_8c" startline="98" endline="261">XDphy_Configure</referencedby>
+        <referencedby refid="group__dphy_1ga08901fa94d34b59883610d1590165919" compoundref="xdphy_8c" startline="295" endline="446">XDphy_GetInfo</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__dphy_1ga520d53f6004d9f66337a591e8e6378a5" prot="public" static="no">
+        <name>XDPHY_HANDLE_DLANE7</name>
+        <initializer>14</initializer>
+        <briefdescription>
+<para>Handle for Data Lane 7. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.h" line="154" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.h" bodystart="155" bodyend="-1"/>
+        <referencedby refid="group__dphy_1ga0d72a217f030e5c452ce1e61c92f1a29" compoundref="xdphy_8c" startline="98" endline="261">XDphy_Configure</referencedby>
+        <referencedby refid="group__dphy_1ga08901fa94d34b59883610d1590165919" compoundref="xdphy_8c" startline="295" endline="446">XDphy_GetInfo</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__dphy_1ga4e5d9bd6cb4308e143202691d3a8bdfc" prot="public" static="no">
+        <name>XDPHY_HANDLE_HSSETTLE1</name>
+        <initializer>15</initializer>
+        <briefdescription>
+<para>Handle for HS SETTLE L1. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.h" line="155" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.h" bodystart="156" bodyend="-1"/>
+        <referencedby refid="group__dphy_1ga0d72a217f030e5c452ce1e61c92f1a29" compoundref="xdphy_8c" startline="98" endline="261">XDphy_Configure</referencedby>
+        <referencedby refid="group__dphy_1ga08901fa94d34b59883610d1590165919" compoundref="xdphy_8c" startline="295" endline="446">XDphy_GetInfo</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__dphy_1ga9a97b39b4db2c701bb04d2a95baea05a" prot="public" static="no">
+        <name>XDPHY_HANDLE_HSSETTLE2</name>
+        <initializer>16</initializer>
+        <briefdescription>
+<para>Handle for HS SETTLE L2. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.h" line="156" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.h" bodystart="157" bodyend="-1"/>
+        <referencedby refid="group__dphy_1ga0d72a217f030e5c452ce1e61c92f1a29" compoundref="xdphy_8c" startline="98" endline="261">XDphy_Configure</referencedby>
+        <referencedby refid="group__dphy_1ga08901fa94d34b59883610d1590165919" compoundref="xdphy_8c" startline="295" endline="446">XDphy_GetInfo</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__dphy_1gaf3d2b72b3fdfc5726d417ba782a31549" prot="public" static="no">
+        <name>XDPHY_HANDLE_HSSETTLE3</name>
+        <initializer>17</initializer>
+        <briefdescription>
+<para>Handle for HS SETTLE L3. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.h" line="157" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.h" bodystart="158" bodyend="-1"/>
+        <referencedby refid="group__dphy_1ga0d72a217f030e5c452ce1e61c92f1a29" compoundref="xdphy_8c" startline="98" endline="261">XDphy_Configure</referencedby>
+        <referencedby refid="group__dphy_1ga08901fa94d34b59883610d1590165919" compoundref="xdphy_8c" startline="295" endline="446">XDphy_GetInfo</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__dphy_1ga8421060155bdfd663d503e4746dcf8a8" prot="public" static="no">
+        <name>XDPHY_HANDLE_HSSETTLE4</name>
+        <initializer>18</initializer>
+        <briefdescription>
+<para>Handle for HS SETTLE. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.h" line="158" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.h" bodystart="159" bodyend="-1"/>
+        <referencedby refid="group__dphy_1ga0d72a217f030e5c452ce1e61c92f1a29" compoundref="xdphy_8c" startline="98" endline="261">XDphy_Configure</referencedby>
+        <referencedby refid="group__dphy_1ga08901fa94d34b59883610d1590165919" compoundref="xdphy_8c" startline="295" endline="446">XDphy_GetInfo</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__dphy_1ga92cf390097f74c5dfedeef45574c6f52" prot="public" static="no">
+        <name>XDPHY_HANDLE_HSSETTLE5</name>
+        <initializer>19</initializer>
+        <briefdescription>
+<para>Handle for HS SETTLE L1. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.h" line="159" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.h" bodystart="160" bodyend="-1"/>
+        <referencedby refid="group__dphy_1ga0d72a217f030e5c452ce1e61c92f1a29" compoundref="xdphy_8c" startline="98" endline="261">XDphy_Configure</referencedby>
+        <referencedby refid="group__dphy_1ga08901fa94d34b59883610d1590165919" compoundref="xdphy_8c" startline="295" endline="446">XDphy_GetInfo</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__dphy_1gabfa93b9090b4240b2c33b77b45682ad2" prot="public" static="no">
+        <name>XDPHY_HANDLE_HSSETTLE6</name>
+        <initializer>20</initializer>
+        <briefdescription>
+<para>Handle for HS SETTLE L2. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.h" line="160" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.h" bodystart="161" bodyend="-1"/>
+        <referencedby refid="group__dphy_1ga0d72a217f030e5c452ce1e61c92f1a29" compoundref="xdphy_8c" startline="98" endline="261">XDphy_Configure</referencedby>
+        <referencedby refid="group__dphy_1ga08901fa94d34b59883610d1590165919" compoundref="xdphy_8c" startline="295" endline="446">XDphy_GetInfo</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__dphy_1ga74baaca8b9ea5e46b756305d690b8a0b" prot="public" static="no">
+        <name>XDPHY_HANDLE_HSSETTLE7</name>
+        <initializer>21</initializer>
+        <briefdescription>
+<para>Handle for HS SETTLE L3. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.h" line="161" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.h" bodystart="162" bodyend="-1"/>
+        <referencedby refid="group__dphy_1ga0d72a217f030e5c452ce1e61c92f1a29" compoundref="xdphy_8c" startline="98" endline="261">XDphy_Configure</referencedby>
+        <referencedby refid="group__dphy_1ga08901fa94d34b59883610d1590165919" compoundref="xdphy_8c" startline="295" endline="446">XDphy_GetInfo</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__dphy_1gafdb51ec2ec713b4a6ab46ede99dac72e" prot="public" static="no">
+        <name>XDPHY_HANDLE_MAX</name>
+        <initializer>21</initializer>
+        <briefdescription>
+<para>Upper Bound for XDPHY_HANDLE. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.h" line="162" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.h" bodystart="163" bodyend="-1"/>
+        <referencedby refid="group__dphy_1ga0d72a217f030e5c452ce1e61c92f1a29" compoundref="xdphy_8c" startline="98" endline="261">XDphy_Configure</referencedby>
+        <referencedby refid="group__dphy_1ga08901fa94d34b59883610d1590165919" compoundref="xdphy_8c" startline="295" endline="446">XDphy_GetInfo</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>DPHY HSTIMEOUT range</header>
+      <memberdef kind="define" id="group__dphy_1ga0aaacbc10c3e54e9f03d7c8668c049c1" prot="public" static="no">
+        <name>XDPHY_HS_TIMEOUT_MIN_VALUE</name>
+        <initializer>10000UL</initializer>
+        <briefdescription>
+<para>Minimum HS timeout value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.h" line="169" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.h" bodystart="170" bodyend="-1"/>
+        <referencedby refid="group__dphy_1ga0d72a217f030e5c452ce1e61c92f1a29" compoundref="xdphy_8c" startline="98" endline="261">XDphy_Configure</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__dphy_1gab6e4356b5dbb8a90f6e5ee5cb8330a4a" prot="public" static="no">
+        <name>XDPHY_HS_TIMEOUT_MAX_VALUE</name>
+        <initializer>65541UL</initializer>
+        <briefdescription>
+<para>Maximum HS timeout value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.h" line="170" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.h" bodystart="171" bodyend="-1"/>
+        <referencedby refid="group__dphy_1ga0d72a217f030e5c452ce1e61c92f1a29" compoundref="xdphy_8c" startline="98" endline="261">XDphy_Configure</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>DPHY HSSETTLE range</header>
+      <memberdef kind="define" id="group__dphy_1ga6277c3802ef175e1a187ee56107c6d6d" prot="public" static="no">
+        <name>XDPHY_HS_SETTLE_MAX_VALUE</name>
+        <initializer>0x1FF</initializer>
+        <briefdescription>
+<para>Maximum HS settle value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.h" line="176" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.h" bodystart="177" bodyend="-1"/>
+        <referencedby refid="group__dphy_1ga0d72a217f030e5c452ce1e61c92f1a29" compoundref="xdphy_8c" startline="98" endline="261">XDphy_Configure</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>DPHY Flags to Enable or Disable core</header>
+      <memberdef kind="define" id="group__dphy_1ga1928ad1fc94b6207188388aab7b2cc5e" prot="public" static="no">
+        <name>XDPHY_ENABLE_FLAG</name>
+        <initializer>1</initializer>
+        <briefdescription>
+<para>Flag to enable DPHY core. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.h" line="182" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.h" bodystart="183" bodyend="-1"/>
+        <referencedby refid="group__dphy_1gab83aed5a09f62e3a68e5d6cc06bad18d" compoundref="xdphy_8c" startline="694" endline="716">XDphy_Activate</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__dphy_1ga785db23ac1e4dd31bc64e52477284a34" prot="public" static="no">
+        <name>XDPHY_DISABLE_FLAG</name>
+        <initializer>0</initializer>
+        <briefdescription>
+<para>Flag to disable DPHY core. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.h" line="183" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.h" bodystart="184" bodyend="-1"/>
+        <referencedby refid="group__dphy_1gab83aed5a09f62e3a68e5d6cc06bad18d" compoundref="xdphy_8c" startline="694" endline="716">XDphy_Activate</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__dphy_1gaea0afc70f0f04baddd321ed49eff751a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XDphy_CfgInitialize</definition>
+        <argsstring>(XDphy *InstancePtr, XDphy_Config *CfgPtr, UINTPTR EffectiveAddr)</argsstring>
+        <name>XDphy_CfgInitialize</name>
+        <param>
+          <type><ref refid="struct_x_dphy" kindref="compound">XDphy</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_dphy___config" kindref="compound">XDphy_Config</ref> *</type>
+          <declname>CfgPtr</declname>
+        </param>
+        <param>
+          <type>UINTPTR</type>
+          <declname>EffectiveAddr</declname>
+        </param>
+        <briefdescription>
+<para>Initialize the <ref refid="struct_x_dphy" kindref="compound">XDphy</ref> instance provided by the caller based on the given Config structure. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the <ref refid="struct_x_dphy" kindref="compound">XDphy</ref> instance to operate on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CfgPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the device configuration structure containing information about a specific DPhy instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>EffectiveAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the device. If address translation is being used, then this parameter must reflect the virtual base address. Otherwise, the physical address should be used. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS Initialization was successful.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.c" line="64" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.c" bodystart="64" bodyend="80"/>
+        <references refid="struct_x_dphy___config_1a2494e733c95a9a99495333fd0679222c" compoundref="xdphy_8h" startline="292">XDphy_Config::BaseAddr</references>
+        <references refid="struct_x_dphy_1af74d9d469cc4c07e98bd47f77885dd87" compoundref="xdphy_8h" startline="316">XDphy::Config</references>
+        <references refid="struct_x_dphy_1a5632460e67abd76b814bf07408462762" compoundref="xdphy_8h" startline="317">XDphy::IsReady</references>
+        <referencedby refid="xdphy__example__selftest_8c_1a238975c776a9aeeea1049a2071f28b7b" compoundref="xdphy__example__selftest_8c" startline="114" endline="140">DphySelfTestExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__dphy_1ga0d72a217f030e5c452ce1e61c92f1a29" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XDphy_Configure</definition>
+        <argsstring>(XDphy *InstancePtr, u8 Handle, u32 Value)</argsstring>
+        <name>XDphy_Configure</name>
+        <param>
+          <type><ref refid="struct_x_dphy" kindref="compound">XDphy</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Handle</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Value</declname>
+        </param>
+        <briefdescription>
+<para>Configure the registers of the Dphy instance. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the <ref refid="struct_x_dphy" kindref="compound">XDphy</ref> instance to operate on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Handle</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>to one of the registers to be configured </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Value</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>to be set for the particular Handle of the DPHY instance</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS on successful register update.</para></listitem><listitem><para>XST_FAILURE If incorrect handle was passed</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>There is a limit on the minimum and maximum values of the HS Timeout register. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.c" line="98" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.c" bodystart="98" bodyend="261"/>
+        <references refid="struct_x_dphy_1af74d9d469cc4c07e98bd47f77885dd87" compoundref="xdphy_8h" startline="316">XDphy::Config</references>
+        <references refid="struct_x_dphy___config_1a58f6a8702accf8ef4f5affef6efa5565" compoundref="xdphy_8h" startline="305">XDphy_Config::EnableTimeOutRegs</references>
+        <references refid="struct_x_dphy___config_1a56ad1e1658db486364b0bfc8dd9d9117" compoundref="xdphy_8h" startline="295">XDphy_Config::IsRegisterPresent</references>
+        <references refid="struct_x_dphy___config_1a357d54e40b4a8ebde78b99d47fa5bb64" compoundref="xdphy_8h" startline="294">XDphy_Config::IsRx</references>
+        <references refid="struct_x_dphy___config_1aeae063e9d5b0df42dbad7d68ba4e9d04" compoundref="xdphy_8h" startline="296">XDphy_Config::MaxLanesPresent</references>
+        <references refid="group__xdphy_1gaf8434e556500223be8da85f4682ffdb9" compoundref="xdphy__hw_8h" startline="60">XDPHY_ESCTIMEOUT_REG_OFFSET</references>
+        <references refid="group__dphy_1ga463bc6fb3c22165f08b03a9f5517a790" compoundref="xdphy_8h" startline="146">XDPHY_HANDLE_CLKLANE</references>
+        <references refid="group__dphy_1ga60bfd702fffbc997a2a575f847c8a722" compoundref="xdphy_8h" startline="147">XDPHY_HANDLE_DLANE0</references>
+        <references refid="group__dphy_1ga569bb12c29b24059c354a5c05f200258" compoundref="xdphy_8h" startline="148">XDPHY_HANDLE_DLANE1</references>
+        <references refid="group__dphy_1gaa979f3f4c507dfbdbc19b501423c4779" compoundref="xdphy_8h" startline="149">XDPHY_HANDLE_DLANE2</references>
+        <references refid="group__dphy_1ga67bee2a87d8a5d2f7e41f0040d483506" compoundref="xdphy_8h" startline="150">XDPHY_HANDLE_DLANE3</references>
+        <references refid="group__dphy_1ga8d2ed1a0a9d87868e5f4c5a69cc5665c" compoundref="xdphy_8h" startline="152">XDPHY_HANDLE_DLANE4</references>
+        <references refid="group__dphy_1gaa4115746a2dbb20451de53c675ab5f96" compoundref="xdphy_8h" startline="153">XDPHY_HANDLE_DLANE5</references>
+        <references refid="group__dphy_1ga1febae8b6fb1f34709b502c4dcdb6d1d" compoundref="xdphy_8h" startline="154">XDPHY_HANDLE_DLANE6</references>
+        <references refid="group__dphy_1ga520d53f6004d9f66337a591e8e6378a5" compoundref="xdphy_8h" startline="155">XDPHY_HANDLE_DLANE7</references>
+        <references refid="group__dphy_1gaebf0cf546a1583bb760192a048237186" compoundref="xdphy_8h" startline="145">XDPHY_HANDLE_ESCTIMEOUT</references>
+        <references refid="group__dphy_1gac5509a1d6033303f285032a111128be6" compoundref="xdphy_8h" startline="151">XDPHY_HANDLE_HSSETTLE</references>
+        <references refid="group__dphy_1ga4e5d9bd6cb4308e143202691d3a8bdfc" compoundref="xdphy_8h" startline="156">XDPHY_HANDLE_HSSETTLE1</references>
+        <references refid="group__dphy_1ga9a97b39b4db2c701bb04d2a95baea05a" compoundref="xdphy_8h" startline="157">XDPHY_HANDLE_HSSETTLE2</references>
+        <references refid="group__dphy_1gaf3d2b72b3fdfc5726d417ba782a31549" compoundref="xdphy_8h" startline="158">XDPHY_HANDLE_HSSETTLE3</references>
+        <references refid="group__dphy_1ga8421060155bdfd663d503e4746dcf8a8" compoundref="xdphy_8h" startline="159">XDPHY_HANDLE_HSSETTLE4</references>
+        <references refid="group__dphy_1ga92cf390097f74c5dfedeef45574c6f52" compoundref="xdphy_8h" startline="160">XDPHY_HANDLE_HSSETTLE5</references>
+        <references refid="group__dphy_1gabfa93b9090b4240b2c33b77b45682ad2" compoundref="xdphy_8h" startline="161">XDPHY_HANDLE_HSSETTLE6</references>
+        <references refid="group__dphy_1ga74baaca8b9ea5e46b756305d690b8a0b" compoundref="xdphy_8h" startline="162">XDPHY_HANDLE_HSSETTLE7</references>
+        <references refid="group__dphy_1ga15385f55f404bccfe3e4e278ce70a16a" compoundref="xdphy_8h" startline="144">XDPHY_HANDLE_HSTIMEOUT</references>
+        <references refid="group__dphy_1ga1ec5ec6f1d8ac8d7a6356bb13343325c" compoundref="xdphy_8h" startline="141">XDPHY_HANDLE_IDELAY</references>
+        <references refid="group__dphy_1gaca6c78233546e7273afd557897339463" compoundref="xdphy_8h" startline="142">XDPHY_HANDLE_INIT_TIMER</references>
+        <references refid="group__dphy_1gafdb51ec2ec713b4a6ab46ede99dac72e" compoundref="xdphy_8h" startline="163">XDPHY_HANDLE_MAX</references>
+        <references refid="group__dphy_1ga1f5ca25326171d6b8cb5132f946bdbbf" compoundref="xdphy_8h" startline="143">XDPHY_HANDLE_WAKEUP</references>
+        <references refid="group__dphy_1ga6277c3802ef175e1a187ee56107c6d6d" compoundref="xdphy_8h" startline="177">XDPHY_HS_SETTLE_MAX_VALUE</references>
+        <references refid="group__dphy_1gab6e4356b5dbb8a90f6e5ee5cb8330a4a" compoundref="xdphy_8h" startline="171">XDPHY_HS_TIMEOUT_MAX_VALUE</references>
+        <references refid="group__dphy_1ga0aaacbc10c3e54e9f03d7c8668c049c1" compoundref="xdphy_8h" startline="170">XDPHY_HS_TIMEOUT_MIN_VALUE</references>
+        <references refid="group__xdphy_1ga84f9c23d5261fbe306b81a330253d013" compoundref="xdphy__hw_8h" startline="48">XDPHY_HSEXIT_IDELAY_REG_OFFSET</references>
+        <references refid="group__xdphy_1ga70e60705745389c874fc4931105a958b" compoundref="xdphy__hw_8h" startline="127">XDPHY_HSEXIT_IDELAY_REG_TAP_MASK</references>
+        <references refid="group__xdphy_1ga039c208db6f74bb5f9d2a83e1520c55c" compoundref="xdphy__hw_8h" startline="84">XDPHY_HSSETTLE1_REG_OFFSET</references>
+        <references refid="group__xdphy_1ga660530de8184f4f12f3d8e1195e941bc" compoundref="xdphy__hw_8h" startline="85">XDPHY_HSSETTLE2_REG_OFFSET</references>
+        <references refid="group__xdphy_1gafe067e3255620e461f86671b620b97b5" compoundref="xdphy__hw_8h" startline="86">XDPHY_HSSETTLE3_REG_OFFSET</references>
+        <references refid="group__xdphy_1ga3251252b22de55f4efb044c630916e15" compoundref="xdphy__hw_8h" startline="88">XDPHY_HSSETTLE4_REG_OFFSET</references>
+        <references refid="group__xdphy_1ga19ae4c639dd7fc415ea80eeb3533238b" compoundref="xdphy__hw_8h" startline="89">XDPHY_HSSETTLE5_REG_OFFSET</references>
+        <references refid="group__xdphy_1ga031353be2c7ece91856add1fef2c1c3d" compoundref="xdphy__hw_8h" startline="90">XDPHY_HSSETTLE6_REG_OFFSET</references>
+        <references refid="group__xdphy_1ga3a0dc28189b01acc6b5b64c42a4df576" compoundref="xdphy__hw_8h" startline="91">XDPHY_HSSETTLE7_REG_OFFSET</references>
+        <references refid="group__xdphy_1ga1bd5c4c0e969ac836007ee94e4cfe594" compoundref="xdphy__hw_8h" startline="80">XDPHY_HSSETTLE_REG_OFFSET</references>
+        <references refid="group__xdphy_1ga3bfe3e75d075f2eff4f7d80bc96e117b" compoundref="xdphy__hw_8h" startline="57">XDPHY_HSTIMEOUT_REG_OFFSET</references>
+        <references refid="group__xdphy_1ga5a463a15b499f6c6f02caba145928f60" compoundref="xdphy__hw_8h" startline="81">XDPHY_IDELAY58_REG_OFFSET</references>
+        <references refid="group__xdphy_1gab6765e9a336e4a9d4598a2ade003fa3f" compoundref="xdphy__hw_8h" startline="51">XDPHY_INIT_REG_OFFSET</references>
+        <references refid="group__dphy_1gad526fba138789830b02aca34e757145b" compoundref="xdphy_8h" startline="134">XDPHY_MAX_LANES_V10</references>
+        <references refid="group__xdphy_1gadd318931e0e4e7edb5b388566d03d2be" compoundref="xdphy__hw_8h" startline="54">XDPHY_WAKEUP_REG_OFFSET</references>
+      </memberdef>
+      <memberdef kind="function" id="group__dphy_1ga4e15b3ffd6c4cfca5eedda2a7c1e9d4d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u8</type>
+        <definition>u8 XDphy_GetRegIntfcPresent</definition>
+        <argsstring>(XDphy *InstancePtr)</argsstring>
+        <name>XDphy_GetRegIntfcPresent</name>
+        <param>
+          <type><ref refid="struct_x_dphy" kindref="compound">XDphy</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Get if register interface is present from the config structure for specified DPHY instance. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the <ref refid="struct_x_dphy" kindref="compound">XDphy</ref> instance to operate on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>1 if register interface is present</para></listitem><listitem><para>0 if register interface is absent</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.c" line="276" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.c" bodystart="276" bodyend="282"/>
+        <references refid="struct_x_dphy_1af74d9d469cc4c07e98bd47f77885dd87" compoundref="xdphy_8h" startline="316">XDphy::Config</references>
+        <references refid="struct_x_dphy___config_1a56ad1e1658db486364b0bfc8dd9d9117" compoundref="xdphy_8h" startline="295">XDphy_Config::IsRegisterPresent</references>
+        <referencedby refid="xdphy__example__selftest_8c_1a238975c776a9aeeea1049a2071f28b7b" compoundref="xdphy__example__selftest_8c" startline="114" endline="140">DphySelfTestExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__dphy_1ga08901fa94d34b59883610d1590165919" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XDphy_GetInfo</definition>
+        <argsstring>(XDphy *InstancePtr, u8 Handle)</argsstring>
+        <name>XDphy_GetInfo</name>
+        <param>
+          <type><ref refid="struct_x_dphy" kindref="compound">XDphy</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Handle</declname>
+        </param>
+        <briefdescription>
+<para>Get information stored in the DPhy instance based on the handle passed. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the <ref refid="struct_x_dphy" kindref="compound">XDphy</ref> instance to operate on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Handle</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>to one of the registers to be configured</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The value stored in the corresponding register</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.c" line="295" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.c" bodystart="295" bodyend="446"/>
+        <references refid="struct_x_dphy_1af74d9d469cc4c07e98bd47f77885dd87" compoundref="xdphy_8h" startline="316">XDphy::Config</references>
+        <references refid="struct_x_dphy___config_1a58f6a8702accf8ef4f5affef6efa5565" compoundref="xdphy_8h" startline="305">XDphy_Config::EnableTimeOutRegs</references>
+        <references refid="struct_x_dphy___config_1a255e8ec1757ac017a2bb60c81a914467" compoundref="xdphy_8h" startline="298">XDphy_Config::EscTimeout</references>
+        <references refid="struct_x_dphy___config_1a1d0c94e530f0bcd66d703b6572c41a82" compoundref="xdphy_8h" startline="300">XDphy_Config::HSTimeOut</references>
+        <references refid="struct_x_dphy___config_1a56ad1e1658db486364b0bfc8dd9d9117" compoundref="xdphy_8h" startline="295">XDphy_Config::IsRegisterPresent</references>
+        <references refid="struct_x_dphy___config_1a357d54e40b4a8ebde78b99d47fa5bb64" compoundref="xdphy_8h" startline="294">XDphy_Config::IsRx</references>
+        <references refid="struct_x_dphy___config_1aeae063e9d5b0df42dbad7d68ba4e9d04" compoundref="xdphy_8h" startline="296">XDphy_Config::MaxLanesPresent</references>
+        <references refid="group__xdphy_1ga06c1da75b71989cce8e56af324969d0a" compoundref="xdphy__hw_8h" startline="65">XDPHY_CLSTATUS_REG_OFFSET</references>
+        <references refid="group__xdphy_1ga0910333b8c2727d176c2e0246a33fdeb" compoundref="xdphy__hw_8h" startline="68">XDPHY_DL0STATUS_REG_OFFSET</references>
+        <references refid="group__xdphy_1ga6bb71b3acc1149468ae0d63a28c37702" compoundref="xdphy__hw_8h" startline="71">XDPHY_DL1STATUS_REG_OFFSET</references>
+        <references refid="group__xdphy_1ga86a14e2060bf5c00383ba8e36aa00723" compoundref="xdphy__hw_8h" startline="74">XDPHY_DL2STATUS_REG_OFFSET</references>
+        <references refid="group__xdphy_1ga9ecccc042a9a7f589b7bd9535470e8d9" compoundref="xdphy__hw_8h" startline="77">XDPHY_DL3STATUS_REG_OFFSET</references>
+        <references refid="group__xdphy_1gaf77abe00b365122357cdda25e22b84ab" compoundref="xdphy__hw_8h" startline="93">XDPHY_DL4STATUS_REG_OFFSET</references>
+        <references refid="group__xdphy_1gab815ae7bf20f2362dac0c95757d933c3" compoundref="xdphy__hw_8h" startline="96">XDPHY_DL5STATUS_REG_OFFSET</references>
+        <references refid="group__xdphy_1gaeaffff3a9e11b3a77773c4842fe6055f" compoundref="xdphy__hw_8h" startline="99">XDPHY_DL6STATUS_REG_OFFSET</references>
+        <references refid="group__xdphy_1ga7d4bb50fe0e8d09d6cb2cd684c8787c6" compoundref="xdphy__hw_8h" startline="102">XDPHY_DL7STATUS_REG_OFFSET</references>
+        <references refid="group__xdphy_1gaf8434e556500223be8da85f4682ffdb9" compoundref="xdphy__hw_8h" startline="60">XDPHY_ESCTIMEOUT_REG_OFFSET</references>
+        <references refid="group__dphy_1ga463bc6fb3c22165f08b03a9f5517a790" compoundref="xdphy_8h" startline="146">XDPHY_HANDLE_CLKLANE</references>
+        <references refid="group__dphy_1ga60bfd702fffbc997a2a575f847c8a722" compoundref="xdphy_8h" startline="147">XDPHY_HANDLE_DLANE0</references>
+        <references refid="group__dphy_1ga569bb12c29b24059c354a5c05f200258" compoundref="xdphy_8h" startline="148">XDPHY_HANDLE_DLANE1</references>
+        <references refid="group__dphy_1gaa979f3f4c507dfbdbc19b501423c4779" compoundref="xdphy_8h" startline="149">XDPHY_HANDLE_DLANE2</references>
+        <references refid="group__dphy_1ga67bee2a87d8a5d2f7e41f0040d483506" compoundref="xdphy_8h" startline="150">XDPHY_HANDLE_DLANE3</references>
+        <references refid="group__dphy_1ga8d2ed1a0a9d87868e5f4c5a69cc5665c" compoundref="xdphy_8h" startline="152">XDPHY_HANDLE_DLANE4</references>
+        <references refid="group__dphy_1gaa4115746a2dbb20451de53c675ab5f96" compoundref="xdphy_8h" startline="153">XDPHY_HANDLE_DLANE5</references>
+        <references refid="group__dphy_1ga1febae8b6fb1f34709b502c4dcdb6d1d" compoundref="xdphy_8h" startline="154">XDPHY_HANDLE_DLANE6</references>
+        <references refid="group__dphy_1ga520d53f6004d9f66337a591e8e6378a5" compoundref="xdphy_8h" startline="155">XDPHY_HANDLE_DLANE7</references>
+        <references refid="group__dphy_1gaebf0cf546a1583bb760192a048237186" compoundref="xdphy_8h" startline="145">XDPHY_HANDLE_ESCTIMEOUT</references>
+        <references refid="group__dphy_1gac5509a1d6033303f285032a111128be6" compoundref="xdphy_8h" startline="151">XDPHY_HANDLE_HSSETTLE</references>
+        <references refid="group__dphy_1ga4e5d9bd6cb4308e143202691d3a8bdfc" compoundref="xdphy_8h" startline="156">XDPHY_HANDLE_HSSETTLE1</references>
+        <references refid="group__dphy_1ga9a97b39b4db2c701bb04d2a95baea05a" compoundref="xdphy_8h" startline="157">XDPHY_HANDLE_HSSETTLE2</references>
+        <references refid="group__dphy_1gaf3d2b72b3fdfc5726d417ba782a31549" compoundref="xdphy_8h" startline="158">XDPHY_HANDLE_HSSETTLE3</references>
+        <references refid="group__dphy_1ga8421060155bdfd663d503e4746dcf8a8" compoundref="xdphy_8h" startline="159">XDPHY_HANDLE_HSSETTLE4</references>
+        <references refid="group__dphy_1ga92cf390097f74c5dfedeef45574c6f52" compoundref="xdphy_8h" startline="160">XDPHY_HANDLE_HSSETTLE5</references>
+        <references refid="group__dphy_1gabfa93b9090b4240b2c33b77b45682ad2" compoundref="xdphy_8h" startline="161">XDPHY_HANDLE_HSSETTLE6</references>
+        <references refid="group__dphy_1ga74baaca8b9ea5e46b756305d690b8a0b" compoundref="xdphy_8h" startline="162">XDPHY_HANDLE_HSSETTLE7</references>
+        <references refid="group__dphy_1ga15385f55f404bccfe3e4e278ce70a16a" compoundref="xdphy_8h" startline="144">XDPHY_HANDLE_HSTIMEOUT</references>
+        <references refid="group__dphy_1ga1ec5ec6f1d8ac8d7a6356bb13343325c" compoundref="xdphy_8h" startline="141">XDPHY_HANDLE_IDELAY</references>
+        <references refid="group__dphy_1gaca6c78233546e7273afd557897339463" compoundref="xdphy_8h" startline="142">XDPHY_HANDLE_INIT_TIMER</references>
+        <references refid="group__dphy_1gafdb51ec2ec713b4a6ab46ede99dac72e" compoundref="xdphy_8h" startline="163">XDPHY_HANDLE_MAX</references>
+        <references refid="group__dphy_1ga1f5ca25326171d6b8cb5132f946bdbbf" compoundref="xdphy_8h" startline="143">XDPHY_HANDLE_WAKEUP</references>
+        <references refid="group__xdphy_1ga84f9c23d5261fbe306b81a330253d013" compoundref="xdphy__hw_8h" startline="48">XDPHY_HSEXIT_IDELAY_REG_OFFSET</references>
+        <references refid="group__xdphy_1ga039c208db6f74bb5f9d2a83e1520c55c" compoundref="xdphy__hw_8h" startline="84">XDPHY_HSSETTLE1_REG_OFFSET</references>
+        <references refid="group__xdphy_1ga660530de8184f4f12f3d8e1195e941bc" compoundref="xdphy__hw_8h" startline="85">XDPHY_HSSETTLE2_REG_OFFSET</references>
+        <references refid="group__xdphy_1gafe067e3255620e461f86671b620b97b5" compoundref="xdphy__hw_8h" startline="86">XDPHY_HSSETTLE3_REG_OFFSET</references>
+        <references refid="group__xdphy_1ga3251252b22de55f4efb044c630916e15" compoundref="xdphy__hw_8h" startline="88">XDPHY_HSSETTLE4_REG_OFFSET</references>
+        <references refid="group__xdphy_1ga19ae4c639dd7fc415ea80eeb3533238b" compoundref="xdphy__hw_8h" startline="89">XDPHY_HSSETTLE5_REG_OFFSET</references>
+        <references refid="group__xdphy_1ga031353be2c7ece91856add1fef2c1c3d" compoundref="xdphy__hw_8h" startline="90">XDPHY_HSSETTLE6_REG_OFFSET</references>
+        <references refid="group__xdphy_1ga3a0dc28189b01acc6b5b64c42a4df576" compoundref="xdphy__hw_8h" startline="91">XDPHY_HSSETTLE7_REG_OFFSET</references>
+        <references refid="group__xdphy_1ga1bd5c4c0e969ac836007ee94e4cfe594" compoundref="xdphy__hw_8h" startline="80">XDPHY_HSSETTLE_REG_OFFSET</references>
+        <references refid="group__xdphy_1ga3bfe3e75d075f2eff4f7d80bc96e117b" compoundref="xdphy__hw_8h" startline="57">XDPHY_HSTIMEOUT_REG_OFFSET</references>
+        <references refid="group__xdphy_1gab6765e9a336e4a9d4598a2ade003fa3f" compoundref="xdphy__hw_8h" startline="51">XDPHY_INIT_REG_OFFSET</references>
+        <references refid="group__dphy_1gad526fba138789830b02aca34e757145b" compoundref="xdphy_8h" startline="134">XDPHY_MAX_LANES_V10</references>
+        <references refid="group__xdphy_1gadd318931e0e4e7edb5b388566d03d2be" compoundref="xdphy__hw_8h" startline="54">XDPHY_WAKEUP_REG_OFFSET</references>
+        <referencedby refid="group__dphy_1ga0e170cc371483fc64fd515d1cc301ee4" compoundref="xdphy__selftest_8c" startline="62" endline="74">XDphy_SelfTest</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__dphy_1gaef0df18f2a9cdc07df62ba6d63347900" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDphy_Reset</definition>
+        <argsstring>(XDphy *InstancePtr)</argsstring>
+        <name>XDphy_Reset</name>
+        <param>
+          <type><ref refid="struct_x_dphy" kindref="compound">XDphy</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This is used to do a soft reset of the DPhy IP instance. </para>        </briefdescription>
+        <detaileddescription>
+<para>The reset takes approx 20 core clock cycles to become effective.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the <ref refid="struct_x_dphy" kindref="compound">XDphy</ref> instance to operate on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.c" line="458" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.c" bodystart="458" bodyend="491"/>
+        <references refid="struct_x_dphy_1af74d9d469cc4c07e98bd47f77885dd87" compoundref="xdphy_8h" startline="316">XDphy::Config</references>
+        <references refid="struct_x_dphy_1a5632460e67abd76b814bf07408462762" compoundref="xdphy_8h" startline="317">XDphy::IsReady</references>
+        <references refid="struct_x_dphy___config_1a56ad1e1658db486364b0bfc8dd9d9117" compoundref="xdphy_8h" startline="295">XDphy_Config::IsRegisterPresent</references>
+        <references refid="group__xdphy_1gae4e31f2e733bf381fd409fb8440f0692" compoundref="xdphy__hw_8h" startline="47">XDPHY_CTRL_REG_OFFSET</references>
+        <references refid="group__xdphy_1ga0fed5f106749e7c30ccf47874b18d587" compoundref="xdphy__hw_8h" startline="112">XDPHY_CTRL_REG_SOFTRESET_MASK</references>
+      </memberdef>
+      <memberdef kind="function" id="group__dphy_1ga202a4113c0ace62f6858b7f37dfd0f75" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDphy_ClearDataLane</definition>
+        <argsstring>(XDphy *InstancePtr, u8 DataLane, u32 Mask)</argsstring>
+        <name>XDphy_ClearDataLane</name>
+        <param>
+          <type><ref refid="struct_x_dphy" kindref="compound">XDphy</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>DataLane</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Mask</declname>
+        </param>
+        <briefdescription>
+<para>This is used to clear the Abort Error (Escape or High Speed) bits in the Data Lane 0 through 3. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the <ref refid="struct_x_dphy" kindref="compound">XDphy</ref> instance to operate on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DataLane</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>represents which Data Lane to act upon </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains information about which bits to reset</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.c" line="505" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.c" bodystart="505" bodyend="520"/>
+        <references refid="struct_x_dphy___config_1a2494e733c95a9a99495333fd0679222c" compoundref="xdphy_8h" startline="292">XDphy_Config::BaseAddr</references>
+        <references refid="struct_x_dphy_1af74d9d469cc4c07e98bd47f77885dd87" compoundref="xdphy_8h" startline="316">XDphy::Config</references>
+        <references refid="struct_x_dphy___config_1a56ad1e1658db486364b0bfc8dd9d9117" compoundref="xdphy_8h" startline="295">XDphy_Config::IsRegisterPresent</references>
+        <references refid="group__xdphy_1ga0910333b8c2727d176c2e0246a33fdeb" compoundref="xdphy__hw_8h" startline="68">XDPHY_DL0STATUS_REG_OFFSET</references>
+        <references refid="group__xdphy_1ga115ba74c0024df0afb08ac195b2516db" compoundref="xdphy__hw_8h" startline="227">XDPHY_DLXSTATUS_REG_ESCABRT_MASK</references>
+        <references refid="group__xdphy_1ga6d0dfe6cdce39bb092251a352bbdd2c1" compoundref="xdphy__hw_8h" startline="230">XDPHY_DLXSTATUS_REG_HSABRT_MASK</references>
+      </memberdef>
+      <memberdef kind="function" id="group__dphy_1ga455915ec07f1de9a2c68bae01e7bc6f8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XDphy_GetClkLaneStatus</definition>
+        <argsstring>(XDphy *InstancePtr)</argsstring>
+        <name>XDphy_GetClkLaneStatus</name>
+        <param>
+          <type><ref refid="struct_x_dphy" kindref="compound">XDphy</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This is used to get information about Clock Lane status. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the <ref refid="struct_x_dphy" kindref="compound">XDphy</ref> instance to operate on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Bitmask containing which of the events have occurred along with the mode of the Clock Lane in DPhy</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.c" line="533" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.c" bodystart="533" bodyend="542"/>
+        <references refid="struct_x_dphy___config_1a2494e733c95a9a99495333fd0679222c" compoundref="xdphy_8h" startline="292">XDphy_Config::BaseAddr</references>
+        <references refid="struct_x_dphy_1af74d9d469cc4c07e98bd47f77885dd87" compoundref="xdphy_8h" startline="316">XDphy::Config</references>
+        <references refid="struct_x_dphy___config_1a56ad1e1658db486364b0bfc8dd9d9117" compoundref="xdphy_8h" startline="295">XDphy_Config::IsRegisterPresent</references>
+        <references refid="group__xdphy_1ga06c1da75b71989cce8e56af324969d0a" compoundref="xdphy__hw_8h" startline="65">XDPHY_CLSTATUS_REG_OFFSET</references>
+        <referencedby refid="group__dphy_1gad2110f5c852b9ef0b78a892625051646" compoundref="xdphy_8c" startline="554" endline="565">XDphy_GetClkLaneMode</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__dphy_1gad2110f5c852b9ef0b78a892625051646" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XDphy_GetClkLaneMode</definition>
+        <argsstring>(XDphy *InstancePtr)</argsstring>
+        <name>XDphy_GetClkLaneMode</name>
+        <param>
+          <type><ref refid="struct_x_dphy" kindref="compound">XDphy</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This is used to get specific Lane mode information about Clock Lane. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the <ref refid="struct_x_dphy" kindref="compound">XDphy</ref> instance to operate on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Bitmask containing mode in which the Clock Lane in DPhy is in.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.c" line="554" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.c" bodystart="554" bodyend="565"/>
+        <references refid="struct_x_dphy_1af74d9d469cc4c07e98bd47f77885dd87" compoundref="xdphy_8h" startline="316">XDphy::Config</references>
+        <references refid="struct_x_dphy___config_1a56ad1e1658db486364b0bfc8dd9d9117" compoundref="xdphy_8h" startline="295">XDphy_Config::IsRegisterPresent</references>
+        <references refid="group__xdphy_1gaabcdc97a4b6fe84878848175e059319a" compoundref="xdphy__hw_8h" startline="191">XDPHY_CLSTATUS_REG_MODE_MASK</references>
+        <references refid="group__dphy_1ga455915ec07f1de9a2c68bae01e7bc6f8" compoundref="xdphy_8c" startline="533" endline="542">XDphy_GetClkLaneStatus</references>
+      </memberdef>
+      <memberdef kind="function" id="group__dphy_1ga006589112115f10a2dc19853bae893ce" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XDphy_GetDataLaneStatus</definition>
+        <argsstring>(XDphy *InstancePtr, u8 DataLane)</argsstring>
+        <name>XDphy_GetDataLaneStatus</name>
+        <param>
+          <type><ref refid="struct_x_dphy" kindref="compound">XDphy</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>DataLane</declname>
+        </param>
+        <briefdescription>
+<para>This is used to get information about a Data Lane status. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the <ref refid="struct_x_dphy" kindref="compound">XDphy</ref> instance to operate on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DataLane</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>for which the status is sought for.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Bitmask containing which of the events have occurred along with the mode of the Data Lane in DPhy</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.c" line="579" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.c" bodystart="579" bodyend="588"/>
+        <references refid="struct_x_dphy___config_1a2494e733c95a9a99495333fd0679222c" compoundref="xdphy_8h" startline="292">XDphy_Config::BaseAddr</references>
+        <references refid="struct_x_dphy_1af74d9d469cc4c07e98bd47f77885dd87" compoundref="xdphy_8h" startline="316">XDphy::Config</references>
+        <references refid="struct_x_dphy___config_1a56ad1e1658db486364b0bfc8dd9d9117" compoundref="xdphy_8h" startline="295">XDphy_Config::IsRegisterPresent</references>
+        <references refid="group__xdphy_1ga0910333b8c2727d176c2e0246a33fdeb" compoundref="xdphy__hw_8h" startline="68">XDPHY_DL0STATUS_REG_OFFSET</references>
+        <referencedby refid="group__dphy_1ga0a8e793032f9c635bcbf2abf6a1d9832" compoundref="xdphy_8c" startline="641" endline="653">XDphy_GetDataLaneMode</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__dphy_1gaa18b76f92d1ac7c35e0b72d191952273" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u8</type>
+        <definition>u8 XDphy_GetDLCalibStatus</definition>
+        <argsstring>(XDphy *InstancePtr, u8 DataLane)</argsstring>
+        <name>XDphy_GetDLCalibStatus</name>
+        <param>
+          <type><ref refid="struct_x_dphy" kindref="compound">XDphy</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>DataLane</declname>
+        </param>
+        <briefdescription>
+<para>This is used to get Data Lane Calibration status. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the <ref refid="struct_x_dphy" kindref="compound">XDphy</ref> instance to operate on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DataLane</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>for which the calib status is sought for.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS - Calibration Complete, Calibration packet received XST_NO_DATA - Calibration Complete, Calibration packet is not received XST_FAILURE - Calibration failed</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.c" line="603" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.c" bodystart="603" bodyend="628"/>
+        <references refid="struct_x_dphy___config_1a2494e733c95a9a99495333fd0679222c" compoundref="xdphy_8h" startline="292">XDphy_Config::BaseAddr</references>
+        <references refid="struct_x_dphy_1af74d9d469cc4c07e98bd47f77885dd87" compoundref="xdphy_8h" startline="316">XDphy::Config</references>
+        <references refid="group__xdphy_1ga4dab676485278ae963ba2a5c4e5d0063" compoundref="xdphy__hw_8h" startline="284">DL_LANE_OFFSET</references>
+        <references refid="struct_x_dphy___config_1a56ad1e1658db486364b0bfc8dd9d9117" compoundref="xdphy_8h" startline="295">XDphy_Config::IsRegisterPresent</references>
+        <references refid="group__xdphy_1ga0910333b8c2727d176c2e0246a33fdeb" compoundref="xdphy__hw_8h" startline="68">XDPHY_DL0STATUS_REG_OFFSET</references>
+        <references refid="group__xdphy_1ga836e2f220b7102ea3a9e6459a0d1e1dd" compoundref="xdphy__hw_8h" startline="225">XDPHY_DLXSTATUS_REG_CALIB_COMPLETE_MASK</references>
+        <references refid="group__xdphy_1ga0f336da68e6b0da446cd41cf9f2ef8d2" compoundref="xdphy__hw_8h" startline="224">XDPHY_DLXSTATUS_REG_CALIB_STATUS_MASK</references>
+      </memberdef>
+      <memberdef kind="function" id="group__dphy_1ga0a8e793032f9c635bcbf2abf6a1d9832" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XDphy_GetDataLaneMode</definition>
+        <argsstring>(XDphy *InstancePtr, u8 DataLane)</argsstring>
+        <name>XDphy_GetDataLaneMode</name>
+        <param>
+          <type><ref refid="struct_x_dphy" kindref="compound">XDphy</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>DataLane</declname>
+        </param>
+        <briefdescription>
+<para>This is used to get specific Lane mode information about a Data Lane. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the <ref refid="struct_x_dphy" kindref="compound">XDphy</ref> instance to operate on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DataLane</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>for which the mode info is requested.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Bitmask containing mode in which the Data Lane in DPhy is in.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.c" line="641" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.c" bodystart="641" bodyend="653"/>
+        <references refid="struct_x_dphy_1af74d9d469cc4c07e98bd47f77885dd87" compoundref="xdphy_8h" startline="316">XDphy::Config</references>
+        <references refid="struct_x_dphy___config_1a56ad1e1658db486364b0bfc8dd9d9117" compoundref="xdphy_8h" startline="295">XDphy_Config::IsRegisterPresent</references>
+        <references refid="group__xdphy_1gacb7931a2a11c01f1a0bf86eaf3813ad1" compoundref="xdphy__hw_8h" startline="239">XDPHY_DLXSTATUS_REG_MODE_MASK</references>
+        <references refid="group__dphy_1ga006589112115f10a2dc19853bae893ce" compoundref="xdphy_8c" startline="579" endline="588">XDphy_GetDataLaneStatus</references>
+      </memberdef>
+      <memberdef kind="function" id="group__dphy_1ga0da2a930bce29d8c6a2b74d020aa3561" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u16</type>
+        <definition>u16 XDphy_GetPacketCount</definition>
+        <argsstring>(XDphy *InstancePtr, u8 DataLane)</argsstring>
+        <name>XDphy_GetPacketCount</name>
+        <param>
+          <type><ref refid="struct_x_dphy" kindref="compound">XDphy</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>DataLane</declname>
+        </param>
+        <briefdescription>
+<para>This is used to get count of packets received on each lane. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the <ref refid="struct_x_dphy" kindref="compound">XDphy</ref> instance to operate on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DataLane</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>for which the mode info is requested.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Bitmask containing mode in which the Data Lane in DPhy is in.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.c" line="667" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.c" bodystart="667" bodyend="682"/>
+        <references refid="struct_x_dphy___config_1a2494e733c95a9a99495333fd0679222c" compoundref="xdphy_8h" startline="292">XDphy_Config::BaseAddr</references>
+        <references refid="struct_x_dphy_1af74d9d469cc4c07e98bd47f77885dd87" compoundref="xdphy_8h" startline="316">XDphy::Config</references>
+        <references refid="struct_x_dphy___config_1a56ad1e1658db486364b0bfc8dd9d9117" compoundref="xdphy_8h" startline="295">XDphy_Config::IsRegisterPresent</references>
+        <references refid="group__xdphy_1ga0910333b8c2727d176c2e0246a33fdeb" compoundref="xdphy__hw_8h" startline="68">XDPHY_DL0STATUS_REG_OFFSET</references>
+        <references refid="group__xdphy_1gad0aef49004b2cf549d98ad9f596db44c" compoundref="xdphy__hw_8h" startline="258">XDPHY_DLXSTATUS_REG_PACKCOUNT_OFFSET</references>
+        <references refid="group__xdphy_1ga5e883a6b8e54d4a9399a9f66a2b69087" compoundref="xdphy__hw_8h" startline="223">XDPHY_DLXSTATUS_REG_PACKETCOUNT_MASK</references>
+      </memberdef>
+      <memberdef kind="function" id="group__dphy_1gab83aed5a09f62e3a68e5d6cc06bad18d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDphy_Activate</definition>
+        <argsstring>(XDphy *InstancePtr, u8 Flag)</argsstring>
+        <name>XDphy_Activate</name>
+        <param>
+          <type><ref refid="struct_x_dphy" kindref="compound">XDphy</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Flag</declname>
+        </param>
+        <briefdescription>
+<para>This function is used to enable or disable the DPhy core. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the <ref refid="struct_x_dphy" kindref="compound">XDphy</ref> instance to operate on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Flag</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>denoting whether to enable or disable the DPhy core</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.c" line="694" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.c" bodystart="694" bodyend="716"/>
+        <references refid="struct_x_dphy___config_1a2494e733c95a9a99495333fd0679222c" compoundref="xdphy_8h" startline="292">XDphy_Config::BaseAddr</references>
+        <references refid="struct_x_dphy_1af74d9d469cc4c07e98bd47f77885dd87" compoundref="xdphy_8h" startline="316">XDphy::Config</references>
+        <references refid="struct_x_dphy___config_1a56ad1e1658db486364b0bfc8dd9d9117" compoundref="xdphy_8h" startline="295">XDphy_Config::IsRegisterPresent</references>
+        <references refid="group__xdphy_1gad5c2e36eac57592773bcbfcd00155b3a" compoundref="xdphy__hw_8h" startline="113">XDPHY_CTRL_REG_DPHYEN_MASK</references>
+        <references refid="group__xdphy_1gae4e31f2e733bf381fd409fb8440f0692" compoundref="xdphy__hw_8h" startline="47">XDPHY_CTRL_REG_OFFSET</references>
+        <references refid="group__dphy_1ga785db23ac1e4dd31bc64e52477284a34" compoundref="xdphy_8h" startline="184">XDPHY_DISABLE_FLAG</references>
+        <references refid="group__dphy_1ga1928ad1fc94b6207188388aab7b2cc5e" compoundref="xdphy_8h" startline="183">XDPHY_ENABLE_FLAG</references>
+      </memberdef>
+      <memberdef kind="function" id="group__dphy_1gabfac8757285c97f9646b2686c8aa48b6" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>static void XDphy_BitSet</definition>
+        <argsstring>(UINTPTR BaseAddress, u32 RegisterOffset, u32 BitMask)</argsstring>
+        <name>XDphy_BitSet</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>RegisterOffset</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>BitMask</declname>
+        </param>
+        <briefdescription>
+<para>This inline function is used to set bit in a DPHY register space. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a base address of IP </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegisterOffset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is offset where the register is present </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>BitMask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>of bit field to be set</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.h" line="203" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.h" bodystart="203" bodyend="208"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dphy_1gab98506aa84e533fa09e6ae55cc06e80d" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>static void XDphy_BitReset</definition>
+        <argsstring>(UINTPTR BaseAddress, u32 RegisterOffset, u32 BitMask)</argsstring>
+        <name>XDphy_BitReset</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>RegisterOffset</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>BitMask</declname>
+        </param>
+        <briefdescription>
+<para>This inline function is used to reset bit in a DPHY register space. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a base address of IP </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegisterOffset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is offset where the register is present </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>BitMask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>of bit field to be reset</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.h" line="225" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.h" bodystart="225" bodyend="230"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dphy_1ga52836ec3791b805b60cac4ea1c9642ba" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>u32</type>
+        <definition>static u32 XDphy_GetBitField</definition>
+        <argsstring>(UINTPTR BaseAddress, u32 RegisterOffset, u32 BitMask, u32 BitShift)</argsstring>
+        <name>XDphy_GetBitField</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>RegisterOffset</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>BitMask</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>BitShift</declname>
+        </param>
+        <briefdescription>
+<para>This function is used to get the value of bitfield from DPHY register space. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a base address of IP </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegisterOffset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is offset where the register is present </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>BitMask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>of bit field whose value needs to be obtained </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>BitShift</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is offset of bit field</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Bit Field Value in u32 format</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.h" line="248" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.h" bodystart="248" bodyend="253"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dphy_1gacb4664ce4bfe0c35c29c84627aa291ac" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>static void XDphy_SetBitField</definition>
+        <argsstring>(UINTPTR BaseAddress, u32 RegisterOffset, u32 BitMask, u32 BitShift, u32 Value)</argsstring>
+        <name>XDphy_SetBitField</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>RegisterOffset</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>BitMask</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>BitShift</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Value</declname>
+        </param>
+        <briefdescription>
+<para>This function is used to set the value of bitfield from DPHY register space. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a base address of IP </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegisterOffset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is offset where the register is present </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>BitMask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>of bit field whose value needs to be updated </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>BitShift</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is offset of bit field </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Value</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>to be set. Passed in u32 format.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.h" line="270" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.h" bodystart="270" bodyend="276"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dphy_1gaa6778145c31ce276995fe2b293967cab" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="struct_x_dphy___config" kindref="compound">XDphy_Config</ref> *</type>
+        <definition>XDphy_Config * XDphy_LookupConfig</definition>
+        <argsstring>(UINTPTR BaseAddress)</argsstring>
+        <name>XDphy_LookupConfig</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <briefdescription>
+<para>Look up the hardware configuration for a device instance. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>DeviceId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the unique device ID of the device to lookup for</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The reference to the configuration record in the configuration table (in xdphy_g.c) corresponding to the Device ID or if not found,a NULL pointer is returned.</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.h" line="326" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy_sinit.c" bodystart="65" bodyend="78"/>
+        <referencedby refid="xdphy__example__selftest_8c_1a238975c776a9aeeea1049a2071f28b7b" compoundref="xdphy__example__selftest_8c" startline="114" endline="140">DphySelfTestExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__dphy_1ga0e170cc371483fc64fd515d1cc301ee4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XDphy_SelfTest</definition>
+        <argsstring>(XDphy *InstancePtr)</argsstring>
+        <name>XDphy_SelfTest</name>
+        <param>
+          <type><ref refid="struct_x_dphy" kindref="compound">XDphy</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Runs a self-test on the driver/device. </para>        </briefdescription>
+        <detaileddescription>
+<para>This test checks if HS Timeout value present in register matches the one from the generated file.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dphy" kindref="compound">XDphy</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if self-test was successful</para></listitem></itemizedlist>
+</para></simplesect>
+<itemizedlist>
+<listitem><para>XST_FAILURE if the read value was not equal to _g.c file</para></listitem></itemizedlist>
+</para><para><simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.h" line="346" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy_selftest.c" bodystart="62" bodyend="74"/>
+        <references refid="struct_x_dphy_1af74d9d469cc4c07e98bd47f77885dd87" compoundref="xdphy_8h" startline="316">XDphy::Config</references>
+        <references refid="struct_x_dphy___config_1a1d0c94e530f0bcd66d703b6572c41a82" compoundref="xdphy_8h" startline="300">XDphy_Config::HSTimeOut</references>
+        <references refid="group__dphy_1ga08901fa94d34b59883610d1590165919" compoundref="xdphy_8c" startline="295" endline="446">XDphy_GetInfo</references>
+        <references refid="group__dphy_1ga15385f55f404bccfe3e4e278ce70a16a" compoundref="xdphy_8h" startline="144">XDPHY_HANDLE_HSTIMEOUT</references>
+        <referencedby refid="xdphy__example__selftest_8c_1a238975c776a9aeeea1049a2071f28b7b" compoundref="xdphy__example__selftest_8c" startline="114" endline="140">DphySelfTestExample</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__dphy_1ga3ecd5bf6b14e812565dfec466c19abba" prot="public" static="no">
+        <name>XDPHY_SOFTRESET_TIMEOUT</name>
+        <initializer>5000UL</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.c" line="39" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.c" bodystart="39" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dphy_1gad094a68e601596ca2263f4d3e17ef70b" prot="public" static="no">
+        <name>XDPHY_H_</name>
+        <briefdescription>
+<para>Prevent circular inclusions by using protection macros. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.h" line="112" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.h" bodystart="111" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file implements the functions to control and get info from the DPHY. </para>    </briefdescription>
+    <detaileddescription>
+<para>Look up the hardware settings using device ID.</para><para>Contains diagnostic/self-test functions for the <ref refid="struct_x_dphy" kindref="compound">XDphy</ref> component.</para><para>}</para><para><preformatted>
+MODIFICATION HISTORY:
+Ver Who Date     Changes
+<hruler/>
+
+1.0 vsa 07/08/15 Initial release
+1.1 sss 08/17/16 Added 64 bit support
+1.2 vsa 03/02/17 Add support for HS_SETTLE register
+</preformatted></para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver Who Date     Changes
+<hruler/>
+
+1.0 vsa 07/09/15 Initial release
+</preformatted></para><para>The hardware setting is inside the configuration table in xdphy_g.c, generated automatically by XPS or manually by the user.</para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver Who Date     Changes
+<hruler/>
+
+1.0 vsa 07/09/15 Initial release
+</preformatted> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

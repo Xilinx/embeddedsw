@@ -1,0 +1,69 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="structmailbox__reg__msg" kind="struct" prot="public">
+    <compoundname>mailbox_reg_msg</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structmailbox__reg__msg_1a936bad579a33d7141dd3680feaf98bb3" prot="public" static="no" mutable="no">
+        <type>unsigned long</type>
+        <definition>unsigned long mailbox_reg_msg::val</definition>
+        <argsstring></argsstring>
+        <name>val</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_hardware.h" line="52" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_hardware.h" bodystart="52" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structmailbox__reg__msg_1a925bd2c381ab350d6893e749209ed742" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_fifo_control" kindref="compound">FifoControl</ref> *</type>
+        <definition>FifoControl* mailbox_reg_msg::fifo</definition>
+        <argsstring></argsstring>
+        <name>fifo</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_hardware.h" line="53" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_hardware.h" bodystart="53" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structmailbox__reg__msg_1a0e01d9898e12a27b6332dad5e2f1362b" prot="public" static="no" mutable="no">
+        <type>MboxMsgFlag</type>
+        <definition>MboxMsgFlag mailbox_reg_msg::msgflag</definition>
+        <argsstring></argsstring>
+        <name>msgflag</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_hardware.h" line="54" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_hardware.h" bodystart="54" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="897">
+        <label>mailbox_reg_msg</label>
+        <childnode refid="898" relation="usage">
+          <edgelabel>fifo</edgelabel>
+        </childnode>
+      </node>
+      <node id="898">
+        <label>FifoControl</label>
+        <link refid="struct_fifo_control"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_hardware.h" line="51" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_hardware.h" bodystart="51" bodyend="55"/>
+    <listofallmembers>
+      <member refid="structmailbox__reg__msg_1a925bd2c381ab350d6893e749209ed742" prot="public" virt="non-virtual"><scope>mailbox_reg_msg</scope><name>fifo</name></member>
+      <member refid="structmailbox__reg__msg_1a0e01d9898e12a27b6332dad5e2f1362b" prot="public" virt="non-virtual"><scope>mailbox_reg_msg</scope><name>msgflag</name></member>
+      <member refid="structmailbox__reg__msg_1a936bad579a33d7141dd3680feaf98bb3" prot="public" virt="non-virtual"><scope>mailbox_reg_msg</scope><name>val</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

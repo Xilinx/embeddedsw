@@ -1,0 +1,295 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xuartns550__i_8h" kind="file">
+    <compoundname>xuartns550_i.h</compoundname>
+    <includes refid="xuartns550_8h" local="yes">xuartns550.h</includes>
+    <includedby refid="xuartns550_8c" local="yes">xuartns550.c</includedby>
+    <includedby refid="xuartns550__format_8c" local="yes">xuartns550_format.c</includedby>
+    <includedby refid="xuartns550__intr_8c" local="yes">xuartns550_intr.c</includedby>
+    <includedby refid="xuartns550__options_8c" local="yes">xuartns550_options.c</includedby>
+    <includedby refid="xuartns550__selftest_8c" local="yes">xuartns550_selftest.c</includedby>
+    <includedby refid="xuartns550__sinit_8c" local="yes">xuartns550_sinit.c</includedby>
+    <includedby refid="xuartns550__stats_8c" local="yes">xuartns550_stats.c</includedby>
+    <incdepgraph>
+      <node id="66">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="69">
+        <label>xil_io.h</label>
+      </node>
+      <node id="64">
+        <label>xuartns550.h</label>
+        <link refid="xuartns550_8h"/>
+        <childnode refid="65" relation="include">
+        </childnode>
+        <childnode refid="66" relation="include">
+        </childnode>
+        <childnode refid="67" relation="include">
+        </childnode>
+        <childnode refid="68" relation="include">
+        </childnode>
+      </node>
+      <node id="68">
+        <label>xuartns550_l.h</label>
+        <link refid="xuartns550__l_8h"/>
+        <childnode refid="65" relation="include">
+        </childnode>
+        <childnode refid="66" relation="include">
+        </childnode>
+        <childnode refid="69" relation="include">
+        </childnode>
+      </node>
+      <node id="67">
+        <label>xstatus.h</label>
+      </node>
+      <node id="65">
+        <label>xil_types.h</label>
+      </node>
+      <node id="63">
+        <label>xuartns550_i.h</label>
+        <link refid="xuartns550_i.h"/>
+        <childnode refid="64" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="75">
+        <label>xuartns550_selftest.c</label>
+        <link refid="xuartns550__selftest_8c"/>
+      </node>
+      <node id="72">
+        <label>xuartns550_format.c</label>
+        <link refid="xuartns550__format_8c"/>
+      </node>
+      <node id="73">
+        <label>xuartns550_intr.c</label>
+        <link refid="xuartns550__intr_8c"/>
+      </node>
+      <node id="71">
+        <label>xuartns550.c</label>
+        <link refid="xuartns550_8c"/>
+      </node>
+      <node id="76">
+        <label>xuartns550_sinit.c</label>
+        <link refid="xuartns550__sinit_8c"/>
+      </node>
+      <node id="77">
+        <label>xuartns550_stats.c</label>
+        <link refid="xuartns550__stats_8c"/>
+      </node>
+      <node id="74">
+        <label>xuartns550_options.c</label>
+        <link refid="xuartns550__options_8c"/>
+      </node>
+      <node id="70">
+        <label>xuartns550_i.h</label>
+        <link refid="xuartns550_i.h"/>
+        <childnode refid="71" relation="include">
+        </childnode>
+        <childnode refid="72" relation="include">
+        </childnode>
+        <childnode refid="73" relation="include">
+        </childnode>
+        <childnode refid="74" relation="include">
+        </childnode>
+        <childnode refid="75" relation="include">
+        </childnode>
+        <childnode refid="76" relation="include">
+        </childnode>
+        <childnode refid="77" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__uartns550_1ga9676e7da58f7dedd377fa0d3e11bf91a" prot="public" static="no">
+        <name>XUARTNS550_I_H</name>
+        <initializer>/* by using protection macros */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_i.h" line="35" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_i.h" bodystart="35" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__uartns550_1ga5cd4c8bf2383f952ef18132b828636fc" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_uart_ns550___config" kindref="compound">XUartNs550_Config</ref></type>
+        <definition>XUartNs550_Config XUartNs550_ConfigTable[]</definition>
+        <argsstring>[]</argsstring>
+        <name>XUartNs550_ConfigTable</name>
+        <briefdescription>
+<para>The configuration table for UART 16550/16450 devices in the table. </para>        </briefdescription>
+        <detaileddescription>
+<para>Each device should have an entry in this table. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_i.h" line="67" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_g.c" bodystart="52" bodyend="-1"/>
+        <referencedby refid="group__uartns550_1ga6121a7c3b5ad2899eb7fa058df9201d2" compoundref="xuartns550__sinit_8c" startline="91" endline="105">XUartNs550_LookupConfig</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__uartns550_1gab8e499e36ea8619d0a2ffba8a2ecd0c0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XUartNs550_SetBaudRate</definition>
+        <argsstring>(XUartNs550 *InstancePtr, u32 BaudRate)</argsstring>
+        <name>XUartNs550_SetBaudRate</name>
+        <param>
+          <type><ref refid="struct_x_uart_ns550" kindref="compound">XUartNs550</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>BaudRate</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550.c" line="611" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550.c" bodystart="611" bodyend="696"/>
+      </memberdef>
+      <memberdef kind="function" id="group__uartns550_1ga9046228564fdafeb5715dce1c0b46766" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>unsigned int</type>
+        <definition>unsigned int XUartNs550_SendBuffer</definition>
+        <argsstring>(XUartNs550 *InstancePtr)</argsstring>
+        <name>XUartNs550_SendBuffer</name>
+        <param>
+          <type><ref refid="struct_x_uart_ns550" kindref="compound">XUartNs550</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function sends a buffer that has been previously specified by setting up the instance variables of the instance. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function is designed to be an internal function for the <ref refid="struct_x_uart_ns550" kindref="compound">XUartNs550</ref> component such that it may be called from a shell function that sets up the buffer or from an interrupt handler.</para><para>This function sends the specified buffer of data to the UART in either polled or interrupt driven modes. This function is non-blocking such that it will return before the data has been sent by the UART.</para><para>In a polled mode, this function will only send as much data as the UART can buffer, either in the transmitter or in the FIFO if present and enabled. The application may need to call it repeatedly to send a buffer.</para><para>In interrupt mode, this function will start sending the specified buffer and then the interrupt handler of the driver will continue until the buffer has been sent. A callback function, as specified by the application, will be called to indicate the completion of sending the buffer.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_uart_ns550" kindref="compound">XUartNs550</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>NumBytes is the number of bytes actually sent (put into the UART tranmitter and/or FIFO).</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550.c" line="388" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550.c" bodystart="388" bodyend="489"/>
+        <references refid="struct_x_uart_ns550_1accb5967cc8b50d37db493b436836c25c" compoundref="xuartns550_8h" startline="416">XUartNs550::BaseAddress</references>
+        <references refid="struct_x_uart_ns550_stats_1abd414f52ad160c32832bc17a5451bfef" compoundref="xuartns550_8h" startline="400">XUartNs550Stats::CharactersTransmitted</references>
+        <references refid="struct_x_uart_ns550_buffer_1a859b304d4e811e4510b2b01724645593" compoundref="xuartns550_8h" startline="357">XUartNs550Buffer::NextBytePtr</references>
+        <references refid="struct_x_uart_ns550_buffer_1a3ed337f8095b814045280a7903a10630" compoundref="xuartns550_8h" startline="359">XUartNs550Buffer::RemainingBytes</references>
+        <references refid="struct_x_uart_ns550_1a6e94aedae6660c25485e826e8488f081" compoundref="xuartns550_8h" startline="422">XUartNs550::SendBuffer</references>
+        <references refid="struct_x_uart_ns550_1afa9d8ab9f317702502fdc31e6272535a" compoundref="xuartns550_8h" startline="415">XUartNs550::Stats</references>
+        <references refid="group__uartns550_1gacfbf9e5ce401ea4b07a19752802926f7" compoundref="xuartns550__l_8h" startline="216">XUartNs550_GetLineStatusReg</references>
+        <references refid="group__uartns550_1ga58ff500307c70fda263888b18fc6389c" compoundref="xuartns550__l_8h" startline="182">XUartNs550_ReadReg</references>
+        <references refid="group__uartns550_1gae648146666080fdac4f6949b6ed3101a" compoundref="xuartns550__l_8h" startline="201">XUartNs550_WriteReg</references>
+        <references refid="group__uartns550_1ga270ca9810a3fde617c7fd9f5bc707e6d" compoundref="xuartns550__l_8h" startline="65">XUN_IER_OFFSET</references>
+        <references refid="group__uartns550_1gae3baa08e218c2f904b1f28ffd06bc527" compoundref="xuartns550__l_8h" startline="93">XUN_IER_RX_DATA</references>
+        <references refid="group__uartns550_1ga8536fc383eb2b08497a576b186547930" compoundref="xuartns550__l_8h" startline="92">XUN_IER_TX_EMPTY</references>
+        <references refid="group__uartns550_1ga36427b607774c1107afd847eb85bc4c9" compoundref="xuartns550__l_8h" startline="66">XUN_IIR_OFFSET</references>
+        <references refid="group__uartns550_1gad37ac1583a8e7e9f34530947b89e06fe" compoundref="xuartns550__l_8h" startline="101">XUN_INT_ID_FIFOS_ENABLED</references>
+        <references refid="group__uartns550_1gacfc60ddcada499862b482041805b1f03" compoundref="xuartns550__l_8h" startline="150">XUN_LSR_TX_BUFFER_EMPTY</references>
+        <references refid="group__uartns550_1ga648b52ef84c2214179e2fe3c80d77677" compoundref="xuartns550__l_8h" startline="149">XUN_LSR_TX_EMPTY</references>
+        <references refid="group__uartns550_1gaaeadf9e35937495ade3ac065a4a6ccbf" compoundref="xuartns550__l_8h" startline="64">XUN_THR_OFFSET</references>
+        <referencedby refid="group__uartns550_1ga421921af6a8df7c51ddbfa5d2301ad1b" compoundref="xuartns550_8c" startline="231" endline="278">XUartNs550_Send</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__uartns550_1ga6df754edf91aea638537a15536d4d34e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>unsigned int</type>
+        <definition>unsigned int XUartNs550_ReceiveBuffer</definition>
+        <argsstring>(XUartNs550 *InstancePtr)</argsstring>
+        <name>XUartNs550_ReceiveBuffer</name>
+        <param>
+          <type><ref refid="struct_x_uart_ns550" kindref="compound">XUartNs550</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function receives a buffer that has been previously specified by setting up the instance variables of the instance. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function is designed to be an internal function for the <ref refid="struct_x_uart_ns550" kindref="compound">XUartNs550</ref> component such that it may be called from a shell function that sets up the buffer or from an interrupt handler.</para><para>This function will attempt to receive a specified number of bytes of data from the UART and store it into the specified buffer. This function is designed for either polled or interrupt driven modes. It is non-blocking such that it will return if there is no data has already received by the UART.</para><para>In a polled mode, this function will only receive as much data as the UART can buffer, either in the receiver or in the FIFO if present and enabled. The application may need to call it repeatedly to receive a buffer. Polled mode is the default mode of operation for the driver.</para><para>In interrupt mode, this function will start receiving and then the interrupt handler of the driver will continue until the buffer has been received. A callback function, as specified by the application, will be called to indicate the completion of receiving the buffer or when any receive errors or timeouts occur. Interrupt mode must be enabled using the SetOptions function.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_uart_ns550" kindref="compound">XUartNs550</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The number of bytes received.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550.c" line="523" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550.c" bodystart="523" bodyend="587"/>
+        <references refid="struct_x_uart_ns550_1accb5967cc8b50d37db493b436836c25c" compoundref="xuartns550_8h" startline="416">XUartNs550::BaseAddress</references>
+        <references refid="struct_x_uart_ns550_stats_1a0ff150c925459d98e4555193e980fbcb" compoundref="xuartns550_8h" startline="401">XUartNs550Stats::CharactersReceived</references>
+        <references refid="struct_x_uart_ns550_buffer_1a859b304d4e811e4510b2b01724645593" compoundref="xuartns550_8h" startline="357">XUartNs550Buffer::NextBytePtr</references>
+        <references refid="struct_x_uart_ns550_1ab54b7f86adf3dc90af130717e7abe1da" compoundref="xuartns550_8h" startline="423">XUartNs550::ReceiveBuffer</references>
+        <references refid="struct_x_uart_ns550_buffer_1a3ed337f8095b814045280a7903a10630" compoundref="xuartns550_8h" startline="359">XUartNs550Buffer::RemainingBytes</references>
+        <references refid="struct_x_uart_ns550_1afa9d8ab9f317702502fdc31e6272535a" compoundref="xuartns550_8h" startline="415">XUartNs550::Stats</references>
+        <references refid="group__uartns550_1gacfbf9e5ce401ea4b07a19752802926f7" compoundref="xuartns550__l_8h" startline="216">XUartNs550_GetLineStatusReg</references>
+        <references refid="group__uartns550_1ga58ff500307c70fda263888b18fc6389c" compoundref="xuartns550__l_8h" startline="182">XUartNs550_ReadReg</references>
+        <references refid="group__uartns550_1gae74ee94f0c84de4861c57c04bff0d390" compoundref="xuartns550__l_8h" startline="151">XUN_LSR_BREAK_INT</references>
+        <references refid="group__uartns550_1ga64e43cf523785c523618adc1f046370f" compoundref="xuartns550__l_8h" startline="155">XUN_LSR_DATA_READY</references>
+        <references refid="group__uartns550_1ga0c9f6a9aff7a8753caf9965f3162c2ce" compoundref="xuartns550__l_8h" startline="63">XUN_RBR_OFFSET</references>
+        <referencedby refid="group__uartns550_1ga35fc171801e394fce29cbcb09dc1ff99" compoundref="xuartns550_8c" startline="313" endline="357">XUartNs550_Recv</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2002<sp/>-<sp/>2021<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2023<sp/>-<sp/>2024<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="34"><highlight class="preprocessor">#ifndef<sp/>XUARTNS550_I_H<sp/></highlight><highlight class="comment">/*<sp/>prevent<sp/>circular<sp/>inclusions<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="35"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XUARTNS550_I_H<sp/></highlight><highlight class="comment">/*<sp/>by<sp/>using<sp/>protection<sp/>macros<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="36"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="38"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="40"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xuartns550_8h" kindref="compound">xuartns550.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XUartNs550_SetBaudRate(<ref refid="struct_x_uart_ns550" kindref="compound">XUartNs550</ref><sp/>*InstancePtr,<sp/>u32<sp/>BaudRate);</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__uartns550_1ga9046228564fdafeb5715dce1c0b46766" kindref="member">XUartNs550_SendBuffer</ref>(<ref refid="struct_x_uart_ns550" kindref="compound">XUartNs550</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__uartns550_1ga6df754edf91aea638537a15536d4d34e" kindref="member">XUartNs550_ReceiveBuffer</ref>(<ref refid="struct_x_uart_ns550" kindref="compound">XUartNs550</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/><ref refid="struct_x_uart_ns550___config" kindref="compound">XUartNs550_Config</ref><sp/><ref refid="group__uartns550_1ga5cd4c8bf2383f952ef18132b828636fc" kindref="member">XUartNs550_ConfigTable</ref>[];</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="70"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="72"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>end<sp/>of<sp/>protection<sp/>macro<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="74"><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_i.h"/>
+  </compounddef>
+</doxygen>

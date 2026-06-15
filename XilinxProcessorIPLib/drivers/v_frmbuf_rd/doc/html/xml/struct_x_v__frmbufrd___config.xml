@@ -1,0 +1,983 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_v__frmbufrd___config" kind="struct" prot="public">
+    <compoundname>XV_frmbufrd_Config</compoundname>
+    <includes local="no">xv_frmbufrd.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_v__frmbufrd___config_1aa366cec21bbbce04854f5e5c105d7203" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* XV_frmbufrd_Config::Name</definition>
+        <argsstring></argsstring>
+        <name>Name</name>
+        <briefdescription>
+<para>Unique Name of device. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" line="54" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" bodystart="54" bodyend="-1"/>
+        <referencedby refid="xv__frmbufrd__sinit_8c_1a0983221284d2f9d0c561b983667df513" compoundref="xv__frmbufrd__sinit_8c" startline="92" endline="106">XV_frmbufrd_LookupConfig</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v__frmbufrd___config_1a6229f3b0866dac75bd3f425693f886f4" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XV_frmbufrd_Config::BaseAddress</definition>
+        <argsstring></argsstring>
+        <name>BaseAddress</name>
+        <briefdescription>
+<para>The base address of the core instance. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" line="56" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" bodystart="56" bodyend="-1"/>
+        <referencedby refid="xv__frmbufrd_8h_1ae27c0ffab1b0eba3b0227dfaaf98b329" compoundref="xv__frmbufrd_8c" startline="29" endline="48">XV_frmbufrd_CfgInitialize</referencedby>
+        <referencedby refid="xv__frmbufrd_8h_1ab6e1ff38bf3b874080a426499b1e5fee" compoundref="xv__frmbufrd_8c" startline="166" endline="171">XV_frmbufrd_DisableAutoRestart</referencedby>
+        <referencedby refid="xv__frmbufrd_8h_1a26c5e20077c1765ae1eb52f03edd6613" compoundref="xv__frmbufrd_8c" startline="146" endline="151">XV_frmbufrd_EnableAutoRestart</referencedby>
+        <referencedby refid="xv__frmbufrd_8h_1a1999e22e45ebfc6431c51c09ad6aa1d0" compoundref="xv__frmbufrd_8c" startline="211" endline="220">XV_frmbufrd_Get_FlushDone</referencedby>
+        <referencedby refid="xv__frmbufrd_8h_1a5eba385a373817bd6be0679fff7ecb27" compoundref="xv__frmbufrd_8c" startline="608" endline="616">XV_frmbufrd_Get_HwReg_fid_error</referencedby>
+        <referencedby refid="xv__frmbufrd_8h_1a0bca0d4064f5b4ba3b15971402e841be" compoundref="xv__frmbufrd_8c" startline="587" endline="595">XV_frmbufrd_Get_HwReg_fidOutMode</referencedby>
+        <referencedby refid="xv__frmbufrd_8h_1a661491728a53cb282dfba0b79b7ef99f" compoundref="xv__frmbufrd_8c" startline="544" endline="553">XV_frmbufrd_Get_HwReg_field_id</referencedby>
+        <referencedby refid="xv__frmbufrd_8h_1a6c9557b72e05a084b7029c46a5d341f9" compoundref="xv__frmbufrd_8c" startline="629" endline="637">XV_frmbufrd_Get_HwReg_field_out</referencedby>
+        <referencedby refid="xv__frmbufrd_8h_1a649ee0bf117af28b8b96ec47304ddce9" compoundref="xv__frmbufrd_8c" startline="461" endline="470">XV_frmbufrd_Get_HwReg_frm_buffer2_V</referencedby>
+        <referencedby refid="xv__frmbufrd_8h_1a97c10de32132230c5d7ea8cd9c15f815" compoundref="xv__frmbufrd_8c" startline="503" endline="512">XV_frmbufrd_Get_HwReg_frm_buffer3_V</referencedby>
+        <referencedby refid="xv__frmbufrd_8h_1a63970856d2aa57c5813606ad78681cf8" compoundref="xv__frmbufrd_8c" startline="416" endline="425">XV_frmbufrd_Get_HwReg_frm_buffer_V</referencedby>
+        <referencedby refid="xv__frmbufrd_8h_1a3f7e8f88b7455cb177d7929c66cd0b7f" compoundref="xv__frmbufrd_8c" startline="290" endline="298">XV_frmbufrd_Get_HwReg_height</referencedby>
+        <referencedby refid="xv__frmbufrd_8h_1a5006eafa45371fbdd7605d06fda9bbb9" compoundref="xv__frmbufrd_8c" startline="333" endline="341">XV_frmbufrd_Get_HwReg_stride</referencedby>
+        <referencedby refid="xv__frmbufrd_8h_1a1a8810b9f21bbe5b99b9db53782b55de" compoundref="xv__frmbufrd_8c" startline="372" endline="380">XV_frmbufrd_Get_HwReg_video_format</referencedby>
+        <referencedby refid="xv__frmbufrd_8h_1aa0aa3db4a7eeabf9a612012b5a8fd163" compoundref="xv__frmbufrd_8c" startline="252" endline="260">XV_frmbufrd_Get_HwReg_width</referencedby>
+        <referencedby refid="xv__frmbufrd__sinit_8c_1a5874eb0bc848f5dd08cd408e0115d8f7" compoundref="xv__frmbufrd__sinit_8c" startline="123" endline="137">XV_frmbufrd_Initialize</referencedby>
+        <referencedby refid="xv__frmbufrd_8h_1aec9552b179c61f7d769220de8c3f4be6" compoundref="xv__frmbufrd_8c" startline="728" endline="733">XV_frmbufrd_InterruptClear</referencedby>
+        <referencedby refid="xv__frmbufrd_8h_1a7bbbc3f0d2def57feeeec0695b7ea71d" compoundref="xv__frmbufrd_8c" startline="707" endline="715">XV_frmbufrd_InterruptDisable</referencedby>
+        <referencedby refid="xv__frmbufrd_8h_1a96b5ba079ecb58a66b5abc9ebc470faa" compoundref="xv__frmbufrd_8c" startline="685" endline="693">XV_frmbufrd_InterruptEnable</referencedby>
+        <referencedby refid="xv__frmbufrd_8h_1acd753613ae1ab05183c54f5c0e97e7fb" compoundref="xv__frmbufrd_8c" startline="747" endline="752">XV_frmbufrd_InterruptGetEnabled</referencedby>
+        <referencedby refid="xv__frmbufrd_8h_1a4a3398981b9176a6eb4c96d0d6fa2b85" compoundref="xv__frmbufrd_8c" startline="766" endline="771">XV_frmbufrd_InterruptGetStatus</referencedby>
+        <referencedby refid="xv__frmbufrd_8h_1aa0695fe254113d290a71b521089f4d9f" compoundref="xv__frmbufrd_8c" startline="666" endline="671">XV_frmbufrd_InterruptGlobalDisable</referencedby>
+        <referencedby refid="xv__frmbufrd_8h_1a61a57e27547a69d97383d2b12b123e72" compoundref="xv__frmbufrd_8c" startline="648" endline="653">XV_frmbufrd_InterruptGlobalEnable</referencedby>
+        <referencedby refid="xv__frmbufrd_8h_1abf86e764904bb549f09531a0e0c05920" compoundref="xv__frmbufrd_8c" startline="82" endline="90">XV_frmbufrd_IsDone</referencedby>
+        <referencedby refid="xv__frmbufrd_8h_1a01a5b1ef82670645910c1a8b97ac7400" compoundref="xv__frmbufrd_8c" startline="104" endline="112">XV_frmbufrd_IsIdle</referencedby>
+        <referencedby refid="xv__frmbufrd_8h_1a0ce3a7d9c717dbba2ccaab00cc852f8d" compoundref="xv__frmbufrd_8c" startline="125" endline="134">XV_frmbufrd_IsReady</referencedby>
+        <referencedby refid="xv__frmbufrd_8h_1a1bb79fd0d7dd76bd2edc7e332f3375c9" compoundref="xv__frmbufrd_8c" startline="566" endline="571">XV_frmbufrd_Set_HwReg_fidOutMode</referencedby>
+        <referencedby refid="xv__frmbufrd_8h_1aebd00f8c2bf1a182e35d6f305010cf03" compoundref="xv__frmbufrd_8c" startline="525" endline="531">XV_frmbufrd_Set_HwReg_field_id</referencedby>
+        <referencedby refid="xv__frmbufrd_8h_1a1e4e1c536b9b1a1c736fce366441133f" compoundref="xv__frmbufrd_8c" startline="441" endline="447">XV_frmbufrd_Set_HwReg_frm_buffer2_V</referencedby>
+        <referencedby refid="xv__frmbufrd_8h_1ae07a2825c972396656d4f4b9f6075432" compoundref="xv__frmbufrd_8c" startline="485" endline="491">XV_frmbufrd_Set_HwReg_frm_buffer3_V</referencedby>
+        <referencedby refid="xv__frmbufrd_8h_1ab3bf8afbcf55c0e3cbecac463dfce50d" compoundref="xv__frmbufrd_8c" startline="396" endline="402">XV_frmbufrd_Set_HwReg_frm_buffer_V</referencedby>
+        <referencedby refid="xv__frmbufrd_8h_1a5b220bd0aa23df2701f4d760e26f5401" compoundref="xv__frmbufrd_8c" startline="272" endline="277">XV_frmbufrd_Set_HwReg_height</referencedby>
+        <referencedby refid="xv__frmbufrd_8h_1a672c2fcee391b91d784d1304eb69ef52" compoundref="xv__frmbufrd_8c" startline="314" endline="319">XV_frmbufrd_Set_HwReg_stride</referencedby>
+        <referencedby refid="xv__frmbufrd_8h_1aa06b29ece58be0e05d014e392eb6643c" compoundref="xv__frmbufrd_8c" startline="354" endline="359">XV_frmbufrd_Set_HwReg_video_format</referencedby>
+        <referencedby refid="xv__frmbufrd_8h_1acbeec84e5c3f0b4270294f24f5627934" compoundref="xv__frmbufrd_8c" startline="233" endline="238">XV_frmbufrd_Set_HwReg_width</referencedby>
+        <referencedby refid="xv__frmbufrd_8h_1a2e61a59d0bdb57043f5739e22d4792d8" compoundref="xv__frmbufrd_8c" startline="186" endline="197">XV_frmbufrd_SetFlushbit</referencedby>
+        <referencedby refid="xv__frmbufrd_8h_1a1a379b724e987de8c348bcc1aa98f2b9" compoundref="xv__frmbufrd_8c" startline="61" endline="69">XV_frmbufrd_Start</referencedby>
+        <referencedby refid="group__v__frmbuf__rd_1ga80af786a199e9d406016cbe77c6cce9a" compoundref="xv__frmbufrd__l2_8c" startline="1155" endline="1229">XVFrmbufRd_DbgReportStatus</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v__frmbufrd___config_1acf9e48679e5b62a96773b6e31a06d8db" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XV_frmbufrd_Config::PixPerClk</definition>
+        <argsstring></argsstring>
+        <name>PixPerClk</name>
+        <briefdescription>
+<para>Samples Per Clock. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" line="57" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" bodystart="57" bodyend="-1"/>
+        <referencedby refid="xv__frmbufrd__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xv__frmbufrd__example_8c" startline="651" endline="801">main</referencedby>
+        <referencedby refid="group__v__frmbuf__rd_1ga80af786a199e9d406016cbe77c6cce9a" compoundref="xv__frmbufrd__l2_8c" startline="1155" endline="1229">XVFrmbufRd_DbgReportStatus</referencedby>
+        <referencedby refid="group__v__frmbuf__rd_1gab166d212d55646b832a8f7c301e5f2ac" compoundref="xv__frmbufrd__l2_8c" startline="818" endline="842">XVFrmbufRd_SetBufferAddr</referencedby>
+        <referencedby refid="group__v__frmbuf__rd_1ga395f9c364ef8378189bf0464d2130d59" compoundref="xv__frmbufrd__l2_8c" startline="928" endline="952">XVFrmbufRd_SetChromaBufferAddr</referencedby>
+        <referencedby refid="group__v__frmbuf__rd_1ga8d3a4c93e59a529e936c21169f738202" compoundref="xv__frmbufrd__l2_8c" startline="483" endline="788">XVFrmbufRd_SetMemFormat</referencedby>
+        <referencedby refid="group__v__frmbuf__rd_1ga84c9a6e2049cb53358884cd8e3aafbc2" compoundref="xv__frmbufrd__l2_8c" startline="873" endline="896">XVFrmbufRd_SetVChromaBufferAddr</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v__frmbufrd___config_1afbe098bbde68a92384db2d9268b83bf0" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XV_frmbufrd_Config::MaxWidth</definition>
+        <argsstring></argsstring>
+        <name>MaxWidth</name>
+        <briefdescription>
+<para>Maximum columns supported by core instance. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" line="58" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" bodystart="58" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v__frmbufrd___config_1afa7aea81440b723351a3f68eacd2ce65" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XV_frmbufrd_Config::MaxHeight</definition>
+        <argsstring></argsstring>
+        <name>MaxHeight</name>
+        <briefdescription>
+<para>Maximum rows supported by core instance. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" line="59" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" bodystart="59" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v__frmbufrd___config_1a92843183639024e2d4aa70796c50c594" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XV_frmbufrd_Config::MaxDataWidth</definition>
+        <argsstring></argsstring>
+        <name>MaxDataWidth</name>
+        <briefdescription>
+<para>Maximum Data width of each channel. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" line="60" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" bodystart="60" bodyend="-1"/>
+        <referencedby refid="xv__frmbufrd__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xv__frmbufrd__example_8c" startline="651" endline="801">main</referencedby>
+        <referencedby refid="group__v__frmbuf__rd_1ga80af786a199e9d406016cbe77c6cce9a" compoundref="xv__frmbufrd__l2_8c" startline="1155" endline="1229">XVFrmbufRd_DbgReportStatus</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v__frmbufrd___config_1a5c264b3bca3a8e49ab5a5fa549e63a22" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XV_frmbufrd_Config::AXIMMDataWidth</definition>
+        <argsstring></argsstring>
+        <name>AXIMMDataWidth</name>
+        <briefdescription>
+<para>AXI-MM data width. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" line="61" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" bodystart="61" bodyend="-1"/>
+        <referencedby refid="xv__frmbufrd__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xv__frmbufrd__example_8c" startline="651" endline="801">main</referencedby>
+        <referencedby refid="group__v__frmbuf__rd_1ga80af786a199e9d406016cbe77c6cce9a" compoundref="xv__frmbufrd__l2_8c" startline="1155" endline="1229">XVFrmbufRd_DbgReportStatus</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v__frmbufrd___config_1a598374e63fd95a53f807a0ea6ca643bc" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XV_frmbufrd_Config::AXIMMAddrWidth</definition>
+        <argsstring></argsstring>
+        <name>AXIMMAddrWidth</name>
+        <briefdescription>
+<para>AXI-MM address width. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" line="62" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" bodystart="62" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v__frmbufrd___config_1ae4d0984d4f7ed39d870cb86ecb323db0" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XV_frmbufrd_Config::RGBX8En</definition>
+        <argsstring></argsstring>
+        <name>RGBX8En</name>
+        <briefdescription>
+<para>RGBX8 support. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" line="63" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" bodystart="63" bodyend="-1"/>
+        <referencedby refid="group__v__frmbuf__rd_1ga80af786a199e9d406016cbe77c6cce9a" compoundref="xv__frmbufrd__l2_8c" startline="1155" endline="1229">XVFrmbufRd_DbgReportStatus</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v__frmbufrd___config_1a16b91c3aa0927a744150eb3450ff8557" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XV_frmbufrd_Config::YUVX8En</definition>
+        <argsstring></argsstring>
+        <name>YUVX8En</name>
+        <briefdescription>
+<para>YUVX8 support. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" line="64" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" bodystart="64" bodyend="-1"/>
+        <referencedby refid="group__v__frmbuf__rd_1ga80af786a199e9d406016cbe77c6cce9a" compoundref="xv__frmbufrd__l2_8c" startline="1155" endline="1229">XVFrmbufRd_DbgReportStatus</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v__frmbufrd___config_1a97ce077fe3e21e5779e1c00e623d7c41" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XV_frmbufrd_Config::YUYV8En</definition>
+        <argsstring></argsstring>
+        <name>YUYV8En</name>
+        <briefdescription>
+<para>YUYV8 support. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" line="65" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" bodystart="65" bodyend="-1"/>
+        <referencedby refid="group__v__frmbuf__rd_1ga80af786a199e9d406016cbe77c6cce9a" compoundref="xv__frmbufrd__l2_8c" startline="1155" endline="1229">XVFrmbufRd_DbgReportStatus</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v__frmbufrd___config_1a491416764de129e257f43cc412098c8c" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XV_frmbufrd_Config::RGBA8En</definition>
+        <argsstring></argsstring>
+        <name>RGBA8En</name>
+        <briefdescription>
+<para>RGBA8 support. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" line="66" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" bodystart="66" bodyend="-1"/>
+        <referencedby refid="group__v__frmbuf__rd_1ga80af786a199e9d406016cbe77c6cce9a" compoundref="xv__frmbufrd__l2_8c" startline="1155" endline="1229">XVFrmbufRd_DbgReportStatus</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v__frmbufrd___config_1a820a4f365717f19484c2152ab2f3aca0" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XV_frmbufrd_Config::YUVA8En</definition>
+        <argsstring></argsstring>
+        <name>YUVA8En</name>
+        <briefdescription>
+<para>YUVA8 support. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" line="67" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" bodystart="67" bodyend="-1"/>
+        <referencedby refid="group__v__frmbuf__rd_1ga80af786a199e9d406016cbe77c6cce9a" compoundref="xv__frmbufrd__l2_8c" startline="1155" endline="1229">XVFrmbufRd_DbgReportStatus</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v__frmbufrd___config_1a42c8816efe3e98b5e8e328dc84cf0e69" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XV_frmbufrd_Config::BGRA8En</definition>
+        <argsstring></argsstring>
+        <name>BGRA8En</name>
+        <briefdescription>
+<para>BGRA8 support. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" line="68" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" bodystart="68" bodyend="-1"/>
+        <referencedby refid="group__v__frmbuf__rd_1ga80af786a199e9d406016cbe77c6cce9a" compoundref="xv__frmbufrd__l2_8c" startline="1155" endline="1229">XVFrmbufRd_DbgReportStatus</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v__frmbufrd___config_1ae18753e8f48581e9f2c07f3316563ae4" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XV_frmbufrd_Config::RGBX10En</definition>
+        <argsstring></argsstring>
+        <name>RGBX10En</name>
+        <briefdescription>
+<para>RGBX10 support. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" line="69" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" bodystart="69" bodyend="-1"/>
+        <referencedby refid="group__v__frmbuf__rd_1ga80af786a199e9d406016cbe77c6cce9a" compoundref="xv__frmbufrd__l2_8c" startline="1155" endline="1229">XVFrmbufRd_DbgReportStatus</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v__frmbufrd___config_1a61ee96917cf6c65ae74d42b0d12e19b2" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XV_frmbufrd_Config::YUVX10En</definition>
+        <argsstring></argsstring>
+        <name>YUVX10En</name>
+        <briefdescription>
+<para>YUVX10 support. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" line="70" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" bodystart="70" bodyend="-1"/>
+        <referencedby refid="group__v__frmbuf__rd_1ga80af786a199e9d406016cbe77c6cce9a" compoundref="xv__frmbufrd__l2_8c" startline="1155" endline="1229">XVFrmbufRd_DbgReportStatus</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v__frmbufrd___config_1aed1ba306c17bddb97b1005b2ba2de954" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XV_frmbufrd_Config::Y_UV8En</definition>
+        <argsstring></argsstring>
+        <name>Y_UV8En</name>
+        <briefdescription>
+<para>Y_UV8 support. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" line="71" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" bodystart="71" bodyend="-1"/>
+        <referencedby refid="group__v__frmbuf__rd_1ga80af786a199e9d406016cbe77c6cce9a" compoundref="xv__frmbufrd__l2_8c" startline="1155" endline="1229">XVFrmbufRd_DbgReportStatus</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v__frmbufrd___config_1a30b0293bfdd550b1757f979f0e7d9517" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XV_frmbufrd_Config::Y_UV8_420En</definition>
+        <argsstring></argsstring>
+        <name>Y_UV8_420En</name>
+        <briefdescription>
+<para>Y_UV8_420 support. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" line="72" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" bodystart="72" bodyend="-1"/>
+        <referencedby refid="group__v__frmbuf__rd_1ga80af786a199e9d406016cbe77c6cce9a" compoundref="xv__frmbufrd__l2_8c" startline="1155" endline="1229">XVFrmbufRd_DbgReportStatus</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v__frmbufrd___config_1a35b47e21bc2c6a0a0c38adb00f8dbc69" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XV_frmbufrd_Config::RGB8En</definition>
+        <argsstring></argsstring>
+        <name>RGB8En</name>
+        <briefdescription>
+<para>RGB8 support. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" line="73" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" bodystart="73" bodyend="-1"/>
+        <referencedby refid="group__v__frmbuf__rd_1ga80af786a199e9d406016cbe77c6cce9a" compoundref="xv__frmbufrd__l2_8c" startline="1155" endline="1229">XVFrmbufRd_DbgReportStatus</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v__frmbufrd___config_1a0f08d1a6abb209e54847fd78ed574cac" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XV_frmbufrd_Config::YUV8En</definition>
+        <argsstring></argsstring>
+        <name>YUV8En</name>
+        <briefdescription>
+<para>YUV8 support. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" line="74" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" bodystart="74" bodyend="-1"/>
+        <referencedby refid="group__v__frmbuf__rd_1ga80af786a199e9d406016cbe77c6cce9a" compoundref="xv__frmbufrd__l2_8c" startline="1155" endline="1229">XVFrmbufRd_DbgReportStatus</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v__frmbufrd___config_1a91ab6c96db15ae2bea46023087a80a72" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XV_frmbufrd_Config::Y_UV10En</definition>
+        <argsstring></argsstring>
+        <name>Y_UV10En</name>
+        <briefdescription>
+<para>Y_UV10 support. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" line="75" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" bodystart="75" bodyend="-1"/>
+        <referencedby refid="group__v__frmbuf__rd_1ga80af786a199e9d406016cbe77c6cce9a" compoundref="xv__frmbufrd__l2_8c" startline="1155" endline="1229">XVFrmbufRd_DbgReportStatus</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v__frmbufrd___config_1a237956ff2d7b7e3ba9446191a814a0ef" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XV_frmbufrd_Config::Y_UV10_420En</definition>
+        <argsstring></argsstring>
+        <name>Y_UV10_420En</name>
+        <briefdescription>
+<para>Y_UV10_420 support. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" line="76" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" bodystart="76" bodyend="-1"/>
+        <referencedby refid="group__v__frmbuf__rd_1ga80af786a199e9d406016cbe77c6cce9a" compoundref="xv__frmbufrd__l2_8c" startline="1155" endline="1229">XVFrmbufRd_DbgReportStatus</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v__frmbufrd___config_1a2be774ba1b959b5db938eb11c82088e5" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XV_frmbufrd_Config::Y8En</definition>
+        <argsstring></argsstring>
+        <name>Y8En</name>
+        <briefdescription>
+<para>Y8 support. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" line="77" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" bodystart="77" bodyend="-1"/>
+        <referencedby refid="group__v__frmbuf__rd_1ga80af786a199e9d406016cbe77c6cce9a" compoundref="xv__frmbufrd__l2_8c" startline="1155" endline="1229">XVFrmbufRd_DbgReportStatus</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v__frmbufrd___config_1ae9843a8e3b3cc67104faaee20b511cf6" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XV_frmbufrd_Config::Y10En</definition>
+        <argsstring></argsstring>
+        <name>Y10En</name>
+        <briefdescription>
+<para>Y10 support. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" line="78" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" bodystart="78" bodyend="-1"/>
+        <referencedby refid="group__v__frmbuf__rd_1ga80af786a199e9d406016cbe77c6cce9a" compoundref="xv__frmbufrd__l2_8c" startline="1155" endline="1229">XVFrmbufRd_DbgReportStatus</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v__frmbufrd___config_1a9e80ff6372f31d24faa6ebbf80882f0a" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XV_frmbufrd_Config::BGRX8En</definition>
+        <argsstring></argsstring>
+        <name>BGRX8En</name>
+        <briefdescription>
+<para>BGRX8 support. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" line="79" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" bodystart="79" bodyend="-1"/>
+        <referencedby refid="group__v__frmbuf__rd_1ga80af786a199e9d406016cbe77c6cce9a" compoundref="xv__frmbufrd__l2_8c" startline="1155" endline="1229">XVFrmbufRd_DbgReportStatus</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v__frmbufrd___config_1a686a45377a379aab5d7ac54cdbe7199e" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XV_frmbufrd_Config::UYVY8En</definition>
+        <argsstring></argsstring>
+        <name>UYVY8En</name>
+        <briefdescription>
+<para>UYVY8 support. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" line="80" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" bodystart="80" bodyend="-1"/>
+        <referencedby refid="group__v__frmbuf__rd_1ga80af786a199e9d406016cbe77c6cce9a" compoundref="xv__frmbufrd__l2_8c" startline="1155" endline="1229">XVFrmbufRd_DbgReportStatus</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v__frmbufrd___config_1af2eab7310b1ab55f84a5ae48a4b7a1c6" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XV_frmbufrd_Config::BGR8En</definition>
+        <argsstring></argsstring>
+        <name>BGR8En</name>
+        <briefdescription>
+<para>BGR8 support. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" line="81" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" bodystart="81" bodyend="-1"/>
+        <referencedby refid="group__v__frmbuf__rd_1ga80af786a199e9d406016cbe77c6cce9a" compoundref="xv__frmbufrd__l2_8c" startline="1155" endline="1229">XVFrmbufRd_DbgReportStatus</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v__frmbufrd___config_1a33a6f42b78f723e65a6d11010c7d1ddf" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XV_frmbufrd_Config::RGBX12En</definition>
+        <argsstring></argsstring>
+        <name>RGBX12En</name>
+        <briefdescription>
+<para>RGBX12 support. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" line="82" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" bodystart="82" bodyend="-1"/>
+        <referencedby refid="group__v__frmbuf__rd_1ga80af786a199e9d406016cbe77c6cce9a" compoundref="xv__frmbufrd__l2_8c" startline="1155" endline="1229">XVFrmbufRd_DbgReportStatus</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v__frmbufrd___config_1a8eafbda34c7dcfe8e88e63f7eadff463" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XV_frmbufrd_Config::RGB16En</definition>
+        <argsstring></argsstring>
+        <name>RGB16En</name>
+        <briefdescription>
+<para>RGB16 support. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" line="83" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" bodystart="83" bodyend="-1"/>
+        <referencedby refid="group__v__frmbuf__rd_1ga80af786a199e9d406016cbe77c6cce9a" compoundref="xv__frmbufrd__l2_8c" startline="1155" endline="1229">XVFrmbufRd_DbgReportStatus</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v__frmbufrd___config_1a22bac40a0615a432160e2babe681df50" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XV_frmbufrd_Config::YUVX12En</definition>
+        <argsstring></argsstring>
+        <name>YUVX12En</name>
+        <briefdescription>
+<para>YUVX12 support. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" line="84" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" bodystart="84" bodyend="-1"/>
+        <referencedby refid="group__v__frmbuf__rd_1ga80af786a199e9d406016cbe77c6cce9a" compoundref="xv__frmbufrd__l2_8c" startline="1155" endline="1229">XVFrmbufRd_DbgReportStatus</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v__frmbufrd___config_1a4feee426739cfb05746c1f3b4fb77bc6" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XV_frmbufrd_Config::Y_UV12En</definition>
+        <argsstring></argsstring>
+        <name>Y_UV12En</name>
+        <briefdescription>
+<para>Y_UV12 support. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" line="85" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" bodystart="85" bodyend="-1"/>
+        <referencedby refid="group__v__frmbuf__rd_1ga80af786a199e9d406016cbe77c6cce9a" compoundref="xv__frmbufrd__l2_8c" startline="1155" endline="1229">XVFrmbufRd_DbgReportStatus</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v__frmbufrd___config_1a4b91ff5115bff40354e38275d7002773" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XV_frmbufrd_Config::Y_UV12_420En</definition>
+        <argsstring></argsstring>
+        <name>Y_UV12_420En</name>
+        <briefdescription>
+<para>Y_UV12_420 support. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" line="86" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" bodystart="86" bodyend="-1"/>
+        <referencedby refid="group__v__frmbuf__rd_1ga80af786a199e9d406016cbe77c6cce9a" compoundref="xv__frmbufrd__l2_8c" startline="1155" endline="1229">XVFrmbufRd_DbgReportStatus</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v__frmbufrd___config_1a33a690d459578c94feca9a088f5d24e4" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XV_frmbufrd_Config::Y12En</definition>
+        <argsstring></argsstring>
+        <name>Y12En</name>
+        <briefdescription>
+<para>Y12 support. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" line="87" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" bodystart="87" bodyend="-1"/>
+        <referencedby refid="group__v__frmbuf__rd_1ga80af786a199e9d406016cbe77c6cce9a" compoundref="xv__frmbufrd__l2_8c" startline="1155" endline="1229">XVFrmbufRd_DbgReportStatus</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v__frmbufrd___config_1a63d2add0f85a03b20b9821f5185c5e8a" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XV_frmbufrd_Config::YUV16En</definition>
+        <argsstring></argsstring>
+        <name>YUV16En</name>
+        <briefdescription>
+<para>YUV16 support. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" line="88" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" bodystart="88" bodyend="-1"/>
+        <referencedby refid="group__v__frmbuf__rd_1ga80af786a199e9d406016cbe77c6cce9a" compoundref="xv__frmbufrd__l2_8c" startline="1155" endline="1229">XVFrmbufRd_DbgReportStatus</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v__frmbufrd___config_1af195e57736581b63559a880288b657a0" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XV_frmbufrd_Config::Y_UV16En</definition>
+        <argsstring></argsstring>
+        <name>Y_UV16En</name>
+        <briefdescription>
+<para>Y_UV16 support. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" line="89" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" bodystart="89" bodyend="-1"/>
+        <referencedby refid="group__v__frmbuf__rd_1ga80af786a199e9d406016cbe77c6cce9a" compoundref="xv__frmbufrd__l2_8c" startline="1155" endline="1229">XVFrmbufRd_DbgReportStatus</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v__frmbufrd___config_1acc32458a9c17c64e4ba34be13cf3450a" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XV_frmbufrd_Config::Y_UV16_420En</definition>
+        <argsstring></argsstring>
+        <name>Y_UV16_420En</name>
+        <briefdescription>
+<para>Y_UV16_420 support. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" line="90" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" bodystart="90" bodyend="-1"/>
+        <referencedby refid="group__v__frmbuf__rd_1ga80af786a199e9d406016cbe77c6cce9a" compoundref="xv__frmbufrd__l2_8c" startline="1155" endline="1229">XVFrmbufRd_DbgReportStatus</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v__frmbufrd___config_1a0289c00ae14478df4c4c6c934d48d71d" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XV_frmbufrd_Config::Y16En</definition>
+        <argsstring></argsstring>
+        <name>Y16En</name>
+        <briefdescription>
+<para>Y16 support. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" line="91" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" bodystart="91" bodyend="-1"/>
+        <referencedby refid="group__v__frmbuf__rd_1ga80af786a199e9d406016cbe77c6cce9a" compoundref="xv__frmbufrd__l2_8c" startline="1155" endline="1229">XVFrmbufRd_DbgReportStatus</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v__frmbufrd___config_1ac5e83943b8d5ce0a4a9cfd94ce826603" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XV_frmbufrd_Config::Y_U_V8En</definition>
+        <argsstring></argsstring>
+        <name>Y_U_V8En</name>
+        <briefdescription>
+<para>Y_U_V8 support. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" line="92" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" bodystart="92" bodyend="-1"/>
+        <referencedby refid="group__v__frmbuf__rd_1ga80af786a199e9d406016cbe77c6cce9a" compoundref="xv__frmbufrd__l2_8c" startline="1155" endline="1229">XVFrmbufRd_DbgReportStatus</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v__frmbufrd___config_1a146d3832ce11d45ad055eb4e4bbea721" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XV_frmbufrd_Config::Y_U_V10En</definition>
+        <argsstring></argsstring>
+        <name>Y_U_V10En</name>
+        <briefdescription>
+<para>Y_U_V10 support. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" line="93" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" bodystart="93" bodyend="-1"/>
+        <referencedby refid="group__v__frmbuf__rd_1ga80af786a199e9d406016cbe77c6cce9a" compoundref="xv__frmbufrd__l2_8c" startline="1155" endline="1229">XVFrmbufRd_DbgReportStatus</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v__frmbufrd___config_1af6bb10d500393cb3e58a776de88ccd6a" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XV_frmbufrd_Config::Y_U_V8_420En</definition>
+        <argsstring></argsstring>
+        <name>Y_U_V8_420En</name>
+        <briefdescription>
+<para>Y_U_V8_420 support. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" line="94" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" bodystart="94" bodyend="-1"/>
+        <referencedby refid="group__v__frmbuf__rd_1ga80af786a199e9d406016cbe77c6cce9a" compoundref="xv__frmbufrd__l2_8c" startline="1155" endline="1229">XVFrmbufRd_DbgReportStatus</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v__frmbufrd___config_1a169498c5eb2717170ce05a3f9c452eb3" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XV_frmbufrd_Config::Y_U_V12En</definition>
+        <argsstring></argsstring>
+        <name>Y_U_V12En</name>
+        <briefdescription>
+<para>Y_U_V12 support. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" line="95" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" bodystart="95" bodyend="-1"/>
+        <referencedby refid="group__v__frmbuf__rd_1ga80af786a199e9d406016cbe77c6cce9a" compoundref="xv__frmbufrd__l2_8c" startline="1155" endline="1229">XVFrmbufRd_DbgReportStatus</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v__frmbufrd___config_1abf3041b1e8a1c0d18a115e7146781226" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XV_frmbufrd_Config::Y_U_V10_L16LEEn</definition>
+        <argsstring></argsstring>
+        <name>Y_U_V10_L16LEEn</name>
+        <briefdescription>
+<para>Y_U_V10_L16LE support. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" line="96" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" bodystart="96" bodyend="-1"/>
+        <referencedby refid="group__v__frmbuf__rd_1ga80af786a199e9d406016cbe77c6cce9a" compoundref="xv__frmbufrd__l2_8c" startline="1155" endline="1229">XVFrmbufRd_DbgReportStatus</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v__frmbufrd___config_1a6b99e790e5150d07a629f4825b600f31" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XV_frmbufrd_Config::Y_UV10_L16LEEn</definition>
+        <argsstring></argsstring>
+        <name>Y_UV10_L16LEEn</name>
+        <briefdescription>
+<para>Y_UV10_L16LE support. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" line="97" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" bodystart="97" bodyend="-1"/>
+        <referencedby refid="group__v__frmbuf__rd_1ga80af786a199e9d406016cbe77c6cce9a" compoundref="xv__frmbufrd__l2_8c" startline="1155" endline="1229">XVFrmbufRd_DbgReportStatus</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v__frmbufrd___config_1ad7ab1a4651c4c64d5e3b554fa03b76cc" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XV_frmbufrd_Config::Y_UV10_420_L16LEEn</definition>
+        <argsstring></argsstring>
+        <name>Y_UV10_420_L16LEEn</name>
+        <briefdescription>
+<para>Y_UV10_420_L16LE support. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" line="98" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" bodystart="98" bodyend="-1"/>
+        <referencedby refid="group__v__frmbuf__rd_1ga80af786a199e9d406016cbe77c6cce9a" compoundref="xv__frmbufrd__l2_8c" startline="1155" endline="1229">XVFrmbufRd_DbgReportStatus</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v__frmbufrd___config_1a2e85f2deda9ae3411f2b392e92e58ea5" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XV_frmbufrd_Config::Y10_L16LEEn</definition>
+        <argsstring></argsstring>
+        <name>Y10_L16LEEn</name>
+        <briefdescription>
+<para>Y10_L16LE support. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" line="99" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" bodystart="99" bodyend="-1"/>
+        <referencedby refid="group__v__frmbuf__rd_1ga80af786a199e9d406016cbe77c6cce9a" compoundref="xv__frmbufrd__l2_8c" startline="1155" endline="1229">XVFrmbufRd_DbgReportStatus</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v__frmbufrd___config_1a13ce729d037f775126a995e6df87d3d5" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XV_frmbufrd_Config::Y_U_V12_L16LEEn</definition>
+        <argsstring></argsstring>
+        <name>Y_U_V12_L16LEEn</name>
+        <briefdescription>
+<para>Y_U_V12_L16LE support. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" line="100" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" bodystart="100" bodyend="-1"/>
+        <referencedby refid="group__v__frmbuf__rd_1ga80af786a199e9d406016cbe77c6cce9a" compoundref="xv__frmbufrd__l2_8c" startline="1155" endline="1229">XVFrmbufRd_DbgReportStatus</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v__frmbufrd___config_1a95d2115e281b4ed2b10b503dcf6ce533" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XV_frmbufrd_Config::Y_UV12_L16LEEn</definition>
+        <argsstring></argsstring>
+        <name>Y_UV12_L16LEEn</name>
+        <briefdescription>
+<para>Y_UV12_L16LE support. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" line="101" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" bodystart="101" bodyend="-1"/>
+        <referencedby refid="group__v__frmbuf__rd_1ga80af786a199e9d406016cbe77c6cce9a" compoundref="xv__frmbufrd__l2_8c" startline="1155" endline="1229">XVFrmbufRd_DbgReportStatus</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v__frmbufrd___config_1aa07edb4384068dfa2c2b283e92f9a842" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XV_frmbufrd_Config::Y_UV12_420_L16LEEn</definition>
+        <argsstring></argsstring>
+        <name>Y_UV12_420_L16LEEn</name>
+        <briefdescription>
+<para>Y_UV12_420_L16LE support. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" line="102" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" bodystart="102" bodyend="-1"/>
+        <referencedby refid="group__v__frmbuf__rd_1ga80af786a199e9d406016cbe77c6cce9a" compoundref="xv__frmbufrd__l2_8c" startline="1155" endline="1229">XVFrmbufRd_DbgReportStatus</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v__frmbufrd___config_1a1c19388f438d5f75b851b57317060709" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XV_frmbufrd_Config::Y12_L16LEEn</definition>
+        <argsstring></argsstring>
+        <name>Y12_L16LEEn</name>
+        <briefdescription>
+<para>Y12_L16LE support. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" line="103" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" bodystart="103" bodyend="-1"/>
+        <referencedby refid="group__v__frmbuf__rd_1ga80af786a199e9d406016cbe77c6cce9a" compoundref="xv__frmbufrd__l2_8c" startline="1155" endline="1229">XVFrmbufRd_DbgReportStatus</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v__frmbufrd___config_1acf1c928a89094fbd2657a99b0393b3ba" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XV_frmbufrd_Config::Y_U_V10_M16LEEn</definition>
+        <argsstring></argsstring>
+        <name>Y_U_V10_M16LEEn</name>
+        <briefdescription>
+<para>Y_U_V10_M16LE support. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" line="104" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" bodystart="104" bodyend="-1"/>
+        <referencedby refid="group__v__frmbuf__rd_1ga80af786a199e9d406016cbe77c6cce9a" compoundref="xv__frmbufrd__l2_8c" startline="1155" endline="1229">XVFrmbufRd_DbgReportStatus</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v__frmbufrd___config_1a4716e1b5b60e2403f846e6d9ae0b9fa2" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XV_frmbufrd_Config::Y_UV10_M16LEEn</definition>
+        <argsstring></argsstring>
+        <name>Y_UV10_M16LEEn</name>
+        <briefdescription>
+<para>Y_UV10_M16LE support. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" line="105" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" bodystart="105" bodyend="-1"/>
+        <referencedby refid="group__v__frmbuf__rd_1ga80af786a199e9d406016cbe77c6cce9a" compoundref="xv__frmbufrd__l2_8c" startline="1155" endline="1229">XVFrmbufRd_DbgReportStatus</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v__frmbufrd___config_1a93a026b7a472f6372f374c31b4735d65" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XV_frmbufrd_Config::Y_UV10_420_M16LEEn</definition>
+        <argsstring></argsstring>
+        <name>Y_UV10_420_M16LEEn</name>
+        <briefdescription>
+<para>Y_UV10_420_M16LE support. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" line="106" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" bodystart="106" bodyend="-1"/>
+        <referencedby refid="group__v__frmbuf__rd_1ga80af786a199e9d406016cbe77c6cce9a" compoundref="xv__frmbufrd__l2_8c" startline="1155" endline="1229">XVFrmbufRd_DbgReportStatus</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v__frmbufrd___config_1af6f4bbfea1c8783c37c32807ada162ed" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XV_frmbufrd_Config::Y10_M16LEEn</definition>
+        <argsstring></argsstring>
+        <name>Y10_M16LEEn</name>
+        <briefdescription>
+<para>Y10_M16LE support. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" line="107" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" bodystart="107" bodyend="-1"/>
+        <referencedby refid="group__v__frmbuf__rd_1ga80af786a199e9d406016cbe77c6cce9a" compoundref="xv__frmbufrd__l2_8c" startline="1155" endline="1229">XVFrmbufRd_DbgReportStatus</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v__frmbufrd___config_1a4e8d0e8f0864e4bbfaea8b2c85e3dd97" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XV_frmbufrd_Config::Y_U_V12_M16LEEn</definition>
+        <argsstring></argsstring>
+        <name>Y_U_V12_M16LEEn</name>
+        <briefdescription>
+<para>Y_U_V12_M16LE support. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" line="108" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" bodystart="108" bodyend="-1"/>
+        <referencedby refid="group__v__frmbuf__rd_1ga80af786a199e9d406016cbe77c6cce9a" compoundref="xv__frmbufrd__l2_8c" startline="1155" endline="1229">XVFrmbufRd_DbgReportStatus</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v__frmbufrd___config_1a9957edc8681093c533990a7408bc57e6" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XV_frmbufrd_Config::Y_UV12_M16LEEn</definition>
+        <argsstring></argsstring>
+        <name>Y_UV12_M16LEEn</name>
+        <briefdescription>
+<para>Y_UV12_M16LE support. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" line="109" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" bodystart="109" bodyend="-1"/>
+        <referencedby refid="group__v__frmbuf__rd_1ga80af786a199e9d406016cbe77c6cce9a" compoundref="xv__frmbufrd__l2_8c" startline="1155" endline="1229">XVFrmbufRd_DbgReportStatus</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v__frmbufrd___config_1aaf36e22d597f9e7cfbfb24747967e83f" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XV_frmbufrd_Config::Y_UV12_420_M16LEEn</definition>
+        <argsstring></argsstring>
+        <name>Y_UV12_420_M16LEEn</name>
+        <briefdescription>
+<para>Y_UV12_420_M16LE support. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" line="110" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" bodystart="110" bodyend="-1"/>
+        <referencedby refid="group__v__frmbuf__rd_1ga80af786a199e9d406016cbe77c6cce9a" compoundref="xv__frmbufrd__l2_8c" startline="1155" endline="1229">XVFrmbufRd_DbgReportStatus</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v__frmbufrd___config_1acf2d68187f2df79b9938a8f0eddfd7c2" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XV_frmbufrd_Config::Y12_M16LEEn</definition>
+        <argsstring></argsstring>
+        <name>Y12_M16LEEn</name>
+        <briefdescription>
+<para>Y12_M16LE support. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" line="111" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" bodystart="111" bodyend="-1"/>
+        <referencedby refid="group__v__frmbuf__rd_1ga80af786a199e9d406016cbe77c6cce9a" compoundref="xv__frmbufrd__l2_8c" startline="1155" endline="1229">XVFrmbufRd_DbgReportStatus</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v__frmbufrd___config_1af39acffd50212a191944b93b31f6f6a7" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XV_frmbufrd_Config::Interlaced</definition>
+        <argsstring></argsstring>
+        <name>Interlaced</name>
+        <briefdescription>
+<para>Interlaced support. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" line="112" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" bodystart="112" bodyend="-1"/>
+        <referencedby refid="xv__frmbufrd_8h_1a661491728a53cb282dfba0b79b7ef99f" compoundref="xv__frmbufrd_8c" startline="544" endline="553">XV_frmbufrd_Get_HwReg_field_id</referencedby>
+        <referencedby refid="xv__frmbufrd_8h_1aebd00f8c2bf1a182e35d6f305010cf03" compoundref="xv__frmbufrd_8c" startline="525" endline="531">XV_frmbufrd_Set_HwReg_field_id</referencedby>
+        <referencedby refid="group__v__frmbuf__rd_1ga80af786a199e9d406016cbe77c6cce9a" compoundref="xv__frmbufrd__l2_8c" startline="1155" endline="1229">XVFrmbufRd_DbgReportStatus</referencedby>
+        <referencedby refid="group__v__frmbuf__rd_1ga4a2a50eb3122b05363529db59acaa699" compoundref="xv__frmbufrd__l2_8c" startline="1103" endline="1113">XVFrmbufRd_Get_FidErrorCount</referencedby>
+        <referencedby refid="group__v__frmbuf__rd_1gaa7f04dec0da407195c91e99252ba2f4d" compoundref="xv__frmbufrd__l2_8c" startline="1081" endline="1091">XVFrmbufRd_Get_FidErrorOut</referencedby>
+        <referencedby refid="group__v__frmbuf__rd_1ga332ca9116cadeb32b1904ce3dde65abc" compoundref="xv__frmbufrd__l2_8c" startline="1059" endline="1069">XVFrmbufRd_Get_FidOutMode</referencedby>
+        <referencedby refid="group__v__frmbuf__rd_1gaa3a66d4846e2dc24fef32aa98ac9806c" compoundref="xv__frmbufrd__l2_8c" startline="1128" endline="1138">XVFrmbufRd_Get_FieldOut</referencedby>
+        <referencedby refid="group__v__frmbuf__rd_1gaf6aab33970a5d93caf764bddea2c86c4" compoundref="xv__frmbufrd__l2_8c" startline="1010" endline="1019">XVFrmbufRd_GetFieldID</referencedby>
+        <referencedby refid="group__v__frmbuf__rd_1ga2b93653c8567e7735888fe5e8c76aabf" compoundref="xv__frmbufrd__l2_8c" startline="1033" endline="1046">XVFrmbufRd_Set_FidOutMode</referencedby>
+        <referencedby refid="group__v__frmbuf__rd_1ga76d715c4caace0c73116230fb3b51a66" compoundref="xv__frmbufrd__l2_8c" startline="986" endline="998">XVFrmbufRd_SetFieldID</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v__frmbufrd___config_1afa30637712f26c12cff03ca7442e7b03" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XV_frmbufrd_Config::IsTileFormat</definition>
+        <argsstring></argsstring>
+        <name>IsTileFormat</name>
+        <briefdescription>
+<para>Tile format support. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" line="113" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" bodystart="113" bodyend="-1"/>
+        <referencedby refid="group__v__frmbuf__rd_1ga80af786a199e9d406016cbe77c6cce9a" compoundref="xv__frmbufrd__l2_8c" startline="1155" endline="1229">XVFrmbufRd_DbgReportStatus</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v__frmbufrd___config_1af971a55ff3abfe64281de555fd74b4b2" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XV_frmbufrd_Config::IntrId</definition>
+        <argsstring></argsstring>
+        <name>IntrId</name>
+        <briefdescription>
+<para>Interrupt ID. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" line="115" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" bodystart="115" bodyend="-1"/>
+        <referencedby refid="xv__frmbufrd__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xv__frmbufrd__example_8c" startline="651" endline="801">main</referencedby>
+        <referencedby refid="xv__frmbufrd_8h_1ae27c0ffab1b0eba3b0227dfaaf98b329" compoundref="xv__frmbufrd_8c" startline="29" endline="48">XV_frmbufrd_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v__frmbufrd___config_1a60001ae4b1cbf33c20d592be7063b9f0" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XV_frmbufrd_Config::IntrParent</definition>
+        <argsstring></argsstring>
+        <name>IntrParent</name>
+        <briefdescription>
+<para>Bit[0] Interrupt parent type Bit[64/32:1] Parent base address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" line="116" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" bodystart="116" bodyend="-1"/>
+        <referencedby refid="xv__frmbufrd__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xv__frmbufrd__example_8c" startline="651" endline="801">main</referencedby>
+        <referencedby refid="xv__frmbufrd_8h_1ae27c0ffab1b0eba3b0227dfaaf98b329" compoundref="xv__frmbufrd_8c" startline="29" endline="48">XV_frmbufrd_CfgInitialize</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef contains configuration information for the frame buffer read core Each core instance should have a configuration structure associated. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" line="50" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" bodystart="50" bodyend="118"/>
+    <listofallmembers>
+      <member refid="struct_x_v__frmbufrd___config_1a598374e63fd95a53f807a0ea6ca643bc" prot="public" virt="non-virtual"><scope>XV_frmbufrd_Config</scope><name>AXIMMAddrWidth</name></member>
+      <member refid="struct_x_v__frmbufrd___config_1a5c264b3bca3a8e49ab5a5fa549e63a22" prot="public" virt="non-virtual"><scope>XV_frmbufrd_Config</scope><name>AXIMMDataWidth</name></member>
+      <member refid="struct_x_v__frmbufrd___config_1a6229f3b0866dac75bd3f425693f886f4" prot="public" virt="non-virtual"><scope>XV_frmbufrd_Config</scope><name>BaseAddress</name></member>
+      <member refid="struct_x_v__frmbufrd___config_1af2eab7310b1ab55f84a5ae48a4b7a1c6" prot="public" virt="non-virtual"><scope>XV_frmbufrd_Config</scope><name>BGR8En</name></member>
+      <member refid="struct_x_v__frmbufrd___config_1a42c8816efe3e98b5e8e328dc84cf0e69" prot="public" virt="non-virtual"><scope>XV_frmbufrd_Config</scope><name>BGRA8En</name></member>
+      <member refid="struct_x_v__frmbufrd___config_1a9e80ff6372f31d24faa6ebbf80882f0a" prot="public" virt="non-virtual"><scope>XV_frmbufrd_Config</scope><name>BGRX8En</name></member>
+      <member refid="struct_x_v__frmbufrd___config_1af39acffd50212a191944b93b31f6f6a7" prot="public" virt="non-virtual"><scope>XV_frmbufrd_Config</scope><name>Interlaced</name></member>
+      <member refid="struct_x_v__frmbufrd___config_1af971a55ff3abfe64281de555fd74b4b2" prot="public" virt="non-virtual"><scope>XV_frmbufrd_Config</scope><name>IntrId</name></member>
+      <member refid="struct_x_v__frmbufrd___config_1a60001ae4b1cbf33c20d592be7063b9f0" prot="public" virt="non-virtual"><scope>XV_frmbufrd_Config</scope><name>IntrParent</name></member>
+      <member refid="struct_x_v__frmbufrd___config_1afa30637712f26c12cff03ca7442e7b03" prot="public" virt="non-virtual"><scope>XV_frmbufrd_Config</scope><name>IsTileFormat</name></member>
+      <member refid="struct_x_v__frmbufrd___config_1a92843183639024e2d4aa70796c50c594" prot="public" virt="non-virtual"><scope>XV_frmbufrd_Config</scope><name>MaxDataWidth</name></member>
+      <member refid="struct_x_v__frmbufrd___config_1afa7aea81440b723351a3f68eacd2ce65" prot="public" virt="non-virtual"><scope>XV_frmbufrd_Config</scope><name>MaxHeight</name></member>
+      <member refid="struct_x_v__frmbufrd___config_1afbe098bbde68a92384db2d9268b83bf0" prot="public" virt="non-virtual"><scope>XV_frmbufrd_Config</scope><name>MaxWidth</name></member>
+      <member refid="struct_x_v__frmbufrd___config_1aa366cec21bbbce04854f5e5c105d7203" prot="public" virt="non-virtual"><scope>XV_frmbufrd_Config</scope><name>Name</name></member>
+      <member refid="struct_x_v__frmbufrd___config_1acf9e48679e5b62a96773b6e31a06d8db" prot="public" virt="non-virtual"><scope>XV_frmbufrd_Config</scope><name>PixPerClk</name></member>
+      <member refid="struct_x_v__frmbufrd___config_1a8eafbda34c7dcfe8e88e63f7eadff463" prot="public" virt="non-virtual"><scope>XV_frmbufrd_Config</scope><name>RGB16En</name></member>
+      <member refid="struct_x_v__frmbufrd___config_1a35b47e21bc2c6a0a0c38adb00f8dbc69" prot="public" virt="non-virtual"><scope>XV_frmbufrd_Config</scope><name>RGB8En</name></member>
+      <member refid="struct_x_v__frmbufrd___config_1a491416764de129e257f43cc412098c8c" prot="public" virt="non-virtual"><scope>XV_frmbufrd_Config</scope><name>RGBA8En</name></member>
+      <member refid="struct_x_v__frmbufrd___config_1ae18753e8f48581e9f2c07f3316563ae4" prot="public" virt="non-virtual"><scope>XV_frmbufrd_Config</scope><name>RGBX10En</name></member>
+      <member refid="struct_x_v__frmbufrd___config_1a33a6f42b78f723e65a6d11010c7d1ddf" prot="public" virt="non-virtual"><scope>XV_frmbufrd_Config</scope><name>RGBX12En</name></member>
+      <member refid="struct_x_v__frmbufrd___config_1ae4d0984d4f7ed39d870cb86ecb323db0" prot="public" virt="non-virtual"><scope>XV_frmbufrd_Config</scope><name>RGBX8En</name></member>
+      <member refid="struct_x_v__frmbufrd___config_1a686a45377a379aab5d7ac54cdbe7199e" prot="public" virt="non-virtual"><scope>XV_frmbufrd_Config</scope><name>UYVY8En</name></member>
+      <member refid="struct_x_v__frmbufrd___config_1a2e85f2deda9ae3411f2b392e92e58ea5" prot="public" virt="non-virtual"><scope>XV_frmbufrd_Config</scope><name>Y10_L16LEEn</name></member>
+      <member refid="struct_x_v__frmbufrd___config_1af6f4bbfea1c8783c37c32807ada162ed" prot="public" virt="non-virtual"><scope>XV_frmbufrd_Config</scope><name>Y10_M16LEEn</name></member>
+      <member refid="struct_x_v__frmbufrd___config_1ae9843a8e3b3cc67104faaee20b511cf6" prot="public" virt="non-virtual"><scope>XV_frmbufrd_Config</scope><name>Y10En</name></member>
+      <member refid="struct_x_v__frmbufrd___config_1a1c19388f438d5f75b851b57317060709" prot="public" virt="non-virtual"><scope>XV_frmbufrd_Config</scope><name>Y12_L16LEEn</name></member>
+      <member refid="struct_x_v__frmbufrd___config_1acf2d68187f2df79b9938a8f0eddfd7c2" prot="public" virt="non-virtual"><scope>XV_frmbufrd_Config</scope><name>Y12_M16LEEn</name></member>
+      <member refid="struct_x_v__frmbufrd___config_1a33a690d459578c94feca9a088f5d24e4" prot="public" virt="non-virtual"><scope>XV_frmbufrd_Config</scope><name>Y12En</name></member>
+      <member refid="struct_x_v__frmbufrd___config_1a0289c00ae14478df4c4c6c934d48d71d" prot="public" virt="non-virtual"><scope>XV_frmbufrd_Config</scope><name>Y16En</name></member>
+      <member refid="struct_x_v__frmbufrd___config_1a2be774ba1b959b5db938eb11c82088e5" prot="public" virt="non-virtual"><scope>XV_frmbufrd_Config</scope><name>Y8En</name></member>
+      <member refid="struct_x_v__frmbufrd___config_1abf3041b1e8a1c0d18a115e7146781226" prot="public" virt="non-virtual"><scope>XV_frmbufrd_Config</scope><name>Y_U_V10_L16LEEn</name></member>
+      <member refid="struct_x_v__frmbufrd___config_1acf1c928a89094fbd2657a99b0393b3ba" prot="public" virt="non-virtual"><scope>XV_frmbufrd_Config</scope><name>Y_U_V10_M16LEEn</name></member>
+      <member refid="struct_x_v__frmbufrd___config_1a146d3832ce11d45ad055eb4e4bbea721" prot="public" virt="non-virtual"><scope>XV_frmbufrd_Config</scope><name>Y_U_V10En</name></member>
+      <member refid="struct_x_v__frmbufrd___config_1a13ce729d037f775126a995e6df87d3d5" prot="public" virt="non-virtual"><scope>XV_frmbufrd_Config</scope><name>Y_U_V12_L16LEEn</name></member>
+      <member refid="struct_x_v__frmbufrd___config_1a4e8d0e8f0864e4bbfaea8b2c85e3dd97" prot="public" virt="non-virtual"><scope>XV_frmbufrd_Config</scope><name>Y_U_V12_M16LEEn</name></member>
+      <member refid="struct_x_v__frmbufrd___config_1a169498c5eb2717170ce05a3f9c452eb3" prot="public" virt="non-virtual"><scope>XV_frmbufrd_Config</scope><name>Y_U_V12En</name></member>
+      <member refid="struct_x_v__frmbufrd___config_1af6bb10d500393cb3e58a776de88ccd6a" prot="public" virt="non-virtual"><scope>XV_frmbufrd_Config</scope><name>Y_U_V8_420En</name></member>
+      <member refid="struct_x_v__frmbufrd___config_1ac5e83943b8d5ce0a4a9cfd94ce826603" prot="public" virt="non-virtual"><scope>XV_frmbufrd_Config</scope><name>Y_U_V8En</name></member>
+      <member refid="struct_x_v__frmbufrd___config_1ad7ab1a4651c4c64d5e3b554fa03b76cc" prot="public" virt="non-virtual"><scope>XV_frmbufrd_Config</scope><name>Y_UV10_420_L16LEEn</name></member>
+      <member refid="struct_x_v__frmbufrd___config_1a93a026b7a472f6372f374c31b4735d65" prot="public" virt="non-virtual"><scope>XV_frmbufrd_Config</scope><name>Y_UV10_420_M16LEEn</name></member>
+      <member refid="struct_x_v__frmbufrd___config_1a237956ff2d7b7e3ba9446191a814a0ef" prot="public" virt="non-virtual"><scope>XV_frmbufrd_Config</scope><name>Y_UV10_420En</name></member>
+      <member refid="struct_x_v__frmbufrd___config_1a6b99e790e5150d07a629f4825b600f31" prot="public" virt="non-virtual"><scope>XV_frmbufrd_Config</scope><name>Y_UV10_L16LEEn</name></member>
+      <member refid="struct_x_v__frmbufrd___config_1a4716e1b5b60e2403f846e6d9ae0b9fa2" prot="public" virt="non-virtual"><scope>XV_frmbufrd_Config</scope><name>Y_UV10_M16LEEn</name></member>
+      <member refid="struct_x_v__frmbufrd___config_1a91ab6c96db15ae2bea46023087a80a72" prot="public" virt="non-virtual"><scope>XV_frmbufrd_Config</scope><name>Y_UV10En</name></member>
+      <member refid="struct_x_v__frmbufrd___config_1aa07edb4384068dfa2c2b283e92f9a842" prot="public" virt="non-virtual"><scope>XV_frmbufrd_Config</scope><name>Y_UV12_420_L16LEEn</name></member>
+      <member refid="struct_x_v__frmbufrd___config_1aaf36e22d597f9e7cfbfb24747967e83f" prot="public" virt="non-virtual"><scope>XV_frmbufrd_Config</scope><name>Y_UV12_420_M16LEEn</name></member>
+      <member refid="struct_x_v__frmbufrd___config_1a4b91ff5115bff40354e38275d7002773" prot="public" virt="non-virtual"><scope>XV_frmbufrd_Config</scope><name>Y_UV12_420En</name></member>
+      <member refid="struct_x_v__frmbufrd___config_1a95d2115e281b4ed2b10b503dcf6ce533" prot="public" virt="non-virtual"><scope>XV_frmbufrd_Config</scope><name>Y_UV12_L16LEEn</name></member>
+      <member refid="struct_x_v__frmbufrd___config_1a9957edc8681093c533990a7408bc57e6" prot="public" virt="non-virtual"><scope>XV_frmbufrd_Config</scope><name>Y_UV12_M16LEEn</name></member>
+      <member refid="struct_x_v__frmbufrd___config_1a4feee426739cfb05746c1f3b4fb77bc6" prot="public" virt="non-virtual"><scope>XV_frmbufrd_Config</scope><name>Y_UV12En</name></member>
+      <member refid="struct_x_v__frmbufrd___config_1acc32458a9c17c64e4ba34be13cf3450a" prot="public" virt="non-virtual"><scope>XV_frmbufrd_Config</scope><name>Y_UV16_420En</name></member>
+      <member refid="struct_x_v__frmbufrd___config_1af195e57736581b63559a880288b657a0" prot="public" virt="non-virtual"><scope>XV_frmbufrd_Config</scope><name>Y_UV16En</name></member>
+      <member refid="struct_x_v__frmbufrd___config_1a30b0293bfdd550b1757f979f0e7d9517" prot="public" virt="non-virtual"><scope>XV_frmbufrd_Config</scope><name>Y_UV8_420En</name></member>
+      <member refid="struct_x_v__frmbufrd___config_1aed1ba306c17bddb97b1005b2ba2de954" prot="public" virt="non-virtual"><scope>XV_frmbufrd_Config</scope><name>Y_UV8En</name></member>
+      <member refid="struct_x_v__frmbufrd___config_1a63d2add0f85a03b20b9821f5185c5e8a" prot="public" virt="non-virtual"><scope>XV_frmbufrd_Config</scope><name>YUV16En</name></member>
+      <member refid="struct_x_v__frmbufrd___config_1a0f08d1a6abb209e54847fd78ed574cac" prot="public" virt="non-virtual"><scope>XV_frmbufrd_Config</scope><name>YUV8En</name></member>
+      <member refid="struct_x_v__frmbufrd___config_1a820a4f365717f19484c2152ab2f3aca0" prot="public" virt="non-virtual"><scope>XV_frmbufrd_Config</scope><name>YUVA8En</name></member>
+      <member refid="struct_x_v__frmbufrd___config_1a61ee96917cf6c65ae74d42b0d12e19b2" prot="public" virt="non-virtual"><scope>XV_frmbufrd_Config</scope><name>YUVX10En</name></member>
+      <member refid="struct_x_v__frmbufrd___config_1a22bac40a0615a432160e2babe681df50" prot="public" virt="non-virtual"><scope>XV_frmbufrd_Config</scope><name>YUVX12En</name></member>
+      <member refid="struct_x_v__frmbufrd___config_1a16b91c3aa0927a744150eb3450ff8557" prot="public" virt="non-virtual"><scope>XV_frmbufrd_Config</scope><name>YUVX8En</name></member>
+      <member refid="struct_x_v__frmbufrd___config_1a97ce077fe3e21e5779e1c00e623d7c41" prot="public" virt="non-virtual"><scope>XV_frmbufrd_Config</scope><name>YUYV8En</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

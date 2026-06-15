@@ -1,0 +1,249 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__xnvm__mailbox__apis" kind="group">
+    <compoundname>xnvm_mailbox_apis</compoundname>
+    <title>XilNvm Mailbox APIs</title>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xnvm__mailbox__apis_1ga4f3c270f11a9a69fbc46f6a53b700384" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XNvm_SendRequest</definition>
+        <argsstring>(const XNvm_ClientInstance *InstancePtr, u32 *PayloadBuf, u32 PayloadLen, u32 *ResponseBuf, u32 ResponseLen)</argsstring>
+        <name>XNvm_SendRequest</name>
+        <param>
+          <type>const XNvm_ClientInstance *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>PayloadBuf</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>PayloadLen</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>ResponseBuf</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>ResponseLen</declname>
+        </param>
+        <briefdescription>
+<para>This function sends request to PLM through either SMC or IPI mailbox based on the execution environment. </para>        </briefdescription>
+        <detaileddescription>
+<para>For EL1 non-secure AArch64 applications, SMC is used. For other environments, IPI mailbox is used.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the client instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>PayloadBuf</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the payload message </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>PayloadLen</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Length of the payload message </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ResponseBuf</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to store response values (can be NULL) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ResponseLen</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Length of response buffer (pass 0U when ResponseBuf is NULL)</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS If the request is successful</para></listitem><listitem><para>XST_FAILURE If there is a failure</para></listitem><listitem><para>XST_INVALID_PARAM If input parameters are invalid</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>This is a generic API that internally handles SMC or Mailbox communication based on the build configuration. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Validate input parameters</para></listitem><listitem><para>Validate mailbox pointer for IPI communication</para></listitem><listitem><para>Send request through IPI mailbox</para></listitem></itemizedlist>
+</para><para>Note: For mailbox path, response is not directly returned. The caller should handle response retrieval if needed.</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/client/xnvm_generic.c" line="67" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/client/xnvm_generic.c" bodystart="67" bodyend="104"/>
+        <references refid="group__xnvm__mailbox__apis_1ga3ce66c6266190912ba2552c2bc1701c7" compoundref="xnvm__mailbox_8c" startline="66" endline="95">XNvm_ProcessMailbox</references>
+        <referencedby refid="group__xnvm__bbram__client__api_1ga5ab6ca734ee3f575632ba1c88164d182" compoundref="xnvm__bbramclient_8c" startline="228" endline="251">XNvm_BbramLockUsrDataWrite</referencedby>
+        <referencedby refid="group__xnvm__bbram__client__api_1ga8cdf06389845d0a30a2d48ae3373b72b" compoundref="xnvm__bbramclient_8c" startline="187" endline="212">XNvm_BbramReadUsrData</referencedby>
+        <referencedby refid="group__xnvm__bbram__client__api_1ga3a9878e9a0eb1071cd34c4d14d842f10" compoundref="xnvm__bbramclient_8c" startline="64" endline="94">XNvm_BbramWriteAesKey</referencedby>
+        <referencedby refid="group__xnvm__bbram__client__api_1ga99bad6a63ce3e2663bd7976371598b4f" compoundref="xnvm__bbramclient_8c" startline="147" endline="171">XNvm_BbramWriteUsrData</referencedby>
+        <referencedby refid="group__xnvm__bbram__client__api_1gae4085a2c2243377cae4029f3236684e7" compoundref="xnvm__bbramclient_8c" startline="108" endline="131">XNvm_BbramZeroize</referencedby>
+        <referencedby refid="group__xnvm__efuse__client__apis_1ga016c1951e834a91b6e5b39d2db818977" compoundref="client_2xnvm__efuseclient_8c" startline="1141" endline="1165">XNvm_EfuseAesKeyCrcCheck</referencedby>
+        <referencedby refid="group__xnvm__efuse__client__apis_1gaa14ae0e8b42bf8801a510e2f31e29c88" compoundref="client_2xnvm__efuseclient_8c" startline="714" endline="738">XNvm_EfuseReadBootEnvCtrlBits</referencedby>
+        <referencedby refid="group__xnvm__efuse__client__apis_1ga15ea0137369d9a81a853a6784c43b29d" compoundref="client_2xnvm__efuseclient_8c" startline="884" endline="908">XNvm_EfuseReadDecOnly</referencedby>
+        <referencedby refid="group__xnvm__efuse__client__apis_1gacb7ff4ed433334fd4c7af398a6698be6" compoundref="client_2xnvm__efuseclient_8c" startline="925" endline="949">XNvm_EfuseReadDna</referencedby>
+        <referencedby refid="group__xnvm__efuse__client__apis_1gabbff97b78f82ae83002d64c9e4e61964" compoundref="client_2xnvm__efuseclient_8c" startline="464" endline="489">XNvm_EfuseReadIv</referencedby>
+        <referencedby refid="group__xnvm__efuse__client__apis_1gaf3ba1177b7892366982f77d32ec7ecf8" compoundref="client_2xnvm__efuseclient_8c" startline="591" endline="615">XNvm_EfuseReadMiscCtrlBits</referencedby>
+        <referencedby refid="group__xnvm__efuse__client__apis_1ga55a6be49ea504c9e07a532b5e82797c1" compoundref="client_2xnvm__efuseclient_8c" startline="798" endline="824">XNvm_EfuseReadOffchipRevokeId</referencedby>
+        <referencedby refid="group__xnvm__efuse__client__apis_1gad7ea5c5b0c9de1c1e6b4c2659a02ddeb" compoundref="client_2xnvm__efuseclient_8c" startline="842" endline="867">XNvm_EfuseReadPpkHash</referencedby>
+        <referencedby refid="group__xnvm__efuse__client__apis_1ga6a1e538568cd6b7e21084eaf138a3113" compoundref="client_2xnvm__efuseclient_8c" startline="1097" endline="1120">XNvm_EfuseReadPuf</referencedby>
+        <referencedby refid="group__xnvm__efuse__client__apis_1gae98054231a90a3ded1ec82c9a011ac94" compoundref="client_2xnvm__efuseclient_8c" startline="755" endline="780">XNvm_EfuseReadPufSecCtrlBits</referencedby>
+        <referencedby refid="group__xnvm__efuse__client__apis_1ga32e43ec62893f850f115f3ee0a5434f9" compoundref="client_2xnvm__efuseclient_8c" startline="507" endline="533">XNvm_EfuseReadRevocationId</referencedby>
+        <referencedby refid="group__xnvm__efuse__client__apis_1gae6cbda607227cfb4778b66c8c2a8ebf0" compoundref="client_2xnvm__efuseclient_8c" startline="632" endline="656">XNvm_EfuseReadSecCtrlBits</referencedby>
+        <referencedby refid="group__xnvm__efuse__client__apis_1gacc863c22d5d7a8f54f7d3cb28781a82e" compoundref="client_2xnvm__efuseclient_8c" startline="673" endline="697">XNvm_EfuseReadSecMisc1Bits</referencedby>
+        <referencedby refid="group__xnvm__efuse__client__apis_1ga1a3da417c5ca5121f4c8d375bf0ea298" compoundref="client_2xnvm__efuseclient_8c" startline="550" endline="574">XNvm_EfuseReadUserFuses</referencedby>
+        <referencedby refid="group__xnvm__efuse__client__apis_1ga6615e748856e15f3e2169f9413e7cbd1" compoundref="client_2xnvm__efuseclient_8c" startline="196" endline="281">XNvm_EfuseRevokePpk</referencedby>
+        <referencedby refid="group__xnvm__efuse__client__apis_1gaefb1c21b807d6bb2cd0725d0bdc473af" compoundref="client_2xnvm__efuseclient_8c" startline="77" endline="105">XNvm_EfuseWrite</referencedby>
+        <referencedby refid="group__xnvm__efuse__client__apis_1ga7ed0e93e0e8a58ecfc5dd60e42461c15" compoundref="client_2xnvm__efuseclient_8c" startline="124" endline="178">XNvm_EfuseWriteIVs</referencedby>
+        <referencedby refid="group__xnvm__efuse__client__apis_1gad260093cbe9bacb6d0f649b84bccd8a0" compoundref="client_2xnvm__efuseclient_8c" startline="1051" endline="1080">XNvm_EfuseWritePuf</referencedby>
+        <referencedby refid="group__xnvm__efuse__client__apis_1gae09868a910eea80203d78873f4de064c" compoundref="client_2xnvm__efuseclient_8c" startline="299" endline="374">XNvm_EfuseWriteRevocationId</referencedby>
+        <referencedby refid="group__xnvm__efuse__client__apis_1gab49aedef8afbe4faa8a842b847cece3c" compoundref="client_2xnvm__efuseclient_8c" startline="393" endline="446">XNvm_EfuseWriteUserFuses</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xnvm__mailbox__apis_1ga3ce66c6266190912ba2552c2bc1701c7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XNvm_ProcessMailbox</definition>
+        <argsstring>(XMailbox *MailboxPtr, u32 *MsgPtr, u32 MsgLen)</argsstring>
+        <name>XNvm_ProcessMailbox</name>
+        <param>
+          <type>XMailbox *</type>
+          <declname>MailboxPtr</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>MsgPtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>MsgLen</declname>
+        </param>
+        <briefdescription>
+<para>This function sends IPI request to the target module and gets the response from it. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>MailboxPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to mailbox instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>MsgPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the payload message </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>MsgLen</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Length of the message</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS If the IPI send and receive is successful</para></listitem><listitem><para>XST_FAILURE If there is a failure</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>Payload consists of API id and call arguments to be written in IPI buffer </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Send IPI CDO to PLM. Return XST_FAILURE, if failure in IPI send request.</para></listitem><listitem><para>Wait for IPI response from PLM with a default timeout of 2 seconds. If the timeout exceeds, then error is returned otherwise it returns the status of the IPI response.</para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/client/xnvm_mailbox.c" line="66" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/client/xnvm_mailbox.c" bodystart="66" bodyend="95"/>
+        <referencedby refid="group__xnvm__efuse__client__apis_1ga016c1951e834a91b6e5b39d2db818977" compoundref="net_2client_2xnvm__efuseclient_8c" startline="3289" endline="3316">XNvm_EfuseAesKeyCrcCheck</referencedby>
+        <referencedby refid="group__xnvm__efuse__client__apis_1gad54e3a2965d27295dc233e5e3084adf8" compoundref="net_2client_2xnvm__efuseclient_8c" startline="2353" endline="2426">XNvm_EfuseReadBootEnvCtrlBits</referencedby>
+        <referencedby refid="group__xnvm__efuse__client__apis_1ga9d3f76422408b4102f47ad332ebb3a8a" compoundref="net_2client_2xnvm__efuseclient_8c" startline="2886" endline="2918">XNvm_EfuseReadBootModeDis</referencedby>
+        <referencedby refid="group__xnvm__efuse__client__apis_1ga3c6422fdd2090d7a3408337c5ab0e737" compoundref="net_2client_2xnvm__efuseclient_8c" startline="2838" endline="2870">XNvm_EfuseReadDecOnly</referencedby>
+        <referencedby refid="group__xnvm__efuse__client__apis_1gaa5cc5a2ddb36b51e0f5b160844c262e6" compoundref="net_2client_2xnvm__efuseclient_8c" startline="703" endline="735">XNvm_EfuseReadDmeMode</referencedby>
+        <referencedby refid="group__xnvm__efuse__client__apis_1ga9662bb6904360667cbfd987a2a852655" compoundref="net_2client_2xnvm__efuseclient_8c" startline="2934" endline="2979">XNvm_EfuseReadDmeRevokeId</referencedby>
+        <referencedby refid="group__xnvm__efuse__client__apis_1ga565100f1268558cbededcebb9b29804d" compoundref="net_2client_2xnvm__efuseclient_8c" startline="2995" endline="3027">XNvm_EfuseReadDna</referencedby>
+        <referencedby refid="group__xnvm__efuse__client__apis_1gaf63250e1f6043e6715870670a4fd1695" compoundref="net_2client_2xnvm__efuseclient_8c" startline="2522" endline="2594">XNvm_EfuseReadFipsInfoBits</referencedby>
+        <referencedby refid="group__xnvm__efuse__client__apis_1ga135e1963c74a2381565bd628c81720c0" compoundref="net_2client_2xnvm__efuseclient_8c" startline="1845" endline="1901">XNvm_EfuseReadIv</referencedby>
+        <referencedby refid="group__xnvm__efuse__client__apis_1ga1c35752ba6d01bc69f9d78cfddda2e82" compoundref="net_2client_2xnvm__efuseclient_8c" startline="2035" endline="2120">XNvm_EfuseReadMiscCtrlBits</referencedby>
+        <referencedby refid="group__xnvm__efuse__client__apis_1gace5819e71d300759eee7614e4a7f9ab5" compoundref="net_2client_2xnvm__efuseclient_8c" startline="2713" endline="2753">XNvm_EfuseReadOffchipRevokeId</referencedby>
+        <referencedby refid="group__xnvm__efuse__client__apis_1ga3e9fad7c29bb703abdad2844084da7f9" compoundref="net_2client_2xnvm__efuseclient_8c" startline="2770" endline="2822">XNvm_EfuseReadPpkHash</referencedby>
+        <referencedby refid="group__xnvm__efuse__client__apis_1ga9b5fb7e19fefd6373484355119ac291d" compoundref="net_2client_2xnvm__efuseclient_8c" startline="1708" endline="1828">XNvm_EfuseReadPuf</referencedby>
+        <referencedby refid="group__xnvm__efuse__client__apis_1ga72d33a554a48e21836973409c882919d" compoundref="net_2client_2xnvm__efuseclient_8c" startline="2610" endline="2696">XNvm_EfuseReadPufSecCtrlBits</referencedby>
+        <referencedby refid="group__xnvm__efuse__client__apis_1gaba1d1f6b3110db2162dfbade9ddd0e0b" compoundref="net_2client_2xnvm__efuseclient_8c" startline="1918" endline="1958">XNvm_EfuseReadRevocationId</referencedby>
+        <referencedby refid="group__xnvm__efuse__client__apis_1gadf4cc0221b64537c48fd20e455ae0922" compoundref="net_2client_2xnvm__efuseclient_8c" startline="2442" endline="2506">XNvm_EfuseReadRomRsvdBits</referencedby>
+        <referencedby refid="group__xnvm__efuse__client__apis_1ga898b27ad1395039d8a8e6f79c6f72fa1" compoundref="net_2client_2xnvm__efuseclient_8c" startline="2136" endline="2256">XNvm_EfuseReadSecCtrlBits</referencedby>
+        <referencedby refid="group__xnvm__efuse__client__apis_1gade0feaf32fbb8bb279b71be47e838870" compoundref="net_2client_2xnvm__efuseclient_8c" startline="2272" endline="2337">XNvm_EfuseReadSecMisc1Bits</referencedby>
+        <referencedby refid="group__xnvm__efuse__client__apis_1gad7ec755ce9206a3cdb6263b452c71c29" compoundref="net_2client_2xnvm__efuseclient_8c" startline="1974" endline="2019">XNvm_EfuseReadUserFuses</referencedby>
+        <referencedby refid="group__xnvm__efuse__client__apis_1gac572fc5f0c58365ced7c15eeb8adec73" compoundref="net_2client_2xnvm__efuseclient_8c" startline="125" endline="276">XNvm_EfuseWrite</referencedby>
+        <referencedby refid="group__xnvm__efuse__client__apis_1ga9bb1800b8836e8b5b93a2f3280ffd028" compoundref="net_2client_2xnvm__efuseclient_8c" startline="1060" endline="1103">XNvm_EfuseWriteBootEnvCtrlBits</referencedby>
+        <referencedby refid="group__xnvm__efuse__client__apis_1gaaefd51d906cc8e0ab94021cc66117db7" compoundref="net_2client_2xnvm__efuseclient_8c" startline="937" endline="980">XNvm_EfuseWriteBootModeDis</referencedby>
+        <referencedby refid="group__xnvm__efuse__client__apis_1ga3fe9a35b9f742edadd32e748601834af" compoundref="net_2client_2xnvm__efuseclient_8c" startline="1296" endline="1337">XNvm_EfuseWriteDecOnly</referencedby>
+        <referencedby refid="group__xnvm__efuse__client__apis_1ga0451643f0fb100232b825a43e98dc31f" compoundref="net_2client_2xnvm__efuseclient_8c" startline="430" endline="485">XNvm_EfuseWriteDiceUds</referencedby>
+        <referencedby refid="group__xnvm__efuse__client__apis_1ga2fe80756c7fd8ac54259cb078673b929" compoundref="net_2client_2xnvm__efuseclient_8c" startline="644" endline="687">XNvm_EfuseWriteDmeMode</referencedby>
+        <referencedby refid="group__xnvm__efuse__client__apis_1gaa3d72c2fc1303437a2bd30a1984e3e81" compoundref="net_2client_2xnvm__efuseclient_8c" startline="1355" endline="1398">XNvm_EfuseWriteFipsInfo</referencedby>
+        <referencedby refid="group__xnvm__efuse__client__apis_1ga75863c5bebf00e95dff382a754c77473" compoundref="net_2client_2xnvm__efuseclient_8c" startline="1181" endline="1223">XNvm_EfuseWriteGlitchConfigBits</referencedby>
+        <referencedby refid="group__xnvm__efuse__client__apis_1gac61a7d89941969baef3138718ef49163" compoundref="net_2client_2xnvm__efuseclient_8c" startline="294" endline="412">XNvm_EfuseWriteIVs</referencedby>
+        <referencedby refid="group__xnvm__efuse__client__apis_1gab876f823d2385d13f6d16654464bcd4b" compoundref="net_2client_2xnvm__efuseclient_8c" startline="876" endline="919">XNvm_EfuseWriteMiscCtrlBits</referencedby>
+        <referencedby refid="group__xnvm__efuse__client__apis_1gac15adc21769d673aa1e7f3bf371e9eb5" compoundref="net_2client_2xnvm__efuseclient_8c" startline="1474" endline="1516">XNvm_EfuseWriteOffChipRevocationId</referencedby>
+        <referencedby refid="group__xnvm__efuse__client__apis_1ga23cf0605525481bcf5f286ec6de7523e" compoundref="net_2client_2xnvm__efuseclient_8c" startline="1239" endline="1280">XNvm_EfuseWritePlmUpdate</referencedby>
+        <referencedby refid="group__xnvm__efuse__client__apis_1ga66f2ff5082708dd36846edc278f5a08e" compoundref="net_2client_2xnvm__efuseclient_8c" startline="1641" endline="1692">XNvm_EfuseWritePuf</referencedby>
+        <referencedby refid="group__xnvm__efuse__client__apis_1ga64be6dbb240bc0ae308f7e8463dbfbed" compoundref="net_2client_2xnvm__efuseclient_8c" startline="815" endline="858">XNvm_EfuseWritePufCtrlBits</referencedby>
+        <referencedby refid="group__xnvm__efuse__client__apis_1ga1754fe500ff158eeb5f0b3309c91c623" compoundref="net_2client_2xnvm__efuseclient_8c" startline="1415" endline="1457">XNvm_EfuseWriteRevocationId</referencedby>
+        <referencedby refid="group__xnvm__efuse__client__apis_1gad3821263965e76d7205032b8b37d6d2a" compoundref="net_2client_2xnvm__efuseclient_8c" startline="1121" endline="1163">XNvm_EfuseWriteRomRsvdBits</referencedby>
+        <referencedby refid="group__xnvm__efuse__client__apis_1ga0fff3a9010545e93ce2653cce3dd7cb2" compoundref="net_2client_2xnvm__efuseclient_8c" startline="754" endline="797">XNvm_EfuseWriteSecCtrlBits</referencedby>
+        <referencedby refid="group__xnvm__efuse__client__apis_1ga5035ae74158206735b20af385432738a" compoundref="net_2client_2xnvm__efuseclient_8c" startline="999" endline="1042">XNvm_EfuseWriteSecMisc1Bits</referencedby>
+        <referencedby refid="group__xnvm__mailbox__apis_1ga4f3c270f11a9a69fbc46f6a53b700384" compoundref="xnvm__generic_8c" startline="67" endline="104">XNvm_SendRequest</referencedby>
+        <referencedby refid="group__xnvm__efuse__client__apis_1ga5b4ffffd504310ff58b4d21f0308ff04" compoundref="net_2client_2xnvm__efuseclient_8c" startline="503" endline="563">XNvm_WriteDmePrivateKey</referencedby>
+        <referencedby refid="group__xnvm__efuse__client__apis_1ga580bc90d2135b7b70fa7967b5cb7245f" compoundref="net_2client_2xnvm__efuseclient_8c" startline="580" endline="626">XNvm_WriteDmeRevoke</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xnvm__mailbox__apis_1ga051799e29b90346a34e49e8fddfc10e5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XNvm_ClientInit</definition>
+        <argsstring>(XNvm_ClientInstance *const InstancePtr, XMailbox *const MailboxPtr)</argsstring>
+        <name>XNvm_ClientInit</name>
+        <param>
+          <type>XNvm_ClientInstance *const</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>XMailbox *const</type>
+          <declname>MailboxPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function sets the instance of mailbox. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the client instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>MailboxPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the mailbox instance</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS On successful initialization</para></listitem><listitem><para>XST_FAILURE On failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Perform input parameter validation on InstancePtr. If not NULL initialize the InstancePtr, else return XST_FAILURE.</para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/client/xnvm_mailbox.c" line="109" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/client/xnvm_mailbox.c" bodystart="109" bodyend="123"/>
+        <referencedby refid="group__xnvm__apis_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xilnvm__bbram__config__limiter__client__example_8c" startline="82" endline="114">main</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,156 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_hdmi_c___audio___info_frame" kind="struct" prot="public">
+    <compoundname>XHdmiC_Audio_InfoFrame</compoundname>
+    <includes local="no">xv_hdmic.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_hdmi_c___audio___info_frame_1ac709e8421147be3f5e63f8354b6c7637" prot="public" static="no" mutable="no">
+        <type>unsigned char</type>
+        <definition>unsigned char XHdmiC_Audio_InfoFrame::Version</definition>
+        <argsstring></argsstring>
+        <name>Version</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="515" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" bodystart="515" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmi_c___audio___info_frame_1a91dab7738207d0f7ce09658fd6145003" prot="public" static="no" mutable="no">
+        <type>XHdmiC_AudioChannelCount</type>
+        <definition>XHdmiC_AudioChannelCount XHdmiC_Audio_InfoFrame::ChannelCount</definition>
+        <argsstring></argsstring>
+        <name>ChannelCount</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="516" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" bodystart="516" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmi_c___audio___info_frame_1a0f9c806b5ea0a0a277b62d52fc9a7045" prot="public" static="no" mutable="no">
+        <type>XHdmiC_AudioCodingType</type>
+        <definition>XHdmiC_AudioCodingType XHdmiC_Audio_InfoFrame::CodingType</definition>
+        <argsstring></argsstring>
+        <name>CodingType</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="517" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" bodystart="517" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmi_c___audio___info_frame_1a80be9c5d9aade43e5c3cb434b98dc527" prot="public" static="no" mutable="no">
+        <type>XHdmiC_SampleSize</type>
+        <definition>XHdmiC_SampleSize XHdmiC_Audio_InfoFrame::SampleSize</definition>
+        <argsstring></argsstring>
+        <name>SampleSize</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="518" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" bodystart="518" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmi_c___audio___info_frame_1a8f998129e49e39e6a9b43fbdcb638839" prot="public" static="no" mutable="no">
+        <type>XHdmiC_SamplingFrequency</type>
+        <definition>XHdmiC_SamplingFrequency XHdmiC_Audio_InfoFrame::SampleFrequency</definition>
+        <argsstring></argsstring>
+        <name>SampleFrequency</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="519" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" bodystart="519" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmi_c___audio___info_frame_1a55eccb85157080b9ed2205fca8a11621" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHdmiC_Audio_InfoFrame::CodingTypeExt</definition>
+        <argsstring></argsstring>
+        <name>CodingTypeExt</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="520" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" bodystart="520" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmi_c___audio___info_frame_1af785964db9a351fc14880077909947be" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHdmiC_Audio_InfoFrame::ChannelAllocation</definition>
+        <argsstring></argsstring>
+        <name>ChannelAllocation</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="521" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" bodystart="521" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmi_c___audio___info_frame_1ab5fea3d44b54dd1fbaee401b15871199" prot="public" static="no" mutable="no">
+        <type>XHdmiC_LFEPlaybackLevel</type>
+        <definition>XHdmiC_LFEPlaybackLevel XHdmiC_Audio_InfoFrame::LFE_Playback_Level</definition>
+        <argsstring></argsstring>
+        <name>LFE_Playback_Level</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="522" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" bodystart="522" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmi_c___audio___info_frame_1a85af77cb893d6b37722fad5cc4a35bf9" prot="public" static="no" mutable="no">
+        <type>XHdmiC_LevelShiftValue</type>
+        <definition>XHdmiC_LevelShiftValue XHdmiC_Audio_InfoFrame::LevelShiftVal</definition>
+        <argsstring></argsstring>
+        <name>LevelShiftVal</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="523" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" bodystart="523" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmi_c___audio___info_frame_1a3945350ba63c26768a171b563917a58c" prot="public" static="no" mutable="no">
+        <type>unsigned char</type>
+        <definition>unsigned char XHdmiC_Audio_InfoFrame::Downmix_Inhibit</definition>
+        <argsstring></argsstring>
+        <name>Downmix_Inhibit</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="524" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" bodystart="524" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef contains the data structure for Audio Infoframe. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="514" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" bodystart="514" bodyend="525"/>
+    <listofallmembers>
+      <member refid="struct_x_hdmi_c___audio___info_frame_1af785964db9a351fc14880077909947be" prot="public" virt="non-virtual"><scope>XHdmiC_Audio_InfoFrame</scope><name>ChannelAllocation</name></member>
+      <member refid="struct_x_hdmi_c___audio___info_frame_1a91dab7738207d0f7ce09658fd6145003" prot="public" virt="non-virtual"><scope>XHdmiC_Audio_InfoFrame</scope><name>ChannelCount</name></member>
+      <member refid="struct_x_hdmi_c___audio___info_frame_1a0f9c806b5ea0a0a277b62d52fc9a7045" prot="public" virt="non-virtual"><scope>XHdmiC_Audio_InfoFrame</scope><name>CodingType</name></member>
+      <member refid="struct_x_hdmi_c___audio___info_frame_1a55eccb85157080b9ed2205fca8a11621" prot="public" virt="non-virtual"><scope>XHdmiC_Audio_InfoFrame</scope><name>CodingTypeExt</name></member>
+      <member refid="struct_x_hdmi_c___audio___info_frame_1a3945350ba63c26768a171b563917a58c" prot="public" virt="non-virtual"><scope>XHdmiC_Audio_InfoFrame</scope><name>Downmix_Inhibit</name></member>
+      <member refid="struct_x_hdmi_c___audio___info_frame_1a85af77cb893d6b37722fad5cc4a35bf9" prot="public" virt="non-virtual"><scope>XHdmiC_Audio_InfoFrame</scope><name>LevelShiftVal</name></member>
+      <member refid="struct_x_hdmi_c___audio___info_frame_1ab5fea3d44b54dd1fbaee401b15871199" prot="public" virt="non-virtual"><scope>XHdmiC_Audio_InfoFrame</scope><name>LFE_Playback_Level</name></member>
+      <member refid="struct_x_hdmi_c___audio___info_frame_1a8f998129e49e39e6a9b43fbdcb638839" prot="public" virt="non-virtual"><scope>XHdmiC_Audio_InfoFrame</scope><name>SampleFrequency</name></member>
+      <member refid="struct_x_hdmi_c___audio___info_frame_1a80be9c5d9aade43e5c3cb434b98dc527" prot="public" virt="non-virtual"><scope>XHdmiC_Audio_InfoFrame</scope><name>SampleSize</name></member>
+      <member refid="struct_x_hdmi_c___audio___info_frame_1ac709e8421147be3f5e63f8354b6c7637" prot="public" virt="non-virtual"><scope>XHdmiC_Audio_InfoFrame</scope><name>Version</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

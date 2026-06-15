@@ -1,0 +1,255 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_traf_gen___c_ram_cmd" kind="struct" prot="public">
+    <compoundname>XTrafGen_CRamCmd</compoundname>
+    <includes local="no">xtrafgen.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_traf_gen___c_ram_cmd_1ae9889d89710989823d3b633effbe20ca" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XTrafGen_CRamCmd::Address</definition>
+        <argsstring></argsstring>
+        <name>Address</name>
+        <briefdescription>
+<para>Address Driven to a*_addr line. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen.h" line="251" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen.h" bodystart="251" bodyend="-1"/>
+        <referencedby refid="xtrafgen__interrupt__example_8c_1a75a5cad222d5705d42542e2e8922350f" compoundref="xtrafgen__interrupt__example_8c" startline="255" endline="450">XTrafGenInterruptExample</referencedby>
+        <referencedby refid="xtrafgen__polling__example_8c_1a4a65ec7d0aaeb93bcd943db204bd16ae" compoundref="xtrafgen__polling__example_8c" startline="205" endline="375">XTrafGenPollingExample</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_traf_gen___c_ram_cmd_1a197e871656f2931f5c4c0e6c366ed7cb" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XTrafGen_CRamCmd::ValidCmd</definition>
+        <argsstring></argsstring>
+        <name>ValidCmd</name>
+        <briefdescription>
+<para>Valid Command. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen.h" line="252" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen.h" bodystart="252" bodyend="-1"/>
+        <referencedby refid="group__trafgen_1ga39eaea669c1ff2df58e54c002b43f854" compoundref="xtrafgen_8c" startline="191" endline="240">XTrafGen_AddCommand</referencedby>
+        <referencedby refid="xtrafgen__interrupt__example_8c_1a75a5cad222d5705d42542e2e8922350f" compoundref="xtrafgen__interrupt__example_8c" startline="255" endline="450">XTrafGenInterruptExample</referencedby>
+        <referencedby refid="xtrafgen__polling__example_8c_1a4a65ec7d0aaeb93bcd943db204bd16ae" compoundref="xtrafgen__polling__example_8c" startline="205" endline="375">XTrafGenPollingExample</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_traf_gen___c_ram_cmd_1a06ba1ead42b36ffa6ebe6fc633eae174" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XTrafGen_CRamCmd::LastAddress</definition>
+        <argsstring></argsstring>
+        <name>LastAddress</name>
+        <briefdescription>
+<para>Last address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen.h" line="253" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen.h" bodystart="253" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_traf_gen___c_ram_cmd_1ad75b3da11809a372d10c208ce319bb8a" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XTrafGen_CRamCmd::Prot</definition>
+        <argsstring></argsstring>
+        <name>Prot</name>
+        <briefdescription>
+<para>Driven to a*_prot line. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen.h" line="254" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen.h" bodystart="254" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_traf_gen___c_ram_cmd_1a83ef855c076e95da9b8cffd52edc930b" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XTrafGen_CRamCmd::Id</definition>
+        <argsstring></argsstring>
+        <name>Id</name>
+        <briefdescription>
+<para>Driven to a*_id line. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen.h" line="255" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen.h" bodystart="255" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_traf_gen___c_ram_cmd_1a1cf9795d88ebae2b9c9ca42c677c862b" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XTrafGen_CRamCmd::Size</definition>
+        <argsstring></argsstring>
+        <name>Size</name>
+        <briefdescription>
+<para>Driven to a*_size line. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen.h" line="256" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen.h" bodystart="256" bodyend="-1"/>
+        <referencedby refid="xtrafgen__interrupt__example_8c_1a75a5cad222d5705d42542e2e8922350f" compoundref="xtrafgen__interrupt__example_8c" startline="255" endline="450">XTrafGenInterruptExample</referencedby>
+        <referencedby refid="xtrafgen__polling__example_8c_1a4a65ec7d0aaeb93bcd943db204bd16ae" compoundref="xtrafgen__polling__example_8c" startline="205" endline="375">XTrafGenPollingExample</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_traf_gen___c_ram_cmd_1a2cef29625ea5b8259694cbf00ba78138" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XTrafGen_CRamCmd::Burst</definition>
+        <argsstring></argsstring>
+        <name>Burst</name>
+        <briefdescription>
+<para>Driven to a*_burst line. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen.h" line="257" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen.h" bodystart="257" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_traf_gen___c_ram_cmd_1acbc42510a78b72e89c1eded94b99add8" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XTrafGen_CRamCmd::Lock</definition>
+        <argsstring></argsstring>
+        <name>Lock</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen.h" line="258" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen.h" bodystart="258" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_traf_gen___c_ram_cmd_1a06f887cc537f2323df21f09da24cf279" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XTrafGen_CRamCmd::Length</definition>
+        <argsstring></argsstring>
+        <name>Length</name>
+        <briefdescription>
+<para>Driven to a*_lock line. </para>        </briefdescription>
+        <detaileddescription>
+<para>Driven to a*_len line </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen.h" line="259" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen.h" bodystart="259" bodyend="-1"/>
+        <referencedby refid="xtrafgen__interrupt__example_8c_1a75a5cad222d5705d42542e2e8922350f" compoundref="xtrafgen__interrupt__example_8c" startline="255" endline="450">XTrafGenInterruptExample</referencedby>
+        <referencedby refid="xtrafgen__polling__example_8c_1a4a65ec7d0aaeb93bcd943db204bd16ae" compoundref="xtrafgen__polling__example_8c" startline="205" endline="375">XTrafGenPollingExample</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_traf_gen___c_ram_cmd_1a5c786c1362dc5fd6319567d4ec86d19e" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XTrafGen_CRamCmd::MyDepend</definition>
+        <argsstring></argsstring>
+        <name>MyDepend</name>
+        <briefdescription>
+<para>My depend command no. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen.h" line="260" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen.h" bodystart="260" bodyend="-1"/>
+        <referencedby refid="xtrafgen__interrupt__example_8c_1a75a5cad222d5705d42542e2e8922350f" compoundref="xtrafgen__interrupt__example_8c" startline="255" endline="450">XTrafGenInterruptExample</referencedby>
+        <referencedby refid="xtrafgen__polling__example_8c_1a4a65ec7d0aaeb93bcd943db204bd16ae" compoundref="xtrafgen__polling__example_8c" startline="205" endline="375">XTrafGenPollingExample</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_traf_gen___c_ram_cmd_1a044d212e3fbbfa62d31d66f0ca7b616c" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XTrafGen_CRamCmd::OtherDepend</definition>
+        <argsstring></argsstring>
+        <name>OtherDepend</name>
+        <briefdescription>
+<para>Other depend Command no. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen.h" line="261" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen.h" bodystart="261" bodyend="-1"/>
+        <referencedby refid="xtrafgen__interrupt__example_8c_1a75a5cad222d5705d42542e2e8922350f" compoundref="xtrafgen__interrupt__example_8c" startline="255" endline="450">XTrafGenInterruptExample</referencedby>
+        <referencedby refid="xtrafgen__polling__example_8c_1a4a65ec7d0aaeb93bcd943db204bd16ae" compoundref="xtrafgen__polling__example_8c" startline="205" endline="375">XTrafGenPollingExample</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_traf_gen___c_ram_cmd_1a1597162b77eff37a19cf257102acaba4" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XTrafGen_CRamCmd::MasterRamIndex</definition>
+        <argsstring></argsstring>
+        <name>MasterRamIndex</name>
+        <briefdescription>
+<para>Master Ram Index. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen.h" line="262" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen.h" bodystart="262" bodyend="-1"/>
+        <referencedby refid="xtrafgen__interrupt__example_8c_1a75a5cad222d5705d42542e2e8922350f" compoundref="xtrafgen__interrupt__example_8c" startline="255" endline="450">XTrafGenInterruptExample</referencedby>
+        <referencedby refid="xtrafgen__polling__example_8c_1a4a65ec7d0aaeb93bcd943db204bd16ae" compoundref="xtrafgen__polling__example_8c" startline="205" endline="375">XTrafGenPollingExample</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_traf_gen___c_ram_cmd_1a9023153ddde42968697f305dfbdc8553" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XTrafGen_CRamCmd::Qos</definition>
+        <argsstring></argsstring>
+        <name>Qos</name>
+        <briefdescription>
+<para>Driven to a*_qos line. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen.h" line="263" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen.h" bodystart="263" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_traf_gen___c_ram_cmd_1a36442682af25d8eb5da3e70eda92907f" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XTrafGen_CRamCmd::User</definition>
+        <argsstring></argsstring>
+        <name>User</name>
+        <briefdescription>
+<para>Driven to a*_user line. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen.h" line="264" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen.h" bodystart="264" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_traf_gen___c_ram_cmd_1a2ef554da2517166904062b7379a9cf71" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XTrafGen_CRamCmd::Cache</definition>
+        <argsstring></argsstring>
+        <name>Cache</name>
+        <briefdescription>
+<para>Driven to a*_cache line. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen.h" line="265" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen.h" bodystart="265" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_traf_gen___c_ram_cmd_1a780132d2460e123ae375ef8c4969267f" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XTrafGen_CRamCmd::ExpectedResp</definition>
+        <argsstring></argsstring>
+        <name>ExpectedResp</name>
+        <briefdescription>
+<para>Expected response. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen.h" line="266" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen.h" bodystart="266" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Command Ram word fields. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen.h" line="250" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen.h" bodystart="250" bodyend="267"/>
+    <listofallmembers>
+      <member refid="struct_x_traf_gen___c_ram_cmd_1ae9889d89710989823d3b633effbe20ca" prot="public" virt="non-virtual"><scope>XTrafGen_CRamCmd</scope><name>Address</name></member>
+      <member refid="struct_x_traf_gen___c_ram_cmd_1a2cef29625ea5b8259694cbf00ba78138" prot="public" virt="non-virtual"><scope>XTrafGen_CRamCmd</scope><name>Burst</name></member>
+      <member refid="struct_x_traf_gen___c_ram_cmd_1a2ef554da2517166904062b7379a9cf71" prot="public" virt="non-virtual"><scope>XTrafGen_CRamCmd</scope><name>Cache</name></member>
+      <member refid="struct_x_traf_gen___c_ram_cmd_1a780132d2460e123ae375ef8c4969267f" prot="public" virt="non-virtual"><scope>XTrafGen_CRamCmd</scope><name>ExpectedResp</name></member>
+      <member refid="struct_x_traf_gen___c_ram_cmd_1a83ef855c076e95da9b8cffd52edc930b" prot="public" virt="non-virtual"><scope>XTrafGen_CRamCmd</scope><name>Id</name></member>
+      <member refid="struct_x_traf_gen___c_ram_cmd_1a06ba1ead42b36ffa6ebe6fc633eae174" prot="public" virt="non-virtual"><scope>XTrafGen_CRamCmd</scope><name>LastAddress</name></member>
+      <member refid="struct_x_traf_gen___c_ram_cmd_1a06f887cc537f2323df21f09da24cf279" prot="public" virt="non-virtual"><scope>XTrafGen_CRamCmd</scope><name>Length</name></member>
+      <member refid="struct_x_traf_gen___c_ram_cmd_1acbc42510a78b72e89c1eded94b99add8" prot="public" virt="non-virtual"><scope>XTrafGen_CRamCmd</scope><name>Lock</name></member>
+      <member refid="struct_x_traf_gen___c_ram_cmd_1a1597162b77eff37a19cf257102acaba4" prot="public" virt="non-virtual"><scope>XTrafGen_CRamCmd</scope><name>MasterRamIndex</name></member>
+      <member refid="struct_x_traf_gen___c_ram_cmd_1a5c786c1362dc5fd6319567d4ec86d19e" prot="public" virt="non-virtual"><scope>XTrafGen_CRamCmd</scope><name>MyDepend</name></member>
+      <member refid="struct_x_traf_gen___c_ram_cmd_1a044d212e3fbbfa62d31d66f0ca7b616c" prot="public" virt="non-virtual"><scope>XTrafGen_CRamCmd</scope><name>OtherDepend</name></member>
+      <member refid="struct_x_traf_gen___c_ram_cmd_1ad75b3da11809a372d10c208ce319bb8a" prot="public" virt="non-virtual"><scope>XTrafGen_CRamCmd</scope><name>Prot</name></member>
+      <member refid="struct_x_traf_gen___c_ram_cmd_1a9023153ddde42968697f305dfbdc8553" prot="public" virt="non-virtual"><scope>XTrafGen_CRamCmd</scope><name>Qos</name></member>
+      <member refid="struct_x_traf_gen___c_ram_cmd_1a1cf9795d88ebae2b9c9ca42c677c862b" prot="public" virt="non-virtual"><scope>XTrafGen_CRamCmd</scope><name>Size</name></member>
+      <member refid="struct_x_traf_gen___c_ram_cmd_1a36442682af25d8eb5da3e70eda92907f" prot="public" virt="non-virtual"><scope>XTrafGen_CRamCmd</scope><name>User</name></member>
+      <member refid="struct_x_traf_gen___c_ram_cmd_1a197e871656f2931f5c4c0e6c366ed7cb" prot="public" virt="non-virtual"><scope>XTrafGen_CRamCmd</scope><name>ValidCmd</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,85 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="structresizer" kind="struct" prot="public">
+    <compoundname>resizer</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structresizer_1a420c6d54e79db052930f40455c781834" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int resizer::hpid</definition>
+        <argsstring></argsstring>
+        <name>hpid</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvdevice.c" line="223" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvdevice.c" bodystart="223" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structresizer_1af3072abf564981e737b0b8d607bb0346" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int resizer::mp_enable</definition>
+        <argsstring></argsstring>
+        <name>mp_enable</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvdevice.c" line="224" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvdevice.c" bodystart="224" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structresizer_1ae041ad726e7fbff2e47dd94ded889fa1" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int resizer::mp_format</definition>
+        <argsstring></argsstring>
+        <name>mp_format</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvdevice.c" line="225" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvdevice.c" bodystart="225" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structresizer_1a8a8918fd897374e0a80f97ee985d970f" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int resizer::sp1_enable</definition>
+        <argsstring></argsstring>
+        <name>sp1_enable</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvdevice.c" line="226" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvdevice.c" bodystart="226" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structresizer_1a8c9f1e1d1dd663dc9bd2ef8aac3cc5d1" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int resizer::sp1_format</definition>
+        <argsstring></argsstring>
+        <name>sp1_format</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvdevice.c" line="227" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvdevice.c" bodystart="227" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvdevice.c" line="222" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvdevice.c" bodystart="222" bodyend="228"/>
+    <listofallmembers>
+      <member refid="structresizer_1a420c6d54e79db052930f40455c781834" prot="public" virt="non-virtual"><scope>resizer</scope><name>hpid</name></member>
+      <member refid="structresizer_1af3072abf564981e737b0b8d607bb0346" prot="public" virt="non-virtual"><scope>resizer</scope><name>mp_enable</name></member>
+      <member refid="structresizer_1ae041ad726e7fbff2e47dd94ded889fa1" prot="public" virt="non-virtual"><scope>resizer</scope><name>mp_format</name></member>
+      <member refid="structresizer_1a8a8918fd897374e0a80f97ee985d970f" prot="public" virt="non-virtual"><scope>resizer</scope><name>sp1_enable</name></member>
+      <member refid="structresizer_1a8c9f1e1d1dd663dc9bd2ef8aac3cc5d1" prot="public" virt="non-virtual"><scope>resizer</scope><name>sp1_format</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

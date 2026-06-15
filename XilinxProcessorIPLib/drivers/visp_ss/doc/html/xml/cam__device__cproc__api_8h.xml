@@ -1,0 +1,921 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="cam__device__cproc__api_8h" kind="file">
+    <compoundname>cam_device_cproc_api.h</compoundname>
+    <includes refid="cam__device__common_8h" local="yes">cam_device_common.h</includes>
+    <includedby refid="cam__device__module__api_8h" local="yes">cam_device_module_api.h</includedby>
+    <includedby refid="vvbench__cproc__api_8h" local="yes">vvbench_cproc_api.h</includedby>
+    <incdepgraph>
+      <node id="2579">
+        <label>stdbool.h</label>
+      </node>
+      <node id="2573">
+        <label>return_codes.h</label>
+        <link refid="return__codes_8h"/>
+      </node>
+      <node id="2580">
+        <label>stdint.h</label>
+      </node>
+      <node id="2570">
+        <label>stdlib.h</label>
+      </node>
+      <node id="2577">
+        <label>sensor_cmd.h</label>
+        <childnode refid="2578" relation="include">
+        </childnode>
+        <childnode refid="2573" relation="include">
+        </childnode>
+      </node>
+      <node id="2572">
+        <label>stddef.h</label>
+      </node>
+      <node id="2571">
+        <label>limits.h</label>
+      </node>
+      <node id="2566">
+        <label>cam_device_common.h</label>
+        <childnode refid="2567" relation="include">
+        </childnode>
+        <childnode refid="2573" relation="include">
+        </childnode>
+        <childnode refid="2574" relation="include">
+        </childnode>
+        <childnode refid="2576" relation="include">
+        </childnode>
+        <childnode refid="2577" relation="include">
+        </childnode>
+      </node>
+      <node id="2576">
+        <label>buf_defs.h</label>
+        <childnode refid="2567" relation="include">
+        </childnode>
+      </node>
+      <node id="2578">
+        <label>mbox_api.h</label>
+        <childnode refid="2579" relation="include">
+        </childnode>
+        <childnode refid="2580" relation="include">
+        </childnode>
+        <childnode refid="2581" relation="include">
+        </childnode>
+      </node>
+      <node id="2575">
+        <label>string.h</label>
+      </node>
+      <node id="2581">
+        <label>mbox_fifo.h</label>
+        <link refid="mbox__fifo_8h"/>
+        <childnode refid="2579" relation="include">
+        </childnode>
+        <childnode refid="2582" relation="include">
+        </childnode>
+      </node>
+      <node id="2565">
+        <label>cam_device_cproc_api.h</label>
+        <link refid="cam_device_cproc_api.h"/>
+        <childnode refid="2566" relation="include">
+        </childnode>
+      </node>
+      <node id="2582">
+        <label>sys/_stdint.h</label>
+      </node>
+      <node id="2567">
+        <label>types.h</label>
+        <link refid="types_8h"/>
+        <childnode refid="2568" relation="include">
+        </childnode>
+        <childnode refid="2571" relation="include">
+        </childnode>
+        <childnode refid="2572" relation="include">
+        </childnode>
+      </node>
+      <node id="2574">
+        <label>builtins.h</label>
+        <link refid="builtins_8h"/>
+        <childnode refid="2567" relation="include">
+        </childnode>
+        <childnode refid="2575" relation="include">
+        </childnode>
+      </node>
+      <node id="2569">
+        <label>stdio.h</label>
+      </node>
+      <node id="2568">
+        <label>linux_compat.h</label>
+        <link refid="linux__compat_8h"/>
+        <childnode refid="2569" relation="include">
+        </childnode>
+        <childnode refid="2570" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="2617">
+        <label>cam_device_rgbir_api_v2.c</label>
+      </node>
+      <node id="2615">
+        <label>cam_device_hist64_api.c</label>
+      </node>
+      <node id="2614">
+        <label>cam_device_hist256_api.c</label>
+      </node>
+      <node id="2618">
+        <label>cam_device_tpg_api.c</label>
+      </node>
+      <node id="2584">
+        <label>cam_device_module_api.h</label>
+        <childnode refid="2585" relation="include">
+        </childnode>
+      </node>
+      <node id="2622">
+        <label>vvdevice.c</label>
+      </node>
+      <node id="2586">
+        <label>control.h</label>
+        <childnode refid="2587" relation="include">
+        </childnode>
+      </node>
+      <node id="2612">
+        <label>cam_device_ge_api.c</label>
+      </node>
+      <node id="2620">
+        <label>cam_device_wdr_api_v5_2.c</label>
+      </node>
+      <node id="2598">
+        <label>cam_device_cpd_api.c</label>
+      </node>
+      <node id="2606">
+        <label>cam_device_cnr_api.c</label>
+      </node>
+      <node id="2600">
+        <label>cam_device_dg_api.c</label>
+      </node>
+      <node id="2604">
+        <label>cam_device_af_api.c</label>
+      </node>
+      <node id="2626">
+        <label>submodule_def.h</label>
+        <childnode refid="2627" relation="include">
+        </childnode>
+        <childnode refid="2622" relation="include">
+        </childnode>
+      </node>
+      <node id="2596">
+        <label>cam_device_bls_api.c</label>
+      </node>
+      <node id="2592">
+        <label>cam_device_sensor_api.c</label>
+      </node>
+      <node id="2591">
+        <label>cam_device_buffer_api.c</label>
+      </node>
+      <node id="2627">
+        <label>vvbparser.c</label>
+      </node>
+      <node id="2607">
+        <label>cam_device_hdr_api.c</label>
+      </node>
+      <node id="2599">
+        <label>cam_device_cproc_api.c</label>
+      </node>
+      <node id="2628">
+        <label>vvbench_cproc_api.c</label>
+      </node>
+      <node id="2602">
+        <label>cam_device_dpcc_api.c</label>
+      </node>
+      <node id="2605">
+        <label>cam_device_afm_api.c</label>
+      </node>
+      <node id="2589">
+        <label>cam_device.c</label>
+      </node>
+      <node id="2597">
+        <label>cam_device_ccm_api.c</label>
+      </node>
+      <node id="2595">
+        <label>cam_device_awb_api.c</label>
+      </node>
+      <node id="2625">
+        <label>vvbench_cproc_api.h</label>
+        <childnode refid="2626" relation="include">
+        </childnode>
+        <childnode refid="2628" relation="include">
+        </childnode>
+      </node>
+      <node id="2585">
+        <label>cam_device_app.h</label>
+        <childnode refid="2586" relation="include">
+        </childnode>
+        <childnode refid="2587" relation="include">
+        </childnode>
+        <childnode refid="2588" relation="include">
+        </childnode>
+        <childnode refid="2589" relation="include">
+        </childnode>
+        <childnode refid="2590" relation="include">
+        </childnode>
+        <childnode refid="2591" relation="include">
+        </childnode>
+        <childnode refid="2592" relation="include">
+        </childnode>
+        <childnode refid="2593" relation="include">
+        </childnode>
+        <childnode refid="2594" relation="include">
+        </childnode>
+        <childnode refid="2595" relation="include">
+        </childnode>
+        <childnode refid="2596" relation="include">
+        </childnode>
+        <childnode refid="2597" relation="include">
+        </childnode>
+        <childnode refid="2598" relation="include">
+        </childnode>
+        <childnode refid="2599" relation="include">
+        </childnode>
+        <childnode refid="2600" relation="include">
+        </childnode>
+        <childnode refid="2601" relation="include">
+        </childnode>
+        <childnode refid="2602" relation="include">
+        </childnode>
+        <childnode refid="2603" relation="include">
+        </childnode>
+        <childnode refid="2604" relation="include">
+        </childnode>
+        <childnode refid="2605" relation="include">
+        </childnode>
+        <childnode refid="2606" relation="include">
+        </childnode>
+        <childnode refid="2607" relation="include">
+        </childnode>
+        <childnode refid="2608" relation="include">
+        </childnode>
+        <childnode refid="2609" relation="include">
+        </childnode>
+        <childnode refid="2610" relation="include">
+        </childnode>
+        <childnode refid="2611" relation="include">
+        </childnode>
+        <childnode refid="2612" relation="include">
+        </childnode>
+        <childnode refid="2613" relation="include">
+        </childnode>
+        <childnode refid="2614" relation="include">
+        </childnode>
+        <childnode refid="2615" relation="include">
+        </childnode>
+        <childnode refid="2616" relation="include">
+        </childnode>
+        <childnode refid="2617" relation="include">
+        </childnode>
+        <childnode refid="2618" relation="include">
+        </childnode>
+        <childnode refid="2619" relation="include">
+        </childnode>
+        <childnode refid="2620" relation="include">
+        </childnode>
+        <childnode refid="2621" relation="include">
+        </childnode>
+        <childnode refid="2622" relation="include">
+        </childnode>
+        <childnode refid="2623" relation="include">
+        </childnode>
+      </node>
+      <node id="2587">
+        <label>control.c</label>
+      </node>
+      <node id="2619">
+        <label>cam_device_wb_api.c</label>
+      </node>
+      <node id="2583">
+        <label>cam_device_cproc_api.h</label>
+        <link refid="cam_device_cproc_api.h"/>
+        <childnode refid="2584" relation="include">
+        </childnode>
+        <childnode refid="2625" relation="include">
+        </childnode>
+      </node>
+      <node id="2616">
+        <label>cam_device_lsc_api_v3.c</label>
+      </node>
+      <node id="2608">
+        <label>cam_device_ee_api_v2.c</label>
+      </node>
+      <node id="2609">
+        <label>cam_device_exp_api_v2.c</label>
+      </node>
+      <node id="2610">
+        <label>cam_device_fusa_api.c</label>
+      </node>
+      <node id="2621">
+        <label>oba.c</label>
+      </node>
+      <node id="2590">
+        <label>cam_device_api.c</label>
+      </node>
+      <node id="2611">
+        <label>cam_device_gc_api.c</label>
+      </node>
+      <node id="2613">
+        <label>cam_device_gtm_api_v1.c</label>
+      </node>
+      <node id="2588">
+        <label>iba.c</label>
+      </node>
+      <node id="2601">
+        <label>cam_device_dmsc_api_v2.c</label>
+      </node>
+      <node id="2593">
+        <label>cam_device_2dnr_api_v5_2.c</label>
+      </node>
+      <node id="2603">
+        <label>cam_device_3dnr_api.c</label>
+      </node>
+      <node id="2624">
+        <label>xvisp_ss_example.c</label>
+      </node>
+      <node id="2623">
+        <label>xvisp_ss_example.h</label>
+        <childnode refid="2624" relation="include">
+        </childnode>
+      </node>
+      <node id="2594">
+        <label>cam_device_ae_api.c</label>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_cam_device_cproc_yuv_range__s" prot="public">CamDeviceCprocYuvRange_s</innerclass>
+    <innerclass refid="struct_cam_device_cproc_auto_config__s" prot="public">CamDeviceCprocAutoConfig_s</innerclass>
+    <innerclass refid="struct_cam_device_cproc_manual_config__s" prot="public">CamDeviceCprocManualConfig_s</innerclass>
+    <innerclass refid="struct_cam_device_cproc_config__s" prot="public">CamDeviceCprocConfig_s</innerclass>
+    <innerclass refid="struct_cam_device_cproc_status__s" prot="public">CamDeviceCprocStatus_s</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group____cam__device__cproc_1ga780db4167e935c0ce42efcfb8abb4118" prot="public" static="no">
+        <name>CPROC_RGBTOYUV_MATRIX_NUM</name>
+        <initializer>9</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/cproc/cam_device_cproc_api.h" line="46" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/cproc/cam_device_cproc_api.h" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="group____cam__device__cproc_1ga5f89e66fc4716e494c62bd7b03626e70" prot="public" static="no">
+        <name>CamDeviceCprocYuvRangeType_e</name>
+        <enumvalue id="group____cam__device__cproc_1gga5f89e66fc4716e494c62bd7b03626e70aa2a8e94a9a829dcbc349e036665f6ce9" prot="public">
+          <name>CAMDEV_CPROC_YUV_RANGE_INVALID</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+<para>Invalid range tpye. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__cproc_1gga5f89e66fc4716e494c62bd7b03626e70ae0cf14e6013489e072285eac7d8821e6" prot="public">
+          <name>CAMDEV_CPROC_YUV_RANGE_LIMIT_RANGE</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+<para>Limit Y/U/V clipping range 16..240. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__cproc_1gga5f89e66fc4716e494c62bd7b03626e70acfa4070100e3f09c528acd1947a0dd42" prot="public">
+          <name>CAMDEV_CPROC_YUV_RANGE_FULL_RANGE</name>
+          <initializer>= 2</initializer>
+          <briefdescription>
+<para>Full Y/U/V clipping range 0..255. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__cproc_1gga5f89e66fc4716e494c62bd7b03626e70abf6276c1c288daad34bf4543369fba96" prot="public">
+          <name>CAMDEV_CPROC_YUV_RANGE_MAX</name>
+          <briefdescription>
+<para>Range type max. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>VsCamDevice CPROC pixel clipping range type enumeration for chroma and luma. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/cproc/cam_device_cproc_api.h" line="53" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/cproc/cam_device_cproc_api.h" bodystart="53" bodyend="58"/>
+      </memberdef>
+      <memberdef kind="enum" id="group____cam__device__cproc_1gab278e4ec036bdd1c357a29560512a88f" prot="public" static="no">
+        <name>CamDeviceCprocColorGamutType_e</name>
+        <enumvalue id="group____cam__device__cproc_1ggab278e4ec036bdd1c357a29560512a88fa1f21da4a63743feb1d02b5ea3daac43a" prot="public">
+          <name>CAMDEV_CPROC_COLOR_GAMUT_BT601</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+<para>ITU-R BT.601 standard. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__cproc_1ggab278e4ec036bdd1c357a29560512a88fa28bb3953048402be9974dbc12c7e5249" prot="public">
+          <name>CAMDEV_CPROC_COLOR_GAMUT_BT709</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+<para>ITU-R BT.709 standard. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__cproc_1ggab278e4ec036bdd1c357a29560512a88fac26f03cb63827a4e46d0d29e00750a0c" prot="public">
+          <name>CAMDEV_CPROC_COLOR_GAMUT_BT2020</name>
+          <initializer>= 2</initializer>
+          <briefdescription>
+<para>ITU-R BT.2020 standard. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__cproc_1ggab278e4ec036bdd1c357a29560512a88fae6c83cee8b56e086cd89e5574625a8b1" prot="public">
+          <name>CAMDEV_CPROC_COLOR_GAMUT_MAX</name>
+          <briefdescription>
+<para>gamut type max </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>VsCamDevice CPROC color gamut type enumeration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/cproc/cam_device_cproc_api.h" line="66" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/cproc/cam_device_cproc_api.h" bodystart="66" bodyend="71"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="group____cam__device__cproc_1ga2c58612ac5d4cff4e310fc3cccceb9b8" prot="public" static="no">
+        <type>enum <ref refid="group____cam__device__cproc_1ga5f89e66fc4716e494c62bd7b03626e70" kindref="member">CamDeviceCprocYuvRangeType_e</ref></type>
+        <definition>typedef enum CamDeviceCprocYuvRangeType_e CamDeviceCprocYuvRangeType_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceCprocYuvRangeType_t</name>
+        <briefdescription>
+<para>VsCamDevice CPROC pixel clipping range type enumeration for chroma and luma. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/cproc/cam_device_cproc_api.h" line="58" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__cproc_1gadefec9a0f55555ba0f1087bbc78f499e" prot="public" static="no">
+        <type>enum <ref refid="group____cam__device__cproc_1gab278e4ec036bdd1c357a29560512a88f" kindref="member">CamDeviceCprocColorGamutType_e</ref></type>
+        <definition>typedef enum CamDeviceCprocColorGamutType_e CamDeviceCprocColorGamutType_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceCprocColorGamutType_t</name>
+        <briefdescription>
+<para>VsCamDevice CPROC color gamut type enumeration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/cproc/cam_device_cproc_api.h" line="71" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__cproc_1gabb71d4d3e1089a04616c15734974e5f5" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_cproc_yuv_range__s" kindref="compound">CamDeviceCprocYuvRange_s</ref></type>
+        <definition>typedef struct CamDeviceCprocYuvRange_s  CamDeviceCprocYuvRangeS_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceCprocYuvRangeS_t</name>
+        <briefdescription>
+<para>VsCamDevice CPROC YUV range configuration structure. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/cproc/cam_device_cproc_api.h" line="84" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__cproc_1ga2a88ad7fed93a02ece07b3c637b0165f" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_cproc_auto_config__s" kindref="compound">CamDeviceCprocAutoConfig_s</ref></type>
+        <definition>typedef struct CamDeviceCprocAutoConfig_s CamDeviceCprocAutoConfig_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceCprocAutoConfig_t</name>
+        <briefdescription>
+<para>VsCamDevice CPROC auto configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/cproc/cam_device_cproc_api.h" line="99" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__cproc_1gaad36980ca7d8863e31e3aab3fe210ede" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_cproc_manual_config__s" kindref="compound">CamDeviceCprocManualConfig_s</ref></type>
+        <definition>typedef struct CamDeviceCprocManualConfig_s CamDeviceCprocManualConfig_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceCprocManualConfig_t</name>
+        <briefdescription>
+<para>VsCamDevice CPROC current configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/cproc/cam_device_cproc_api.h" line="112" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__cproc_1gaa9968166cf06bc6fd50090f0a02d1bbe" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_cproc_config__s" kindref="compound">CamDeviceCprocConfig_s</ref></type>
+        <definition>typedef struct CamDeviceCprocConfig_s CamDeviceCprocConfig_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceCprocConfig_t</name>
+        <briefdescription>
+<para>VsCamDevice CPROC configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/cproc/cam_device_cproc_api.h" line="123" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__cproc_1gabf409a2b35aa166d44ec21c8c797325d" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_cproc_status__s" kindref="compound">CamDeviceCprocStatus_s</ref></type>
+        <definition>typedef struct CamDeviceCprocStatus_s CamDeviceCprocStatus_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceCprocStatus_t</name>
+        <briefdescription>
+<para>VsCamDevice CPROC status structure. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/cproc/cam_device_cproc_api.h" line="135" column="1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group____cam__device__cproc_1ga922b00501219a61744b74ad54736ff4a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceCprocSetConfig</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, CamDeviceCprocConfig_t *pCprocCfg)</argsstring>
+        <name>VsiCamDeviceCprocSetConfig</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type><ref refid="group____cam__device__cproc_1gaa9968166cf06bc6fd50090f0a02d1bbe" kindref="member">CamDeviceCprocConfig_t</ref> *</type>
+          <declname>pCprocCfg</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/cproc/cam_device_cproc_api.h" line="160" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/cproc/cam_device_cproc_api.c" bodystart="19" bodyend="58"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__cproc_1ga82a28d1683374632b53f3769e6f091fe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceCprocGetConfig</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, CamDeviceCprocConfig_t *pCprocCfg)</argsstring>
+        <name>VsiCamDeviceCprocGetConfig</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type><ref refid="group____cam__device__cproc_1gaa9968166cf06bc6fd50090f0a02d1bbe" kindref="member">CamDeviceCprocConfig_t</ref> *</type>
+          <declname>pCprocCfg</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/cproc/cam_device_cproc_api.h" line="189" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/cproc/cam_device_cproc_api.c" bodystart="62" bodyend="101"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__cproc_1gafb6a8f2988165fc35185091d3fac56cf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceCprocSetRange</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, CamDeviceCprocYuvRangeS_t *pYuvRange)</argsstring>
+        <name>VsiCamDeviceCprocSetRange</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type><ref refid="group____cam__device__cproc_1gabb71d4d3e1089a04616c15734974e5f5" kindref="member">CamDeviceCprocYuvRangeS_t</ref> *</type>
+          <declname>pYuvRange</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/cproc/cam_device_cproc_api.h" line="217" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/cproc/cam_device_cproc_api.c" bodystart="105" bodyend="144"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__cproc_1ga770a4e91e0de8be5b8f180928b5d1444" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceCprocGetRange</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, CamDeviceCprocYuvRangeS_t *pYuvRange)</argsstring>
+        <name>VsiCamDeviceCprocGetRange</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type><ref refid="group____cam__device__cproc_1gabb71d4d3e1089a04616c15734974e5f5" kindref="member">CamDeviceCprocYuvRangeS_t</ref> *</type>
+          <declname>pYuvRange</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/cproc/cam_device_cproc_api.h" line="245" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/cproc/cam_device_cproc_api.c" bodystart="148" bodyend="187"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__cproc_1ga5b056beed02ff9fec1ebd76c038e642a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceCprocEnable</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice)</argsstring>
+        <name>VsiCamDeviceCprocEnable</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/cproc/cam_device_cproc_api.h" line="268" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/cproc/cam_device_cproc_api.c" bodystart="191" bodyend="225"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__cproc_1ga39834f73b4fa7864a4e24e5659a6a201" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceCprocDisable</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice)</argsstring>
+        <name>VsiCamDeviceCprocDisable</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/cproc/cam_device_cproc_api.h" line="290" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/cproc/cam_device_cproc_api.c" bodystart="229" bodyend="263"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__cproc_1gaf8ba52d336500dee88e35f0526508ec8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceCprocGetStatus</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, CamDeviceCprocStatus_t *pStatus)</argsstring>
+        <name>VsiCamDeviceCprocGetStatus</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type><ref refid="group____cam__device__cproc_1gabf409a2b35aa166d44ec21c8c797325d" kindref="member">CamDeviceCprocStatus_t</ref> *</type>
+          <declname>pStatus</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/cproc/cam_device_cproc_api.h" line="317" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/cproc/cam_device_cproc_api.c" bodystart="267" bodyend="306"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__cproc_1gaf457289d746349e4d49694555e42927f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceCprocReset</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice)</argsstring>
+        <name>VsiCamDeviceCprocReset</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/cproc/cam_device_cproc_api.h" line="345" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/cproc/cam_device_cproc_api.c" bodystart="310" bodyend="344"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__cproc_1ga8d1a724d17579b6dcd27e75c333aa376" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceCprocGetVersion</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, uint32_t *pVersion)</argsstring>
+        <name>VsiCamDeviceCprocGetVersion</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type>uint32_t *</type>
+          <declname>pVersion</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/cproc/cam_device_cproc_api.h" line="366" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/cproc/cam_device_cproc_api.c" bodystart="348" bodyend="387"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__cproc_1gaafeabe0781952bee402b740d752827c5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceCprocGetRangeStatus</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, CamDeviceCprocYuvRangeS_t *pYuvRange)</argsstring>
+        <name>VsiCamDeviceCprocGetRangeStatus</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type><ref refid="group____cam__device__cproc_1gabb71d4d3e1089a04616c15734974e5f5" kindref="member">CamDeviceCprocYuvRangeS_t</ref> *</type>
+          <declname>pYuvRange</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/cproc/cam_device_cproc_api.h" line="394" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/cproc/cam_device_cproc_api.c" bodystart="390" bodyend="429"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">//<sp/>Copyright<sp/>(C)<sp/>2024<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************</highlight></codeline>
+<codeline lineno="3"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="4"><highlight class="comment"><sp/>*<sp/>The<sp/>MIT<sp/>License<sp/>(MIT)</highlight></codeline>
+<codeline lineno="5"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="6"><highlight class="comment"><sp/>*<sp/>Copyright<sp/>(c)<sp/>2014-2022<sp/>Vivante<sp/>Corporation</highlight></codeline>
+<codeline lineno="7"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="8"><highlight class="comment"><sp/>*<sp/>Permission<sp/>is<sp/>hereby<sp/>granted,<sp/>free<sp/>of<sp/>charge,<sp/>to<sp/>any<sp/>person<sp/>obtaining<sp/>a</highlight></codeline>
+<codeline lineno="9"><highlight class="comment"><sp/>*<sp/>copy<sp/>of<sp/>this<sp/>software<sp/>and<sp/>associated<sp/>documentation<sp/>files<sp/>(the<sp/>&quot;Software&quot;),</highlight></codeline>
+<codeline lineno="10"><highlight class="comment"><sp/>*<sp/>to<sp/>deal<sp/>in<sp/>the<sp/>Software<sp/>without<sp/>restriction,<sp/>including<sp/>without<sp/>limitation</highlight></codeline>
+<codeline lineno="11"><highlight class="comment"><sp/>*<sp/>the<sp/>rights<sp/>to<sp/>use,<sp/>copy,<sp/>modify,<sp/>merge,<sp/>publish,<sp/>distribute,<sp/>sublicense,</highlight></codeline>
+<codeline lineno="12"><highlight class="comment"><sp/>*<sp/>and/or<sp/>sell<sp/>copies<sp/>of<sp/>the<sp/>Software,<sp/>and<sp/>to<sp/>permit<sp/>persons<sp/>to<sp/>whom<sp/>the</highlight></codeline>
+<codeline lineno="13"><highlight class="comment"><sp/>*<sp/>Software<sp/>is<sp/>furnished<sp/>to<sp/>do<sp/>so,<sp/>subject<sp/>to<sp/>the<sp/>following<sp/>conditions:</highlight></codeline>
+<codeline lineno="14"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="15"><highlight class="comment"><sp/>*<sp/>The<sp/>above<sp/>copyright<sp/>notice<sp/>and<sp/>this<sp/>permission<sp/>notice<sp/>shall<sp/>be<sp/>included<sp/>in</highlight></codeline>
+<codeline lineno="16"><highlight class="comment"><sp/>*<sp/>all<sp/>copies<sp/>or<sp/>substantial<sp/>portions<sp/>of<sp/>the<sp/>Software.</highlight></codeline>
+<codeline lineno="17"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="18"><highlight class="comment"><sp/>*<sp/>THE<sp/>SOFTWARE<sp/>IS<sp/>PROVIDED<sp/>&quot;AS<sp/>IS&quot;,<sp/>WITHOUT<sp/>WARRANTY<sp/>OF<sp/>ANY<sp/>KIND,<sp/>EXPRESS<sp/>OR</highlight></codeline>
+<codeline lineno="19"><highlight class="comment"><sp/>*<sp/>IMPLIED,<sp/>INCLUDING<sp/>BUT<sp/>NOT<sp/>LIMITED<sp/>TO<sp/>THE<sp/>WARRANTIES<sp/>OF<sp/>MERCHANTABILITY,</highlight></codeline>
+<codeline lineno="20"><highlight class="comment"><sp/>*<sp/>FITNESS<sp/>FOR<sp/>A<sp/>PARTICULAR<sp/>PURPOSE<sp/>AND<sp/>NONINFRINGEMENT.<sp/>IN<sp/>NO<sp/>EVENT<sp/>SHALL<sp/>THE</highlight></codeline>
+<codeline lineno="21"><highlight class="comment"><sp/>*<sp/>AUTHORS<sp/>OR<sp/>COPYRIGHT<sp/>HOLDERS<sp/>BE<sp/>LIABLE<sp/>FOR<sp/>ANY<sp/>CLAIM,<sp/>DAMAGES<sp/>OR<sp/>OTHER</highlight></codeline>
+<codeline lineno="22"><highlight class="comment"><sp/>*<sp/>LIABILITY,<sp/>WHETHER<sp/>IN<sp/>AN<sp/>ACTION<sp/>OF<sp/>CONTRACT,<sp/>TORT<sp/>OR<sp/>OTHERWISE,<sp/>ARISING</highlight></codeline>
+<codeline lineno="23"><highlight class="comment"><sp/>*<sp/>FROM,<sp/>OUT<sp/>OF<sp/>OR<sp/>IN<sp/>CONNECTION<sp/>WITH<sp/>THE<sp/>SOFTWARE<sp/>OR<sp/>THE<sp/>USE<sp/>OR<sp/>OTHER</highlight></codeline>
+<codeline lineno="24"><highlight class="comment"><sp/>*<sp/>DEALINGS<sp/>IN<sp/>THE<sp/>SOFTWARE.</highlight></codeline>
+<codeline lineno="25"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="26"><highlight class="comment"><sp/>****************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>CAMDEV_CPROC_API_H</highlight></codeline>
+<codeline lineno="29"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CAMDEV_CPROC_API_H</highlight></codeline>
+<codeline lineno="30"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;cam_device_common.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="34"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="37"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="46"><highlight class="preprocessor">#define<sp/>CPROC_RGBTOYUV_MATRIX_NUM<sp/>9</highlight></codeline>
+<codeline lineno="47"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="53" refid="group____cam__device__cproc_1ga5f89e66fc4716e494c62bd7b03626e70" refkind="member"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/><ref refid="group____cam__device__cproc_1ga5f89e66fc4716e494c62bd7b03626e70" kindref="member">CamDeviceCprocYuvRangeType_e</ref><sp/>{</highlight></codeline>
+<codeline lineno="54" refid="group____cam__device__cproc_1gga5f89e66fc4716e494c62bd7b03626e70aa2a8e94a9a829dcbc349e036665f6ce9" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="group____cam__device__cproc_1gga5f89e66fc4716e494c62bd7b03626e70aa2a8e94a9a829dcbc349e036665f6ce9" kindref="member">CAMDEV_CPROC_YUV_RANGE_INVALID</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>0,<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="55" refid="group____cam__device__cproc_1gga5f89e66fc4716e494c62bd7b03626e70ae0cf14e6013489e072285eac7d8821e6" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="group____cam__device__cproc_1gga5f89e66fc4716e494c62bd7b03626e70ae0cf14e6013489e072285eac7d8821e6" kindref="member">CAMDEV_CPROC_YUV_RANGE_LIMIT_RANGE</ref><sp/><sp/><sp/>=<sp/>1,<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="56" refid="group____cam__device__cproc_1gga5f89e66fc4716e494c62bd7b03626e70acfa4070100e3f09c528acd1947a0dd42" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="group____cam__device__cproc_1gga5f89e66fc4716e494c62bd7b03626e70acfa4070100e3f09c528acd1947a0dd42" kindref="member">CAMDEV_CPROC_YUV_RANGE_FULL_RANGE</ref><sp/><sp/><sp/><sp/>=<sp/>2,<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="57" refid="group____cam__device__cproc_1gga5f89e66fc4716e494c62bd7b03626e70abf6276c1c288daad34bf4543369fba96" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="group____cam__device__cproc_1gga5f89e66fc4716e494c62bd7b03626e70abf6276c1c288daad34bf4543369fba96" kindref="member">CAMDEV_CPROC_YUV_RANGE_MAX</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="58"><highlight class="normal">}<ref refid="group____cam__device__cproc_1ga2c58612ac5d4cff4e310fc3cccceb9b8" kindref="member">CamDeviceCprocYuvRangeType_t</ref>;</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight><highlight class="comment">/*******************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="66" refid="group____cam__device__cproc_1gab278e4ec036bdd1c357a29560512a88f" refkind="member"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/><ref refid="group____cam__device__cproc_1gab278e4ec036bdd1c357a29560512a88f" kindref="member">CamDeviceCprocColorGamutType_e</ref><sp/>{</highlight></codeline>
+<codeline lineno="67" refid="group____cam__device__cproc_1ggab278e4ec036bdd1c357a29560512a88fa1f21da4a63743feb1d02b5ea3daac43a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="group____cam__device__cproc_1ggab278e4ec036bdd1c357a29560512a88fa1f21da4a63743feb1d02b5ea3daac43a" kindref="member">CAMDEV_CPROC_COLOR_GAMUT_BT601</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>0,<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="68" refid="group____cam__device__cproc_1ggab278e4ec036bdd1c357a29560512a88fa28bb3953048402be9974dbc12c7e5249" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="group____cam__device__cproc_1ggab278e4ec036bdd1c357a29560512a88fa28bb3953048402be9974dbc12c7e5249" kindref="member">CAMDEV_CPROC_COLOR_GAMUT_BT709</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>1,<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="69" refid="group____cam__device__cproc_1ggab278e4ec036bdd1c357a29560512a88fac26f03cb63827a4e46d0d29e00750a0c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="group____cam__device__cproc_1ggab278e4ec036bdd1c357a29560512a88fac26f03cb63827a4e46d0d29e00750a0c" kindref="member">CAMDEV_CPROC_COLOR_GAMUT_BT2020</ref><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>2,<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="70" refid="group____cam__device__cproc_1ggab278e4ec036bdd1c357a29560512a88fae6c83cee8b56e086cd89e5574625a8b1" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="group____cam__device__cproc_1ggab278e4ec036bdd1c357a29560512a88fae6c83cee8b56e086cd89e5574625a8b1" kindref="member">CAMDEV_CPROC_COLOR_GAMUT_MAX</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="71"><highlight class="normal">}<ref refid="group____cam__device__cproc_1gadefec9a0f55555ba0f1087bbc78f499e" kindref="member">CamDeviceCprocColorGamutType_t</ref>;</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight><highlight class="comment">/*******************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="79" refid="struct_cam_device_cproc_yuv_range__s" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_cam_device_cproc_yuv_range__s" kindref="compound">CamDeviceCprocYuvRange_s</ref><sp/>{</highlight></codeline>
+<codeline lineno="80" refid="struct_cam_device_cproc_yuv_range__s_1a943dd4b413038072d088f1edf042eb36" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>bool_t<sp/><ref refid="struct_cam_device_cproc_yuv_range__s_1a943dd4b413038072d088f1edf042eb36" kindref="member">useOutConvMatrix</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="81" refid="struct_cam_device_cproc_yuv_range__s_1aa80644acb281f1c0c727c55f89ee2905" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>float32_t<sp/><ref refid="struct_cam_device_cproc_yuv_range__s_1aa80644acb281f1c0c727c55f89ee2905" kindref="member">rgbToyuvMatrix</ref>[CPROC_RGBTOYUV_MATRIX_NUM];<sp/><sp/></highlight></codeline>
+<codeline lineno="82" refid="struct_cam_device_cproc_yuv_range__s_1a9d5a378e5f29f6b438be32e452cc1658" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="group____cam__device__cproc_1ga2c58612ac5d4cff4e310fc3cccceb9b8" kindref="member">CamDeviceCprocYuvRangeType_t</ref><sp/><ref refid="struct_cam_device_cproc_yuv_range__s_1a9d5a378e5f29f6b438be32e452cc1658" kindref="member">yuvRange</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="group____cam__device__cproc_1gadefec9a0f55555ba0f1087bbc78f499e" kindref="member">CamDeviceCprocColorGamutType_t</ref><sp/>gamut;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="84"><highlight class="normal">}<sp/><ref refid="group____cam__device__cproc_1gabb71d4d3e1089a04616c15734974e5f5" kindref="member">CamDeviceCprocYuvRangeS_t</ref>;</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"></highlight></codeline>
+<codeline lineno="86"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="91" refid="struct_cam_device_cproc_auto_config__s" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_cam_device_cproc_auto_config__s" kindref="compound">CamDeviceCprocAutoConfig_s</ref><sp/>{</highlight></codeline>
+<codeline lineno="92" refid="struct_cam_device_cproc_auto_config__s_1a444c10a198706e75593a247f549ae219" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint8_t<sp/><ref refid="struct_cam_device_cproc_auto_config__s_1a444c10a198706e75593a247f549ae219" kindref="member">autoLevel</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="94" refid="struct_cam_device_cproc_auto_config__s_1ac6d1bf62c2702a860277125130d63e54" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>float32_t<sp/><ref refid="struct_cam_device_cproc_auto_config__s_1ac6d1bf62c2702a860277125130d63e54" kindref="member">gains</ref>[<ref refid="group____cam__device__general_1gacf4b0c0a6159fed6c0115c585da55a03" kindref="member">CAMDEV_ISO_STRENGTH_NUM</ref>];<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="95" refid="struct_cam_device_cproc_auto_config__s_1abb8a73004256dedaba82deae8ce3b8ac" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>float32_t<sp/><ref refid="struct_cam_device_cproc_auto_config__s_1abb8a73004256dedaba82deae8ce3b8ac" kindref="member">contrast</ref>[<ref refid="group____cam__device__general_1gacf4b0c0a6159fed6c0115c585da55a03" kindref="member">CAMDEV_ISO_STRENGTH_NUM</ref>];<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="96" refid="struct_cam_device_cproc_auto_config__s_1ae9037ec48984f2319ef221635d73786f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>float32_t<sp/><ref refid="struct_cam_device_cproc_auto_config__s_1ae9037ec48984f2319ef221635d73786f" kindref="member">bright</ref>[<ref refid="group____cam__device__general_1gacf4b0c0a6159fed6c0115c585da55a03" kindref="member">CAMDEV_ISO_STRENGTH_NUM</ref>];<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="97" refid="struct_cam_device_cproc_auto_config__s_1a24473b4c1c1a8a890a7867cb5187e396" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>float32_t<sp/><ref refid="struct_cam_device_cproc_auto_config__s_1a24473b4c1c1a8a890a7867cb5187e396" kindref="member">saturation</ref>[<ref refid="group____cam__device__general_1gacf4b0c0a6159fed6c0115c585da55a03" kindref="member">CAMDEV_ISO_STRENGTH_NUM</ref>];<sp/><sp/></highlight></codeline>
+<codeline lineno="98" refid="struct_cam_device_cproc_auto_config__s_1a33fe8e1402a6d3b683b2fbecb459ca61" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>float32_t<sp/><ref refid="struct_cam_device_cproc_auto_config__s_1a33fe8e1402a6d3b683b2fbecb459ca61" kindref="member">hue</ref>[<ref refid="group____cam__device__general_1gacf4b0c0a6159fed6c0115c585da55a03" kindref="member">CAMDEV_ISO_STRENGTH_NUM</ref>];<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="99"><highlight class="normal">}<ref refid="group____cam__device__cproc_1ga2a88ad7fed93a02ece07b3c637b0165f" kindref="member">CamDeviceCprocAutoConfig_t</ref>;</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"></highlight></codeline>
+<codeline lineno="101"><highlight class="normal"></highlight></codeline>
+<codeline lineno="102"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="107" refid="struct_cam_device_cproc_manual_config__s" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_cam_device_cproc_manual_config__s" kindref="compound">CamDeviceCprocManualConfig_s</ref><sp/>{</highlight></codeline>
+<codeline lineno="108" refid="struct_cam_device_cproc_manual_config__s_1a5d71756c5b2b659f0f707bd619f20ede" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>float32_t<sp/><ref refid="struct_cam_device_cproc_manual_config__s_1a5d71756c5b2b659f0f707bd619f20ede" kindref="member">contrast</ref>;<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="109" refid="struct_cam_device_cproc_manual_config__s_1a8a13bfbbd82fbae1b06a2adbd66b89a2" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>float32_t<sp/><ref refid="struct_cam_device_cproc_manual_config__s_1a8a13bfbbd82fbae1b06a2adbd66b89a2" kindref="member">bright</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="110" refid="struct_cam_device_cproc_manual_config__s_1af13610efabb5104ef29ffda7d38838a4" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>float32_t<sp/><ref refid="struct_cam_device_cproc_manual_config__s_1af13610efabb5104ef29ffda7d38838a4" kindref="member">saturation</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="111" refid="struct_cam_device_cproc_manual_config__s_1a17c1344a42f6c9afabc97e8342fc8758" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>float32_t<sp/><ref refid="struct_cam_device_cproc_manual_config__s_1a17c1344a42f6c9afabc97e8342fc8758" kindref="member">hue</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="112"><highlight class="normal">}<ref refid="group____cam__device__cproc_1gaad36980ca7d8863e31e3aab3fe210ede" kindref="member">CamDeviceCprocManualConfig_t</ref>;</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"></highlight></codeline>
+<codeline lineno="114"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="119" refid="struct_cam_device_cproc_config__s" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_cam_device_cproc_config__s" kindref="compound">CamDeviceCprocConfig_s</ref><sp/>{</highlight></codeline>
+<codeline lineno="120" refid="struct_cam_device_cproc_config__s_1a5a989a73e94aa7390a4aae106d4a2612" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="group____cam__device__general_1ga7a54f95af23ab3af59d485ffaec2ae60" kindref="member">CamDeviceConfigMode_t</ref><sp/><ref refid="struct_cam_device_cproc_config__s_1a5a989a73e94aa7390a4aae106d4a2612" kindref="member">configMode</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="121" refid="struct_cam_device_cproc_config__s_1aebbe5e0fe2855a3ac1ff98b3ec03e648" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_cam_device_cproc_auto_config__s" kindref="compound">CamDeviceCprocAutoConfig_t</ref><sp/><ref refid="struct_cam_device_cproc_config__s_1aebbe5e0fe2855a3ac1ff98b3ec03e648" kindref="member">autoCfg</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="122" refid="struct_cam_device_cproc_config__s_1af48e7cad3ca3378db4fee4fd21f29966" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_cam_device_cproc_manual_config__s" kindref="compound">CamDeviceCprocManualConfig_t</ref><sp/><ref refid="struct_cam_device_cproc_config__s_1af48e7cad3ca3378db4fee4fd21f29966" kindref="member">manualCfg</ref>;<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="123"><highlight class="normal">}<ref refid="group____cam__device__cproc_1gaa9968166cf06bc6fd50090f0a02d1bbe" kindref="member">CamDeviceCprocConfig_t</ref>;</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"></highlight></codeline>
+<codeline lineno="125"><highlight class="normal"></highlight></codeline>
+<codeline lineno="126"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="131" refid="struct_cam_device_cproc_status__s" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_cam_device_cproc_status__s" kindref="compound">CamDeviceCprocStatus_s</ref><sp/>{</highlight></codeline>
+<codeline lineno="132" refid="struct_cam_device_cproc_status__s_1aecd733118ca923790909506a1d7515fa" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>bool_t<sp/><ref refid="struct_cam_device_cproc_status__s_1aecd733118ca923790909506a1d7515fa" kindref="member">enable</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="133" refid="struct_cam_device_cproc_status__s_1a6c6d242edd25a4b34555e223d774049c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="group____cam__device__general_1ga7a54f95af23ab3af59d485ffaec2ae60" kindref="member">CamDeviceConfigMode_t</ref><sp/><ref refid="struct_cam_device_cproc_status__s_1a6c6d242edd25a4b34555e223d774049c" kindref="member">currentMode</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="134" refid="struct_cam_device_cproc_status__s_1a48642a2c541698fbfd9c84023221851d" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_cam_device_cproc_manual_config__s" kindref="compound">CamDeviceCprocManualConfig_t</ref><sp/><ref refid="struct_cam_device_cproc_status__s_1a48642a2c541698fbfd9c84023221851d" kindref="member">currentCfg</ref>;<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="135"><highlight class="normal">}<ref refid="group____cam__device__cproc_1gabf409a2b35aa166d44ec21c8c797325d" kindref="member">CamDeviceCprocStatus_t</ref>;</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"></highlight></codeline>
+<codeline lineno="137"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="160"><highlight class="normal">RESULT<sp/>VsiCamDeviceCprocSetConfig</highlight></codeline>
+<codeline lineno="161"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/>CamDeviceHandle_t<sp/><sp/><sp/><sp/><sp/><sp/><sp/>hCamDevice,</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_cam_device_cproc_config__s" kindref="compound">CamDeviceCprocConfig_t</ref><sp/>*pCprocCfg</highlight></codeline>
+<codeline lineno="164"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"></highlight></codeline>
+<codeline lineno="166"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="189"><highlight class="normal">RESULT<sp/>VsiCamDeviceCprocGetConfig</highlight></codeline>
+<codeline lineno="190"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="191"><highlight class="normal"><sp/><sp/><sp/><sp/>CamDeviceHandle_t<sp/><sp/><sp/><sp/><sp/><sp/><sp/>hCamDevice,</highlight></codeline>
+<codeline lineno="192"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_cam_device_cproc_config__s" kindref="compound">CamDeviceCprocConfig_t</ref><sp/>*pCprocCfg</highlight></codeline>
+<codeline lineno="193"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="194"><highlight class="normal"></highlight></codeline>
+<codeline lineno="195"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="217"><highlight class="normal">RESULT<sp/>VsiCamDeviceCprocSetRange</highlight></codeline>
+<codeline lineno="218"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="219"><highlight class="normal"><sp/><sp/><sp/><sp/>CamDeviceHandle_t<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>hCamDevice,</highlight></codeline>
+<codeline lineno="220"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_cam_device_cproc_yuv_range__s" kindref="compound">CamDeviceCprocYuvRangeS_t</ref><sp/>*pYuvRange</highlight></codeline>
+<codeline lineno="221"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="222"><highlight class="normal"></highlight></codeline>
+<codeline lineno="223"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="245"><highlight class="normal">RESULT<sp/>VsiCamDeviceCprocGetRange</highlight></codeline>
+<codeline lineno="246"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="247"><highlight class="normal"><sp/><sp/><sp/><sp/>CamDeviceHandle_t<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>hCamDevice,</highlight></codeline>
+<codeline lineno="248"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_cam_device_cproc_yuv_range__s" kindref="compound">CamDeviceCprocYuvRangeS_t</ref><sp/>*pYuvRange</highlight></codeline>
+<codeline lineno="249"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="250"><highlight class="normal"></highlight></codeline>
+<codeline lineno="251"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="268"><highlight class="normal">RESULT<sp/>VsiCamDeviceCprocEnable</highlight></codeline>
+<codeline lineno="269"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="270"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CamDeviceHandle_t<sp/>hCamDevice</highlight></codeline>
+<codeline lineno="271"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="272"><highlight class="normal"></highlight></codeline>
+<codeline lineno="273"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="290"><highlight class="normal">RESULT<sp/>VsiCamDeviceCprocDisable</highlight></codeline>
+<codeline lineno="291"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="292"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CamDeviceHandle_t<sp/>hCamDevice</highlight></codeline>
+<codeline lineno="293"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="294"><highlight class="normal"></highlight></codeline>
+<codeline lineno="295"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="317"><highlight class="normal">RESULT<sp/>VsiCamDeviceCprocGetStatus</highlight></codeline>
+<codeline lineno="318"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="319"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CamDeviceHandle_t<sp/><sp/><sp/><sp/><sp/><sp/><sp/>hCamDevice,</highlight></codeline>
+<codeline lineno="320"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_cam_device_cproc_status__s" kindref="compound">CamDeviceCprocStatus_t</ref><sp/>*pStatus</highlight></codeline>
+<codeline lineno="321"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="322"><highlight class="normal"></highlight></codeline>
+<codeline lineno="323"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="345"><highlight class="normal">RESULT<sp/>VsiCamDeviceCprocReset</highlight></codeline>
+<codeline lineno="346"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="347"><highlight class="normal"><sp/><sp/><sp/><sp/>CamDeviceHandle_t<sp/>hCamDevice</highlight></codeline>
+<codeline lineno="348"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="349"><highlight class="normal"></highlight></codeline>
+<codeline lineno="350"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="366"><highlight class="normal">RESULT<sp/>VsiCamDeviceCprocGetVersion</highlight></codeline>
+<codeline lineno="367"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="368"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CamDeviceHandle_t<sp/>hCamDevice,</highlight></codeline>
+<codeline lineno="369"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint32_t<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*pVersion</highlight></codeline>
+<codeline lineno="370"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="371"><highlight class="normal"></highlight></codeline>
+<codeline lineno="372"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="394"><highlight class="normal">RESULT<sp/>VsiCamDeviceCprocGetRangeStatus</highlight></codeline>
+<codeline lineno="395"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="396"><highlight class="normal"><sp/><sp/><sp/><sp/>CamDeviceHandle_t<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>hCamDevice,</highlight></codeline>
+<codeline lineno="397"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_cam_device_cproc_yuv_range__s" kindref="compound">CamDeviceCprocYuvRangeS_t</ref><sp/>*pYuvRange</highlight></codeline>
+<codeline lineno="398"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="399"><highlight class="normal"></highlight></codeline>
+<codeline lineno="402"><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="403"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="404"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="405"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="406"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/><sp/>//<sp/>CAMDEV_CPROC_API_H</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/cproc/cam_device_cproc_api.h"/>
+  </compounddef>
+</doxygen>

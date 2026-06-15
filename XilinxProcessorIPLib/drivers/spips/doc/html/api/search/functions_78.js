@@ -1,0 +1,21 @@
+var searchData=
+[
+  ['xspips_5fabort',['XSpiPs_Abort',['../group__spips.html#ga1f40732e67f63579b811af115f2c575c',1,'xspips.c']]],
+  ['xspips_5fcfginitialize',['XSpiPs_CfgInitialize',['../group__spips.html#gabfabf86279474d10c04bfe97f3386a64',1,'xspips.c']]],
+  ['xspips_5fgetclkprescaler',['XSpiPs_GetClkPrescaler',['../group__spips.html#ga98c42c293d0278c31dd74cbcbec9451c',1,'xspips_options.c']]],
+  ['xspips_5fgetdelays',['XSpiPs_GetDelays',['../group__spips.html#ga06003e6ce763f2e61922a985e40abb2d',1,'xspips_options.c']]],
+  ['xspips_5fgetoptions',['XSpiPs_GetOptions',['../group__spips.html#ga95e9f2a440a68b4e55694bd593d6c810',1,'xspips_options.c']]],
+  ['xspips_5fgetslaveselect',['XSpiPs_GetSlaveSelect',['../group__spips.html#ga1876554128f1d1a8654d72a619fe491d',1,'xspips.c']]],
+  ['xspips_5finterrupthandler',['XSpiPs_InterruptHandler',['../group__spips.html#gac57ccd3fab9a25399bdb8bc234fecc66',1,'xspips.c']]],
+  ['xspips_5flookupconfig',['XSpiPs_LookupConfig',['../group__spips.html#ga4fa549669d98870a88eba403598ee595',1,'xspips_sinit.c']]],
+  ['xspips_5fpolledtransfer',['XSpiPs_PolledTransfer',['../group__spips.html#ga94490f99431c92c2a9a54cc41d4abe71',1,'xspips.c']]],
+  ['xspips_5freset',['XSpiPs_Reset',['../group__spips.html#gad3abd2456cfa67bc8d24dd255ba7de51',1,'xspips.c']]],
+  ['xspips_5fresethw',['XSpiPs_ResetHw',['../group__spips.html#gab466a4718bbee60293dc226ca043d5b5',1,'xspips_hw.c']]],
+  ['xspips_5fselftest',['XSpiPs_SelfTest',['../group__spips.html#gaaa797b9b8184e6f39b0c0038553e48d8',1,'xspips_selftest.c']]],
+  ['xspips_5fsetclkprescaler',['XSpiPs_SetClkPrescaler',['../group__spips.html#ga146ed84d7a6ab3b3f8961697bd78da60',1,'xspips_options.c']]],
+  ['xspips_5fsetdelays',['XSpiPs_SetDelays',['../group__spips.html#ga18d5dbc4eeeac171a1c2795f898b8a83',1,'xspips_options.c']]],
+  ['xspips_5fsetoptions',['XSpiPs_SetOptions',['../group__spips.html#ga4f14bfc3ddd296adb08843dbbe30a306',1,'xspips_options.c']]],
+  ['xspips_5fsetslaveselect',['XSpiPs_SetSlaveSelect',['../group__spips.html#ga1ef5af2211095df5692567fa4721a8d5',1,'xspips.c']]],
+  ['xspips_5fsetstatushandler',['XSpiPs_SetStatusHandler',['../group__spips.html#gacafc99130a16e99abb3d86e682f1de09',1,'xspips.c']]],
+  ['xspips_5ftransfer',['XSpiPs_Transfer',['../group__spips.html#ga747939dd62eb9c82ed185611e95211c7',1,'xspips.c']]]
+];

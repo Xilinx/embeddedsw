@@ -1,0 +1,290 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="visp__common_8h" kind="file">
+    <compoundname>visp_common.h</compoundname>
+    <includes local="no">stdio.h</includes>
+    <includes local="yes">sleep.h</includes>
+    <includes local="yes">xil_io.h</includes>
+    <includes local="yes">xil_types.h</includes>
+    <includes local="yes">xil_exception.h</includes>
+    <includes refid="mbox__cmd_8h" local="yes">mbox_cmd.h</includes>
+    <includes refid="sensor__cmd_8h" local="yes">sensor_cmd.h</includes>
+    <includes refid="src_2visp__ss_2common_2vlog_8h" local="yes">vlog.h</includes>
+    <includedby refid="visp__common_8c" local="yes">visp_common.c</includedby>
+    <incdepgraph>
+      <node id="8222">
+        <label>sys/stat.h</label>
+      </node>
+      <node id="8226">
+        <label>stdbool.h</label>
+      </node>
+      <node id="8216">
+        <label>xil_io.h</label>
+      </node>
+      <node id="8215">
+        <label>sleep.h</label>
+      </node>
+      <node id="8233">
+        <label>return_codes.h</label>
+        <link refid="return__codes_8h"/>
+      </node>
+      <node id="8235">
+        <label>oslayer.h</label>
+        <link refid="oslayer_8h"/>
+        <childnode refid="8236" relation="include">
+        </childnode>
+        <childnode refid="8242" relation="include">
+        </childnode>
+      </node>
+      <node id="8227">
+        <label>stdint.h</label>
+      </node>
+      <node id="8220">
+        <label>stdlib.h</label>
+      </node>
+      <node id="8234">
+        <label>vlog.h</label>
+        <childnode refid="8214" relation="include">
+        </childnode>
+        <childnode refid="8220" relation="include">
+        </childnode>
+        <childnode refid="8235" relation="include">
+        </childnode>
+      </node>
+      <node id="8223">
+        <label>fcntl.h</label>
+      </node>
+      <node id="8232">
+        <label>sensor_cmd.h</label>
+        <childnode refid="8225" relation="include">
+        </childnode>
+        <childnode refid="8233" relation="include">
+        </childnode>
+      </node>
+      <node id="8231">
+        <label>mbox_hardware.h</label>
+        <childnode refid="8228" relation="include">
+        </childnode>
+      </node>
+      <node id="8240">
+        <label>stddef.h</label>
+      </node>
+      <node id="8239">
+        <label>limits.h</label>
+      </node>
+      <node id="8225">
+        <label>mbox_api.h</label>
+        <childnode refid="8226" relation="include">
+        </childnode>
+        <childnode refid="8227" relation="include">
+        </childnode>
+        <childnode refid="8228" relation="include">
+        </childnode>
+      </node>
+      <node id="8221">
+        <label>sys/types.h</label>
+      </node>
+      <node id="8241">
+        <label>string.h</label>
+      </node>
+      <node id="8228">
+        <label>mbox_fifo.h</label>
+        <link refid="mbox__fifo_8h"/>
+        <childnode refid="8226" relation="include">
+        </childnode>
+        <childnode refid="8229" relation="include">
+        </childnode>
+      </node>
+      <node id="8224">
+        <label>signal.h</label>
+      </node>
+      <node id="8218">
+        <label>xil_exception.h</label>
+      </node>
+      <node id="8230">
+        <label>mbox_error_code.h</label>
+      </node>
+      <node id="8229">
+        <label>sys/_stdint.h</label>
+      </node>
+      <node id="8217">
+        <label>xil_types.h</label>
+      </node>
+      <node id="8213">
+        <label>visp_common.h</label>
+        <link refid="visp_common.h"/>
+        <childnode refid="8214" relation="include">
+        </childnode>
+        <childnode refid="8215" relation="include">
+        </childnode>
+        <childnode refid="8216" relation="include">
+        </childnode>
+        <childnode refid="8217" relation="include">
+        </childnode>
+        <childnode refid="8218" relation="include">
+        </childnode>
+        <childnode refid="8219" relation="include">
+        </childnode>
+        <childnode refid="8232" relation="include">
+        </childnode>
+        <childnode refid="8234" relation="include">
+        </childnode>
+      </node>
+      <node id="8242">
+        <label>ff.h</label>
+      </node>
+      <node id="8237">
+        <label>types.h</label>
+        <link refid="types_8h"/>
+        <childnode refid="8238" relation="include">
+        </childnode>
+        <childnode refid="8239" relation="include">
+        </childnode>
+        <childnode refid="8240" relation="include">
+        </childnode>
+      </node>
+      <node id="8219">
+        <label>mbox_cmd.h</label>
+        <link refid="mbox__cmd_8h"/>
+        <childnode refid="8214" relation="include">
+        </childnode>
+        <childnode refid="8220" relation="include">
+        </childnode>
+        <childnode refid="8221" relation="include">
+        </childnode>
+        <childnode refid="8222" relation="include">
+        </childnode>
+        <childnode refid="8223" relation="include">
+        </childnode>
+        <childnode refid="8224" relation="include">
+        </childnode>
+        <childnode refid="8217" relation="include">
+        </childnode>
+        <childnode refid="8225" relation="include">
+        </childnode>
+        <childnode refid="8230" relation="include">
+        </childnode>
+        <childnode refid="8228" relation="include">
+        </childnode>
+        <childnode refid="8231" relation="include">
+        </childnode>
+        <childnode refid="8232" relation="include">
+        </childnode>
+      </node>
+      <node id="8236">
+        <label>builtins.h</label>
+        <link refid="builtins_8h"/>
+        <childnode refid="8237" relation="include">
+        </childnode>
+        <childnode refid="8241" relation="include">
+        </childnode>
+      </node>
+      <node id="8214">
+        <label>stdio.h</label>
+      </node>
+      <node id="8238">
+        <label>linux_compat.h</label>
+        <link refid="linux__compat_8h"/>
+        <childnode refid="8214" relation="include">
+        </childnode>
+        <childnode refid="8220" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="8244">
+        <label>visp_common.c</label>
+      </node>
+      <node id="8243">
+        <label>visp_common.h</label>
+        <link refid="visp_common.h"/>
+        <childnode refid="8244" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="visp__common_8h_1a409768d6dd32d3ff211bfccfe4ecce45" prot="public" static="no">
+        <name>LOGTAG</name>
+        <initializer>&quot;VISP_COMMON&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/visp_common.h" line="14" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/visp_common.h" bodystart="14" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="visp__common_8h_1ab3b8fcf1f95e977e6682bc65200c72e4" prot="public" static="no">
+        <name>ATM_HIGH_MEM_PREFIX</name>
+        <initializer>0x8</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/visp_common.h" line="19" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/visp_common.h" bodystart="19" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="visp__common_8h_1ab1831be4150d64c2016cf72bb4a1bf55" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int ATM_ENABLE</definition>
+        <argsstring></argsstring>
+        <name>ATM_ENABLE</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/visp_common.h" line="18" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/visp_common.h" bodystart="18" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="visp__common_8h_1a0a53f0d20be00d498f3e4c92de12862e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int SetATM</definition>
+        <argsstring>(void)</argsstring>
+        <name>SetATM</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/visp_common.h" line="16" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/visp_common.c" bodystart="4" bodyend="47"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">//<sp/>Copyright<sp/>(C)<sp/>2024<sp/>-<sp/>2025<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;stdio.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;sleep.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_io.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_exception.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="mbox__cmd_8h" kindref="compound">mbox_cmd.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;sensor_cmd.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="comment">//#include<sp/>&quot;sensor_cfgs.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;vlog.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="comment">//#include<sp/>&quot;vvdevice.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>LOGTAG<sp/>&quot;VISP_COMMON&quot;</highlight></codeline>
+<codeline lineno="15"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>SetATM(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>ATM_ENABLE<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>ATM_HIGH_MEM_PREFIX<sp/>0x8</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/visp_common.h"/>
+  </compounddef>
+</doxygen>

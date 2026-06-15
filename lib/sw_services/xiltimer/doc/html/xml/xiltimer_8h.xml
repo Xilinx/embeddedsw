@@ -1,0 +1,646 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xiltimer_8h" kind="file">
+    <compoundname>xiltimer.h</compoundname>
+    <includes local="yes">xtimer_config.h</includes>
+    <includes local="yes">xil_io.h</includes>
+    <includes local="yes">xil_types.h</includes>
+    <includes local="yes">xil_assert.h</includes>
+    <includes local="yes">xil_printf.h</includes>
+    <includes local="yes">xstatus.h</includes>
+    <includes local="yes">bspconfig.h</includes>
+    <includes local="yes">xparameters.h</includes>
+    <includes local="yes">xil_util.h</includes>
+    <includedby refid="axi__timer_8c" local="yes">axi_timer.c</includedby>
+    <includedby refid="cortexr5__sleep_8c" local="yes">cortexr5_sleep.c</includedby>
+    <includedby refid="globaltimer__sleep_8c" local="yes">globaltimer_sleep.c</includedby>
+    <includedby refid="globaltimer__sleep__zynq_8c" local="yes">globaltimer_sleep_zynq.c</includedby>
+    <includedby refid="microblaze__riscv__sleep_8c" local="yes">microblaze_riscv_sleep.c</includedby>
+    <includedby refid="microblaze__sleep_8c" local="yes">microblaze_sleep.c</includedby>
+    <includedby refid="scutimer_8c" local="yes">scutimer.c</includedby>
+    <includedby refid="ttcps_8c" local="yes">ttcps.c</includedby>
+    <includedby refid="xiltimer_8c" local="yes">xiltimer.c</includedby>
+    <incdepgraph>
+      <node id="138">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="136">
+        <label>xil_io.h</label>
+      </node>
+      <node id="141">
+        <label>bspconfig.h</label>
+      </node>
+      <node id="143">
+        <label>xil_util.h</label>
+      </node>
+      <node id="140">
+        <label>xstatus.h</label>
+      </node>
+      <node id="137">
+        <label>xil_types.h</label>
+      </node>
+      <node id="134">
+        <label>xiltimer.h</label>
+        <link refid="xiltimer.h"/>
+        <childnode refid="135" relation="include">
+        </childnode>
+        <childnode refid="136" relation="include">
+        </childnode>
+        <childnode refid="137" relation="include">
+        </childnode>
+        <childnode refid="138" relation="include">
+        </childnode>
+        <childnode refid="139" relation="include">
+        </childnode>
+        <childnode refid="140" relation="include">
+        </childnode>
+        <childnode refid="141" relation="include">
+        </childnode>
+        <childnode refid="142" relation="include">
+        </childnode>
+        <childnode refid="143" relation="include">
+        </childnode>
+      </node>
+      <node id="142">
+        <label>xparameters.h</label>
+      </node>
+      <node id="139">
+        <label>xil_printf.h</label>
+      </node>
+      <node id="135">
+        <label>xtimer_config.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="147">
+        <label>globaltimer_sleep.c</label>
+        <link refid="globaltimer__sleep_8c"/>
+      </node>
+      <node id="150">
+        <label>microblaze_sleep.c</label>
+        <link refid="microblaze__sleep_8c"/>
+      </node>
+      <node id="145">
+        <label>axi_timer.c</label>
+        <link refid="axi__timer_8c"/>
+      </node>
+      <node id="146">
+        <label>cortexr5_sleep.c</label>
+        <link refid="cortexr5__sleep_8c"/>
+      </node>
+      <node id="151">
+        <label>scutimer.c</label>
+        <link refid="scutimer_8c"/>
+      </node>
+      <node id="149">
+        <label>microblaze_riscv_sleep.c</label>
+        <link refid="microblaze__riscv__sleep_8c"/>
+      </node>
+      <node id="148">
+        <label>globaltimer_sleep_zynq.c</label>
+        <link refid="globaltimer__sleep__zynq_8c"/>
+      </node>
+      <node id="153">
+        <label>xiltimer.c</label>
+        <link refid="xiltimer_8c"/>
+      </node>
+      <node id="144">
+        <label>xiltimer.h</label>
+        <link refid="xiltimer.h"/>
+        <childnode refid="145" relation="include">
+        </childnode>
+        <childnode refid="146" relation="include">
+        </childnode>
+        <childnode refid="147" relation="include">
+        </childnode>
+        <childnode refid="148" relation="include">
+        </childnode>
+        <childnode refid="149" relation="include">
+        </childnode>
+        <childnode refid="150" relation="include">
+        </childnode>
+        <childnode refid="151" relation="include">
+        </childnode>
+        <childnode refid="152" relation="include">
+        </childnode>
+        <childnode refid="153" relation="include">
+        </childnode>
+      </node>
+      <node id="152">
+        <label>ttcps.c</label>
+        <link refid="ttcps_8c"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_x_timer_tag" prot="public">XTimerTag</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xiltimer_8h_1ad79fa109a0f7f136716e43b8931c468e" prot="public" static="no">
+        <name>XTIMER_MAJOR_VERSION</name>
+        <initializer>1U</initializer>
+        <briefdescription>
+<para>Library Major version info. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltimer/src/xiltimer.h" line="64" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltimer/src/xiltimer.h" bodystart="64" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xiltimer_8h_1a372f9a921d5b640234b2a63a60f2a608" prot="public" static="no">
+        <name>XTIMER_MINOR_VERSION</name>
+        <initializer>4U</initializer>
+        <briefdescription>
+<para>Library Minor version info. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltimer/src/xiltimer.h" line="69" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltimer/src/xiltimer.h" bodystart="69" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="xiltimer_8h_1ac78bbfcf92781c4163433b9234ca5adb" prot="public" static="no">
+        <name>XTimer_DelayType</name>
+        <enumvalue id="xiltimer_8h_1ac78bbfcf92781c4163433b9234ca5adba560abaa29cb456b69114f70412ecfb97" prot="public">
+          <name>XTIMER_DELAY_SEC</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+<para>Time delay in seconds. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xiltimer_8h_1ac78bbfcf92781c4163433b9234ca5adba4300457c5c502155d5683873c208873d" prot="public">
+          <name>XTIMER_DELAY_MSEC</name>
+          <initializer>= 1000</initializer>
+          <briefdescription>
+<para>Time delay in milliseconds. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xiltimer_8h_1ac78bbfcf92781c4163433b9234ca5adbaf87fdb94b9c9f134efde527a38db6048" prot="public">
+          <name>XTIMER_DELAY_USEC</name>
+          <initializer>= 1000 * 1000</initializer>
+          <briefdescription>
+<para>Time delay in microseconds. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>This typedef contains different measures of time for the device. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltimer/src/xiltimer.h" line="76" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltimer/src/xiltimer.h" bodystart="76" bodyend="80"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="xiltimer_8h_1adf78c896aa8018bb63e6aa315e24223b" prot="public" static="no">
+        <type>void(*</type>
+        <definition>typedef void(* XTimer_TickHandler)(void *CallBackRef, u32 StatusEvent)</definition>
+        <argsstring>)(void *CallBackRef, u32 StatusEvent)</argsstring>
+        <name>XTimer_TickHandler</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltimer/src/xiltimer.h" line="82" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltimer/src/xiltimer.h" bodystart="82" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="xiltimer_8h_1a7ba0892098f95e0c742e64b51e97319b" prot="public" static="no">
+        <type>struct <ref refid="struct_x_timer_tag" kindref="compound">XTimerTag</ref></type>
+        <definition>typedef struct XTimerTag  XTimer</definition>
+        <argsstring></argsstring>
+        <name>XTimer</name>
+        <briefdescription>
+<para>Structure to the XFpga instance. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>XTimer_ModifyInterval</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Modifies the timer interval </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>XTimer_TickIntrHandler</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Tick interrupt handler </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>XTimer_TickInterval</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Configures the tick interval </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>XSleepTimer_Stop</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Stops the sleep timer </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>XTickTimer_Stop</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Stops the tick timer </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>XTickTimer_ClearInterrupt</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Clears the Tick timer interrupt status </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Handler</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Tick Handler </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CallBackRef</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Callback reference for handler </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>AxiTimer_SleepInst</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Sleep Instance for AxiTimer </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>AxiTimer_TickInst</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Tick Instance for AxiTimer </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>TtcPs_SleepInst</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Sleep Instance for TTCPS </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>TtcPs_TickInst</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Tick Instance for TTCPS </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ScuTimer_SleepInst</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Sleep Instance for Scutimer </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ScuTimer_TickInst</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Tick Instance for Scutimer </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltimer/src/xiltimer.h" line="145" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="xiltimer_8h_1ab09e5fc8d3f2b44bee5841db91a81913" prot="public" static="no">
+        <type>u64</type>
+        <definition>typedef u64 XTime</definition>
+        <argsstring></argsstring>
+        <name>XTime</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltimer/src/xiltimer.h" line="147" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltimer/src/xiltimer.h" bodystart="147" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__xiltimer__api_1gad566619236e065d2120ff35bf4069666" prot="public" static="no" mutable="no">
+        <type><ref refid="xiltimer_8h_1a7ba0892098f95e0c742e64b51e97319b" kindref="member">XTimer</ref></type>
+        <definition>XTimer TimerInst</definition>
+        <argsstring></argsstring>
+        <name>TimerInst</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltimer/src/xiltimer.h" line="148" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltimer/src/xiltimer.c" bodystart="40" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xiltimer_8h_1a5c770b03515ead8c3c2949952c2b3410" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>static u32 XTimer_GetLibVersion</definition>
+        <argsstring>(void)</argsstring>
+        <name>XTimer_GetLibVersion</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function returns the version number of xiltimer library. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>32-bit version number </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltimer/src/xiltimer.h" line="161" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltimer/src/xiltimer.h" bodystart="161" bodyend="164"/>
+      </memberdef>
+      <memberdef kind="function" id="xiltimer_8h_1ae6ae23d2e575f47dcdd374cac14947ee" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XilSleepTimer_Init</definition>
+        <argsstring>(XTimer *InstancePtr)</argsstring>
+        <name>XilSleepTimer_Init</name>
+        <param>
+          <type><ref refid="xiltimer_8h_1a7ba0892098f95e0c742e64b51e97319b" kindref="member">XTimer</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This API is used for initializing sleep timer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltimer/src/xiltimer.h" line="169" column="1"/>
+        <referencedby refid="group__xiltimer__api_1gaf69e1968c5c23ab54bbe16685f28eec2" compoundref="xiltimer_8c" startline="118" endline="122">xtimerinit</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xiltimer_8h_1a261d2e800b7b82eb41e3b8f8043a5c52" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XilTickTimer_Init</definition>
+        <argsstring>(XTimer *InstancePtr)</argsstring>
+        <name>XilTickTimer_Init</name>
+        <param>
+          <type><ref refid="xiltimer_8h_1a7ba0892098f95e0c742e64b51e97319b" kindref="member">XTimer</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This API is used for initializing Tick timer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltimer/src/xiltimer.h" line="173" column="1"/>
+        <referencedby refid="group__xiltimer__api_1gaf69e1968c5c23ab54bbe16685f28eec2" compoundref="xiltimer_8c" startline="118" endline="122">xtimerinit</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xiltimer_8h_1a6d069e6cf82031c469818523a5d7ab82" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XTime_GetTime</definition>
+        <argsstring>(XTime *Xtime_Global)</argsstring>
+        <name>XTime_GetTime</name>
+        <param>
+          <type>XTime *</type>
+          <declname>Xtime_Global</declname>
+        </param>
+        <briefdescription>
+<para>Get the time. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltimer/src/xiltimer.h" line="177" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xiltimer__api_1gac2d61518eafb79f1bad01cecb9503d6c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XTimer_SetInterval</definition>
+        <argsstring>(unsigned long delay)</argsstring>
+        <name>XTimer_SetInterval</name>
+        <param>
+          <type>unsigned long</type>
+          <declname>delay</declname>
+        </param>
+        <briefdescription>
+<para>This API sets the elapse interval for the timer instance. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>delay</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Delay time in milliseconds</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>none</para></simplesect>
+<simplesect kind="note"><para>none </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltimer/src/xiltimer.h" line="178" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltimer/src/xiltimer.c" bodystart="185" bodyend="192"/>
+        <references refid="struct_x_timer_tag_1aa0931e9c88867714880e5d22aeca89b0" compoundref="xiltimer_8h" startline="107">XTimerTag::XTimer_TickInterval</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xiltimer__api_1ga6395671177518353e3ab5ded9609eb1e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XTimer_SetHandler</definition>
+        <argsstring>(XTimer_TickHandler FuncPtr, void *CallBackRef, u8 Priority)</argsstring>
+        <name>XTimer_SetHandler</name>
+        <param>
+          <type>XTimer_TickHandler</type>
+          <declname>FuncPtr</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>CallBackRef</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Priority</declname>
+        </param>
+        <briefdescription>
+<para>This routine installs an asynchronous callback function for the given FuncPtr. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>FuncPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the address of the callback function. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CallBackRef</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a user data item that will be passed to the callback function when it is invoked. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Priority</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Priority for the interrupt</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltimer/src/xiltimer.h" line="179" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltimer/src/xiltimer.c" bodystart="138" bodyend="150"/>
+        <references refid="struct_x_timer_tag_1a3e4c875a87fc8e4158293010a729bb2f" compoundref="xiltimer_8h" startline="115">XTimerTag::Handler</references>
+        <references refid="struct_x_timer_tag_1a5ba807967063169be63cde744354d0a8" compoundref="xiltimer_8h" startline="116">XTimerTag::CallBackRef</references>
+        <references refid="struct_x_timer_tag_1a789426610fee231cacc16560c831bc42" compoundref="xiltimer_8h" startline="105">XTimerTag::XTimer_TickIntrHandler</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xiltimer__api_1ga30d16ade92d9b5d61797f69f06bdd7bb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XTimer_ClearTickInterrupt</definition>
+        <argsstring>(void)</argsstring>
+        <name>XTimer_ClearTickInterrupt</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This API clears the interrupt status of the tick timer instance. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>none</para></simplesect>
+<simplesect kind="note"><para>none </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltimer/src/xiltimer.h" line="181" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltimer/src/xiltimer.c" bodystart="204" bodyend="211"/>
+        <references refid="struct_x_timer_tag_1a65213463c513915b2057907b0548a7a1" compoundref="xiltimer_8h" startline="113">XTimerTag::XTickTimer_ClearInterrupt</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2021-2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2022-2024<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="33"><highlight class="preprocessor">#ifndef<sp/>XILTIMER_H</highlight></codeline>
+<codeline lineno="34"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XILTIMER_H</highlight></codeline>
+<codeline lineno="35"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xtimer_config.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_io.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_assert.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_printf.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xstatus.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;bspconfig.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xparameters.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_util.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined(XSLEEPTIMER_IS_AXITIMER)<sp/>||<sp/>defined(XTICKTIMER_IS_AXITIMER)</highlight></codeline>
+<codeline lineno="46"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xtmrctr.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="48"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#if<sp/>defined(XSLEEPTIMER_IS_TTCPS)<sp/>||<sp/>defined(XTICKTIMER_IS_TTCPS)</highlight></codeline>
+<codeline lineno="49"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xttcps.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="51"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#if<sp/>defined(XSLEEPTIMER_IS_SCUTIMER)<sp/>||<sp/>defined(XTICKTIMER_IS_SCUTIMER)</highlight></codeline>
+<codeline lineno="52"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xscutimer.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="54"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="56"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="58"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight></codeline>
+<codeline lineno="64" refid="xiltimer_8h_1ad79fa109a0f7f136716e43b8931c468e" refkind="member"><highlight class="preprocessor">#define<sp/>XTIMER_MAJOR_VERSION<sp/><sp/><sp/><sp/>1U</highlight></codeline>
+<codeline lineno="65"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="69" refid="xiltimer_8h_1a372f9a921d5b640234b2a63a60f2a608" refkind="member"><highlight class="preprocessor">#define<sp/>XTIMER_MINOR_VERSION<sp/><sp/><sp/><sp/>4U</highlight></codeline>
+<codeline lineno="70"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight></codeline>
+<codeline lineno="76" refid="xiltimer_8h_1ac78bbfcf92781c4163433b9234ca5adb" refkind="member"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="77" refid="xiltimer_8h_1ac78bbfcf92781c4163433b9234ca5adba560abaa29cb456b69114f70412ecfb97" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xiltimer_8h_1ac78bbfcf92781c4163433b9234ca5adba560abaa29cb456b69114f70412ecfb97" kindref="member">XTIMER_DELAY_SEC</ref><sp/>=<sp/>1,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="78" refid="xiltimer_8h_1ac78bbfcf92781c4163433b9234ca5adba4300457c5c502155d5683873c208873d" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xiltimer_8h_1ac78bbfcf92781c4163433b9234ca5adba4300457c5c502155d5683873c208873d" kindref="member">XTIMER_DELAY_MSEC</ref><sp/>=<sp/>1000,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="79" refid="xiltimer_8h_1ac78bbfcf92781c4163433b9234ca5adbaf87fdb94b9c9f134efde527a38db6048" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xiltimer_8h_1ac78bbfcf92781c4163433b9234ca5adbaf87fdb94b9c9f134efde527a38db6048" kindref="member">XTIMER_DELAY_USEC</ref><sp/>=<sp/>1000<sp/>*<sp/>1000,<sp/></highlight></codeline>
+<codeline lineno="80"><highlight class="normal">}<sp/><ref refid="xiltimer_8h_1ac78bbfcf92781c4163433b9234ca5adb" kindref="member">XTimer_DelayType</ref>;</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"></highlight></codeline>
+<codeline lineno="82"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>void<sp/>(*XTimer_TickHandler)<sp/>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*<ref refid="struct_x_timer_tag_1a5ba807967063169be63cde744354d0a8" kindref="member">CallBackRef</ref>,<sp/>u32<sp/>StatusEvent);</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"></highlight></codeline>
+<codeline lineno="102" refid="struct_x_timer_tag" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_x_timer_tag" kindref="compound">XTimerTag</ref><sp/>{</highlight></codeline>
+<codeline lineno="103" refid="struct_x_timer_tag_1a1596156ea70229b14ebdb8776e890fea" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>void<sp/>(*<ref refid="struct_x_timer_tag_1a1596156ea70229b14ebdb8776e890fea" kindref="member">XTimer_ModifyInterval</ref>)(</highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_x_timer_tag" kindref="compound">XTimerTag</ref><sp/>*InstancePtr,<sp/>u32<sp/>delay,</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xiltimer_8h_1ac78bbfcf92781c4163433b9234ca5adb" kindref="member">XTimer_DelayType</ref><sp/>Delaytype);<sp/></highlight></codeline>
+<codeline lineno="105" refid="struct_x_timer_tag_1a789426610fee231cacc16560c831bc42" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>void<sp/>(*<ref refid="struct_x_timer_tag_1a789426610fee231cacc16560c831bc42" kindref="member">XTimer_TickIntrHandler</ref>)(</highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_x_timer_tag" kindref="compound">XTimerTag</ref><sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Priority);<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="107" refid="struct_x_timer_tag_1aa0931e9c88867714880e5d22aeca89b0" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>void<sp/>(*<ref refid="struct_x_timer_tag_1aa0931e9c88867714880e5d22aeca89b0" kindref="member">XTimer_TickInterval</ref>)(</highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_x_timer_tag" kindref="compound">XTimerTag</ref><sp/>*InstancePtr,<sp/>u32<sp/>Delay);</highlight></codeline>
+<codeline lineno="109" refid="struct_x_timer_tag_1a08c800b5458109d2b26ad3b8b82d2582" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>void<sp/>(*<ref refid="struct_x_timer_tag_1a08c800b5458109d2b26ad3b8b82d2582" kindref="member">XSleepTimer_Stop</ref>)(</highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_x_timer_tag" kindref="compound">XTimerTag</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="111" refid="struct_x_timer_tag_1aa6b45555673e3e0e07a63a43625dea63" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>void<sp/>(*<ref refid="struct_x_timer_tag_1aa6b45555673e3e0e07a63a43625dea63" kindref="member">XTickTimer_Stop</ref>)(</highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_x_timer_tag" kindref="compound">XTimerTag</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="113" refid="struct_x_timer_tag_1a65213463c513915b2057907b0548a7a1" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>void<sp/>(*<ref refid="struct_x_timer_tag_1a65213463c513915b2057907b0548a7a1" kindref="member">XTickTimer_ClearInterrupt</ref>)(</highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_x_timer_tag" kindref="compound">XTimerTag</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="115" refid="struct_x_timer_tag_1a3e4c875a87fc8e4158293010a729bb2f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XTimer_TickHandler<sp/><ref refid="struct_x_timer_tag_1a3e4c875a87fc8e4158293010a729bb2f" kindref="member">Handler</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="116" refid="struct_x_timer_tag_1a5ba807967063169be63cde744354d0a8" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*<ref refid="struct_x_timer_tag_1a5ba807967063169be63cde744354d0a8" kindref="member">CallBackRef</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="117"><highlight class="preprocessor">#ifdef<sp/><sp/>XPM_SUPPORT</highlight></codeline>
+<codeline lineno="118"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>void<sp/>(*XTickTimer_ReleaseTickTimer)(</highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_x_timer_tag" kindref="compound">XTimerTag</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="120"><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="121"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#ifdef<sp/>XSLEEPTIMER_IS_AXITIMER</highlight></codeline>
+<codeline lineno="122"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XTmrCtr<sp/>AxiTimer_SleepInst;<sp/></highlight></codeline>
+<codeline lineno="124"><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="125"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#ifdef<sp/>XTICKTIMER_IS_AXITIMER</highlight></codeline>
+<codeline lineno="126"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XTmrCtr<sp/>AxiTimer_TickInst;<sp/></highlight></codeline>
+<codeline lineno="128"><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="129"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#ifdef<sp/>XSLEEPTIMER_IS_TTCPS</highlight></codeline>
+<codeline lineno="130"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XTtcPs<sp/>TtcPs_SleepInst;<sp/></highlight></codeline>
+<codeline lineno="132"><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="133"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#ifdef<sp/>XTICKTIMER_IS_TTCPS</highlight></codeline>
+<codeline lineno="134"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XTtcPs<sp/>TtcPs_TickInst;<sp/></highlight></codeline>
+<codeline lineno="136"><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="137"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#ifdef<sp/>XSLEEPTIMER_IS_SCUTIMER</highlight></codeline>
+<codeline lineno="138"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XScuTimer<sp/>ScuTimer_SleepInst;<sp/></highlight></codeline>
+<codeline lineno="140"><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="141"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#ifdef<sp/>XTICKTIMER_IS_SCUTIMER</highlight></codeline>
+<codeline lineno="142"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XScuTimer<sp/>ScuTimer_TickInst;<sp/></highlight></codeline>
+<codeline lineno="144"><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="145"><highlight class="preprocessor"></highlight><highlight class="normal">}<sp/><ref refid="xiltimer_8h_1a7ba0892098f95e0c742e64b51e97319b" kindref="member">XTimer</ref>;</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"></highlight></codeline>
+<codeline lineno="147"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>u64<sp/>XTime;</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/><ref refid="struct_x_timer_tag" kindref="compound">XTimer</ref><sp/>TimerInst;</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"></highlight></codeline>
+<codeline lineno="150"><highlight class="normal"></highlight><highlight class="comment">/******************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="151"><highlight class="normal"></highlight></codeline>
+<codeline lineno="152"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="160"><highlight class="keyword">static</highlight><highlight class="normal"><sp/>__attribute__((always_inline))<sp/>INLINE</highlight></codeline>
+<codeline lineno="161"><highlight class="normal">u32<sp/>XTimer_GetLibVersion(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="162"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(XIL_BUILD_VERSION(<ref refid="xiltimer_8h_1ad79fa109a0f7f136716e43b8931c468e" kindref="member">XTIMER_MAJOR_VERSION</ref>,<sp/><ref refid="xiltimer_8h_1a372f9a921d5b640234b2a63a60f2a608" kindref="member">XTIMER_MINOR_VERSION</ref>));</highlight></codeline>
+<codeline lineno="164"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight></codeline>
+<codeline lineno="169"><highlight class="normal">u32<sp/><ref refid="xiltimer_8h_1ae6ae23d2e575f47dcdd374cac14947ee" kindref="member">XilSleepTimer_Init</ref>(<ref refid="struct_x_timer_tag" kindref="compound">XTimer</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="173"><highlight class="normal">u32<sp/><ref refid="xiltimer_8h_1a261d2e800b7b82eb41e3b8f8043a5c52" kindref="member">XilTickTimer_Init</ref>(<ref refid="struct_x_timer_tag" kindref="compound">XTimer</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="177"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xiltimer_8h_1a6d069e6cf82031c469818523a5d7ab82" kindref="member">XTime_GetTime</ref>(XTime<sp/>*Xtime_Global);</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__xiltimer__api_1gac2d61518eafb79f1bad01cecb9503d6c" kindref="member">XTimer_SetInterval</ref>(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/>delay);</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__xiltimer__api_1ga6395671177518353e3ab5ded9609eb1e" kindref="member">XTimer_SetHandler</ref>(XTimer_TickHandler<sp/>FuncPtr,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallBackRef,</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Priority);</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__xiltimer__api_1ga30d16ade92d9b5d61797f69f06bdd7bb" kindref="member">XTimer_ClearTickInterrupt</ref>(<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>);</highlight></codeline>
+<codeline lineno="182"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>XTIMER_DEFAULT_TIMER_IS_MB</highlight></codeline>
+<codeline lineno="183"><highlight class="preprocessor"></highlight><highlight class="normal">u32<sp/>Xil_GetMBFrequency(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="184"><highlight class="normal">u32<sp/>Xil_SetMBFrequency(u32<sp/>Val);</highlight></codeline>
+<codeline lineno="185"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="186"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="187"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>XTIMER_DEFAULT_TIMER_IS_MB_RISCV</highlight></codeline>
+<codeline lineno="188"><highlight class="preprocessor"></highlight><highlight class="normal">u32<sp/>Xil_GetRISCVFrequency(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="189"><highlight class="normal">u32<sp/>Xil_SetRISCVFrequency(u32<sp/>Val);</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="191"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="192"><highlight class="normal"></highlight></codeline>
+<codeline lineno="193"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="194"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="195"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="196"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="197"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltimer/src/xiltimer.h"/>
+  </compounddef>
+</doxygen>

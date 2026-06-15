@@ -1,0 +1,497 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__sdi__common" kind="group">
+    <compoundname>sdi_common</compoundname>
+    <title>Overview</title>
+    <innerclass refid="struct_x_sdi_vid___transport" prot="public">XSdiVid_Transport</innerclass>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="group__sdi__common_1gab3db4da5e79bd6512d3a9c2f30d0aa9a" prot="public" static="no">
+        <name>XSdiVid_Standard</name>
+        <enumvalue id="group__sdi__common_1ggab3db4da5e79bd6512d3a9c2f30d0aa9aaf76b9b749887e65501a367f2e9ad46bb" prot="public">
+          <name>XSDIVID_VM_483_576_SD</name>
+          <initializer>= 0x81</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__sdi__common_1ggab3db4da5e79bd6512d3a9c2f30d0aa9aa50f0724e3bc3dd11fbcb6239b387d349" prot="public">
+          <name>XSDIVID_VM_720_HD</name>
+          <initializer>= 0x84</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__sdi__common_1ggab3db4da5e79bd6512d3a9c2f30d0aa9aabf6e963793946a20f84dbdd5f93d1084" prot="public">
+          <name>XSDIVID_VM_1080_HD</name>
+          <initializer>= 0x85</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__sdi__common_1ggab3db4da5e79bd6512d3a9c2f30d0aa9aab038877182dcab0b61816f6407a440f6" prot="public">
+          <name>XSDIVID_VM_2X720_3GB</name>
+          <initializer>= 0x88</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__sdi__common_1ggab3db4da5e79bd6512d3a9c2f30d0aa9aadc1e70e77725380e71a45bbf623ca779" prot="public">
+          <name>XSDIVID_VM_1080_3GA</name>
+          <initializer>= 0x89</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__sdi__common_1ggab3db4da5e79bd6512d3a9c2f30d0aa9aa88f457c28d8554a446627c4f210e4375" prot="public">
+          <name>XSDIVID_VM_2X720_3GB1</name>
+          <initializer>= 0x8B</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__sdi__common_1ggab3db4da5e79bd6512d3a9c2f30d0aa9aa5ca36a9d16a1e6a4dac62aa2510143b4" prot="public">
+          <name>XSDIVID_VM_1080_3GB</name>
+          <initializer>= 0x8C</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__sdi__common_1ggab3db4da5e79bd6512d3a9c2f30d0aa9aa8e3c3358418cfa488d3fc8be2ccf551d" prot="public">
+          <name>XSDIVID_VM_2160_6G</name>
+          <initializer>= 0xC0</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__sdi__common_1ggab3db4da5e79bd6512d3a9c2f30d0aa9aa982e82e4206b2589da2e5610890be19a" prot="public">
+          <name>XSDIVID_VM_1080_6G</name>
+          <initializer>= 0xC0</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__sdi__common_1ggab3db4da5e79bd6512d3a9c2f30d0aa9aa565e38be1dcc663ad64534c5d69c81d9" prot="public">
+          <name>XSDIVID_VM_2160_12G</name>
+          <initializer>= 0xCE</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>Payload and digital interface standards. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdi_common/src/xv_sdivid.h" line="51" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdi_common/src/xv_sdivid.h" bodystart="51" bodyend="62"/>
+      </memberdef>
+      <memberdef kind="enum" id="group__sdi__common_1ga536ef9065018e4d00237ee5c38fdd09b" prot="public" static="no">
+        <name>XSdiVid_TransMode</name>
+        <enumvalue id="group__sdi__common_1gga536ef9065018e4d00237ee5c38fdd09ba441be9a3c1926f670b50ac2a4951f742" prot="public">
+          <name>XSDIVID_MODE_HD</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__sdi__common_1gga536ef9065018e4d00237ee5c38fdd09ba804675cadb72cac38ff66763c675ee45" prot="public">
+          <name>XSDIVID_MODE_SD</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__sdi__common_1gga536ef9065018e4d00237ee5c38fdd09baad60a933c3651f1a3054bd4fbb777e1d" prot="public">
+          <name>XSDIVID_MODE_3GA</name>
+          <initializer>= 2</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__sdi__common_1gga536ef9065018e4d00237ee5c38fdd09baf45e79091671e68b3f569b350939cc1a" prot="public">
+          <name>XSDIVID_MODE_3GB</name>
+          <initializer>= 3</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__sdi__common_1gga536ef9065018e4d00237ee5c38fdd09baeac22b15a4dc6bb385ad81d4adc8c15e" prot="public">
+          <name>XSDIVID_MODE_6G</name>
+          <initializer>= 4</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__sdi__common_1gga536ef9065018e4d00237ee5c38fdd09ba297d37a7df9ba8a52c58920fe468434c" prot="public">
+          <name>XSDIVID_MODE_12G</name>
+          <initializer>= 5</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__sdi__common_1gga536ef9065018e4d00237ee5c38fdd09ba8f021cb86d3d9664d351ad8012aefb8b" prot="public">
+          <name>XSDIVID_MODE_12GF</name>
+          <initializer>= 6</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>SDI Modes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdi_common/src/xv_sdivid.h" line="67" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdi_common/src/xv_sdivid.h" bodystart="67" bodyend="75"/>
+      </memberdef>
+      <memberdef kind="enum" id="group__sdi__common_1gaafc8f8956ebf6950baf9e21d821e1e5e" prot="public" static="no">
+        <name>XSdiVid_BitRate</name>
+        <enumvalue id="group__sdi__common_1ggaafc8f8956ebf6950baf9e21d821e1e5eae2cd7dc590293437d38f4e54be109823" prot="public">
+          <name>XSDIVID_BR_INTEGER</name>
+          <initializer>= 0x0</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__sdi__common_1ggaafc8f8956ebf6950baf9e21d821e1e5ea4eebfebf8864f0833b4e214bc341d085" prot="public">
+          <name>XSDIVID_BR_FRACTIONAL</name>
+          <initializer>= 0x1</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__sdi__common_1ggaafc8f8956ebf6950baf9e21d821e1e5eae2d3552e9523f35c21f589304604c2ac" prot="public">
+          <name>XSDIVID_BR_UNKNOWN</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>Channel Assignment. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdi_common/src/xv_sdivid.h" line="80" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdi_common/src/xv_sdivid.h" bodystart="80" bodyend="84"/>
+      </memberdef>
+      <memberdef kind="enum" id="group__sdi__common_1ga2ecc9a594782bf41d84861f7c3688f2b" prot="public" static="no">
+        <name>XSdiVid_ChannelAssignment</name>
+        <enumvalue id="group__sdi__common_1gga2ecc9a594782bf41d84861f7c3688f2ba3512070698c272cf66e64520f5463f7c" prot="public">
+          <name>XSDIVID_CA_CH1</name>
+          <initializer>= 0x0</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__sdi__common_1gga2ecc9a594782bf41d84861f7c3688f2ba3bcac3d2ba9986f694493923e0e65fb1" prot="public">
+          <name>XSDIVID_CA_CH2</name>
+          <initializer>= 0x1</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__sdi__common_1gga2ecc9a594782bf41d84861f7c3688f2ba5a51fcca7107e5a5fcf6940c79365abf" prot="public">
+          <name>XSDIVID_CA_CH3</name>
+          <initializer>= 0x2</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__sdi__common_1gga2ecc9a594782bf41d84861f7c3688f2baac7f8fc612c41ecc6f32917aa9108421" prot="public">
+          <name>XSDIVID_CA_CH4</name>
+          <initializer>= 0x3</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__sdi__common_1gga2ecc9a594782bf41d84861f7c3688f2ba0f5fd39d8a66a88f64d83a334f6dcdea" prot="public">
+          <name>XSDIVID_CA_CH5</name>
+          <initializer>= 0x4</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__sdi__common_1gga2ecc9a594782bf41d84861f7c3688f2ba3029e1f98299193abf15bed5c94d23f2" prot="public">
+          <name>XSDIVID_CA_CH6</name>
+          <initializer>= 0x5</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__sdi__common_1gga2ecc9a594782bf41d84861f7c3688f2ba90b024f7e78c2231f2921091bef4d1f8" prot="public">
+          <name>XSDIVID_CA_CH7</name>
+          <initializer>= 0x6</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__sdi__common_1gga2ecc9a594782bf41d84861f7c3688f2ba68391820f176b2033f355355058c824e" prot="public">
+          <name>XSDIVID_CA_CH8</name>
+          <initializer>= 0x7</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__sdi__common_1gga2ecc9a594782bf41d84861f7c3688f2baa144e3dee9dfd02d81e601c86c5a9ebd" prot="public">
+          <name>XSDIVID_CA_UNKNOWN</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>Channel Assignment. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdi_common/src/xv_sdivid.h" line="89" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdi_common/src/xv_sdivid.h" bodystart="89" bodyend="99"/>
+      </memberdef>
+      <memberdef kind="enum" id="group__sdi__common_1gad1946f86f6027858636522f889b33518" prot="public" static="no">
+        <name>XSdiVid_Eotf</name>
+        <enumvalue id="group__sdi__common_1ggad1946f86f6027858636522f889b33518a282095844f2013c5ffd0184c0d143730" prot="public">
+          <name>XSDIVID_EOTF_SDRTV</name>
+          <initializer>= 0x0</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__sdi__common_1ggad1946f86f6027858636522f889b33518a9752438fbae6428b8c298572843fa3fe" prot="public">
+          <name>XSDIVID_EOTF_HLG</name>
+          <initializer>= 0x1</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__sdi__common_1ggad1946f86f6027858636522f889b33518ac9293ad96fa39493396fc10ce89fdcf9" prot="public">
+          <name>XSDIVID_EOTF_SMPTE2084</name>
+          <initializer>= 0x2</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__sdi__common_1ggad1946f86f6027858636522f889b33518ab98bb408207866317e4d896ce17cd8ed" prot="public">
+          <name>XSDIVID_EOTF_UNKNOWN</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>End of Transfer Characteristics. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdi_common/src/xv_sdivid.h" line="104" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdi_common/src/xv_sdivid.h" bodystart="104" bodyend="109"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__sdi__common_1gae4e148405b1eb2fe9a4f76594c7f0817" prot="public" static="no" mutable="no">
+        <type>const XVidC_VideoTimingMode</type>
+        <definition>const XVidC_VideoTimingMode XVidC_SdiVidTimingModes[XVIDC_SDICUSTOM_NUM_SUPPORTED]</definition>
+        <argsstring>[XVIDC_SDICUSTOM_NUM_SUPPORTED]</argsstring>
+        <name>XVidC_SdiVidTimingModes</name>
+        <initializer>=
+{
+
+	{ XVIDC_VM_1920x1080_96_I, &quot;1920x1080@96Hz (I)&quot;, XVIDC_FR_96HZ,
+		{1920, 371, 88, 371, 2750, 1,
+		1080, 5, 10, 30, 1125, 5, 10, 30, 1125, 1} },
+	{ XVIDC_VM_1920x1080_100_I, &quot;1920x1080@100Hz (I)&quot;, XVIDC_FR_100HZ,
+		{1920, 528, 44, 148, 2640, 1,
+		1080, 5, 10, 30, 1125, 5, 10, 30, 1125, 1} },
+	{ XVIDC_VM_1920x1080_120_I, &quot;1920x1080@120Hz (I)&quot;, XVIDC_FR_120HZ,
+		{1920, 88, 44, 148, 2200, 1,
+		1080, 5, 10, 30, 1125, 5, 10, 30, 1125, 1} },
+	{ XVIDC_VM_2048x1080_96_I, &quot;2048x1080@96Hz (I)&quot;, XVIDC_FR_96HZ,
+		{2048, 329, 44, 329, 2750, 1,
+		1080, 5, 10, 30, 1125, 5, 10, 30, 1125, 1} },
+	{ XVIDC_VM_2048x1080_100_I, &quot;2048x1080@100Hz (I)&quot;, XVIDC_FR_100HZ,
+		{2048, 274, 44, 274, 2640, 1,
+		1080, 5, 10, 30, 1125, 5, 10, 30, 1125, 1} },
+	{ XVIDC_VM_2048x1080_120_I, &quot;2048x1080@120Hz (I)&quot;, XVIDC_FR_120HZ,
+		{2048, 66, 20, 66, 2200, 1,
+		1080, 5, 10, 30, 1125, 5, 10, 30, 1125, 1} },
+}</initializer>
+        <briefdescription>
+<para>SDI Specific 3GB timing modes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdi_common/src/xv_sdivid.c" line="52" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdi_common/src/xv_sdivid.c" bodystart="52" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__sdi__common_1gae4e148405b1eb2fe9a4f76594c7f0817" prot="public" static="no" mutable="no">
+        <type>const XVidC_VideoTimingMode</type>
+        <definition>const XVidC_VideoTimingMode XVidC_SdiVidTimingModes[XVIDC_SDICUSTOM_NUM_SUPPORTED]</definition>
+        <argsstring>[XVIDC_SDICUSTOM_NUM_SUPPORTED]</argsstring>
+        <name>XVidC_SdiVidTimingModes</name>
+        <briefdescription>
+<para>SDI Specific 3GB timing modes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdi_common/src/xv_sdivid.h" line="131" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdi_common/src/xv_sdivid.c" bodystart="52" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__sdi__common_1gac2c9ef394a2277853c9f754fd6edf854" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u8</type>
+        <definition>u8 GetPayloadColorFormat</definition>
+        <argsstring>(XVidC_ColorFormat ColorFormat)</argsstring>
+        <name>GetPayloadColorFormat</name>
+        <param>
+          <type>XVidC_ColorFormat</type>
+          <declname>ColorFormat</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdi_common/src/xv_sdivid.h" line="134" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__sdi__common_1ga361196f38fd3f7e9dfa020e43fcbd299" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 GetPayloadColorDepth</definition>
+        <argsstring>(XVidC_ColorDepth ColorDepth)</argsstring>
+        <name>GetPayloadColorDepth</name>
+        <param>
+          <type>XVidC_ColorDepth</type>
+          <declname>ColorDepth</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdi_common/src/xv_sdivid.h" line="135" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__sdi__common_1ga9be9c9a9980edbdc3fe0975938b72707" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 GetPayloadFrameRate</definition>
+        <argsstring>(XVidC_FrameRate FrameRate, XSdiVid_BitRate BitRate)</argsstring>
+        <name>GetPayloadFrameRate</name>
+        <param>
+          <type>XVidC_FrameRate</type>
+          <declname>FrameRate</declname>
+        </param>
+        <param>
+          <type><ref refid="group__sdi__common_1gaafc8f8956ebf6950baf9e21d821e1e5e" kindref="member">XSdiVid_BitRate</ref></type>
+          <declname>BitRate</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdi_common/src/xv_sdivid.h" line="136" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__sdi__common_1gaf9d9ff15d226ccba2f5a05739f2c2ff3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 GetPayloadIsInterlaced</definition>
+        <argsstring>(XVidC_VideoFormat VideoFormat)</argsstring>
+        <name>GetPayloadIsInterlaced</name>
+        <param>
+          <type>XVidC_VideoFormat</type>
+          <declname>VideoFormat</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdi_common/src/xv_sdivid.h" line="137" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__sdi__common_1gac416ccc303ed2ec52cc39076b0f187f2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 GetPayloadAspectRatio</definition>
+        <argsstring>(XVidC_AspectRatio AspectRatio)</argsstring>
+        <name>GetPayloadAspectRatio</name>
+        <param>
+          <type>XVidC_AspectRatio</type>
+          <declname>AspectRatio</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdi_common/src/xv_sdivid.h" line="138" column="1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__sdi__common_1gaeccb258f5fd1ae0ab8038067db272916" prot="public" static="no">
+        <name>XV_SDIVID_C_</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdi_common/src/xv_sdivid.c" line="33" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdi_common/src/xv_sdivid.c" bodystart="33" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__sdi__common_1ga4735defef7b96e326fa11b21a47eb160" prot="public" static="no">
+        <name>XVIDC_SDICUSTOM_NUM_SUPPORTED</name>
+        <initializer>6</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdi_common/src/xv_sdivid.h" line="112" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdi_common/src/xv_sdivid.h" bodystart="112" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Contains common utility variables that are used by SDI IP drivers and applications. </para>    </briefdescription>
+    <detaileddescription>
+<para>}</para><para><simplesect kind="note"><para>None.</para></simplesect>
+<preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+1.0   jsr  07/17/17 Initial release.
+1.1   jsr  10/08/18 Removed redundant declarations
+                    Added SDI specific timing modes
+</preformatted> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

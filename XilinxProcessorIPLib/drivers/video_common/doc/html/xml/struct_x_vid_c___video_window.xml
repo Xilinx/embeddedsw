@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_vid_c___video_window" kind="struct" prot="public">
+    <compoundname>XVidC_VideoWindow</compoundname>
+    <includes local="no">xvidc.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_vid_c___video_window_1a05f5fb3a1ec3bda3686c4736f8a44d36" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XVidC_VideoWindow::StartX</definition>
+        <argsstring></argsstring>
+        <name>StartX</name>
+        <briefdescription>
+<para>Window starting X coordinate. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc.h" line="644" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc.h" bodystart="644" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vid_c___video_window_1a942a7fe5445d8abb08c080aba5349101" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XVidC_VideoWindow::StartY</definition>
+        <argsstring></argsstring>
+        <name>StartY</name>
+        <briefdescription>
+<para>Window starting Y coordinate. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc.h" line="645" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc.h" bodystart="645" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vid_c___video_window_1a247455e9bbdf1ab8c10f2800b509862f" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XVidC_VideoWindow::Width</definition>
+        <argsstring></argsstring>
+        <name>Width</name>
+        <briefdescription>
+<para>Window width in pixels. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc.h" line="646" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc.h" bodystart="646" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vid_c___video_window_1ae2b9de7541a46183cdcee837f0fea2b0" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XVidC_VideoWindow::Height</definition>
+        <argsstring></argsstring>
+        <name>Height</name>
+        <briefdescription>
+<para>Window height in pixels. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc.h" line="647" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc.h" bodystart="647" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Video window structure. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc.h" line="643" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc.h" bodystart="643" bodyend="648"/>
+    <listofallmembers>
+      <member refid="struct_x_vid_c___video_window_1ae2b9de7541a46183cdcee837f0fea2b0" prot="public" virt="non-virtual"><scope>XVidC_VideoWindow</scope><name>Height</name></member>
+      <member refid="struct_x_vid_c___video_window_1a05f5fb3a1ec3bda3686c4736f8a44d36" prot="public" virt="non-virtual"><scope>XVidC_VideoWindow</scope><name>StartX</name></member>
+      <member refid="struct_x_vid_c___video_window_1a942a7fe5445d8abb08c080aba5349101" prot="public" virt="non-virtual"><scope>XVidC_VideoWindow</scope><name>StartY</name></member>
+      <member refid="struct_x_vid_c___video_window_1a247455e9bbdf1ab8c10f2800b509862f" prot="public" virt="non-virtual"><scope>XVidC_VideoWindow</scope><name>Width</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

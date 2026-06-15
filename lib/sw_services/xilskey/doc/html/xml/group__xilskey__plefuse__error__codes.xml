@@ -1,0 +1,510 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__xilskey__plefuse__error__codes" kind="group">
+    <compoundname>xilskey_plefuse_error_codes</compoundname>
+    <title>PL EFUSE error codes</title>
+      <sectiondef kind="user-defined">
+      <header>EFUSE Read error codes</header>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>EFUSE Write error codes</header>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>EFUSE CNTRL error codes</header>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>EFUSE KEY error codes</header>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>SECURE KEY error codes</header>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>XSKEfusepl_Program_Efuse() error codes</header>
+      </sectiondef>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="group__xilskey__plefuse__error__codes_1ga8fd80cd0c662e8df2920d23077b48d65" prot="public" static="no">
+        <name>XSKEfusePl_ErrorCodes</name>
+        <enumvalue id="group__xilskey__plefuse__error__codes_1gga8fd80cd0c662e8df2920d23077b48d65a64e3ef7ab118370131d6b9f37183161c" prot="public">
+          <name>XSK_EFUSEPL_ERROR_NONE</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+<para>0 <linebreak/>
+No error. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilskey__plefuse__error__codes_1gga8fd80cd0c662e8df2920d23077b48d65aa28ee43c66d3b2dd9f59ad1a24a28d40" prot="public">
+          <name>XSK_EFUSEPL_ERROR_ROW_NOT_ZERO</name>
+          <initializer>= 0x10</initializer>
+          <briefdescription>
+<para>0x10 <linebreak/>
+Row is not zero. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilskey__plefuse__error__codes_1gga8fd80cd0c662e8df2920d23077b48d65a7fbf24ea9a4d1235d351b354a612a606" prot="public">
+          <name>XSK_EFUSEPL_ERROR_READ_ROW_OUT_OF_RANGE</name>
+          <briefdescription>
+<para>0x11 <linebreak/>
+Read Row is out of range. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilskey__plefuse__error__codes_1gga8fd80cd0c662e8df2920d23077b48d65ac983d6fb647e1d72483380e3cb636336" prot="public">
+          <name>XSK_EFUSEPL_ERROR_READ_MARGIN_OUT_OF_RANGE</name>
+          <briefdescription>
+<para>0x12 <linebreak/>
+Read Margin is out of range. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilskey__plefuse__error__codes_1gga8fd80cd0c662e8df2920d23077b48d65a9ea932434bee50ce453c0360ada34c25" prot="public">
+          <name>XSK_EFUSEPL_ERROR_READ_BUFFER_NULL</name>
+          <briefdescription>
+<para>0x13 <linebreak/>
+No buffer for read. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilskey__plefuse__error__codes_1gga8fd80cd0c662e8df2920d23077b48d65ac926cdf0ed46eb556791c68702bcaa42" prot="public">
+          <name>XSK_EFUSEPL_ERROR_READ_BIT_VALUE_NOT_SET</name>
+          <briefdescription>
+<para>0x14 <linebreak/>
+Read bit not set. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilskey__plefuse__error__codes_1gga8fd80cd0c662e8df2920d23077b48d65a551e947f10be7e65b153fb81d59ac2f7" prot="public">
+          <name>XSK_EFUSEPL_ERROR_READ_BIT_OUT_OF_RANGE</name>
+          <briefdescription>
+<para>0x15 <linebreak/>
+Read bit is out of range. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilskey__plefuse__error__codes_1gga8fd80cd0c662e8df2920d23077b48d65accadf463a538779bad5b02a7af541d04" prot="public">
+          <name>XSK_EFUSEPL_ERROR_READ_TMEPERATURE_OUT_OF_RANGE</name>
+          <briefdescription>
+<para>0x16 <linebreak/>
+Temperature obtained from XADC is out of range to read. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilskey__plefuse__error__codes_1gga8fd80cd0c662e8df2920d23077b48d65afee859c509c65d6d691567fc79140c6f" prot="public">
+          <name>XSK_EFUSEPL_ERROR_READ_VCCAUX_VOLTAGE_OUT_OF_RANGE</name>
+          <briefdescription>
+<para>0x17 <linebreak/>
+VCCAUX obtained from XADC is out of range to read. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilskey__plefuse__error__codes_1gga8fd80cd0c662e8df2920d23077b48d65aefa5348a117da4cd826aeb9c225e5313" prot="public">
+          <name>XSK_EFUSEPL_ERROR_READ_VCCINT_VOLTAGE_OUT_OF_RANGE</name>
+          <briefdescription>
+<para>0x18 <linebreak/>
+VCCINT obtained from XADC is out of range to read. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilskey__plefuse__error__codes_1gga8fd80cd0c662e8df2920d23077b48d65a26067eea0ae672ccb70f1436d27d6261" prot="public">
+          <name>XSK_EFUSEPL_ERROR_WRITE_ROW_OUT_OF_RANGE</name>
+          <briefdescription>
+<para>0x19 <linebreak/>
+To write row is out of range. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilskey__plefuse__error__codes_1gga8fd80cd0c662e8df2920d23077b48d65a10ab89ef620ac47b2df4a80447e981ff" prot="public">
+          <name>XSK_EFUSEPL_ERROR_WRITE_BIT_OUT_OF_RANGE</name>
+          <briefdescription>
+<para>0x1A <linebreak/>
+To read bit is out of range. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilskey__plefuse__error__codes_1gga8fd80cd0c662e8df2920d23077b48d65a8e4c31900497e750362f09a9f8e379f0" prot="public">
+          <name>XSK_EFUSEPL_ERROR_WRITE_TMEPERATURE_OUT_OF_RANGE</name>
+          <briefdescription>
+<para>0x1B <linebreak/>
+To eFUSE write Temperature obtained from XADC is outof range. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilskey__plefuse__error__codes_1gga8fd80cd0c662e8df2920d23077b48d65a55b6f9d4427a4e64b673d07ffb94da1e" prot="public">
+          <name>XSK_EFUSEPL_ERROR_WRITE_VCCAUX_VOLTAGE_OUT_OF_RANGE</name>
+          <briefdescription>
+<para>0x1C <linebreak/>
+To write eFUSE VCCAUX obtained from XADC is out of range. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilskey__plefuse__error__codes_1gga8fd80cd0c662e8df2920d23077b48d65a86fea511e2d22531ce53fb9c4de86e6f" prot="public">
+          <name>XSK_EFUSEPL_ERROR_WRITE_VCCINT_VOLTAGE_OUT_OF_RANGE</name>
+          <briefdescription>
+<para>0x1D <linebreak/>
+To write into eFUSE VCCINT obtained from XADC is out of range. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilskey__plefuse__error__codes_1gga8fd80cd0c662e8df2920d23077b48d65ae4dd153d457696f9aeba58783c8be601" prot="public">
+          <name>XSK_EFUSEPL_ERROR_FUSE_CNTRL_WRITE_DISABLED</name>
+          <briefdescription>
+<para>0x1E <linebreak/>
+Fuse control write is disabled. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilskey__plefuse__error__codes_1gga8fd80cd0c662e8df2920d23077b48d65a0a859772d6f8cfca4d708822698f774f" prot="public">
+          <name>XSK_EFUSEPL_ERROR_CNTRL_WRITE_BUFFER_NULL</name>
+          <briefdescription>
+<para>0x1F <linebreak/>
+Buffer pointer that is supposed to contain control data is null. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilskey__plefuse__error__codes_1gga8fd80cd0c662e8df2920d23077b48d65ae55d28ebd5f89397eda7ba2640fa5e02" prot="public">
+          <name>XSK_EFUSEPL_ERROR_NOT_VALID_KEY_LENGTH</name>
+          <briefdescription>
+<para>0x20 <linebreak/>
+Key length invalid. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilskey__plefuse__error__codes_1gga8fd80cd0c662e8df2920d23077b48d65ae8892dd40157f8707144f39554dc6de2" prot="public">
+          <name>XSK_EFUSEPL_ERROR_ZERO_KEY_LENGTH</name>
+          <briefdescription>
+<para>0x21 <linebreak/>
+Key length zero. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilskey__plefuse__error__codes_1gga8fd80cd0c662e8df2920d23077b48d65a4725ff919a89d8da2cf664e85cc9d6ad" prot="public">
+          <name>XSK_EFUSEPL_ERROR_NOT_VALID_KEY_CHAR</name>
+          <briefdescription>
+<para>0x22 <linebreak/>
+Invalid key characters. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilskey__plefuse__error__codes_1gga8fd80cd0c662e8df2920d23077b48d65af55af64b570ce1cbc1554456a0a5fd8b" prot="public">
+          <name>XSK_EFUSEPL_ERROR_NULL_KEY</name>
+          <briefdescription>
+<para>0x23 <linebreak/>
+Null key. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilskey__plefuse__error__codes_1gga8fd80cd0c662e8df2920d23077b48d65a30d3db05ccd381328e759f7f1c8419a0" prot="public">
+          <name>XSK_EFUSEPL_ERROR_FUSE_SEC_WRITE_DISABLED</name>
+          <briefdescription>
+<para>0x24 <linebreak/>
+Secure bits write is disabled. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilskey__plefuse__error__codes_1gga8fd80cd0c662e8df2920d23077b48d65aedaf51dbd6eab0e1605f906a86875272" prot="public">
+          <name>XSK_EFUSEPL_ERROR_FUSE_SEC_READ_DISABLED</name>
+          <briefdescription>
+<para>0x25 <linebreak/>
+Secure bits reading is disabled. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilskey__plefuse__error__codes_1gga8fd80cd0c662e8df2920d23077b48d65a6418faccc69d89cdb24566c1a521d16f" prot="public">
+          <name>XSK_EFUSEPL_ERROR_SEC_WRITE_BUFFER_NULL</name>
+          <briefdescription>
+<para>0x26 <linebreak/>
+Buffer to write into secure block is NULL. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilskey__plefuse__error__codes_1gga8fd80cd0c662e8df2920d23077b48d65aaed8c74f9d3b1272f4f3b28ad6a81aaf" prot="public">
+          <name>XSK_EFUSEPL_ERROR_READ_PAGE_OUT_OF_RANGE</name>
+          <briefdescription>
+<para>0x27 <linebreak/>
+Page is out of range. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilskey__plefuse__error__codes_1gga8fd80cd0c662e8df2920d23077b48d65abca8c2b51c61a9844bec897bf895266e" prot="public">
+          <name>XSK_EFUSEPL_ERROR_FUSE_ROW_RANGE</name>
+          <briefdescription>
+<para>0x28 <linebreak/>
+Row is out of range. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilskey__plefuse__error__codes_1gga8fd80cd0c662e8df2920d23077b48d65aebf90e6746dbea752c03253f58f058e7" prot="public">
+          <name>XSK_EFUSEPL_ERROR_IN_PROGRAMMING_ROW</name>
+          <briefdescription>
+<para>0x29 <linebreak/>
+Error programming fuse row. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilskey__plefuse__error__codes_1gga8fd80cd0c662e8df2920d23077b48d65a3c36305a375334f2950f5771a150e733" prot="public">
+          <name>XSK_EFUSEPL_ERROR_PRGRMG_ROWS_NOT_EMPTY</name>
+          <briefdescription>
+<para>0x2A <linebreak/>
+Error when tried to program non Zero rows of eFUSE. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilskey__plefuse__error__codes_1gga8fd80cd0c662e8df2920d23077b48d65abdf9a3d24c5b4836635ed7fa95eea115" prot="public">
+          <name>XSK_EFUSEPL_ERROR_HWM_TIMEOUT</name>
+          <initializer>= 0x80</initializer>
+          <briefdescription>
+<para>0x80 <linebreak/>
+Error when hardware module is exceeded the time for programming eFUSE. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilskey__plefuse__error__codes_1gga8fd80cd0c662e8df2920d23077b48d65ae91e375434b11d2e17dcd71aeb9891c1" prot="public">
+          <name>XSK_EFUSEPL_ERROR_USER_FUSE_REVERT</name>
+          <initializer>= 0x90</initializer>
+          <briefdescription>
+<para>0x90 <linebreak/>
+Error occurs when user requests to revert already programmed user eFUSE bit. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilskey__plefuse__error__codes_1gga8fd80cd0c662e8df2920d23077b48d65a3b58af699bab54e41c9411aff2ff97a5" prot="public">
+          <name>XSK_EFUSEPL_ERROR_KEY_VALIDATION</name>
+          <initializer>= 0xF000</initializer>
+          <briefdescription>
+<para>0xF000<linebreak/>
+Invalid key. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilskey__plefuse__error__codes_1gga8fd80cd0c662e8df2920d23077b48d65a8c019d98249e4139bac40e76d50fc624" prot="public">
+          <name>XSK_EFUSEPL_ERROR_PL_STRUCT_NULL</name>
+          <initializer>= 0x1000</initializer>
+          <briefdescription>
+<para>0x1000<linebreak/>
+Null PL structure. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilskey__plefuse__error__codes_1gga8fd80cd0c662e8df2920d23077b48d65ab13d761c2aae19e664018e794662aaca" prot="public">
+          <name>XSK_EFUSEPL_ERROR_JTAG_SERVER_INIT</name>
+          <initializer>= 0x1100</initializer>
+          <briefdescription>
+<para>0x1100<linebreak/>
+JTAG server initialization error. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilskey__plefuse__error__codes_1gga8fd80cd0c662e8df2920d23077b48d65a0b882babb708406b4aa3952a68ac2967" prot="public">
+          <name>XSK_EFUSEPL_ERROR_READING_FUSE_CNTRL</name>
+          <initializer>= 0x1200</initializer>
+          <briefdescription>
+<para>0x1200<linebreak/>
+Error reading fuse control. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilskey__plefuse__error__codes_1gga8fd80cd0c662e8df2920d23077b48d65a9ceffdee9168be8ac9231d2fcebfc171" prot="public">
+          <name>XSK_EFUSEPL_ERROR_DATA_PROGRAMMING_NOT_ALLOWED</name>
+          <initializer>= 0x1300</initializer>
+          <briefdescription>
+<para>0x1300<linebreak/>
+Data programming not allowed. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilskey__plefuse__error__codes_1gga8fd80cd0c662e8df2920d23077b48d65abd0819a3a5f96506aaad2a41bf2aa544" prot="public">
+          <name>XSK_EFUSEPL_ERROR_FUSE_CTRL_WRITE_NOT_ALLOWED</name>
+          <initializer>= 0x1400</initializer>
+          <briefdescription>
+<para>0x1400<linebreak/>
+Fuse control write is disabled. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilskey__plefuse__error__codes_1gga8fd80cd0c662e8df2920d23077b48d65abd89eb79a08c9770f98d8defddc9645a" prot="public">
+          <name>XSK_EFUSEPL_ERROR_READING_FUSE_AES_ROW</name>
+          <initializer>= 0x1500</initializer>
+          <briefdescription>
+<para>0x1500<linebreak/>
+Error reading fuse AES row. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilskey__plefuse__error__codes_1gga8fd80cd0c662e8df2920d23077b48d65a4e8e452887c3208a943737633e461220" prot="public">
+          <name>XSK_EFUSEPL_ERROR_AES_ROW_NOT_EMPTY</name>
+          <initializer>= 0x1600</initializer>
+          <briefdescription>
+<para>0x1600<linebreak/>
+AES row is not empty. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilskey__plefuse__error__codes_1gga8fd80cd0c662e8df2920d23077b48d65a820d03d598176cc8e8aa50a6a53867a1" prot="public">
+          <name>XSK_EFUSEPL_ERROR_PROGRAMMING_FUSE_AES_ROW</name>
+          <initializer>= 0x1700</initializer>
+          <briefdescription>
+<para>0x1700<linebreak/>
+ Error programming fuse AES row. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilskey__plefuse__error__codes_1gga8fd80cd0c662e8df2920d23077b48d65a32391a13b86469446d4fade8b852c894" prot="public">
+          <name>XSK_EFUSEPL_ERROR_READING_FUSE_USER_DATA_ROW</name>
+          <initializer>= 0x1800</initializer>
+          <briefdescription>
+<para>0x1800<linebreak/>
+ Error reading fuse user row. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilskey__plefuse__error__codes_1gga8fd80cd0c662e8df2920d23077b48d65af34d97891af34756a3192a20ce960a78" prot="public">
+          <name>XSK_EFUSEPL_ERROR_USER_DATA_ROW_NOT_EMPTY</name>
+          <initializer>= 0x1900</initializer>
+          <briefdescription>
+<para>0x1900<linebreak/>
+User row is not empty. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilskey__plefuse__error__codes_1gga8fd80cd0c662e8df2920d23077b48d65a65cc4e877559133e799ef5786ef63cbc" prot="public">
+          <name>XSK_EFUSEPL_ERROR_PROGRAMMING_FUSE_DATA_ROW</name>
+          <initializer>= 0x1A00</initializer>
+          <briefdescription>
+<para>0x1A00<linebreak/>
+Error programming fuse user row. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilskey__plefuse__error__codes_1gga8fd80cd0c662e8df2920d23077b48d65ade5b668105ca6b075dcd147aa6f21b27" prot="public">
+          <name>XSK_EFUSEPL_ERROR_PROGRAMMING_FUSE_CNTRL_ROW</name>
+          <initializer>= 0x1B00</initializer>
+          <briefdescription>
+<para>0x1B00<linebreak/>
+ Error programming fuse control row. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilskey__plefuse__error__codes_1gga8fd80cd0c662e8df2920d23077b48d65a6100ab2a4fa166fd17bd6a94ba7558b4" prot="public">
+          <name>XSK_EFUSEPL_ERROR_XADC</name>
+          <initializer>= 0x1C00</initializer>
+          <briefdescription>
+<para>0x1C00<linebreak/>
+XADC error. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilskey__plefuse__error__codes_1gga8fd80cd0c662e8df2920d23077b48d65ac026c68adfcfb7ca5168419c401b562a" prot="public">
+          <name>XSK_EFUSEPL_ERROR_INVALID_REF_CLK</name>
+          <initializer>= 0x3000U</initializer>
+          <briefdescription>
+<para>0x3000<linebreak/>
+Invalid reference clock. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilskey__plefuse__error__codes_1gga8fd80cd0c662e8df2920d23077b48d65a9e5b31cd5e453df8070599c0ac42efff" prot="public">
+          <name>XSK_EFUSEPL_ERROR_FUSE_SEC_WRITE_NOT_ALLOWED</name>
+          <initializer>= 0x1D00</initializer>
+          <briefdescription>
+<para>0x1D00<linebreak/>
+Error in programming secure block. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilskey__plefuse__error__codes_1gga8fd80cd0c662e8df2920d23077b48d65a27e5da2da3e33e1549fcfc2aa5a4ae8a" prot="public">
+          <name>XSK_EFUSEPL_ERROR_READING_FUSE_STATUS</name>
+          <initializer>= 0x1E00</initializer>
+          <briefdescription>
+<para>0x1E00<linebreak/>
+Error in reading FUSE status. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilskey__plefuse__error__codes_1gga8fd80cd0c662e8df2920d23077b48d65aa5815f993e59a0618e3458ca4a456497" prot="public">
+          <name>XSK_EFUSEPL_ERROR_FUSE_BUSY</name>
+          <initializer>= 0x1F00</initializer>
+          <briefdescription>
+<para>0x1F00<linebreak/>
+Fuse busy. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilskey__plefuse__error__codes_1gga8fd80cd0c662e8df2920d23077b48d65ac66b563ed1be3596a65383cdf46b6bf9" prot="public">
+          <name>XSK_EFUSEPL_ERROR_READING_FUSE_RSA_ROW</name>
+          <initializer>= 0x2000</initializer>
+          <briefdescription>
+<para>0x2000<linebreak/>
+Error in reading FUSE RSA block. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilskey__plefuse__error__codes_1gga8fd80cd0c662e8df2920d23077b48d65a6a8b24440a3495f11a8d34befb5265e3" prot="public">
+          <name>XSK_EFUSEPL_ERROR_TIMER_INTIALISE_ULTRA</name>
+          <initializer>= 0x2200</initializer>
+          <briefdescription>
+<para>0x2200<linebreak/>
+Error in initiating Timer. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilskey__plefuse__error__codes_1gga8fd80cd0c662e8df2920d23077b48d65a13fe90625bc618e5defa4da15e8ee910" prot="public">
+          <name>XSK_EFUSEPL_ERROR_READING_FUSE_SEC</name>
+          <initializer>= 0x2300</initializer>
+          <briefdescription>
+<para>0x2300<linebreak/>
+Error in reading FUSE secure bits. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilskey__plefuse__error__codes_1gga8fd80cd0c662e8df2920d23077b48d65a819201ed67cb999aa91c10f50a74c440" prot="public">
+          <name>XSK_EFUSEPL_ERROR_PRGRMG_FUSE_SEC_ROW</name>
+          <initializer>= 0x2500</initializer>
+          <briefdescription>
+<para>0x2500<linebreak/>
+Error in programming Secure bits of efuse. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilskey__plefuse__error__codes_1gga8fd80cd0c662e8df2920d23077b48d65a9dbb5fcf884f2a159c5e4314273e035a" prot="public">
+          <name>XSK_EFUSEPL_ERROR_PRGRMG_USER_KEY</name>
+          <initializer>= 0x4000</initializer>
+          <briefdescription>
+<para>0x4000<linebreak/>
+Error in programming 32 bit user key. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilskey__plefuse__error__codes_1gga8fd80cd0c662e8df2920d23077b48d65a07613b6c7459ca529dc76dfcebb7abe9" prot="public">
+          <name>XSK_EFUSEPL_ERROR_PRGRMG_128BIT_USER_KEY</name>
+          <initializer>= 0x5000</initializer>
+          <briefdescription>
+<para>0x5000<linebreak/>
+Error in programming 128 bit User key. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilskey__plefuse__error__codes_1gga8fd80cd0c662e8df2920d23077b48d65a2bc2d3b769f220a0f1cdb5eca0897d22" prot="public">
+          <name>XSK_EFUSEPL_ERROR_PRGRMG_RSA_HASH</name>
+          <initializer>= 0x8000</initializer>
+          <briefdescription>
+<para>0x8000<linebreak/>
+Error in programming RSA hash. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/include/xilskey_utils.h" line="529" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/include/xilskey_utils.h" bodystart="529" bodyend="705"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

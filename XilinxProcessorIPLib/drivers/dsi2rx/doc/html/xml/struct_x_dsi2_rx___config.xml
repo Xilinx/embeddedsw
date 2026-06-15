@@ -1,0 +1,75 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_dsi2_rx___config" kind="struct" prot="public">
+    <compoundname>XDsi2Rx_Config</compoundname>
+    <includes local="no">xdsi2rx.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_dsi2_rx___config_1a9ada5c16c6e35857dcede2adbf07bc84" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* XDsi2Rx_Config::Name</definition>
+        <argsstring></argsstring>
+        <name>Name</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" line="78" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" bodystart="78" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dsi2_rx___config_1a07d0063d512e6ffd4582b60b3a07f884" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XDsi2Rx_Config::BaseAddr</definition>
+        <argsstring></argsstring>
+        <name>BaseAddr</name>
+        <briefdescription>
+<para>Base address of DSI Controller. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" line="79" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" bodystart="79" bodyend="-1"/>
+        <referencedby refid="group__dsi_1gad952dd5db0493731abdc7745487c129c" compoundref="xdsi2rx_8c" startline="73" endline="110">XDsi2Rx_CfgInitialize</referencedby>
+        <referencedby refid="group__dsi_1ga732edd1bd3354efe3715f684a341f873" compoundref="xdsi2rx_8c" startline="214" endline="228">XDsi2Rx_GetConfigParams</referencedby>
+        <referencedby refid="group__dsi2rx_1ga9633779add7d621518de100c3361bb41" compoundref="xdsi2rx__selftest_8c" startline="62" endline="80">XDsi2Rx_SelfTest</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dsi2_rx___config_1a0236001ac70718ef6d8343b5509700e7" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDsi2Rx_Config::DataType</definition>
+        <argsstring></argsstring>
+        <name>DataType</name>
+        <briefdescription>
+<para>RGB type. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" line="80" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" bodystart="80" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dsi2_rx___config_1a2ede9a73b3dedb974841d0501c1a0ec1" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDsi2Rx_Config::DsiPixel</definition>
+        <argsstring></argsstring>
+        <name>DsiPixel</name>
+        <briefdescription>
+<para>Pixels per beat receive on input stream. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" line="81" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" bodystart="81" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>The configuration structure for DSI Controller This structure passes the hardware building information to the driver. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" line="77" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" bodystart="77" bodyend="82"/>
+    <listofallmembers>
+      <member refid="struct_x_dsi2_rx___config_1a07d0063d512e6ffd4582b60b3a07f884" prot="public" virt="non-virtual"><scope>XDsi2Rx_Config</scope><name>BaseAddr</name></member>
+      <member refid="struct_x_dsi2_rx___config_1a0236001ac70718ef6d8343b5509700e7" prot="public" virt="non-virtual"><scope>XDsi2Rx_Config</scope><name>DataType</name></member>
+      <member refid="struct_x_dsi2_rx___config_1a2ede9a73b3dedb974841d0501c1a0ec1" prot="public" virt="non-virtual"><scope>XDsi2Rx_Config</scope><name>DsiPixel</name></member>
+      <member refid="struct_x_dsi2_rx___config_1a9ada5c16c6e35857dcede2adbf07bc84" prot="public" virt="non-virtual"><scope>XDsi2Rx_Config</scope><name>Name</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

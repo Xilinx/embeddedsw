@@ -1,0 +1,86 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_cam_device_calib_sensor_cc__s" kind="struct" prot="public">
+    <compoundname>CamDeviceCalibSensorCc_s</compoundname>
+    <includes local="no">cam_device_calibration.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_cam_device_calib_sensor_cc__s_1a9df087acb611ed65decf0f672864489e" prot="public" static="no" mutable="no">
+        <type>char</type>
+        <definition>char CamDeviceCalibSensorCc_s::name[CAMDEV_CALIB_LENGTH]</definition>
+        <argsstring>[CAMDEV_CALIB_LENGTH]</argsstring>
+        <name>name</name>
+        <briefdescription>
+<para>Color-correction header name. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" line="302" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" bodystart="302" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_calib_sensor_cc__s_1ab394a82b79a36b7bb2149f7a52239f5e" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float CamDeviceCalibSensorCc_s::saturation</definition>
+        <argsstring></argsstring>
+        <name>saturation</name>
+        <briefdescription>
+<para>Saturation value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" line="303" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" bodystart="303" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_calib_sensor_cc__s_1a796c1b9241216850c6c5b63db21a8992" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float CamDeviceCalibSensorCc_s::ccMatrix[9]</definition>
+        <argsstring>[9]</argsstring>
+        <name>ccMatrix</name>
+        <briefdescription>
+<para>CC matrices of the light source. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" line="304" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" bodystart="304" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_calib_sensor_cc__s_1ab5ae4a6dff95e42cd96dcc0219a6fed5" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float CamDeviceCalibSensorCc_s::ccOffset[3]</definition>
+        <argsstring>[3]</argsstring>
+        <name>ccOffset</name>
+        <briefdescription>
+<para>CC offset matrices of the light source. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" line="305" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" bodystart="305" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_calib_sensor_cc__s_1a0eb2d3e62cf91948b6c4c591d6558923" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float CamDeviceCalibSensorCc_s::wb[4]</definition>
+        <argsstring>[4]</argsstring>
+        <name>wb</name>
+        <briefdescription>
+<para>WB gains of the light source. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" line="306" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" bodystart="306" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>VsCamDevice Calibration sensor CC configuration. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" line="301" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" bodystart="301" bodyend="307"/>
+    <listofallmembers>
+      <member refid="struct_cam_device_calib_sensor_cc__s_1a796c1b9241216850c6c5b63db21a8992" prot="public" virt="non-virtual"><scope>CamDeviceCalibSensorCc_s</scope><name>ccMatrix</name></member>
+      <member refid="struct_cam_device_calib_sensor_cc__s_1ab5ae4a6dff95e42cd96dcc0219a6fed5" prot="public" virt="non-virtual"><scope>CamDeviceCalibSensorCc_s</scope><name>ccOffset</name></member>
+      <member refid="struct_cam_device_calib_sensor_cc__s_1a9df087acb611ed65decf0f672864489e" prot="public" virt="non-virtual"><scope>CamDeviceCalibSensorCc_s</scope><name>name</name></member>
+      <member refid="struct_cam_device_calib_sensor_cc__s_1ab394a82b79a36b7bb2149f7a52239f5e" prot="public" virt="non-virtual"><scope>CamDeviceCalibSensorCc_s</scope><name>saturation</name></member>
+      <member refid="struct_cam_device_calib_sensor_cc__s_1a0eb2d3e62cf91948b6c4c591d6558923" prot="public" virt="non-virtual"><scope>CamDeviceCalibSensorCc_s</scope><name>wb</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

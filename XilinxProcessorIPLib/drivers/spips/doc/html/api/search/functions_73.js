@@ -1,0 +1,21 @@
+var searchData=
+[
+  ['spihandler',['SpiHandler',['../xspips__eeprom__intr__example_8c.html#aacdc7be0761bc23854d5f1b9c6dbe36a',1,'xspips_eeprom_intr_example.c']]],
+  ['spipseepromintrexample',['SpiPsEepromIntrExample',['../xspips__eeprom__intr__example_8c.html#add210e3892dd3e73c55e1f40e3a2b63f',1,'xspips_eeprom_intr_example.c']]],
+  ['spipseeprompolledexample',['SpiPsEepromPolledExample',['../xspips__eeprom__polled__example_8c.html#af156542e10fb69ebb3a0760a22f77fbb',1,'xspips_eeprom_polled_example.c']]],
+  ['spipsflashintrexample',['SpiPsFlashIntrExample',['../xspips__flash__intr__example_8c.html#ab495f3b6de9f82f475f5c2b8508ae0c1',1,'xspips_flash_intr_example.c']]],
+  ['spipsflashpolledexample',['SpiPsFlashPolledExample',['../xspips__flash__polled__example_8c.html#aa6648812b68cd9317398312d369bbfd8',1,'xspips_flash_polled_example.c']]],
+  ['spipshandler',['SpiPsHandler',['../xspips__flash__intr__example_8c.html#a1d109a356a9f7961da6700eddf5e4127',1,'xspips_flash_intr_example.c']]],
+  ['spipsreadid',['SpiPsReadID',['../xspips__tpm__polled__example_8c.html#a14aaa93ae5aa83badddfb375e66a7c6e',1,'xspips_tpm_polled_example.c']]],
+  ['spipsselftestexample',['SpiPsSelfTestExample',['../xspips__selftest__example_8c.html#a78ca9c2607cd3ea29c908634e0877a8c',1,'xspips_selftest_example.c']]],
+  ['spipsslavepolledexample',['SpiPsSlavePolledExample',['../xspips__slave__polled__example_8c.html#a49f4c793f732588a505bf8b93a2279e3',1,'xspips_slave_polled_example.c']]],
+  ['spipstpmaccessget',['SpiPsTpmAccessGet',['../xspips__tpm__polled__example_8c.html#a5859038bd418dcf96c9e3421023bb31d',1,'xspips_tpm_polled_example.c']]],
+  ['spipstpmaccessset',['SpiPsTpmAccessSet',['../xspips__tpm__polled__example_8c.html#a3b9ebbd5db2404596e8b66443ad5bd17',1,'xspips_tpm_polled_example.c']]],
+  ['spipstpmdatatransfer',['SpiPsTpmDataTransfer',['../xspips__tpm__polled__example_8c.html#adb7d7d27c1b57f947c6fe9c9f631e98f',1,'xspips_tpm_polled_example.c']]],
+  ['spipstpmfiforead',['SpiPsTpmFifoRead',['../xspips__tpm__polled__example_8c.html#aae1089233ca34dffe91aee8b4c7756fe',1,'xspips_tpm_polled_example.c']]],
+  ['spipstpmfifowrite',['SpiPsTpmFifoWrite',['../xspips__tpm__polled__example_8c.html#a665e7d79cc5cfe51b6a6bd2c45fe33f6',1,'xspips_tpm_polled_example.c']]],
+  ['spipstpmpolledexample',['SpiPsTpmPolledExample',['../xspips__tpm__polled__example_8c.html#ac767f7e806810800729193c6fb892db2',1,'xspips_tpm_polled_example.c']]],
+  ['spipstpmstatusget',['SpiPsTpmStatusGet',['../xspips__tpm__polled__example_8c.html#abf6b46685d48c16faabf01f702d2cec8',1,'xspips_tpm_polled_example.c']]],
+  ['spipstpmstatusset',['SpiPsTpmStatusSet',['../xspips__tpm__polled__example_8c.html#ad4fe32c1f6365d4586448ea929b5282d',1,'xspips_tpm_polled_example.c']]],
+  ['spipstpmtransfer',['SpiPsTpmTransfer',['../xspips__tpm__polled__example_8c.html#ae6c12da3b0c9e3bc49ee620bd6d78e91',1,'xspips_tpm_polled_example.c']]]
+];

@@ -1,0 +1,111 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_dfe_equ___trigger" kind="struct" prot="public">
+    <compoundname>XDfeEqu_Trigger</compoundname>
+    <includes local="no">xdfeequ.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_dfe_equ___trigger_1ad512e3c3c32193fe84c0efd50a3ec10e" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfeEqu_Trigger::TriggerEnable</definition>
+        <argsstring></argsstring>
+        <name>TriggerEnable</name>
+        <briefdescription>
+<para>[0,1], Enable Trigger: </para>        </briefdescription>
+        <detaileddescription>
+<para><itemizedlist>
+<listitem><para>0 = DISABLED: Trigger Pulse and State outputs are disabled.</para></listitem><listitem><para>1 = ENABLED: Trigger Pulse and State outputs are enabled and follow the settings described below. </para></listitem></itemizedlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeequ/src/xdfeequ.h" line="194" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeequ/src/xdfeequ.h" bodystart="194" bodyend="-1"/>
+        <referencedby refid="group__dfeequ_1ga6007e4c4495f0ce8cd9c4ec9ec2a94a4" compoundref="xdfeequ_8c" startline="1004" endline="1068">XDfeEqu_GetTriggersCfg</referencedby>
+        <referencedby refid="group__dfeequ_1ga84403d8f6f2f4e9a45668d9dc7dc5b28" compoundref="xdfeequ_8c" startline="810" endline="850">XDfeEqu_Initialize</referencedby>
+        <referencedby refid="group__dfeequ_1ga8397193c8752e178b30f4161ebf24617" compoundref="xdfeequ_8c" startline="1079" endline="1174">XDfeEqu_SetTriggersCfg</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_equ___trigger_1abb1f689a1d09550f6a3a4d0e1405a94a" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfeEqu_Trigger::Mode</definition>
+        <argsstring></argsstring>
+        <name>Mode</name>
+        <briefdescription>
+<para>[0-3], Specify Trigger Mode. </para>        </briefdescription>
+        <detaileddescription>
+<para>In TUSER_Single_Shot mode as soon as the TUSER_Edge_level condition is met the State output will be driven to the value specified in STATE_OUTPUT. The Pulse output will pulse high at the same time. No further change will occur until the trigger register is re-written. In TUSER Continuous mode each time a TUSER_Edge_level condition is met the State output will be driven to the value specified in STATE_OUTPUT This will happen continuously until the trigger register is re-written. The pulse output is disabled in Continuous mode:<itemizedlist>
+<listitem><para>0 = IMMEDIATE: Applies the value of STATE_OUTPUT immediatetly the register is written.</para></listitem><listitem><para>1 = TUSER_SINGLE_SHOT: Applies the value of STATE_OUTPUT once when the TUSER_EDGE_LEVEL condition is satisfied.</para></listitem><listitem><para>2 = TUSER_CONTINUOUS: Applies the value of STATE_OUTPUT continually when TUSER_EDGE_LEVEL condition is satisfied.</para></listitem><listitem><para>3 = RESERVED: Reserved - will default to 0 behaviour. </para></listitem></itemizedlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeequ/src/xdfeequ.h" line="198" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeequ/src/xdfeequ.h" bodystart="198" bodyend="-1"/>
+        <referencedby refid="group__dfeequ_1ga6007e4c4495f0ce8cd9c4ec9ec2a94a4" compoundref="xdfeequ_8c" startline="1004" endline="1068">XDfeEqu_GetTriggersCfg</referencedby>
+        <referencedby refid="group__dfeequ_1ga84403d8f6f2f4e9a45668d9dc7dc5b28" compoundref="xdfeequ_8c" startline="810" endline="850">XDfeEqu_Initialize</referencedby>
+        <referencedby refid="group__dfeequ_1ga12d7169da8086c7d940094f4c468e3dd" compoundref="xdfeequ__pass__through__example_8c" startline="63" endline="131">XDfeEqu_PassThroughExample</referencedby>
+        <referencedby refid="group__dfeequ_1ga8397193c8752e178b30f4161ebf24617" compoundref="xdfeequ_8c" startline="1079" endline="1174">XDfeEqu_SetTriggersCfg</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_equ___trigger_1a3a6122fa78ba07460a2bdcd3950d93dd" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfeEqu_Trigger::TuserEdgeLevel</definition>
+        <argsstring></argsstring>
+        <name>TuserEdgeLevel</name>
+        <briefdescription>
+<para><verbatim>             [0-3], Specify either Edge or Level of the TUSER
+</verbatim> input as the source condition of the trigger. </para>        </briefdescription>
+        <detaileddescription>
+<para>Difference between Level and Edge is Level will generate a trigger immediately the TUSER level is detected. Edge will ensure a TUSER transition has come first:<itemizedlist>
+<listitem><para>0 = LOW: Trigger occurs immediately after a low-level is seen on TUSER provided tvalid is high.</para></listitem><listitem><para>1 = HIGH: Trigger occurs immediately after a high-level is seen on TUSER provided tvalid is high.</para></listitem><listitem><para>2 = FALLING: Trigger occurs immediately after a high to low transition on TUSER provided tvalid is high.</para></listitem><listitem><para>3 = RISING: Trigger occurs immediately after a low to high transition on TUSER provided tvalid is high. </para></listitem></itemizedlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeequ/src/xdfeequ.h" line="214" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeequ/src/xdfeequ.h" bodystart="214" bodyend="-1"/>
+        <referencedby refid="group__dfeequ_1ga6007e4c4495f0ce8cd9c4ec9ec2a94a4" compoundref="xdfeequ_8c" startline="1004" endline="1068">XDfeEqu_GetTriggersCfg</referencedby>
+        <referencedby refid="group__dfeequ_1ga12d7169da8086c7d940094f4c468e3dd" compoundref="xdfeequ__pass__through__example_8c" startline="63" endline="131">XDfeEqu_PassThroughExample</referencedby>
+        <referencedby refid="group__dfeequ_1ga8397193c8752e178b30f4161ebf24617" compoundref="xdfeequ_8c" startline="1079" endline="1174">XDfeEqu_SetTriggersCfg</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_equ___trigger_1ad35b66f6f839d6a076f6ab788301f668" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfeEqu_Trigger::StateOutput</definition>
+        <argsstring></argsstring>
+        <name>StateOutput</name>
+        <briefdescription>
+<para>[0,1], Specify the State output value: </para>        </briefdescription>
+        <detaileddescription>
+<para><itemizedlist>
+<listitem><para>0 = DISABLED: Place the State output into the Disabled state.</para></listitem><listitem><para>1 = ENABLED: Place the State output into the Enabled state. </para></listitem></itemizedlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeequ/src/xdfeequ.h" line="226" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeequ/src/xdfeequ.h" bodystart="226" bodyend="-1"/>
+        <referencedby refid="group__dfeequ_1ga6007e4c4495f0ce8cd9c4ec9ec2a94a4" compoundref="xdfeequ_8c" startline="1004" endline="1068">XDfeEqu_GetTriggersCfg</referencedby>
+        <referencedby refid="group__dfeequ_1ga8397193c8752e178b30f4161ebf24617" compoundref="xdfeequ_8c" startline="1079" endline="1174">XDfeEqu_SetTriggersCfg</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_equ___trigger_1a74b3104cbdfe7ddfd92b12718a97aa60" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfeEqu_Trigger::TUSERBit</definition>
+        <argsstring></argsstring>
+        <name>TUSERBit</name>
+        <briefdescription>
+<para><verbatim>       [0-255], Specify which DIN TUSER bit to use as the source
+</verbatim> for the trigger when MODE = 1 or 2. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeequ/src/xdfeequ.h" line="229" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeequ/src/xdfeequ.h" bodystart="229" bodyend="-1"/>
+        <referencedby refid="group__dfeequ_1ga6007e4c4495f0ce8cd9c4ec9ec2a94a4" compoundref="xdfeequ_8c" startline="1004" endline="1068">XDfeEqu_GetTriggersCfg</referencedby>
+        <referencedby refid="group__dfeequ_1ga12d7169da8086c7d940094f4c468e3dd" compoundref="xdfeequ__pass__through__example_8c" startline="63" endline="131">XDfeEqu_PassThroughExample</referencedby>
+        <referencedby refid="group__dfeequ_1ga8397193c8752e178b30f4161ebf24617" compoundref="xdfeequ_8c" startline="1079" endline="1174">XDfeEqu_SetTriggersCfg</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Trigger configuration. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeequ/src/xdfeequ.h" line="193" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeequ/src/xdfeequ.h" bodystart="193" bodyend="231"/>
+    <listofallmembers>
+      <member refid="struct_x_dfe_equ___trigger_1abb1f689a1d09550f6a3a4d0e1405a94a" prot="public" virt="non-virtual"><scope>XDfeEqu_Trigger</scope><name>Mode</name></member>
+      <member refid="struct_x_dfe_equ___trigger_1ad35b66f6f839d6a076f6ab788301f668" prot="public" virt="non-virtual"><scope>XDfeEqu_Trigger</scope><name>StateOutput</name></member>
+      <member refid="struct_x_dfe_equ___trigger_1ad512e3c3c32193fe84c0efd50a3ec10e" prot="public" virt="non-virtual"><scope>XDfeEqu_Trigger</scope><name>TriggerEnable</name></member>
+      <member refid="struct_x_dfe_equ___trigger_1a74b3104cbdfe7ddfd92b12718a97aa60" prot="public" virt="non-virtual"><scope>XDfeEqu_Trigger</scope><name>TUSERBit</name></member>
+      <member refid="struct_x_dfe_equ___trigger_1a3a6122fa78ba07460a2bdcd3950d93dd" prot="public" virt="non-virtual"><scope>XDfeEqu_Trigger</scope><name>TuserEdgeLevel</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

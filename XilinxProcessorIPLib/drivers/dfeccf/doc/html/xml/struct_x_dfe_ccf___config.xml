@@ -1,0 +1,110 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_dfe_ccf___config" kind="struct" prot="public">
+    <compoundname>XDfeCcf_Config</compoundname>
+    <includes local="no">xdfeccf.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_dfe_ccf___config_1a903e3c862622fb36b264c909861eb11c" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* XDfeCcf_Config::Name</definition>
+        <argsstring></argsstring>
+        <name>Name</name>
+        <briefdescription>
+<para>Unique name of the device. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" line="409" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" bodystart="409" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_ccf___config_1a427c23fb6b3b457822e2a4a82477da89" prot="public" static="no" mutable="no">
+        <type>metal_phys_addr_t</type>
+        <definition>metal_phys_addr_t XDfeCcf_Config::BaseAddr</definition>
+        <argsstring></argsstring>
+        <name>BaseAddr</name>
+        <briefdescription>
+<para>Instance base address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" line="411" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" bodystart="411" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_ccf___config_1a5ae55243e96cbc57f1ecf782fce8b016" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfeCcf_Config::NumAntenna</definition>
+        <argsstring></argsstring>
+        <name>NumAntenna</name>
+        <briefdescription>
+<para>Number of antennas. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" line="412" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" bodystart="412" bodyend="-1"/>
+        <referencedby refid="group__dfeccf_1ga59ba4de329a470946d9fc2a040d7a492" compoundref="xdfeccf_8c" startline="929" endline="979">XDfeCcf_Configure</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_ccf___config_1acac0536f040af21eb665eaac12ada98f" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfeCcf_Config::NumCCPerAntenna</definition>
+        <argsstring></argsstring>
+        <name>NumCCPerAntenna</name>
+        <briefdescription>
+<para>Number of CCs per antenna. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" line="413" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" bodystart="413" bodyend="-1"/>
+        <referencedby refid="group__dfeccf_1ga59ba4de329a470946d9fc2a040d7a492" compoundref="xdfeccf_8c" startline="929" endline="979">XDfeCcf_Configure</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_ccf___config_1ab3eab60e3dc00872b67e4e1b576d0cc5" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfeCcf_Config::AntennaInterleave</definition>
+        <argsstring></argsstring>
+        <name>AntennaInterleave</name>
+        <briefdescription>
+<para>Number of Antenna slots. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" line="414" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" bodystart="414" bodyend="-1"/>
+        <referencedby refid="group__dfeccf_1ga59ba4de329a470946d9fc2a040d7a492" compoundref="xdfeccf_8c" startline="929" endline="979">XDfeCcf_Configure</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_ccf___config_1ad46fbde689c4b6f65464ba50a1c3c8b4" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfeCcf_Config::Switchable</definition>
+        <argsstring></argsstring>
+        <name>Switchable</name>
+        <briefdescription>
+<para>[0,1] If true DL/UL switching is supported </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" line="415" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" bodystart="415" bodyend="-1"/>
+        <referencedby refid="group__dfeccf_1ga6fec5800f070fd68474f513b9d95aad7" compoundref="xdfeccf_8c" startline="1033" endline="1064">XDfeCcf_Activate</referencedby>
+        <referencedby refid="group__dfeccf_1ga59ba4de329a470946d9fc2a040d7a492" compoundref="xdfeccf_8c" startline="929" endline="979">XDfeCcf_Configure</referencedby>
+        <referencedby refid="group__dfeccf_1gad8a56e64a51a4cbea54dd830f33730e2" compoundref="xdfeccf_8c" startline="1074" endline="1103">XDfeCcf_Deactivate</referencedby>
+        <referencedby refid="group__dfeccf_1ga9dabb47e081bcecd0c865126daa6a92a" compoundref="xdfeccf_8c" startline="1218" endline="1245">XDfeCcf_GetCurrentCCCfgSwitchable</referencedby>
+        <referencedby refid="group__dfeccf_1gaf8c982653b47be37c3ad6a374142984f" compoundref="xdfeccf_8c" startline="991" endline="1022">XDfeCcf_Initialize</referencedby>
+        <referencedby refid="group__dfeccf_1ga47f2c3d66e66518a7337906b5871e04d" compoundref="xdfeccf_8c" startline="1517" endline="1559">XDfeCcf_SetNextCCCfgAndTriggerSwitchable</referencedby>
+        <referencedby refid="group__dfeccf_1gae0913ce20c92ecd4a35a59a19ad171af" compoundref="xdfeccf_8c" startline="1842" endline="1868">XDfeCcf_UpdateAntennaCfgSwitchable</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>CCF Config Structure. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" line="405" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" bodystart="405" bodyend="416"/>
+    <listofallmembers>
+      <member refid="struct_x_dfe_ccf___config_1ab3eab60e3dc00872b67e4e1b576d0cc5" prot="public" virt="non-virtual"><scope>XDfeCcf_Config</scope><name>AntennaInterleave</name></member>
+      <member refid="struct_x_dfe_ccf___config_1a427c23fb6b3b457822e2a4a82477da89" prot="public" virt="non-virtual"><scope>XDfeCcf_Config</scope><name>BaseAddr</name></member>
+      <member refid="struct_x_dfe_ccf___config_1a903e3c862622fb36b264c909861eb11c" prot="public" virt="non-virtual"><scope>XDfeCcf_Config</scope><name>Name</name></member>
+      <member refid="struct_x_dfe_ccf___config_1a5ae55243e96cbc57f1ecf782fce8b016" prot="public" virt="non-virtual"><scope>XDfeCcf_Config</scope><name>NumAntenna</name></member>
+      <member refid="struct_x_dfe_ccf___config_1acac0536f040af21eb665eaac12ada98f" prot="public" virt="non-virtual"><scope>XDfeCcf_Config</scope><name>NumCCPerAntenna</name></member>
+      <member refid="struct_x_dfe_ccf___config_1ad46fbde689c4b6f65464ba50a1c3c8b4" prot="public" virt="non-virtual"><scope>XDfeCcf_Config</scope><name>Switchable</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

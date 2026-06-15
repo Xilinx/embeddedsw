@@ -1,0 +1,85 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_xhdmi_audio_gen___p_l_l__t" kind="struct" prot="public">
+    <compoundname>XhdmiAudioGen_PLL_t</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_xhdmi_audio_gen___p_l_l__t_1a7f79470045322ae00b70d7da809e7b43" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XhdmiAudioGen_PLL_t::Div</definition>
+        <argsstring></argsstring>
+        <name>Div</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" line="72" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" bodystart="72" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xhdmi_audio_gen___p_l_l__t_1aba94c60edf27320d40838154e2770b4b" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XhdmiAudioGen_PLL_t::Mult</definition>
+        <argsstring></argsstring>
+        <name>Mult</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" line="73" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" bodystart="73" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xhdmi_audio_gen___p_l_l__t_1a74c645aef7692ab4e3245e1498b7fae7" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XhdmiAudioGen_PLL_t::Mult_Eights</definition>
+        <argsstring></argsstring>
+        <name>Mult_Eights</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" line="74" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" bodystart="74" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xhdmi_audio_gen___p_l_l__t_1af982ed3ee4d4dcdd39a993a843571fc0" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XhdmiAudioGen_PLL_t::Clk0Div</definition>
+        <argsstring></argsstring>
+        <name>Clk0Div</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" line="75" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" bodystart="75" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xhdmi_audio_gen___p_l_l__t_1a2b60c8e603ef7b0b3905c75ca06e9e8b" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XhdmiAudioGen_PLL_t::Clk0Div_Eights</definition>
+        <argsstring></argsstring>
+        <name>Clk0Div_Eights</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" line="76" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" bodystart="76" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" line="71" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" bodystart="71" bodyend="78"/>
+    <listofallmembers>
+      <member refid="struct_xhdmi_audio_gen___p_l_l__t_1af982ed3ee4d4dcdd39a993a843571fc0" prot="public" virt="non-virtual"><scope>XhdmiAudioGen_PLL_t</scope><name>Clk0Div</name></member>
+      <member refid="struct_xhdmi_audio_gen___p_l_l__t_1a2b60c8e603ef7b0b3905c75ca06e9e8b" prot="public" virt="non-virtual"><scope>XhdmiAudioGen_PLL_t</scope><name>Clk0Div_Eights</name></member>
+      <member refid="struct_xhdmi_audio_gen___p_l_l__t_1a7f79470045322ae00b70d7da809e7b43" prot="public" virt="non-virtual"><scope>XhdmiAudioGen_PLL_t</scope><name>Div</name></member>
+      <member refid="struct_xhdmi_audio_gen___p_l_l__t_1aba94c60edf27320d40838154e2770b4b" prot="public" virt="non-virtual"><scope>XhdmiAudioGen_PLL_t</scope><name>Mult</name></member>
+      <member refid="struct_xhdmi_audio_gen___p_l_l__t_1a74c645aef7692ab4e3245e1498b7fae7" prot="public" virt="non-virtual"><scope>XhdmiAudioGen_PLL_t</scope><name>Mult_Eights</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

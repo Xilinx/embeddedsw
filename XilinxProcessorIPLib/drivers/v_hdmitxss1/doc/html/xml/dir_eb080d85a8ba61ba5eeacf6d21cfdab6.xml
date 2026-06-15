@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_eb080d85a8ba61ba5eeacf6d21cfdab6" kind="dir">
+    <compoundname>PassThrough</compoundname>
+    <innerfile refid="xhdmi__edid_8c">xhdmi_edid.c</innerfile>
+    <innerfile refid="xhdmi__edid_8h">xhdmi_edid.h</innerfile>
+    <innerfile refid="xhdmi__example_8c">xhdmi_example.c</innerfile>
+    <innerfile refid="xhdmi__example_8h">xhdmi_example.h</innerfile>
+    <innerfile refid="xhdmi__exdes__sm__rx_8c">xhdmi_exdes_sm_rx.c</innerfile>
+    <innerfile refid="xhdmi__exdes__sm__rx_8h">xhdmi_exdes_sm_rx.h</innerfile>
+    <innerfile refid="xhdmi__exdes__sm__tx_8c">xhdmi_exdes_sm_tx.c</innerfile>
+    <innerfile refid="xhdmi__exdes__sm__tx_8h">xhdmi_exdes_sm_tx.h</innerfile>
+    <innerfile refid="xhdmi__menu_8c">xhdmi_menu.c</innerfile>
+    <innerfile refid="xhdmi__menu_8h">xhdmi_menu.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/PassThrough/"/>
+  </compounddef>
+</doxygen>

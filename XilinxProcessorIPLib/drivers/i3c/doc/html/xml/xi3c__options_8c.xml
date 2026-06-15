@@ -1,0 +1,255 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xi3c__options_8c" kind="file">
+    <compoundname>xi3c_options.c</compoundname>
+    <includes refid="xi3c_8h" local="yes">xi3c.h</includes>
+    <includes refid="xi3c__hw_8h" local="yes">xi3c_hw.h</includes>
+    <incdepgraph>
+      <node id="107">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="110">
+        <label>xil_io.h</label>
+      </node>
+      <node id="113">
+        <label>sleep.h</label>
+      </node>
+      <node id="109">
+        <label>xi3c_hw.h</label>
+        <link refid="xi3c__hw_8h"/>
+        <childnode refid="106" relation="include">
+        </childnode>
+        <childnode refid="107" relation="include">
+        </childnode>
+        <childnode refid="110" relation="include">
+        </childnode>
+        <childnode refid="111" relation="include">
+        </childnode>
+      </node>
+      <node id="105">
+        <label>xi3c.h</label>
+        <childnode refid="106" relation="include">
+        </childnode>
+        <childnode refid="107" relation="include">
+        </childnode>
+        <childnode refid="108" relation="include">
+        </childnode>
+        <childnode refid="109" relation="include">
+        </childnode>
+        <childnode refid="112" relation="include">
+        </childnode>
+        <childnode refid="113" relation="include">
+        </childnode>
+      </node>
+      <node id="112">
+        <label>xplatform_info.h</label>
+      </node>
+      <node id="108">
+        <label>xstatus.h</label>
+      </node>
+      <node id="106">
+        <label>xil_types.h</label>
+      </node>
+      <node id="104">
+        <label>xi3c_options.c</label>
+        <link refid="xi3c_options.c"/>
+        <childnode refid="105" relation="include">
+        </childnode>
+        <childnode refid="109" relation="include">
+        </childnode>
+      </node>
+      <node id="111">
+        <label>xparameters.h</label>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group___overview_1ga8bdcc22a96e0b2be5e806b29761cc83a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XI3c_SetSClk</definition>
+        <argsstring>(XI3c *InstancePtr, u32 SclkHz, u8 Mode)</argsstring>
+        <name>XI3c_SetSClk</name>
+        <param>
+          <type><ref refid="struct_x_i3c" kindref="compound">XI3c</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>SclkHz</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Mode</declname>
+        </param>
+        <briefdescription>
+<para>Sets I3C Scl clock frequency. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_i3c" kindref="compound">XI3c</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>SclkHz</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is Scl clock to be configured in Hz. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Mode</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the mode of operation I2C/I3C.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The return value is XST_SUCCESS if successful.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i3c/src/xi3c.h" line="819" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i3c/src/xi3c_options.c" bodystart="53" bodyend="148"/>
+        <references refid="struct_x_i3c___config_1a5022354efb94520441dca651cb9643bc" compoundref="xi3c_8h" startline="737">XI3c_Config::BaseAddress</references>
+        <references refid="struct_x_i3c_1a8a4d3a8c73221b302c6eedbdb4496b71" compoundref="xi3c_8h" startline="780">XI3c::Config</references>
+        <references refid="struct_x_i3c___config_1afcc9598c42b89940e46ed396994f62cb" compoundref="xi3c_8h" startline="744">XI3c_Config::InputClockHz</references>
+        <references refid="group___overview_1ga34208c49e1fb181e5d75006a27cee535" compoundref="xi3c_8h" startline="536">XI3c_GetRevisionNumber</references>
+        <references refid="group___overview_1ga71c271412e577611810fe80fe0f51703" compoundref="xi3c__hw_8h" startline="78">XI3C_OD_SCL_HIGH_TIME_OFFSET</references>
+        <references refid="group___overview_1ga5455e0616c1f4d0728b493ea0fb92b6f" compoundref="xi3c__hw_8h" startline="79">XI3C_OD_SCL_LOW_TIME_OFFSET</references>
+        <references refid="group___overview_1ga19907a1f8fccab4045cec4f33a0a019b" compoundref="xi3c__hw_8h" startline="71">XI3C_SCL_HIGH_TIME_OFFSET</references>
+        <references refid="group___overview_1gacac5bc3663c87ed53678bbb88c58a737" compoundref="xi3c__hw_8h" startline="72">XI3C_SCL_LOW_TIME_OFFSET</references>
+        <references refid="group___overview_1gac98f0b52e9c9c40ccf5b41cd8fce94d6" compoundref="xi3c__hw_8h" startline="73">XI3C_SDA_HOLD_TIME_OFFSET</references>
+        <references refid="group___overview_1ga7b6019d7d90a6ffe16d5031c677da546" compoundref="xi3c__hw_8h" startline="76">XI3C_THD_START_OFFSET</references>
+        <references refid="group___overview_1gaad8bc7285bee2d4b07caf0be75751909" compoundref="xi3c__hw_8h" startline="75">XI3C_TSU_START_OFFSET</references>
+        <references refid="group___overview_1gaf9c766c72c30099de526c5d78a99ba5c" compoundref="xi3c__hw_8h" startline="77">XI3C_TSU_STOP_OFFSET</references>
+        <references refid="group___overview_1ga6d1adc84977bc35bde5d82bb4a874d6b" compoundref="xi3c__hw_8h" startline="292">XI3c_WriteReg</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2024<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="24"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xi3c.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xi3c__hw_8h" kindref="compound">xi3c_hw.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="comment">/***************************************************************************/</highlight></codeline>
+<codeline lineno="53" refid="group___overview_1ga8bdcc22a96e0b2be5e806b29761cc83a" refkind="member"><highlight class="normal">s32<sp/><ref refid="group___overview_1ga8bdcc22a96e0b2be5e806b29761cc83a" kindref="member">XI3c_SetSClk</ref>(<ref refid="struct_x_i3c" kindref="compound">XI3c</ref><sp/>*InstancePtr,<sp/>u32<sp/>SclkHz,<sp/>u8<sp/>Mode)</highlight></codeline>
+<codeline lineno="54"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>THigh;</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>TLow;</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>THold;</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>OdTHigh;</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>OdTLow;</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>CorePeriodNs;</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>TcasMin;</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>TsuStart;</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>TsuStop;</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>ThdStart;</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Assert<sp/>the<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(SclkHz<sp/>&gt;<sp/>0U);</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>THigh<sp/>=<sp/>XI3C_CEIL_DIV(InstancePtr-&gt;<ref refid="struct_x_i3c_1a8a4d3a8c73221b302c6eedbdb4496b71" kindref="member">Config</ref>.<ref refid="struct_x_i3c___config_1afcc9598c42b89940e46ed396994f62cb" kindref="member">InputClockHz</ref>,<sp/>SclkHz)<sp/>&gt;&gt;<sp/>1;</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TLow<sp/>=<sp/>THigh;</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Hold<sp/>time<sp/>:<sp/>40%<sp/>of<sp/>TLow<sp/>time<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>THold<sp/>=<sp/>(TLow<sp/>*<sp/>4)/10;</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CorePeriodNs<sp/>=<sp/>XI3C_CEIL_DIV(1000000000,<sp/>InstancePtr-&gt;<ref refid="struct_x_i3c_1a8a4d3a8c73221b302c6eedbdb4496b71" kindref="member">Config</ref>.<ref refid="struct_x_i3c___config_1afcc9598c42b89940e46ed396994f62cb" kindref="member">InputClockHz</ref>);</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"></highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="78"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Data<sp/>Hold<sp/>Time.</highlight></codeline>
+<codeline lineno="79"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>For<sp/>initial<sp/>IP<sp/>(revision<sp/>number<sp/>=<sp/>0),<sp/>minimum<sp/>Data<sp/>Hold<sp/>Time<sp/>is<sp/>5.</highlight></codeline>
+<codeline lineno="80"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>For<sp/>updated<sp/>IP<sp/>(revision<sp/>number<sp/>&gt;<sp/>0),<sp/>minimum<sp/>Data<sp/>Hold<sp/>Time<sp/>is<sp/>6.</highlight></codeline>
+<codeline lineno="81"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Updated<sp/>IP<sp/>now<sp/>supports<sp/>achieving<sp/>high<sp/>data<sp/>rate<sp/>with<sp/>low<sp/>reference</highlight></codeline>
+<codeline lineno="82"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>frequency.</highlight></codeline>
+<codeline lineno="83"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="group___overview_1ga34208c49e1fb181e5d75006a27cee535" kindref="member">XI3c_GetRevisionNumber</ref>(InstancePtr)<sp/>==<sp/>0)</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>THold<sp/>=<sp/>(THold<sp/>&lt;<sp/>5)<sp/>?<sp/>5<sp/>:<sp/>THold;</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>THold<sp/>=<sp/>(THold<sp/>&lt;<sp/>6)<sp/>?<sp/>6<sp/>:<sp/>THold;</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"></highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group___overview_1ga6d1adc84977bc35bde5d82bb4a874d6b" kindref="member">XI3c_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_i3c_1a8a4d3a8c73221b302c6eedbdb4496b71" kindref="member">Config</ref>.<ref refid="struct_x_i3c___config_1a5022354efb94520441dca651cb9643bc" kindref="member">BaseAddress</ref>,<sp/><ref refid="group___overview_1ga19907a1f8fccab4045cec4f33a0a019b" kindref="member">XI3C_SCL_HIGH_TIME_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((THigh-2)<sp/>&amp;<sp/>XI3C_18BITS_MASK));</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group___overview_1ga6d1adc84977bc35bde5d82bb4a874d6b" kindref="member">XI3c_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_i3c_1a8a4d3a8c73221b302c6eedbdb4496b71" kindref="member">Config</ref>.<ref refid="struct_x_i3c___config_1a5022354efb94520441dca651cb9643bc" kindref="member">BaseAddress</ref>,<sp/><ref refid="group___overview_1gacac5bc3663c87ed53678bbb88c58a737" kindref="member">XI3C_SCL_LOW_TIME_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((TLow-2)<sp/><sp/>&amp;<sp/>XI3C_18BITS_MASK));</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group___overview_1ga6d1adc84977bc35bde5d82bb4a874d6b" kindref="member">XI3c_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_i3c_1a8a4d3a8c73221b302c6eedbdb4496b71" kindref="member">Config</ref>.<ref refid="struct_x_i3c___config_1a5022354efb94520441dca651cb9643bc" kindref="member">BaseAddress</ref>,<sp/><ref refid="group___overview_1gac98f0b52e9c9c40ccf5b41cd8fce94d6" kindref="member">XI3C_SDA_HOLD_TIME_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((THold-2)<sp/>&amp;<sp/>XI3C_18BITS_MASK));</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"></highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(!Mode)<sp/>{</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="98"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>I2C</highlight></codeline>
+<codeline lineno="99"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group___overview_1ga6d1adc84977bc35bde5d82bb4a874d6b" kindref="member">XI3c_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_i3c_1a8a4d3a8c73221b302c6eedbdb4496b71" kindref="member">Config</ref>.<ref refid="struct_x_i3c___config_1a5022354efb94520441dca651cb9643bc" kindref="member">BaseAddress</ref>,<sp/><ref refid="group___overview_1ga71c271412e577611810fe80fe0f51703" kindref="member">XI3C_OD_SCL_HIGH_TIME_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((THigh-2)<sp/>&amp;<sp/>XI3C_18BITS_MASK));</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group___overview_1ga6d1adc84977bc35bde5d82bb4a874d6b" kindref="member">XI3c_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_i3c_1a8a4d3a8c73221b302c6eedbdb4496b71" kindref="member">Config</ref>.<ref refid="struct_x_i3c___config_1a5022354efb94520441dca651cb9643bc" kindref="member">BaseAddress</ref>,<sp/><ref refid="group___overview_1ga5455e0616c1f4d0728b493ea0fb92b6f" kindref="member">XI3C_OD_SCL_LOW_TIME_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((TLow-2)<sp/><sp/>&amp;<sp/>XI3C_18BITS_MASK));</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="105"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Minimum<sp/>clock<sp/>period<sp/>after<sp/>start<sp/>600ns</highlight></codeline>
+<codeline lineno="106"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TcasMin<sp/>=<sp/>XI3C_CEIL_DIV(600000,<sp/>CorePeriodNs);</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="110"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>I3C<sp/>OD</highlight></codeline>
+<codeline lineno="111"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="112"><highlight class="normal"></highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="114"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Minimum<sp/>OdTLow<sp/>period<sp/>500ns</highlight></codeline>
+<codeline lineno="115"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>OdTLow<sp/>=<sp/>XI3C_CEIL_DIV(500000,<sp/>CorePeriodNs);</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"></highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="119"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Minimum<sp/>OdTHigh<sp/>period<sp/>41ns</highlight></codeline>
+<codeline lineno="120"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>OdTHigh<sp/>=<sp/>XI3C_CEIL_DIV(41000,<sp/>CorePeriodNs);</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"></highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>OdTLow<sp/>=<sp/>(TLow<sp/>&lt;<sp/>OdTLow)<sp/>?OdTLow<sp/>:<sp/>TLow;</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>OdTHigh<sp/>=<sp/>(THigh<sp/>&gt;<sp/>OdTHigh)<sp/>?OdTHigh<sp/>:<sp/>THigh;</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"></highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group___overview_1ga6d1adc84977bc35bde5d82bb4a874d6b" kindref="member">XI3c_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_i3c_1a8a4d3a8c73221b302c6eedbdb4496b71" kindref="member">Config</ref>.<ref refid="struct_x_i3c___config_1a5022354efb94520441dca651cb9643bc" kindref="member">BaseAddress</ref>,<sp/><ref refid="group___overview_1ga71c271412e577611810fe80fe0f51703" kindref="member">XI3C_OD_SCL_HIGH_TIME_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((OdTHigh-2)<sp/>&amp;<sp/>XI3C_18BITS_MASK));</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group___overview_1ga6d1adc84977bc35bde5d82bb4a874d6b" kindref="member">XI3c_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_i3c_1a8a4d3a8c73221b302c6eedbdb4496b71" kindref="member">Config</ref>.<ref refid="struct_x_i3c___config_1a5022354efb94520441dca651cb9643bc" kindref="member">BaseAddress</ref>,<sp/><ref refid="group___overview_1ga5455e0616c1f4d0728b493ea0fb92b6f" kindref="member">XI3C_OD_SCL_LOW_TIME_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((OdTLow-2)<sp/><sp/>&amp;<sp/>XI3C_18BITS_MASK));</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="131"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Minimum<sp/>clock<sp/>period<sp/>after<sp/>start<sp/>260ns</highlight></codeline>
+<codeline lineno="132"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TcasMin<sp/>=<sp/>XI3C_CEIL_DIV(260000,<sp/>CorePeriodNs);</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"></highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ThdStart<sp/>=<sp/>(THigh<sp/>&gt;<sp/>TcasMin)<sp/>?<sp/>THigh:<sp/>TcasMin;</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TsuStart<sp/>=<sp/>(TLow<sp/>&gt;<sp/>TcasMin)<sp/>?<sp/>TLow:<sp/>TcasMin;</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TsuStop<sp/>=<sp/>(TLow<sp/>&gt;<sp/>TcasMin)<sp/>?<sp/>TLow:<sp/>TcasMin;</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"></highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group___overview_1ga6d1adc84977bc35bde5d82bb4a874d6b" kindref="member">XI3c_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_i3c_1a8a4d3a8c73221b302c6eedbdb4496b71" kindref="member">Config</ref>.<ref refid="struct_x_i3c___config_1a5022354efb94520441dca651cb9643bc" kindref="member">BaseAddress</ref>,<sp/><ref refid="group___overview_1gaad8bc7285bee2d4b07caf0be75751909" kindref="member">XI3C_TSU_START_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((TsuStart-2)<sp/>&amp;<sp/>XI3C_18BITS_MASK));</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group___overview_1ga6d1adc84977bc35bde5d82bb4a874d6b" kindref="member">XI3c_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_i3c_1a8a4d3a8c73221b302c6eedbdb4496b71" kindref="member">Config</ref>.<ref refid="struct_x_i3c___config_1a5022354efb94520441dca651cb9643bc" kindref="member">BaseAddress</ref>,<sp/><ref refid="group___overview_1ga7b6019d7d90a6ffe16d5031c677da546" kindref="member">XI3C_THD_START_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((ThdStart-2)<sp/><sp/>&amp;<sp/>XI3C_18BITS_MASK));</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group___overview_1ga6d1adc84977bc35bde5d82bb4a874d6b" kindref="member">XI3c_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_i3c_1a8a4d3a8c73221b302c6eedbdb4496b71" kindref="member">Config</ref>.<ref refid="struct_x_i3c___config_1a5022354efb94520441dca651cb9643bc" kindref="member">BaseAddress</ref>,<sp/><ref refid="group___overview_1gaf9c766c72c30099de526c5d78a99ba5c" kindref="member">XI3C_TSU_STOP_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((TsuStop-2)<sp/>&amp;<sp/>XI3C_18BITS_MASK));</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"></highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="148"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i3c/src/xi3c_options.c"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,99 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="union_int_char" kind="union" prot="public">
+    <compoundname>IntChar</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="union_int_char_1a5d855acb04ae1f0f74399fc0daa397e7" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 IntChar::Word</definition>
+        <argsstring></argsstring>
+        <name>Word</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_cp9.h" line="54" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_cp9.h" bodystart="54" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="union_int_char_1a7ad9c1750a1f92f4acfb5f381d33a27a" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 IntChar::Zero</definition>
+        <argsstring></argsstring>
+        <name>Zero</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_cp9.h" line="56" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_cp9.h" bodystart="56" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="union_int_char_1a1e53bd009b76f6cae9b6d28d3bcc7c09" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 IntChar::One</definition>
+        <argsstring></argsstring>
+        <name>One</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_cp9.h" line="57" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_cp9.h" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="union_int_char_1ac891ecc375b7ac629ab8fa7b6127a407" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 IntChar::Two</definition>
+        <argsstring></argsstring>
+        <name>Two</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_cp9.h" line="58" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_cp9.h" bodystart="58" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="union_int_char_1a3c32819ee96db2cf91a153105526ba10" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 IntChar::Three</definition>
+        <argsstring></argsstring>
+        <name>Three</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_cp9.h" line="59" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_cp9.h" bodystart="59" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="union_int_char_1ab57fa2de8dd607fbb293f7428c5f9bb1" prot="public" static="no" mutable="no">
+        <type>struct IntChar::@0</type>
+        <definition>struct IntChar::@0  IntChar::Byte</definition>
+        <argsstring></argsstring>
+        <name>Byte</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_cp9.h" line="60" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_cp9.h" line="53" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_cp9.h" bodystart="53" bodyend="61"/>
+    <listofallmembers>
+      <member refid="union_int_char_1ab57fa2de8dd607fbb293f7428c5f9bb1" prot="public" virt="non-virtual"><scope>IntChar</scope><name>Byte</name></member>
+      <member refid="union_int_char_1a1e53bd009b76f6cae9b6d28d3bcc7c09" prot="public" virt="non-virtual"><scope>IntChar</scope><name>One</name></member>
+      <member refid="union_int_char_1a3c32819ee96db2cf91a153105526ba10" prot="public" virt="non-virtual"><scope>IntChar</scope><name>Three</name></member>
+      <member refid="union_int_char_1ac891ecc375b7ac629ab8fa7b6127a407" prot="public" virt="non-virtual"><scope>IntChar</scope><name>Two</name></member>
+      <member refid="union_int_char_1a5d855acb04ae1f0f74399fc0daa397e7" prot="public" virt="non-virtual"><scope>IntChar</scope><name>Word</name></member>
+      <member refid="union_int_char_1a7ad9c1750a1f92f4acfb5f381d33a27a" prot="public" virt="non-virtual"><scope>IntChar</scope><name>Zero</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

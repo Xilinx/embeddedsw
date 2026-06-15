@@ -1,0 +1,663 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xv__warp__filter__l2_8h" kind="file">
+    <compoundname>xv_warp_filter_l2.h</compoundname>
+    <includes refid="xv__warp__filter_8h" local="yes">xv_warp_filter.h</includes>
+    <includedby refid="xv__warp__filter__l2_8c" local="yes">xv_warp_filter_l2.c</includedby>
+    <incdepgraph>
+      <node id="63">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="65">
+        <label>xil_io.h</label>
+      </node>
+      <node id="66">
+        <label>xv_warp_filter_hw.h</label>
+        <link refid="xv__warp__filter__hw_8h"/>
+      </node>
+      <node id="61">
+        <label>xv_warp_filter.h</label>
+        <link refid="xv__warp__filter_8h"/>
+        <childnode refid="62" relation="include">
+        </childnode>
+        <childnode refid="63" relation="include">
+        </childnode>
+        <childnode refid="64" relation="include">
+        </childnode>
+        <childnode refid="65" relation="include">
+        </childnode>
+        <childnode refid="66" relation="include">
+        </childnode>
+      </node>
+      <node id="64">
+        <label>xstatus.h</label>
+      </node>
+      <node id="62">
+        <label>xil_types.h</label>
+      </node>
+      <node id="60">
+        <label>xv_warp_filter_l2.h</label>
+        <link refid="xv_warp_filter_l2.h"/>
+        <childnode refid="61" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="68">
+        <label>xv_warp_filter_l2.c</label>
+        <link refid="xv__warp__filter__l2_8c"/>
+      </node>
+      <node id="67">
+        <label>xv_warp_filter_l2.h</label>
+        <link refid="xv_warp_filter_l2.h"/>
+        <childnode refid="68" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_x_v_warp_filter___desc" prot="public">XVWarpFilter_Desc</innerclass>
+    <innerclass refid="struct_x_v_warp_filter___input_configs" prot="public">XVWarpFilter_InputConfigs</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xv__warp__filter__l2_8h_1a4d1883fae6bee90d71bcdeb36a519c6c" prot="public" static="no">
+        <name>XV_WARP_FILTER_L2_H</name>
+        <initializer>/* by using protection macros */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_filter/src/xv_warp_filter_l2.h" line="13" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_filter/src/xv_warp_filter_l2.h" bodystart="13" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xv__warp__filter__l2_8h_1a7b1c537ab8c95bed1a171a9636b1e2f4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XVWarpFilter_InterruptEnable</definition>
+        <argsstring>(XV_warp_filter *InstancePtr, u32 Mask)</argsstring>
+        <name>XVWarpFilter_InterruptEnable</name>
+        <param>
+          <type><ref refid="struct_x_v__warp__filter" kindref="compound">XV_warp_filter</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Mask</declname>
+        </param>
+        <briefdescription>
+<para>Enables interrupts for the core instance. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function enables the specified interrupts and the global interrupt enable for the warp filter core.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_v__warp__filter" kindref="compound">XV_warp_filter</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the interrupt enable mask.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>Both the specific interrupt and global interrupt enable are set. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_filter/src/xv_warp_filter_l2.h" line="75" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_filter/src/xv_warp_filter_l2.c" bodystart="276" bodyend="283"/>
+        <references refid="xv__warp__filter_8c_1a79b62a4ed28b1d9d90144ba6e05b22d5" compoundref="xv__warp__filter_8c" startline="635" endline="643">XV_warp_filter_InterruptEnable</references>
+        <references refid="xv__warp__filter_8c_1a348a5221bb34f43d06742989e831d80f" compoundref="xv__warp__filter_8c" startline="592" endline="597">XV_warp_filter_InterruptGlobalEnable</references>
+      </memberdef>
+      <memberdef kind="function" id="xv__warp__filter__l2_8h_1ab1d2e01b0ef1fa54416a0cf5fffb6914" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XVWarpFilter_InterruptDisable</definition>
+        <argsstring>(XV_warp_filter *InstancePtr, u32 IrqMask)</argsstring>
+        <name>XVWarpFilter_InterruptDisable</name>
+        <param>
+          <type><ref refid="struct_x_v__warp__filter" kindref="compound">XV_warp_filter</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>IrqMask</declname>
+        </param>
+        <briefdescription>
+<para>Disables interrupts in the core. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function disables the specified interrupts and the global interrupt enable for the warp filter core.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_v__warp__filter" kindref="compound">XV_warp_filter</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>IrqMask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the interrupt disable mask.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>Both the specific interrupt and global interrupt enable are cleared. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_filter/src/xv_warp_filter_l2.h" line="76" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_filter/src/xv_warp_filter_l2.c" bodystart="300" bodyend="308"/>
+        <references refid="xv__warp__filter_8c_1ae79e7f1a9a3f8b9b99dfcdd3c6f3ad97" compoundref="xv__warp__filter_8c" startline="660" endline="668">XV_warp_filter_InterruptDisable</references>
+        <references refid="xv__warp__filter_8c_1ab0742ade1a97d5f84695bf4e1aad22e0" compoundref="xv__warp__filter_8c" startline="613" endline="618">XV_warp_filter_InterruptGlobalDisable</references>
+      </memberdef>
+      <memberdef kind="function" id="group__v__warp__filter_1gadde08c378e8fb2912620460a04a9ec47" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XVWarpFilter_SetCallback</definition>
+        <argsstring>(XV_warp_filter *InstancePtr, void *CallbackFunc, void *CallbackRef)</argsstring>
+        <name>XVWarpFilter_SetCallback</name>
+        <param>
+          <type><ref refid="struct_x_v__warp__filter" kindref="compound">XV_warp_filter</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>CallbackFunc</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>CallbackRef</declname>
+        </param>
+        <briefdescription>
+<para>Installs an asynchronous callback function for frame done events. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function registers a callback function that will be invoked when a frame processing is complete. Invoking this function for a handler that has already been installed replaces it with the new handler.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_v__warp__filter" kindref="compound">XV_warp_filter</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CallbackFunc</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the address of the callback function. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CallbackRef</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a user data item that will be passed to the callback function when it is invoked.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>Invoking this function for a handler that already has been installed replaces it with the new handler. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_filter/src/xv_warp_filter_l2.h" line="77" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_filter/src/xv_warp_filter_intr.c" bodystart="45" bodyend="55"/>
+        <references refid="struct_x_v__warp__filter_1a6ba0046496cf6de69d1b214ca5aa78f1" compoundref="xv__warp__filter_8h" startline="88">XV_warp_filter::FrameDoneCallback</references>
+        <references refid="struct_x_v__warp__filter_1a830d2a77cc4b77dc42108684905533b8" compoundref="xv__warp__filter_8h" startline="89">XV_warp_filter::CallbackRef</references>
+      </memberdef>
+      <memberdef kind="function" id="group__v__warp__filter_1gaca694bd5cb18bcc884e8e0aca4356a37" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void *</type>
+        <definition>void* XVWarpFilter_IntrHandler</definition>
+        <argsstring>(void *InstancePtr)</argsstring>
+        <name>XVWarpFilter_IntrHandler</name>
+        <param>
+          <type>void *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Interrupt handler for the Warp Filter core. </para>        </briefdescription>
+        <detaileddescription>
+<para>This handler clears the pending interrupt and determines if the source is the frame done signal. If yes, it calls the registered callback function. The application is responsible for connecting this function to the interrupt system.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_v__warp__filter" kindref="compound">XV_warp_filter</ref> instance that just interrupted.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>The application is responsible for connecting this function to the interrupt system. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_filter/src/xv_warp_filter_l2.h" line="79" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_filter/src/xv_warp_filter_intr.c" bodystart="75" bodyend="88"/>
+        <references refid="struct_x_v__warp__filter_1ad9fe6ba4241457cbbe61a7177d4878ca" compoundref="xv__warp__filter_8h" startline="87">XV_warp_filter::IsReady</references>
+        <references refid="xv__warp__filter_8c_1afde5613c56b4d80b872ff7a65e585ed2" compoundref="xv__warp__filter_8c" startline="727" endline="732">XV_warp_filter_InterruptGetStatus</references>
+        <references refid="xv__warp__filter_8c_1ae408cbf177a31cc30d8c568cc7bb7e3c" compoundref="xv__warp__filter_8c" startline="685" endline="690">XV_warp_filter_InterruptClear</references>
+        <references refid="xv__warp__filter__hw_8h_1ae7767ad314c1fd7edd4c0d659fda9cfa" compoundref="xv__warp__filter__hw_8h" startline="127">XV_WARP_FILTER_INTR_AP_DONE_MASK</references>
+        <references refid="struct_x_v__warp__filter_1a6ba0046496cf6de69d1b214ca5aa78f1" compoundref="xv__warp__filter_8h" startline="88">XV_warp_filter::FrameDoneCallback</references>
+        <references refid="struct_x_v__warp__filter_1a830d2a77cc4b77dc42108684905533b8" compoundref="xv__warp__filter_8h" startline="89">XV_warp_filter::CallbackRef</references>
+      </memberdef>
+      <memberdef kind="function" id="xv__warp__filter__l2_8h_1a9361e89ab2628382c9b3c396385ef6ac" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XVWarpFilter_ProgramDescriptor</definition>
+        <argsstring>(XV_warp_filter *InstancePtr, u32 DescNum, XVWarpFilter_InputConfigs *configPtr, u32 valid_seg, u32 lblock_count, u32 line_num)</argsstring>
+        <name>XVWarpFilter_ProgramDescriptor</name>
+        <param>
+          <type><ref refid="struct_x_v__warp__filter" kindref="compound">XV_warp_filter</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>DescNum</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_v_warp_filter___input_configs" kindref="compound">XVWarpFilter_InputConfigs</ref> *</type>
+          <declname>configPtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>valid_seg</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>lblock_count</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>line_num</declname>
+        </param>
+        <briefdescription>
+<para>Programs a descriptor with given configurations. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function locates the specified descriptor and configures it with the provided input parameters including dimensions, addresses, and processing parameters.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_v__warp__filter" kindref="compound">XV_warp_filter</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DescNum</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the descriptor number to be configured. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>configPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the input configuration pointer containing the configuration parameters. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>valid_seg</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the number of valid segments in the remap vector. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>lblock_count</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the number of output blocks decoded by the first warp filter core. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>line_num</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the line number from which the second warp filter core starts reading the source image.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if programming descriptor is successful. XST_FAILURE if descriptor is not valid.</para></simplesect>
+<simplesect kind="note"><para>Descriptor number must be less than the total number of descriptors. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_filter/src/xv_warp_filter_l2.h" line="80" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_filter/src/xv_warp_filter_l2.c" bodystart="147" bodyend="181"/>
+        <references refid="struct_x_v_warp_filter___desc_1ae210c672213c05618a49476e6594a1e5" compoundref="xv__warp__filter__l2_8h" startline="42">XVWarpFilter_Desc::dest_buf_addr</references>
+        <references refid="struct_x_v_warp_filter___input_configs_1a6dfde1b8dbbcf9b32c59d7194b519820" compoundref="xv__warp__filter__l2_8h" startline="69">XVWarpFilter_InputConfigs::dest_buf_addr</references>
+        <references refid="struct_x_v_warp_filter___desc_1a8d2ecc6c4378086ff943f999504f5bda" compoundref="xv__warp__filter__l2_8h" startline="29">XVWarpFilter_Desc::format</references>
+        <references refid="struct_x_v_warp_filter___input_configs_1afcd2028891d52daec89662d6dfa746f9" compoundref="xv__warp__filter__l2_8h" startline="66">XVWarpFilter_InputConfigs::format</references>
+        <references refid="struct_x_v_warp_filter___desc_1a1ac2edb287dbed0ed117ed87910d43dd" compoundref="xv__warp__filter__l2_8h" startline="26">XVWarpFilter_Desc::height</references>
+        <references refid="struct_x_v_warp_filter___input_configs_1af6baa9344dcdfbeadac7c34ff9c6f1de" compoundref="xv__warp__filter__l2_8h" startline="63">XVWarpFilter_InputConfigs::height</references>
+        <references refid="struct_x_v_warp_filter___desc_1a0383b969aa4cbc03667ae675bbded38d" compoundref="xv__warp__filter__l2_8h" startline="31">XVWarpFilter_Desc::lblock_count</references>
+        <references refid="struct_x_v_warp_filter___desc_1ad521fabeca20175245ec472a9b0336bf" compoundref="xv__warp__filter__l2_8h" startline="32">XVWarpFilter_Desc::line_num</references>
+        <references refid="struct_x_v__warp__filter_1ac97932243e181490272c6d0f3bd87c10" compoundref="xv__warp__filter_8h" startline="91">XV_warp_filter::NumDescriptors</references>
+        <references refid="struct_x_v_warp_filter___desc_1a66321637e8c61156792fc1392147d272" compoundref="xv__warp__filter__l2_8h" startline="33">XVWarpFilter_Desc::reserved</references>
+        <references refid="struct_x_v_warp_filter___desc_1a5d1f219eb5c411f4b17512934cb2df83" compoundref="xv__warp__filter__l2_8h" startline="41">XVWarpFilter_Desc::seg_table_addr</references>
+        <references refid="struct_x_v_warp_filter___input_configs_1a24fc9bc71507c4b78176336afbf5d215" compoundref="xv__warp__filter__l2_8h" startline="68">XVWarpFilter_InputConfigs::seg_table_addr</references>
+        <references refid="struct_x_v_warp_filter___desc_1ad89f9aa93f93cb631736f844c59a11da" compoundref="xv__warp__filter__l2_8h" startline="34">XVWarpFilter_Desc::src_buf_addr</references>
+        <references refid="struct_x_v_warp_filter___input_configs_1a7597dfa81a342915e42d8681368f1ab2" compoundref="xv__warp__filter__l2_8h" startline="67">XVWarpFilter_InputConfigs::src_buf_addr</references>
+        <references refid="struct_x_v_warp_filter___desc_1a8d0c8fd658235918fe4460d2f46c4599" compoundref="xv__warp__filter__l2_8h" startline="28">XVWarpFilter_Desc::stride</references>
+        <references refid="struct_x_v_warp_filter___input_configs_1a964e3cf7267c3941941e450639ea1432" compoundref="xv__warp__filter__l2_8h" startline="65">XVWarpFilter_InputConfigs::stride</references>
+        <references refid="struct_x_v_warp_filter___desc_1a55020e68d609eed2b9c291760ae72aa4" compoundref="xv__warp__filter__l2_8h" startline="30">XVWarpFilter_Desc::valid_seg</references>
+        <references refid="struct_x_v_warp_filter___desc_1ad40f467d016b3dc46d948f43792cf603" compoundref="xv__warp__filter__l2_8h" startline="53">XVWarpFilter_Desc::Warp_NextDescAddr</references>
+        <references refid="struct_x_v__warp__filter_1ac9aca1704b51e80c8af4f25bcf6467c5" compoundref="xv__warp__filter_8h" startline="90">XV_warp_filter::WarpFilterDesc_BaseAddr</references>
+        <references refid="struct_x_v_warp_filter___desc_1ab07050939774db4079cb2bed2b563250" compoundref="xv__warp__filter__l2_8h" startline="27">XVWarpFilter_Desc::width</references>
+        <references refid="struct_x_v_warp_filter___input_configs_1aed69b09ca9ef2fa6d0982b8a41e69b40" compoundref="xv__warp__filter__l2_8h" startline="64">XVWarpFilter_InputConfigs::width</references>
+        <references refid="xv__warp__filter_8c_1a731525abd2741a64161674705048e157" compoundref="xv__warp__filter_8c" startline="258" endline="264">XV_warp_filter_Set_desc_addr</references>
+      </memberdef>
+      <memberdef kind="function" id="xv__warp__filter__l2_8h_1a2beaf0788fe8923fd1d6fd7b0af4575a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XVWarpFilter_ClearNumOfDescriptors</definition>
+        <argsstring>(XV_warp_filter *InstancePtr)</argsstring>
+        <name>XVWarpFilter_ClearNumOfDescriptors</name>
+        <param>
+          <type><ref refid="struct_x_v__warp__filter" kindref="compound">XV_warp_filter</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Clears and de-allocates all descriptors. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function traverses the descriptor chain and frees all allocated memory for each descriptor, then resets the base address and count.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_v__warp__filter" kindref="compound">XV_warp_filter</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>This function must be called before the instance is destroyed to prevent memory leaks. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_filter/src/xv_warp_filter_l2.h" line="83" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_filter/src/xv_warp_filter_l2.c" bodystart="104" bodyend="121"/>
+        <references refid="struct_x_v__warp__filter_1ac97932243e181490272c6d0f3bd87c10" compoundref="xv__warp__filter_8h" startline="91">XV_warp_filter::NumDescriptors</references>
+        <references refid="struct_x_v_warp_filter___desc_1ad40f467d016b3dc46d948f43792cf603" compoundref="xv__warp__filter__l2_8h" startline="53">XVWarpFilter_Desc::Warp_NextDescAddr</references>
+        <references refid="struct_x_v__warp__filter_1ac9aca1704b51e80c8af4f25bcf6467c5" compoundref="xv__warp__filter_8h" startline="90">XV_warp_filter::WarpFilterDesc_BaseAddr</references>
+      </memberdef>
+      <memberdef kind="function" id="xv__warp__filter__l2_8h_1a446d0c857e8e351f8c9c3c08e9aa54bd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XVWarpFilter_SetNumOfDescriptors</definition>
+        <argsstring>(XV_warp_filter *InstancePtr, u32 num_descriptors)</argsstring>
+        <name>XVWarpFilter_SetNumOfDescriptors</name>
+        <param>
+          <type><ref refid="struct_x_v__warp__filter" kindref="compound">XV_warp_filter</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>num_descriptors</declname>
+        </param>
+        <briefdescription>
+<para>Creates the descriptors for the warp filter. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function allocates and initializes a chain of descriptors for the warp filter operation. Each descriptor is aligned to the address width requirement and linked together in a chain.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_v__warp__filter" kindref="compound">XV_warp_filter</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>num_descriptors</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the number of descriptors to be created.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if descriptors created successfully. XST_FAILURE if descriptor creation failed.</para></simplesect>
+<simplesect kind="note"><para>Descriptors are allocated with aligned memory and linked in a chain. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_filter/src/xv_warp_filter_l2.h" line="84" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_filter/src/xv_warp_filter_l2.c" bodystart="59" bodyend="87"/>
+        <references refid="struct_x_v__warp__filter_1ac97932243e181490272c6d0f3bd87c10" compoundref="xv__warp__filter_8h" startline="91">XV_warp_filter::NumDescriptors</references>
+        <references refid="xv__warp__filter__l2_8c_1a8d5b3d710a70ba670349358965e8c2f8" compoundref="xv__warp__filter__l2_8c" startline="25">WARP_FILTER_ADDR_WIDTH</references>
+        <references refid="struct_x_v_warp_filter___desc_1ad40f467d016b3dc46d948f43792cf603" compoundref="xv__warp__filter__l2_8h" startline="53">XVWarpFilter_Desc::Warp_NextDescAddr</references>
+        <references refid="struct_x_v__warp__filter_1ac9aca1704b51e80c8af4f25bcf6467c5" compoundref="xv__warp__filter_8h" startline="90">XV_warp_filter::WarpFilterDesc_BaseAddr</references>
+      </memberdef>
+      <memberdef kind="function" id="xv__warp__filter__l2_8h_1aa8d061d684764e13c37c196c9c48673c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XVWarpFilter_update_src_frame_addr</definition>
+        <argsstring>(XV_warp_filter *InstancePtr, u32 Descnum, u64 src_buf_addr)</argsstring>
+        <name>XVWarpFilter_update_src_frame_addr</name>
+        <param>
+          <type><ref refid="struct_x_v__warp__filter" kindref="compound">XV_warp_filter</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Descnum</declname>
+        </param>
+        <param>
+          <type>u64</type>
+          <declname>src_buf_addr</declname>
+        </param>
+        <briefdescription>
+<para>Sets the source frame buffer address in a descriptor. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function locates the specified descriptor and updates its source frame buffer address with the provided value.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_v__warp__filter" kindref="compound">XV_warp_filter</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Descnum</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the descriptor number to be configured. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>src_buf_addr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the address of the source frame buffer.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if programming descriptor is successful. XST_FAILURE if descriptor is not valid.</para></simplesect>
+<simplesect kind="note"><para>Descriptor number must be less than the total number of descriptors. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_filter/src/xv_warp_filter_l2.h" line="85" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_filter/src/xv_warp_filter_l2.c" bodystart="199" bodyend="222"/>
+        <references refid="struct_x_v__warp__filter_1ac97932243e181490272c6d0f3bd87c10" compoundref="xv__warp__filter_8h" startline="91">XV_warp_filter::NumDescriptors</references>
+        <references refid="struct_x_v_warp_filter___desc_1ad89f9aa93f93cb631736f844c59a11da" compoundref="xv__warp__filter__l2_8h" startline="34">XVWarpFilter_Desc::src_buf_addr</references>
+        <references refid="struct_x_v_warp_filter___desc_1ad40f467d016b3dc46d948f43792cf603" compoundref="xv__warp__filter__l2_8h" startline="53">XVWarpFilter_Desc::Warp_NextDescAddr</references>
+        <references refid="struct_x_v__warp__filter_1ac9aca1704b51e80c8af4f25bcf6467c5" compoundref="xv__warp__filter_8h" startline="90">XV_warp_filter::WarpFilterDesc_BaseAddr</references>
+        <references refid="xv__warp__filter_8c_1a731525abd2741a64161674705048e157" compoundref="xv__warp__filter_8c" startline="258" endline="264">XV_warp_filter_Set_desc_addr</references>
+      </memberdef>
+      <memberdef kind="function" id="xv__warp__filter__l2_8h_1ad2c8629eed8816db1b5ea7bb216c6859" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XVWarpFilter_update_dst_frame_addr</definition>
+        <argsstring>(XV_warp_filter *InstancePtr, u32 Descnum, u64 dest_buf_addr)</argsstring>
+        <name>XVWarpFilter_update_dst_frame_addr</name>
+        <param>
+          <type><ref refid="struct_x_v__warp__filter" kindref="compound">XV_warp_filter</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Descnum</declname>
+        </param>
+        <param>
+          <type>u64</type>
+          <declname>dest_buf_addr</declname>
+        </param>
+        <briefdescription>
+<para>Sets the destination frame buffer address in a descriptor. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function locates the specified descriptor and updates its destination frame buffer address with the provided value.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_v__warp__filter" kindref="compound">XV_warp_filter</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Descnum</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the descriptor number to be configured. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>dest_buf_addr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the address of the destination frame buffer.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if programming descriptor is successful. XST_FAILURE if descriptor is not valid.</para></simplesect>
+<simplesect kind="note"><para>Descriptor number must be less than the total number of descriptors. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_filter/src/xv_warp_filter_l2.h" line="87" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_filter/src/xv_warp_filter_l2.c" bodystart="241" bodyend="259"/>
+        <references refid="struct_x_v_warp_filter___desc_1ae210c672213c05618a49476e6594a1e5" compoundref="xv__warp__filter__l2_8h" startline="42">XVWarpFilter_Desc::dest_buf_addr</references>
+        <references refid="struct_x_v_warp_filter___desc_1ad40f467d016b3dc46d948f43792cf603" compoundref="xv__warp__filter__l2_8h" startline="53">XVWarpFilter_Desc::Warp_NextDescAddr</references>
+        <references refid="struct_x_v__warp__filter_1ac9aca1704b51e80c8af4f25bcf6467c5" compoundref="xv__warp__filter_8h" startline="90">XV_warp_filter::WarpFilterDesc_BaseAddr</references>
+        <references refid="xv__warp__filter_8c_1a731525abd2741a64161674705048e157" compoundref="xv__warp__filter_8c" startline="258" endline="264">XV_warp_filter_Set_desc_addr</references>
+      </memberdef>
+      <memberdef kind="function" id="xv__warp__filter__l2_8h_1ac1514297e277863c981d526f87d526f3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XVWarpFilter_Start</definition>
+        <argsstring>(XV_warp_filter *InstancePtr)</argsstring>
+        <name>XVWarpFilter_Start</name>
+        <param>
+          <type><ref refid="struct_x_v__warp__filter" kindref="compound">XV_warp_filter</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Starts the core instance. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function initiates the warp filter core processing.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_v__warp__filter" kindref="compound">XV_warp_filter</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_filter/src/xv_warp_filter_l2.h" line="89" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_filter/src/xv_warp_filter_l2.c" bodystart="323" bodyend="328"/>
+        <references refid="xv__warp__filter_8c_1af38bdf5ff27cc22d108d64f13f88836f" compoundref="xv__warp__filter_8c" startline="63" endline="71">XV_warp_filter_Start</references>
+      </memberdef>
+      <memberdef kind="function" id="xv__warp__filter__l2_8h_1a0a07af0d47a5d718baf9266916006f7a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XVWarpFilter_Stop</definition>
+        <argsstring>(XV_warp_filter *InstancePtr)</argsstring>
+        <name>XVWarpFilter_Stop</name>
+        <param>
+          <type><ref refid="struct_x_v__warp__filter" kindref="compound">XV_warp_filter</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Stops the core instance. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function stops the warp filter core by clearing the autostart bit, setting the flush bit, and waiting for the flush operation to complete.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_v__warp__filter" kindref="compound">XV_warp_filter</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if the core entered stop state successfully. XST_FAILURE if the core failed to stop (flush timeout).</para></simplesect>
+<simplesect kind="note"><para>The function waits for a flush done signal with timeout. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_filter/src/xv_warp_filter_l2.h" line="90" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_filter/src/xv_warp_filter_l2.c" bodystart="345" bodyend="369"/>
+        <references refid="xv__warp__filter__l2_8c_1a34469042deedafb14574f8a43284f3e5" compoundref="xv__warp__filter__l2_8c" startline="21">XV_WAIT_FOR_FLUSH_DONE</references>
+        <references refid="xv__warp__filter__l2_8c_1a19046cb2d8895cf51b3ff44a93ee2afa" compoundref="xv__warp__filter__l2_8c" startline="23">XV_WAIT_FOR_FLUSH_DONE_TIMEOUT</references>
+        <references refid="xv__warp__filter_8c_1a0e60fe4294cf2030bb28399cfe4c73fe" compoundref="xv__warp__filter_8c" startline="182" endline="187">XV_warp_filter_DisableAutoRestart</references>
+        <references refid="xv__warp__filter_8c_1a9823fac78592fc4d97fadaed62a4efbf" compoundref="xv__warp__filter_8c" startline="231" endline="240">XV_warp_filter_Get_FlushDone</references>
+        <references refid="xv__warp__filter_8c_1a1529ef266ecbe9d91f546761d5d80e62" compoundref="xv__warp__filter_8c" startline="204" endline="215">XV_warp_filter_SetFlushbit</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>2022-2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="preprocessor">#ifndef<sp/>XV_WARP_FILTER_L2_H<sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>prevent<sp/>circular<sp/>inclusions<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="13"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XV_WARP_FILTER_L2_H<sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>by<sp/>using<sp/>protection<sp/>macros<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="14"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xv__warp__filter_8h" kindref="compound">xv_warp_filter.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight></codeline>
+<codeline lineno="25" refid="struct_x_v_warp_filter___desc" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="26" refid="struct_x_v_warp_filter___desc_1a1ac2edb287dbed0ed117ed87910d43dd" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_v_warp_filter___desc_1a1ac2edb287dbed0ed117ed87910d43dd" kindref="member">height</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="27" refid="struct_x_v_warp_filter___desc_1ab07050939774db4079cb2bed2b563250" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_v_warp_filter___desc_1ab07050939774db4079cb2bed2b563250" kindref="member">width</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="28" refid="struct_x_v_warp_filter___desc_1a8d0c8fd658235918fe4460d2f46c4599" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_v_warp_filter___desc_1a8d0c8fd658235918fe4460d2f46c4599" kindref="member">stride</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="29" refid="struct_x_v_warp_filter___desc_1a8d2ecc6c4378086ff943f999504f5bda" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_v_warp_filter___desc_1a8d2ecc6c4378086ff943f999504f5bda" kindref="member">format</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="30" refid="struct_x_v_warp_filter___desc_1a55020e68d609eed2b9c291760ae72aa4" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_v_warp_filter___desc_1a55020e68d609eed2b9c291760ae72aa4" kindref="member">valid_seg</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="31" refid="struct_x_v_warp_filter___desc_1a0383b969aa4cbc03667ae675bbded38d" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_v_warp_filter___desc_1a0383b969aa4cbc03667ae675bbded38d" kindref="member">lblock_count</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="32" refid="struct_x_v_warp_filter___desc_1ad521fabeca20175245ec472a9b0336bf" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_v_warp_filter___desc_1ad521fabeca20175245ec472a9b0336bf" kindref="member">line_num</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="33" refid="struct_x_v_warp_filter___desc_1a66321637e8c61156792fc1392147d272" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_v_warp_filter___desc_1a66321637e8c61156792fc1392147d272" kindref="member">reserved</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="34" refid="struct_x_v_warp_filter___desc_1ad89f9aa93f93cb631736f844c59a11da" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/><ref refid="struct_x_v_warp_filter___desc_1ad89f9aa93f93cb631736f844c59a11da" kindref="member">src_buf_addr</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="35"><highlight class="preprocessor">#if<sp/>((MAX_NR_PLANES<sp/>==<sp/>2)<sp/>||<sp/>(MAX_NR_PLANES<sp/>==<sp/>3)<sp/>)</highlight></codeline>
+<codeline lineno="36"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>src_buf_addr1;<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="37"><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="38"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#if<sp/>(MAX_NR_PLANES<sp/>==<sp/>3)</highlight></codeline>
+<codeline lineno="39"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>src_buf_addr2;<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="40"><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="41" refid="struct_x_v_warp_filter___desc_1a5d1f219eb5c411f4b17512934cb2df83" refkind="member"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/><ref refid="struct_x_v_warp_filter___desc_1a5d1f219eb5c411f4b17512934cb2df83" kindref="member">seg_table_addr</ref>;<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="42" refid="struct_x_v_warp_filter___desc_1ae210c672213c05618a49476e6594a1e5" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/><ref refid="struct_x_v_warp_filter___desc_1ae210c672213c05618a49476e6594a1e5" kindref="member">dest_buf_addr</ref>;<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="43"><highlight class="preprocessor">#if<sp/>((MAX_NR_PLANES<sp/>==<sp/>2)<sp/>||<sp/>(MAX_NR_PLANES<sp/>==<sp/>3)<sp/>)</highlight></codeline>
+<codeline lineno="44"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>dest_buf_addr1;<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="45"><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="46"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#if<sp/>(MAX_NR_PLANES<sp/>==<sp/>3)</highlight></codeline>
+<codeline lineno="47"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>dest_buf_addr2;<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="48"><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="49"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#if<sp/>(WRITE_INVALID<sp/>==<sp/>1)</highlight></codeline>
+<codeline lineno="50"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>AXIMM_WRITE<sp/>dest_buf_addr_i;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>AXIMM_READ<sp/>seg_table_addr_i;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="52"><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="53" refid="struct_x_v_warp_filter___desc_1ad40f467d016b3dc46d948f43792cf603" refkind="member"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/><ref refid="struct_x_v_warp_filter___desc_1ad40f467d016b3dc46d948f43792cf603" kindref="member">Warp_NextDescAddr</ref>;<sp/><sp/></highlight></codeline>
+<codeline lineno="54"><highlight class="normal">}<sp/><ref refid="struct_x_v_warp_filter___desc" kindref="compound">XVWarpFilter_Desc</ref>;</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight></codeline>
+<codeline lineno="62" refid="struct_x_v_warp_filter___input_configs" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="63" refid="struct_x_v_warp_filter___input_configs_1af6baa9344dcdfbeadac7c34ff9c6f1de" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_v_warp_filter___input_configs_1af6baa9344dcdfbeadac7c34ff9c6f1de" kindref="member">height</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="64" refid="struct_x_v_warp_filter___input_configs_1aed69b09ca9ef2fa6d0982b8a41e69b40" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_v_warp_filter___input_configs_1aed69b09ca9ef2fa6d0982b8a41e69b40" kindref="member">width</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="65" refid="struct_x_v_warp_filter___input_configs_1a964e3cf7267c3941941e450639ea1432" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_v_warp_filter___input_configs_1a964e3cf7267c3941941e450639ea1432" kindref="member">stride</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="66" refid="struct_x_v_warp_filter___input_configs_1afcd2028891d52daec89662d6dfa746f9" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_v_warp_filter___input_configs_1afcd2028891d52daec89662d6dfa746f9" kindref="member">format</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="67" refid="struct_x_v_warp_filter___input_configs_1a7597dfa81a342915e42d8681368f1ab2" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/><ref refid="struct_x_v_warp_filter___input_configs_1a7597dfa81a342915e42d8681368f1ab2" kindref="member">src_buf_addr</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="68" refid="struct_x_v_warp_filter___input_configs_1a24fc9bc71507c4b78176336afbf5d215" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/><ref refid="struct_x_v_warp_filter___input_configs_1a24fc9bc71507c4b78176336afbf5d215" kindref="member">seg_table_addr</ref>;<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="69" refid="struct_x_v_warp_filter___input_configs_1a6dfde1b8dbbcf9b32c59d7194b519820" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/><ref refid="struct_x_v_warp_filter___input_configs_1a6dfde1b8dbbcf9b32c59d7194b519820" kindref="member">dest_buf_addr</ref>;<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="70"><highlight class="normal">}<sp/><ref refid="struct_x_v_warp_filter___input_configs" kindref="compound">XVWarpFilter_InputConfigs</ref>;</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__warp__filter__l2_8c_1a7b1c537ab8c95bed1a171a9636b1e2f4" kindref="member">XVWarpFilter_InterruptEnable</ref>(<ref refid="struct_x_v__warp__filter" kindref="compound">XV_warp_filter</ref><sp/>*InstancePtr,<sp/>u32<sp/>Mask);</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__warp__filter__l2_8c_1ab1d2e01b0ef1fa54416a0cf5fffb6914" kindref="member">XVWarpFilter_InterruptDisable</ref>(<ref refid="struct_x_v__warp__filter" kindref="compound">XV_warp_filter</ref><sp/>*InstancePtr,<sp/>u32<sp/>IrqMask);</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__v__warp__filter_1gadde08c378e8fb2912620460a04a9ec47" kindref="member">XVWarpFilter_SetCallback</ref>(<ref refid="struct_x_v__warp__filter" kindref="compound">XV_warp_filter</ref><sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallbackFunc,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallbackRef);</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*<ref refid="group__v__warp__filter_1gaca694bd5cb18bcc884e8e0aca4356a37" kindref="member">XVWarpFilter_IntrHandler</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="80"><highlight class="normal">s32<sp/><ref refid="xv__warp__filter__l2_8c_1a9361e89ab2628382c9b3c396385ef6ac" kindref="member">XVWarpFilter_ProgramDescriptor</ref>(<ref refid="struct_x_v__warp__filter" kindref="compound">XV_warp_filter</ref><sp/>*InstancePtr,<sp/>u32<sp/>DescNum,</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_v_warp_filter___input_configs" kindref="compound">XVWarpFilter_InputConfigs</ref><sp/>*configPtr,<sp/>u32<sp/>valid_seg,</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>lblock_count,<sp/>u32<sp/>line_num);</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__warp__filter__l2_8c_1a2beaf0788fe8923fd1d6fd7b0af4575a" kindref="member">XVWarpFilter_ClearNumOfDescriptors</ref>(<ref refid="struct_x_v__warp__filter" kindref="compound">XV_warp_filter</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="84"><highlight class="normal">s32<sp/><ref refid="xv__warp__filter__l2_8c_1a446d0c857e8e351f8c9c3c08e9aa54bd" kindref="member">XVWarpFilter_SetNumOfDescriptors</ref>(<ref refid="struct_x_v__warp__filter" kindref="compound">XV_warp_filter</ref><sp/>*InstancePtr,<sp/>u32<sp/>num_descriptors);</highlight></codeline>
+<codeline lineno="85"><highlight class="normal">s32<sp/><ref refid="xv__warp__filter__l2_8c_1aa8d061d684764e13c37c196c9c48673c" kindref="member">XVWarpFilter_update_src_frame_addr</ref>(<ref refid="struct_x_v__warp__filter" kindref="compound">XV_warp_filter</ref><sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Descnum,<sp/>u64<sp/>src_buf_addr);</highlight></codeline>
+<codeline lineno="87"><highlight class="normal">s32<sp/><ref refid="xv__warp__filter__l2_8c_1ad2c8629eed8816db1b5ea7bb216c6859" kindref="member">XVWarpFilter_update_dst_frame_addr</ref>(<ref refid="struct_x_v__warp__filter" kindref="compound">XV_warp_filter</ref><sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Descnum,<sp/>u64<sp/>dest_buf_addr);</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__warp__filter__l2_8c_1ac1514297e277863c981d526f87d526f3" kindref="member">XVWarpFilter_Start</ref>(<ref refid="struct_x_v__warp__filter" kindref="compound">XV_warp_filter</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="90"><highlight class="normal">s32<sp/><ref refid="xv__warp__filter__l2_8c_1a0a07af0d47a5d718baf9266916006f7a" kindref="member">XVWarpFilter_Stop</ref>(<ref refid="struct_x_v__warp__filter" kindref="compound">XV_warp_filter</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_filter/src/xv_warp_filter_l2.h"/>
+  </compounddef>
+</doxygen>

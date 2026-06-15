@@ -1,0 +1,669 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xasu__ecies__example_8c" kind="file">
+    <compoundname>xasu_ecies_example.c</compoundname>
+    <includes local="yes">xil_cache.h</includes>
+    <includes local="yes">xil_util.h</includes>
+    <includes refid="xasu__ecies_8h" local="yes">xasu_ecies.h</includes>
+    <includes refid="xasu__client_8h" local="yes">xasu_client.h</includes>
+    <includes refid="xasu__aesinfo_8h" local="yes">xasu_aesinfo.h</includes>
+    <includes refid="xasu__eccinfo_8h" local="yes">xasu_eccinfo.h</includes>
+    <includes refid="xasu__shainfo_8h" local="yes">xasu_shainfo.h</includes>
+    <incdepgraph>
+      <node id="378">
+        <label>xasu_shainfo.h</label>
+        <link refid="xasu__shainfo_8h"/>
+        <childnode refid="367" relation="include">
+        </childnode>
+        <childnode refid="379" relation="include">
+        </childnode>
+      </node>
+      <node id="374">
+        <label>xasu_def.h</label>
+        <link refid="xasu__def_8h"/>
+        <childnode refid="367" relation="include">
+        </childnode>
+      </node>
+      <node id="369">
+        <label>xasu_sharedmem.h</label>
+        <link refid="xasu__sharedmem_8h"/>
+        <childnode refid="367" relation="include">
+        </childnode>
+      </node>
+      <node id="364">
+        <label>xil_cache.h</label>
+      </node>
+      <node id="363">
+        <label>xasu_ecies_example.c</label>
+        <link refid="xasu_ecies_example.c"/>
+        <childnode refid="364" relation="include">
+        </childnode>
+        <childnode refid="365" relation="include">
+        </childnode>
+        <childnode refid="366" relation="include">
+        </childnode>
+        <childnode refid="368" relation="include">
+        </childnode>
+        <childnode refid="376" relation="include">
+        </childnode>
+        <childnode refid="377" relation="include">
+        </childnode>
+        <childnode refid="378" relation="include">
+        </childnode>
+      </node>
+      <node id="368">
+        <label>xasu_client.h</label>
+        <link refid="xasu__client_8h"/>
+        <childnode refid="369" relation="include">
+        </childnode>
+        <childnode refid="370" relation="include">
+        </childnode>
+        <childnode refid="371" relation="include">
+        </childnode>
+        <childnode refid="373" relation="include">
+        </childnode>
+        <childnode refid="374" relation="include">
+        </childnode>
+      </node>
+      <node id="365">
+        <label>xil_util.h</label>
+      </node>
+      <node id="372">
+        <label>xasu_bsp_config.h</label>
+      </node>
+      <node id="370">
+        <label>xilmailbox.h</label>
+      </node>
+      <node id="371">
+        <label>xasu_perf.h</label>
+        <link refid="xasu__perf_8h"/>
+        <childnode refid="367" relation="include">
+        </childnode>
+        <childnode refid="372" relation="include">
+        </childnode>
+      </node>
+      <node id="375">
+        <label>xasu_eciesinfo.h</label>
+        <link refid="xasu__eciesinfo_8h"/>
+        <childnode refid="367" relation="include">
+        </childnode>
+        <childnode refid="372" relation="include">
+        </childnode>
+      </node>
+      <node id="379">
+        <label>xstatus.h</label>
+      </node>
+      <node id="367">
+        <label>xil_types.h</label>
+      </node>
+      <node id="366">
+        <label>xasu_ecies.h</label>
+        <link refid="xasu__ecies_8h"/>
+        <childnode refid="367" relation="include">
+        </childnode>
+        <childnode refid="368" relation="include">
+        </childnode>
+        <childnode refid="375" relation="include">
+        </childnode>
+      </node>
+      <node id="377">
+        <label>xasu_eccinfo.h</label>
+        <link refid="xasu__eccinfo_8h"/>
+        <childnode refid="367" relation="include">
+        </childnode>
+        <childnode refid="372" relation="include">
+        </childnode>
+      </node>
+      <node id="376">
+        <label>xasu_aesinfo.h</label>
+        <link refid="xasu__aesinfo_8h"/>
+        <childnode refid="367" relation="include">
+        </childnode>
+        <childnode refid="372" relation="include">
+        </childnode>
+      </node>
+      <node id="373">
+        <label>xasu_status.h</label>
+        <link refid="xasu__status_8h"/>
+        <childnode refid="367" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__xasu__ecies__example_1gad009724e34661e0dc7ffc2595a0ab630" prot="public" static="no">
+        <name>XASU_CACHE_DISABLE</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_ecies_example.c" line="40" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_ecies_example.c" bodystart="40" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__ecies__example_1gaad3642a2d2c6344922eee439192bf07b" prot="public" static="no">
+        <name>XASU_ECIES_INPUT_DATA_LENGTH</name>
+        <initializer>(36U)</initializer>
+        <briefdescription>
+<para>Input data length. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_ecies_example.c" line="41" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_ecies_example.c" bodystart="41" bodyend="-1"/>
+        <referencedby refid="group__xasu__ecies__example_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xasu__ecies__example_8c" startline="109" endline="236">main</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__ecies__example_1gaf1f97544a00eab5d53bf97532ff245a6" prot="public" static="no">
+        <name>XASU_ECIES_CONTEXT_LENGTH</name>
+        <initializer>(36U)</initializer>
+        <briefdescription>
+<para>Input context length used for KDF. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_ecies_example.c" line="42" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_ecies_example.c" bodystart="42" bodyend="-1"/>
+        <referencedby refid="group__xasu__ecies__example_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xasu__ecies__example_8c" startline="109" endline="236">main</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__ecies__example_1gadc52933fddb6f65af79d043de9c0cd83" prot="public" static="no">
+        <name>XASU_ECC_DOUBLE_P256_SIZE_IN_BYTES</name>
+        <initializer>(64U)</initializer>
+        <briefdescription>
+<para>Double length of the curve P256. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_ecies_example.c" line="43" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_ecies_example.c" bodystart="43" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__xasu__ecies__example_1ga0040a18415faf6eefa80129b4bd43fbe" prot="public" static="yes" mutable="no">
+        <type>const u8</type>
+        <definition>const u8 RxPrivKey[]</definition>
+        <argsstring>[]</argsstring>
+        <name>RxPrivKey</name>
+        <initializer>= {
+	0xC9U, 0x80U, 0x68U, 0x98U, 0xA0U, 0x33U, 0x49U, 0x16U,
+	0xC8U, 0x60U, 0x74U, 0x88U, 0x80U, 0xA5U, 0x41U, 0xF0U,
+	0x93U, 0xB5U, 0x79U, 0xA9U, 0xB1U, 0xF3U, 0x29U, 0x34U,
+	0xD8U, 0x6CU, 0x36U, 0x3CU, 0x39U, 0x80U, 0x03U, 0x57U
+}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_ecies_example.c" line="53" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_ecies_example.c" bodystart="53" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xasu__ecies__example_1ga4427207c2a6a8189945476f22e056a15" prot="public" static="yes" mutable="no">
+        <type>const u8</type>
+        <definition>const u8 RxPubKey[]</definition>
+        <argsstring>[]</argsstring>
+        <name>RxPubKey</name>
+        <initializer>= {
+	0xD0U, 0x72U, 0x0DU, 0xC6U, 0x91U, 0xAAU, 0x80U, 0x09U,
+	0x6BU, 0xA3U, 0x2FU, 0xEDU, 0x1CU, 0xB9U, 0x7CU, 0x2BU,
+	0x62U, 0x06U, 0x90U, 0xD0U, 0x6DU, 0xE0U, 0x31U, 0x7BU,
+	0x86U, 0x18U, 0xD5U, 0xCEU, 0x65U, 0xEBU, 0x72U, 0x8FU,
+	0x96U, 0x81U, 0xB5U, 0x17U, 0xB1U, 0xCDU, 0xA1U, 0x7DU,
+	0x0DU, 0x83U, 0xD3U, 0x35U, 0xD9U, 0xC4U, 0xA8U, 0xA9U,
+	0xA9U, 0xB0U, 0xB1U, 0xB3U, 0xC7U, 0x10U, 0x6DU, 0x8FU,
+	0x3CU, 0x72U, 0xBCU, 0x50U, 0x93U, 0xDCU, 0x27U, 0x5FU
+}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_ecies_example.c" line="60" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_ecies_example.c" bodystart="60" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xasu__ecies__example_1gaed5faff88172a95322e1bf46fdbe941a" prot="public" static="yes" mutable="no">
+        <type>const u8</type>
+        <definition>const u8 Data[]</definition>
+        <argsstring>[]</argsstring>
+        <name>Data</name>
+        <initializer>= {
+	0x48U, 0x65U, 0x6CU, 0x6CU, 0x6FU, 0x20U, 0x42U, 0x6FU,
+	0x62U, 0x2CU, 0x20U, 0x74U, 0x68U, 0x69U, 0x73U, 0x20U,
+	0x69U, 0x73U, 0x20U, 0x61U, 0x20U, 0x73U, 0x65U, 0x63U,
+	0x72U, 0x65U, 0x74U, 0x20U, 0x6DU, 0x65U, 0x73U, 0x73U,
+	0x61U, 0x67U, 0x65U, 0x21U
+}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_ecies_example.c" line="71" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_ecies_example.c" bodystart="71" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xasu__ecies__example_1ga7dee6dc1591485db66b7364e45683333" prot="public" static="yes" mutable="no">
+        <type>const u8</type>
+        <definition>const u8 Context[]</definition>
+        <argsstring>[]</argsstring>
+        <name>Context</name>
+        <initializer>= {
+	0x27U, 0x1BU, 0x63U, 0x0BU, 0x3AU, 0x5DU, 0xD7U, 0x5FU,
+	0x08U, 0x17U, 0xCDU, 0xE1U, 0xB8U, 0x97U, 0x8AU, 0x59U
+}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_ecies_example.c" line="79" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_ecies_example.c" bodystart="79" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xasu__ecies__example_1gaf038ace8134ef887f6e02798b5f45a17" prot="public" static="yes" mutable="no">
+        <type>const u8</type>
+        <definition>const u8 Iv[XASU_AES_IV_SIZE_96BIT_IN_BYTES]</definition>
+        <argsstring>[XASU_AES_IV_SIZE_96BIT_IN_BYTES]</argsstring>
+        <name>Iv</name>
+        <initializer>= {
+	0x85U, 0x36U, 0x5FU, 0x88U, 0xB0U, 0xB5U, 0x62U, 0x98U,
+	0xDFU, 0xEAU, 0x5AU, 0xB2U
+}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_ecies_example.c" line="84" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_ecies_example.c" bodystart="84" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xasu__ecies__example_1ga86673e8c8646c520b61948599f29c159" prot="public" static="yes" mutable="no">
+        <type>u8</type>
+        <definition>u8 TxPubKey[XASU_ECC_DOUBLE_P256_SIZE_IN_BYTES]</definition>
+        <argsstring>[XASU_ECC_DOUBLE_P256_SIZE_IN_BYTES]</argsstring>
+        <name>TxPubKey</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_ecies_example.c" line="89" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_ecies_example.c" bodystart="89" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xasu__ecies__example_1gac0305fad1001ad9b02119be7429675d7" prot="public" static="yes" mutable="no">
+        <type>u8</type>
+        <definition>u8 Mac[XASU_AES_MAX_TAG_LENGTH_IN_BYTES]</definition>
+        <argsstring>[XASU_AES_MAX_TAG_LENGTH_IN_BYTES]</argsstring>
+        <name>Mac</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_ecies_example.c" line="90" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_ecies_example.c" bodystart="90" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xasu__ecies__example_1gac24a3ae7c87d2127be54bc6151cad359" prot="public" static="yes" mutable="no">
+        <type>u8</type>
+        <definition>u8 OutEncData[XASU_ECIES_INPUT_DATA_LENGTH]</definition>
+        <argsstring>[XASU_ECIES_INPUT_DATA_LENGTH]</argsstring>
+        <name>OutEncData</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_ecies_example.c" line="91" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_ecies_example.c" bodystart="91" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xasu__ecies__example_1ga6564dc397ebbef46228718e1d8ab30db" prot="public" static="yes" mutable="no">
+        <type>u8</type>
+        <definition>u8 OutDecData[XASU_ECIES_INPUT_DATA_LENGTH]</definition>
+        <argsstring>[XASU_ECIES_INPUT_DATA_LENGTH]</argsstring>
+        <name>OutDecData</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_ecies_example.c" line="92" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_ecies_example.c" bodystart="92" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xasu__ecies__example_1ga15547568239beb028a917f170b866338" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>volatile u8 Notify</definition>
+        <argsstring></argsstring>
+        <name>Notify</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+<para>To notify the call back from client library. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_ecies_example.c" line="94" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_ecies_example.c" bodystart="94" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xasu__ecies__example_1ga89bdef12ea1ad95bf3acb2ef59e4d299" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>volatile u32 ErrorStatus</definition>
+        <argsstring></argsstring>
+        <name>ErrorStatus</name>
+        <initializer>= XST_FAILURE</initializer>
+        <briefdescription>
+<para>Status variable to store the error returned from server. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_ecies_example.c" line="95" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_ecies_example.c" bodystart="95" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xasu__ecies__example_1gad81fe52b0009d0d724203ff223b028e3" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void XAsu_EciesCallBackRef</definition>
+        <argsstring>(void *CallBackRef, u32 Status)</argsstring>
+        <name>XAsu_EciesCallBackRef</name>
+        <param>
+          <type>void *</type>
+          <declname>CallBackRef</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Status</declname>
+        </param>
+        <briefdescription>
+<para>Call back function which will be registered with library to notify the completion of request. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>CallBackRef</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the call back reference. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Status</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Status of the request will be passed as an argument during callback<itemizedlist>
+<listitem><para>0 Upon success</para></listitem><listitem><para>Error code from ASUFW application upon any error </para></listitem></itemizedlist>
+</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_ecies_example.c" line="49" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_ecies_example.c" bodystart="249" bodyend="256"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__ecies__example_1ga840291bc02cba5474a4cb46a9b9566fe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int main</definition>
+        <argsstring>(void)</argsstring>
+        <name>main</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Main function to call the <ref refid="group__xasu__ecies__client__apis_1gafa9ae6edbd3dba6873779ab7bdc055b4" kindref="member">XAsu_EciesEncrypt()</ref> API and <ref refid="group__xasu__ecies__client__apis_1ga689f879d22a42d9da5fe3148cd307883" kindref="member">XAsu_EciesDecrypt()</ref> API. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if example runs successfully</para></listitem><listitem><para>ErrorCode if the example fails. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Initialize mailbox instance. </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_ecies_example.c" line="109" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_ecies_example.c" bodystart="109" bodyend="236"/>
+        <references refid="struct_x_asu___ecies_params_1a5537a865706283c027ee9e95ba39bb5d" compoundref="xasu__eciesinfo_8h" startline="74">XAsu_EciesParams::AesKeySize</references>
+        <references refid="struct_x_asu___ecies_params_1a4d0d8cb38d8498d24bc76851076e9710" compoundref="xasu__eciesinfo_8h" startline="63">XAsu_EciesParams::ContextAddr</references>
+        <references refid="struct_x_asu___ecies_params_1a30ccc1b46bce15797bf5cbdccd4acfc4" compoundref="xasu__eciesinfo_8h" startline="66">XAsu_EciesParams::ContextLen</references>
+        <references refid="struct_x_asu___ecies_params_1a10c2ea889b613ea55ca3c415e4c621e6" compoundref="xasu__eciesinfo_8h" startline="67">XAsu_EciesParams::DataLength</references>
+        <references refid="struct_x_asu___ecies_params_1a0bd65aa5b7faf176c9e52e3e2347cc98" compoundref="xasu__eciesinfo_8h" startline="68">XAsu_EciesParams::EccCurveType</references>
+        <references refid="struct_x_asu___ecies_params_1a0de4e32a344bfe210b9a8e60c387e152" compoundref="xasu__eciesinfo_8h" startline="76">XAsu_EciesParams::EccKeyLength</references>
+        <references refid="struct_x_asu___ecies_params_1a2bfd1ff2f154a70612c91d482c5ceea6" compoundref="xasu__eciesinfo_8h" startline="58">XAsu_EciesParams::InDataAddr</references>
+        <references refid="struct_x_asu___ecies_params_1abd49b0a55a8d01a3f7c58b1ae01de258" compoundref="xasu__eciesinfo_8h" startline="60">XAsu_EciesParams::IvAddr</references>
+        <references refid="struct_x_asu___ecies_params_1a5d1fd299bcddc8bc104d0049fcef8a4d" compoundref="xasu__eciesinfo_8h" startline="77">XAsu_EciesParams::IvLength</references>
+        <references refid="struct_x_asu___ecies_params_1a66353da061945a39bccef5de85f92ff1" compoundref="xasu__eciesinfo_8h" startline="62">XAsu_EciesParams::MacAddr</references>
+        <references refid="struct_x_asu___ecies_params_1a5e4045d64d4cddc996491a4355a39a8e" compoundref="xasu__eciesinfo_8h" startline="78">XAsu_EciesParams::MacLength</references>
+        <references refid="struct_x_asu___ecies_params_1aba4409421f368710659a861058b385df" compoundref="xasu__eciesinfo_8h" startline="61">XAsu_EciesParams::OutDataAddr</references>
+        <references refid="struct_x_asu___ecies_params_1a71659976f54404c81a55e6b586d96b8d" compoundref="xasu__eciesinfo_8h" startline="54">XAsu_EciesParams::RxKeyAddr</references>
+        <references refid="struct_x_asu___ecies_params_1a0a6141d2d913719a1449834eab52236f" compoundref="xasu__eciesinfo_8h" startline="64">XAsu_EciesParams::SaltAddr</references>
+        <references refid="struct_x_asu___ecies_params_1a7f5403c6f796150c6063a606be622ca6" compoundref="xasu__eciesinfo_8h" startline="65">XAsu_EciesParams::SaltLen</references>
+        <references refid="struct_x_asu___ecies_params_1a7a3828422b375b9cb454b46ea9bf2404" compoundref="xasu__eciesinfo_8h" startline="70">XAsu_EciesParams::ShaMode</references>
+        <references refid="struct_x_asu___ecies_params_1ad61d0a4035cef34a092e8b8ee2413d1d" compoundref="xasu__eciesinfo_8h" startline="69">XAsu_EciesParams::ShaType</references>
+        <references refid="struct_x_asu___ecies_params_1a4907eea1457b2fc81b608306e89f59df" compoundref="xasu__eciesinfo_8h" startline="56">XAsu_EciesParams::TxKeyAddr</references>
+        <references refid="group__xasu__common__defs_1ga2ee13c774f1393949629518f645785b8" compoundref="xasu__aesinfo_8h" startline="50">XASU_AES_IV_SIZE_96BIT_IN_BYTES</references>
+        <references refid="group__xasu__common__defs_1ga565a9f9f9f947674eb43a1ce60e638d6" compoundref="xasu__aesinfo_8h" startline="103">XASU_AES_KEY_SIZE_256_BITS</references>
+        <references refid="group__xasu__common__defs_1ga2b23227296edca13de1f3732e04cca19" compoundref="xasu__aesinfo_8h" startline="60">XASU_AES_MAX_TAG_LENGTH_IN_BYTES</references>
+        <references refid="group__xasu__client__info_1ga3dc785000c560adedbb23beb0404beee" compoundref="xasu__client_8c" startline="127" endline="177">XAsu_ClientInit</references>
+        <references refid="group__xasu__common__defs_1ga2ce83e6be7ef8a6dc0ec9067b7e8f396" compoundref="xasu__def_8h" startline="46">XASU_CMD_SECURE</references>
+        <references refid="group__xasu__common__defs_1gae0d5b0eb8d6006304f667517a55da079" compoundref="xasu__eccinfo_8h" startline="60">XASU_ECC_NIST_P256</references>
+        <references refid="group__xasu__common__defs_1ga166c1c1d215da0a56a5c4e042d78b4d5" compoundref="xasu__eccinfo_8h" startline="82">XASU_ECC_P256_PVT_KEY_SIZE_IN_BYTES</references>
+        <references refid="group__xasu__ecies__example_1gaf1f97544a00eab5d53bf97532ff245a6" compoundref="xasu__ecies__example_8c" startline="42">XASU_ECIES_CONTEXT_LENGTH</references>
+        <references refid="group__xasu__ecies__example_1gaad3642a2d2c6344922eee439192bf07b" compoundref="xasu__ecies__example_8c" startline="41">XASU_ECIES_INPUT_DATA_LENGTH</references>
+        <references refid="group__xasu__ecies__client__apis_1ga689f879d22a42d9da5fe3148cd307883" compoundref="xasu__ecies_8c" startline="124" endline="167">XAsu_EciesDecrypt</references>
+        <references refid="group__xasu__ecies__client__apis_1gafa9ae6edbd3dba6873779ab7bdc055b4" compoundref="xasu__ecies_8c" startline="62" endline="105">XAsu_EciesEncrypt</references>
+        <references refid="group__xasu__client__info_1gaf4bee00214accc868d4697e6745d83ca" compoundref="xasu__client_8h" startline="50">XASU_PRIORITY_HIGH</references>
+        <references refid="group__xasu__common__defs_1gaa7423cf1e6eb12f6d307fcdfadde635e" compoundref="xasu__shainfo_8h" startline="57">XASU_SHA2_TYPE</references>
+        <references refid="group__xasu__common__defs_1ga1b2246776bc9c632002768c9edd40340" compoundref="xasu__shainfo_8h" startline="51">XASU_SHA_MODE_256</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/**************************************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2025<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">**************************************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/*************************************************************************************************/</highlight></codeline>
+<codeline lineno="30"><highlight class="comment">/***************************************<sp/>Include<sp/>Files<sp/>*******************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_cache.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_util.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xasu__ecies_8h" kindref="compound">xasu_ecies.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xasu__client_8h" kindref="compound">xasu_client.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xasu__aesinfo_8h" kindref="compound">xasu_aesinfo.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xasu__eccinfo_8h" kindref="compound">xasu_eccinfo.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xasu__shainfo_8h" kindref="compound">xasu_shainfo.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="comment">/************************************<sp/>Constant<sp/>Definitions<sp/>***************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XASU_CACHE_DISABLE</highlight></codeline>
+<codeline lineno="41" refid="group__xasu__ecies__example_1gaad3642a2d2c6344922eee439192bf07b" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XASU_ECIES_INPUT_DATA_LENGTH<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(36U)<sp/></highlight></codeline>
+<codeline lineno="42" refid="group__xasu__ecies__example_1gaf1f97544a00eab5d53bf97532ff245a6" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_ECIES_CONTEXT_LENGTH<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(36U)<sp/></highlight></codeline>
+<codeline lineno="43" refid="group__xasu__ecies__example_1gadc52933fddb6f65af79d043de9c0cd83" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_ECC_DOUBLE_P256_SIZE_IN_BYTES<sp/><sp/><sp/><sp/><sp/><sp/>(64U)<sp/></highlight></codeline>
+<codeline lineno="44"><highlight class="preprocessor"></highlight><highlight class="comment">/**************************************<sp/>Type<sp/>Definitions<sp/>*****************************************/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="45"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="comment">/***************************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="comment">/************************************<sp/>Function<sp/>Prototypes<sp/>****************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XAsu_EciesCallBackRef(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallBackRef,<sp/>u32<sp/>Status);</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight><highlight class="comment">/************************************<sp/>Variable<sp/>Definitions<sp/>***************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>RxPrivKey[]<sp/>__attribute__<sp/>((section<sp/>(</highlight><highlight class="stringliteral">&quot;.data.RxPrivKey&quot;</highlight><highlight class="normal">)))<sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xC9U,<sp/>0x80U,<sp/>0x68U,<sp/>0x98U,<sp/>0xA0U,<sp/>0x33U,<sp/>0x49U,<sp/>0x16U,</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xC8U,<sp/>0x60U,<sp/>0x74U,<sp/>0x88U,<sp/>0x80U,<sp/>0xA5U,<sp/>0x41U,<sp/>0xF0U,</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x93U,<sp/>0xB5U,<sp/>0x79U,<sp/>0xA9U,<sp/>0xB1U,<sp/>0xF3U,<sp/>0x29U,<sp/>0x34U,</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xD8U,<sp/>0x6CU,<sp/>0x36U,<sp/>0x3CU,<sp/>0x39U,<sp/>0x80U,<sp/>0x03U,<sp/>0x57U</highlight></codeline>
+<codeline lineno="58"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>RxPubKey[]<sp/>__attribute__<sp/>((section<sp/>(</highlight><highlight class="stringliteral">&quot;.data.RxPubKey&quot;</highlight><highlight class="normal">)))<sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xD0U,<sp/>0x72U,<sp/>0x0DU,<sp/>0xC6U,<sp/>0x91U,<sp/>0xAAU,<sp/>0x80U,<sp/>0x09U,</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x6BU,<sp/>0xA3U,<sp/>0x2FU,<sp/>0xEDU,<sp/>0x1CU,<sp/>0xB9U,<sp/>0x7CU,<sp/>0x2BU,</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x62U,<sp/>0x06U,<sp/>0x90U,<sp/>0xD0U,<sp/>0x6DU,<sp/>0xE0U,<sp/>0x31U,<sp/>0x7BU,</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x86U,<sp/>0x18U,<sp/>0xD5U,<sp/>0xCEU,<sp/>0x65U,<sp/>0xEBU,<sp/>0x72U,<sp/>0x8FU,</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x96U,<sp/>0x81U,<sp/>0xB5U,<sp/>0x17U,<sp/>0xB1U,<sp/>0xCDU,<sp/>0xA1U,<sp/>0x7DU,</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0DU,<sp/>0x83U,<sp/>0xD3U,<sp/>0x35U,<sp/>0xD9U,<sp/>0xC4U,<sp/>0xA8U,<sp/>0xA9U,</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xA9U,<sp/>0xB0U,<sp/>0xB1U,<sp/>0xB3U,<sp/>0xC7U,<sp/>0x10U,<sp/>0x6DU,<sp/>0x8FU,</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x3CU,<sp/>0x72U,<sp/>0xBCU,<sp/>0x50U,<sp/>0x93U,<sp/>0xDCU,<sp/>0x27U,<sp/>0x5FU</highlight></codeline>
+<codeline lineno="69"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>Data[]<sp/>__attribute__<sp/>((section<sp/>(</highlight><highlight class="stringliteral">&quot;.data.Data&quot;</highlight><highlight class="normal">)))<sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x48U,<sp/>0x65U,<sp/>0x6CU,<sp/>0x6CU,<sp/>0x6FU,<sp/>0x20U,<sp/>0x42U,<sp/>0x6FU,</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x62U,<sp/>0x2CU,<sp/>0x20U,<sp/>0x74U,<sp/>0x68U,<sp/>0x69U,<sp/>0x73U,<sp/>0x20U,</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x69U,<sp/>0x73U,<sp/>0x20U,<sp/>0x61U,<sp/>0x20U,<sp/>0x73U,<sp/>0x65U,<sp/>0x63U,</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x72U,<sp/>0x65U,<sp/>0x74U,<sp/>0x20U,<sp/>0x6DU,<sp/>0x65U,<sp/>0x73U,<sp/>0x73U,</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x61U,<sp/>0x67U,<sp/>0x65U,<sp/>0x21U</highlight></codeline>
+<codeline lineno="77"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight></codeline>
+<codeline lineno="79"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>Context[]<sp/>__attribute__<sp/>((section<sp/>(</highlight><highlight class="stringliteral">&quot;.data.Context&quot;</highlight><highlight class="normal">)))<sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x27U,<sp/>0x1BU,<sp/>0x63U,<sp/>0x0BU,<sp/>0x3AU,<sp/>0x5DU,<sp/>0xD7U,<sp/>0x5FU,</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x08U,<sp/>0x17U,<sp/>0xCDU,<sp/>0xE1U,<sp/>0xB8U,<sp/>0x97U,<sp/>0x8AU,<sp/>0x59U</highlight></codeline>
+<codeline lineno="82"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"></highlight></codeline>
+<codeline lineno="84"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>Iv[<ref refid="group__xasu__common__defs_1ga2ee13c774f1393949629518f645785b8" kindref="member">XASU_AES_IV_SIZE_96BIT_IN_BYTES</ref>]<sp/>__attribute__<sp/>((section<sp/>(</highlight><highlight class="stringliteral">&quot;.data.Iv&quot;</highlight><highlight class="normal">)))<sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x85U,<sp/>0x36U,<sp/>0x5FU,<sp/>0x88U,<sp/>0xB0U,<sp/>0xB5U,<sp/>0x62U,<sp/>0x98U,</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xDFU,<sp/>0xEAU,<sp/>0x5AU,<sp/>0xB2U</highlight></codeline>
+<codeline lineno="87"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"></highlight></codeline>
+<codeline lineno="89"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>u8<sp/>TxPubKey[<ref refid="group__xasu__ecies__example_1gadc52933fddb6f65af79d043de9c0cd83" kindref="member">XASU_ECC_DOUBLE_P256_SIZE_IN_BYTES</ref>]<sp/>__attribute__<sp/>((section<sp/>(</highlight><highlight class="stringliteral">&quot;.data.TxPubKey&quot;</highlight><highlight class="normal">)));</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>u8<sp/>Mac[<ref refid="group__xasu__common__defs_1ga2b23227296edca13de1f3732e04cca19" kindref="member">XASU_AES_MAX_TAG_LENGTH_IN_BYTES</ref>]<sp/>__attribute__<sp/>((section<sp/>(</highlight><highlight class="stringliteral">&quot;.data.Mac&quot;</highlight><highlight class="normal">)));</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>u8<sp/>OutEncData[<ref refid="group__xasu__ecies__example_1gaad3642a2d2c6344922eee439192bf07b" kindref="member">XASU_ECIES_INPUT_DATA_LENGTH</ref>]<sp/>__attribute__<sp/>((section<sp/>(</highlight><highlight class="stringliteral">&quot;.data.OutEncData&quot;</highlight><highlight class="normal">)));</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>u8<sp/>OutDecData[<ref refid="group__xasu__ecies__example_1gaad3642a2d2c6344922eee439192bf07b" kindref="member">XASU_ECIES_INPUT_DATA_LENGTH</ref>]<sp/>__attribute__<sp/>((section<sp/>(</highlight><highlight class="stringliteral">&quot;.data.OutDecData&quot;</highlight><highlight class="normal">)));</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"></highlight></codeline>
+<codeline lineno="94" refid="group__xasu__ecies__example_1ga15547568239beb028a917f170b866338" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/>u8<sp/><ref refid="group__xasufw__ecc__client__example_1ga15547568239beb028a917f170b866338" kindref="member">Notify</ref><sp/>=<sp/>0;<sp/></highlight></codeline>
+<codeline lineno="95" refid="group__xasu__ecies__example_1ga89bdef12ea1ad95bf3acb2ef59e4d299" refkind="member"><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/>u32<sp/><ref refid="group__xasufw__ecc__client__example_1ga89bdef12ea1ad95bf3acb2ef59e4d299" kindref="member">ErrorStatus</ref><sp/>=<sp/>XST_FAILURE;<sp/></highlight></codeline>
+<codeline lineno="97"><highlight class="comment">/************************************<sp/>Function<sp/>Definitions<sp/>***************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="98"><highlight class="normal"></highlight></codeline>
+<codeline lineno="99"><highlight class="normal"></highlight><highlight class="comment">/*************************************************************************************************/</highlight></codeline>
+<codeline lineno="109" refid="group__xasu__ecies__example_1ga840291bc02cba5474a4cb46a9b9566fe" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group___overview_1ga840291bc02cba5474a4cb46a9b9566fe" kindref="member">main</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="110"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>s32<sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XAsu_ClientParams<sp/>ClientParams<sp/>=<sp/>{0U};</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_asu___ecies_params" kindref="compound">XAsu_EciesParams</ref><sp/>EciesParams<sp/>=<sp/>{0U};</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Index<sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMailbox<sp/>MailboxInstance;</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"></highlight></codeline>
+<codeline lineno="117"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>XASU_CACHE_DISABLE</highlight></codeline>
+<codeline lineno="118"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_DCacheDisable();</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="120"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(s32)XMailbox_Initialize(&amp;MailboxInstance,<sp/>XPAR_XIPIPSU_0_BASEADDR);</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XilAsu_Printf(</highlight><highlight class="stringliteral">&quot;Mailbox<sp/>initialize<sp/>failed:<sp/>%08x<sp/>\r\n&quot;</highlight><highlight class="normal">,<sp/>Status);</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"></highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Initialize<sp/>the<sp/>client<sp/>instance<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xasu__client__info_1ga3dc785000c560adedbb23beb0404beee" kindref="member">XAsu_ClientInit</ref>(&amp;MailboxInstance);</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XilAsu_Printf(</highlight><highlight class="stringliteral">&quot;ASU<sp/>Client<sp/>initialize<sp/>failed:<sp/>%08x<sp/>\r\n&quot;</highlight><highlight class="normal">,<sp/>Status);</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"></highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ClientParams.Priority<sp/>=<sp/><ref refid="group__xasu__client__info_1gaf4bee00214accc868d4697e6745d83ca" kindref="member">XASU_PRIORITY_HIGH</ref>;</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ClientParams.SecureFlag<sp/>=<sp/><ref refid="group__xasu__common__defs_1ga2ce83e6be7ef8a6dc0ec9067b7e8f396" kindref="member">XASU_CMD_SECURE</ref>;</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ClientParams.CallBackFuncPtr<sp/>=<sp/>(<ref refid="group__xasu__client__info_1gab35273f00eccc22237ed1fa5cffda558" kindref="member">XAsuClient_ResponseHandler</ref>)((</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*)XAsu_EciesCallBackRef);</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ClientParams.CallBackRefPtr<sp/>=<sp/>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*)&amp;ClientParams;</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"></highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>EciesParams.<ref refid="struct_x_asu___ecies_params_1a0bd65aa5b7faf176c9e52e3e2347cc98" kindref="member">EccCurveType</ref><sp/>=<sp/><ref refid="group__xasu__common__defs_1gae0d5b0eb8d6006304f667517a55da079" kindref="member">XASU_ECC_NIST_P256</ref>;</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>EciesParams.<ref refid="struct_x_asu___ecies_params_1ad61d0a4035cef34a092e8b8ee2413d1d" kindref="member">ShaType</ref><sp/>=<sp/><ref refid="group__xasu__common__defs_1gaa7423cf1e6eb12f6d307fcdfadde635e" kindref="member">XASU_SHA2_TYPE</ref>;</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>EciesParams.<ref refid="struct_x_asu___ecies_params_1a7a3828422b375b9cb454b46ea9bf2404" kindref="member">ShaMode</ref><sp/>=<sp/><ref refid="group__xasu__common__defs_1ga1b2246776bc9c632002768c9edd40340" kindref="member">XASU_SHA_MODE_256</ref>;</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>EciesParams.<ref refid="struct_x_asu___ecies_params_1a5537a865706283c027ee9e95ba39bb5d" kindref="member">AesKeySize</ref><sp/>=<sp/><ref refid="group__xasu__common__defs_1ga565a9f9f9f947674eb43a1ce60e638d6" kindref="member">XASU_AES_KEY_SIZE_256_BITS</ref>;</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>EciesParams.<ref refid="struct_x_asu___ecies_params_1a10c2ea889b613ea55ca3c415e4c621e6" kindref="member">DataLength</ref><sp/>=<sp/><ref refid="group__xasu__ecies__example_1gaad3642a2d2c6344922eee439192bf07b" kindref="member">XASU_ECIES_INPUT_DATA_LENGTH</ref>;</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>EciesParams.<ref refid="struct_x_asu___ecies_params_1a0de4e32a344bfe210b9a8e60c387e152" kindref="member">EccKeyLength</ref><sp/>=<sp/><ref refid="group__xasu__common__defs_1ga166c1c1d215da0a56a5c4e042d78b4d5" kindref="member">XASU_ECC_P256_PVT_KEY_SIZE_IN_BYTES</ref>;</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>EciesParams.<ref refid="struct_x_asu___ecies_params_1a71659976f54404c81a55e6b586d96b8d" kindref="member">RxKeyAddr</ref><sp/>=<sp/>(u64)(UINTPTR)RxPubKey;</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>EciesParams.<ref refid="struct_x_asu___ecies_params_1a4907eea1457b2fc81b608306e89f59df" kindref="member">TxKeyAddr</ref><sp/>=<sp/>(u64)(UINTPTR)TxPubKey;</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>EciesParams.<ref refid="struct_x_asu___ecies_params_1a2bfd1ff2f154a70612c91d482c5ceea6" kindref="member">InDataAddr</ref><sp/>=<sp/>(u64)(UINTPTR)Data;</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>EciesParams.<ref refid="struct_x_asu___ecies_params_1abd49b0a55a8d01a3f7c58b1ae01de258" kindref="member">IvAddr</ref><sp/>=<sp/>(u64)(UINTPTR)Iv;</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>EciesParams.<ref refid="struct_x_asu___ecies_params_1aba4409421f368710659a861058b385df" kindref="member">OutDataAddr</ref><sp/>=<sp/>(u64)(UINTPTR)OutEncData;</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>EciesParams.<ref refid="struct_x_asu___ecies_params_1a66353da061945a39bccef5de85f92ff1" kindref="member">MacAddr</ref><sp/>=<sp/>(u64)(UINTPTR)Mac;</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>EciesParams.<ref refid="struct_x_asu___ecies_params_1a4d0d8cb38d8498d24bc76851076e9710" kindref="member">ContextAddr</ref><sp/>=<sp/>(u64)(UINTPTR)Context;</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>EciesParams.<ref refid="struct_x_asu___ecies_params_1a30ccc1b46bce15797bf5cbdccd4acfc4" kindref="member">ContextLen</ref><sp/>=<sp/><ref refid="group__xasu__ecies__example_1gaf1f97544a00eab5d53bf97532ff245a6" kindref="member">XASU_ECIES_CONTEXT_LENGTH</ref>;</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>EciesParams.<ref refid="struct_x_asu___ecies_params_1a0a6141d2d913719a1449834eab52236f" kindref="member">SaltAddr</ref><sp/>=<sp/>(u64)(UINTPTR)0U;</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>EciesParams.<ref refid="struct_x_asu___ecies_params_1a7f5403c6f796150c6063a606be622ca6" kindref="member">SaltLen</ref><sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>EciesParams.<ref refid="struct_x_asu___ecies_params_1a5e4045d64d4cddc996491a4355a39a8e" kindref="member">MacLength</ref><sp/>=<sp/><ref refid="group__xasu__common__defs_1ga2b23227296edca13de1f3732e04cca19" kindref="member">XASU_AES_MAX_TAG_LENGTH_IN_BYTES</ref>;</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>EciesParams.<ref refid="struct_x_asu___ecies_params_1a5d1fd299bcddc8bc104d0049fcef8a4d" kindref="member">IvLength</ref><sp/>=<sp/><ref refid="group__xasu__common__defs_1ga2ee13c774f1393949629518f645785b8" kindref="member">XASU_AES_IV_SIZE_96BIT_IN_BYTES</ref>;</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"></highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xasu__ecies__client__apis_1gafa9ae6edbd3dba6873779ab7bdc055b4" kindref="member">XAsu_EciesEncrypt</ref>(&amp;ClientParams,<sp/>&amp;EciesParams);</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XilAsu_Printf(</highlight><highlight class="stringliteral">&quot;Encrypt<sp/>operation<sp/>failed,<sp/>Status<sp/>=<sp/>%x<sp/>\n\r&quot;</highlight><highlight class="normal">,<sp/>Status);</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal">(!Notify);</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Notify<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(ErrorStatus<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"></highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XilAsu_Printf(</highlight><highlight class="stringliteral">&quot;\r\n<sp/>Encrypted<sp/>Output:<sp/>&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(Index<sp/>=<sp/>0;<sp/>Index<sp/>&lt;<sp/><ref refid="group__xasu__ecies__example_1gaad3642a2d2c6344922eee439192bf07b" kindref="member">XASU_ECIES_INPUT_DATA_LENGTH</ref>;<sp/>Index++)<sp/>{</highlight></codeline>
+<codeline lineno="172"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XilAsu_Printf(</highlight><highlight class="stringliteral">&quot;%02x&quot;</highlight><highlight class="normal">,<sp/>OutEncData[Index]);</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"></highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XilAsu_Printf(</highlight><highlight class="stringliteral">&quot;\r\n<sp/>Generated<sp/>Mac:<sp/>&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(Index<sp/>=<sp/>0;<sp/>Index<sp/>&lt;<sp/><ref refid="group__xasu__common__defs_1ga2b23227296edca13de1f3732e04cca19" kindref="member">XASU_AES_MAX_TAG_LENGTH_IN_BYTES</ref>;<sp/>Index++)<sp/>{</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XilAsu_Printf(</highlight><highlight class="stringliteral">&quot;%02x&quot;</highlight><highlight class="normal">,<sp/>Mac[Index]);</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"></highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XilAsu_Printf(</highlight><highlight class="stringliteral">&quot;\r\n<sp/>Generated<sp/>Iv:<sp/>&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(Index<sp/>=<sp/>0;<sp/>Index<sp/>&lt;<sp/><ref refid="group__xasu__common__defs_1ga2ee13c774f1393949629518f645785b8" kindref="member">XASU_AES_IV_SIZE_96BIT_IN_BYTES</ref>;<sp/>Index++)<sp/>{</highlight></codeline>
+<codeline lineno="182"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XilAsu_Printf(</highlight><highlight class="stringliteral">&quot;%02x&quot;</highlight><highlight class="normal">,<sp/>Iv[Index]);</highlight></codeline>
+<codeline lineno="183"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="184"><highlight class="normal"></highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ErrorStatus<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>EciesParams.<ref refid="struct_x_asu___ecies_params_1a0bd65aa5b7faf176c9e52e3e2347cc98" kindref="member">EccCurveType</ref><sp/>=<sp/><ref refid="group__xasu__common__defs_1gae0d5b0eb8d6006304f667517a55da079" kindref="member">XASU_ECC_NIST_P256</ref>;</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>EciesParams.<ref refid="struct_x_asu___ecies_params_1ad61d0a4035cef34a092e8b8ee2413d1d" kindref="member">ShaType</ref><sp/>=<sp/><ref refid="group__xasu__common__defs_1gaa7423cf1e6eb12f6d307fcdfadde635e" kindref="member">XASU_SHA2_TYPE</ref>;</highlight></codeline>
+<codeline lineno="188"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>EciesParams.<ref refid="struct_x_asu___ecies_params_1a7a3828422b375b9cb454b46ea9bf2404" kindref="member">ShaMode</ref><sp/>=<sp/><ref refid="group__xasu__common__defs_1ga1b2246776bc9c632002768c9edd40340" kindref="member">XASU_SHA_MODE_256</ref>;</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>EciesParams.<ref refid="struct_x_asu___ecies_params_1a5537a865706283c027ee9e95ba39bb5d" kindref="member">AesKeySize</ref><sp/>=<sp/><ref refid="group__xasu__common__defs_1ga565a9f9f9f947674eb43a1ce60e638d6" kindref="member">XASU_AES_KEY_SIZE_256_BITS</ref>;</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>EciesParams.<ref refid="struct_x_asu___ecies_params_1a10c2ea889b613ea55ca3c415e4c621e6" kindref="member">DataLength</ref><sp/>=<sp/><ref refid="group__xasu__ecies__example_1gaad3642a2d2c6344922eee439192bf07b" kindref="member">XASU_ECIES_INPUT_DATA_LENGTH</ref>;</highlight></codeline>
+<codeline lineno="191"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>EciesParams.<ref refid="struct_x_asu___ecies_params_1a0de4e32a344bfe210b9a8e60c387e152" kindref="member">EccKeyLength</ref><sp/>=<sp/><ref refid="group__xasu__common__defs_1ga166c1c1d215da0a56a5c4e042d78b4d5" kindref="member">XASU_ECC_P256_PVT_KEY_SIZE_IN_BYTES</ref>;</highlight></codeline>
+<codeline lineno="192"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>EciesParams.<ref refid="struct_x_asu___ecies_params_1a71659976f54404c81a55e6b586d96b8d" kindref="member">RxKeyAddr</ref><sp/>=<sp/>(u64)(UINTPTR)RxPrivKey;</highlight></codeline>
+<codeline lineno="193"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>EciesParams.<ref refid="struct_x_asu___ecies_params_1a4907eea1457b2fc81b608306e89f59df" kindref="member">TxKeyAddr</ref><sp/>=<sp/>(u64)(UINTPTR)TxPubKey;</highlight></codeline>
+<codeline lineno="194"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>EciesParams.<ref refid="struct_x_asu___ecies_params_1a2bfd1ff2f154a70612c91d482c5ceea6" kindref="member">InDataAddr</ref><sp/>=<sp/>(u64)(UINTPTR)OutEncData;</highlight></codeline>
+<codeline lineno="195"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>EciesParams.<ref refid="struct_x_asu___ecies_params_1abd49b0a55a8d01a3f7c58b1ae01de258" kindref="member">IvAddr</ref><sp/>=<sp/>(u64)(UINTPTR)Iv;</highlight></codeline>
+<codeline lineno="196"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>EciesParams.<ref refid="struct_x_asu___ecies_params_1aba4409421f368710659a861058b385df" kindref="member">OutDataAddr</ref><sp/>=<sp/>(u64)(UINTPTR)OutDecData;</highlight></codeline>
+<codeline lineno="197"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>EciesParams.<ref refid="struct_x_asu___ecies_params_1a66353da061945a39bccef5de85f92ff1" kindref="member">MacAddr</ref><sp/>=<sp/>(u64)(UINTPTR)Mac;</highlight></codeline>
+<codeline lineno="198"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>EciesParams.<ref refid="struct_x_asu___ecies_params_1a4d0d8cb38d8498d24bc76851076e9710" kindref="member">ContextAddr</ref><sp/>=<sp/>(u64)(UINTPTR)Context;</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>EciesParams.<ref refid="struct_x_asu___ecies_params_1a30ccc1b46bce15797bf5cbdccd4acfc4" kindref="member">ContextLen</ref><sp/>=<sp/><ref refid="group__xasu__ecies__example_1gaf1f97544a00eab5d53bf97532ff245a6" kindref="member">XASU_ECIES_CONTEXT_LENGTH</ref>;</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>EciesParams.<ref refid="struct_x_asu___ecies_params_1a0a6141d2d913719a1449834eab52236f" kindref="member">SaltAddr</ref><sp/>=<sp/>(u64)(UINTPTR)0U;</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>EciesParams.<ref refid="struct_x_asu___ecies_params_1a7f5403c6f796150c6063a606be622ca6" kindref="member">SaltLen</ref><sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="202"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>EciesParams.<ref refid="struct_x_asu___ecies_params_1a5e4045d64d4cddc996491a4355a39a8e" kindref="member">MacLength</ref><sp/>=<sp/><ref refid="group__xasu__common__defs_1ga2b23227296edca13de1f3732e04cca19" kindref="member">XASU_AES_MAX_TAG_LENGTH_IN_BYTES</ref>;</highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>EciesParams.<ref refid="struct_x_asu___ecies_params_1a5d1fd299bcddc8bc104d0049fcef8a4d" kindref="member">IvLength</ref><sp/>=<sp/><ref refid="group__xasu__common__defs_1ga2ee13c774f1393949629518f645785b8" kindref="member">XASU_AES_IV_SIZE_96BIT_IN_BYTES</ref>;</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"></highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xasu__ecies__client__apis_1ga689f879d22a42d9da5fe3148cd307883" kindref="member">XAsu_EciesDecrypt</ref>(&amp;ClientParams,<sp/>&amp;EciesParams);</highlight></codeline>
+<codeline lineno="206"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="207"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XilAsu_Printf(</highlight><highlight class="stringliteral">&quot;Decrypt<sp/>operation<sp/>failed,<sp/>Status<sp/>=<sp/>%x<sp/>\n\r&quot;</highlight><highlight class="normal">,<sp/>Status);</highlight></codeline>
+<codeline lineno="208"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="209"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="210"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal">(!Notify);</highlight></codeline>
+<codeline lineno="211"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Notify<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="212"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(ErrorStatus<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="213"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="214"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="215"><highlight class="normal"></highlight></codeline>
+<codeline lineno="216"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>Xil_SMemCmp_CT(OutDecData,<sp/>XASU_ECIES_INPUT_DATA_LENGTH,<sp/>Data,</highlight></codeline>
+<codeline lineno="217"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XASU_ECIES_INPUT_DATA_LENGTH,<sp/>XASU_ECIES_INPUT_DATA_LENGTH);</highlight></codeline>
+<codeline lineno="218"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XilAsu_Printf(</highlight><highlight class="stringliteral">&quot;\r\n<sp/>Decrypted<sp/>Output:<sp/>&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="219"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(Index<sp/>=<sp/>0;<sp/>Index<sp/>&lt;<sp/><ref refid="group__xasu__ecies__example_1gaad3642a2d2c6344922eee439192bf07b" kindref="member">XASU_ECIES_INPUT_DATA_LENGTH</ref>;<sp/>Index++)<sp/>{</highlight></codeline>
+<codeline lineno="220"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XilAsu_Printf(</highlight><highlight class="stringliteral">&quot;%02x&quot;</highlight><highlight class="normal">,<sp/>OutDecData[Index]);</highlight></codeline>
+<codeline lineno="221"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="222"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="223"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XilAsu_Printf(</highlight><highlight class="stringliteral">&quot;Decrypted<sp/>Output<sp/>comparison<sp/>failed,<sp/>Status<sp/>=<sp/>%x<sp/>\n\r&quot;</highlight><highlight class="normal">,<sp/>Status);</highlight></codeline>
+<codeline lineno="224"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="225"><highlight class="normal"></highlight></codeline>
+<codeline lineno="226"><highlight class="normal">END:</highlight></codeline>
+<codeline lineno="227"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="228"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;\r\n<sp/>ECIES<sp/>client<sp/>example<sp/>failed<sp/>with<sp/>Status<sp/>=<sp/>%08x&quot;</highlight><highlight class="normal">,<sp/>Status);</highlight></codeline>
+<codeline lineno="229"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(ErrorStatus<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="230"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;\r\n<sp/>ECIES<sp/>client<sp/>example<sp/>failed<sp/>with<sp/>error<sp/>from<sp/>server<sp/>=<sp/>%08x&quot;</highlight><highlight class="normal">,<sp/>ErrorStatus);</highlight></codeline>
+<codeline lineno="231"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="232"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;\r\n<sp/>Successfully<sp/>ran<sp/>ECIES<sp/>client<sp/>example<sp/>&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="233"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="234"><highlight class="normal"></highlight></codeline>
+<codeline lineno="235"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="236"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="237"><highlight class="normal"></highlight></codeline>
+<codeline lineno="238"><highlight class="normal"></highlight><highlight class="comment">/*************************************************************************************************/</highlight></codeline>
+<codeline lineno="249"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XAsu_EciesCallBackRef(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallBackRef,<sp/>u32<sp/>Status)</highlight></codeline>
+<codeline lineno="250"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="251"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)CallBackRef;</highlight></codeline>
+<codeline lineno="252"><highlight class="normal"></highlight></codeline>
+<codeline lineno="253"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ErrorStatus<sp/>=<sp/>Status;</highlight></codeline>
+<codeline lineno="254"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Update<sp/>the<sp/>variable<sp/>to<sp/>notify<sp/>the<sp/>callback<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="255"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Notify<sp/>=<sp/>1U;</highlight></codeline>
+<codeline lineno="256"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="257"><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_ecies_example.c"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,100 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_dual_splitter" kind="struct" prot="public">
+    <compoundname>XDualSplitter</compoundname>
+    <includes local="no">xdualsplitter.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_dual_splitter_1aeded47f9b34da5e26741ef05f5278843" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_dual_splitter___config" kindref="compound">XDualSplitter_Config</ref></type>
+        <definition>XDualSplitter_Config XDualSplitter::Config</definition>
+        <argsstring></argsstring>
+        <name>Config</name>
+        <briefdescription>
+<para>Hardware Configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter.h" line="160" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter.h" bodystart="160" bodyend="-1"/>
+        <referencedby refid="group__dual__splitter_1gae802302ea4de37154e36cbe0993e8cfd" compoundref="xdualsplitter_8c" startline="73" endline="102">XDualSplitter_CfgInitialize</referencedby>
+        <referencedby refid="group__dual__splitter_1gaabda56798dc29e25c03eb5098ba60850" compoundref="xdualsplitter_8c" startline="185" endline="202">XDualSplitter_GetImageSize</referencedby>
+        <referencedby refid="group__dual__splitter_1gaf9b807d631f1491dcd23add904e40049" compoundref="xdualsplitter_8c" startline="274" endline="302">XDualSplitter_GetImgParam</referencedby>
+        <referencedby refid="group__dual__splitter_1ga040c43cf8292cad54fad4111a7af19c3" compoundref="xdualsplitter__intr_8c" startline="70" endline="93">XDualSplitter_IntrHandler</referencedby>
+        <referencedby refid="group__dual__splitter_1ga9cb1484d45dfd8caeba7b82f3cb57d26" compoundref="xdualsplitter_8c" startline="117" endline="131">XDualSplitter_Reset</referencedby>
+        <referencedby refid="group__dual__splitter_1ga134facdfb0255d7de8f17cccf404349b" compoundref="xdualsplitter_8c" startline="149" endline="167">XDualSplitter_SetImageSize</referencedby>
+        <referencedby refid="group__dual__splitter_1gab4b2ff70f887d9e406ab83d7c23e19a0" compoundref="xdualsplitter_8c" startline="223" endline="249">XDualSplitter_SetImgParam</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dual_splitter_1abefb52f749cdb12c05f0a5f6458ca51b" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDualSplitter::IsReady</definition>
+        <argsstring></argsstring>
+        <name>IsReady</name>
+        <briefdescription>
+<para>Core and the driver instance are initialized. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter.h" line="161" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter.h" bodystart="161" bodyend="-1"/>
+        <referencedby refid="group__dual__splitter_1gae802302ea4de37154e36cbe0993e8cfd" compoundref="xdualsplitter_8c" startline="73" endline="102">XDualSplitter_CfgInitialize</referencedby>
+        <referencedby refid="group__dual__splitter_1ga040c43cf8292cad54fad4111a7af19c3" compoundref="xdualsplitter__intr_8c" startline="70" endline="93">XDualSplitter_IntrHandler</referencedby>
+        <referencedby refid="group__dual__splitter_1ga6d470b5b39f29a4635707b69290898f4" compoundref="xdualsplitter__intr_8c" startline="111" endline="124">XDualSplitter_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dual_splitter_1ab03d3f613e60a8638a8d5c2a8328e599" prot="public" static="no" mutable="no">
+        <type><ref refid="group__dual__splitter_1ga873e8f9016fe93ebb39e59dcfd4a1c2b" kindref="member">XDualSplitter_ErrCallback</ref></type>
+        <definition>XDualSplitter_ErrCallback XDualSplitter::ErrCallback</definition>
+        <argsstring></argsstring>
+        <name>ErrCallback</name>
+        <briefdescription>
+<para>Callback for error interrupt. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter.h" line="163" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter.h" bodystart="163" bodyend="-1"/>
+        <referencedby refid="group__dual__splitter_1gae802302ea4de37154e36cbe0993e8cfd" compoundref="xdualsplitter_8c" startline="73" endline="102">XDualSplitter_CfgInitialize</referencedby>
+        <referencedby refid="group__dual__splitter_1ga040c43cf8292cad54fad4111a7af19c3" compoundref="xdualsplitter__intr_8c" startline="70" endline="93">XDualSplitter_IntrHandler</referencedby>
+        <referencedby refid="group__dual__splitter_1ga6d470b5b39f29a4635707b69290898f4" compoundref="xdualsplitter__intr_8c" startline="111" endline="124">XDualSplitter_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dual_splitter_1a5bd5757ddb107dd4981cfaa9ccac9efa" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XDualSplitter::ErrRef</definition>
+        <argsstring></argsstring>
+        <name>ErrRef</name>
+        <briefdescription>
+<para>To be passed to the error interrupt callback. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter.h" line="165" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter.h" bodystart="165" bodyend="-1"/>
+        <referencedby refid="group__dual__splitter_1ga040c43cf8292cad54fad4111a7af19c3" compoundref="xdualsplitter__intr_8c" startline="70" endline="93">XDualSplitter_IntrHandler</referencedby>
+        <referencedby refid="group__dual__splitter_1ga6d470b5b39f29a4635707b69290898f4" compoundref="xdualsplitter__intr_8c" startline="111" endline="124">XDualSplitter_SetCallback</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>The <ref refid="struct_x_dual_splitter" kindref="compound">XDualSplitter</ref> driver instance data. </para>    </briefdescription>
+    <detaileddescription>
+<para>An instance must be allocated for each Dual Splitter core in use. </para>    </detaileddescription>
+    <collaborationgraph>
+      <node id="2">
+        <label>XDualSplitter_Config</label>
+        <link refid="struct_x_dual_splitter___config"/>
+      </node>
+      <node id="1">
+        <label>XDualSplitter</label>
+        <link refid="struct_x_dual_splitter"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>Config</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter.h" line="159" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter.h" bodystart="159" bodyend="167"/>
+    <listofallmembers>
+      <member refid="struct_x_dual_splitter_1aeded47f9b34da5e26741ef05f5278843" prot="public" virt="non-virtual"><scope>XDualSplitter</scope><name>Config</name></member>
+      <member refid="struct_x_dual_splitter_1ab03d3f613e60a8638a8d5c2a8328e599" prot="public" virt="non-virtual"><scope>XDualSplitter</scope><name>ErrCallback</name></member>
+      <member refid="struct_x_dual_splitter_1a5bd5757ddb107dd4981cfaa9ccac9efa" prot="public" virt="non-virtual"><scope>XDualSplitter</scope><name>ErrRef</name></member>
+      <member refid="struct_x_dual_splitter_1abefb52f749cdb12c05f0a5f6458ca51b" prot="public" virt="non-virtual"><scope>XDualSplitter</scope><name>IsReady</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,70 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_dfe_ofdm___cfg" kind="struct" prot="public">
+    <compoundname>XDfeOfdm_Cfg</compoundname>
+    <includes local="no">xdfeofdm.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_dfe_ofdm___cfg_1ad9d93d7772122b3375effab5910358a5" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_dfe_ofdm___version" kindref="compound">XDfeOfdm_Version</ref></type>
+        <definition>XDfeOfdm_Version XDfeOfdm_Cfg::Version</definition>
+        <argsstring></argsstring>
+        <name>Version</name>
+        <briefdescription>
+<para>LogiCORE version. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeofdm/src/xdfeofdm.h" line="280" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeofdm/src/xdfeofdm.h" bodystart="280" bodyend="-1"/>
+        <referencedby refid="group__dfeofdm_1ga6d938668e6e1b73a585775cbe0eab471" compoundref="xdfeofdm___add_c_c__example_8c" startline="63" endline="168">XDfeOfdm_AddCCExample</referencedby>
+        <referencedby refid="group__dfeofdm_1ga8248b6bc1f2f9dd0f5b2a04c62062753" compoundref="xdfeofdm_8c" startline="1079" endline="1130">XDfeOfdm_Configure</referencedby>
+        <referencedby refid="group__dfeofdm_1gaf304555910bc042c2de8437ac0b448d3" compoundref="xdfeofdm__multi_add_c_c__example_8c" startline="63" endline="175">XDfeOfdm_MultiAddCCExample</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_ofdm___cfg_1a38c1c79086484df53f2f1a6285f2d9f8" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_dfe_ofdm___model_parameters" kindref="compound">XDfeOfdm_ModelParameters</ref></type>
+        <definition>XDfeOfdm_ModelParameters XDfeOfdm_Cfg::ModelParams</definition>
+        <argsstring></argsstring>
+        <name>ModelParams</name>
+        <briefdescription>
+<para>LogiCORE parameterization. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeofdm/src/xdfeofdm.h" line="281" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeofdm/src/xdfeofdm.h" bodystart="281" bodyend="-1"/>
+        <referencedby refid="group__dfeofdm_1ga6d938668e6e1b73a585775cbe0eab471" compoundref="xdfeofdm___add_c_c__example_8c" startline="63" endline="168">XDfeOfdm_AddCCExample</referencedby>
+        <referencedby refid="group__dfeofdm_1ga8248b6bc1f2f9dd0f5b2a04c62062753" compoundref="xdfeofdm_8c" startline="1079" endline="1130">XDfeOfdm_Configure</referencedby>
+        <referencedby refid="group__dfeofdm_1gaf304555910bc042c2de8437ac0b448d3" compoundref="xdfeofdm__multi_add_c_c__example_8c" startline="63" endline="175">XDfeOfdm_MultiAddCCExample</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Configuration. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="13">
+        <label>XDfeOfdm_Cfg</label>
+        <link refid="struct_x_dfe_ofdm___cfg"/>
+        <childnode refid="14" relation="usage">
+          <edgelabel>ModelParams</edgelabel>
+        </childnode>
+        <childnode refid="15" relation="usage">
+          <edgelabel>Version</edgelabel>
+        </childnode>
+      </node>
+      <node id="15">
+        <label>XDfeOfdm_Version</label>
+        <link refid="struct_x_dfe_ofdm___version"/>
+      </node>
+      <node id="14">
+        <label>XDfeOfdm_ModelParameters</label>
+        <link refid="struct_x_dfe_ofdm___model_parameters"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeofdm/src/xdfeofdm.h" line="279" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeofdm/src/xdfeofdm.h" bodystart="279" bodyend="282"/>
+    <listofallmembers>
+      <member refid="struct_x_dfe_ofdm___cfg_1a38c1c79086484df53f2f1a6285f2d9f8" prot="public" virt="non-virtual"><scope>XDfeOfdm_Cfg</scope><name>ModelParams</name></member>
+      <member refid="struct_x_dfe_ofdm___cfg_1ad9d93d7772122b3375effab5910358a5" prot="public" virt="non-virtual"><scope>XDfeOfdm_Cfg</scope><name>Version</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

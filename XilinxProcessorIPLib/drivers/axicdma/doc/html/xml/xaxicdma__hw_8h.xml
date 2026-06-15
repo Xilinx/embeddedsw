@@ -1,0 +1,1344 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xaxicdma__hw_8h" kind="file">
+    <compoundname>xaxicdma_hw.h</compoundname>
+    <includes local="yes">xil_types.h</includes>
+    <includes local="yes">xil_io.h</includes>
+    <includedby refid="xaxicdma__bd_8h" local="yes">xaxicdma_bd.h</includedby>
+    <incdepgraph>
+      <node id="189">
+        <label>xil_io.h</label>
+      </node>
+      <node id="187">
+        <label>xaxicdma_hw.h</label>
+        <link refid="xaxicdma_hw.h"/>
+        <childnode refid="188" relation="include">
+        </childnode>
+        <childnode refid="189" relation="include">
+        </childnode>
+      </node>
+      <node id="188">
+        <label>xil_types.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="198">
+        <label>xaxicdma_g.c</label>
+        <link refid="xaxicdma__g_8c"/>
+      </node>
+      <node id="197">
+        <label>xaxicdma_bd.c</label>
+        <link refid="xaxicdma__bd_8c"/>
+      </node>
+      <node id="191">
+        <label>xaxicdma_bd.h</label>
+        <link refid="xaxicdma__bd_8h"/>
+        <childnode refid="192" relation="include">
+        </childnode>
+        <childnode refid="197" relation="include">
+        </childnode>
+      </node>
+      <node id="195">
+        <label>xaxicdma_bdring.c</label>
+        <link refid="xaxicdma__bdring_8c"/>
+      </node>
+      <node id="196">
+        <label>xaxicdma_intr.c</label>
+        <link refid="xaxicdma__intr_8c"/>
+      </node>
+      <node id="205">
+        <label>xaxicdma_example_simple_poll.c</label>
+        <link refid="xaxicdma__example__simple__poll_8c"/>
+      </node>
+      <node id="203">
+        <label>xaxicdma_example_sg_poll.c</label>
+        <link refid="xaxicdma__example__sg__poll_8c"/>
+      </node>
+      <node id="190">
+        <label>xaxicdma_hw.h</label>
+        <link refid="xaxicdma_hw.h"/>
+        <childnode refid="191" relation="include">
+        </childnode>
+      </node>
+      <node id="194">
+        <label>xaxicdma_i.h</label>
+        <link refid="xaxicdma__i_8h"/>
+        <childnode refid="193" relation="include">
+        </childnode>
+        <childnode refid="195" relation="include">
+        </childnode>
+        <childnode refid="196" relation="include">
+        </childnode>
+      </node>
+      <node id="199">
+        <label>xaxicdma_sinit.c</label>
+        <link refid="xaxicdma__sinit_8c"/>
+      </node>
+      <node id="202">
+        <label>xaxicdma_example_sg_intr.c</label>
+        <link refid="xaxicdma__example__sg__intr_8c"/>
+      </node>
+      <node id="204">
+        <label>xaxicdma_example_simple_intr.c</label>
+        <link refid="xaxicdma__example__simple__intr_8c"/>
+      </node>
+      <node id="193">
+        <label>xaxicdma.c</label>
+        <link refid="xaxicdma_8c"/>
+      </node>
+      <node id="192">
+        <label>xaxicdma.h</label>
+        <link refid="xaxicdma_8h"/>
+        <childnode refid="193" relation="include">
+        </childnode>
+        <childnode refid="194" relation="include">
+        </childnode>
+        <childnode refid="197" relation="include">
+        </childnode>
+        <childnode refid="195" relation="include">
+        </childnode>
+        <childnode refid="198" relation="include">
+        </childnode>
+        <childnode refid="196" relation="include">
+        </childnode>
+        <childnode refid="199" relation="include">
+        </childnode>
+        <childnode refid="200" relation="include">
+        </childnode>
+        <childnode refid="201" relation="include">
+        </childnode>
+        <childnode refid="202" relation="include">
+        </childnode>
+        <childnode refid="203" relation="include">
+        </childnode>
+        <childnode refid="204" relation="include">
+        </childnode>
+        <childnode refid="205" relation="include">
+        </childnode>
+      </node>
+      <node id="201">
+        <label>xaxicdma_example_hybrid_poll.c</label>
+        <link refid="xaxicdma__example__hybrid__poll_8c"/>
+      </node>
+      <node id="200">
+        <label>xaxicdma_example_hybrid_intr.c</label>
+        <link refid="xaxicdma__example__hybrid__intr_8c"/>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="user-defined">
+      <header>Buffer Descriptor Alignment</header>
+      <memberdef kind="define" id="group__axicdma_1gaae822f32753ddd2fec7be5d3c9e9a4ff" prot="public" static="no">
+        <name>XAXICDMA_BD_MINIMUM_ALIGNMENT</name>
+        <initializer>0x40</initializer>
+        <briefdescription>
+<para>Minimum byte alignment requirement for descriptors to satisfy both hardware/software needs. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_hw.h" line="50" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_hw.h" bodystart="47" bodyend="-1"/>
+        <referencedby refid="group__axicdma_1gab36598e09c09ffa680b6c0f207baf9f5" compoundref="xaxicdma__bdring_8c" startline="375" endline="515">XAxiCdma_BdRingCreate</referencedby>
+        <referencedby refid="group__axicdma_1gabfe3657b7aad9487946d6bb436aeba18" compoundref="xaxicdma__bdring_8c" startline="280" endline="309">XAxiCdma_BdRingNext</referencedby>
+        <referencedby refid="group__axicdma_1ga24af2a3eacaf56c972e6313683a3f7e0" compoundref="xaxicdma__bdring_8c" startline="323" endline="352">XAxiCdma_BdRingPrev</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Maximum transfer length</header>
+      <description><para>This is determined by hardware </para></description>
+      <memberdef kind="define" id="group__axicdma_1gac84f0c20f910716d8f3e48ff23294440" prot="public" static="no">
+        <name>XAXICDMA_MAX_TRANSFER_LEN</name>
+        <initializer>0x7FFFFF</initializer>
+        <briefdescription>
+<para>Max length hw supports. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_hw.h" line="57" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_hw.h" bodystart="60" bodyend="-1"/>
+        <referencedby refid="group__axicdma_1gab746b095007351c2fb2c1a7cf3693f2c" compoundref="xaxicdma_8c" startline="134" endline="221">XAxiCdma_CfgInitialize</referencedby>
+        <referencedby refid="group__axicdma_1ga1e81ba2046ada4a40527c50ee7fdce9a" compoundref="xaxicdma_8c" startline="454" endline="542">XAxiCdma_SimpleTransfer</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__axicdma_1gabcf011ecc845a7382ff3ad2271e0677c" prot="public" static="no">
+        <name>XAXICDMA_4_1_MAX_TRANSFER_LEN</name>
+        <initializer>0x3FFFFFF</initializer>
+        <briefdescription>
+<para>Max length hw supports. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_hw.h" line="58" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_hw.h" bodystart="61" bodyend="-1"/>
+        <referencedby refid="group__axicdma_1gab746b095007351c2fb2c1a7cf3693f2c" compoundref="xaxicdma_8c" startline="134" endline="221">XAxiCdma_CfgInitialize</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Register offset definitions</header>
+      <description><para>Register accesses are 32-bit. </para></description>
+      <memberdef kind="define" id="group__axicdma_1ga1f23c9a4fe3565eb423286405a1de5ca" prot="public" static="no">
+        <name>XAXICDMA_CR_OFFSET</name>
+        <initializer>0x00000000</initializer>
+        <briefdescription>
+<para>Control register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_hw.h" line="66" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_hw.h" bodystart="69" bodyend="-1"/>
+        <referencedby refid="group__axicdma_1ga3287c31f1aa41a1e4a535af134324524" compoundref="xaxicdma_8c" startline="662" endline="693">XAxiCdma_DumpRegisters</referencedby>
+        <referencedby refid="group__axicdma_1ga92087f03877293982f895e8178557f6a" compoundref="xaxicdma_8c" startline="625" endline="649">XAxiCdma_GetCoalesce</referencedby>
+        <referencedby refid="group__axicdma_1gabdccf08d74f4e037b06a36a2e9db2877" compoundref="xaxicdma__intr_8c" startline="84" endline="92">XAxiCdma_IntrDisable</referencedby>
+        <referencedby refid="group__axicdma_1ga9f146fe224ea4c9a86477de3030dd79a" compoundref="xaxicdma__intr_8c" startline="44" endline="52">XAxiCdma_IntrEnable</referencedby>
+        <referencedby refid="group__axicdma_1ga1a269e884ce6e3552313521dea8032b6" compoundref="xaxicdma__intr_8c" startline="65" endline="69">XAxiCdma_IntrGetEnabled</referencedby>
+        <referencedby refid="group__axicdma_1gaaf97cc8317af0bf1678973925beff0c5" compoundref="xaxicdma_8c" startline="66" endline="88">XAxiCdma_Reset</referencedby>
+        <referencedby refid="group__axicdma_1ga2575375744593bd55425365dde7744e5" compoundref="xaxicdma_8c" startline="103" endline="110">XAxiCdma_ResetIsDone</referencedby>
+        <referencedby refid="group__axicdma_1ga815f36efce97dba797f67f9acbbb761d" compoundref="xaxicdma_8c" startline="280" endline="321">XAxiCdma_SelectKeyHole</referencedby>
+        <referencedby refid="group__axicdma_1ga91adf55050cb617cee00b0ba2f0d754e" compoundref="xaxicdma_8c" startline="567" endline="608">XAxiCdma_SetCoalesce</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__axicdma_1gaa5e9b49d3805237bc9ed772948fbf4ae" prot="public" static="no">
+        <name>XAXICDMA_SR_OFFSET</name>
+        <initializer>0x00000004</initializer>
+        <briefdescription>
+<para>Status register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_hw.h" line="67" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_hw.h" bodystart="70" bodyend="-1"/>
+        <referencedby refid="group__axicdma_1gab746b095007351c2fb2c1a7cf3693f2c" compoundref="xaxicdma_8c" startline="134" endline="221">XAxiCdma_CfgInitialize</referencedby>
+        <referencedby refid="group__axicdma_1ga3287c31f1aa41a1e4a535af134324524" compoundref="xaxicdma_8c" startline="662" endline="693">XAxiCdma_DumpRegisters</referencedby>
+        <referencedby refid="group__axicdma_1gae1fbdb8f7ad8926f744c771e07814f72" compoundref="xaxicdma_8c" startline="45" endline="50">XAxiCdma_GetError</referencedby>
+        <referencedby refid="group__axicdma_1ga8acd5bf5f5f072c6e425a8cc1b589498" compoundref="xaxicdma__intr_8c" startline="114" endline="231">XAxiCdma_IntrHandler</referencedby>
+        <referencedby refid="group__axicdma_1gaee6e140ed15cd9b7e49145e01220115a" compoundref="xaxicdma_8c" startline="236" endline="243">XAxiCdma_IsBusy</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__axicdma_1gaf62f028c2ed24dea6e0ebf8388cdf670" prot="public" static="no">
+        <name>XAXICDMA_CDESC_OFFSET</name>
+        <initializer>0x00000008</initializer>
+        <briefdescription>
+<para>Current descriptor pointer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_hw.h" line="69" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_hw.h" bodystart="71" bodyend="-1"/>
+        <referencedby refid="group__axicdma_1gab6f6efa84ee457f155a4c7a94e4227da" compoundref="xaxicdma__bdring_8c" startline="177" endline="186">XAxiCdma_BdRingGetCurrBd</referencedby>
+        <referencedby refid="group__axicdma_1gae1333cf9309c85b0f620e026c889e01c" compoundref="xaxicdma__bdring_8c" startline="156" endline="164">XAxiCdma_BdSetCurBdPtr</referencedby>
+        <referencedby refid="group__axicdma_1ga3287c31f1aa41a1e4a535af134324524" compoundref="xaxicdma_8c" startline="662" endline="693">XAxiCdma_DumpRegisters</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__axicdma_1gaac2ba51f1e81b8ed8fe31bc5632d2980" prot="public" static="no">
+        <name>XAXICDMA_CDESC_MSB_OFFSET</name>
+        <initializer>0x0000000C</initializer>
+        <briefdescription>
+<para>Current descriptor pointer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_hw.h" line="70" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_hw.h" bodystart="74" bodyend="-1"/>
+        <referencedby refid="group__axicdma_1gab6f6efa84ee457f155a4c7a94e4227da" compoundref="xaxicdma__bdring_8c" startline="177" endline="186">XAxiCdma_BdRingGetCurrBd</referencedby>
+        <referencedby refid="group__axicdma_1gae1333cf9309c85b0f620e026c889e01c" compoundref="xaxicdma__bdring_8c" startline="156" endline="164">XAxiCdma_BdSetCurBdPtr</referencedby>
+        <referencedby refid="group__axicdma_1ga3287c31f1aa41a1e4a535af134324524" compoundref="xaxicdma_8c" startline="662" endline="693">XAxiCdma_DumpRegisters</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__axicdma_1ga5a00af58a865daf4ee6995ade0c9cdd1" prot="public" static="no">
+        <name>XAXICDMA_TDESC_OFFSET</name>
+        <initializer>0x00000010</initializer>
+        <briefdescription>
+<para>Tail descriptor pointer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_hw.h" line="71" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_hw.h" bodystart="75" bodyend="-1"/>
+        <referencedby refid="group__axicdma_1ga1141024e912e7012d2c716cef9fc791f" compoundref="xaxicdma__bdring_8c" startline="256" endline="264">XAxiCdma_BdSetTailBdPtr</referencedby>
+        <referencedby refid="group__axicdma_1ga3287c31f1aa41a1e4a535af134324524" compoundref="xaxicdma_8c" startline="662" endline="693">XAxiCdma_DumpRegisters</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__axicdma_1gaed7af011eefd18c937d40571593b9297" prot="public" static="no">
+        <name>XAXICDMA_TDESC_MSB_OFFSET</name>
+        <initializer>0x00000014</initializer>
+        <briefdescription>
+<para>Tail descriptor pointer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_hw.h" line="72" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_hw.h" bodystart="76" bodyend="-1"/>
+        <referencedby refid="group__axicdma_1ga1141024e912e7012d2c716cef9fc791f" compoundref="xaxicdma__bdring_8c" startline="256" endline="264">XAxiCdma_BdSetTailBdPtr</referencedby>
+        <referencedby refid="group__axicdma_1ga3287c31f1aa41a1e4a535af134324524" compoundref="xaxicdma_8c" startline="662" endline="693">XAxiCdma_DumpRegisters</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__axicdma_1ga53c4bf8e65e8770c6fe129160ad07e29" prot="public" static="no">
+        <name>XAXICDMA_SRCADDR_OFFSET</name>
+        <initializer>0x00000018</initializer>
+        <briefdescription>
+<para>Source address register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_hw.h" line="73" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_hw.h" bodystart="77" bodyend="-1"/>
+        <referencedby refid="group__axicdma_1ga3287c31f1aa41a1e4a535af134324524" compoundref="xaxicdma_8c" startline="662" endline="693">XAxiCdma_DumpRegisters</referencedby>
+        <referencedby refid="group__axicdma_1ga1e81ba2046ada4a40527c50ee7fdce9a" compoundref="xaxicdma_8c" startline="454" endline="542">XAxiCdma_SimpleTransfer</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__axicdma_1gaeca7eef88c0b04de01219565d5039d93" prot="public" static="no">
+        <name>XAXICDMA_SRCADDR_MSB_OFFSET</name>
+        <initializer>0x0000001C</initializer>
+        <briefdescription>
+<para>Source address register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_hw.h" line="74" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_hw.h" bodystart="78" bodyend="-1"/>
+        <referencedby refid="group__axicdma_1ga3287c31f1aa41a1e4a535af134324524" compoundref="xaxicdma_8c" startline="662" endline="693">XAxiCdma_DumpRegisters</referencedby>
+        <referencedby refid="group__axicdma_1ga1e81ba2046ada4a40527c50ee7fdce9a" compoundref="xaxicdma_8c" startline="454" endline="542">XAxiCdma_SimpleTransfer</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__axicdma_1ga3064fdc2bc683fa002bedf51498d810c" prot="public" static="no">
+        <name>XAXICDMA_DSTADDR_OFFSET</name>
+        <initializer>0x00000020</initializer>
+        <briefdescription>
+<para>Destination address register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_hw.h" line="76" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_hw.h" bodystart="79" bodyend="-1"/>
+        <referencedby refid="group__axicdma_1ga3287c31f1aa41a1e4a535af134324524" compoundref="xaxicdma_8c" startline="662" endline="693">XAxiCdma_DumpRegisters</referencedby>
+        <referencedby refid="group__axicdma_1ga1e81ba2046ada4a40527c50ee7fdce9a" compoundref="xaxicdma_8c" startline="454" endline="542">XAxiCdma_SimpleTransfer</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__axicdma_1ga9a61d8801792647638b54afcafbd8a86" prot="public" static="no">
+        <name>XAXICDMA_DSTADDR_MSB_OFFSET</name>
+        <initializer>0x00000024</initializer>
+        <briefdescription>
+<para>Destination address register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_hw.h" line="78" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_hw.h" bodystart="82" bodyend="-1"/>
+        <referencedby refid="group__axicdma_1ga3287c31f1aa41a1e4a535af134324524" compoundref="xaxicdma_8c" startline="662" endline="693">XAxiCdma_DumpRegisters</referencedby>
+        <referencedby refid="group__axicdma_1ga1e81ba2046ada4a40527c50ee7fdce9a" compoundref="xaxicdma_8c" startline="454" endline="542">XAxiCdma_SimpleTransfer</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Bitmasks of XAXICDMA_CR_OFFSET register</header>
+      <memberdef kind="define" id="group__axicdma_1ga0f6d1104468e9f155a3b9477a84531a6" prot="public" static="no">
+        <name>XAXICDMA_CR_RESET_MASK</name>
+        <initializer>0x00000004</initializer>
+        <briefdescription>
+<para>Reset DMA engine. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_hw.h" line="85" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_hw.h" bodystart="111" bodyend="-1"/>
+        <referencedby refid="group__axicdma_1gaaf97cc8317af0bf1678973925beff0c5" compoundref="xaxicdma_8c" startline="66" endline="88">XAxiCdma_Reset</referencedby>
+        <referencedby refid="group__axicdma_1ga2575375744593bd55425365dde7744e5" compoundref="xaxicdma_8c" startline="103" endline="110">XAxiCdma_ResetIsDone</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__axicdma_1gae0e7fa6cee94c02784164c315268c6a6" prot="public" static="no">
+        <name>XAXICDMA_CR_SGMODE_MASK</name>
+        <initializer>0x00000008</initializer>
+        <briefdescription>
+<para>Scatter gather mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_hw.h" line="86" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_hw.h" bodystart="112" bodyend="-1"/>
+        <referencedby refid="group__axicdma_1ga815f36efce97dba797f67f9acbbb761d" compoundref="xaxicdma_8c" startline="280" endline="321">XAxiCdma_SelectKeyHole</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__axicdma_1gac31916a2867c9e47834091131d449f88" prot="public" static="no">
+        <name>XAXICDMA_CR_KHOLE_RD_MASK</name>
+        <initializer>0x00000010</initializer>
+        <briefdescription>
+<para>Keyhole Read. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_hw.h" line="87" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_hw.h" bodystart="113" bodyend="-1"/>
+        <referencedby refid="group__axicdma_1ga815f36efce97dba797f67f9acbbb761d" compoundref="xaxicdma_8c" startline="280" endline="321">XAxiCdma_SelectKeyHole</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__axicdma_1ga5ddbb13c86e6c75d5dd928447e3ec8bb" prot="public" static="no">
+        <name>XAXICDMA_CR_KHOLE_WR_MASK</name>
+        <initializer>0x00000020</initializer>
+        <briefdescription>
+<para>Keyhole Write. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_hw.h" line="88" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_hw.h" bodystart="114" bodyend="-1"/>
+        <referencedby refid="group__axicdma_1ga815f36efce97dba797f67f9acbbb761d" compoundref="xaxicdma_8c" startline="280" endline="321">XAxiCdma_SelectKeyHole</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__axicdma_1ga0f6d1104468e9f155a3b9477a84531a6" prot="public" static="no">
+        <name>XAXICDMA_CR_RESET_MASK</name>
+        <initializer>0x00000004</initializer>
+        <briefdescription>
+<para>Reset DMA engine. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_hw.h" line="105" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_hw.h" bodystart="111" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__axicdma_1gae0e7fa6cee94c02784164c315268c6a6" prot="public" static="no">
+        <name>XAXICDMA_CR_SGMODE_MASK</name>
+        <initializer>0x00000008</initializer>
+        <briefdescription>
+<para>Scatter gather mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_hw.h" line="106" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_hw.h" bodystart="112" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__axicdma_1gac31916a2867c9e47834091131d449f88" prot="public" static="no">
+        <name>XAXICDMA_CR_KHOLE_RD_MASK</name>
+        <initializer>0x00000010</initializer>
+        <briefdescription>
+<para>Keyhole Read. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_hw.h" line="107" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_hw.h" bodystart="113" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__axicdma_1ga5ddbb13c86e6c75d5dd928447e3ec8bb" prot="public" static="no">
+        <name>XAXICDMA_CR_KHOLE_WR_MASK</name>
+        <initializer>0x00000020</initializer>
+        <briefdescription>
+<para>Keyhole Write. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_hw.h" line="108" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_hw.h" bodystart="114" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Bitmasks of XAXICDMA_SR_OFFSET register</header>
+      <description><para>This register reports status of a DMA channel, including idle state, errors, and interrupts </para></description>
+      <memberdef kind="define" id="group__axicdma_1gaf2b93c5bebf2fdcf9516bcfefc7ae356" prot="public" static="no">
+        <name>XAXICDMA_BTT_OFFSET</name>
+        <initializer>0x00000028</initializer>
+        <briefdescription>
+<para>Bytes to transfer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_hw.h" line="79" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_hw.h" bodystart="105" bodyend="-1"/>
+        <referencedby refid="group__axicdma_1ga3287c31f1aa41a1e4a535af134324524" compoundref="xaxicdma_8c" startline="662" endline="693">XAxiCdma_DumpRegisters</referencedby>
+        <referencedby refid="group__axicdma_1ga1e81ba2046ada4a40527c50ee7fdce9a" compoundref="xaxicdma_8c" startline="454" endline="542">XAxiCdma_SimpleTransfer</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__axicdma_1ga73bb174cc046fe8f5d51da6f2d11cfaa" prot="public" static="no">
+        <name>XAXICDMA_SR_IDLE_MASK</name>
+        <initializer>0x00000002</initializer>
+        <briefdescription>
+<para>DMA channel idle. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_hw.h" line="96" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_hw.h" bodystart="122" bodyend="-1"/>
+        <referencedby refid="group__axicdma_1gaee6e140ed15cd9b7e49145e01220115a" compoundref="xaxicdma_8c" startline="236" endline="243">XAxiCdma_IsBusy</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__axicdma_1gada1a00e54aeb12049cd23a005eb47c52" prot="public" static="no">
+        <name>XAXICDMA_SR_SGINCLD_MASK</name>
+        <initializer>0x00000008</initializer>
+        <briefdescription>
+<para>Hybrid build. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_hw.h" line="97" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_hw.h" bodystart="123" bodyend="-1"/>
+        <referencedby refid="group__axicdma_1gab746b095007351c2fb2c1a7cf3693f2c" compoundref="xaxicdma_8c" startline="134" endline="221">XAxiCdma_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__axicdma_1ga9c4d04c2dc3d2601d5e63067a7e5e751" prot="public" static="no">
+        <name>XAXICDMA_SR_ERR_INTERNAL_MASK</name>
+        <initializer>0x00000010</initializer>
+        <briefdescription>
+<para>Datamover internal err. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_hw.h" line="98" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_hw.h" bodystart="124" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__axicdma_1gaf2b93c5bebf2fdcf9516bcfefc7ae356" prot="public" static="no">
+        <name>XAXICDMA_BTT_OFFSET</name>
+        <initializer>0x00000028</initializer>
+        <briefdescription>
+<para>Bytes to transfer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_hw.h" line="99" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_hw.h" bodystart="105" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__axicdma_1ga73bb174cc046fe8f5d51da6f2d11cfaa" prot="public" static="no">
+        <name>XAXICDMA_SR_IDLE_MASK</name>
+        <initializer>0x00000002</initializer>
+        <briefdescription>
+<para>DMA channel idle. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_hw.h" line="116" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_hw.h" bodystart="122" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__axicdma_1gada1a00e54aeb12049cd23a005eb47c52" prot="public" static="no">
+        <name>XAXICDMA_SR_SGINCLD_MASK</name>
+        <initializer>0x00000008</initializer>
+        <briefdescription>
+<para>Hybrid build. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_hw.h" line="117" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_hw.h" bodystart="123" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__axicdma_1ga9c4d04c2dc3d2601d5e63067a7e5e751" prot="public" static="no">
+        <name>XAXICDMA_SR_ERR_INTERNAL_MASK</name>
+        <initializer>0x00000010</initializer>
+        <briefdescription>
+<para>Datamover internal err. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_hw.h" line="118" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_hw.h" bodystart="124" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__axicdma_1ga95a6cfba374a96cfc1f899bda9cdc9bc" prot="public" static="no">
+        <name>XAXICDMA_SR_ERR_SLAVE_MASK</name>
+        <initializer>0x00000020</initializer>
+        <briefdescription>
+<para>Datamover slave err. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_hw.h" line="119" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_hw.h" bodystart="125" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__axicdma_1ga9bdb5e1000af0d05ba0b9481e71b5d2d" prot="public" static="no">
+        <name>XAXICDMA_SR_ERR_DECODE_MASK</name>
+        <initializer>0x00000040</initializer>
+        <briefdescription>
+<para>Datamover decode err. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_hw.h" line="120" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_hw.h" bodystart="126" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__axicdma_1ga67ecbbc57656c5e82c86541961cef427" prot="public" static="no">
+        <name>XAXICDMA_SR_ERR_SG_INT_MASK</name>
+        <initializer>0x00000100</initializer>
+        <briefdescription>
+<para>SG internal err. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_hw.h" line="121" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_hw.h" bodystart="127" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__axicdma_1gad47677d061063e96f50b5d28af989879" prot="public" static="no">
+        <name>XAXICDMA_SR_ERR_SG_SLV_MASK</name>
+        <initializer>0x00000200</initializer>
+        <briefdescription>
+<para>SG slave err. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_hw.h" line="122" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_hw.h" bodystart="128" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__axicdma_1gaab7404d4487c554b8d6c8c984732c46e" prot="public" static="no">
+        <name>XAXICDMA_SR_ERR_SG_DEC_MASK</name>
+        <initializer>0x00000400</initializer>
+        <briefdescription>
+<para>SG decode err. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_hw.h" line="123" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_hw.h" bodystart="129" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__axicdma_1gabec2417b4096d65fa8f07a84eef38cea" prot="public" static="no">
+        <name>XAXICDMA_SR_ERR_ALL_MASK</name>
+        <initializer>0x00000770</initializer>
+        <briefdescription>
+<para>All errors. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_hw.h" line="124" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_hw.h" bodystart="130" bodyend="-1"/>
+        <referencedby refid="group__axicdma_1gae1fbdb8f7ad8926f744c771e07814f72" compoundref="xaxicdma_8c" startline="45" endline="50">XAxiCdma_GetError</referencedby>
+        <referencedby refid="group__axicdma_1ga8acd5bf5f5f072c6e425a8cc1b589498" compoundref="xaxicdma__intr_8c" startline="114" endline="231">XAxiCdma_IntrHandler</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Bitmask for descriptor</header>
+      <memberdef kind="define" id="group__axicdma_1gaca543a8c03c6cd2d6d7284cc4bd119c2" prot="public" static="no">
+        <name>XAXICDMA_DESC_LSB_MASK</name>
+        <initializer>(0xFFFFFFC0U)</initializer>
+        <briefdescription>
+<para>LSB Address mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_hw.h" line="130" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_hw.h" bodystart="136" bodyend="-1"/>
+        <referencedby refid="group__axicdma_1gae1333cf9309c85b0f620e026c889e01c" compoundref="xaxicdma__bdring_8c" startline="156" endline="164">XAxiCdma_BdSetCurBdPtr</referencedby>
+        <referencedby refid="group__axicdma_1gab4d51959154b33364f8e3104c4a1afb0" compoundref="xaxicdma__bd_8c" startline="114" endline="125">XAxiCdma_BdSetNextPtr</referencedby>
+        <referencedby refid="group__axicdma_1ga1141024e912e7012d2c716cef9fc791f" compoundref="xaxicdma__bdring_8c" startline="256" endline="264">XAxiCdma_BdSetTailBdPtr</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Bitmask for interrupts</header>
+      <description><para>These masks are shared by XAXICDMA_CR_OFFSET register and XAXICDMA_SR_OFFSET register </para></description>
+      <memberdef kind="define" id="group__axicdma_1ga7f2c9f2df6f106e9576ec6d0d0448e0b" prot="public" static="no">
+        <name>XAXICDMA_XR_IRQ_IOC_MASK</name>
+        <initializer>0x00001000</initializer>
+        <briefdescription>
+<para>Completion interrupt. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_hw.h" line="139" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_hw.h" bodystart="145" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__axicdma_1ga615ffaf234787866d781bf67b214dda3" prot="public" static="no">
+        <name>XAXICDMA_XR_IRQ_DELAY_MASK</name>
+        <initializer>0x00002000</initializer>
+        <briefdescription>
+<para>Delay interrupt. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_hw.h" line="140" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_hw.h" bodystart="146" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__axicdma_1gaa4987449eeea265c2cbe875a7eed3ee8" prot="public" static="no">
+        <name>XAXICDMA_XR_IRQ_ERROR_MASK</name>
+        <initializer>0x00004000</initializer>
+        <briefdescription>
+<para>Error interrupt. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_hw.h" line="141" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_hw.h" bodystart="147" bodyend="-1"/>
+        <referencedby refid="group__axicdma_1ga8acd5bf5f5f072c6e425a8cc1b589498" compoundref="xaxicdma__intr_8c" startline="114" endline="231">XAxiCdma_IntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__axicdma_1gad2b921e876e581f84be0e7c152d13221" prot="public" static="no">
+        <name>XAXICDMA_XR_IRQ_ALL_MASK</name>
+        <initializer>0x00007000</initializer>
+        <briefdescription>
+<para>All interrupts. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_hw.h" line="142" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_hw.h" bodystart="148" bodyend="-1"/>
+        <referencedby refid="xaxicdma__example__hybrid__intr_8c_1acd911a5613750742b62bcb5b8de6398f" compoundref="xaxicdma__example__hybrid__intr_8c" startline="1025" endline="1148">XAxiCdma_HybridIntrExample</referencedby>
+        <referencedby refid="xaxicdma__example__hybrid__poll_8c_1a3e07cf3c4c4ef7c370d4d73675ad0e56" compoundref="xaxicdma__example__hybrid__poll_8c" startline="721" endline="819">XAxiCdma_HybridPollExample</referencedby>
+        <referencedby refid="group__axicdma_1gabdccf08d74f4e037b06a36a2e9db2877" compoundref="xaxicdma__intr_8c" startline="84" endline="92">XAxiCdma_IntrDisable</referencedby>
+        <referencedby refid="group__axicdma_1ga9f146fe224ea4c9a86477de3030dd79a" compoundref="xaxicdma__intr_8c" startline="44" endline="52">XAxiCdma_IntrEnable</referencedby>
+        <referencedby refid="group__axicdma_1ga1a269e884ce6e3552313521dea8032b6" compoundref="xaxicdma__intr_8c" startline="65" endline="69">XAxiCdma_IntrGetEnabled</referencedby>
+        <referencedby refid="group__axicdma_1ga8acd5bf5f5f072c6e425a8cc1b589498" compoundref="xaxicdma__intr_8c" startline="114" endline="231">XAxiCdma_IntrHandler</referencedby>
+        <referencedby refid="xaxicdma__example__sg__intr_8c_1a32d028b789077c63fa5b20b7953c4f67" compoundref="xaxicdma__example__sg__intr_8c" startline="814" endline="949">XAxiCdma_SgIntrExample</referencedby>
+        <referencedby refid="xaxicdma__example__simple__intr_8c_1a594d3f0ffc0da3e2b2b3758a499e21bb" compoundref="xaxicdma__example__simple__intr_8c" startline="254" endline="319">XAxiCdma_SimpleIntrExample</referencedby>
+        <referencedby refid="xaxicdma__example__simple__poll_8c_1a87209e4dc5ba9c6092d82623d1af223f" compoundref="xaxicdma__example__simple__poll_8c" startline="195" endline="236">XAxiCdma_SimplePollExample</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__axicdma_1ga14246912a21d68d0dde910704b6d0ac6" prot="public" static="no">
+        <name>XAXICDMA_XR_IRQ_SIMPLE_ALL_MASK</name>
+        <initializer>0x00005000</initializer>
+        <briefdescription>
+<para>All interrupts for simple only mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_hw.h" line="144" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_hw.h" bodystart="149" bodyend="-1"/>
+        <referencedby refid="group__axicdma_1ga1e81ba2046ada4a40527c50ee7fdce9a" compoundref="xaxicdma_8c" startline="454" endline="542">XAxiCdma_SimpleTransfer</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Bitmask and shift for delay counter and coalescing counter</header>
+      <description><para>These masks are shared by XAXICDMA_CR_OFFSET register and XAXICDMA_SR_OFFSET register </para></description>
+      <memberdef kind="define" id="group__axicdma_1ga20aec8c77e90ca555dc44341c40af592" prot="public" static="no">
+        <name>XAXICDMA_XR_DELAY_MASK</name>
+        <initializer>0xFF000000</initializer>
+        <briefdescription>
+<para>Delay timeout counter. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_hw.h" line="152" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_hw.h" bodystart="159" bodyend="-1"/>
+        <referencedby refid="group__axicdma_1ga92087f03877293982f895e8178557f6a" compoundref="xaxicdma_8c" startline="625" endline="649">XAxiCdma_GetCoalesce</referencedby>
+        <referencedby refid="group__axicdma_1ga91adf55050cb617cee00b0ba2f0d754e" compoundref="xaxicdma_8c" startline="567" endline="608">XAxiCdma_SetCoalesce</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__axicdma_1ga156955220ded772774e8146b2ff6e7d6" prot="public" static="no">
+        <name>XAXICDMA_XR_COALESCE_MASK</name>
+        <initializer>0x00FF0000</initializer>
+        <briefdescription>
+<para>Coalesce counter. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_hw.h" line="153" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_hw.h" bodystart="160" bodyend="-1"/>
+        <referencedby refid="group__axicdma_1ga92087f03877293982f895e8178557f6a" compoundref="xaxicdma_8c" startline="625" endline="649">XAxiCdma_GetCoalesce</referencedby>
+        <referencedby refid="group__axicdma_1ga91adf55050cb617cee00b0ba2f0d754e" compoundref="xaxicdma_8c" startline="567" endline="608">XAxiCdma_SetCoalesce</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__axicdma_1gadd5fcf58a67d3125264a9930e1ee0da0" prot="public" static="no">
+        <name>XAXICDMA_DELAY_SHIFT</name>
+        <initializer>24</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_hw.h" line="155" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_hw.h" bodystart="162" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__axicdma_1gac6d3dbc7858fabcf9a243ef0cd2f5daa" prot="public" static="no">
+        <name>XAXICDMA_COALESCE_SHIFT</name>
+        <initializer>16</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_hw.h" line="156" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_hw.h" bodystart="163" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__axicdma_1ga5c26fb92eb7913f78454aeaae8f91115" prot="public" static="no">
+        <name>XAXICDMA_DELAY_MAX</name>
+        <initializer>0xFF</initializer>
+        <briefdescription>
+<para>Maximum delay counter value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_hw.h" line="158" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_hw.h" bodystart="165" bodyend="-1"/>
+        <referencedby refid="group__axicdma_1ga91adf55050cb617cee00b0ba2f0d754e" compoundref="xaxicdma_8c" startline="567" endline="608">XAxiCdma_SetCoalesce</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__axicdma_1ga0bb5457c991743bf45e9db3201df17ed" prot="public" static="no">
+        <name>XAXICDMA_COALESCE_MAX</name>
+        <initializer>0xFF</initializer>
+        <briefdescription>
+<para>Maximum coalescing counter value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_hw.h" line="159" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_hw.h" bodystart="166" bodyend="-1"/>
+        <referencedby refid="group__axicdma_1ga91adf55050cb617cee00b0ba2f0d754e" compoundref="xaxicdma_8c" startline="567" endline="608">XAxiCdma_SetCoalesce</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Buffer Descriptor offsets</header>
+      <description><para>The first 8 words are used by hardware.</para><para>Cache operations are required for words used by hardware to enforce data consistency. All words after the 8th word are for software use only. </para></description>
+      <memberdef kind="define" id="group__axicdma_1gaac93627274e0a7ff4e45613eddd60d64" prot="public" static="no">
+        <name>XAXICDMA_BD_NDESC_OFFSET</name>
+        <initializer>0x00</initializer>
+        <briefdescription>
+<para>Next descriptor pointer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_hw.h" line="173" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_hw.h" bodystart="180" bodyend="-1"/>
+        <referencedby refid="group__axicdma_1ga2091d8d3a0a4743a557307b1153b4791" compoundref="xaxicdma__bd_8c" startline="89" endline="100">XAxiCdma_BdGetNextPtr</referencedby>
+        <referencedby refid="group__axicdma_1gab4d51959154b33364f8e3104c4a1afb0" compoundref="xaxicdma__bd_8c" startline="114" endline="125">XAxiCdma_BdSetNextPtr</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__axicdma_1ga73442468eff68f4fac6ca04f7d66b3bc" prot="public" static="no">
+        <name>XAXICDMA_BD_NDESC_MSB_OFFSET</name>
+        <initializer>0x04</initializer>
+        <briefdescription>
+<para>Next descriptor pointer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_hw.h" line="174" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_hw.h" bodystart="181" bodyend="-1"/>
+        <referencedby refid="group__axicdma_1ga2091d8d3a0a4743a557307b1153b4791" compoundref="xaxicdma__bd_8c" startline="89" endline="100">XAxiCdma_BdGetNextPtr</referencedby>
+        <referencedby refid="group__axicdma_1gab4d51959154b33364f8e3104c4a1afb0" compoundref="xaxicdma__bd_8c" startline="114" endline="125">XAxiCdma_BdSetNextPtr</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__axicdma_1gaf29c4c37b3f8d6fee34a0f6e014a80d3" prot="public" static="no">
+        <name>XAXICDMA_BD_BUFSRC_OFFSET</name>
+        <initializer>0x08</initializer>
+        <briefdescription>
+<para>Buffer source address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_hw.h" line="175" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_hw.h" bodystart="182" bodyend="-1"/>
+        <referencedby refid="group__axicdma_1gae42ce84dde541ca08b7995ded0e164cb" compoundref="xaxicdma__bd_8c" startline="221" endline="233">XAxiCdma_BdGetSrcBufAddr</referencedby>
+        <referencedby refid="group__axicdma_1ga18cd5efedba0025703b7c3a845f52cad" compoundref="xaxicdma__bd_8c" startline="184" endline="208">XAxiCdma_BdSetSrcBufAddr</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__axicdma_1ga62a39b3ce53b54ba5641b4ad654054a4" prot="public" static="no">
+        <name>XAXICDMA_BD_BUFSRC_MSB_OFFSET</name>
+        <initializer>0x0C</initializer>
+        <briefdescription>
+<para>Buffer source address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_hw.h" line="176" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_hw.h" bodystart="183" bodyend="-1"/>
+        <referencedby refid="group__axicdma_1gae42ce84dde541ca08b7995ded0e164cb" compoundref="xaxicdma__bd_8c" startline="221" endline="233">XAxiCdma_BdGetSrcBufAddr</referencedby>
+        <referencedby refid="group__axicdma_1ga18cd5efedba0025703b7c3a845f52cad" compoundref="xaxicdma__bd_8c" startline="184" endline="208">XAxiCdma_BdSetSrcBufAddr</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__axicdma_1gacd2dd9425a21034814a89119ff957528" prot="public" static="no">
+        <name>XAXICDMA_BD_BUFDST_OFFSET</name>
+        <initializer>0x10</initializer>
+        <briefdescription>
+<para>Buffer destination address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_hw.h" line="177" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_hw.h" bodystart="184" bodyend="-1"/>
+        <referencedby refid="group__axicdma_1gae95f4fe35bf907a14c7ec44dcc2f0033" compoundref="xaxicdma__bd_8c" startline="286" endline="297">XAxiCdma_BdGetDstBufAddr</referencedby>
+        <referencedby refid="group__axicdma_1ga2b4866bb4184857c6de973d76f7e7e71" compoundref="xaxicdma__bd_8c" startline="250" endline="273">XAxiCdma_BdSetDstBufAddr</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__axicdma_1ga3950ca65fb96bad92246c88399f38d89" prot="public" static="no">
+        <name>XAXICDMA_BD_BUFDST_MSB_OFFSET</name>
+        <initializer>0x14</initializer>
+        <briefdescription>
+<para>Buffer destination address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_hw.h" line="178" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_hw.h" bodystart="185" bodyend="-1"/>
+        <referencedby refid="group__axicdma_1gae95f4fe35bf907a14c7ec44dcc2f0033" compoundref="xaxicdma__bd_8c" startline="286" endline="297">XAxiCdma_BdGetDstBufAddr</referencedby>
+        <referencedby refid="group__axicdma_1ga2b4866bb4184857c6de973d76f7e7e71" compoundref="xaxicdma__bd_8c" startline="250" endline="273">XAxiCdma_BdSetDstBufAddr</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__axicdma_1ga7153a14322b05f4845ac7796f6ab92fa" prot="public" static="no">
+        <name>XAXICDMA_BD_CTRL_LEN_OFFSET</name>
+        <initializer>0x18</initializer>
+        <briefdescription>
+<para>Control/buffer length. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_hw.h" line="179" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_hw.h" bodystart="186" bodyend="-1"/>
+        <referencedby refid="group__axicdma_1ga2d0201500b1c123a0eb67c02f9666598" compoundref="xaxicdma__bd_8c" startline="343" endline="347">XAxiCdma_BdGetLength</referencedby>
+        <referencedby refid="group__axicdma_1ga3467e25f29ab081f1d9b0a1a685adbfa" compoundref="xaxicdma__bd_8c" startline="317" endline="330">XAxiCdma_BdSetLength</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__axicdma_1ga9bc60587fa8dd61bb342dff49b7c8fc8" prot="public" static="no">
+        <name>XAXICDMA_BD_STS_OFFSET</name>
+        <initializer>0x1C</initializer>
+        <briefdescription>
+<para>Status. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_hw.h" line="180" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_hw.h" bodystart="187" bodyend="-1"/>
+        <referencedby refid="group__axicdma_1ga5ee87642c7b803ad1543c5f839872594" compoundref="xaxicdma__bd_8c" startline="161" endline="167">XAxiCdma_BdClearSts</referencedby>
+        <referencedby refid="group__axicdma_1ga25c6311cbd4ac7c3a1dec2e2a59c0bf7" compoundref="xaxicdma__bd_8c" startline="138" endline="143">XAxiCdma_BdGetSts</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__axicdma_1ga2dac41e5e3020258ed9ff6f2c5299e85" prot="public" static="no">
+        <name>XAXICDMA_BD_PHYS_ADDR_OFFSET</name>
+        <initializer>0x20</initializer>
+        <briefdescription>
+<para>Physical address of the BD. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_hw.h" line="181" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_hw.h" bodystart="188" bodyend="-1"/>
+        <referencedby refid="group__axicdma_1ga535e9b3301b3227aed27e42961304165" compoundref="xaxicdma__bd_8c" startline="465" endline="477">XAxiCdma_BdGetPhysAddr</referencedby>
+        <referencedby refid="group__axicdma_1ga27a4cefa4eee7b30158763c0619c725b" compoundref="xaxicdma__bd_8c" startline="361" endline="372">XAxiCdma_BdSetPhysAddr</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__axicdma_1gac3b26e44089dbe1e471eb9aedc6797fa" prot="public" static="no">
+        <name>XAXICDMA_BD_PHYS_ADDR_MSB_OFFSET</name>
+        <initializer>0x24</initializer>
+        <briefdescription>
+<para>Physical address of the BD. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_hw.h" line="182" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_hw.h" bodystart="189" bodyend="-1"/>
+        <referencedby refid="group__axicdma_1ga535e9b3301b3227aed27e42961304165" compoundref="xaxicdma__bd_8c" startline="465" endline="477">XAxiCdma_BdGetPhysAddr</referencedby>
+        <referencedby refid="group__axicdma_1ga27a4cefa4eee7b30158763c0619c725b" compoundref="xaxicdma__bd_8c" startline="361" endline="372">XAxiCdma_BdSetPhysAddr</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__axicdma_1gaadb078c2f018d8422e66ebaaf4149712" prot="public" static="no">
+        <name>XAXICDMA_BD_ISLITE_OFFSET</name>
+        <initializer>0x28</initializer>
+        <briefdescription>
+<para>Lite mode hardware build? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_hw.h" line="183" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_hw.h" bodystart="190" bodyend="-1"/>
+        <referencedby refid="group__axicdma_1ga1025e9931f9d6fc4b7a0d526169eeab0" compoundref="xaxicdma__bd_8c" startline="386" endline="392">XAxiCdma_BdSetIsLite</referencedby>
+        <referencedby refid="group__axicdma_1ga37f4ecb500f691583798662804d5da18" compoundref="xaxicdma__bd_8c" startline="490" endline="520">XAxiCdma_DumpBd</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__axicdma_1ga8e9efcc5a93543b6a6c75ab211ed8318" prot="public" static="no">
+        <name>XAXICDMA_BD_HASDRE_OFFSET</name>
+        <initializer>0x2C</initializer>
+        <briefdescription>
+<para>Support unaligned transfers? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_hw.h" line="184" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_hw.h" bodystart="191" bodyend="-1"/>
+        <referencedby refid="group__axicdma_1ga2b4866bb4184857c6de973d76f7e7e71" compoundref="xaxicdma__bd_8c" startline="250" endline="273">XAxiCdma_BdSetDstBufAddr</referencedby>
+        <referencedby refid="group__axicdma_1ga270070a493422c1d6f64842febb012d8" compoundref="xaxicdma__bd_8c" startline="406" endline="412">XAxiCdma_BdSetHasDRE</referencedby>
+        <referencedby refid="group__axicdma_1ga18cd5efedba0025703b7c3a845f52cad" compoundref="xaxicdma__bd_8c" startline="184" endline="208">XAxiCdma_BdSetSrcBufAddr</referencedby>
+        <referencedby refid="group__axicdma_1ga37f4ecb500f691583798662804d5da18" compoundref="xaxicdma__bd_8c" startline="490" endline="520">XAxiCdma_DumpBd</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__axicdma_1gac5ef7101904b47a4ec640bedec49e0fc" prot="public" static="no">
+        <name>XAXICDMA_BD_WORDLEN_OFFSET</name>
+        <initializer>0x30</initializer>
+        <briefdescription>
+<para>Word length in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_hw.h" line="185" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_hw.h" bodystart="192" bodyend="-1"/>
+        <referencedby refid="group__axicdma_1ga2b4866bb4184857c6de973d76f7e7e71" compoundref="xaxicdma__bd_8c" startline="250" endline="273">XAxiCdma_BdSetDstBufAddr</referencedby>
+        <referencedby refid="group__axicdma_1ga18cd5efedba0025703b7c3a845f52cad" compoundref="xaxicdma__bd_8c" startline="184" endline="208">XAxiCdma_BdSetSrcBufAddr</referencedby>
+        <referencedby refid="group__axicdma_1ga7956eaa8a90bcf2a0894d513b9c15639" compoundref="xaxicdma__bd_8c" startline="426" endline="432">XAxiCdma_BdSetWordLen</referencedby>
+        <referencedby refid="group__axicdma_1ga37f4ecb500f691583798662804d5da18" compoundref="xaxicdma__bd_8c" startline="490" endline="520">XAxiCdma_DumpBd</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__axicdma_1ga6d00373734319bbfc1f81b2df043e0c4" prot="public" static="no">
+        <name>XAXICDMA_BD_MAX_LEN_OFFSET</name>
+        <initializer>0x34</initializer>
+        <briefdescription>
+<para>Word length in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_hw.h" line="186" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_hw.h" bodystart="193" bodyend="-1"/>
+        <referencedby refid="group__axicdma_1ga3467e25f29ab081f1d9b0a1a685adbfa" compoundref="xaxicdma__bd_8c" startline="317" endline="330">XAxiCdma_BdSetLength</referencedby>
+        <referencedby refid="group__axicdma_1ga03aff38e0c27e9925e4a79986e351e0d" compoundref="xaxicdma__bd_8c" startline="446" endline="452">XAxiCdma_BdSetMaxLen</referencedby>
+        <referencedby refid="group__axicdma_1ga37f4ecb500f691583798662804d5da18" compoundref="xaxicdma__bd_8c" startline="490" endline="520">XAxiCdma_DumpBd</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__axicdma_1ga0d0d6c6e655e662017785bd3afb8ff1e" prot="public" static="no">
+        <name>XAXICDMA_BD_ADDRLEN_OFFSET</name>
+        <initializer>0x38</initializer>
+        <briefdescription>
+<para>Word length in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_hw.h" line="187" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_hw.h" bodystart="194" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__axicdma_1ga7a4abf2f49cd4e47db090ef83c1d4224" prot="public" static="no">
+        <name>XAXICDMA_BD_START_CLEAR</name>
+        <initializer>8</initializer>
+        <briefdescription>
+<para>Offset to start clear. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_hw.h" line="189" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_hw.h" bodystart="196" bodyend="-1"/>
+        <referencedby refid="group__axicdma_1ga594480d7591185014d72869ac15fd490" compoundref="xaxicdma__bd_8c" startline="48" endline="54">XAxiCdma_BdClear</referencedby>
+        <referencedby refid="group__axicdma_1gaa16c4a61c0b1b2892ee5869e62546884" compoundref="xaxicdma__bd_8c" startline="68" endline="76">XAxiCdma_BdClone</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__axicdma_1gab4e667853d75008ef5a74aca06762980" prot="public" static="no">
+        <name>XAXICDMA_BD_TO_CLEAR</name>
+        <initializer>24</initializer>
+        <briefdescription>
+<para>BD specific bytes to be cleared. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_hw.h" line="190" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_hw.h" bodystart="197" bodyend="-1"/>
+        <referencedby refid="group__axicdma_1ga594480d7591185014d72869ac15fd490" compoundref="xaxicdma__bd_8c" startline="48" endline="54">XAxiCdma_BdClear</referencedby>
+        <referencedby refid="group__axicdma_1gaa16c4a61c0b1b2892ee5869e62546884" compoundref="xaxicdma__bd_8c" startline="68" endline="76">XAxiCdma_BdClone</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__axicdma_1ga710808485441a384edf28b803363f3dd" prot="public" static="no">
+        <name>XAXICDMA_BD_NUM_WORDS</name>
+        <initializer>16U</initializer>
+        <briefdescription>
+<para>Total number of words for one BD. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_hw.h" line="191" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_hw.h" bodystart="198" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__axicdma_1ga17eecb43d41d19d66cca58097dec4891" prot="public" static="no">
+        <name>XAXICDMA_BD_HW_NUM_BYTES</name>
+        <initializer>32</initializer>
+        <briefdescription>
+<para>Number of bytes hw used. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_hw.h" line="192" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_hw.h" bodystart="199" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Bitmasks of XAXICDMA_BD_CTRL_OFFSET register</header>
+      <memberdef kind="define" id="group__axicdma_1ga08590ca37cda0c7e7648f8b58bb70d94" prot="public" static="no">
+        <name>XAXICDMA_BD_CTRL_LENGTH_MASK</name>
+        <initializer>0x007FFFFF</initializer>
+        <briefdescription>
+<para>Requested len. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_hw.h" line="199" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_hw.h" bodystart="206" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Bitmasks of XAXICDMA_BD_STS_OFFSET register</header>
+      <memberdef kind="define" id="group__axicdma_1gac206252f0aeb8a2f8c28aaf7c0f8361e" prot="public" static="no">
+        <name>XAXICDMA_BD_STS_COMPLETE_MASK</name>
+        <initializer>0x80000000</initializer>
+        <briefdescription>
+<para>Completed. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_hw.h" line="205" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_hw.h" bodystart="212" bodyend="-1"/>
+        <referencedby refid="group__axicdma_1gafce6a8283bdec8b9c35169c7cd29f4dc" compoundref="xaxicdma__bdring_8c" startline="901" endline="971">XAxiCdma_BdRingFromHw</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__axicdma_1ga5beb3dd9b31ecb304f698bab67ca81b3" prot="public" static="no">
+        <name>XAXICDMA_BD_STS_DEC_ERR_MASK</name>
+        <initializer>0x40000000</initializer>
+        <briefdescription>
+<para>Decode error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_hw.h" line="206" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_hw.h" bodystart="213" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__axicdma_1ga23cf4a9370aec62b2000113b6709e92a" prot="public" static="no">
+        <name>XAXICDMA_BD_STS_SLV_ERR_MASK</name>
+        <initializer>0x20000000</initializer>
+        <briefdescription>
+<para>Slave error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_hw.h" line="207" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_hw.h" bodystart="214" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__axicdma_1ga36516a3195bb957d00ef16b9f2ddf671" prot="public" static="no">
+        <name>XAXICDMA_BD_STS_INT_ERR_MASK</name>
+        <initializer>0x10000000</initializer>
+        <briefdescription>
+<para>Internal err. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_hw.h" line="208" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_hw.h" bodystart="215" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__axicdma_1gab72e831b0648742189a2623b040166b7" prot="public" static="no">
+        <name>XAXICDMA_BD_STS_ALL_ERR_MASK</name>
+        <initializer>0x70000000</initializer>
+        <briefdescription>
+<para>All errors. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_hw.h" line="209" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_hw.h" bodystart="216" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__axicdma_1gaff5819b9b557b391de8b69c7c730b492" prot="public" static="no">
+        <name>XAXICDMA_BD_STS_ALL_MASK</name>
+        <initializer>0xF0000000</initializer>
+        <briefdescription>
+<para>All status bits. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_hw.h" line="210" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_hw.h" bodystart="217" bodyend="-1"/>
+        <referencedby refid="group__axicdma_1ga25c6311cbd4ac7c3a1dec2e2a59c0bf7" compoundref="xaxicdma__bd_8c" startline="138" endline="143">XAxiCdma_BdGetSts</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__axicdma_1gac9fc3d4c400e8f31af400be84cf4052d" prot="public" static="no">
+        <name>XAxiCdma_In32</name>
+        <initializer>Xil_In32</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_hw.h" line="217" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_hw.h" bodystart="224" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__axicdma_1ga1fa6d35d9f3f8d672057c04c7d5083b2" prot="public" static="no">
+        <name>XAxiCdma_Out32</name>
+        <initializer>Xil_Out32</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_hw.h" line="218" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_hw.h" bodystart="225" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__axicdma_1ga2f2bfb34c5bfec00baa06b782e7e68a6" prot="public" static="no">
+        <name>XAxiCdma_ReadReg</name>
+        <param><defname>BaseAddress</defname></param>
+        <param><defname>RegOffset</defname></param>
+        <initializer>XAxiCdma_In32((BaseAddress) + (u32)(RegOffset))</initializer>
+        <briefdescription>
+<para>Read a given register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base virtual address of the device </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegOffset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the register offset to be read</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The 32-bit value of the register</para></simplesect>
+<simplesect kind="note"><para>C-style signature: u32 <ref refid="group__axicdma_1ga2f2bfb34c5bfec00baa06b782e7e68a6" kindref="member">XAxiCdma_ReadReg(u32 BaseAddress, u32 RegOffset)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_hw.h" line="235" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_hw.h" bodystart="242" bodyend="-1"/>
+        <referencedby refid="group__axicdma_1gab746b095007351c2fb2c1a7cf3693f2c" compoundref="xaxicdma_8c" startline="134" endline="221">XAxiCdma_CfgInitialize</referencedby>
+        <referencedby refid="group__axicdma_1ga3287c31f1aa41a1e4a535af134324524" compoundref="xaxicdma_8c" startline="662" endline="693">XAxiCdma_DumpRegisters</referencedby>
+        <referencedby refid="group__axicdma_1ga92087f03877293982f895e8178557f6a" compoundref="xaxicdma_8c" startline="625" endline="649">XAxiCdma_GetCoalesce</referencedby>
+        <referencedby refid="group__axicdma_1gae1fbdb8f7ad8926f744c771e07814f72" compoundref="xaxicdma_8c" startline="45" endline="50">XAxiCdma_GetError</referencedby>
+        <referencedby refid="group__axicdma_1gabdccf08d74f4e037b06a36a2e9db2877" compoundref="xaxicdma__intr_8c" startline="84" endline="92">XAxiCdma_IntrDisable</referencedby>
+        <referencedby refid="group__axicdma_1ga9f146fe224ea4c9a86477de3030dd79a" compoundref="xaxicdma__intr_8c" startline="44" endline="52">XAxiCdma_IntrEnable</referencedby>
+        <referencedby refid="group__axicdma_1ga1a269e884ce6e3552313521dea8032b6" compoundref="xaxicdma__intr_8c" startline="65" endline="69">XAxiCdma_IntrGetEnabled</referencedby>
+        <referencedby refid="group__axicdma_1ga8acd5bf5f5f072c6e425a8cc1b589498" compoundref="xaxicdma__intr_8c" startline="114" endline="231">XAxiCdma_IntrHandler</referencedby>
+        <referencedby refid="group__axicdma_1gaee6e140ed15cd9b7e49145e01220115a" compoundref="xaxicdma_8c" startline="236" endline="243">XAxiCdma_IsBusy</referencedby>
+        <referencedby refid="group__axicdma_1ga2575375744593bd55425365dde7744e5" compoundref="xaxicdma_8c" startline="103" endline="110">XAxiCdma_ResetIsDone</referencedby>
+        <referencedby refid="group__axicdma_1ga815f36efce97dba797f67f9acbbb761d" compoundref="xaxicdma_8c" startline="280" endline="321">XAxiCdma_SelectKeyHole</referencedby>
+        <referencedby refid="group__axicdma_1ga91adf55050cb617cee00b0ba2f0d754e" compoundref="xaxicdma_8c" startline="567" endline="608">XAxiCdma_SetCoalesce</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__axicdma_1ga4d7304606411f8ed955c6d930e387c18" prot="public" static="no">
+        <name>XAxiCdma_WriteReg</name>
+        <param><defname>BaseAddress</defname></param>
+        <param><defname>RegOffset</defname></param>
+        <param><defname>Data</defname></param>
+        <initializer>XAxiCdma_Out32((BaseAddress) + (u32)(RegOffset), (u32)(Data))</initializer>
+        <briefdescription>
+<para>Write to a given register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base virtual address of the device </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegOffset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the register offset to be written </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 32-bit value to write to the register</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>C-style signature: void <ref refid="group__axicdma_1ga4d7304606411f8ed955c6d930e387c18" kindref="member">XAxiCdma_WriteReg(u32 BaseAddress, u32 RegOffset, u32 Data)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_hw.h" line="254" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_hw.h" bodystart="261" bodyend="-1"/>
+        <referencedby refid="group__axicdma_1gae1333cf9309c85b0f620e026c889e01c" compoundref="xaxicdma__bdring_8c" startline="156" endline="164">XAxiCdma_BdSetCurBdPtr</referencedby>
+        <referencedby refid="group__axicdma_1ga1141024e912e7012d2c716cef9fc791f" compoundref="xaxicdma__bdring_8c" startline="256" endline="264">XAxiCdma_BdSetTailBdPtr</referencedby>
+        <referencedby refid="group__axicdma_1gabdccf08d74f4e037b06a36a2e9db2877" compoundref="xaxicdma__intr_8c" startline="84" endline="92">XAxiCdma_IntrDisable</referencedby>
+        <referencedby refid="group__axicdma_1ga9f146fe224ea4c9a86477de3030dd79a" compoundref="xaxicdma__intr_8c" startline="44" endline="52">XAxiCdma_IntrEnable</referencedby>
+        <referencedby refid="group__axicdma_1ga8acd5bf5f5f072c6e425a8cc1b589498" compoundref="xaxicdma__intr_8c" startline="114" endline="231">XAxiCdma_IntrHandler</referencedby>
+        <referencedby refid="group__axicdma_1gaaf97cc8317af0bf1678973925beff0c5" compoundref="xaxicdma_8c" startline="66" endline="88">XAxiCdma_Reset</referencedby>
+        <referencedby refid="group__axicdma_1ga815f36efce97dba797f67f9acbbb761d" compoundref="xaxicdma_8c" startline="280" endline="321">XAxiCdma_SelectKeyHole</referencedby>
+        <referencedby refid="group__axicdma_1ga91adf55050cb617cee00b0ba2f0d754e" compoundref="xaxicdma_8c" startline="567" endline="608">XAxiCdma_SetCoalesce</referencedby>
+        <referencedby refid="group__axicdma_1ga1e81ba2046ada4a40527c50ee7fdce9a" compoundref="xaxicdma_8c" startline="454" endline="542">XAxiCdma_SimpleTransfer</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2010<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022<sp/>-<sp/>2023<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="29"><highlight class="preprocessor">#ifndef<sp/>XAXICDMA_HW_H_<sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>prevent<sp/>circular<sp/>inclusions<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="30"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XAXICDMA_HW_H_</highlight></codeline>
+<codeline lineno="31"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="33"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="35"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_io.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="39"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xparameters.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="41"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47" refid="group__axicdma_1gaae822f32753ddd2fec7be5d3c9e9a4ff" refkind="member"><highlight class="preprocessor">#define<sp/>XAXICDMA_BD_MINIMUM_ALIGNMENT<sp/>0x40<sp/><sp/></highlight></codeline>
+<codeline lineno="52"><highlight class="preprocessor">#ifdef<sp/>SDT</highlight></codeline>
+<codeline lineno="53"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="57"><highlight class="preprocessor">#define<sp/>XAXICDMA_MAX_TRANSFER_LEN<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x7FFFFF<sp/><sp/></highlight></codeline>
+<codeline lineno="58"><highlight class="preprocessor">#define<sp/>XAXICDMA_4_1_MAX_TRANSFER_LEN<sp/><sp/><sp/>0x3FFFFFF<sp/><sp/></highlight></codeline>
+<codeline lineno="60" refid="group__axicdma_1gac84f0c20f910716d8f3e48ff23294440" refkind="member"><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="61" refid="group__axicdma_1gabcf011ecc845a7382ff3ad2271e0677c" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="66"><highlight class="preprocessor">#define<sp/>XAXICDMA_CR_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000000<sp/><sp/></highlight></codeline>
+<codeline lineno="67"><highlight class="preprocessor">#define<sp/>XAXICDMA_SR_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000004<sp/><sp/></highlight></codeline>
+<codeline lineno="68"><highlight class="preprocessor">#define<sp/>XAXICDMA_CDESC_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000008<sp/><sp/></highlight></codeline>
+<codeline lineno="70" refid="group__axicdma_1gaa5e9b49d3805237bc9ed772948fbf4ae" refkind="member"><highlight class="preprocessor">#define<sp/>XAXICDMA_CDESC_MSB_OFFSET<sp/><sp/><sp/><sp/>0x0000000C<sp/></highlight></codeline>
+<codeline lineno="71" refid="group__axicdma_1gaf62f028c2ed24dea6e0ebf8388cdf670" refkind="member"><highlight class="preprocessor">#define<sp/>XAXICDMA_TDESC_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000010<sp/><sp/></highlight></codeline>
+<codeline lineno="72"><highlight class="preprocessor">#define<sp/>XAXICDMA_TDESC_MSB_OFFSET<sp/><sp/><sp/><sp/>0x00000014<sp/><sp/></highlight></codeline>
+<codeline lineno="73"><highlight class="preprocessor">#define<sp/>XAXICDMA_SRCADDR_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/>0x00000018<sp/><sp/></highlight></codeline>
+<codeline lineno="74" refid="group__axicdma_1gaac2ba51f1e81b8ed8fe31bc5632d2980" refkind="member"><highlight class="preprocessor">#define<sp/>XAXICDMA_SRCADDR_MSB_OFFSET<sp/><sp/>0x0000001C<sp/></highlight></codeline>
+<codeline lineno="75" refid="group__axicdma_1ga5a00af58a865daf4ee6995ade0c9cdd1" refkind="member"><highlight class="preprocessor">#define<sp/>XAXICDMA_DSTADDR_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/>0x00000020<sp/><sp/></highlight></codeline>
+<codeline lineno="77" refid="group__axicdma_1ga53c4bf8e65e8770c6fe129160ad07e29" refkind="member"><highlight class="preprocessor">#define<sp/>XAXICDMA_DSTADDR_MSB_OFFSET<sp/><sp/>0x00000024<sp/><sp/></highlight></codeline>
+<codeline lineno="79" refid="group__axicdma_1ga3064fdc2bc683fa002bedf51498d810c" refkind="member"><highlight class="preprocessor">#define<sp/>XAXICDMA_BTT_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000028<sp/><sp/></highlight></codeline>
+<codeline lineno="81"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="82" refid="group__axicdma_1ga9a61d8801792647638b54afcafbd8a86" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="85"><highlight class="preprocessor">#define<sp/>XAXICDMA_CR_RESET_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000004<sp/></highlight></codeline>
+<codeline lineno="86"><highlight class="preprocessor">#define<sp/>XAXICDMA_CR_SGMODE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000008<sp/></highlight></codeline>
+<codeline lineno="87"><highlight class="preprocessor">#define<sp/>XAXICDMA_CR_KHOLE_RD_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000010<sp/></highlight></codeline>
+<codeline lineno="88"><highlight class="preprocessor">#define<sp/>XAXICDMA_CR_KHOLE_WR_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000020<sp/></highlight></codeline>
+<codeline lineno="90"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="91"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="96"><highlight class="preprocessor">#define<sp/>XAXICDMA_SR_IDLE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000002<sp/><sp/></highlight></codeline>
+<codeline lineno="97"><highlight class="preprocessor">#define<sp/>XAXICDMA_SR_SGINCLD_MASK<sp/><sp/><sp/><sp/><sp/><sp/>0x00000008<sp/><sp/></highlight></codeline>
+<codeline lineno="98"><highlight class="preprocessor">#define<sp/>XAXICDMA_SR_ERR_INTERNAL_MASK<sp/>0x00000010<sp/><sp/></highlight></codeline>
+<codeline lineno="99"><highlight class="preprocessor">#define<sp/>XAXICDMA_BTT_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000028<sp/><sp/></highlight></codeline>
+<codeline lineno="101"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="102"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="105" refid="group__axicdma_1gaf2b93c5bebf2fdcf9516bcfefc7ae356" refkind="member"><highlight class="preprocessor">#define<sp/>XAXICDMA_CR_RESET_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000004<sp/></highlight></codeline>
+<codeline lineno="106"><highlight class="preprocessor">#define<sp/>XAXICDMA_CR_SGMODE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000008<sp/></highlight></codeline>
+<codeline lineno="107"><highlight class="preprocessor">#define<sp/>XAXICDMA_CR_KHOLE_RD_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000010<sp/></highlight></codeline>
+<codeline lineno="108"><highlight class="preprocessor">#define<sp/>XAXICDMA_CR_KHOLE_WR_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000020<sp/></highlight></codeline>
+<codeline lineno="110"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="111" refid="group__axicdma_1ga0f6d1104468e9f155a3b9477a84531a6" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="116"><highlight class="preprocessor">#define<sp/>XAXICDMA_SR_IDLE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000002<sp/><sp/></highlight></codeline>
+<codeline lineno="117"><highlight class="preprocessor">#define<sp/>XAXICDMA_SR_SGINCLD_MASK<sp/><sp/><sp/><sp/><sp/><sp/>0x00000008<sp/><sp/></highlight></codeline>
+<codeline lineno="118"><highlight class="preprocessor">#define<sp/>XAXICDMA_SR_ERR_INTERNAL_MASK<sp/>0x00000010<sp/><sp/></highlight></codeline>
+<codeline lineno="119"><highlight class="preprocessor">#define<sp/>XAXICDMA_SR_ERR_SLAVE_MASK<sp/><sp/><sp/><sp/>0x00000020<sp/><sp/></highlight></codeline>
+<codeline lineno="120"><highlight class="preprocessor">#define<sp/>XAXICDMA_SR_ERR_DECODE_MASK<sp/><sp/><sp/>0x00000040<sp/><sp/></highlight></codeline>
+<codeline lineno="121"><highlight class="preprocessor">#define<sp/>XAXICDMA_SR_ERR_SG_INT_MASK<sp/><sp/><sp/>0x00000100<sp/><sp/></highlight></codeline>
+<codeline lineno="122" refid="group__axicdma_1ga73bb174cc046fe8f5d51da6f2d11cfaa" refkind="member"><highlight class="preprocessor">#define<sp/>XAXICDMA_SR_ERR_SG_SLV_MASK<sp/><sp/><sp/>0x00000200<sp/><sp/></highlight></codeline>
+<codeline lineno="123" refid="group__axicdma_1gada1a00e54aeb12049cd23a005eb47c52" refkind="member"><highlight class="preprocessor">#define<sp/>XAXICDMA_SR_ERR_SG_DEC_MASK<sp/><sp/><sp/>0x00000400<sp/><sp/></highlight></codeline>
+<codeline lineno="124" refid="group__axicdma_1ga9c4d04c2dc3d2601d5e63067a7e5e751" refkind="member"><highlight class="preprocessor">#define<sp/>XAXICDMA_SR_ERR_ALL_MASK<sp/><sp/><sp/><sp/><sp/><sp/>0x00000770<sp/><sp/></highlight></codeline>
+<codeline lineno="126" refid="group__axicdma_1ga9bdb5e1000af0d05ba0b9481e71b5d2d" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="127" refid="group__axicdma_1ga67ecbbc57656c5e82c86541961cef427" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="130" refid="group__axicdma_1gabec2417b4096d65fa8f07a84eef38cea" refkind="member"><highlight class="preprocessor">#define<sp/>XAXICDMA_DESC_LSB_MASK<sp/><sp/>(0xFFFFFFC0U)<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="132"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="133"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="139"><highlight class="preprocessor">#define<sp/>XAXICDMA_XR_IRQ_IOC_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00001000<sp/></highlight></codeline>
+<codeline lineno="140"><highlight class="preprocessor">#define<sp/>XAXICDMA_XR_IRQ_DELAY_MASK<sp/><sp/><sp/><sp/><sp/><sp/>0x00002000<sp/></highlight></codeline>
+<codeline lineno="141"><highlight class="preprocessor">#define<sp/>XAXICDMA_XR_IRQ_ERROR_MASK<sp/><sp/><sp/><sp/><sp/><sp/>0x00004000<sp/></highlight></codeline>
+<codeline lineno="142"><highlight class="preprocessor">#define<sp/>XAXICDMA_XR_IRQ_ALL_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00007000<sp/></highlight></codeline>
+<codeline lineno="143"><highlight class="preprocessor">#define<sp/>XAXICDMA_XR_IRQ_SIMPLE_ALL_MASK<sp/>0x00005000<sp/></highlight></codeline>
+<codeline lineno="146" refid="group__axicdma_1ga615ffaf234787866d781bf67b214dda3" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="147" refid="group__axicdma_1gaa4987449eeea265c2cbe875a7eed3ee8" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="152"><highlight class="preprocessor">#define<sp/>XAXICDMA_XR_DELAY_MASK<sp/><sp/><sp/><sp/>0xFF000000<sp/></highlight></codeline>
+<codeline lineno="153"><highlight class="preprocessor">#define<sp/>XAXICDMA_XR_COALESCE_MASK<sp/>0x00FF0000<sp/></highlight></codeline>
+<codeline lineno="155"><highlight class="preprocessor">#define<sp/>XAXICDMA_DELAY_SHIFT<sp/><sp/><sp/><sp/>24</highlight></codeline>
+<codeline lineno="156"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XAXICDMA_COALESCE_SHIFT<sp/>16</highlight></codeline>
+<codeline lineno="157"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="158"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XAXICDMA_DELAY_MAX<sp/><sp/><sp/><sp/><sp/>0xFF<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="159" refid="group__axicdma_1ga20aec8c77e90ca555dc44341c40af592" refkind="member"><highlight class="preprocessor">#define<sp/>XAXICDMA_COALESCE_MAX<sp/><sp/>0xFF<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="161"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="162"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="163"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Buffer<sp/>Descriptor<sp/>(BD)<sp/>definitions</highlight></codeline>
+<codeline lineno="164"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="165" refid="group__axicdma_1ga5c26fb92eb7913f78454aeaae8f91115" refkind="member"><highlight class="normal"></highlight></codeline>
+<codeline lineno="173"><highlight class="preprocessor">#define<sp/>XAXICDMA_BD_NDESC_OFFSET<sp/><sp/><sp/><sp/><sp/>0x00<sp/></highlight></codeline>
+<codeline lineno="174"><highlight class="preprocessor">#define<sp/>XAXICDMA_BD_NDESC_MSB_OFFSET<sp/><sp/><sp/><sp/><sp/>0x04<sp/></highlight></codeline>
+<codeline lineno="175"><highlight class="preprocessor">#define<sp/>XAXICDMA_BD_BUFSRC_OFFSET<sp/><sp/><sp/><sp/>0x08<sp/></highlight></codeline>
+<codeline lineno="176"><highlight class="preprocessor">#define<sp/>XAXICDMA_BD_BUFSRC_MSB_OFFSET<sp/><sp/><sp/><sp/>0x0C<sp/></highlight></codeline>
+<codeline lineno="177"><highlight class="preprocessor">#define<sp/>XAXICDMA_BD_BUFDST_OFFSET<sp/><sp/><sp/><sp/>0x10<sp/></highlight></codeline>
+<codeline lineno="178"><highlight class="preprocessor">#define<sp/>XAXICDMA_BD_BUFDST_MSB_OFFSET<sp/><sp/><sp/><sp/>0x14<sp/></highlight></codeline>
+<codeline lineno="179"><highlight class="preprocessor">#define<sp/>XAXICDMA_BD_CTRL_LEN_OFFSET<sp/><sp/>0x18<sp/></highlight></codeline>
+<codeline lineno="180" refid="group__axicdma_1gaac93627274e0a7ff4e45613eddd60d64" refkind="member"><highlight class="preprocessor">#define<sp/>XAXICDMA_BD_STS_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x1C<sp/></highlight></codeline>
+<codeline lineno="181" refid="group__axicdma_1ga73442468eff68f4fac6ca04f7d66b3bc" refkind="member"><highlight class="preprocessor">#define<sp/>XAXICDMA_BD_PHYS_ADDR_OFFSET<sp/>0x20<sp/></highlight></codeline>
+<codeline lineno="182" refid="group__axicdma_1gaf29c4c37b3f8d6fee34a0f6e014a80d3" refkind="member"><highlight class="preprocessor">#define<sp/>XAXICDMA_BD_PHYS_ADDR_MSB_OFFSET<sp/>0x24<sp/></highlight></codeline>
+<codeline lineno="183" refid="group__axicdma_1ga62a39b3ce53b54ba5641b4ad654054a4" refkind="member"><highlight class="preprocessor">#define<sp/>XAXICDMA_BD_ISLITE_OFFSET<sp/><sp/><sp/><sp/>0x28<sp/></highlight></codeline>
+<codeline lineno="184" refid="group__axicdma_1gacd2dd9425a21034814a89119ff957528" refkind="member"><highlight class="preprocessor">#define<sp/>XAXICDMA_BD_HASDRE_OFFSET<sp/><sp/><sp/><sp/>0x2C<sp/></highlight></codeline>
+<codeline lineno="185" refid="group__axicdma_1ga3950ca65fb96bad92246c88399f38d89" refkind="member"><highlight class="preprocessor">#define<sp/>XAXICDMA_BD_WORDLEN_OFFSET<sp/><sp/><sp/>0x30<sp/></highlight></codeline>
+<codeline lineno="186" refid="group__axicdma_1ga7153a14322b05f4845ac7796f6ab92fa" refkind="member"><highlight class="preprocessor">#define<sp/>XAXICDMA_BD_MAX_LEN_OFFSET<sp/><sp/><sp/>0x34<sp/></highlight></codeline>
+<codeline lineno="187" refid="group__axicdma_1ga9bc60587fa8dd61bb342dff49b7c8fc8" refkind="member"><highlight class="preprocessor">#define<sp/>XAXICDMA_BD_ADDRLEN_OFFSET<sp/><sp/><sp/>0x38<sp/></highlight></codeline>
+<codeline lineno="189" refid="group__axicdma_1gac3b26e44089dbe1e471eb9aedc6797fa" refkind="member"><highlight class="preprocessor">#define<sp/>XAXICDMA_BD_START_CLEAR<sp/><sp/><sp/><sp/>8<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="190" refid="group__axicdma_1gaadb078c2f018d8422e66ebaaf4149712" refkind="member"><highlight class="preprocessor">#define<sp/>XAXICDMA_BD_TO_CLEAR<sp/><sp/><sp/><sp/><sp/><sp/><sp/>24<sp/><sp/></highlight></codeline>
+<codeline lineno="191" refid="group__axicdma_1ga8e9efcc5a93543b6a6c75ab211ed8318" refkind="member"><highlight class="preprocessor">#define<sp/>XAXICDMA_BD_NUM_WORDS<sp/><sp/><sp/><sp/><sp/><sp/>16U<sp/><sp/></highlight></codeline>
+<codeline lineno="192" refid="group__axicdma_1gac5ef7101904b47a4ec640bedec49e0fc" refkind="member"><highlight class="preprocessor">#define<sp/>XAXICDMA_BD_HW_NUM_BYTES<sp/><sp/><sp/>32<sp/><sp/></highlight></codeline>
+<codeline lineno="194" refid="group__axicdma_1ga0d0d6c6e655e662017785bd3afb8ff1e" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="195"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="199" refid="group__axicdma_1ga17eecb43d41d19d66cca58097dec4891" refkind="member"><highlight class="preprocessor">#define<sp/>XAXICDMA_BD_CTRL_LENGTH_MASK<sp/>0x007FFFFF<sp/></highlight></codeline>
+<codeline lineno="201"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="202"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="205"><highlight class="preprocessor">#define<sp/>XAXICDMA_BD_STS_COMPLETE_MASK<sp/><sp/><sp/>0x80000000<sp/></highlight></codeline>
+<codeline lineno="206" refid="group__axicdma_1ga08590ca37cda0c7e7648f8b58bb70d94" refkind="member"><highlight class="preprocessor">#define<sp/>XAXICDMA_BD_STS_DEC_ERR_MASK<sp/><sp/><sp/><sp/>0x40000000<sp/></highlight></codeline>
+<codeline lineno="207"><highlight class="preprocessor">#define<sp/>XAXICDMA_BD_STS_SLV_ERR_MASK<sp/><sp/><sp/><sp/>0x20000000<sp/></highlight></codeline>
+<codeline lineno="208"><highlight class="preprocessor">#define<sp/>XAXICDMA_BD_STS_INT_ERR_MASK<sp/><sp/><sp/><sp/>0x10000000<sp/></highlight></codeline>
+<codeline lineno="209"><highlight class="preprocessor">#define<sp/>XAXICDMA_BD_STS_ALL_ERR_MASK<sp/><sp/><sp/><sp/>0x70000000<sp/></highlight></codeline>
+<codeline lineno="210"><highlight class="preprocessor">#define<sp/>XAXICDMA_BD_STS_ALL_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xF0000000<sp/></highlight></codeline>
+<codeline lineno="212" refid="group__axicdma_1gac206252f0aeb8a2f8c28aaf7c0f8361e" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="213" refid="group__axicdma_1ga5beb3dd9b31ecb304f698bab67ca81b3" refkind="member"><highlight class="preprocessor"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="214" refid="group__axicdma_1ga23cf4a9370aec62b2000113b6709e92a" refkind="member"><highlight class="normal"></highlight></codeline>
+<codeline lineno="215" refid="group__axicdma_1ga36516a3195bb957d00ef16b9f2ddf671" refkind="member"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="216" refid="group__axicdma_1gab72e831b0648742189a2623b040166b7" refkind="member"><highlight class="normal"></highlight></codeline>
+<codeline lineno="217" refid="group__axicdma_1gaff5819b9b557b391de8b69c7c730b492" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XAxiCdma_In32<sp/><sp/>Xil_In32</highlight></codeline>
+<codeline lineno="218"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XAxiCdma_Out32<sp/>Xil_Out32</highlight></codeline>
+<codeline lineno="219"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="220"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="235"><highlight class="preprocessor">#define<sp/>XAxiCdma_ReadReg(BaseAddress,<sp/>RegOffset)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="236"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XAxiCdma_In32((BaseAddress)<sp/>+<sp/>(u32)(RegOffset))</highlight></codeline>
+<codeline lineno="237"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="238"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="254"><highlight class="preprocessor">#define<sp/>XAxiCdma_WriteReg(BaseAddress,<sp/>RegOffset,<sp/>Data)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="255"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XAxiCdma_Out32((BaseAddress)<sp/>+<sp/>(u32)(RegOffset),<sp/>(u32)(Data))</highlight></codeline>
+<codeline lineno="256"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="257"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="258"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="259"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="260"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="261" refid="group__axicdma_1ga4d7304606411f8ed955c6d930e387c18" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="262"><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_hw.h"/>
+  </compounddef>
+</doxygen>

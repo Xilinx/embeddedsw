@@ -1,0 +1,1164 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="versal__2vp_2xsecure__plat_8c" kind="file">
+    <compoundname>versal_2vp/xsecure_plat.c</compoundname>
+    <includes local="yes">xsecure_sss.h</includes>
+    <includes local="yes">xsecure_aes.h</includes>
+    <includes refid="xsecure__init_8h" local="yes">xsecure_init.h</includes>
+    <includes refid="versal__2vp_2xsecure__sha__hw_8h" local="yes">xsecure_sha_hw.h</includes>
+    <includes local="yes">xsecure_sha.h</includes>
+    <includes refid="xsecure__defs_8h" local="yes">xsecure_defs.h</includes>
+    <includes local="yes">xsecure_trng.h</includes>
+    <includes refid="versal__2vp_2xsecure__error_8h" local="yes">xsecure_error.h</includes>
+    <includes local="yes">xplmi.h</includes>
+    <includes local="yes">xil_sutil.h</includes>
+    <incdepgraph>
+      <node id="2280">
+        <label>xsecure_plat.c</label>
+        <link refid="versal_2vp/xsecure_plat.c"/>
+        <childnode refid="2281" relation="include">
+        </childnode>
+        <childnode refid="2282" relation="include">
+        </childnode>
+        <childnode refid="2283" relation="include">
+        </childnode>
+        <childnode refid="2286" relation="include">
+        </childnode>
+        <childnode refid="2285" relation="include">
+        </childnode>
+        <childnode refid="2288" relation="include">
+        </childnode>
+        <childnode refid="2294" relation="include">
+        </childnode>
+        <childnode refid="2295" relation="include">
+        </childnode>
+        <childnode refid="2296" relation="include">
+        </childnode>
+        <childnode refid="2297" relation="include">
+        </childnode>
+      </node>
+      <node id="2297">
+        <label>xil_sutil.h</label>
+      </node>
+      <node id="2285">
+        <label>xsecure_sha.h</label>
+      </node>
+      <node id="2291">
+        <label>xil_cache.h</label>
+      </node>
+      <node id="2296">
+        <label>xplmi.h</label>
+      </node>
+      <node id="2286">
+        <label>xsecure_sha_hw.h</label>
+        <link refid="versal__2vp_2xsecure__sha__hw_8h"/>
+        <childnode refid="2287" relation="include">
+        </childnode>
+      </node>
+      <node id="2281">
+        <label>xsecure_sss.h</label>
+      </node>
+      <node id="2292">
+        <label>xsecure_plat_defs.h</label>
+      </node>
+      <node id="2283">
+        <label>xsecure_init.h</label>
+        <link refid="xsecure__init_8h"/>
+        <childnode refid="2282" relation="include">
+        </childnode>
+        <childnode refid="2284" relation="include">
+        </childnode>
+        <childnode refid="2285" relation="include">
+        </childnode>
+      </node>
+      <node id="2288">
+        <label>xsecure_defs.h</label>
+        <link refid="xsecure__defs_8h"/>
+        <childnode refid="2289" relation="include">
+        </childnode>
+        <childnode refid="2290" relation="include">
+        </childnode>
+        <childnode refid="2291" relation="include">
+        </childnode>
+        <childnode refid="2292" relation="include">
+        </childnode>
+        <childnode refid="2293" relation="include">
+        </childnode>
+      </node>
+      <node id="2282">
+        <label>xsecure_aes.h</label>
+      </node>
+      <node id="2294">
+        <label>xsecure_trng.h</label>
+      </node>
+      <node id="2287">
+        <label>xsecure_utils.h</label>
+      </node>
+      <node id="2293">
+        <label>xsecure_config.h</label>
+      </node>
+      <node id="2290">
+        <label>xil_types.h</label>
+      </node>
+      <node id="2289">
+        <label>xil_printf.h</label>
+      </node>
+      <node id="2284">
+        <label>xsecure_rsa_core.h</label>
+      </node>
+      <node id="2295">
+        <label>xsecure_error.h</label>
+        <link refid="versal__2vp_2xsecure__error_8h"/>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__xsecure__helper__server__apis_1ga0754b069dacca3c371fce4754b2d0a38" prot="public" static="no" mutable="no">
+        <type>const u8</type>
+        <definition>const u8 XSecure_SssLookupTable[XSECURE_SSS_MAX_SRCS][XSECURE_SSS_MAX_SRCS]</definition>
+        <argsstring>[XSECURE_SSS_MAX_SRCS][XSECURE_SSS_MAX_SRCS]</argsstring>
+        <name>XSecure_SssLookupTable</name>
+        <initializer>= {
+
+	{0x0DU, 0x00U, 0x00U, 0x06U, 0x00U, 0x0BU, 0x03U, 0x00U},
+	{0x00U, 0x09U, 0x00U, 0x07U, 0x00U, 0x0EU, 0x04U, 0x00U},
+	{0x0DU, 0x0AU, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U},
+	{0x0EU, 0x05U, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U},
+	{0x0CU, 0x07U, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U},
+	{0x05U, 0x0BU, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U},
+	{0x00U, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U},
+	{0x00U, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U},
+}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_2vp/xsecure_plat.c" line="47" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_2vp/xsecure_plat.c" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xsecure__helper__server__apis_1ga9cb7e9f1a05151630a24de795653b695" prot="public" static="no" mutable="no">
+        <type>const XSecure_ShaConfig</type>
+        <definition>const XSecure_ShaConfig ShaConfigTable[XSECURE_SHA_NUM_OF_INSTANCES]</definition>
+        <argsstring>[XSECURE_SHA_NUM_OF_INSTANCES]</argsstring>
+        <name>ShaConfigTable</name>
+        <initializer>=
+{
+	{
+		<ref refid="group__xsecure__helper__server__apis_1ggab4e2a6423dfb2e446d7dc1ee602c6ea5a642d2f1768608978847daba90058a739" kindref="member">XSECURE_SSS_SHA3_0</ref>,
+		<ref refid="versal__net_2xsecure__sha__hw_8h_1adcfcf6879b0181b7016d27ac4e1ffe76" kindref="member">XSECURE_SHA3_0_BASE_ADDRESS</ref>,
+		<ref refid="versal__net_2xsecure__sha__hw_8h_1ab8429394a569eeb59dba721688b00a49" kindref="member">XSECURE_SHA3_0_DEVICE_ID</ref>,
+	}
+}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_2vp/xsecure_plat.c" line="66" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_2vp/xsecure_plat.c" bodystart="66" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xsecure__helper__server__apis_1ga98bc3453d87d63579b5f60c19d2676c2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XSecure_SssMask</definition>
+        <argsstring>(XSecure_SssSrc InputSrc, XSecure_SssSrc OutputSrc, u32 Value)</argsstring>
+        <name>XSecure_SssMask</name>
+        <param>
+          <type><ref refid="group__xsecure__helper__server__apis_1gab4e2a6423dfb2e446d7dc1ee602c6ea5" kindref="member">XSecure_SssSrc</ref></type>
+          <declname>InputSrc</declname>
+        </param>
+        <param>
+          <type><ref refid="group__xsecure__helper__server__apis_1gab4e2a6423dfb2e446d7dc1ee602c6ea5" kindref="member">XSecure_SssSrc</ref></type>
+          <declname>OutputSrc</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Value</declname>
+        </param>
+        <briefdescription>
+<para>This function masks the secure stream switch value. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InputSrc</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Input source to be selected for the resource </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>OutputSrc</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Output source to be selected for the resource </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Value</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Register Value of SSS cfg register</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>Mask - Mask value of corresponding InputSrc and OutputSrc</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>InputSrc, OutputSrc are of type XSecure_SssSrc</para></simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InputSrc</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Input source to be selected for the resource </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>OutputSrc</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Output source to be selected for the resource </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Value</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Register Value of SSS cfg register</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>Mask Mask value of corresponding InputSrc and OutputSrc</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>InputSrc, OutputSrc are of type XSecure_SssSrc</para></simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InputSrc</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Input source to be selected for the resource </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>OutputSrc</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Output source to be selected for the resource </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Value</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Register Value of SSS cfg register</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>Mask value of corresponding InputSrc and OutputSrc</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>InputSrc, OutputSrc are of type XSecure_SssSrc</para></simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InputSrc</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Input source to be selected for the resource. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>OutputSrc</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Output source to be selected for the resource. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Value</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Register Value of SSS cfg register.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>Mask Mask value of corresponding InputSrc and OutputSrc</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>InputSrc, OutputSrc are of type XSecure_SssSrc</para></simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InputSrc</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Input source to be selected for the resource. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>OutputSrc</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Output source to be selected for the resource. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Value</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Register Value of SSS cfg register.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>Mask Mask value of corresponding InputSrc and OutputSrc.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>InputSrc, OutputSrc are of type XSecure_SssSrc. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Update SSS mask value</para></listitem><listitem><para>Update SSS mask value </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/xsecure_plat.c" line="255" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/xsecure_plat.c" bodystart="255" bodyend="277"/>
+        <references refid="group__xsecure__helper__server__apis_1gaaf3e7bf563253ea992e8e7929067e821" compoundref="spartanup_2xsecure__plat_8h" startline="67">XSECURE_SSS_AES_DMA0_VAL</references>
+        <references refid="group__xsecure__helper__server__apis_1gab357c8f8f68636180ba63c9a932e47e5" compoundref="spartanup_2xsecure__plat_8h" startline="63">XSECURE_SSS_AES_MASK</references>
+        <references refid="group__xsecure__helper__server__apis_1ggab4e2a6423dfb2e446d7dc1ee602c6ea5ad99985ebb6cf4318c4ff571557bc6b09" compoundref="spartanup_2xsecure__plat_8h" startline="212">XSECURE_SSS_DMA0</references>
+        <references refid="group__xsecure__helper__server__apis_1gac7499c67413d7c6ef12b77d12c9ea08e" compoundref="spartanup_2xsecure__plat_8h" startline="64">XSECURE_SSS_DMA0_MASK</references>
+        <references refid="group__xsecure__helper__server__apis_1gac94aaf5af67ffa8b4913cc97275a7117" compoundref="spartanup_2xsecure__plat_8h" startline="66">XSECURE_SSS_SBI_DMA0_VAL</references>
+        <references refid="group__xsecure__helper__server__apis_1gaf76f0708eae2bc4b2bc887737c797dc2" compoundref="spartanup_2xsecure__plat_8h" startline="62">XSECURE_SSS_SBI_MASK</references>
+        <references refid="group__xsecure__helper__server__apis_1ga190a14f5596f1c93530cd7ae6c343654" compoundref="spartanup_2xsecure__plat_8h" startline="59">XSECURE_SSS_SHA_DMA0_VAL</references>
+        <references refid="group__xsecure__helper__server__apis_1ga91c0023f5b12cef7db133302607b3dfc" compoundref="spartanup_2xsecure__plat_8h" startline="57">XSECURE_SSS_SHA_MASK</references>
+        <referencedby refid="group__xsecure__generic__server__apis_1ga149d2122c6b082fafda37d6f20b013e3" compoundref="core_2util_2xsecure__sss_8c" startline="101" endline="140">XSecure_SssAes</referencedby>
+        <referencedby refid="group__xsecure__generic__server__apis_1ga9fd733a169850268505e89c96636a584" compoundref="core_2util_2xsecure__sss_8c" startline="159" endline="196">XSecure_SssSha</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__helper__server__apis_1ga2bd4a79988d4eb7a1612e1ccc6430ca1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XSecure_AesValidateSize</definition>
+        <argsstring>(u32 Size, u8 IsLastChunk)</argsstring>
+        <name>XSecure_AesValidateSize</name>
+        <param>
+          <type>u32</type>
+          <declname>Size</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>IsLastChunk</declname>
+        </param>
+        <briefdescription>
+<para>This function validates the size. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function validates whether all the intermediate updates to AES engine are Q-WORD aligned or not.</para><para>This function validates if intermediate updates are 16-bytes aligned or not.</para><para>This function is not applicable for Versal_2Ve_2Vm.</para><para>This function validates whether size of the data is word aligned and if it is the last chunk size should be qword aligned.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Size</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Size of data in bytes. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>IsLastChunk</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Last chunk indication</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS on successful validation</para></listitem><listitem><para>Error code on failure</para></listitem></itemizedlist>
+</para></simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Size</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Size of data in bytes. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>IsLastChunk</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Last chunk indication</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS On successful valdation</para></listitem><listitem><para>XSECURE_AES_UNALIGNED_SIZE_ERROR If unaligned size is given as input</para></listitem></itemizedlist>
+</para></simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Size</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Size of data in bytes. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>IsLastChunk</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Last chunk indication</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - On success</para></listitem><listitem><para>XSECURE_AES_UNALIGNED_SIZE_ERROR - Size is not 16-byte aligned for non-last chunk</para></listitem></itemizedlist>
+</para></simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Size</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Size of data in bytes. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>IsLastChunk</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Last chunk indication.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS On successful valdation.</para></listitem><listitem><para>XSECURE_AES_UNALIGNED_SIZE_ERROR If unaligned size is given as input.</para></listitem></itemizedlist>
+</para></simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Size</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Size of data in bytes. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>IsLastChunk</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Last chunk indication.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS If update is 16-bytes aligned.</para></listitem><listitem><para>XSECURE_AES_UNALIGNED_SIZE_ERROR If update is not 16-bytes aligned.</para></listitem></itemizedlist>
+</para></simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Size</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Size of data in bytes. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>IsLastChunk</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Last chunk indication</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS If the data is q-word aligned for intermediate updates XST_FAILURE If the data is not q-word aligned for intermediate updates </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Validate the Size</para></listitem><listitem><para>Validate the size based on last chunk</para></listitem><listitem><para>Validate the size is 4-byte aligned or not</para></listitem><listitem><para>Validate the size is 16-byte aligned when it is last chunk</para></listitem><listitem><para>AES engine expect all intermediate updates shall be 16-byte aligned when it is not last chunk of data. Throw an error if it is not 16 byte aligned.</para></listitem><listitem><para>Validate the size is 4-byte aligned or not</para></listitem><listitem><para>Validate the size is 16-byte aligned when it is last chunk</para></listitem><listitem><para>AES engine expect all intermediate updates shall be 16-byte aligned when it is not last chunk of data. Throw an error if it is not 16 byte aligned.</para></listitem><listitem><para>AES engine expect all intermediate updates shall be 16-byte aligned when it is not last chunk of data. Throw an error if it is not 16 byte aligned.</para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/xsecure_plat.c" line="291" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/xsecure_plat.c" bodystart="291" bodyend="310"/>
+        <references refid="spartanup_2xsecure__error_8h_1a0411cd49bb5b71852cecd93bcbf0ca2da0cedb5e8d4017361b2bb2a5dffba006f" compoundref="spartanup_2xsecure__error_8h" startline="90">XSECURE_AES_UNALIGNED_SIZE_ERROR</references>
+        <references refid="group__xsecure__generic__server__apis_1gac1a4435f3c1d7f6ca90c1b5838ee6b27" compoundref="core_2util_2xsecure__utils_8h" startline="53">XSECURE_QWORD_SIZE</references>
+        <references refid="group__xsecure__generic__server__apis_1ga014b8298824e67a2e9fe8a5c8719f59a" compoundref="core_2util_2xsecure__utils_8h" startline="52">XSECURE_WORD_SIZE</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__helper__server__apis_1ga557eeba8aca187788ae1d41a4e255f0d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XSecure_ConfigureDmaByteSwap</definition>
+        <argsstring>(u32 Op)</argsstring>
+        <name>XSecure_ConfigureDmaByteSwap</name>
+        <param>
+          <type>u32</type>
+          <declname>Op</declname>
+        </param>
+        <briefdescription>
+<para>This function configures DMA Byte Swap based on the user input. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Op</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Enable/Disable byte swapping. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_2ve_2vm/xsecure_plat.c" line="238" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_2ve_2vm/xsecure_plat.c" bodystart="238" bodyend="243"/>
+        <references refid="group__xsecure__generic__server__apis_1ga11d8bbf7423a10f98cbcfd4796ea6d6a" compoundref="xsecure__init_8c" startline="216" endline="221">XSecure_GetAesInstance</references>
+        <referencedby refid="group__xsecure__kat__server__apis_1ga0567b89c7436b6925d6f64ef15b628e0" compoundref="xsecure__kat_8c" startline="783" endline="877">XSecure_AesDecryptKat</referencedby>
+        <referencedby refid="group__xsecure__kat__server__apis_1gafe625810c2509e3d9b490d63c3861807" compoundref="xsecure__kat_8c" startline="901" endline="1005">XSecure_AesEncryptKat</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__helper__server__apis_1ga9224168b6fa6d11f59c50046f2221d11" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XSecure_AesPlatPmcDmaCfgAndXfer</definition>
+        <argsstring>(XPmcDma *PmcDmaPtr, const XSecure_AesDmaCfg *AesDmaCfg, u32 Size, UINTPTR BaseAddress)</argsstring>
+        <name>XSecure_AesPlatPmcDmaCfgAndXfer</name>
+        <param>
+          <type>XPmcDma *</type>
+          <declname>PmcDmaPtr</declname>
+        </param>
+        <param>
+          <type>const <ref refid="struct_x_secure___aes_dma_cfg" kindref="compound">XSecure_AesDmaCfg</ref> *</type>
+          <declname>AesDmaCfg</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Size</declname>
+        </param>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <briefdescription>
+<para>This function configures the PMC DMA channels and transfers data. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function sets the SRC and DEST channel endianness configurations of PMC DMA and transfers data.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>PmcDmaPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XPmcDma instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>AesDmaCfg</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>DMA SRC and DEST channel configuration </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Size</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Size of data in bytes. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Not applicable for versal</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS on successful configuration</para></listitem><listitem><para>Error code on failure</para></listitem></itemizedlist>
+</para></simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>PmcDmaPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XPmcDma instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>AesDmaCfg</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>DMA SRC and DEST channel configuration </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Size</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Size of data in bytes. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Not applicable for versal</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS On successful configuration</para></listitem><listitem><para>XSECURE_AES_INVALID_PARAM If any input parameter is invalid</para></listitem><listitem><para>XST_FAILURE On failure</para></listitem></itemizedlist>
+</para></simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>PmcDmaPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XPmcDma instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>AesDmaCfg</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>DMA SRC and DEST channel configuration. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Size</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Size of data in bytes. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Not applicable for versal_2vp.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS On successful configuration</para></listitem><listitem><para>XSECURE_AES_INVALID_PARAM If any input parameter is invalid</para></listitem><listitem><para>XST_FAILURE On failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Wait for the SRC DMA completion.</para></listitem><listitem><para>Acknowledge the transfer has completed</para></listitem><listitem><para>Wait for the DEST DMA completion.</para></listitem><listitem><para>Acknowledge the transfer has completed</para></listitem><listitem><para>Enable PMC DMA Src and Dst channels for byte swapping.</para></listitem><listitem><para>Sets the start address and size for both src and dest channels as per the configuration</para></listitem><listitem><para>Wait for the SRC DMA completion.</para></listitem><listitem><para>Acknowledge the transfer has completed</para></listitem><listitem><para>Wait for the DEST DMA completion.</para></listitem><listitem><para>Acknowledge the transfer has completed</para></listitem><listitem><para>Enable PMC DMA Src and Dst channels for byte swapping.</para></listitem><listitem><para>Sets the start address and size for both src and dest channels as per the configuration</para></listitem><listitem><para>Wait for the SRC DMA completion.</para></listitem><listitem><para>Acknowledge the transfer has completed</para></listitem><listitem><para>Wait for the DEST DMA completion.</para></listitem><listitem><para>Acknowledge the transfer has completed </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/xsecure_plat.c" line="326" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/xsecure_plat.c" bodystart="326" bodyend="378"/>
+        <references refid="struct_x_secure___aes_dma_cfg_1a037773022fccd544566ba4063a4c6ee4" compoundref="spartanup_2xsecure__plat_8h" startline="233">XSecure_AesDmaCfg::DestChannelCfg</references>
+        <references refid="struct_x_secure___aes_dma_cfg_1a55052d177d8fb06fc47ca7b9d448ae30" compoundref="spartanup_2xsecure__plat_8h" startline="231">XSecure_AesDmaCfg::DestDataAddr</references>
+        <references refid="struct_x_secure___aes_dma_cfg_1a1400e7b647c5a5835f78999f6634272d" compoundref="spartanup_2xsecure__plat_8h" startline="235">XSecure_AesDmaCfg::IsLastChunkDest</references>
+        <references refid="struct_x_secure___aes_dma_cfg_1ad6d3b3ad5e06cb4e78275514f64ca5a7" compoundref="spartanup_2xsecure__plat_8h" startline="234">XSecure_AesDmaCfg::IsLastChunkSrc</references>
+        <references refid="struct_x_secure___aes_dma_cfg_1ad8b73674b1779c43cb36c933d588d300" compoundref="spartanup_2xsecure__plat_8h" startline="232">XSecure_AesDmaCfg::SrcChannelCfg</references>
+        <references refid="struct_x_secure___aes_dma_cfg_1a6d92d93e3aeab86b9dbb80ff284846b5" compoundref="spartanup_2xsecure__plat_8h" startline="230">XSecure_AesDmaCfg::SrcDataAddr</references>
+        <references refid="group__xsecure__helper__server__apis_1ga49179f0283044223009c733e01b79d5a" compoundref="spartanup_2xsecure__plat_8c" startline="48">XSECURE_ADDR_HIGH_SHIFT</references>
+        <references refid="group__xsecure__aes__client__apis_1gaf7eae7e456a1d11d550afb26e22ea199" compoundref="xsecure__aesclient_8h" startline="87">XSECURE_AES_INVALID_PARAM</references>
+        <references refid="group__xsecure__helper__server__apis_1ga3263636461cfef82330983351e80ba5c" compoundref="spartanup_2xsecure__plat_8h" startline="60">XSECURE_AES_NO_CFG_DST_DMA</references>
+        <references refid="group__xsecure__generic__server__apis_1ga014b8298824e67a2e9fe8a5c8719f59a" compoundref="core_2util_2xsecure__utils_8h" startline="52">XSECURE_WORD_SIZE</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__helper__server__apis_1ga8b4948ee028360683bcc161bf576ec77" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XSecure_AesPmcDmaCfgEndianness</definition>
+        <argsstring>(XPmcDma *InstancePtr, XPmcDma_Channel Channel, u8 EndianType)</argsstring>
+        <name>XSecure_AesPmcDmaCfgEndianness</name>
+        <param>
+          <type>XPmcDma *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>XPmcDma_Channel</type>
+          <declname>Channel</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>EndianType</declname>
+        </param>
+        <briefdescription>
+<para>This is a helper function to enable/disable byte swapping feature of PMC DMA. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XPmcDma instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Channel</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Channel Type (XPMCDMA_SRC_CHANNEL or XPMCDMA_DST_CHANNEL) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>EndianType</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>1 to enable byte swapping, 0 to disable byte swapping</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XPmcDma instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Channel</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Channel Type (XPMCDMA_SRC_CHANNEL or XPMCDMA_DST_CHANNEL) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>EndianType</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>1 to enable byte swapping, 0 to disable byte swapping</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XPmcDma instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Channel</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Channel type (XPMCDMA_SRC_CHANNEL or XPMCDMA_DST_CHANNEL) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>EndianType</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Endianness type: 1 to enable byte swapping, 0 to disable byte swapping </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Assert validates the input arguments</para></listitem><listitem><para>Updates the XPmcDma_Configure structure with PmcDma&apos;s channel values</para></listitem><listitem><para>Updates the PmcDma&apos;s channel with XPmcDma_Configure structure values</para></listitem><listitem><para>Assert validates the input arguments</para></listitem><listitem><para>Updates the XPmcDma_Configure structure with PmcDma&apos;s channel values</para></listitem><listitem><para>Updates the PmcDma&apos;s channel with XPmcDma_Configure structure values</para></listitem><listitem><para>Assert validates the input arguments</para></listitem><listitem><para>Updates the XPmcDma_Configure structure with PmcDma&apos;s channel values</para></listitem><listitem><para>Updates the PmcDma&apos;s channel with XPmcDma_Configure structure values</para></listitem><listitem><para>Assert validates the input arguments</para></listitem><listitem><para>Updates the XPmcDma_Configure structure with PmcDma&apos;s channel values</para></listitem><listitem><para>Updates the PmcDma&apos;s channel with XPmcDma_Configure structure values</para></listitem><listitem><para>Assert validates the input arguments</para></listitem><listitem><para>Updates the XPmcDma_Configure structure with PmcDma&apos;s channel values</para></listitem><listitem><para>Updates the PmcDma&apos;s channel with XPmcDma_Configure structure values</para></listitem><listitem><para>Assert validates the input arguments</para></listitem><listitem><para>Updates the XPmcDma_Configure structure with PmcDma&apos;s channel values</para></listitem><listitem><para>Updates the PmcDma&apos;s channel with XPmcDma_Configure structure values </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/xsecure_plat.c" line="391" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/xsecure_plat.c" bodystart="391" bodyend="404"/>
+        <references refid="group__xsecure__generic__server__apis_1ga2d44494aa84e82f6e26bd0c0a396b734" compoundref="core_2util_2xsecure__utils_8h" startline="86">XSecure_AssertVoid</references>
+        <referencedby refid="group__xsecure__aes__server__apis_1gafc1c2624b3827e83af7c24b2906bb7db" compoundref="core_2aes_2xsecure__aes_8c" startline="948" endline="952">XSecure_AesEncryptUpdate</referencedby>
+        <referencedby refid="group__xsecure__helper__server__apis_1gadc255b2085b85b148a6ab41d71fde8e2" compoundref="versal__2ve__2vm_2xsecure__plat_8c" startline="296" endline="360">XSecure_AesPlatPmcDmaCfgAndXfer</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__helper__server__apis_1ga57bbf2056be52d8c1d21154930ae0751" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XSecure_GetRandomNum</definition>
+        <argsstring>(u8 *Output, u32 Size)</argsstring>
+        <name>XSecure_GetRandomNum</name>
+        <param>
+          <type>u8 *</type>
+          <declname>Output</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Size</declname>
+        </param>
+        <briefdescription>
+<para>This function generates random number of given size. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function generates Random number of given size.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Output</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the output buffer </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Size</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of random bytes to be read</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - On success</para></listitem><listitem><para>XST_INVALID_PARAM - Invalid input parameter (size is 0 or output is NULL)</para></listitem><listitem><para>XSECURE_ERR_GLITCH_DETECTED - Glitch detected during random number generation</para></listitem><listitem><para>XST_FAILURE - TRNG operation failure</para></listitem></itemizedlist>
+</para></simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Output</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the output buffer </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Size</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the number of random bytes to be read</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS On Success</para></listitem><listitem><para>XST_FAILURE On Failure</para></listitem><listitem><para>XST_INVALID_PARAM - Invalid input parameter (size is 0 or output is NULL)</para></listitem><listitem><para>XSECURE_ERR_GLITCH_DETECTED - Error when glitch is detected</para></listitem></itemizedlist>
+</para></simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Output</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the output buffer. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Size</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of random bytes to be read.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS On Success.<itemizedlist>
+<listitem><para>XST_FAILURE On Failure.</para></listitem><listitem><para>XST_INVALID_PARAM - Invalid input parameter (size is 0 or output is NULL)</para></listitem></itemizedlist>
+</para></listitem><listitem><para>XSECURE_ERR_GLITCH_DETECTED - Error when glitch is detected.</para></listitem></itemizedlist>
+</para></simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Output</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the output buffer </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Size</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the number of random bytes to be read</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS On Success</para></listitem><listitem><para>XST_FAILURE On Failure</para></listitem><listitem><para>XST_INVALID_PARAM - Invalid input parameter (size is 0 or output is NULL)</para></listitem><listitem><para>XSECURE_ERR_GLITCH_DETECTED - Error when glitch is detected. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Validate input parameters</para></listitem><listitem><para>Verify loop index is within expected bounds</para></listitem><listitem><para>Zeroise temporary buffer</para></listitem><listitem><para>Validate input parameters</para></listitem><listitem><para>Verify loop index is within expected bounds</para></listitem><listitem><para>Zeroise temporary buffer</para></listitem><listitem><para>Validate input parameters</para></listitem><listitem><para>Verify loop index is within expected bounds</para></listitem><listitem><para>Zeroise temporary buffer</para></listitem><listitem><para>Validate input parameters</para></listitem><listitem><para>Verify loop index is within expected bounds</para></listitem><listitem><para>Zeroise temporary buffer </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_2ve_2vm/xsecure_plat.c" line="402" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_2ve_2vm/xsecure_plat.c" bodystart="402" bodyend="464"/>
+        <references refid="group__xsecure__helper__server__apis_1ga7ceaf28c4b557ab6cefc96402262ecc0" compoundref="versal__2ve__2vm_2xsecure__plat_8c" startline="478" endline="510">XSecure_ECCRandInit</references>
+        <references refid="spartanup_2xsecure__error_8h_1a0411cd49bb5b71852cecd93bcbf0ca2daa27fd6a5d2b1ea311379e7f39dc8fbcb" compoundref="spartanup_2xsecure__error_8h" startline="249">XSECURE_ERR_GLITCH_DETECTED</references>
+        <references refid="group__xsecure__trng__server__apis_1ga4cfae3189327a2de74505744d07bf464" compoundref="trngpsv_2xsecure__trng_8c" startline="62" endline="67">XSecure_GetTrngInstance</references>
+        <references refid="group__xsecure__trng__client__apis_1gafaf6b2f4582742d4fb15beafb4875378" compoundref="xsecure__trngclient_8h" startline="46">XSECURE_TRNG_SEC_STRENGTH_IN_BYTES</references>
+        <references refid="group__xsecure__trng__server__apis_1ga03ced7fffd85b330260e4f88bf1b93c3" compoundref="trngpsv_2xsecure__trng_8h" startline="60">XSecure_Uninstantiate</references>
+        <referencedby refid="group__xsecure__ecdsa__server__apis_1ga9566bee278ec58acd705a67ee9d58766" compoundref="xsecure__ellipticplat_8c" startline="185" endline="226">XSecure_EllipticGenerateEphemeralKey</referencedby>
+        <referencedby refid="group__xsecure__mldsa__server__apis_1ga46920ff3a1a857a905036689c2bfc115" compoundref="xsecure__mldsa_8c" startline="295" endline="458">XSecure_MldsaSignGenerate</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__helper__server__apis_1ga7ceaf28c4b557ab6cefc96402262ecc0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XSecure_ECCRandInit</definition>
+        <argsstring>(void)</argsstring>
+        <name>XSecure_ECCRandInit</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function initializes the trng in HRNG mode if it is not initialized and it is applicable only for Versal_2Ve_2Vm. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function initializes the trng in HRNG mode if it is not initialized and it is applicable only for VersalNet.</para><para>This function initializes the trng in HRNG mode if it is not initialized.</para><para>This function initializes the trng in HRNG mode if it is not initialized and it is applicable only for Versal_2VP.</para><para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - On successful initialization</para></listitem><listitem><para>XSECURE_ERR_IN_TRNG_SELF_TESTS - TRNG self-test failure</para></listitem><listitem><para>XSECURE_ERR_TRNG_INIT_N_CONFIG - TRNG initialization and configuration failure</para></listitem><listitem><para>XST_FAILURE - On any other failure</para></listitem></itemizedlist>
+</para><simplesectsep/><para><itemizedlist>
+<listitem><para>XST_SUCCESS On Successful initialization</para></listitem><listitem><para>XST_FAILURE On Failure</para></listitem></itemizedlist>
+</para><simplesectsep/><para><itemizedlist>
+<listitem><para>XST_SUCCESS On Successful initialization.</para></listitem><listitem><para>XST_FAILURE On Failure. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_2ve_2vm/xsecure_plat.c" line="478" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_2ve_2vm/xsecure_plat.c" bodystart="478" bodyend="510"/>
+        <references refid="spartanup_2xsecure__error_8h_1a0411cd49bb5b71852cecd93bcbf0ca2da3c1f331839ddf7c640d82b3e386b56ae" compoundref="spartanup_2xsecure__error_8h" startline="250">XSECURE_ERR_IN_TRNG_SELF_TESTS</references>
+        <references refid="spartanup_2xsecure__error_8h_1a0411cd49bb5b71852cecd93bcbf0ca2da8c7cd84b41f1e78398e90ed2841d644f" compoundref="spartanup_2xsecure__error_8h" startline="251">XSECURE_ERR_TRNG_INIT_N_CONFIG</references>
+        <references refid="group__xsecure__trng__server__apis_1ga4cfae3189327a2de74505744d07bf464" compoundref="trngpsv_2xsecure__trng_8c" startline="62" endline="67">XSecure_GetTrngInstance</references>
+        <references refid="group__xsecure__trng__server__apis_1gaa644702ed555bd453f0837a5d12abc97" compoundref="trngpsv_2xsecure__trng_8c" startline="161" endline="185">XSecure_PreOperationalSelfTests</references>
+        <references refid="group__xsecure__trng__server__apis_1gga2bd87e5d7e3fc02e8f0e0e783a390305a4987d50e7368c26103a77a8b684e62d9" compoundref="trngpsv_2xsecure__trng_8h" startline="74">XSECURE_TRNG_HRNG_MODE</references>
+        <references refid="group__xsecure__trng__server__apis_1ga47d5d39c195cbbcb803bc61f4f078516" compoundref="trngpsv_2xsecure__trng_8c" startline="78" endline="148">XSecure_TrngInitNCfgMode</references>
+        <referencedby refid="group__xsecure__ecdsa__server__apis_1gab3835b878d2947b3f94ba4cd555dd641" compoundref="xsecure__ellipticplat_8c" startline="310" endline="400">XSecure_EcdhGetSecret</referencedby>
+        <referencedby refid="group__xsecure__ecdsa__server__apis_1ga682282def21e1c86ab583cdd41090fbb" compoundref="xsecure__elliptic_8c" startline="118" endline="194">XSecure_EllipticGenerateKey_64Bit</referencedby>
+        <referencedby refid="group__xsecure__ecdsa__server__apis_1ga3af7e8a366bb982fa4c0c82be1b37250" compoundref="xsecure__elliptic_8c" startline="269" endline="390">XSecure_EllipticGenerateSignature_64Bit</referencedby>
+        <referencedby refid="group__xsecure__helper__server__apis_1ga57bbf2056be52d8c1d21154930ae0751" compoundref="versal__2ve__2vm_2xsecure__plat_8c" startline="402" endline="464">XSecure_GetRandomNum</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file contains versal_2vp specific code for xilsecure server. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+5.6   tvp  07/07/25 Initial release
+      sd   11/07/25 Update condition to reflect the revised function return value
+5.7   tbk  02/24/26 Add CFI protection for TRNG loop counter
+      tbk  02/24/26 Correct platform in <ref refid="group__xsecure__helper__server__apis_1ga7ceaf28c4b557ab6cefc96402262ecc0" kindref="member">XSecure_ECCRandInit()</ref> header comment and other typo
+      tbk  02/23/26 Set error status in XSecure_ECCRandInit
+      rpu  04/22/26 Fix XSecure_GetRandomNum for non-word-aligned sizes
+</preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/***************************************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2025<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">***************************************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/**************************************************************************************************/</highlight></codeline>
+<codeline lineno="30"><highlight class="comment">/***************************************<sp/>Include<sp/>Files<sp/>********************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xsecure_sss.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xsecure_aes.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xsecure__init_8h" kindref="compound">xsecure_init.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="versal__2vp_2xsecure__sha__hw_8h" kindref="compound">xsecure_sha_hw.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xsecure_sha.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xsecure__defs_8h" kindref="compound">xsecure_defs.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xsecure_trng.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="versal__2vp_2xsecure__error_8h" kindref="compound">xsecure_error.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xplmi.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_sutil.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="comment">/************************************<sp/>Constant<sp/>Definitions<sp/>****************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="comment">/************************************<sp/>Variable<sp/>Definitions<sp/>****************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>XSecure_SssLookupTable[Input<sp/>source][Resource]<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>XSecure_SssLookupTable[<ref refid="group__xsecure__helper__server__apis_1ga5b3d5ffcbedbf1152a60c7b9d4fce8ad" kindref="member">XSECURE_SSS_MAX_SRCS</ref>][<ref refid="group__xsecure__helper__server__apis_1ga5b3d5ffcbedbf1152a60c7b9d4fce8ad" kindref="member">XSECURE_SSS_MAX_SRCS</ref>]<sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*+----+-----+-----+-----+-----+-----+-----+--------+</highlight></codeline>
+<codeline lineno="49"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*|DMA0|<sp/>DMA1|<sp/>PTPI|<sp/>AES<sp/>|<sp/>SHA<sp/>|<sp/>SBI<sp/>|<sp/>PZM<sp/>|Invalid<sp/>|</highlight></codeline>
+<codeline lineno="50"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*+----+-----+-----+-----+-----+-----+-----+--------+</highlight></codeline>
+<codeline lineno="51"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>0x00<sp/>=<sp/>INVALID<sp/>value</highlight></codeline>
+<codeline lineno="52"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{0x0DU,<sp/>0x00U,<sp/>0x00U,<sp/>0x06U,<sp/>0x00U,<sp/>0x0BU,<sp/>0x03U,<sp/>0x00U},<sp/></highlight><highlight class="comment">/*<sp/>DMA0<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{0x00U,<sp/>0x09U,<sp/>0x00U,<sp/>0x07U,<sp/>0x00U,<sp/>0x0EU,<sp/>0x04U,<sp/>0x00U},<sp/></highlight><highlight class="comment">/*<sp/>DMA1<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{0x0DU,<sp/>0x0AU,<sp/>0x00U,<sp/>0x00U,<sp/>0x00U,<sp/>0x00U,<sp/>0x00U,<sp/>0x00U},<sp/></highlight><highlight class="comment">/*<sp/>PTPI<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{0x0EU,<sp/>0x05U,<sp/>0x00U,<sp/>0x00U,<sp/>0x00U,<sp/>0x00U,<sp/>0x00U,<sp/>0x00U},<sp/></highlight><highlight class="comment">/*<sp/>AES<sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{0x0CU,<sp/>0x07U,<sp/>0x00U,<sp/>0x00U,<sp/>0x00U,<sp/>0x00U,<sp/>0x00U,<sp/>0x00U},<sp/></highlight><highlight class="comment">/*<sp/>SHA<sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{0x05U,<sp/>0x0BU,<sp/>0x00U,<sp/>0x00U,<sp/>0x00U,<sp/>0x00U,<sp/>0x00U,<sp/>0x00U},<sp/></highlight><highlight class="comment">/*<sp/>SBI<sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{0x00U,<sp/>0x00U,<sp/>0x00U,<sp/>0x00U,<sp/>0x00U,<sp/>0x00U,<sp/>0x00U,<sp/>0x00U},<sp/></highlight><highlight class="comment">/*<sp/>PZI<sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{0x00U,<sp/>0x00U,<sp/>0x00U,<sp/>0x00U,<sp/>0x00U,<sp/>0x00U,<sp/>0x00U,<sp/>0x00U},<sp/></highlight><highlight class="comment">/*<sp/>Invalid<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="64"><highlight class="comment">*<sp/>The<sp/>configuration<sp/>table<sp/>for<sp/>devices</highlight></codeline>
+<codeline lineno="65"><highlight class="comment">*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XSecure_ShaConfig<sp/>ShaConfigTable[<ref refid="versal_2xsecure__sha__hw_8h_1a20b9a0d810aec45fb949b752d3540a1a" kindref="member">XSECURE_SHA_NUM_OF_INSTANCES</ref>]<sp/>=</highlight></codeline>
+<codeline lineno="67"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__helper__server__apis_1ggab4e2a6423dfb2e446d7dc1ee602c6ea5a642d2f1768608978847daba90058a739" kindref="member">XSECURE_SSS_SHA3_0</ref>,</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="versal_2xsecure__sha__hw_8h_1adcfcf6879b0181b7016d27ac4e1ffe76" kindref="member">XSECURE_SHA3_0_BASE_ADDRESS</ref>,</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="versal_2xsecure__sha__hw_8h_1ab8429394a569eeb59dba721688b00a49" kindref="member">XSECURE_SHA3_0_DEVICE_ID</ref>,</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="73"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight><highlight class="comment">/************************************<sp/>Function<sp/>Prototypes<sp/>*****************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="76"><highlight class="normal"></highlight></codeline>
+<codeline lineno="77"><highlight class="normal"></highlight><highlight class="comment">/************************************<sp/>Function<sp/>Definitions<sp/>****************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight></codeline>
+<codeline lineno="79"><highlight class="normal"></highlight><highlight class="comment">/**************************************************************************************************/</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/>u32<sp/><ref refid="group__xsecure__helper__server__apis_1ga98bc3453d87d63579b5f60c19d2676c2" kindref="member">XSecure_SssMask</ref>(<ref refid="group__xsecure__helper__server__apis_1gab4e2a6423dfb2e446d7dc1ee602c6ea5" kindref="member">XSecure_SssSrc</ref><sp/>InputSrc,<sp/><ref refid="group__xsecure__helper__server__apis_1gab4e2a6423dfb2e446d7dc1ee602c6ea5" kindref="member">XSecure_SssSrc</ref><sp/>OutputSrc,<sp/>u32<sp/>Value)</highlight></codeline>
+<codeline lineno="94"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Mask<sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>RegVal<sp/>=<sp/>Value;</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"></highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((InputSrc<sp/>==<sp/><ref refid="group__xsecure__helper__server__apis_1ggab4e2a6423dfb2e446d7dc1ee602c6ea5ad99985ebb6cf4318c4ff571557bc6b09" kindref="member">XSECURE_SSS_DMA0</ref>)<sp/>||<sp/>(OutputSrc<sp/>==<sp/><ref refid="group__xsecure__helper__server__apis_1ggab4e2a6423dfb2e446d7dc1ee602c6ea5ad99985ebb6cf4318c4ff571557bc6b09" kindref="member">XSECURE_SSS_DMA0</ref>))<sp/>{</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((RegVal<sp/>&amp;<sp/><ref refid="group__xsecure__helper__server__apis_1gaf76f0708eae2bc4b2bc887737c797dc2" kindref="member">XSECURE_SSS_SBI_MASK</ref>)<sp/>==<sp/><ref refid="group__xsecure__helper__server__apis_1gac94aaf5af67ffa8b4913cc97275a7117" kindref="member">XSECURE_SSS_SBI_DMA0_VAL</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Mask<sp/>|=<sp/><ref refid="group__xsecure__helper__server__apis_1gaf76f0708eae2bc4b2bc887737c797dc2" kindref="member">XSECURE_SSS_SBI_MASK</ref>;</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((RegVal<sp/>&amp;<sp/><ref refid="group__xsecure__helper__server__apis_1ga5529afe5bbe60a89690a77196f21755f" kindref="member">XSECURE_SSS_SHA3_0_MASK</ref>)<sp/>==<sp/><ref refid="group__xsecure__helper__server__apis_1ga0b49dfea206b16404c2a9ec0124bb2da" kindref="member">XSECURE_SSS_SHA3_0_DMA0_VAL</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Mask<sp/>|=<sp/><ref refid="group__xsecure__helper__server__apis_1ga5529afe5bbe60a89690a77196f21755f" kindref="member">XSECURE_SSS_SHA3_0_MASK</ref>;</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((RegVal<sp/>&amp;<sp/><ref refid="group__xsecure__helper__server__apis_1gab357c8f8f68636180ba63c9a932e47e5" kindref="member">XSECURE_SSS_AES_MASK</ref>)<sp/>==<sp/><ref refid="group__xsecure__helper__server__apis_1gaaf3e7bf563253ea992e8e7929067e821" kindref="member">XSECURE_SSS_AES_DMA0_VAL</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Mask<sp/>|=<sp/><ref refid="group__xsecure__helper__server__apis_1gab357c8f8f68636180ba63c9a932e47e5" kindref="member">XSECURE_SSS_AES_MASK</ref>;</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((RegVal<sp/>&amp;<sp/><ref refid="group__xsecure__helper__server__apis_1gac7499c67413d7c6ef12b77d12c9ea08e" kindref="member">XSECURE_SSS_DMA0_MASK</ref>)<sp/>!=<sp/>0U)<sp/>{</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Mask<sp/>|=<sp/><ref refid="group__xsecure__helper__server__apis_1gac7499c67413d7c6ef12b77d12c9ea08e" kindref="member">XSECURE_SSS_DMA0_MASK</ref>;</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((InputSrc<sp/>==<sp/><ref refid="group__xsecure__helper__server__apis_1ggab4e2a6423dfb2e446d7dc1ee602c6ea5aa2a6923f1a527c87fb745b94a1004ebe" kindref="member">XSECURE_SSS_DMA1</ref>)<sp/>||<sp/>(OutputSrc<sp/>==<sp/><ref refid="group__xsecure__helper__server__apis_1ggab4e2a6423dfb2e446d7dc1ee602c6ea5aa2a6923f1a527c87fb745b94a1004ebe" kindref="member">XSECURE_SSS_DMA1</ref>))<sp/>{</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((RegVal<sp/>&amp;<sp/>XSECURE_SSS_SBI_MASK)<sp/>==<sp/><ref refid="group__xsecure__helper__server__apis_1gab8289ec5862579296b264af809a12203" kindref="member">XSECURE_SSS_SBI_DMA1_VAL</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Mask<sp/>|=<sp/><ref refid="group__xsecure__helper__server__apis_1gaf76f0708eae2bc4b2bc887737c797dc2" kindref="member">XSECURE_SSS_SBI_MASK</ref>;</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((RegVal<sp/>&amp;<sp/>XSECURE_SSS_SHA3_0_MASK)<sp/>==<sp/><ref refid="group__xsecure__helper__server__apis_1ga9a22d9fa405a676e438cf522e96a57f7" kindref="member">XSECURE_SSS_SHA3_0_DMA1_VAL</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Mask<sp/>|=<sp/><ref refid="group__xsecure__helper__server__apis_1ga5529afe5bbe60a89690a77196f21755f" kindref="member">XSECURE_SSS_SHA3_0_MASK</ref>;</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((RegVal<sp/>&amp;<sp/>XSECURE_SSS_AES_MASK)<sp/>==<sp/><ref refid="group__xsecure__helper__server__apis_1gae5cc984ad9e3350a3a890f5894c664ab" kindref="member">XSECURE_SSS_AES_DMA1_VAL</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Mask<sp/>|=<sp/><ref refid="group__xsecure__helper__server__apis_1gab357c8f8f68636180ba63c9a932e47e5" kindref="member">XSECURE_SSS_AES_MASK</ref>;</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((RegVal<sp/>&amp;<sp/><ref refid="group__xsecure__helper__server__apis_1ga2ef9d561ab24c0c49b3012c247729612" kindref="member">XSECURE_SSS_DMA1_MASK</ref>)<sp/>!=<sp/>0U)<sp/>{</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Mask<sp/>|=<sp/><ref refid="group__xsecure__helper__server__apis_1ga2ef9d561ab24c0c49b3012c247729612" kindref="member">XSECURE_SSS_DMA1_MASK</ref>;</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"></highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Mask;</highlight></codeline>
+<codeline lineno="129"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"></highlight></codeline>
+<codeline lineno="131"><highlight class="normal"></highlight><highlight class="comment">/**************************************************************************************************/</highlight></codeline>
+<codeline lineno="145"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__helper__server__apis_1ga2bd4a79988d4eb7a1612e1ccc6430ca1" kindref="member">XSecure_AesValidateSize</ref>(u32<sp/>Size,<sp/>u8<sp/>IsLastChunk)</highlight></codeline>
+<codeline lineno="146"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"></highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((Size<sp/>%<sp/><ref refid="group__xsecure__generic__server__apis_1ga014b8298824e67a2e9fe8a5c8719f59a" kindref="member">XSECURE_WORD_SIZE</ref>)<sp/>!=<sp/>0x00U)<sp/>{</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(int)<ref refid="spartanup_2xsecure__error_8h_1a0411cd49bb5b71852cecd93bcbf0ca2da0cedb5e8d4017361b2bb2a5dffba006f" kindref="member">XSECURE_AES_UNALIGNED_SIZE_ERROR</ref>;</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((IsLastChunk<sp/>!=<sp/>TRUE)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((Size<sp/>%<sp/><ref refid="group__xsecure__generic__server__apis_1gac1a4435f3c1d7f6ca90c1b5838ee6b27" kindref="member">XSECURE_QWORD_SIZE</ref>)<sp/>!=<sp/>0x00U))<sp/>{</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(int)<ref refid="spartanup_2xsecure__error_8h_1a0411cd49bb5b71852cecd93bcbf0ca2da0cedb5e8d4017361b2bb2a5dffba006f" kindref="member">XSECURE_AES_UNALIGNED_SIZE_ERROR</ref>;</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"></highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="162"><highlight class="normal">END:</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="164"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"></highlight></codeline>
+<codeline lineno="166"><highlight class="normal"></highlight><highlight class="comment">/**************************************************************************************************/</highlight></codeline>
+<codeline lineno="173"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__helper__server__apis_1ga557eeba8aca187788ae1d41a4e255f0d" kindref="member">XSecure_ConfigureDmaByteSwap</ref>(u32<sp/>Op)</highlight></codeline>
+<codeline lineno="174"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSecure_Aes<sp/>*AesInstance<sp/>=<sp/><ref refid="group__xsecure__generic__server__apis_1ga11d8bbf7423a10f98cbcfd4796ea6d6a" kindref="member">XSecure_GetAesInstance</ref>();</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"></highlight></codeline>
+<codeline lineno="177"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>AesInstance-&gt;DmaSwapEn<sp/>=<sp/>Op;</highlight></codeline>
+<codeline lineno="178"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"></highlight></codeline>
+<codeline lineno="180"><highlight class="normal"></highlight><highlight class="comment">/**************************************************************************************************/</highlight></codeline>
+<codeline lineno="197"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__helper__server__apis_1ga9224168b6fa6d11f59c50046f2221d11" kindref="member">XSecure_AesPlatPmcDmaCfgAndXfer</ref>(XPmcDma<sp/>*PmcDmaPtr,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_secure___aes_dma_cfg" kindref="compound">XSecure_AesDmaCfg</ref><sp/>*AesDmaCfg,</highlight></codeline>
+<codeline lineno="198"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Size,<sp/>UINTPTR<sp/>BaseAddress)</highlight></codeline>
+<codeline lineno="199"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSecure_Aes<sp/>*InstancePtr<sp/>=<sp/><ref refid="group__xsecure__generic__server__apis_1ga11d8bbf7423a10f98cbcfd4796ea6d6a" kindref="member">XSecure_GetAesInstance</ref>();</highlight></codeline>
+<codeline lineno="202"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)BaseAddress;</highlight></codeline>
+<codeline lineno="203"><highlight class="normal"></highlight></codeline>
+<codeline lineno="204"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((PmcDmaPtr<sp/>==<sp/>NULL)<sp/>||<sp/>(AesDmaCfg<sp/>==<sp/>NULL)<sp/>||<sp/>(Size<sp/>==<sp/>0U))<sp/>{</highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(int)<ref refid="group__xsecure__aes__client__apis_1gaf7eae7e456a1d11d550afb26e22ea199" kindref="member">XSECURE_AES_INVALID_PARAM</ref>;</highlight></codeline>
+<codeline lineno="206"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="207"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="209"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((AesDmaCfg-&gt;<ref refid="struct_x_secure___aes_dma_cfg_1ad8b73674b1779c43cb36c933d588d300" kindref="member">SrcChannelCfg</ref><sp/>==<sp/>TRUE)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="210"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(InstancePtr-&gt;DmaSwapEn<sp/>==<sp/><ref refid="group__xsecure__helper__server__apis_1gac526e7d08ad548f3b562e3c74f020a67" kindref="member">XSECURE_ENABLE_BYTE_SWAP</ref>))<sp/>{</highlight></codeline>
+<codeline lineno="211"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__helper__server__apis_1ga8b4948ee028360683bcc161bf576ec77" kindref="member">XSecure_AesPmcDmaCfgEndianness</ref>(PmcDmaPtr,<sp/>XPMCDMA_SRC_CHANNEL,</highlight></codeline>
+<codeline lineno="212"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__helper__server__apis_1gac526e7d08ad548f3b562e3c74f020a67" kindref="member">XSECURE_ENABLE_BYTE_SWAP</ref>);</highlight></codeline>
+<codeline lineno="213"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="214"><highlight class="normal"></highlight></codeline>
+<codeline lineno="219"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((AesDmaCfg-&gt;<ref refid="struct_x_secure___aes_dma_cfg_1a037773022fccd544566ba4063a4c6ee4" kindref="member">DestChannelCfg</ref><sp/>==<sp/>TRUE)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="220"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(InstancePtr-&gt;DmaSwapEn<sp/>==<sp/><ref refid="group__xsecure__helper__server__apis_1gac526e7d08ad548f3b562e3c74f020a67" kindref="member">XSECURE_ENABLE_BYTE_SWAP</ref>)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="221"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u32)AesDmaCfg-&gt;<ref refid="struct_x_secure___aes_dma_cfg_1a55052d177d8fb06fc47ca7b9d448ae30" kindref="member">DestDataAddr</ref><sp/>!=<sp/><ref refid="group__xsecure__helper__server__apis_1ga3263636461cfef82330983351e80ba5c" kindref="member">XSECURE_AES_NO_CFG_DST_DMA</ref>))<sp/>{</highlight></codeline>
+<codeline lineno="222"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__helper__server__apis_1ga8b4948ee028360683bcc161bf576ec77" kindref="member">XSecure_AesPmcDmaCfgEndianness</ref>(PmcDmaPtr,<sp/>XPMCDMA_DST_CHANNEL,</highlight></codeline>
+<codeline lineno="223"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__helper__server__apis_1gac526e7d08ad548f3b562e3c74f020a67" kindref="member">XSECURE_ENABLE_BYTE_SWAP</ref>);</highlight></codeline>
+<codeline lineno="224"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="225"><highlight class="normal"></highlight></codeline>
+<codeline lineno="226"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((AesDmaCfg-&gt;<ref refid="struct_x_secure___aes_dma_cfg_1a037773022fccd544566ba4063a4c6ee4" kindref="member">DestChannelCfg</ref><sp/>==<sp/>TRUE)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="227"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u32)AesDmaCfg-&gt;<ref refid="struct_x_secure___aes_dma_cfg_1a55052d177d8fb06fc47ca7b9d448ae30" kindref="member">DestDataAddr</ref><sp/>!=<sp/><ref refid="group__xsecure__helper__server__apis_1ga3263636461cfef82330983351e80ba5c" kindref="member">XSECURE_AES_NO_CFG_DST_DMA</ref>))<sp/>{</highlight></codeline>
+<codeline lineno="228"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPmcDma_64BitTransfer(PmcDmaPtr,<sp/>XPMCDMA_DST_CHANNEL,<sp/>(u32)AesDmaCfg-&gt;<ref refid="struct_x_secure___aes_dma_cfg_1a55052d177d8fb06fc47ca7b9d448ae30" kindref="member">DestDataAddr</ref>,</highlight></codeline>
+<codeline lineno="229"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)(AesDmaCfg-&gt;<ref refid="struct_x_secure___aes_dma_cfg_1a55052d177d8fb06fc47ca7b9d448ae30" kindref="member">DestDataAddr</ref><sp/>&gt;&gt;<sp/><ref refid="group__xsecure__common__apis_1ga49179f0283044223009c733e01b79d5a" kindref="member">XSECURE_ADDR_HIGH_SHIFT</ref>),</highlight></codeline>
+<codeline lineno="230"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Size<sp/>/<sp/>XSECURE_WORD_SIZE,<sp/>AesDmaCfg-&gt;<ref refid="struct_x_secure___aes_dma_cfg_1a1400e7b647c5a5835f78999f6634272d" kindref="member">IsLastChunkDest</ref>);</highlight></codeline>
+<codeline lineno="231"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="232"><highlight class="normal"></highlight></codeline>
+<codeline lineno="233"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(AesDmaCfg-&gt;<ref refid="struct_x_secure___aes_dma_cfg_1ad8b73674b1779c43cb36c933d588d300" kindref="member">SrcChannelCfg</ref><sp/>==<sp/>TRUE)<sp/>{</highlight></codeline>
+<codeline lineno="234"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPmcDma_64BitTransfer(PmcDmaPtr,<sp/>XPMCDMA_SRC_CHANNEL,<sp/>(u32)AesDmaCfg-&gt;<ref refid="struct_x_secure___aes_dma_cfg_1a6d92d93e3aeab86b9dbb80ff284846b5" kindref="member">SrcDataAddr</ref>,</highlight></codeline>
+<codeline lineno="235"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)(AesDmaCfg-&gt;<ref refid="struct_x_secure___aes_dma_cfg_1a6d92d93e3aeab86b9dbb80ff284846b5" kindref="member">SrcDataAddr</ref><sp/>&gt;&gt;<sp/><ref refid="group__xsecure__common__apis_1ga49179f0283044223009c733e01b79d5a" kindref="member">XSECURE_ADDR_HIGH_SHIFT</ref>),</highlight></codeline>
+<codeline lineno="236"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Size<sp/>/<sp/>XSECURE_WORD_SIZE,<sp/>AesDmaCfg-&gt;<ref refid="struct_x_secure___aes_dma_cfg_1ad6d3b3ad5e06cb4e78275514f64ca5a7" kindref="member">IsLastChunkSrc</ref>);</highlight></codeline>
+<codeline lineno="237"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="238"><highlight class="normal"></highlight></codeline>
+<codeline lineno="239"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(AesDmaCfg-&gt;<ref refid="struct_x_secure___aes_dma_cfg_1ad8b73674b1779c43cb36c933d588d300" kindref="member">SrcChannelCfg</ref><sp/>==<sp/>TRUE)<sp/>{</highlight></codeline>
+<codeline lineno="241"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XPmcDma_WaitForDoneTimeout(PmcDmaPtr,<sp/>XPMCDMA_SRC_CHANNEL);</highlight></codeline>
+<codeline lineno="242"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="243"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="244"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="245"><highlight class="normal"></highlight></codeline>
+<codeline lineno="247"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPmcDma_IntrClear(PmcDmaPtr,<sp/>XPMCDMA_SRC_CHANNEL,<sp/>XPMCDMA_IXR_DONE_MASK);</highlight></codeline>
+<codeline lineno="248"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="249"><highlight class="normal"></highlight></codeline>
+<codeline lineno="250"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((AesDmaCfg-&gt;<ref refid="struct_x_secure___aes_dma_cfg_1a037773022fccd544566ba4063a4c6ee4" kindref="member">DestChannelCfg</ref><sp/>==<sp/>TRUE)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="251"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u32)AesDmaCfg-&gt;<ref refid="struct_x_secure___aes_dma_cfg_1a55052d177d8fb06fc47ca7b9d448ae30" kindref="member">DestDataAddr</ref><sp/>!=<sp/><ref refid="group__xsecure__helper__server__apis_1ga3263636461cfef82330983351e80ba5c" kindref="member">XSECURE_AES_NO_CFG_DST_DMA</ref>))<sp/>{</highlight></codeline>
+<codeline lineno="253"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XPmcDma_WaitForDoneTimeout(PmcDmaPtr,<sp/>XPMCDMA_DST_CHANNEL);</highlight></codeline>
+<codeline lineno="254"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="255"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="256"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="257"><highlight class="normal"></highlight></codeline>
+<codeline lineno="259"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPmcDma_IntrClear(PmcDmaPtr,<sp/>XPMCDMA_DST_CHANNEL,<sp/>XPMCDMA_IXR_DONE_MASK);</highlight></codeline>
+<codeline lineno="260"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="261"><highlight class="normal"></highlight></codeline>
+<codeline lineno="262"><highlight class="normal">END:</highlight></codeline>
+<codeline lineno="263"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="264"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="265"><highlight class="normal"></highlight></codeline>
+<codeline lineno="266"><highlight class="normal"></highlight><highlight class="comment">/**************************************************************************************************/</highlight></codeline>
+<codeline lineno="275"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__helper__server__apis_1ga8b4948ee028360683bcc161bf576ec77" kindref="member">XSecure_AesPmcDmaCfgEndianness</ref>(XPmcDma<sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="276"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPmcDma_Channel<sp/>Channel,<sp/>u8<sp/>EndianType)</highlight></codeline>
+<codeline lineno="277"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="278"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPmcDma_Configure<sp/>ConfigValues<sp/>=<sp/>{0U};</highlight></codeline>
+<codeline lineno="279"><highlight class="normal"></highlight></codeline>
+<codeline lineno="281"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__generic__server__apis_1ga2d44494aa84e82f6e26bd0c0a396b734" kindref="member">XSecure_AssertVoid</ref>(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="282"><highlight class="normal"></highlight></codeline>
+<codeline lineno="284"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPmcDma_GetConfig(InstancePtr,<sp/>Channel,<sp/>&amp;ConfigValues);</highlight></codeline>
+<codeline lineno="285"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ConfigValues.EndianType<sp/>=<sp/>EndianType;</highlight></codeline>
+<codeline lineno="287"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPmcDma_SetConfig(InstancePtr,<sp/>Channel,<sp/>&amp;ConfigValues);</highlight></codeline>
+<codeline lineno="288"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="289"><highlight class="normal"></highlight></codeline>
+<codeline lineno="290"><highlight class="normal"></highlight><highlight class="comment">/**************************************************************************************************/</highlight></codeline>
+<codeline lineno="304" refid="group__xsecure__trng__server__apis_1ga57bbf2056be52d8c1d21154930ae0751" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__trng__server__apis_1ga57bbf2056be52d8c1d21154930ae0751" kindref="member">XSecure_GetRandomNum</ref>(u8<sp/>*Output,<sp/>u32<sp/>Size)</highlight></codeline>
+<codeline lineno="305"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="306"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__trng__server__apis_1gae3246090a0786e5c20c739dfcbce2fe7" kindref="member">XSecure_TrngInstance</ref><sp/>*TrngInstance<sp/>=<sp/><ref refid="group__xsecure__trng__server__apis_1ga4cfae3189327a2de74505744d07bf464" kindref="member">XSecure_GetTrngInstance</ref>();</highlight></codeline>
+<codeline lineno="307"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="308"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>ZeroizeStatus<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="309"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>*RandBufPtr<sp/>=<sp/>NULL;</highlight></codeline>
+<codeline lineno="310"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>RandBufSize<sp/>=<sp/><ref refid="group__xsecure__trng__client__apis_1gafaf6b2f4582742d4fb15beafb4875378" kindref="member">XSECURE_TRNG_SEC_STRENGTH_IN_BYTES</ref>;</highlight></codeline>
+<codeline lineno="311"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/>u32<sp/>Index<sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="312"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>TotalSize<sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="313"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>NoOfGenerates<sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="314"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>TmpRandBuf[XTRNGPSV_SEC_STRENGTH_BYTES]<sp/>=<sp/>{0};</highlight></codeline>
+<codeline lineno="315"><highlight class="normal"></highlight></codeline>
+<codeline lineno="317"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((Size<sp/>==<sp/>0U)<sp/>||<sp/>(Output<sp/>==<sp/>NULL))<sp/>{</highlight></codeline>
+<codeline lineno="318"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_INVALID_PARAM;</highlight></codeline>
+<codeline lineno="319"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="320"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="321"><highlight class="normal"></highlight></codeline>
+<codeline lineno="322"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TotalSize<sp/>=<sp/>Size;</highlight></codeline>
+<codeline lineno="323"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>NoOfGenerates<sp/>=<sp/>XIL_SCEILDIV(u32,<sp/>Size,<sp/>XTRNGPSV_SEC_STRENGTH_BYTES);</highlight></codeline>
+<codeline lineno="324"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RandBufPtr<sp/>=<sp/>Output;</highlight></codeline>
+<codeline lineno="325"><highlight class="normal"></highlight></codeline>
+<codeline lineno="326"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSECURE_TEMPORAL_CHECK(END,<sp/>Status,<sp/><ref refid="group__xsecure__helper__server__apis_1ga7ceaf28c4b557ab6cefc96402262ecc0" kindref="member">XSecure_ECCRandInit</ref>);</highlight></codeline>
+<codeline lineno="327"><highlight class="normal"></highlight></codeline>
+<codeline lineno="328"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(Index<sp/>=<sp/>0U;<sp/>Index<sp/>&lt;<sp/>NoOfGenerates;<sp/>Index++)<sp/>{</highlight></codeline>
+<codeline lineno="329"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Index<sp/>==<sp/>(NoOfGenerates<sp/>-<sp/>1U))<sp/>{</highlight></codeline>
+<codeline lineno="330"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RandBufSize<sp/>=<sp/>TotalSize;</highlight></codeline>
+<codeline lineno="331"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(RandBufSize<sp/>&lt;<sp/>XTRNGPSV_SEC_STRENGTH_BYTES)<sp/>{</highlight></codeline>
+<codeline lineno="332"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSECURE_TEMPORAL_CHECK(END,<sp/>Status,<sp/>XTrngpsv_Generate,<sp/>TrngInstance,</highlight></codeline>
+<codeline lineno="333"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u8<sp/>*)&amp;TmpRandBuf,</highlight></codeline>
+<codeline lineno="334"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XTRNGPSV_SEC_STRENGTH_BYTES,<sp/>XTRNGPSV_FALSE);</highlight></codeline>
+<codeline lineno="335"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="336"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>Xil_SMemCpy(RandBufPtr,<sp/>RandBufSize,<sp/>TmpRandBuf,</highlight></codeline>
+<codeline lineno="337"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XTRNGPSV_SEC_STRENGTH_BYTES,<sp/>RandBufSize);</highlight></codeline>
+<codeline lineno="338"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Index<sp/>=<sp/>NoOfGenerates;</highlight></codeline>
+<codeline lineno="339"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="340"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="341"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="342"><highlight class="normal"></highlight></codeline>
+<codeline lineno="343"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSECURE_TEMPORAL_CHECK(END,<sp/>Status,<sp/>XTrngpsv_Generate,<sp/>TrngInstance,<sp/>RandBufPtr,</highlight></codeline>
+<codeline lineno="344"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RandBufSize,<sp/>XTRNGPSV_FALSE);</highlight></codeline>
+<codeline lineno="345"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RandBufPtr<sp/>+=<sp/>RandBufSize;</highlight></codeline>
+<codeline lineno="346"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TotalSize<sp/>-=<sp/>RandBufSize;</highlight></codeline>
+<codeline lineno="347"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="348"><highlight class="normal"></highlight></codeline>
+<codeline lineno="350"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Index<sp/>!=<sp/>NoOfGenerates)<sp/>{</highlight></codeline>
+<codeline lineno="351"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSECURE_STATUS_CHK_GLITCH_DETECT(Status);</highlight></codeline>
+<codeline lineno="352"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="353"><highlight class="normal"></highlight></codeline>
+<codeline lineno="354"><highlight class="normal">END:</highlight></codeline>
+<codeline lineno="356"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ZeroizeStatus<sp/>=<sp/>Xil_SecureZeroize(TmpRandBuf,<sp/><ref refid="group__xsecure__trng__client__apis_1gafaf6b2f4582742d4fb15beafb4875378" kindref="member">XSECURE_TRNG_SEC_STRENGTH_IN_BYTES</ref>);</highlight></codeline>
+<codeline lineno="357"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>==<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="358"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>ZeroizeStatus;</highlight></codeline>
+<codeline lineno="359"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="360"><highlight class="normal"></highlight></codeline>
+<codeline lineno="361"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="362"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>|=<sp/><ref refid="group__xsecure__trng__server__apis_1ga03ced7fffd85b330260e4f88bf1b93c3" kindref="member">XSecure_Uninstantiate</ref>(TrngInstance);</highlight></codeline>
+<codeline lineno="363"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="364"><highlight class="normal"></highlight></codeline>
+<codeline lineno="365"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="366"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="367"><highlight class="normal"></highlight></codeline>
+<codeline lineno="368"><highlight class="normal"></highlight><highlight class="comment">/**************************************************************************************************/</highlight></codeline>
+<codeline lineno="378"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__helper__server__apis_1ga7ceaf28c4b557ab6cefc96402262ecc0" kindref="member">XSecure_ECCRandInit</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="379"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="380"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__trng__server__apis_1gae3246090a0786e5c20c739dfcbce2fe7" kindref="member">XSecure_TrngInstance</ref><sp/>*TrngInstance<sp/>=<sp/><ref refid="group__xsecure__trng__server__apis_1ga4cfae3189327a2de74505744d07bf464" kindref="member">XSecure_GetTrngInstance</ref>();</highlight></codeline>
+<codeline lineno="381"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="382"><highlight class="normal"></highlight></codeline>
+<codeline lineno="383"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((XPlmi_IsKatRan(XPLMI_SECURE_TRNG_KAT_MASK)<sp/>!=<sp/>(u8)TRUE)<sp/>||</highlight></codeline>
+<codeline lineno="384"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(!XSecure_TrngIsHealthy(TrngInstance)))<sp/>{</highlight></codeline>
+<codeline lineno="385"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xsecure__trng__server__apis_1gaa644702ed555bd453f0837a5d12abc97" kindref="member">XSecure_PreOperationalSelfTests</ref>(TrngInstance);</highlight></codeline>
+<codeline lineno="386"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="387"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_ClearKatMask(XPLMI_SECURE_TRNG_KAT_MASK);</highlight></codeline>
+<codeline lineno="388"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(int)<ref refid="spartanup_2xsecure__error_8h_1a0411cd49bb5b71852cecd93bcbf0ca2da3c1f331839ddf7c640d82b3e386b56ae" kindref="member">XSECURE_ERR_IN_TRNG_SELF_TESTS</ref>;</highlight></codeline>
+<codeline lineno="389"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="390"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="391"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_SetKatMask(XPLMI_SECURE_TRNG_KAT_MASK);</highlight></codeline>
+<codeline lineno="392"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="393"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="394"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(((<ref refid="group__xsecure__trng__server__apis_1ga2bd87e5d7e3fc02e8f0e0e783a390305" kindref="member">XSecureTrng_Mode</ref>)TrngInstance-&gt;UsrCfg.Mode<sp/>!=<sp/><ref refid="group__xsecure__trng__server__apis_1gga2bd87e5d7e3fc02e8f0e0e783a390305a4987d50e7368c26103a77a8b684e62d9" kindref="member">XSECURE_TRNG_HRNG_MODE</ref>)<sp/>||</highlight></codeline>
+<codeline lineno="395"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XSecure_TrngIsUninitialized(TrngInstance)))<sp/>{</highlight></codeline>
+<codeline lineno="396"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xsecure__trng__server__apis_1ga47d5d39c195cbbcb803bc61f4f078516" kindref="member">XSecure_TrngInitNCfgMode</ref>(<ref refid="group__xsecure__trng__server__apis_1gga2bd87e5d7e3fc02e8f0e0e783a390305a4987d50e7368c26103a77a8b684e62d9" kindref="member">XSECURE_TRNG_HRNG_MODE</ref>,<sp/>NULL,<sp/>0,<sp/>NULL);</highlight></codeline>
+<codeline lineno="397"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="398"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(int)<ref refid="spartanup_2xsecure__error_8h_1a0411cd49bb5b71852cecd93bcbf0ca2da8c7cd84b41f1e78398e90ed2841d644f" kindref="member">XSECURE_ERR_TRNG_INIT_N_CONFIG</ref>;</highlight></codeline>
+<codeline lineno="399"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="400"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="401"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="402"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="403"><highlight class="normal">END:</highlight></codeline>
+<codeline lineno="404"><highlight class="normal"></highlight></codeline>
+<codeline lineno="405"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="406"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="407"><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_2vp/xsecure_plat.c"/>
+  </compounddef>
+</doxygen>

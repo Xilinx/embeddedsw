@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_sdi_aud___reg_map" kind="struct" prot="public">
+    <compoundname>XSdiAud_RegMap</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_sdi_aud___reg_map_1a91dd7f03953066ef427e69f25ecc4c26" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSdiAud_RegMap::RegOffset</definition>
+        <argsstring></argsstring>
+        <name>RegOffset</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_selftest.c" line="112" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_selftest.c" bodystart="112" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_sdi_aud___reg_map_1a609297f32fc11205467e0cc0b6b794e6" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSdiAud_RegMap::DefaultVal</definition>
+        <argsstring></argsstring>
+        <name>DefaultVal</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_selftest.c" line="113" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_selftest.c" bodystart="113" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_selftest.c" line="111" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_selftest.c" bodystart="111" bodyend="114"/>
+    <listofallmembers>
+      <member refid="struct_x_sdi_aud___reg_map_1a609297f32fc11205467e0cc0b6b794e6" prot="public" virt="non-virtual"><scope>XSdiAud_RegMap</scope><name>DefaultVal</name></member>
+      <member refid="struct_x_sdi_aud___reg_map_1a91dd7f03953066ef427e69f25ecc4c26" prot="public" virt="non-virtual"><scope>XSdiAud_RegMap</scope><name>RegOffset</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

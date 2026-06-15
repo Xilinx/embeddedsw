@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_mapping" kind="struct" prot="public">
+    <compoundname>Mapping</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_mapping_1adbc29e6cf6bdbcd040b5bda93baada58" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 Mapping::Option</definition>
+        <argsstring></argsstring>
+        <name>Option</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmrctr/src/xtmrctr_options.c" line="54" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmrctr/src/xtmrctr_options.c" bodystart="54" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_mapping_1a2055621bc89bd6fb266bede3bb78ab1d" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 Mapping::Mask</definition>
+        <argsstring></argsstring>
+        <name>Mask</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmrctr/src/xtmrctr_options.c" line="55" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmrctr/src/xtmrctr_options.c" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmrctr/src/xtmrctr_options.c" line="53" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmrctr/src/xtmrctr_options.c" bodystart="53" bodyend="56"/>
+    <listofallmembers>
+      <member refid="struct_mapping_1a2055621bc89bd6fb266bede3bb78ab1d" prot="public" virt="non-virtual"><scope>Mapping</scope><name>Mask</name></member>
+      <member refid="struct_mapping_1adbc29e6cf6bdbcd040b5bda93baada58" prot="public" virt="non-virtual"><scope>Mapping</scope><name>Option</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

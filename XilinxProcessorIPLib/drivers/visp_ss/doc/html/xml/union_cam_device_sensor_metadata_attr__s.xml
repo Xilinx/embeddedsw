@@ -1,0 +1,194 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="union_cam_device_sensor_metadata_attr__s" kind="union" prot="public">
+    <compoundname>CamDeviceSensorMetadataAttr_s</compoundname>
+    <includes local="no">cam_device_sensor_api.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="union_cam_device_sensor_metadata_attr__s_1abfabf0c044cd1a57943f3e580e7959af" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t CamDeviceSensorMetadataAttr_s::support</definition>
+        <argsstring></argsstring>
+        <name>support</name>
+        <bitfield> 1</bitfield>
+        <briefdescription>
+<para>bit 0: 0-disable 1-enable </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" line="333" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" bodystart="333" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="union_cam_device_sensor_metadata_attr__s_1a639857a76dd9570281a4ec0ddfc30f16" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t CamDeviceSensorMetadataAttr_s::regInfo</definition>
+        <argsstring></argsstring>
+        <name>regInfo</name>
+        <bitfield> 1</bitfield>
+        <briefdescription>
+<para>bit 1: register information </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" line="334" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" bodystart="334" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="union_cam_device_sensor_metadata_attr__s_1ae32cd4e260ca8771d2c790fe49023b2b" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t CamDeviceSensorMetadataAttr_s::expTime</definition>
+        <argsstring></argsstring>
+        <name>expTime</name>
+        <bitfield> 1</bitfield>
+        <briefdescription>
+<para>bit 2: exposure time </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" line="335" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" bodystart="335" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="union_cam_device_sensor_metadata_attr__s_1a6fa5dfbbc3580fd938743444105d993d" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t CamDeviceSensorMetadataAttr_s::again</definition>
+        <argsstring></argsstring>
+        <name>again</name>
+        <bitfield> 1</bitfield>
+        <briefdescription>
+<para>bit 3: Analogue again </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" line="336" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" bodystart="336" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="union_cam_device_sensor_metadata_attr__s_1a383d79a6b3998496dd0ef0715033ff42" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t CamDeviceSensorMetadataAttr_s::dgain</definition>
+        <argsstring></argsstring>
+        <name>dgain</name>
+        <bitfield> 1</bitfield>
+        <briefdescription>
+<para>bit 4: Digital gain </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" line="337" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" bodystart="337" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="union_cam_device_sensor_metadata_attr__s_1a38b7677017cc7aa37ac96899baac1d69" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t CamDeviceSensorMetadataAttr_s::bls</definition>
+        <argsstring></argsstring>
+        <name>bls</name>
+        <bitfield> 1</bitfield>
+        <briefdescription>
+<para>bit 5: BLS </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" line="338" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" bodystart="338" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="union_cam_device_sensor_metadata_attr__s_1a08d528629cd657b6d769a4439408676d" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t CamDeviceSensorMetadataAttr_s::hist</definition>
+        <argsstring></argsstring>
+        <name>hist</name>
+        <bitfield> 1</bitfield>
+        <briefdescription>
+<para>bit 6: Histogram </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" line="339" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" bodystart="339" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="union_cam_device_sensor_metadata_attr__s_1ab360dd969bfbfc2e72b5d93333c422ea" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t CamDeviceSensorMetadataAttr_s::meanLuma</definition>
+        <argsstring></argsstring>
+        <name>meanLuma</name>
+        <bitfield> 1</bitfield>
+        <briefdescription>
+<para>bit 7: Mean luminance </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" line="340" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" bodystart="340" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="union_cam_device_sensor_metadata_attr__s_1ad79f124d1d53bff4d1cc4bf2cbaadd53" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t CamDeviceSensorMetadataAttr_s::frameCRC</definition>
+        <argsstring></argsstring>
+        <name>frameCRC</name>
+        <bitfield> 1</bitfield>
+        <briefdescription>
+<para>bit 8: Frame CRC </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" line="341" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" bodystart="341" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="union_cam_device_sensor_metadata_attr__s_1a737008d91d2cea3ab87efe4b02a943e1" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t CamDeviceSensorMetadataAttr_s::reservedEnable</definition>
+        <argsstring></argsstring>
+        <name>reservedEnable</name>
+        <bitfield> 23</bitfield>
+        <briefdescription>
+<para>bit 9:31: Reserved bit </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" line="342" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" bodystart="342" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="union_cam_device_sensor_metadata_attr__s_1a7403c9f8e204caee25a756b5a9c5d400" prot="public" static="no" mutable="no">
+        <type>struct CamDeviceSensorMetadataAttr_s::@4</type>
+        <definition>struct CamDeviceSensorMetadataAttr_s::@4 CamDeviceSensorMetadataAttr_s::subAttr</definition>
+        <argsstring></argsstring>
+        <name>subAttr</name>
+        <briefdescription>
+<para>Sub-attribute. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" line="344" column="1"/>
+      </memberdef>
+      <memberdef kind="variable" id="union_cam_device_sensor_metadata_attr__s_1a785f8156d2ac16adc46b18f4b0252988" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t CamDeviceSensorMetadataAttr_s::mainAttr</definition>
+        <argsstring></argsstring>
+        <name>mainAttr</name>
+        <briefdescription>
+<para>Main attribute. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" line="345" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" bodystart="345" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>VsCamDevice sensor exposure time configuration. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" line="331" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" bodystart="331" bodyend="346"/>
+    <listofallmembers>
+      <member refid="union_cam_device_sensor_metadata_attr__s_1a6fa5dfbbc3580fd938743444105d993d" prot="public" virt="non-virtual"><scope>CamDeviceSensorMetadataAttr_s</scope><name>again</name></member>
+      <member refid="union_cam_device_sensor_metadata_attr__s_1a38b7677017cc7aa37ac96899baac1d69" prot="public" virt="non-virtual"><scope>CamDeviceSensorMetadataAttr_s</scope><name>bls</name></member>
+      <member refid="union_cam_device_sensor_metadata_attr__s_1a383d79a6b3998496dd0ef0715033ff42" prot="public" virt="non-virtual"><scope>CamDeviceSensorMetadataAttr_s</scope><name>dgain</name></member>
+      <member refid="union_cam_device_sensor_metadata_attr__s_1ae32cd4e260ca8771d2c790fe49023b2b" prot="public" virt="non-virtual"><scope>CamDeviceSensorMetadataAttr_s</scope><name>expTime</name></member>
+      <member refid="union_cam_device_sensor_metadata_attr__s_1ad79f124d1d53bff4d1cc4bf2cbaadd53" prot="public" virt="non-virtual"><scope>CamDeviceSensorMetadataAttr_s</scope><name>frameCRC</name></member>
+      <member refid="union_cam_device_sensor_metadata_attr__s_1a08d528629cd657b6d769a4439408676d" prot="public" virt="non-virtual"><scope>CamDeviceSensorMetadataAttr_s</scope><name>hist</name></member>
+      <member refid="union_cam_device_sensor_metadata_attr__s_1a785f8156d2ac16adc46b18f4b0252988" prot="public" virt="non-virtual"><scope>CamDeviceSensorMetadataAttr_s</scope><name>mainAttr</name></member>
+      <member refid="union_cam_device_sensor_metadata_attr__s_1ab360dd969bfbfc2e72b5d93333c422ea" prot="public" virt="non-virtual"><scope>CamDeviceSensorMetadataAttr_s</scope><name>meanLuma</name></member>
+      <member refid="union_cam_device_sensor_metadata_attr__s_1a639857a76dd9570281a4ec0ddfc30f16" prot="public" virt="non-virtual"><scope>CamDeviceSensorMetadataAttr_s</scope><name>regInfo</name></member>
+      <member refid="union_cam_device_sensor_metadata_attr__s_1a737008d91d2cea3ab87efe4b02a943e1" prot="public" virt="non-virtual"><scope>CamDeviceSensorMetadataAttr_s</scope><name>reservedEnable</name></member>
+      <member refid="union_cam_device_sensor_metadata_attr__s_1a7403c9f8e204caee25a756b5a9c5d400" prot="public" virt="non-virtual"><scope>CamDeviceSensorMetadataAttr_s</scope><name>subAttr</name></member>
+      <member refid="union_cam_device_sensor_metadata_attr__s_1abfabf0c044cd1a57943f3e580e7959af" prot="public" virt="non-virtual"><scope>CamDeviceSensorMetadataAttr_s</scope><name>support</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

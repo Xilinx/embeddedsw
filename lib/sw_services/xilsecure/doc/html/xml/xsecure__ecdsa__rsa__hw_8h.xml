@@ -1,0 +1,359 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xsecure__ecdsa__rsa__hw_8h" kind="file">
+    <compoundname>xsecure_ecdsa_rsa_hw.h</compoundname>
+    <includes local="yes">xparameters.h</includes>
+    <includedby refid="xsecure__ellipticplat_8c" local="yes">xsecure_ellipticplat.c</includedby>
+    <includedby refid="xsecure__elliptic_8c" local="yes">xsecure_elliptic.c</includedby>
+    <includedby refid="core_2rsa_2xsecure__rsa__core_8c" local="yes">xsecure_rsa_core.c</includedby>
+    <incdepgraph>
+      <node id="1273">
+        <label>xsecure_ecdsa_rsa_hw.h</label>
+        <link refid="xsecure_ecdsa_rsa_hw.h"/>
+        <childnode refid="1274" relation="include">
+        </childnode>
+      </node>
+      <node id="1274">
+        <label>xparameters.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="1276">
+        <label>xsecure_ellipticplat.c</label>
+        <link refid="xsecure__ellipticplat_8c"/>
+      </node>
+      <node id="1278">
+        <label>xsecure_rsa_core.c</label>
+        <link refid="core_2rsa_2xsecure__rsa__core_8c"/>
+      </node>
+      <node id="1277">
+        <label>xsecure_elliptic.c</label>
+        <link refid="xsecure__elliptic_8c"/>
+      </node>
+      <node id="1275">
+        <label>xsecure_ecdsa_rsa_hw.h</label>
+        <link refid="xsecure_ecdsa_rsa_hw.h"/>
+        <childnode refid="1276" relation="include">
+        </childnode>
+        <childnode refid="1277" relation="include">
+        </childnode>
+        <childnode refid="1278" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="user-defined">
+      <header>RAM_ADDR register</header>
+      <memberdef kind="define" id="xsecure__ecdsa__rsa__hw_8h_1a718b30703cf78c3de892668e9f41716a" prot="public" static="no">
+        <name>XSECURE_ECDSA_RSA_RAM_ADDR_OFFSET</name>
+        <initializer>(0x00000004U)</initializer>
+        <briefdescription>
+<para>&lt; RAM address register offset and definitions </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecdsa/xsecure_ecdsa_rsa_hw.h" line="60" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecdsa/xsecure_ecdsa_rsa_hw.h" bodystart="60" bodyend="-1"/>
+        <referencedby refid="group__xsecure__rsa__server__apis_1gaf5b1250865b33d073498f0d29816d664" compoundref="core_2rsa_2xsecure__rsa__core_8c" startline="641" endline="664">XSecure_RsaEcdsaZeroizeAndVerifyRam</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xsecure__ecdsa__rsa__hw_8h_1a355c4c19525ef0f4c9a4928a3b27cbfb" prot="public" static="no">
+        <name>XSECURE_ECDSA_RSA_RAM_ADDR_WRRD_B_MASK</name>
+        <initializer>(0x80000000U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecdsa/xsecure_ecdsa_rsa_hw.h" line="61" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecdsa/xsecure_ecdsa_rsa_hw.h" bodystart="61" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>CTRL register</header>
+      <memberdef kind="define" id="xsecure__ecdsa__rsa__hw_8h_1a3ae31970ad1b34122be4c83ec41eb65c" prot="public" static="no">
+        <name>XSECURE_ECDSA_RSA_CTRL_OFFSET</name>
+        <initializer>(0x00000008U)</initializer>
+        <briefdescription>
+<para>&lt; CTRL register offset and definitions </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecdsa/xsecure_ecdsa_rsa_hw.h" line="69" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecdsa/xsecure_ecdsa_rsa_hw.h" bodystart="69" bodyend="-1"/>
+        <referencedby refid="group__xsecure__rsa__server__apis_1gaf5b1250865b33d073498f0d29816d664" compoundref="core_2rsa_2xsecure__rsa__core_8c" startline="641" endline="664">XSecure_RsaEcdsaZeroizeAndVerifyRam</referencedby>
+        <referencedby refid="group__xsecure__rsa__server__apis_1ga3c38edd112fb7b6799153ab9eabba178" compoundref="core_2rsa_2xsecure__rsa__core_8c" startline="156" endline="325">XSecure_RsaOperation</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xsecure__ecdsa__rsa__hw_8h_1a088b43f3a915c02df08afb94ad5e4102" prot="public" static="no">
+        <name>XSECURE_ECDSA_RSA_CTRL_CLR_DATA_BUF_MASK</name>
+        <initializer>(0x00000080U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecdsa/xsecure_ecdsa_rsa_hw.h" line="70" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecdsa/xsecure_ecdsa_rsa_hw.h" bodystart="70" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>CFG register</header>
+      <memberdef kind="define" id="xsecure__ecdsa__rsa__hw_8h_1a295bfe198c97c66a4f15ca179aef0d00" prot="public" static="no">
+        <name>XSECURE_ECDSA_RSA_CFG_OFFSET</name>
+        <initializer>(0x00000058U)</initializer>
+        <briefdescription>
+<para>&lt; CFG register offset and definitions </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecdsa/xsecure_ecdsa_rsa_hw.h" line="102" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecdsa/xsecure_ecdsa_rsa_hw.h" bodystart="102" bodyend="-1"/>
+        <referencedby refid="group__xsecure__rsa__server__apis_1ga3c38edd112fb7b6799153ab9eabba178" compoundref="core_2rsa_2xsecure__rsa__core_8c" startline="156" endline="325">XSecure_RsaOperation</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xsecure__ecdsa__rsa__hw_8h_1a4941b0668c715a47173428e91052d43a" prot="public" static="no">
+        <name>XSECURE_ECDSA_RSA_CFG_RD_ENDIANNESS_MASK</name>
+        <initializer>(0x00000002U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecdsa/xsecure_ecdsa_rsa_hw.h" line="103" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecdsa/xsecure_ecdsa_rsa_hw.h" bodystart="103" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsecure__ecdsa__rsa__hw_8h_1a2182ce1a9b8ebff3b1860f0d3e6f13d8" prot="public" static="no">
+        <name>XSECURE_ECDSA_RSA_RSA_CFG_WR_ENDIANNESS_MASK</name>
+        <initializer>(0x00000001U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecdsa/xsecure_ecdsa_rsa_hw.h" line="104" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecdsa/xsecure_ecdsa_rsa_hw.h" bodystart="104" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsecure__ecdsa__rsa__hw_8h_1a3b8c951b7c795bfb818819f971e4361b" prot="public" static="no">
+        <name>XSECURE_ECDSA_RSA_CFG_CLEAR_ENDIANNESS_MASK</name>
+        <initializer>(0U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecdsa/xsecure_ecdsa_rsa_hw.h" line="105" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecdsa/xsecure_ecdsa_rsa_hw.h" bodystart="105" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xsecure__ecdsa__rsa__hw_8h_1a9f0671ce55189d7783c0abaf1f001c55" prot="public" static="no">
+        <name>XSECURE_ECDSA_RSA_BASEADDR</name>
+        <initializer>(0xF1200000U)</initializer>
+        <briefdescription>
+<para>Base address of ECDSA RSA core. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecdsa/xsecure_ecdsa_rsa_hw.h" line="45" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecdsa/xsecure_ecdsa_rsa_hw.h" bodystart="45" bodyend="-1"/>
+        <referencedby refid="group__xsecure__ecdsa__server__apis_1gab3835b878d2947b3f94ba4cd555dd641" compoundref="xsecure__ellipticplat_8c" startline="310" endline="400">XSecure_EcdhGetSecret</referencedby>
+        <referencedby refid="group__xsecure__ecdsa__server__apis_1ga9566bee278ec58acd705a67ee9d58766" compoundref="xsecure__ellipticplat_8c" startline="185" endline="226">XSecure_EllipticGenerateEphemeralKey</referencedby>
+        <referencedby refid="group__xsecure__ecdsa__server__apis_1ga682282def21e1c86ab583cdd41090fbb" compoundref="xsecure__elliptic_8c" startline="118" endline="194">XSecure_EllipticGenerateKey_64Bit</referencedby>
+        <referencedby refid="group__xsecure__ecdsa__server__apis_1ga3af7e8a366bb982fa4c0c82be1b37250" compoundref="xsecure__elliptic_8c" startline="269" endline="390">XSecure_EllipticGenerateSignature_64Bit</referencedby>
+        <referencedby refid="group__xsecure__ecdsa__server__apis_1ga261ca30dbb2a3390cac39562e499f63a" compoundref="xsecure__ellipticplat_8c" startline="85" endline="166">XSecure_EllipticPrvtKeyGenerate</referencedby>
+        <referencedby refid="group__xsecure__ecdsa__server__apis_1gab83385dfd83a7bfdef4d74ec412e15c6" compoundref="xsecure__elliptic_8c" startline="479" endline="552">XSecure_EllipticValidateKey_64Bit</referencedby>
+        <referencedby refid="group__xsecure__ecdsa__server__apis_1ga0bb6ca50d138b482eb9a5d9f18e398d8" compoundref="xsecure__elliptic_8c" startline="621" endline="738">XSecure_EllipticVerifySign_64Bit</referencedby>
+        <referencedby refid="group__xsecure__rsa__server__apis_1gaa7dd5cb6143f1767dbfce0cee845f014" compoundref="core_2rsa_2xsecure__rsa__core_8c" startline="111" endline="134">XSecure_RsaCfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xsecure__ecdsa__rsa__hw_8h_1a64dac802f12fdd9803f5674c8e9584a2" prot="public" static="no">
+        <name>XSECURE_ECDSA_RSA_RAM_DATA_OFFSET</name>
+        <initializer>(0x00000000U)</initializer>
+        <briefdescription>
+<para>Offset of RAM_DATA register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecdsa/xsecure_ecdsa_rsa_hw.h" line="52" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecdsa/xsecure_ecdsa_rsa_hw.h" bodystart="52" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsecure__ecdsa__rsa__hw_8h_1a1b39b90e45fed3b08a2c96f5498eb8b7" prot="public" static="no">
+        <name>XSECURE_ECDSA_RSA_STATUS_OFFSET</name>
+        <initializer>(0x0000000CU)</initializer>
+        <briefdescription>
+<para>Offset of Status register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecdsa/xsecure_ecdsa_rsa_hw.h" line="73" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecdsa/xsecure_ecdsa_rsa_hw.h" bodystart="73" bodyend="-1"/>
+        <referencedby refid="group__xsecure__rsa__server__apis_1ga3c38edd112fb7b6799153ab9eabba178" compoundref="core_2rsa_2xsecure__rsa__core_8c" startline="156" endline="325">XSecure_RsaOperation</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xsecure__ecdsa__rsa__hw_8h_1a1a773a114eb7eee5d89964d73d7af3f3" prot="public" static="no">
+        <name>XSECURE_ECDSA_RSA_MINV_OFFSET</name>
+        <initializer>(0x00000010U)</initializer>
+        <briefdescription>
+<para>Offset of MINV register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecdsa/xsecure_ecdsa_rsa_hw.h" line="76" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecdsa/xsecure_ecdsa_rsa_hw.h" bodystart="76" bodyend="-1"/>
+        <referencedby refid="group__xsecure__rsa__server__apis_1ga7c621f0e66a73464aefc9c725cb1b2b1" compoundref="core_2rsa_2xsecure__rsa__core_8c" startline="518" endline="537">XSecure_RsaZeroize</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xsecure__ecdsa__rsa__hw_8h_1a44ca8c2ef009ddb0d23287c6e481e939" prot="public" static="no">
+        <name>XSECURE_ECDSA_RSA_KEY_LEN_OFFSET</name>
+        <initializer>(0x00000020U)</initializer>
+        <briefdescription>
+<para>Offset of Key Len register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecdsa/xsecure_ecdsa_rsa_hw.h" line="79" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecdsa/xsecure_ecdsa_rsa_hw.h" bodystart="79" bodyend="-1"/>
+        <referencedby refid="group__xsecure__rsa__server__apis_1ga3c38edd112fb7b6799153ab9eabba178" compoundref="core_2rsa_2xsecure__rsa__core_8c" startline="156" endline="325">XSecure_RsaOperation</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xsecure__ecdsa__rsa__hw_8h_1a65834715b979609812965d9ea85c7e1e" prot="public" static="no">
+        <name>XSECURE_ECDSA_RSA_CFG0_OFFSET</name>
+        <initializer>(0x00000028U)</initializer>
+        <briefdescription>
+<para>Offset of CFG0 register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecdsa/xsecure_ecdsa_rsa_hw.h" line="82" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecdsa/xsecure_ecdsa_rsa_hw.h" bodystart="82" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsecure__ecdsa__rsa__hw_8h_1af7c6bf631f2bb2f6aab584f2515bd1fa" prot="public" static="no">
+        <name>XSECURE_ECDSA_RSA_CFG1_OFFSET</name>
+        <initializer>(0x0000002CU)</initializer>
+        <briefdescription>
+<para>Offset of CFG1 register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecdsa/xsecure_ecdsa_rsa_hw.h" line="85" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecdsa/xsecure_ecdsa_rsa_hw.h" bodystart="85" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsecure__ecdsa__rsa__hw_8h_1affd5bb1d52dae3a167c0f2f18f8de92b" prot="public" static="no">
+        <name>XSECURE_ECDSA_RSA_CFG2_OFFSET</name>
+        <initializer>(0x00000030U)</initializer>
+        <briefdescription>
+<para>Offset of CFG2 register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecdsa/xsecure_ecdsa_rsa_hw.h" line="88" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecdsa/xsecure_ecdsa_rsa_hw.h" bodystart="88" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsecure__ecdsa__rsa__hw_8h_1a1b73b7bb0f41b526d398db334738df71" prot="public" static="no">
+        <name>XSECURE_ECDSA_RSA_CFG5_OFFSET</name>
+        <initializer>(0x0000003CU)</initializer>
+        <briefdescription>
+<para>Offset of CFG5 register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecdsa/xsecure_ecdsa_rsa_hw.h" line="91" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecdsa/xsecure_ecdsa_rsa_hw.h" bodystart="91" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsecure__ecdsa__rsa__hw_8h_1a88ec30cbcee985ead897eabfeace1549" prot="public" static="no">
+        <name>XSECURE_ECDSA_RSA_RESET_OFFSET</name>
+        <initializer>(0x00000040U)</initializer>
+        <briefdescription>
+<para>Offset of RESET register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecdsa/xsecure_ecdsa_rsa_hw.h" line="94" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecdsa/xsecure_ecdsa_rsa_hw.h" bodystart="94" bodyend="-1"/>
+        <referencedby refid="group__xsecure__ecdsa__server__apis_1gab3835b878d2947b3f94ba4cd555dd641" compoundref="xsecure__ellipticplat_8c" startline="310" endline="400">XSecure_EcdhGetSecret</referencedby>
+        <referencedby refid="group__xsecure__ecdsa__server__apis_1ga9566bee278ec58acd705a67ee9d58766" compoundref="xsecure__ellipticplat_8c" startline="185" endline="226">XSecure_EllipticGenerateEphemeralKey</referencedby>
+        <referencedby refid="group__xsecure__ecdsa__server__apis_1ga682282def21e1c86ab583cdd41090fbb" compoundref="xsecure__elliptic_8c" startline="118" endline="194">XSecure_EllipticGenerateKey_64Bit</referencedby>
+        <referencedby refid="group__xsecure__ecdsa__server__apis_1ga3af7e8a366bb982fa4c0c82be1b37250" compoundref="xsecure__elliptic_8c" startline="269" endline="390">XSecure_EllipticGenerateSignature_64Bit</referencedby>
+        <referencedby refid="group__xsecure__ecdsa__server__apis_1ga261ca30dbb2a3390cac39562e499f63a" compoundref="xsecure__ellipticplat_8c" startline="85" endline="166">XSecure_EllipticPrvtKeyGenerate</referencedby>
+        <referencedby refid="group__xsecure__ecdsa__server__apis_1gab83385dfd83a7bfdef4d74ec412e15c6" compoundref="xsecure__elliptic_8c" startline="479" endline="552">XSecure_EllipticValidateKey_64Bit</referencedby>
+        <referencedby refid="group__xsecure__ecdsa__server__apis_1ga0bb6ca50d138b482eb9a5d9f18e398d8" compoundref="xsecure__elliptic_8c" startline="621" endline="738">XSecure_EllipticVerifySign_64Bit</referencedby>
+        <referencedby refid="group__xsecure__rsa__server__apis_1ga3c38edd112fb7b6799153ab9eabba178" compoundref="core_2rsa_2xsecure__rsa__core_8c" startline="156" endline="325">XSecure_RsaOperation</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This header file contains RSA ECDSA core hardware register offsets of versal. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who     Date     Changes
+<hruler/>
+
+4.0   vns     02/14/19 First Release
+4.1   kpt     01/07/20 Added macro XSECURE_ECDSA_RSA_CFG_REVERT_ENDIANNESS_MASK
+4.3   ana     06/06/20 Renamed XSECURE_ECDSA_RSA_CFG_REVERT_ENDIANNESS_MASK as
+                       XSECURE_ECDSA_RSA_CFG_CLEAR_ENDIANNESS_MASK
+      am      09/24/20 Resolved MISRA C violations
+      har     10/12/20 Addressed security review comments
+4.6   har     07/14/21 Fixed doxygen warnings
+5.7   mb      03/13/26 Add support for ECC curves for SPARTANUPLUSAES1 device</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2019<sp/>-<sp/>2020<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2022<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="32"><highlight class="preprocessor">#ifndef<sp/>XSECURE_ECDSA_RSA_HW_H_</highlight></codeline>
+<codeline lineno="33"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_ECDSA_RSA_HW_H_</highlight></codeline>
+<codeline lineno="34"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="36"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="38"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xparameters.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>(!defined(PLM_ECDSA_EXCLUDE)<sp/>||<sp/>!defined(PLM_RSA_EXCLUDE))</highlight></codeline>
+<codeline lineno="43"><highlight class="preprocessor"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SPARTANUPLUSAES1</highlight></codeline>
+<codeline lineno="45" refid="xsecure__ecdsa__rsa__hw_8h_1a9f0671ce55189d7783c0abaf1f001c55" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_ECDSA_RSA_BASEADDR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xF1200000U)</highlight></codeline>
+<codeline lineno="46"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="47"><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="48"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_ECDSA_RSA_BASEADDR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x04140000U)</highlight></codeline>
+<codeline lineno="49"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="50"><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="51"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="52" refid="xsecure__ecdsa__rsa__hw_8h_1a64dac802f12fdd9803f5674c8e9584a2" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_ECDSA_RSA_RAM_DATA_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000000U)</highlight></codeline>
+<codeline lineno="53"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="60" refid="xsecure__ecdsa__rsa__hw_8h_1a718b30703cf78c3de892668e9f41716a" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_ECDSA_RSA_RAM_ADDR_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000004U)</highlight></codeline>
+<codeline lineno="61"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_ECDSA_RSA_RAM_ADDR_WRRD_B_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x80000000U)</highlight></codeline>
+<codeline lineno="62"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="69" refid="xsecure__ecdsa__rsa__hw_8h_1a3ae31970ad1b34122be4c83ec41eb65c" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_ECDSA_RSA_CTRL_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000008U)</highlight></codeline>
+<codeline lineno="70"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_ECDSA_RSA_CTRL_CLR_DATA_BUF_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000080U)</highlight></codeline>
+<codeline lineno="71"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="73" refid="xsecure__ecdsa__rsa__hw_8h_1a1b39b90e45fed3b08a2c96f5498eb8b7" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_ECDSA_RSA_STATUS_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x0000000CU)</highlight></codeline>
+<codeline lineno="74"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="76" refid="xsecure__ecdsa__rsa__hw_8h_1a1a773a114eb7eee5d89964d73d7af3f3" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_ECDSA_RSA_MINV_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000010U)</highlight></codeline>
+<codeline lineno="77"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="79" refid="xsecure__ecdsa__rsa__hw_8h_1a44ca8c2ef009ddb0d23287c6e481e939" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_ECDSA_RSA_KEY_LEN_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000020U)</highlight></codeline>
+<codeline lineno="80"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="82" refid="xsecure__ecdsa__rsa__hw_8h_1a65834715b979609812965d9ea85c7e1e" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_ECDSA_RSA_CFG0_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000028U)</highlight></codeline>
+<codeline lineno="83"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="85" refid="xsecure__ecdsa__rsa__hw_8h_1af7c6bf631f2bb2f6aab584f2515bd1fa" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_ECDSA_RSA_CFG1_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x0000002CU)</highlight></codeline>
+<codeline lineno="86"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="88" refid="xsecure__ecdsa__rsa__hw_8h_1affd5bb1d52dae3a167c0f2f18f8de92b" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_ECDSA_RSA_CFG2_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000030U)</highlight></codeline>
+<codeline lineno="89"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="91" refid="xsecure__ecdsa__rsa__hw_8h_1a1b73b7bb0f41b526d398db334738df71" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_ECDSA_RSA_CFG5_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x0000003CU)</highlight></codeline>
+<codeline lineno="92"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="94" refid="xsecure__ecdsa__rsa__hw_8h_1a88ec30cbcee985ead897eabfeace1549" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_ECDSA_RSA_RESET_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000040U)</highlight></codeline>
+<codeline lineno="95"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="102" refid="xsecure__ecdsa__rsa__hw_8h_1a295bfe198c97c66a4f15ca179aef0d00" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_ECDSA_RSA_CFG_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000058U)</highlight></codeline>
+<codeline lineno="103"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_ECDSA_RSA_CFG_RD_ENDIANNESS_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000002U)</highlight></codeline>
+<codeline lineno="104"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_ECDSA_RSA_RSA_CFG_WR_ENDIANNESS_MASK<sp/><sp/><sp/><sp/>(0x00000001U)</highlight></codeline>
+<codeline lineno="105"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_ECDSA_RSA_CFG_CLEAR_ENDIANNESS_MASK<sp/><sp/><sp/><sp/><sp/>(0U)</highlight></codeline>
+<codeline lineno="106"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="107"><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="108"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="109"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="110"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="112"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="113"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XSECURE_ECDSA_RSA_HW_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecdsa/xsecure_ecdsa_rsa_hw.h"/>
+  </compounddef>
+</doxygen>

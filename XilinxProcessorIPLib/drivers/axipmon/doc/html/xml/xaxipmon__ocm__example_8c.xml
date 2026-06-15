@@ -1,0 +1,616 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xaxipmon__ocm__example_8c" kind="file">
+    <compoundname>xaxipmon_ocm_example.c</compoundname>
+    <includes refid="xaxipmon_8h" local="yes">xaxipmon.h</includes>
+    <includes local="yes">xil_cache.h</includes>
+    <includes local="yes">xparameters.h</includes>
+    <incdepgraph>
+      <node id="65">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="63">
+        <label>xaxipmon.h</label>
+        <link refid="xaxipmon_8h"/>
+        <childnode refid="64" relation="include">
+        </childnode>
+        <childnode refid="65" relation="include">
+        </childnode>
+        <childnode refid="66" relation="include">
+        </childnode>
+        <childnode refid="67" relation="include">
+        </childnode>
+      </node>
+      <node id="68">
+        <label>xil_io.h</label>
+      </node>
+      <node id="69">
+        <label>xil_cache.h</label>
+      </node>
+      <node id="66">
+        <label>xstatus.h</label>
+      </node>
+      <node id="64">
+        <label>xil_types.h</label>
+      </node>
+      <node id="67">
+        <label>xaxipmon_hw.h</label>
+        <link refid="xaxipmon__hw_8h"/>
+        <childnode refid="64" relation="include">
+        </childnode>
+        <childnode refid="65" relation="include">
+        </childnode>
+        <childnode refid="68" relation="include">
+        </childnode>
+      </node>
+      <node id="62">
+        <label>xaxipmon_ocm_example.c</label>
+        <link refid="xaxipmon_ocm_example.c"/>
+        <childnode refid="63" relation="include">
+        </childnode>
+        <childnode refid="69" relation="include">
+        </childnode>
+        <childnode refid="70" relation="include">
+        </childnode>
+      </node>
+      <node id="70">
+        <label>xparameters.h</label>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xaxipmon__ocm__example_8c_1a93f97e455a4335f7c2b6cff3716e2691" prot="public" static="no">
+        <name>SAMPLE_INTERVAL</name>
+        <initializer>0x100</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipmon/examples/xaxipmon_ocm_example.c" line="55" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipmon/examples/xaxipmon_ocm_example.c" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xaxipmon__ocm__example_8c_1af17b49739eba5a6dbf7caf7481c71991" prot="public" static="no">
+        <name>OCM_WRITE_ADDRESS</name>
+        <initializer>0xFFFE0000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipmon/examples/xaxipmon_ocm_example.c" line="58" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipmon/examples/xaxipmon_ocm_example.c" bodystart="58" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xaxipmon__ocm__example_8c_1a0753a2c84687dc17094c1962dff3aad6" prot="public" static="no">
+        <name>OCM_READ_ADDRESS</name>
+        <initializer>0xFFFF0000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipmon/examples/xaxipmon_ocm_example.c" line="59" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipmon/examples/xaxipmon_ocm_example.c" bodystart="59" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="xaxipmon__ocm__example_8c_1a127f5b305da5b49b7907994bfa2e7dc3" prot="public" static="yes" mutable="no">
+        <type><ref refid="struct_x_axi_pmon" kindref="compound">XAxiPmon</ref></type>
+        <definition>XAxiPmon AxiPmonInst</definition>
+        <argsstring></argsstring>
+        <name>AxiPmonInst</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipmon/examples/xaxipmon_ocm_example.c" line="75" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipmon/examples/xaxipmon_ocm_example.c" bodystart="75" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xaxipmon__ocm__example_8c_1a47c5759a179275fc06e7bb53db38aac7" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 MetricsBuffer[6]</definition>
+        <argsstring>[6]</argsstring>
+        <name>MetricsBuffer</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipmon/examples/xaxipmon_ocm_example.c" line="77" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipmon/examples/xaxipmon_ocm_example.c" bodystart="77" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xaxipmon__ocm__example_8c_1affabe0f236da72ce614eb1327a0663d3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int ApmCheck</definition>
+        <argsstring>(u32 *BufferPtr, u16 Wtx, u16 Wbc, u16 Rtx, u16 Rbc)</argsstring>
+        <name>ApmCheck</name>
+        <param>
+          <type>u32 *</type>
+          <declname>BufferPtr</declname>
+        </param>
+        <param>
+          <type>u16</type>
+          <declname>Wtx</declname>
+        </param>
+        <param>
+          <type>u16</type>
+          <declname>Wbc</declname>
+        </param>
+        <param>
+          <type>u16</type>
+          <declname>Rtx</declname>
+        </param>
+        <param>
+          <type>u16</type>
+          <declname>Rbc</declname>
+        </param>
+        <briefdescription>
+<para>Checks the metrics passed to this function are same as collected by APM. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BufferPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is pointer to buffer containing captured metrics. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Wtx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is Write transaction count value to be checked. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Wbc</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is Write byte count value to be checked. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Rtx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is Read transaction count value to be checked. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Rbc</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is Read byte count value to be checked.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if metrics passed are equal to metrics collected by APM.</para></listitem><listitem><para>XST_FAILURE if any of the metrics passed is not equal to metrics collected by APM.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipmon/examples/xaxipmon_ocm_example.c" line="68" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipmon/examples/xaxipmon_ocm_example.c" bodystart="158" bodyend="192"/>
+        <referencedby refid="xaxipmon__ocm__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xaxipmon__ocm__example_8c" startline="93" endline="137">main</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xaxipmon__ocm__example_8c_1a1b57d7ae6147dd7eeae26ff6de9bffaf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void OcmTransaction</definition>
+        <argsstring>()</argsstring>
+        <name>OcmTransaction</name>
+        <briefdescription>
+<para>Generates write and read transcations to OCM and reads metrics captured by APM. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>None.</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipmon/examples/xaxipmon_ocm_example.c" line="69" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipmon/examples/xaxipmon_ocm_example.c" bodystart="207" bodyend="225"/>
+        <references refid="xaxipmon__ocm__example_8c_1a45f2fc789f580be3954954245bb05427" compoundref="xaxipmon__ocm__example_8c" startline="243" endline="269">ApmMetricConfig</references>
+        <references refid="xaxipmon__ocm__example_8c_1a33a055205e1207383072c902f6e8bee1" compoundref="xaxipmon__ocm__example_8c" startline="286" endline="294">ReadMetrics</references>
+        <references refid="group__axipmon_1ga1f34457ef45ca60383e42a52d173d498" compoundref="xaxipmon_8h" startline="279">XAPM_METRIC_COUNTER_0</references>
+        <references refid="group__axipmon_1gad5defe9c4e3649b5b8c6016cabea6fe7" compoundref="xaxipmon_8h" startline="280">XAPM_METRIC_COUNTER_1</references>
+        <references refid="group__axipmon_1ga345d7613d04158d0c726d87020dc9d46" compoundref="xaxipmon_8h" startline="316">XAPM_METRIC_SET_0</references>
+        <references refid="group__axipmon_1ga735a85df6ce7d834e9471e302d0bc208" compoundref="xaxipmon_8h" startline="317">XAPM_METRIC_SET_1</references>
+        <references refid="group__axipmon_1ga010e12c93f6988991c9d1982b74c5f84" compoundref="xaxipmon_8h" startline="318">XAPM_METRIC_SET_2</references>
+        <references refid="group__axipmon_1ga9108e3537c68814feed6dda8105f0691" compoundref="xaxipmon_8h" startline="319">XAPM_METRIC_SET_3</references>
+        <referencedby refid="xaxipmon__ocm__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xaxipmon__ocm__example_8c" startline="93" endline="137">main</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xaxipmon__ocm__example_8c_1a45f2fc789f580be3954954245bb05427" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int ApmMetricConfig</definition>
+        <argsstring>(XAxiPmon *InstancePtr, u8 slot, u8 Metric1, u8 Metric2)</argsstring>
+        <name>ApmMetricConfig</name>
+        <param>
+          <type><ref refid="struct_x_axi_pmon" kindref="compound">XAxiPmon</ref> *</type>
+          <declname>ApmInst</declname>
+          <defname>InstancePtr</defname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>slot</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Metric1</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Metric2</declname>
+        </param>
+        <briefdescription>
+<para>Sets Counter 0 and Counter 1 for collecting the passed metrics. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is pointer to APM instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Slot</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is APM slot. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Metric1</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is Metric to be captured by Counter 1 </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Metric2</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is Metric to be captured by Counter 2</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS on success.</para></listitem><listitem><para>XST_FAILURE on failure.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipmon/examples/xaxipmon_ocm_example.c" line="70" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipmon/examples/xaxipmon_ocm_example.c" bodystart="243" bodyend="269"/>
+        <references refid="group__axipmon_1ga1f34457ef45ca60383e42a52d173d498" compoundref="xaxipmon_8h" startline="279">XAPM_METRIC_COUNTER_0</references>
+        <references refid="group__axipmon_1gad5defe9c4e3649b5b8c6016cabea6fe7" compoundref="xaxipmon_8h" startline="280">XAPM_METRIC_COUNTER_1</references>
+        <references refid="group__axipmon_1ga12595840082105ce722b8b36d910443a" compoundref="xaxipmon_8c" startline="1094" endline="1111">XAxiPmon_EnableMetricsCounter</references>
+        <references refid="group__axipmon_1ga25191e9280ab4a1dcffae7afd08ae599" compoundref="xaxipmon_8c" startline="275" endline="302">XAxiPmon_ResetGlobalClkCounter</references>
+        <references refid="group__axipmon_1ga34106e1380f932cb94c74e1bea3a34b3" compoundref="xaxipmon_8c" startline="234" endline="261">XAxiPmon_ResetMetricCounter</references>
+        <references refid="group__axipmon_1gaa14a3b36f2558ecbc47d81d4b3c3fd9d" compoundref="xaxipmon_8c" startline="512" endline="570">XAxiPmon_SetMetrics</references>
+        <references refid="group__axipmon_1ga086eebc115587aab4f5613ed99a28314" compoundref="xaxipmon_8c" startline="1001" endline="1035">XAxiPmon_StartCounters</references>
+        <referencedby refid="xaxipmon__ocm__example_8c_1a1b57d7ae6147dd7eeae26ff6de9bffaf" compoundref="xaxipmon__ocm__example_8c" startline="207" endline="225">OcmTransaction</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xaxipmon__ocm__example_8c_1a33a055205e1207383072c902f6e8bee1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void ReadMetrics</definition>
+        <argsstring>(XAxiPmon *InstancePtr, u32 *BufferPtr, u8 Counter1, u8 Counter2)</argsstring>
+        <name>ReadMetrics</name>
+        <param>
+          <type><ref refid="struct_x_axi_pmon" kindref="compound">XAxiPmon</ref> *</type>
+          <declname>ApmInst</declname>
+          <defname>InstancePtr</defname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>buffer</declname>
+          <defname>BufferPtr</defname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Counter1</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Counter2</declname>
+        </param>
+        <briefdescription>
+<para>Reads metrics from APM counters to buffer. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is pointer to APM instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>BufferPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is pointer to buffer. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Counter1</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is counter number. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Counter2</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is counter number.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipmon/examples/xaxipmon_ocm_example.c" line="71" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipmon/examples/xaxipmon_ocm_example.c" bodystart="286" bodyend="294"/>
+        <references refid="group__axipmon_1ga5450238f0ff52df5a447c26199e9dd4d" compoundref="xaxipmon_8c" startline="684" endline="715">XAxiPmon_GetMetricCounter</references>
+        <references refid="group__axipmon_1ga700e821cca7fea12dfe83c0364d3ec90" compoundref="xaxipmon_8c" startline="1051" endline="1080">XAxiPmon_StopCounters</references>
+        <referencedby refid="xaxipmon__ocm__example_8c_1a1b57d7ae6147dd7eeae26ff6de9bffaf" compoundref="xaxipmon__ocm__example_8c" startline="207" endline="225">OcmTransaction</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xaxipmon__ocm__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int main</definition>
+        <argsstring>(void)</argsstring>
+        <name>main</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Main function that invokes the example in this file. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>None.</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if the example has completed successfully.</para></listitem><listitem><para>XST_FAILURE if the example has failed.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipmon/examples/xaxipmon_ocm_example.c" line="93" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipmon/examples/xaxipmon_ocm_example.c" bodystart="93" bodyend="137"/>
+        <references refid="xaxipmon__ocm__example_8c_1affabe0f236da72ce614eb1327a0663d3" compoundref="xaxipmon__ocm__example_8c" startline="158" endline="192">ApmCheck</references>
+        <references refid="struct_x_axi_pmon___config_1aaaf3e726cc3af1648c88b8a3052252db" compoundref="xaxipmon_8h" startline="437">XAxiPmon_Config::BaseAddress</references>
+        <references refid="xaxipmon__ocm__example_8c_1a1b57d7ae6147dd7eeae26ff6de9bffaf" compoundref="xaxipmon__ocm__example_8c" startline="207" endline="225">OcmTransaction</references>
+        <references refid="group__axipmon_1gafc3c070e08d80f970b4e84c74ca6b37e" compoundref="xaxipmon_8c" startline="141" endline="218">XAxiPmon_CfgInitialize</references>
+        <references refid="group__axipmon_1ga339b500e3f165daf5b7b8f943eee0437" compoundref="xaxipmon_8c" startline="1124" endline="1142">XAxiPmon_DisableMetricsCounter</references>
+        <references refid="group__axipmon_1ga5e458d0ea6c0a458eb3bdd4b638be748" compoundref="xaxipmon__sinit_8c" startline="87" endline="101">XAxiPmon_LookupConfig</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file contains a design example showing how to use the driver APIs of the AXI Performance Monitor driver to measure the following metrics captured at OCM of Zynq MP: </para>    </briefdescription>
+    <detaileddescription>
+<para><verbatim>  - Write Transcation Count
+  - Write Byte Count
+  - Read Transcation Count
+  - Read Byte Count
+</verbatim></para><para><preformatted></preformatted></para><para><preformatted>MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who    Date     Changes
+<hruler/>
+
+1.00a bss    04/01/15 First release
+6.5   sg     11/02/16 Updated device ID to OCM PSU APM ID
+      ms     01/23/17 Modified xil_printf statement in main function to
+                      ensure that &quot;Successfully ran&quot; and &quot;Failed&quot; strings are
+                      available in all examples. This is a fix for CR-965028.
+6.10  ht     06/23/23 Added support for system device-tree flow.
+6.14  vlt    01/27/26 Fixed codespell issues
+</preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2015<sp/>-<sp/>2020<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2023<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="37"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xaxipmon_8h" kindref="compound">xaxipmon.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_cache.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xparameters.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="46"><highlight class="comment"><sp/>*<sp/>The<sp/>following<sp/>constants<sp/>map<sp/>to<sp/>the<sp/>XPAR<sp/>parameters<sp/>created<sp/>in<sp/>the</highlight></codeline>
+<codeline lineno="47"><highlight class="comment"><sp/>*<sp/>xparameters.h<sp/>file.<sp/>They<sp/>are<sp/>defined<sp/>here<sp/>such<sp/>that<sp/>a<sp/>user<sp/>can<sp/>easily</highlight></codeline>
+<codeline lineno="48"><highlight class="comment"><sp/>*<sp/>change<sp/>all<sp/>the<sp/>needed<sp/>parameters<sp/>in<sp/>one<sp/>place.</highlight></codeline>
+<codeline lineno="49"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="51"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>AXIPMON_DEVICE_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_PSU_APM_1_DEVICE_ID</highlight></codeline>
+<codeline lineno="52"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="53"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Sampling<sp/>interval<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>SAMPLE_INTERVAL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x100</highlight></codeline>
+<codeline lineno="56"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>OCM<sp/>test<sp/>Address<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>OCM_WRITE_ADDRESS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xFFFE0000</highlight></codeline>
+<codeline lineno="59"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>OCM_READ_ADDRESS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xFFFF0000</highlight></codeline>
+<codeline lineno="60"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xaxipmon__ocm__example_8c_1affabe0f236da72ce614eb1327a0663d3" kindref="member">ApmCheck</ref>(u32<sp/>*BufferPtr,<sp/>u16<sp/>Wtx,<sp/>u16<sp/>Wbc,<sp/>u16<sp/>Rtx,<sp/>u16<sp/>Rbc);</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xaxipmon__ocm__example_8c_1a1b57d7ae6147dd7eeae26ff6de9bffaf" kindref="member">OcmTransaction</ref>();</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xaxipmon__ocm__example_8c_1a45f2fc789f580be3954954245bb05427" kindref="member">ApmMetricConfig</ref>(<ref refid="struct_x_axi_pmon" kindref="compound">XAxiPmon</ref><sp/>*ApmInst,<sp/>u8<sp/>slot,<sp/>u8<sp/>Metric1,<sp/>u8<sp/>Metric2);</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xaxipmon__ocm__example_8c_1a33a055205e1207383072c902f6e8bee1" kindref="member">ReadMetrics</ref>(<ref refid="struct_x_axi_pmon" kindref="compound">XAxiPmon</ref><sp/>*ApmInst,<sp/>u32<sp/>*buffer,<sp/>u8<sp/>Counter1,<sp/>u8<sp/>Counter2);</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/><ref refid="struct_x_axi_pmon" kindref="compound">XAxiPmon</ref><sp/><sp/>AxiPmonInst;</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"></highlight></codeline>
+<codeline lineno="77"><highlight class="normal">u32<sp/>MetricsBuffer[6];</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight></codeline>
+<codeline lineno="79"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="93" refid="xaxipmon__ocm__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xaxipmon__intr__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" kindref="member">main</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="94"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_axi_pmon___config" kindref="compound">XAxiPmon_Config</ref><sp/>*ConfigPtr<sp/>=<sp/>NULL;</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Status;</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"></highlight></codeline>
+<codeline lineno="98"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="99"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ConfigPtr<sp/>=<sp/><ref refid="group__axipmon_1ga5e458d0ea6c0a458eb3bdd4b638be748" kindref="member">XAxiPmon_LookupConfig</ref>(AXIPMON_DEVICE_ID);</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="101"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ConfigPtr<sp/>=<sp/><ref refid="group__axipmon_1ga5e458d0ea6c0a458eb3bdd4b638be748" kindref="member">XAxiPmon_LookupConfig</ref>(XPAR_PERF_MONITOR_OCM_BASEADDR);</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="103"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(ConfigPtr<sp/>==<sp/>NULL)<sp/>{</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"></highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__axipmon_1gafc3c070e08d80f970b4e84c74ca6b37e" kindref="member">XAxiPmon_CfgInitialize</ref>(&amp;AxiPmonInst,<sp/>ConfigPtr,</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ConfigPtr-&gt;<ref refid="struct_x_axi_pmon___config_1aaaf3e726cc3af1648c88b8a3052252db" kindref="member">BaseAddress</ref>);</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"></highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_DCacheDisable();</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"></highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xaxipmon__ocm__example_8c_1a1b57d7ae6147dd7eeae26ff6de9bffaf" kindref="member">OcmTransaction</ref>();</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"></highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;OCM<sp/>APM<sp/>Monitor<sp/>results\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"></highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="120"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>1<sp/>32<sp/>bit<sp/>write<sp/>transaction<sp/>from<sp/>A53<sp/>to<sp/>OCM<sp/>i.e,<sp/>4<sp/>bytes</highlight></codeline>
+<codeline lineno="121"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>1<sp/>read<sp/>transaction<sp/>i.e,<sp/>16<sp/>bytes<sp/>at<sp/>OCM<sp/>(128<sp/>bit<sp/>data<sp/>bus)</highlight></codeline>
+<codeline lineno="122"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>A53<sp/>-&gt;<sp/>Interconnect<sp/>-&gt;<sp/>APM<sp/>-&gt;<sp/>OCM</highlight></codeline>
+<codeline lineno="123"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="xaxipmon__ocm__example_8c_1affabe0f236da72ce614eb1327a0663d3" kindref="member">ApmCheck</ref>(MetricsBuffer,<sp/>1,<sp/>4,<sp/>1,<sp/>16);</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"></highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__axipmon_1ga339b500e3f165daf5b7b8f943eee0437" kindref="member">XAxiPmon_DisableMetricsCounter</ref>(&amp;AxiPmonInst);</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>==<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Successfully<sp/>ran<sp/>AXI<sp/>Performance<sp/>Monitor<sp/>OCM<sp/>\</highlight></codeline>
+<codeline lineno="129"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Example\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;AXI<sp/>Performance<sp/>Monitor<sp/>OCM<sp/>example<sp/>Failed\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"></highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="137"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"></highlight></codeline>
+<codeline lineno="139"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="158" refid="xaxipmon__ocm__example_8c_1affabe0f236da72ce614eb1327a0663d3" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xaxipmon__ocm__example_8c_1affabe0f236da72ce614eb1327a0663d3" kindref="member">ApmCheck</ref>(u32<sp/>*BufferPtr,<sp/>u16<sp/>Wtx,<sp/>u16<sp/>Wbc,<sp/>u16<sp/>Rtx,<sp/>u16<sp/>Rbc)</highlight></codeline>
+<codeline lineno="159"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Errors<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"></highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Write<sp/>Transaction<sp/>Count<sp/><sp/><sp/><sp/><sp/>:<sp/>%d\r\n&quot;</highlight><highlight class="normal">,<sp/>BufferPtr[0]);</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Write<sp/>Byte<sp/>Count<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/>%d\r\n&quot;</highlight><highlight class="normal">,<sp/>BufferPtr[1]);</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Read<sp/>Transaction<sp/>Count<sp/><sp/><sp/><sp/><sp/><sp/>:<sp/>%d\r\n&quot;</highlight><highlight class="normal">,<sp/>BufferPtr[3]);</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Read<sp/>Byte<sp/>Count<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/>%d\r\n&quot;</highlight><highlight class="normal">,<sp/>BufferPtr[4]);</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"></highlight></codeline>
+<codeline lineno="167"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Wtx<sp/>!=<sp/>BufferPtr[0])<sp/>{</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;write<sp/>tx<sp/>count<sp/>fail\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Errors<sp/>=<sp/>Errors<sp/>+<sp/>1;</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"></highlight></codeline>
+<codeline lineno="172"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Wbc<sp/>!=<sp/>BufferPtr[1])<sp/>{</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;write<sp/>byte<sp/>count<sp/>fail\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Errors<sp/>=<sp/>Errors<sp/>+<sp/>1;</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"></highlight></codeline>
+<codeline lineno="177"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Rtx<sp/>!=<sp/>BufferPtr[3])<sp/>{</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;read<sp/>tx<sp/>count<sp/>fail\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Errors<sp/>=<sp/>Errors<sp/>+<sp/>1;</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"></highlight></codeline>
+<codeline lineno="182"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Rbc<sp/>!=<sp/>BufferPtr[4])<sp/>{</highlight></codeline>
+<codeline lineno="183"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;read<sp/>byte<sp/>count<sp/>fail\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="184"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Errors<sp/>=<sp/>Errors<sp/>+<sp/>1;</highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"></highlight></codeline>
+<codeline lineno="187"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Errors<sp/>&gt;<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="188"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="191"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="192"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="193"><highlight class="normal"></highlight></codeline>
+<codeline lineno="194"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="207" refid="xaxipmon__ocm__example_8c_1a1b57d7ae6147dd7eeae26ff6de9bffaf" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xaxipmon__ocm__example_8c_1a1b57d7ae6147dd7eeae26ff6de9bffaf" kindref="member">OcmTransaction</ref>()</highlight></codeline>
+<codeline lineno="208"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="209"><highlight class="normal"></highlight></codeline>
+<codeline lineno="210"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xaxipmon__ocm__example_8c_1a45f2fc789f580be3954954245bb05427" kindref="member">ApmMetricConfig</ref>(&amp;AxiPmonInst,<sp/>0,<sp/><ref refid="group__axipmon_1ga345d7613d04158d0c726d87020dc9d46" kindref="member">XAPM_METRIC_SET_0</ref>,<sp/><ref refid="group__axipmon_1ga010e12c93f6988991c9d1982b74c5f84" kindref="member">XAPM_METRIC_SET_2</ref>);</highlight></codeline>
+<codeline lineno="211"><highlight class="normal"></highlight></codeline>
+<codeline lineno="212"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>write<sp/>to<sp/>OCM<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="213"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_Out32(OCM_WRITE_ADDRESS,<sp/>0xBAADFACE);</highlight></codeline>
+<codeline lineno="214"><highlight class="normal"></highlight></codeline>
+<codeline lineno="215"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xaxipmon__ocm__example_8c_1a33a055205e1207383072c902f6e8bee1" kindref="member">ReadMetrics</ref>(&amp;AxiPmonInst,<sp/>&amp;MetricsBuffer[0],<sp/><ref refid="group__axipmon_1ga1f34457ef45ca60383e42a52d173d498" kindref="member">XAPM_METRIC_COUNTER_0</ref>,</highlight></codeline>
+<codeline lineno="216"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__axipmon_1gad5defe9c4e3649b5b8c6016cabea6fe7" kindref="member">XAPM_METRIC_COUNTER_1</ref>);</highlight></codeline>
+<codeline lineno="217"><highlight class="normal"></highlight></codeline>
+<codeline lineno="218"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xaxipmon__ocm__example_8c_1a45f2fc789f580be3954954245bb05427" kindref="member">ApmMetricConfig</ref>(&amp;AxiPmonInst,<sp/>0,<sp/><ref refid="group__axipmon_1ga735a85df6ce7d834e9471e302d0bc208" kindref="member">XAPM_METRIC_SET_1</ref>,<sp/><ref refid="group__axipmon_1ga9108e3537c68814feed6dda8105f0691" kindref="member">XAPM_METRIC_SET_3</ref>);</highlight></codeline>
+<codeline lineno="219"><highlight class="normal"></highlight></codeline>
+<codeline lineno="220"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>read<sp/>from<sp/>OCM<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="221"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_In32(OCM_READ_ADDRESS);</highlight></codeline>
+<codeline lineno="222"><highlight class="normal"></highlight></codeline>
+<codeline lineno="223"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xaxipmon__ocm__example_8c_1a33a055205e1207383072c902f6e8bee1" kindref="member">ReadMetrics</ref>(&amp;AxiPmonInst,<sp/>&amp;MetricsBuffer[3],<sp/><ref refid="group__axipmon_1ga1f34457ef45ca60383e42a52d173d498" kindref="member">XAPM_METRIC_COUNTER_0</ref>,</highlight></codeline>
+<codeline lineno="224"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__axipmon_1gad5defe9c4e3649b5b8c6016cabea6fe7" kindref="member">XAPM_METRIC_COUNTER_1</ref>);</highlight></codeline>
+<codeline lineno="225"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="226"><highlight class="normal"></highlight></codeline>
+<codeline lineno="227"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="243" refid="xaxipmon__ocm__example_8c_1a45f2fc789f580be3954954245bb05427" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xaxipmon__ocm__example_8c_1a45f2fc789f580be3954954245bb05427" kindref="member">ApmMetricConfig</ref>(<ref refid="struct_x_axi_pmon" kindref="compound">XAxiPmon</ref><sp/>*InstancePtr,<sp/>u8<sp/>slot,<sp/>u8<sp/>Metric1,<sp/>u8<sp/>Metric2)</highlight></codeline>
+<codeline lineno="244"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="245"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="246"><highlight class="normal"></highlight></codeline>
+<codeline lineno="247"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>reset<sp/>Metric<sp/>counter<sp/>and<sp/>Global<sp/>counters<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="248"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__axipmon_1ga34106e1380f932cb94c74e1bea3a34b3" kindref="member">XAxiPmon_ResetMetricCounter</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="249"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__axipmon_1ga25191e9280ab4a1dcffae7afd08ae599" kindref="member">XAxiPmon_ResetGlobalClkCounter</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="250"><highlight class="normal"></highlight></codeline>
+<codeline lineno="251"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__axipmon_1gaa14a3b36f2558ecbc47d81d4b3c3fd9d" kindref="member">XAxiPmon_SetMetrics</ref>(InstancePtr,<sp/>slot,<sp/>Metric1,</highlight></codeline>
+<codeline lineno="252"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__axipmon_1ga1f34457ef45ca60383e42a52d173d498" kindref="member">XAPM_METRIC_COUNTER_0</ref>);</highlight></codeline>
+<codeline lineno="253"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>==<sp/>XST_FAILURE)<sp/>{</highlight></codeline>
+<codeline lineno="254"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="255"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="256"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__axipmon_1gaa14a3b36f2558ecbc47d81d4b3c3fd9d" kindref="member">XAxiPmon_SetMetrics</ref>(InstancePtr,<sp/>slot,<sp/>Metric2,</highlight></codeline>
+<codeline lineno="257"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__axipmon_1gad5defe9c4e3649b5b8c6016cabea6fe7" kindref="member">XAPM_METRIC_COUNTER_1</ref>);</highlight></codeline>
+<codeline lineno="258"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>==<sp/>XST_FAILURE)<sp/>{</highlight></codeline>
+<codeline lineno="259"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="260"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="261"><highlight class="normal"></highlight></codeline>
+<codeline lineno="262"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Enable<sp/>Metric<sp/>counter<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="263"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__axipmon_1ga12595840082105ce722b8b36d910443a" kindref="member">XAxiPmon_EnableMetricsCounter</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="264"><highlight class="normal"></highlight></codeline>
+<codeline lineno="265"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Start<sp/>Metric<sp/>counter<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="266"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__axipmon_1ga086eebc115587aab4f5613ed99a28314" kindref="member">XAxiPmon_StartCounters</ref>(InstancePtr,<sp/>SAMPLE_INTERVAL);</highlight></codeline>
+<codeline lineno="267"><highlight class="normal"></highlight></codeline>
+<codeline lineno="268"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="269"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="270"><highlight class="normal"></highlight></codeline>
+<codeline lineno="271"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="286" refid="xaxipmon__ocm__example_8c_1a33a055205e1207383072c902f6e8bee1" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xaxipmon__ocm__example_8c_1a33a055205e1207383072c902f6e8bee1" kindref="member">ReadMetrics</ref>(<ref refid="struct_x_axi_pmon" kindref="compound">XAxiPmon</ref><sp/>*InstancePtr,<sp/>u32<sp/>*BufferPtr,<sp/>u8<sp/>Counter1,</highlight></codeline>
+<codeline lineno="287"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Counter2)</highlight></codeline>
+<codeline lineno="288"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="289"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Stop<sp/>Counters<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="290"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__axipmon_1ga700e821cca7fea12dfe83c0364d3ec90" kindref="member">XAxiPmon_StopCounters</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="291"><highlight class="normal"></highlight></codeline>
+<codeline lineno="292"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BufferPtr[0]<sp/>=<sp/><ref refid="group__axipmon_1ga5450238f0ff52df5a447c26199e9dd4d" kindref="member">XAxiPmon_GetMetricCounter</ref>(InstancePtr,<sp/>Counter1);</highlight></codeline>
+<codeline lineno="293"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BufferPtr[1]<sp/>=<sp/><ref refid="group__axipmon_1ga5450238f0ff52df5a447c26199e9dd4d" kindref="member">XAxiPmon_GetMetricCounter</ref>(InstancePtr,<sp/>Counter2);</highlight></codeline>
+<codeline lineno="294"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipmon/examples/xaxipmon_ocm_example.c"/>
+  </compounddef>
+</doxygen>

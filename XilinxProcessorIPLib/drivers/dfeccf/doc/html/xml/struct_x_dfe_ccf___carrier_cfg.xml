@@ -1,0 +1,79 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_dfe_ccf___carrier_cfg" kind="struct" prot="public">
+    <compoundname>XDfeCcf_CarrierCfg</compoundname>
+    <includes local="no">xdfeccf.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_dfe_ccf___carrier_cfg_1a173a44d57df127ae6f699998b1d5291b" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfeCcf_CarrierCfg::Gain</definition>
+        <argsstring></argsstring>
+        <name>Gain</name>
+        <briefdescription>
+<para>[0-(1&lt;&lt;16)-1] Gain setting for this CC </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" line="319" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" bodystart="319" bodyend="-1"/>
+        <referencedby refid="group__dfeccf_1ga2bfa4131ce8d5857886eafa44a99f6bb" compoundref="xdfeccf_8c" startline="1595" endline="1649">XDfeCcf_AddCC</referencedby>
+        <referencedby refid="group__dfeccf_1gad0fac8e80b48aebf7a8b3da0681b8d14" compoundref="xdfeccf_8c" startline="1361" endline="1399">XDfeCcf_AddCCtoCCCfg</referencedby>
+        <referencedby refid="group__dfeccf_1gaadad4a797dff7b30ac37d42df1a540a0" compoundref="xdfeccf_8c" startline="1287" endline="1310">XDfeCcf_GetCarrierCfg</referencedby>
+        <referencedby refid="group__dfeccf_1ga35abbe8a94908b712c6eda7cfecd02c2" compoundref="xdfeccf_8c" startline="2088" endline="2107">XDfeCcf_GetCC</referencedby>
+        <referencedby refid="xdfeccf__pass__through__example_8c_1a6e4a59a64bb3ee3a50a0ea8802942969" compoundref="xdfeccf__pass__through__example_8c" startline="61" endline="162">XDfeCcf_PassThroughExample</referencedby>
+        <referencedby refid="group__dfeccf_1gabc93998a929eabcbe6b5845626cef210" compoundref="xdfeccf_8c" startline="1721" endline="1751">XDfeCcf_UpdateCC</referencedby>
+        <referencedby refid="group__dfeccf_1gabd6cdd5621c842a4d6a8a58a4eaf6235" compoundref="xdfeccf_8c" startline="1441" endline="1466">XDfeCcf_UpdateCCinCCCfg</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_ccf___carrier_cfg_1a7226c29ffda01e9c56d3ed701bd9f274" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfeCcf_CarrierCfg::ImagCoeffSet</definition>
+        <argsstring></argsstring>
+        <name>ImagCoeffSet</name>
+        <briefdescription>
+<para>[0-7] Identify the coefficient set for the complex data on this CC </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" line="320" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" bodystart="320" bodyend="-1"/>
+        <referencedby refid="group__dfeccf_1ga2bfa4131ce8d5857886eafa44a99f6bb" compoundref="xdfeccf_8c" startline="1595" endline="1649">XDfeCcf_AddCC</referencedby>
+        <referencedby refid="group__dfeccf_1gad0fac8e80b48aebf7a8b3da0681b8d14" compoundref="xdfeccf_8c" startline="1361" endline="1399">XDfeCcf_AddCCtoCCCfg</referencedby>
+        <referencedby refid="group__dfeccf_1gaadad4a797dff7b30ac37d42df1a540a0" compoundref="xdfeccf_8c" startline="1287" endline="1310">XDfeCcf_GetCarrierCfg</referencedby>
+        <referencedby refid="group__dfeccf_1ga35abbe8a94908b712c6eda7cfecd02c2" compoundref="xdfeccf_8c" startline="2088" endline="2107">XDfeCcf_GetCC</referencedby>
+        <referencedby refid="xdfeccf__pass__through__example_8c_1a6e4a59a64bb3ee3a50a0ea8802942969" compoundref="xdfeccf__pass__through__example_8c" startline="61" endline="162">XDfeCcf_PassThroughExample</referencedby>
+        <referencedby refid="group__dfeccf_1gabc93998a929eabcbe6b5845626cef210" compoundref="xdfeccf_8c" startline="1721" endline="1751">XDfeCcf_UpdateCC</referencedby>
+        <referencedby refid="group__dfeccf_1gabd6cdd5621c842a4d6a8a58a4eaf6235" compoundref="xdfeccf_8c" startline="1441" endline="1466">XDfeCcf_UpdateCCinCCCfg</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_ccf___carrier_cfg_1a255ccae92608e4170f1d4b47c8132412" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfeCcf_CarrierCfg::RealCoeffSet</definition>
+        <argsstring></argsstring>
+        <name>RealCoeffSet</name>
+        <briefdescription>
+<para>[0-7] Identify the coefficient set for the real data on this CC </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" line="322" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" bodystart="322" bodyend="-1"/>
+        <referencedby refid="group__dfeccf_1ga2bfa4131ce8d5857886eafa44a99f6bb" compoundref="xdfeccf_8c" startline="1595" endline="1649">XDfeCcf_AddCC</referencedby>
+        <referencedby refid="group__dfeccf_1gad0fac8e80b48aebf7a8b3da0681b8d14" compoundref="xdfeccf_8c" startline="1361" endline="1399">XDfeCcf_AddCCtoCCCfg</referencedby>
+        <referencedby refid="group__dfeccf_1gaadad4a797dff7b30ac37d42df1a540a0" compoundref="xdfeccf_8c" startline="1287" endline="1310">XDfeCcf_GetCarrierCfg</referencedby>
+        <referencedby refid="group__dfeccf_1ga35abbe8a94908b712c6eda7cfecd02c2" compoundref="xdfeccf_8c" startline="2088" endline="2107">XDfeCcf_GetCC</referencedby>
+        <referencedby refid="xdfeccf__pass__through__example_8c_1a6e4a59a64bb3ee3a50a0ea8802942969" compoundref="xdfeccf__pass__through__example_8c" startline="61" endline="162">XDfeCcf_PassThroughExample</referencedby>
+        <referencedby refid="group__dfeccf_1gabc93998a929eabcbe6b5845626cef210" compoundref="xdfeccf_8c" startline="1721" endline="1751">XDfeCcf_UpdateCC</referencedby>
+        <referencedby refid="group__dfeccf_1gabd6cdd5621c842a4d6a8a58a4eaf6235" compoundref="xdfeccf_8c" startline="1441" endline="1466">XDfeCcf_UpdateCCinCCCfg</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Configuration for a single CC. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" line="318" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" bodystart="318" bodyend="324"/>
+    <listofallmembers>
+      <member refid="struct_x_dfe_ccf___carrier_cfg_1a173a44d57df127ae6f699998b1d5291b" prot="public" virt="non-virtual"><scope>XDfeCcf_CarrierCfg</scope><name>Gain</name></member>
+      <member refid="struct_x_dfe_ccf___carrier_cfg_1a7226c29ffda01e9c56d3ed701bd9f274" prot="public" virt="non-virtual"><scope>XDfeCcf_CarrierCfg</scope><name>ImagCoeffSet</name></member>
+      <member refid="struct_x_dfe_ccf___carrier_cfg_1a255ccae92608e4170f1d4b47c8132412" prot="public" virt="non-virtual"><scope>XDfeCcf_CarrierCfg</scope><name>RealCoeffSet</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

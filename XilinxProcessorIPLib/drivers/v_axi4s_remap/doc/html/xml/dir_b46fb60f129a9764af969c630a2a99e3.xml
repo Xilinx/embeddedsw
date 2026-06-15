@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_b46fb60f129a9764af969c630a2a99e3" kind="dir">
+    <compoundname>v_axi4s_remap</compoundname>
+    <innerdir refid="dir_711407c011dd3e7e8576b6cef5945660">examples</innerdir>
+    <innerdir refid="dir_b084292915d35a28194c3a0cf0991027">src</innerdir>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_axi4s_remap/"/>
+  </compounddef>
+</doxygen>

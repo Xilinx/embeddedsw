@@ -1,0 +1,26 @@
+var searchData=
+[
+  ['xmu_5fmutex_5freg_5foffset',['XMU_MUTEX_REG_OFFSET',['../group__mutex.html#gac717e990a2cbe85f19525c46aefc84b6',1,'xmutex_hw.h']]],
+  ['xmu_5fuser_5freg_5foffset',['XMU_USER_REG_OFFSET',['../group__mutex.html#ga7317a6291745987d25c994702005fff2',1,'xmutex_hw.h']]],
+  ['xmutex',['XMutex',['../struct_x_mutex.html',1,'']]],
+  ['xmutex_2ec',['xmutex.c',['../xmutex_8c.html',1,'']]],
+  ['xmutex_2eh',['xmutex.h',['../xmutex_8h.html',1,'']]],
+  ['xmutex_5fcfginitialize',['XMutex_CfgInitialize',['../group__mutex.html#gacb4152fb008849bcb87006d7bd0a97a8',1,'xmutex.c']]],
+  ['xmutex_5fconfig',['XMutex_Config',['../struct_x_mutex___config.html',1,'']]],
+  ['xmutex_5fg_2ec',['xmutex_g.c',['../xmutex__g_8c.html',1,'']]],
+  ['xmutex_5fgetstatus',['XMutex_GetStatus',['../group__mutex.html#ga0fcbb23b06dc9fb716e3812696321f66',1,'xmutex.c']]],
+  ['xmutex_5fgetuser',['XMutex_GetUser',['../group__mutex.html#gad7d5c5cd3b24ffee6dcc093b98c8546a',1,'xmutex.c']]],
+  ['xmutex_5fhw_2eh',['xmutex_hw.h',['../xmutex__hw_8h.html',1,'']]],
+  ['xmutex_5fislocked',['XMutex_IsLocked',['../group__mutex.html#ga37302270d3c1c86dc0bffdfc7043b902',1,'xmutex.c']]],
+  ['xmutex_5flock',['XMutex_Lock',['../group__mutex.html#ga1255fbeea64f519d8def63e542ce8703',1,'xmutex.c']]],
+  ['xmutex_5flookupconfig',['XMutex_LookupConfig',['../group__mutex.html#ga08913f199dc5f5ce55779aea1c987ab0',1,'xmutex_sinit.c']]],
+  ['xmutex_5freadreg',['XMutex_ReadReg',['../group__mutex.html#gac521c86ba5c4f2bad8f73e515897a766',1,'xmutex_hw.h']]],
+  ['xmutex_5fselftest',['XMutex_SelfTest',['../group__mutex.html#ga1599a86dd180f3bd789a2fc472e9aa29',1,'xmutex_selftest.c']]],
+  ['xmutex_5fselftest_2ec',['xmutex_selftest.c',['../xmutex__selftest_8c.html',1,'']]],
+  ['xmutex_5fsetuser',['XMutex_SetUser',['../group__mutex.html#ga941e13d2534884adf4926f05bae3966e',1,'xmutex.c']]],
+  ['xmutex_5fsinit_2ec',['xmutex_sinit.c',['../xmutex__sinit_8c.html',1,'']]],
+  ['xmutex_5ftapp_5fexample_2ec',['xmutex_tapp_example.c',['../xmutex__tapp__example_8c.html',1,'']]],
+  ['xmutex_5ftrylock',['XMutex_Trylock',['../group__mutex.html#gaf1857cffa94ba8b3bdf491f1a0096340',1,'xmutex.c']]],
+  ['xmutex_5funlock',['XMutex_Unlock',['../group__mutex.html#ga82790dd21650e2b03e2c0a0f69a605d3',1,'xmutex.c']]],
+  ['xmutex_5fwritereg',['XMutex_WriteReg',['../group__mutex.html#ga33160589a1793006209e4e259ca7de35',1,'xmutex_hw.h']]]
+];

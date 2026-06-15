@@ -1,0 +1,146 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_uart_psv___config" kind="struct" prot="public">
+    <compoundname>XUartPsv_Config</compoundname>
+    <includes local="no">xuartpsv.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_uart_psv___config_1a0e55e6061fd9d48bdf66df73dceffe4e" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* XUartPsv_Config::Name</definition>
+        <argsstring></argsstring>
+        <name>Name</name>
+        <briefdescription>
+<para>Name of the device. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartpsv/src/xuartpsv.h" line="247" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartpsv/src/xuartpsv.h" bodystart="247" bodyend="-1"/>
+        <referencedby refid="group__uartpsv_1ga1ae9af89fa7aaab4c02d937d5ce520f7" compoundref="xuartpsv__sinit_8c" startline="85" endline="99">XUartPsv_LookupConfig</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_uart_psv___config_1ad3fc1852bc0fda04d7db7887d20f3ce2" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XUartPsv_Config::BaseAddress</definition>
+        <argsstring></argsstring>
+        <name>BaseAddress</name>
+        <briefdescription>
+<para>Base address of device (IPIF) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartpsv/src/xuartpsv.h" line="249" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartpsv/src/xuartpsv.h" bodystart="249" bodyend="-1"/>
+        <referencedby refid="xuartpsv__hello__world__example_8c_1af3a7876a493931a8e88dd16c35d7e8c4" compoundref="xuartpsv__hello__world__example_8c" startline="135" endline="178">UartPsvHelloWorldExample</referencedby>
+        <referencedby refid="xuartpsv__intr__example_8c_1a1d007e6ca11ccbd17910903ff771b3a5" compoundref="xuartpsv__intr__example_8c" startline="191" endline="321">UartPsvIntrExample</referencedby>
+        <referencedby refid="xuartpsv__polled__example_8c_1a1eb8c4c9967695faad8a5928908b6a04" compoundref="xuartpsv__polled__example_8c" startline="142" endline="221">UartPsvPolledExample</referencedby>
+        <referencedby refid="xuartpsv__selftest__example_8c_1a84bfc77dedcd89648c6cf8ce19253afd" compoundref="xuartpsv__selftest__example_8c" startline="117" endline="151">UartPsvSelfTestExample</referencedby>
+        <referencedby refid="group__uartpsv_1gae977262c7eae574f573fe4122ac6c0ab" compoundref="xuartpsv_8c" startline="102" endline="187">XUartPsv_CfgInitialize</referencedby>
+        <referencedby refid="group__uartpsv_1gad9a82725de555ca0e6414d95afb4fb2a" compoundref="xuartpsv__options_8c" startline="658" endline="693">XUartPsv_GetDataFormat</referencedby>
+        <referencedby refid="group__uartpsv_1gaaf3802ebc7d644ab9f80bb20060394e0" compoundref="xuartpsv__options_8c" startline="197" endline="218">XUartPsv_GetFifoThreshold</referencedby>
+        <referencedby refid="group__uartpsv_1ga049a65e8d28c43b51ce4c67b15a2d07e" compoundref="xuartpsv__intr_8c" startline="64" endline="72">XUartPsv_GetInterruptMask</referencedby>
+        <referencedby refid="group__uartpsv_1ga9563569d26dcdc486b2fc9d2d18ec918" compoundref="xuartpsv__options_8c" startline="377" endline="390">XUartPsv_GetModemStatus</referencedby>
+        <referencedby refid="group__uartpsv_1ga2d87a5b4f9a733d6471c29080fddc7aa" compoundref="xuartpsv__options_8c" startline="451" endline="484">XUartPsv_GetOperMode</referencedby>
+        <referencedby refid="group__uartpsv_1ga30dc7c90e0cc1a859ae286f1bb4fb3cf" compoundref="xuartpsv__options_8c" startline="99" endline="129">XUartPsv_GetOptions</referencedby>
+        <referencedby refid="group__uartpsv_1ga869ac0531d2e16457706d013d7f0a0cc" compoundref="xuartpsv__intr_8c" startline="149" endline="216">XUartPsv_InterruptHandler</referencedby>
+        <referencedby refid="group__uartpsv_1gaa335aef95c763728b0d179ddc3e8b209" compoundref="xuartpsv__options_8c" startline="406" endline="434">XUartPsv_IsSending</referencedby>
+        <referencedby refid="group__uartpsv_1gaa19ed118438249d9c56cd3afcfa8898c" compoundref="xuartpsv_8c" startline="708" endline="759">XUartPsv_ProgramCtrlReg</referencedby>
+        <referencedby refid="group__uartpsv_1gab7c628a4fd29e1f9d1d4cb9cbe672279" compoundref="xuartpsv_8c" startline="501" endline="541">XUartPsv_ReceiveBuffer</referencedby>
+        <referencedby refid="group__uartpsv_1ga5dba5d9d345ab578b8410113968ffaa6" compoundref="xuartpsv__selftest_8c" startline="70" endline="127">XUartPsv_SelfTest</referencedby>
+        <referencedby refid="group__uartpsv_1gac551c919a38424e6d23298256a9d1141" compoundref="xuartpsv_8c" startline="321" endline="349">XUartPsv_Send_NoWait</referencedby>
+        <referencedby refid="group__uartpsv_1ga2236ec3fe4acd721566be3025554826b" compoundref="xuartpsv_8c" startline="432" endline="470">XUartPsv_SendBuffer</referencedby>
+        <referencedby refid="group__uartpsv_1ga8c73264d5304f3187edb896bab76dcb0" compoundref="xuartpsv_8c" startline="562" endline="685">XUartPsv_SetBaudRate</referencedby>
+        <referencedby refid="group__uartpsv_1ga5947dc8794a2d6d1b5cfb7558a83ac4a" compoundref="xuartpsv__options_8c" startline="560" endline="640">XUartPsv_SetDataFormat</referencedby>
+        <referencedby refid="group__uartpsv_1gab2c5afc9fe98688f68d1eb52e5014401" compoundref="xuartpsv__options_8c" startline="238" endline="265">XUartPsv_SetFifoThreshold</referencedby>
+        <referencedby refid="group__uartpsv_1ga09b94a490c696d7ff7b1c6bbec42b226" compoundref="xuartpsv__intr_8c" startline="88" endline="100">XUartPsv_SetInterruptMask</referencedby>
+        <referencedby refid="group__uartpsv_1ga0ea310ea61d052f2c4f5cce2dfadfc46" compoundref="xuartpsv__options_8c" startline="501" endline="531">XUartPsv_SetOperMode</referencedby>
+        <referencedby refid="group__uartpsv_1gada7b7128f09873d46fc19d0d9cf91751" compoundref="xuartpsv__options_8c" startline="152" endline="181">XUartPsv_SetOptions</referencedby>
+        <referencedby refid="group__uartpsv_1ga8bc7523050515544bb2823a9254ac8f5" compoundref="xuartpsv__options_8c" startline="332" endline="356">XUartPsv_SetRxFifoThreshold</referencedby>
+        <referencedby refid="group__uartpsv_1ga43c4fde1105e2505e10c684622be1d13" compoundref="xuartpsv__options_8c" startline="286" endline="311">XUartPsv_SetTxFifoThreshold</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_uart_psv___config_1a587bd90d21168aad32ee93bf1163eaf6" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XUartPsv_Config::InputClockHz</definition>
+        <argsstring></argsstring>
+        <name>InputClockHz</name>
+        <briefdescription>
+<para>Input clock frequency. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartpsv/src/xuartpsv.h" line="250" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartpsv/src/xuartpsv.h" bodystart="250" bodyend="-1"/>
+        <referencedby refid="group__uartpsv_1gae977262c7eae574f573fe4122ac6c0ab" compoundref="xuartpsv_8c" startline="102" endline="187">XUartPsv_CfgInitialize</referencedby>
+        <referencedby refid="group__uartpsv_1ga8c73264d5304f3187edb896bab76dcb0" compoundref="xuartpsv_8c" startline="562" endline="685">XUartPsv_SetBaudRate</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_uart_psv___config_1a792c2703724947f4acec05fb8f708a8c" prot="public" static="no" mutable="no">
+        <type>s32</type>
+        <definition>s32 XUartPsv_Config::ModemPinsConnected</definition>
+        <argsstring></argsstring>
+        <name>ModemPinsConnected</name>
+        <briefdescription>
+<para>Specifies whether modem pins are connected to MIO or FMIO. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartpsv/src/xuartpsv.h" line="251" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartpsv/src/xuartpsv.h" bodystart="251" bodyend="-1"/>
+        <referencedby refid="group__uartpsv_1gae977262c7eae574f573fe4122ac6c0ab" compoundref="xuartpsv_8c" startline="102" endline="187">XUartPsv_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_uart_psv___config_1a001d07bb8c022bcbe3e2e51c68bae622" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XUartPsv_Config::BaudRate</definition>
+        <argsstring></argsstring>
+        <name>BaudRate</name>
+        <briefdescription>
+<para>Current baud rate. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartpsv/src/xuartpsv.h" line="253" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartpsv/src/xuartpsv.h" bodystart="253" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_uart_psv___config_1adc20da3fb028693c338e3ac0ca7f907e" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XUartPsv_Config::IntrId</definition>
+        <argsstring></argsstring>
+        <name>IntrId</name>
+        <briefdescription>
+<para>Bits[11:0] Interrupt-id Bits[15:12] trigger type and level flags. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartpsv/src/xuartpsv.h" line="255" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartpsv/src/xuartpsv.h" bodystart="255" bodyend="-1"/>
+        <referencedby refid="xuartpsv__intr__example_8c_1a1d007e6ca11ccbd17910903ff771b3a5" compoundref="xuartpsv__intr__example_8c" startline="191" endline="321">UartPsvIntrExample</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_uart_psv___config_1a807bb14ca29e7a7843003858c4c86c14" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XUartPsv_Config::IntrParent</definition>
+        <argsstring></argsstring>
+        <name>IntrParent</name>
+        <briefdescription>
+<para>Bit[0] Interrupt parent type Bit[64/32:1] Parent base address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartpsv/src/xuartpsv.h" line="257" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartpsv/src/xuartpsv.h" bodystart="257" bodyend="-1"/>
+        <referencedby refid="xuartpsv__intr__example_8c_1a1d007e6ca11ccbd17910903ff771b3a5" compoundref="xuartpsv__intr__example_8c" startline="191" endline="321">UartPsvIntrExample</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef contains configuration information for the device. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartpsv/src/xuartpsv.h" line="243" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartpsv/src/xuartpsv.h" bodystart="243" bodyend="260"/>
+    <listofallmembers>
+      <member refid="struct_x_uart_psv___config_1ad3fc1852bc0fda04d7db7887d20f3ce2" prot="public" virt="non-virtual"><scope>XUartPsv_Config</scope><name>BaseAddress</name></member>
+      <member refid="struct_x_uart_psv___config_1a001d07bb8c022bcbe3e2e51c68bae622" prot="public" virt="non-virtual"><scope>XUartPsv_Config</scope><name>BaudRate</name></member>
+      <member refid="struct_x_uart_psv___config_1a587bd90d21168aad32ee93bf1163eaf6" prot="public" virt="non-virtual"><scope>XUartPsv_Config</scope><name>InputClockHz</name></member>
+      <member refid="struct_x_uart_psv___config_1adc20da3fb028693c338e3ac0ca7f907e" prot="public" virt="non-virtual"><scope>XUartPsv_Config</scope><name>IntrId</name></member>
+      <member refid="struct_x_uart_psv___config_1a807bb14ca29e7a7843003858c4c86c14" prot="public" virt="non-virtual"><scope>XUartPsv_Config</scope><name>IntrParent</name></member>
+      <member refid="struct_x_uart_psv___config_1a792c2703724947f4acec05fb8f708a8c" prot="public" virt="non-virtual"><scope>XUartPsv_Config</scope><name>ModemPinsConnected</name></member>
+      <member refid="struct_x_uart_psv___config_1a0e55e6061fd9d48bdf66df73dceffe4e" prot="public" virt="non-virtual"><scope>XUartPsv_Config</scope><name>Name</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

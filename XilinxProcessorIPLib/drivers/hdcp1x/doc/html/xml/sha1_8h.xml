@@ -1,0 +1,265 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="sha1_8h" kind="file">
+    <compoundname>sha1.h</compoundname>
+    <includes local="no">stdint.h</includes>
+    <includes local="no">string.h</includes>
+    <includedby refid="sha1_8c" local="yes">sha1.c</includedby>
+    <includedby refid="xhdcp1x__rx_8c" local="yes">xhdcp1x_rx.c</includedby>
+    <includedby refid="xhdcp1x__tx_8c" local="yes">xhdcp1x_tx.c</includedby>
+    <incdepgraph>
+      <node id="8">
+        <label>stdint.h</label>
+      </node>
+      <node id="7">
+        <label>sha1.h</label>
+        <link refid="sha1.h"/>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+      </node>
+      <node id="9">
+        <label>string.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="13">
+        <label>xhdcp1x_tx.c</label>
+        <link refid="xhdcp1x__tx_8c"/>
+      </node>
+      <node id="12">
+        <label>xhdcp1x_rx.c</label>
+        <link refid="xhdcp1x__rx_8c"/>
+      </node>
+      <node id="11">
+        <label>sha1.c</label>
+      </node>
+      <node id="10">
+        <label>sha1.h</label>
+        <link refid="sha1.h"/>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_s_h_a1_context" prot="public">SHA1Context</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="sha1_8h_1a0155b221bb2170bc51a0a7aafc77d034" prot="public" static="no">
+        <name>_SHA_enum_</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/sha1.h" line="33" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/sha1.h" bodystart="33" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="sha1_8h_1affb0e361992e82550da290d8dccc6c52" prot="public" static="no">
+        <name>SHA1HashSize</name>
+        <initializer>20</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/sha1.h" line="42" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/sha1.h" bodystart="42" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="sha1_8h_1a06fc87d81c62e9abb8790b6e5713c55b" prot="public" static="no">
+        <name>@0</name>
+        <enumvalue id="sha1_8h_1a06fc87d81c62e9abb8790b6e5713c55ba581d05c0e86b0ca3a00c6e24ea81b3fa" prot="public">
+          <name>shaSuccess</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="sha1_8h_1a06fc87d81c62e9abb8790b6e5713c55bae801efd0a808fb77467a5bdf8ad5ee70" prot="public">
+          <name>shaNull</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="sha1_8h_1a06fc87d81c62e9abb8790b6e5713c55ba383493bb8927060f349e11f915cbb636" prot="public">
+          <name>shaInputTooLong</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="sha1_8h_1a06fc87d81c62e9abb8790b6e5713c55baf95bed729cc00460585fb8d76f0c384d" prot="public">
+          <name>shaStateError</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/sha1.h" line="35" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/sha1.h" bodystart="34" bodyend="40"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="sha1_8h_1a4225b80a37a64e1e202cc4016c288578" prot="public" static="no">
+        <type>struct <ref refid="struct_s_h_a1_context" kindref="compound">SHA1Context</ref></type>
+        <definition>typedef struct SHA1Context  SHA1Context</definition>
+        <argsstring></argsstring>
+        <name>SHA1Context</name>
+        <briefdescription>
+<para>This structure will hold context information for the SHA-1 hashing operation. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/sha1.h" line="60" column="1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="sha1_8h_1ab4d7125efac9b487ca663d692e78af36" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int SHA1Reset</definition>
+        <argsstring>(SHA1Context *)</argsstring>
+        <name>SHA1Reset</name>
+        <param>
+          <type><ref refid="struct_s_h_a1_context" kindref="compound">SHA1Context</ref> *</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/sha1.h" line="66" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/sha1.c" bodystart="59" bodyend="82"/>
+      </memberdef>
+      <memberdef kind="function" id="sha1_8h_1abcec0fbbb48793f9e9ccfea9b9792aad" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int SHA1Input</definition>
+        <argsstring>(SHA1Context *, const uint8_t *, unsigned int)</argsstring>
+        <name>SHA1Input</name>
+        <param>
+          <type><ref refid="struct_s_h_a1_context" kindref="compound">SHA1Context</ref> *</type>
+        </param>
+        <param>
+          <type>const uint8_t *</type>
+        </param>
+        <param>
+          <type>unsigned</type>
+          <declname>int</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/sha1.h" line="67" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/sha1.c" bodystart="161" bodyend="211"/>
+      </memberdef>
+      <memberdef kind="function" id="sha1_8h_1a12d619787f5a12702e890b2c3907510e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int SHA1Result</definition>
+        <argsstring>(SHA1Context *, uint8_t Message_Digest[SHA1HashSize])</argsstring>
+        <name>SHA1Result</name>
+        <param>
+          <type><ref refid="struct_s_h_a1_context" kindref="compound">SHA1Context</ref> *</type>
+        </param>
+        <param>
+          <type>uint8_t</type>
+          <declname>Message_Digest</declname>
+          <array>[SHA1HashSize]</array>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/sha1.h" line="70" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/sha1.c" bodystart="103" bodyend="139"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="2"><highlight class="comment"><sp/>*<sp/><sp/>sha1.h</highlight></codeline>
+<codeline lineno="3"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="4"><highlight class="comment"><sp/>*<sp/><sp/>Description:</highlight></codeline>
+<codeline lineno="5"><highlight class="comment"><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/>This<sp/>is<sp/>the<sp/>header<sp/>file<sp/>for<sp/>code<sp/>which<sp/>implements<sp/>the<sp/>Secure</highlight></codeline>
+<codeline lineno="6"><highlight class="comment"><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/>Hashing<sp/>Algorithm<sp/>1<sp/>as<sp/>defined<sp/>in<sp/>FIPS<sp/>PUB<sp/>180-1<sp/>published</highlight></codeline>
+<codeline lineno="7"><highlight class="comment"><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/>April<sp/>17,<sp/>1995.</highlight></codeline>
+<codeline lineno="8"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="9"><highlight class="comment"><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/>Many<sp/>of<sp/>the<sp/>variable<sp/>names<sp/>in<sp/>this<sp/>code,<sp/>especially<sp/>the</highlight></codeline>
+<codeline lineno="10"><highlight class="comment"><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/>single<sp/>character<sp/>names,<sp/>were<sp/>used<sp/>because<sp/>those<sp/>were<sp/>the<sp/>names</highlight></codeline>
+<codeline lineno="11"><highlight class="comment"><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/>used<sp/>in<sp/>the<sp/>publication.</highlight></codeline>
+<codeline lineno="12"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="13"><highlight class="comment"><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/>Please<sp/>read<sp/>the<sp/>file<sp/>sha1.c<sp/>for<sp/>more<sp/>information.</highlight></codeline>
+<codeline lineno="14"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="15"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>_SHA1_H_</highlight></codeline>
+<codeline lineno="18"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>_SHA1_H_</highlight></codeline>
+<codeline lineno="19"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;stdint.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;string.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="23"><highlight class="comment"><sp/>*<sp/>If<sp/>you<sp/>do<sp/>not<sp/>have<sp/>the<sp/>ISO<sp/>standard<sp/>stdint.h<sp/>header<sp/>file,<sp/>then<sp/>you</highlight></codeline>
+<codeline lineno="24"><highlight class="comment"><sp/>*<sp/>must<sp/>typedef<sp/>the<sp/>following:</highlight></codeline>
+<codeline lineno="25"><highlight class="comment"><sp/>*<sp/><sp/><sp/><sp/>name<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>meaning</highlight></codeline>
+<codeline lineno="26"><highlight class="comment"><sp/>*<sp/><sp/>uint32_t<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>unsigned<sp/>32<sp/>bit<sp/>integer</highlight></codeline>
+<codeline lineno="27"><highlight class="comment"><sp/>*<sp/><sp/>uint8_t<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>unsigned<sp/>8<sp/>bit<sp/>integer<sp/>(i.e.,<sp/>unsigned<sp/>char)</highlight></codeline>
+<codeline lineno="28"><highlight class="comment"><sp/>*<sp/><sp/>int_least16_t<sp/><sp/><sp/><sp/>integer<sp/>of<sp/>&gt;=<sp/>16<sp/>bits</highlight></codeline>
+<codeline lineno="29"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="30"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>_SHA_enum_</highlight></codeline>
+<codeline lineno="33"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>_SHA_enum_</highlight></codeline>
+<codeline lineno="34"><highlight class="preprocessor"></highlight><highlight class="keyword">enum</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/>shaSuccess<sp/>=<sp/>0,</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/>shaNull,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Null<sp/>pointer<sp/>parameter<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/>shaInputTooLong,<sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>input<sp/>data<sp/>too<sp/>long<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/>shaStateError<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>called<sp/>Input<sp/>after<sp/>Result<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="42"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SHA1HashSize<sp/>20</highlight></codeline>
+<codeline lineno="43"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="48" refid="struct_s_h_a1_context" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_s_h_a1_context" kindref="compound">SHA1Context</ref></highlight></codeline>
+<codeline lineno="49"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="50" refid="struct_s_h_a1_context_1a6d4330353a57a47afd49c4f1b9d6cb92" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint32_t<sp/><ref refid="struct_s_h_a1_context_1a6d4330353a57a47afd49c4f1b9d6cb92" kindref="member">Intermediate_Hash</ref>[SHA1HashSize/4];<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="52" refid="struct_s_h_a1_context_1ac352e4c9ff22eef52af0d76b52765426" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint32_t<sp/><ref refid="struct_s_h_a1_context_1ac352e4c9ff22eef52af0d76b52765426" kindref="member">Length_Low</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="53" refid="struct_s_h_a1_context_1a01654134ccdc020bb9a855b4d5198116" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint32_t<sp/><ref refid="struct_s_h_a1_context_1a01654134ccdc020bb9a855b4d5198116" kindref="member">Length_High</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="55" refid="struct_s_h_a1_context_1af59a4b732989a1b7c11c03a177a810ba" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>int_least16_t<sp/><ref refid="struct_s_h_a1_context_1af59a4b732989a1b7c11c03a177a810ba" kindref="member">Message_Block_Index</ref>;<sp/></highlight></codeline>
+<codeline lineno="56" refid="struct_s_h_a1_context_1ab9a620b6c84fc2baad67f285a8931623" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint8_t<sp/><ref refid="struct_s_h_a1_context_1ab9a620b6c84fc2baad67f285a8931623" kindref="member">Message_Block</ref>[64];<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="58" refid="struct_s_h_a1_context_1a3722d8be51c7a1a4e8083c3f1a5adfa1" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="struct_s_h_a1_context_1a3722d8be51c7a1a4e8083c3f1a5adfa1" kindref="member">Computed</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="59" refid="struct_s_h_a1_context_1af549987a735051dc4b3b50b106fde5bb" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="struct_s_h_a1_context_1af549987a735051dc4b3b50b106fde5bb" kindref="member">Corrupted</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="60"><highlight class="normal">}<sp/><ref refid="struct_s_h_a1_context" kindref="compound">SHA1Context</ref>;</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="63"><highlight class="comment"><sp/>*<sp/><sp/>Function<sp/>Prototypes</highlight></codeline>
+<codeline lineno="64"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>SHA1Reset(<sp/><sp/><ref refid="struct_s_h_a1_context" kindref="compound">SHA1Context</ref><sp/>*);</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>SHA1Input(<sp/><sp/><ref refid="struct_s_h_a1_context" kindref="compound">SHA1Context</ref><sp/>*,</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>uint8_t<sp/>*,</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>SHA1Result(<sp/><ref refid="struct_s_h_a1_context" kindref="compound">SHA1Context</ref><sp/>*,</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint8_t<sp/>Message_Digest[SHA1HashSize]);</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/sha1.h"/>
+  </compounddef>
+</doxygen>

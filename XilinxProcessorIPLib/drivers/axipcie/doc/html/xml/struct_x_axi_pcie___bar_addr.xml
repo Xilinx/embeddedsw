@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_axi_pcie___bar_addr" kind="struct" prot="public">
+    <compoundname>XAxiPcie_BarAddr</compoundname>
+    <includes local="no">xaxipcie.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_axi_pcie___bar_addr_1a391e43cdec653f3299116b3a14f127af" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAxiPcie_BarAddr::LowerAddr</definition>
+        <argsstring></argsstring>
+        <name>LowerAddr</name>
+        <briefdescription>
+<para>Lower 32 bits of translation value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie.h" line="200" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie.h" bodystart="200" bodyend="-1"/>
+        <referencedby refid="group__axipcie_1ga19d8a1973231160bdd518b1c62bda3d4" compoundref="xaxipcie_8c" startline="603" endline="621">XAxiPcie_GetLocalBusBar2PcieBar</referencedby>
+        <referencedby refid="group__axipcie_1ga51ee29d03fbefc82b9208f46a12d5a06" compoundref="xaxipcie_8c" startline="638" endline="654">XAxiPcie_SetLocalBusBar2PcieBar</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_axi_pcie___bar_addr_1a3a5ba3ab465659a83a0a76b63fcb104a" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAxiPcie_BarAddr::UpperAddr</definition>
+        <argsstring></argsstring>
+        <name>UpperAddr</name>
+        <briefdescription>
+<para>Upper 32 bits of translation value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie.h" line="201" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie.h" bodystart="201" bodyend="-1"/>
+        <referencedby refid="group__axipcie_1ga19d8a1973231160bdd518b1c62bda3d4" compoundref="xaxipcie_8c" startline="603" endline="621">XAxiPcie_GetLocalBusBar2PcieBar</referencedby>
+        <referencedby refid="group__axipcie_1ga51ee29d03fbefc82b9208f46a12d5a06" compoundref="xaxipcie_8c" startline="638" endline="654">XAxiPcie_SetLocalBusBar2PcieBar</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>The user is required to use this strucuture when reading or writing translation vector between local bus BARs and AXI PCIe BARs. </para>    </briefdescription>
+    <detaileddescription>
+<para>It is used when calling &quot;XAxiPcie_GetLocalBusBar2PcieBar&quot; and &quot;XAxiPcie_SetLocalBusBar2PcieBar&quot; functions. The translation vectors are 64 bits wide even though they might only use the lower 32 bits </para>    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie.h" line="199" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie.h" bodystart="199" bodyend="202"/>
+    <listofallmembers>
+      <member refid="struct_x_axi_pcie___bar_addr_1a391e43cdec653f3299116b3a14f127af" prot="public" virt="non-virtual"><scope>XAxiPcie_BarAddr</scope><name>LowerAddr</name></member>
+      <member refid="struct_x_axi_pcie___bar_addr_1a3a5ba3ab465659a83a0a76b63fcb104a" prot="public" virt="non-virtual"><scope>XAxiPcie_BarAddr</scope><name>UpperAddr</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

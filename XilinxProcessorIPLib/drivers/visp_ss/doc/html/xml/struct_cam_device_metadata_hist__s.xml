@@ -1,0 +1,138 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_cam_device_metadata_hist__s" kind="struct" prot="public">
+    <compoundname>CamDeviceMetadataHist_s</compoundname>
+    <includes local="no">cam_device_api.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_cam_device_metadata_hist__s_1a42fa5cf3485e3437e0e32a6c5409f120" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t CamDeviceMetadataHist_s::histWinNum</definition>
+        <argsstring></argsstring>
+        <name>histWinNum</name>
+        <briefdescription>
+<para>The number of histogram windows. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" line="259" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" bodystart="259" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_metadata_hist__s_1ad8455a41a39209400eb59f33f980bc63" prot="public" static="no" mutable="no">
+        <type><ref refid="group____cam__device__general_1ga6507b5dc7e317b5d3395ee90b3d95adc" kindref="member">CamDeviceWindow_t</ref></type>
+        <definition>CamDeviceWindow_t CamDeviceMetadataHist_s::histRoiWin[CAM_DEVICE_ROI_WINDOWS_MAX]</definition>
+        <argsstring>[CAM_DEVICE_ROI_WINDOWS_MAX]</argsstring>
+        <name>histRoiWin</name>
+        <briefdescription>
+<para>Histogram ROI window. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" line="260" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" bodystart="260" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_metadata_hist__s_1a3b3ad75988ff49d816147350f9aa71a5" prot="public" static="no" mutable="no">
+        <type><ref refid="group____cam__device__general_1ga36403b9337ccac757fe7dd0c7adce5fe" kindref="member">CamDeviceHistBins_t</ref></type>
+        <definition>CamDeviceHistBins_t CamDeviceMetadataHist_s::redChannelBins[CAM_DEVICE_ROI_WINDOWS_MAX]</definition>
+        <argsstring>[CAM_DEVICE_ROI_WINDOWS_MAX]</argsstring>
+        <name>redChannelBins</name>
+        <briefdescription>
+<para>Red channel statistics. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" line="261" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" bodystart="261" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_metadata_hist__s_1ab163b358d1ff40aa57b1eca90aa96c99" prot="public" static="no" mutable="no">
+        <type><ref refid="group____cam__device__general_1ga36403b9337ccac757fe7dd0c7adce5fe" kindref="member">CamDeviceHistBins_t</ref></type>
+        <definition>CamDeviceHistBins_t CamDeviceMetadataHist_s::grChannelBins[CAM_DEVICE_ROI_WINDOWS_MAX]</definition>
+        <argsstring>[CAM_DEVICE_ROI_WINDOWS_MAX]</argsstring>
+        <name>grChannelBins</name>
+        <briefdescription>
+<para>Green red channel statistics. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" line="262" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" bodystart="262" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_metadata_hist__s_1a08e1ee74471400046c82f1da02240023" prot="public" static="no" mutable="no">
+        <type><ref refid="group____cam__device__general_1ga36403b9337ccac757fe7dd0c7adce5fe" kindref="member">CamDeviceHistBins_t</ref></type>
+        <definition>CamDeviceHistBins_t CamDeviceMetadataHist_s::gbChannelBins[CAM_DEVICE_ROI_WINDOWS_MAX]</definition>
+        <argsstring>[CAM_DEVICE_ROI_WINDOWS_MAX]</argsstring>
+        <name>gbChannelBins</name>
+        <briefdescription>
+<para>Green blue channel statistics. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" line="263" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" bodystart="263" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_metadata_hist__s_1a913ad674107da22626bfb3277eea5000" prot="public" static="no" mutable="no">
+        <type><ref refid="group____cam__device__general_1ga36403b9337ccac757fe7dd0c7adce5fe" kindref="member">CamDeviceHistBins_t</ref></type>
+        <definition>CamDeviceHistBins_t CamDeviceMetadataHist_s::blueChannelBins[CAM_DEVICE_ROI_WINDOWS_MAX]</definition>
+        <argsstring>[CAM_DEVICE_ROI_WINDOWS_MAX]</argsstring>
+        <name>blueChannelBins</name>
+        <briefdescription>
+<para>Blue channel statistics. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" line="264" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" bodystart="264" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_metadata_hist__s_1a712721e689b3597873bfb826c0609765" prot="public" static="no" mutable="no">
+        <type><ref refid="group____cam__device__general_1ga36403b9337ccac757fe7dd0c7adce5fe" kindref="member">CamDeviceHistBins_t</ref></type>
+        <definition>CamDeviceHistBins_t CamDeviceMetadataHist_s::totalBins[CAM_DEVICE_ROI_WINDOWS_MAX]</definition>
+        <argsstring>[CAM_DEVICE_ROI_WINDOWS_MAX]</argsstring>
+        <name>totalBins</name>
+        <briefdescription>
+<para>Total statistics. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" line="265" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" bodystart="265" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Histogram metadata information. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="487">
+        <label>CamDeviceMetadataHist_s</label>
+        <link refid="struct_cam_device_metadata_hist__s"/>
+        <childnode refid="488" relation="usage">
+          <edgelabel>gbChannelBins</edgelabel>
+          <edgelabel>grChannelBins</edgelabel>
+          <edgelabel>redChannelBins</edgelabel>
+          <edgelabel>totalBins</edgelabel>
+          <edgelabel>blueChannelBins</edgelabel>
+        </childnode>
+        <childnode refid="489" relation="usage">
+          <edgelabel>histRoiWin</edgelabel>
+        </childnode>
+      </node>
+      <node id="489">
+        <label>CamDeviceWindow_s</label>
+        <link refid="struct_cam_device_window__s"/>
+      </node>
+      <node id="488">
+        <label>CamDeviceHistBins_s</label>
+        <link refid="struct_cam_device_hist_bins__s"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" line="257" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" bodystart="257" bodyend="266"/>
+    <listofallmembers>
+      <member refid="struct_cam_device_metadata_hist__s_1a913ad674107da22626bfb3277eea5000" prot="public" virt="non-virtual"><scope>CamDeviceMetadataHist_s</scope><name>blueChannelBins</name></member>
+      <member refid="struct_cam_device_metadata_hist__s_1a08e1ee74471400046c82f1da02240023" prot="public" virt="non-virtual"><scope>CamDeviceMetadataHist_s</scope><name>gbChannelBins</name></member>
+      <member refid="struct_cam_device_metadata_hist__s_1ab163b358d1ff40aa57b1eca90aa96c99" prot="public" virt="non-virtual"><scope>CamDeviceMetadataHist_s</scope><name>grChannelBins</name></member>
+      <member refid="struct_cam_device_metadata_hist__s_1ad8455a41a39209400eb59f33f980bc63" prot="public" virt="non-virtual"><scope>CamDeviceMetadataHist_s</scope><name>histRoiWin</name></member>
+      <member refid="struct_cam_device_metadata_hist__s_1a42fa5cf3485e3437e0e32a6c5409f120" prot="public" virt="non-virtual"><scope>CamDeviceMetadataHist_s</scope><name>histWinNum</name></member>
+      <member refid="struct_cam_device_metadata_hist__s_1a3b3ad75988ff49d816147350f9aa71a5" prot="public" virt="non-virtual"><scope>CamDeviceMetadataHist_s</scope><name>redChannelBins</name></member>
+      <member refid="struct_cam_device_metadata_hist__s_1a712721e689b3597873bfb826c0609765" prot="public" virt="non-virtual"><scope>CamDeviceMetadataHist_s</scope><name>totalBins</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

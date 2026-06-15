@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_dc4f2a3dfaacfc02b6a2d73abc96dd75" kind="dir">
+    <compoundname>key_zeroize</compoundname>
+    <innerfile refid="xsecure__plat__aes__ipihandler_8c">xsecure_plat_aes_ipihandler.c</innerfile>
+    <innerfile refid="xsecure__plat__aes__ipihandler_8h">xsecure_plat_aes_ipihandler.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_zeroize/"/>
+  </compounddef>
+</doxygen>

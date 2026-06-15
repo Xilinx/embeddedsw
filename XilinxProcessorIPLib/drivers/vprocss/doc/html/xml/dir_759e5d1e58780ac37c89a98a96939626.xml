@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_759e5d1e58780ac37c89a98a96939626" kind="dir">
+    <compoundname>vprocss</compoundname>
+    <innerdir refid="dir_a68c27455ae2247b7138784d31ca3f4d">examples</innerdir>
+    <innerdir refid="dir_fe382857d6bca86ef00dcfdfa6b5f1b9">src</innerdir>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/"/>
+  </compounddef>
+</doxygen>

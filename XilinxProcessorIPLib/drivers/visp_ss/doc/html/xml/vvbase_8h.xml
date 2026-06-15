@@ -1,0 +1,724 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="vvbase_8h" kind="file">
+    <compoundname>vvbase.h</compoundname>
+    <includedby refid="vvdevice_8h" local="yes">vvdevice.h</includedby>
+    <includedby refid="vvformat_8h" local="yes">vvformat.h</includedby>
+    <includedby refid="vvbench_8c" local="yes">vvbench.c</includedby>
+    <includedby refid="vvbparser_8c" local="yes">vvbparser.c</includedby>
+    <includedby refid="vvdevice_8c" local="yes">vvdevice.c</includedby>
+    <invincdepgraph>
+      <node id="8451">
+        <label>vvbench_cpd_api_v1_1.c</label>
+      </node>
+      <node id="8428">
+        <label>vvdevice_common.h</label>
+        <childnode refid="8429" relation="include">
+        </childnode>
+        <childnode refid="8432" relation="include">
+        </childnode>
+        <childnode refid="8434" relation="include">
+        </childnode>
+        <childnode refid="8436" relation="include">
+        </childnode>
+        <childnode refid="8438" relation="include">
+        </childnode>
+        <childnode refid="8440" relation="include">
+        </childnode>
+        <childnode refid="8442" relation="include">
+        </childnode>
+        <childnode refid="8444" relation="include">
+        </childnode>
+        <childnode refid="8446" relation="include">
+        </childnode>
+        <childnode refid="8448" relation="include">
+        </childnode>
+        <childnode refid="8450" relation="include">
+        </childnode>
+        <childnode refid="8452" relation="include">
+        </childnode>
+        <childnode refid="8454" relation="include">
+        </childnode>
+        <childnode refid="8456" relation="include">
+        </childnode>
+        <childnode refid="8458" relation="include">
+        </childnode>
+        <childnode refid="8460" relation="include">
+        </childnode>
+        <childnode refid="8462" relation="include">
+        </childnode>
+        <childnode refid="8464" relation="include">
+        </childnode>
+        <childnode refid="8466" relation="include">
+        </childnode>
+        <childnode refid="8468" relation="include">
+        </childnode>
+        <childnode refid="8470" relation="include">
+        </childnode>
+        <childnode refid="8472" relation="include">
+        </childnode>
+        <childnode refid="8474" relation="include">
+        </childnode>
+        <childnode refid="8476" relation="include">
+        </childnode>
+        <childnode refid="8478" relation="include">
+        </childnode>
+        <childnode refid="8480" relation="include">
+        </childnode>
+        <childnode refid="8482" relation="include">
+        </childnode>
+        <childnode refid="8484" relation="include">
+        </childnode>
+        <childnode refid="8486" relation="include">
+        </childnode>
+        <childnode refid="8488" relation="include">
+        </childnode>
+        <childnode refid="8490" relation="include">
+        </childnode>
+        <childnode refid="8492" relation="include">
+        </childnode>
+        <childnode refid="8494" relation="include">
+        </childnode>
+        <childnode refid="8496" relation="include">
+        </childnode>
+      </node>
+      <node id="8475">
+        <label>vvbench_hdr_api_dummy.c</label>
+      </node>
+      <node id="8473">
+        <label>vvbench_gtm_api.c</label>
+      </node>
+      <node id="8469">
+        <label>vvbench_gc_api_v2.c</label>
+      </node>
+      <node id="8479">
+        <label>vvbench_hist256_api.c</label>
+      </node>
+      <node id="8425">
+        <label>vvdevice.c</label>
+      </node>
+      <node id="8456">
+        <label>vvbench_dmsc_api.h</label>
+        <childnode refid="8430" relation="include">
+        </childnode>
+        <childnode refid="8457" relation="include">
+        </childnode>
+      </node>
+      <node id="8437">
+        <label>vvbench_af_api_v4.c</label>
+      </node>
+      <node id="8450">
+        <label>vvbench_cpd_api.h</label>
+        <childnode refid="8430" relation="include">
+        </childnode>
+        <childnode refid="8451" relation="include">
+        </childnode>
+      </node>
+      <node id="8493">
+        <label>vvbench_wb_api_v1_1.c</label>
+      </node>
+      <node id="8476">
+        <label>vvbench_hist64_api.h</label>
+        <childnode refid="8430" relation="include">
+        </childnode>
+        <childnode refid="8477" relation="include">
+        </childnode>
+      </node>
+      <node id="8457">
+        <label>vvbench_dmsc_api_v2.c</label>
+      </node>
+      <node id="8497">
+        <label>vvMetadata.c</label>
+      </node>
+      <node id="8426">
+        <label>vvpath.c</label>
+      </node>
+      <node id="8487">
+        <label>vvbench_rgbir_api_v2_1.c</label>
+      </node>
+      <node id="8432">
+        <label>vvbench_3dnr_api.h</label>
+        <childnode refid="8430" relation="include">
+        </childnode>
+        <childnode refid="8433" relation="include">
+        </childnode>
+      </node>
+      <node id="8467">
+        <label>vvbench_fusa_api.c</label>
+      </node>
+      <node id="8446">
+        <label>vvbench_ccm_api.h</label>
+        <childnode refid="8430" relation="include">
+        </childnode>
+        <childnode refid="8447" relation="include">
+        </childnode>
+      </node>
+      <node id="8430">
+        <label>submodule_def.h</label>
+        <childnode refid="8427" relation="include">
+        </childnode>
+        <childnode refid="8425" relation="include">
+        </childnode>
+      </node>
+      <node id="8494">
+        <label>vvbench_wdr_api.h</label>
+        <childnode refid="8430" relation="include">
+        </childnode>
+        <childnode refid="8495" relation="include">
+        </childnode>
+      </node>
+      <node id="8482">
+        <label>vvbench_lut3d_api.h</label>
+        <childnode refid="8430" relation="include">
+        </childnode>
+        <childnode refid="8483" relation="include">
+        </childnode>
+      </node>
+      <node id="8461">
+        <label>vvbench_ee_api_v2.c</label>
+      </node>
+      <node id="8486">
+        <label>vvbench_rgbir_api.h</label>
+        <childnode refid="8430" relation="include">
+        </childnode>
+        <childnode refid="8487" relation="include">
+        </childnode>
+      </node>
+      <node id="8477">
+        <label>vvbench_hist64_api.c</label>
+      </node>
+      <node id="8454">
+        <label>vvbench_dg_api.h</label>
+        <childnode refid="8430" relation="include">
+        </childnode>
+        <childnode refid="8455" relation="include">
+        </childnode>
+      </node>
+      <node id="8464">
+        <label>vvbench_exp_api_v3.h</label>
+        <childnode refid="8430" relation="include">
+        </childnode>
+        <childnode refid="8435" relation="include">
+        </childnode>
+        <childnode refid="8465" relation="include">
+        </childnode>
+      </node>
+      <node id="8436">
+        <label>vvbench_af_api.h</label>
+        <childnode refid="8430" relation="include">
+        </childnode>
+        <childnode refid="8437" relation="include">
+        </childnode>
+      </node>
+      <node id="8480">
+        <label>vvbench_lsc_api.h</label>
+        <childnode refid="8430" relation="include">
+        </childnode>
+        <childnode refid="8481" relation="include">
+        </childnode>
+      </node>
+      <node id="8463">
+        <label>vvbench_exp_api_v2.c</label>
+      </node>
+      <node id="8498">
+        <label>vvformat.h</label>
+        <childnode refid="8499" relation="include">
+        </childnode>
+      </node>
+      <node id="8496">
+        <label>vvbench_gwdr_api.h</label>
+        <childnode refid="8425" relation="include">
+        </childnode>
+      </node>
+      <node id="8442">
+        <label>vvbench_awb_api.h</label>
+        <childnode refid="8430" relation="include">
+        </childnode>
+        <childnode refid="8443" relation="include">
+        </childnode>
+      </node>
+      <node id="8427">
+        <label>vvbparser.c</label>
+      </node>
+      <node id="8453">
+        <label>vvbench_cproc_api.c</label>
+      </node>
+      <node id="8429">
+        <label>vvbench_2dnr_api.h</label>
+        <childnode refid="8430" relation="include">
+        </childnode>
+        <childnode refid="8431" relation="include">
+        </childnode>
+      </node>
+      <node id="8465">
+        <label>vvbench_exp_api_v3_dummy.c</label>
+      </node>
+      <node id="8452">
+        <label>vvbench_cproc_api.h</label>
+        <childnode refid="8430" relation="include">
+        </childnode>
+        <childnode refid="8453" relation="include">
+        </childnode>
+      </node>
+      <node id="8466">
+        <label>vvbench_fusa_api.h</label>
+        <childnode refid="8430" relation="include">
+        </childnode>
+        <childnode refid="8467" relation="include">
+        </childnode>
+      </node>
+      <node id="8433">
+        <label>vvbench_3dnr_api_dummy.c</label>
+      </node>
+      <node id="8439">
+        <label>vvbench_afm_api_dummy.c</label>
+      </node>
+      <node id="8459">
+        <label>vvbench_dpcc_api.c</label>
+      </node>
+      <node id="8499">
+        <label>vvformat.c</label>
+      </node>
+      <node id="8462">
+        <label>vvbench_exp_api_v2.h</label>
+        <childnode refid="8430" relation="include">
+        </childnode>
+        <childnode refid="8463" relation="include">
+        </childnode>
+      </node>
+      <node id="8424">
+        <label>vvpath.h</label>
+        <childnode refid="8425" relation="include">
+        </childnode>
+        <childnode refid="8426" relation="include">
+        </childnode>
+      </node>
+      <node id="8470">
+        <label>vvbench_ge_api.h</label>
+        <childnode refid="8430" relation="include">
+        </childnode>
+        <childnode refid="8471" relation="include">
+        </childnode>
+      </node>
+      <node id="8458">
+        <label>vvbench_dpcc_api.h</label>
+        <childnode refid="8430" relation="include">
+        </childnode>
+        <childnode refid="8459" relation="include">
+        </childnode>
+      </node>
+      <node id="8460">
+        <label>vvbench_ee_api.h</label>
+        <childnode refid="8430" relation="include">
+        </childnode>
+        <childnode refid="8461" relation="include">
+        </childnode>
+      </node>
+      <node id="8472">
+        <label>vvbench_gtm_api.h</label>
+        <childnode refid="8430" relation="include">
+        </childnode>
+        <childnode refid="8473" relation="include">
+        </childnode>
+      </node>
+      <node id="8447">
+        <label>vvbench_ccm_api_v1_1.c</label>
+      </node>
+      <node id="8468">
+        <label>vvbench_gc_api.h</label>
+        <childnode refid="8430" relation="include">
+        </childnode>
+        <childnode refid="8469" relation="include">
+        </childnode>
+      </node>
+      <node id="8492">
+        <label>vvbench_wb_api.h</label>
+        <childnode refid="8430" relation="include">
+        </childnode>
+        <childnode refid="8493" relation="include">
+        </childnode>
+      </node>
+      <node id="8422">
+        <label>vvdevice.h</label>
+        <childnode refid="8423" relation="include">
+        </childnode>
+        <childnode refid="8428" relation="include">
+        </childnode>
+        <childnode refid="8424" relation="include">
+        </childnode>
+        <childnode refid="8425" relation="include">
+        </childnode>
+        <childnode refid="8497" relation="include">
+        </childnode>
+        <childnode refid="8426" relation="include">
+        </childnode>
+      </node>
+      <node id="8483">
+        <label>vvbench_lut3d_api_dummy.c</label>
+      </node>
+      <node id="8490">
+        <label>vvbench_vi200_api.h</label>
+        <childnode refid="8430" relation="include">
+        </childnode>
+        <childnode refid="8491" relation="include">
+        </childnode>
+      </node>
+      <node id="8440">
+        <label>vvbench_afm_api_v3.h</label>
+        <childnode refid="8430" relation="include">
+        </childnode>
+        <childnode refid="8437" relation="include">
+        </childnode>
+        <childnode refid="8441" relation="include">
+        </childnode>
+      </node>
+      <node id="8448">
+        <label>vvbench_cnr_api.h</label>
+        <childnode refid="8430" relation="include">
+        </childnode>
+        <childnode refid="8449" relation="include">
+        </childnode>
+      </node>
+      <node id="8444">
+        <label>vvbench_bls_api.h</label>
+        <childnode refid="8430" relation="include">
+        </childnode>
+        <childnode refid="8445" relation="include">
+        </childnode>
+      </node>
+      <node id="8455">
+        <label>vvbench_dg_api.c</label>
+      </node>
+      <node id="8500">
+        <label>vvbench.c</label>
+      </node>
+      <node id="8488">
+        <label>vvbench_tpg_api.h</label>
+        <childnode refid="8430" relation="include">
+        </childnode>
+        <childnode refid="8489" relation="include">
+        </childnode>
+      </node>
+      <node id="8445">
+        <label>vvbench_bls_api.c</label>
+      </node>
+      <node id="8441">
+        <label>vvbench_afm_api_v3_dummy.c</label>
+      </node>
+      <node id="8438">
+        <label>vvbench_afm_api.h</label>
+        <childnode refid="8430" relation="include">
+        </childnode>
+        <childnode refid="8437" relation="include">
+        </childnode>
+        <childnode refid="8439" relation="include">
+        </childnode>
+      </node>
+      <node id="8431">
+        <label>vvbench_2dnr_api_v5_2.c</label>
+      </node>
+      <node id="8495">
+        <label>vvbench_wdr_api_v5_2.c</label>
+      </node>
+      <node id="8434">
+        <label>vvbench_ae_api.h</label>
+        <childnode refid="8430" relation="include">
+        </childnode>
+        <childnode refid="8435" relation="include">
+        </childnode>
+      </node>
+      <node id="8491">
+        <label>vvbench_vi200_api_dummy.c</label>
+      </node>
+      <node id="8474">
+        <label>vvbench_hdr_api.h</label>
+        <childnode refid="8430" relation="include">
+        </childnode>
+        <childnode refid="8475" relation="include">
+        </childnode>
+      </node>
+      <node id="8489">
+        <label>vvbench_tpg_api.c</label>
+      </node>
+      <node id="8449">
+        <label>vvbench_cnr_api_dummy.c</label>
+      </node>
+      <node id="8478">
+        <label>vvbench_hist256_api.h</label>
+        <childnode refid="8430" relation="include">
+        </childnode>
+        <childnode refid="8479" relation="include">
+        </childnode>
+      </node>
+      <node id="8421">
+        <label>vvbase.h</label>
+        <link refid="vvbase.h"/>
+        <childnode refid="8422" relation="include">
+        </childnode>
+        <childnode refid="8498" relation="include">
+        </childnode>
+        <childnode refid="8500" relation="include">
+        </childnode>
+        <childnode refid="8427" relation="include">
+        </childnode>
+        <childnode refid="8425" relation="include">
+        </childnode>
+      </node>
+      <node id="8423">
+        <label>vvbparser.h</label>
+        <childnode refid="8424" relation="include">
+        </childnode>
+        <childnode refid="8427" relation="include">
+        </childnode>
+        <childnode refid="8425" relation="include">
+        </childnode>
+      </node>
+      <node id="8481">
+        <label>vvbench_lsc_api_v3.c</label>
+      </node>
+      <node id="8485">
+        <label>vvbench_pdaf_api_dummy.c</label>
+      </node>
+      <node id="8471">
+        <label>vvbench_ge_api.c</label>
+      </node>
+      <node id="8435">
+        <label>vvbench_ae_api_v4.c</label>
+      </node>
+      <node id="8443">
+        <label>vvbench_awb_api_v4.c</label>
+      </node>
+      <node id="8484">
+        <label>vvbench_pdaf_api.h</label>
+        <childnode refid="8430" relation="include">
+        </childnode>
+        <childnode refid="8485" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_vvbench_ctx__s" prot="public">VvbenchCtx_s</innerclass>
+    <innerclass refid="struct_vvbench_cfg__s" prot="public">VvbenchCfg_s</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="vvbase_8h_1a60881c9caaf97bdfebcdde5ded4d6b10" prot="public" static="no">
+        <name>FILE_LEN</name>
+        <initializer>256</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvbase.h" line="32" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvbase.h" bodystart="32" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="vvbase_8h_1ab117546549783a058d0321a287699579" prot="public" static="no">
+        <name>FILE_NAME</name>
+        <initializer>128</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvbase.h" line="33" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvbase.h" bodystart="33" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="vvbase_8h_1a0df90ddf0b04f017fb087e7196e784d1" prot="public" static="no">
+        <name>VERSION_LEN</name>
+        <initializer>10</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvbase.h" line="34" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvbase.h" bodystart="34" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="vvbase_8h_1afb00b1a27b40fde5065d26e5aa367808" prot="public" static="no">
+        <name>ALIGN_UP</name>
+        <param><defname>x</defname></param>
+        <param><defname>align</defname></param>
+        <initializer>(((x) + ((align) - 1)) &amp; ~((align)-1))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvbase.h" line="37" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvbase.h" bodystart="37" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="vvbase_8h_1a88595740a936c377c8a8e3998b3b6107" prot="public" static="no">
+        <name>ALIGN_16BYTE</name>
+        <param><defname>width</defname></param>
+        <initializer>(((width) + (0xF)) &amp; (~(0xF)))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvbase.h" line="40" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvbase.h" bodystart="40" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="vvbase_8h_1a7cd8e35cb6fad9b647a67f1fb9f31783" prot="public" static="no">
+        <name>VvbenchRunMode_e</name>
+        <enumvalue id="vvbase_8h_1a7cd8e35cb6fad9b647a67f1fb9f31783a2b6e1e61585c833dab65c5c2594275ce" prot="public">
+          <name>INVALID_MODE</name>
+          <initializer>= -1</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="vvbase_8h_1a7cd8e35cb6fad9b647a67f1fb9f31783a82e3698e66296c77fdf92e5e341af0a4" prot="public">
+          <name>DEFAULT_CASE_LIST</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="vvbase_8h_1a7cd8e35cb6fad9b647a67f1fb9f31783a99f05b76f2e5827fc30dba96adf31b6d" prot="public">
+          <name>LOAD_IMAGE_CASE_LIST</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="vvbase_8h_1a7cd8e35cb6fad9b647a67f1fb9f31783a522b841e5f4a8243b09356e19000b93e" prot="public">
+          <name>LOAD_IMAGE_CASE</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="vvbase_8h_1a7cd8e35cb6fad9b647a67f1fb9f31783a71092ded628855a13da4ae6dbccd0578" prot="public">
+          <name>LOAD_IMAGE_CASE_BY_TOOL</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvbase.h" line="58" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvbase.h" bodystart="58" bodyend="64"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="vvbase_8h_1a2e75cc99a726048e596a68f16299e9d9" prot="public" static="no">
+        <type>struct VvbenchCtx_s</type>
+        <definition>typedef struct VvbenchCtx_s  VvbenchCtx_t</definition>
+        <argsstring></argsstring>
+        <name>VvbenchCtx_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvbase.h" line="48" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="vvbase_8h_1a09d3c91be48ae2c3f9b3e3203f30a54b" prot="public" static="no">
+        <type>struct VvbenchCfg_s</type>
+        <definition>typedef struct VvbenchCfg_s  VvbenchCfg_t</definition>
+        <argsstring></argsstring>
+        <name>VvbenchCfg_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvbase.h" line="56" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="vvbase_8h_1ac230652ec4abe9c92dec072b6be84ef6" prot="public" static="no">
+        <type>enum VvbenchRunMode_e</type>
+        <definition>typedef enum VvbenchRunMode_e  VvbenchRunMode_t</definition>
+        <argsstring></argsstring>
+        <name>VvbenchRunMode_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvbase.h" line="64" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">//<sp/>Copyright<sp/>(C)<sp/>2024<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************</highlight></codeline>
+<codeline lineno="3"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="4"><highlight class="comment"><sp/>*<sp/>The<sp/>MIT<sp/>License<sp/>(MIT)</highlight></codeline>
+<codeline lineno="5"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="6"><highlight class="comment"><sp/>*<sp/>Copyright<sp/>(c)<sp/>2014-2026<sp/>Vivantec<sp/>Corporation</highlight></codeline>
+<codeline lineno="7"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="8"><highlight class="comment"><sp/>*<sp/>Permission<sp/>is<sp/>hereby<sp/>granted,<sp/>free<sp/>of<sp/>charge,<sp/>to<sp/>any<sp/>person<sp/>obtaining<sp/>a</highlight></codeline>
+<codeline lineno="9"><highlight class="comment"><sp/>*<sp/>copy<sp/>of<sp/>this<sp/>software<sp/>and<sp/>associated<sp/>documentation<sp/>files<sp/>(the<sp/>&quot;Software&quot;),</highlight></codeline>
+<codeline lineno="10"><highlight class="comment"><sp/>*<sp/>to<sp/>deal<sp/>in<sp/>the<sp/>Software<sp/>without<sp/>restriction,<sp/>including<sp/>without<sp/>limitation</highlight></codeline>
+<codeline lineno="11"><highlight class="comment"><sp/>*<sp/>the<sp/>rights<sp/>to<sp/>use,<sp/>copy,<sp/>modify,<sp/>merge,<sp/>publish,<sp/>distribute,<sp/>sublicense,</highlight></codeline>
+<codeline lineno="12"><highlight class="comment"><sp/>*<sp/>and/or<sp/>sell<sp/>copies<sp/>of<sp/>the<sp/>Software,<sp/>and<sp/>to<sp/>permit<sp/>persons<sp/>to<sp/>whom<sp/>the</highlight></codeline>
+<codeline lineno="13"><highlight class="comment"><sp/>*<sp/>Software<sp/>is<sp/>furnished<sp/>to<sp/>do<sp/>so,<sp/>subject<sp/>to<sp/>the<sp/>following<sp/>conditions:</highlight></codeline>
+<codeline lineno="14"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="15"><highlight class="comment"><sp/>*<sp/>The<sp/>above<sp/>copyright<sp/>notice<sp/>and<sp/>this<sp/>permission<sp/>notice<sp/>shall<sp/>be<sp/>included<sp/>in</highlight></codeline>
+<codeline lineno="16"><highlight class="comment"><sp/>*<sp/>all<sp/>copies<sp/>or<sp/>substantial<sp/>portions<sp/>of<sp/>the<sp/>Software.</highlight></codeline>
+<codeline lineno="17"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="18"><highlight class="comment"><sp/>*<sp/>THE<sp/>SOFTWARE<sp/>IS<sp/>PROVIDED<sp/>&quot;AS<sp/>IS&quot;,<sp/>WITHOUT<sp/>WARRANTY<sp/>OF<sp/>ANY<sp/>KIND,<sp/>EXPRESS<sp/>OR</highlight></codeline>
+<codeline lineno="19"><highlight class="comment"><sp/>*<sp/>IMPLIED,<sp/>INCLUDING<sp/>BUT<sp/>NOT<sp/>LIMITED<sp/>TO<sp/>THE<sp/>WARRANTIES<sp/>OF<sp/>MERCHANTABILITY,</highlight></codeline>
+<codeline lineno="20"><highlight class="comment"><sp/>*<sp/>FITNESS<sp/>FOR<sp/>A<sp/>PARTICULAR<sp/>PURPOSE<sp/>AND<sp/>NONINFRINGEMENT.<sp/>IN<sp/>NO<sp/>EVENT<sp/>SHALL<sp/>THE</highlight></codeline>
+<codeline lineno="21"><highlight class="comment"><sp/>*<sp/>AUTHORS<sp/>OR<sp/>COPYRIGHT<sp/>HOLDERS<sp/>BE<sp/>LIABLE<sp/>FOR<sp/>ANY<sp/>CLAIM,<sp/>DAMAGES<sp/>OR<sp/>OTHER</highlight></codeline>
+<codeline lineno="22"><highlight class="comment"><sp/>*<sp/>LIABILITY,<sp/>WHETHER<sp/>IN<sp/>AN<sp/>ACTION<sp/>OF<sp/>CONTRACT,<sp/>TORT<sp/>OR<sp/>OTHERWISE,<sp/>ARISING</highlight></codeline>
+<codeline lineno="23"><highlight class="comment"><sp/>*<sp/>FROM,<sp/>OUT<sp/>OF<sp/>OR<sp/>IN<sp/>CONNECTION<sp/>WITH<sp/>THE<sp/>SOFTWARE<sp/>OR<sp/>THE<sp/>USE<sp/>OR<sp/>OTHER</highlight></codeline>
+<codeline lineno="24"><highlight class="comment"><sp/>*<sp/>DEALINGS<sp/>IN<sp/>THE<sp/>SOFTWARE.</highlight></codeline>
+<codeline lineno="25"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="26"><highlight class="comment"><sp/>******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>__VVBASE_H__</highlight></codeline>
+<codeline lineno="30"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>__VVBASE_H__</highlight></codeline>
+<codeline lineno="31"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>FILE_LEN<sp/>256</highlight></codeline>
+<codeline lineno="33"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>FILE_NAME<sp/>128</highlight></codeline>
+<codeline lineno="34"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>VERSION_LEN<sp/>10</highlight></codeline>
+<codeline lineno="35"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>ALIGN_UP</highlight></codeline>
+<codeline lineno="37"><highlight class="preprocessor"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#define<sp/>ALIGN_UP(x,<sp/>align)<sp/>(((x)<sp/>+<sp/>((align)<sp/>-<sp/>1))<sp/>&amp;<sp/>~((align)-1))</highlight></codeline>
+<codeline lineno="38"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="39"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>ALIGN_16BYTE(width)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(((width)<sp/>+<sp/>(0xF))<sp/>&amp;<sp/>(~(0xF)))</highlight></codeline>
+<codeline lineno="41"><highlight class="preprocessor"></highlight><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="42"><highlight class="comment"><sp/>*<sp/>VvbenchCtx_t</highlight></codeline>
+<codeline lineno="43"><highlight class="comment"><sp/>*****************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">VvbenchCtx_s<sp/>{</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*cfgJsonFile;</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*caseJsonFile;</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*swSimuName;</highlight></codeline>
+<codeline lineno="48"><highlight class="normal">}<sp/>VvbenchCtx_t;</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">VvbenchCfg_s<sp/>{</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>alignMask;</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>streamDuration;</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>useTerminal;</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>swSimuName[FILE_NAME];</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>rawName[FILE_NAME];</highlight></codeline>
+<codeline lineno="56"><highlight class="normal">}<sp/>VvbenchCfg_t;</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>VvbenchRunMode_e<sp/>{</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>INVALID_MODE<sp/>=<sp/>-1,</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DEFAULT_CASE_LIST,</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LOAD_IMAGE_CASE_LIST,</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LOAD_IMAGE_CASE,</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LOAD_IMAGE_CASE_BY_TOOL</highlight></codeline>
+<codeline lineno="64"><highlight class="normal">}<sp/>VvbenchRunMode_t;</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/>//__VVBASE_H__</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvbase.h"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,78 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_cam_device_ge_config__s" kind="struct" prot="public">
+    <compoundname>CamDeviceGeConfig_s</compoundname>
+    <includes local="no">cam_device_ge_api.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_cam_device_ge_config__s_1a3ae3f572584ba64b1e08a041191700e3" prot="public" static="no" mutable="no">
+        <type><ref refid="group____cam__device__general_1ga7a54f95af23ab3af59d485ffaec2ae60" kindref="member">CamDeviceConfigMode_t</ref></type>
+        <definition>CamDeviceConfigMode_t CamDeviceGeConfig_s::mode</definition>
+        <argsstring></argsstring>
+        <name>mode</name>
+        <briefdescription>
+<para>GE mode configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/ge/cam_device_ge_api.h" line="73" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/ge/cam_device_ge_api.h" bodystart="73" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_ge_config__s_1adba8ff9e05d119a60b5c34f9ebe83105" prot="public" static="no" mutable="no">
+        <type><ref refid="group____cam__device__ge_1gad9bf690c3179fc1a15150d756ff542d1" kindref="member">CamDeviceGeAutoConfig_t</ref></type>
+        <definition>CamDeviceGeAutoConfig_t CamDeviceGeConfig_s::autoCfg</definition>
+        <argsstring></argsstring>
+        <name>autoCfg</name>
+        <briefdescription>
+<para>GE auto configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/ge/cam_device_ge_api.h" line="74" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/ge/cam_device_ge_api.h" bodystart="74" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_ge_config__s_1a85f30d30d0de851a4e81b005e5120781" prot="public" static="no" mutable="no">
+        <type><ref refid="group____cam__device__ge_1ga125219a9343f8f3abb561c34436eb8c0" kindref="member">CamDeviceGeManualConfig_t</ref></type>
+        <definition>CamDeviceGeManualConfig_t CamDeviceGeConfig_s::manualCfg</definition>
+        <argsstring></argsstring>
+        <name>manualCfg</name>
+        <briefdescription>
+<para>GE manual configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/ge/cam_device_ge_api.h" line="75" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/ge/cam_device_ge_api.h" bodystart="75" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>VsCamDevice GE configuration. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="395">
+        <label>CamDeviceGeConfig_s</label>
+        <link refid="struct_cam_device_ge_config__s"/>
+        <childnode refid="396" relation="usage">
+          <edgelabel>manualCfg</edgelabel>
+        </childnode>
+        <childnode refid="397" relation="usage">
+          <edgelabel>autoCfg</edgelabel>
+        </childnode>
+      </node>
+      <node id="396">
+        <label>CamDeviceGeManualConfig_s</label>
+        <link refid="struct_cam_device_ge_manual_config__s"/>
+      </node>
+      <node id="397">
+        <label>CamDeviceGeAutoConfig_s</label>
+        <link refid="struct_cam_device_ge_auto_config__s"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/ge/cam_device_ge_api.h" line="72" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/ge/cam_device_ge_api.h" bodystart="72" bodyend="76"/>
+    <listofallmembers>
+      <member refid="struct_cam_device_ge_config__s_1adba8ff9e05d119a60b5c34f9ebe83105" prot="public" virt="non-virtual"><scope>CamDeviceGeConfig_s</scope><name>autoCfg</name></member>
+      <member refid="struct_cam_device_ge_config__s_1a85f30d30d0de851a4e81b005e5120781" prot="public" virt="non-virtual"><scope>CamDeviceGeConfig_s</scope><name>manualCfg</name></member>
+      <member refid="struct_cam_device_ge_config__s_1a3ae3f572584ba64b1e08a041191700e3" prot="public" virt="non-virtual"><scope>CamDeviceGeConfig_s</scope><name>mode</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

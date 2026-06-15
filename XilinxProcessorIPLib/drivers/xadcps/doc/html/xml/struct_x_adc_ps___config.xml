@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_adc_ps___config" kind="struct" prot="public">
+    <compoundname>XAdcPs_Config</compoundname>
+    <includes local="no">xadcps.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_adc_ps___config_1aedc05baf618173d03b6a5a50d609ac3e" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* XAdcPs_Config::Name</definition>
+        <argsstring></argsstring>
+        <name>Name</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.h" line="310" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.h" bodystart="310" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_adc_ps___config_1a972132ac319cf4b4ba44c471e6764c32" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAdcPs_Config::BaseAddress</definition>
+        <argsstring></argsstring>
+        <name>BaseAddress</name>
+        <briefdescription>
+<para>Device base address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.h" line="312" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.h" bodystart="312" bodyend="-1"/>
+        <referencedby refid="xadcps__intr__example_8c_1a1c6d46393cad7397e19d5978f448d60c" compoundref="xadcps__intr__example_8c" startline="174" endline="290">XAdcIntrExample</referencedby>
+        <referencedby refid="group___overview_1ga57807452402a6b52dd48083f676bd4ff" compoundref="xadcps_8c" startline="86" endline="133">XAdcPs_CfgInitialize</referencedby>
+        <referencedby refid="group___overview_1gaa533b6151f09a4fa96ebfb8abd5fa519" compoundref="xadcps__intr_8c" startline="206" endline="225">XAdcPs_IntrClear</referencedby>
+        <referencedby refid="group___overview_1ga8340c0a6f59fb3ed560fbcf8fd43ac2c" compoundref="xadcps__intr_8c" startline="110" endline="129">XAdcPs_IntrDisable</referencedby>
+        <referencedby refid="group___overview_1ga321d111c2a771286a7fc4b4bd8f3e744" compoundref="xadcps__intr_8c" startline="72" endline="91">XAdcPs_IntrEnable</referencedby>
+        <referencedby refid="group___overview_1gafc0371ab003ca92552165bfd3ced33ee" compoundref="xadcps__intr_8c" startline="144" endline="157">XAdcPs_IntrGetEnabled</referencedby>
+        <referencedby refid="group___overview_1ga3b905da7fd36abc6ef2ea11dc6f6ec6d" compoundref="xadcps__intr_8c" startline="174" endline="187">XAdcPs_IntrGetStatus</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef contains configuration information for the XADC/ADC device. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.h" line="306" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.h" bodystart="306" bodyend="313"/>
+    <listofallmembers>
+      <member refid="struct_x_adc_ps___config_1a972132ac319cf4b4ba44c471e6764c32" prot="public" virt="non-virtual"><scope>XAdcPs_Config</scope><name>BaseAddress</name></member>
+      <member refid="struct_x_adc_ps___config_1aedc05baf618173d03b6a5a50d609ac3e" prot="public" virt="non-virtual"><scope>XAdcPs_Config</scope><name>Name</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_cam_device_gc_auto_config__s" kind="struct" prot="public">
+    <compoundname>CamDeviceGcAutoConfig_s</compoundname>
+    <includes local="no">cam_device_gc_api.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_cam_device_gc_auto_config__s_1a316c6f5481fe65de374cad54315925d0" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t CamDeviceGcAutoConfig_s::autoLevel</definition>
+        <argsstring></argsstring>
+        <name>autoLevel</name>
+        <briefdescription>
+<para>GC auto configuration level. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gc_v2/cam_device_gc_api.h" line="54" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gc_v2/cam_device_gc_api.h" bodystart="54" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_gc_auto_config__s_1a07c3e896dce9435add983c2bcf924716" prot="public" static="no" mutable="no">
+        <type>float32_t</type>
+        <definition>float32_t CamDeviceGcAutoConfig_s::gain[CAMDEV_ISO_STRENGTH_NUM]</definition>
+        <argsstring>[CAMDEV_ISO_STRENGTH_NUM]</argsstring>
+        <name>gain</name>
+        <briefdescription>
+<para>GC gain. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gc_v2/cam_device_gc_api.h" line="56" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gc_v2/cam_device_gc_api.h" bodystart="56" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_gc_auto_config__s_1a992719a3a66d6b66711c0f69af56bf73" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t CamDeviceGcAutoConfig_s::curve[CAMDEV_ISO_STRENGTH_NUM][CAMDEV_GC_CURVE_SIZE]</definition>
+        <argsstring>[CAMDEV_ISO_STRENGTH_NUM][CAMDEV_GC_CURVE_SIZE]</argsstring>
+        <name>curve</name>
+        <briefdescription>
+<para>Gamma curve. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gc_v2/cam_device_gc_api.h" line="57" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gc_v2/cam_device_gc_api.h" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>VsCamDevice GC auto configuration. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gc_v2/cam_device_gc_api.h" line="53" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gc_v2/cam_device_gc_api.h" bodystart="53" bodyend="58"/>
+    <listofallmembers>
+      <member refid="struct_cam_device_gc_auto_config__s_1a316c6f5481fe65de374cad54315925d0" prot="public" virt="non-virtual"><scope>CamDeviceGcAutoConfig_s</scope><name>autoLevel</name></member>
+      <member refid="struct_cam_device_gc_auto_config__s_1a992719a3a66d6b66711c0f69af56bf73" prot="public" virt="non-virtual"><scope>CamDeviceGcAutoConfig_s</scope><name>curve</name></member>
+      <member refid="struct_cam_device_gc_auto_config__s_1a07c3e896dce9435add983c2bcf924716" prot="public" virt="non-virtual"><scope>CamDeviceGcAutoConfig_s</scope><name>gain</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

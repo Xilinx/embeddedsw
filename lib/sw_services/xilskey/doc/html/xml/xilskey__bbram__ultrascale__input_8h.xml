@@ -1,0 +1,632 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xilskey__bbram__ultrascale__input_8h" kind="file">
+    <compoundname>xilskey_bbram_ultrascale_input.h</compoundname>
+    <includes local="yes">xil_types.h</includes>
+    <includes local="yes">xparameters.h</includes>
+    <includedby refid="xilskey__bbram__ultrascale__example_8c" local="yes">xilskey_bbram_ultrascale_example.c</includedby>
+    <incdepgraph>
+      <node id="44">
+        <label>xil_types.h</label>
+      </node>
+      <node id="43">
+        <label>xilskey_bbram_ultrascale_input.h</label>
+        <link refid="xilskey_bbram_ultrascale_input.h"/>
+        <childnode refid="44" relation="include">
+        </childnode>
+        <childnode refid="45" relation="include">
+        </childnode>
+      </node>
+      <node id="45">
+        <label>xparameters.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="46">
+        <label>xilskey_bbram_ultrascale_input.h</label>
+        <link refid="xilskey_bbram_ultrascale_input.h"/>
+        <childnode refid="47" relation="include">
+        </childnode>
+      </node>
+      <node id="47">
+        <label>xilskey_bbram_ultrascale_example.c</label>
+        <link refid="xilskey__bbram__ultrascale__example_8c"/>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xilskey__bbram__ultrascale__input_8h_1ae125e726d7a2d3847ad378b7a2bccf8b" prot="public" static="no">
+        <name>XSK_BBRAM_INVALID_CONFIGURATIONS</name>
+        <initializer>0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_bbram_ultrascale_input.h" line="194" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_bbram_ultrascale_input.h" bodystart="194" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__bbram__ultrascale__input_8h_1a95002640ae1527a01d55dfb106825341" prot="public" static="no">
+        <name>XSK_BBRAM_ALL_CONFIGURATIONS</name>
+        <initializer>1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_bbram_ultrascale_input.h" line="195" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_bbram_ultrascale_input.h" bodystart="195" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__bbram__ultrascale__input_8h_1a427028c2b5a515f626acdb95dfa78b1f" prot="public" static="no">
+        <name>XSK_BBRAM_AXI_GPIO_DEVICE_ID</name>
+        <initializer>XPAR_XGPIO_0_BASEADDR</initializer>
+        <briefdescription>
+<para>Following defines should be given in decimal/hexa-decimal values. </para>        </briefdescription>
+        <detaileddescription>
+<para>These are to be defined for Ultrascale Microblaze AXI GPIO pin numbers connected to MASTER JTAG primitive and corresponding channel numbers for GPIO pins </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_bbram_ultrascale_input.h" line="212" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_bbram_ultrascale_input.h" bodystart="212" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__bbram__ultrascale__input_8h_1ac73d040616b9bbc20b49414ac6fd82d2" prot="public" static="no">
+        <name>XSK_BBRAM_AXI_GPIO_JTAG_TDO</name>
+        <initializer>(0)</initializer>
+        <briefdescription>
+<para>MASTER JTAG GPIO pin for TDO. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_bbram_ultrascale_input.h" line="216" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_bbram_ultrascale_input.h" bodystart="215" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__bbram__ultrascale__input_8h_1a9d56ab45b292fba5378800f2213bd0df" prot="public" static="no">
+        <name>XSK_BBRAM_AXI_GPIO_JTAG_TDI</name>
+        <initializer>(0)</initializer>
+        <briefdescription>
+<para>MASTER JTAG GPIO pin for TDI. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_bbram_ultrascale_input.h" line="218" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_bbram_ultrascale_input.h" bodystart="218" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__bbram__ultrascale__input_8h_1a61a94a82a5ff1ba3012601dcffdf14c7" prot="public" static="no">
+        <name>XSK_BBRAM_AXI_GPIO_JTAG_TMS</name>
+        <initializer>(1)</initializer>
+        <briefdescription>
+<para>MASTER JTAG GPIO pin for TMS. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_bbram_ultrascale_input.h" line="220" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_bbram_ultrascale_input.h" bodystart="221" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__bbram__ultrascale__input_8h_1ac260766db5e90f3705c1dac416ba5e7b" prot="public" static="no">
+        <name>XSK_BBRAM_AXI_GPIO_JTAG_TCK</name>
+        <initializer>(2)</initializer>
+        <briefdescription>
+<para>MASTER JTAG GPIO pin for TCK. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_bbram_ultrascale_input.h" line="222" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_bbram_ultrascale_input.h" bodystart="224" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__bbram__ultrascale__input_8h_1a2c8a163c89e4885dc920fc67394ee4f1" prot="public" static="no">
+        <name>XSK_BBRAM_GPIO_INPUT_CH</name>
+        <initializer>(2)</initializer>
+        <briefdescription>
+<para>GPIO Channel of TDO pin connected. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_bbram_ultrascale_input.h" line="225" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_bbram_ultrascale_input.h" bodystart="228" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__bbram__ultrascale__input_8h_1ac421d8cdc6bfcbdc399b473939688379" prot="public" static="no">
+        <name>XSK_BBRAM_GPIO_OUTPUT_CH</name>
+        <initializer>(1)</initializer>
+        <briefdescription>
+<para>GPIO Channel of TDI, TMS and TCK pin connected. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_bbram_ultrascale_input.h" line="228" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_bbram_ultrascale_input.h" bodystart="231" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__bbram__ultrascale__input_8h_1ab51b32965cd87ce17c02b68dd50016da" prot="public" static="no">
+        <name>XSK_BBRAM_PGM_OBFUSCATED_KEY_SLR_CONFIG_ORDER_0</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+<para>TRUE burns obfuscated key. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_bbram_ultrascale_input.h" line="236" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_bbram_ultrascale_input.h" bodystart="243" bodyend="-1"/>
+        <referencedby refid="xilskey__bbram__ultrascale__example_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4" compoundref="xilskey__bbram__ultrascale__example_8c" startline="101" endline="308">main</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__bbram__ultrascale__input_8h_1a0bb8e937f8c6eb96ecc4b1cfc0055029" prot="public" static="no">
+        <name>XSK_BBRAM_PGM_OBFUSCATED_KEY_SLR_CONFIG_ORDER_1</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+<para>TRUE burns obfuscated key. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_bbram_ultrascale_input.h" line="238" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_bbram_ultrascale_input.h" bodystart="245" bodyend="-1"/>
+        <referencedby refid="xilskey__bbram__ultrascale__example_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4" compoundref="xilskey__bbram__ultrascale__example_8c" startline="101" endline="308">main</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__bbram__ultrascale__input_8h_1aaca7038d7ac493408e7d8eabc7bcc885" prot="public" static="no">
+        <name>XSK_BBRAM_PGM_OBFUSCATED_KEY_SLR_CONFIG_ORDER_2</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+<para>TRUE burns obfuscated key. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_bbram_ultrascale_input.h" line="240" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_bbram_ultrascale_input.h" bodystart="247" bodyend="-1"/>
+        <referencedby refid="xilskey__bbram__ultrascale__example_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4" compoundref="xilskey__bbram__ultrascale__example_8c" startline="101" endline="308">main</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__bbram__ultrascale__input_8h_1a55b4bf8197a3ce4ba6dd59a1b30c1fd0" prot="public" static="no">
+        <name>XSK_BBRAM_PGM_OBFUSCATED_KEY_SLR_CONFIG_ORDER_3</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+<para>TRUE burns obfuscated key. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_bbram_ultrascale_input.h" line="242" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_bbram_ultrascale_input.h" bodystart="249" bodyend="-1"/>
+        <referencedby refid="xilskey__bbram__ultrascale__example_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4" compoundref="xilskey__bbram__ultrascale__example_8c" startline="101" endline="308">main</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__bbram__ultrascale__input_8h_1a33abdcfb449aff3bd99ebfe4167805b5" prot="public" static="no">
+        <name>XSK_BBRAM_PGM_AES_KEY_SLR_CONFIG_ORDER_0</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+<para>If the following is TRUE BBRAM Key in corresponding XSK_BBRAM_AES_KEY_SLR_CONFIG_ORDER_INDEX is programmed Returns error if the target doesn&apos;t have enabled SLR. </para>        </briefdescription>
+        <detaileddescription>
+<para>TRUE burns BBRAM key </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_bbram_ultrascale_input.h" line="250" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_bbram_ultrascale_input.h" bodystart="257" bodyend="-1"/>
+        <referencedby refid="xilskey__bbram__ultrascale__example_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4" compoundref="xilskey__bbram__ultrascale__example_8c" startline="101" endline="308">main</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__bbram__ultrascale__input_8h_1afcb4c08aaf1357459a0bab50ec1c0969" prot="public" static="no">
+        <name>XSK_BBRAM_PGM_AES_KEY_SLR_CONFIG_ORDER_1</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+<para>TRUE burns BBRAM key. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_bbram_ultrascale_input.h" line="252" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_bbram_ultrascale_input.h" bodystart="259" bodyend="-1"/>
+        <referencedby refid="xilskey__bbram__ultrascale__example_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4" compoundref="xilskey__bbram__ultrascale__example_8c" startline="101" endline="308">main</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__bbram__ultrascale__input_8h_1a509ab1e3b0950cf8b1fa39047c536ac4" prot="public" static="no">
+        <name>XSK_BBRAM_PGM_AES_KEY_SLR_CONFIG_ORDER_2</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+<para>TRUE burns BBRAM key. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_bbram_ultrascale_input.h" line="254" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_bbram_ultrascale_input.h" bodystart="261" bodyend="-1"/>
+        <referencedby refid="xilskey__bbram__ultrascale__example_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4" compoundref="xilskey__bbram__ultrascale__example_8c" startline="101" endline="308">main</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__bbram__ultrascale__input_8h_1a87aa0c2ce592abc84a1e05b0d6c14205" prot="public" static="no">
+        <name>XSK_BBRAM_PGM_AES_KEY_SLR_CONFIG_ORDER_3</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+<para>TRUE burns BBRAM key. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_bbram_ultrascale_input.h" line="256" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_bbram_ultrascale_input.h" bodystart="263" bodyend="-1"/>
+        <referencedby refid="xilskey__bbram__ultrascale__example_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4" compoundref="xilskey__bbram__ultrascale__example_8c" startline="101" endline="308">main</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__bbram__ultrascale__input_8h_1ad7051b5ff22bacaeb91d3f0f0b81b861" prot="public" static="no">
+        <name>XSK_BBRAM_OBFUSCATED_KEY_SLR_CONFIG_ORDER_0</name>
+        <initializer>&quot;b1c276899d71fb4cdd4a0a7905ea46c2e11f9574d09c7ea23b70b67de713ccd1&quot;</initializer>
+        <briefdescription>
+<para>This is the 256 bit key to be programmed into BBRAM. </para>        </briefdescription>
+        <detaileddescription>
+<para>This should entered by user in HEX. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_bbram_ultrascale_input.h" line="263" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_bbram_ultrascale_input.h" bodystart="270" bodyend="-1"/>
+        <referencedby refid="xilskey__bbram__ultrascale__example_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4" compoundref="xilskey__bbram__ultrascale__example_8c" startline="101" endline="308">main</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__bbram__ultrascale__input_8h_1a9fa980ea8d59ff3e0fb722f53aa394f2" prot="public" static="no">
+        <name>XSK_BBRAM_OBFUSCATED_KEY_SLR_CONFIG_ORDER_1</name>
+        <initializer>&quot;b1c276899d71fb4cdd4a0a7905ea46c2e11f9574d09c7ea23b70b67de713ccd1&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_bbram_ultrascale_input.h" line="264" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_bbram_ultrascale_input.h" bodystart="271" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__bbram__ultrascale__input_8h_1a44a798b37af7dc4497b818106791e026" prot="public" static="no">
+        <name>XSK_BBRAM_OBFUSCATED_KEY_SLR_CONFIG_ORDER_2</name>
+        <initializer>&quot;b1c276899d71fb4cdd4a0a7905ea46c2e11f9574d09c7ea23b70b67de713ccd1&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_bbram_ultrascale_input.h" line="265" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_bbram_ultrascale_input.h" bodystart="272" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__bbram__ultrascale__input_8h_1ab251ed39261fb7ddfaed8c4b4ff02d2b" prot="public" static="no">
+        <name>XSK_BBRAM_OBFUSCATED_KEY_SLR_CONFIG_ORDER_3</name>
+        <initializer>&quot;b1c276899d71fb4cdd4a0a7905ea46c2e11f9574d09c7ea23b70b67de713ccd1&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_bbram_ultrascale_input.h" line="266" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_bbram_ultrascale_input.h" bodystart="273" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__bbram__ultrascale__input_8h_1ad8e7fd4948d816e657a15ce2b816cb9d" prot="public" static="no">
+        <name>XSK_BBRAM_AES_KEY_SLR_CONFIG_ORDER_0</name>
+        <initializer>&quot;0000000000000000524156a63950bcedafeadcdeabaadee34216615aaaabbaaa&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_bbram_ultrascale_input.h" line="268" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_bbram_ultrascale_input.h" bodystart="275" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__bbram__ultrascale__input_8h_1a19d6b6c68120bd1dcff953f49c87e8de" prot="public" static="no">
+        <name>XSK_BBRAM_AES_KEY_SLR_CONFIG_ORDER_1</name>
+        <initializer>&quot;0000000000000000524156a63950bcedafeadcdeabaadee34216615aaaabbaaa&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_bbram_ultrascale_input.h" line="269" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_bbram_ultrascale_input.h" bodystart="276" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__bbram__ultrascale__input_8h_1a3ae2c0391fdfff7380a2d4152f933d12" prot="public" static="no">
+        <name>XSK_BBRAM_AES_KEY_SLR_CONFIG_ORDER_2</name>
+        <initializer>&quot;0000000000000000524156a63950bcedafeadcdeabaadee34216615aaaabbaaa&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_bbram_ultrascale_input.h" line="270" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_bbram_ultrascale_input.h" bodystart="277" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__bbram__ultrascale__input_8h_1ac953f135e9f8708c26d4c5ec921b362d" prot="public" static="no">
+        <name>XSK_BBRAM_AES_KEY_SLR_CONFIG_ORDER_3</name>
+        <initializer>&quot;0000000000000000524156a63950bcedafeadcdeabaadee34216615aaaabbaaa&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_bbram_ultrascale_input.h" line="271" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_bbram_ultrascale_input.h" bodystart="278" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__bbram__ultrascale__input_8h_1a022b305bf65f6c4cc6abf24a20ceea96" prot="public" static="no">
+        <name>XSK_BBRAM_AES_KEY_SIZE_IN_BITS</name>
+        <initializer>256</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_bbram_ultrascale_input.h" line="273" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_bbram_ultrascale_input.h" bodystart="280" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__bbram__ultrascale__input_8h_1a7e28b0bb662e51a1e3b51d50a81c368c" prot="public" static="no">
+        <name>XSK_BBRAM_DPA_PROTECT_ENABLE</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_bbram_ultrascale_input.h" line="279" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_bbram_ultrascale_input.h" bodystart="286" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__bbram__ultrascale__input_8h_1a10f74a19af828e935dd3e05dabad88e8" prot="public" static="no">
+        <name>XSK_BBRAM_DPA_COUNT</name>
+        <initializer>0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_bbram_ultrascale_input.h" line="283" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_bbram_ultrascale_input.h" bodystart="290" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__bbram__ultrascale__input_8h_1ab1735170e8f75e3239606762cfd1b3bf" prot="public" static="no">
+        <name>XSK_BBRAM_DPA_MODE</name>
+        <initializer>XSK_BBRAM_INVALID_CONFIGURATIONS</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_bbram_ultrascale_input.h" line="284" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_bbram_ultrascale_input.h" bodystart="291" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file contains macros which needs to configured by user based on the options selected by user operations will be performed. </para>    </briefdescription>
+    <detaileddescription>
+<para><simplesect kind="note"><para><verbatim>            User configurable parameters for Ultrascale BBRAM
+    ----------------------------------------------------------------------
+  #define XSK_BBRAM_PGM_OBFUSCATED_KEY_SLR_CONFIG_ORDER_0           FALSE
+  TRUE will program BBRAM with OBFUSCATED key provided in
+  XSK_BBRAM_OBFUSCATED_KEY_SLR_CONFIG_ORDER_0. While programming obfuscated key DPA
+  configurations cannot be done due to silicon bug, and values provided
+  in DPA configuration macros will be ignored.
+  FALSE will program the BBRAM with key provided in XSK_BBRAM_AES_KEY_SLR_CONFIG_ORDER_0
+  and DPA configurations (protect, count and mode) can be configured
+
+  #define XSK_BBRAM_PGM_OBFUSCATED_KEY_SLR_CONFIG_ORDER_1           FALSE
+  TRUE will program BBRAM with OBFUSCATED key provided in
+  XSK_BBRAM_OBFUSCATED_KEY_SLR_CONFIG_ORDER_1. While programming obfuscated key DPA
+  configurations cannot be done due to silicon bug, and values provided
+  in DPA configuration macros will be ignored.
+  FALSE will program the BBRAM with key provided in XSK_BBRAM_AES_KEY_SLR_CONFIG_ORDER_1
+  and DPA configurations (protect, count and mode) can be configured
+
+  #define XSK_BBRAM_PGM_OBFUSCATED_KEY_SLR_CONFIG_ORDER_2           FALSE
+  TRUE will program BBRAM with OBFUSCATED key provided in
+  XSK_BBRAM_OBFUSCATED_KEY_SLR_CONFIG_ORDER_2. While programming obfuscated key DPA
+  configurations cannot be done due to silicon bug, and values provided
+  in DPA configuration macros will be ignored.
+  FALSE will program the BBRAM with key provided in XSK_BBRAM_AES_KEY_SLR_CONFIG_ORDER_2
+  and DPA configurations (protect, count and mode) can be configured
+
+  #define XSK_BBRAM_PGM_OBFUSCATED_KEY_SLR_CONFIG_ORDER_3           FALSE
+  TRUE will program BBRAM with OBFUSCATED key provided in
+  XSK_BBRAM_OBFUSCATED_KEY_SLR_CONFIG_ORDER_3. While programming obfuscated key DPA
+  configurations cannot be done due to silicon bug, and values provided
+  in DPA configuration macros will be ignored.
+  FALSE will program the BBRAM with key provided in XSK_BBRAM_AES_KEY_SLR_CONFIG_ORDER_3
+  and DPA configurations (protect, count and mode) can be configured
+
+  #define           XSK_BBRAM_OBFUSCATED_KEY_SLR_CONFIG_ORDER_0
+  &quot;b1c276899d71fb4cdd4a0a7905ea46c2e11f9574d09c7ea23b70b67de713ccd1&quot;
+  The value mentioned in this will be converted to hex buffer and the
+  key is programmed into BBRAM, when program API used. It should be 64
+  characters long, valid characters are 0-9,a-f,A-F. Any other character
+  is considered as invalid string and will not program BBRAM. Note that,
+  for writing the OBFUSCATED Key, XSK_BBRAM_PGM_OBFUSCATED_KEY_SLR_CONFIG_ORDER_0 should
+  have TRUE value.
+
+  #define           XSK_BBRAM_OBFUSCATED_KEY_SLR_CONFIG_ORDER_1
+  &quot;b1c276899d71fb4cdd4a0a7905ea46c2e11f9574d09c7ea23b70b67de713ccd1&quot;
+  The value mentioned in this will be converted to hex buffer and the
+  key is programmed into BBRAM, when program API used. It should be 64
+  characters long, valid characters are 0-9,a-f,A-F. Any other character
+  is considered as invalid string and will not program BBRAM. Note that,
+  for writing the OBFUSCATED Key, XSK_BBRAM_PGM_OBFUSCATED_KEY_SLR_CONFIG_ORDER_1 should
+  have TRUE value.
+
+  #define           XSK_BBRAM_OBFUSCATED_KEY_SLR_CONFIG_ORDER_2
+  &quot;b1c276899d71fb4cdd4a0a7905ea46c2e11f9574d09c7ea23b70b67de713ccd1&quot;
+  The value mentioned in this will be converted to hex buffer and the
+  key is programmed into BBRAM, when program API used. It should be 64
+  characters long, valid characters are 0-9,a-f,A-F. Any other character
+  is considered as invalid string and will not program BBRAM. Note that,
+  for writing the OBFUSCATED Key, XSK_BBRAM_PGM_OBFUSCATED_KEY_SLR_CONFIG_ORDER_2 should
+  have TRUE value.
+
+  #define           XSK_BBRAM_OBFUSCATED_KEY_SLR_CONFIG_ORDER_3
+  &quot;b1c276899d71fb4cdd4a0a7905ea46c2e11f9574d09c7ea23b70b67de713ccd1&quot;
+  The value mentioned in this will be converted to hex buffer and the
+  key is programmed into BBRAM, when program API used. It should be 64
+  characters long, valid characters are 0-9,a-f,A-F. Any other character
+  is considered as invalid string and will not program BBRAM. Note that,
+  for writing the OBFUSCATED Key, XSK_BBRAM_PGM_OBFUSCATED_KEY_SLR_CONFIG_ORDER_3 should
+  have TRUE value.
+
+  #define XSK_BBRAM_PGM_AES_KEY_SLR_CONFIG_ORDER_0                  FALSE
+  #define XSK_BBRAM_PGM_AES_KEY_SLR_CONFIG_ORDER_1                  FALSE
+  #define XSK_BBRAM_PGM_AES_KEY_SLR_CONFIG_ORDER_2                  FALSE
+  #define XSK_BBRAM_PGM_AES_KEY_SLR_CONFIG_ORDER_3                  FALSE
+  TRUE will program BBRAM with AES Key provided in XSK_BBRAM_AES_KEY for
+  particular SLR.
+
+    #define         XSK_BBRAM_AES_KEY_SLR_CONFIG_ORDER_0
+  &quot;349de4571ae6d88de23de65489acf67000ff5ec901ae3d409aabbce4549812dd&quot;
+  #define   XSK_BBRAM_AES_KEY_SLR_CONFIG_ORDER_1
+  &quot;349de4571ae6d88de23de65489acf67000ff5ec901ae3d409aabbce4549812dd&quot;
+  #define   XSK_BBRAM_AES_KEY_SLR_CONFIG_ORDER_2
+  &quot;349de4571ae6d88de23de65489acf67000ff5ec901ae3d409aabbce4549812dd&quot;
+  #define   XSK_BBRAM_AES_KEY_SLR_CONFIG_ORDER_3
+  &quot;349de4571ae6d88de23de65489acf67000ff5ec901ae3d409aabbce4549812dd&quot;
+  The value mentioned in this will be converted to hex buffer and the
+  key is programmed into BBRAM for particular SLR(1/2/3/4), when
+  program API used. It should be 64 characters long, valid characters
+  are 0-9,a-f,A-F. Any other character is considered as invalid string
+  and will not program BBRAM. Note that, for writing the BBRAM Key, XSK_
+  BBRAM_PGM_OBFUSCATED_KEY for particular SLR(1/2/3/4)should have FALSE value.
+
+    #define XSK_BBRAM_AES_KEY_SIZE_IN_BITS  256
+
+  #define XSK_BBRAM_DPA_PROTECT_ENABLE      FALSE
+  TRUE will enable the DPA protection for BBRAM key, to enable
+  DPA protection XSK_BBRAM_PGM_OBFUSCATED_KEY should be FALSE,
+  as DPA protection is not supported for Obfuscated key due to silicon
+  bug, XSK_BBRAM_DPA_COUNT should be in the range of 1-255 and
+  XSK_BBRAM_DPA_MODE can be XSK_BBRAM_INVALID_CONFIGURATIONS or
+  XSK_BBRAM_ALL_CONFIGURATIONS.
+  FALSE will not enable DPA protection, XSK_BBRAM_DPA_COUNT and
+  XSK_BBRAM_DPA_MODE both will be taken default values 0 and
+  XSK_BBRAM_INVALID_CONFIGURATIONS respectively
+
+  #define XSK_BBRAM_DPA_COUNT       0
+  Default value will be zero,
+  when XSK_BBRAM_DPA_PROTECT_ENABLE is TRUE this should be in range
+  of 1-255 (should be greater that zero).
+
+  #define XSK_BBRAM_DPA_MODE        XSK_BBRAM_INVALID_CONFIGURATIONS
+  Default value is XSK_BBRAM_INVALID_CONFIGURATIONS
+  When XSK_BBRAM_DPA_PROTECT_ENABLE is TRUE it can be
+  XSK_BBRAM_INVALID_CONFIGURATIONS or XSK_BBRAM_ALL_CONFIGURATIONS
+  If XSK_BBRAM_DPA_PROTECT_ENABLE is FALSE, it should be
+  XSK_BBRAM_INVALID_CONFIGURATIONS.
+
+  #define XSK_BBRAM_AXI_GPIO_DEVICE_ID  XPAR_AXI_GPIO_0_DEVICE_ID
+  Default value is XPAR_AXI_GPIO_0_DEVICE_ID
+  This macro is for providing exact GPIO device ID, based on the
+  design configuration this macro should be modified to provide
+  GPIO device ID which is used for connecting MASTER JTAG pins.
+
+  In Ultrascale GPIO pins are used for connecting MASTER_JTAG pins to
+  access BBRAM.
+  Following are the GPIO pins and user can change these pins
+  #define XSK_BBRAM_AXI_GPIO_JTAG_TDO       (0)
+  #define XSK_BBRAM_AXI_GPIO_JTAG_TDI       (0)
+  #define XSK_BBRAM_AXI_GPIO_JTAG_TMS       (1)
+  #define XSK_BBRAM_AXI_GPIO_JTAG_TCK       (2)
+
+  #define XSK_BBRAM_GPIO_INPUT_CH           (2)
+  This macro is for providing channel number of ALL INPUTS connected(TDO)
+  #define XSK_BBRAM_GPIO_OUTPUT_CH  (1)
+  This macro is for providing channel number of ALL OUTPUTS connected
+  (TDI, TCK, TMS)
+
+  NOTE: All inputs and outputs of GPIO can be configured in single
+  channel also
+  i.e XSK_BBRAM_GPIO_INPUT_CH = XSK_BBRAM_GPIO_OUTPUT_CH = 1 or 2.
+  Among (TDI, TCK, TMS) Outputs of GPIO cannot be connected to different
+  GPIO channels all the 3 signals should be in same channel.
+  TDO can be a other channel of (TDI, TCK, TMS) or the same.
+  DPA protection can be enabled only when programming non-obfuscated key.
+</verbatim></para></simplesect>
+<preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who     Date     Changes
+<hruler/>
+
+5.0   vns     09/01/16 First Release.
+6.0   vns     07/28/16 Added counting configuration
+                       feature(DPA count), protection and to
+                       program Obfuscated key.
+6.7   psl     03/20/19 Added BBRAM key write support for SSIT devices.
+      psl     03/29/19 Added Support for user configurable GPIO for
+                       jtag control.
+7.5   ng      07/13/23 added SDT support
+      ng      09/02/23 fixed gpio macro in SDT flow
+</preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2016<sp/>-<sp/>2020<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022<sp/>-<sp/>2023<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="179"><highlight class="preprocessor">#ifndef<sp/>XILSKEY_INPUT_H</highlight></codeline>
+<codeline lineno="180"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XILSKEY_INPUT_H</highlight></codeline>
+<codeline lineno="181"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="182"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="183"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="184"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="185"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="186"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="187"><highlight class="normal"></highlight></codeline>
+<codeline lineno="188"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="189"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xparameters.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="190"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="191"><highlight class="normal"></highlight></codeline>
+<codeline lineno="192"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Constant<sp/>definitions<sp/>to<sp/>specify<sp/>the<sp/>configurations<sp/>in<sp/>XSK_BBRAM_DPA_MODE*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="193"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>User<sp/>should<sp/>not<sp/>change<sp/>the<sp/>below<sp/>two<sp/>constant<sp/>definitions<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="194"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSK_BBRAM_INVALID_CONFIGURATIONS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0</highlight></codeline>
+<codeline lineno="195"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSK_BBRAM_ALL_CONFIGURATIONS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1</highlight></codeline>
+<codeline lineno="196"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="197"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="198"><highlight class="normal"></highlight></codeline>
+<codeline lineno="199"><highlight class="normal"></highlight></codeline>
+<codeline lineno="200"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="201"><highlight class="normal"></highlight></codeline>
+<codeline lineno="208"><highlight class="comment">/*<sp/>GPIO<sp/>device<sp/>ID<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="209"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="210"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSK_BBRAM_AXI_GPIO_DEVICE_ID<sp/><sp/><sp/><sp/>XPAR_AXI_GPIO_0_DEVICE_ID</highlight></codeline>
+<codeline lineno="211"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="212" refid="xilskey__bbram__ultrascale__input_8h_1a427028c2b5a515f626acdb95dfa78b1f" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSK_BBRAM_AXI_GPIO_DEVICE_ID<sp/><sp/><sp/><sp/>XPAR_XGPIO_0_BASEADDR</highlight></codeline>
+<codeline lineno="213"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="214"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="215" refid="xilskey__bbram__ultrascale__input_8h_1ac73d040616b9bbc20b49414ac6fd82d2" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSK_BBRAM_AXI_GPIO_JTAG_TDO<sp/><sp/><sp/><sp/><sp/>(0)<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="217"><highlight class="preprocessor">#define<sp/>XSK_BBRAM_AXI_GPIO_JTAG_TDI<sp/><sp/><sp/><sp/><sp/>(0)<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="219"><highlight class="preprocessor">#define<sp/>XSK_BBRAM_AXI_GPIO_JTAG_TMS<sp/><sp/><sp/><sp/><sp/>(1)<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="221" refid="xilskey__bbram__ultrascale__input_8h_1a61a94a82a5ff1ba3012601dcffdf14c7" refkind="member"><highlight class="preprocessor">#define<sp/>XSK_BBRAM_AXI_GPIO_JTAG_TCK<sp/><sp/><sp/><sp/><sp/>(2)<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="224" refid="xilskey__bbram__ultrascale__input_8h_1ac260766db5e90f3705c1dac416ba5e7b" refkind="member"><highlight class="preprocessor">#define<sp/>XSK_BBRAM_GPIO_INPUT_CH<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(2)<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="226"><highlight class="preprocessor">#define<sp/>XSK_BBRAM_GPIO_OUTPUT_CH<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1)<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="230"><highlight class="preprocessor"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="231" refid="xilskey__bbram__ultrascale__input_8h_1ac421d8cdc6bfcbdc399b473939688379" refkind="member"><highlight class="comment"><sp/>*<sp/>If<sp/>following<sp/>is<sp/>TRUE<sp/>Obfuscated<sp/>key<sp/>will<sp/>be<sp/>programmed</highlight></codeline>
+<codeline lineno="232"><highlight class="comment"><sp/>*<sp/>and<sp/>DPA<sp/>macros<sp/>will<sp/>be<sp/>ignored.</highlight></codeline>
+<codeline lineno="233"><highlight class="comment"><sp/>*<sp/>otherwise<sp/>AES<sp/>key<sp/>will<sp/>be<sp/>programmed<sp/>and<sp/>DPA<sp/>configurations<sp/>will</highlight></codeline>
+<codeline lineno="234"><highlight class="comment"><sp/>*<sp/>be<sp/>considered</highlight></codeline>
+<codeline lineno="235"><highlight class="comment"><sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="236"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSK_BBRAM_PGM_OBFUSCATED_KEY_SLR_CONFIG_ORDER_0<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE</highlight></codeline>
+<codeline lineno="237"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="238"><highlight class="preprocessor">#define<sp/>XSK_BBRAM_PGM_OBFUSCATED_KEY_SLR_CONFIG_ORDER_1<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE</highlight></codeline>
+<codeline lineno="239"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="240"><highlight class="preprocessor">#define<sp/>XSK_BBRAM_PGM_OBFUSCATED_KEY_SLR_CONFIG_ORDER_2<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE</highlight></codeline>
+<codeline lineno="241"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="242"><highlight class="preprocessor">#define<sp/>XSK_BBRAM_PGM_OBFUSCATED_KEY_SLR_CONFIG_ORDER_3<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE</highlight></codeline>
+<codeline lineno="243" refid="xilskey__bbram__ultrascale__input_8h_1ab51b32965cd87ce17c02b68dd50016da" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="250"><highlight class="preprocessor">#define<sp/>XSK_BBRAM_PGM_AES_KEY_SLR_CONFIG_ORDER_0<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE</highlight></codeline>
+<codeline lineno="251"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="252"><highlight class="preprocessor">#define<sp/>XSK_BBRAM_PGM_AES_KEY_SLR_CONFIG_ORDER_1<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE</highlight></codeline>
+<codeline lineno="253"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="254"><highlight class="preprocessor">#define<sp/>XSK_BBRAM_PGM_AES_KEY_SLR_CONFIG_ORDER_2<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE</highlight></codeline>
+<codeline lineno="255"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="256"><highlight class="preprocessor">#define<sp/>XSK_BBRAM_PGM_AES_KEY_SLR_CONFIG_ORDER_3<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE</highlight></codeline>
+<codeline lineno="257" refid="xilskey__bbram__ultrascale__input_8h_1a33abdcfb449aff3bd99ebfe4167805b5" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="263" refid="xilskey__bbram__ultrascale__input_8h_1a87aa0c2ce592abc84a1e05b0d6c14205" refkind="member"><highlight class="preprocessor">#define<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSK_BBRAM_OBFUSCATED_KEY_SLR_CONFIG_ORDER_0<sp/><sp/><sp/><sp/><sp/>&quot;b1c276899d71fb4cdd4a0a7905ea46c2e11f9574d09c7ea23b70b67de713ccd1&quot;</highlight></codeline>
+<codeline lineno="264"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSK_BBRAM_OBFUSCATED_KEY_SLR_CONFIG_ORDER_1<sp/><sp/><sp/><sp/><sp/>&quot;b1c276899d71fb4cdd4a0a7905ea46c2e11f9574d09c7ea23b70b67de713ccd1&quot;</highlight></codeline>
+<codeline lineno="265"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSK_BBRAM_OBFUSCATED_KEY_SLR_CONFIG_ORDER_2<sp/><sp/><sp/><sp/><sp/>&quot;b1c276899d71fb4cdd4a0a7905ea46c2e11f9574d09c7ea23b70b67de713ccd1&quot;</highlight></codeline>
+<codeline lineno="266"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSK_BBRAM_OBFUSCATED_KEY_SLR_CONFIG_ORDER_3<sp/><sp/><sp/><sp/><sp/>&quot;b1c276899d71fb4cdd4a0a7905ea46c2e11f9574d09c7ea23b70b67de713ccd1&quot;</highlight></codeline>
+<codeline lineno="267"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="268"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSK_BBRAM_AES_KEY_SLR_CONFIG_ORDER_0<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;0000000000000000524156a63950bcedafeadcdeabaadee34216615aaaabbaaa&quot;</highlight></codeline>
+<codeline lineno="269"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSK_BBRAM_AES_KEY_SLR_CONFIG_ORDER_1<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;0000000000000000524156a63950bcedafeadcdeabaadee34216615aaaabbaaa&quot;</highlight></codeline>
+<codeline lineno="270" refid="xilskey__bbram__ultrascale__input_8h_1ad7051b5ff22bacaeb91d3f0f0b81b861" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSK_BBRAM_AES_KEY_SLR_CONFIG_ORDER_2<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;0000000000000000524156a63950bcedafeadcdeabaadee34216615aaaabbaaa&quot;</highlight></codeline>
+<codeline lineno="271"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSK_BBRAM_AES_KEY_SLR_CONFIG_ORDER_3<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;0000000000000000524156a63950bcedafeadcdeabaadee34216615aaaabbaaa&quot;</highlight></codeline>
+<codeline lineno="272"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="273"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSK_BBRAM_AES_KEY_SIZE_IN_BITS<sp/><sp/>256</highlight></codeline>
+<codeline lineno="274"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="275"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="276"><highlight class="comment">*<sp/>If<sp/>XSK_BBRAM_PGM_OBFUSCATED_KEY<sp/>FALSE<sp/>user<sp/>can<sp/>set<sp/>below<sp/>macros.</highlight></codeline>
+<codeline lineno="277"><highlight class="comment">*<sp/>else<sp/>this<sp/>values<sp/>will<sp/>be<sp/>ignored.</highlight></codeline>
+<codeline lineno="278"><highlight class="comment">*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="279"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSK_BBRAM_DPA_PROTECT_ENABLE<sp/><sp/><sp/><sp/>FALSE</highlight></codeline>
+<codeline lineno="280"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="281"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>If<sp/>DPA<sp/>protect<sp/>is<sp/>enabled<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="282"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>(XSK_BBRAM_DPA_PROTECT_ENABLE<sp/>==<sp/>TRUE)</highlight></codeline>
+<codeline lineno="283"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSK_BBRAM_DPA_COUNT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0</highlight></codeline>
+<codeline lineno="284"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSK_BBRAM_DPA_MODE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSK_BBRAM_INVALID_CONFIGURATIONS</highlight></codeline>
+<codeline lineno="285"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="286"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="287"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="288"><highlight class="comment"><sp/>*<sp/>End<sp/>of<sp/>definitions<sp/>for<sp/>BBRAM</highlight></codeline>
+<codeline lineno="289"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="290"><highlight class="normal"></highlight></codeline>
+<codeline lineno="291"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="292"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="293"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="294"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="295"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="296"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="297"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/></highlight><highlight class="comment">/*XILSKEY_INPUT_H*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_bbram_ultrascale_input.h"/>
+  </compounddef>
+</doxygen>

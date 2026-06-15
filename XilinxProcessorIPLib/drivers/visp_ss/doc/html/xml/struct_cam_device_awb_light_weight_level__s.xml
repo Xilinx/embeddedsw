@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_cam_device_awb_light_weight_level__s" kind="struct" prot="public">
+    <compoundname>CamDeviceAwbLightWeightLevel_s</compoundname>
+    <includes local="no">cam_device_awb_api.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_cam_device_awb_light_weight_level__s_1a6e602c19a096fea927f47b55d35d772c" prot="public" static="no" mutable="no">
+        <type>bool_t</type>
+        <definition>bool_t CamDeviceAwbLightWeightLevel_s::lightWeightLevelEnable</definition>
+        <argsstring></argsstring>
+        <name>lightWeightLevelEnable</name>
+        <briefdescription>
+<para>Light weight level enable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" line="165" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" bodystart="165" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_awb_light_weight_level__s_1ac3d2910715c771c18f53a648032d1f94" prot="public" static="no" mutable="no">
+        <type>float32_t</type>
+        <definition>float32_t CamDeviceAwbLightWeightLevel_s::brightnessLevel[CAMDEV_AWB_LIGHT_LEVEL]</definition>
+        <argsstring>[CAMDEV_AWB_LIGHT_LEVEL]</argsstring>
+        <name>brightnessLevel</name>
+        <briefdescription>
+<para>Brightness level. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" line="166" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" bodystart="166" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_awb_light_weight_level__s_1a93f7375d1affffc4bf3ef30e508b9e1d" prot="public" static="no" mutable="no">
+        <type>float32_t</type>
+        <definition>float32_t CamDeviceAwbLightWeightLevel_s::weight[CAMDEV_AWB_LIGHT_LEVEL]</definition>
+        <argsstring>[CAMDEV_AWB_LIGHT_LEVEL]</argsstring>
+        <name>weight</name>
+        <briefdescription>
+<para>Light weight level. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" line="167" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" bodystart="167" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>VsCamDevice AWB light weight level parameters. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" line="164" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" bodystart="164" bodyend="168"/>
+    <listofallmembers>
+      <member refid="struct_cam_device_awb_light_weight_level__s_1ac3d2910715c771c18f53a648032d1f94" prot="public" virt="non-virtual"><scope>CamDeviceAwbLightWeightLevel_s</scope><name>brightnessLevel</name></member>
+      <member refid="struct_cam_device_awb_light_weight_level__s_1a6e602c19a096fea927f47b55d35d772c" prot="public" virt="non-virtual"><scope>CamDeviceAwbLightWeightLevel_s</scope><name>lightWeightLevelEnable</name></member>
+      <member refid="struct_cam_device_awb_light_weight_level__s_1a93f7375d1affffc4bf3ef30e508b9e1d" prot="public" virt="non-virtual"><scope>CamDeviceAwbLightWeightLevel_s</scope><name>weight</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

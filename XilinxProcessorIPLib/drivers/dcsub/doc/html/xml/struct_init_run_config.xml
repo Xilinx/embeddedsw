@@ -1,0 +1,642 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_init_run_config" kind="struct" prot="public">
+    <compoundname>InitRunConfig</compoundname>
+    <includes local="no">mmi_dpdc_menus.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_init_run_config_1a5565b2b3f735571d8fe97a92c228614d" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_avpg_run_config" kindref="compound">AvpgRunConfig</ref></type>
+        <definition>AvpgRunConfig InitRunConfig::avpg[4]</definition>
+        <argsstring>[4]</argsstring>
+        <name>avpg</name>
+        <briefdescription>
+<para>AV pattern generator configs. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_menus.h" line="48" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_menus.h" bodystart="48" bodyend="-1"/>
+        <referencedby refid="mmi__dpdc__menus_8h_1a6ed49c1ca08ecf19af7bdd721bbaa33f" compoundref="mmi__dpdc__menus_8c" startline="443" endline="517">XDpDc_DisplayConfig</referencedby>
+        <referencedby refid="mmi__dpdc__menus_8h_1a23e0f7f5b66aae7b68eab9d3c904657d" compoundref="mmi__dpdc__menus_8c" startline="1723" endline="1879">XDpDc_InitConfigDefaults</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_init_run_config_1aba17442d43d7d59a4d281f065717b3ac" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 InitRunConfig::width</definition>
+        <argsstring></argsstring>
+        <name>width</name>
+        <briefdescription>
+<para>Horizontal resolution. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_menus.h" line="50" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_menus.h" bodystart="50" bodyend="-1"/>
+        <referencedby refid="mmi__dpdc__menus_8h_1a966b628e8e50ddba4369c08bdff05de2" compoundref="mmi__dpdc__menus_8c" startline="583" endline="651">XDpDc_ConfigureResolution</referencedby>
+        <referencedby refid="mmi__dpdc__menus_8h_1a6ed49c1ca08ecf19af7bdd721bbaa33f" compoundref="mmi__dpdc__menus_8c" startline="443" endline="517">XDpDc_DisplayConfig</referencedby>
+        <referencedby refid="mmi__dpdc__menus_8h_1a23e0f7f5b66aae7b68eab9d3c904657d" compoundref="mmi__dpdc__menus_8c" startline="1723" endline="1879">XDpDc_InitConfigDefaults</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_init_run_config_1a97fd59cef2244825b167f75853a6c197" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 InitRunConfig::height</definition>
+        <argsstring></argsstring>
+        <name>height</name>
+        <briefdescription>
+<para>Vertical resolution. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_menus.h" line="51" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_menus.h" bodystart="51" bodyend="-1"/>
+        <referencedby refid="mmi__dpdc__menus_8h_1a966b628e8e50ddba4369c08bdff05de2" compoundref="mmi__dpdc__menus_8c" startline="583" endline="651">XDpDc_ConfigureResolution</referencedby>
+        <referencedby refid="mmi__dpdc__menus_8h_1a6ed49c1ca08ecf19af7bdd721bbaa33f" compoundref="mmi__dpdc__menus_8c" startline="443" endline="517">XDpDc_DisplayConfig</referencedby>
+        <referencedby refid="mmi__dpdc__menus_8h_1a23e0f7f5b66aae7b68eab9d3c904657d" compoundref="mmi__dpdc__menus_8c" startline="1723" endline="1879">XDpDc_InitConfigDefaults</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_init_run_config_1ac27f27452788d28f27a08d17eee3dbed" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 InitRunConfig::frame_rate</definition>
+        <argsstring></argsstring>
+        <name>frame_rate</name>
+        <briefdescription>
+<para>Frame rate. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_menus.h" line="52" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_menus.h" bodystart="52" bodyend="-1"/>
+        <referencedby refid="mmi__dpdc__menus_8h_1a966b628e8e50ddba4369c08bdff05de2" compoundref="mmi__dpdc__menus_8c" startline="583" endline="651">XDpDc_ConfigureResolution</referencedby>
+        <referencedby refid="mmi__dpdc__menus_8h_1a6ed49c1ca08ecf19af7bdd721bbaa33f" compoundref="mmi__dpdc__menus_8c" startline="443" endline="517">XDpDc_DisplayConfig</referencedby>
+        <referencedby refid="mmi__dpdc__menus_8h_1a23e0f7f5b66aae7b68eab9d3c904657d" compoundref="mmi__dpdc__menus_8c" startline="1723" endline="1879">XDpDc_InitConfigDefaults</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_init_run_config_1a1dcc147c2027a2d38dbb963e49926196" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 InitRunConfig::stream1_format</definition>
+        <argsstring></argsstring>
+        <name>stream1_format</name>
+        <briefdescription>
+<para>Stream 1 pixel format. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_menus.h" line="53" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_menus.h" bodystart="53" bodyend="-1"/>
+        <referencedby refid="mmi__dpdc__menus_8h_1a6ed49c1ca08ecf19af7bdd721bbaa33f" compoundref="mmi__dpdc__menus_8c" startline="443" endline="517">XDpDc_DisplayConfig</referencedby>
+        <referencedby refid="mmi__dpdc__menus_8h_1a23e0f7f5b66aae7b68eab9d3c904657d" compoundref="mmi__dpdc__menus_8c" startline="1723" endline="1879">XDpDc_InitConfigDefaults</referencedby>
+        <referencedby refid="mmi__dpdc__menus_8h_1a4478f802d7e122a29e231d39d32c1147" compoundref="mmi__dpdc__menus_8c" startline="1396" endline="1578">XDpDc_MenuLoop</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_init_run_config_1af0ba989759f17a8da0dd99068b3c91aa" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 InitRunConfig::stream2_format</definition>
+        <argsstring></argsstring>
+        <name>stream2_format</name>
+        <briefdescription>
+<para>Stream 2 pixel format. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_menus.h" line="54" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_menus.h" bodystart="54" bodyend="-1"/>
+        <referencedby refid="mmi__dpdc__menus_8h_1a6ed49c1ca08ecf19af7bdd721bbaa33f" compoundref="mmi__dpdc__menus_8c" startline="443" endline="517">XDpDc_DisplayConfig</referencedby>
+        <referencedby refid="mmi__dpdc__menus_8h_1a23e0f7f5b66aae7b68eab9d3c904657d" compoundref="mmi__dpdc__menus_8c" startline="1723" endline="1879">XDpDc_InitConfigDefaults</referencedby>
+        <referencedby refid="mmi__dpdc__menus_8h_1a4478f802d7e122a29e231d39d32c1147" compoundref="mmi__dpdc__menus_8c" startline="1396" endline="1578">XDpDc_MenuLoop</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_init_run_config_1afe38262491afe56063d3885187420957" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 InitRunConfig::output_format</definition>
+        <argsstring></argsstring>
+        <name>output_format</name>
+        <briefdescription>
+<para>Output pixel format. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_menus.h" line="55" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_menus.h" bodystart="55" bodyend="-1"/>
+        <referencedby refid="mmi__dpdc__menus_8h_1a6ed49c1ca08ecf19af7bdd721bbaa33f" compoundref="mmi__dpdc__menus_8c" startline="443" endline="517">XDpDc_DisplayConfig</referencedby>
+        <referencedby refid="mmi__dpdc__menus_8h_1a23e0f7f5b66aae7b68eab9d3c904657d" compoundref="mmi__dpdc__menus_8c" startline="1723" endline="1879">XDpDc_InitConfigDefaults</referencedby>
+        <referencedby refid="mmi__dpdc__menus_8h_1a4478f802d7e122a29e231d39d32c1147" compoundref="mmi__dpdc__menus_8c" startline="1396" endline="1578">XDpDc_MenuLoop</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_init_run_config_1acd8a594f012e1c5c4c2244cd11605a22" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 InitRunConfig::cursor_enable</definition>
+        <argsstring></argsstring>
+        <name>cursor_enable</name>
+        <briefdescription>
+<para>Cursor enable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_menus.h" line="56" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_menus.h" bodystart="56" bodyend="-1"/>
+        <referencedby refid="mmi__dpdc__menus_8h_1a6ed49c1ca08ecf19af7bdd721bbaa33f" compoundref="mmi__dpdc__menus_8c" startline="443" endline="517">XDpDc_DisplayConfig</referencedby>
+        <referencedby refid="mmi__dpdc__menus_8h_1a23e0f7f5b66aae7b68eab9d3c904657d" compoundref="mmi__dpdc__menus_8c" startline="1723" endline="1879">XDpDc_InitConfigDefaults</referencedby>
+        <referencedby refid="mmi__dpdc__menus_8h_1a4478f802d7e122a29e231d39d32c1147" compoundref="mmi__dpdc__menus_8c" startline="1396" endline="1578">XDpDc_MenuLoop</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_init_run_config_1abab4747bbd38f27e47af91c99123d5d1" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 InitRunConfig::audio_enable</definition>
+        <argsstring></argsstring>
+        <name>audio_enable</name>
+        <briefdescription>
+<para>Audio enable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_menus.h" line="57" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_menus.h" bodystart="57" bodyend="-1"/>
+        <referencedby refid="mmi__dpdc__menus_8h_1a6ed49c1ca08ecf19af7bdd721bbaa33f" compoundref="mmi__dpdc__menus_8c" startline="443" endline="517">XDpDc_DisplayConfig</referencedby>
+        <referencedby refid="mmi__dpdc__menus_8h_1a23e0f7f5b66aae7b68eab9d3c904657d" compoundref="mmi__dpdc__menus_8c" startline="1723" endline="1879">XDpDc_InitConfigDefaults</referencedby>
+        <referencedby refid="mmi__dpdc__menus_8h_1a4478f802d7e122a29e231d39d32c1147" compoundref="mmi__dpdc__menus_8c" startline="1396" endline="1578">XDpDc_MenuLoop</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_init_run_config_1a836c630c2c5fc8ca15222b2b7541be32" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 InitRunConfig::audio_channels</definition>
+        <argsstring></argsstring>
+        <name>audio_channels</name>
+        <briefdescription>
+<para>Number of audio channels. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_menus.h" line="58" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_menus.h" bodystart="58" bodyend="-1"/>
+        <referencedby refid="mmi__dpdc__menus_8h_1a6ed49c1ca08ecf19af7bdd721bbaa33f" compoundref="mmi__dpdc__menus_8c" startline="443" endline="517">XDpDc_DisplayConfig</referencedby>
+        <referencedby refid="mmi__dpdc__menus_8h_1a23e0f7f5b66aae7b68eab9d3c904657d" compoundref="mmi__dpdc__menus_8c" startline="1723" endline="1879">XDpDc_InitConfigDefaults</referencedby>
+        <referencedby refid="mmi__dpdc__menus_8h_1a4478f802d7e122a29e231d39d32c1147" compoundref="mmi__dpdc__menus_8c" startline="1396" endline="1578">XDpDc_MenuLoop</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_init_run_config_1a91187174f01da271fba2174bf84b5069" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 InitRunConfig::sdp_enable</definition>
+        <argsstring></argsstring>
+        <name>sdp_enable</name>
+        <briefdescription>
+<para>SDP enable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_menus.h" line="59" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_menus.h" bodystart="59" bodyend="-1"/>
+        <referencedby refid="mmi__dpdc__menus_8h_1a6ed49c1ca08ecf19af7bdd721bbaa33f" compoundref="mmi__dpdc__menus_8c" startline="443" endline="517">XDpDc_DisplayConfig</referencedby>
+        <referencedby refid="mmi__dpdc__menus_8h_1a23e0f7f5b66aae7b68eab9d3c904657d" compoundref="mmi__dpdc__menus_8c" startline="1723" endline="1879">XDpDc_InitConfigDefaults</referencedby>
+        <referencedby refid="mmi__dpdc__menus_8h_1a4478f802d7e122a29e231d39d32c1147" compoundref="mmi__dpdc__menus_8c" startline="1396" endline="1578">XDpDc_MenuLoop</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_init_run_config_1a4a47f59bc1e496228cfdfedea34499a9" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 InitRunConfig::partial_plane_blend_enable</definition>
+        <argsstring></argsstring>
+        <name>partial_plane_blend_enable</name>
+        <briefdescription>
+<para>Partial plane blend enable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_menus.h" line="60" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_menus.h" bodystart="60" bodyend="-1"/>
+        <referencedby refid="mmi__dpdc__menus_8h_1a6ed49c1ca08ecf19af7bdd721bbaa33f" compoundref="mmi__dpdc__menus_8c" startline="443" endline="517">XDpDc_DisplayConfig</referencedby>
+        <referencedby refid="mmi__dpdc__menus_8h_1a23e0f7f5b66aae7b68eab9d3c904657d" compoundref="mmi__dpdc__menus_8c" startline="1723" endline="1879">XDpDc_InitConfigDefaults</referencedby>
+        <referencedby refid="mmi__dpdc__menus_8h_1a4478f802d7e122a29e231d39d32c1147" compoundref="mmi__dpdc__menus_8c" startline="1396" endline="1578">XDpDc_MenuLoop</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_init_run_config_1a0d9dad981dd504dd30778afa7aa479e1" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 InitRunConfig::ppb_stream_select</definition>
+        <argsstring></argsstring>
+        <name>ppb_stream_select</name>
+        <briefdescription>
+<para>PPB stream: 1=Stream1, 2=Stream2. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_menus.h" line="61" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_menus.h" bodystart="61" bodyend="-1"/>
+        <referencedby refid="mmi__dpdc__menus_8h_1ae4e5da3b3d7cac77758d6138c146385e" compoundref="mmi__dpdc__menus_8c" startline="1142" endline="1204">XDpDc_ConfigurePartialPlane</referencedby>
+        <referencedby refid="mmi__dpdc__menus_8h_1a6ed49c1ca08ecf19af7bdd721bbaa33f" compoundref="mmi__dpdc__menus_8c" startline="443" endline="517">XDpDc_DisplayConfig</referencedby>
+        <referencedby refid="mmi__dpdc__menus_8h_1a23e0f7f5b66aae7b68eab9d3c904657d" compoundref="mmi__dpdc__menus_8c" startline="1723" endline="1879">XDpDc_InitConfigDefaults</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_init_run_config_1a1f775c283ff2c8e0888e8f0f69ce4ef0" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 InitRunConfig::cursor_coord_x</definition>
+        <argsstring></argsstring>
+        <name>cursor_coord_x</name>
+        <briefdescription>
+<para>Cursor X coordinate. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_menus.h" line="62" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_menus.h" bodystart="62" bodyend="-1"/>
+        <referencedby refid="mmi__dpdc__menus_8h_1a4d1b2cc6794851c52db67e465eedcfa3" compoundref="mmi__dpdc__menus_8c" startline="1103" endline="1128">XDpDc_ConfigureCursor</referencedby>
+        <referencedby refid="mmi__dpdc__menus_8h_1a6ed49c1ca08ecf19af7bdd721bbaa33f" compoundref="mmi__dpdc__menus_8c" startline="443" endline="517">XDpDc_DisplayConfig</referencedby>
+        <referencedby refid="mmi__dpdc__menus_8h_1a23e0f7f5b66aae7b68eab9d3c904657d" compoundref="mmi__dpdc__menus_8c" startline="1723" endline="1879">XDpDc_InitConfigDefaults</referencedby>
+        <referencedby refid="mmi__dpdc__menus_8h_1a4478f802d7e122a29e231d39d32c1147" compoundref="mmi__dpdc__menus_8c" startline="1396" endline="1578">XDpDc_MenuLoop</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_init_run_config_1a38b61e9c2250bdbd14abcf164101e45e" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 InitRunConfig::cursor_coord_y</definition>
+        <argsstring></argsstring>
+        <name>cursor_coord_y</name>
+        <briefdescription>
+<para>Cursor Y coordinate. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_menus.h" line="63" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_menus.h" bodystart="63" bodyend="-1"/>
+        <referencedby refid="mmi__dpdc__menus_8h_1a4d1b2cc6794851c52db67e465eedcfa3" compoundref="mmi__dpdc__menus_8c" startline="1103" endline="1128">XDpDc_ConfigureCursor</referencedby>
+        <referencedby refid="mmi__dpdc__menus_8h_1a6ed49c1ca08ecf19af7bdd721bbaa33f" compoundref="mmi__dpdc__menus_8c" startline="443" endline="517">XDpDc_DisplayConfig</referencedby>
+        <referencedby refid="mmi__dpdc__menus_8h_1a23e0f7f5b66aae7b68eab9d3c904657d" compoundref="mmi__dpdc__menus_8c" startline="1723" endline="1879">XDpDc_InitConfigDefaults</referencedby>
+        <referencedby refid="mmi__dpdc__menus_8h_1a4478f802d7e122a29e231d39d32c1147" compoundref="mmi__dpdc__menus_8c" startline="1396" endline="1578">XDpDc_MenuLoop</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_init_run_config_1af5ddd069cd61bded1852755c04c325ac" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 InitRunConfig::cursor_size_x</definition>
+        <argsstring></argsstring>
+        <name>cursor_size_x</name>
+        <briefdescription>
+<para>Cursor width. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_menus.h" line="64" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_menus.h" bodystart="64" bodyend="-1"/>
+        <referencedby refid="mmi__dpdc__menus_8h_1a4d1b2cc6794851c52db67e465eedcfa3" compoundref="mmi__dpdc__menus_8c" startline="1103" endline="1128">XDpDc_ConfigureCursor</referencedby>
+        <referencedby refid="mmi__dpdc__menus_8h_1a6ed49c1ca08ecf19af7bdd721bbaa33f" compoundref="mmi__dpdc__menus_8c" startline="443" endline="517">XDpDc_DisplayConfig</referencedby>
+        <referencedby refid="mmi__dpdc__menus_8h_1a23e0f7f5b66aae7b68eab9d3c904657d" compoundref="mmi__dpdc__menus_8c" startline="1723" endline="1879">XDpDc_InitConfigDefaults</referencedby>
+        <referencedby refid="mmi__dpdc__menus_8h_1a4478f802d7e122a29e231d39d32c1147" compoundref="mmi__dpdc__menus_8c" startline="1396" endline="1578">XDpDc_MenuLoop</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_init_run_config_1a5185922eca0badcc51e904e61ffeaab9" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 InitRunConfig::cursor_size_y</definition>
+        <argsstring></argsstring>
+        <name>cursor_size_y</name>
+        <briefdescription>
+<para>Cursor height. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_menus.h" line="65" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_menus.h" bodystart="65" bodyend="-1"/>
+        <referencedby refid="mmi__dpdc__menus_8h_1a4d1b2cc6794851c52db67e465eedcfa3" compoundref="mmi__dpdc__menus_8c" startline="1103" endline="1128">XDpDc_ConfigureCursor</referencedby>
+        <referencedby refid="mmi__dpdc__menus_8h_1a6ed49c1ca08ecf19af7bdd721bbaa33f" compoundref="mmi__dpdc__menus_8c" startline="443" endline="517">XDpDc_DisplayConfig</referencedby>
+        <referencedby refid="mmi__dpdc__menus_8h_1a23e0f7f5b66aae7b68eab9d3c904657d" compoundref="mmi__dpdc__menus_8c" startline="1723" endline="1879">XDpDc_InitConfigDefaults</referencedby>
+        <referencedby refid="mmi__dpdc__menus_8h_1a4478f802d7e122a29e231d39d32c1147" compoundref="mmi__dpdc__menus_8c" startline="1396" endline="1578">XDpDc_MenuLoop</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_init_run_config_1a71603b6f22ac9006c4f2c02eeee717e9" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 InitRunConfig::ppb_coord_x</definition>
+        <argsstring></argsstring>
+        <name>ppb_coord_x</name>
+        <briefdescription>
+<para>Partial blend X coordinate. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_menus.h" line="66" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_menus.h" bodystart="66" bodyend="-1"/>
+        <referencedby refid="mmi__dpdc__menus_8h_1ae4e5da3b3d7cac77758d6138c146385e" compoundref="mmi__dpdc__menus_8c" startline="1142" endline="1204">XDpDc_ConfigurePartialPlane</referencedby>
+        <referencedby refid="mmi__dpdc__menus_8h_1a6ed49c1ca08ecf19af7bdd721bbaa33f" compoundref="mmi__dpdc__menus_8c" startline="443" endline="517">XDpDc_DisplayConfig</referencedby>
+        <referencedby refid="mmi__dpdc__menus_8h_1a23e0f7f5b66aae7b68eab9d3c904657d" compoundref="mmi__dpdc__menus_8c" startline="1723" endline="1879">XDpDc_InitConfigDefaults</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_init_run_config_1a5a09ba3119a11846784fefbcc6b72288" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 InitRunConfig::ppb_coord_y</definition>
+        <argsstring></argsstring>
+        <name>ppb_coord_y</name>
+        <briefdescription>
+<para>Partial blend Y coordinate. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_menus.h" line="67" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_menus.h" bodystart="67" bodyend="-1"/>
+        <referencedby refid="mmi__dpdc__menus_8h_1ae4e5da3b3d7cac77758d6138c146385e" compoundref="mmi__dpdc__menus_8c" startline="1142" endline="1204">XDpDc_ConfigurePartialPlane</referencedby>
+        <referencedby refid="mmi__dpdc__menus_8h_1a6ed49c1ca08ecf19af7bdd721bbaa33f" compoundref="mmi__dpdc__menus_8c" startline="443" endline="517">XDpDc_DisplayConfig</referencedby>
+        <referencedby refid="mmi__dpdc__menus_8h_1a23e0f7f5b66aae7b68eab9d3c904657d" compoundref="mmi__dpdc__menus_8c" startline="1723" endline="1879">XDpDc_InitConfigDefaults</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_init_run_config_1adc20f46f2387d4c46abacfcb749edc0b" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 InitRunConfig::ppb_size_x</definition>
+        <argsstring></argsstring>
+        <name>ppb_size_x</name>
+        <briefdescription>
+<para>Partial blend width. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_menus.h" line="68" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_menus.h" bodystart="68" bodyend="-1"/>
+        <referencedby refid="mmi__dpdc__menus_8h_1ae4e5da3b3d7cac77758d6138c146385e" compoundref="mmi__dpdc__menus_8c" startline="1142" endline="1204">XDpDc_ConfigurePartialPlane</referencedby>
+        <referencedby refid="mmi__dpdc__menus_8h_1a6ed49c1ca08ecf19af7bdd721bbaa33f" compoundref="mmi__dpdc__menus_8c" startline="443" endline="517">XDpDc_DisplayConfig</referencedby>
+        <referencedby refid="mmi__dpdc__menus_8h_1a23e0f7f5b66aae7b68eab9d3c904657d" compoundref="mmi__dpdc__menus_8c" startline="1723" endline="1879">XDpDc_InitConfigDefaults</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_init_run_config_1ab18d2f57601fedc6553aa5c016aaa703" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 InitRunConfig::ppb_size_y</definition>
+        <argsstring></argsstring>
+        <name>ppb_size_y</name>
+        <briefdescription>
+<para>Partial blend height. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_menus.h" line="69" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_menus.h" bodystart="69" bodyend="-1"/>
+        <referencedby refid="mmi__dpdc__menus_8h_1ae4e5da3b3d7cac77758d6138c146385e" compoundref="mmi__dpdc__menus_8c" startline="1142" endline="1204">XDpDc_ConfigurePartialPlane</referencedby>
+        <referencedby refid="mmi__dpdc__menus_8h_1a6ed49c1ca08ecf19af7bdd721bbaa33f" compoundref="mmi__dpdc__menus_8c" startline="443" endline="517">XDpDc_DisplayConfig</referencedby>
+        <referencedby refid="mmi__dpdc__menus_8h_1a23e0f7f5b66aae7b68eab9d3c904657d" compoundref="mmi__dpdc__menus_8c" startline="1723" endline="1879">XDpDc_InitConfigDefaults</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_init_run_config_1a8245e9c4114e879804afaaa337a182b8" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 InitRunConfig::ppb_offset_x</definition>
+        <argsstring></argsstring>
+        <name>ppb_offset_x</name>
+        <briefdescription>
+<para>Partial blend X offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_menus.h" line="70" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_menus.h" bodystart="70" bodyend="-1"/>
+        <referencedby refid="mmi__dpdc__menus_8h_1ae4e5da3b3d7cac77758d6138c146385e" compoundref="mmi__dpdc__menus_8c" startline="1142" endline="1204">XDpDc_ConfigurePartialPlane</referencedby>
+        <referencedby refid="mmi__dpdc__menus_8h_1a6ed49c1ca08ecf19af7bdd721bbaa33f" compoundref="mmi__dpdc__menus_8c" startline="443" endline="517">XDpDc_DisplayConfig</referencedby>
+        <referencedby refid="mmi__dpdc__menus_8h_1a23e0f7f5b66aae7b68eab9d3c904657d" compoundref="mmi__dpdc__menus_8c" startline="1723" endline="1879">XDpDc_InitConfigDefaults</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_init_run_config_1a9ed6fe0fbe5ae437314eece44884f5fb" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 InitRunConfig::ppb_offset_y</definition>
+        <argsstring></argsstring>
+        <name>ppb_offset_y</name>
+        <briefdescription>
+<para>Partial blend Y offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_menus.h" line="71" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_menus.h" bodystart="71" bodyend="-1"/>
+        <referencedby refid="mmi__dpdc__menus_8h_1ae4e5da3b3d7cac77758d6138c146385e" compoundref="mmi__dpdc__menus_8c" startline="1142" endline="1204">XDpDc_ConfigurePartialPlane</referencedby>
+        <referencedby refid="mmi__dpdc__menus_8h_1a6ed49c1ca08ecf19af7bdd721bbaa33f" compoundref="mmi__dpdc__menus_8c" startline="443" endline="517">XDpDc_DisplayConfig</referencedby>
+        <referencedby refid="mmi__dpdc__menus_8h_1a23e0f7f5b66aae7b68eab9d3c904657d" compoundref="mmi__dpdc__menus_8c" startline="1723" endline="1879">XDpDc_InitConfigDefaults</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_init_run_config_1a4eb9d3421a5408252df9d7243f064bc1" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 InitRunConfig::lane_count</definition>
+        <argsstring></argsstring>
+        <name>lane_count</name>
+        <briefdescription>
+<para>0=auto (sink max), 1, 2, or 4 </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_menus.h" line="72" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_menus.h" bodystart="72" bodyend="-1"/>
+        <referencedby refid="mmi__dpdc__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="mmi__dpdc__example_8c" startline="417" endline="624">main</referencedby>
+        <referencedby refid="mmi__dpdc__menus_8h_1a6ed49c1ca08ecf19af7bdd721bbaa33f" compoundref="mmi__dpdc__menus_8c" startline="443" endline="517">XDpDc_DisplayConfig</referencedby>
+        <referencedby refid="mmi__dpdc__menus_8h_1a23e0f7f5b66aae7b68eab9d3c904657d" compoundref="mmi__dpdc__menus_8c" startline="1723" endline="1879">XDpDc_InitConfigDefaults</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_init_run_config_1a6ca86037cd56e4ddfb0bb6c950c0fc67" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 InitRunConfig::link_rate</definition>
+        <argsstring></argsstring>
+        <name>link_rate</name>
+        <briefdescription>
+<para>0=auto (sink max), 6=RBR, 10=HBR, 20=HBR2, 30=HBR3 </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_menus.h" line="73" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_menus.h" bodystart="73" bodyend="-1"/>
+        <referencedby refid="mmi__dpdc__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="mmi__dpdc__example_8c" startline="417" endline="624">main</referencedby>
+        <referencedby refid="mmi__dpdc__menus_8h_1a6ed49c1ca08ecf19af7bdd721bbaa33f" compoundref="mmi__dpdc__menus_8c" startline="443" endline="517">XDpDc_DisplayConfig</referencedby>
+        <referencedby refid="mmi__dpdc__menus_8h_1a23e0f7f5b66aae7b68eab9d3c904657d" compoundref="mmi__dpdc__menus_8c" startline="1723" endline="1879">XDpDc_InitConfigDefaults</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_init_run_config_1a5fb760ba22f240982415ebefbefe867d" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 InitRunConfig::power_cycle_on_start</definition>
+        <argsstring></argsstring>
+        <name>power_cycle_on_start</name>
+        <briefdescription>
+<para>Power cycle on start. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_menus.h" line="75" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_menus.h" bodystart="75" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_init_run_config_1af1eabcb156bac51f2fc7d59d111a0f98" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 InitRunConfig::operatingmode</definition>
+        <argsstring></argsstring>
+        <name>operatingmode</name>
+        <briefdescription>
+<para>0=DC_Functional, 1=DC_Bypass </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_menus.h" line="77" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_menus.h" bodystart="77" bodyend="-1"/>
+        <referencedby refid="mmi__dpdc__menus_8h_1a6ed49c1ca08ecf19af7bdd721bbaa33f" compoundref="mmi__dpdc__menus_8c" startline="443" endline="517">XDpDc_DisplayConfig</referencedby>
+        <referencedby refid="mmi__dpdc__menus_8h_1a23e0f7f5b66aae7b68eab9d3c904657d" compoundref="mmi__dpdc__menus_8c" startline="1723" endline="1879">XDpDc_InitConfigDefaults</referencedby>
+        <referencedby refid="mmi__dpdc__menus_8h_1a1ed6edf16d317c1b2660d90f7211050c" compoundref="mmi__dpdc__menus_8c" startline="378" endline="429">XDpDc_MainHelpMenu</referencedby>
+        <referencedby refid="mmi__dpdc__menus_8h_1a4478f802d7e122a29e231d39d32c1147" compoundref="mmi__dpdc__menus_8c" startline="1396" endline="1578">XDpDc_MenuLoop</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_init_run_config_1acf3f022de58d9725ec65c0e0ec216ccd" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 InitRunConfig::presentationmode</definition>
+        <argsstring></argsstring>
+        <name>presentationmode</name>
+        <briefdescription>
+<para>0=Non-live, 1=Live, 2=Mixed </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_menus.h" line="78" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_menus.h" bodystart="78" bodyend="-1"/>
+        <referencedby refid="mmi__dpdc__menus_8h_1a6ed49c1ca08ecf19af7bdd721bbaa33f" compoundref="mmi__dpdc__menus_8c" startline="443" endline="517">XDpDc_DisplayConfig</referencedby>
+        <referencedby refid="mmi__dpdc__menus_8h_1a23e0f7f5b66aae7b68eab9d3c904657d" compoundref="mmi__dpdc__menus_8c" startline="1723" endline="1879">XDpDc_InitConfigDefaults</referencedby>
+        <referencedby refid="mmi__dpdc__menus_8h_1a1ed6edf16d317c1b2660d90f7211050c" compoundref="mmi__dpdc__menus_8c" startline="378" endline="429">XDpDc_MainHelpMenu</referencedby>
+        <referencedby refid="mmi__dpdc__menus_8h_1a4478f802d7e122a29e231d39d32c1147" compoundref="mmi__dpdc__menus_8c" startline="1396" endline="1578">XDpDc_MenuLoop</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_init_run_config_1ac83021a84d4f9533be6de2198bfcc98c" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 InitRunConfig::livevidselect</definition>
+        <argsstring></argsstring>
+        <name>livevidselect</name>
+        <briefdescription>
+<para>0=V01, 1=V02, 2=Both 3=None </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_menus.h" line="79" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_menus.h" bodystart="79" bodyend="-1"/>
+        <referencedby refid="mmi__dpdc__menus_8h_1a23e0f7f5b66aae7b68eab9d3c904657d" compoundref="mmi__dpdc__menus_8c" startline="1723" endline="1879">XDpDc_InitConfigDefaults</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_init_run_config_1a98732579f2427fd13bdb53e4823c7728" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 InitRunConfig::livevideo01mode</definition>
+        <argsstring></argsstring>
+        <name>livevideo01mode</name>
+        <briefdescription>
+<para>0=Audio &amp; Video, 1=Video only, 2=None </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_menus.h" line="80" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_menus.h" bodystart="80" bodyend="-1"/>
+        <referencedby refid="mmi__dpdc__menus_8h_1a23e0f7f5b66aae7b68eab9d3c904657d" compoundref="mmi__dpdc__menus_8c" startline="1723" endline="1879">XDpDc_InitConfigDefaults</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_init_run_config_1ae440bbab3ca3581daeb6d2719b54f757" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 InitRunConfig::livevideo02mode</definition>
+        <argsstring></argsstring>
+        <name>livevideo02mode</name>
+        <briefdescription>
+<para>1=Video only 2=None </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_menus.h" line="81" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_menus.h" bodystart="81" bodyend="-1"/>
+        <referencedby refid="mmi__dpdc__menus_8h_1a23e0f7f5b66aae7b68eab9d3c904657d" compoundref="mmi__dpdc__menus_8c" startline="1723" endline="1879">XDpDc_InitConfigDefaults</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_init_run_config_1af51351f8d981f057c756db2b0924b6cf" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 InitRunConfig::livevideoalphaen</definition>
+        <argsstring></argsstring>
+        <name>livevideoalphaen</name>
+        <briefdescription>
+<para>0=Disabled, 1=Enabled </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_menus.h" line="82" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_menus.h" bodystart="82" bodyend="-1"/>
+        <referencedby refid="mmi__dpdc__menus_8h_1a23e0f7f5b66aae7b68eab9d3c904657d" compoundref="mmi__dpdc__menus_8c" startline="1723" endline="1879">XDpDc_InitConfigDefaults</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_init_run_config_1a65a5aee25c3374792c80ea4fe0f8b22b" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 InitRunConfig::livevideosdpen</definition>
+        <argsstring></argsstring>
+        <name>livevideosdpen</name>
+        <briefdescription>
+<para>0=Disabled, 1=Enabled </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_menus.h" line="83" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_menus.h" bodystart="83" bodyend="-1"/>
+        <referencedby refid="mmi__dpdc__menus_8h_1a23e0f7f5b66aae7b68eab9d3c904657d" compoundref="mmi__dpdc__menus_8c" startline="1723" endline="1879">XDpDc_InitConfigDefaults</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_init_run_config_1a092ce200f234044b854428da4dff7ef7" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 InitRunConfig::byp_streams</definition>
+        <argsstring></argsstring>
+        <name>byp_streams</name>
+        <briefdescription>
+<para>Number of bypass streams. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_menus.h" line="84" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_menus.h" bodystart="84" bodyend="-1"/>
+        <referencedby refid="mmi__dpdc__menus_8h_1a23e0f7f5b66aae7b68eab9d3c904657d" compoundref="mmi__dpdc__menus_8c" startline="1723" endline="1879">XDpDc_InitConfigDefaults</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_init_run_config_1a4f3d1589f05df9935e632295f36f805a" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 InitRunConfig::byp_stream_pix_mode[4]</definition>
+        <argsstring>[4]</argsstring>
+        <name>byp_stream_pix_mode</name>
+        <briefdescription>
+<para>Bypass stream PPC: 1, 2, 4. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_menus.h" line="85" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_menus.h" bodystart="85" bodyend="-1"/>
+        <referencedby refid="mmi__dpdc__menus_8h_1a23e0f7f5b66aae7b68eab9d3c904657d" compoundref="mmi__dpdc__menus_8c" startline="1723" endline="1879">XDpDc_InitConfigDefaults</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_init_run_config_1a152ad66bc2be12c608992ed02f6cf608" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 InitRunConfig::byp_stream_sdp_en[4]</definition>
+        <argsstring>[4]</argsstring>
+        <name>byp_stream_sdp_en</name>
+        <briefdescription>
+<para>Bypass stream SDP enable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_menus.h" line="86" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_menus.h" bodystart="86" bodyend="-1"/>
+        <referencedby refid="mmi__dpdc__menus_8h_1a23e0f7f5b66aae7b68eab9d3c904657d" compoundref="mmi__dpdc__menus_8c" startline="1723" endline="1879">XDpDc_InitConfigDefaults</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_init_run_config_1a53f8cb88eda902b5cb4206beadfa3068" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 InitRunConfig::byp_stream_vid_mode[4]</definition>
+        <argsstring>[4]</argsstring>
+        <name>byp_stream_vid_mode</name>
+        <briefdescription>
+<para>Bypass stream video mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_menus.h" line="87" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_menus.h" bodystart="87" bodyend="-1"/>
+        <referencedby refid="mmi__dpdc__menus_8h_1a23e0f7f5b66aae7b68eab9d3c904657d" compoundref="mmi__dpdc__menus_8c" startline="1723" endline="1879">XDpDc_InitConfigDefaults</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef contains the initial user configuration collected from the interactive menu before starting the DisplayPort test. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="5">
+        <label>InitRunConfig</label>
+        <link refid="struct_init_run_config"/>
+        <childnode refid="6" relation="usage">
+          <edgelabel>avpg</edgelabel>
+        </childnode>
+      </node>
+      <node id="6">
+        <label>AvpgRunConfig</label>
+        <link refid="struct_avpg_run_config"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_menus.h" line="46" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_menus.h" bodystart="46" bodyend="88"/>
+    <listofallmembers>
+      <member refid="struct_init_run_config_1a836c630c2c5fc8ca15222b2b7541be32" prot="public" virt="non-virtual"><scope>InitRunConfig</scope><name>audio_channels</name></member>
+      <member refid="struct_init_run_config_1abab4747bbd38f27e47af91c99123d5d1" prot="public" virt="non-virtual"><scope>InitRunConfig</scope><name>audio_enable</name></member>
+      <member refid="struct_init_run_config_1a5565b2b3f735571d8fe97a92c228614d" prot="public" virt="non-virtual"><scope>InitRunConfig</scope><name>avpg</name></member>
+      <member refid="struct_init_run_config_1a4f3d1589f05df9935e632295f36f805a" prot="public" virt="non-virtual"><scope>InitRunConfig</scope><name>byp_stream_pix_mode</name></member>
+      <member refid="struct_init_run_config_1a152ad66bc2be12c608992ed02f6cf608" prot="public" virt="non-virtual"><scope>InitRunConfig</scope><name>byp_stream_sdp_en</name></member>
+      <member refid="struct_init_run_config_1a53f8cb88eda902b5cb4206beadfa3068" prot="public" virt="non-virtual"><scope>InitRunConfig</scope><name>byp_stream_vid_mode</name></member>
+      <member refid="struct_init_run_config_1a092ce200f234044b854428da4dff7ef7" prot="public" virt="non-virtual"><scope>InitRunConfig</scope><name>byp_streams</name></member>
+      <member refid="struct_init_run_config_1a1f775c283ff2c8e0888e8f0f69ce4ef0" prot="public" virt="non-virtual"><scope>InitRunConfig</scope><name>cursor_coord_x</name></member>
+      <member refid="struct_init_run_config_1a38b61e9c2250bdbd14abcf164101e45e" prot="public" virt="non-virtual"><scope>InitRunConfig</scope><name>cursor_coord_y</name></member>
+      <member refid="struct_init_run_config_1acd8a594f012e1c5c4c2244cd11605a22" prot="public" virt="non-virtual"><scope>InitRunConfig</scope><name>cursor_enable</name></member>
+      <member refid="struct_init_run_config_1af5ddd069cd61bded1852755c04c325ac" prot="public" virt="non-virtual"><scope>InitRunConfig</scope><name>cursor_size_x</name></member>
+      <member refid="struct_init_run_config_1a5185922eca0badcc51e904e61ffeaab9" prot="public" virt="non-virtual"><scope>InitRunConfig</scope><name>cursor_size_y</name></member>
+      <member refid="struct_init_run_config_1ac27f27452788d28f27a08d17eee3dbed" prot="public" virt="non-virtual"><scope>InitRunConfig</scope><name>frame_rate</name></member>
+      <member refid="struct_init_run_config_1a97fd59cef2244825b167f75853a6c197" prot="public" virt="non-virtual"><scope>InitRunConfig</scope><name>height</name></member>
+      <member refid="struct_init_run_config_1a4eb9d3421a5408252df9d7243f064bc1" prot="public" virt="non-virtual"><scope>InitRunConfig</scope><name>lane_count</name></member>
+      <member refid="struct_init_run_config_1a6ca86037cd56e4ddfb0bb6c950c0fc67" prot="public" virt="non-virtual"><scope>InitRunConfig</scope><name>link_rate</name></member>
+      <member refid="struct_init_run_config_1a98732579f2427fd13bdb53e4823c7728" prot="public" virt="non-virtual"><scope>InitRunConfig</scope><name>livevideo01mode</name></member>
+      <member refid="struct_init_run_config_1ae440bbab3ca3581daeb6d2719b54f757" prot="public" virt="non-virtual"><scope>InitRunConfig</scope><name>livevideo02mode</name></member>
+      <member refid="struct_init_run_config_1af51351f8d981f057c756db2b0924b6cf" prot="public" virt="non-virtual"><scope>InitRunConfig</scope><name>livevideoalphaen</name></member>
+      <member refid="struct_init_run_config_1a65a5aee25c3374792c80ea4fe0f8b22b" prot="public" virt="non-virtual"><scope>InitRunConfig</scope><name>livevideosdpen</name></member>
+      <member refid="struct_init_run_config_1ac83021a84d4f9533be6de2198bfcc98c" prot="public" virt="non-virtual"><scope>InitRunConfig</scope><name>livevidselect</name></member>
+      <member refid="struct_init_run_config_1af1eabcb156bac51f2fc7d59d111a0f98" prot="public" virt="non-virtual"><scope>InitRunConfig</scope><name>operatingmode</name></member>
+      <member refid="struct_init_run_config_1afe38262491afe56063d3885187420957" prot="public" virt="non-virtual"><scope>InitRunConfig</scope><name>output_format</name></member>
+      <member refid="struct_init_run_config_1a4a47f59bc1e496228cfdfedea34499a9" prot="public" virt="non-virtual"><scope>InitRunConfig</scope><name>partial_plane_blend_enable</name></member>
+      <member refid="struct_init_run_config_1a5fb760ba22f240982415ebefbefe867d" prot="public" virt="non-virtual"><scope>InitRunConfig</scope><name>power_cycle_on_start</name></member>
+      <member refid="struct_init_run_config_1a71603b6f22ac9006c4f2c02eeee717e9" prot="public" virt="non-virtual"><scope>InitRunConfig</scope><name>ppb_coord_x</name></member>
+      <member refid="struct_init_run_config_1a5a09ba3119a11846784fefbcc6b72288" prot="public" virt="non-virtual"><scope>InitRunConfig</scope><name>ppb_coord_y</name></member>
+      <member refid="struct_init_run_config_1a8245e9c4114e879804afaaa337a182b8" prot="public" virt="non-virtual"><scope>InitRunConfig</scope><name>ppb_offset_x</name></member>
+      <member refid="struct_init_run_config_1a9ed6fe0fbe5ae437314eece44884f5fb" prot="public" virt="non-virtual"><scope>InitRunConfig</scope><name>ppb_offset_y</name></member>
+      <member refid="struct_init_run_config_1adc20f46f2387d4c46abacfcb749edc0b" prot="public" virt="non-virtual"><scope>InitRunConfig</scope><name>ppb_size_x</name></member>
+      <member refid="struct_init_run_config_1ab18d2f57601fedc6553aa5c016aaa703" prot="public" virt="non-virtual"><scope>InitRunConfig</scope><name>ppb_size_y</name></member>
+      <member refid="struct_init_run_config_1a0d9dad981dd504dd30778afa7aa479e1" prot="public" virt="non-virtual"><scope>InitRunConfig</scope><name>ppb_stream_select</name></member>
+      <member refid="struct_init_run_config_1acf3f022de58d9725ec65c0e0ec216ccd" prot="public" virt="non-virtual"><scope>InitRunConfig</scope><name>presentationmode</name></member>
+      <member refid="struct_init_run_config_1a91187174f01da271fba2174bf84b5069" prot="public" virt="non-virtual"><scope>InitRunConfig</scope><name>sdp_enable</name></member>
+      <member refid="struct_init_run_config_1a1dcc147c2027a2d38dbb963e49926196" prot="public" virt="non-virtual"><scope>InitRunConfig</scope><name>stream1_format</name></member>
+      <member refid="struct_init_run_config_1af0ba989759f17a8da0dd99068b3c91aa" prot="public" virt="non-virtual"><scope>InitRunConfig</scope><name>stream2_format</name></member>
+      <member refid="struct_init_run_config_1aba17442d43d7d59a4d281f065717b3ac" prot="public" virt="non-virtual"><scope>InitRunConfig</scope><name>width</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

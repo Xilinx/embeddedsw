@@ -1,0 +1,169 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xv__hdmirxss1__coreinit_8h" kind="file">
+    <compoundname>xv_hdmirxss1_coreinit.h</compoundname>
+    <includes refid="xv__hdmirxss1_8h" local="yes">xv_hdmirxss1.h</includes>
+    <includedby refid="xv__hdmirxss1_8c" local="yes">xv_hdmirxss1.c</includedby>
+    <includedby refid="xv__hdmirxss1__coreinit_8c" local="yes">xv_hdmirxss1_coreinit.c</includedby>
+    <incdepgraph>
+      <node id="639">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="631">
+        <label>xv_hdmirxss1_coreinit.h</label>
+        <link refid="xv_hdmirxss1_coreinit.h"/>
+        <childnode refid="632" relation="include">
+        </childnode>
+      </node>
+      <node id="636">
+        <label>xv_hdmic_vsif.h</label>
+      </node>
+      <node id="637">
+        <label>xv_hdmirxss1_frl.h</label>
+        <link refid="xv__hdmirxss1__frl_8h"/>
+        <childnode refid="638" relation="include">
+        </childnode>
+        <childnode refid="639" relation="include">
+        </childnode>
+        <childnode refid="634" relation="include">
+        </childnode>
+      </node>
+      <node id="632">
+        <label>xv_hdmirxss1.h</label>
+        <link refid="xv__hdmirxss1_8h"/>
+        <childnode refid="633" relation="include">
+        </childnode>
+        <childnode refid="634" relation="include">
+        </childnode>
+        <childnode refid="635" relation="include">
+        </childnode>
+        <childnode refid="636" relation="include">
+        </childnode>
+        <childnode refid="637" relation="include">
+        </childnode>
+      </node>
+      <node id="635">
+        <label>xv_hdmirx1.h</label>
+      </node>
+      <node id="634">
+        <label>xstatus.h</label>
+      </node>
+      <node id="638">
+        <label>xil_types.h</label>
+      </node>
+      <node id="633">
+        <label>xparameters.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="642">
+        <label>xv_hdmirxss1_coreinit.c</label>
+        <link refid="xv__hdmirxss1__coreinit_8c"/>
+      </node>
+      <node id="640">
+        <label>xv_hdmirxss1_coreinit.h</label>
+        <link refid="xv_hdmirxss1_coreinit.h"/>
+        <childnode refid="641" relation="include">
+        </childnode>
+        <childnode refid="642" relation="include">
+        </childnode>
+      </node>
+      <node id="641">
+        <label>xv_hdmirxss1.c</label>
+        <link refid="xv__hdmirxss1_8c"/>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xv__hdmirxss1__coreinit_8h_1a87eca899ad3c93d4d2d71875b2532088" prot="public" static="no">
+        <name>XV_HDMIRXSS1_COREINIT_H__</name>
+        <initializer>/* by using protection macros */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1_coreinit.h" line="26" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1_coreinit.h" bodystart="26" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__v__hdmirxss1_1ga68409ded8710da27184abfed11fdddbf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XV_HdmiRxSs1_SubcoreInitHdmiRx1</definition>
+        <argsstring>(XV_HdmiRxSs1 *HdmiRxSs1Ptr)</argsstring>
+        <name>XV_HdmiRxSs1_SubcoreInitHdmiRx1</name>
+        <param>
+          <type><ref refid="struct_x_v___hdmi_rx_ss1" kindref="compound">XV_HdmiRxSs1</ref> *</type>
+          <declname>HdmiRxSs1Ptr</declname>
+        </param>
+        <briefdescription>
+<para>This function initializes the included sub-core to it&apos;s static configuration. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>HdmiRxSs1Ptr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the Subsystem instance to be worked on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS/XST_FAILURE </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1_coreinit.h" line="36" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1_coreinit.c" bodystart="66" bodyend="115"/>
+        <references refid="struct_x_v___hdmi_rx_ss1_1a51fe864b06a7b80a949a9c65d0f8ec54" compoundref="xv__hdmirxss1_8h" startline="414">XV_HdmiRxSs1::HdmiRx1Ptr</references>
+        <references refid="xv__hdmirxss1_8h_1a7d0b053f82c85248f45171523ef784e5" compoundref="xv__hdmirxss1__log_8c" startline="66" endline="108">XV_HdmiRxSs1_LogWrite</references>
+        <references refid="xv__hdmirxss1_8h_1af3a71dd7327c20d37f9daa233bc882c0a662aa2923351ce1af9f66d4ad335b3e0" compoundref="xv__hdmirxss1_8h" startline="112">XV_HDMIRXSS1_LOG_EVT_HDMIRX1_INIT</references>
+        <references refid="struct_x_v___hdmi_rx_ss1_1ae498c708a39c0a72d9d0c56cac26b523" compoundref="xv__hdmirxss1_8h" startline="396">XV_HdmiRxSs1::Config</references>
+        <references refid="struct_x_v___hdmi_rx_ss1___config_1ae087a3e8b92106e5e7cebb2d32315c66" compoundref="xv__hdmirxss1_8h" startline="353">XV_HdmiRxSs1_Config::HdmiRx1</references>
+        <references refid="struct_x_v___hdmi_rx_ss1___config_1afce02f1610b14e6a599c142352055d59" compoundref="xv__hdmirxss1_8h" startline="348">XV_HdmiRxSs1_Config::AxiLiteClkFreq</references>
+        <references refid="struct_x_v___hdmi_rx_ss1___config_1ac34aadaeb0d531c2374d101e6ac1d46c" compoundref="xv__hdmirxss1_8h" startline="339">XV_HdmiRxSs1_Config::BaseAddress</references>
+        <references refid="struct_x_v___hdmi_rx_ss1_1aa79a686eb11f948daa2a85bd87266557" compoundref="xv__hdmirxss1_8h" startline="518">XV_HdmiRxSs1::EdidPtr</references>
+        <references refid="struct_x_v___hdmi_rx_ss1_1ac84dbbbfa102d974d1489765b8dd3d04" compoundref="xv__hdmirxss1_8h" startline="519">XV_HdmiRxSs1::EdidLength</references>
+        <references refid="struct_x_v___hdmi_rx_ss1___config_1acf1343cb7b7cef1889fab0eec80f221d" compoundref="xv__hdmirxss1_8h" startline="349">XV_HdmiRxSs1_Config::VideoInterface</references>
+        <references refid="struct_x_v___hdmi_rx_ss1___config_1a23cb1bc207dcd4b239ff035c3a7dfe45" compoundref="xv__hdmirxss1_8h" startline="343">XV_HdmiRxSs1_Config::Ppc</references>
+        <referencedby refid="xv__hdmirxss1_8h_1ae7df2cc91e752d61253d9a86462d95ab" compoundref="xv__hdmirxss1_8c" startline="566" endline="711">XV_HdmiRxSs1_CfgInitialize</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2018<sp/>–<sp/>2020<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>2022-2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="25"><highlight class="preprocessor">#ifndef<sp/>XV_HDMIRXSS1_COREINIT_H__<sp/><sp/></highlight><highlight class="comment">/*<sp/>prevent<sp/>circular<sp/>inclusions<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="26"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XV_HDMIRXSS1_COREINIT_H__<sp/><sp/></highlight><highlight class="comment">/*<sp/>by<sp/>using<sp/>protection<sp/>macros<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="27"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="29"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="31"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xv__hdmirxss1_8h" kindref="compound">xv_hdmirxss1.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__v__hdmirxss1_1ga68409ded8710da27184abfed11fdddbf" kindref="member">XV_HdmiRxSs1_SubcoreInitHdmiRx1</ref>(<ref refid="struct_x_v___hdmi_rx_ss1" kindref="compound">XV_HdmiRxSs1</ref><sp/>*HdmiRxSs1Ptr);</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>XPAR_XHDCP_NUM_INSTANCES</highlight></codeline>
+<codeline lineno="38"><highlight class="preprocessor"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XV_HdmiRxSs1_SubcoreInitHdcpTimer(<ref refid="struct_x_v___hdmi_rx_ss1" kindref="compound">XV_HdmiRxSs1</ref><sp/>*HdmiRxSs1Ptr);</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XV_HdmiRxSs1_SubcoreInitHdcp14(<ref refid="struct_x_v___hdmi_rx_ss1" kindref="compound">XV_HdmiRxSs1</ref><sp/>*HdmiRxSs1Ptr);</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="41"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#ifdef<sp/>XPAR_XHDCP22_RX_NUM_INSTANCES</highlight></codeline>
+<codeline lineno="42"><highlight class="preprocessor"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XV_HdmiRxSs1_SubcoreInitHdcp22(<ref refid="struct_x_v___hdmi_rx_ss1" kindref="compound">XV_HdmiRxSs1</ref><sp/>*HdmiRxSs1Ptr);</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="44"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="46"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="48"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1_coreinit.h"/>
+  </compounddef>
+</doxygen>

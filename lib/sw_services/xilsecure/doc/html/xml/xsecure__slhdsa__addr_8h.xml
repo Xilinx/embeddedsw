@@ -1,0 +1,334 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xsecure__slhdsa__addr_8h" kind="file">
+    <compoundname>xsecure_slhdsa_addr.h</compoundname>
+    <includes local="yes">xil_types.h</includes>
+    <includes local="yes">xil_io.h</includes>
+    <includes local="yes">xsecure_utils.h</includes>
+    <includedby refid="xsecure__slhdsa__instance_8h" local="yes">xsecure_slhdsa_instance.h</includedby>
+    <includedby refid="xsecure__slhdsa__fors_8c" local="yes">xsecure_slhdsa_fors.c</includedby>
+    <includedby refid="xsecure__slhdsa__ht_8c" local="yes">xsecure_slhdsa_ht.c</includedby>
+    <includedby refid="xsecure__slhdsa__wots_8c" local="yes">xsecure_slhdsa_wots.c</includedby>
+    <includedby refid="xsecure__slhdsa__xmss_8c" local="yes">xsecure_slhdsa_xmss.c</includedby>
+    <incdepgraph>
+      <node id="4377">
+        <label>xsecure_slhdsa_addr.h</label>
+        <link refid="xsecure_slhdsa_addr.h"/>
+        <childnode refid="4378" relation="include">
+        </childnode>
+        <childnode refid="4379" relation="include">
+        </childnode>
+        <childnode refid="4380" relation="include">
+        </childnode>
+      </node>
+      <node id="4379">
+        <label>xil_io.h</label>
+      </node>
+      <node id="4380">
+        <label>xsecure_utils.h</label>
+      </node>
+      <node id="4378">
+        <label>xil_types.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="4381">
+        <label>xsecure_slhdsa_addr.h</label>
+        <link refid="xsecure_slhdsa_addr.h"/>
+        <childnode refid="4382" relation="include">
+        </childnode>
+        <childnode refid="4385" relation="include">
+        </childnode>
+        <childnode refid="4388" relation="include">
+        </childnode>
+        <childnode refid="4386" relation="include">
+        </childnode>
+        <childnode refid="4391" relation="include">
+        </childnode>
+      </node>
+      <node id="4395">
+        <label>xsecure_slhdsa_instance.c</label>
+        <link refid="xsecure__slhdsa__instance_8c"/>
+      </node>
+      <node id="4382">
+        <label>xsecure_slhdsa_instance.h</label>
+        <link refid="xsecure__slhdsa__instance_8h"/>
+        <childnode refid="4383" relation="include">
+        </childnode>
+        <childnode refid="4387" relation="include">
+        </childnode>
+        <childnode refid="4389" relation="include">
+        </childnode>
+        <childnode refid="4392" relation="include">
+        </childnode>
+        <childnode refid="4394" relation="include">
+        </childnode>
+        <childnode refid="4395" relation="include">
+        </childnode>
+        <childnode refid="4396" relation="include">
+        </childnode>
+      </node>
+      <node id="4384">
+        <label>xsecure_slhdsa.c</label>
+        <link refid="xsecure__slhdsa_8c"/>
+      </node>
+      <node id="4392">
+        <label>xsecure_slhdsa.h</label>
+        <link refid="xsecure__slhdsa_8h"/>
+        <childnode refid="4384" relation="include">
+        </childnode>
+        <childnode refid="4393" relation="include">
+        </childnode>
+      </node>
+      <node id="4386">
+        <label>xsecure_slhdsa_wots.c</label>
+        <link refid="xsecure__slhdsa__wots_8c"/>
+      </node>
+      <node id="4396">
+        <label>xsecure_slhdsa_wots.h</label>
+        <link refid="xsecure__slhdsa__wots_8h"/>
+        <childnode refid="4386" relation="include">
+        </childnode>
+        <childnode refid="4391" relation="include">
+        </childnode>
+      </node>
+      <node id="4393">
+        <label>xsecure_slhdsa_ipihandler.c</label>
+        <link refid="xsecure__slhdsa__ipihandler_8c"/>
+      </node>
+      <node id="4385">
+        <label>xsecure_slhdsa_fors.c</label>
+        <link refid="xsecure__slhdsa__fors_8c"/>
+      </node>
+      <node id="4383">
+        <label>xsecure_slhdsa_fors.h</label>
+        <link refid="xsecure__slhdsa__fors_8h"/>
+        <childnode refid="4384" relation="include">
+        </childnode>
+        <childnode refid="4385" relation="include">
+        </childnode>
+        <childnode refid="4386" relation="include">
+        </childnode>
+      </node>
+      <node id="4388">
+        <label>xsecure_slhdsa_ht.c</label>
+        <link refid="xsecure__slhdsa__ht_8c"/>
+      </node>
+      <node id="4387">
+        <label>xsecure_slhdsa_ht.h</label>
+        <link refid="xsecure__slhdsa__ht_8h"/>
+        <childnode refid="4384" relation="include">
+        </childnode>
+        <childnode refid="4388" relation="include">
+        </childnode>
+      </node>
+      <node id="4391">
+        <label>xsecure_slhdsa_xmss.c</label>
+        <link refid="xsecure__slhdsa__xmss_8c"/>
+      </node>
+      <node id="4394">
+        <label>xsecure_slhdsa_xmss.h</label>
+        <link refid="xsecure__slhdsa__xmss_8h"/>
+        <childnode refid="4388" relation="include">
+        </childnode>
+        <childnode refid="4391" relation="include">
+        </childnode>
+      </node>
+      <node id="4390">
+        <label>xsecure_slhdsa_hash.c</label>
+        <link refid="xsecure__slhdsa__hash_8c"/>
+      </node>
+      <node id="4389">
+        <label>xsecure_slhdsa_hash.h</label>
+        <link refid="xsecure__slhdsa__hash_8h"/>
+        <childnode refid="4384" relation="include">
+        </childnode>
+        <childnode refid="4385" relation="include">
+        </childnode>
+        <childnode refid="4390" relation="include">
+        </childnode>
+        <childnode refid="4388" relation="include">
+        </childnode>
+        <childnode refid="4386" relation="include">
+        </childnode>
+        <childnode refid="4391" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <briefdescription>
+<para>This file contains the SLH-DSA address structure (ADRS) and manipulation functions. </para>    </briefdescription>
+    <detaileddescription>
+<para>The ADRS provides domain separation for hash functions across different SLH-DSA operations including FORS, WOTS+, XMSS, and Hypertree.</para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+----- ---- -------- ----------------------------------------------------------------------------
+5.7   tvp  02/19/26 Initial release</preformatted></para><para><preformatted></preformatted></para><para><simplesect kind="note"><para>All multi-byte values are stored in big-endian order within the ADRS structure. </para></simplesect>
+</para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/***************************************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">***************************************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/**************************************************************************************************/</highlight></codeline>
+<codeline lineno="29"><highlight class="preprocessor">#ifndef<sp/>XSECURE_SLH_DSA_ADDR_H_</highlight></codeline>
+<codeline lineno="30"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_SLH_DSA_ADDR_H_</highlight></codeline>
+<codeline lineno="31"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="33"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="35"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="comment">/****************************************<sp/>Include<sp/>Files<sp/>*******************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_io.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xsecure_utils.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="comment">/*****************************************<sp/>Constant<sp/>Definitions<sp/>***********************************/</highlight></codeline>
+<codeline lineno="46"><highlight class="preprocessor">#define<sp/>XSECURE_IS_ODD(Value)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((Value<sp/>&amp;<sp/>0x00000001U)<sp/>==<sp/>0x00000001U)<sp/></highlight></codeline>
+<codeline lineno="48"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>ADRS<sp/>word<sp/>index<sp/>macros<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="49"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_SLH_DSA_ADDR_WORD_LAYER<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0U)<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="50"><highlight class="preprocessor">#define<sp/>XSECURE_SLH_DSA_ADDR_WORD_TREE_2<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1U)<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="51"><highlight class="preprocessor">#define<sp/>XSECURE_SLH_DSA_ADDR_WORD_TREE_1<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(2U)<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="52"><highlight class="preprocessor">#define<sp/>XSECURE_SLH_DSA_ADDR_WORD_TREE_0<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(3U)<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="53"><highlight class="preprocessor">#define<sp/>XSECURE_SLH_DSA_ADDR_WORD_TYPE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(4U)<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="54"><highlight class="preprocessor">#define<sp/>XSECURE_SLH_DSA_ADDR_WORD_KEYPAIR<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(5U)<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="55"><highlight class="preprocessor">#define<sp/>XSECURE_SLH_DSA_ADDR_WORD_CHAIN_HEIGHT<sp/><sp/>(6U)<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="56"><highlight class="preprocessor">#define<sp/>XSECURE_SLH_DSA_ADDR_WORD_HASH_INDEX<sp/><sp/><sp/><sp/>(7U)<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="58"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>Address<sp/>type<sp/>identifiers<sp/>for<sp/>SLH_DSA<sp/>operations<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="59"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_SLH_DSA_ADRS_TYPE_WOTS_HASH<sp/><sp/><sp/><sp/><sp/>(0U)<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="60"><highlight class="preprocessor">#define<sp/>XSECURE_SLH_DSA_ADRS_TYPE_WOTS_PK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1U)<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="61"><highlight class="preprocessor">#define<sp/>XSECURE_SLH_DSA_ADRS_TYPE_TREE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(2U)<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="62"><highlight class="preprocessor">#define<sp/>XSECURE_SLH_DSA_ADRS_TYPE_FORS_TREE<sp/><sp/><sp/><sp/><sp/>(3U)<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="63"><highlight class="preprocessor">#define<sp/>XSECURE_SLH_DSA_ADRS_TYPE_FORS_ROOTS<sp/><sp/><sp/><sp/>(4U)<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="65"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>Address<sp/>size<sp/>definitions<sp/>for<sp/>SLH_DSA<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="66"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_SLH_DSA_ADDR_SIZE_IN_WORDS<sp/><sp/><sp/><sp/><sp/><sp/>(8U)<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="67"><highlight class="preprocessor">#define<sp/>XSECURE_SLH_DSA_ADDR_SIZE_IN_BYTES<sp/><sp/><sp/><sp/><sp/><sp/>(32U)<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="87"><highlight class="preprocessor">typedef<sp/>union<sp/>{</highlight></codeline>
+<codeline lineno="88"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>AdrsWord[XSECURE_SLH_DSA_ADDR_SIZE_IN_WORDS];<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>AdrsByte[XSECURE_SLH_DSA_ADDR_SIZE_IN_BYTES];<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="90"><highlight class="normal">}<sp/>ADRS;</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"></highlight></codeline>
+<codeline lineno="92"><highlight class="normal"></highlight><highlight class="comment">/**************************************************************************************************/</highlight></codeline>
+<codeline lineno="105"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/>u64<sp/>XSecure_BytesToU64(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>*X,<sp/>u32<sp/>n)</highlight></codeline>
+<codeline lineno="106"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>total<sp/>=<sp/>0ULL;</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>i;</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"></highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(i<sp/>=<sp/>0U;<sp/>i<sp/>&lt;<sp/>n;<sp/>i++)<sp/>{</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>total<sp/>=<sp/>(total<sp/>&lt;&lt;<sp/><ref refid="group__xsecure__generic__server__apis_1ga8fc10049426f8541ee568885a9d03902" kindref="member">XSECURE_BYTE_IN_BITS</ref>)<sp/>+<sp/>(u64)X[i];</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"></highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>total;</highlight></codeline>
+<codeline lineno="115"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"></highlight></codeline>
+<codeline lineno="117"><highlight class="normal"></highlight><highlight class="comment">/**************************************************************************************************/</highlight></codeline>
+<codeline lineno="124"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XSecure_SlhdsaClearAddress(ADRS<sp/>*<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>InstancePtr)</highlight></codeline>
+<codeline lineno="125"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;AdrsWord[XSECURE_SLH_DSA_ADDR_WORD_LAYER]<sp/>=<sp/>(u32)<ref refid="group__xsecure__generic__server__apis_1ga4e096b508706aab2c2dd4b70452fb620" kindref="member">XSECURE_ZERO</ref>;</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;AdrsWord[XSECURE_SLH_DSA_ADDR_WORD_TREE_2]<sp/>=<sp/>(u32)<ref refid="group__xsecure__generic__server__apis_1ga4e096b508706aab2c2dd4b70452fb620" kindref="member">XSECURE_ZERO</ref>;</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;AdrsWord[XSECURE_SLH_DSA_ADDR_WORD_TREE_1]<sp/>=<sp/>(u32)<ref refid="group__xsecure__generic__server__apis_1ga4e096b508706aab2c2dd4b70452fb620" kindref="member">XSECURE_ZERO</ref>;</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;AdrsWord[XSECURE_SLH_DSA_ADDR_WORD_TREE_0]<sp/>=<sp/>(u32)<ref refid="group__xsecure__generic__server__apis_1ga4e096b508706aab2c2dd4b70452fb620" kindref="member">XSECURE_ZERO</ref>;</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;AdrsWord[XSECURE_SLH_DSA_ADDR_WORD_TYPE]<sp/>=<sp/>(u32)<ref refid="group__xsecure__generic__server__apis_1ga4e096b508706aab2c2dd4b70452fb620" kindref="member">XSECURE_ZERO</ref>;</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;AdrsWord[XSECURE_SLH_DSA_ADDR_WORD_KEYPAIR]<sp/>=<sp/>(u32)<ref refid="group__xsecure__generic__server__apis_1ga4e096b508706aab2c2dd4b70452fb620" kindref="member">XSECURE_ZERO</ref>;</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;AdrsWord[XSECURE_SLH_DSA_ADDR_WORD_CHAIN_HEIGHT]<sp/>=<sp/>(u32)<ref refid="group__xsecure__generic__server__apis_1ga4e096b508706aab2c2dd4b70452fb620" kindref="member">XSECURE_ZERO</ref>;</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;AdrsWord[XSECURE_SLH_DSA_ADDR_WORD_HASH_INDEX]<sp/>=<sp/>(u32)<ref refid="group__xsecure__generic__server__apis_1ga4e096b508706aab2c2dd4b70452fb620" kindref="member">XSECURE_ZERO</ref>;</highlight></codeline>
+<codeline lineno="134"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"></highlight></codeline>
+<codeline lineno="136"><highlight class="normal"></highlight><highlight class="comment">/**************************************************************************************************/</highlight></codeline>
+<codeline lineno="144"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XSecure_SlhdsaSetLayerAddress(ADRS<sp/>*<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>InstancePtr,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>LayerAddr)</highlight></codeline>
+<codeline lineno="145"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;AdrsWord[XSECURE_SLH_DSA_ADDR_WORD_LAYER]<sp/>=<sp/>Xil_Htonl(LayerAddr);</highlight></codeline>
+<codeline lineno="147"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"></highlight></codeline>
+<codeline lineno="149"><highlight class="normal"></highlight><highlight class="comment">/**************************************************************************************************/</highlight></codeline>
+<codeline lineno="157"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XSecure_SlhdsaSetTreeAddress(ADRS<sp/>*<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>InstancePtr,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u64<sp/>TreeAddress)</highlight></codeline>
+<codeline lineno="158"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>word<sp/>LAYER,<sp/>TYPE,<sp/>KEYPAIR,<sp/>CHAIN_HEIGHT,<sp/>HASH_INDEX<sp/>remains<sp/>unchanged<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;AdrsWord[XSECURE_SLH_DSA_ADDR_WORD_TREE_2]<sp/>=<sp/>(u32)<ref refid="group__xsecure__generic__server__apis_1ga4e096b508706aab2c2dd4b70452fb620" kindref="member">XSECURE_ZERO</ref>;</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;AdrsWord[XSECURE_SLH_DSA_ADDR_WORD_TREE_1]<sp/>=<sp/>Xil_Htonl((u32)(TreeAddress<sp/>&gt;&gt;</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__generic__server__apis_1ga0ab39c362c3e2b0d6750187ce4e7c809" kindref="member">XSECURE_WORD_IN_BITS</ref>));</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;AdrsWord[XSECURE_SLH_DSA_ADDR_WORD_TREE_0]<sp/>=<sp/>Xil_Htonl((u32)(TreeAddress<sp/>&amp;</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__lms__server__apis_1gad627bf4f124e3ee746059ffc7ff202ed" kindref="member">XSECURE_ALLFS</ref>));</highlight></codeline>
+<codeline lineno="165"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"></highlight></codeline>
+<codeline lineno="167"><highlight class="normal"></highlight><highlight class="comment">/**************************************************************************************************/</highlight></codeline>
+<codeline lineno="175"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XSecure_SlhdsaSetTypeAndClear(ADRS<sp/>*<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>InstancePtr,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>Type)</highlight></codeline>
+<codeline lineno="176"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>words<sp/>LAYER,<sp/>TREE_2,<sp/>TREE_1,<sp/>TREE_0<sp/>remains<sp/>unchanged<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;AdrsWord[XSECURE_SLH_DSA_ADDR_WORD_TYPE]<sp/>=<sp/>Xil_Htonl(Type);</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;AdrsWord[XSECURE_SLH_DSA_ADDR_WORD_KEYPAIR]<sp/>=<sp/>(u32)<ref refid="group__xsecure__generic__server__apis_1ga4e096b508706aab2c2dd4b70452fb620" kindref="member">XSECURE_ZERO</ref>;</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;AdrsWord[XSECURE_SLH_DSA_ADDR_WORD_CHAIN_HEIGHT]<sp/>=<sp/>(u32)<ref refid="group__xsecure__generic__server__apis_1ga4e096b508706aab2c2dd4b70452fb620" kindref="member">XSECURE_ZERO</ref>;</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;AdrsWord[XSECURE_SLH_DSA_ADDR_WORD_HASH_INDEX]<sp/>=<sp/>(u32)<ref refid="group__xsecure__generic__server__apis_1ga4e096b508706aab2c2dd4b70452fb620" kindref="member">XSECURE_ZERO</ref>;</highlight></codeline>
+<codeline lineno="182"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="183"><highlight class="normal"></highlight></codeline>
+<codeline lineno="184"><highlight class="normal"></highlight><highlight class="comment">/**************************************************************************************************/</highlight></codeline>
+<codeline lineno="192"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XSecure_SlhdsaSetTypeClearNotKp(ADRS<sp/>*<sp/>InstancePtr,<sp/>u32<sp/>Val)</highlight></codeline>
+<codeline lineno="193"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="194"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;AdrsWord[XSECURE_SLH_DSA_ADDR_WORD_TYPE]<sp/>=<sp/>Xil_Htonl(Val);</highlight></codeline>
+<codeline lineno="195"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;AdrsWord[XSECURE_SLH_DSA_ADDR_WORD_CHAIN_HEIGHT]<sp/>=<sp/>(u32)<ref refid="group__xsecure__generic__server__apis_1ga4e096b508706aab2c2dd4b70452fb620" kindref="member">XSECURE_ZERO</ref>;</highlight></codeline>
+<codeline lineno="196"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;AdrsWord[XSECURE_SLH_DSA_ADDR_WORD_HASH_INDEX]<sp/>=<sp/>(u32)<ref refid="group__xsecure__generic__server__apis_1ga4e096b508706aab2c2dd4b70452fb620" kindref="member">XSECURE_ZERO</ref>;</highlight></codeline>
+<codeline lineno="197"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="198"><highlight class="normal"></highlight></codeline>
+<codeline lineno="199"><highlight class="normal"></highlight><highlight class="comment">/**************************************************************************************************/</highlight></codeline>
+<codeline lineno="207"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XSecure_SlhdsaSetKeyPairAddress(ADRS<sp/>*<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>InstancePtr,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>Val)</highlight></codeline>
+<codeline lineno="208"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="209"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;AdrsWord[XSECURE_SLH_DSA_ADDR_WORD_KEYPAIR]<sp/>=<sp/>Xil_Htonl(Val);</highlight></codeline>
+<codeline lineno="210"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="211"><highlight class="normal"></highlight></codeline>
+<codeline lineno="212"><highlight class="normal"></highlight><highlight class="comment">/**************************************************************************************************/</highlight></codeline>
+<codeline lineno="220"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XSecure_SlhdsaSetChainAddress(ADRS<sp/>*<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>InstancePtr,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>Val)</highlight></codeline>
+<codeline lineno="221"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="222"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;AdrsWord[XSECURE_SLH_DSA_ADDR_WORD_CHAIN_HEIGHT]<sp/>=<sp/>Xil_Htonl(Val);</highlight></codeline>
+<codeline lineno="223"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="224"><highlight class="normal"></highlight></codeline>
+<codeline lineno="225"><highlight class="normal"></highlight><highlight class="comment">/**************************************************************************************************/</highlight></codeline>
+<codeline lineno="233"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XSecure_SlhdsaSetTreeHeight(ADRS<sp/>*<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>InstancePtr,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>Val)</highlight></codeline>
+<codeline lineno="234"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="235"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;AdrsWord[XSECURE_SLH_DSA_ADDR_WORD_CHAIN_HEIGHT]<sp/>=<sp/>Xil_Htonl(Val);</highlight></codeline>
+<codeline lineno="236"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="237"><highlight class="normal"></highlight></codeline>
+<codeline lineno="238"><highlight class="normal"></highlight><highlight class="comment">/**************************************************************************************************/</highlight></codeline>
+<codeline lineno="246"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XSecure_SlhdsaSetHashAddress(ADRS<sp/>*<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>InstancePtr,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>Val)</highlight></codeline>
+<codeline lineno="247"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="248"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;AdrsWord[XSECURE_SLH_DSA_ADDR_WORD_HASH_INDEX]<sp/>=<sp/>Xil_Htonl(Val);</highlight></codeline>
+<codeline lineno="249"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="250"><highlight class="normal"></highlight></codeline>
+<codeline lineno="251"><highlight class="normal"></highlight><highlight class="comment">/**************************************************************************************************/</highlight></codeline>
+<codeline lineno="259"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XSecure_SlhdsaSetTreeIndex(ADRS<sp/>*<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>InstancePtr,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>Val)</highlight></codeline>
+<codeline lineno="260"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="261"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;AdrsWord[XSECURE_SLH_DSA_ADDR_WORD_HASH_INDEX]<sp/>=<sp/>Xil_Htonl(Val);</highlight></codeline>
+<codeline lineno="262"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="263"><highlight class="normal"></highlight></codeline>
+<codeline lineno="264"><highlight class="normal"></highlight><highlight class="comment">/**************************************************************************************************/</highlight></codeline>
+<codeline lineno="275"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/>u32<sp/>XSecure_SlhCeilDivU32(u32<sp/>Num,<sp/>u32<sp/>Den)</highlight></codeline>
+<codeline lineno="276"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="277"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>quotient<sp/>=<sp/>Num<sp/>/<sp/>Den;</highlight></codeline>
+<codeline lineno="278"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>rem<sp/>=<sp/>Num<sp/>%<sp/>Den;</highlight></codeline>
+<codeline lineno="279"><highlight class="normal"></highlight></codeline>
+<codeline lineno="280"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>quotient<sp/>+<sp/>(u32)(rem<sp/>!=<sp/><ref refid="group__xsecure__generic__server__apis_1ga4e096b508706aab2c2dd4b70452fb620" kindref="member">XSECURE_ZERO</ref>);</highlight></codeline>
+<codeline lineno="281"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="282"><highlight class="normal"></highlight></codeline>
+<codeline lineno="283"><highlight class="normal"></highlight><highlight class="comment">/**************************************************************************************************/</highlight></codeline>
+<codeline lineno="297"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/>u64<sp/>XSecure_ModPow2U64(u64<sp/>x,<sp/>u64<sp/>k)</highlight></codeline>
+<codeline lineno="298"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="299"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>result;</highlight></codeline>
+<codeline lineno="300"><highlight class="normal"></highlight></codeline>
+<codeline lineno="301"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(k<sp/>==<sp/>0ULL)<sp/>{</highlight></codeline>
+<codeline lineno="302"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>result<sp/>=<sp/>0ULL;</highlight></codeline>
+<codeline lineno="303"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(k<sp/>&gt;=<sp/>64ULL)<sp/>{</highlight></codeline>
+<codeline lineno="304"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>result<sp/>=<sp/>x;</highlight></codeline>
+<codeline lineno="305"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="306"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>result<sp/>=<sp/>x<sp/>&amp;<sp/>((1ULL<sp/>&lt;&lt;<sp/>k)<sp/>-<sp/>1ULL);</highlight></codeline>
+<codeline lineno="307"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="308"><highlight class="normal"></highlight></codeline>
+<codeline lineno="309"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>result;</highlight></codeline>
+<codeline lineno="310"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="311"><highlight class="normal"></highlight></codeline>
+<codeline lineno="314"><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="315"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="316"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="317"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="318"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XSECURE_SLH_DSA_ADDR_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/slhdsa/xsecure_slhdsa_addr.h"/>
+  </compounddef>
+</doxygen>

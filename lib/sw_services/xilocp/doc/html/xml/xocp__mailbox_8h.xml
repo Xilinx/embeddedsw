@@ -1,0 +1,285 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xocp__mailbox_8h" kind="file">
+    <compoundname>xocp_mailbox.h</compoundname>
+    <includes local="yes">xilmailbox.h</includes>
+    <includes local="yes">xparameters.h</includes>
+    <includedby refid="client_2dme_2xocp__dme_8h" local="yes">xocp_dme.h</includedby>
+    <includedby refid="xocp__hwpcr_8h" local="yes">xocp_hwpcr.h</includedby>
+    <includedby refid="xocp__key__mgmt_8h" local="yes">xocp_key_mgmt.h</includedby>
+    <includedby refid="xocp__swpcr_8h" local="yes">xocp_swpcr.h</includedby>
+    <includedby refid="xocp__client_8h" local="yes">xocp_client.h</includedby>
+    <includedby refid="xocp__mailbox_8c" local="yes">xocp_mailbox.c</includedby>
+    <incdepgraph>
+      <node id="294">
+        <label>xilmailbox.h</label>
+      </node>
+      <node id="293">
+        <label>xocp_mailbox.h</label>
+        <link refid="xocp_mailbox.h"/>
+        <childnode refid="294" relation="include">
+        </childnode>
+        <childnode refid="295" relation="include">
+        </childnode>
+      </node>
+      <node id="295">
+        <label>xparameters.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="302">
+        <label>xocp_key_mgmt.c</label>
+        <link refid="xocp__key__mgmt_8c"/>
+      </node>
+      <node id="307">
+        <label>xilocp_client_devicekey_example.c</label>
+        <link refid="xilocp__client__devicekey__example_8c"/>
+      </node>
+      <node id="301">
+        <label>xocp_key_mgmt.h</label>
+        <link refid="xocp__key__mgmt_8h"/>
+        <childnode refid="302" relation="include">
+        </childnode>
+      </node>
+      <node id="298">
+        <label>xocp_dme.c</label>
+      </node>
+      <node id="297">
+        <label>xocp_dme.h</label>
+        <childnode refid="298" relation="include">
+        </childnode>
+      </node>
+      <node id="304">
+        <label>xocp_swpcr.c</label>
+        <link refid="xocp__swpcr_8c"/>
+      </node>
+      <node id="303">
+        <label>xocp_swpcr.h</label>
+        <link refid="xocp__swpcr_8h"/>
+        <childnode refid="304" relation="include">
+        </childnode>
+      </node>
+      <node id="309">
+        <label>xilocp_client_pcr_example.c</label>
+        <link refid="xilocp__client__pcr__example_8c"/>
+      </node>
+      <node id="310">
+        <label>xocp_mailbox.c</label>
+        <link refid="xocp__mailbox_8c"/>
+      </node>
+      <node id="296">
+        <label>xocp_mailbox.h</label>
+        <link refid="xocp_mailbox.h"/>
+        <childnode refid="297" relation="include">
+        </childnode>
+        <childnode refid="299" relation="include">
+        </childnode>
+        <childnode refid="301" relation="include">
+        </childnode>
+        <childnode refid="303" relation="include">
+        </childnode>
+        <childnode refid="305" relation="include">
+        </childnode>
+        <childnode refid="310" relation="include">
+        </childnode>
+      </node>
+      <node id="300">
+        <label>xocp_hwpcr.c</label>
+        <link refid="xocp__hwpcr_8c"/>
+      </node>
+      <node id="299">
+        <label>xocp_hwpcr.h</label>
+        <link refid="xocp__hwpcr_8h"/>
+        <childnode refid="300" relation="include">
+        </childnode>
+      </node>
+      <node id="308">
+        <label>xilocp_client_dme_example.c</label>
+        <link refid="xilocp__client__dme__example_8c"/>
+      </node>
+      <node id="306">
+        <label>xocp_client.c</label>
+        <link refid="xocp__client_8c"/>
+      </node>
+      <node id="305">
+        <label>xocp_client.h</label>
+        <link refid="xocp__client_8h"/>
+        <childnode refid="306" relation="include">
+        </childnode>
+        <childnode refid="307" relation="include">
+        </childnode>
+        <childnode refid="308" relation="include">
+        </childnode>
+        <childnode refid="309" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_x_ocp___client_instance" prot="public">XOcp_ClientInstance</innerclass>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xocp__mailbox__apis_1ga6bf28d17b9014d88926e36cd519dd804" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XOcp_ProcessMailbox</definition>
+        <argsstring>(XMailbox *MailboxPtr, u32 *MsgPtr, u32 MsgLen)</argsstring>
+        <name>XOcp_ProcessMailbox</name>
+        <param>
+          <type>XMailbox *</type>
+          <declname>MailboxPtr</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>MsgPtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>MsgLen</declname>
+        </param>
+        <briefdescription>
+<para>This function sends IPI request to the target module and gets the response from it. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>MailboxPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Pointer to mailbox instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>MsgPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Pointer to the payload message </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>MsgLen</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Length of the message</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - If the IPI send and receive is successful</para></listitem><listitem><para>XST_FAILURE - If there is a failure</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>Payload consists of API id and call arguments to be written in IPI buffer </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Sends IPI CDO to PLM, returns XST_FAILURE if sending data is failed.</para></listitem><listitem><para>Waits for IPI response from PLM with a default timeout of 2 seconds.</para></listitem><listitem><para>If the timeout exceeds then error is returned otherwise, it returns the status of the IPI response</para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/client/xocp_mailbox.h" line="115" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/client/xocp_mailbox.c" bodystart="65" bodyend="94"/>
+        <referencedby refid="group__xocp__dme__client__apis_1gaebd4df862308eaeebbfb06a456a19f9f" compoundref="client_2dme_2xocp__dme_8c" startline="62" endline="88">XOcp_GenDmeResp</referencedby>
+        <referencedby refid="group__xocp__hwpcr__client__apis_1gabe2000beca7269b9e9f1ba0434adfbb7" compoundref="xocp__hwpcr_8c" startline="63" endline="89">XOcp_ExtendHwPcr</referencedby>
+        <referencedby refid="group__xocp__hwpcr__client__apis_1ga729ea6a53f3410b330a4eb6635074c88" compoundref="xocp__hwpcr_8c" startline="109" endline="134">XOcp_GetHwPcr</referencedby>
+        <referencedby refid="group__xocp__hwpcr__client__apis_1ga36f63a2e8165e1f3360f8e2858d7aa53" compoundref="xocp__hwpcr_8c" startline="150" endline="176">XOcp_GetHwPcrLog</referencedby>
+        <referencedby refid="group__xocp__key__mgmt__client__apis_1ga16013e82a245e7dfdd7a3c2e2df476e5" compoundref="xocp__key__mgmt_8c" startline="58" endline="81">XOcp_GetX509Cert</referencedby>
+        <referencedby refid="group__xocp__key__mgmt__client__apis_1ga0c6bb44603339209f55de3ef94141395" compoundref="xocp__key__mgmt_8c" startline="95" endline="119">XOcp_ClientAttestWithDevAk</referencedby>
+        <referencedby refid="group__xocp__key__mgmt__client__apis_1ga43e275e75f776f74a124968aa83d29a2" compoundref="xocp__key__mgmt_8c" startline="137" endline="164">XOcp_ClientAttestWithKeyWrapDevAk</referencedby>
+        <referencedby refid="group__xocp__key__mgmt__client__apis_1ga50bd2fa853d6aba7c12fec38bb3867ae" compoundref="xocp__key__mgmt_8c" startline="187" endline="214">XOcp_GenSharedSecretWithDevAk</referencedby>
+        <referencedby refid="group__xocp__swpcr__client__apis_1gab8fbe7fbfcb136e816374b295b769972" compoundref="xocp__swpcr_8c" startline="59" endline="92">XOcp_ExtendSwPcr</referencedby>
+        <referencedby refid="group__xocp__swpcr__client__apis_1gaaca4f4567e961877901f3ed298ed01e9" compoundref="xocp__swpcr_8c" startline="112" endline="141">XOcp_GetSwPcr</referencedby>
+        <referencedby refid="group__xocp__swpcr__client__apis_1ga71a4d8aea262fc732fa812829dd891ae" compoundref="xocp__swpcr_8c" startline="155" endline="181">XOcp_GetSwPcrLog</referencedby>
+        <referencedby refid="group__xocp__swpcr__client__apis_1gaa9d5159f23ac4215dff07b1a16a0e2e9" compoundref="xocp__swpcr_8c" startline="196" endline="222">XOcp_GetSwPcrData</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file contains declarations of xilmailbox generic interface APIs. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+----- ---- -------- -------------------------------------------------------
+1.0   am   12/21/22 Initial release
+1.1   obs  02/18/25 Fixed IPI message length
+1.7   rpu  02/18/26 Fixed Doxygen warnings
+</preformatted> <simplesect kind="note"><para></para></simplesect>
+</para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2022<sp/>-<sp/>2026,<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">*******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="27"><highlight class="preprocessor">#ifndef<sp/>XOCP_MAILBOX_H</highlight></codeline>
+<codeline lineno="28"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XOCP_MAILBOX_H</highlight></codeline>
+<codeline lineno="29"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="31"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="33"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xilmailbox.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xparameters.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="preprocessor">#define<sp/>XILOCP_MODULE_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(13U)</highlight></codeline>
+<codeline lineno="44"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Payload<sp/>Packets<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XOCP_PACK_PAYLOAD(Payload,<sp/>Arg0,<sp/>Arg1,<sp/>Arg2,<sp/>Arg3,<sp/>Arg4,<sp/>Arg5,<sp/>Arg6)<sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="47"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Payload[0U]<sp/>=<sp/>(u32)Arg0;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="48"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Payload[1U]<sp/>=<sp/>(u32)Arg1;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="49"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Payload[2U]<sp/>=<sp/>(u32)Arg2;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="50"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Payload[3U]<sp/>=<sp/>(u32)Arg3;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="51"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Payload[4U]<sp/>=<sp/>(u32)Arg4;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="52"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Payload[5U]<sp/>=<sp/>(u32)Arg5;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="53"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Payload[6U]<sp/>=<sp/>(u32)Arg6;</highlight></codeline>
+<codeline lineno="54"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XOCP_PACK_PAYLOAD0(Payload,<sp/>ApiId)<sp/>\</highlight></codeline>
+<codeline lineno="56"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XOCP_PACK_PAYLOAD(Payload,<sp/>OcpHeader(0UL,<sp/>(ApiId)),<sp/>0U,<sp/>0U,<sp/>0U,<sp/>0U,<sp/>0U,<sp/>0U)</highlight></codeline>
+<codeline lineno="57"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XOCP_PACK_PAYLOAD1(Payload,<sp/>ApiId,<sp/>Arg1)<sp/>\</highlight></codeline>
+<codeline lineno="58"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XOCP_PACK_PAYLOAD(Payload,<sp/>OcpHeader(1UL,<sp/>(ApiId)),<sp/>(Arg1),<sp/>0U,<sp/>0U,<sp/>0U,<sp/>0U,<sp/>0U)</highlight></codeline>
+<codeline lineno="59"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XOCP_PACK_PAYLOAD2(Payload,<sp/>ApiId,<sp/>Arg1,<sp/>Arg2)<sp/>\</highlight></codeline>
+<codeline lineno="60"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XOCP_PACK_PAYLOAD(Payload,<sp/>OcpHeader(2UL,<sp/>(ApiId)),<sp/>(Arg1),<sp/>(Arg2),<sp/>0U,<sp/>0U,<sp/>0U,<sp/>0U)</highlight></codeline>
+<codeline lineno="61"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XOCP_PACK_PAYLOAD3(Payload,<sp/>ApiId,<sp/>Arg1,<sp/>Arg2,<sp/>Arg3)<sp/>\</highlight></codeline>
+<codeline lineno="62"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XOCP_PACK_PAYLOAD(Payload,<sp/>OcpHeader(3UL,<sp/>(ApiId)),<sp/>(Arg1),<sp/>(Arg2),<sp/>(Arg3),<sp/>0U,<sp/>0U,<sp/>0U)</highlight></codeline>
+<codeline lineno="63"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XOCP_PACK_PAYLOAD4(Payload,<sp/>ApiId,<sp/>Arg1,<sp/>Arg2,<sp/>Arg3,<sp/>Arg4)<sp/>\</highlight></codeline>
+<codeline lineno="64"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XOCP_PACK_PAYLOAD(Payload,<sp/>OcpHeader(4UL,<sp/>(ApiId)),<sp/>(Arg1),<sp/>(Arg2),<sp/>(Arg3),<sp/>(Arg4),<sp/>0U,<sp/>0U)</highlight></codeline>
+<codeline lineno="65"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XOCP_PACK_PAYLOAD5(Payload,<sp/>ApiId,<sp/>Arg1,<sp/>Arg2,<sp/>Arg3,<sp/>Arg4,<sp/>Arg5)<sp/>\</highlight></codeline>
+<codeline lineno="66"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XOCP_PACK_PAYLOAD(Payload,<sp/>OcpHeader(5UL,<sp/>(ApiId)),<sp/>(Arg1),<sp/>(Arg2),<sp/>(Arg3),<sp/>(Arg4),<sp/>(Arg5),<sp/>0U)</highlight></codeline>
+<codeline lineno="67"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XOCP_PACK_PAYLOAD6(Payload,<sp/>ApiId,<sp/>Arg1,<sp/>Arg2,<sp/>Arg3,<sp/>Arg4,<sp/>Arg5,<sp/>Arg6)<sp/>\</highlight></codeline>
+<codeline lineno="68"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XOCP_PACK_PAYLOAD(Payload,<sp/>OcpHeader(6UL,<sp/>(ApiId)),<sp/>(Arg1),<sp/>(Arg2),<sp/>(Arg3),<sp/>(Arg4),<sp/>(Arg5),<sp/>(Arg6))</highlight></codeline>
+<codeline lineno="69"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="71"><highlight class="preprocessor">#define<sp/>PAYLOAD_ARG_CNT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XIPIPSU_MAX_MSG_LEN</highlight></codeline>
+<codeline lineno="72"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="73"><highlight class="preprocessor">#define<sp/>RESPONSE_ARG_CNT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XIPIPSU_MAX_MSG_LEN</highlight></codeline>
+<codeline lineno="74"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XOCP_TARGET_IPI_INT_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000002U)</highlight></codeline>
+<codeline lineno="75"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XOCP_MODULE_ID_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(8U)</highlight></codeline>
+<codeline lineno="76"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XOCP_PAYLOAD_LEN_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(16U)</highlight></codeline>
+<codeline lineno="77"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XILOCP_MODULE_ID_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XILOCP_MODULE_ID<sp/>&lt;&lt;<sp/>XOCP_MODULE_ID_SHIFT)</highlight></codeline>
+<codeline lineno="78"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="79"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XOCP_PAYLOAD_LEN_1U<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1U)</highlight></codeline>
+<codeline lineno="80"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XOCP_PAYLOAD_LEN_2U<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(2U)</highlight></codeline>
+<codeline lineno="81"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XOCP_PAYLOAD_LEN_3U<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(3U)</highlight></codeline>
+<codeline lineno="82"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XOCP_PAYLOAD_LEN_4U<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(4U)</highlight></codeline>
+<codeline lineno="83"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XOCP_PAYLOAD_LEN_5U<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(5U)</highlight></codeline>
+<codeline lineno="84"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XOCP_PAYLOAD_LEN_6U<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(6U)</highlight></codeline>
+<codeline lineno="85"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XOCP_PAYLOAD_LEN_7U<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(7U)</highlight></codeline>
+<codeline lineno="86"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="90"><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight></codeline>
+<codeline lineno="94" refid="struct_x_ocp___client_instance" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="95" refid="struct_x_ocp___client_instance_1ae59517a3e3e2e40d34b941bd40323cc1" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMailbox<sp/>*<ref refid="struct_x_ocp___client_instance_1ae59517a3e3e2e40d34b941bd40323cc1" kindref="member">MailboxPtr</ref>;<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="96"><highlight class="normal">}<sp/><ref refid="struct_x_ocp___client_instance" kindref="compound">XOcp_ClientInstance</ref>;</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"></highlight></codeline>
+<codeline lineno="98"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight></codeline>
+<codeline lineno="102"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/>u32<sp/>OcpHeader(u32<sp/>Len,<sp/>u32<sp/>ApiId)</highlight></codeline>
+<codeline lineno="103"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>((Len<sp/>&lt;&lt;<sp/>XOCP_PAYLOAD_LEN_SHIFT)<sp/>|</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XILOCP_MODULE_ID_MASK<sp/>|<sp/>(ApiId));</highlight></codeline>
+<codeline lineno="106"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"></highlight></codeline>
+<codeline lineno="112"><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="113"><highlight class="normal"></highlight></codeline>
+<codeline lineno="114"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="115"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xocp__mailbox__apis_1ga6bf28d17b9014d88926e36cd519dd804" kindref="member">XOcp_ProcessMailbox</ref>(XMailbox<sp/>*MailboxPtr,<sp/>u32<sp/>*MsgPtr,<sp/>u32<sp/>MsgLen);</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"></highlight></codeline>
+<codeline lineno="117"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="118"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="120"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="121"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/></highlight><highlight class="comment">/*<sp/>XOCP_MAILBOX_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/client/xocp_mailbox.h"/>
+  </compounddef>
+</doxygen>

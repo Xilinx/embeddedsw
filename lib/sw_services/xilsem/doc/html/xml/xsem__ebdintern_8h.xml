@@ -1,0 +1,94 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xsem__ebdintern_8h" kind="file">
+    <compoundname>xsem_ebdintern.h</compoundname>
+    <includes refid="xilsem__types_8h" local="yes">xilsem_types.h</includes>
+    <includedby refid="xsem__reformat__ebdcfi_8c" local="yes">xsem_reformat_ebdcfi.c</includedby>
+    <incdepgraph>
+      <node id="97">
+        <label>xilsem_types.h</label>
+        <link refid="xilsem__types_8h"/>
+      </node>
+      <node id="96">
+        <label>xsem_ebdintern.h</label>
+        <link refid="xsem_ebdintern.h"/>
+        <childnode refid="97" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="99">
+        <label>xsem_reformat_ebdcfi.c</label>
+        <link refid="xsem__reformat__ebdcfi_8c"/>
+      </node>
+      <node id="98">
+        <label>xsem_ebdintern.h</label>
+        <link refid="xsem_ebdintern.h"/>
+        <childnode refid="99" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xsem__ebdintern_8h_1ae547a20d1e6422fa6526cfe453449774" prot="public" static="no">
+        <name>XSEM_EBDINTERN_H</name>
+        <briefdescription>
+<para>by using protection macros </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/generate_ebd_golden_data/xsem_ebdintern.h" line="24" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/generate_ebd_golden_data/xsem_ebdintern.h" bodystart="24" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file contains required declarations and definitions. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver     Who  Date         Changes
+<hruler/>
+
+0.1   hv   05/17/2022   Initial creation
+0.2   anv  05/10/2023     Replaced file name from xbasic_types.h to <ref refid="xilsem__types_8h" kindref="compound">xilsem_types.h</ref>
+                        and Updated copyright information
+</preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>(c)<sp/>Copyright<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>(c)<sp/>Copyright<sp/>2022-2023<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="22"><highlight class="comment">/*****************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>XSEM_EBDINTERN_H<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>prevent<sp/>circular<sp/>inclusions<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="24" refid="xsem__ebdintern_8h_1ae547a20d1e6422fa6526cfe453449774" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSEM_EBDINTERN_H<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="25"><highlight class="preprocessor"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="26"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xilsem__types_8h" kindref="compound">xilsem_types.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Macro<sp/>Definitions<sp/>********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSEM_BT0ROW0_FRAMES<sp/><sp/><sp/><sp/><sp/>34111</highlight></codeline>
+<codeline lineno="30"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSEM_BT0ROW1_FRAMES<sp/><sp/><sp/><sp/><sp/>38498</highlight></codeline>
+<codeline lineno="31"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSEM_BT0ROW2_FRAMES<sp/><sp/><sp/><sp/><sp/>38498</highlight></codeline>
+<codeline lineno="32"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSEM_BT0ROW3_FRAMES<sp/><sp/><sp/><sp/><sp/>38498</highlight></codeline>
+<codeline lineno="33"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSEM_BT3ROW0_FRAMES<sp/><sp/><sp/><sp/><sp/>11</highlight></codeline>
+<codeline lineno="34"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSEM_BT3ROW1_FRAMES<sp/><sp/><sp/><sp/><sp/>12</highlight></codeline>
+<codeline lineno="35"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSEM_BT3ROW2_FRAMES<sp/><sp/><sp/><sp/><sp/>12</highlight></codeline>
+<codeline lineno="36"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSEM_BT3ROW3_FRAMES<sp/><sp/><sp/><sp/><sp/>12</highlight></codeline>
+<codeline lineno="37"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSEM_BT4ROW0_FRAMES<sp/><sp/><sp/><sp/><sp/>5</highlight></codeline>
+<codeline lineno="38"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSEM_BT4ROW1_FRAMES<sp/><sp/><sp/><sp/><sp/>6</highlight></codeline>
+<codeline lineno="39"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSEM_BT4ROW2_FRAMES<sp/><sp/><sp/><sp/><sp/>6</highlight></codeline>
+<codeline lineno="40"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSEM_BT4ROW3_FRAMES<sp/><sp/><sp/><sp/><sp/>6</highlight></codeline>
+<codeline lineno="41"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSEM_BT5ROW0_FRAMES<sp/><sp/><sp/><sp/><sp/>1</highlight></codeline>
+<codeline lineno="42"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSEM_BT5ROW1_FRAMES<sp/><sp/><sp/><sp/><sp/>2</highlight></codeline>
+<codeline lineno="43"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSEM_BT5ROW2_FRAMES<sp/><sp/><sp/><sp/><sp/>2</highlight></codeline>
+<codeline lineno="44"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSEM_BT5ROW3_FRAMES<sp/><sp/><sp/><sp/><sp/>2</highlight></codeline>
+<codeline lineno="45"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="49"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Frame_Addr;</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>words[25][4];</highlight></codeline>
+<codeline lineno="52"><highlight class="normal">}<sp/>XSem_EbdSet;</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/generate_ebd_golden_data/xsem_ebdintern.h"/>
+  </compounddef>
+</doxygen>

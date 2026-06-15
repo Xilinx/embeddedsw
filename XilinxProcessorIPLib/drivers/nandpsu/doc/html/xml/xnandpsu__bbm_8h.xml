@@ -1,0 +1,669 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xnandpsu__bbm_8h" kind="file">
+    <compoundname>xnandpsu_bbm.h</compoundname>
+    <includes refid="xnandpsu_8h" local="yes">xnandpsu.h</includes>
+    <includedby refid="xnandpsu_8c" local="yes">xnandpsu.c</includedby>
+    <includedby refid="xnandpsu__bbm_8c" local="yes">xnandpsu_bbm.c</includedby>
+    <incdepgraph>
+      <node id="55">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="56">
+        <label>xnandpsu_hw.h</label>
+        <link refid="xnandpsu__hw_8h"/>
+        <childnode refid="57" relation="include">
+        </childnode>
+      </node>
+      <node id="57">
+        <label>xil_io.h</label>
+      </node>
+      <node id="59">
+        <label>xil_cache.h</label>
+      </node>
+      <node id="50">
+        <label>xnandpsu_bbm.h</label>
+        <link refid="xnandpsu_bbm.h"/>
+        <childnode refid="51" relation="include">
+        </childnode>
+      </node>
+      <node id="51">
+        <label>xnandpsu.h</label>
+        <link refid="xnandpsu_8h"/>
+        <childnode refid="52" relation="include">
+        </childnode>
+        <childnode refid="53" relation="include">
+        </childnode>
+        <childnode refid="54" relation="include">
+        </childnode>
+        <childnode refid="55" relation="include">
+        </childnode>
+        <childnode refid="56" relation="include">
+        </childnode>
+        <childnode refid="58" relation="include">
+        </childnode>
+        <childnode refid="59" relation="include">
+        </childnode>
+      </node>
+      <node id="53">
+        <label>string.h</label>
+      </node>
+      <node id="54">
+        <label>xstatus.h</label>
+      </node>
+      <node id="52">
+        <label>xil_types.h</label>
+      </node>
+      <node id="58">
+        <label>xnandpsu_onfi.h</label>
+        <link refid="xnandpsu__onfi_8h"/>
+        <childnode refid="52" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="62">
+        <label>xnandpsu_bbm.c</label>
+        <link refid="xnandpsu__bbm_8c"/>
+      </node>
+      <node id="60">
+        <label>xnandpsu_bbm.h</label>
+        <link refid="xnandpsu_bbm.h"/>
+        <childnode refid="61" relation="include">
+        </childnode>
+        <childnode refid="62" relation="include">
+        </childnode>
+      </node>
+      <node id="61">
+        <label>xnandpsu.c</label>
+        <link refid="xnandpsu_8c"/>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group___overview_1ga97b79e2eb35f7663d78d6ed9fbe76bcb" prot="public" static="no">
+        <name>XNANDPSU_BBM_H</name>
+        <initializer>/* by using protection macros */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_bbm.h" line="73" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_bbm.h" bodystart="73" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga89a8698138bec588951e84cdb865f74b" prot="public" static="no">
+        <name>XNANDPSU_BLOCK_GOOD</name>
+        <initializer>0x0U</initializer>
+        <briefdescription>
+<para>Block is good. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_bbm.h" line="84" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_bbm.h" bodystart="84" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga0696c149568a16f2d804da9bf0b16047" compoundref="xnandpsu__bbm_8c" startline="766" endline="790">XNandPsu_IsBlockBad</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1gac47b1d1d15d7a802c9e1df6fdeef077e" prot="public" static="no">
+        <name>XNANDPSU_BLOCK_BAD</name>
+        <initializer>0x1U</initializer>
+        <briefdescription>
+<para>Block is bad. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_bbm.h" line="85" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_bbm.h" bodystart="85" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga8d3500cacdc26941b76db6a74f8e2b0f" compoundref="xnandpsu__bbm_8c" startline="805" endline="843">XNandPsu_MarkBlockBad</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga169a802d7c58b5cf2cfdefeb3b3d0ff6" prot="public" static="no">
+        <name>XNANDPSU_BLOCK_RESERVED</name>
+        <initializer>0x2U</initializer>
+        <briefdescription>
+<para>Reserved block. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_bbm.h" line="86" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_bbm.h" bodystart="86" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga0696c149568a16f2d804da9bf0b16047" compoundref="xnandpsu__bbm_8c" startline="766" endline="790">XNandPsu_IsBlockBad</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga348168c700fc08a01f4e7461411b5990" prot="public" static="no">
+        <name>XNANDPSU_BLOCK_FACTORY_BAD</name>
+        <initializer>0x3U</initializer>
+        <briefdescription>
+<para>Factory marked bad block. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_bbm.h" line="88" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_bbm.h" bodystart="87" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga09ba461e03dbae5d9ebcd877e343bf35" prot="public" static="no">
+        <name>XNANDPSU_FLASH_BLOCK_GOOD</name>
+        <initializer>0x3U</initializer>
+        <briefdescription>
+<para>Block is good. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_bbm.h" line="90" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_bbm.h" bodystart="91" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga33ff9b734dac37ebfdfd4fd14566d1e4" prot="public" static="no">
+        <name>XNANDPSU_FLASH_BLOCK_BAD</name>
+        <initializer>0x2U</initializer>
+        <briefdescription>
+<para>Block is bad. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_bbm.h" line="91" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_bbm.h" bodystart="92" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga826c467ea25f101a5f84c16ad7855236" prot="public" static="no">
+        <name>XNANDPSU_FLASH_BLOCK_RESERVED</name>
+        <initializer>0x1U</initializer>
+        <briefdescription>
+<para>Reserved block. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_bbm.h" line="92" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_bbm.h" bodystart="93" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1gae7c61be4fdbf2d0cf3ed3b2cbecf7f7e" prot="public" static="no">
+        <name>XNANDPSU_FLASH_BLOCK_FAC_BAD</name>
+        <initializer>0x0U</initializer>
+        <briefdescription>
+<para>Factory marked bad block. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_bbm.h" line="94" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_bbm.h" bodystart="94" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga764b27fa4ceeeaa725b270aa67a56f37" prot="public" static="no">
+        <name>XNANDPSU_BBT_SCAN_2ND_PAGE</name>
+        <initializer>0x00000001U</initializer>
+        <briefdescription>
+<para>Scan the second page for bad block information. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_bbm.h" line="100" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_bbm.h" bodystart="98" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga81efec47413599300b874c98ceffee81" compoundref="xnandpsu__bbm_8c" startline="86" endline="164">XNandPsu_InitBbtDesc</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga10e75208945a1b28f29b5443b5e065b1" prot="public" static="no">
+        <name>XNANDPSU_BBT_DESC_PAGE_OFFSET</name>
+        <initializer>0U</initializer>
+        <briefdescription>
+<para>Page offset of Bad Block Table Desc. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_bbm.h" line="102" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_bbm.h" bodystart="107" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga81efec47413599300b874c98ceffee81" compoundref="xnandpsu__bbm_8c" startline="86" endline="164">XNandPsu_InitBbtDesc</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga2fbae911237f1098fa3b1c20a91fb8d8" prot="public" static="no">
+        <name>XNANDPSU_BBT_DESC_SIG_OFFSET</name>
+        <initializer>8U</initializer>
+        <briefdescription>
+<para>Bad Block Table signature offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_bbm.h" line="104" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_bbm.h" bodystart="110" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga81efec47413599300b874c98ceffee81" compoundref="xnandpsu__bbm_8c" startline="86" endline="164">XNandPsu_InitBbtDesc</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga9156c2546dd4cacddafd3d7994dd18c0" prot="public" static="no">
+        <name>XNANDPSU_BBT_DESC_VER_OFFSET</name>
+        <initializer>12U</initializer>
+        <briefdescription>
+<para>Bad block Table version offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_bbm.h" line="106" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_bbm.h" bodystart="113" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga81efec47413599300b874c98ceffee81" compoundref="xnandpsu__bbm_8c" startline="86" endline="164">XNandPsu_InitBbtDesc</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga1cced6d5f2de0897b10a63b3053aa396" prot="public" static="no">
+        <name>XNANDPSU_NO_OOB_BBT_DESC_SIG_OFFSET</name>
+        <initializer>0U</initializer>
+        <briefdescription>
+<para>Bad Block Table signature offset in page memory. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_bbm.h" line="109" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_bbm.h" bodystart="116" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga9dbbc1091620f2fd24b645edaee05331" prot="public" static="no">
+        <name>XNANDPSU_NO_OOB_BBT_DESC_VER_OFFSET</name>
+        <initializer>4U</initializer>
+        <briefdescription>
+<para>Bad block Table version offset in page memory. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_bbm.h" line="112" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_bbm.h" bodystart="121" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1gad0efed392553c9331ae3fb9baa78836d" prot="public" static="no">
+        <name>XNANDPSU_BBT_DESC_SIG_LEN</name>
+        <initializer>4U</initializer>
+        <briefdescription>
+<para>Bad block Table signature length. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_bbm.h" line="114" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_bbm.h" bodystart="126" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga81efec47413599300b874c98ceffee81" compoundref="xnandpsu__bbm_8c" startline="86" endline="164">XNandPsu_InitBbtDesc</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1gab8ff4a8ea1edf29af83fc31d5e2daa41" prot="public" static="no">
+        <name>XNANDPSU_BBT_DESC_MAX_BLOCKS</name>
+        <initializer>64U</initializer>
+        <briefdescription>
+<para>Bad block Table max blocks. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_bbm.h" line="116" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_bbm.h" bodystart="129" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga81efec47413599300b874c98ceffee81" compoundref="xnandpsu__bbm_8c" startline="86" endline="164">XNandPsu_InitBbtDesc</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1gad347e168120f24a56851f8c5620c131f" prot="public" static="no">
+        <name>XNANDPSU_BBT_BLOCK_SHIFT</name>
+        <initializer>2U</initializer>
+        <briefdescription>
+<para>Block shift value for a block in BBT. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_bbm.h" line="119" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_bbm.h" bodystart="133" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga0696c149568a16f2d804da9bf0b16047" compoundref="xnandpsu__bbm_8c" startline="766" endline="790">XNandPsu_IsBlockBad</referencedby>
+        <referencedby refid="group___overview_1ga8d3500cacdc26941b76db6a74f8e2b0f" compoundref="xnandpsu__bbm_8c" startline="805" endline="843">XNandPsu_MarkBlockBad</referencedby>
+        <referencedby refid="group___overview_1ga834baaa423d26638d10ad7195ba097fa" compoundref="xnandpsu__bbm_8c" startline="257" endline="312">XNandPsu_ScanBbt</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga586b68531dbfde53fda300a8c759c331" prot="public" static="no">
+        <name>XNANDPSU_BBT_ENTRY_NUM_BLOCKS</name>
+        <initializer>4U</initializer>
+        <briefdescription>
+<para>Num of blocks in one BBT entry. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_bbm.h" line="121" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_bbm.h" bodystart="136" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga057429ec300b458dc1afa9dd250a35e8" prot="public" static="no">
+        <name>XNANDPSU_BB_PTRN_OFF_SML_PAGE</name>
+        <initializer>5U</initializer>
+        <briefdescription>
+<para>Bad block pattern offset in a page. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_bbm.h" line="123" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_bbm.h" bodystart="139" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga81efec47413599300b874c98ceffee81" compoundref="xnandpsu__bbm_8c" startline="86" endline="164">XNandPsu_InitBbtDesc</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1gaf2fca85db01dd8042d55ef9c941c14d2" prot="public" static="no">
+        <name>XNANDPSU_BB_PTRN_LEN_SML_PAGE</name>
+        <initializer>1U</initializer>
+        <briefdescription>
+<para>Bad block pattern length. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_bbm.h" line="125" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_bbm.h" bodystart="142" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga81efec47413599300b874c98ceffee81" compoundref="xnandpsu__bbm_8c" startline="86" endline="164">XNandPsu_InitBbtDesc</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga4756f4b4142832eac6140bec053d3321" prot="public" static="no">
+        <name>XNANDPSU_BB_PTRN_OFF_LARGE_PAGE</name>
+        <initializer>0U</initializer>
+        <briefdescription>
+<para>Bad block pattern offset in a large page. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_bbm.h" line="128" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_bbm.h" bodystart="145" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga81efec47413599300b874c98ceffee81" compoundref="xnandpsu__bbm_8c" startline="86" endline="164">XNandPsu_InitBbtDesc</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga551969de298499c9b9ae02fb0492b3c5" prot="public" static="no">
+        <name>XNANDPSU_BB_PTRN_LEN_LARGE_PAGE</name>
+        <initializer>2U</initializer>
+        <briefdescription>
+<para>Bad block pattern length. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_bbm.h" line="130" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_bbm.h" bodystart="150" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga81efec47413599300b874c98ceffee81" compoundref="xnandpsu__bbm_8c" startline="86" endline="164">XNandPsu_InitBbtDesc</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga44468a12c0daa5d41e199571492dc127" prot="public" static="no">
+        <name>XNANDPSU_BB_PATTERN</name>
+        <initializer>0xFFU</initializer>
+        <briefdescription>
+<para>Bad block pattern to search in a page. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_bbm.h" line="133" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_bbm.h" bodystart="153" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga81efec47413599300b874c98ceffee81" compoundref="xnandpsu__bbm_8c" startline="86" endline="164">XNandPsu_InitBbtDesc</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga32360ae4d4d3035b35a3f825d6afa3cf" prot="public" static="no">
+        <name>XNANDPSU_BLOCK_TYPE_MASK</name>
+        <initializer>0x03U</initializer>
+        <briefdescription>
+<para>Block type mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_bbm.h" line="134" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_bbm.h" bodystart="158" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga0696c149568a16f2d804da9bf0b16047" compoundref="xnandpsu__bbm_8c" startline="766" endline="790">XNandPsu_IsBlockBad</referencedby>
+        <referencedby refid="group___overview_1ga8d3500cacdc26941b76db6a74f8e2b0f" compoundref="xnandpsu__bbm_8c" startline="805" endline="843">XNandPsu_MarkBlockBad</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1gacf04d553b388771f817eebe4916a48bb" prot="public" static="no">
+        <name>XNANDPSU_BLOCK_SHIFT_MASK</name>
+        <initializer>0x06U</initializer>
+        <briefdescription>
+<para>Block shift mask for a Bad Block Table entry byte. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_bbm.h" line="137" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_bbm.h" bodystart="159" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga3d9241aee64dcc99262586deafc427f1" prot="public" static="no">
+        <name>XNANDPSU_ONDIE_SIG_OFFSET</name>
+        <initializer>0x4U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_bbm.h" line="139" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_bbm.h" bodystart="165" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga35279551bec0afbb519acfa511240dab" prot="public" static="no">
+        <name>XNANDPSU_ONDIE_VER_OFFSET</name>
+        <initializer>0x14U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_bbm.h" line="140" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_bbm.h" bodystart="166" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1gad8800942e4ab9b56bd56b226f7a90255" prot="public" static="no">
+        <name>XNANDPSU_BBT_VERSION_LENGTH</name>
+        <initializer>1U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_bbm.h" line="142" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_bbm.h" bodystart="168" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1gab568ce621762a74d3b063490a978448d" prot="public" static="no">
+        <name>XNANDPSU_BBT_SIG_LENGTH</name>
+        <initializer>4U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_bbm.h" line="143" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_bbm.h" bodystart="169" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga28f30bd8c1f5153baad49c9d252f2e8b" prot="public" static="no">
+        <name>XNANDPSU_BBT_BUF_LENGTH</name>
+        <initializer>((<ref refid="group___overview_1ga3cc1e2efdc26ce51713091aae6c196cb" kindref="member">XNANDPSU_MAX_BLOCKS</ref> &gt;&gt; 		\
+		<ref refid="group___overview_1gad347e168120f24a56851f8c5620c131f" kindref="member">XNANDPSU_BBT_BLOCK_SHIFT</ref>) +	\
+		(<ref refid="group___overview_1ga2fbae911237f1098fa3b1c20a91fb8d8" kindref="member">XNANDPSU_BBT_DESC_SIG_OFFSET</ref> +	\
+		 XNANDPSU_BBT_SIG_LENGTH +	\
+		 XNANDPSU_BBT_VERSION_LENGTH))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_bbm.h" line="145" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_bbm.h" bodystart="171" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1gaff73343551dffb555cf517e534367dba" prot="public" static="no">
+        <name>XNandPsu_BbtBlockShift</name>
+        <param><defname>Block</defname></param>
+        <initializer>(u8)(((Block) * 2U) &amp; XNANDPSU_BLOCK_SHIFT_MASK)</initializer>
+        <briefdescription>
+<para>This macro returns the Block shift value corresponding to a Block. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Block</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the block number.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Block shift value</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_bbm.h" line="166" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_bbm.h" bodystart="192" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga0696c149568a16f2d804da9bf0b16047" compoundref="xnandpsu__bbm_8c" startline="766" endline="790">XNandPsu_IsBlockBad</referencedby>
+        <referencedby refid="group___overview_1ga8d3500cacdc26941b76db6a74f8e2b0f" compoundref="xnandpsu__bbm_8c" startline="805" endline="843">XNandPsu_MarkBlockBad</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group___overview_1ga81efec47413599300b874c98ceffee81" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XNandPsu_InitBbtDesc</definition>
+        <argsstring>(XNandPsu *InstancePtr)</argsstring>
+        <name>XNandPsu_InitBbtDesc</name>
+        <param>
+          <type><ref refid="struct_x_nand_psu" kindref="compound">XNandPsu</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function initializes the Bad Block Table(BBT) descriptors with a predefined pattern for searching Bad Block Table(BBT) in flash. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_nand_psu" kindref="compound">XNandPsu</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>NONE </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_bbm.c" line="86" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_bbm.c" bodystart="86" bodyend="164"/>
+        <references refid="struct_x_nand_psu_1a37931be239bdeed699e8f91f2a86f3aa" compoundref="xnandpsu_8h" startline="411">XNandPsu::BbPattern</references>
+        <references refid="struct_x_nand_psu_1abb9684a89e0df8445094681e7aab1107" compoundref="xnandpsu_8h" startline="409">XNandPsu::BbtDesc</references>
+        <references refid="struct_x_nand_psu_1a9a45e41bc9a06dc2c6cdc2c04d7b025c" compoundref="xnandpsu_8h" startline="410">XNandPsu::BbtMirrorDesc</references>
+        <references refid="struct_x_nand_psu___geometry_1ad856c11878859904836081ecc3a632cc" compoundref="xnandpsu_8h" startline="326">XNandPsu_Geometry::BytesPerPage</references>
+        <references refid="struct_x_nand_psu_1a1f2a85d38c0202fe76fed5e328d51ed7" compoundref="xnandpsu_8h" startline="398">XNandPsu::EccMode</references>
+        <references refid="struct_x_nand_psu_1ada90fdee8e87d8880eb6766d76e3ad2d" compoundref="xnandpsu_8h" startline="400">XNandPsu::Geometry</references>
+        <references refid="struct_x_nand_psu___bad_block_pattern_1a4181fd4c48e92c7144bcf1d880ad3077" compoundref="xnandpsu_8h" startline="317">XNandPsu_BadBlockPattern::Length</references>
+        <references refid="struct_x_nand_psu___bbt_desc_1a61ba87d5d389cec767a5854cb16dda75" compoundref="xnandpsu_8h" startline="304">XNandPsu_BbtDesc::MaxBlocks</references>
+        <references refid="struct_x_nand_psu___geometry_1abd5bd50be9d37835e78e1adb37815679" compoundref="xnandpsu_8h" startline="339">XNandPsu_Geometry::NumTargetBlocks</references>
+        <references refid="struct_x_nand_psu___bad_block_pattern_1af160edfcb220f7f77c1c31172cde680b" compoundref="xnandpsu_8h" startline="316">XNandPsu_BadBlockPattern::Offset</references>
+        <references refid="struct_x_nand_psu___bad_block_pattern_1a39ae1469d7c24aba1311a7c671ea9447" compoundref="xnandpsu_8h" startline="315">XNandPsu_BadBlockPattern::Options</references>
+        <references refid="struct_x_nand_psu___bbt_desc_1a4c854b10969f6886013052f9f928aa53" compoundref="xnandpsu_8h" startline="299">XNandPsu_BbtDesc::PageOffset</references>
+        <references refid="struct_x_nand_psu___bad_block_pattern_1a81807b4c4a6fe89ad8cc9a26718db686" compoundref="xnandpsu_8h" startline="318">XNandPsu_BadBlockPattern::Pattern</references>
+        <references refid="struct_x_nand_psu___bbt_desc_1aeca29e857ef5b418f4f7c11de6ebc407" compoundref="xnandpsu_8h" startline="303">XNandPsu_BbtDesc::SigLength</references>
+        <references refid="struct_x_nand_psu___bbt_desc_1a9cd3753f701f3e8cfe986b75af51de50" compoundref="xnandpsu_8h" startline="305">XNandPsu_BbtDesc::Signature</references>
+        <references refid="struct_x_nand_psu___bbt_desc_1ad5295a6495e3a435bda4cc1df6ec4eed" compoundref="xnandpsu_8h" startline="301">XNandPsu_BbtDesc::SigOffset</references>
+        <references refid="struct_x_nand_psu___bbt_desc_1afb0259f07299db4364f5b9c31dba7264" compoundref="xnandpsu_8h" startline="308">XNandPsu_BbtDesc::Valid</references>
+        <references refid="struct_x_nand_psu___bbt_desc_1a6d18dd4d196a0238fe481892757a246d" compoundref="xnandpsu_8h" startline="302">XNandPsu_BbtDesc::VerOffset</references>
+        <references refid="struct_x_nand_psu___bbt_desc_1a70f3d7ba3eecaa2843c55a6c791d4104" compoundref="xnandpsu_8h" startline="306">XNandPsu_BbtDesc::Version</references>
+        <references refid="group___overview_1ga44468a12c0daa5d41e199571492dc127" compoundref="xnandpsu__bbm_8h" startline="153">XNANDPSU_BB_PATTERN</references>
+        <references refid="group___overview_1ga551969de298499c9b9ae02fb0492b3c5" compoundref="xnandpsu__bbm_8h" startline="150">XNANDPSU_BB_PTRN_LEN_LARGE_PAGE</references>
+        <references refid="group___overview_1gaf2fca85db01dd8042d55ef9c941c14d2" compoundref="xnandpsu__bbm_8h" startline="142">XNANDPSU_BB_PTRN_LEN_SML_PAGE</references>
+        <references refid="group___overview_1ga4756f4b4142832eac6140bec053d3321" compoundref="xnandpsu__bbm_8h" startline="145">XNANDPSU_BB_PTRN_OFF_LARGE_PAGE</references>
+        <references refid="group___overview_1ga057429ec300b458dc1afa9dd250a35e8" compoundref="xnandpsu__bbm_8h" startline="139">XNANDPSU_BB_PTRN_OFF_SML_PAGE</references>
+        <references refid="group___overview_1gab8ff4a8ea1edf29af83fc31d5e2daa41" compoundref="xnandpsu__bbm_8h" startline="129">XNANDPSU_BBT_DESC_MAX_BLOCKS</references>
+        <references refid="group___overview_1ga10e75208945a1b28f29b5443b5e065b1" compoundref="xnandpsu__bbm_8h" startline="107">XNANDPSU_BBT_DESC_PAGE_OFFSET</references>
+        <references refid="group___overview_1gad0efed392553c9331ae3fb9baa78836d" compoundref="xnandpsu__bbm_8h" startline="126">XNANDPSU_BBT_DESC_SIG_LEN</references>
+        <references refid="group___overview_1ga2fbae911237f1098fa3b1c20a91fb8d8" compoundref="xnandpsu__bbm_8h" startline="110">XNANDPSU_BBT_DESC_SIG_OFFSET</references>
+        <references refid="group___overview_1ga9156c2546dd4cacddafd3d7994dd18c0" compoundref="xnandpsu__bbm_8h" startline="113">XNANDPSU_BBT_DESC_VER_OFFSET</references>
+        <references refid="group___overview_1ga764b27fa4ceeeaa725b270aa67a56f37" compoundref="xnandpsu__bbm_8h" startline="98">XNANDPSU_BBT_SCAN_2ND_PAGE</references>
+        <references refid="group___overview_1ga1d00cce9eaed03608e36937d80b446ab" compoundref="xnandpsu_8h" startline="192">XNANDPSU_MAX_TARGETS</references>
+        <referencedby refid="group___overview_1ga8268e05a9d1a0339dc2ec672d7dd8c79" compoundref="xnandpsu_8c" startline="231" endline="291">XNandPsu_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group___overview_1ga0696c149568a16f2d804da9bf0b16047" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XNandPsu_IsBlockBad</definition>
+        <argsstring>(XNandPsu *InstancePtr, u32 Block)</argsstring>
+        <name>XNandPsu_IsBlockBad</name>
+        <param>
+          <type><ref refid="struct_x_nand_psu" kindref="compound">XNandPsu</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Block</declname>
+        </param>
+        <briefdescription>
+<para>This function checks whether a block is bad or not. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the pointer to the <ref refid="struct_x_nand_psu" kindref="compound">XNandPsu</ref> instance.</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Block</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the block number.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if successful.</para></listitem><listitem><para>XST_FAILURE if fail. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_bbm.c" line="766" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_bbm.c" bodystart="766" bodyend="790"/>
+        <references refid="struct_x_nand_psu_1a8e9b7e25e9dda30d9ffdeb593ee7c20f" compoundref="xnandpsu_8h" startline="413">XNandPsu::Bbt</references>
+        <references refid="struct_x_nand_psu_1af937c82e0b5c79e13c98a124f107c972" compoundref="xnandpsu_8h" startline="390">XNandPsu::IsReady</references>
+        <references refid="group___overview_1gad347e168120f24a56851f8c5620c131f" compoundref="xnandpsu__bbm_8h" startline="133">XNANDPSU_BBT_BLOCK_SHIFT</references>
+        <references refid="group___overview_1gaff73343551dffb555cf517e534367dba" compoundref="xnandpsu__bbm_8h" startline="192">XNandPsu_BbtBlockShift</references>
+        <references refid="group___overview_1ga89a8698138bec588951e84cdb865f74b" compoundref="xnandpsu__bbm_8h" startline="84">XNANDPSU_BLOCK_GOOD</references>
+        <references refid="group___overview_1ga169a802d7c58b5cf2cfdefeb3b3d0ff6" compoundref="xnandpsu__bbm_8h" startline="86">XNANDPSU_BLOCK_RESERVED</references>
+        <references refid="group___overview_1ga32360ae4d4d3035b35a3f825d6afa3cf" compoundref="xnandpsu__bbm_8h" startline="158">XNANDPSU_BLOCK_TYPE_MASK</references>
+        <referencedby refid="group___overview_1ga7fb413a5f75317e698fe97ba12fc7d44" compoundref="xnandpsu_8c" startline="1651" endline="1731">XNandPsu_Erase</referencedby>
+        <referencedby refid="group___overview_1gad7e291db556ad9d33fbd06aa6ab79cb6" compoundref="xnandpsu_8c" startline="1535" endline="1631">XNandPsu_Read</referencedby>
+        <referencedby refid="group___overview_1gaf276d363e46822efd9ff8ee7b55b906c" compoundref="xnandpsu_8c" startline="1420" endline="1516">XNandPsu_Write</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2015<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2022<sp/>-<sp/>2024<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="72"><highlight class="preprocessor">#ifndef<sp/>XNANDPSU_BBM_H<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>prevent<sp/>circular<sp/>inclusions<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="73"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XNANDPSU_BBM_H<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>by<sp/>using<sp/>protection<sp/>macros<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="74"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="76"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="78"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="79"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="80"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xnandpsu_8h" kindref="compound">xnandpsu.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="81"><highlight class="normal"></highlight></codeline>
+<codeline lineno="82"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="83"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Block<sp/>definitions<sp/>for<sp/>RAM<sp/>based<sp/>Bad<sp/>Block<sp/>Table<sp/>(BBT)<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="84" refid="group___overview_1ga89a8698138bec588951e84cdb865f74b" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XNANDPSU_BLOCK_GOOD<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0U<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="85" refid="group___overview_1gac47b1d1d15d7a802c9e1df6fdeef077e" refkind="member"><highlight class="preprocessor">#define<sp/>XNANDPSU_BLOCK_BAD<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x1U<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="86" refid="group___overview_1ga169a802d7c58b5cf2cfdefeb3b3d0ff6" refkind="member"><highlight class="preprocessor">#define<sp/>XNANDPSU_BLOCK_RESERVED<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x2U<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="87" refid="group___overview_1ga348168c700fc08a01f4e7461411b5990" refkind="member"><highlight class="preprocessor">#define<sp/>XNANDPSU_BLOCK_FACTORY_BAD<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x3U<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="89"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>Block<sp/>definitions<sp/>for<sp/>FLASH<sp/>based<sp/>Bad<sp/>Block<sp/>Table<sp/>(BBT)<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="90"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XNANDPSU_FLASH_BLOCK_GOOD<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x3U<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="91" refid="group___overview_1ga09ba461e03dbae5d9ebcd877e343bf35" refkind="member"><highlight class="preprocessor">#define<sp/>XNANDPSU_FLASH_BLOCK_BAD<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x2U<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="92" refid="group___overview_1ga33ff9b734dac37ebfdfd4fd14566d1e4" refkind="member"><highlight class="preprocessor">#define<sp/>XNANDPSU_FLASH_BLOCK_RESERVED<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x1U<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="93" refid="group___overview_1ga826c467ea25f101a5f84c16ad7855236" refkind="member"><highlight class="preprocessor">#define<sp/>XNANDPSU_FLASH_BLOCK_FAC_BAD<sp/><sp/><sp/><sp/>0x0U<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="96"><highlight class="preprocessor">#define<sp/>XNANDPSU_BBT_SCAN_2ND_PAGE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000001U<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="101"><highlight class="preprocessor">#define<sp/>XNANDPSU_BBT_DESC_PAGE_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0U<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="103"><highlight class="preprocessor">#define<sp/>XNANDPSU_BBT_DESC_SIG_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>8U<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="105"><highlight class="preprocessor">#define<sp/>XNANDPSU_BBT_DESC_VER_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>12U<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="107" refid="group___overview_1ga10e75208945a1b28f29b5443b5e065b1" refkind="member"><highlight class="preprocessor">#define<sp/>XNANDPSU_NO_OOB_BBT_DESC_SIG_OFFSET<sp/><sp/><sp/><sp/><sp/>0U<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="110" refid="group___overview_1ga2fbae911237f1098fa3b1c20a91fb8d8" refkind="member"><highlight class="preprocessor">#define<sp/>XNANDPSU_NO_OOB_BBT_DESC_VER_OFFSET<sp/><sp/><sp/><sp/><sp/>4U<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="113" refid="group___overview_1ga9156c2546dd4cacddafd3d7994dd18c0" refkind="member"><highlight class="preprocessor">#define<sp/>XNANDPSU_BBT_DESC_SIG_LEN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>4U<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="115"><highlight class="preprocessor">#define<sp/>XNANDPSU_BBT_DESC_MAX_BLOCKS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>64U<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="118"><highlight class="preprocessor">#define<sp/>XNANDPSU_BBT_BLOCK_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>2U<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="120"><highlight class="preprocessor">#define<sp/>XNANDPSU_BBT_ENTRY_NUM_BLOCKS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>4U<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="122"><highlight class="preprocessor">#define<sp/>XNANDPSU_BB_PTRN_OFF_SML_PAGE<sp/><sp/><sp/>5U<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="124"><highlight class="preprocessor">#define<sp/>XNANDPSU_BB_PTRN_LEN_SML_PAGE<sp/><sp/><sp/>1U<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="126" refid="group___overview_1gad0efed392553c9331ae3fb9baa78836d" refkind="member"><highlight class="preprocessor">#define<sp/>XNANDPSU_BB_PTRN_OFF_LARGE_PAGE<sp/>0U<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="129" refid="group___overview_1gab8ff4a8ea1edf29af83fc31d5e2daa41" refkind="member"><highlight class="preprocessor">#define<sp/>XNANDPSU_BB_PTRN_LEN_LARGE_PAGE<sp/>2U<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="131"><highlight class="preprocessor">#define<sp/>XNANDPSU_BB_PATTERN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xFFU<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="134"><highlight class="preprocessor">#define<sp/>XNANDPSU_BLOCK_TYPE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x03U<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="135"><highlight class="preprocessor">#define<sp/>XNANDPSU_BLOCK_SHIFT_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x06U<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="139" refid="group___overview_1ga057429ec300b458dc1afa9dd250a35e8" refkind="member"><highlight class="preprocessor">#define<sp/>XNANDPSU_ONDIE_SIG_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x4U</highlight></codeline>
+<codeline lineno="140"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XNANDPSU_ONDIE_VER_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x14U</highlight></codeline>
+<codeline lineno="141"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="142" refid="group___overview_1gaf2fca85db01dd8042d55ef9c941c14d2" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XNANDPSU_BBT_VERSION_LENGTH<sp/><sp/><sp/><sp/><sp/>1U</highlight></codeline>
+<codeline lineno="143"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XNANDPSU_BBT_SIG_LENGTH<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>4U</highlight></codeline>
+<codeline lineno="144"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="145" refid="group___overview_1ga4756f4b4142832eac6140bec053d3321" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XNANDPSU_BBT_BUF_LENGTH<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((XNANDPSU_MAX_BLOCKS<sp/>&gt;&gt;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="146"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XNANDPSU_BBT_BLOCK_SHIFT)<sp/>+<sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="147"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XNANDPSU_BBT_DESC_SIG_OFFSET<sp/>+<sp/>\</highlight></codeline>
+<codeline lineno="148"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XNANDPSU_BBT_SIG_LENGTH<sp/>+<sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="149"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XNANDPSU_BBT_VERSION_LENGTH))</highlight></codeline>
+<codeline lineno="150" refid="group___overview_1ga551969de298499c9b9ae02fb0492b3c5" refkind="member"><highlight class="preprocessor"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="151"><highlight class="normal"></highlight></codeline>
+<codeline lineno="152"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="153" refid="group___overview_1ga44468a12c0daa5d41e199571492dc127" refkind="member"><highlight class="normal"></highlight></codeline>
+<codeline lineno="154"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="166"><highlight class="preprocessor">#define<sp/>XNandPsu_BbtBlockShift(Block)<sp/>\</highlight></codeline>
+<codeline lineno="167"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u8)(((Block)<sp/>*<sp/>2U)<sp/>&amp;<sp/>XNANDPSU_BLOCK_SHIFT_MASK)</highlight></codeline>
+<codeline lineno="168"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="169"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="170"><highlight class="normal"></highlight></codeline>
+<codeline lineno="171"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="172"><highlight class="normal"></highlight></codeline>
+<codeline lineno="173"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group___overview_1ga81efec47413599300b874c98ceffee81" kindref="member">XNandPsu_InitBbtDesc</ref>(<ref refid="struct_x_nand_psu" kindref="compound">XNandPsu</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"></highlight></codeline>
+<codeline lineno="175"><highlight class="normal">s32<sp/><ref refid="group___overview_1ga0696c149568a16f2d804da9bf0b16047" kindref="member">XNandPsu_IsBlockBad</ref>(<ref refid="struct_x_nand_psu" kindref="compound">XNandPsu</ref><sp/>*InstancePtr,<sp/>u32<sp/>Block);</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"></highlight></codeline>
+<codeline lineno="177"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="178"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="180"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="181"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>end<sp/>of<sp/>protection<sp/>macro<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="182"><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_bbm.h"/>
+  </compounddef>
+</doxygen>

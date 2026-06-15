@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_d21d6279d6b0fe12b3b825758c4d6071" kind="dir">
+    <compoundname>server</compoundname>
+    <innerfile refid="2ve__2vm_2server_2xloader__plat_8c">2ve_2vm/server/xloader_plat.c</innerfile>
+    <innerfile refid="2ve__2vm_2server_2xloader__plat_8h">2ve_2vm/server/xloader_plat.h</innerfile>
+    <innerfile refid="2ve__2vm_2server_2xloader__plat__secure_8c">2ve_2vm/server/xloader_plat_secure.c</innerfile>
+    <innerfile refid="2ve__2vm_2server_2xloader__plat__secure_8h">2ve_2vm/server/xloader_plat_secure.h</innerfile>
+    <innerfile refid="xloader__ufs_8c">xloader_ufs.c</innerfile>
+    <innerfile refid="xloader__ufs_8h">xloader_ufs.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/server/"/>
+  </compounddef>
+</doxygen>

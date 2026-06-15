@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_loader___vars" kind="struct" prot="public">
+    <compoundname>XLoader_Vars</compoundname>
+    <includes local="no">xloader_auth_enc.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_loader___vars_1a58c6621d6c62a86c36d73c92250664a8" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XLoader_Vars::EmHash[48]</definition>
+        <argsstring>[48]</argsstring>
+        <name>EmHash</name>
+        <briefdescription>
+<para>EM hash. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" line="699" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" bodystart="699" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_loader___vars_1a1fdf974dd687b445229be319c3b02b72" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XLoader_Vars::Salt[48]</definition>
+        <argsstring>[48]</argsstring>
+        <name>Salt</name>
+        <briefdescription>
+<para>Salt. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" line="700" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" bodystart="700" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_loader___vars_1a05407fcb1180d5c451f52cd9206dc6a3" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XLoader_Vars::Padding1[8]</definition>
+        <argsstring>[8]</argsstring>
+        <name>Padding1</name>
+        <briefdescription>
+<para>Padding 1. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" line="701" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" bodystart="701" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>RSA signature vars. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" line="698" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" bodystart="697" bodyend="702"/>
+    <listofallmembers>
+      <member refid="struct_x_loader___vars_1a58c6621d6c62a86c36d73c92250664a8" prot="public" virt="non-virtual"><scope>XLoader_Vars</scope><name>EmHash</name></member>
+      <member refid="struct_x_loader___vars_1a05407fcb1180d5c451f52cd9206dc6a3" prot="public" virt="non-virtual"><scope>XLoader_Vars</scope><name>Padding1</name></member>
+      <member refid="struct_x_loader___vars_1a1fdf974dd687b445229be319c3b02b72" prot="public" virt="non-virtual"><scope>XLoader_Vars</scope><name>Salt</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

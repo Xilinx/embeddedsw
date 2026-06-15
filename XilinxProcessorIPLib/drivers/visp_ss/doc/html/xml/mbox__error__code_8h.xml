@@ -1,0 +1,264 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="mbox__error__code_8h" kind="file">
+    <compoundname>mbox_error_code.h</compoundname>
+    <includedby refid="mbox__cmd_8h" local="yes">mbox_cmd.h</includedby>
+    <includedby refid="mbox__api_8c" local="yes">mbox_api.c</includedby>
+    <includedby refid="mbox__cmd_8c" local="yes">mbox_cmd.c</includedby>
+    <includedby refid="mbox__fifo_8c" local="yes">mbox_fifo.c</includedby>
+    <invincdepgraph>
+      <node id="6447">
+        <label>mbox_api.c</label>
+      </node>
+      <node id="6439">
+        <label>apu_to_rpu_ipi.c</label>
+      </node>
+      <node id="6441">
+        <label>sensor_drv.c</label>
+        <link refid="sensor__drv_8c"/>
+      </node>
+      <node id="6448">
+        <label>mbox_fifo.c</label>
+      </node>
+      <node id="6437">
+        <label>mbox_error_code.h</label>
+        <link refid="mbox_error_code.h"/>
+        <childnode refid="6438" relation="include">
+        </childnode>
+        <childnode refid="6447" relation="include">
+        </childnode>
+        <childnode refid="6440" relation="include">
+        </childnode>
+        <childnode refid="6448" relation="include">
+        </childnode>
+      </node>
+      <node id="6443">
+        <label>visp_common.c</label>
+      </node>
+      <node id="6442">
+        <label>visp_common.h</label>
+        <childnode refid="6443" relation="include">
+        </childnode>
+      </node>
+      <node id="6446">
+        <label>oba.c</label>
+      </node>
+      <node id="6445">
+        <label>cam_device_api.c</label>
+      </node>
+      <node id="6444">
+        <label>iba.c</label>
+      </node>
+      <node id="6438">
+        <label>mbox_cmd.h</label>
+        <link refid="mbox__cmd_8h"/>
+        <childnode refid="6439" relation="include">
+        </childnode>
+        <childnode refid="6440" relation="include">
+        </childnode>
+        <childnode refid="6441" relation="include">
+        </childnode>
+        <childnode refid="6442" relation="include">
+        </childnode>
+        <childnode refid="6444" relation="include">
+        </childnode>
+        <childnode refid="6445" relation="include">
+        </childnode>
+        <childnode refid="6446" relation="include">
+        </childnode>
+      </node>
+      <node id="6440">
+        <label>mbox_cmd.c</label>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="mbox__error__code_8h_1ae8f8dac0be32f3c09fd0266ddca0883d" prot="public" static="no">
+        <name>VpiError</name>
+        <enumvalue id="mbox__error__code_8h_1ae8f8dac0be32f3c09fd0266ddca0883da186577d55d692bbba0c79dea35c18f52" prot="public">
+          <name>VPI_ERR_GENERIC</name>
+          <initializer>= -1</initializer>
+          <briefdescription>
+<para>Generic Error. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="mbox__error__code_8h_1ae8f8dac0be32f3c09fd0266ddca0883da025442815b3fd223133686c4b79a3bc9" prot="public">
+          <name>VPI_SUCCESS</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+<para>Success. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="mbox__error__code_8h_1ae8f8dac0be32f3c09fd0266ddca0883da62445cdff53a64fd50d54d5c5c705a34" prot="public">
+          <name>VPI_ERR_INVALID</name>
+          <briefdescription>
+<para>Invalid input parameter. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="mbox__error__code_8h_1ae8f8dac0be32f3c09fd0266ddca0883da429c8b930c00c9dca3b8f874ecaef584" prot="public">
+          <name>VPI_ERR_NOMEM</name>
+          <briefdescription>
+<para>No memory error. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="mbox__error__code_8h_1ae8f8dac0be32f3c09fd0266ddca0883da263f0ebc4859410d51b140a399d3087d" prot="public">
+          <name>VPI_ERR_UNINITED</name>
+          <briefdescription>
+<para>Uninitialized error. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="mbox__error__code_8h_1ae8f8dac0be32f3c09fd0266ddca0883da29fc1b0d23099835dd7f6c3f3a39b0df" prot="public">
+          <name>VPI_ERR_FULL</name>
+          <briefdescription>
+<para>Resource is full. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="mbox__error__code_8h_1ae8f8dac0be32f3c09fd0266ddca0883da7d9ff9ade32fe9dc173c40ce3bb8777d" prot="public">
+          <name>VPI_ERR_EMPTY</name>
+          <briefdescription>
+<para>Resource is empty. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="mbox__error__code_8h_1ae8f8dac0be32f3c09fd0266ddca0883dab4d8b62cc19889debf91b313eb9d94e6" prot="public">
+          <name>VPI_ERR_IO</name>
+          <briefdescription>
+<para>IO error. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="mbox__error__code_8h_1ae8f8dac0be32f3c09fd0266ddca0883dac492ef1e00dae2f380d265ee4265d89b" prot="public">
+          <name>VPI_ERR_BUSY</name>
+          <briefdescription>
+<para>Device is busy. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="mbox__error__code_8h_1ae8f8dac0be32f3c09fd0266ddca0883da515e5cb24120334a5ae5d7da55851d3c" prot="public">
+          <name>VPI_ERR_TIMEOUT</name>
+          <briefdescription>
+<para>Timeout. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="mbox__error__code_8h_1ae8f8dac0be32f3c09fd0266ddca0883da9199ae709807e49fe268ef04258d5c04" prot="public">
+          <name>VPI_ERR_NODEVICE</name>
+          <briefdescription>
+<para>No device error. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="mbox__error__code_8h_1ae8f8dac0be32f3c09fd0266ddca0883da1053d9a16382d4c2253f3e8c1edb41b2" prot="public">
+          <name>VPI_ERR_LOST_CON</name>
+          <briefdescription>
+<para>Lost connection. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="mbox__error__code_8h_1ae8f8dac0be32f3c09fd0266ddca0883da2dafeb0bfa0ce4c5d5a7d00269324109" prot="public">
+          <name>VPI_ERR_NO_ACK</name>
+          <briefdescription>
+<para>No ACK. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="mbox__error__code_8h_1ae8f8dac0be32f3c09fd0266ddca0883dadda4cea86823f58731b704d35f42131f" prot="public">
+          <name>VPI_ERR_NOT_READY</name>
+          <briefdescription>
+<para>System or data is not ready. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="mbox__error__code_8h_1ae8f8dac0be32f3c09fd0266ddca0883da262fd8cf00dfeda630291d1f303cf7b4" prot="public">
+          <name>VPI_ERR_LACK</name>
+          <briefdescription>
+<para>Not enough data. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="mbox__error__code_8h_1ae8f8dac0be32f3c09fd0266ddca0883dadfb0ff4cd7b5cf75e46e375ddbc22c66" prot="public">
+          <name>VPI_ERR_IOCTL</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="mbox__error__code_8h_1ae8f8dac0be32f3c09fd0266ddca0883da1612fe0c972a288601e747c87bc559e2" prot="public">
+          <name>DUMMY_VPI_ERR</name>
+          <initializer>= 0xDEADFEED</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>Error codes for VeriSilicon Platform Interface(VPI) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_error_code.h" line="14" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_error_code.h" bodystart="14" bodyend="32"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="mbox__error__code_8h_1a5cc243672ddd071bd6f9b024d7f9ddff" prot="public" static="no">
+        <type>enum VpiError</type>
+        <definition>typedef enum VpiError  VpiError</definition>
+        <argsstring></argsstring>
+        <name>VpiError</name>
+        <briefdescription>
+<para>Error codes for VeriSilicon Platform Interface(VPI) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_error_code.h" line="32" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">//<sp/>Copyright<sp/>(C)<sp/>2024<sp/>-<sp/>2025<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="comment">/*copyright<sp/>(C)<sp/>2020<sp/>VeriSilicon<sp/>Holdings<sp/>Co.,<sp/>Ltd.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="4"><highlight class="comment"><sp/>*<sp/>@file<sp/>vpi_error_code.h</highlight></codeline>
+<codeline lineno="5"><highlight class="comment"><sp/>*<sp/>@brief<sp/>Error<sp/>codes<sp/>for<sp/>VeriSilicon<sp/>Platform<sp/>Interface(VPI)</highlight></codeline>
+<codeline lineno="6"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="7"><highlight class="comment"><sp/>*<sp/>This<sp/>header<sp/>define<sp/>error<sp/>codes<sp/>for<sp/>VPI</highlight></codeline>
+<codeline lineno="8"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>_MBOX_ERROR_CODE_H_</highlight></codeline>
+<codeline lineno="11"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>_MBOX_ERROR_CODE_H_</highlight></codeline>
+<codeline lineno="12"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="14"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>VpiError<sp/>{</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VPI_ERR_GENERIC<sp/>=<sp/>-1,<sp/></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VPI_SUCCESS<sp/>=<sp/>0,<sp/></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VPI_ERR_INVALID,<sp/></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VPI_ERR_NOMEM,<sp/></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VPI_ERR_UNINITED,<sp/></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VPI_ERR_FULL,<sp/></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VPI_ERR_EMPTY,<sp/></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VPI_ERR_IO,<sp/></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VPI_ERR_BUSY,<sp/></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VPI_ERR_TIMEOUT,<sp/></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VPI_ERR_NODEVICE,<sp/></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VPI_ERR_LOST_CON,<sp/></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VPI_ERR_NO_ACK,<sp/></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VPI_ERR_NOT_READY,<sp/></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VPI_ERR_LACK,<sp/></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VPI_ERR_IOCTL,</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DUMMY_VPI_ERR<sp/>=<sp/>0xDEADFEED,</highlight></codeline>
+<codeline lineno="32"><highlight class="normal">}<sp/>VpiError;</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/>//<sp/>_MBOX_ERROR_CODE_H_</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_error_code.h"/>
+  </compounddef>
+</doxygen>

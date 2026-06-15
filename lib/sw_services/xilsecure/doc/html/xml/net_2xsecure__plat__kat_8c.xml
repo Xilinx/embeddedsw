@@ -1,0 +1,690 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="net_2xsecure__plat__kat_8c" kind="file">
+    <compoundname>net/xsecure_plat_kat.c</compoundname>
+    <includes refid="net_2xsecure__plat__kat_8h" local="yes">xsecure_plat_kat.h</includes>
+    <includes local="yes">xsecure_rsa.h</includes>
+    <includes refid="xsecure__hmac_8h" local="yes">xsecure_hmac.h</includes>
+    <includes refid="versal__net_2xsecure__error_8h" local="yes">xsecure_error.h</includes>
+    <includes local="yes">xil_sutil.h</includes>
+    <includes refid="xsecure__sha384_8h" local="yes">xsecure_sha384.h</includes>
+    <includes local="yes">xsecure_config.h</includes>
+    <incdepgraph>
+      <node id="2987">
+        <label>xsecure_plat_rsa.h</label>
+        <link refid="xsecure__plat__rsa_8h"/>
+        <childnode refid="2986" relation="include">
+        </childnode>
+        <childnode refid="2974" relation="include">
+        </childnode>
+        <childnode refid="2988" relation="include">
+        </childnode>
+        <childnode refid="2989" relation="include">
+        </childnode>
+        <childnode refid="2991" relation="include">
+        </childnode>
+        <childnode refid="2990" relation="include">
+        </childnode>
+      </node>
+      <node id="2992">
+        <label>xsecure_rsa.h</label>
+      </node>
+      <node id="2975">
+        <label>xsecure_kat.h</label>
+        <link refid="xsecure__kat_8h"/>
+        <childnode refid="2976" relation="include">
+        </childnode>
+        <childnode refid="2977" relation="include">
+        </childnode>
+        <childnode refid="2978" relation="include">
+        </childnode>
+        <childnode refid="2979" relation="include">
+        </childnode>
+      </node>
+      <node id="2995">
+        <label>xil_sutil.h</label>
+      </node>
+      <node id="2978">
+        <label>xsecure_sha.h</label>
+      </node>
+      <node id="2984">
+        <label>xil_cache.h</label>
+      </node>
+      <node id="2994">
+        <label>xsecure_error.h</label>
+        <link refid="versal__net_2xsecure__error_8h"/>
+      </node>
+      <node id="2979">
+        <label>xsecure_elliptic.h</label>
+        <link refid="xsecure__elliptic_8h"/>
+        <childnode refid="2976" relation="include">
+        </childnode>
+        <childnode refid="2974" relation="include">
+        </childnode>
+        <childnode refid="2980" relation="include">
+        </childnode>
+      </node>
+      <node id="2981">
+        <label>Ecdsa.h</label>
+      </node>
+      <node id="2990">
+        <label>Rsa.h</label>
+      </node>
+      <node id="2989">
+        <label>xsecure_rsa_q.h</label>
+        <link refid="xsecure__rsa__q_8h"/>
+        <childnode refid="2986" relation="include">
+        </childnode>
+        <childnode refid="2974" relation="include">
+        </childnode>
+        <childnode refid="2988" relation="include">
+        </childnode>
+        <childnode refid="2990" relation="include">
+        </childnode>
+      </node>
+      <node id="2985">
+        <label>xsecure_plat_defs.h</label>
+      </node>
+      <node id="2972">
+        <label>xsecure_plat_kat.c</label>
+        <link refid="net/xsecure_plat_kat.c"/>
+        <childnode refid="2973" relation="include">
+        </childnode>
+        <childnode refid="2992" relation="include">
+        </childnode>
+        <childnode refid="2993" relation="include">
+        </childnode>
+        <childnode refid="2994" relation="include">
+        </childnode>
+        <childnode refid="2995" relation="include">
+        </childnode>
+        <childnode refid="2996" relation="include">
+        </childnode>
+        <childnode refid="2986" relation="include">
+        </childnode>
+      </node>
+      <node id="2973">
+        <label>xsecure_plat_kat.h</label>
+        <link refid="net_2xsecure__plat__kat_8h"/>
+        <childnode refid="2974" relation="include">
+        </childnode>
+        <childnode refid="2975" relation="include">
+        </childnode>
+        <childnode refid="2987" relation="include">
+        </childnode>
+      </node>
+      <node id="2982">
+        <label>xsecure_defs.h</label>
+        <link refid="xsecure__defs_8h"/>
+        <childnode refid="2983" relation="include">
+        </childnode>
+        <childnode refid="2974" relation="include">
+        </childnode>
+        <childnode refid="2984" relation="include">
+        </childnode>
+        <childnode refid="2985" relation="include">
+        </childnode>
+        <childnode refid="2986" relation="include">
+        </childnode>
+      </node>
+      <node id="2977">
+        <label>xsecure_aes.h</label>
+      </node>
+      <node id="2980">
+        <label>xsecure_ellipticcrvs.h</label>
+        <link refid="xsecure__ellipticcrvs_8h"/>
+        <childnode refid="2976" relation="include">
+        </childnode>
+        <childnode refid="2974" relation="include">
+        </childnode>
+        <childnode refid="2981" relation="include">
+        </childnode>
+        <childnode refid="2982" relation="include">
+        </childnode>
+      </node>
+      <node id="2986">
+        <label>xsecure_config.h</label>
+      </node>
+      <node id="2974">
+        <label>xil_types.h</label>
+      </node>
+      <node id="2976">
+        <label>xparameters.h</label>
+      </node>
+      <node id="2983">
+        <label>xil_printf.h</label>
+      </node>
+      <node id="2991">
+        <label>xsecure_mgf.h</label>
+        <link refid="xsecure__mgf_8h"/>
+        <childnode refid="2974" relation="include">
+        </childnode>
+        <childnode refid="2978" relation="include">
+        </childnode>
+      </node>
+      <node id="2988">
+        <label>xsecure_rsa_core.h</label>
+      </node>
+      <node id="2996">
+        <label>xsecure_sha384.h</label>
+        <link refid="xsecure__sha384_8h"/>
+      </node>
+      <node id="2993">
+        <label>xsecure_hmac.h</label>
+        <link refid="xsecure__hmac_8h"/>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xsecure__kat__server__apis_1ga7563c34e1bcf0f8490519bdd513b9c65" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XSecure_HmacKat</definition>
+        <argsstring>(XSecure_Sha *SecureSha3)</argsstring>
+        <name>XSecure_HmacKat</name>
+        <param>
+          <type>XSecure_Sha *</type>
+          <declname>SecureSha3</declname>
+          <defname>SecureSha</defname>
+        </param>
+        <briefdescription>
+<para>This function performs KAT on HMAC (SHA3-384). </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>SecureSha3</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to SHA3 instance</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - On success</para></listitem><listitem><para>XSECURE_HMAC_KAT_INIT_ERROR - If HMAC init fails</para></listitem><listitem><para>XSECURE_HMAC_KAT_UPDATE_ERROR - If HMAC update fails</para></listitem><listitem><para>XSECURE_HMAC_KAT_FINAL_ERROR - If HMAC final fails</para></listitem><listitem><para>XSECURE_HMAC_KAT_ERROR - If HMAC KAT fails</para></listitem></itemizedlist>
+</para></simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>SecureSha3</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to SHA3 instance</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS On success</para></listitem><listitem><para>XSECURE_HMAC_KAT_INIT_ERROR If HMAC init fails</para></listitem><listitem><para>XSECURE_HMAC_KAT_UPDATE_ERROR If HMAC update fails</para></listitem><listitem><para>XSECURE_HMAC_KAT_FINAL_ERROR If HMAC final fails</para></listitem><listitem><para>XSECURE_HMAC_KAT_ERROR If HMAC KAT fails</para></listitem></itemizedlist>
+</para></simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>SecureSha</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to SHA3 instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS On success.</para></listitem><listitem><para>XSECURE_HMAC_KAT_INIT_ERROR If HMAC init fails.</para></listitem><listitem><para>XSECURE_HMAC_KAT_UPDATE_ERROR If HMAC update fails.</para></listitem><listitem><para>XSECURE_HMAC_KAT_FINAL_ERROR If HMAC final fails.</para></listitem><listitem><para>XSECURE_HMAC_KAT_ERROR If HMAC KAT fails. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_2ve_2vm/xsecure_plat_kat.c" line="1408" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_2ve_2vm/xsecure_plat_kat.c" bodystart="1408" bodyend="1461"/>
+        <references refid="group__xsecure__kat__server__apis_1ga9395421a23db181d3caf2e97b3719488" compoundref="xsecure__kat_8c" startline="399" endline="401">XSecure_GetKatAesKey</references>
+        <references refid="group__xsecure__kat__server__apis_1ga8df0f1f6e52ec26041e750769de1130c" compoundref="xsecure__kat_8c" startline="387" endline="389">XSecure_GetKatMessage</references>
+        <references refid="versal__2ve__2vm_2xsecure__error_8h_1ab04a0655cd1e3bcac5e8f48c18df1a57a23cf519a14b69aa645cb5e2dc78836c6" compoundref="versal__2ve__2vm_2xsecure__error_8h" startline="183">XSECURE_HMAC_KAT_ERROR</references>
+        <references refid="versal__2ve__2vm_2xsecure__error_8h_1ab04a0655cd1e3bcac5e8f48c18df1a57af195127c461e538be3a41a5d615343a3" compoundref="versal__2ve__2vm_2xsecure__error_8h" startline="182">XSECURE_HMAC_KAT_FINAL_ERROR</references>
+        <references refid="versal__2ve__2vm_2xsecure__error_8h_1ab04a0655cd1e3bcac5e8f48c18df1a57a9ed54c54b6f00cded2d67f342d208ec9" compoundref="versal__2ve__2vm_2xsecure__error_8h" startline="180">XSECURE_HMAC_KAT_INIT_ERROR</references>
+        <references refid="versal__2ve__2vm_2xsecure__error_8h_1ab04a0655cd1e3bcac5e8f48c18df1a57a06f726e5040aee1e0666a2480ab73a03" compoundref="versal__2ve__2vm_2xsecure__error_8h" startline="181">XSECURE_HMAC_KAT_UPDATE_ERROR</references>
+        <references refid="group__xsecure__hmac__apis_1ga19b58a827d01b838233e4b98fb95b0f7" compoundref="xsecure__hmac_8c" startline="190" endline="251">XSecure_HmacFinal</references>
+        <references refid="group__xsecure__hmac__apis_1ga326185e9709790ef9dc6d0eb61da6ab9" compoundref="xsecure__hmac_8c" startline="75" endline="128">XSecure_HmacInit</references>
+        <references refid="group__xsecure__hmac__apis_1gaec1f83f5e69e2ba5d879cd97eab498eb" compoundref="xsecure__hmac_8c" startline="146" endline="170">XSecure_HmacUpdate</references>
+        <references refid="group__xsecure__kat__server__apis_1ga8e5924ae95e0c0dc230150bd6a07d688" compoundref="xsecure__kat_8h" startline="52">XSECURE_KAT_KEY_SIZE_IN_BYTES</references>
+        <references refid="group__xsecure__kat__server__apis_1ga62a7fc37111b22311ea7d993de67c059" compoundref="xsecure__kat_8h" startline="49">XSECURE_KAT_MSG_LEN_IN_BYTES</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__kat__server__apis_1gabcd23e63d210e5c19bc9d4eeedac8dec" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XSecure_Sha384Kat</definition>
+        <argsstring>(void)</argsstring>
+        <name>XSecure_Sha384Kat</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function performs KAT on SHA-384. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS On success</para></listitem><listitem><para>XSECURE_SHA384_KAT_ERROR If SHA384 KAT fails</para></listitem><listitem><para>XST_FAILURE On failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_2ve_2vm/xsecure_plat_kat.h" line="53" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_plat_kat.c" bodystart="142" bodyend="181"/>
+        <references refid="group__xsecure__kat__server__apis_1ga8df0f1f6e52ec26041e750769de1130c" compoundref="xsecure__kat_8c" startline="387" endline="389">XSecure_GetKatMessage</references>
+        <references refid="group__xsecure__kat__server__apis_1ga62a7fc37111b22311ea7d993de67c059" compoundref="xsecure__kat_8h" startline="49">XSECURE_KAT_MSG_LEN_IN_BYTES</references>
+        <references refid="spartanup_2xsecure__error_8h_1a0411cd49bb5b71852cecd93bcbf0ca2dabf8783a31e8b5df838dd13a3fef5c871" compoundref="spartanup_2xsecure__error_8h" startline="63">XSECURE_SHA384_KAT_ERROR</references>
+        <references refid="group__xsecure__soft__sha384__server__apis_1ga130483db02549f4f03400a5dc7baf143" compoundref="xsecure__sha384_8c" startline="56" endline="72">XSecure_Sha384Digest</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__kat__server__apis_1gaeef1675ed072c8187d88b630df7204c3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XSecure_RsaPwct</definition>
+        <argsstring>(XSecure_RsaPrivKey *PrivKey, XSecure_RsaPubKey *PubKey, void *ShaInstancePtr, XSecure_ShaMode Shatype)</argsstring>
+        <name>XSecure_RsaPwct</name>
+        <param>
+          <type><ref refid="struct_x_secure___rsa_priv_key" kindref="compound">XSecure_RsaPrivKey</ref> *</type>
+          <declname>PrivKey</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_secure___rsa_pub_key" kindref="compound">XSecure_RsaPubKey</ref> *</type>
+          <declname>PubKey</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>ShaInstancePtr</declname>
+        </param>
+        <param>
+          <type>XSecure_ShaMode</type>
+          <declname>Shatype</declname>
+        </param>
+        <briefdescription>
+<para>This function performs pairwise consistency test for generated RSA key pair using OAEP encrypt and decrypt operation. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>PrivKey</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_secure___rsa_key" kindref="compound">XSecure_RsaKey</ref> </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>PubKey</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_secure___rsa_pub_key" kindref="compound">XSecure_RsaPubKey</ref> </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ShaInstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the SHA instance used during OAEP encoding for MGF </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Shatype</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is SHA algorithm type used for MGF</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS On Success</para></listitem><listitem><para>XST_INVALID_PARAM If any input parameter is invalid</para></listitem><listitem><para>XSECURE_RSA_PWCT_MEM_CMP_FAILED_ERROR If RSA pwct comparison fails</para></listitem><listitem><para>XST_FAILURE On Failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_plat_kat.c" line="201" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_plat_kat.c" bodystart="201" bodyend="267"/>
+        <references refid="struct_x_secure___rsa_oaep_param_1aec83801a64f9afa4244ceb8900611946" compoundref="xsecure__plat__rsa_8h" startline="109">XSecure_RsaOaepParam::InputDataAddr</references>
+        <references refid="struct_x_secure___rsa_oaep_param_1abdedfcfe1370c2f75622c5af01166bcf" compoundref="xsecure__plat__rsa_8h" startline="112">XSecure_RsaOaepParam::InputDataSize</references>
+        <references refid="struct_x_secure___rsa_pub_key_1a93596537a0e341100aa149f0055e87d9" compoundref="xsecure__plat__rsa_8h" startline="131">XSecure_RsaPubKey::Mod</references>
+        <references refid="struct_x_secure___rsa_oaep_param_1aa512ea4ccd203ba5598c4de743b12d79" compoundref="xsecure__plat__rsa_8h" startline="110">XSecure_RsaOaepParam::OutputDataAddr</references>
+        <references refid="struct_x_secure___rsa_oaep_param_1abc732af71d66ec9a66a84abf44c52749" compoundref="xsecure__plat__rsa_8h" startline="113">XSecure_RsaOaepParam::OutputDataSize</references>
+        <references refid="struct_x_secure___rsa_pub_key_1a24daf4b9ad862d50688156a1220e6350" compoundref="xsecure__plat__rsa_8h" startline="132">XSecure_RsaPubKey::PubExp</references>
+        <references refid="struct_x_secure___rsa_oaep_param_1af3ada34163356c6f6dabaf1217119829" compoundref="xsecure__plat__rsa_8h" startline="115">XSecure_RsaOaepParam::ShaInstancePtr</references>
+        <references refid="struct_x_secure___rsa_oaep_param_1a08d92ae0a9bc81faf738335de219ee13" compoundref="xsecure__plat__rsa_8h" startline="116">XSecure_RsaOaepParam::ShaType</references>
+        <references refid="group__xsecure__kat__server__apis_1ga8df0f1f6e52ec26041e750769de1130c" compoundref="xsecure__kat_8c" startline="387" endline="389">XSecure_GetKatMessage</references>
+        <references refid="group__xsecure__kat__server__apis_1ga62a7fc37111b22311ea7d993de67c059" compoundref="xsecure__kat_8h" startline="49">XSECURE_KAT_MSG_LEN_IN_BYTES</references>
+        <references refid="group__xsecure__rsa__server__apis_1gaef98b03d932368574ec1123184b9a9e4" compoundref="xsecure__plat__rsa_8h" startline="68">XSECURE_RSA_KEY_GEN_SIZE_IN_BYTES</references>
+        <references refid="group__xsecure__rsa__server__apis_1gac68769cb4d2f865843c2e77b2b5c3fbd" compoundref="xsecure__plat__rsa_8h" startline="78">XSECURE_RSA_PUB_EXP_SIZE</references>
+        <references refid="versal__2ve__2vm_2xsecure__error_8h_1ab04a0655cd1e3bcac5e8f48c18df1a57ae6dfa47c61070fb69f0ad45665dec64b" compoundref="versal__2ve__2vm_2xsecure__error_8h" startline="162">XSECURE_RSA_PWCT_MEM_CMP_FAILED_ERROR</references>
+        <references refid="group__xsecure__rsa__server__apis_1ga097e8ed2f4933286ea5ef93210572b6b" compoundref="core_2rsa_2xsecure__rsa_8c" startline="165" endline="170">XSecure_RsaInitialize</references>
+        <references refid="group__xsecure__rsa__server__apis_1ga7fe869dab6a634c2866f9ec26ee8cec0" compoundref="xsecure__plat__rsa_8c" startline="346" endline="378">XSecure_RsaOaepDecrypt</references>
+        <references refid="group__xsecure__rsa__server__apis_1gab519747faf9ccf8e016d20e5713838c9" compoundref="xsecure__plat__rsa_8c" startline="310" endline="331">XSecure_RsaOaepEncrypt</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__kat__server__apis_1gaff9e6accc6dbd6922eda1a4d2322fdf6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XSecure_RsaPrivateDecryptKat</definition>
+        <argsstring>(void)</argsstring>
+        <name>XSecure_RsaPrivateDecryptKat</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function performs private decrypt KAT on RSA core. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS On success</para></listitem><listitem><para>XSECURE_RSA_KAT_INIT_ERROR When RSA initialization fails</para></listitem><listitem><para>XSECURE_RSA_KAT_DECRYPT_FAILED_ERROR When RSA KAT fails</para></listitem><listitem><para>XSECURE_RSA_KAT_DECRYPT_DATA_MISMATCH_ERROR Error when RSA data not matched with expected data</para></listitem></itemizedlist>
+</para><simplesectsep/><para><itemizedlist>
+<listitem><para>XST_SUCCESS - On success</para></listitem><listitem><para>XSECURE_RSA_KAT_DECRYPT_DATA_MISMATCH_ERROR - Error when RSA data not matched with expected data</para></listitem><listitem><para>XST_FAILURE - On failure</para></listitem></itemizedlist>
+</para><simplesectsep/><para><itemizedlist>
+<listitem><para>XST_SUCCESS On success.</para></listitem><listitem><para>XSECURE_RSA_KAT_INIT_ERROR When RSA initialization fails.</para></listitem><listitem><para>XSECURE_RSA_KAT_DECRYPT_FAILED_ERROR When RSA KAT fails.</para></listitem><listitem><para>XSECURE_RSA_KAT_DECRYPT_DATA_MISMATCH_ERROR Error when RSA data not matched with expected data.</para></listitem></itemizedlist>
+</para><simplesectsep/><para><itemizedlist>
+<listitem><para>XST_SUCCESS On success.</para></listitem><listitem><para>XSECURE_RSA_KAT_DECRYPT_DATA_MISMATCH_ERROR Error when RSA data not matched with expected data.</para></listitem><listitem><para>XST_FAILURE On failure.</para></listitem></itemizedlist>
+</para><simplesectsep/><para><itemizedlist>
+<listitem><para>XST_SUCCESS On success</para></listitem><listitem><para>XSECURE_RSA_KAT_DECRYPT_DATA_MISMATCH_ERROR Error when RSA data not matched with expected data</para></listitem><listitem><para>XST_FAILURE On failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Initialize RSA</para></listitem><listitem><para>Perform RSA private decrypt operation</para></listitem><listitem><para>Initialized to error</para></listitem><listitem><para>Validate the decrypted data with the expected data provided</para></listitem><listitem><para>Initialized to error</para></listitem><listitem><para>Initialize RSA</para></listitem><listitem><para>Perform RSA private decrypt operation</para></listitem><listitem><para>Initialized to error</para></listitem><listitem><para>Validate the decrypted data with the expected data provided</para></listitem><listitem><para>Initialized to error</para></listitem><listitem><para>Initialized to error </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal/xsecure_plat_kat.c" line="55" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal/xsecure_plat_kat.c" bodystart="55" bodyend="107"/>
+        <references refid="group__xsecure__kat__server__apis_1gafd22599a22bb980e1a40ce887009f4ae" compoundref="xsecure__kat_8c" startline="461" endline="463">XSecure_GetKatRsaCtData</references>
+        <references refid="group__xsecure__kat__server__apis_1gaaa0efb9c372ffa755b176a70542185b7" compoundref="xsecure__kat_8c" startline="449" endline="451">XSecure_GetKatRsaData</references>
+        <references refid="group__xsecure__kat__server__apis_1gaf2687288c96705bea3af82209403ad60" compoundref="xsecure__kat_8c" startline="437" endline="439">XSecure_GetKatRsaModExt</references>
+        <references refid="group__xsecure__kat__server__apis_1gaad1c6cd684bcf2c3dc968a1faf83ae9a" compoundref="xsecure__kat_8c" startline="424" endline="426">XSecure_GetKatRsaModulus</references>
+        <references refid="group__xsecure__kat__server__apis_1gacd534322345d34248772d23a4ab90c7f" compoundref="xsecure__kat_8c" startline="473" endline="494">XSecure_GetKatRsaPrivateExp</references>
+        <references refid="group__xsecure__rsa__server__apis_1ga07736a55ec2f9d8242a46ee20fc9f7b6" compoundref="core_2rsa_2xsecure__rsa__core_8h" startline="75">XSECURE_RSA_2048_KEY_SIZE</references>
+        <references refid="group__xsecure__rsa__server__apis_1gab5e03185e5083dafd48c34ec3860f13b" compoundref="core_2rsa_2xsecure__rsa__core_8h" startline="80">XSECURE_RSA_2048_SIZE_WORDS</references>
+        <references refid="versal_2xsecure__error_8h_1abed82baf7f470b522273a3e37c24c600a41e6a9e86d996466ce74d60731391667" compoundref="versal_2xsecure__error_8h" startline="155">XSECURE_RSA_KAT_DECRYPT_DATA_MISMATCH_ERROR</references>
+        <references refid="versal_2xsecure__error_8h_1abed82baf7f470b522273a3e37c24c600a5eef968db9a687f91dcf03b3537b80b5" compoundref="versal_2xsecure__error_8h" startline="154">XSECURE_RSA_KAT_DECRYPT_FAILED_ERROR</references>
+        <references refid="versal_2xsecure__error_8h_1abed82baf7f470b522273a3e37c24c600aa13a02cf9d65a08b8ec52bd4c5cb2b64" compoundref="versal_2xsecure__error_8h" startline="148">XSECURE_RSA_KAT_ENCRYPT_DATA_MISMATCH_ERROR</references>
+        <references refid="versal_2xsecure__error_8h_1abed82baf7f470b522273a3e37c24c600ab87a3fd0817231d03954d02329f3a570" compoundref="versal_2xsecure__error_8h" startline="144">XSECURE_RSA_KAT_INIT_ERROR</references>
+        <references refid="group__xsecure__rsa__server__apis_1ga097e8ed2f4933286ea5ef93210572b6b" compoundref="core_2rsa_2xsecure__rsa_8c" startline="165" endline="170">XSecure_RsaInitialize</references>
+        <references refid="group__xsecure__rsa__client__apis_1gaad026ed28e47be9b59e0444deb3af85a" compoundref="xsecure__rsaclient_8c" startline="65" endline="114">XSecure_RsaPrivateDecrypt</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file contains known answer tests for Versal Net. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date        Changes
+<hruler/>
+
+5.0   kpt  07/15/2022 Initial release
+5.2   kpt  07/12/2023 Added pairwise consistency test for RSA
+      yog  08/07/2023 Removed trng kat functions
+      dd   10/11/23 MISRA-C violation Rule 10.3 fixed
+      dd   10/11/23 MISRA-C violation Rule 17.7 fixed
+      dd   10/11/23 MISRA-C violation Rule 8.13 fixed
+5.3   kpt  12/07/23 Replace Xil_SMemSet with Xil_SecureZeroize
+      kpt  12/13/23 Added RSA CRT support for PWCT
+5.3   ng   01/28/24 Added SDT support
+      kpt  03/15/24 Added RSA private decrypt KAT
+      ng   03/26/24 Fixed header include in SDT flow
+5.4   yog  04/29/24 Fixed doxygen grouping.
+      kpt  06/13/24 Add support for RSA key generation.</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="41"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="net_2xsecure__plat__kat_8h" kindref="compound">xsecure_plat_kat.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xsecure_rsa.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xsecure__hmac_8h" kindref="compound">xsecure_hmac.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="versal__net_2xsecure__error_8h" kindref="compound">xsecure_error.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_sutil.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xsecure__sha384_8h" kindref="compound">xsecure_sha384.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>SDT</highlight></codeline>
+<codeline lineno="50"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xsecure_config.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="52"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="77"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__kat__server__apis_1ga7563c34e1bcf0f8490519bdd513b9c65" kindref="member">XSecure_HmacKat</ref>(XSecure_Sha3<sp/>*SecureSha3)</highlight></codeline>
+<codeline lineno="78"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>SStatus<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/>u32<sp/>Index;</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSecure_HmacRes<sp/>Hmac<sp/>=<sp/>{0U};</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSecure_Hmac<sp/>HmacInstance;</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>HmacExpected[XSECURE_SHA_384_HASH_SIZE_IN_BYTES]<sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0E,0x1D,0x1E,0x2A,0x22,0x6F,0xB9,0x56,</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x10,0x4F,0x10,0x00,0x8A,0x50,0xE3,0x5E,</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xAB,0x2E,0x37,0xB5,0xE0,0x9F,0xA1,0x68,</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x2F,0xE4,0x93,0x59,0x71,0x96,0xCC,0x1B,</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x40,0xFD,0xCB,0xDD,0x93,0x4F,0x01,0x3A,</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xB2,0x64,0xE9,0xC5,0x2B,0xB0,0x2E,0x52</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>};</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>*HmacKey<sp/>=<sp/><ref refid="group__xsecure__kat__server__apis_1ga9395421a23db181d3caf2e97b3719488" kindref="member">XSecure_GetKatAesKey</ref>();</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>*HmacMsg<sp/>=<sp/><ref refid="group__xsecure__kat__server__apis_1ga8df0f1f6e52ec26041e750769de1130c" kindref="member">XSecure_GetKatMessage</ref>();</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"></highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xsecure__hmac__apis_1ga326185e9709790ef9dc6d0eb61da6ab9" kindref="member">XSecure_HmacInit</ref>(&amp;HmacInstance,<sp/>SecureSha3,</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(UINTPTR)HmacKey,<sp/><ref refid="group__xsecure__kat__server__apis_1ga8e5924ae95e0c0dc230150bd6a07d688" kindref="member">XSECURE_KAT_KEY_SIZE_IN_BYTES</ref>);</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(int)<ref refid="versal__2ve__2vm_2xsecure__error_8h_1ab04a0655cd1e3bcac5e8f48c18df1a57a9ed54c54b6f00cded2d67f342d208ec9" kindref="member">XSECURE_HMAC_KAT_INIT_ERROR</ref>;</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xsecure__hmac__apis_1gaec1f83f5e69e2ba5d879cd97eab498eb" kindref="member">XSecure_HmacUpdate</ref>(&amp;HmacInstance,<sp/>(UINTPTR)HmacMsg,</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__kat__server__apis_1ga62a7fc37111b22311ea7d993de67c059" kindref="member">XSECURE_KAT_MSG_LEN_IN_BYTES</ref>);</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(int)<ref refid="versal__2ve__2vm_2xsecure__error_8h_1ab04a0655cd1e3bcac5e8f48c18df1a57a06f726e5040aee1e0666a2480ab73a03" kindref="member">XSECURE_HMAC_KAT_UPDATE_ERROR</ref>;</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xsecure__hmac__apis_1ga19b58a827d01b838233e4b98fb95b0f7" kindref="member">XSecure_HmacFinal</ref>(&amp;HmacInstance,<sp/>&amp;Hmac);</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(int)<ref refid="versal__2ve__2vm_2xsecure__error_8h_1ab04a0655cd1e3bcac5e8f48c18df1a57af195127c461e538be3a41a5d615343a3" kindref="member">XSECURE_HMAC_KAT_FINAL_ERROR</ref>;</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(int)<ref refid="versal__2ve__2vm_2xsecure__error_8h_1ab04a0655cd1e3bcac5e8f48c18df1a57a23cf519a14b69aa645cb5e2dc78836c6" kindref="member">XSECURE_HMAC_KAT_ERROR</ref>;</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal">(Index<sp/>=<sp/>0U;<sp/>Index<sp/>&lt;<sp/>XSECURE_SHA_384_HASH_SIZE_IN_BYTES;<sp/>Index++)<sp/>{</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(HmacExpected[Index]<sp/>!=<sp/>Hmac.Hash[Index])<sp/>{</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(int)<ref refid="versal__2ve__2vm_2xsecure__error_8h_1ab04a0655cd1e3bcac5e8f48c18df1a57a23cf519a14b69aa645cb5e2dc78836c6" kindref="member">XSECURE_HMAC_KAT_ERROR</ref>;</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"></highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(Index<sp/>==<sp/>XSECURE_SHA_384_HASH_SIZE_IN_BYTES)<sp/>{</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="123"><highlight class="normal">END:</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SStatus<sp/>=<sp/>Xil_SecureZeroize(Hmac.Hash,<sp/>XSECURE_SHA_384_HASH_SIZE_IN_BYTES);</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((Status<sp/>==<sp/>XST_SUCCESS)<sp/>&amp;&amp;<sp/>(Status<sp/>==<sp/>XST_SUCCESS))<sp/>{</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>SStatus;</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"></highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="130"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"></highlight></codeline>
+<codeline lineno="132"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="142" refid="group__xsecure__kat__server__apis_1gabcd23e63d210e5c19bc9d4eeedac8dec" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__kat__server__apis_1gabcd23e63d210e5c19bc9d4eeedac8dec" kindref="member">XSecure_Sha384Kat</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="143"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>(int)<ref refid="spartanup_2xsecure__error_8h_1a0411cd49bb5b71852cecd93bcbf0ca2dabf8783a31e8b5df838dd13a3fef5c871" kindref="member">XSECURE_SHA384_KAT_ERROR</ref>;</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>SStatus<sp/>=<sp/>(int)<ref refid="spartanup_2xsecure__error_8h_1a0411cd49bb5b71852cecd93bcbf0ca2dabf8783a31e8b5df838dd13a3fef5c871" kindref="member">XSECURE_SHA384_KAT_ERROR</ref>;</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/>u32<sp/>Index;</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>*Data<sp/>=<sp/><ref refid="group__xsecure__kat__server__apis_1ga8df0f1f6e52ec26041e750769de1130c" kindref="member">XSecure_GetKatMessage</ref>();</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>CalculatedHash[XSECURE_SHA_384_HASH_SIZE_IN_BYTES];</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>ExpectedHash[XSECURE_SHA_384_HASH_SIZE_IN_BYTES]<sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x5AU,<sp/>0x2CU,<sp/>0xFCU,<sp/>0x1CU,<sp/>0xC1U,<sp/>0x1EU,<sp/>0x61U,<sp/>0x1BU,</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xD1U,<sp/>0xEAU,<sp/>0x4EU,<sp/>0x51U,<sp/>0xC8U,<sp/>0x72U,<sp/>0x73U,<sp/>0x40U,</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x01U,<sp/>0xCDU,<sp/>0x53U,<sp/>0x95U,<sp/>0x5DU,<sp/>0xC6U,<sp/>0xF9U,<sp/>0xFFU,</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x42U,<sp/>0xD1U,<sp/>0x66U,<sp/>0xA1U,<sp/>0x6BU,<sp/>0x76U,<sp/>0x2EU,<sp/>0x42U,</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x42U,<sp/>0x24U,<sp/>0xC2U,<sp/>0xBEU,<sp/>0xC4U,<sp/>0xEAU,<sp/>0x40U,<sp/>0xD4U,</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xF9U,<sp/>0x9CU,<sp/>0x90U,<sp/>0x10U,<sp/>0xF6U,<sp/>0x18U,<sp/>0xFFU,<sp/>0x95U</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>};</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"></highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xsecure__soft__sha384__server__apis_1ga130483db02549f4f03400a5dc7baf143" kindref="member">XSecure_Sha384Digest</ref>(Data,<sp/><ref refid="group__xsecure__kat__server__apis_1ga62a7fc37111b22311ea7d993de67c059" kindref="member">XSECURE_KAT_MSG_LEN_IN_BYTES</ref>,<sp/>CalculatedHash);</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"></highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(Index<sp/>=<sp/>0U;<sp/>Index<sp/>&lt;<sp/>XSECURE_SHA_384_HASH_SIZE_IN_BYTES;<sp/>Index++)<sp/>{</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(CalculatedHash[Index]<sp/>!=<sp/>ExpectedHash[Index])<sp/>{</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(int)<ref refid="spartanup_2xsecure__error_8h_1a0411cd49bb5b71852cecd93bcbf0ca2dabf8783a31e8b5df838dd13a3fef5c871" kindref="member">XSECURE_SHA384_KAT_ERROR</ref>;</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"></highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Index<sp/>==<sp/>XSECURE_SHA_384_HASH_SIZE_IN_BYTES)<sp/>{</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="172"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"></highlight></codeline>
+<codeline lineno="174"><highlight class="normal">END:</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SStatus<sp/>=<sp/>Xil_SecureZeroize(CalculatedHash,<sp/>XSECURE_SHA_384_HASH_SIZE_IN_BYTES);</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((Status<sp/>==<sp/>XST_SUCCESS)<sp/>&amp;&amp;<sp/>(Status<sp/>==<sp/>XST_SUCCESS))<sp/>{</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>SStatus;</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"></highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="181"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="182"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>PLM_RSA_EXCLUDE</highlight></codeline>
+<codeline lineno="183"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="184"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="201" refid="group__xsecure__kat__server__apis_1gaeef1675ed072c8187d88b630df7204c3" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__kat__server__apis_1gaeef1675ed072c8187d88b630df7204c3" kindref="member">XSecure_RsaPwct</ref>(<ref refid="struct_x_secure___rsa_priv_key" kindref="compound">XSecure_RsaPrivKey</ref><sp/>*PrivKey,<sp/><ref refid="struct_x_secure___rsa_pub_key" kindref="compound">XSecure_RsaPubKey</ref><sp/>*PubKey,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*ShaInstancePtr,<sp/>XSecure_ShaMode<sp/>Shatype)</highlight></codeline>
+<codeline lineno="202"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>SStatus<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_secure___rsa" kindref="compound">XSecure_Rsa</ref><sp/>RsaInstance<sp/>=<sp/>{0U};</highlight></codeline>
+<codeline lineno="206"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>*Message<sp/>=<sp/><ref refid="group__xsecure__kat__server__apis_1ga8df0f1f6e52ec26041e750769de1130c" kindref="member">XSecure_GetKatMessage</ref>();</highlight></codeline>
+<codeline lineno="207"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_secure___rsa_oaep_param" kindref="compound">XSecure_RsaOaepParam</ref><sp/>OaepParam<sp/>=<sp/>{0U};</highlight></codeline>
+<codeline lineno="208"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>EncOutput[<ref refid="group__xsecure__rsa__server__apis_1gaef98b03d932368574ec1123184b9a9e4" kindref="member">XSECURE_RSA_KEY_GEN_SIZE_IN_BYTES</ref>];</highlight></codeline>
+<codeline lineno="209"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>DecOutput[<ref refid="group__xsecure__kat__server__apis_1ga62a7fc37111b22311ea7d993de67c059" kindref="member">XSECURE_KAT_MSG_LEN_IN_BYTES</ref>];</highlight></codeline>
+<codeline lineno="210"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>PubExp<sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="211"><highlight class="normal"></highlight></codeline>
+<codeline lineno="212"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((PrivKey<sp/>==<sp/>NULL)<sp/>||<sp/>(PubKey<sp/>==<sp/>NULL))<sp/>{</highlight></codeline>
+<codeline lineno="213"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(int)XST_INVALID_PARAM;</highlight></codeline>
+<codeline lineno="214"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="215"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="216"><highlight class="normal"></highlight></codeline>
+<codeline lineno="217"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>Xil_SChangeEndiannessAndCpy((u8*)&amp;PubExp,<sp/><ref refid="group__xsecure__rsa__server__apis_1gac68769cb4d2f865843c2e77b2b5c3fbd" kindref="member">XSECURE_RSA_PUB_EXP_SIZE</ref>,<sp/>(u8*)PubKey-&gt;<ref refid="struct_x_secure___rsa_pub_key_1a24daf4b9ad862d50688156a1220e6350" kindref="member">PubExp</ref>,<sp/><ref refid="group__xsecure__rsa__server__apis_1gac68769cb4d2f865843c2e77b2b5c3fbd" kindref="member">XSECURE_RSA_PUB_EXP_SIZE</ref>,</highlight></codeline>
+<codeline lineno="218"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__rsa__server__apis_1gac68769cb4d2f865843c2e77b2b5c3fbd" kindref="member">XSECURE_RSA_PUB_EXP_SIZE</ref>);</highlight></codeline>
+<codeline lineno="219"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="220"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="221"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="222"><highlight class="normal"></highlight></codeline>
+<codeline lineno="223"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xsecure__rsa__server__apis_1ga097e8ed2f4933286ea5ef93210572b6b" kindref="member">XSecure_RsaInitialize</ref>(&amp;RsaInstance,<sp/>PubKey-&gt;<ref refid="struct_x_secure___rsa_pub_key_1a93596537a0e341100aa149f0055e87d9" kindref="member">Mod</ref>,<sp/>NULL,<sp/>(u8*)&amp;PubExp);</highlight></codeline>
+<codeline lineno="224"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="225"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="226"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="227"><highlight class="normal"></highlight></codeline>
+<codeline lineno="228"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>OaepParam.<ref refid="struct_x_secure___rsa_oaep_param_1aec83801a64f9afa4244ceb8900611946" kindref="member">InputDataAddr</ref><sp/>=<sp/>(u64)(UINTPTR)Message;</highlight></codeline>
+<codeline lineno="229"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>OaepParam.<ref refid="struct_x_secure___rsa_oaep_param_1abdedfcfe1370c2f75622c5af01166bcf" kindref="member">InputDataSize</ref><sp/>=<sp/><ref refid="group__xsecure__kat__server__apis_1ga62a7fc37111b22311ea7d993de67c059" kindref="member">XSECURE_KAT_MSG_LEN_IN_BYTES</ref>;</highlight></codeline>
+<codeline lineno="230"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>OaepParam.<ref refid="struct_x_secure___rsa_oaep_param_1aa512ea4ccd203ba5598c4de743b12d79" kindref="member">OutputDataAddr</ref><sp/>=<sp/>(u64)(UINTPTR)EncOutput;</highlight></codeline>
+<codeline lineno="231"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>OaepParam.<ref refid="struct_x_secure___rsa_oaep_param_1af3ada34163356c6f6dabaf1217119829" kindref="member">ShaInstancePtr</ref><sp/>=<sp/>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">*)ShaInstancePtr;</highlight></codeline>
+<codeline lineno="232"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>OaepParam.<ref refid="struct_x_secure___rsa_oaep_param_1a08d92ae0a9bc81faf738335de219ee13" kindref="member">ShaType</ref><sp/>=<sp/>Shatype;</highlight></codeline>
+<codeline lineno="233"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xsecure__rsa__server__apis_1gab519747faf9ccf8e016d20e5713838c9" kindref="member">XSecure_RsaOaepEncrypt</ref>(&amp;RsaInstance,<sp/>&amp;OaepParam);</highlight></codeline>
+<codeline lineno="234"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="235"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="236"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="237"><highlight class="normal"></highlight></codeline>
+<codeline lineno="238"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>Xil_SReverseData(EncOutput,<sp/><ref refid="group__xsecure__rsa__server__apis_1gaef98b03d932368574ec1123184b9a9e4" kindref="member">XSECURE_RSA_KEY_GEN_SIZE_IN_BYTES</ref>);</highlight></codeline>
+<codeline lineno="239"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="240"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="241"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="242"><highlight class="normal"></highlight></codeline>
+<codeline lineno="243"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>OaepParam.<ref refid="struct_x_secure___rsa_oaep_param_1aec83801a64f9afa4244ceb8900611946" kindref="member">InputDataAddr</ref><sp/>=<sp/>(u64)(UINTPTR)EncOutput;</highlight></codeline>
+<codeline lineno="244"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>OaepParam.<ref refid="struct_x_secure___rsa_oaep_param_1aa512ea4ccd203ba5598c4de743b12d79" kindref="member">OutputDataAddr</ref><sp/>=<sp/>(u64)(UINTPTR)DecOutput;</highlight></codeline>
+<codeline lineno="245"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>OaepParam.<ref refid="struct_x_secure___rsa_oaep_param_1af3ada34163356c6f6dabaf1217119829" kindref="member">ShaInstancePtr</ref><sp/>=<sp/>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">*)ShaInstancePtr;</highlight></codeline>
+<codeline lineno="246"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>OaepParam.<ref refid="struct_x_secure___rsa_oaep_param_1a08d92ae0a9bc81faf738335de219ee13" kindref="member">ShaType</ref><sp/>=<sp/>Shatype;</highlight></codeline>
+<codeline lineno="247"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xsecure__rsa__server__apis_1ga7fe869dab6a634c2866f9ec26ee8cec0" kindref="member">XSecure_RsaOaepDecrypt</ref>(PrivKey,<sp/>&amp;OaepParam);</highlight></codeline>
+<codeline lineno="248"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="249"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="250"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="251"><highlight class="normal"></highlight></codeline>
+<codeline lineno="252"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="253"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>Xil_SMemCmp(DecOutput,<sp/>OaepParam.<ref refid="struct_x_secure___rsa_oaep_param_1abc732af71d66ec9a66a84abf44c52749" kindref="member">OutputDataSize</ref>,<sp/>Message,<sp/><ref refid="group__xsecure__kat__server__apis_1ga62a7fc37111b22311ea7d993de67c059" kindref="member">XSECURE_KAT_MSG_LEN_IN_BYTES</ref>,</highlight></codeline>
+<codeline lineno="254"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__kat__server__apis_1ga62a7fc37111b22311ea7d993de67c059" kindref="member">XSECURE_KAT_MSG_LEN_IN_BYTES</ref>);</highlight></codeline>
+<codeline lineno="255"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="256"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(int)<ref refid="versal__2ve__2vm_2xsecure__error_8h_1ab04a0655cd1e3bcac5e8f48c18df1a57ae6dfa47c61070fb69f0ad45665dec64b" kindref="member">XSECURE_RSA_PWCT_MEM_CMP_FAILED_ERROR</ref>;</highlight></codeline>
+<codeline lineno="257"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="258"><highlight class="normal"></highlight></codeline>
+<codeline lineno="259"><highlight class="normal">END:</highlight></codeline>
+<codeline lineno="260"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SStatus<sp/>=<sp/>Xil_SecureZeroize(EncOutput,<sp/><ref refid="group__xsecure__rsa__server__apis_1gaef98b03d932368574ec1123184b9a9e4" kindref="member">XSECURE_RSA_KEY_GEN_SIZE_IN_BYTES</ref>);</highlight></codeline>
+<codeline lineno="261"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SStatus<sp/>|=<sp/>Xil_SecureZeroize(DecOutput,<sp/><ref refid="group__xsecure__kat__server__apis_1ga62a7fc37111b22311ea7d993de67c059" kindref="member">XSECURE_KAT_MSG_LEN_IN_BYTES</ref>);</highlight></codeline>
+<codeline lineno="262"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((Status<sp/>==<sp/>XST_SUCCESS)<sp/>&amp;&amp;<sp/>(Status<sp/>==<sp/>XST_SUCCESS))<sp/>{</highlight></codeline>
+<codeline lineno="263"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>SStatus;</highlight></codeline>
+<codeline lineno="264"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="265"><highlight class="normal"></highlight></codeline>
+<codeline lineno="266"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="267"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="268"><highlight class="normal"></highlight></codeline>
+<codeline lineno="269"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="280"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__kat__server__apis_1gaff9e6accc6dbd6922eda1a4d2322fdf6" kindref="member">XSecure_RsaPrivateDecryptKat</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="281"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="282"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="283"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>SStatus<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="284"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/>u32<sp/>Index;</highlight></codeline>
+<codeline lineno="285"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>*RsaModulus<sp/>=<sp/><ref refid="group__xsecure__kat__server__apis_1gaad1c6cd684bcf2c3dc968a1faf83ae9a" kindref="member">XSecure_GetKatRsaModulus</ref>();</highlight></codeline>
+<codeline lineno="286"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>*RsaCtData<sp/>=<sp/><ref refid="group__xsecure__kat__server__apis_1gafd22599a22bb980e1a40ce887009f4ae" kindref="member">XSecure_GetKatRsaCtData</ref>();</highlight></codeline>
+<codeline lineno="287"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>*RsaPrivExp<sp/>=<sp/><ref refid="group__xsecure__kat__server__apis_1gacd534322345d34248772d23a4ab90c7f" kindref="member">XSecure_GetKatRsaPrivateExp</ref>();</highlight></codeline>
+<codeline lineno="288"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>DataVal;</highlight></codeline>
+<codeline lineno="289"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>*RsaData<sp/>=<sp/>(u8*)<ref refid="group__xsecure__kat__server__apis_1gaaa0efb9c372ffa755b176a70542185b7" kindref="member">XSecure_GetKatRsaData</ref>();</highlight></codeline>
+<codeline lineno="290"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>RsaOutput[<ref refid="group__xsecure__rsa__server__apis_1ga07736a55ec2f9d8242a46ee20fc9f7b6" kindref="member">XSECURE_RSA_2048_KEY_SIZE</ref>];</highlight></codeline>
+<codeline lineno="291"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Mod[<ref refid="group__xsecure__rsa__server__apis_1ga07736a55ec2f9d8242a46ee20fc9f7b6" kindref="member">XSECURE_RSA_2048_KEY_SIZE</ref>];</highlight></codeline>
+<codeline lineno="292"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Exp[<ref refid="group__xsecure__rsa__server__apis_1ga07736a55ec2f9d8242a46ee20fc9f7b6" kindref="member">XSECURE_RSA_2048_KEY_SIZE</ref>];</highlight></codeline>
+<codeline lineno="293"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Data[<ref refid="group__xsecure__rsa__server__apis_1ga07736a55ec2f9d8242a46ee20fc9f7b6" kindref="member">XSECURE_RSA_2048_KEY_SIZE</ref>];</highlight></codeline>
+<codeline lineno="294"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>Totient[<ref refid="group__xsecure__rsa__server__apis_1gab5e03185e5083dafd48c34ec3860f13b" kindref="member">XSECURE_RSA_2048_SIZE_WORDS</ref>]<sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="295"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x95BD7BB0U,<sp/>0x05F0C930U,<sp/>0x78681CE6U,<sp/>0x39AA5CD0U,</highlight></codeline>
+<codeline lineno="296"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x5811E800U,<sp/>0xBD1BB27DU,<sp/>0xEB2A366DU,<sp/>0x60121A86U,</highlight></codeline>
+<codeline lineno="297"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x5CE10B2DU,<sp/>0x8F5B5DFEU,<sp/>0xDC729B60U,<sp/>0x709D283AU,</highlight></codeline>
+<codeline lineno="298"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xCC4B8288U,<sp/>0xE44D962CU,<sp/>0x66253E9FU,<sp/>0x6867B3BDU,</highlight></codeline>
+<codeline lineno="299"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xE1D323D6U,<sp/>0xD404F7EEU,<sp/>0xD0AE43F5U,<sp/>0x2A0BFC95U,</highlight></codeline>
+<codeline lineno="300"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xCF2E5F7FU,<sp/>0x4127F2D1U,<sp/>0xC78667ACU,<sp/>0x80C8EC95U,</highlight></codeline>
+<codeline lineno="301"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x3654EDB3U,<sp/>0xEB4FDB52U,<sp/>0x161235A0U,<sp/>0x45671A4EU,</highlight></codeline>
+<codeline lineno="302"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xCE991592U,<sp/>0x7157CA40U,<sp/>0x2894DB37U,<sp/>0x4B31AA13U,</highlight></codeline>
+<codeline lineno="303"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x995E1472U,<sp/>0x7C62AF06U,<sp/>0x3EE151AEU,<sp/>0x1FA34E7AU,</highlight></codeline>
+<codeline lineno="304"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x5F300035U,<sp/>0xB0E8830BU,<sp/>0x63B1F63BU,<sp/>0xFE531F5CU,</highlight></codeline>
+<codeline lineno="305"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xBA50A110U,<sp/>0xA93369D3U,<sp/>0x96B97E1BU,<sp/>0x61CBD28AU,</highlight></codeline>
+<codeline lineno="306"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x5D0BD65CU,<sp/>0x3F1F71D9U,<sp/>0x46E737B0U,<sp/>0x91D56A0DU,</highlight></codeline>
+<codeline lineno="307"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xCF2ECB6CU,<sp/>0x65AA3084U,<sp/>0xD8F9216AU,<sp/>0x98DF7569U,</highlight></codeline>
+<codeline lineno="308"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x70B44AFCU,<sp/>0x77C08511U,<sp/>0x8328A54CU,<sp/>0xFD0C30B7U,</highlight></codeline>
+<codeline lineno="309"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xE09D5555U,<sp/>0xAC131C20U,<sp/>0x67EF31CDU,<sp/>0xDBF9B357U,</highlight></codeline>
+<codeline lineno="310"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x6FA31D8CU,<sp/>0x1728A249U,<sp/>0xF1060147U,<sp/>0xAEFEC693U</highlight></codeline>
+<codeline lineno="311"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>};</highlight></codeline>
+<codeline lineno="312"><highlight class="normal"></highlight></codeline>
+<codeline lineno="313"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>Xil_SChangeEndiannessAndCpy(Mod,<sp/><ref refid="group__xsecure__rsa__server__apis_1ga07736a55ec2f9d8242a46ee20fc9f7b6" kindref="member">XSECURE_RSA_2048_KEY_SIZE</ref>,<sp/>RsaModulus,<sp/><ref refid="group__xsecure__rsa__server__apis_1ga07736a55ec2f9d8242a46ee20fc9f7b6" kindref="member">XSECURE_RSA_2048_KEY_SIZE</ref>,<sp/><ref refid="group__xsecure__rsa__server__apis_1ga07736a55ec2f9d8242a46ee20fc9f7b6" kindref="member">XSECURE_RSA_2048_KEY_SIZE</ref>);</highlight></codeline>
+<codeline lineno="314"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="315"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="316"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="317"><highlight class="normal"></highlight></codeline>
+<codeline lineno="318"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>Xil_SChangeEndiannessAndCpy(Exp,<sp/><ref refid="group__xsecure__rsa__server__apis_1ga07736a55ec2f9d8242a46ee20fc9f7b6" kindref="member">XSECURE_RSA_2048_KEY_SIZE</ref>,<sp/>RsaPrivExp,<sp/><ref refid="group__xsecure__rsa__server__apis_1ga07736a55ec2f9d8242a46ee20fc9f7b6" kindref="member">XSECURE_RSA_2048_KEY_SIZE</ref>,<sp/><ref refid="group__xsecure__rsa__server__apis_1ga07736a55ec2f9d8242a46ee20fc9f7b6" kindref="member">XSECURE_RSA_2048_KEY_SIZE</ref>);</highlight></codeline>
+<codeline lineno="319"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="320"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="321"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="322"><highlight class="normal"></highlight></codeline>
+<codeline lineno="323"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>Xil_SChangeEndiannessAndCpy(Data,<sp/><ref refid="group__xsecure__rsa__server__apis_1ga07736a55ec2f9d8242a46ee20fc9f7b6" kindref="member">XSECURE_RSA_2048_KEY_SIZE</ref>,<sp/>RsaCtData,<sp/><ref refid="group__xsecure__rsa__server__apis_1ga07736a55ec2f9d8242a46ee20fc9f7b6" kindref="member">XSECURE_RSA_2048_KEY_SIZE</ref>,<sp/><ref refid="group__xsecure__rsa__server__apis_1ga07736a55ec2f9d8242a46ee20fc9f7b6" kindref="member">XSECURE_RSA_2048_KEY_SIZE</ref>);</highlight></codeline>
+<codeline lineno="324"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="325"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="326"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="327"><highlight class="normal"></highlight></codeline>
+<codeline lineno="328"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xsecure__rsa__qmode__apis_1gab93e9d20b03a5821f0b533b3c0a1f681" kindref="member">XSecure_RsaExp</ref>((</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*)(UINTPTR)Data,<sp/>Exp,<sp/>Mod,<sp/>NULL,<sp/>NULL,<sp/>NULL,</highlight></codeline>
+<codeline lineno="329"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u8*)Totient,<sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal">)(<ref refid="group__xsecure__rsa__server__apis_1ga07736a55ec2f9d8242a46ee20fc9f7b6" kindref="member">XSECURE_RSA_2048_KEY_SIZE</ref><sp/>*<sp/>8U),<sp/>RsaOutput);</highlight></codeline>
+<codeline lineno="330"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="331"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="332"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="333"><highlight class="normal"></highlight></codeline>
+<codeline lineno="334"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(Index<sp/>=<sp/>0U;<sp/>Index<sp/>&lt;<sp/>(<ref refid="group__xsecure__rsa__server__apis_1ga07736a55ec2f9d8242a46ee20fc9f7b6" kindref="member">XSECURE_RSA_2048_KEY_SIZE</ref>/2U);<sp/>Index++)<sp/>{</highlight></codeline>
+<codeline lineno="335"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DataVal<sp/>=<sp/>RsaOutput[<ref refid="group__xsecure__rsa__server__apis_1ga07736a55ec2f9d8242a46ee20fc9f7b6" kindref="member">XSECURE_RSA_2048_KEY_SIZE</ref><sp/>-<sp/>Index<sp/>-<sp/>1U];</highlight></codeline>
+<codeline lineno="336"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RsaOutput[<ref refid="group__xsecure__rsa__server__apis_1ga07736a55ec2f9d8242a46ee20fc9f7b6" kindref="member">XSECURE_RSA_2048_KEY_SIZE</ref><sp/>-<sp/>Index<sp/>-<sp/>1U]<sp/>=<sp/><sp/>RsaOutput[Index];</highlight></codeline>
+<codeline lineno="337"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RsaOutput[Index]<sp/>=<sp/>DataVal;</highlight></codeline>
+<codeline lineno="338"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="339"><highlight class="normal"></highlight></codeline>
+<codeline lineno="341"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(int)<ref refid="versal_2xsecure__error_8h_1abed82baf7f470b522273a3e37c24c600aa13a02cf9d65a08b8ec52bd4c5cb2b64" kindref="member">XSECURE_RSA_KAT_ENCRYPT_DATA_MISMATCH_ERROR</ref>;</highlight></codeline>
+<codeline lineno="342"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(Index<sp/>=<sp/>0U;<sp/>Index<sp/>&lt;<sp/><ref refid="group__xsecure__rsa__server__apis_1ga07736a55ec2f9d8242a46ee20fc9f7b6" kindref="member">XSECURE_RSA_2048_KEY_SIZE</ref>;<sp/>Index++)<sp/>{</highlight></codeline>
+<codeline lineno="343"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(RsaOutput[Index]<sp/>!=<sp/>RsaData[Index])<sp/>{</highlight></codeline>
+<codeline lineno="344"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(int)<ref refid="versal_2xsecure__error_8h_1abed82baf7f470b522273a3e37c24c600a41e6a9e86d996466ce74d60731391667" kindref="member">XSECURE_RSA_KAT_DECRYPT_DATA_MISMATCH_ERROR</ref>;</highlight></codeline>
+<codeline lineno="345"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END_CLR;</highlight></codeline>
+<codeline lineno="346"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="347"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="348"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Index<sp/>==<sp/>XSECURE_RSA_2048_KEY_SIZE)<sp/>{</highlight></codeline>
+<codeline lineno="349"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="350"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="351"><highlight class="normal"></highlight></codeline>
+<codeline lineno="352"><highlight class="normal">END_CLR:</highlight></codeline>
+<codeline lineno="353"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SStatus<sp/>=<sp/>Xil_SecureZeroize((u8*)RsaOutput,<sp/>XSECURE_RSA_2048_KEY_SIZE);</highlight></codeline>
+<codeline lineno="354"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SStatus<sp/>|=<sp/>Xil_SecureZeroize((u8*)Exp,<sp/>XSECURE_RSA_2048_KEY_SIZE);</highlight></codeline>
+<codeline lineno="355"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((Status<sp/>==<sp/>XST_SUCCESS)<sp/>&amp;&amp;<sp/>(Status<sp/>==<sp/>XST_SUCCESS))<sp/>{</highlight></codeline>
+<codeline lineno="356"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>SStatus;</highlight></codeline>
+<codeline lineno="357"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="358"><highlight class="normal"></highlight></codeline>
+<codeline lineno="359"><highlight class="normal">END:</highlight></codeline>
+<codeline lineno="360"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="361"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="362"><highlight class="normal"></highlight></codeline>
+<codeline lineno="363"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="364"><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_plat_kat.c"/>
+  </compounddef>
+</doxygen>

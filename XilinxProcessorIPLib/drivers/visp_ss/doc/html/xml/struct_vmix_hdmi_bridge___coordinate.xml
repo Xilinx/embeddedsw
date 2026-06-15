@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_vmix_hdmi_bridge___coordinate" kind="struct" prot="public">
+    <compoundname>VmixHdmiBridge_Coordinate</compoundname>
+    <includes local="no">vmix_hdmi_bridge.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_vmix_hdmi_bridge___coordinate_1a8a31e14d98947616e4f138a7b9a1e5ec" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int VmixHdmiBridge_Coordinate::StartX</definition>
+        <argsstring></argsstring>
+        <name>StartX</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vmix_hdmi_bridge.h" line="103" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vmix_hdmi_bridge.h" bodystart="103" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vmix_hdmi_bridge___coordinate_1aaadd784e9cf37a096f21bd798d0b829a" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int VmixHdmiBridge_Coordinate::StartY</definition>
+        <argsstring></argsstring>
+        <name>StartY</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vmix_hdmi_bridge.h" line="104" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vmix_hdmi_bridge.h" bodystart="104" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Display coordinate for multi-view layout. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vmix_hdmi_bridge.h" line="102" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vmix_hdmi_bridge.h" bodystart="102" bodyend="105"/>
+    <listofallmembers>
+      <member refid="struct_vmix_hdmi_bridge___coordinate_1a8a31e14d98947616e4f138a7b9a1e5ec" prot="public" virt="non-virtual"><scope>VmixHdmiBridge_Coordinate</scope><name>StartX</name></member>
+      <member refid="struct_vmix_hdmi_bridge___coordinate_1aaadd784e9cf37a096f21bd798d0b829a" prot="public" virt="non-virtual"><scope>VmixHdmiBridge_Coordinate</scope><name>StartY</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,480 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xsecure__katclient_8h" kind="file">
+    <compoundname>xsecure_katclient.h</compoundname>
+    <includes local="yes">xil_types.h</includes>
+    <includes refid="xsecure__mailbox_8h" local="yes">xsecure_mailbox.h</includes>
+    <includes refid="xsecure__defs_8h" local="yes">xsecure_defs.h</includes>
+    <includedby refid="xsecure__katclient_8c" local="yes">xsecure_katclient.c</includedby>
+    <includedby refid="xilsecure__versal__2ve__2vm__sha__client__example_8c" local="yes">xilsecure_versal_2ve_2vm_sha_client_example.c</includedby>
+    <includedby refid="xilsecure__versal__aes__client__example_8c" local="yes">xilsecure_versal_aes_client_example.c</includedby>
+    <includedby refid="xilsecure__versal__ecdsa__client__example_8c" local="yes">xilsecure_versal_ecdsa_client_example.c</includedby>
+    <includedby refid="xilsecure__versal__net__keyunwrap__client__example_8c" local="yes">xilsecure_versal_net_keyunwrap_client_example.c</includedby>
+    <includedby refid="xilsecure__versal__net__rsa__client__example_8c" local="yes">xilsecure_versal_net_rsa_client_example.c</includedby>
+    <includedby refid="xilsecure__versal__rsa__client__example_8c" local="yes">xilsecure_versal_rsa_client_example.c</includedby>
+    <includedby refid="xilsecure__versal__sha__client__example_8c" local="yes">xilsecure_versal_sha_client_example.c</includedby>
+    <incdepgraph>
+      <node id="1859">
+        <label>xil_cache.h</label>
+      </node>
+      <node id="1860">
+        <label>xsecure_plat_defs.h</label>
+      </node>
+      <node id="1855">
+        <label>xilmailbox.h</label>
+      </node>
+      <node id="1857">
+        <label>xsecure_defs.h</label>
+        <link refid="xsecure__defs_8h"/>
+        <childnode refid="1858" relation="include">
+        </childnode>
+        <childnode refid="1853" relation="include">
+        </childnode>
+        <childnode refid="1859" relation="include">
+        </childnode>
+        <childnode refid="1860" relation="include">
+        </childnode>
+        <childnode refid="1861" relation="include">
+        </childnode>
+      </node>
+      <node id="1861">
+        <label>xsecure_config.h</label>
+      </node>
+      <node id="1853">
+        <label>xil_types.h</label>
+      </node>
+      <node id="1856">
+        <label>xparameters.h</label>
+      </node>
+      <node id="1858">
+        <label>xil_printf.h</label>
+      </node>
+      <node id="1852">
+        <label>xsecure_katclient.h</label>
+        <link refid="xsecure_katclient.h"/>
+        <childnode refid="1853" relation="include">
+        </childnode>
+        <childnode refid="1854" relation="include">
+        </childnode>
+        <childnode refid="1857" relation="include">
+        </childnode>
+      </node>
+      <node id="1854">
+        <label>xsecure_mailbox.h</label>
+        <link refid="xsecure__mailbox_8h"/>
+        <childnode refid="1855" relation="include">
+        </childnode>
+        <childnode refid="1856" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="1869">
+        <label>xilsecure_versal_rsa_client_example.c</label>
+      </node>
+      <node id="1866">
+        <label>xilsecure_versal_ecdsa_client_example.c</label>
+        <link refid="xilsecure__versal__ecdsa__client__example_8c"/>
+      </node>
+      <node id="1865">
+        <label>xilsecure_versal_aes_client_example.c</label>
+        <link refid="xilsecure__versal__aes__client__example_8c"/>
+      </node>
+      <node id="1868">
+        <label>xilsecure_versal_net_rsa_client_example.c</label>
+        <link refid="xilsecure__versal__net__rsa__client__example_8c"/>
+      </node>
+      <node id="1864">
+        <label>xilsecure_versal_2ve_2vm_sha_client_example.c</label>
+        <link refid="xilsecure__versal__2ve__2vm__sha__client__example_8c"/>
+      </node>
+      <node id="1870">
+        <label>xilsecure_versal_sha_client_example.c</label>
+        <link refid="xilsecure__versal__sha__client__example_8c"/>
+      </node>
+      <node id="1867">
+        <label>xilsecure_versal_net_keyunwrap_client_example.c</label>
+        <link refid="xilsecure__versal__net__keyunwrap__client__example_8c"/>
+      </node>
+      <node id="1863">
+        <label>xsecure_katclient.c</label>
+        <link refid="xsecure__katclient_8c"/>
+      </node>
+      <node id="1862">
+        <label>xsecure_katclient.h</label>
+        <link refid="xsecure_katclient.h"/>
+        <childnode refid="1863" relation="include">
+        </childnode>
+        <childnode refid="1864" relation="include">
+        </childnode>
+        <childnode refid="1865" relation="include">
+        </childnode>
+        <childnode refid="1866" relation="include">
+        </childnode>
+        <childnode refid="1867" relation="include">
+        </childnode>
+        <childnode refid="1868" relation="include">
+        </childnode>
+        <childnode refid="1869" relation="include">
+        </childnode>
+        <childnode refid="1870" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xsecure__kat__client__apis_1ga1eb14922f650174090f0fdca7345a517" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XSecure_AesDecryptKat</definition>
+        <argsstring>(XSecure_ClientInstance *InstancePtr)</argsstring>
+        <name>XSecure_AesDecryptKat</name>
+        <param>
+          <type>XSecure_ClientInstance *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function sends IPI request to PLM to perform decrypt KAT on AES engine. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the client instance</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS When KAT Pass</para></listitem><listitem><para>XST_FAILURE On failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Perform input parameter validation on InstancePtr. Return XST_FAILURE if input parameters are invalid</para></listitem><listitem><para>Fill Payload</para></listitem><listitem><para>Send request to PLM through generic request API. This internally handles SMC or IPI mailbox based on build configuration.</para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/core/crypto_kat/xsecure_katclient.c" line="61" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/core/crypto_kat/xsecure_katclient.c" bodystart="61" bodyend="87"/>
+        <references refid="group__xsecure__common__apis_1gga37319402ed20263002a96ca04d74394eac036db8b4c037ab3955b93d62513fb6b" compoundref="xsecure__plat__defs_8h" startline="83">XSECURE_API_AES_DECRYPT_KAT</references>
+        <references refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acafcb78231ca805fdd53c34ddc9688000a" compoundref="xsecure__plat__defs_8h" startline="75">XSECURE_API_KAT</references>
+        <references refid="group__xsecure__client__apis_1ga05fa5011bc86e79725370a660a7172a1" compoundref="xsecure__generic_8c" startline="67" endline="104">XSecure_SendRequest</references>
+        <references refid="group__xsecure__aes__client__apis_1ga1ec86d85edf7d28d7581a348f0ec7866" compoundref="xsecure__aesclient_8c" startline="54">XSECURE_SLR_INDEX_SHIFT</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__kat__client__apis_1ga406813136028273d32d55dc2dd9f91c7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XSecure_AesDecryptCmKat</definition>
+        <argsstring>(XSecure_ClientInstance *InstancePtr)</argsstring>
+        <name>XSecure_AesDecryptCmKat</name>
+        <param>
+          <type>XSecure_ClientInstance *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function sends IPI request to PLM to perform KAT on AES DPA countermeasure KAT. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the client instance</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS On success</para></listitem><listitem><para>XST_INVALID_PARAM If input parameters are invalid</para></listitem><listitem><para>XST_FAILURE On failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Perform input parameter validation on InstancePtr. Return XST_FAILURE if input parameters are invalid</para></listitem><listitem><para>Fill Payload</para></listitem><listitem><para>Send request to PLM through generic request API. This internally handles SMC or IPI mailbox based on build configuration.</para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/core/crypto_kat/xsecure_katclient.c" line="103" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/core/crypto_kat/xsecure_katclient.c" bodystart="103" bodyend="129"/>
+        <references refid="group__xsecure__common__apis_1gga37319402ed20263002a96ca04d74394ea2f5dbd303625fc2c0ef8b295c9b3b992" compoundref="xsecure__plat__defs_8h" startline="84">XSECURE_API_AES_DECRYPT_CM_KAT</references>
+        <references refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acafcb78231ca805fdd53c34ddc9688000a" compoundref="xsecure__plat__defs_8h" startline="75">XSECURE_API_KAT</references>
+        <references refid="group__xsecure__client__apis_1ga05fa5011bc86e79725370a660a7172a1" compoundref="xsecure__generic_8c" startline="67" endline="104">XSecure_SendRequest</references>
+        <references refid="group__xsecure__aes__client__apis_1ga1ec86d85edf7d28d7581a348f0ec7866" compoundref="xsecure__aesclient_8c" startline="54">XSECURE_SLR_INDEX_SHIFT</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__kat__client__apis_1ga7e00313e2e3f47bfb6dbc463889971c4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XSecure_RsaPublicEncKat</definition>
+        <argsstring>(XSecure_ClientInstance *InstancePtr)</argsstring>
+        <name>XSecure_RsaPublicEncKat</name>
+        <param>
+          <type>XSecure_ClientInstance *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function sends IPI request to PLM to perform RSA encrypt KAT. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the client instance</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS On success</para></listitem><listitem><para>XST_INVALID_PARAM If input parameters are invalid</para></listitem><listitem><para>XST_FAILURE On failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Perform input parameter validation on InstancePtr. Return XST_FAILURE if input parameters are invalid</para></listitem><listitem><para>Fill Payload</para></listitem><listitem><para>Send request to PLM through generic request API. This internally handles SMC or IPI mailbox based on build configuration.</para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/core/crypto_kat/xsecure_katclient.c" line="144" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/core/crypto_kat/xsecure_katclient.c" bodystart="144" bodyend="170"/>
+        <references refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acafcb78231ca805fdd53c34ddc9688000a" compoundref="xsecure__plat__defs_8h" startline="75">XSECURE_API_KAT</references>
+        <references refid="group__xsecure__common__apis_1gga37319402ed20263002a96ca04d74394ead4e0f42ca445468c1534a1e2a23a3099" compoundref="xsecure__plat__defs_8h" startline="85">XSECURE_API_RSA_PUB_ENC_KAT</references>
+        <references refid="group__xsecure__client__apis_1ga05fa5011bc86e79725370a660a7172a1" compoundref="xsecure__generic_8c" startline="67" endline="104">XSecure_SendRequest</references>
+        <references refid="group__xsecure__aes__client__apis_1ga1ec86d85edf7d28d7581a348f0ec7866" compoundref="xsecure__aesclient_8c" startline="54">XSECURE_SLR_INDEX_SHIFT</references>
+        <referencedby refid="group__xsecure__keyunwrap__example__apis_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xilsecure__versal__net__keyunwrap__client__example_8c" startline="233" endline="358">main</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__kat__client__apis_1ga0743d577968e560b692122ab03e22d35" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XSecure_Sha3Kat</definition>
+        <argsstring>(XSecure_ClientInstance *InstancePtr)</argsstring>
+        <name>XSecure_Sha3Kat</name>
+        <param>
+          <type>XSecure_ClientInstance *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function sends IPI request to PLM to perform SHA3 KAT. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the client instance</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS When KAT Pass</para></listitem><listitem><para>XST_INVALID_PARAM If input parameters are invalid</para></listitem><listitem><para>XST_FAILURE On failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Perform input parameter validation on InstancePtr. Return XST_FAILURE if input parameters are invalid</para></listitem><listitem><para>Fill Payload</para></listitem><listitem><para>Send request to PLM through generic request API. This internally handles SMC or IPI mailbox based on build configuration.</para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/core/crypto_kat/xsecure_katclient.c" line="185" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/core/crypto_kat/xsecure_katclient.c" bodystart="185" bodyend="211"/>
+        <references refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acafcb78231ca805fdd53c34ddc9688000a" compoundref="xsecure__plat__defs_8h" startline="75">XSECURE_API_KAT</references>
+        <references refid="group__xsecure__common__apis_1gga37319402ed20263002a96ca04d74394eaa93a792a36e46e604483c25f4fbc877e" compoundref="xsecure__plat__defs_8h" startline="87">XSECURE_API_SHA3_KAT</references>
+        <references refid="group__xsecure__client__apis_1ga05fa5011bc86e79725370a660a7172a1" compoundref="xsecure__generic_8c" startline="67" endline="104">XSecure_SendRequest</references>
+        <references refid="group__xsecure__aes__client__apis_1ga1ec86d85edf7d28d7581a348f0ec7866" compoundref="xsecure__aesclient_8c" startline="54">XSECURE_SLR_INDEX_SHIFT</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__kat__client__apis_1gaf5996378299f1f95c9a13592febad58a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XSecure_EllipticSignVerifyKat</definition>
+        <argsstring>(XSecure_ClientInstance *InstancePtr, XSecure_EccCrvClass CurveClass)</argsstring>
+        <name>XSecure_EllipticSignVerifyKat</name>
+        <param>
+          <type>XSecure_ClientInstance *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="group__xsecure__common__apis_1ga678d756780f5569d245a8fe5fe7606c7" kindref="member">XSecure_EccCrvClass</ref></type>
+          <declname>CurveClass</declname>
+        </param>
+        <briefdescription>
+<para>This function sends IPI request to PLM to perform ECC sign verify KAT. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the client instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CurveClass</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Type of elliptic curve class(Prime - 0, Binary - 1)</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS On success</para></listitem><listitem><para>XST_INVALID_PARAM If input parameters are invalid</para></listitem><listitem><para>XST_FAILURE On failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Perform input parameter validation on InstancePtr. Return XST_FAILURE if input parameters are invalid</para></listitem><listitem><para>Fill Payload</para></listitem><listitem><para>Send request to PLM through generic request API. This internally handles SMC or IPI mailbox based on build configuration.</para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/core/crypto_kat/xsecure_katclient.c" line="227" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/core/crypto_kat/xsecure_katclient.c" bodystart="227" bodyend="254"/>
+        <references refid="group__xsecure__common__apis_1gga37319402ed20263002a96ca04d74394ea743c67d281e7028a0a68c3d988db9801" compoundref="xsecure__plat__defs_8h" startline="86">XSECURE_API_ELLIPTIC_SIGN_VERIFY_KAT</references>
+        <references refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acafcb78231ca805fdd53c34ddc9688000a" compoundref="xsecure__plat__defs_8h" startline="75">XSECURE_API_KAT</references>
+        <references refid="group__xsecure__client__apis_1ga05fa5011bc86e79725370a660a7172a1" compoundref="xsecure__generic_8c" startline="67" endline="104">XSecure_SendRequest</references>
+        <references refid="group__xsecure__aes__client__apis_1ga1ec86d85edf7d28d7581a348f0ec7866" compoundref="xsecure__aesclient_8c" startline="54">XSECURE_SLR_INDEX_SHIFT</references>
+        <referencedby refid="xilsecure__versal__ecdsa__client__example_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4" compoundref="xilsecure__versal__ecdsa__client__example_8c" startline="418" endline="553">main</referencedby>
+        <referencedby refid="group__xsecure__kat__server__apis_1ga693f088bbeaa2be1dd7a084c2bee6351" compoundref="xsecure__kat__ipihandler_8c" startline="80" endline="176">XSecure_KatIpiHandler</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__kat__client__apis_1gaff0e846438561c899db7c1ce4b00817c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XSecure_AesEncryptKat</definition>
+        <argsstring>(XSecure_ClientInstance *InstancePtr)</argsstring>
+        <name>XSecure_AesEncryptKat</name>
+        <param>
+          <type>XSecure_ClientInstance *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function sends IPI request to PLM to perform encrypt KAT. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the client instance</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS When KAT Pass</para></listitem><listitem><para>XST_INVALID_PARAM If input parameters are invalid</para></listitem><listitem><para>XST_FAILURE On failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Perform input parameter validation on InstancePtr. Return XST_FAILURE if input parameters are invalid</para></listitem><listitem><para>Fill Payload</para></listitem><listitem><para>Send request to PLM through generic request API. This internally handles SMC or IPI mailbox based on build configuration.</para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/core/crypto_kat/xsecure_katclient.c" line="269" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/core/crypto_kat/xsecure_katclient.c" bodystart="269" bodyend="295"/>
+        <references refid="group__xsecure__common__apis_1gga37319402ed20263002a96ca04d74394eab33a5806407cf829f203f5fb0af1a806" compoundref="xsecure__plat__defs_8h" startline="88">XSECURE_API_AES_ENCRYPT_KAT</references>
+        <references refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acafcb78231ca805fdd53c34ddc9688000a" compoundref="xsecure__plat__defs_8h" startline="75">XSECURE_API_KAT</references>
+        <references refid="group__xsecure__client__apis_1ga05fa5011bc86e79725370a660a7172a1" compoundref="xsecure__generic_8c" startline="67" endline="104">XSecure_SendRequest</references>
+        <references refid="group__xsecure__aes__client__apis_1ga1ec86d85edf7d28d7581a348f0ec7866" compoundref="xsecure__aesclient_8c" startline="54">XSECURE_SLR_INDEX_SHIFT</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__kat__client__apis_1gaec9500ffdf3138f3e71404a3bd955972" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XSecure_RsaPrivateDecKat</definition>
+        <argsstring>(XSecure_ClientInstance *InstancePtr)</argsstring>
+        <name>XSecure_RsaPrivateDecKat</name>
+        <param>
+          <type>XSecure_ClientInstance *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function sends IPI request to PLM to perform RSA private decrypt KAT. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the client instance</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS On success</para></listitem><listitem><para>XST_INVALID_PARAM If input parameters are invalid</para></listitem><listitem><para>XST_FAILURE On failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Perform input parameter validation on InstancePtr. Return XST_FAILURE if input parameters are invalid</para></listitem><listitem><para>Fill Payload</para></listitem><listitem><para>Send request to PLM through generic request API. This internally handles SMC or IPI mailbox based on build configuration.</para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/core/crypto_kat/xsecure_katclient.c" line="310" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/core/crypto_kat/xsecure_katclient.c" bodystart="310" bodyend="336"/>
+        <references refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acafcb78231ca805fdd53c34ddc9688000a" compoundref="xsecure__plat__defs_8h" startline="75">XSECURE_API_KAT</references>
+        <references refid="group__xsecure__common__apis_1gga37319402ed20263002a96ca04d74394ea7157637ce5e02761c76b740352140f97" compoundref="xsecure__plat__defs_8h" startline="89">XSECURE_API_RSA_PRIVATE_DEC_KAT</references>
+        <references refid="group__xsecure__client__apis_1ga05fa5011bc86e79725370a660a7172a1" compoundref="xsecure__generic_8c" startline="67" endline="104">XSecure_SendRequest</references>
+        <references refid="group__xsecure__aes__client__apis_1ga1ec86d85edf7d28d7581a348f0ec7866" compoundref="xsecure__aesclient_8c" startline="54">XSECURE_SLR_INDEX_SHIFT</references>
+        <referencedby refid="group__xsecure__kat__server__apis_1ga693f088bbeaa2be1dd7a084c2bee6351" compoundref="xsecure__kat__ipihandler_8c" startline="80" endline="176">XSecure_KatIpiHandler</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__kat__client__apis_1ga5e9df7a4b6b28b1827cf11be03a97e0d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XSecure_EllipticSignGenKat</definition>
+        <argsstring>(XSecure_ClientInstance *InstancePtr, XSecure_EccCrvClass CurveClass)</argsstring>
+        <name>XSecure_EllipticSignGenKat</name>
+        <param>
+          <type>XSecure_ClientInstance *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="group__xsecure__common__apis_1ga678d756780f5569d245a8fe5fe7606c7" kindref="member">XSecure_EccCrvClass</ref></type>
+          <declname>CurveClass</declname>
+        </param>
+        <briefdescription>
+<para>This function sends IPI request to PLM to perform ECC sign generate KAT. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the client instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CurveClass</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Type of elliptic curve class(Prime - 0, Binary - 1)</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS On success</para></listitem><listitem><para>XST_INVALID_PARAM If input parameters are invalid</para></listitem><listitem><para>XST_FAILURE On failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Perform input parameter validation on InstancePtr. Return XST_FAILURE if input parameters are invalid</para></listitem><listitem><para>Fill Payload</para></listitem><listitem><para>Send request to PLM through generic request API. This internally handles SMC or IPI mailbox based on build configuration.</para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/core/crypto_kat/xsecure_katclient.c" line="352" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/core/crypto_kat/xsecure_katclient.c" bodystart="352" bodyend="379"/>
+        <references refid="group__xsecure__common__apis_1gga37319402ed20263002a96ca04d74394ea0b59fb6da09265ead7ce0c53fed06d95" compoundref="xsecure__plat__defs_8h" startline="90">XSECURE_API_ELLIPTIC_SIGN_GEN_KAT</references>
+        <references refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acafcb78231ca805fdd53c34ddc9688000a" compoundref="xsecure__plat__defs_8h" startline="75">XSECURE_API_KAT</references>
+        <references refid="group__xsecure__client__apis_1ga05fa5011bc86e79725370a660a7172a1" compoundref="xsecure__generic_8c" startline="67" endline="104">XSecure_SendRequest</references>
+        <references refid="group__xsecure__aes__client__apis_1ga1ec86d85edf7d28d7581a348f0ec7866" compoundref="xsecure__aesclient_8c" startline="54">XSECURE_SLR_INDEX_SHIFT</references>
+        <referencedby refid="xilsecure__versal__ecdsa__client__example_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4" compoundref="xilsecure__versal__ecdsa__client__example_8c" startline="418" endline="553">main</referencedby>
+        <referencedby refid="group__xsecure__kat__server__apis_1ga693f088bbeaa2be1dd7a084c2bee6351" compoundref="xsecure__kat__ipihandler_8c" startline="80" endline="176">XSecure_KatIpiHandler</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file Contains the client function prototypes, defines and macros for the KAT APIs. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+1.0   kpt  07/19/22 Initial release
+5.1   yog  05/03/2023 Fixed MISRA C violation of Rule 8.3
+5.4   yog  04/29/24 Fixed doxygen grouping.</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2022<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">*******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="31"><highlight class="preprocessor">#ifndef<sp/>XSECURE_KAT_CLIENT_H</highlight></codeline>
+<codeline lineno="32"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_KAT_CLIENT_H</highlight></codeline>
+<codeline lineno="33"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="35"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="37"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xsecure__mailbox_8h" kindref="compound">xsecure_mailbox.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xsecure__defs_8h" kindref="compound">xsecure_defs.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__kat__client__apis_1ga1eb14922f650174090f0fdca7345a517" kindref="member">XSecure_AesDecryptKat</ref>(XSecure_ClientInstance<sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__kat__client__apis_1ga406813136028273d32d55dc2dd9f91c7" kindref="member">XSecure_AesDecryptCmKat</ref>(XSecure_ClientInstance<sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__kat__client__apis_1ga7e00313e2e3f47bfb6dbc463889971c4" kindref="member">XSecure_RsaPublicEncKat</ref>(XSecure_ClientInstance<sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__kat__client__apis_1ga0743d577968e560b692122ab03e22d35" kindref="member">XSecure_Sha3Kat</ref>(XSecure_ClientInstance<sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__kat__client__apis_1gaf5996378299f1f95c9a13592febad58a" kindref="member">XSecure_EllipticSignVerifyKat</ref>(XSecure_ClientInstance<sp/>*InstancePtr,<sp/><ref refid="group__xsecure__common__apis_1ga678d756780f5569d245a8fe5fe7606c7" kindref="member">XSecure_EccCrvClass</ref><sp/>CurveClass);</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__kat__client__apis_1gaff0e846438561c899db7c1ce4b00817c" kindref="member">XSecure_AesEncryptKat</ref>(XSecure_ClientInstance<sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__kat__client__apis_1gaec9500ffdf3138f3e71404a3bd955972" kindref="member">XSecure_RsaPrivateDecKat</ref>(XSecure_ClientInstance<sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__kat__client__apis_1ga5e9df7a4b6b28b1827cf11be03a97e0d" kindref="member">XSecure_EllipticSignGenKat</ref>(XSecure_ClientInstance<sp/>*InstancePtr,<sp/><ref refid="group__xsecure__common__apis_1ga678d756780f5569d245a8fe5fe7606c7" kindref="member">XSecure_EccCrvClass</ref><sp/>CurveClass);</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="61"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="63"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/></highlight><highlight class="comment">/*<sp/>XSECURE_KAT_CLIENT_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/core/crypto_kat/xsecure_katclient.h"/>
+  </compounddef>
+</doxygen>

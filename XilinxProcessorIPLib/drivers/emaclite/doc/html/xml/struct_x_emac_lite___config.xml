@@ -1,0 +1,168 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_emac_lite___config" kind="struct" prot="public">
+    <compoundname>XEmacLite_Config</compoundname>
+    <includes local="no">xemaclite.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_emac_lite___config_1a9369caa69fa2a76eb6ac4d490cf93b39" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* XEmacLite_Config::Name</definition>
+        <argsstring></argsstring>
+        <name>Name</name>
+        <briefdescription>
+<para>Unique name of the device. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite.h" line="226" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite.h" bodystart="226" bodyend="-1"/>
+        <referencedby refid="group__emaclite_1gaf5b9fc13f386cdaafa36a02c0f7e5dd4" compoundref="xemaclite__sinit_8c" startline="70" endline="84">XEmacLite_LookupConfig</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_emac_lite___config_1abd2e9fc4f5ca6eddbd068f8dd08bad4a" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XEmacLite_Config::BaseAddress</definition>
+        <argsstring></argsstring>
+        <name>BaseAddress</name>
+        <briefdescription>
+<para>Device base address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite.h" line="230" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite.h" bodystart="230" bodyend="-1"/>
+        <referencedby refid="xemaclite__intr__example_8c_1a518017ed22776c127596159fd5c86325" compoundref="xemaclite__intr__example_8c" startline="217" endline="409">EmacLiteIntrExample</referencedby>
+        <referencedby refid="xemaclite__internal__loopback__example_8c_1abcb2d06b54c6a59779c636ef76417519" compoundref="xemaclite__internal__loopback__example_8c" startline="162" endline="316">EmacLiteIntrLoopbackExample</referencedby>
+        <referencedby refid="xemaclite__phy__loopback__example_8c_1a402b5062f4c7679f905ec9d08ad40463" compoundref="xemaclite__phy__loopback__example_8c" startline="163" endline="340">EmacLitePhyLoopbackExample</referencedby>
+        <referencedby refid="xemaclite__polled__example_8c_1a7ed728b50a7f7b2f563a3726c85a6ebf" compoundref="xemaclite__polled__example_8c" startline="149" endline="264">EmacLitePolledExample</referencedby>
+        <referencedby refid="xemaclite__selftest__example_8c_1a48a68741704ccbf1d72dbf4051b0d0d1" compoundref="xemaclite__selftest__example_8c" startline="122" endline="158">EMACLiteSelfTestExample</referencedby>
+        <referencedby refid="group__emaclite_1ga3c9dd90e02c987b5b3a1dacdcfd057c4" compoundref="xemaclite_8c" startline="94" endline="147">XEmacLite_CfgInitialize</referencedby>
+        <referencedby refid="group__emaclite_1gacac27172503eee6a171afe1679c20f2c" compoundref="xemaclite__intr_8c" startline="134" endline="171">XEmacLite_DisableInterrupts</referencedby>
+        <referencedby refid="group__emaclite_1ga55c4a0b58c4e35dbf81c4866946f368a" compoundref="xemaclite_8c" startline="905" endline="919">XEmacLite_DisableLoopBack</referencedby>
+        <referencedby refid="group__emaclite_1ga28a0b4547f8b9b8eb675123df8ab8907" compoundref="xemaclite__intr_8c" startline="72" endline="117">XEmacLite_EnableInterrupts</referencedby>
+        <referencedby refid="group__emaclite_1ga1bd8c7361add009208f4c6778644a83c" compoundref="xemaclite_8c" startline="877" endline="891">XEmacLite_EnableLoopBack</referencedby>
+        <referencedby refid="group__emaclite_1gae7ced3b39bd2f06d037660e884c0706b" compoundref="xemaclite_8c" startline="630" endline="683">XEmacLite_FlushReceive</referencedby>
+        <referencedby refid="group__emaclite_1gacff4eab9e90bd34cfb1ccd2338a9e4b1" compoundref="xemaclite__sinit_8c" startline="126" endline="160">XEmacLite_Initialize</referencedby>
+        <referencedby refid="group__emaclite_1ga72db0e7e81077c3ad3947009a5299fdf" compoundref="xemaclite__intr_8c" startline="192" endline="266">XEmacLite_InterruptHandler</referencedby>
+        <referencedby refid="group__emaclite_1ga444ab091bdc373bf2e1a266d5febecd0" compoundref="xemaclite_8c" startline="705" endline="772">XEmacLite_PhyRead</referencedby>
+        <referencedby refid="group__emaclite_1ga63ef92abf534fcf6f41601e93efa4cc7" compoundref="xemaclite_8c" startline="794" endline="861">XEmacLite_PhyWrite</referencedby>
+        <referencedby refid="group__emaclite_1ga0ea2a0f4e13ef174477a3cf2a9f86e69" compoundref="xemaclite__selftest_8c" startline="65" endline="186">XEmacLite_SelfTest</referencedby>
+        <referencedby refid="group__emaclite_1gaa509977aea023dfeef6bddb10b2597dc" compoundref="xemaclite_8c" startline="172" endline="317">XEmacLite_Send</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_emac_lite___config_1a5d9cbd0922c7f62a9b2f21b2876c043e" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XEmacLite_Config::TxPingPong</definition>
+        <argsstring></argsstring>
+        <name>TxPingPong</name>
+        <briefdescription>
+<para>1 if TX Pong buffer configured, 0 otherwise </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite.h" line="231" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite.h" bodystart="231" bodyend="-1"/>
+        <referencedby refid="group__emaclite_1ga3c9dd90e02c987b5b3a1dacdcfd057c4" compoundref="xemaclite_8c" startline="94" endline="147">XEmacLite_CfgInitialize</referencedby>
+        <referencedby refid="group__emaclite_1ga0ea2a0f4e13ef174477a3cf2a9f86e69" compoundref="xemaclite__selftest_8c" startline="65" endline="186">XEmacLite_SelfTest</referencedby>
+        <referencedby refid="group__emaclite_1gaa509977aea023dfeef6bddb10b2597dc" compoundref="xemaclite_8c" startline="172" endline="317">XEmacLite_Send</referencedby>
+        <referencedby refid="group__emaclite_1ga3f75e1a5a0b8d0e5e085880919ad693a" compoundref="xemaclite_8c" startline="575" endline="615">XEmacLite_TxBufferAvailable</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_emac_lite___config_1ac62308cd76ce383cd4b895d3cb2cc8ed" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XEmacLite_Config::RxPingPong</definition>
+        <argsstring></argsstring>
+        <name>RxPingPong</name>
+        <briefdescription>
+<para>1 if RX Pong buffer configured, 0 otherwise </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite.h" line="232" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite.h" bodystart="232" bodyend="-1"/>
+        <referencedby refid="group__emaclite_1ga3c9dd90e02c987b5b3a1dacdcfd057c4" compoundref="xemaclite_8c" startline="94" endline="147">XEmacLite_CfgInitialize</referencedby>
+        <referencedby refid="group__emaclite_1gae7ced3b39bd2f06d037660e884c0706b" compoundref="xemaclite_8c" startline="630" endline="683">XEmacLite_FlushReceive</referencedby>
+        <referencedby refid="group__emaclite_1ga6b771b95e193baa02186c6e106c7aefb" compoundref="xemaclite_8c" startline="346" endline="474">XEmacLite_Recv</referencedby>
+        <referencedby refid="group__emaclite_1ga0ea2a0f4e13ef174477a3cf2a9f86e69" compoundref="xemaclite__selftest_8c" startline="65" endline="186">XEmacLite_SelfTest</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_emac_lite___config_1acc01374bac02bda99089de80985a9821" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XEmacLite_Config::MdioInclude</definition>
+        <argsstring></argsstring>
+        <name>MdioInclude</name>
+        <briefdescription>
+<para>1 if MDIO is enabled, 0 otherwise </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite.h" line="233" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite.h" bodystart="233" bodyend="-1"/>
+        <referencedby refid="group__emaclite_1ga3c9dd90e02c987b5b3a1dacdcfd057c4" compoundref="xemaclite_8c" startline="94" endline="147">XEmacLite_CfgInitialize</referencedby>
+        <referencedby refid="group__emaclite_1ga444ab091bdc373bf2e1a266d5febecd0" compoundref="xemaclite_8c" startline="705" endline="772">XEmacLite_PhyRead</referencedby>
+        <referencedby refid="group__emaclite_1ga63ef92abf534fcf6f41601e93efa4cc7" compoundref="xemaclite_8c" startline="794" endline="861">XEmacLite_PhyWrite</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_emac_lite___config_1ab06e53383d33ab049495ae049dd6ed82" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XEmacLite_Config::Loopback</definition>
+        <argsstring></argsstring>
+        <name>Loopback</name>
+        <briefdescription>
+<para>1 if internal loopback is enabled, 0 otherwise </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite.h" line="234" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite.h" bodystart="234" bodyend="-1"/>
+        <referencedby refid="group__emaclite_1ga3c9dd90e02c987b5b3a1dacdcfd057c4" compoundref="xemaclite_8c" startline="94" endline="147">XEmacLite_CfgInitialize</referencedby>
+        <referencedby refid="group__emaclite_1ga55c4a0b58c4e35dbf81c4866946f368a" compoundref="xemaclite_8c" startline="905" endline="919">XEmacLite_DisableLoopBack</referencedby>
+        <referencedby refid="group__emaclite_1ga1bd8c7361add009208f4c6778644a83c" compoundref="xemaclite_8c" startline="877" endline="891">XEmacLite_EnableLoopBack</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_emac_lite___config_1acf7fbf17f8b8925b0d45e2c290c5ac6d" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XEmacLite_Config::IntrId</definition>
+        <argsstring></argsstring>
+        <name>IntrId</name>
+        <briefdescription>
+<para>Interrupt number. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite.h" line="236" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite.h" bodystart="236" bodyend="-1"/>
+        <referencedby refid="xemaclite__intr__example_8c_1a518017ed22776c127596159fd5c86325" compoundref="xemaclite__intr__example_8c" startline="217" endline="409">EmacLiteIntrExample</referencedby>
+        <referencedby refid="xemaclite__internal__loopback__example_8c_1abcb2d06b54c6a59779c636ef76417519" compoundref="xemaclite__internal__loopback__example_8c" startline="162" endline="316">EmacLiteIntrLoopbackExample</referencedby>
+        <referencedby refid="xemaclite__phy__loopback__example_8c_1a402b5062f4c7679f905ec9d08ad40463" compoundref="xemaclite__phy__loopback__example_8c" startline="163" endline="340">EmacLitePhyLoopbackExample</referencedby>
+        <referencedby refid="group__emaclite_1ga3c9dd90e02c987b5b3a1dacdcfd057c4" compoundref="xemaclite_8c" startline="94" endline="147">XEmacLite_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_emac_lite___config_1ac5de6290ad27d1c88b7225931de01c87" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XEmacLite_Config::IntrParent</definition>
+        <argsstring></argsstring>
+        <name>IntrParent</name>
+        <briefdescription>
+<para>Parent interrupt controller address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite.h" line="237" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite.h" bodystart="237" bodyend="-1"/>
+        <referencedby refid="xemaclite__intr__example_8c_1a518017ed22776c127596159fd5c86325" compoundref="xemaclite__intr__example_8c" startline="217" endline="409">EmacLiteIntrExample</referencedby>
+        <referencedby refid="xemaclite__internal__loopback__example_8c_1abcb2d06b54c6a59779c636ef76417519" compoundref="xemaclite__internal__loopback__example_8c" startline="162" endline="316">EmacLiteIntrLoopbackExample</referencedby>
+        <referencedby refid="xemaclite__phy__loopback__example_8c_1a402b5062f4c7679f905ec9d08ad40463" compoundref="xemaclite__phy__loopback__example_8c" startline="163" endline="340">EmacLitePhyLoopbackExample</referencedby>
+        <referencedby refid="group__emaclite_1ga3c9dd90e02c987b5b3a1dacdcfd057c4" compoundref="xemaclite_8c" startline="94" endline="147">XEmacLite_CfgInitialize</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef contains configuration information for a device. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite.h" line="224" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite.h" bodystart="224" bodyend="239"/>
+    <listofallmembers>
+      <member refid="struct_x_emac_lite___config_1abd2e9fc4f5ca6eddbd068f8dd08bad4a" prot="public" virt="non-virtual"><scope>XEmacLite_Config</scope><name>BaseAddress</name></member>
+      <member refid="struct_x_emac_lite___config_1acf7fbf17f8b8925b0d45e2c290c5ac6d" prot="public" virt="non-virtual"><scope>XEmacLite_Config</scope><name>IntrId</name></member>
+      <member refid="struct_x_emac_lite___config_1ac5de6290ad27d1c88b7225931de01c87" prot="public" virt="non-virtual"><scope>XEmacLite_Config</scope><name>IntrParent</name></member>
+      <member refid="struct_x_emac_lite___config_1ab06e53383d33ab049495ae049dd6ed82" prot="public" virt="non-virtual"><scope>XEmacLite_Config</scope><name>Loopback</name></member>
+      <member refid="struct_x_emac_lite___config_1acc01374bac02bda99089de80985a9821" prot="public" virt="non-virtual"><scope>XEmacLite_Config</scope><name>MdioInclude</name></member>
+      <member refid="struct_x_emac_lite___config_1a9369caa69fa2a76eb6ac4d490cf93b39" prot="public" virt="non-virtual"><scope>XEmacLite_Config</scope><name>Name</name></member>
+      <member refid="struct_x_emac_lite___config_1ac62308cd76ce383cd4b895d3cb2cc8ed" prot="public" virt="non-virtual"><scope>XEmacLite_Config</scope><name>RxPingPong</name></member>
+      <member refid="struct_x_emac_lite___config_1a5d9cbd0922c7f62a9b2f21b2876c043e" prot="public" virt="non-virtual"><scope>XEmacLite_Config</scope><name>TxPingPong</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,141 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_emac_lite" kind="struct" prot="public">
+    <compoundname>XEmacLite</compoundname>
+    <includes local="no">xemaclite.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_emac_lite_1a6ff6b7bc2d7b3f6ba9ffc068291fb239" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_emac_lite___config" kindref="compound">XEmacLite_Config</ref></type>
+        <definition>XEmacLite_Config XEmacLite::EmacLiteConfig</definition>
+        <argsstring></argsstring>
+        <name>EmacLiteConfig</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite.h" line="256" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite.h" bodystart="256" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_emac_lite_1a6e7ef0e7751adf9e14937341e287b429" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XEmacLite::IsReady</definition>
+        <argsstring></argsstring>
+        <name>IsReady</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite.h" line="257" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite.h" bodystart="257" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_emac_lite_1ae095ab48e1b409a1d1b0fb012ce7be91" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XEmacLite::NextTxBufferToUse</definition>
+        <argsstring></argsstring>
+        <name>NextTxBufferToUse</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite.h" line="259" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite.h" bodystart="259" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_emac_lite_1a1ac1f1f43b3b34d1471400bfdedf090d" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XEmacLite::NextRxBufferToUse</definition>
+        <argsstring></argsstring>
+        <name>NextRxBufferToUse</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite.h" line="260" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite.h" bodystart="260" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_emac_lite_1afe67f5ae5cf11c104c48fed9c2438d0c" prot="public" static="no" mutable="no">
+        <type>XEmacLite_Handler</type>
+        <definition>XEmacLite_Handler XEmacLite::RecvHandler</definition>
+        <argsstring></argsstring>
+        <name>RecvHandler</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite.h" line="265" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite.h" bodystart="265" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_emac_lite_1a24b5f8a91be222a4bea4f0a1457c2fcf" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XEmacLite::RecvRef</definition>
+        <argsstring></argsstring>
+        <name>RecvRef</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite.h" line="266" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite.h" bodystart="266" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_emac_lite_1af450f668880280197d2a6b5ea41f3729" prot="public" static="no" mutable="no">
+        <type>XEmacLite_Handler</type>
+        <definition>XEmacLite_Handler XEmacLite::SendHandler</definition>
+        <argsstring></argsstring>
+        <name>SendHandler</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite.h" line="267" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite.h" bodystart="267" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_emac_lite_1a620fcc57f6a232e13eede4ad0cb3392a" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XEmacLite::SendRef</definition>
+        <argsstring></argsstring>
+        <name>SendRef</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite.h" line="268" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite.h" bodystart="268" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>The <ref refid="struct_x_emac_lite" kindref="compound">XEmacLite</ref> driver instance data. </para>    </briefdescription>
+    <detaileddescription>
+<para>The user is required to allocate a variable of this type for every EmacLite device in the system. A pointer to a variable of this type is then passed to the driver API functions. </para>    </detaileddescription>
+    <collaborationgraph>
+      <node id="2">
+        <label>XEmacLite_Config</label>
+        <link refid="struct_x_emac_lite___config"/>
+      </node>
+      <node id="1">
+        <label>XEmacLite</label>
+        <link refid="struct_x_emac_lite"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>EmacLiteConfig</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite.h" line="255" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite.h" bodystart="255" bodyend="270"/>
+    <listofallmembers>
+      <member refid="struct_x_emac_lite_1a6ff6b7bc2d7b3f6ba9ffc068291fb239" prot="public" virt="non-virtual"><scope>XEmacLite</scope><name>EmacLiteConfig</name></member>
+      <member refid="struct_x_emac_lite_1a6e7ef0e7751adf9e14937341e287b429" prot="public" virt="non-virtual"><scope>XEmacLite</scope><name>IsReady</name></member>
+      <member refid="struct_x_emac_lite_1a1ac1f1f43b3b34d1471400bfdedf090d" prot="public" virt="non-virtual"><scope>XEmacLite</scope><name>NextRxBufferToUse</name></member>
+      <member refid="struct_x_emac_lite_1ae095ab48e1b409a1d1b0fb012ce7be91" prot="public" virt="non-virtual"><scope>XEmacLite</scope><name>NextTxBufferToUse</name></member>
+      <member refid="struct_x_emac_lite_1afe67f5ae5cf11c104c48fed9c2438d0c" prot="public" virt="non-virtual"><scope>XEmacLite</scope><name>RecvHandler</name></member>
+      <member refid="struct_x_emac_lite_1a24b5f8a91be222a4bea4f0a1457c2fcf" prot="public" virt="non-virtual"><scope>XEmacLite</scope><name>RecvRef</name></member>
+      <member refid="struct_x_emac_lite_1af450f668880280197d2a6b5ea41f3729" prot="public" virt="non-virtual"><scope>XEmacLite</scope><name>SendHandler</name></member>
+      <member refid="struct_x_emac_lite_1a620fcc57f6a232e13eede4ad0cb3392a" prot="public" virt="non-virtual"><scope>XEmacLite</scope><name>SendRef</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

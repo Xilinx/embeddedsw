@@ -1,0 +1,55 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_cam_device_event_cb__s" kind="struct" prot="public">
+    <compoundname>CamDeviceEventCb_s</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_cam_device_event_cb__s_1a8a4adc9025887e28835acbc52a749388" prot="public" static="no" mutable="no">
+        <type><ref refid="group____cam__device__fusa_1gae0dfb9776c1ecde24b23167db7841720" kindref="member">CamDeviceEventFunc_t</ref></type>
+        <definition>CamDeviceEventFunc_t CamDeviceEventCb_s::func</definition>
+        <argsstring></argsstring>
+        <name>func</name>
+        <briefdescription>
+<para>pointer to callback function </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include_priv/cam_device_app.h" line="66" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include_priv/cam_device_app.h" bodystart="66" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_event_cb__s_1a692368ecf1f903e329309bf02fca386a" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* CamDeviceEventCb_s::pUserContext</definition>
+        <argsstring></argsstring>
+        <name>pUserContext</name>
+        <briefdescription>
+<para>user context </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include_priv/cam_device_app.h" line="67" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include_priv/cam_device_app.h" bodystart="67" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="344">
+        <label>CamDeviceEventCb_s</label>
+        <childnode refid="345" relation="usage">
+          <edgelabel>func</edgelabel>
+        </childnode>
+      </node>
+      <node id="345">
+        <label>CamDeviceFuSaMisVal_s</label>
+        <link refid="struct_cam_device_fu_sa_mis_val__s"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include_priv/cam_device_app.h" line="65" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include_priv/cam_device_app.h" bodystart="65" bodyend="68"/>
+    <listofallmembers>
+      <member refid="struct_cam_device_event_cb__s_1a8a4adc9025887e28835acbc52a749388" prot="public" virt="non-virtual"><scope>CamDeviceEventCb_s</scope><name>func</name></member>
+      <member refid="struct_cam_device_event_cb__s_1a692368ecf1f903e329309bf02fca386a" prot="public" virt="non-virtual"><scope>CamDeviceEventCb_s</scope><name>pUserContext</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

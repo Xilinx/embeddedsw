@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_dp_rx_ss___dp_sub_core" kind="struct" prot="public">
+    <compoundname>XDpRxSs_DpSubCore</compoundname>
+    <includes local="no">xdprxss.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_dp_rx_ss___dp_sub_core_1a24ef755f1dd1c3ea8368ad8943803be2" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XDpRxSs_DpSubCore::IsPresent</definition>
+        <argsstring></argsstring>
+        <name>IsPresent</name>
+        <briefdescription>
+<para>Flag to hold the presence of DisplayPort Receiver core. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss.h" line="381" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss.h" bodystart="381" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp_rx_ss___dp_sub_core_1a660fd77b70e4144bb9b428c7e15df93f" prot="public" static="no" mutable="no">
+        <type>XDp_Config</type>
+        <definition>XDp_Config XDpRxSs_DpSubCore::DpConfig</definition>
+        <argsstring></argsstring>
+        <name>DpConfig</name>
+        <briefdescription>
+<para>DisplayPort core configuration information. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss.h" line="383" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss.h" bodystart="383" bodyend="-1"/>
+        <referencedby refid="group__dprxss_1ga25f3b6123ff5cbf277c4117617980738" compoundref="xdprxss_8c" startline="328" endline="687">XDpRxSs_CfgInitialize</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>DisplayPort Sub-core structure. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss.h" line="380" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss.h" bodystart="380" bodyend="385"/>
+    <listofallmembers>
+      <member refid="struct_x_dp_rx_ss___dp_sub_core_1a660fd77b70e4144bb9b428c7e15df93f" prot="public" virt="non-virtual"><scope>XDpRxSs_DpSubCore</scope><name>DpConfig</name></member>
+      <member refid="struct_x_dp_rx_ss___dp_sub_core_1a24ef755f1dd1c3ea8368ad8943803be2" prot="public" virt="non-virtual"><scope>XDpRxSs_DpSubCore</scope><name>IsPresent</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

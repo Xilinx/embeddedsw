@@ -1,0 +1,211 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_mcdma" kind="struct" prot="public">
+    <compoundname>XMcdma</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_mcdma_1a330af13ac8e3f1e51bfe40b53d534bc3" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XMcdma::IsReady</definition>
+        <argsstring></argsstring>
+        <name>IsReady</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" line="264" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" bodystart="264" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mcdma_1a72597a7a3dc97a250fdc54a0cb1e9524" prot="public" static="no" mutable="no">
+        <type>XMcdma_Config</type>
+        <definition>XMcdma_Config XMcdma::Config</definition>
+        <argsstring></argsstring>
+        <name>Config</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" line="265" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" bodystart="265" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mcdma_1a9434d13e8054bf7be0df02f2eb7c31cc" prot="public" static="no" mutable="no">
+        <type>XMcdma_ChanCtrl</type>
+        <definition>XMcdma_ChanCtrl XMcdma::Tx_Chan[XMCDMA_MAX_CHAN_PER_DEVICE]</definition>
+        <argsstring>[XMCDMA_MAX_CHAN_PER_DEVICE]</argsstring>
+        <name>Tx_Chan</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" line="266" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" bodystart="266" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mcdma_1aa11aa119380b14471d1638fb5ba0bc26" prot="public" static="no" mutable="no">
+        <type>XMcdma_ChanCtrl</type>
+        <definition>XMcdma_ChanCtrl XMcdma::Rx_Chan[XMCDMA_MAX_CHAN_PER_DEVICE]</definition>
+        <argsstring>[XMCDMA_MAX_CHAN_PER_DEVICE]</argsstring>
+        <name>Rx_Chan</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" line="267" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" bodystart="267" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mcdma_1aede0ce36816e39f03ac6594a12dd8dfa" prot="public" static="no" mutable="no">
+        <type>XMcdma_TxDoneHandler</type>
+        <definition>XMcdma_TxDoneHandler XMcdma::TxDoneHandler</definition>
+        <argsstring></argsstring>
+        <name>TxDoneHandler</name>
+        <briefdescription>
+<para>Call back for transfer done interrupt. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" line="268" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" bodystart="268" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mcdma_1a4093bf24aba998cf601c56138333d94c" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XMcdma::TxDoneRef</definition>
+        <argsstring></argsstring>
+        <name>TxDoneRef</name>
+        <briefdescription>
+<para>To be passed to the done interrupt callback. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" line="270" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" bodystart="270" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mcdma_1a658c930cf558530cab162661e8592d12" prot="public" static="no" mutable="no">
+        <type>XMcdma_TxErrorHandler</type>
+        <definition>XMcdma_TxErrorHandler XMcdma::TxErrorHandler</definition>
+        <argsstring></argsstring>
+        <name>TxErrorHandler</name>
+        <briefdescription>
+<para>Call back for error interrupt. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" line="273" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" bodystart="273" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mcdma_1a136180016b3ccb4c87642289f59c4026" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XMcdma::TxErrorRef</definition>
+        <argsstring></argsstring>
+        <name>TxErrorRef</name>
+        <briefdescription>
+<para>To be passed to the error interrupt callback. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" line="275" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" bodystart="275" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mcdma_1a6cb1aadac01e5708aeb6d094c2487b35" prot="public" static="no" mutable="no">
+        <type>XMcdma_DoneHandler</type>
+        <definition>XMcdma_DoneHandler XMcdma::DoneHandler</definition>
+        <argsstring></argsstring>
+        <name>DoneHandler</name>
+        <briefdescription>
+<para>Call back for transfer done interrupt. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" line="277" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" bodystart="277" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mcdma_1a64a8059a904fba19eeb6ae35dd4e27e2" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XMcdma::DoneRef</definition>
+        <argsstring></argsstring>
+        <name>DoneRef</name>
+        <briefdescription>
+<para>To be passed to the done interrupt callback. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" line="279" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" bodystart="279" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mcdma_1a405561bda5acc35b216e094ad22b123b" prot="public" static="no" mutable="no">
+        <type>XMcdma_ErrorHandler</type>
+        <definition>XMcdma_ErrorHandler XMcdma::ErrorHandler</definition>
+        <argsstring></argsstring>
+        <name>ErrorHandler</name>
+        <briefdescription>
+<para>Call back for error interrupt. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" line="282" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" bodystart="282" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mcdma_1a23127d9d5a208ee1c9d7fa8e1ae9b2b1" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XMcdma::ErrorRef</definition>
+        <argsstring></argsstring>
+        <name>ErrorRef</name>
+        <briefdescription>
+<para>To be passed to the error interrupt callback. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" line="284" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" bodystart="284" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mcdma_1aa9a5173bbb2f34b95377d17d0e45d33a" prot="public" static="no" mutable="no">
+        <type>XMcdma_PktDropHandler</type>
+        <definition>XMcdma_PktDropHandler XMcdma::PktDropHandler</definition>
+        <argsstring></argsstring>
+        <name>PktDropHandler</name>
+        <briefdescription>
+<para>Call back for error interrupt. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" line="286" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" bodystart="286" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mcdma_1ae649def422736514d84dc50c6a1aaf74" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XMcdma::PktDropRef</definition>
+        <argsstring></argsstring>
+        <name>PktDropRef</name>
+        <briefdescription>
+<para>To be passed to the error interrupt callback. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" line="288" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" bodystart="288" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" line="263" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" bodystart="263" bodyend="291"/>
+    <listofallmembers>
+      <member refid="struct_x_mcdma_1a72597a7a3dc97a250fdc54a0cb1e9524" prot="public" virt="non-virtual"><scope>XMcdma</scope><name>Config</name></member>
+      <member refid="struct_x_mcdma_1a6cb1aadac01e5708aeb6d094c2487b35" prot="public" virt="non-virtual"><scope>XMcdma</scope><name>DoneHandler</name></member>
+      <member refid="struct_x_mcdma_1a64a8059a904fba19eeb6ae35dd4e27e2" prot="public" virt="non-virtual"><scope>XMcdma</scope><name>DoneRef</name></member>
+      <member refid="struct_x_mcdma_1a405561bda5acc35b216e094ad22b123b" prot="public" virt="non-virtual"><scope>XMcdma</scope><name>ErrorHandler</name></member>
+      <member refid="struct_x_mcdma_1a23127d9d5a208ee1c9d7fa8e1ae9b2b1" prot="public" virt="non-virtual"><scope>XMcdma</scope><name>ErrorRef</name></member>
+      <member refid="struct_x_mcdma_1a330af13ac8e3f1e51bfe40b53d534bc3" prot="public" virt="non-virtual"><scope>XMcdma</scope><name>IsReady</name></member>
+      <member refid="struct_x_mcdma_1aa9a5173bbb2f34b95377d17d0e45d33a" prot="public" virt="non-virtual"><scope>XMcdma</scope><name>PktDropHandler</name></member>
+      <member refid="struct_x_mcdma_1ae649def422736514d84dc50c6a1aaf74" prot="public" virt="non-virtual"><scope>XMcdma</scope><name>PktDropRef</name></member>
+      <member refid="struct_x_mcdma_1aa11aa119380b14471d1638fb5ba0bc26" prot="public" virt="non-virtual"><scope>XMcdma</scope><name>Rx_Chan</name></member>
+      <member refid="struct_x_mcdma_1a9434d13e8054bf7be0df02f2eb7c31cc" prot="public" virt="non-virtual"><scope>XMcdma</scope><name>Tx_Chan</name></member>
+      <member refid="struct_x_mcdma_1aede0ce36816e39f03ac6594a12dd8dfa" prot="public" virt="non-virtual"><scope>XMcdma</scope><name>TxDoneHandler</name></member>
+      <member refid="struct_x_mcdma_1a4093bf24aba998cf601c56138333d94c" prot="public" virt="non-virtual"><scope>XMcdma</scope><name>TxDoneRef</name></member>
+      <member refid="struct_x_mcdma_1a658c930cf558530cab162661e8592d12" prot="public" virt="non-virtual"><scope>XMcdma</scope><name>TxErrorHandler</name></member>
+      <member refid="struct_x_mcdma_1a136180016b3ccb4c87642289f59c4026" prot="public" virt="non-virtual"><scope>XMcdma</scope><name>TxErrorRef</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

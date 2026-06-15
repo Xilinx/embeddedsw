@@ -1,0 +1,446 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="kcu__dp14_2ti__lmk03318_8h" kind="file">
+    <compoundname>kcu_dp14/ti_lmk03318.h</compoundname>
+    <includes local="yes">xil_types.h</includes>
+    <includedby refid="dppt_8h" local="yes">dppt.h</includedby>
+    <includedby refid="kcu__dp14_2ti__lmk03318_8c" local="yes">ti_lmk03318.c</includedby>
+    <incdepgraph>
+      <node id="1561">
+        <label>ti_lmk03318.h</label>
+        <link refid="kcu_dp14/ti_lmk03318.h"/>
+        <childnode refid="1562" relation="include">
+        </childnode>
+      </node>
+      <node id="1562">
+        <label>xil_types.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="1567">
+        <label>menus.c</label>
+      </node>
+      <node id="1568">
+        <label>si570.c</label>
+      </node>
+      <node id="1564">
+        <label>dppt.h</label>
+        <link refid="dppt_8h"/>
+        <childnode refid="1565" relation="include">
+        </childnode>
+        <childnode refid="1567" relation="include">
+        </childnode>
+        <childnode refid="1568" relation="include">
+        </childnode>
+        <childnode refid="1569" relation="include">
+        </childnode>
+        <childnode refid="1570" relation="include">
+        </childnode>
+        <childnode refid="1571" relation="include">
+        </childnode>
+        <childnode refid="1572" relation="include">
+        </childnode>
+      </node>
+      <node id="1570">
+        <label>xdptxss_kcu105_dp14.c</label>
+        <link refid="xdptxss__kcu105__dp14_8c"/>
+      </node>
+      <node id="1572">
+        <label>xvid_pat_gen.c</label>
+      </node>
+      <node id="1569">
+        <label>xclk_wiz.c</label>
+        <link refid="xclk__wiz_8c"/>
+      </node>
+      <node id="1571">
+        <label>xedid_print_example.c</label>
+        <link refid="xedid__print__example_8c"/>
+      </node>
+      <node id="1566">
+        <label>xvidframe_crc.c</label>
+      </node>
+      <node id="1565">
+        <label>xvidframe_crc.h</label>
+        <childnode refid="1564" relation="include">
+        </childnode>
+        <childnode refid="1566" relation="include">
+        </childnode>
+      </node>
+      <node id="1573">
+        <label>ti_lmk03318.c</label>
+      </node>
+      <node id="1563">
+        <label>ti_lmk03318.h</label>
+        <link refid="kcu_dp14/ti_lmk03318.h"/>
+        <childnode refid="1564" relation="include">
+        </childnode>
+        <childnode refid="1573" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="kcu__dp14_2ti__lmk03318_8h_1a36d5f126e9cfa1c5afc24a030432d693" prot="public" static="no">
+        <name>TI_LMK03318_FVCO_MAX</name>
+        <initializer>5400000000</initializer>
+        <briefdescription>
+<para>Maximum VCO Operating Frequency in Hz. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/kcu_dp14/ti_lmk03318.h" line="34" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/kcu_dp14/ti_lmk03318.h" bodystart="34" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="kcu__dp14_2ti__lmk03318_8h_1ae92da2d055314c9a49ad17cdb345c10d" prot="public" static="no">
+        <name>TI_LMK03318_FVCO_MIN</name>
+        <initializer>4800000000</initializer>
+        <briefdescription>
+<para>Minimum VCO Operating Frequency in Hz. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/kcu_dp14/ti_lmk03318.h" line="35" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/kcu_dp14/ti_lmk03318.h" bodystart="35" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="kcu__dp14_2ti__lmk03318_8h_1a2a718e738ec5b7320f0fa5bb4ea31dd7" prot="public" static="no">
+        <name>TI_LMK03318_FOUT_MAX</name>
+        <initializer>800000000</initializer>
+        <briefdescription>
+<para>Maximum Output Frequency in Hz. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/kcu_dp14/ti_lmk03318.h" line="37" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/kcu_dp14/ti_lmk03318.h" bodystart="37" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="kcu__dp14_2ti__lmk03318_8h_1ab3e30c0690d6afbaea37a229eba4f855" prot="public" static="no">
+        <name>TI_LMK03318_FOUT_MIN</name>
+        <initializer>1000000</initializer>
+        <briefdescription>
+<para>Minimum Output Frequency in Hz. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/kcu_dp14/ti_lmk03318.h" line="38" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/kcu_dp14/ti_lmk03318.h" bodystart="38" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="kcu__dp14_2ti__lmk03318_8h_1abb88db458c4483f15ef1af3dbbf43e1e" prot="public" static="no">
+        <name>TI_LMK03318_FIN_MAX</name>
+        <initializer>300000000</initializer>
+        <briefdescription>
+<para>Maximum Input Frequency in Hz. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/kcu_dp14/ti_lmk03318.h" line="40" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/kcu_dp14/ti_lmk03318.h" bodystart="40" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="kcu__dp14_2ti__lmk03318_8h_1a80039d28e52c4b4bab1e4cfd3125ec97" prot="public" static="no">
+        <name>TI_LMK03318_FIN_MIN</name>
+        <initializer>1000000</initializer>
+        <briefdescription>
+<para>Minimum Input Frequency in Hz. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/kcu_dp14/ti_lmk03318.h" line="41" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/kcu_dp14/ti_lmk03318.h" bodystart="41" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="kcu__dp14_2ti__lmk03318_8h_1a48beb0b91e2ca66698920b5a80489487" prot="public" static="no">
+        <name>TI_LMK03318_FPD_MAX</name>
+        <initializer>150000000</initializer>
+        <briefdescription>
+<para>Maximum Phase Detector Frequency in Hz. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/kcu_dp14/ti_lmk03318.h" line="43" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/kcu_dp14/ti_lmk03318.h" bodystart="43" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="kcu__dp14_2ti__lmk03318_8h_1a3a2bdd57acc192640f74e997db580706" prot="public" static="no">
+        <name>TI_LMK03318_FPD_MIN</name>
+        <initializer>1000000</initializer>
+        <briefdescription>
+<para>Minimum Phase Detector Frequency in Hz. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/kcu_dp14/ti_lmk03318.h" line="44" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/kcu_dp14/ti_lmk03318.h" bodystart="44" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group___t_i___l_m_k03318_1ga54cc8eb4fa5d5ca151a85b56d6f50531" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int TI_LMK03318_Init</definition>
+        <argsstring>(u32 I2CBaseAddress, u8 I2CSlaveAddress)</argsstring>
+        <name>TI_LMK03318_Init</name>
+        <param>
+          <type>u32</type>
+          <declname>I2CBaseAddress</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>I2CSlaveAddress</declname>
+        </param>
+        <briefdescription>
+<para>This function initializes the TI LMK03318 with default values for use with the Video FMC. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>I2CBaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the baseaddress of the I2C core. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>I2CSlaveAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 7-bit I2C slave address.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS Initialization was successful.</para></listitem><listitem><para>XST_FAILURE I2C write error.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/kcu_dp14/ti_lmk03318.h" line="51" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/dats_dp14/ti_lmk03318.c" bodystart="203" bodyend="298"/>
+      </memberdef>
+      <memberdef kind="function" id="group___t_i___l_m_k03318_1gad23a875ad2640e133b3c60b9b2614854" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int TI_LMK03318_PowerDown</definition>
+        <argsstring>(u32 I2CBaseAddress, u8 I2CSlaveAddress)</argsstring>
+        <name>TI_LMK03318_PowerDown</name>
+        <param>
+          <type>u32</type>
+          <declname>I2CBaseAddress</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>I2CSlaveAddress</declname>
+        </param>
+        <briefdescription>
+<para>This function puts the TI LMK03318 into sleep. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>I2CBaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the baseaddress of the I2C core. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>I2CSlaveAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 7-bit I2C slave address.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS Initialization was successful.</para></listitem><listitem><para>XST_FAILURE I2C write error.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/kcu_dp14/ti_lmk03318.h" line="52" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/dats_dp14/ti_lmk03318.c" bodystart="315" bodyend="355"/>
+      </memberdef>
+      <memberdef kind="function" id="group___t_i___l_m_k03318_1ga8ad75ffe1b0d2b12792f3f4208a3a1ba" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int TI_LMK03318_SetClock</definition>
+        <argsstring>(u32 I2CBaseAddress, u8 I2CSlaveAddress, int FIn, int FOut, u8 FreeRun)</argsstring>
+        <name>TI_LMK03318_SetClock</name>
+        <param>
+          <type>u32</type>
+          <declname>I2CBaseAddress</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>I2CSlaveAddress</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>FIn</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>FOut</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>FreeRun</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/kcu_dp14/ti_lmk03318.h" line="53" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/dats_dp14/ti_lmk03318.c" bodystart="118" bodyend="121"/>
+      </memberdef>
+      <memberdef kind="function" id="group___t_i___l_m_k03318_1gaaf6db83c8a277f026f2d3e15fc310e21" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int TI_LMK03318_EnableBypass</definition>
+        <argsstring>(u32 I2CBaseAddress, u8 I2CSlaveAddress, u8 InPort, u8 OutPort)</argsstring>
+        <name>TI_LMK03318_EnableBypass</name>
+        <param>
+          <type>u32</type>
+          <declname>I2CBaseAddress</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>I2CSlaveAddress</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>InPort</declname>
+          <defname>InPortID</defname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>OutPort</declname>
+          <defname>OutPortID</defname>
+        </param>
+        <briefdescription>
+<para>This function configures the TI LMK03318 to route the specified input port to the specified output port bypassing the PLL. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>I2CBaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the baseaddress of the I2C core. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>I2CSlaveAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 7-bit I2C slave address. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>InPortID</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>specifies the input port. Valid values are 0 to 1. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>OutPortID</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>specifies the output port. Valid values are 4 to 7.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS Initialization was successful.</para></listitem><listitem><para>XST_FAILURE I2C write error or incorrect parameters detected.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para></para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/kcu_dp14/ti_lmk03318.h" line="55" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/dats_dp14/ti_lmk03318.c" bodystart="141" bodyend="185"/>
+      </memberdef>
+      <memberdef kind="function" id="group___t_i___l_m_k03318_1ga6c9419870b565daf5346f7f052774d43" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void TI_LMK03318_RegisterDump</definition>
+        <argsstring>(u32 I2CBaseAddress, u8 I2CSlaveAddress)</argsstring>
+        <name>TI_LMK03318_RegisterDump</name>
+        <param>
+          <type>u32</type>
+          <declname>I2CBaseAddress</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>I2CSlaveAddress</declname>
+        </param>
+        <briefdescription>
+<para>This function displays a registerdump of the TI LMK03318 device. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>I2CBaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the baseaddress of the I2C core. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>I2CSlaveAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 7-bit I2C slave address.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/kcu_dp14/ti_lmk03318.h" line="57" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/dats_dp14/ti_lmk03318.c" bodystart="370" bodyend="406"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/*******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2020<sp/>-<sp/>2021<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="22"><highlight class="preprocessor">#ifndef<sp/>TI_LMK03318_H</highlight></codeline>
+<codeline lineno="23"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>TI_LMK03318_H</highlight></codeline>
+<codeline lineno="24"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="26"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="28"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>TI_LMK03318_FVCO_MAX<sp/>5400000000<sp/></highlight></codeline>
+<codeline lineno="35"><highlight class="preprocessor">#define<sp/>TI_LMK03318_FVCO_MIN<sp/>4800000000<sp/></highlight></codeline>
+<codeline lineno="36"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="37"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>TI_LMK03318_FOUT_MAX<sp/>800000000<sp/><sp/></highlight></codeline>
+<codeline lineno="38"><highlight class="preprocessor">#define<sp/>TI_LMK03318_FOUT_MIN<sp/><sp/><sp/>1000000<sp/><sp/></highlight></codeline>
+<codeline lineno="39"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="40"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>TI_LMK03318_FIN_MAX<sp/>300000000<sp/><sp/></highlight></codeline>
+<codeline lineno="41"><highlight class="preprocessor">#define<sp/>TI_LMK03318_FIN_MIN<sp/><sp/><sp/>1000000<sp/><sp/></highlight></codeline>
+<codeline lineno="42"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="43"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>TI_LMK03318_FPD_MAX<sp/>150000000<sp/><sp/></highlight></codeline>
+<codeline lineno="44"><highlight class="preprocessor">#define<sp/>TI_LMK03318_FPD_MIN<sp/><sp/><sp/>1000000<sp/><sp/></highlight></codeline>
+<codeline lineno="45"><highlight class="preprocessor"><sp/></highlight></codeline>
+<codeline lineno="46"><highlight class="preprocessor"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group___t_i___l_m_k03318_1ga54cc8eb4fa5d5ca151a85b56d6f50531" kindref="member">TI_LMK03318_Init</ref>(u32<sp/>I2CBaseAddress,<sp/>u8<sp/>I2CSlaveAddress);</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group___t_i___l_m_k03318_1gad23a875ad2640e133b3c60b9b2614854" kindref="member">TI_LMK03318_PowerDown</ref>(u32<sp/>I2CBaseAddress,<sp/>u8<sp/>I2CSlaveAddress);</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>TI_LMK03318_SetClock(u32<sp/>I2CBaseAddress,<sp/>u8<sp/>I2CSlaveAddress,</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>FIn,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>FOut,<sp/>u8<sp/>FreeRun);</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group___t_i___l_m_k03318_1gaaf6db83c8a277f026f2d3e15fc310e21" kindref="member">TI_LMK03318_EnableBypass</ref>(u32<sp/>I2CBaseAddress,<sp/>u8<sp/>I2CSlaveAddress,</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>InPort,<sp/>u8<sp/>OutPort);</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group___t_i___l_m_k03318_1ga6c9419870b565daf5346f7f052774d43" kindref="member">TI_LMK03318_RegisterDump</ref>(u32<sp/>I2CBaseAddress,<sp/>u8<sp/>I2CSlaveAddress);</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Declarations<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="62"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="64"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>TI_LMK03318_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/kcu_dp14/ti_lmk03318.h"/>
+  </compounddef>
+</doxygen>

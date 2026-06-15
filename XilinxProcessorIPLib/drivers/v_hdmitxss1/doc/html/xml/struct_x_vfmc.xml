@@ -1,0 +1,130 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_vfmc" kind="struct" prot="public">
+    <compoundname>XVfmc</compoundname>
+    <includes local="no">video_fmc.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_vfmc_1a2e542a34afc33792f5d9c0b7cea10728" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XVfmc::IicPtr</definition>
+        <argsstring></argsstring>
+        <name>IicPtr</name>
+        <briefdescription>
+<para>Reference to IIC controller for vfmc. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/video_fmc.h" line="118" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/video_fmc.h" bodystart="118" bodyend="-1"/>
+        <referencedby refid="xhdmi__example_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4" compoundref="xhdmi__example_8c" startline="6801" endline="7418">main</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vfmc_1ab615c8e760efea704bfa76a50850e0c1" prot="public" static="no" mutable="no">
+        <type>XGpio</type>
+        <definition>XGpio XVfmc::Gpio</definition>
+        <argsstring></argsstring>
+        <name>Gpio</name>
+        <briefdescription>
+<para>Reference to GPIO for vfmc. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/video_fmc.h" line="119" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/video_fmc.h" bodystart="119" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vfmc_1a353d96b482245f6bf2b3f28bac16747d" prot="public" static="no" mutable="no">
+        <type>XVfmc_Location</type>
+        <definition>XVfmc_Location XVfmc::Loc</definition>
+        <argsstring></argsstring>
+        <name>Loc</name>
+        <briefdescription>
+<para>Location of vfmc on development board. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/video_fmc.h" line="120" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/video_fmc.h" bodystart="120" bodyend="-1"/>
+        <referencedby refid="xhdmi__example_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4" compoundref="xhdmi__example_8c" startline="6801" endline="7418">main</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vfmc_1a3400c592e8ec87884042f09a2df8f7b0" prot="public" static="no" mutable="no">
+        <type>XVfmc_MezzType</type>
+        <definition>XVfmc_MezzType XVfmc::TxMezzType</definition>
+        <argsstring></argsstring>
+        <name>TxMezzType</name>
+        <briefdescription>
+<para>Mezzanine Type. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/video_fmc.h" line="121" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/video_fmc.h" bodystart="121" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vfmc_1ace6fd2245e217ddfa948db79b072f0a7" prot="public" static="no" mutable="no">
+        <type>XVfmc_MezzType</type>
+        <definition>XVfmc_MezzType XVfmc::RxMezzType</definition>
+        <argsstring></argsstring>
+        <name>RxMezzType</name>
+        <briefdescription>
+<para>Mezzanine Type. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/video_fmc.h" line="122" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/video_fmc.h" bodystart="122" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vfmc_1a5e845436cda2c251cfec8e7e00a7a856" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XVfmc::IsReady</definition>
+        <argsstring></argsstring>
+        <name>IsReady</name>
+        <briefdescription>
+<para>Is Ready. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/video_fmc.h" line="123" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/video_fmc.h" bodystart="123" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vfmc_1a0c46d85e12dd983495ae27c9d1343dc8" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XVfmc::isTxTi</definition>
+        <argsstring></argsstring>
+        <name>isTxTi</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/video_fmc.h" line="124" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/video_fmc.h" bodystart="124" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vfmc_1af599c4b0321edd34cfbfe6cce26ddd32" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XVfmc::isRxTi</definition>
+        <argsstring></argsstring>
+        <name>isRxTi</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/video_fmc.h" line="125" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/video_fmc.h" bodystart="125" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef defines the Vfmc structure. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/video_fmc.h" line="117" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/video_fmc.h" bodystart="117" bodyend="126"/>
+    <listofallmembers>
+      <member refid="struct_x_vfmc_1ab615c8e760efea704bfa76a50850e0c1" prot="public" virt="non-virtual"><scope>XVfmc</scope><name>Gpio</name></member>
+      <member refid="struct_x_vfmc_1a2e542a34afc33792f5d9c0b7cea10728" prot="public" virt="non-virtual"><scope>XVfmc</scope><name>IicPtr</name></member>
+      <member refid="struct_x_vfmc_1a5e845436cda2c251cfec8e7e00a7a856" prot="public" virt="non-virtual"><scope>XVfmc</scope><name>IsReady</name></member>
+      <member refid="struct_x_vfmc_1af599c4b0321edd34cfbfe6cce26ddd32" prot="public" virt="non-virtual"><scope>XVfmc</scope><name>isRxTi</name></member>
+      <member refid="struct_x_vfmc_1a0c46d85e12dd983495ae27c9d1343dc8" prot="public" virt="non-virtual"><scope>XVfmc</scope><name>isTxTi</name></member>
+      <member refid="struct_x_vfmc_1a353d96b482245f6bf2b3f28bac16747d" prot="public" virt="non-virtual"><scope>XVfmc</scope><name>Loc</name></member>
+      <member refid="struct_x_vfmc_1ace6fd2245e217ddfa948db79b072f0a7" prot="public" virt="non-virtual"><scope>XVfmc</scope><name>RxMezzType</name></member>
+      <member refid="struct_x_vfmc_1a3400c592e8ec87884042f09a2df8f7b0" prot="public" virt="non-virtual"><scope>XVfmc</scope><name>TxMezzType</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

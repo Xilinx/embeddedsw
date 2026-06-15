@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_2f64bc453f3294d2e9b5ecea5d1f3f5e" kind="dir">
+    <compoundname>cpu_cortexa78</compoundname>
+    <innerdir refid="dir_b8b468d2703d0aeb143981a77d9edf3d">src</innerdir>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cpu_cortexa78/"/>
+  </compounddef>
+</doxygen>

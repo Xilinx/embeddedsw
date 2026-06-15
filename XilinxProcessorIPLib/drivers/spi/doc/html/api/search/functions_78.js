@@ -1,0 +1,21 @@
+var searchData=
+[
+  ['xspi_5fabort',['XSpi_Abort',['../group__spi.html#ga44a2dc795761b35ed0ebdd6989675022',1,'xspi.c']]],
+  ['xspi_5fcfginitialize',['XSpi_CfgInitialize',['../group__spi.html#ga858155b42d5a1da8efe06c9098e40b2d',1,'xspi.c']]],
+  ['xspi_5fclearstats',['XSpi_ClearStats',['../group__spi.html#gaf243ac522e14869af82545ffc11d5821',1,'xspi_stats.c']]],
+  ['xspi_5fgetoptions',['XSpi_GetOptions',['../group__spi.html#gaf55cfd2072ed2047c0fe0b65bd0fcf6a',1,'xspi_options.c']]],
+  ['xspi_5fgetslaveselect',['XSpi_GetSlaveSelect',['../group__spi.html#ga8043891b8f68a3291bd035be74aa6b94',1,'xspi.c']]],
+  ['xspi_5fgetstats',['XSpi_GetStats',['../group__spi.html#ga8a40aee30eb6f0240b75e6ccd7596a53',1,'xspi_stats.c']]],
+  ['xspi_5finitialize',['XSpi_Initialize',['../group__spi.html#gad6f255861fd0fe028f13c35abc55260a',1,'xspi_sinit.c']]],
+  ['xspi_5finterrupthandler',['XSpi_InterruptHandler',['../group__spi.html#gaf3863f11d27469d8797424319601c980',1,'xspi.c']]],
+  ['xspi_5flookupconfig',['XSpi_LookupConfig',['../group__spi.html#ga59c223b96bc85c1e13bf88a19af91bc3',1,'xspi_sinit.c']]],
+  ['xspi_5flowlevelexample',['XSpi_LowLevelExample',['../xspi__low__level__example_8c.html#a84062f5eec2674a89353f5679b0928a2',1,'xspi_low_level_example.c']]],
+  ['xspi_5freset',['XSpi_Reset',['../group__spi.html#ga343938fcdf672bec329d876a146178cd',1,'xspi.c']]],
+  ['xspi_5fselftest',['XSpi_SelfTest',['../group__spi.html#ga11b6ebdb6f69c6939176e05600b10e3e',1,'xspi_selftest.c']]],
+  ['xspi_5fsetoptions',['XSpi_SetOptions',['../group__spi.html#ga67c2076b133a55b6f80343642a1ace41',1,'xspi_options.c']]],
+  ['xspi_5fsetslaveselect',['XSpi_SetSlaveSelect',['../group__spi.html#ga162523a3e9b29f063701db303ac8cf17',1,'xspi.c']]],
+  ['xspi_5fsetstatushandler',['XSpi_SetStatusHandler',['../group__spi.html#gabc09f4d503de2a772e5079ac46fc62b6',1,'xspi.c']]],
+  ['xspi_5fstart',['XSpi_Start',['../group__spi.html#ga87fdaad742a2669200c9b2617e5c86ea',1,'xspi.c']]],
+  ['xspi_5fstop',['XSpi_Stop',['../group__spi.html#gad4bb67cfcfe73844ffb1917b11d5284c',1,'xspi.c']]],
+  ['xspi_5ftransfer',['XSpi_Transfer',['../group__spi.html#ga4c44c082ef2d2b9cf4ba3db8bcebd954',1,'xspi.c']]]
+];

@@ -1,0 +1,122 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_asu___rsa_oaep_padding_params" kind="struct" prot="public">
+    <compoundname>XAsu_RsaOaepPaddingParams</compoundname>
+    <includes local="no">xasu_rsainfo.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_asu___rsa_oaep_padding_params_1af7270c6b61dded1f64850612185a62e4" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_asu___rsa_params" kindref="compound">XAsu_RsaParams</ref></type>
+        <definition>XAsu_RsaParams XAsu_RsaOaepPaddingParams::XAsu_RsaOpComp</definition>
+        <argsstring></argsstring>
+        <name>XAsu_RsaOpComp</name>
+        <briefdescription>
+<para>Contains client components. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_rsainfo.h" line="178" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_rsainfo.h" bodystart="178" bodyend="-1"/>
+        <referencedby refid="group__xasu__rsa__client__apis_1gaf459c9f8ebb4d33247bbd8b6ab591809" compoundref="xasu__rsa_8c" startline="418" endline="499">XAsu_RsaOaepDec</referencedby>
+        <referencedby refid="group__xasu__rsa__client__apis_1ga32fd59ce2f1c0da67ca9217a224a4626" compoundref="xasu__rsa_8c" startline="318" endline="399">XAsu_RsaOaepEnc</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___rsa_oaep_padding_params_1a9ea8551bd7f02de893a2bd8b633d42f0" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XAsu_RsaOaepPaddingParams::OptionalLabelAddr</definition>
+        <argsstring></argsstring>
+        <name>OptionalLabelAddr</name>
+        <briefdescription>
+<para>RSA optional label address for OAEP padding. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_rsainfo.h" line="179" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_rsainfo.h" bodystart="179" bodyend="-1"/>
+        <referencedby refid="group__xasu__rsa__client__apis_1gaf459c9f8ebb4d33247bbd8b6ab591809" compoundref="xasu__rsa_8c" startline="418" endline="499">XAsu_RsaOaepDec</referencedby>
+        <referencedby refid="group__xasu__rsa__client__apis_1ga32fd59ce2f1c0da67ca9217a224a4626" compoundref="xasu__rsa_8c" startline="318" endline="399">XAsu_RsaOaepEnc</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___rsa_oaep_padding_params_1a5e62e9078bceb26a646be9ac32a2692d" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAsu_RsaOaepPaddingParams::OptionalLabelSize</definition>
+        <argsstring></argsstring>
+        <name>OptionalLabelSize</name>
+        <briefdescription>
+<para>RSA optional label size for OAEP padding. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_rsainfo.h" line="180" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_rsainfo.h" bodystart="180" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___rsa_oaep_padding_params_1ae09922eadcfe378ccb74fbda3e11094d" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAsu_RsaOaepPaddingParams::ShaType</definition>
+        <argsstring></argsstring>
+        <name>ShaType</name>
+        <briefdescription>
+<para>Hash family type (XASU_SHA2_TYPE / XASU_SHA3_TYPE) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_rsainfo.h" line="181" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_rsainfo.h" bodystart="181" bodyend="-1"/>
+        <referencedby refid="group__xasu__rsa__client__apis_1gaf459c9f8ebb4d33247bbd8b6ab591809" compoundref="xasu__rsa_8c" startline="418" endline="499">XAsu_RsaOaepDec</referencedby>
+        <referencedby refid="group__xasu__rsa__client__apis_1ga32fd59ce2f1c0da67ca9217a224a4626" compoundref="xasu__rsa_8c" startline="318" endline="399">XAsu_RsaOaepEnc</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___rsa_oaep_padding_params_1abaffccd03d581705cd3a9be40dc7ad8b" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAsu_RsaOaepPaddingParams::ShaMode</definition>
+        <argsstring></argsstring>
+        <name>ShaMode</name>
+        <briefdescription>
+<para><verbatim>   SHA Mode, where XASU_SHA_MODE_SHAKE256 is valid only for SHA3 Type
+</verbatim> (XASU_SHA_MODE_256 / XASU_SHA_MODE_384 / XASU_SHA_MODE_512 / XASU_SHA_MODE_SHAKE256) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_rsainfo.h" line="182" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_rsainfo.h" bodystart="182" bodyend="-1"/>
+        <referencedby refid="group__xasu__rsa__client__apis_1gaf459c9f8ebb4d33247bbd8b6ab591809" compoundref="xasu__rsa_8c" startline="418" endline="499">XAsu_RsaOaepDec</referencedby>
+        <referencedby refid="group__xasu__rsa__client__apis_1ga32fd59ce2f1c0da67ca9217a224a4626" compoundref="xasu__rsa_8c" startline="318" endline="399">XAsu_RsaOaepEnc</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___rsa_oaep_padding_params_1abbad7636d0871c2e2b089d62ebc4108f" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAsu_RsaOaepPaddingParams::Reserved[2]</definition>
+        <argsstring>[2]</argsstring>
+        <name>Reserved</name>
+        <briefdescription>
+<para>Explicit padding to ensure consistent struct size across architectures. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_rsainfo.h" line="185" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_rsainfo.h" bodystart="185" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This structure contains RSA OAEP padding params info. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="120">
+        <label>XAsu_RsaParams</label>
+        <link refid="struct_x_asu___rsa_params"/>
+      </node>
+      <node id="119">
+        <label>XAsu_RsaOaepPaddingParams</label>
+        <link refid="struct_x_asu___rsa_oaep_padding_params"/>
+        <childnode refid="120" relation="usage">
+          <edgelabel>XAsu_RsaOpComp</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_rsainfo.h" line="177" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_rsainfo.h" bodystart="177" bodyend="186"/>
+    <listofallmembers>
+      <member refid="struct_x_asu___rsa_oaep_padding_params_1a9ea8551bd7f02de893a2bd8b633d42f0" prot="public" virt="non-virtual"><scope>XAsu_RsaOaepPaddingParams</scope><name>OptionalLabelAddr</name></member>
+      <member refid="struct_x_asu___rsa_oaep_padding_params_1a5e62e9078bceb26a646be9ac32a2692d" prot="public" virt="non-virtual"><scope>XAsu_RsaOaepPaddingParams</scope><name>OptionalLabelSize</name></member>
+      <member refid="struct_x_asu___rsa_oaep_padding_params_1abbad7636d0871c2e2b089d62ebc4108f" prot="public" virt="non-virtual"><scope>XAsu_RsaOaepPaddingParams</scope><name>Reserved</name></member>
+      <member refid="struct_x_asu___rsa_oaep_padding_params_1abaffccd03d581705cd3a9be40dc7ad8b" prot="public" virt="non-virtual"><scope>XAsu_RsaOaepPaddingParams</scope><name>ShaMode</name></member>
+      <member refid="struct_x_asu___rsa_oaep_padding_params_1ae09922eadcfe378ccb74fbda3e11094d" prot="public" virt="non-virtual"><scope>XAsu_RsaOaepPaddingParams</scope><name>ShaType</name></member>
+      <member refid="struct_x_asu___rsa_oaep_padding_params_1af7270c6b61dded1f64850612185a62e4" prot="public" virt="non-virtual"><scope>XAsu_RsaOaepPaddingParams</scope><name>XAsu_RsaOpComp</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

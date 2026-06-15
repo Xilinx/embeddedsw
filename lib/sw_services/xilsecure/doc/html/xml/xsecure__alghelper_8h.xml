@@ -1,0 +1,211 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xsecure__alghelper_8h" kind="file">
+    <compoundname>xsecure_alghelper.h</compoundname>
+    <includes local="yes">xil_cryptoalginfo.h</includes>
+    <includes local="yes">xil_types.h</includes>
+    <includedby refid="xsecure__aesalginfo_8c" local="yes">xsecure_aesalginfo.c</includedby>
+    <includedby refid="xsecure__ecdhalginfo_8c" local="yes">xsecure_ecdhalginfo.c</includedby>
+    <includedby refid="xsecure__ellipticalginfo_8c" local="yes">xsecure_ellipticalginfo.c</includedby>
+    <includedby refid="xsecure__hmacalginfo_8c" local="yes">xsecure_hmacalginfo.c</includedby>
+    <includedby refid="xsecure__lmsalginfo_8c" local="yes">xsecure_lmsalginfo.c</includedby>
+    <includedby refid="xsecure__rsaalginfo_8c" local="yes">xsecure_rsaalginfo.c</includedby>
+    <includedby refid="xsecure__sha3alginfo_8c" local="yes">xsecure_sha3alginfo.c</includedby>
+    <includedby refid="xsecure__shaalginfo_8c" local="yes">xsecure_shaalginfo.c</includedby>
+    <includedby refid="xsecure__trngalginfo_8c" local="yes">xsecure_trngalginfo.c</includedby>
+    <includedby refid="xsecure__alghelper_8c" local="yes">xsecure_alghelper.c</includedby>
+    <includedby refid="xsecure__keyunwrapalginfo_8h" local="yes">xsecure_keyunwrapalginfo.h</includedby>
+    <incdepgraph>
+      <node id="842">
+        <label>xil_cryptoalginfo.h</label>
+      </node>
+      <node id="843">
+        <label>xil_types.h</label>
+      </node>
+      <node id="841">
+        <label>xsecure_alghelper.h</label>
+        <link refid="xsecure_alghelper.h"/>
+        <childnode refid="842" relation="include">
+        </childnode>
+        <childnode refid="843" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="853">
+        <label>xsecure_trngalginfo.c</label>
+        <link refid="xsecure__trngalginfo_8c"/>
+      </node>
+      <node id="847">
+        <label>xsecure_ellipticalginfo.c</label>
+        <link refid="xsecure__ellipticalginfo_8c"/>
+      </node>
+      <node id="849">
+        <label>xsecure_lmsalginfo.c</label>
+        <link refid="xsecure__lmsalginfo_8c"/>
+      </node>
+      <node id="850">
+        <label>xsecure_rsaalginfo.c</label>
+        <link refid="xsecure__rsaalginfo_8c"/>
+      </node>
+      <node id="851">
+        <label>xsecure_sha3alginfo.c</label>
+        <link refid="xsecure__sha3alginfo_8c"/>
+      </node>
+      <node id="856">
+        <label>xsecure_keyunwrapalginfo.c</label>
+        <link refid="xsecure__keyunwrapalginfo_8c"/>
+      </node>
+      <node id="855">
+        <label>xsecure_keyunwrapalginfo.h</label>
+        <link refid="xsecure__keyunwrapalginfo_8h"/>
+        <childnode refid="856" relation="include">
+        </childnode>
+      </node>
+      <node id="852">
+        <label>xsecure_shaalginfo.c</label>
+        <link refid="xsecure__shaalginfo_8c"/>
+      </node>
+      <node id="848">
+        <label>xsecure_hmacalginfo.c</label>
+        <link refid="xsecure__hmacalginfo_8c"/>
+      </node>
+      <node id="845">
+        <label>xsecure_aesalginfo.c</label>
+        <link refid="xsecure__aesalginfo_8c"/>
+      </node>
+      <node id="846">
+        <label>xsecure_ecdhalginfo.c</label>
+        <link refid="xsecure__ecdhalginfo_8c"/>
+      </node>
+      <node id="854">
+        <label>xsecure_alghelper.c</label>
+        <link refid="xsecure__alghelper_8c"/>
+      </node>
+      <node id="844">
+        <label>xsecure_alghelper.h</label>
+        <link refid="xsecure_alghelper.h"/>
+        <childnode refid="845" relation="include">
+        </childnode>
+        <childnode refid="846" relation="include">
+        </childnode>
+        <childnode refid="847" relation="include">
+        </childnode>
+        <childnode refid="848" relation="include">
+        </childnode>
+        <childnode refid="849" relation="include">
+        </childnode>
+        <childnode refid="850" relation="include">
+        </childnode>
+        <childnode refid="851" relation="include">
+        </childnode>
+        <childnode refid="852" relation="include">
+        </childnode>
+        <childnode refid="853" relation="include">
+        </childnode>
+        <childnode refid="854" relation="include">
+        </childnode>
+        <childnode refid="855" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xsecure__alghelper_8h_1aaf53b255cb80926070a852e882a331c9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XSecure_GetAlgInfo</definition>
+        <argsstring>(Xil_CryptoAlgInfo *AlgInfo, u32 CryptoAlg)</argsstring>
+        <name>XSecure_GetAlgInfo</name>
+        <param>
+          <type>Xil_CryptoAlgInfo *</type>
+          <declname>AlgInfo</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>CryptoAlg</declname>
+        </param>
+        <briefdescription>
+<para>Retrieves cryptographic algorithm information from PLM. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>AlgInfo</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to Xil_CryptoAlgInfo structure </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CryptoAlg</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Cryptographic algorithm identifier</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - On success</para></listitem><listitem><para>XST_INVALID_PARAM - If input parameters are invalid</para></listitem><listitem><para>Error - On failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/core/utils/xsecure_alghelper.h" line="42" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/core/utils/xsecure_alghelper.c" bodystart="59" bodyend="111"/>
+        <references refid="group__xsecure__common__apis_1ga759eb81426eee2c2c46bda9fdd8866d9" compoundref="xsecure__plat__defs_8h" startline="46">XSECURE_ALGO_VERSION_RESP_INDEX</references>
+        <references refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca751d44e2e77d153cff86b478f01d0e72" compoundref="xsecure__plat__defs_8h" startline="54">XSECURE_API_FEATURES</references>
+        <references refid="group__xsecure__mailbox__apis_1ga14ac66445aa924c4c0bd9b91b9744af9" compoundref="xsecure__mailbox_8c" startline="119" endline="134">XSecure_ClientInit</references>
+        <references refid="group__xsecure__common__apis_1gaa09ca7204ddb03698c3d27c12ca837c5" compoundref="xsecure__plat__defs_8h" startline="47">XSECURE_NIST_STATUS_RESP_INDEX</references>
+        <references refid="xsecure__alghelper_8c_1a2eba10e68d4e6401c939723fc619f172" compoundref="xsecure__alghelper_8c" startline="33">XSECURE_RESPONSE_STATUS_IDX</references>
+        <referencedby refid="group__xsecure__aes__client__apis_1ga46110ab50d24ea1052c74c4048129028" compoundref="xsecure__aesalginfo_8c" startline="52" endline="55">XSecure_AesGetCryptoAlgInfo</referencedby>
+        <referencedby refid="group__xsecure__ecdsa__client__apis_1ga54f5f927b3ca5de3a828a7639ff83579" compoundref="xsecure__ecdhalginfo_8c" startline="53" endline="56">XSecure_EcdhGetCryptoAlgInfo</referencedby>
+        <referencedby refid="group__xsecure__ecdsa__client__apis_1ga436dcc9aac136636a20d0b36a94240f7" compoundref="xsecure__ellipticalginfo_8c" startline="52" endline="55">XSecure_EllipticGetCryptoAlgInfo</referencedby>
+        <referencedby refid="group__xsecure__hmac__client__apis_1ga2d440e9d0a0a6cbfff2854aa2385f713" compoundref="xsecure__hmacalginfo_8c" startline="52" endline="55">XSecure_HmacGetCryptoAlgInfo</referencedby>
+        <referencedby refid="group__xsecure__keyunwrap__client__apis_1gae37a11ec4137fce16f46d6ba74172ab9" compoundref="xsecure__keyunwrapalginfo_8c" startline="50" endline="53">XSecure_KeyUnwrapGetCryptoAlgInfo</referencedby>
+        <referencedby refid="group__xsecure__lms__client__apis_1gae1c8c19400f2618054e970fda16e66cc" compoundref="xsecure__lmsalginfo_8c" startline="50" endline="53">XSecure_LmsGetCryptoAlgInfo</referencedby>
+        <referencedby refid="group__xsecure__rsa__client__apis_1ga91b3194b7fea97a2880da9bff0c2a10c" compoundref="xsecure__rsaalginfo_8c" startline="53" endline="56">XSecure_RsaGetCryptoAlgInfo</referencedby>
+        <referencedby refid="group__xsecure__sha__client__apis_1ga402a6283ed6c173c79304887072f0fbe" compoundref="xsecure__sha3alginfo_8c" startline="52" endline="59">XSecure_Sha3GetCryptoAlgInfo</referencedby>
+        <referencedby refid="group__xsecure__sha3__client__apis_1gacf5c827f635f38674e95fce612e718c7" compoundref="xsecure__shaalginfo_8c" startline="52" endline="59">XSecure_ShaGetCryptoAlgInfo</referencedby>
+        <referencedby refid="group__xsecure__trng__client__apis_1gaedcb193e236d201e7679048a63d45d3e" compoundref="xsecure__trngalginfo_8c" startline="52" endline="55">XSecure_TrngGetCryptoAlgInfo</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file contains function prototypes for algorithm helper functions. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who     Date     Changes
+<hruler/>
+
+5.7   tbk     02/05/26 Initial Release</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/***************************************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">***************************************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/**************************************************************************************************/</highlight></codeline>
+<codeline lineno="24"><highlight class="preprocessor">#ifndef<sp/>XSECURE_ALGHELPER_H</highlight></codeline>
+<codeline lineno="25"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_ALGHELPER_H</highlight></codeline>
+<codeline lineno="26"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="28"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="30"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="comment">/******************************************<sp/>Include<sp/>Files<sp/>*****************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_cryptoalginfo.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="comment">/**************************************<sp/>Constant<sp/>Definitions<sp/>**************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="comment">/****************************************<sp/>Type<sp/>Definitions<sp/>****************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="comment">/******************************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="comment">/***************************************<sp/>Function<sp/>Prototypes<sp/>**************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xsecure__alghelper_8c_1aaf53b255cb80926070a852e882a331c9" kindref="member">XSecure_GetAlgInfo</ref>(Xil_CryptoAlgInfo<sp/>*AlgInfo,<sp/>u32<sp/>CryptoAlg);</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="45"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="47"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XSECURE_ALGHELPER_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/core/utils/xsecure_alghelper.h"/>
+  </compounddef>
+</doxygen>

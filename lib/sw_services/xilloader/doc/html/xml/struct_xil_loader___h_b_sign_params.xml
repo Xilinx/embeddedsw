@@ -1,0 +1,113 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_xil_loader___h_b_sign_params" kind="struct" prot="public">
+    <compoundname>XilLoader_HBSignParams</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_xil_loader___h_b_sign_params_1a1f6e1a9aae8d04dab31e540c436be7d2" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XilLoader_HBSignParams::ReadOffset</definition>
+        <argsstring></argsstring>
+        <name>ReadOffset</name>
+        <briefdescription>
+<para>Offset from where the HB auth cert begins. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" line="196" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" bodystart="196" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_loader___h_b_sign_params_1ad189f8f4bec0d2313a0fdbe3cba5769e" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XilLoader_HBSignParams::TotalPpkSize</definition>
+        <argsstring></argsstring>
+        <name>TotalPpkSize</name>
+        <briefdescription>
+<para>Total PPK size including alignment. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" line="197" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" bodystart="197" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_loader___h_b_sign_params_1a37440bd64e00709419f04fce477648b6" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XilLoader_HBSignParams::ActualPpkSize</definition>
+        <argsstring></argsstring>
+        <name>ActualPpkSize</name>
+        <briefdescription>
+<para>Actual PPK size. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" line="198" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" bodystart="198" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_loader___h_b_sign_params_1a663a85d1b81b845a8fdf36d6045d555b" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XilLoader_HBSignParams::TotalHBSignSize</definition>
+        <argsstring></argsstring>
+        <name>TotalHBSignSize</name>
+        <briefdescription>
+<para>Total HB signature size including alignment. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" line="199" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" bodystart="199" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_loader___h_b_sign_params_1aa503ebc9f4149d0deca6037fba7fcf65" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XilLoader_HBSignParams::ActualHBSignSize</definition>
+        <argsstring></argsstring>
+        <name>ActualHBSignSize</name>
+        <briefdescription>
+<para>Actual HB signature size. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" line="200" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" bodystart="200" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_loader___h_b_sign_params_1ac658502ff13ba44e3dfde650d95fb6c0" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XilLoader_HBSignParams::HBSize</definition>
+        <argsstring></argsstring>
+        <name>HBSize</name>
+        <briefdescription>
+<para>Hash Block size in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" line="201" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" bodystart="201" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_loader___h_b_sign_params_1a76261b3ec81f96007e1d7a5fc78fcc27" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XilLoader_HBSignParams::AuthHdr</definition>
+        <argsstring></argsstring>
+        <name>AuthHdr</name>
+        <briefdescription>
+<para>Authentication header. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" line="202" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" bodystart="202" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Parameters describing the Hash Block authentication certificate layout. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" line="195" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" bodystart="195" bodyend="203"/>
+    <listofallmembers>
+      <member refid="struct_xil_loader___h_b_sign_params_1aa503ebc9f4149d0deca6037fba7fcf65" prot="public" virt="non-virtual"><scope>XilLoader_HBSignParams</scope><name>ActualHBSignSize</name></member>
+      <member refid="struct_xil_loader___h_b_sign_params_1a37440bd64e00709419f04fce477648b6" prot="public" virt="non-virtual"><scope>XilLoader_HBSignParams</scope><name>ActualPpkSize</name></member>
+      <member refid="struct_xil_loader___h_b_sign_params_1a76261b3ec81f96007e1d7a5fc78fcc27" prot="public" virt="non-virtual"><scope>XilLoader_HBSignParams</scope><name>AuthHdr</name></member>
+      <member refid="struct_xil_loader___h_b_sign_params_1ac658502ff13ba44e3dfde650d95fb6c0" prot="public" virt="non-virtual"><scope>XilLoader_HBSignParams</scope><name>HBSize</name></member>
+      <member refid="struct_xil_loader___h_b_sign_params_1a1f6e1a9aae8d04dab31e540c436be7d2" prot="public" virt="non-virtual"><scope>XilLoader_HBSignParams</scope><name>ReadOffset</name></member>
+      <member refid="struct_xil_loader___h_b_sign_params_1a663a85d1b81b845a8fdf36d6045d555b" prot="public" virt="non-virtual"><scope>XilLoader_HBSignParams</scope><name>TotalHBSignSize</name></member>
+      <member refid="struct_xil_loader___h_b_sign_params_1ad189f8f4bec0d2313a0fdbe3cba5769e" prot="public" virt="non-virtual"><scope>XilLoader_HBSignParams</scope><name>TotalPpkSize</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

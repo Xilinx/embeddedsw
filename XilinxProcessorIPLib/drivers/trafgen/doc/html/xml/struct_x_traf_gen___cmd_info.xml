@@ -1,0 +1,146 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_traf_gen___cmd_info" kind="struct" prot="public">
+    <compoundname>XTrafGen_CmdInfo</compoundname>
+    <includes local="no">xtrafgen.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_traf_gen___cmd_info_1ac47a05425af17e0d45181666230c9bf3" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XTrafGen_CmdInfo::WrIndex</definition>
+        <argsstring></argsstring>
+        <name>WrIndex</name>
+        <briefdescription>
+<para>Write Region Command Index. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen.h" line="335" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen.h" bodystart="335" bodyend="-1"/>
+        <referencedby refid="group__trafgen_1ga39eaea669c1ff2df58e54c002b43f854" compoundref="xtrafgen_8c" startline="191" endline="240">XTrafGen_AddCommand</referencedby>
+        <referencedby refid="group__trafgen_1ga539d4976ad3ace9e15d993e2b18143a0" compoundref="xtrafgen_8c" startline="328" endline="360">XTrafGen_EraseAllCommands</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_traf_gen___cmd_info_1a8caa1f7535069edf212909b1ba944331" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XTrafGen_CmdInfo::RdIndex</definition>
+        <argsstring></argsstring>
+        <name>RdIndex</name>
+        <briefdescription>
+<para>Read Region Command Index. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen.h" line="336" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen.h" bodystart="336" bodyend="-1"/>
+        <referencedby refid="group__trafgen_1ga39eaea669c1ff2df58e54c002b43f854" compoundref="xtrafgen_8c" startline="191" endline="240">XTrafGen_AddCommand</referencedby>
+        <referencedby refid="group__trafgen_1ga539d4976ad3ace9e15d993e2b18143a0" compoundref="xtrafgen_8c" startline="328" endline="360">XTrafGen_EraseAllCommands</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_traf_gen___cmd_info_1a2bf6bf32479362d7c22f20bd916003e4" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XTrafGen_CmdInfo::WrIndexEnd</definition>
+        <argsstring></argsstring>
+        <name>WrIndexEnd</name>
+        <briefdescription>
+<para>Write Index End. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen.h" line="338" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen.h" bodystart="338" bodyend="-1"/>
+        <referencedby refid="group__trafgen_1ga39eaea669c1ff2df58e54c002b43f854" compoundref="xtrafgen_8c" startline="191" endline="240">XTrafGen_AddCommand</referencedby>
+        <referencedby refid="group__trafgen_1ga539d4976ad3ace9e15d993e2b18143a0" compoundref="xtrafgen_8c" startline="328" endline="360">XTrafGen_EraseAllCommands</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_traf_gen___cmd_info_1a56f23c33a284db97c318415ce35dd267" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XTrafGen_CmdInfo::RdIndexEnd</definition>
+        <argsstring></argsstring>
+        <name>RdIndexEnd</name>
+        <briefdescription>
+<para>Read Index End. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen.h" line="339" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen.h" bodystart="339" bodyend="-1"/>
+        <referencedby refid="group__trafgen_1ga39eaea669c1ff2df58e54c002b43f854" compoundref="xtrafgen_8c" startline="191" endline="240">XTrafGen_AddCommand</referencedby>
+        <referencedby refid="group__trafgen_1ga539d4976ad3ace9e15d993e2b18143a0" compoundref="xtrafgen_8c" startline="328" endline="360">XTrafGen_EraseAllCommands</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_traf_gen___cmd_info_1a205e3808435db7d2f79be395fabc7083" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int XTrafGen_CmdInfo::LastWrValidIndex</definition>
+        <argsstring></argsstring>
+        <name>LastWrValidIndex</name>
+        <briefdescription>
+<para>Write Last Valid Command Index. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen.h" line="341" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen.h" bodystart="341" bodyend="-1"/>
+        <referencedby refid="group__trafgen_1ga39eaea669c1ff2df58e54c002b43f854" compoundref="xtrafgen_8c" startline="191" endline="240">XTrafGen_AddCommand</referencedby>
+        <referencedby refid="group__trafgen_1ga4d40f6d5551836dab49e0d22e8d5e1eb" compoundref="xtrafgen_8c" startline="93" endline="168">XTrafGen_CfgInitialize</referencedby>
+        <referencedby refid="group__trafgen_1ga539d4976ad3ace9e15d993e2b18143a0" compoundref="xtrafgen_8c" startline="328" endline="360">XTrafGen_EraseAllCommands</referencedby>
+        <referencedby refid="group__trafgen_1ga262d850cbfc5b0495fbc2d84334a1fba" compoundref="xtrafgen_8c" startline="257" endline="274">XTrafGen_GetLastValidIndex</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_traf_gen___cmd_info_1acdf227f8d8c37fa5cdec0d8e0b8a6f97" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int XTrafGen_CmdInfo::LastRdValidIndex</definition>
+        <argsstring></argsstring>
+        <name>LastRdValidIndex</name>
+        <briefdescription>
+<para>Read Last Valid Command Index. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen.h" line="342" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen.h" bodystart="342" bodyend="-1"/>
+        <referencedby refid="group__trafgen_1ga39eaea669c1ff2df58e54c002b43f854" compoundref="xtrafgen_8c" startline="191" endline="240">XTrafGen_AddCommand</referencedby>
+        <referencedby refid="group__trafgen_1ga4d40f6d5551836dab49e0d22e8d5e1eb" compoundref="xtrafgen_8c" startline="93" endline="168">XTrafGen_CfgInitialize</referencedby>
+        <referencedby refid="group__trafgen_1ga539d4976ad3ace9e15d993e2b18143a0" compoundref="xtrafgen_8c" startline="328" endline="360">XTrafGen_EraseAllCommands</referencedby>
+        <referencedby refid="group__trafgen_1ga262d850cbfc5b0495fbc2d84334a1fba" compoundref="xtrafgen_8c" startline="257" endline="274">XTrafGen_GetLastValidIndex</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_traf_gen___cmd_info_1a8539c121534f1c06cc7e8b9134161a4e" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_traf_gen___cmd_entry" kindref="compound">XTrafGen_CmdEntry</ref></type>
+        <definition>XTrafGen_CmdEntry XTrafGen_CmdInfo::CmdEntry[2][MAX_NUM_ENTRIES]</definition>
+        <argsstring>[2][MAX_NUM_ENTRIES]</argsstring>
+        <name>CmdEntry</name>
+        <briefdescription>
+<para>Software array of Commands. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen.h" line="344" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen.h" bodystart="344" bodyend="-1"/>
+        <referencedby refid="group__trafgen_1ga39eaea669c1ff2df58e54c002b43f854" compoundref="xtrafgen_8c" startline="191" endline="240">XTrafGen_AddCommand</referencedby>
+        <referencedby refid="group__trafgen_1ga539d4976ad3ace9e15d993e2b18143a0" compoundref="xtrafgen_8c" startline="328" endline="360">XTrafGen_EraseAllCommands</referencedby>
+        <referencedby refid="group__trafgen_1gad9654a81e902175a963c83edb0c37144" compoundref="xtrafgen_8c" startline="663" endline="693">XTrafGen_PrintCmds</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Command Information Structure. </para>    </briefdescription>
+    <detaileddescription>
+<para>This structure is maintained by the driver </para>    </detaileddescription>
+    <collaborationgraph>
+      <node id="13">
+        <label>XTrafGen_CmdEntry</label>
+        <link refid="struct_x_traf_gen___cmd_entry"/>
+      </node>
+      <node id="12">
+        <label>XTrafGen_CmdInfo</label>
+        <link refid="struct_x_traf_gen___cmd_info"/>
+        <childnode refid="13" relation="usage">
+          <edgelabel>CmdEntry</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen.h" line="334" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen.h" bodystart="334" bodyend="346"/>
+    <listofallmembers>
+      <member refid="struct_x_traf_gen___cmd_info_1a8539c121534f1c06cc7e8b9134161a4e" prot="public" virt="non-virtual"><scope>XTrafGen_CmdInfo</scope><name>CmdEntry</name></member>
+      <member refid="struct_x_traf_gen___cmd_info_1acdf227f8d8c37fa5cdec0d8e0b8a6f97" prot="public" virt="non-virtual"><scope>XTrafGen_CmdInfo</scope><name>LastRdValidIndex</name></member>
+      <member refid="struct_x_traf_gen___cmd_info_1a205e3808435db7d2f79be395fabc7083" prot="public" virt="non-virtual"><scope>XTrafGen_CmdInfo</scope><name>LastWrValidIndex</name></member>
+      <member refid="struct_x_traf_gen___cmd_info_1a8caa1f7535069edf212909b1ba944331" prot="public" virt="non-virtual"><scope>XTrafGen_CmdInfo</scope><name>RdIndex</name></member>
+      <member refid="struct_x_traf_gen___cmd_info_1a56f23c33a284db97c318415ce35dd267" prot="public" virt="non-virtual"><scope>XTrafGen_CmdInfo</scope><name>RdIndexEnd</name></member>
+      <member refid="struct_x_traf_gen___cmd_info_1ac47a05425af17e0d45181666230c9bf3" prot="public" virt="non-virtual"><scope>XTrafGen_CmdInfo</scope><name>WrIndex</name></member>
+      <member refid="struct_x_traf_gen___cmd_info_1a2bf6bf32479362d7c22f20bd916003e4" prot="public" virt="non-virtual"><scope>XTrafGen_CmdInfo</scope><name>WrIndexEnd</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

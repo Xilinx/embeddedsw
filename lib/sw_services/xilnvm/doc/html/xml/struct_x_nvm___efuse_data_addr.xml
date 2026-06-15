@@ -1,0 +1,198 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_nvm___efuse_data_addr" kind="struct" prot="public">
+    <compoundname>XNvm_EfuseDataAddr</compoundname>
+    <includes local="no">xnvm_common_defs.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_nvm___efuse_data_addr_1a4993e26190a70e1b09cda29ae6042a26" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XNvm_EfuseDataAddr::EnvMonDisFlag</definition>
+        <argsstring></argsstring>
+        <name>EnvMonDisFlag</name>
+        <briefdescription>
+<para>Environment monitor disable flag. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" line="300" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" bodystart="300" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_data_addr_1ade79346e7a230920533bad06983b32cc" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XNvm_EfuseDataAddr::AesKeyAddr</definition>
+        <argsstring></argsstring>
+        <name>AesKeyAddr</name>
+        <briefdescription>
+<para>AES key address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" line="301" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" bodystart="301" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_data_addr_1ac546c7f822787f51563876f7c07d3cd1" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XNvm_EfuseDataAddr::PpkHashAddr</definition>
+        <argsstring></argsstring>
+        <name>PpkHashAddr</name>
+        <briefdescription>
+<para>PPK hash address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" line="302" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" bodystart="302" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_data_addr_1a48cb8e689776947dd0808a20d563644d" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XNvm_EfuseDataAddr::DecOnlyAddr</definition>
+        <argsstring></argsstring>
+        <name>DecOnlyAddr</name>
+        <briefdescription>
+<para>Decrypt only address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" line="303" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" bodystart="303" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_data_addr_1a8dbd9583c41034fad433280e87b06127" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XNvm_EfuseDataAddr::SecCtrlAddr</definition>
+        <argsstring></argsstring>
+        <name>SecCtrlAddr</name>
+        <briefdescription>
+<para>Security control address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" line="304" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" bodystart="304" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_data_addr_1a0d8815d13b4f3a231193d8c078ca49c1" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XNvm_EfuseDataAddr::MiscCtrlAddr</definition>
+        <argsstring></argsstring>
+        <name>MiscCtrlAddr</name>
+        <briefdescription>
+<para>Miscellaneous control address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" line="305" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" bodystart="305" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_data_addr_1a2ac740859c2f02a3d2af0c6f4178bd54" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XNvm_EfuseDataAddr::RevokeIdAddr</definition>
+        <argsstring></argsstring>
+        <name>RevokeIdAddr</name>
+        <briefdescription>
+<para>Revoke ID address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" line="306" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" bodystart="306" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_data_addr_1a9e03b0d4b56a1ea98e20f3a9ab1ed66a" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XNvm_EfuseDataAddr::IvAddr</definition>
+        <argsstring></argsstring>
+        <name>IvAddr</name>
+        <briefdescription>
+<para>IV address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" line="307" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" bodystart="307" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_data_addr_1a1b7d919b899ced7afd2c229ed4cea1b7" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XNvm_EfuseDataAddr::UserFuseAddr</definition>
+        <argsstring></argsstring>
+        <name>UserFuseAddr</name>
+        <briefdescription>
+<para>User fuse address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" line="308" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" bodystart="308" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_data_addr_1a53a493deeaad57ead793f38aeecfe107" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XNvm_EfuseDataAddr::GlitchCfgAddr</definition>
+        <argsstring></argsstring>
+        <name>GlitchCfgAddr</name>
+        <briefdescription>
+<para>Glitch configuration address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" line="309" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" bodystart="309" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_data_addr_1ac1fcb47b1c8fd73dac0dac731d81c84c" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XNvm_EfuseDataAddr::BootEnvCtrlAddr</definition>
+        <argsstring></argsstring>
+        <name>BootEnvCtrlAddr</name>
+        <briefdescription>
+<para>Boot environment control address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" line="310" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" bodystart="310" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_data_addr_1ab0dbc92081cc6963e4e0d45614f42fa2" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XNvm_EfuseDataAddr::Misc1CtrlAddr</definition>
+        <argsstring></argsstring>
+        <name>Misc1CtrlAddr</name>
+        <briefdescription>
+<para>Miscellaneous 1 control address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" line="311" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" bodystart="311" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_data_addr_1aa057775486e59c2e5133de65dc211bb5" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XNvm_EfuseDataAddr::OffChipIdAddr</definition>
+        <argsstring></argsstring>
+        <name>OffChipIdAddr</name>
+        <briefdescription>
+<para>Offchip ID address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" line="312" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" bodystart="312" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Structure for holding addresses of eFuse data structures. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" line="299" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" bodystart="299" bodyend="316"/>
+    <listofallmembers>
+      <member refid="struct_x_nvm___efuse_data_addr_1ade79346e7a230920533bad06983b32cc" prot="public" virt="non-virtual"><scope>XNvm_EfuseDataAddr</scope><name>AesKeyAddr</name></member>
+      <member refid="struct_x_nvm___efuse_data_addr_1ac1fcb47b1c8fd73dac0dac731d81c84c" prot="public" virt="non-virtual"><scope>XNvm_EfuseDataAddr</scope><name>BootEnvCtrlAddr</name></member>
+      <member refid="struct_x_nvm___efuse_data_addr_1a48cb8e689776947dd0808a20d563644d" prot="public" virt="non-virtual"><scope>XNvm_EfuseDataAddr</scope><name>DecOnlyAddr</name></member>
+      <member refid="struct_x_nvm___efuse_data_addr_1a4993e26190a70e1b09cda29ae6042a26" prot="public" virt="non-virtual"><scope>XNvm_EfuseDataAddr</scope><name>EnvMonDisFlag</name></member>
+      <member refid="struct_x_nvm___efuse_data_addr_1a53a493deeaad57ead793f38aeecfe107" prot="public" virt="non-virtual"><scope>XNvm_EfuseDataAddr</scope><name>GlitchCfgAddr</name></member>
+      <member refid="struct_x_nvm___efuse_data_addr_1a9e03b0d4b56a1ea98e20f3a9ab1ed66a" prot="public" virt="non-virtual"><scope>XNvm_EfuseDataAddr</scope><name>IvAddr</name></member>
+      <member refid="struct_x_nvm___efuse_data_addr_1ab0dbc92081cc6963e4e0d45614f42fa2" prot="public" virt="non-virtual"><scope>XNvm_EfuseDataAddr</scope><name>Misc1CtrlAddr</name></member>
+      <member refid="struct_x_nvm___efuse_data_addr_1a0d8815d13b4f3a231193d8c078ca49c1" prot="public" virt="non-virtual"><scope>XNvm_EfuseDataAddr</scope><name>MiscCtrlAddr</name></member>
+      <member refid="struct_x_nvm___efuse_data_addr_1aa057775486e59c2e5133de65dc211bb5" prot="public" virt="non-virtual"><scope>XNvm_EfuseDataAddr</scope><name>OffChipIdAddr</name></member>
+      <member refid="struct_x_nvm___efuse_data_addr_1ac546c7f822787f51563876f7c07d3cd1" prot="public" virt="non-virtual"><scope>XNvm_EfuseDataAddr</scope><name>PpkHashAddr</name></member>
+      <member refid="struct_x_nvm___efuse_data_addr_1a2ac740859c2f02a3d2af0c6f4178bd54" prot="public" virt="non-virtual"><scope>XNvm_EfuseDataAddr</scope><name>RevokeIdAddr</name></member>
+      <member refid="struct_x_nvm___efuse_data_addr_1a8dbd9583c41034fad433280e87b06127" prot="public" virt="non-virtual"><scope>XNvm_EfuseDataAddr</scope><name>SecCtrlAddr</name></member>
+      <member refid="struct_x_nvm___efuse_data_addr_1a1b7d919b899ced7afd2c229ed4cea1b7" prot="public" virt="non-virtual"><scope>XNvm_EfuseDataAddr</scope><name>UserFuseAddr</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

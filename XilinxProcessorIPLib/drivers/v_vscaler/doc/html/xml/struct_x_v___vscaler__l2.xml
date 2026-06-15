@@ -1,0 +1,78 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_v___vscaler__l2" kind="struct" prot="public">
+    <compoundname>XV_Vscaler_l2</compoundname>
+    <includes local="no">xv_vscaler_l2.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_v___vscaler__l2_1adaed198f622fda824a6f5da9e2b4aa9d" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_v__vscaler" kindref="compound">XV_vscaler</ref></type>
+        <definition>XV_vscaler XV_Vscaler_l2::Vsc</definition>
+        <argsstring></argsstring>
+        <name>Vsc</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler_l2.h" line="124" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler_l2.h" bodystart="124" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___vscaler__l2_1aab065785626c7abc5fb500661506dab3" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XV_Vscaler_l2::UseExtCoeff</definition>
+        <argsstring></argsstring>
+        <name>UseExtCoeff</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler_l2.h" line="125" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler_l2.h" bodystart="125" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___vscaler__l2_1a9bf144e69f07ecebc3618425202c416d" prot="public" static="no" mutable="no">
+        <type>short</type>
+        <definition>short XV_Vscaler_l2::coeff[XV_VSCALER_MAX_V_PHASES][XV_VSCALER_MAX_V_TAPS]</definition>
+        <argsstring>[XV_VSCALER_MAX_V_PHASES][XV_VSCALER_MAX_V_TAPS]</argsstring>
+        <name>coeff</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler_l2.h" line="126" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler_l2.h" bodystart="126" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>V Scaler Layer 2 data. </para>    </briefdescription>
+    <detaileddescription>
+<para>The user is required to allocate a variable of this type for every V Scaler device in the system. A pointer to a variable of this type is then passed to the driver API functions. </para>    </detaileddescription>
+    <collaborationgraph>
+      <node id="7">
+        <label>XV_vscaler</label>
+        <link refid="struct_x_v__vscaler"/>
+        <childnode refid="8" relation="usage">
+          <edgelabel>Config</edgelabel>
+        </childnode>
+      </node>
+      <node id="8">
+        <label>XV_vscaler_Config</label>
+        <link refid="struct_x_v__vscaler___config"/>
+      </node>
+      <node id="6">
+        <label>XV_Vscaler_l2</label>
+        <link refid="struct_x_v___vscaler__l2"/>
+        <childnode refid="7" relation="usage">
+          <edgelabel>Vsc</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler_l2.h" line="123" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler_l2.h" bodystart="122" bodyend="127"/>
+    <listofallmembers>
+      <member refid="struct_x_v___vscaler__l2_1a9bf144e69f07ecebc3618425202c416d" prot="public" virt="non-virtual"><scope>XV_Vscaler_l2</scope><name>coeff</name></member>
+      <member refid="struct_x_v___vscaler__l2_1aab065785626c7abc5fb500661506dab3" prot="public" virt="non-virtual"><scope>XV_Vscaler_l2</scope><name>UseExtCoeff</name></member>
+      <member refid="struct_x_v___vscaler__l2_1adaed198f622fda824a6f5da9e2b4aa9d" prot="public" virt="non-virtual"><scope>XV_Vscaler_l2</scope><name>Vsc</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

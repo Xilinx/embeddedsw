@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_067ffb8a8bc6b5bbf51e14a809fc5812" kind="dir">
+    <compoundname>versal_net</compoundname>
+    <innerfile refid="versal__net_2_ecdsa_8h">versal_net/Ecdsa.h</innerfile>
+    <innerfile refid="versal__net_2_rsa_8h">versal_net/Rsa.h</innerfile>
+    <innerfile refid="net_2xsecure__cmd_8c">net/xsecure_cmd.c</innerfile>
+    <innerfile refid="versal__net_2xsecure__error_8h">versal_net/xsecure_error.h</innerfile>
+    <innerfile refid="xsecure__mgf_8c">xsecure_mgf.c</innerfile>
+    <innerfile refid="xsecure__mgf_8h">xsecure_mgf.h</innerfile>
+    <innerfile refid="versal__net_2xsecure__plat_8c">versal_net/xsecure_plat.c</innerfile>
+    <innerfile refid="versal__net_2xsecure__plat_8h">versal_net/xsecure_plat.h</innerfile>
+    <innerfile refid="net_2xsecure__plat__ipihandler_8c">net/xsecure_plat_ipihandler.c</innerfile>
+    <innerfile refid="net_2xsecure__plat__ipihandler_8h">net/xsecure_plat_ipihandler.h</innerfile>
+    <innerfile refid="net_2xsecure__plat__kat_8c">net/xsecure_plat_kat.c</innerfile>
+    <innerfile refid="net_2xsecure__plat__kat_8h">net/xsecure_plat_kat.h</innerfile>
+    <innerfile refid="versal__net_2xsecure__plat__kat__ipihandler_8c">versal_net/xsecure_plat_kat_ipihandler.c</innerfile>
+    <innerfile refid="versal__net_2xsecure__plat__kat__ipihandler_8h">versal_net/xsecure_plat_kat_ipihandler.h</innerfile>
+    <innerfile refid="net_2xsecure__server__aesalginfo_8h">net/xsecure_server_aesalginfo.h</innerfile>
+    <innerfile refid="versal__net_2xsecure__server__ecdhalginfo_8h">versal_net/xsecure_server_ecdhalginfo.h</innerfile>
+    <innerfile refid="net_2xsecure__server__ellipticalginfo_8h">net/xsecure_server_ellipticalginfo.h</innerfile>
+    <innerfile refid="versal__net_2xsecure__server__hmacalginfo_8h">versal_net/xsecure_server_hmacalginfo.h</innerfile>
+    <innerfile refid="xsecure__server__keyunwrapalginfo_8h">xsecure_server_keyunwrapalginfo.h</innerfile>
+    <innerfile refid="net_2xsecure__server__rsaalginfo_8h">net/xsecure_server_rsaalginfo.h</innerfile>
+    <innerfile refid="net_2xsecure__server__shaalginfo_8h">net/xsecure_server_shaalginfo.h</innerfile>
+    <innerfile refid="versal__net_2xsecure__sha__hw_8h">versal_net/xsecure_sha_hw.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/"/>
+  </compounddef>
+</doxygen>

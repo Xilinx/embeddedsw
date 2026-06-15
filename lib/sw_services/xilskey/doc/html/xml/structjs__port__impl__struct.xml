@@ -1,0 +1,177 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="structjs__port__impl__struct" kind="struct" prot="public">
+    <compoundname>js_port_impl_struct</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structjs__port__impl__struct_1ad4fe0d4009bbb09415dc05e35eeda177" prot="public" static="no" mutable="no">
+        <type>js_lib_port_t</type>
+        <definition>js_lib_port_t js_port_impl_struct::lib</definition>
+        <argsstring></argsstring>
+        <name>lib</name>
+        <briefdescription>
+<para>Base class - must be first. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.c" line="173" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.c" bodystart="173" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structjs__port__impl__struct_1a8ac2f54484b0dcb3dad08a5631f3e98f" prot="public" static="no" mutable="no">
+        <type><ref refid="structjs__lib__command__sequence__struct" kindref="compound">js_lib_command_sequence_t</ref> *</type>
+        <definition>js_lib_command_sequence_t* js_port_impl_struct::cmdseq</definition>
+        <argsstring></argsstring>
+        <name>cmdseq</name>
+        <briefdescription>
+<para>Command sequence after normalization. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.c" line="175" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.c" bodystart="175" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structjs__port__impl__struct_1af7bb1ab887d34a1381a00aac14bd1fc8" prot="public" static="no" mutable="no">
+        <type>js_state_t</type>
+        <definition>js_state_t js_port_impl_struct::state</definition>
+        <argsstring></argsstring>
+        <name>state</name>
+        <briefdescription>
+<para>Current JTAG state. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.c" line="178" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.c" bodystart="178" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structjs__port__impl__struct_1a7639496ceb15e70a156b1bcedf265baa" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int js_port_impl_struct::irPrePadBits</definition>
+        <argsstring></argsstring>
+        <name>irPrePadBits</name>
+        <briefdescription>
+<para>IR pre-pad bits. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.c" line="180" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.c" bodystart="180" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structjs__port__impl__struct_1a2c27c818a225a451c091705a0bec2dc9" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int js_port_impl_struct::irPostPadBits</definition>
+        <argsstring></argsstring>
+        <name>irPostPadBits</name>
+        <briefdescription>
+<para>IR post-pad bits. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.c" line="181" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.c" bodystart="181" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structjs__port__impl__struct_1a9a26fae0f765554c76ae53c1e11d6dca" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int js_port_impl_struct::drPrePadBits</definition>
+        <argsstring></argsstring>
+        <name>drPrePadBits</name>
+        <briefdescription>
+<para>DR pre-pad bits. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.c" line="182" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.c" bodystart="182" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structjs__port__impl__struct_1ad0b581b11002eba6c5ed2b835fa7703e" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int js_port_impl_struct::drPostPadBits</definition>
+        <argsstring></argsstring>
+        <name>drPostPadBits</name>
+        <briefdescription>
+<para>DR post-pad bits. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.c" line="183" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.c" bodystart="183" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structjs__port__impl__struct_1a993cf5e0213ca4aaf9c291bfe79b3fb2" prot="public" static="no" mutable="no">
+        <type><ref refid="structjs__node__struct" kindref="compound">js_node_t</ref></type>
+        <definition>js_node_t js_port_impl_struct::root_node_obj</definition>
+        <argsstring></argsstring>
+        <name>root_node_obj</name>
+        <briefdescription>
+<para>Root node object. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.c" line="185" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.c" bodystart="185" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="40">
+        <label>js_lib_command_sequence_struct</label>
+        <link refid="structjs__lib__command__sequence__struct"/>
+        <childnode refid="41" relation="usage">
+          <edgelabel>base</edgelabel>
+        </childnode>
+      </node>
+      <node id="39">
+        <label>js_server_struct</label>
+        <link refid="structjs__server__struct"/>
+      </node>
+      <node id="41">
+        <label>js_command_sequence_struct</label>
+        <link refid="structjs__command__sequence__struct"/>
+        <childnode refid="37" relation="usage">
+          <edgelabel>node</edgelabel>
+        </childnode>
+      </node>
+      <node id="38">
+        <label>js_port_struct</label>
+        <link refid="structjs__port__struct"/>
+        <childnode refid="39" relation="usage">
+          <edgelabel>server</edgelabel>
+        </childnode>
+        <childnode refid="37" relation="usage">
+          <edgelabel>root_node</edgelabel>
+        </childnode>
+      </node>
+      <node id="36">
+        <label>js_port_impl_struct</label>
+        <childnode refid="37" relation="usage">
+          <edgelabel>root_node_obj</edgelabel>
+        </childnode>
+        <childnode refid="40" relation="usage">
+          <edgelabel>cmdseq</edgelabel>
+        </childnode>
+      </node>
+      <node id="37">
+        <label>js_node_struct</label>
+        <link refid="structjs__node__struct"/>
+        <childnode refid="38" relation="usage">
+          <edgelabel>port</edgelabel>
+        </childnode>
+        <childnode refid="37" relation="usage">
+          <edgelabel>child_list</edgelabel>
+          <edgelabel>parent</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.c" line="172" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.c" bodystart="172" bodyend="186"/>
+    <listofallmembers>
+      <member refid="structjs__port__impl__struct_1a8ac2f54484b0dcb3dad08a5631f3e98f" prot="public" virt="non-virtual"><scope>js_port_impl_struct</scope><name>cmdseq</name></member>
+      <member refid="structjs__port__impl__struct_1ad0b581b11002eba6c5ed2b835fa7703e" prot="public" virt="non-virtual"><scope>js_port_impl_struct</scope><name>drPostPadBits</name></member>
+      <member refid="structjs__port__impl__struct_1a9a26fae0f765554c76ae53c1e11d6dca" prot="public" virt="non-virtual"><scope>js_port_impl_struct</scope><name>drPrePadBits</name></member>
+      <member refid="structjs__port__impl__struct_1a2c27c818a225a451c091705a0bec2dc9" prot="public" virt="non-virtual"><scope>js_port_impl_struct</scope><name>irPostPadBits</name></member>
+      <member refid="structjs__port__impl__struct_1a7639496ceb15e70a156b1bcedf265baa" prot="public" virt="non-virtual"><scope>js_port_impl_struct</scope><name>irPrePadBits</name></member>
+      <member refid="structjs__port__impl__struct_1ad4fe0d4009bbb09415dc05e35eeda177" prot="public" virt="non-virtual"><scope>js_port_impl_struct</scope><name>lib</name></member>
+      <member refid="structjs__port__impl__struct_1a993cf5e0213ca4aaf9c291bfe79b3fb2" prot="public" virt="non-virtual"><scope>js_port_impl_struct</scope><name>root_node_obj</name></member>
+      <member refid="structjs__port__impl__struct_1af7bb1ab887d34a1381a00aac14bd1fc8" prot="public" virt="non-virtual"><scope>js_port_impl_struct</scope><name>state</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,141 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_i_d_t__8_t49_n24x___settings" kind="struct" prot="public">
+    <compoundname>IDT_8T49N24x_Settings</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_i_d_t__8_t49_n24x___settings_1a2c5460415b93e872233b9b384eff4757" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 IDT_8T49N24x_Settings::NS1_Qx</definition>
+        <argsstring></argsstring>
+        <name>NS1_Qx</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/idt_8t49n24x.h" line="104" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/idt_8t49n24x.h" bodystart="104" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_i_d_t__8_t49_n24x___settings_1ada188025528dec7a67878a02b5f14b02" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 IDT_8T49N24x_Settings::NS2_Qx</definition>
+        <argsstring></argsstring>
+        <name>NS2_Qx</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/idt_8t49n24x.h" line="105" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/idt_8t49n24x.h" bodystart="105" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_i_d_t__8_t49_n24x___settings_1a5e5d5157a539c20bab274313ae6397b5" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 IDT_8T49N24x_Settings::N_Qx</definition>
+        <argsstring></argsstring>
+        <name>N_Qx</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/idt_8t49n24x.h" line="108" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/idt_8t49n24x.h" bodystart="108" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_i_d_t__8_t49_n24x___settings_1af48f5e49d1a0f88c9c1b6c6ba60e1f40" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 IDT_8T49N24x_Settings::NFRAC_Qx</definition>
+        <argsstring></argsstring>
+        <name>NFRAC_Qx</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/idt_8t49n24x.h" line="109" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/idt_8t49n24x.h" bodystart="109" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_i_d_t__8_t49_n24x___settings_1acea56dd4a4d5f39f14f8af448e54a4fe" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 IDT_8T49N24x_Settings::DSM_INT</definition>
+        <argsstring></argsstring>
+        <name>DSM_INT</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/idt_8t49n24x.h" line="112" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/idt_8t49n24x.h" bodystart="112" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_i_d_t__8_t49_n24x___settings_1aa14a0144dc94a93bde65ba8c3db96bcd" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 IDT_8T49N24x_Settings::DSM_FRAC</definition>
+        <argsstring></argsstring>
+        <name>DSM_FRAC</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/idt_8t49n24x.h" line="113" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/idt_8t49n24x.h" bodystart="113" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_i_d_t__8_t49_n24x___settings_1a645718e5738b8bdb3edb0ed8fdf09425" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 IDT_8T49N24x_Settings::M1_x</definition>
+        <argsstring></argsstring>
+        <name>M1_x</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/idt_8t49n24x.h" line="116" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/idt_8t49n24x.h" bodystart="116" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_i_d_t__8_t49_n24x___settings_1a6f62c4ba8db91ef1eb13ef69d3c902b3" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 IDT_8T49N24x_Settings::PRE_x</definition>
+        <argsstring></argsstring>
+        <name>PRE_x</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/idt_8t49n24x.h" line="117" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/idt_8t49n24x.h" bodystart="117" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_i_d_t__8_t49_n24x___settings_1af1457b3c287f3412d9f3f29067834b9b" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 IDT_8T49N24x_Settings::LOS_x</definition>
+        <argsstring></argsstring>
+        <name>LOS_x</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/idt_8t49n24x.h" line="120" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/idt_8t49n24x.h" bodystart="120" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/idt_8t49n24x.h" line="102" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/idt_8t49n24x.h" bodystart="102" bodyend="122"/>
+    <listofallmembers>
+      <member refid="struct_i_d_t__8_t49_n24x___settings_1aa14a0144dc94a93bde65ba8c3db96bcd" prot="public" virt="non-virtual"><scope>IDT_8T49N24x_Settings</scope><name>DSM_FRAC</name></member>
+      <member refid="struct_i_d_t__8_t49_n24x___settings_1acea56dd4a4d5f39f14f8af448e54a4fe" prot="public" virt="non-virtual"><scope>IDT_8T49N24x_Settings</scope><name>DSM_INT</name></member>
+      <member refid="struct_i_d_t__8_t49_n24x___settings_1af1457b3c287f3412d9f3f29067834b9b" prot="public" virt="non-virtual"><scope>IDT_8T49N24x_Settings</scope><name>LOS_x</name></member>
+      <member refid="struct_i_d_t__8_t49_n24x___settings_1a645718e5738b8bdb3edb0ed8fdf09425" prot="public" virt="non-virtual"><scope>IDT_8T49N24x_Settings</scope><name>M1_x</name></member>
+      <member refid="struct_i_d_t__8_t49_n24x___settings_1a5e5d5157a539c20bab274313ae6397b5" prot="public" virt="non-virtual"><scope>IDT_8T49N24x_Settings</scope><name>N_Qx</name></member>
+      <member refid="struct_i_d_t__8_t49_n24x___settings_1af48f5e49d1a0f88c9c1b6c6ba60e1f40" prot="public" virt="non-virtual"><scope>IDT_8T49N24x_Settings</scope><name>NFRAC_Qx</name></member>
+      <member refid="struct_i_d_t__8_t49_n24x___settings_1a2c5460415b93e872233b9b384eff4757" prot="public" virt="non-virtual"><scope>IDT_8T49N24x_Settings</scope><name>NS1_Qx</name></member>
+      <member refid="struct_i_d_t__8_t49_n24x___settings_1ada188025528dec7a67878a02b5f14b02" prot="public" virt="non-virtual"><scope>IDT_8T49N24x_Settings</scope><name>NS2_Qx</name></member>
+      <member refid="struct_i_d_t__8_t49_n24x___settings_1a6f62c4ba8db91ef1eb13ef69d3c902b3" prot="public" virt="non-virtual"><scope>IDT_8T49N24x_Settings</scope><name>PRE_x</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

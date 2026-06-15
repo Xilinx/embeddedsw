@@ -1,0 +1,1188 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xaxidma_8h" kind="file">
+    <compoundname>xaxidma.h</compoundname>
+    <includes refid="xaxidma__bdring_8h" local="yes">xaxidma_bdring.h</includes>
+    <includes local="no">string.h</includes>
+    <includes local="yes">xil_cache.h</includes>
+    <includedby refid="xaxidma_8c" local="yes">xaxidma.c</includedby>
+    <includedby refid="xaxidma__g_8c" local="yes">xaxidma_g.c</includedby>
+    <includedby refid="xaxidma__selftest_8c" local="yes">xaxidma_selftest.c</includedby>
+    <includedby refid="xaxidma__sinit_8c" local="yes">xaxidma_sinit.c</includedby>
+    <includedby refid="xaxidma__example__poll__multi__pkts_8c" local="yes">xaxidma_example_poll_multi_pkts.c</includedby>
+    <includedby refid="xaxidma__example__selftest_8c" local="yes">xaxidma_example_selftest.c</includedby>
+    <includedby refid="xaxidma__example__sg__intr_8c" local="yes">xaxidma_example_sg_intr.c</includedby>
+    <includedby refid="xaxidma__example__sg__poll_8c" local="yes">xaxidma_example_sg_poll.c</includedby>
+    <includedby refid="xaxidma__example__sgcyclic__intr_8c" local="yes">xaxidma_example_sgcyclic_intr.c</includedby>
+    <includedby refid="xaxidma__example__simple__intr_8c" local="yes">xaxidma_example_simple_intr.c</includedby>
+    <includedby refid="xaxidma__example__simple__poll_8c" local="yes">xaxidma_example_simple_poll.c</includedby>
+    <incdepgraph>
+      <node id="25">
+        <label>xil_io.h</label>
+      </node>
+      <node id="29">
+        <label>stdlib.h</label>
+      </node>
+      <node id="22">
+        <label>xaxidma_bd.h</label>
+        <link refid="xaxidma__bd_8h"/>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+      </node>
+      <node id="27">
+        <label>xil_cache.h</label>
+      </node>
+      <node id="26">
+        <label>xdebug.h</label>
+      </node>
+      <node id="23">
+        <label>xaxidma_hw.h</label>
+        <link refid="xaxidma__hw_8h"/>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+      </node>
+      <node id="28">
+        <label>string.h</label>
+      </node>
+      <node id="20">
+        <label>xaxidma_bdring.h</label>
+        <link refid="xaxidma__bdring_8h"/>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
+        </childnode>
+      </node>
+      <node id="21">
+        <label>xstatus.h</label>
+      </node>
+      <node id="24">
+        <label>xil_types.h</label>
+      </node>
+      <node id="19">
+        <label>xaxidma.h</label>
+        <link refid="xaxidma.h"/>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="33">
+        <label>xaxidma_selftest.c</label>
+        <link refid="xaxidma__selftest_8c"/>
+      </node>
+      <node id="34">
+        <label>xaxidma_sinit.c</label>
+        <link refid="xaxidma__sinit_8c"/>
+      </node>
+      <node id="39">
+        <label>xaxidma_example_sgcyclic_intr.c</label>
+        <link refid="xaxidma__example__sgcyclic__intr_8c"/>
+      </node>
+      <node id="32">
+        <label>xaxidma_g.c</label>
+        <link refid="xaxidma__g_8c"/>
+      </node>
+      <node id="38">
+        <label>xaxidma_example_sg_poll.c</label>
+        <link refid="xaxidma__example__sg__poll_8c"/>
+      </node>
+      <node id="36">
+        <label>xaxidma_example_selftest.c</label>
+        <link refid="xaxidma__example__selftest_8c"/>
+      </node>
+      <node id="35">
+        <label>xaxidma_example_poll_multi_pkts.c</label>
+        <link refid="xaxidma__example__poll__multi__pkts_8c"/>
+      </node>
+      <node id="40">
+        <label>xaxidma_example_simple_intr.c</label>
+        <link refid="xaxidma__example__simple__intr_8c"/>
+      </node>
+      <node id="37">
+        <label>xaxidma_example_sg_intr.c</label>
+        <link refid="xaxidma__example__sg__intr_8c"/>
+      </node>
+      <node id="31">
+        <label>xaxidma.c</label>
+        <link refid="xaxidma_8c"/>
+      </node>
+      <node id="30">
+        <label>xaxidma.h</label>
+        <link refid="xaxidma.h"/>
+        <childnode refid="31" relation="include">
+        </childnode>
+        <childnode refid="32" relation="include">
+        </childnode>
+        <childnode refid="33" relation="include">
+        </childnode>
+        <childnode refid="34" relation="include">
+        </childnode>
+        <childnode refid="35" relation="include">
+        </childnode>
+        <childnode refid="36" relation="include">
+        </childnode>
+        <childnode refid="37" relation="include">
+        </childnode>
+        <childnode refid="38" relation="include">
+        </childnode>
+        <childnode refid="39" relation="include">
+        </childnode>
+        <childnode refid="40" relation="include">
+        </childnode>
+        <childnode refid="41" relation="include">
+        </childnode>
+      </node>
+      <node id="41">
+        <label>xaxidma_example_simple_poll.c</label>
+        <link refid="xaxidma__example__simple__poll_8c"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_x_axi_dma" prot="public">XAxiDma</innerclass>
+    <innerclass refid="struct_x_axi_dma___config" prot="public">XAxiDma_Config</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group___a_x_i_d_m_a_1ga9d91f29c6dc41f2106e097f1f9957a6e" prot="public" static="no">
+        <name>XAxiDma_GetTxRing</name>
+        <param><defname>InstancePtr</defname></param>
+        <initializer>(&amp;((InstancePtr)-&gt;TxBdRing))</initializer>
+        <briefdescription>
+<para>Get Transmit (Tx) Ring ptr. </para>        </briefdescription>
+        <detaileddescription>
+<para>Warning: This has a different API than the LLDMA driver. It now returns the pointer to the BD ring.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the DMA engine instance to be worked on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Pointer to the Tx Ring</para></simplesect>
+<simplesect kind="note"><para>C-style signature: <ref refid="struct_x_axi_dma___bd_ring" kindref="compound">XAxiDma_BdRing</ref> * <ref refid="group___a_x_i_d_m_a_1ga9d91f29c6dc41f2106e097f1f9957a6e" kindref="member">XAxiDma_GetTxRing(XAxiDma * InstancePtr)</ref> This function is used only when system is configured as SG mode </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma.h" line="557" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma.h" bodystart="557" bodyend="-1"/>
+        <referencedby refid="xaxidma__example__sg__intr_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xaxidma__example__sg__intr_8c" startline="270" endline="430">main</referencedby>
+        <referencedby refid="group___a_x_i_d_m_a_1gadb572b623215a7df62b1e0468e3bd68c" compoundref="xaxidma_8c" startline="509" endline="561">XAxiDma_Pause</referencedby>
+        <referencedby refid="group___a_x_i_d_m_a_1ga5b7d1248ef065915fd8c9e8d5e00640f" compoundref="xaxidma_8c" startline="287" endline="338">XAxiDma_Reset</referencedby>
+        <referencedby refid="group___a_x_i_d_m_a_1gaf73e1329e40c8ac1ae47a7d9c104af75" compoundref="xaxidma_8c" startline="355" endline="393">XAxiDma_ResetIsDone</referencedby>
+        <referencedby refid="group___a_x_i_d_m_a_1ga847cd9a0255fcb444bce58b945de8574" compoundref="xaxidma_8c" startline="578" endline="644">XAxiDma_Resume</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group___a_x_i_d_m_a_1ga6373ac3baa5365607f6727f4e2ece7a5" prot="public" static="no">
+        <name>XAxiDma_GetRxRing</name>
+        <param><defname>InstancePtr</defname></param>
+        <initializer>(&amp;((InstancePtr)-&gt;RxBdRing[0]))</initializer>
+        <briefdescription>
+<para>Get Receive (Rx) Ring ptr. </para>        </briefdescription>
+        <detaileddescription>
+<para>Warning: This has a different API than the LLDMA driver. It now returns the pointer to the BD ring.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the DMA engine instance to be worked on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Pointer to the Rx Ring</para></simplesect>
+<simplesect kind="note"><para>C-style signature: <ref refid="struct_x_axi_dma___bd_ring" kindref="compound">XAxiDma_BdRing</ref> * <ref refid="group___a_x_i_d_m_a_1ga6373ac3baa5365607f6727f4e2ece7a5" kindref="member">XAxiDma_GetRxRing(XAxiDma * InstancePtr)</ref> This function is used only when system is configured as SG mode </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma.h" line="578" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma.h" bodystart="578" bodyend="-1"/>
+        <referencedby refid="xaxidma__example__sg__intr_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xaxidma__example__sg__intr_8c" startline="270" endline="430">main</referencedby>
+        <referencedby refid="group___a_x_i_d_m_a_1gaf73e1329e40c8ac1ae47a7d9c104af75" compoundref="xaxidma_8c" startline="355" endline="393">XAxiDma_ResetIsDone</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group___a_x_i_d_m_a_1gaf03e87b58cf2f9800e6260fda3745631" prot="public" static="no">
+        <name>XAxiDma_GetRxIndexRing</name>
+        <param><defname>InstancePtr</defname></param>
+        <param><defname>RingIndex</defname></param>
+        <initializer>(&amp;((InstancePtr)-&gt;RxBdRing[RingIndex]))</initializer>
+        <briefdescription>
+<para>Get Receive (Rx) Ring ptr of a Index. </para>        </briefdescription>
+        <detaileddescription>
+<para>Warning: This has a different API than the LLDMA driver. It now returns the pointer to the BD ring.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the DMA engine instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RingIndex</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the channel Index.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Pointer to the Rx Ring</para></simplesect>
+<simplesect kind="note"><para>C-style signature: <ref refid="struct_x_axi_dma___bd_ring" kindref="compound">XAxiDma_BdRing</ref> * XAxiDma_GetRxIndexRing(<ref refid="struct_x_axi_dma" kindref="compound">XAxiDma</ref> * InstancePtr, int RingIndex) This function is used only when system is configured as SG mode </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma.h" line="601" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma.h" bodystart="601" bodyend="-1"/>
+        <referencedby refid="group___a_x_i_d_m_a_1gadb572b623215a7df62b1e0468e3bd68c" compoundref="xaxidma_8c" startline="509" endline="561">XAxiDma_Pause</referencedby>
+        <referencedby refid="group___a_x_i_d_m_a_1ga5b7d1248ef065915fd8c9e8d5e00640f" compoundref="xaxidma_8c" startline="287" endline="338">XAxiDma_Reset</referencedby>
+        <referencedby refid="group___a_x_i_d_m_a_1ga847cd9a0255fcb444bce58b945de8574" compoundref="xaxidma_8c" startline="578" endline="644">XAxiDma_Resume</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group___a_x_i_d_m_a_1ga18dd03026dd6c0ebd13526116c09ccae" prot="public" static="no">
+        <name>XAxiDma_HasSg</name>
+        <param><defname>InstancePtr</defname></param>
+        <initializer>((InstancePtr)-&gt;HasSg) ? TRUE : FALSE</initializer>
+        <briefdescription>
+<para>This function checks whether system is configured as Simple or Scatter Gather mode. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the DMA engine instance to be worked on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>TRUE if configured as SG mode</para></listitem><listitem><para>FALSE if configured as simple mode</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma.h" line="619" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma.h" bodystart="619" bodyend="-1"/>
+        <referencedby refid="xaxidma__example__poll__multi__pkts_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xaxidma__example__poll__multi__pkts_8c" startline="174" endline="254">main</referencedby>
+        <referencedby refid="group___a_x_i_d_m_a_1gadb572b623215a7df62b1e0468e3bd68c" compoundref="xaxidma_8c" startline="509" endline="561">XAxiDma_Pause</referencedby>
+        <referencedby refid="group___a_x_i_d_m_a_1ga5b7d1248ef065915fd8c9e8d5e00640f" compoundref="xaxidma_8c" startline="287" endline="338">XAxiDma_Reset</referencedby>
+        <referencedby refid="group___a_x_i_d_m_a_1ga847cd9a0255fcb444bce58b945de8574" compoundref="xaxidma_8c" startline="578" endline="644">XAxiDma_Resume</referencedby>
+        <referencedby refid="xaxidma__example__simple__poll_8c_1a74235d148637c91d12901cc99d930ff4" compoundref="xaxidma__example__simple__poll_8c" startline="229" endline="328">XAxiDma_SimplePollExample</referencedby>
+        <referencedby refid="group___a_x_i_d_m_a_1ga32ca6099d7926297a4c17cdb4a19511b" compoundref="xaxidma_8c" startline="825" endline="962">XAxiDma_SimpleTransfer</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group___a_x_i_d_m_a_1gadac28afa26e2cb55bdada1ee3c016c52" prot="public" static="no">
+        <name>XAxiDma_IntrEnable</name>
+        <param><defname>InstancePtr</defname></param>
+        <param><defname>Mask</defname></param>
+        <param><defname>Direction</defname></param>
+        <initializer><ref refid="group___a_x_i_d_m_a_1ga73dabf09bac8a209e0cc367f6ccdf44b" kindref="member">XAxiDma_WriteReg</ref>((InstancePtr)-&gt;RegBase + \
+			 (<ref refid="group___a_x_i_d_m_a_1gadfdc083e0b249c04624a66e700d7a7c4" kindref="member">XAXIDMA_RX_OFFSET</ref> * Direction), <ref refid="group___a_x_i_d_m_a_1ga8534b07ed878f92d2062dc1680fb0391" kindref="member">XAXIDMA_CR_OFFSET</ref>, \
+			 (<ref refid="group___a_x_i_d_m_a_1gadea426ef26fc5473a78723cd2b92aba5" kindref="member">XAxiDma_ReadReg</ref>((InstancePtr)-&gt;RegBase + \
+					  (<ref refid="group___a_x_i_d_m_a_1gadfdc083e0b249c04624a66e700d7a7c4" kindref="member">XAXIDMA_RX_OFFSET</ref> * Direction), <ref refid="group___a_x_i_d_m_a_1ga8534b07ed878f92d2062dc1680fb0391" kindref="member">XAXIDMA_CR_OFFSET</ref>)) \
+			 | (Mask &amp; <ref refid="group___a_x_i_d_m_a_1ga8347e41a5c01bdabefce9c8484a7ced1" kindref="member">XAXIDMA_IRQ_ALL_MASK</ref>))</initializer>
+        <briefdescription>
+<para>This function enables interrupts specified by the Mask in specified direction, Interrupts that are not in the mask are not affected. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the driver instance we are working on </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the mask for the interrupts to be enabled </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Direction</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is DMA transfer direction, valid values are<itemizedlist>
+<listitem><para>XAXIDMA_DMA_TO_DEVICE.</para></listitem><listitem><para>XAXIDMA_DEVICE_TO_DMA. </para></listitem></itemizedlist>
+</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma.h" line="636" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma.h" bodystart="636" bodyend="-1"/>
+        <referencedby refid="xaxidma__example__simple__intr_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xaxidma__example__simple__intr_8c" startline="240" endline="426">main</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group___a_x_i_d_m_a_1gadba63ad7c0a784d569736a8d1eb7c367" prot="public" static="no">
+        <name>XAxiDma_IntrGetEnabled</name>
+        <param><defname>InstancePtr</defname></param>
+        <param><defname>Direction</defname></param>
+        <initializer>(<ref refid="group___a_x_i_d_m_a_1gadea426ef26fc5473a78723cd2b92aba5" kindref="member">XAxiDma_ReadReg</ref>((InstancePtr)-&gt;RegBase + \
+			 (<ref refid="group___a_x_i_d_m_a_1gadfdc083e0b249c04624a66e700d7a7c4" kindref="member">XAXIDMA_RX_OFFSET</ref> * Direction), <ref refid="group___a_x_i_d_m_a_1ga8534b07ed878f92d2062dc1680fb0391" kindref="member">XAXIDMA_CR_OFFSET</ref>) &amp;\
+	 <ref refid="group___a_x_i_d_m_a_1ga8347e41a5c01bdabefce9c8484a7ced1" kindref="member">XAXIDMA_IRQ_ALL_MASK</ref>)</initializer>
+        <briefdescription>
+<para>This function gets the mask for the interrupts that are currently enabled. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the driver instance we are working on </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Direction</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is DMA transfer direction, valid values are<itemizedlist>
+<listitem><para>XAXIDMA_DMA_TO_DEVICE.</para></listitem><listitem><para>XAXIDMA_DEVICE_TO_DMA.</para></listitem></itemizedlist>
+</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The bit mask for the interrupts that are currently enabled</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma.h" line="658" column="11" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma.h" bodystart="658" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___a_x_i_d_m_a_1ga1936b497c0fa61d326807e5ed8dd572b" prot="public" static="no">
+        <name>XAxiDma_IntrDisable</name>
+        <param><defname>InstancePtr</defname></param>
+        <param><defname>Mask</defname></param>
+        <param><defname>Direction</defname></param>
+        <initializer><ref refid="group___a_x_i_d_m_a_1ga73dabf09bac8a209e0cc367f6ccdf44b" kindref="member">XAxiDma_WriteReg</ref>((InstancePtr)-&gt;RegBase + \
+			 (<ref refid="group___a_x_i_d_m_a_1gadfdc083e0b249c04624a66e700d7a7c4" kindref="member">XAXIDMA_RX_OFFSET</ref> * Direction), <ref refid="group___a_x_i_d_m_a_1ga8534b07ed878f92d2062dc1680fb0391" kindref="member">XAXIDMA_CR_OFFSET</ref>, \
+			 (<ref refid="group___a_x_i_d_m_a_1gadea426ef26fc5473a78723cd2b92aba5" kindref="member">XAxiDma_ReadReg</ref>((InstancePtr)-&gt;RegBase + \
+					  (<ref refid="group___a_x_i_d_m_a_1gadfdc083e0b249c04624a66e700d7a7c4" kindref="member">XAXIDMA_RX_OFFSET</ref> * Direction), <ref refid="group___a_x_i_d_m_a_1ga8534b07ed878f92d2062dc1680fb0391" kindref="member">XAXIDMA_CR_OFFSET</ref>)) \
+			 &amp; ~(Mask &amp; <ref refid="group___a_x_i_d_m_a_1ga8347e41a5c01bdabefce9c8484a7ced1" kindref="member">XAXIDMA_IRQ_ALL_MASK</ref>))</initializer>
+        <briefdescription>
+<para>This function disables interrupts specified by the Mask. </para>        </briefdescription>
+        <detaileddescription>
+<para>Interrupts that are not in the mask are not affected.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the driver instance we are working on </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the mask for the interrupts to be disabled </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Direction</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is DMA transfer direction, valid values are<itemizedlist>
+<listitem><para>XAXIDMA_DMA_TO_DEVICE.</para></listitem><listitem><para>XAXIDMA_DEVICE_TO_DMA. </para></listitem></itemizedlist>
+</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma.h" line="680" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma.h" bodystart="680" bodyend="-1"/>
+        <referencedby refid="xaxidma__example__simple__intr_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xaxidma__example__simple__intr_8c" startline="240" endline="426">main</referencedby>
+        <referencedby refid="xaxidma__example__simple__poll_8c_1a74235d148637c91d12901cc99d930ff4" compoundref="xaxidma__example__simple__poll_8c" startline="229" endline="328">XAxiDma_SimplePollExample</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group___a_x_i_d_m_a_1ga6a0eb17bcfcaf3331e01855d302f5f0e" prot="public" static="no">
+        <name>XAxiDma_IntrGetIrq</name>
+        <param><defname>InstancePtr</defname></param>
+        <param><defname>Direction</defname></param>
+        <initializer>(<ref refid="group___a_x_i_d_m_a_1gadea426ef26fc5473a78723cd2b92aba5" kindref="member">XAxiDma_ReadReg</ref>((InstancePtr)-&gt;RegBase + \
+			 (<ref refid="group___a_x_i_d_m_a_1gadfdc083e0b249c04624a66e700d7a7c4" kindref="member">XAXIDMA_RX_OFFSET</ref> * Direction), <ref refid="group___a_x_i_d_m_a_1ga50d6957f8447d4eab9e444666730f692" kindref="member">XAXIDMA_SR_OFFSET</ref>) &amp;\
+	 <ref refid="group___a_x_i_d_m_a_1ga8347e41a5c01bdabefce9c8484a7ced1" kindref="member">XAXIDMA_IRQ_ALL_MASK</ref>)</initializer>
+        <briefdescription>
+<para>This function gets the interrupts that are asserted. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the driver instance we are working on </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Direction</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is DMA transfer direction, valid values are<itemizedlist>
+<listitem><para>XAXIDMA_DMA_TO_DEVICE.</para></listitem><listitem><para>XAXIDMA_DEVICE_TO_DMA.</para></listitem></itemizedlist>
+</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The bit mask for the interrupts asserted.</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma.h" line="702" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma.h" bodystart="702" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___a_x_i_d_m_a_1ga9ff0d2e5b50846e4b6a2d683283c10d5" prot="public" static="no">
+        <name>XAxiDma_IntrAckIrq</name>
+        <param><defname>InstancePtr</defname></param>
+        <param><defname>Mask</defname></param>
+        <param><defname>Direction</defname></param>
+        <initializer><ref refid="group___a_x_i_d_m_a_1ga73dabf09bac8a209e0cc367f6ccdf44b" kindref="member">XAxiDma_WriteReg</ref>((InstancePtr)-&gt;RegBase + \
+			 (<ref refid="group___a_x_i_d_m_a_1gadfdc083e0b249c04624a66e700d7a7c4" kindref="member">XAXIDMA_RX_OFFSET</ref> * Direction), <ref refid="group___a_x_i_d_m_a_1ga50d6957f8447d4eab9e444666730f692" kindref="member">XAXIDMA_SR_OFFSET</ref>, \
+			 (Mask) &amp; <ref refid="group___a_x_i_d_m_a_1ga8347e41a5c01bdabefce9c8484a7ced1" kindref="member">XAXIDMA_IRQ_ALL_MASK</ref>)</initializer>
+        <briefdescription>
+<para>This function acknowledges the interrupts that are specified in Mask. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the driver instance we are working on </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the mask for the interrupts to be acknowledge </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Direction</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is DMA transfer direction, valid values are<itemizedlist>
+<listitem><para>XAXIDMA_DMA_TO_DEVICE.</para></listitem><listitem><para>XAXIDMA_DEVICE_TO_DMA.</para></listitem></itemizedlist>
+</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma.h" line="722" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma.h" bodystart="722" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="group___a_x_i_d_m_a_1gac08fe7cb6508a133a7ef036bba7df5b5" prot="public" static="no">
+        <type>struct <ref refid="struct_x_axi_dma" kindref="compound">XAxiDma</ref></type>
+        <definition>typedef struct XAxiDma  XAxiDma</definition>
+        <argsstring></argsstring>
+        <name>XAxiDma</name>
+        <briefdescription>
+<para>The <ref refid="struct_x_axi_dma" kindref="compound">XAxiDma</ref> driver instance data. </para>        </briefdescription>
+        <detaileddescription>
+<para>An instance must be allocated for each DMA engine in use. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma.h" line="502" column="1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group___a_x_i_d_m_a_1ga8a31868280befe559084a39d4505d624" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="struct_x_axi_dma___config" kindref="compound">XAxiDma_Config</ref> *</type>
+        <definition>XAxiDma_Config * XAxiDma_LookupConfig</definition>
+        <argsstring>(UINTPTR BaseAddress)</argsstring>
+        <name>XAxiDma_LookupConfig</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <briefdescription>
+<para>Looks up the device configuration based on the unique device ID/BaseAddress. </para>        </briefdescription>
+        <detaileddescription>
+<para>A table contains the configuration info for each device in the system.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains the base address of the device</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>A pointer to the configuration table entry corresponding to the given device ID/BaseAddress, or NULL if no match is found.</para></simplesect>
+<simplesect kind="note"><para>In XSCT/classic flow, DeviceId is used to look up the device configuration. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma.h" line="738" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma_sinit.c" bodystart="115" bodyend="132"/>
+        <references refid="struct_x_axi_dma___config_1ad2508bacaf3b018e7ad88964b43317bc" compoundref="xaxidma_8h" startline="513">XAxiDma_Config::Name</references>
+        <referencedby refid="xaxidma__example__selftest_8c_1a95abf69118f4f7a08c4c6e264a39982b" compoundref="xaxidma__example__selftest_8c" startline="131" endline="157">AxiDMASelfTestExample</referencedby>
+        <referencedby refid="xaxidma__example__poll__multi__pkts_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xaxidma__example__poll__multi__pkts_8c" startline="174" endline="254">main</referencedby>
+        <referencedby refid="xaxidma__example__simple__poll_8c_1a74235d148637c91d12901cc99d930ff4" compoundref="xaxidma__example__simple__poll_8c" startline="229" endline="328">XAxiDma_SimplePollExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group___a_x_i_d_m_a_1ga8026e76c90d891d21c9c355ff776cb77" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XAxiDma_CfgInitialize</definition>
+        <argsstring>(XAxiDma *InstancePtr, XAxiDma_Config *Config)</argsstring>
+        <name>XAxiDma_CfgInitialize</name>
+        <param>
+          <type><ref refid="struct_x_axi_dma" kindref="compound">XAxiDma</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_axi_dma___config" kindref="compound">XAxiDma_Config</ref> *</type>
+          <declname>Config</declname>
+        </param>
+        <briefdescription>
+<para>This function initializes a DMA engine. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function must be called prior to using a DMA engine. Initializing a engine includes setting up the register base address, setting up the instance data, and ensuring the hardware is in a quiescent state.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the DMA engine instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Config</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to an <ref refid="struct_x_axi_dma___config" kindref="compound">XAxiDma_Config</ref> structure. It contains the information about the hardware build, including base address,and whether status control stream (StsCntrlStrm), MM2S and S2MM are included in the build.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS for successful initialization</para></listitem><listitem><para>XST_INVALID_PARAM if pointer to the configuration structure is NULL</para></listitem><listitem><para>XST_DMA_ERROR if reset operation failed at the end of initialization</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>We assume the hardware building tool will check and error out for a hardware build that has no transfer channels. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma.c" line="114" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma.c" bodystart="114" bodyend="265"/>
+        <references refid="struct_x_axi_dma_1a663f5757eabe6b1b8813ed5fdb0d0edb" compoundref="xaxidma_8h" startline="501">XAxiDma::AddrWidth</references>
+        <references refid="struct_x_axi_dma___config_1a6fc1c26fb40944182ff84e370e667eb0" compoundref="xaxidma_8h" startline="530">XAxiDma_Config::AddrWidth</references>
+        <references refid="struct_x_axi_dma___config_1a4b0b33cd18eeb2a17c1cc8d170280aaa" compoundref="xaxidma_8h" startline="515">XAxiDma_Config::BaseAddr</references>
+        <references refid="struct_x_axi_dma___bd_ring_1a203421a70ece72a3757fb690dd4ee75a" compoundref="xaxidma__bdring_8h" startline="84">XAxiDma_BdRing::ChanBase</references>
+        <references refid="struct_x_axi_dma___config_1a9e597a36e83962019838d61a34c416c5" compoundref="xaxidma_8h" startline="518">XAxiDma_Config::HasMm2S</references>
+        <references refid="struct_x_axi_dma___config_1a1b1d4cd7b4bba7822017f4bea8eb279d" compoundref="xaxidma_8h" startline="519">XAxiDma_Config::HasMm2SDRE</references>
+        <references refid="struct_x_axi_dma___config_1a8cfd661a9afc2ba1be63099ca38e4a02" compoundref="xaxidma_8h" startline="521">XAxiDma_Config::HasS2Mm</references>
+        <references refid="struct_x_axi_dma___config_1a2b89398fe9ee0d4fb0c55550f37df096" compoundref="xaxidma_8h" startline="522">XAxiDma_Config::HasS2MmDRE</references>
+        <references refid="struct_x_axi_dma___config_1a4060f5af42c77e6616fef7d1f6042968" compoundref="xaxidma_8h" startline="524">XAxiDma_Config::HasSg</references>
+        <references refid="struct_x_axi_dma___bd_ring_1a7d35cb00bb50fff2e24c15f7d7d8dae0" compoundref="xaxidma__bdring_8h" startline="88">XAxiDma_BdRing::HasStsCntrlStrm</references>
+        <references refid="struct_x_axi_dma___config_1aa9fd771fe88c0e9af427021f733ff4b7" compoundref="xaxidma_8h" startline="517">XAxiDma_Config::HasStsCntrlStrm</references>
+        <references refid="struct_x_axi_dma___bd_ring_1a912bf38e61c8b03995ece842426b3ccf" compoundref="xaxidma__bdring_8h" startline="86">XAxiDma_BdRing::IsRxChannel</references>
+        <references refid="struct_x_axi_dma___config_1adc95679c99ad11c8804612c09389a100" compoundref="xaxidma_8h" startline="529">XAxiDma_Config::MicroDmaMode</references>
+        <references refid="struct_x_axi_dma___config_1a149852a31badf55c36bc53da3cfdf2b8" compoundref="xaxidma_8h" startline="527">XAxiDma_Config::Mm2SBurstSize</references>
+        <references refid="struct_x_axi_dma___config_1a87f4b20a7f008577405158452bfdddb0" compoundref="xaxidma_8h" startline="520">XAxiDma_Config::Mm2SDataWidth</references>
+        <references refid="struct_x_axi_dma___config_1a837eb1ff7177f468fe69233cefca821c" compoundref="xaxidma_8h" startline="525">XAxiDma_Config::Mm2sNumChannels</references>
+        <references refid="struct_x_axi_dma___bd_ring_1ac14f09fcd00f1869c8194d790f73d791" compoundref="xaxidma__bdring_8h" startline="112">XAxiDma_BdRing::RingIndex</references>
+        <references refid="struct_x_axi_dma___bd_ring_1a443e5c48e677e9a1a4e85a383eefc2be" compoundref="xaxidma__bdring_8h" startline="87">XAxiDma_BdRing::RunState</references>
+        <references refid="struct_x_axi_dma___config_1aec70c6e93cc48a3a65bde454336d61dd" compoundref="xaxidma_8h" startline="528">XAxiDma_Config::S2MmBurstSize</references>
+        <references refid="struct_x_axi_dma___config_1a929339e72e1dfbb8ecd611a635f57b6f" compoundref="xaxidma_8h" startline="523">XAxiDma_Config::S2MmDataWidth</references>
+        <references refid="struct_x_axi_dma___config_1a987107f64827f1e8c1229a150b13dcd3" compoundref="xaxidma_8h" startline="526">XAxiDma_Config::S2MmNumChannels</references>
+        <references refid="struct_x_axi_dma___config_1a70958aedaeb16e443b9aece2fc79b59b" compoundref="xaxidma_8h" startline="531">XAxiDma_Config::SgLengthWidth</references>
+        <references refid="group___a_x_i_d_m_a_1ga5b7d1248ef065915fd8c9e8d5e00640f" compoundref="xaxidma_8c" startline="287" endline="338">XAxiDma_Reset</references>
+        <references refid="group___a_x_i_d_m_a_1gaf73e1329e40c8ac1ae47a7d9c104af75" compoundref="xaxidma_8c" startline="355" endline="393">XAxiDma_ResetIsDone</references>
+        <references refid="group___a_x_i_d_m_a_1gadfdc083e0b249c04624a66e700d7a7c4" compoundref="xaxidma__hw_8h" startline="94">XAXIDMA_RX_OFFSET</references>
+        <references refid="group___a_x_i_d_m_a_1ga88232281611059fd669f0339888cd44e" compoundref="xaxidma__hw_8h" startline="91">XAXIDMA_TX_OFFSET</references>
+        <referencedby refid="xaxidma__example__selftest_8c_1a95abf69118f4f7a08c4c6e264a39982b" compoundref="xaxidma__example__selftest_8c" startline="131" endline="157">AxiDMASelfTestExample</referencedby>
+        <referencedby refid="xaxidma__example__poll__multi__pkts_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xaxidma__example__poll__multi__pkts_8c" startline="174" endline="254">main</referencedby>
+        <referencedby refid="xaxidma__example__simple__poll_8c_1a74235d148637c91d12901cc99d930ff4" compoundref="xaxidma__example__simple__poll_8c" startline="229" endline="328">XAxiDma_SimplePollExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group___a_x_i_d_m_a_1ga5b7d1248ef065915fd8c9e8d5e00640f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XAxiDma_Reset</definition>
+        <argsstring>(XAxiDma *InstancePtr)</argsstring>
+        <name>XAxiDma_Reset</name>
+        <param>
+          <type><ref refid="struct_x_axi_dma" kindref="compound">XAxiDma</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Reset both TX and RX channels of a DMA engine. </para>        </briefdescription>
+        <detaileddescription>
+<para>Reset one channel resets the whole AXI DMA engine.</para><para>Any DMA transaction in progress will finish gracefully before engine starts reset. Any other transactions that have been submitted to hardware will be discarded by the hardware.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the DMA engine instance to be worked on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>After the reset:<itemizedlist>
+<listitem><para>All interrupts are disabled.</para></listitem><listitem><para>Engine is halted </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma.c" line="287" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma.c" bodystart="287" bodyend="338"/>
+        <references refid="struct_x_axi_dma___bd_ring_1a443e5c48e677e9a1a4e85a383eefc2be" compoundref="xaxidma__bdring_8h" startline="87">XAxiDma_BdRing::RunState</references>
+        <references refid="group___a_x_i_d_m_a_1ga0d79253861939c76e6d440ecde2b6edd" compoundref="xaxidma__bdring_8h" startline="213">XAxiDma_BdRingSnapShotCurrBd</references>
+        <references refid="group___a_x_i_d_m_a_1ga8534b07ed878f92d2062dc1680fb0391" compoundref="xaxidma__hw_8h" startline="102">XAXIDMA_CR_OFFSET</references>
+        <references refid="group___a_x_i_d_m_a_1ga33fda61f0837d37da36d3b72b90b0fba" compoundref="xaxidma__hw_8h" startline="131">XAXIDMA_CR_RESET_MASK</references>
+        <references refid="group___a_x_i_d_m_a_1gaf03e87b58cf2f9800e6260fda3745631" compoundref="xaxidma_8h" startline="601">XAxiDma_GetRxIndexRing</references>
+        <references refid="group___a_x_i_d_m_a_1ga9d91f29c6dc41f2106e097f1f9957a6e" compoundref="xaxidma_8h" startline="557">XAxiDma_GetTxRing</references>
+        <references refid="group___a_x_i_d_m_a_1ga18dd03026dd6c0ebd13526116c09ccae" compoundref="xaxidma_8h" startline="619">XAxiDma_HasSg</references>
+        <references refid="group___a_x_i_d_m_a_1gadfdc083e0b249c04624a66e700d7a7c4" compoundref="xaxidma__hw_8h" startline="94">XAXIDMA_RX_OFFSET</references>
+        <references refid="group___a_x_i_d_m_a_1ga88232281611059fd669f0339888cd44e" compoundref="xaxidma__hw_8h" startline="91">XAXIDMA_TX_OFFSET</references>
+        <references refid="group___a_x_i_d_m_a_1ga73dabf09bac8a209e0cc367f6ccdf44b" compoundref="xaxidma__hw_8h" startline="327">XAxiDma_WriteReg</references>
+        <referencedby refid="xaxidma__example__sgcyclic__intr_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xaxidma__example__sgcyclic__intr_8c" startline="260" endline="419">main</referencedby>
+        <referencedby refid="group___a_x_i_d_m_a_1ga8026e76c90d891d21c9c355ff776cb77" compoundref="xaxidma_8c" startline="114" endline="265">XAxiDma_CfgInitialize</referencedby>
+        <referencedby refid="group___a_x_i_d_m_a_1gad4ea3039216916336ae1c7598ff26afc" compoundref="xaxidma__selftest_8c" startline="63" endline="90">XAxiDma_Selftest</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group___a_x_i_d_m_a_1gaf73e1329e40c8ac1ae47a7d9c104af75" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XAxiDma_ResetIsDone</definition>
+        <argsstring>(XAxiDma *InstancePtr)</argsstring>
+        <name>XAxiDma_ResetIsDone</name>
+        <param>
+          <type><ref refid="struct_x_axi_dma" kindref="compound">XAxiDma</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Check whether reset is done. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the DMA engine instance to be worked on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>1 if reset is done.</para></listitem></itemizedlist>
+</para></simplesect>
+<itemizedlist>
+<listitem><para>0 if reset is not done</para></listitem></itemizedlist>
+</para><para><simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma.c" line="355" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma.c" bodystart="355" bodyend="393"/>
+        <references refid="struct_x_axi_dma___bd_ring_1a203421a70ece72a3757fb690dd4ee75a" compoundref="xaxidma__bdring_8h" startline="84">XAxiDma_BdRing::ChanBase</references>
+        <references refid="group___a_x_i_d_m_a_1ga8534b07ed878f92d2062dc1680fb0391" compoundref="xaxidma__hw_8h" startline="102">XAXIDMA_CR_OFFSET</references>
+        <references refid="group___a_x_i_d_m_a_1ga33fda61f0837d37da36d3b72b90b0fba" compoundref="xaxidma__hw_8h" startline="131">XAXIDMA_CR_RESET_MASK</references>
+        <references refid="group___a_x_i_d_m_a_1ga6373ac3baa5365607f6727f4e2ece7a5" compoundref="xaxidma_8h" startline="578">XAxiDma_GetRxRing</references>
+        <references refid="group___a_x_i_d_m_a_1ga9d91f29c6dc41f2106e097f1f9957a6e" compoundref="xaxidma_8h" startline="557">XAxiDma_GetTxRing</references>
+        <references refid="group___a_x_i_d_m_a_1gadea426ef26fc5473a78723cd2b92aba5" compoundref="xaxidma__hw_8h" startline="308">XAxiDma_ReadReg</references>
+        <referencedby refid="group___a_x_i_d_m_a_1ga8026e76c90d891d21c9c355ff776cb77" compoundref="xaxidma_8c" startline="114" endline="265">XAxiDma_CfgInitialize</referencedby>
+        <referencedby refid="group___a_x_i_d_m_a_1gad4ea3039216916336ae1c7598ff26afc" compoundref="xaxidma__selftest_8c" startline="63" endline="90">XAxiDma_Selftest</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group___a_x_i_d_m_a_1gadb572b623215a7df62b1e0468e3bd68c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XAxiDma_Pause</definition>
+        <argsstring>(XAxiDma *InstancePtr)</argsstring>
+        <name>XAxiDma_Pause</name>
+        <param>
+          <type><ref refid="struct_x_axi_dma" kindref="compound">XAxiDma</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Pause DMA transactions on both channels. </para>        </briefdescription>
+        <detaileddescription>
+<para>If the engine is running and doing transfers, this function does not stop the DMA transactions immediately, because then hardware will throw away our previously queued transfers. All submitted transfers will finish. Transfers submitted after this function will not start until <ref refid="group___a_x_i_d_m_a_1gaafd18a1df185c30b4745c147e3295ac3" kindref="member">XAxiDma_BdRingStart()</ref> or <ref refid="group___a_x_i_d_m_a_1ga847cd9a0255fcb444bce58b945de8574" kindref="member">XAxiDma_Resume()</ref> is called.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the DMA engine instance to be worked on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if successful</para></listitem><listitem><para>XST_NOT_SGDMA, if the driver instance is not initialized</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma.c" line="509" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma.c" bodystart="509" bodyend="561"/>
+        <references refid="struct_x_axi_dma___bd_ring_1a203421a70ece72a3757fb690dd4ee75a" compoundref="xaxidma__bdring_8h" startline="84">XAxiDma_BdRing::ChanBase</references>
+        <references refid="struct_x_axi_dma___bd_ring_1a443e5c48e677e9a1a4e85a383eefc2be" compoundref="xaxidma__bdring_8h" startline="87">XAxiDma_BdRing::RunState</references>
+        <references refid="group___a_x_i_d_m_a_1ga8534b07ed878f92d2062dc1680fb0391" compoundref="xaxidma__hw_8h" startline="102">XAXIDMA_CR_OFFSET</references>
+        <references refid="group___a_x_i_d_m_a_1gab0ebdf6b7776e79941efe1325aac5aa9" compoundref="xaxidma__hw_8h" startline="130">XAXIDMA_CR_RUNSTOP_MASK</references>
+        <references refid="group___a_x_i_d_m_a_1gaf03e87b58cf2f9800e6260fda3745631" compoundref="xaxidma_8h" startline="601">XAxiDma_GetRxIndexRing</references>
+        <references refid="group___a_x_i_d_m_a_1ga9d91f29c6dc41f2106e097f1f9957a6e" compoundref="xaxidma_8h" startline="557">XAxiDma_GetTxRing</references>
+        <references refid="group___a_x_i_d_m_a_1ga18dd03026dd6c0ebd13526116c09ccae" compoundref="xaxidma_8h" startline="619">XAxiDma_HasSg</references>
+        <references refid="group___a_x_i_d_m_a_1gadea426ef26fc5473a78723cd2b92aba5" compoundref="xaxidma__hw_8h" startline="308">XAxiDma_ReadReg</references>
+        <references refid="group___a_x_i_d_m_a_1ga73dabf09bac8a209e0cc367f6ccdf44b" compoundref="xaxidma__hw_8h" startline="327">XAxiDma_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group___a_x_i_d_m_a_1ga847cd9a0255fcb444bce58b945de8574" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XAxiDma_Resume</definition>
+        <argsstring>(XAxiDma *InstancePtr)</argsstring>
+        <name>XAxiDma_Resume</name>
+        <param>
+          <type><ref refid="struct_x_axi_dma" kindref="compound">XAxiDma</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Resume DMA transactions on both channels. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the DMA engine instance to be worked on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS for success</para></listitem><listitem><para>XST_NOT_SGDMA if the driver instance has not been initialized</para></listitem><listitem><para>XST_DMA_ERROR if one of the channels fails to start</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma.c" line="578" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma.c" bodystart="578" bodyend="644"/>
+        <references refid="struct_x_axi_dma___bd_ring_1a443e5c48e677e9a1a4e85a383eefc2be" compoundref="xaxidma__bdring_8h" startline="87">XAxiDma_BdRing::RunState</references>
+        <references refid="group___a_x_i_d_m_a_1gaafd18a1df185c30b4745c147e3295ac3" compoundref="xaxidma__bdring_8c" startline="641" endline="660">XAxiDma_BdRingStart</references>
+        <references refid="group___a_x_i_d_m_a_1gaf03e87b58cf2f9800e6260fda3745631" compoundref="xaxidma_8h" startline="601">XAxiDma_GetRxIndexRing</references>
+        <references refid="group___a_x_i_d_m_a_1ga9d91f29c6dc41f2106e097f1f9957a6e" compoundref="xaxidma_8h" startline="557">XAxiDma_GetTxRing</references>
+        <references refid="group___a_x_i_d_m_a_1ga18dd03026dd6c0ebd13526116c09ccae" compoundref="xaxidma_8h" startline="619">XAxiDma_HasSg</references>
+      </memberdef>
+      <memberdef kind="function" id="group___a_x_i_d_m_a_1gaff68c0ba3e9e25dfe5e39153301862f8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XAxiDma_Busy</definition>
+        <argsstring>(XAxiDma *InstancePtr, int Direction)</argsstring>
+        <name>XAxiDma_Busy</name>
+        <param>
+          <type><ref refid="struct_x_axi_dma" kindref="compound">XAxiDma</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>Direction</declname>
+        </param>
+        <briefdescription>
+<para>This function checks whether specified DMA channel is busy. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the driver instance we are working on</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Direction</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is DMA transfer direction, valid values are<itemizedlist>
+<listitem><para>XAXIDMA_DMA_TO_DEVICE.</para></listitem><listitem><para>XAXIDMA_DEVICE_TO_DMA.</para></listitem></itemizedlist>
+</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>- TRUE if channel is busy<itemizedlist>
+<listitem><para>FALSE if channel is idle</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma.c" line="714" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma.c" bodystart="714" bodyend="721"/>
+        <references refid="group___a_x_i_d_m_a_1gaa3538e8c2a6e024641259c85368667f0" compoundref="xaxidma__hw_8h" startline="149">XAXIDMA_IDLE_MASK</references>
+        <references refid="group___a_x_i_d_m_a_1gadea426ef26fc5473a78723cd2b92aba5" compoundref="xaxidma__hw_8h" startline="308">XAxiDma_ReadReg</references>
+        <references refid="group___a_x_i_d_m_a_1gadfdc083e0b249c04624a66e700d7a7c4" compoundref="xaxidma__hw_8h" startline="94">XAXIDMA_RX_OFFSET</references>
+        <references refid="group___a_x_i_d_m_a_1ga50d6957f8447d4eab9e444666730f692" compoundref="xaxidma__hw_8h" startline="103">XAXIDMA_SR_OFFSET</references>
+        <referencedby refid="xaxidma__example__simple__poll_8c_1a74235d148637c91d12901cc99d930ff4" compoundref="xaxidma__example__simple__poll_8c" startline="229" endline="328">XAxiDma_SimplePollExample</referencedby>
+        <referencedby refid="group___a_x_i_d_m_a_1ga32ca6099d7926297a4c17cdb4a19511b" compoundref="xaxidma_8c" startline="825" endline="962">XAxiDma_SimpleTransfer</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group___a_x_i_d_m_a_1ga32ca6099d7926297a4c17cdb4a19511b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XAxiDma_SimpleTransfer</definition>
+        <argsstring>(XAxiDma *InstancePtr, UINTPTR BuffAddr, u32 Length, int Direction)</argsstring>
+        <name>XAxiDma_SimpleTransfer</name>
+        <param>
+          <type><ref refid="struct_x_axi_dma" kindref="compound">XAxiDma</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BuffAddr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Length</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>Direction</declname>
+        </param>
+        <briefdescription>
+<para>This function does one simple transfer submission. </para>        </briefdescription>
+        <detaileddescription>
+<para>It checks in the following sequence:<itemizedlist>
+<listitem><para>if engine is busy, cannot submit</para></listitem><listitem><para>if engine is in SG mode , cannot submit</para></listitem></itemizedlist>
+</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the pointer to the driver instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>BuffAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the address of the source/destination buffer </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Length</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the length of the transfer </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Direction</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is DMA transfer direction, valid values are<itemizedlist>
+<listitem><para>XAXIDMA_DMA_TO_DEVICE.</para></listitem><listitem><para>XAXIDMA_DEVICE_TO_DMA.</para></listitem></itemizedlist>
+</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS for success of submission</para></listitem><listitem><para>XST_FAILURE for submission failure, maybe caused by: Another simple transfer is still going</para></listitem><listitem><para>XST_INVALID_PARAM if:Length out of valid range [1:8M] Or, address not aligned when DRE is not built in</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>This function is used only when system is configured as Simple mode. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma.c" line="825" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma.c" bodystart="825" bodyend="962"/>
+        <references refid="struct_x_axi_dma_1a663f5757eabe6b1b8813ed5fdb0d0edb" compoundref="xaxidma_8h" startline="501">XAxiDma::AddrWidth</references>
+        <references refid="struct_x_axi_dma___bd_ring_1a203421a70ece72a3757fb690dd4ee75a" compoundref="xaxidma__bdring_8h" startline="84">XAxiDma_BdRing::ChanBase</references>
+        <references refid="group___a_x_i_d_m_a_1gaa7ede468ba17bf106101d4850184dc74" compoundref="xaxidma__hw_8h" startline="116">XAXIDMA_BUFFLEN_OFFSET</references>
+        <references refid="group___a_x_i_d_m_a_1gaff68c0ba3e9e25dfe5e39153301862f8" compoundref="xaxidma_8c" startline="714" endline="721">XAxiDma_Busy</references>
+        <references refid="group___a_x_i_d_m_a_1ga8534b07ed878f92d2062dc1680fb0391" compoundref="xaxidma__hw_8h" startline="102">XAXIDMA_CR_OFFSET</references>
+        <references refid="group___a_x_i_d_m_a_1gab0ebdf6b7776e79941efe1325aac5aa9" compoundref="xaxidma__hw_8h" startline="130">XAXIDMA_CR_RUNSTOP_MASK</references>
+        <references refid="group___a_x_i_d_m_a_1ga3a54e372851dbae81c33997ef2ba8d2f" compoundref="xaxidma__hw_8h" startline="115">XAXIDMA_DESTADDR_MSB_OFFSET</references>
+        <references refid="group___a_x_i_d_m_a_1ga4e98e82ed389c23918315d833b457ea9" compoundref="xaxidma__hw_8h" startline="114">XAXIDMA_DESTADDR_OFFSET</references>
+        <references refid="group___a_x_i_d_m_a_1ga70671c3d8cd1e51c56723e298d268cce" compoundref="xaxidma__hw_8h" startline="148">XAXIDMA_HALTED_MASK</references>
+        <references refid="group___a_x_i_d_m_a_1ga18dd03026dd6c0ebd13526116c09ccae" compoundref="xaxidma_8h" startline="619">XAxiDma_HasSg</references>
+        <references refid="group___a_x_i_d_m_a_1gaf0f7e862f42d26800868816eea2a949b" compoundref="xaxidma__hw_8h" startline="70">XAXIDMA_MICROMODE_MIN_BUF_ALIGN</references>
+        <references refid="group___a_x_i_d_m_a_1gadea426ef26fc5473a78723cd2b92aba5" compoundref="xaxidma__hw_8h" startline="308">XAxiDma_ReadReg</references>
+        <references refid="group___a_x_i_d_m_a_1ga50d6957f8447d4eab9e444666730f692" compoundref="xaxidma__hw_8h" startline="103">XAXIDMA_SR_OFFSET</references>
+        <references refid="group___a_x_i_d_m_a_1gafaafc49751e690d818d604efe368c481" compoundref="xaxidma__hw_8h" startline="111">XAXIDMA_SRCADDR_MSB_OFFSET</references>
+        <references refid="group___a_x_i_d_m_a_1ga386fad6446792679302b362ed34022cf" compoundref="xaxidma__hw_8h" startline="108">XAXIDMA_SRCADDR_OFFSET</references>
+        <references refid="group___a_x_i_d_m_a_1ga73dabf09bac8a209e0cc367f6ccdf44b" compoundref="xaxidma__hw_8h" startline="327">XAxiDma_WriteReg</references>
+        <referencedby refid="xaxidma__example__simple__intr_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xaxidma__example__simple__intr_8c" startline="240" endline="426">main</referencedby>
+        <referencedby refid="xaxidma__example__simple__poll_8c_1a74235d148637c91d12901cc99d930ff4" compoundref="xaxidma__example__simple__poll_8c" startline="229" endline="328">XAxiDma_SimplePollExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group___a_x_i_d_m_a_1ga5becc8b0f9945af34e372ced2b37aebb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XAxiDma_SelectKeyHole</definition>
+        <argsstring>(XAxiDma *InstancePtr, int Direction, int Select)</argsstring>
+        <name>XAxiDma_SelectKeyHole</name>
+        <param>
+          <type><ref refid="struct_x_axi_dma" kindref="compound">XAxiDma</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>Direction</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>Select</declname>
+        </param>
+        <briefdescription>
+<para>This function Enable or Disable KeyHole Feature. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the driver instance we are working on</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Direction</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is DMA transfer direction, valid values are<itemizedlist>
+<listitem><para>XAXIDMA_DMA_TO_DEVICE.</para></listitem><listitem><para>XAXIDMA_DEVICE_TO_DMA. </para></listitem></itemizedlist>
+</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Select</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the option to enable (TRUE) or disable (FALSE).</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>- XST_SUCCESS for success</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma.c" line="740" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma.c" bodystart="740" bodyend="760"/>
+        <references refid="group___a_x_i_d_m_a_1ga8bdf83c8ba16d8217a2a6486a9b5b521" compoundref="xaxidma__hw_8h" startline="132">XAXIDMA_CR_KEYHOLE_MASK</references>
+        <references refid="group___a_x_i_d_m_a_1ga8534b07ed878f92d2062dc1680fb0391" compoundref="xaxidma__hw_8h" startline="102">XAXIDMA_CR_OFFSET</references>
+        <references refid="group___a_x_i_d_m_a_1gadea426ef26fc5473a78723cd2b92aba5" compoundref="xaxidma__hw_8h" startline="308">XAxiDma_ReadReg</references>
+        <references refid="group___a_x_i_d_m_a_1gadfdc083e0b249c04624a66e700d7a7c4" compoundref="xaxidma__hw_8h" startline="94">XAXIDMA_RX_OFFSET</references>
+        <references refid="group___a_x_i_d_m_a_1ga73dabf09bac8a209e0cc367f6ccdf44b" compoundref="xaxidma__hw_8h" startline="327">XAxiDma_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group___a_x_i_d_m_a_1ga2d93bfcf1c3e34cb9fc4a22da6148dc5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XAxiDma_SelectCyclicMode</definition>
+        <argsstring>(XAxiDma *InstancePtr, int Direction, int Select)</argsstring>
+        <name>XAxiDma_SelectCyclicMode</name>
+        <param>
+          <type><ref refid="struct_x_axi_dma" kindref="compound">XAxiDma</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>Direction</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>Select</declname>
+        </param>
+        <briefdescription>
+<para>This function Enable or Disable Cyclic Mode Feature. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the driver instance we are working on</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Direction</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is DMA transfer direction, valid values are<itemizedlist>
+<listitem><para>XAXIDMA_DMA_TO_DEVICE.</para></listitem><listitem><para>XAXIDMA_DEVICE_TO_DMA. </para></listitem></itemizedlist>
+</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Select</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the option to enable (TRUE) or disable (FALSE).</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>- XST_SUCCESS for success</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma.c" line="778" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma.c" bodystart="778" bodyend="797"/>
+        <references refid="group___a_x_i_d_m_a_1ga2d34bf268de2f2ef4d32351043835f68" compoundref="xaxidma__hw_8h" startline="133">XAXIDMA_CR_CYCLIC_MASK</references>
+        <references refid="group___a_x_i_d_m_a_1ga8534b07ed878f92d2062dc1680fb0391" compoundref="xaxidma__hw_8h" startline="102">XAXIDMA_CR_OFFSET</references>
+        <references refid="group___a_x_i_d_m_a_1gadea426ef26fc5473a78723cd2b92aba5" compoundref="xaxidma__hw_8h" startline="308">XAxiDma_ReadReg</references>
+        <references refid="group___a_x_i_d_m_a_1gadfdc083e0b249c04624a66e700d7a7c4" compoundref="xaxidma__hw_8h" startline="94">XAXIDMA_RX_OFFSET</references>
+        <references refid="group___a_x_i_d_m_a_1ga73dabf09bac8a209e0cc367f6ccdf44b" compoundref="xaxidma__hw_8h" startline="327">XAxiDma_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group___a_x_i_d_m_a_1gad4ea3039216916336ae1c7598ff26afc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XAxiDma_Selftest</definition>
+        <argsstring>(XAxiDma *InstancePtr)</argsstring>
+        <name>XAxiDma_Selftest</name>
+        <param>
+          <type><ref refid="struct_x_axi_dma" kindref="compound">XAxiDma</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Runs a self-test on the driver/device. </para>        </briefdescription>
+        <detaileddescription>
+<para>This test perform a reset of the DMA device and checks the device is coming out of reset or not</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_axi_dma" kindref="compound">XAxiDma</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if self-test was successful</para></listitem></itemizedlist>
+</para></simplesect>
+<itemizedlist>
+<listitem><para>XST_FAILURE if the device is not coming out of reset.</para></listitem></itemizedlist>
+</para><para><simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma.h" line="750" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma_selftest.c" bodystart="63" bodyend="90"/>
+        <references refid="group___a_x_i_d_m_a_1ga5b7d1248ef065915fd8c9e8d5e00640f" compoundref="xaxidma_8c" startline="287" endline="338">XAxiDma_Reset</references>
+        <references refid="group___a_x_i_d_m_a_1gaf73e1329e40c8ac1ae47a7d9c104af75" compoundref="xaxidma_8c" startline="355" endline="393">XAxiDma_ResetIsDone</references>
+        <referencedby refid="xaxidma__example__selftest_8c_1a95abf69118f4f7a08c4c6e264a39982b" compoundref="xaxidma__example__selftest_8c" startline="131" endline="157">AxiDMASelfTestExample</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2010<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022<sp/>-<sp/>2025<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="463"><highlight class="preprocessor">#ifndef<sp/>XAXIDMA_H_<sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>prevent<sp/>circular<sp/>inclusions<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="464"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XAXIDMA_H_</highlight></codeline>
+<codeline lineno="465"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="466"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="467"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="468"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="469"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="470"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="471"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xaxidma__bdring_8h" kindref="compound">xaxidma_bdring.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="472"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__MICROBLAZE__</highlight></codeline>
+<codeline lineno="473"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xenv.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="474"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="475"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&lt;string.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="476"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_cache.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="477"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="478"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="479"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="480"><highlight class="normal"></highlight></codeline>
+<codeline lineno="481"><highlight class="normal"></highlight></codeline>
+<codeline lineno="482"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="483"><highlight class="normal"></highlight></codeline>
+<codeline lineno="488" refid="struct_x_axi_dma" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_x_axi_dma" kindref="compound">XAxiDma</ref><sp/>{</highlight></codeline>
+<codeline lineno="489"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR<sp/>RegBase;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Virtual<sp/>base<sp/>address<sp/>of<sp/>DMA<sp/>engine<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="490"><highlight class="normal"></highlight></codeline>
+<codeline lineno="491"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>HasMm2S;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Has<sp/>transmit<sp/>channel<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="492"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>HasS2Mm;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Has<sp/>receive<sp/>channel<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="493"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Initialized;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Driver<sp/>has<sp/>been<sp/>initialized<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="494"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>HasSg;</highlight></codeline>
+<codeline lineno="495"><highlight class="normal"></highlight></codeline>
+<codeline lineno="496"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_axi_dma___bd_ring" kindref="compound">XAxiDma_BdRing</ref><sp/>TxBdRing;<sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>BD<sp/>container<sp/>management<sp/>for<sp/>TX<sp/>channel<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="497"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_axi_dma___bd_ring" kindref="compound">XAxiDma_BdRing</ref><sp/>RxBdRing[16];<sp/></highlight><highlight class="comment">/*<sp/>BD<sp/>container<sp/>management<sp/>for<sp/>RX<sp/>channel<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="498"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>TxNumChannels;</highlight></codeline>
+<codeline lineno="499"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>RxNumChannels;</highlight></codeline>
+<codeline lineno="500"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>MicroDmaMode;</highlight></codeline>
+<codeline lineno="501" refid="struct_x_axi_dma_1a663f5757eabe6b1b8813ed5fdb0d0edb" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="struct_x_axi_dma_1a663f5757eabe6b1b8813ed5fdb0d0edb" kindref="member">AddrWidth</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="502"><highlight class="normal">}<sp/><ref refid="group___a_x_i_d_m_a_1gac08fe7cb6508a133a7ef036bba7df5b5" kindref="member">XAxiDma</ref>;</highlight></codeline>
+<codeline lineno="503"><highlight class="normal"></highlight></codeline>
+<codeline lineno="509" refid="struct_x_axi_dma___config" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="510"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="511"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>DeviceId;<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="512"><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="513" refid="struct_x_axi_dma___config_1ad2508bacaf3b018e7ad88964b43317bc" refkind="member"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*<ref refid="struct_x_axi_dma___config_1ad2508bacaf3b018e7ad88964b43317bc" kindref="member">Name</ref>;<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="514"><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="515" refid="struct_x_axi_dma___config_1a4b0b33cd18eeb2a17c1cc8d170280aaa" refkind="member"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR<sp/><ref refid="struct_x_axi_dma___config_1a4b0b33cd18eeb2a17c1cc8d170280aaa" kindref="member">BaseAddr</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="517" refid="struct_x_axi_dma___config_1aa9fd771fe88c0e9af427021f733ff4b7" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="struct_x_axi_dma___config_1aa9fd771fe88c0e9af427021f733ff4b7" kindref="member">HasStsCntrlStrm</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="518" refid="struct_x_axi_dma___config_1a9e597a36e83962019838d61a34c416c5" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="struct_x_axi_dma___config_1a9e597a36e83962019838d61a34c416c5" kindref="member">HasMm2S</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="519" refid="struct_x_axi_dma___config_1a1b1d4cd7b4bba7822017f4bea8eb279d" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="struct_x_axi_dma___config_1a1b1d4cd7b4bba7822017f4bea8eb279d" kindref="member">HasMm2SDRE</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="520" refid="struct_x_axi_dma___config_1a87f4b20a7f008577405158452bfdddb0" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="struct_x_axi_dma___config_1a87f4b20a7f008577405158452bfdddb0" kindref="member">Mm2SDataWidth</ref>;<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="521" refid="struct_x_axi_dma___config_1a8cfd661a9afc2ba1be63099ca38e4a02" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="struct_x_axi_dma___config_1a8cfd661a9afc2ba1be63099ca38e4a02" kindref="member">HasS2Mm</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="522" refid="struct_x_axi_dma___config_1a2b89398fe9ee0d4fb0c55550f37df096" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="struct_x_axi_dma___config_1a2b89398fe9ee0d4fb0c55550f37df096" kindref="member">HasS2MmDRE</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="523" refid="struct_x_axi_dma___config_1a929339e72e1dfbb8ecd611a635f57b6f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="struct_x_axi_dma___config_1a929339e72e1dfbb8ecd611a635f57b6f" kindref="member">S2MmDataWidth</ref>;<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="524" refid="struct_x_axi_dma___config_1a4060f5af42c77e6616fef7d1f6042968" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="struct_x_axi_dma___config_1a4060f5af42c77e6616fef7d1f6042968" kindref="member">HasSg</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="525" refid="struct_x_axi_dma___config_1a837eb1ff7177f468fe69233cefca821c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="struct_x_axi_dma___config_1a837eb1ff7177f468fe69233cefca821c" kindref="member">Mm2sNumChannels</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="526" refid="struct_x_axi_dma___config_1a987107f64827f1e8c1229a150b13dcd3" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="struct_x_axi_dma___config_1a987107f64827f1e8c1229a150b13dcd3" kindref="member">S2MmNumChannels</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="527" refid="struct_x_axi_dma___config_1a149852a31badf55c36bc53da3cfdf2b8" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="struct_x_axi_dma___config_1a149852a31badf55c36bc53da3cfdf2b8" kindref="member">Mm2SBurstSize</ref>;<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="528" refid="struct_x_axi_dma___config_1aec70c6e93cc48a3a65bde454336d61dd" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="struct_x_axi_dma___config_1aec70c6e93cc48a3a65bde454336d61dd" kindref="member">S2MmBurstSize</ref>;<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="529" refid="struct_x_axi_dma___config_1adc95679c99ad11c8804612c09389a100" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="struct_x_axi_dma___config_1adc95679c99ad11c8804612c09389a100" kindref="member">MicroDmaMode</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="530" refid="struct_x_axi_dma___config_1a6fc1c26fb40944182ff84e370e667eb0" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="struct_x_axi_dma___config_1a6fc1c26fb40944182ff84e370e667eb0" kindref="member">AddrWidth</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="531" refid="struct_x_axi_dma___config_1a70958aedaeb16e443b9aece2fc79b59b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="struct_x_axi_dma___config_1a70958aedaeb16e443b9aece2fc79b59b" kindref="member">SgLengthWidth</ref>;<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="532"><highlight class="preprocessor">#ifdef<sp/>SDT</highlight></codeline>
+<codeline lineno="533" refid="struct_x_axi_dma___config_1adbe8d9edc09073242bfae10ef9c0d4c2" refkind="member"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>IntrId[2];<sp/></highlight></codeline>
+<codeline lineno="534" refid="struct_x_axi_dma___config_1a652adc5c66fe23d9ad303c824ca2fe27" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR<sp/><ref refid="struct_x_axi_dma___config_1a652adc5c66fe23d9ad303c824ca2fe27" kindref="member">IntrParent</ref>;<sp/></highlight></codeline>
+<codeline lineno="535"><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="536"><highlight class="preprocessor"></highlight><highlight class="normal">}<sp/><ref refid="struct_x_axi_dma___config" kindref="compound">XAxiDma_Config</ref>;</highlight></codeline>
+<codeline lineno="537"><highlight class="normal"></highlight></codeline>
+<codeline lineno="538"><highlight class="normal"></highlight></codeline>
+<codeline lineno="539"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="540"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="557" refid="group___a_x_i_d_m_a_1ga9d91f29c6dc41f2106e097f1f9957a6e" refkind="member"><highlight class="preprocessor">#define<sp/>XAxiDma_GetTxRing(InstancePtr)<sp/>\</highlight></codeline>
+<codeline lineno="558"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(&amp;((InstancePtr)-&gt;TxBdRing))</highlight></codeline>
+<codeline lineno="559"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="560"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="578" refid="group___a_x_i_d_m_a_1ga6373ac3baa5365607f6727f4e2ece7a5" refkind="member"><highlight class="preprocessor">#define<sp/>XAxiDma_GetRxRing(InstancePtr)<sp/>\</highlight></codeline>
+<codeline lineno="579"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(&amp;((InstancePtr)-&gt;RxBdRing[0]))</highlight></codeline>
+<codeline lineno="580"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="581"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="601" refid="group___a_x_i_d_m_a_1gaf03e87b58cf2f9800e6260fda3745631" refkind="member"><highlight class="preprocessor">#define<sp/>XAxiDma_GetRxIndexRing(InstancePtr,<sp/>RingIndex)<sp/>\</highlight></codeline>
+<codeline lineno="602"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(&amp;((InstancePtr)-&gt;RxBdRing[RingIndex]))</highlight></codeline>
+<codeline lineno="603"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="604"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="619" refid="group___a_x_i_d_m_a_1ga18dd03026dd6c0ebd13526116c09ccae" refkind="member"><highlight class="preprocessor">#define<sp/>XAxiDma_HasSg(InstancePtr)<sp/><sp/><sp/><sp/><sp/><sp/>((InstancePtr)-&gt;HasSg)<sp/>?<sp/>TRUE<sp/>:<sp/>FALSE</highlight></codeline>
+<codeline lineno="620"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="621"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="636" refid="group___a_x_i_d_m_a_1gadac28afa26e2cb55bdada1ee3c016c52" refkind="member"><highlight class="preprocessor">#define<sp/><sp/>XAxiDma_IntrEnable(InstancePtr,<sp/>Mask,<sp/>Direction)<sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="637"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XAxiDma_WriteReg((InstancePtr)-&gt;RegBase<sp/>+<sp/>\</highlight></codeline>
+<codeline lineno="638"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XAXIDMA_RX_OFFSET<sp/>*<sp/>Direction),<sp/>XAXIDMA_CR_OFFSET,<sp/>\</highlight></codeline>
+<codeline lineno="639"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XAxiDma_ReadReg((InstancePtr)-&gt;RegBase<sp/>+<sp/>\</highlight></codeline>
+<codeline lineno="640"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XAXIDMA_RX_OFFSET<sp/>*<sp/>Direction),<sp/>XAXIDMA_CR_OFFSET))<sp/>\</highlight></codeline>
+<codeline lineno="641"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>(Mask<sp/>&amp;<sp/>XAXIDMA_IRQ_ALL_MASK))</highlight></codeline>
+<codeline lineno="642"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="643"><highlight class="normal"></highlight></codeline>
+<codeline lineno="644"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="658" refid="group___a_x_i_d_m_a_1gadba63ad7c0a784d569736a8d1eb7c367" refkind="member"><highlight class="preprocessor">#define<sp/><sp/><sp/>XAxiDma_IntrGetEnabled(InstancePtr,<sp/>Direction)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="659"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XAxiDma_ReadReg((InstancePtr)-&gt;RegBase<sp/>+<sp/>\</highlight></codeline>
+<codeline lineno="660"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XAXIDMA_RX_OFFSET<sp/>*<sp/>Direction),<sp/>XAXIDMA_CR_OFFSET)<sp/>&amp;\</highlight></codeline>
+<codeline lineno="661"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XAXIDMA_IRQ_ALL_MASK)</highlight></codeline>
+<codeline lineno="662"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="663"><highlight class="normal"></highlight></codeline>
+<codeline lineno="664"><highlight class="normal"></highlight></codeline>
+<codeline lineno="665"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="680" refid="group___a_x_i_d_m_a_1ga1936b497c0fa61d326807e5ed8dd572b" refkind="member"><highlight class="preprocessor">#define<sp/>XAxiDma_IntrDisable(InstancePtr,<sp/>Mask,<sp/>Direction)<sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="681"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XAxiDma_WriteReg((InstancePtr)-&gt;RegBase<sp/>+<sp/>\</highlight></codeline>
+<codeline lineno="682"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XAXIDMA_RX_OFFSET<sp/>*<sp/>Direction),<sp/>XAXIDMA_CR_OFFSET,<sp/>\</highlight></codeline>
+<codeline lineno="683"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XAxiDma_ReadReg((InstancePtr)-&gt;RegBase<sp/>+<sp/>\</highlight></codeline>
+<codeline lineno="684"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XAXIDMA_RX_OFFSET<sp/>*<sp/>Direction),<sp/>XAXIDMA_CR_OFFSET))<sp/>\</highlight></codeline>
+<codeline lineno="685"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;<sp/>~(Mask<sp/>&amp;<sp/>XAXIDMA_IRQ_ALL_MASK))</highlight></codeline>
+<codeline lineno="686"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="687"><highlight class="normal"></highlight></codeline>
+<codeline lineno="688"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="702" refid="group___a_x_i_d_m_a_1ga6a0eb17bcfcaf3331e01855d302f5f0e" refkind="member"><highlight class="preprocessor">#define<sp/><sp/>XAxiDma_IntrGetIrq(InstancePtr,<sp/>Direction)<sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="703"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XAxiDma_ReadReg((InstancePtr)-&gt;RegBase<sp/>+<sp/>\</highlight></codeline>
+<codeline lineno="704"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XAXIDMA_RX_OFFSET<sp/>*<sp/>Direction),<sp/>XAXIDMA_SR_OFFSET)<sp/>&amp;\</highlight></codeline>
+<codeline lineno="705"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XAXIDMA_IRQ_ALL_MASK)</highlight></codeline>
+<codeline lineno="706"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="707"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="722" refid="group___a_x_i_d_m_a_1ga9ff0d2e5b50846e4b6a2d683283c10d5" refkind="member"><highlight class="preprocessor">#define<sp/><sp/>XAxiDma_IntrAckIrq(InstancePtr,<sp/>Mask,<sp/>Direction)<sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="723"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XAxiDma_WriteReg((InstancePtr)-&gt;RegBase<sp/>+<sp/>\</highlight></codeline>
+<codeline lineno="724"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XAXIDMA_RX_OFFSET<sp/>*<sp/>Direction),<sp/>XAXIDMA_SR_OFFSET,<sp/>\</highlight></codeline>
+<codeline lineno="725"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(Mask)<sp/>&amp;<sp/>XAXIDMA_IRQ_ALL_MASK)</highlight></codeline>
+<codeline lineno="726"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="727"><highlight class="normal"></highlight></codeline>
+<codeline lineno="728"><highlight class="normal"></highlight></codeline>
+<codeline lineno="729"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="730"><highlight class="normal"></highlight></codeline>
+<codeline lineno="731"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="732"><highlight class="comment"><sp/>*<sp/>Initialization<sp/>and<sp/>control<sp/>functions<sp/>in<sp/>xaxidma.c</highlight></codeline>
+<codeline lineno="733"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="734"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="735"><highlight class="preprocessor"></highlight><highlight class="normal"><ref refid="struct_x_axi_dma___config" kindref="compound">XAxiDma_Config</ref><sp/>*<ref refid="group___a_x_i_d_m_a_1ga8a31868280befe559084a39d4505d624" kindref="member">XAxiDma_LookupConfig</ref>(u32<sp/>DeviceId);</highlight></codeline>
+<codeline lineno="736"><highlight class="normal"><ref refid="struct_x_axi_dma___config" kindref="compound">XAxiDma_Config</ref><sp/>*XAxiDma_LookupConfigBaseAddr(UINTPTR<sp/>Baseaddr);</highlight></codeline>
+<codeline lineno="737"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="738"><highlight class="preprocessor"></highlight><highlight class="normal"><ref refid="struct_x_axi_dma___config" kindref="compound">XAxiDma_Config</ref><sp/>*<ref refid="group___a_x_i_d_m_a_1ga8a31868280befe559084a39d4505d624" kindref="member">XAxiDma_LookupConfig</ref>(UINTPTR<sp/>BaseAddress);</highlight></codeline>
+<codeline lineno="739"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="740"><highlight class="preprocessor"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group___a_x_i_d_m_a_1ga8026e76c90d891d21c9c355ff776cb77" kindref="member">XAxiDma_CfgInitialize</ref>(<ref refid="struct_x_axi_dma" kindref="compound">XAxiDma</ref><sp/>*InstancePtr,<sp/><ref refid="struct_x_axi_dma___config" kindref="compound">XAxiDma_Config</ref><sp/>*Config);</highlight></codeline>
+<codeline lineno="741"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group___a_x_i_d_m_a_1ga5b7d1248ef065915fd8c9e8d5e00640f" kindref="member">XAxiDma_Reset</ref>(<ref refid="struct_x_axi_dma" kindref="compound">XAxiDma</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="742"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group___a_x_i_d_m_a_1gaf73e1329e40c8ac1ae47a7d9c104af75" kindref="member">XAxiDma_ResetIsDone</ref>(<ref refid="struct_x_axi_dma" kindref="compound">XAxiDma</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="743"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group___a_x_i_d_m_a_1gadb572b623215a7df62b1e0468e3bd68c" kindref="member">XAxiDma_Pause</ref>(<ref refid="struct_x_axi_dma" kindref="compound">XAxiDma</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="744"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group___a_x_i_d_m_a_1ga847cd9a0255fcb444bce58b945de8574" kindref="member">XAxiDma_Resume</ref>(<ref refid="struct_x_axi_dma" kindref="compound">XAxiDma</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="745"><highlight class="normal">u32<sp/><ref refid="group___a_x_i_d_m_a_1gaff68c0ba3e9e25dfe5e39153301862f8" kindref="member">XAxiDma_Busy</ref>(<ref refid="struct_x_axi_dma" kindref="compound">XAxiDma</ref><sp/>*InstancePtr,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Direction);</highlight></codeline>
+<codeline lineno="746"><highlight class="normal">u32<sp/><ref refid="group___a_x_i_d_m_a_1ga32ca6099d7926297a4c17cdb4a19511b" kindref="member">XAxiDma_SimpleTransfer</ref>(<ref refid="struct_x_axi_dma" kindref="compound">XAxiDma</ref><sp/>*InstancePtr,<sp/>UINTPTR<sp/>BuffAddr,<sp/>u32<sp/>Length,</highlight></codeline>
+<codeline lineno="747"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Direction);</highlight></codeline>
+<codeline lineno="748"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group___a_x_i_d_m_a_1ga5becc8b0f9945af34e372ced2b37aebb" kindref="member">XAxiDma_SelectKeyHole</ref>(<ref refid="struct_x_axi_dma" kindref="compound">XAxiDma</ref><sp/>*InstancePtr,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Direction,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Select);</highlight></codeline>
+<codeline lineno="749"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group___a_x_i_d_m_a_1ga2d93bfcf1c3e34cb9fc4a22da6148dc5" kindref="member">XAxiDma_SelectCyclicMode</ref>(<ref refid="struct_x_axi_dma" kindref="compound">XAxiDma</ref><sp/>*InstancePtr,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Direction,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Select);</highlight></codeline>
+<codeline lineno="750"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group___a_x_i_d_m_a_1gad4ea3039216916336ae1c7598ff26afc" kindref="member">XAxiDma_Selftest</ref>(<ref refid="struct_x_axi_dma" kindref="compound">XAxiDma</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="751"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="752"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="753"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="754"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="755"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>end<sp/>of<sp/>protection<sp/>macro<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="756"><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma.h"/>
+  </compounddef>
+</doxygen>

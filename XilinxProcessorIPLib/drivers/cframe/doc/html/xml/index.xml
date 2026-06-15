@@ -1,0 +1,102 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygenindex xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd" version="1.8.5">
+  <compound refid="struct_x_cframe" kind="struct"><name>XCframe</name>
+    <member refid="struct_x_cframe_1a486c412ee6a68a6ee6d78075d3236f32" kind="variable"><name>Config</name></member>
+    <member refid="struct_x_cframe_1a4255c03da2812c3c90357df63cd5f2dc" kind="variable"><name>IsReady</name></member>
+  </compound>
+  <compound refid="struct_x_cframe___config" kind="struct"><name>XCframe_Config</name>
+    <member refid="struct_x_cframe___config_1a0c859609281f9bd590430e28ea27d262" kind="variable"><name>Name</name></member>
+    <member refid="struct_x_cframe___config_1a15a21d609bd9150e508d30e922c1e2ae" kind="variable"><name>BaseAddress</name></member>
+  </compound>
+  <compound refid="_c_make_lists_8txt" kind="file"><name>CMakeLists.txt</name>
+  </compound>
+  <compound refid="xcframe_8c" kind="file"><name>xcframe.c</name>
+    <member refid="xcframe_8c_1a08e0df84bb34ee02dc1f8d25713e5d7c" kind="define"><name>XCFRAME_LAST_FRAME_BOT_OFFSET</name></member>
+    <member refid="xcframe_8c_1a684807554df0e18f41e81872f7180687" kind="define"><name>XCFRAME_MAX_BLKTYPE_IN_FAR_BOT</name></member>
+    <member refid="xcframe_8c_1aecd8e255eaf53d918c78a7009243c7d0" kind="define"><name>XCFRAME_FAR_TOP_OFFSET_WRT_BOT</name></member>
+    <member refid="xcframe_8c_1ad1fdd6393797dfcbd0bbfabe55802303" kind="define"><name>XCFRAME_128BIT_IN_WORDS</name></member>
+    <member refid="xcframe_8c_1a962d1f7ffb137a23346f85deb4efbf48" kind="define"><name>XCFRAME_BLKTYPE0_MASK</name></member>
+    <member refid="xcframe_8c_1ad6d6dc845cabd9e7863a34cfc47edbb9" kind="define"><name>XCFRAME_BLKTYPE1_WORD0_SHIFT</name></member>
+    <member refid="xcframe_8c_1a3a27f612c31ac4080b28d5eef35e2750" kind="define"><name>XCFRAME_BLKTYPE1_WORD0_MASK</name></member>
+    <member refid="xcframe_8c_1a4de03633d9e898b20678c8591cd71f2c" kind="define"><name>XCFRAME_BLKTYPE1_WORD1_SHIFT</name></member>
+    <member refid="xcframe_8c_1a5ae43dfd3abd9739a63bb47689c50841" kind="define"><name>XCFRAME_BLKTYPE1_WORD1_MASK</name></member>
+    <member refid="xcframe_8c_1a344923f83c4af5f2545efdb450c9a192" kind="define"><name>XCFRAME_BLKTYPE2_WORD1_SHIFT</name></member>
+    <member refid="xcframe_8c_1a342f9731d8c31f19b6e4eb89a1828a27" kind="define"><name>XCFRAME_BLKTYPE2_WORD1_MASK</name></member>
+    <member refid="xcframe_8c_1a2c676053a8532090185e83f3ee7f9704" kind="define"><name>XCFRAME_BLKTYPE3_WORD1_SHIFT</name></member>
+    <member refid="xcframe_8c_1a7e387e6d5511985f0eeb821b50a6762d" kind="define"><name>XCFRAME_BLKTYPE3_WORD1_MASK</name></member>
+    <member refid="xcframe_8c_1ab34b7725cea8bb0b4bda31ac69ba3372" kind="define"><name>XCFRAME_BLKTYPE3_WORD2_SHIFT</name></member>
+    <member refid="xcframe_8c_1afcf36902d5710e8b4bea63d4b7aebd4c" kind="define"><name>XCFRAME_BLKTYPE3_WORD2_MASK</name></member>
+    <member refid="xcframe_8c_1a0e26d7b7284e489d0b81337fbd012dc9" kind="define"><name>XCFRAME_WORD0_OFFSET</name></member>
+    <member refid="xcframe_8c_1a4d3f6c48973740329a52c418adcfd0d3" kind="define"><name>XCFRAME_WORD1_OFFSET</name></member>
+    <member refid="xcframe_8c_1a5fb588da2a7350c5b67e019ce031a747" kind="define"><name>XCFRAME_WORD2_OFFSET</name></member>
+    <member refid="xcframe_8c_1a74a6d8fe2ee7821e41f3fe09b4ca0afd" kind="enum"><name>XCframe_Blktype</name></member>
+    <member refid="xcframe_8c_1a74a6d8fe2ee7821e41f3fe09b4ca0afda8f4a603e6fd73e74602f03c5af4f736c" kind="enumvalue"><name>BLOCKTYPE0</name></member>
+    <member refid="xcframe_8c_1a74a6d8fe2ee7821e41f3fe09b4ca0afdab674d720fa6028039bceac435ac9c307" kind="enumvalue"><name>BLOCKTYPE1</name></member>
+    <member refid="xcframe_8c_1a74a6d8fe2ee7821e41f3fe09b4ca0afda68eb91e63c1d9ede3e46752cbdc842a4" kind="enumvalue"><name>BLOCKTYPE2</name></member>
+    <member refid="xcframe_8c_1a74a6d8fe2ee7821e41f3fe09b4ca0afda79ee8fbe78260f7d21d02de09c8b574f" kind="enumvalue"><name>BLOCKTYPE3</name></member>
+    <member refid="xcframe_8c_1a74a6d8fe2ee7821e41f3fe09b4ca0afda4bb9a93ff256b7527c30c4d6296f5b82" kind="enumvalue"><name>BLOCKTYPE4</name></member>
+    <member refid="xcframe_8c_1a74a6d8fe2ee7821e41f3fe09b4ca0afda551c8da0b87558ad6abdcccb6340cf6f" kind="enumvalue"><name>BLOCKTYPE5</name></member>
+    <member refid="xcframe_8c_1a74a6d8fe2ee7821e41f3fe09b4ca0afdaf8e4adf6931905069acfce078f8d07b2" kind="enumvalue"><name>BLOCKTYPE6</name></member>
+    <member refid="group__cframe_1gab9951a1fa7e1ea6fbed8febcda865134" kind="function"><name>XCframe_CfgInitialize</name></member>
+    <member refid="group__cframe_1ga0fe587ad348d15faccd9fcefd765af44" kind="function"><name>XCframe_WriteReg</name></member>
+    <member refid="group__cframe_1ga91ddf5ccf6f3a8005683d2a56373145d" kind="function"><name>XCframe_ReadReg</name></member>
+    <member refid="group__cframe_1gaf70a9f3c08ec391872f0a81e067d9bf4" kind="function"><name>XCframe_SafetyWriteReg</name></member>
+    <member refid="group__cframe_1ga61d26dca381aff614de588980622e127" kind="function"><name>XCframe_WriteCmd</name></member>
+    <member refid="group__cframe_1ga240996c8e6b20583088fd17d40058a6e" kind="function"><name>XCframe_VggTrim</name></member>
+    <member refid="group__cframe_1ga2718ef1f8cd748e9eb889297dc945a2f" kind="function"><name>XCframe_CramTrim</name></member>
+    <member refid="group__cframe_1ga65d6668bf9168f51452fd8e4fbbe70da" kind="function"><name>XCframe_BramTrim</name></member>
+    <member refid="group__cframe_1ga15aec289f8e36b8c163da0026c16d7fd" kind="function"><name>XCframe_UramTrim</name></member>
+    <member refid="group__cframe_1gae27e1bdd1d64c2aadabadfdc99e47b95" kind="function"><name>XCframe_SetReadParam</name></member>
+    <member refid="group__cframe_1gafe8587be9cc39c028b74977aab82906a" kind="function"><name>XCframe_ClearCframeErr</name></member>
+    <member refid="group__cframe_1gad5245d5418200c023e4a39ea591374da" kind="function"><name>XCframe_GetLastFrameAddr</name></member>
+  </compound>
+  <compound refid="xcframe_8h" kind="file"><name>xcframe.h</name>
+    <member refid="group__cframe_1gaae4bdd416d334fde1274b80c3a364c85" kind="function"><name>XCframe_LookupConfig</name></member>
+    <member refid="group__cframe_1gab9951a1fa7e1ea6fbed8febcda865134" kind="function"><name>XCframe_CfgInitialize</name></member>
+    <member refid="group__cframe_1gaf5b2374130f27db3762e3854b0744a96" kind="function"><name>XCframe_SelfTest</name></member>
+    <member refid="group__cframe_1ga0fe587ad348d15faccd9fcefd765af44" kind="function"><name>XCframe_WriteReg</name></member>
+    <member refid="group__cframe_1ga61d26dca381aff614de588980622e127" kind="function"><name>XCframe_WriteCmd</name></member>
+    <member refid="group__cframe_1ga240996c8e6b20583088fd17d40058a6e" kind="function"><name>XCframe_VggTrim</name></member>
+    <member refid="group__cframe_1ga2718ef1f8cd748e9eb889297dc945a2f" kind="function"><name>XCframe_CramTrim</name></member>
+    <member refid="group__cframe_1ga65d6668bf9168f51452fd8e4fbbe70da" kind="function"><name>XCframe_BramTrim</name></member>
+    <member refid="group__cframe_1ga15aec289f8e36b8c163da0026c16d7fd" kind="function"><name>XCframe_UramTrim</name></member>
+    <member refid="group__cframe_1gae27e1bdd1d64c2aadabadfdc99e47b95" kind="function"><name>XCframe_SetReadParam</name></member>
+    <member refid="group__cframe_1ga91ddf5ccf6f3a8005683d2a56373145d" kind="function"><name>XCframe_ReadReg</name></member>
+    <member refid="group__cframe_1gafe8587be9cc39c028b74977aab82906a" kind="function"><name>XCframe_ClearCframeErr</name></member>
+    <member refid="group__cframe_1gaf70a9f3c08ec391872f0a81e067d9bf4" kind="function"><name>XCframe_SafetyWriteReg</name></member>
+    <member refid="group__cframe_1gad5245d5418200c023e4a39ea591374da" kind="function"><name>XCframe_GetLastFrameAddr</name></member>
+  </compound>
+  <compound refid="xcframe__g_8c" kind="file"><name>xcframe_g.c</name>
+    <member refid="xcframe__g_8c_1a587faf496cf0ad28338f552055c55325" kind="variable"><name>XCframe_ConfigTable</name></member>
+  </compound>
+  <compound refid="xcframe__hw_8h" kind="file"><name>xcframe_hw.h</name>
+    <member refid="group__cframe_1ga053a321122394b917a16380b3fbe9d56" kind="define"><name>XCFRAME_HW_H_</name></member>
+  </compound>
+  <compound refid="xcframe__selftest_8c" kind="file"><name>xcframe_selftest.c</name>
+    <member refid="group__cframe_1gaf5b2374130f27db3762e3854b0744a96" kind="function"><name>XCframe_SelfTest</name></member>
+  </compound>
+  <compound refid="xcframe__sinit_8c" kind="file"><name>xcframe_sinit.c</name>
+    <member refid="group__cframe_1gaae4bdd416d334fde1274b80c3a364c85" kind="function"><name>XCframe_LookupConfig</name></member>
+  </compound>
+  <compound refid="group__cframe" kind="group"><name>cframe</name>
+    <member refid="group__cframe_1gaae4bdd416d334fde1274b80c3a364c85" kind="function"><name>XCframe_LookupConfig</name></member>
+    <member refid="group__cframe_1gab9951a1fa7e1ea6fbed8febcda865134" kind="function"><name>XCframe_CfgInitialize</name></member>
+    <member refid="group__cframe_1gaf5b2374130f27db3762e3854b0744a96" kind="function"><name>XCframe_SelfTest</name></member>
+    <member refid="group__cframe_1ga0fe587ad348d15faccd9fcefd765af44" kind="function"><name>XCframe_WriteReg</name></member>
+    <member refid="group__cframe_1ga61d26dca381aff614de588980622e127" kind="function"><name>XCframe_WriteCmd</name></member>
+    <member refid="group__cframe_1ga240996c8e6b20583088fd17d40058a6e" kind="function"><name>XCframe_VggTrim</name></member>
+    <member refid="group__cframe_1ga2718ef1f8cd748e9eb889297dc945a2f" kind="function"><name>XCframe_CramTrim</name></member>
+    <member refid="group__cframe_1ga65d6668bf9168f51452fd8e4fbbe70da" kind="function"><name>XCframe_BramTrim</name></member>
+    <member refid="group__cframe_1ga15aec289f8e36b8c163da0026c16d7fd" kind="function"><name>XCframe_UramTrim</name></member>
+    <member refid="group__cframe_1gae27e1bdd1d64c2aadabadfdc99e47b95" kind="function"><name>XCframe_SetReadParam</name></member>
+    <member refid="group__cframe_1ga91ddf5ccf6f3a8005683d2a56373145d" kind="function"><name>XCframe_ReadReg</name></member>
+    <member refid="group__cframe_1gafe8587be9cc39c028b74977aab82906a" kind="function"><name>XCframe_ClearCframeErr</name></member>
+    <member refid="group__cframe_1gaf70a9f3c08ec391872f0a81e067d9bf4" kind="function"><name>XCframe_SafetyWriteReg</name></member>
+    <member refid="group__cframe_1gad5245d5418200c023e4a39ea591374da" kind="function"><name>XCframe_GetLastFrameAddr</name></member>
+    <member refid="group__cframe_1ga053a321122394b917a16380b3fbe9d56" kind="define"><name>XCFRAME_HW_H_</name></member>
+  </compound>
+  <compound refid="dir_189fc0d3d333be427689f1c351059e64" kind="dir"><name>cframe</name>
+  </compound>
+  <compound refid="dir_402d59105eb4113002cb0e22c0bf7c4d" kind="dir"><name>src</name>
+  </compound>
+</doxygenindex>

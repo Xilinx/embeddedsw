@@ -1,0 +1,2118 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xrtcpsu__hw_8h" kind="file">
+    <compoundname>xrtcpsu_hw.h</compoundname>
+    <includes local="yes">xil_types.h</includes>
+    <includes local="yes">xil_assert.h</includes>
+    <includes local="yes">xil_io.h</includes>
+    <includedby refid="xrtcpsu_8h" local="yes">xrtcpsu.h</includedby>
+    <includedby refid="xrtcpsu_8c" local="yes">xrtcpsu.c</includedby>
+    <incdepgraph>
+      <node id="67">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="68">
+        <label>xil_io.h</label>
+      </node>
+      <node id="66">
+        <label>xil_types.h</label>
+      </node>
+      <node id="65">
+        <label>xrtcpsu_hw.h</label>
+        <link refid="xrtcpsu_hw.h"/>
+        <childnode refid="66" relation="include">
+        </childnode>
+        <childnode refid="67" relation="include">
+        </childnode>
+        <childnode refid="68" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="77">
+        <label>xrtcpsu_alarm_polled_example.c</label>
+        <link refid="xrtcpsu__alarm__polled__example_8c"/>
+      </node>
+      <node id="71">
+        <label>xrtcpsu.c</label>
+        <link refid="xrtcpsu_8c"/>
+      </node>
+      <node id="70">
+        <label>xrtcpsu.h</label>
+        <link refid="xrtcpsu_8h"/>
+        <childnode refid="71" relation="include">
+        </childnode>
+        <childnode refid="72" relation="include">
+        </childnode>
+        <childnode refid="73" relation="include">
+        </childnode>
+        <childnode refid="74" relation="include">
+        </childnode>
+        <childnode refid="75" relation="include">
+        </childnode>
+        <childnode refid="76" relation="include">
+        </childnode>
+        <childnode refid="77" relation="include">
+        </childnode>
+        <childnode refid="78" relation="include">
+        </childnode>
+        <childnode refid="79" relation="include">
+        </childnode>
+        <childnode refid="80" relation="include">
+        </childnode>
+        <childnode refid="81" relation="include">
+        </childnode>
+        <childnode refid="82" relation="include">
+        </childnode>
+      </node>
+      <node id="72">
+        <label>xrtcpsu_g.c</label>
+        <link refid="xrtcpsu__g_8c"/>
+      </node>
+      <node id="79">
+        <label>xrtcpsu_seconds_interrupt_example.c</label>
+        <link refid="xrtcpsu__seconds__interrupt__example_8c"/>
+      </node>
+      <node id="74">
+        <label>xrtcpsu_selftest.c</label>
+        <link refid="xrtcpsu__selftest_8c"/>
+      </node>
+      <node id="80">
+        <label>xrtcpsu_seconds_polled_example.c</label>
+        <link refid="xrtcpsu__seconds__polled__example_8c"/>
+      </node>
+      <node id="73">
+        <label>xrtcpsu_intr.c</label>
+        <link refid="xrtcpsu__intr_8c"/>
+      </node>
+      <node id="76">
+        <label>xrtcpsu_alarm_interrupt_example.c</label>
+        <link refid="xrtcpsu__alarm__interrupt__example_8c"/>
+      </node>
+      <node id="75">
+        <label>xrtcpsu_sinit.c</label>
+        <link refid="xrtcpsu__sinit_8c"/>
+      </node>
+      <node id="69">
+        <label>xrtcpsu_hw.h</label>
+        <link refid="xrtcpsu_hw.h"/>
+        <childnode refid="70" relation="include">
+        </childnode>
+        <childnode refid="71" relation="include">
+        </childnode>
+      </node>
+      <node id="82">
+        <label>xrtcpsu_set_time_example.c</label>
+        <link refid="xrtcpsu__set__time__example_8c"/>
+      </node>
+      <node id="81">
+        <label>xrtcpsu_set_calibration_example.c</label>
+        <link refid="xrtcpsu__set__calibration__example_8c"/>
+      </node>
+      <node id="78">
+        <label>xrtcpsu_periodic_alarm_interrupt_example.c</label>
+        <link refid="xrtcpsu__periodic__alarm__interrupt__example_8c"/>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="user-defined">
+      <header>Set Timer Register</header>
+      <description><para>This register contains bits for configuring Current time. </para></description>
+      <memberdef kind="define" id="group__rtcpsu_1ga15fe16b0b19b172cc0b43af6c94698df" prot="public" static="no">
+        <name>XRTC_SET_TIME_WR_OFFSET</name>
+        <initializer>0x00000000U</initializer>
+        <briefdescription>
+<para>Register: XrtcSetTimeWr. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" line="59" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" bodystart="59" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__rtcpsu_1gabdf75ef48e8da2858e1b73a95c4ac494" prot="public" static="no">
+        <name>XRTC_SET_TIME_WR_RSTVAL</name>
+        <initializer>0x00000000U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" line="60" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" bodystart="60" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__rtcpsu_1ga826c1136826a32317d62901f5c06b1ea" prot="public" static="no">
+        <name>XRTC_SET_TIME_WR_VAL_SHIFT</name>
+        <initializer>0U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" line="62" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" bodystart="62" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__rtcpsu_1gab724538dc472de1a57778b2695d5277e" prot="public" static="no">
+        <name>XRTC_SET_TIME_WR_VAL_WIDTH</name>
+        <initializer>32U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" line="63" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" bodystart="63" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__rtcpsu_1ga7a59476a7a1f82dab43b04c917071c24" prot="public" static="no">
+        <name>XRTC_SET_TIME_WR_VAL_MASK</name>
+        <initializer>0xffffffffU</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" line="64" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" bodystart="64" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__rtcpsu_1gafc979687ab44965658966bfcad9062f2" prot="public" static="no">
+        <name>XRTC_SET_TIME_WR_VAL_DEFVAL</name>
+        <initializer>0x0U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" line="65" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" bodystart="65" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__rtcpsu_1gae8aad0b4ff0c6c094abd427ca68bfb72" prot="public" static="no">
+        <name>XRTC_SET_TIME_RD_OFFSET</name>
+        <initializer>0x00000004U</initializer>
+        <briefdescription>
+<para>Register: XrtcSetTimeRd. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" line="70" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" bodystart="70" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__rtcpsu_1gaf4398db4cd40496ef85693784b09ea09" prot="public" static="no">
+        <name>XRTC_SET_TIME_RD_RSTVAL</name>
+        <initializer>0x00000000U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" line="71" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" bodystart="71" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__rtcpsu_1ga62f8dad1befa4a1d42c683e8fcdaafb5" prot="public" static="no">
+        <name>XRTC_SET_TIME_RD_VAL_SHIFT</name>
+        <initializer>0U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" line="73" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" bodystart="73" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__rtcpsu_1ga5497d6f88ad599d3241c670a4c0bfb7f" prot="public" static="no">
+        <name>XRTC_SET_TIME_RD_VAL_WIDTH</name>
+        <initializer>32U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" line="74" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" bodystart="74" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__rtcpsu_1gadbfd110e3b1c97f8caaf81b0505ebc2a" prot="public" static="no">
+        <name>XRTC_SET_TIME_RD_VAL_MASK</name>
+        <initializer>0xffffffffU</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" line="75" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" bodystart="75" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__rtcpsu_1gac0daddbe34e19a01d2305de2737d482a" prot="public" static="no">
+        <name>XRTC_SET_TIME_RD_VAL_DEFVAL</name>
+        <initializer>0x0U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" line="76" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" bodystart="76" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Calibration  Register</header>
+      <description><para>This register contains bits for configuring Calibration values. </para></description>
+      <memberdef kind="define" id="group__rtcpsu_1ga7226dae4931d57f6e45a86c0b1b8fa2f" prot="public" static="no">
+        <name>XRTC_CALIB_WR_OFFSET</name>
+        <initializer>0x00000008U</initializer>
+        <briefdescription>
+<para>Register: XrtcCalibWr. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" line="88" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" bodystart="88" bodyend="-1"/>
+        <referencedby refid="group__rtcpsu_1ga04fcc0a1ae6b27f2a3e0f1ba723c48e3" compoundref="xrtcpsu_8c" startline="97" endline="159">XRtcPsu_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__rtcpsu_1ga52e4caf8f6d4b1d48a38e105454aaa81" prot="public" static="no">
+        <name>XRTC_CALIB_WR_RSTVAL</name>
+        <initializer>0x00000000U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" line="89" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" bodystart="89" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__rtcpsu_1ga9f34455e5acf90c752705363fd031c3e" prot="public" static="no">
+        <name>XRTC_CALIB_WR_FRACTN_EN_SHIFT</name>
+        <initializer>20U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" line="91" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" bodystart="91" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__rtcpsu_1ga83e5877869ef8de0ccd184835b9a25be" prot="public" static="no">
+        <name>XRTC_CALIB_WR_FRACTN_EN_WIDTH</name>
+        <initializer>1U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" line="92" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" bodystart="92" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__rtcpsu_1gac04d6f702d1b93a6dc263cd86dec9a15" prot="public" static="no">
+        <name>XRTC_CALIB_WR_FRACTN_EN_MASK</name>
+        <initializer>0x00100000U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" line="93" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" bodystart="93" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__rtcpsu_1ga5698564827532bd79afa75d0f52cf99d" prot="public" static="no">
+        <name>XRTC_CALIB_WR_FRACTN_EN_DEFVAL</name>
+        <initializer>0x0U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" line="94" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" bodystart="94" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__rtcpsu_1gacdf816dafec9ad8d5eb9d26e84b5f67a" prot="public" static="no">
+        <name>XRTC_CALIB_WR_FRACTN_DATA_SHIFT</name>
+        <initializer>16U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" line="96" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" bodystart="96" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__rtcpsu_1gabeb8be0d17cc0bc58348c89efde5a0aa" prot="public" static="no">
+        <name>XRTC_CALIB_WR_FRACTN_DATA_WIDTH</name>
+        <initializer>4U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" line="97" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" bodystart="97" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__rtcpsu_1gac3713d6ea0ffcebf488ec6b3f0c9d276" prot="public" static="no">
+        <name>XRTC_CALIB_WR_FRACTN_DATA_MASK</name>
+        <initializer>0x000f0000U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" line="98" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" bodystart="98" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__rtcpsu_1ga2612ee9e6166d6162704e964de173173" prot="public" static="no">
+        <name>XRTC_CALIB_WR_FRACTN_DATA_DEFVAL</name>
+        <initializer>0x0U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" line="99" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" bodystart="99" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__rtcpsu_1ga2ca9ab7b4ea9acea1a2df3399079b536" prot="public" static="no">
+        <name>XRTC_CALIB_WR_MAX_TCK_SHIFT</name>
+        <initializer>0U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" line="101" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" bodystart="101" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__rtcpsu_1ga5eede264b6ffd289aef123f29cd5bec9" prot="public" static="no">
+        <name>XRTC_CALIB_WR_MAX_TCK_WIDTH</name>
+        <initializer>16U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" line="102" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" bodystart="102" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__rtcpsu_1ga0e42a2084bbe80caece404b4623c6204" prot="public" static="no">
+        <name>XRTC_CALIB_WR_MAX_TCK_MASK</name>
+        <initializer>0x0000ffffU</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" line="103" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" bodystart="103" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__rtcpsu_1gaf200b308702ac141f4a12a1515c58ef3" prot="public" static="no">
+        <name>XRTC_CALIB_WR_MAX_TCK_DEFVAL</name>
+        <initializer>0x0U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" line="104" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" bodystart="104" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__rtcpsu_1ga1370c975fd33563789e4a6737599668a" prot="public" static="no">
+        <name>XRTC_CALIB_RD_OFFSET</name>
+        <initializer>0x0000000CU</initializer>
+        <briefdescription>
+<para>Register: XrtcCalibRd. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" line="109" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" bodystart="109" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__rtcpsu_1ga087b400f4b80abe17ac9c14de6998c5e" prot="public" static="no">
+        <name>XRTC_CALIB_RD_RSTVAL</name>
+        <initializer>0x00000000U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" line="110" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" bodystart="110" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__rtcpsu_1ga8f385a3f55a1d4526dbd2305b86ec0e4" prot="public" static="no">
+        <name>XRTC_CALIB_RD_FRACTN_EN_SHIFT</name>
+        <initializer>20U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" line="112" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" bodystart="112" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__rtcpsu_1ga10799e3f842aed6947f16ab14a854b54" prot="public" static="no">
+        <name>XRTC_CALIB_RD_FRACTN_EN_WIDTH</name>
+        <initializer>1U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" line="113" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" bodystart="113" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__rtcpsu_1gab6737c3803d78c6dd1c95aaa53e63c71" prot="public" static="no">
+        <name>XRTC_CALIB_RD_FRACTN_EN_MASK</name>
+        <initializer>0x00100000U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" line="114" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" bodystart="114" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__rtcpsu_1ga90a4bcc4cbd6439b5c8af8163093d02c" prot="public" static="no">
+        <name>XRTC_CALIB_RD_FRACTN_EN_DEFVAL</name>
+        <initializer>0x0U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" line="115" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" bodystart="115" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__rtcpsu_1ga7639020b3ed2148c35c5139589451c1b" prot="public" static="no">
+        <name>XRTC_CALIB_RD_FRACTN_DATA_SHIFT</name>
+        <initializer>16U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" line="117" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" bodystart="117" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__rtcpsu_1ga121925dc61b6fcca156ae76c40549a0f" prot="public" static="no">
+        <name>XRTC_CALIB_RD_FRACTN_DATA_WIDTH</name>
+        <initializer>4U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" line="118" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" bodystart="118" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__rtcpsu_1ga12fb760b0c25857e0196f3783b9f3d38" prot="public" static="no">
+        <name>XRTC_CALIB_RD_FRACTN_DATA_MASK</name>
+        <initializer>0x000f0000U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" line="119" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" bodystart="119" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__rtcpsu_1ga0736c6f413365d32014882a34c9ae05b" prot="public" static="no">
+        <name>XRTC_CALIB_RD_FRACTN_DATA_DEFVAL</name>
+        <initializer>0x0U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" line="120" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" bodystart="120" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__rtcpsu_1gaad24f7fa38cb1245e4ce1c6662df86f2" prot="public" static="no">
+        <name>XRTC_CALIB_RD_MAX_TCK_SHIFT</name>
+        <initializer>0U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" line="122" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" bodystart="122" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__rtcpsu_1gabfdd8bf90c4b3014223bcb01620410d0" prot="public" static="no">
+        <name>XRTC_CALIB_RD_MAX_TCK_WIDTH</name>
+        <initializer>16U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" line="123" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" bodystart="123" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__rtcpsu_1gaa88b927e315b05d04d1602f0aabf1897" prot="public" static="no">
+        <name>XRTC_CALIB_RD_MAX_TCK_MASK</name>
+        <initializer>0x0000ffffU</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" line="124" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" bodystart="124" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__rtcpsu_1ga515baec28518ebe08660203f188f1602" prot="public" static="no">
+        <name>XRTC_CALIB_RD_MAX_TCK_DEFVAL</name>
+        <initializer>0x0U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" line="125" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" bodystart="125" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Current time  Register</header>
+      <description><para>This register contains bits for configuring Current time. </para></description>
+      <memberdef kind="define" id="group__rtcpsu_1ga7fa52cd698601011816bcb3a78cabc6a" prot="public" static="no">
+        <name>XRTC_CUR_TIME_OFFSET</name>
+        <initializer>0x00000010U</initializer>
+        <briefdescription>
+<para>Register: XrtcCurTime. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" line="137" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" bodystart="137" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__rtcpsu_1ga7c231b4fd1242d9d08ae8e09d3143f99" prot="public" static="no">
+        <name>XRTC_CUR_TIME_RSTVAL</name>
+        <initializer>0x00000000U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" line="138" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" bodystart="138" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__rtcpsu_1ga6161c5c89d731162c283497dc262792b" prot="public" static="no">
+        <name>XRTC_CUR_TIME_VAL_SHIFT</name>
+        <initializer>0U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" line="140" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" bodystart="140" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__rtcpsu_1ga90198341afb0248d202e80b9106d7292" prot="public" static="no">
+        <name>XRTC_CUR_TIME_VAL_WIDTH</name>
+        <initializer>32U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" line="141" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" bodystart="141" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__rtcpsu_1ga1c21e47b652ac38d472abba9d1807005" prot="public" static="no">
+        <name>XRTC_CUR_TIME_VAL_MASK</name>
+        <initializer>0xffffffffU</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" line="142" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" bodystart="142" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__rtcpsu_1ga2179e1a81542bfeb8072aa2fa79a18b7" prot="public" static="no">
+        <name>XRTC_CUR_TIME_VAL_DEFVAL</name>
+        <initializer>0x0U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" line="143" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" bodystart="143" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__rtcpsu_1ga4fcad14886e97664d39d03c875332cfc" prot="public" static="no">
+        <name>XRTC_CUR_TCK_OFFSET</name>
+        <initializer>0x00000014U</initializer>
+        <briefdescription>
+<para>Register: XrtcCurTck. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" line="148" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" bodystart="148" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__rtcpsu_1ga8456d65895620ebd2b8300dd98836d26" prot="public" static="no">
+        <name>XRTC_CUR_TCK_RSTVAL</name>
+        <initializer>0x00000000U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" line="149" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" bodystart="149" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__rtcpsu_1gaf65b1a1073b790f53e59619fb13127f2" prot="public" static="no">
+        <name>XRTC_CUR_TCK_VAL_SHIFT</name>
+        <initializer>0U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" line="151" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" bodystart="151" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__rtcpsu_1ga6592706eca40ff8b91c66c3bb560df65" prot="public" static="no">
+        <name>XRTC_CUR_TCK_VAL_WIDTH</name>
+        <initializer>16U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" line="152" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" bodystart="152" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__rtcpsu_1ga54af6b9c5d541c6de0910f17f4ccd3ee" prot="public" static="no">
+        <name>XRTC_CUR_TCK_VAL_MASK</name>
+        <initializer>0x0000ffffU</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" line="153" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" bodystart="153" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__rtcpsu_1ga80dcf8581dd25f4cfd38fd97cbe566fc" prot="public" static="no">
+        <name>XRTC_CUR_TCK_VAL_DEFVAL</name>
+        <initializer>0x0U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" line="154" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" bodystart="154" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Alarm Register</header>
+      <description><para>This register contains bits for configuring Alarm. </para></description>
+      <memberdef kind="define" id="group__rtcpsu_1gaefe187edd9e6057a21bed63b21980824" prot="public" static="no">
+        <name>XRTC_ALRM_OFFSET</name>
+        <initializer>0x00000018U</initializer>
+        <briefdescription>
+<para>Register: XrtcAlrm. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" line="166" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" bodystart="166" bodyend="-1"/>
+        <referencedby refid="group__rtcpsu_1ga201537801ac896c73018a8719e8637d8" compoundref="xrtcpsu_8c" startline="286" endline="300">XRtcPsu_SetAlarm</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__rtcpsu_1gaffed34b306b6c1e06a3df76ab2828170" prot="public" static="no">
+        <name>XRTC_ALRM_RSTVAL</name>
+        <initializer>0x00000000U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" line="167" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" bodystart="167" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__rtcpsu_1ga69ce63bb0ca6efa7137b222d82711b61" prot="public" static="no">
+        <name>XRTC_ALRM_VAL_SHIFT</name>
+        <initializer>0U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" line="169" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" bodystart="169" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__rtcpsu_1gadbb55b8404f874b1a09140367d97dde9" prot="public" static="no">
+        <name>XRTC_ALRM_VAL_WIDTH</name>
+        <initializer>32U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" line="170" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" bodystart="170" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__rtcpsu_1gae070fd27ea1436e15ea0bdd791eebaa3" prot="public" static="no">
+        <name>XRTC_ALRM_VAL_MASK</name>
+        <initializer>0xffffffffU</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" line="171" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" bodystart="171" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__rtcpsu_1gac5ba1b32b832d2988fff96c82dea7e12" prot="public" static="no">
+        <name>XRTC_ALRM_VAL_DEFVAL</name>
+        <initializer>0x0U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" line="172" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" bodystart="172" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Interrupt Status  Register</header>
+      <description><para>This register contains bits for configuring Interrupt. </para></description>
+      <memberdef kind="define" id="group__rtcpsu_1ga5031f5d32d26c4887751966503470c83" prot="public" static="no">
+        <name>XRTC_INT_STS_OFFSET</name>
+        <initializer>0x00000020U</initializer>
+        <briefdescription>
+<para>Register: XrtcIntSts. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" line="184" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" bodystart="184" bodyend="-1"/>
+        <referencedby refid="group__rtcpsu_1ga04fcc0a1ae6b27f2a3e0f1ba723c48e3" compoundref="xrtcpsu_8c" startline="97" endline="159">XRtcPsu_CfgInitialize</referencedby>
+        <referencedby refid="group__rtcpsu_1gad47ac1cadbbe8dd0e67588d1fc658cc2" compoundref="xrtcpsu_8c" startline="226" endline="269">XRtcPsu_GetCurrentTime</referencedby>
+        <referencedby refid="group__rtcpsu_1ga01ca03d23194687c8026dc2f38da6ff7" compoundref="xrtcpsu__intr_8c" startline="163" endline="225">XRtcPsu_InterruptHandler</referencedby>
+        <referencedby refid="group__rtcpsu_1ga75de01e02970e25ccbbeb1af33d0e808" compoundref="xrtcpsu_8c" startline="562" endline="577">XRtcPsu_IsAlarmEventGenerated</referencedby>
+        <referencedby refid="group__rtcpsu_1gafe9ec3849cca99b5d67f76ffafcc3ab2" compoundref="xrtcpsu_8c" startline="531" endline="546">XRtcPsu_IsSecondsEventGenerated</referencedby>
+        <referencedby refid="group__rtcpsu_1ga645920d3519722e8dc815d07db527367" compoundref="xrtcpsu__intr_8c" startline="67" endline="86">XRtcPsu_SetInterruptMask</referencedby>
+        <referencedby refid="group__rtcpsu_1ga71a08172e9403add8c6ec37842b49512" compoundref="xrtcpsu_8c" startline="199" endline="212">XRtcPsu_SetTime</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__rtcpsu_1ga4bbecf062842e412563f8bb63f5d4567" prot="public" static="no">
+        <name>XRTC_INT_STS_RSTVAL</name>
+        <initializer>0x00000000U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" line="185" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" bodystart="185" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__rtcpsu_1ga3d2ad55722edf431e6aa6060eb6812d3" prot="public" static="no">
+        <name>XRTC_INT_STS_ALRM_SHIFT</name>
+        <initializer>1U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" line="187" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" bodystart="187" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__rtcpsu_1gad047fcd3aaff8e7897d02d37cf51cf86" prot="public" static="no">
+        <name>XRTC_INT_STS_ALRM_WIDTH</name>
+        <initializer>1U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" line="188" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" bodystart="188" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__rtcpsu_1gaa4a42afb11c41f257fa38678a4d454d7" prot="public" static="no">
+        <name>XRTC_INT_STS_ALRM_MASK</name>
+        <initializer>0x00000002U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" line="189" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" bodystart="189" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__rtcpsu_1ga9dc034463e7d5e43d1bc449630c9a217" prot="public" static="no">
+        <name>XRTC_INT_STS_ALRM_DEFVAL</name>
+        <initializer>0x0U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" line="190" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" bodystart="190" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__rtcpsu_1gac6a3d21ab0fbfe77027cedf4e809aa7d" prot="public" static="no">
+        <name>XRTC_INT_STS_SECS_SHIFT</name>
+        <initializer>0U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" line="192" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" bodystart="192" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__rtcpsu_1ga0b6550b308bb09ea6dcc549aa65dc921" prot="public" static="no">
+        <name>XRTC_INT_STS_SECS_WIDTH</name>
+        <initializer>1U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" line="193" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" bodystart="193" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__rtcpsu_1ga48d705b227aef74930564a03efd0e7e9" prot="public" static="no">
+        <name>XRTC_INT_STS_SECS_MASK</name>
+        <initializer>0x00000001U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" line="194" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" bodystart="194" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__rtcpsu_1gab5b9e8fee596514ac41969a7550dc48a" prot="public" static="no">
+        <name>XRTC_INT_STS_SECS_DEFVAL</name>
+        <initializer>0x0U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" line="195" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" bodystart="195" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__rtcpsu_1gac915150ede3fb8aab0d68c1ed072e4f8" prot="public" static="no">
+        <name>XRTC_INT_MSK_OFFSET</name>
+        <initializer>0x00000024U</initializer>
+        <briefdescription>
+<para>Register: XrtcIntMsk. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" line="200" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" bodystart="200" bodyend="-1"/>
+        <referencedby refid="group__rtcpsu_1gad47ac1cadbbe8dd0e67588d1fc658cc2" compoundref="xrtcpsu_8c" startline="226" endline="269">XRtcPsu_GetCurrentTime</referencedby>
+        <referencedby refid="group__rtcpsu_1ga01ca03d23194687c8026dc2f38da6ff7" compoundref="xrtcpsu__intr_8c" startline="163" endline="225">XRtcPsu_InterruptHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__rtcpsu_1ga9426bf53ac8f4a9f5d6a31d04228a51b" prot="public" static="no">
+        <name>XRTC_INT_MSK_RSTVAL</name>
+        <initializer>0x00000003U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" line="201" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" bodystart="201" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__rtcpsu_1ga1d4d3013e2bfe4be9f63af45a217a510" prot="public" static="no">
+        <name>XRTC_INT_MSK_ALRM_SHIFT</name>
+        <initializer>1U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" line="203" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" bodystart="203" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__rtcpsu_1gaa59ff6ec796d84feb60d7b9aeb650ba8" prot="public" static="no">
+        <name>XRTC_INT_MSK_ALRM_WIDTH</name>
+        <initializer>1U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" line="204" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" bodystart="204" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__rtcpsu_1ga489a8e38cd93b3a91132cda526b892f0" prot="public" static="no">
+        <name>XRTC_INT_MSK_ALRM_MASK</name>
+        <initializer>0x00000002U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" line="205" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" bodystart="205" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__rtcpsu_1ga24e4a5ce356f266de8e6660d07e25ce3" prot="public" static="no">
+        <name>XRTC_INT_MSK_ALRM_DEFVAL</name>
+        <initializer>0x1U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" line="206" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" bodystart="206" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__rtcpsu_1gafdb37c0a4f5f095818ae4838016011f0" prot="public" static="no">
+        <name>XRTC_INT_MSK_SECS_SHIFT</name>
+        <initializer>0U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" line="208" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" bodystart="208" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__rtcpsu_1gacd0b506cbb9370619b8fe10a7d903856" prot="public" static="no">
+        <name>XRTC_INT_MSK_SECS_WIDTH</name>
+        <initializer>1U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" line="209" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" bodystart="209" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__rtcpsu_1gacc4f9424eb2e88b83e9a61ce592c1fe8" prot="public" static="no">
+        <name>XRTC_INT_MSK_SECS_MASK</name>
+        <initializer>0x00000001U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" line="210" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" bodystart="210" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__rtcpsu_1ga48a475f6d63398ea8b48adade8f1ccd7" prot="public" static="no">
+        <name>XRTC_INT_MSK_SECS_DEFVAL</name>
+        <initializer>0x1U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" line="211" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" bodystart="211" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__rtcpsu_1ga47db526c5faf75df46c2dc78b84dfb7b" prot="public" static="no">
+        <name>XRTC_INT_EN_OFFSET</name>
+        <initializer>0x00000028U</initializer>
+        <briefdescription>
+<para>Register: XrtcIntEn. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" line="216" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" bodystart="216" bodyend="-1"/>
+        <referencedby refid="group__rtcpsu_1ga645920d3519722e8dc815d07db527367" compoundref="xrtcpsu__intr_8c" startline="67" endline="86">XRtcPsu_SetInterruptMask</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__rtcpsu_1ga6bdb2f0b6397a4e44211744dc7aad0c1" prot="public" static="no">
+        <name>XRTC_INT_EN_RSTVAL</name>
+        <initializer>0x00000000U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" line="217" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" bodystart="217" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__rtcpsu_1gaeeecfee63376cd287e90f3ef536156a3" prot="public" static="no">
+        <name>XRTC_INT_EN_ALRM_SHIFT</name>
+        <initializer>1U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" line="219" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" bodystart="219" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__rtcpsu_1ga44296db691efa8e1fd4cd0414414c819" prot="public" static="no">
+        <name>XRTC_INT_EN_ALRM_WIDTH</name>
+        <initializer>1U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" line="220" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" bodystart="220" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__rtcpsu_1ga8f829ffb26d872616798a27955727a30" prot="public" static="no">
+        <name>XRTC_INT_EN_ALRM_MASK</name>
+        <initializer>0x00000002U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" line="221" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" bodystart="221" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__rtcpsu_1ga3d4b032f17c23f7ec8fed35a646e6d95" prot="public" static="no">
+        <name>XRTC_INT_EN_ALRM_DEFVAL</name>
+        <initializer>0x0U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" line="222" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" bodystart="222" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__rtcpsu_1gacd1f2389cd053b448c9cfaff4a44cf7f" prot="public" static="no">
+        <name>XRTC_INT_EN_SECS_SHIFT</name>
+        <initializer>0U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" line="224" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" bodystart="224" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__rtcpsu_1ga75f13db1c6cb95d6feefe55c43bbbe1e" prot="public" static="no">
+        <name>XRTC_INT_EN_SECS_WIDTH</name>
+        <initializer>1U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" line="225" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" bodystart="225" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__rtcpsu_1gad50209bbfaa2edbbef555d8f035b65f2" prot="public" static="no">
+        <name>XRTC_INT_EN_SECS_MASK</name>
+        <initializer>0x00000001U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" line="226" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" bodystart="226" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__rtcpsu_1ga5b7e7eadd082466ef369ae3b38d13130" prot="public" static="no">
+        <name>XRTC_INT_EN_SECS_DEFVAL</name>
+        <initializer>0x0U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" line="227" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" bodystart="227" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__rtcpsu_1gac41e797cd2c6162d086c237426eafa9e" prot="public" static="no">
+        <name>XRTC_INT_DIS_OFFSET</name>
+        <initializer>0x0000002CU</initializer>
+        <briefdescription>
+<para>Register: XrtcIntDis. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" line="232" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" bodystart="232" bodyend="-1"/>
+        <referencedby refid="group__rtcpsu_1ga04fcc0a1ae6b27f2a3e0f1ba723c48e3" compoundref="xrtcpsu_8c" startline="97" endline="159">XRtcPsu_CfgInitialize</referencedby>
+        <referencedby refid="group__rtcpsu_1gaefced00316539320411829b4d701fe3c" compoundref="xrtcpsu__intr_8c" startline="102" endline="113">XRtcPsu_ClearInterruptMask</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__rtcpsu_1ga3d9f874a1ac40637117b7f06dc0d92f3" prot="public" static="no">
+        <name>XRTC_INT_DIS_RSTVAL</name>
+        <initializer>0x00000000U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" line="233" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" bodystart="233" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__rtcpsu_1ga1977c14a849dbfeb7d3f16a514ebfd6c" prot="public" static="no">
+        <name>XRTC_INT_DIS_ALRM_SHIFT</name>
+        <initializer>1U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" line="235" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" bodystart="235" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__rtcpsu_1gacfe05fef605dcbe80eead9eb416d0e3e" prot="public" static="no">
+        <name>XRTC_INT_DIS_ALRM_WIDTH</name>
+        <initializer>1U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" line="236" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" bodystart="236" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__rtcpsu_1ga94e17033026fe9cf669cd4d9a989c226" prot="public" static="no">
+        <name>XRTC_INT_DIS_ALRM_MASK</name>
+        <initializer>0x00000002U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" line="237" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" bodystart="237" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__rtcpsu_1gac1ba872d5fe1cbbca0bb7231b0732e68" prot="public" static="no">
+        <name>XRTC_INT_DIS_ALRM_DEFVAL</name>
+        <initializer>0x0U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" line="238" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" bodystart="238" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__rtcpsu_1gaa5c70981488e9129a9732f55004a5229" prot="public" static="no">
+        <name>XRTC_INT_DIS_SECS_SHIFT</name>
+        <initializer>0U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" line="240" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" bodystart="240" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__rtcpsu_1gaa335f201b7091f411ade3f3e60ed4dd6" prot="public" static="no">
+        <name>XRTC_INT_DIS_SECS_WIDTH</name>
+        <initializer>1U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" line="241" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" bodystart="241" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__rtcpsu_1gaddece0763d0734583794fdf6304f6673" prot="public" static="no">
+        <name>XRTC_INT_DIS_SECS_MASK</name>
+        <initializer>0x00000001U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" line="242" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" bodystart="242" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__rtcpsu_1ga6a8eebb5480a78f83569633402e24b56" prot="public" static="no">
+        <name>XRTC_INT_DIS_SECS_DEFVAL</name>
+        <initializer>0x0U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" line="243" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" bodystart="243" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__rtcpsu_1ga36067195ea62374e6d16e333a5cb1ed5" prot="public" static="no">
+        <name>XRTC_ADD_ERR_OFFSET</name>
+        <initializer>0x00000030U</initializer>
+        <briefdescription>
+<para>Register: XrtcAddErr. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" line="248" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" bodystart="248" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__rtcpsu_1ga019e1aeecf9ff5d8300312c992245205" prot="public" static="no">
+        <name>XRTC_ADD_ERR_RSTVAL</name>
+        <initializer>0x00000000U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" line="249" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" bodystart="249" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__rtcpsu_1gaaeaacb82f26e0bc08596acc90e06239b" prot="public" static="no">
+        <name>XRTC_ADD_ERR_STS_SHIFT</name>
+        <initializer>0U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" line="251" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" bodystart="251" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__rtcpsu_1gafd86958e0e44c98084eebb097e074d1e" prot="public" static="no">
+        <name>XRTC_ADD_ERR_STS_WIDTH</name>
+        <initializer>1U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" line="252" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" bodystart="252" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__rtcpsu_1ga253ea406dd247d51a5d093d651a52c1b" prot="public" static="no">
+        <name>XRTC_ADD_ERR_STS_MASK</name>
+        <initializer>0x00000001U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" line="253" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" bodystart="253" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__rtcpsu_1ga0d55316eea35a46fe3e4dc595bdd4163" prot="public" static="no">
+        <name>XRTC_ADD_ERR_STS_DEFVAL</name>
+        <initializer>0x0U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" line="254" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" bodystart="254" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__rtcpsu_1gaa4f868462eb1d1f06c4224696cb43429" prot="public" static="no">
+        <name>XRTC_ADD_ERR_INT_MSK_OFFSET</name>
+        <initializer>0x00000034U</initializer>
+        <briefdescription>
+<para>Register: XrtcAddErrIntMsk. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" line="259" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" bodystart="259" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__rtcpsu_1ga8b378605b71cc00432d0741d780de465" prot="public" static="no">
+        <name>XRTC_ADD_ERR_INT_MSK_RSTVAL</name>
+        <initializer>0x00000001U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" line="260" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" bodystart="260" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__rtcpsu_1gac9aa6e09c4ff0f613ab102fc1d5de45f" prot="public" static="no">
+        <name>XRTC_ADD_ERR_INT_MSK_SHIFT</name>
+        <initializer>0U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" line="262" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" bodystart="262" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__rtcpsu_1gab95d6b17ce2603c309bae9d8f39cc3fb" prot="public" static="no">
+        <name>XRTC_ADD_ERR_INT_MSK_WIDTH</name>
+        <initializer>1U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" line="263" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" bodystart="263" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__rtcpsu_1gadc830f3d767c0830da77ce521c2ba156" prot="public" static="no">
+        <name>XRTC_ADD_ERR_INT_MSK_MASK</name>
+        <initializer>0x00000001U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" line="264" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" bodystart="264" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__rtcpsu_1ga6da9034097de415875ee5ab2c7d40bf7" prot="public" static="no">
+        <name>XRTC_ADD_ERR_INT_MSK_DEFVAL</name>
+        <initializer>0x1U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" line="265" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" bodystart="265" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__rtcpsu_1ga795e7dac0dfda7c2cb1f08f27c415d01" prot="public" static="no">
+        <name>XRTC_ADD_ERR_INT_EN_OFFSET</name>
+        <initializer>0x00000038U</initializer>
+        <briefdescription>
+<para>Register: XrtcAddErrIntEn. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" line="270" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" bodystart="270" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__rtcpsu_1ga9204c3240fb80f33fd99c8106cb52d52" prot="public" static="no">
+        <name>XRTC_ADD_ERR_INT_EN_RSTVAL</name>
+        <initializer>0x00000000U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" line="271" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" bodystart="271" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__rtcpsu_1gae3963043f832897e295e6c592ca84432" prot="public" static="no">
+        <name>XRTC_ADD_ERR_INT_EN_MSK_SHIFT</name>
+        <initializer>0U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" line="273" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" bodystart="273" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__rtcpsu_1ga2372f6997b5fd8aa210726509afe3b64" prot="public" static="no">
+        <name>XRTC_ADD_ERR_INT_EN_MSK_WIDTH</name>
+        <initializer>1U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" line="274" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" bodystart="274" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__rtcpsu_1ga39a00c127e26fb527f6f97f6d8a2cdfd" prot="public" static="no">
+        <name>XRTC_ADD_ERR_INT_EN_MSK_MASK</name>
+        <initializer>0x00000001U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" line="275" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" bodystart="275" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__rtcpsu_1gaf0c378a3e4226690f18a4f17711dedbd" prot="public" static="no">
+        <name>XRTC_ADD_ERR_INT_EN_MSK_DEFVAL</name>
+        <initializer>0x0U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" line="276" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" bodystart="276" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__rtcpsu_1ga578c0e1d126e0292d9e849afdbff5a6a" prot="public" static="no">
+        <name>XRTC_ADD_ERR_INT_DIS_OFFSET</name>
+        <initializer>0x0000003CU</initializer>
+        <briefdescription>
+<para>Register: XrtcAddErrIntDis. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" line="281" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" bodystart="281" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__rtcpsu_1gac9318d5b57d1051e211570a33cb8b545" prot="public" static="no">
+        <name>XRTC_ADD_ERR_INT_DIS_RSTVAL</name>
+        <initializer>0x00000000U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" line="282" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" bodystart="282" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__rtcpsu_1ga2866c4dbaaad72cd397ece08f29b4339" prot="public" static="no">
+        <name>XRTC_ADD_ERR_INT_DIS_MSK_SHIFT</name>
+        <initializer>0U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" line="284" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" bodystart="284" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__rtcpsu_1gafe222db869db200742f59358ce80894a" prot="public" static="no">
+        <name>XRTC_ADD_ERR_INT_DIS_MSK_WIDTH</name>
+        <initializer>1U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" line="285" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" bodystart="285" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__rtcpsu_1ga5f323fe441ff33691f8baaf27efb0ef0" prot="public" static="no">
+        <name>XRTC_ADD_ERR_INT_DIS_MSK_MASK</name>
+        <initializer>0x00000001U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" line="286" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" bodystart="286" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__rtcpsu_1gaa1790939556923872ac1464b8e5daa54" prot="public" static="no">
+        <name>XRTC_ADD_ERR_INT_DIS_MSK_DEFVAL</name>
+        <initializer>0x0U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" line="287" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" bodystart="287" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Control Register</header>
+      <description><para>This register contains bits for control register. </para></description>
+      <memberdef kind="define" id="group__rtcpsu_1ga0fc893db4a633de94bdfc6f4f59df62f" prot="public" static="no">
+        <name>XRTC_CTL_OFFSET</name>
+        <initializer>0x00000040U</initializer>
+        <briefdescription>
+<para>Register: XrtcCtl. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" line="298" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" bodystart="298" bodyend="-1"/>
+        <referencedby refid="group__rtcpsu_1ga04fcc0a1ae6b27f2a3e0f1ba723c48e3" compoundref="xrtcpsu_8c" startline="97" endline="159">XRtcPsu_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__rtcpsu_1ga7514e7d2cc9d0defe8165d26fb09bbf0" prot="public" static="no">
+        <name>XRTC_CTL_RSTVAL</name>
+        <initializer>0x01000000U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" line="299" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" bodystart="299" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__rtcpsu_1gaa76f6b5cc4537ddf2ca34b2357eceadd" prot="public" static="no">
+        <name>XRTC_CTL_BATTERY_EN_SHIFT</name>
+        <initializer>31U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" line="301" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" bodystart="301" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__rtcpsu_1ga9835da9be2657d2612e9b91c93bf1d08" prot="public" static="no">
+        <name>XRTC_CTL_BATTERY_EN_WIDTH</name>
+        <initializer>1U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" line="302" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" bodystart="302" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__rtcpsu_1ga8e17474f889c902185b92a817b306e32" prot="public" static="no">
+        <name>XRTC_CTL_BATTERY_EN_MASK</name>
+        <initializer>0x80000000U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" line="303" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" bodystart="303" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__rtcpsu_1ga33d19924c1b793dec4a89fffe329e7cc" prot="public" static="no">
+        <name>XRTC_CTL_BATTERY_EN_DEFVAL</name>
+        <initializer>0x0U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" line="304" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" bodystart="304" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__rtcpsu_1ga95d6657bf45ece28d40e37e40da8abf7" prot="public" static="no">
+        <name>XRTC_CTL_OSC_SHIFT</name>
+        <initializer>24U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" line="306" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" bodystart="306" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__rtcpsu_1ga33b7bed0323b0a2b68f93bcdc8cd4945" prot="public" static="no">
+        <name>XRTC_CTL_OSC_WIDTH</name>
+        <initializer>4U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" line="307" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" bodystart="307" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__rtcpsu_1gaca08550032c39c4edb6d4f8409c69b4a" prot="public" static="no">
+        <name>XRTC_CTL_OSC_MASK</name>
+        <initializer>0x0f000000U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" line="308" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" bodystart="308" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__rtcpsu_1gafb152b2cdd44d2a460e7d9b9a47ba95d" prot="public" static="no">
+        <name>XRTC_CTL_OSC_DEFVAL</name>
+        <initializer>0x1U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" line="309" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" bodystart="309" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__rtcpsu_1ga4c66a25bd10e4c93e37b4a34f974c880" prot="public" static="no">
+        <name>XRTC_CTL_SLVERR_EN_SHIFT</name>
+        <initializer>0U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" line="311" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" bodystart="311" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__rtcpsu_1ga44e63839262e18bdb6469b1b157ecc76" prot="public" static="no">
+        <name>XRTC_CTL_SLVERR_EN_WIDTH</name>
+        <initializer>1U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" line="312" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" bodystart="312" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__rtcpsu_1gad3ec87bfa656ed44bf1b630ca0bfcdea" prot="public" static="no">
+        <name>XRTC_CTL_SLVERR_EN_MASK</name>
+        <initializer>0x00000001U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" line="313" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" bodystart="313" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__rtcpsu_1gac658a223cd22b6ec4360fb18f0e1ab93" prot="public" static="no">
+        <name>XRTC_CTL_SLVERR_EN_DEFVAL</name>
+        <initializer>0x0U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" line="314" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" bodystart="314" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Safety Check Register</header>
+      <description><para>This register contains bits for configuring safety check. </para></description>
+      <memberdef kind="define" id="group__rtcpsu_1ga1f92062d8d2cb1c7f0735b1ecd5cdb67" prot="public" static="no">
+        <name>XRTC_SFTY_CHK_OFFSET</name>
+        <initializer>0x00000050U</initializer>
+        <briefdescription>
+<para>Register: XrtcSftyChk. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" line="326" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" bodystart="326" bodyend="-1"/>
+        <referencedby refid="group__rtcpsu_1ga1c969c089715ea9a86cec887c09f9b92" compoundref="xrtcpsu__selftest_8c" startline="71" endline="94">XRtcPsu_SelfTest</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__rtcpsu_1ga4e592488025280450b7b56c8dfda9aa4" prot="public" static="no">
+        <name>XRTC_SFTY_CHK_RSTVAL</name>
+        <initializer>0x00000000U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" line="327" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" bodystart="327" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__rtcpsu_1gaa396fb3e4490f68ea6620bbd53cd60f0" prot="public" static="no">
+        <name>XRTC_SFTY_CHK_REG_SHIFT</name>
+        <initializer>0U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" line="329" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" bodystart="329" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__rtcpsu_1gaa7e72b5ed67efe620664634d16df9f8f" prot="public" static="no">
+        <name>XRTC_SFTY_CHK_REG_WIDTH</name>
+        <initializer>32U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" line="330" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" bodystart="330" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__rtcpsu_1ga2989eea976c173693a224f485fceaba3" prot="public" static="no">
+        <name>XRTC_SFTY_CHK_REG_MASK</name>
+        <initializer>0xffffffffU</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" line="331" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" bodystart="331" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__rtcpsu_1ga51e62c9cbb423237cae31e011a02a933" prot="public" static="no">
+        <name>XRTC_SFTY_CHK_REG_DEFVAL</name>
+        <initializer>0x0U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" line="332" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" bodystart="332" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__rtcpsu_1gae7215b93f23fe1ef6cff1004104a803b" prot="public" static="no">
+        <name>XRTC_ECO_OFFSET</name>
+        <initializer>0x00000060U</initializer>
+        <briefdescription>
+<para>Register: XrtcEco. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" line="337" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" bodystart="337" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__rtcpsu_1gaae09d23503b82b13317d7fd429d08a5a" prot="public" static="no">
+        <name>XRTC_ECO_RSTVAL</name>
+        <initializer>0x00000000U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" line="338" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" bodystart="338" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__rtcpsu_1gad7cf65dc4e2d5a25fd321d3cd8545cd7" prot="public" static="no">
+        <name>XRTC_ECO_REG_SHIFT</name>
+        <initializer>0U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" line="340" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" bodystart="340" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__rtcpsu_1ga80687e7fdee5700f571f7f95087b2726" prot="public" static="no">
+        <name>XRTC_ECO_REG_WIDTH</name>
+        <initializer>32U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" line="341" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" bodystart="341" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__rtcpsu_1gaa820a6046288fe1daff88a0a760df654" prot="public" static="no">
+        <name>XRTC_ECO_REG_MASK</name>
+        <initializer>0xffffffffU</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" line="342" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" bodystart="342" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__rtcpsu_1ga1fc7957bf96b8a735626afa3047a16df" prot="public" static="no">
+        <name>XRTC_ECO_REG_DEFVAL</name>
+        <initializer>0x0U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" line="343" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" bodystart="343" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__rtcpsu_1ga2d71a6d87565f9564133c522d8959ad0" prot="public" static="no">
+        <name>XRTC_HW_H_</name>
+        <briefdescription>
+<para>&lt; prevent circular inclusions </para>        </briefdescription>
+        <detaileddescription>
+<para>by using protection macros </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" line="32" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" bodystart="32" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__rtcpsu_1gaf4ce7179e0fe961edf74c804ae1be55f" prot="public" static="no">
+        <name>XRTC_BASEADDR</name>
+        <initializer>0xFFA60000U</initializer>
+        <briefdescription>
+<para>Xrtc Base Address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" line="49" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" bodystart="49" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__rtcpsu_1gaccbbc47feabb330a937816bc347766ea" prot="public" static="no">
+        <name>XRtcPsu_ReadReg</name>
+        <param><defname>RegisterAddr</defname></param>
+        <initializer>Xil_In32(RegisterAddr)</initializer>
+        <briefdescription>
+<para>This macro reads the given register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>RegisterAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the register address in the address space of the RTC device.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The 32-bit value of the register</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" line="361" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" bodystart="361" bodyend="-1"/>
+        <referencedby refid="group__rtcpsu_1ga04fcc0a1ae6b27f2a3e0f1ba723c48e3" compoundref="xrtcpsu_8c" startline="97" endline="159">XRtcPsu_CfgInitialize</referencedby>
+        <referencedby refid="group__rtcpsu_1gad47ac1cadbbe8dd0e67588d1fc658cc2" compoundref="xrtcpsu_8c" startline="226" endline="269">XRtcPsu_GetCurrentTime</referencedby>
+        <referencedby refid="group__rtcpsu_1ga01ca03d23194687c8026dc2f38da6ff7" compoundref="xrtcpsu__intr_8c" startline="163" endline="225">XRtcPsu_InterruptHandler</referencedby>
+        <referencedby refid="group__rtcpsu_1ga75de01e02970e25ccbbeb1af33d0e808" compoundref="xrtcpsu_8c" startline="562" endline="577">XRtcPsu_IsAlarmEventGenerated</referencedby>
+        <referencedby refid="group__rtcpsu_1gafe9ec3849cca99b5d67f76ffafcc3ab2" compoundref="xrtcpsu_8c" startline="531" endline="546">XRtcPsu_IsSecondsEventGenerated</referencedby>
+        <referencedby refid="group__rtcpsu_1ga1c969c089715ea9a86cec887c09f9b92" compoundref="xrtcpsu__selftest_8c" startline="71" endline="94">XRtcPsu_SelfTest</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__rtcpsu_1gac80374611ede3fc00461df6aaff75028" prot="public" static="no">
+        <name>XRtcPsu_WriteReg</name>
+        <param><defname>RegisterAddr</defname></param>
+        <param><defname>Data</defname></param>
+        <initializer>Xil_Out32(RegisterAddr, (u32)(Data))</initializer>
+        <briefdescription>
+<para>This macro writes the given register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>RegisterAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the register address in the address space of the RTC device. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 32-bit value to write to the register.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" line="377" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h" bodystart="377" bodyend="-1"/>
+        <referencedby refid="group__rtcpsu_1ga04fcc0a1ae6b27f2a3e0f1ba723c48e3" compoundref="xrtcpsu_8c" startline="97" endline="159">XRtcPsu_CfgInitialize</referencedby>
+        <referencedby refid="group__rtcpsu_1gaefced00316539320411829b4d701fe3c" compoundref="xrtcpsu__intr_8c" startline="102" endline="113">XRtcPsu_ClearInterruptMask</referencedby>
+        <referencedby refid="group__rtcpsu_1ga01ca03d23194687c8026dc2f38da6ff7" compoundref="xrtcpsu__intr_8c" startline="163" endline="225">XRtcPsu_InterruptHandler</referencedby>
+        <referencedby refid="group__rtcpsu_1ga75de01e02970e25ccbbeb1af33d0e808" compoundref="xrtcpsu_8c" startline="562" endline="577">XRtcPsu_IsAlarmEventGenerated</referencedby>
+        <referencedby refid="group__rtcpsu_1gafe9ec3849cca99b5d67f76ffafcc3ab2" compoundref="xrtcpsu_8c" startline="531" endline="546">XRtcPsu_IsSecondsEventGenerated</referencedby>
+        <referencedby refid="group__rtcpsu_1ga1c969c089715ea9a86cec887c09f9b92" compoundref="xrtcpsu__selftest_8c" startline="71" endline="94">XRtcPsu_SelfTest</referencedby>
+        <referencedby refid="group__rtcpsu_1ga201537801ac896c73018a8719e8637d8" compoundref="xrtcpsu_8c" startline="286" endline="300">XRtcPsu_SetAlarm</referencedby>
+        <referencedby refid="group__rtcpsu_1ga645920d3519722e8dc815d07db527367" compoundref="xrtcpsu__intr_8c" startline="67" endline="86">XRtcPsu_SetInterruptMask</referencedby>
+        <referencedby refid="group__rtcpsu_1ga71a08172e9403add8c6ec37842b49512" compoundref="xrtcpsu_8c" startline="199" endline="212">XRtcPsu_SetTime</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2015<sp/>-<sp/>2021<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2023<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="31"><highlight class="preprocessor">#ifndef<sp/>XRTC_HW_H_<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="32" refid="group__rtcpsu_1ga2d71a6d87565f9564133c522d8959ad0" refkind="member"><highlight class="preprocessor">#define<sp/>XRTC_HW_H_<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="34"><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="35"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="37"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_assert.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_io.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="49" refid="group__rtcpsu_1gaf4ce7179e0fe961edf74c804ae1be55f" refkind="member"><highlight class="preprocessor">#define<sp/>XRTC_BASEADDR<sp/><sp/><sp/><sp/><sp/><sp/>0xFFA60000U</highlight></codeline>
+<codeline lineno="50"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="59" refid="group__rtcpsu_1ga15fe16b0b19b172cc0b43af6c94698df" refkind="member"><highlight class="preprocessor">#define<sp/>XRTC_SET_TIME_WR_OFFSET<sp/><sp/><sp/><sp/>0x00000000U</highlight></codeline>
+<codeline lineno="60"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XRTC_SET_TIME_WR_RSTVAL<sp/><sp/><sp/>0x00000000U</highlight></codeline>
+<codeline lineno="61"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XRTC_SET_TIME_WR_VAL_SHIFT<sp/><sp/><sp/>0U</highlight></codeline>
+<codeline lineno="63"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XRTC_SET_TIME_WR_VAL_WIDTH<sp/><sp/><sp/>32U</highlight></codeline>
+<codeline lineno="64"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XRTC_SET_TIME_WR_VAL_MASK<sp/><sp/><sp/><sp/>0xffffffffU</highlight></codeline>
+<codeline lineno="65"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XRTC_SET_TIME_WR_VAL_DEFVAL<sp/><sp/>0x0U</highlight></codeline>
+<codeline lineno="66"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="70" refid="group__rtcpsu_1gae8aad0b4ff0c6c094abd427ca68bfb72" refkind="member"><highlight class="preprocessor">#define<sp/>XRTC_SET_TIME_RD_OFFSET<sp/><sp/><sp/><sp/>0x00000004U</highlight></codeline>
+<codeline lineno="71"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XRTC_SET_TIME_RD_RSTVAL<sp/><sp/><sp/>0x00000000U</highlight></codeline>
+<codeline lineno="72"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XRTC_SET_TIME_RD_VAL_SHIFT<sp/><sp/><sp/>0U</highlight></codeline>
+<codeline lineno="74"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XRTC_SET_TIME_RD_VAL_WIDTH<sp/><sp/><sp/>32U</highlight></codeline>
+<codeline lineno="75"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XRTC_SET_TIME_RD_VAL_MASK<sp/><sp/><sp/><sp/>0xffffffffU</highlight></codeline>
+<codeline lineno="76"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XRTC_SET_TIME_RD_VAL_DEFVAL<sp/><sp/>0x0U</highlight></codeline>
+<codeline lineno="77"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="88" refid="group__rtcpsu_1ga7226dae4931d57f6e45a86c0b1b8fa2f" refkind="member"><highlight class="preprocessor">#define<sp/>XRTC_CALIB_WR_OFFSET<sp/><sp/><sp/><sp/>0x00000008U</highlight></codeline>
+<codeline lineno="89"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XRTC_CALIB_WR_RSTVAL<sp/><sp/><sp/>0x00000000U</highlight></codeline>
+<codeline lineno="90"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="91"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XRTC_CALIB_WR_FRACTN_EN_SHIFT<sp/><sp/><sp/>20U</highlight></codeline>
+<codeline lineno="92"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XRTC_CALIB_WR_FRACTN_EN_WIDTH<sp/><sp/><sp/>1U</highlight></codeline>
+<codeline lineno="93"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XRTC_CALIB_WR_FRACTN_EN_MASK<sp/><sp/><sp/><sp/>0x00100000U</highlight></codeline>
+<codeline lineno="94"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XRTC_CALIB_WR_FRACTN_EN_DEFVAL<sp/><sp/>0x0U</highlight></codeline>
+<codeline lineno="95"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="96"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XRTC_CALIB_WR_FRACTN_DATA_SHIFT<sp/><sp/><sp/>16U</highlight></codeline>
+<codeline lineno="97"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XRTC_CALIB_WR_FRACTN_DATA_WIDTH<sp/><sp/><sp/>4U</highlight></codeline>
+<codeline lineno="98"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XRTC_CALIB_WR_FRACTN_DATA_MASK<sp/><sp/><sp/><sp/>0x000f0000U</highlight></codeline>
+<codeline lineno="99"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XRTC_CALIB_WR_FRACTN_DATA_DEFVAL<sp/><sp/>0x0U</highlight></codeline>
+<codeline lineno="100"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="101"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XRTC_CALIB_WR_MAX_TCK_SHIFT<sp/><sp/><sp/>0U</highlight></codeline>
+<codeline lineno="102"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XRTC_CALIB_WR_MAX_TCK_WIDTH<sp/><sp/><sp/>16U</highlight></codeline>
+<codeline lineno="103"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XRTC_CALIB_WR_MAX_TCK_MASK<sp/><sp/><sp/><sp/>0x0000ffffU</highlight></codeline>
+<codeline lineno="104"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XRTC_CALIB_WR_MAX_TCK_DEFVAL<sp/><sp/>0x0U</highlight></codeline>
+<codeline lineno="105"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="109" refid="group__rtcpsu_1ga1370c975fd33563789e4a6737599668a" refkind="member"><highlight class="preprocessor">#define<sp/>XRTC_CALIB_RD_OFFSET<sp/><sp/><sp/><sp/>0x0000000CU</highlight></codeline>
+<codeline lineno="110"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XRTC_CALIB_RD_RSTVAL<sp/><sp/><sp/>0x00000000U</highlight></codeline>
+<codeline lineno="111"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="112"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XRTC_CALIB_RD_FRACTN_EN_SHIFT<sp/><sp/><sp/>20U</highlight></codeline>
+<codeline lineno="113"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XRTC_CALIB_RD_FRACTN_EN_WIDTH<sp/><sp/><sp/>1U</highlight></codeline>
+<codeline lineno="114"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XRTC_CALIB_RD_FRACTN_EN_MASK<sp/><sp/><sp/><sp/>0x00100000U</highlight></codeline>
+<codeline lineno="115"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XRTC_CALIB_RD_FRACTN_EN_DEFVAL<sp/><sp/>0x0U</highlight></codeline>
+<codeline lineno="116"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="117"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XRTC_CALIB_RD_FRACTN_DATA_SHIFT<sp/><sp/><sp/>16U</highlight></codeline>
+<codeline lineno="118"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XRTC_CALIB_RD_FRACTN_DATA_WIDTH<sp/><sp/><sp/>4U</highlight></codeline>
+<codeline lineno="119"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XRTC_CALIB_RD_FRACTN_DATA_MASK<sp/><sp/><sp/><sp/>0x000f0000U</highlight></codeline>
+<codeline lineno="120"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XRTC_CALIB_RD_FRACTN_DATA_DEFVAL<sp/><sp/>0x0U</highlight></codeline>
+<codeline lineno="121"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="122"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XRTC_CALIB_RD_MAX_TCK_SHIFT<sp/><sp/><sp/>0U</highlight></codeline>
+<codeline lineno="123"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XRTC_CALIB_RD_MAX_TCK_WIDTH<sp/><sp/><sp/>16U</highlight></codeline>
+<codeline lineno="124"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XRTC_CALIB_RD_MAX_TCK_MASK<sp/><sp/><sp/><sp/>0x0000ffffU</highlight></codeline>
+<codeline lineno="125"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XRTC_CALIB_RD_MAX_TCK_DEFVAL<sp/><sp/>0x0U</highlight></codeline>
+<codeline lineno="126"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="137" refid="group__rtcpsu_1ga7fa52cd698601011816bcb3a78cabc6a" refkind="member"><highlight class="preprocessor">#define<sp/>XRTC_CUR_TIME_OFFSET<sp/><sp/><sp/><sp/>0x00000010U</highlight></codeline>
+<codeline lineno="138"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XRTC_CUR_TIME_RSTVAL<sp/><sp/><sp/>0x00000000U</highlight></codeline>
+<codeline lineno="139"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="140"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XRTC_CUR_TIME_VAL_SHIFT<sp/><sp/><sp/>0U</highlight></codeline>
+<codeline lineno="141"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XRTC_CUR_TIME_VAL_WIDTH<sp/><sp/><sp/>32U</highlight></codeline>
+<codeline lineno="142"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XRTC_CUR_TIME_VAL_MASK<sp/><sp/><sp/><sp/>0xffffffffU</highlight></codeline>
+<codeline lineno="143"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XRTC_CUR_TIME_VAL_DEFVAL<sp/><sp/>0x0U</highlight></codeline>
+<codeline lineno="144"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="148" refid="group__rtcpsu_1ga4fcad14886e97664d39d03c875332cfc" refkind="member"><highlight class="preprocessor">#define<sp/>XRTC_CUR_TCK_OFFSET<sp/><sp/><sp/><sp/>0x00000014U</highlight></codeline>
+<codeline lineno="149"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XRTC_CUR_TCK_RSTVAL<sp/><sp/><sp/>0x00000000U</highlight></codeline>
+<codeline lineno="150"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="151"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XRTC_CUR_TCK_VAL_SHIFT<sp/><sp/><sp/>0U</highlight></codeline>
+<codeline lineno="152"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XRTC_CUR_TCK_VAL_WIDTH<sp/><sp/><sp/>16U</highlight></codeline>
+<codeline lineno="153"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XRTC_CUR_TCK_VAL_MASK<sp/><sp/><sp/><sp/>0x0000ffffU</highlight></codeline>
+<codeline lineno="154"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XRTC_CUR_TCK_VAL_DEFVAL<sp/><sp/>0x0U</highlight></codeline>
+<codeline lineno="155"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="166" refid="group__rtcpsu_1gaefe187edd9e6057a21bed63b21980824" refkind="member"><highlight class="preprocessor">#define<sp/>XRTC_ALRM_OFFSET<sp/><sp/><sp/><sp/>0x00000018U</highlight></codeline>
+<codeline lineno="167"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XRTC_ALRM_RSTVAL<sp/><sp/><sp/>0x00000000U</highlight></codeline>
+<codeline lineno="168"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="169"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XRTC_ALRM_VAL_SHIFT<sp/><sp/><sp/>0U</highlight></codeline>
+<codeline lineno="170"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XRTC_ALRM_VAL_WIDTH<sp/><sp/><sp/>32U</highlight></codeline>
+<codeline lineno="171"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XRTC_ALRM_VAL_MASK<sp/><sp/><sp/><sp/>0xffffffffU</highlight></codeline>
+<codeline lineno="172"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XRTC_ALRM_VAL_DEFVAL<sp/><sp/>0x0U</highlight></codeline>
+<codeline lineno="173"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="184" refid="group__rtcpsu_1ga5031f5d32d26c4887751966503470c83" refkind="member"><highlight class="preprocessor">#define<sp/>XRTC_INT_STS_OFFSET<sp/><sp/><sp/><sp/>0x00000020U</highlight></codeline>
+<codeline lineno="185"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XRTC_INT_STS_RSTVAL<sp/><sp/><sp/>0x00000000U</highlight></codeline>
+<codeline lineno="186"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="187"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XRTC_INT_STS_ALRM_SHIFT<sp/><sp/><sp/>1U</highlight></codeline>
+<codeline lineno="188"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XRTC_INT_STS_ALRM_WIDTH<sp/><sp/><sp/>1U</highlight></codeline>
+<codeline lineno="189"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XRTC_INT_STS_ALRM_MASK<sp/><sp/><sp/><sp/>0x00000002U</highlight></codeline>
+<codeline lineno="190"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XRTC_INT_STS_ALRM_DEFVAL<sp/><sp/>0x0U</highlight></codeline>
+<codeline lineno="191"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="192"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XRTC_INT_STS_SECS_SHIFT<sp/><sp/><sp/>0U</highlight></codeline>
+<codeline lineno="193"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XRTC_INT_STS_SECS_WIDTH<sp/><sp/><sp/>1U</highlight></codeline>
+<codeline lineno="194"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XRTC_INT_STS_SECS_MASK<sp/><sp/><sp/><sp/>0x00000001U</highlight></codeline>
+<codeline lineno="195"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XRTC_INT_STS_SECS_DEFVAL<sp/><sp/>0x0U</highlight></codeline>
+<codeline lineno="196"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="200" refid="group__rtcpsu_1gac915150ede3fb8aab0d68c1ed072e4f8" refkind="member"><highlight class="preprocessor">#define<sp/>XRTC_INT_MSK_OFFSET<sp/><sp/><sp/><sp/>0x00000024U</highlight></codeline>
+<codeline lineno="201"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XRTC_INT_MSK_RSTVAL<sp/><sp/><sp/>0x00000003U</highlight></codeline>
+<codeline lineno="202"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="203"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XRTC_INT_MSK_ALRM_SHIFT<sp/><sp/><sp/>1U</highlight></codeline>
+<codeline lineno="204"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XRTC_INT_MSK_ALRM_WIDTH<sp/><sp/><sp/>1U</highlight></codeline>
+<codeline lineno="205"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XRTC_INT_MSK_ALRM_MASK<sp/><sp/><sp/><sp/>0x00000002U</highlight></codeline>
+<codeline lineno="206"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XRTC_INT_MSK_ALRM_DEFVAL<sp/><sp/>0x1U</highlight></codeline>
+<codeline lineno="207"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="208"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XRTC_INT_MSK_SECS_SHIFT<sp/><sp/><sp/>0U</highlight></codeline>
+<codeline lineno="209"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XRTC_INT_MSK_SECS_WIDTH<sp/><sp/><sp/>1U</highlight></codeline>
+<codeline lineno="210"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XRTC_INT_MSK_SECS_MASK<sp/><sp/><sp/><sp/>0x00000001U</highlight></codeline>
+<codeline lineno="211"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XRTC_INT_MSK_SECS_DEFVAL<sp/><sp/>0x1U</highlight></codeline>
+<codeline lineno="212"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="216" refid="group__rtcpsu_1ga47db526c5faf75df46c2dc78b84dfb7b" refkind="member"><highlight class="preprocessor">#define<sp/>XRTC_INT_EN_OFFSET<sp/><sp/><sp/><sp/>0x00000028U</highlight></codeline>
+<codeline lineno="217"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XRTC_INT_EN_RSTVAL<sp/><sp/><sp/>0x00000000U</highlight></codeline>
+<codeline lineno="218"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="219"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XRTC_INT_EN_ALRM_SHIFT<sp/><sp/><sp/>1U</highlight></codeline>
+<codeline lineno="220"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XRTC_INT_EN_ALRM_WIDTH<sp/><sp/><sp/>1U</highlight></codeline>
+<codeline lineno="221"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XRTC_INT_EN_ALRM_MASK<sp/><sp/><sp/><sp/>0x00000002U</highlight></codeline>
+<codeline lineno="222"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XRTC_INT_EN_ALRM_DEFVAL<sp/><sp/>0x0U</highlight></codeline>
+<codeline lineno="223"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="224"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XRTC_INT_EN_SECS_SHIFT<sp/><sp/><sp/>0U</highlight></codeline>
+<codeline lineno="225"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XRTC_INT_EN_SECS_WIDTH<sp/><sp/><sp/>1U</highlight></codeline>
+<codeline lineno="226"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XRTC_INT_EN_SECS_MASK<sp/><sp/><sp/><sp/>0x00000001U</highlight></codeline>
+<codeline lineno="227"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XRTC_INT_EN_SECS_DEFVAL<sp/><sp/>0x0U</highlight></codeline>
+<codeline lineno="228"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="232" refid="group__rtcpsu_1gac41e797cd2c6162d086c237426eafa9e" refkind="member"><highlight class="preprocessor">#define<sp/>XRTC_INT_DIS_OFFSET<sp/><sp/><sp/><sp/>0x0000002CU</highlight></codeline>
+<codeline lineno="233"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XRTC_INT_DIS_RSTVAL<sp/><sp/><sp/>0x00000000U</highlight></codeline>
+<codeline lineno="234"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="235"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XRTC_INT_DIS_ALRM_SHIFT<sp/><sp/><sp/>1U</highlight></codeline>
+<codeline lineno="236"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XRTC_INT_DIS_ALRM_WIDTH<sp/><sp/><sp/>1U</highlight></codeline>
+<codeline lineno="237"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XRTC_INT_DIS_ALRM_MASK<sp/><sp/><sp/><sp/>0x00000002U</highlight></codeline>
+<codeline lineno="238"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XRTC_INT_DIS_ALRM_DEFVAL<sp/><sp/>0x0U</highlight></codeline>
+<codeline lineno="239"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="240"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XRTC_INT_DIS_SECS_SHIFT<sp/><sp/><sp/>0U</highlight></codeline>
+<codeline lineno="241"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XRTC_INT_DIS_SECS_WIDTH<sp/><sp/><sp/>1U</highlight></codeline>
+<codeline lineno="242"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XRTC_INT_DIS_SECS_MASK<sp/><sp/><sp/><sp/>0x00000001U</highlight></codeline>
+<codeline lineno="243"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XRTC_INT_DIS_SECS_DEFVAL<sp/><sp/>0x0U</highlight></codeline>
+<codeline lineno="244"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="248" refid="group__rtcpsu_1ga36067195ea62374e6d16e333a5cb1ed5" refkind="member"><highlight class="preprocessor">#define<sp/>XRTC_ADD_ERR_OFFSET<sp/><sp/><sp/><sp/>0x00000030U</highlight></codeline>
+<codeline lineno="249"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XRTC_ADD_ERR_RSTVAL<sp/><sp/><sp/>0x00000000U</highlight></codeline>
+<codeline lineno="250"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="251"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XRTC_ADD_ERR_STS_SHIFT<sp/><sp/><sp/>0U</highlight></codeline>
+<codeline lineno="252"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XRTC_ADD_ERR_STS_WIDTH<sp/><sp/><sp/>1U</highlight></codeline>
+<codeline lineno="253"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XRTC_ADD_ERR_STS_MASK<sp/><sp/><sp/><sp/>0x00000001U</highlight></codeline>
+<codeline lineno="254"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XRTC_ADD_ERR_STS_DEFVAL<sp/><sp/>0x0U</highlight></codeline>
+<codeline lineno="255"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="259" refid="group__rtcpsu_1gaa4f868462eb1d1f06c4224696cb43429" refkind="member"><highlight class="preprocessor">#define<sp/>XRTC_ADD_ERR_INT_MSK_OFFSET<sp/><sp/><sp/><sp/>0x00000034U</highlight></codeline>
+<codeline lineno="260"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XRTC_ADD_ERR_INT_MSK_RSTVAL<sp/><sp/><sp/>0x00000001U</highlight></codeline>
+<codeline lineno="261"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="262"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XRTC_ADD_ERR_INT_MSK_SHIFT<sp/><sp/><sp/>0U</highlight></codeline>
+<codeline lineno="263"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XRTC_ADD_ERR_INT_MSK_WIDTH<sp/><sp/><sp/>1U</highlight></codeline>
+<codeline lineno="264"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XRTC_ADD_ERR_INT_MSK_MASK<sp/><sp/><sp/><sp/>0x00000001U</highlight></codeline>
+<codeline lineno="265"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XRTC_ADD_ERR_INT_MSK_DEFVAL<sp/><sp/>0x1U</highlight></codeline>
+<codeline lineno="266"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="270" refid="group__rtcpsu_1ga795e7dac0dfda7c2cb1f08f27c415d01" refkind="member"><highlight class="preprocessor">#define<sp/>XRTC_ADD_ERR_INT_EN_OFFSET<sp/><sp/><sp/><sp/>0x00000038U</highlight></codeline>
+<codeline lineno="271"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XRTC_ADD_ERR_INT_EN_RSTVAL<sp/><sp/><sp/>0x00000000U</highlight></codeline>
+<codeline lineno="272"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="273"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XRTC_ADD_ERR_INT_EN_MSK_SHIFT<sp/><sp/><sp/>0U</highlight></codeline>
+<codeline lineno="274"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XRTC_ADD_ERR_INT_EN_MSK_WIDTH<sp/><sp/><sp/>1U</highlight></codeline>
+<codeline lineno="275"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XRTC_ADD_ERR_INT_EN_MSK_MASK<sp/><sp/><sp/><sp/>0x00000001U</highlight></codeline>
+<codeline lineno="276"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XRTC_ADD_ERR_INT_EN_MSK_DEFVAL<sp/><sp/>0x0U</highlight></codeline>
+<codeline lineno="277"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="281" refid="group__rtcpsu_1ga578c0e1d126e0292d9e849afdbff5a6a" refkind="member"><highlight class="preprocessor">#define<sp/>XRTC_ADD_ERR_INT_DIS_OFFSET<sp/><sp/><sp/><sp/>0x0000003CU</highlight></codeline>
+<codeline lineno="282"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XRTC_ADD_ERR_INT_DIS_RSTVAL<sp/><sp/><sp/>0x00000000U</highlight></codeline>
+<codeline lineno="283"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="284"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XRTC_ADD_ERR_INT_DIS_MSK_SHIFT<sp/><sp/><sp/>0U</highlight></codeline>
+<codeline lineno="285"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XRTC_ADD_ERR_INT_DIS_MSK_WIDTH<sp/><sp/><sp/>1U</highlight></codeline>
+<codeline lineno="286"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XRTC_ADD_ERR_INT_DIS_MSK_MASK<sp/><sp/><sp/><sp/>0x00000001U</highlight></codeline>
+<codeline lineno="287"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XRTC_ADD_ERR_INT_DIS_MSK_DEFVAL<sp/><sp/>0x0U</highlight></codeline>
+<codeline lineno="288"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="298" refid="group__rtcpsu_1ga0fc893db4a633de94bdfc6f4f59df62f" refkind="member"><highlight class="preprocessor">#define<sp/>XRTC_CTL_OFFSET<sp/><sp/><sp/><sp/>0x00000040U</highlight></codeline>
+<codeline lineno="299"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XRTC_CTL_RSTVAL<sp/><sp/><sp/>0x01000000U</highlight></codeline>
+<codeline lineno="300"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="301"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XRTC_CTL_BATTERY_EN_SHIFT<sp/><sp/><sp/>31U</highlight></codeline>
+<codeline lineno="302"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XRTC_CTL_BATTERY_EN_WIDTH<sp/><sp/><sp/>1U</highlight></codeline>
+<codeline lineno="303"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XRTC_CTL_BATTERY_EN_MASK<sp/><sp/><sp/><sp/>0x80000000U</highlight></codeline>
+<codeline lineno="304"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XRTC_CTL_BATTERY_EN_DEFVAL<sp/><sp/>0x0U</highlight></codeline>
+<codeline lineno="305"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="306"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XRTC_CTL_OSC_SHIFT<sp/><sp/><sp/>24U</highlight></codeline>
+<codeline lineno="307"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XRTC_CTL_OSC_WIDTH<sp/><sp/><sp/>4U</highlight></codeline>
+<codeline lineno="308"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XRTC_CTL_OSC_MASK<sp/><sp/><sp/><sp/>0x0f000000U</highlight></codeline>
+<codeline lineno="309"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XRTC_CTL_OSC_DEFVAL<sp/><sp/>0x1U</highlight></codeline>
+<codeline lineno="310"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="311"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XRTC_CTL_SLVERR_EN_SHIFT<sp/><sp/><sp/>0U</highlight></codeline>
+<codeline lineno="312"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XRTC_CTL_SLVERR_EN_WIDTH<sp/><sp/><sp/>1U</highlight></codeline>
+<codeline lineno="313"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XRTC_CTL_SLVERR_EN_MASK<sp/><sp/><sp/><sp/>0x00000001U</highlight></codeline>
+<codeline lineno="314"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XRTC_CTL_SLVERR_EN_DEFVAL<sp/><sp/>0x0U</highlight></codeline>
+<codeline lineno="315"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="326" refid="group__rtcpsu_1ga1f92062d8d2cb1c7f0735b1ecd5cdb67" refkind="member"><highlight class="preprocessor">#define<sp/>XRTC_SFTY_CHK_OFFSET<sp/><sp/><sp/><sp/>0x00000050U</highlight></codeline>
+<codeline lineno="327"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XRTC_SFTY_CHK_RSTVAL<sp/><sp/><sp/>0x00000000U</highlight></codeline>
+<codeline lineno="328"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="329"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XRTC_SFTY_CHK_REG_SHIFT<sp/><sp/><sp/>0U</highlight></codeline>
+<codeline lineno="330"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XRTC_SFTY_CHK_REG_WIDTH<sp/><sp/><sp/>32U</highlight></codeline>
+<codeline lineno="331"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XRTC_SFTY_CHK_REG_MASK<sp/><sp/><sp/><sp/>0xffffffffU</highlight></codeline>
+<codeline lineno="332"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XRTC_SFTY_CHK_REG_DEFVAL<sp/><sp/>0x0U</highlight></codeline>
+<codeline lineno="333"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="337" refid="group__rtcpsu_1gae7215b93f23fe1ef6cff1004104a803b" refkind="member"><highlight class="preprocessor">#define<sp/>XRTC_ECO_OFFSET<sp/><sp/><sp/><sp/>0x00000060U</highlight></codeline>
+<codeline lineno="338"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XRTC_ECO_RSTVAL<sp/><sp/><sp/>0x00000000U</highlight></codeline>
+<codeline lineno="339"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="340"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XRTC_ECO_REG_SHIFT<sp/><sp/><sp/>0U</highlight></codeline>
+<codeline lineno="341"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XRTC_ECO_REG_WIDTH<sp/><sp/><sp/>32U</highlight></codeline>
+<codeline lineno="342"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XRTC_ECO_REG_MASK<sp/><sp/><sp/><sp/>0xffffffffU</highlight></codeline>
+<codeline lineno="343"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XRTC_ECO_REG_DEFVAL<sp/><sp/>0x0U</highlight></codeline>
+<codeline lineno="344"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="346"><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="347"><highlight class="normal"></highlight></codeline>
+<codeline lineno="348"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="361" refid="group__rtcpsu_1gaccbbc47feabb330a937816bc347766ea" refkind="member"><highlight class="preprocessor">#define<sp/>XRtcPsu_ReadReg(RegisterAddr)<sp/>Xil_In32(RegisterAddr)</highlight></codeline>
+<codeline lineno="362"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="363"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="377" refid="group__rtcpsu_1gac80374611ede3fc00461df6aaff75028" refkind="member"><highlight class="preprocessor">#define<sp/>XRtcPsu_WriteReg(RegisterAddr,<sp/>Data)<sp/>Xil_Out32(RegisterAddr,<sp/>(u32)(Data))</highlight></codeline>
+<codeline lineno="378"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="379"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="380"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="381"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="382"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="383"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XRTC_HW_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="384"><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_hw.h"/>
+  </compounddef>
+</doxygen>

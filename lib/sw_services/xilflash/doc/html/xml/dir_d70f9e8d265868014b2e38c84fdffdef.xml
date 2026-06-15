@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_d70f9e8d265868014b2e38c84fdffdef" kind="dir">
+    <compoundname>examples</compoundname>
+    <innerfile refid="xilflash__devicecontrol__example_8c">xilflash_devicecontrol_example.c</innerfile>
+    <innerfile refid="xilflash__platform__flash__example_8c">xilflash_platform_flash_example.c</innerfile>
+    <innerfile refid="xilflash__protection__example_8c">xilflash_protection_example.c</innerfile>
+    <innerfile refid="xilflash__readwrite__example_8c">xilflash_readwrite_example.c</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilflash/examples/"/>
+  </compounddef>
+</doxygen>

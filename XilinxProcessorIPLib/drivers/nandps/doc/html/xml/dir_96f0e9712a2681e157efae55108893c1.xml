@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_96f0e9712a2681e157efae55108893c1" kind="dir">
+    <compoundname>src</compoundname>
+    <innerfile refid="xnandps_8c">xnandps.c</innerfile>
+    <innerfile refid="xnandps_8h">xnandps.h</innerfile>
+    <innerfile refid="xnandps__bbm_8c">xnandps_bbm.c</innerfile>
+    <innerfile refid="xnandps__bbm_8h">xnandps_bbm.h</innerfile>
+    <innerfile refid="xnandps__g_8c">xnandps_g.c</innerfile>
+    <innerfile refid="xnandps__hw_8h">xnandps_hw.h</innerfile>
+    <innerfile refid="xnandps__onfi_8c">xnandps_onfi.c</innerfile>
+    <innerfile refid="xnandps__onfi_8h">xnandps_onfi.h</innerfile>
+    <innerfile refid="xnandps__sinit_8c">xnandps_sinit.c</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/"/>
+  </compounddef>
+</doxygen>

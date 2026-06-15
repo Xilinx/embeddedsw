@@ -1,0 +1,85 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_vvbench_pic_case_cfg__s" kind="struct" prot="public">
+    <compoundname>VvbenchPicCaseCfg_s</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_vvbench_pic_case_cfg__s_1a636070d38bb438040f5c4b7544217595" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t VvbenchPicCaseCfg_s::loopCnt</definition>
+        <argsstring></argsstring>
+        <name>loopCnt</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" line="77" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" bodystart="77" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vvbench_pic_case_cfg__s_1acfea734cfff6504576b265ce53556f77" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t VvbenchPicCaseCfg_s::frameNum</definition>
+        <argsstring></argsstring>
+        <name>frameNum</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" line="78" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" bodystart="78" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vvbench_pic_case_cfg__s_1acbf7f93c5c7c0fd07fabe746efd1a759" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t VvbenchPicCaseCfg_s::currLine</definition>
+        <argsstring></argsstring>
+        <name>currLine</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" line="79" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" bodystart="79" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vvbench_pic_case_cfg__s_1acb3715f86dcd7a2099c9df759eb73ed5" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t VvbenchPicCaseCfg_s::readLine</definition>
+        <argsstring></argsstring>
+        <name>readLine</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" line="80" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" bodystart="80" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vvbench_pic_case_cfg__s_1a81fc6c186fdc55cd9cde00e50b0d77d0" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* VvbenchPicCaseCfg_s::pictureName</definition>
+        <argsstring></argsstring>
+        <name>pictureName</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" line="81" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" bodystart="81" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" line="76" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" bodystart="76" bodyend="82"/>
+    <listofallmembers>
+      <member refid="struct_vvbench_pic_case_cfg__s_1acbf7f93c5c7c0fd07fabe746efd1a759" prot="public" virt="non-virtual"><scope>VvbenchPicCaseCfg_s</scope><name>currLine</name></member>
+      <member refid="struct_vvbench_pic_case_cfg__s_1acfea734cfff6504576b265ce53556f77" prot="public" virt="non-virtual"><scope>VvbenchPicCaseCfg_s</scope><name>frameNum</name></member>
+      <member refid="struct_vvbench_pic_case_cfg__s_1a636070d38bb438040f5c4b7544217595" prot="public" virt="non-virtual"><scope>VvbenchPicCaseCfg_s</scope><name>loopCnt</name></member>
+      <member refid="struct_vvbench_pic_case_cfg__s_1a81fc6c186fdc55cd9cde00e50b0d77d0" prot="public" virt="non-virtual"><scope>VvbenchPicCaseCfg_s</scope><name>pictureName</name></member>
+      <member refid="struct_vvbench_pic_case_cfg__s_1acb3715f86dcd7a2099c9df759eb73ed5" prot="public" virt="non-virtual"><scope>VvbenchPicCaseCfg_s</scope><name>readLine</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

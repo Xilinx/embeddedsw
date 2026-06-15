@@ -1,0 +1,231 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_v__csc" kind="struct" prot="public">
+    <compoundname>XV_csc</compoundname>
+    <includes local="no">xv_csc.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_v__csc_1aa5c39284c336caccb3d700680b1f73ed" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_v__csc___config" kindref="compound">XV_csc_Config</ref></type>
+        <definition>XV_csc_Config XV_csc::Config</definition>
+        <argsstring></argsstring>
+        <name>Config</name>
+        <briefdescription>
+<para>Hardware Configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc.h" line="70" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc.h" bodystart="70" bodyend="-1"/>
+        <referencedby refid="xv__csc_8h_1a7d1bf5c029b6abffdda8a20fb976b1a3" compoundref="xv__csc_8c" startline="44" endline="59">XV_csc_CfgInitialize</referencedby>
+        <referencedby refid="xv__csc_8h_1aec496e7295e4b195af47b5a49703f451" compoundref="xv__csc_8c" startline="201" endline="206">XV_csc_DisableAutoRestart</referencedby>
+        <referencedby refid="xv__csc_8h_1a1f9b6ae52bfa2222ebbe3f75aa573508" compoundref="xv__csc_8c" startline="177" endline="182">XV_csc_EnableAutoRestart</referencedby>
+        <referencedby refid="xv__csc_8h_1ae42005a17542d24272f720b3caed35f8" compoundref="xv__csc_8c" startline="1358" endline="1366">XV_csc_Get_HwReg_BOffset_2_V</referencedby>
+        <referencedby refid="xv__csc_8h_1ad98d76905b03c3db6a1cd8ed7a48596c" compoundref="xv__csc_8c" startline="938" endline="946">XV_csc_Get_HwReg_BOffset_V</referencedby>
+        <referencedby refid="xv__csc_8h_1ab90ed6c8a94b0e0e45d5f0703977ee54" compoundref="xv__csc_8c" startline="1388" endline="1396">XV_csc_Get_HwReg_ClampMin_2_V</referencedby>
+        <referencedby refid="xv__csc_8h_1a87a996c7449fe599b556001891398aa0" compoundref="xv__csc_8c" startline="968" endline="976">XV_csc_Get_HwReg_ClampMin_V</referencedby>
+        <referencedby refid="xv__csc_8h_1a65327fb05fce3c084015bba495bd0dce" compoundref="xv__csc_8c" startline="1418" endline="1426">XV_csc_Get_HwReg_ClipMax_2_V</referencedby>
+        <referencedby refid="xv__csc_8h_1a37a6fa57effd58b482af27beb0f70b52" compoundref="xv__csc_8c" startline="998" endline="1006">XV_csc_Get_HwReg_ClipMax_V</referencedby>
+        <referencedby refid="xv__csc_8h_1aae3fa4d2bc63ebd92a435b0e92ffdc40" compoundref="xv__csc_8c" startline="446" endline="454">XV_csc_Get_HwReg_ColEnd</referencedby>
+        <referencedby refid="xv__csc_8h_1aed9a23dda1e8bd1f2df9505f8f2c4f5d" compoundref="xv__csc_8c" startline="404" endline="412">XV_csc_Get_HwReg_ColStart</referencedby>
+        <referencedby refid="xv__csc_8h_1a6bb1e97d755318c356aaa765963571df" compoundref="xv__csc_8c" startline="1328" endline="1336">XV_csc_Get_HwReg_GOffset_2_V</referencedby>
+        <referencedby refid="xv__csc_8h_1a4240e6c41352852e7149fedf18495f46" compoundref="xv__csc_8c" startline="908" endline="916">XV_csc_Get_HwReg_GOffset_V</referencedby>
+        <referencedby refid="xv__csc_8h_1a181bbd14d25d0a00fd0fa9a768617e21" compoundref="xv__csc_8c" startline="362" endline="370">XV_csc_Get_HwReg_height</referencedby>
+        <referencedby refid="xv__csc_8h_1a41c21697ba4370619266f107e2a564ab" compoundref="xv__csc_8c" startline="239" endline="247">XV_csc_Get_HwReg_InVideoFormat</referencedby>
+        <referencedby refid="xv__csc_8h_1a7216117d3f10d0b79f2ca05136222587" compoundref="xv__csc_8c" startline="561" endline="569">XV_csc_Get_HwReg_K11</referencedby>
+        <referencedby refid="xv__csc_8h_1a5850ebe7b62db9e9fa0f9ba5e5ad1282" compoundref="xv__csc_8c" startline="1028" endline="1036">XV_csc_Get_HwReg_K11_2</referencedby>
+        <referencedby refid="xv__csc_8h_1a970a5d8f1fc900355f5d9996530b3ea6" compoundref="xv__csc_8c" startline="599" endline="607">XV_csc_Get_HwReg_K12</referencedby>
+        <referencedby refid="xv__csc_8h_1a5df661bedc7bd2bfd49b00b2c1a0d3da" compoundref="xv__csc_8c" startline="1058" endline="1066">XV_csc_Get_HwReg_K12_2</referencedby>
+        <referencedby refid="xv__csc_8h_1a1b64e290be48fdbbd136961d8eaae8a8" compoundref="xv__csc_8c" startline="640" endline="648">XV_csc_Get_HwReg_K13</referencedby>
+        <referencedby refid="xv__csc_8h_1ab599dea538bb8d247b29a8ed21603e47" compoundref="xv__csc_8c" startline="1088" endline="1096">XV_csc_Get_HwReg_K13_2</referencedby>
+        <referencedby refid="xv__csc_8h_1a3e8ec952e8331025a362ef3d0acac8d0" compoundref="xv__csc_8c" startline="681" endline="689">XV_csc_Get_HwReg_K21</referencedby>
+        <referencedby refid="xv__csc_8h_1a97db008681e8e0c47cdfbbf98259ea66" compoundref="xv__csc_8c" startline="1118" endline="1126">XV_csc_Get_HwReg_K21_2</referencedby>
+        <referencedby refid="xv__csc_8h_1ac2e62bbe175cc4cfa8a9b46a3d9c24f1" compoundref="xv__csc_8c" startline="722" endline="730">XV_csc_Get_HwReg_K22</referencedby>
+        <referencedby refid="xv__csc_8h_1a2833b85659c94f15b3ca94458f854302" compoundref="xv__csc_8c" startline="1148" endline="1156">XV_csc_Get_HwReg_K22_2</referencedby>
+        <referencedby refid="xv__csc_8h_1aa65f1084f09f69546f15215da1548c56" compoundref="xv__csc_8c" startline="757" endline="765">XV_csc_Get_HwReg_K23</referencedby>
+        <referencedby refid="xv__csc_8h_1a578075406869631aad822139241f5d4a" compoundref="xv__csc_8c" startline="1178" endline="1186">XV_csc_Get_HwReg_K23_2</referencedby>
+        <referencedby refid="xv__csc_8h_1ac9b5e6422f7c22d0da3d587be6495d55" compoundref="xv__csc_8c" startline="787" endline="795">XV_csc_Get_HwReg_K31</referencedby>
+        <referencedby refid="xv__csc_8h_1ae20ccca45067096347713ac4798e9950" compoundref="xv__csc_8c" startline="1208" endline="1216">XV_csc_Get_HwReg_K31_2</referencedby>
+        <referencedby refid="xv__csc_8h_1ad8975ad96ac269ca8398e1ef0262d5d6" compoundref="xv__csc_8c" startline="817" endline="825">XV_csc_Get_HwReg_K32</referencedby>
+        <referencedby refid="xv__csc_8h_1a73c1e70493bcb6d56d4f8e92781dfadc" compoundref="xv__csc_8c" startline="1238" endline="1246">XV_csc_Get_HwReg_K32_2</referencedby>
+        <referencedby refid="xv__csc_8h_1a4b2079eb4a597a20a46f4162a62a865a" compoundref="xv__csc_8c" startline="847" endline="855">XV_csc_Get_HwReg_K33</referencedby>
+        <referencedby refid="xv__csc_8h_1ac56d6c355abd342e932230daca7dd7b2" compoundref="xv__csc_8c" startline="1268" endline="1276">XV_csc_Get_HwReg_K33_2</referencedby>
+        <referencedby refid="xv__csc_8h_1a61b1d34bc8b1e8f7deb2447328ed0323" compoundref="xv__csc_8c" startline="281" endline="289">XV_csc_Get_HwReg_OutVideoFormat</referencedby>
+        <referencedby refid="xv__csc_8h_1a48d62c832cb0318b86638dcf5873f465" compoundref="xv__csc_8c" startline="1298" endline="1306">XV_csc_Get_HwReg_ROffset_2_V</referencedby>
+        <referencedby refid="xv__csc_8h_1ac45c3e29178cd4b9f1ad4884606dea66" compoundref="xv__csc_8c" startline="878" endline="886">XV_csc_Get_HwReg_ROffset_V</referencedby>
+        <referencedby refid="xv__csc_8h_1a477a37e00231d7173258fc57d86a0a93" compoundref="xv__csc_8c" startline="524" endline="532">XV_csc_Get_HwReg_RowEnd</referencedby>
+        <referencedby refid="xv__csc_8h_1a1be2750d8f4806b9f5e71af55ede8d26" compoundref="xv__csc_8c" startline="485" endline="493">XV_csc_Get_HwReg_RowStart</referencedby>
+        <referencedby refid="xv__csc_8h_1ad890d086dca06e33581d16e10d0826f2" compoundref="xv__csc_8c" startline="320" endline="328">XV_csc_Get_HwReg_width</referencedby>
+        <referencedby refid="xv__csc_8h_1aca45147d34961b4d866d6a15d4fa190c" compoundref="xv__csc_8c" startline="1507" endline="1512">XV_csc_InterruptClear</referencedby>
+        <referencedby refid="xv__csc_8h_1a08c4f1066698a587c5c308423fa26627" compoundref="xv__csc_8c" startline="1489" endline="1497">XV_csc_InterruptDisable</referencedby>
+        <referencedby refid="xv__csc_8h_1af54ab89dd3a75bc9b9fcd4818a98bb10" compoundref="xv__csc_8c" startline="1461" endline="1469">XV_csc_InterruptEnable</referencedby>
+        <referencedby refid="xv__csc_8h_1a5c42351585b23e4423407fdc9fc3f82d" compoundref="xv__csc_8c" startline="1526" endline="1531">XV_csc_InterruptGetEnabled</referencedby>
+        <referencedby refid="xv__csc_8h_1a7926e602c636e6f98d0388b3a46c3568" compoundref="xv__csc_8c" startline="1549" endline="1554">XV_csc_InterruptGetStatus</referencedby>
+        <referencedby refid="xv__csc_8h_1a58ae71a2355bad38ef1ed6fd6a5b53cf" compoundref="xv__csc_8c" startline="1447" endline="1452">XV_csc_InterruptGlobalDisable</referencedby>
+        <referencedby refid="xv__csc_8h_1a68525c756ab7e2cce31d64869e3f0526" compoundref="xv__csc_8c" startline="1434" endline="1439">XV_csc_InterruptGlobalEnable</referencedby>
+        <referencedby refid="xv__csc_8h_1a0a6d268b5f168e65c99376b2a052d44d" compoundref="xv__csc_8c" startline="99" endline="107">XV_csc_IsDone</referencedby>
+        <referencedby refid="xv__csc_8h_1a8dc1ebd5815055fe03ef358cc9e74a00" compoundref="xv__csc_8c" startline="123" endline="131">XV_csc_IsIdle</referencedby>
+        <referencedby refid="xv__csc_8h_1a719f8d4a659dac2ddeb418d894138d04" compoundref="xv__csc_8c" startline="148" endline="157">XV_csc_IsReady</referencedby>
+        <referencedby refid="xv__csc_8h_1a0562fe32ae8466aed54ce6aec43efc50" compoundref="xv__csc_8c" startline="1345" endline="1350">XV_csc_Set_HwReg_BOffset_2_V</referencedby>
+        <referencedby refid="xv__csc_8h_1a2a760ec6153060644c7f289969b53e36" compoundref="xv__csc_8c" startline="925" endline="930">XV_csc_Set_HwReg_BOffset_V</referencedby>
+        <referencedby refid="xv__csc_8h_1ad538ffabececab034a92a666d8a8f7dc" compoundref="xv__csc_8c" startline="1375" endline="1380">XV_csc_Set_HwReg_ClampMin_2_V</referencedby>
+        <referencedby refid="xv__csc_8h_1ad00ffe5f1af8b60b148b11e654583acb" compoundref="xv__csc_8c" startline="955" endline="960">XV_csc_Set_HwReg_ClampMin_V</referencedby>
+        <referencedby refid="xv__csc_8h_1a09c2cc9ed9e1fc8463a249b6c85dbc7d" compoundref="xv__csc_8c" startline="1405" endline="1410">XV_csc_Set_HwReg_ClipMax_2_V</referencedby>
+        <referencedby refid="xv__csc_8h_1a8452e41ccd61233895860a9e12000a05" compoundref="xv__csc_8c" startline="985" endline="990">XV_csc_Set_HwReg_ClipMax_V</referencedby>
+        <referencedby refid="xv__csc_8h_1a30b3c72b21e3173884300993c536a54a" compoundref="xv__csc_8c" startline="425" endline="430">XV_csc_Set_HwReg_ColEnd</referencedby>
+        <referencedby refid="xv__csc_8h_1a98ba79ef63d272819249c122a0be9498" compoundref="xv__csc_8c" startline="386" endline="391">XV_csc_Set_HwReg_ColStart</referencedby>
+        <referencedby refid="xv__csc_8h_1af08e7b29f335059d03aeaf3ead8f5ff1" compoundref="xv__csc_8c" startline="1315" endline="1320">XV_csc_Set_HwReg_GOffset_2_V</referencedby>
+        <referencedby refid="xv__csc_8h_1ad5ef002bce82cee2d17d9e103c9ef20b" compoundref="xv__csc_8c" startline="895" endline="900">XV_csc_Set_HwReg_GOffset_V</referencedby>
+        <referencedby refid="xv__csc_8h_1a35c88ca527cee1ca2900237915b0c6e4" compoundref="xv__csc_8c" startline="343" endline="348">XV_csc_Set_HwReg_height</referencedby>
+        <referencedby refid="xv__csc_8h_1a6ce5722b5dcca57855b376e22ca955b7" compoundref="xv__csc_8c" startline="221" endline="226">XV_csc_Set_HwReg_InVideoFormat</referencedby>
+        <referencedby refid="xv__csc_8h_1a89f3feac229481e6e8883202695a2625" compoundref="xv__csc_8c" startline="544" endline="549">XV_csc_Set_HwReg_K11</referencedby>
+        <referencedby refid="xv__csc_8h_1adacd44f85e87b66ee1f511e1b9533030" compoundref="xv__csc_8c" startline="1015" endline="1020">XV_csc_Set_HwReg_K11_2</referencedby>
+        <referencedby refid="xv__csc_8h_1a88dada2a1c6620fa64bc5658c1e67938" compoundref="xv__csc_8c" startline="583" endline="588">XV_csc_Set_HwReg_K12</referencedby>
+        <referencedby refid="xv__csc_8h_1ac4767318871eeefc55a7a77d2b7cc3dc" compoundref="xv__csc_8c" startline="1045" endline="1050">XV_csc_Set_HwReg_K12_2</referencedby>
+        <referencedby refid="xv__csc_8h_1a3462f4bda1754c08c14f53963945c117" compoundref="xv__csc_8c" startline="621" endline="626">XV_csc_Set_HwReg_K13</referencedby>
+        <referencedby refid="xv__csc_8h_1a77e64ec43e1e49728a15266c4fbfbfcd" compoundref="xv__csc_8c" startline="1075" endline="1080">XV_csc_Set_HwReg_K13_2</referencedby>
+        <referencedby refid="xv__csc_8h_1a95ec03b8a69ac1c002d0962c151be122" compoundref="xv__csc_8c" startline="663" endline="668">XV_csc_Set_HwReg_K21</referencedby>
+        <referencedby refid="xv__csc_8h_1a1f34514bf1b4248764c400731425beb6" compoundref="xv__csc_8c" startline="1105" endline="1110">XV_csc_Set_HwReg_K21_2</referencedby>
+        <referencedby refid="xv__csc_8h_1aa150248ad45380b11d52a46333d0ae0c" compoundref="xv__csc_8c" startline="704" endline="709">XV_csc_Set_HwReg_K22</referencedby>
+        <referencedby refid="xv__csc_8h_1ac5ac7d5c927212ed1ef4390d79a95a06" compoundref="xv__csc_8c" startline="1135" endline="1140">XV_csc_Set_HwReg_K22_2</referencedby>
+        <referencedby refid="xv__csc_8h_1afb7b72b955c2987f372d417e001f1eeb" compoundref="xv__csc_8c" startline="744" endline="749">XV_csc_Set_HwReg_K23</referencedby>
+        <referencedby refid="xv__csc_8h_1abdbe9316868fdd6578b7a2dd924633b6" compoundref="xv__csc_8c" startline="1165" endline="1170">XV_csc_Set_HwReg_K23_2</referencedby>
+        <referencedby refid="xv__csc_8h_1a710d98b668279fd0d89229ce3aaff696" compoundref="xv__csc_8c" startline="774" endline="779">XV_csc_Set_HwReg_K31</referencedby>
+        <referencedby refid="xv__csc_8h_1a4423028ddca33a4b1393e97be3a06fa3" compoundref="xv__csc_8c" startline="1195" endline="1200">XV_csc_Set_HwReg_K31_2</referencedby>
+        <referencedby refid="xv__csc_8h_1ae350f792e008a2ab4028badf1b98aee8" compoundref="xv__csc_8c" startline="804" endline="809">XV_csc_Set_HwReg_K32</referencedby>
+        <referencedby refid="xv__csc_8h_1af462ff2b1e7203bdcfb518adc9d46edc" compoundref="xv__csc_8c" startline="1225" endline="1230">XV_csc_Set_HwReg_K32_2</referencedby>
+        <referencedby refid="xv__csc_8h_1a9c272f118bb860ce0fa5b0ede1427be1" compoundref="xv__csc_8c" startline="834" endline="839">XV_csc_Set_HwReg_K33</referencedby>
+        <referencedby refid="xv__csc_8h_1a31c4fe056191ade70952088ebe15b2b0" compoundref="xv__csc_8c" startline="1255" endline="1260">XV_csc_Set_HwReg_K33_2</referencedby>
+        <referencedby refid="xv__csc_8h_1a27a1dc48278f8fe5174adcf6547d7750" compoundref="xv__csc_8c" startline="262" endline="267">XV_csc_Set_HwReg_OutVideoFormat</referencedby>
+        <referencedby refid="xv__csc_8h_1a80c0e8b7723ffd7c76f5b42b9042b0c0" compoundref="xv__csc_8c" startline="1285" endline="1290">XV_csc_Set_HwReg_ROffset_2_V</referencedby>
+        <referencedby refid="xv__csc_8h_1abe1767060a020e62c90d3498c71aa13a" compoundref="xv__csc_8c" startline="865" endline="870">XV_csc_Set_HwReg_ROffset_V</referencedby>
+        <referencedby refid="xv__csc_8h_1aff6a75865ec9dbbe528a81330fb39e47" compoundref="xv__csc_8c" startline="506" endline="511">XV_csc_Set_HwReg_RowEnd</referencedby>
+        <referencedby refid="xv__csc_8h_1a2992ce020280a7131e122e2c281704de" compoundref="xv__csc_8c" startline="466" endline="471">XV_csc_Set_HwReg_RowStart</referencedby>
+        <referencedby refid="xv__csc_8h_1a5a75fe188408191dcfabcccfa6d7368a" compoundref="xv__csc_8c" startline="304" endline="309">XV_csc_Set_HwReg_width</referencedby>
+        <referencedby refid="xv__csc_8h_1a581de2fe3bbb051d654bd27413200a88" compoundref="xv__csc_8c" startline="77" endline="85">XV_csc_Start</referencedby>
+        <referencedby refid="group__v__csc_1ga457129c97acda4bcd19b2ec799fe43f3" compoundref="xv__csc__l2_8c" startline="1550" endline="1665">XV_CscDbgReportStatus</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v__csc_1a8a829eb36e97a948d285c064206a1f2c" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XV_csc::IsReady</definition>
+        <argsstring></argsstring>
+        <name>IsReady</name>
+        <briefdescription>
+<para>Device is initialized and ready. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc.h" line="71" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc.h" bodystart="71" bodyend="-1"/>
+        <referencedby refid="xv__csc_8h_1a7d1bf5c029b6abffdda8a20fb976b1a3" compoundref="xv__csc_8c" startline="44" endline="59">XV_csc_CfgInitialize</referencedby>
+        <referencedby refid="xv__csc_8h_1aec496e7295e4b195af47b5a49703f451" compoundref="xv__csc_8c" startline="201" endline="206">XV_csc_DisableAutoRestart</referencedby>
+        <referencedby refid="xv__csc_8h_1a1f9b6ae52bfa2222ebbe3f75aa573508" compoundref="xv__csc_8c" startline="177" endline="182">XV_csc_EnableAutoRestart</referencedby>
+        <referencedby refid="xv__csc_8h_1ae42005a17542d24272f720b3caed35f8" compoundref="xv__csc_8c" startline="1358" endline="1366">XV_csc_Get_HwReg_BOffset_2_V</referencedby>
+        <referencedby refid="xv__csc_8h_1ad98d76905b03c3db6a1cd8ed7a48596c" compoundref="xv__csc_8c" startline="938" endline="946">XV_csc_Get_HwReg_BOffset_V</referencedby>
+        <referencedby refid="xv__csc_8h_1ab90ed6c8a94b0e0e45d5f0703977ee54" compoundref="xv__csc_8c" startline="1388" endline="1396">XV_csc_Get_HwReg_ClampMin_2_V</referencedby>
+        <referencedby refid="xv__csc_8h_1a87a996c7449fe599b556001891398aa0" compoundref="xv__csc_8c" startline="968" endline="976">XV_csc_Get_HwReg_ClampMin_V</referencedby>
+        <referencedby refid="xv__csc_8h_1a65327fb05fce3c084015bba495bd0dce" compoundref="xv__csc_8c" startline="1418" endline="1426">XV_csc_Get_HwReg_ClipMax_2_V</referencedby>
+        <referencedby refid="xv__csc_8h_1a37a6fa57effd58b482af27beb0f70b52" compoundref="xv__csc_8c" startline="998" endline="1006">XV_csc_Get_HwReg_ClipMax_V</referencedby>
+        <referencedby refid="xv__csc_8h_1aae3fa4d2bc63ebd92a435b0e92ffdc40" compoundref="xv__csc_8c" startline="446" endline="454">XV_csc_Get_HwReg_ColEnd</referencedby>
+        <referencedby refid="xv__csc_8h_1aed9a23dda1e8bd1f2df9505f8f2c4f5d" compoundref="xv__csc_8c" startline="404" endline="412">XV_csc_Get_HwReg_ColStart</referencedby>
+        <referencedby refid="xv__csc_8h_1a6bb1e97d755318c356aaa765963571df" compoundref="xv__csc_8c" startline="1328" endline="1336">XV_csc_Get_HwReg_GOffset_2_V</referencedby>
+        <referencedby refid="xv__csc_8h_1a4240e6c41352852e7149fedf18495f46" compoundref="xv__csc_8c" startline="908" endline="916">XV_csc_Get_HwReg_GOffset_V</referencedby>
+        <referencedby refid="xv__csc_8h_1a181bbd14d25d0a00fd0fa9a768617e21" compoundref="xv__csc_8c" startline="362" endline="370">XV_csc_Get_HwReg_height</referencedby>
+        <referencedby refid="xv__csc_8h_1a41c21697ba4370619266f107e2a564ab" compoundref="xv__csc_8c" startline="239" endline="247">XV_csc_Get_HwReg_InVideoFormat</referencedby>
+        <referencedby refid="xv__csc_8h_1a7216117d3f10d0b79f2ca05136222587" compoundref="xv__csc_8c" startline="561" endline="569">XV_csc_Get_HwReg_K11</referencedby>
+        <referencedby refid="xv__csc_8h_1a5850ebe7b62db9e9fa0f9ba5e5ad1282" compoundref="xv__csc_8c" startline="1028" endline="1036">XV_csc_Get_HwReg_K11_2</referencedby>
+        <referencedby refid="xv__csc_8h_1a970a5d8f1fc900355f5d9996530b3ea6" compoundref="xv__csc_8c" startline="599" endline="607">XV_csc_Get_HwReg_K12</referencedby>
+        <referencedby refid="xv__csc_8h_1a5df661bedc7bd2bfd49b00b2c1a0d3da" compoundref="xv__csc_8c" startline="1058" endline="1066">XV_csc_Get_HwReg_K12_2</referencedby>
+        <referencedby refid="xv__csc_8h_1a1b64e290be48fdbbd136961d8eaae8a8" compoundref="xv__csc_8c" startline="640" endline="648">XV_csc_Get_HwReg_K13</referencedby>
+        <referencedby refid="xv__csc_8h_1ab599dea538bb8d247b29a8ed21603e47" compoundref="xv__csc_8c" startline="1088" endline="1096">XV_csc_Get_HwReg_K13_2</referencedby>
+        <referencedby refid="xv__csc_8h_1a3e8ec952e8331025a362ef3d0acac8d0" compoundref="xv__csc_8c" startline="681" endline="689">XV_csc_Get_HwReg_K21</referencedby>
+        <referencedby refid="xv__csc_8h_1a97db008681e8e0c47cdfbbf98259ea66" compoundref="xv__csc_8c" startline="1118" endline="1126">XV_csc_Get_HwReg_K21_2</referencedby>
+        <referencedby refid="xv__csc_8h_1ac2e62bbe175cc4cfa8a9b46a3d9c24f1" compoundref="xv__csc_8c" startline="722" endline="730">XV_csc_Get_HwReg_K22</referencedby>
+        <referencedby refid="xv__csc_8h_1a2833b85659c94f15b3ca94458f854302" compoundref="xv__csc_8c" startline="1148" endline="1156">XV_csc_Get_HwReg_K22_2</referencedby>
+        <referencedby refid="xv__csc_8h_1aa65f1084f09f69546f15215da1548c56" compoundref="xv__csc_8c" startline="757" endline="765">XV_csc_Get_HwReg_K23</referencedby>
+        <referencedby refid="xv__csc_8h_1a578075406869631aad822139241f5d4a" compoundref="xv__csc_8c" startline="1178" endline="1186">XV_csc_Get_HwReg_K23_2</referencedby>
+        <referencedby refid="xv__csc_8h_1ac9b5e6422f7c22d0da3d587be6495d55" compoundref="xv__csc_8c" startline="787" endline="795">XV_csc_Get_HwReg_K31</referencedby>
+        <referencedby refid="xv__csc_8h_1ae20ccca45067096347713ac4798e9950" compoundref="xv__csc_8c" startline="1208" endline="1216">XV_csc_Get_HwReg_K31_2</referencedby>
+        <referencedby refid="xv__csc_8h_1ad8975ad96ac269ca8398e1ef0262d5d6" compoundref="xv__csc_8c" startline="817" endline="825">XV_csc_Get_HwReg_K32</referencedby>
+        <referencedby refid="xv__csc_8h_1a73c1e70493bcb6d56d4f8e92781dfadc" compoundref="xv__csc_8c" startline="1238" endline="1246">XV_csc_Get_HwReg_K32_2</referencedby>
+        <referencedby refid="xv__csc_8h_1a4b2079eb4a597a20a46f4162a62a865a" compoundref="xv__csc_8c" startline="847" endline="855">XV_csc_Get_HwReg_K33</referencedby>
+        <referencedby refid="xv__csc_8h_1ac56d6c355abd342e932230daca7dd7b2" compoundref="xv__csc_8c" startline="1268" endline="1276">XV_csc_Get_HwReg_K33_2</referencedby>
+        <referencedby refid="xv__csc_8h_1a61b1d34bc8b1e8f7deb2447328ed0323" compoundref="xv__csc_8c" startline="281" endline="289">XV_csc_Get_HwReg_OutVideoFormat</referencedby>
+        <referencedby refid="xv__csc_8h_1a48d62c832cb0318b86638dcf5873f465" compoundref="xv__csc_8c" startline="1298" endline="1306">XV_csc_Get_HwReg_ROffset_2_V</referencedby>
+        <referencedby refid="xv__csc_8h_1ac45c3e29178cd4b9f1ad4884606dea66" compoundref="xv__csc_8c" startline="878" endline="886">XV_csc_Get_HwReg_ROffset_V</referencedby>
+        <referencedby refid="xv__csc_8h_1a477a37e00231d7173258fc57d86a0a93" compoundref="xv__csc_8c" startline="524" endline="532">XV_csc_Get_HwReg_RowEnd</referencedby>
+        <referencedby refid="xv__csc_8h_1a1be2750d8f4806b9f5e71af55ede8d26" compoundref="xv__csc_8c" startline="485" endline="493">XV_csc_Get_HwReg_RowStart</referencedby>
+        <referencedby refid="xv__csc_8h_1ad890d086dca06e33581d16e10d0826f2" compoundref="xv__csc_8c" startline="320" endline="328">XV_csc_Get_HwReg_width</referencedby>
+        <referencedby refid="xv__csc__sinit_8c_1a84c5de6224bb013d089fb70e67940be9" compoundref="xv__csc__sinit_8c" startline="136" endline="150">XV_csc_Initialize</referencedby>
+        <referencedby refid="xv__csc_8h_1aca45147d34961b4d866d6a15d4fa190c" compoundref="xv__csc_8c" startline="1507" endline="1512">XV_csc_InterruptClear</referencedby>
+        <referencedby refid="xv__csc_8h_1a08c4f1066698a587c5c308423fa26627" compoundref="xv__csc_8c" startline="1489" endline="1497">XV_csc_InterruptDisable</referencedby>
+        <referencedby refid="xv__csc_8h_1af54ab89dd3a75bc9b9fcd4818a98bb10" compoundref="xv__csc_8c" startline="1461" endline="1469">XV_csc_InterruptEnable</referencedby>
+        <referencedby refid="xv__csc_8h_1a5c42351585b23e4423407fdc9fc3f82d" compoundref="xv__csc_8c" startline="1526" endline="1531">XV_csc_InterruptGetEnabled</referencedby>
+        <referencedby refid="xv__csc_8h_1a7926e602c636e6f98d0388b3a46c3568" compoundref="xv__csc_8c" startline="1549" endline="1554">XV_csc_InterruptGetStatus</referencedby>
+        <referencedby refid="xv__csc_8h_1a58ae71a2355bad38ef1ed6fd6a5b53cf" compoundref="xv__csc_8c" startline="1447" endline="1452">XV_csc_InterruptGlobalDisable</referencedby>
+        <referencedby refid="xv__csc_8h_1a68525c756ab7e2cce31d64869e3f0526" compoundref="xv__csc_8c" startline="1434" endline="1439">XV_csc_InterruptGlobalEnable</referencedby>
+        <referencedby refid="xv__csc_8h_1a0a6d268b5f168e65c99376b2a052d44d" compoundref="xv__csc_8c" startline="99" endline="107">XV_csc_IsDone</referencedby>
+        <referencedby refid="xv__csc_8h_1a8dc1ebd5815055fe03ef358cc9e74a00" compoundref="xv__csc_8c" startline="123" endline="131">XV_csc_IsIdle</referencedby>
+        <referencedby refid="xv__csc_8h_1a719f8d4a659dac2ddeb418d894138d04" compoundref="xv__csc_8c" startline="148" endline="157">XV_csc_IsReady</referencedby>
+        <referencedby refid="xv__csc_8h_1a0562fe32ae8466aed54ce6aec43efc50" compoundref="xv__csc_8c" startline="1345" endline="1350">XV_csc_Set_HwReg_BOffset_2_V</referencedby>
+        <referencedby refid="xv__csc_8h_1a2a760ec6153060644c7f289969b53e36" compoundref="xv__csc_8c" startline="925" endline="930">XV_csc_Set_HwReg_BOffset_V</referencedby>
+        <referencedby refid="xv__csc_8h_1ad538ffabececab034a92a666d8a8f7dc" compoundref="xv__csc_8c" startline="1375" endline="1380">XV_csc_Set_HwReg_ClampMin_2_V</referencedby>
+        <referencedby refid="xv__csc_8h_1ad00ffe5f1af8b60b148b11e654583acb" compoundref="xv__csc_8c" startline="955" endline="960">XV_csc_Set_HwReg_ClampMin_V</referencedby>
+        <referencedby refid="xv__csc_8h_1a09c2cc9ed9e1fc8463a249b6c85dbc7d" compoundref="xv__csc_8c" startline="1405" endline="1410">XV_csc_Set_HwReg_ClipMax_2_V</referencedby>
+        <referencedby refid="xv__csc_8h_1a8452e41ccd61233895860a9e12000a05" compoundref="xv__csc_8c" startline="985" endline="990">XV_csc_Set_HwReg_ClipMax_V</referencedby>
+        <referencedby refid="xv__csc_8h_1a30b3c72b21e3173884300993c536a54a" compoundref="xv__csc_8c" startline="425" endline="430">XV_csc_Set_HwReg_ColEnd</referencedby>
+        <referencedby refid="xv__csc_8h_1a98ba79ef63d272819249c122a0be9498" compoundref="xv__csc_8c" startline="386" endline="391">XV_csc_Set_HwReg_ColStart</referencedby>
+        <referencedby refid="xv__csc_8h_1af08e7b29f335059d03aeaf3ead8f5ff1" compoundref="xv__csc_8c" startline="1315" endline="1320">XV_csc_Set_HwReg_GOffset_2_V</referencedby>
+        <referencedby refid="xv__csc_8h_1ad5ef002bce82cee2d17d9e103c9ef20b" compoundref="xv__csc_8c" startline="895" endline="900">XV_csc_Set_HwReg_GOffset_V</referencedby>
+        <referencedby refid="xv__csc_8h_1a35c88ca527cee1ca2900237915b0c6e4" compoundref="xv__csc_8c" startline="343" endline="348">XV_csc_Set_HwReg_height</referencedby>
+        <referencedby refid="xv__csc_8h_1a6ce5722b5dcca57855b376e22ca955b7" compoundref="xv__csc_8c" startline="221" endline="226">XV_csc_Set_HwReg_InVideoFormat</referencedby>
+        <referencedby refid="xv__csc_8h_1a89f3feac229481e6e8883202695a2625" compoundref="xv__csc_8c" startline="544" endline="549">XV_csc_Set_HwReg_K11</referencedby>
+        <referencedby refid="xv__csc_8h_1adacd44f85e87b66ee1f511e1b9533030" compoundref="xv__csc_8c" startline="1015" endline="1020">XV_csc_Set_HwReg_K11_2</referencedby>
+        <referencedby refid="xv__csc_8h_1a88dada2a1c6620fa64bc5658c1e67938" compoundref="xv__csc_8c" startline="583" endline="588">XV_csc_Set_HwReg_K12</referencedby>
+        <referencedby refid="xv__csc_8h_1ac4767318871eeefc55a7a77d2b7cc3dc" compoundref="xv__csc_8c" startline="1045" endline="1050">XV_csc_Set_HwReg_K12_2</referencedby>
+        <referencedby refid="xv__csc_8h_1a3462f4bda1754c08c14f53963945c117" compoundref="xv__csc_8c" startline="621" endline="626">XV_csc_Set_HwReg_K13</referencedby>
+        <referencedby refid="xv__csc_8h_1a77e64ec43e1e49728a15266c4fbfbfcd" compoundref="xv__csc_8c" startline="1075" endline="1080">XV_csc_Set_HwReg_K13_2</referencedby>
+        <referencedby refid="xv__csc_8h_1a95ec03b8a69ac1c002d0962c151be122" compoundref="xv__csc_8c" startline="663" endline="668">XV_csc_Set_HwReg_K21</referencedby>
+        <referencedby refid="xv__csc_8h_1a1f34514bf1b4248764c400731425beb6" compoundref="xv__csc_8c" startline="1105" endline="1110">XV_csc_Set_HwReg_K21_2</referencedby>
+        <referencedby refid="xv__csc_8h_1aa150248ad45380b11d52a46333d0ae0c" compoundref="xv__csc_8c" startline="704" endline="709">XV_csc_Set_HwReg_K22</referencedby>
+        <referencedby refid="xv__csc_8h_1ac5ac7d5c927212ed1ef4390d79a95a06" compoundref="xv__csc_8c" startline="1135" endline="1140">XV_csc_Set_HwReg_K22_2</referencedby>
+        <referencedby refid="xv__csc_8h_1afb7b72b955c2987f372d417e001f1eeb" compoundref="xv__csc_8c" startline="744" endline="749">XV_csc_Set_HwReg_K23</referencedby>
+        <referencedby refid="xv__csc_8h_1abdbe9316868fdd6578b7a2dd924633b6" compoundref="xv__csc_8c" startline="1165" endline="1170">XV_csc_Set_HwReg_K23_2</referencedby>
+        <referencedby refid="xv__csc_8h_1a710d98b668279fd0d89229ce3aaff696" compoundref="xv__csc_8c" startline="774" endline="779">XV_csc_Set_HwReg_K31</referencedby>
+        <referencedby refid="xv__csc_8h_1a4423028ddca33a4b1393e97be3a06fa3" compoundref="xv__csc_8c" startline="1195" endline="1200">XV_csc_Set_HwReg_K31_2</referencedby>
+        <referencedby refid="xv__csc_8h_1ae350f792e008a2ab4028badf1b98aee8" compoundref="xv__csc_8c" startline="804" endline="809">XV_csc_Set_HwReg_K32</referencedby>
+        <referencedby refid="xv__csc_8h_1af462ff2b1e7203bdcfb518adc9d46edc" compoundref="xv__csc_8c" startline="1225" endline="1230">XV_csc_Set_HwReg_K32_2</referencedby>
+        <referencedby refid="xv__csc_8h_1a9c272f118bb860ce0fa5b0ede1427be1" compoundref="xv__csc_8c" startline="834" endline="839">XV_csc_Set_HwReg_K33</referencedby>
+        <referencedby refid="xv__csc_8h_1a31c4fe056191ade70952088ebe15b2b0" compoundref="xv__csc_8c" startline="1255" endline="1260">XV_csc_Set_HwReg_K33_2</referencedby>
+        <referencedby refid="xv__csc_8h_1a27a1dc48278f8fe5174adcf6547d7750" compoundref="xv__csc_8c" startline="262" endline="267">XV_csc_Set_HwReg_OutVideoFormat</referencedby>
+        <referencedby refid="xv__csc_8h_1a80c0e8b7723ffd7c76f5b42b9042b0c0" compoundref="xv__csc_8c" startline="1285" endline="1290">XV_csc_Set_HwReg_ROffset_2_V</referencedby>
+        <referencedby refid="xv__csc_8h_1abe1767060a020e62c90d3498c71aa13a" compoundref="xv__csc_8c" startline="865" endline="870">XV_csc_Set_HwReg_ROffset_V</referencedby>
+        <referencedby refid="xv__csc_8h_1aff6a75865ec9dbbe528a81330fb39e47" compoundref="xv__csc_8c" startline="506" endline="511">XV_csc_Set_HwReg_RowEnd</referencedby>
+        <referencedby refid="xv__csc_8h_1a2992ce020280a7131e122e2c281704de" compoundref="xv__csc_8c" startline="466" endline="471">XV_csc_Set_HwReg_RowStart</referencedby>
+        <referencedby refid="xv__csc_8h_1a5a75fe188408191dcfabcccfa6d7368a" compoundref="xv__csc_8c" startline="304" endline="309">XV_csc_Set_HwReg_width</referencedby>
+        <referencedby refid="xv__csc_8h_1a581de2fe3bbb051d654bd27413200a88" compoundref="xv__csc_8c" startline="77" endline="85">XV_csc_Start</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Driver instance data. </para>    </briefdescription>
+    <detaileddescription>
+<para>An instance must be allocated for each core in use. </para>    </detaileddescription>
+    <collaborationgraph>
+      <node id="1">
+        <label>XV_csc</label>
+        <link refid="struct_x_v__csc"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>Config</edgelabel>
+        </childnode>
+      </node>
+      <node id="2">
+        <label>XV_csc_Config</label>
+        <link refid="struct_x_v__csc___config"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc.h" line="69" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc.h" bodystart="69" bodyend="72"/>
+    <listofallmembers>
+      <member refid="struct_x_v__csc_1aa5c39284c336caccb3d700680b1f73ed" prot="public" virt="non-virtual"><scope>XV_csc</scope><name>Config</name></member>
+      <member refid="struct_x_v__csc_1a8a829eb36e97a948d285c064206a1f2c" prot="public" virt="non-virtual"><scope>XV_csc</scope><name>IsReady</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

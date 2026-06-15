@@ -1,0 +1,2299 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="spartanup_2xnvm__efuse__hw_8h" kind="file">
+    <compoundname>spartanup/xnvm_efuse_hw.h</compoundname>
+    <includes local="yes">xil_io.h</includes>
+    <includedby refid="spartanup_2xnvm__efuse_8h" local="yes">xnvm_efuse.h</includedby>
+    <incdepgraph>
+      <node id="428">
+        <label>xil_io.h</label>
+      </node>
+      <node id="427">
+        <label>xnvm_efuse_hw.h</label>
+        <link refid="spartanup/xnvm_efuse_hw.h"/>
+        <childnode refid="428" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="433">
+        <label>xnvm_utils.c</label>
+      </node>
+      <node id="432">
+        <label>xnvm_utils.h</label>
+        <childnode refid="431" relation="include">
+        </childnode>
+        <childnode refid="433" relation="include">
+        </childnode>
+      </node>
+      <node id="431">
+        <label>xnvm_efuse.c</label>
+      </node>
+      <node id="430">
+        <label>xnvm_efuse.h</label>
+        <link refid="spartanup_2xnvm__efuse_8h"/>
+        <childnode refid="431" relation="include">
+        </childnode>
+        <childnode refid="432" relation="include">
+        </childnode>
+      </node>
+      <node id="429">
+        <label>xnvm_efuse_hw.h</label>
+        <link refid="spartanup/xnvm_efuse_hw.h"/>
+        <childnode refid="430" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="user-defined">
+      <header>eFuse PS Base Address</header>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1adb648186cb73f9ba33b4c5366d2e88f6" prot="public" static="no">
+        <name>XNVM_EFUSE_CTRL_BASEADDR</name>
+        <initializer>0x04160000U</initializer>
+        <briefdescription>
+<para>Efuse base address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="47" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Write lock register</header>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1af28609a2ad57e22fcec629025b0638ce" prot="public" static="no">
+        <name>XNVM_EFUSE_WR_LOCK_OFFSET</name>
+        <initializer>0x00000000U</initializer>
+        <briefdescription>
+<para>Efuse Write lock offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="53" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="53" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1a54bdb9c629b04cb841ed4ed24131e64c" prot="public" static="no">
+        <name>XNVM_EFUSE_WR_UNLOCK_VALUE</name>
+        <initializer>0xDF0DU</initializer>
+        <briefdescription>
+<para>Efuse Write unlock value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="55" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Configuration register</header>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1a96cc9eafaf8613096a443ed5471f0511" prot="public" static="no">
+        <name>XNVM_EFUSE_CFG_OFFSET</name>
+        <initializer>0x00000004U</initializer>
+        <briefdescription>
+<para>Efuse Configuration offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="62" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="62" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1ac8e2b689d06557d93da1b0582cc70813" prot="public" static="no">
+        <name>XNVM_EFUSE_CFG_MARGIN_RD_MASK</name>
+        <initializer>0x0000000cU</initializer>
+        <briefdescription>
+<para>Efuse Margin Read mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="63" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="63" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1aa500c31c6384e6a0ac4f07c254eb72af" prot="public" static="no">
+        <name>XNVM_EFUSE_CFG_NORMAL_RD</name>
+        <initializer>0x00U</initializer>
+        <briefdescription>
+<para>Efuse Normal Read. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="64" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="64" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1a8745e20c8d7a265d1f8fef6d79fc428c" prot="public" static="no">
+        <name>XNVM_EFUSE_CFG_MARGIN_2_RD</name>
+        <initializer>0x02U</initializer>
+        <briefdescription>
+<para>Efuse Margin 2 Read. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="65" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="65" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1ae85e1489ac8bdb442e30d3fca2e01cf8" prot="public" static="no">
+        <name>XNVM_EFUSE_CFG_MARGIN_RD_SHIFT</name>
+        <initializer>2U</initializer>
+        <briefdescription>
+<para>Efuse Margin Read shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="66" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="66" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1add140fc48fbb2372fdc72b9027107273" prot="public" static="no">
+        <name>XNVM_EFUSE_CFG_PGM_EN_SHIFT</name>
+        <initializer>1U</initializer>
+        <briefdescription>
+<para>Efuse Program Enable shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="67" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="67" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Status register</header>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1a772fa6745845e27005acb8598a78b7c8" prot="public" static="no">
+        <name>XNVM_EFUSE_STS_OFFSET</name>
+        <initializer>0x00000008U</initializer>
+        <briefdescription>
+<para>Efuse Status register offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="75" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="75" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1a3c1306e351209d0967f72bc76c74145c" prot="public" static="no">
+        <name>XNVM_EFUSE_STS_AES_CRC_PASS_MASK</name>
+        <initializer>0x00000080U</initializer>
+        <briefdescription>
+<para>Efuse AES CRC Pass mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="77" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="77" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1a936f929a711d83d678ee2b33ed35152c" prot="public" static="no">
+        <name>XNVM_EFUSE_STS_AES_CRC_DONE_MASK</name>
+        <initializer>0x00000040U</initializer>
+        <briefdescription>
+<para>Efuse AES CRC Done mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="79" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="79" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1a70fd81697c81ee9ef872deca7affc918" prot="public" static="no">
+        <name>XNVM_EFUSE_STS_0_TBIT_SHIFT</name>
+        <initializer>0U</initializer>
+        <briefdescription>
+<para>Efuse 0 TBIT shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="81" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="81" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Program address register</header>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1a5587d28c7e83aceee8fa4a628694fe3c" prot="public" static="no">
+        <name>XNVM_EFUSE_PGM_ADDR_OFFSET</name>
+        <initializer>0x0000000CU</initializer>
+        <briefdescription>
+<para>Efuse Program Address offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="89" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="89" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Read address register</header>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1a80867173088d345d19ea189d9f4da312" prot="public" static="no">
+        <name>XNVM_EFUSE_RD_ADDR_OFFSET</name>
+        <initializer>0x00000010U</initializer>
+        <briefdescription>
+<para>Efuse Read Address offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="96" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="96" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Read data register</header>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1a48c77de62ae81db499db04bcd9b22fde" prot="public" static="no">
+        <name>XNVM_EFUSE_RD_DATA_OFFSET</name>
+        <initializer>0x00000014U</initializer>
+        <briefdescription>
+<para>Efuse Read Data offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="103" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="103" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>TPGM register</header>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1abe8142c3918fd78aa86cd50a5a159f37" prot="public" static="no">
+        <name>XNVM_EFUSE_TPGM_OFFSET</name>
+        <initializer>0x00000018U</initializer>
+        <briefdescription>
+<para>Efuse TPGM offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="110" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="110" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>TRD register</header>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1acdd9f0f8158b940bb4d9788750ad2085" prot="public" static="no">
+        <name>XNVM_EFUSE_TRD_OFFSET</name>
+        <initializer>0x0000001CU</initializer>
+        <briefdescription>
+<para>Efuse TRD offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="117" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="117" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>TSU_H_PS register</header>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1a1aebe650df4c844eeda4782cee11e67b" prot="public" static="no">
+        <name>XNVM_EFUSE_TSU_H_PS_OFFSET</name>
+        <initializer>0x00000020U</initializer>
+        <briefdescription>
+<para>Efuse TSU_H_PS offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="124" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="124" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>TSU_H_PS_CS register</header>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1a10f51c3cd9b8f0600148d28b5a064dc3" prot="public" static="no">
+        <name>XNVM_EFUSE_TSU_H_PS_CS_OFFSET</name>
+        <initializer>0x00000024U</initializer>
+        <briefdescription>
+<para>Efuse TSU_H_PS_CS offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="131" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="131" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>TSU_H_CS register</header>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1a3ec5621255e232a82ced6cd53488498e" prot="public" static="no">
+        <name>XNVM_EFUSE_TSU_H_CS_OFFSET</name>
+        <initializer>0x0000002CU</initializer>
+        <briefdescription>
+<para>Efuse TSU_H_CS offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="138" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="138" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>ISR register</header>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1af6dfd84d65e38dda4c8427ac75d73ff2" prot="public" static="no">
+        <name>XNVM_EFUSE_ISR_OFFSET</name>
+        <initializer>0x00000030U</initializer>
+        <briefdescription>
+<para>Efuse ISR offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="145" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="145" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1a9436875ff04913919215e2609064076c" prot="public" static="no">
+        <name>XNVM_EFUSE_ISR_CACHE_ERR_MASK</name>
+        <initializer>0x00000010U</initializer>
+        <briefdescription>
+<para>Efuse ISR Cache Error mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="147" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="147" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Cache load register</header>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1aeb6305cc3caa9d745d1f2f097708a23f" prot="public" static="no">
+        <name>XNVM_EFUSE_CACHE_LOAD_OFFSET</name>
+        <initializer>0x00000044U</initializer>
+        <briefdescription>
+<para>Efuse Cache Load offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="154" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="154" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1a61178ffb55e55f854455a09557cc1536" prot="public" static="no">
+        <name>XNVM_EFUSE_CACHE_LOAD_MASK</name>
+        <initializer>0x00000001U</initializer>
+        <briefdescription>
+<para>Efuse Cache Load mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="155" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="155" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>AES CRC register</header>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1ad5a401e77c15f7167657a56b34f38757" prot="public" static="no">
+        <name>XNVM_EFUSE_AES_CRC_OFFSET</name>
+        <initializer>0x0000004CU</initializer>
+        <briefdescription>
+<para>Efuse AES CRC offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="162" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="162" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Tbits programming enable register</header>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1a21fa5c8fafdcff3e64fd7903cf6f4bbb" prot="public" static="no">
+        <name>XNVM_EFUSE_TEST_CTRL_REG_OFFSET</name>
+        <initializer>0x00000100U</initializer>
+        <briefdescription>
+<para>Efuse Test Control Register offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="169" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="169" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Cache offset</header>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1add98a28c02fccad2324fca58acc7344f" prot="public" static="no">
+        <name>XNVM_EFUSE_XILINX_CTRL_OFFSET</name>
+        <initializer>0x00001000U</initializer>
+        <briefdescription>
+<para>Xilinx control cache offset. </para>        </briefdescription>
+        <detaileddescription>
+<para>Xilinx Control cache offset. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="176" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="188" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1ac959691387e109fef3ee0c876b775a5c" prot="public" static="no">
+        <name>XNVM_EFUSE_CONTROL_OFFSET</name>
+        <initializer>0x00001004U</initializer>
+        <briefdescription>
+<para>Control cache offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="177" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="177" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1a9db4d0d8c0833b8a16d8ad47cbc313e5" prot="public" static="no">
+        <name>XNVM_EFUSE_DNA_OFFSET</name>
+        <initializer>0x0000100CU</initializer>
+        <briefdescription>
+<para>DNA cache offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="178" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="178" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1a9d0bfba5a3f76ae54b6cfed7a6b1753b" prot="public" static="no">
+        <name>XNVM_EFUSE_USER_FUSE_OFFSET</name>
+        <initializer>0x00001020U</initializer>
+        <briefdescription>
+<para>User efuse cache offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="179" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="179" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1a2dfbd20cac3df04000e9b147aaec5c4d" prot="public" static="no">
+        <name>XNVM_EFUSE_PPK0_START_OFFSET</name>
+        <initializer>0x00001080U</initializer>
+        <briefdescription>
+<para>PPK0 cache start offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="180" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="180" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1a923b876b866c25aef674c0aaffc36784" prot="public" static="no">
+        <name>XNVM_EFUSE_PPK2_START_OFFSET</name>
+        <initializer>0x000010C0U</initializer>
+        <briefdescription>
+<para>PPK2 cache start offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="181" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="181" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1afa85c4174f38fde016c5c1b5771e26bb" prot="public" static="no">
+        <name>XNVM_EFUSE_DEC_ONLY_OFFSET</name>
+        <initializer>0x00001140U</initializer>
+        <briefdescription>
+<para>Decrypt only cache offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="182" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="182" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1a98d34eb6dcab841325e01cf68298e2da" prot="public" static="no">
+        <name>XNVM_EFUSE_AES_IV_RANGE_START_OFFSET</name>
+        <initializer>0x00001130U</initializer>
+        <briefdescription>
+<para>AES IV range cache start offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="183" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="183" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1ae44388d990e01c35db17c62d132b1905" prot="public" static="no">
+        <name>XNVM_EFUSE_BLACK_IV_START_OFFSET</name>
+        <initializer>0x00001144U</initializer>
+        <briefdescription>
+<para>IV cache start offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="184" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="184" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1aaae38e436d89f63f939ed326fbb1d100" prot="public" static="no">
+        <name>XNVM_EFUSE_CRC_EN_OFFSET</name>
+        <initializer>0x00001150U</initializer>
+        <briefdescription>
+<para>CRC enable offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="185" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="185" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1a0d0b2c5119c3f3bd29feb760cf823038" prot="public" static="no">
+        <name>XNVM_EFUSE_SPK_REVOKE_ID_OFFSET</name>
+        <initializer>0x00001124U</initializer>
+        <briefdescription>
+<para>SPK revoke id cache start offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="186" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="186" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1a8ecbbf932e39793a405f1b6cb1f65570" prot="public" static="no">
+        <name>XNVM_EFUSE_AES_REVOKE_ID_OFFSET</name>
+        <initializer>0x0000113CU</initializer>
+        <briefdescription>
+<para>AES revoke id cache offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="187" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="187" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1add98a28c02fccad2324fca58acc7344f" prot="public" static="no">
+        <name>XNVM_EFUSE_XILINX_CTRL_OFFSET</name>
+        <initializer>0x00001000U</initializer>
+        <briefdescription>
+<para>Xilinx control cache offset. </para>        </briefdescription>
+        <detaileddescription>
+<para>Xilinx Control cache offset. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="188" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="188" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>BOOT_MODE_DISABLE</header>
+      <description><para>Boot mode disable Efuse bits programming related macros </para></description>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1a97218678ad4798d20ea4ffa18418db7b" prot="public" static="no">
+        <name>XNVM_EFUSE_BOOT_MODE_DIS_ROW_60</name>
+        <initializer>(60U)</initializer>
+        <briefdescription>
+<para>Boot mode disable row 60. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="197" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="197" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1ace054fce8831c51db938c693ab84acbc" prot="public" static="no">
+        <name>XNVM_EFUSE_BOOT_MODE_DIS_ROW_61</name>
+        <initializer>(61U)</initializer>
+        <briefdescription>
+<para>Boot mode disable row 61. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="198" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="198" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1a4b59bd259ddd11a89f6870781875ba8d" prot="public" static="no">
+        <name>XNVM_EFUSE_QSPI32_BOOT_MODE_DIS_COL</name>
+        <initializer>(8U)</initializer>
+        <briefdescription>
+<para>QSPI32 Boot mode disable bit column value: 8. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="200" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="200" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1a97111717c7289863f0d32223e46a8264" prot="public" static="no">
+        <name>XNVM_EFUSE_OSPI_BOOT_MODE_DIS_COL</name>
+        <initializer>(9U)</initializer>
+        <briefdescription>
+<para>OSPI Boot mode disable bit column value: 9. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="201" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="201" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1ae9ee645b510e7c9b767dda843456f3de" prot="public" static="no">
+        <name>XNVM_EFUSE_JTAG_BOOT_MODE_DIS_COL</name>
+        <initializer>(11U)</initializer>
+        <briefdescription>
+<para>JTAG Boot mode disable bit column value: 11. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="202" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="202" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1a972d7f9614f3f0d398c18321fa013fbf" prot="public" static="no">
+        <name>XNVM_EFUSE_SMAP_BOOT_MODE_DIS_COL</name>
+        <initializer>(12U)</initializer>
+        <briefdescription>
+<para>SMAP Boot mode disable bit column value: 12. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="203" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="203" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1a22592e991633d68cdb72b2477f294494" prot="public" static="no">
+        <name>XNVM_EFUSE_SERIAL_BOOT_MODE_DIS_COL</name>
+        <initializer>(13U)</initializer>
+        <briefdescription>
+<para>Serial Boot mode disable bit column value: 13. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="204" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="204" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1abeb609eb81bf8459c30b3f5ab29bdf11" prot="public" static="no">
+        <name>XNVM_EFUSE_QSPI24_BOOT_MODE_DIS_COL</name>
+        <initializer>(15U)</initializer>
+        <briefdescription>
+<para>QSPI24 Boot mode disable bit column value: 15. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="205" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="205" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1a218840d12e73ee1e254f21360ab6fe42" prot="public" static="no">
+        <name>XNVM_EFUSE_QSPI24_BOOT_MODE_DIS_MASK</name>
+        <initializer>(0x00000002U)</initializer>
+        <briefdescription>
+<para>QSPI24 Boot mode disable Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="207" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="207" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1afc8d3e3302478e091f593fbae9555773" prot="public" static="no">
+        <name>XNVM_EFUSE_QSPI32_BOOT_MODE_DIS_MASK</name>
+        <initializer>(0x00000004U)</initializer>
+        <briefdescription>
+<para>QSPI32 Boot mode disable Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="208" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="208" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1aa98ada64f2301b0cc3b42614eab85335" prot="public" static="no">
+        <name>XNVM_EFUSE_OSPI_BOOT_MODE_DIS_MASK</name>
+        <initializer>(0x00000008U)</initializer>
+        <briefdescription>
+<para>OSPI Boot mode disable Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="209" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="209" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1a09cb053cab6d33dee52bc54c8265fd51" prot="public" static="no">
+        <name>XNVM_EFUSE_JTAG_BOOT_MODE_DIS_MASK</name>
+        <initializer>(0x00000020U)</initializer>
+        <briefdescription>
+<para>JTAG Boot mode disable Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="210" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="210" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1a3185ac1dd64b8ce0ec4a9fb4dba6ba2a" prot="public" static="no">
+        <name>XNVM_EFUSE_SMAP_BOOT_MODE_DIS_MASK</name>
+        <initializer>(0x00000040U)</initializer>
+        <briefdescription>
+<para>SMAP Boot mode disable Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="211" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="211" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1a314cb5a19feb38880ae356ec12969cbf" prot="public" static="no">
+        <name>XNVM_EFUSE_SERIAL_BOOT_MODE_DIS_MASK</name>
+        <initializer>(0x00000080U)</initializer>
+        <briefdescription>
+<para>Serial Boot mode disable Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="212" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="212" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1a895152b7bf3031668e857a1766724e74" prot="public" static="no">
+        <name>XNVM_EFUSE_BOOT_MODE_DISABLE_EFUSE_BITS</name>
+        <initializer>(0x01U)</initializer>
+        <briefdescription>
+<para>Boot mode disable efuse bits. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="214" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="214" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1a72a16b6b90936cf26dfcb05b65207950" prot="public" static="no">
+        <name>XNVM_EFUSE_BOOT_MODE_DIS_QSPI24_EFUSE_SHIFT</name>
+        <initializer>(0x1U)</initializer>
+        <briefdescription>
+<para>QSPI24 Boot mode disable shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="215" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="215" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1acb126aad79d6867dbf2e3e5634281ea5" prot="public" static="no">
+        <name>XNVM_EFUSE_BOOT_MODE_DIS_QSPI32_EFUSE_SHIFT</name>
+        <initializer>(0x2U)</initializer>
+        <briefdescription>
+<para>QSPI32 Boot mode disable shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="216" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="216" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1a7d8247c129937265929460c67e2e905d" prot="public" static="no">
+        <name>XNVM_EFUSE_BOOT_MODE_DIS_OSPI_EFUSE_SHIFT</name>
+        <initializer>(0x3U)</initializer>
+        <briefdescription>
+<para>OSPI Boot mode disable shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="217" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="217" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1a895ea8d51ff9511780355fab777b5fb7" prot="public" static="no">
+        <name>XNVM_EFUSE_BOOT_MODE_DIS_JTAG_EFUSE_SHIFT</name>
+        <initializer>(0x5U)</initializer>
+        <briefdescription>
+<para>JTAG Boot mode disable shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="218" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="218" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1aaa43da36af693df2eeb7db7331406ec3" prot="public" static="no">
+        <name>XNVM_EFUSE_BOOT_MODE_DIS_SMAP_EFUSE_SHIFT</name>
+        <initializer>(0x6U)</initializer>
+        <briefdescription>
+<para>SMAP Boot mode disable shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="219" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="219" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1aa45b25f7cc6761e64ef41841f935735f" prot="public" static="no">
+        <name>XNVM_EFUSE_BOOT_MODE_DIS_SERIAL_EFUSE_SHIFT</name>
+        <initializer>(0x7U)</initializer>
+        <briefdescription>
+<para>Serial Boot mode disable shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="220" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="220" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1aa26d2327b57fdb7b48ca0088a1bcaeda" prot="public" static="no">
+        <name>XNVM_PLM_CONFIG_BASE_ADDRESS</name>
+        <initializer>(0x0402B200U)</initializer>
+        <briefdescription>
+<para>eFuse PLM configuration base address </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="222" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="222" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1a14783fbf9872ae39feec006dcba7d048" prot="public" static="no">
+        <name>XNVM_RTCA_EFUSE_CLK_FREQUENCY_OFFSET</name>
+        <initializer>(0x0000002CU)</initializer>
+        <briefdescription>
+<para>eFuse RTC clock frequency offset </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="223" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="223" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1af28d69cd93f00ed680451cb51951bc18" prot="public" static="no">
+        <name>XNVM_EFUSE_CLK_CTRL_ADDR</name>
+        <initializer>(0x040A003CU)</initializer>
+        <briefdescription>
+<para>eFuse clock control address </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="224" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="224" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1ad348a8099bb4c83abd6bac957bfcc9ab" prot="public" static="no">
+        <name>XNVM_EFUSE_IO_CTRL_ADDR</name>
+        <initializer>(0x040A00E8U)</initializer>
+        <briefdescription>
+<para>eFuse I/O control address </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="225" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="225" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1aa5af4104af4e2de97a62ac7ec71b4aed" prot="public" static="no">
+        <name>XNVM_EFUSE_CLK_SRC_EMCCLK_VALUE</name>
+        <initializer>(0x1U)</initializer>
+        <briefdescription>
+<para>eFuse clock source EMCCLK value </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="226" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="226" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1a0589bb98482b16c8859d8f4955cf5033" prot="public" static="no">
+        <name>XNVM_EMCCLK_MIN_FREQUENCY</name>
+        <initializer>(25000000U)</initializer>
+        <briefdescription>
+<para>eFuse EMC clock minimum frequency </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="227" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="227" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1a985a71f64ff9bee800fb1a0bc3b45ed1" prot="public" static="no">
+        <name>XNVM_EMCCLK_MAX_FREQUENCY</name>
+        <initializer>(200000000U)</initializer>
+        <briefdescription>
+<para>eFuse EMC clock maximum frequency </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="228" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="228" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1ae59cfcb48accb62ab788675d3235936e" prot="public" static="no">
+        <name>XNVM_EFUSE_EMC_CLK_EN_VAL</name>
+        <initializer>(1U &lt;&lt; 1U)</initializer>
+        <briefdescription>
+<para>eFuse EMC clock enable value </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="229" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="229" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>EFUSE_CACHE_SECURITY_CONTROL_REG</header>
+      <description><para>Efuse Cache Security Control bits, shifts, masks, rows and columns </para></description>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1a1988828e398b947256da16a45b558d3c" prot="public" static="no">
+        <name>XNVM_EFUSE_SEC_CTRL_BITS</name>
+        <initializer>(0x01U)</initializer>
+        <briefdescription>
+<para>Secure control bits. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="237" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="237" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1af98efa11f4b8996a4d46e79643881896" prot="public" static="no">
+        <name>XNVM_EFUSE_SEC_CTRL_SCAN_CLEAR_EN_SHIFT</name>
+        <initializer>(0U)</initializer>
+        <briefdescription>
+<para>SCAN_CLEAR_EN shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="239" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="239" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1a0c79c9236de9313a0654e733b6a9359d" prot="public" static="no">
+        <name>XNVM_EFUSE_SEC_CTRL_AES_DIS_SHIFT</name>
+        <initializer>(1U)</initializer>
+        <briefdescription>
+<para>AES disable shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="240" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="240" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1a327da04e9566ba5518182a50dc66159d" prot="public" static="no">
+        <name>XNVM_EFUSE_SEC_CTRL_RMA_DISABLE_0_SHIFT</name>
+        <initializer>(6U)</initializer>
+        <briefdescription>
+<para>RMA disable 0 shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="241" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="241" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1a7a5b3b5306df1b518fea071542ae9e88" prot="public" static="no">
+        <name>XNVM_EFUSE_SEC_CTRL_RMA_ENABLE_0_SHIFT</name>
+        <initializer>(7U)</initializer>
+        <briefdescription>
+<para>RMA enable 0 shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="242" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="242" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1a7003dcb1245f16a6c6f2eda145f97b72" prot="public" static="no">
+        <name>XNVM_EFUSE_SEC_CTRL_JTAG_DIS_SHIFT</name>
+        <initializer>(8U)</initializer>
+        <briefdescription>
+<para>JTAG disable shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="243" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="243" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1a59acb8b98b3fc17e670178415f2a4335" prot="public" static="no">
+        <name>XNVM_EFUSE_SEC_CTRL_PUF_TEST2_DIS_SHIFT</name>
+        <initializer>(9U)</initializer>
+        <briefdescription>
+<para>PUF test 2 disable shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="244" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="244" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1a6a027ab8ab9b408dddcf7777edfa9002" prot="public" static="no">
+        <name>XNVM_EFUSE_SEC_CTRL_HASH_PUF_OR_KEY_SHIFT</name>
+        <initializer>(10U)</initializer>
+        <briefdescription>
+<para>Hash PUF or key shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="245" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="245" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1a50244f4f326592b02c6b7eff7ebace3a" prot="public" static="no">
+        <name>XNVM_EFUSE_SEC_CTRL_PPK0_WR_LK_SHIFT</name>
+        <initializer>(15U)</initializer>
+        <briefdescription>
+<para>PPK0 write lock shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="246" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="246" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1af0718d8625ff1e367a14032ff1880378" prot="public" static="no">
+        <name>XNVM_EFUSE_SEC_CTRL_PPK0_INVLD0_SHIFT</name>
+        <initializer>(16U)</initializer>
+        <briefdescription>
+<para>PPK0 invalidation 0 shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="247" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="247" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1a3ebbcf55a78a0f21d9d933dd26e94eb9" prot="public" static="no">
+        <name>XNVM_EFUSE_SEC_CTRL_AES_RD_WR_LK_0_SHIFT</name>
+        <initializer>(17U)</initializer>
+        <briefdescription>
+<para>AES read/write lock 0 shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="248" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="248" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1a5d9325e5c33d7b540fad619a0ca8e36b" prot="public" static="no">
+        <name>XNVM_EFUSE_SEC_CTRL_AES_RD_WR_LK_1_SHIFT</name>
+        <initializer>(18U)</initializer>
+        <briefdescription>
+<para>AES read/write lock 1 shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="249" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="249" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1a480e31cce4532e43a9b0a09f440eb39b" prot="public" static="no">
+        <name>XNVM_EFUSE_SEC_CTRL_JTAG_ERR_OUT_DIS_SHIFT</name>
+        <initializer>(26U)</initializer>
+        <briefdescription>
+<para>JTAG error output disable shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="250" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="250" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1a2a3528f5154aa66bce40874cca7fb89a" prot="public" static="no">
+        <name>XNVM_EFUSE_SEC_CTRL_USER_WR_LK_SHIFT</name>
+        <initializer>(27U)</initializer>
+        <briefdescription>
+<para>User write lock shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="251" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="251" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1ac457b31b29002bd4369fb2794e9ca48d" prot="public" static="no">
+        <name>XNVM_EFUSE_SEC_CTRL_PPK0_INVLD1_SHIFT</name>
+        <initializer>(31U)</initializer>
+        <briefdescription>
+<para>PPK0 invalidation 1 shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="252" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="252" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1a7d292c7f239cfdf8bab2d096349f9122" prot="public" static="no">
+        <name>XNVM_EFUSE_SEC_CTRL_SCAN_CLEAR_EN_MASK</name>
+        <initializer>(0x00000001U)</initializer>
+        <briefdescription>
+<para>SCAN_CLEAR_EN mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="254" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="254" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1ad320a1b3e1b0bb18d21beb7bbb604d25" prot="public" static="no">
+        <name>XNVM_EFUSE_SEC_CTRL_AES_DIS_MASK</name>
+        <initializer>(0x00000002U)</initializer>
+        <briefdescription>
+<para>AES disable mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="255" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="255" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1ad410d6759a7152e5f535955ac9d13d8b" prot="public" static="no">
+        <name>XNVM_EFUSE_SEC_CTRL_RMA_DISABLE_0_MASK</name>
+        <initializer>(0x00000040U)</initializer>
+        <briefdescription>
+<para>RMA disable 0 mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="256" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="256" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1ac738425326d515fe03550f409bfe4846" prot="public" static="no">
+        <name>XNVM_EFUSE_SEC_CTRL_RMA_ENABLE_0_MASK</name>
+        <initializer>(0x00000080U)</initializer>
+        <briefdescription>
+<para>RMA enable 0 mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="257" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="257" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1aa111af747b8a2bfdef7a483aa3615c95" prot="public" static="no">
+        <name>XNVM_EFUSE_SEC_CTRL_JTAG_DIS_MASK</name>
+        <initializer>(0x00000100U)</initializer>
+        <briefdescription>
+<para>JTAG disable mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="258" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="258" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1afcfee96a7ac3507313a98ee225c8e408" prot="public" static="no">
+        <name>XNVM_EFUSE_SEC_CTRL_PUF_TEST2_DIS_MASK</name>
+        <initializer>(0x00000200U)</initializer>
+        <briefdescription>
+<para>PUF test 2 disable mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="259" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="259" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1abc14ef85e4d1950997e7cf6de3f9d02d" prot="public" static="no">
+        <name>XNVM_EFUSE_SEC_CTRL_HASH_PUF_OR_KEY_MASK</name>
+        <initializer>(0x00000400U)</initializer>
+        <briefdescription>
+<para>Hash PUF or key mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="260" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="260" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1a02b0f21f5888e9d91ca788e3ff0acf2f" prot="public" static="no">
+        <name>XNVM_EFUSE_SEC_CTRL_PPK0_WR_LK_MASK</name>
+        <initializer>(0x00008000U)</initializer>
+        <briefdescription>
+<para>PPK0 write lock mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="261" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="261" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1a471609bef03a7575477177b95ecfef4c" prot="public" static="no">
+        <name>XNVM_EFUSE_SEC_CTRL_PPK0_INVLD0_MASK</name>
+        <initializer>(0x00010000U)</initializer>
+        <briefdescription>
+<para>PPK0 invalidation 0 mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="262" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="262" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1a0800e6c49b023b9851e27fd144569a8a" prot="public" static="no">
+        <name>XNVM_EFUSE_SEC_CTRL_AES_RD_WR_LK_0_MASK</name>
+        <initializer>(0x00020000U)</initializer>
+        <briefdescription>
+<para>AES read/write lock 0 mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="263" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="263" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1ab024f299310e7b3031561eb8231b92aa" prot="public" static="no">
+        <name>XNVM_EFUSE_SEC_CTRL_AES_RD_WR_LK_1_MASK</name>
+        <initializer>(0x00040000U)</initializer>
+        <briefdescription>
+<para>AES read/write lock 1 mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="264" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="264" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1a0f0f4ec335585a712714bc0f43126b07" prot="public" static="no">
+        <name>XNVM_EFUSE_SEC_CTRL_JTAG_ERR_OUT_DIS_MASK</name>
+        <initializer>(0x04000000U)</initializer>
+        <briefdescription>
+<para>JTAG error output disable mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="265" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="265" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1a57399b22ba4f38c1a672bb12d199bcfe" prot="public" static="no">
+        <name>XNVM_EFUSE_SEC_CTRL_USER_WR_LK_MASK</name>
+        <initializer>(0x08000000U)</initializer>
+        <briefdescription>
+<para>User write lock mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="266" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="266" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1a85e175dd2e2d9f2a5bd74dfa448323c8" prot="public" static="no">
+        <name>XNVM_EFUSE_SEC_CTRL_PPK0_INVLD1_MASK</name>
+        <initializer>(0x80000000U)</initializer>
+        <briefdescription>
+<para>PPK0 invalidation 1 mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="267" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="267" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1ad3fe04a3767a04a9a265b814375dd38e" prot="public" static="no">
+        <name>XNVM_EFUSE_SEC_CTRL_ROW_0</name>
+        <initializer>(0U)</initializer>
+        <briefdescription>
+<para>Secure Control Row 0. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="269" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="269" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1aeafed60479297b5a41bdbf3c95a65106" prot="public" static="no">
+        <name>XNVM_EFUSE_SEC_CTRL_ROW_1</name>
+        <initializer>(1U)</initializer>
+        <briefdescription>
+<para>Secure Control Row 1. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="270" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="270" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1a986ec5508789b0603e971cd8e2d49f54" prot="public" static="no">
+        <name>XNVM_EFUSE_SEC_CTRL_ROW_2</name>
+        <initializer>(2U)</initializer>
+        <briefdescription>
+<para>Secure Control Row 2. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="271" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="271" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1a4825b86c6eb8849c1d44ecb4deaa7e0b" prot="public" static="no">
+        <name>XNVM_EFUSE_SEC_CTRL_ROW_3</name>
+        <initializer>(3U)</initializer>
+        <briefdescription>
+<para>Secure Control Row 3. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="272" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="272" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1a57768cd2efb68f2398a56c10efe849ef" prot="public" static="no">
+        <name>XNVM_EFUSE_SEC_CTRL_ROW_4</name>
+        <initializer>(18U)</initializer>
+        <briefdescription>
+<para>Secure Control Row 4. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="273" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="273" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1a470a8ef1ee8553502736ca21d6f3dced" prot="public" static="no">
+        <name>XNVM_EFUSE_SEC_CTRL_RMA_DISABLE_0_COL</name>
+        <initializer>(3U)</initializer>
+        <briefdescription>
+<para>RMA disable 0 bit column value: 3. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="275" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="275" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1ac13360a6a0bba48e62f95d4917ac87df" prot="public" static="no">
+        <name>XNVM_EFUSE_SEC_CTRL_RMA_ENABLE_0_COL</name>
+        <initializer>(4U)</initializer>
+        <briefdescription>
+<para>RMA enable 0 bit column value: 4. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="276" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="276" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1acfb94d8ce5d1ba9fc366b8bf2db67af7" prot="public" static="no">
+        <name>XNVM_EFUSE_SEC_CTRL_SCAN_CLEAR_EN_COL</name>
+        <initializer>(5U)</initializer>
+        <briefdescription>
+<para>Scan Clear En bit column value: 5. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="277" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="277" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1aa0631e3f46ecc7c44e6913422151244f" prot="public" static="no">
+        <name>XNVM_EFUSE_SEC_CTRL_HASH_PUF_OR_KEY_COL</name>
+        <initializer>(6U)</initializer>
+        <briefdescription>
+<para>Hash PUF or PPK bit column value: 6. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="278" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="278" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1aad809bdeb7bb7b51118da0fa785a5a68" prot="public" static="no">
+        <name>XNVM_EFUSE_SEC_CTRL_JTAG_ERR_OUT_DIS_COL</name>
+        <initializer>(14U)</initializer>
+        <briefdescription>
+<para>JTAG error out disable bit column value: 14. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="279" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="279" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1a7e8fe9a88dd786d6d7cbcfe462b2883e" prot="public" static="no">
+        <name>XNVM_EFUSE_SEC_CTRL_USER_WR_LK_COL</name>
+        <initializer>(15U)</initializer>
+        <briefdescription>
+<para>User write lock bit column value: 15. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="280" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="280" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1a0e3ba75c46c67de4ffa31f0875f7e932" prot="public" static="no">
+        <name>XNVM_EFUSE_SEC_CTRL_PUF_TEST2_DIS_COL</name>
+        <initializer>(24U)</initializer>
+        <briefdescription>
+<para>PUF test2 disable bit column value: 24. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="281" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="281" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1a316e955d9fb7e2c1b39d5e73f3a2a1a8" prot="public" static="no">
+        <name>XNVM_EFUSE_SEC_CTRL_PPK0_INVLD_0_COL</name>
+        <initializer>(25U)</initializer>
+        <briefdescription>
+<para>PPK0 invalid 0 bit column value: 25. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="282" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="282" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1a183b85e836bef6659fecf62db2a8e7d5" prot="public" static="no">
+        <name>XNVM_EFUSE_SEC_CTRL_PPK0_INVLD_1_COL</name>
+        <initializer>(26U)</initializer>
+        <briefdescription>
+<para>PPK0 invalid 1 bit column value: 26. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="283" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="283" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1ab12dd53e388b14551fa36e97e79ba927" prot="public" static="no">
+        <name>XNVM_EFUSE_SEC_CTRL_AES_RD_WR_LK_0_COL</name>
+        <initializer>(24U)</initializer>
+        <briefdescription>
+<para>AES read/write lock bit 0 column value: 24. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="284" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="284" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1a41c175a911fc0697670220c2e8c2e900" prot="public" static="no">
+        <name>XNVM_EFUSE_SEC_CTRL_AES_RD_WR_LK_1_COL</name>
+        <initializer>(25U)</initializer>
+        <briefdescription>
+<para>AES read/write lock bit 1 column value: 25. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="285" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="285" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1a66cca2d5bc87db5fe3245c343cb2f5fd" prot="public" static="no">
+        <name>XNVM_EFUSE_SEC_CTRL_PPK0_WR_LK_COL</name>
+        <initializer>(26U)</initializer>
+        <briefdescription>
+<para>PPK0 write lock bit column value: 26. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="286" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="286" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1a18cc23c15631fc43c5389206eadf7aa6" prot="public" static="no">
+        <name>XNVM_EFUSE_SEC_CTRL_JTAG_DIS_COL</name>
+        <initializer>(29U)</initializer>
+        <briefdescription>
+<para>AES JTAG disable bit column value: 29. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="287" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="287" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1a19dd0a8a845b4379896007b80bd7f53c" prot="public" static="no">
+        <name>XNVM_EFUSE_SEC_CTRL_AES_DIS_COL</name>
+        <initializer>(30U)</initializer>
+        <briefdescription>
+<para>AES disable bit column value: 30. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="288" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="288" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>EFUSE_CRC_EN_REG</header>
+      <description><para>Efuse Cache Crc Enabled Register bits, shifts, masks and columns </para></description>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1a68e3a7fa981360d51c5575a1f0fabce4" prot="public" static="no">
+        <name>XNVM_EFUSE_SEC_CTRL_DFT_BITS</name>
+        <initializer>(2U)</initializer>
+        <briefdescription>
+<para>DFT bits. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="297" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="297" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1a6d6e4cddefda3cea728034095257fa42" prot="public" static="no">
+        <name>XNVM_EFUSE_CRC_EN_SHIFT</name>
+        <initializer>(0U)</initializer>
+        <briefdescription>
+<para>CRC enable shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="299" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="299" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1a80084966d0c90a092715d0d075fb256b" prot="public" static="no">
+        <name>XNVM_EFUSE_DFT_DIS_SHIFT</name>
+        <initializer>(1U)</initializer>
+        <briefdescription>
+<para>DFT disable shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="300" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="300" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1a1b542e1cacf9e240377dd1d38c229055" prot="public" static="no">
+        <name>XNVM_EFUSE_LCKDOWN_SHIFT</name>
+        <initializer>(3U)</initializer>
+        <briefdescription>
+<para>Lockdown shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="301" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="301" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1aa1a608209db802c0d706e33b1918de05" prot="public" static="no">
+        <name>XNVM_EFUSE_RMA_DISABLE_1_SHIFT</name>
+        <initializer>(4U)</initializer>
+        <briefdescription>
+<para>RMA disable 1 shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="302" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="302" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1ae697df410caea54d9fd23ea598261c7e" prot="public" static="no">
+        <name>XNVM_EFUSE_RMA_ENABLE_1_SHIFT</name>
+        <initializer>(5U)</initializer>
+        <briefdescription>
+<para>RMA enable 1 shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="303" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="303" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1ae51a302ab578f0ff02850068b08f67d4" prot="public" static="no">
+        <name>XNVM_EFUSE_SEC_CTRL_CRC_EN_MASK</name>
+        <initializer>(0X00000001U)</initializer>
+        <briefdescription>
+<para>CRC enable mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="305" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="305" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1af982ed6641ff58d87f22d1ff492db685" prot="public" static="no">
+        <name>XNVM_EFUSE_SEC_CTRL_DFT_DIS_0_MASK</name>
+        <initializer>(0X00000002U)</initializer>
+        <briefdescription>
+<para>DFT disable 0 mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="306" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="306" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1ab4138dc2cf6efff0697f6dc0c446fb55" prot="public" static="no">
+        <name>XNVM_EFUSE_SEC_CTRL_DFT_DIS_1_MASK</name>
+        <initializer>(0X00000004U)</initializer>
+        <briefdescription>
+<para>DFT disable 1 mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="307" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="307" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1a194900aca6f6adb135879f41f230f98e" prot="public" static="no">
+        <name>XNVM_EFUSE_SEC_CTRL_LCKDOWN_MASK</name>
+        <initializer>(0X00000008U)</initializer>
+        <briefdescription>
+<para>Lockdown mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="308" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="308" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1a2e08fe51c4197461fca52f04e206c9b2" prot="public" static="no">
+        <name>XNVM_EFUSE_SEC_CTRL_RMA_DISABLE_1_MASK</name>
+        <initializer>(0X00000010U)</initializer>
+        <briefdescription>
+<para>RMA disable 1 mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="309" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="309" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1a26d3f3bb284bc8b2e4b0383c38449dcf" prot="public" static="no">
+        <name>XNVM_EFUSE_SEC_CTRL_RMA_ENABLE_1_MASK</name>
+        <initializer>(0X00000020U)</initializer>
+        <briefdescription>
+<para>RMA enable 1 mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="310" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="310" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1a23f08b69a1d9b9faebbf47069607ae86" prot="public" static="no">
+        <name>XNVM_EFUSE_SEC_CTRL_CRC_EN_COL</name>
+        <initializer>(24U)</initializer>
+        <briefdescription>
+<para>Efuse CRC enable bit column value: 24. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="312" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="312" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1a69a93c3e93f16799f316d44455944bd1" prot="public" static="no">
+        <name>XNVM_EFUSE_SEC_CTRL_DFT_DISABLE_0_COL</name>
+        <initializer>(25U)</initializer>
+        <briefdescription>
+<para>DFT disable 0 bit column value: 25. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="313" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="313" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1a614cddcd6ae7b405bba5d506a53dfcd0" prot="public" static="no">
+        <name>XNVM_EFUSE_SEC_CTRL_DFT_DISABLE_1_COL</name>
+        <initializer>(26U)</initializer>
+        <briefdescription>
+<para>DFT disable 1 bit column value: 26. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="314" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="314" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1a65f48e66261ed672b71f846db2bdcb8d" prot="public" static="no">
+        <name>XNVM_EFUSE_SEC_CTRL_LCKDOWN_COL</name>
+        <initializer>(27U)</initializer>
+        <briefdescription>
+<para>Lockdown enable bit column value: 27. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="315" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="315" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1a3146c9dd916496a9eabe5158429b8dc9" prot="public" static="no">
+        <name>XNVM_EFUSE_SEC_CTRL_RMA_DISABLE_1_COL</name>
+        <initializer>(28U)</initializer>
+        <briefdescription>
+<para>RMA disable 1 bit column value: 28. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="316" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="316" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1a79ce62a0240013d585d08f01957006e3" prot="public" static="no">
+        <name>XNVM_EFUSE_SEC_CTRL_RMA_ENABLE_1_COL</name>
+        <initializer>(29U)</initializer>
+        <briefdescription>
+<para>RMA enable 1 bit column value: 29. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="317" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="317" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>XILINX_CTRL register</header>
+      <description><para>Xilinx control register bits, shifts and masks </para></description>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1ad6e0b714d8b3ff23eff4f2d55e8a6afd" prot="public" static="no">
+        <name>XNVM_EFUSE_PUFHD_INVLD_START_COL</name>
+        <initializer>(13U)</initializer>
+        <briefdescription>
+<para>PUF_HD_INVLD start column. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="361" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="361" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1ac02dd71b1ff8add25074ca57b1770fa0" prot="public" static="no">
+        <name>XNVM_EFUSE_PUFHD_INVLD_END_COL</name>
+        <initializer>(14U)</initializer>
+        <briefdescription>
+<para>PUF_HD_INVLD end column. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="362" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="362" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1a031bbfe49fc77fbbee22d43d8db4828f" prot="public" static="no">
+        <name>XNVM_EFUSE_PUFHD_INVLD_NUM_OF_ROWS</name>
+        <initializer>(1U)</initializer>
+        <briefdescription>
+<para>PUF_HD_INVLD number of rows. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="363" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="363" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1ac9427ff5bbecf06a889038595b8d3292" prot="public" static="no">
+        <name>XNVM_EFUSE_DIS_SJTAG_COL</name>
+        <initializer>(12U)</initializer>
+        <briefdescription>
+<para>DIS_SJTAG column. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="364" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="364" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1ae7a0ea04524f6750820d273a24460f30" prot="public" static="no">
+        <name>XNVM_EFUSE_OSPI_RESET_RECOVERY_DELAY_CTRL_COL</name>
+        <initializer>(11U)</initializer>
+        <briefdescription>
+<para>OSPI Reset Recovery Delay Control column. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="365" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="365" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1ac3b1c0d24332f647feb3d8f0c3377bcf" prot="public" static="no">
+        <name>XNVM_EFUSE_ROM_RSVD_OSPI_DEV_RESET_CHOICE_COL</name>
+        <initializer>(10U)</initializer>
+        <briefdescription>
+<para>ROM RSVD OSPI Device Reset Choice column. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="366" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="366" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1a6555bed751e0b10496ee52ca98a66062" prot="public" static="no">
+        <name>XNVM_EFUSE_ROM_OSPI_CMD_SEQ_CTRL_START_COL</name>
+        <initializer>(8U)</initializer>
+        <briefdescription>
+<para>ROM OSPI Cmd Seq Ctrl start column. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="367" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="367" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1a858057fe4dbc4f5cb4b4eab3ac026481" prot="public" static="no">
+        <name>XNVM_EFUSE_ROM_OSPI_CMD_SEQ_CTRL_END_COL</name>
+        <initializer>(9U)</initializer>
+        <briefdescription>
+<para>ROM OSPI Cmd Seq Ctrl end column. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="368" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="368" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1ac924af25e2991087cb3818dcfff4a671" prot="public" static="no">
+        <name>XNVM_EFUSE_ROM_OSPI_CMD_SEQ_CTRL_NUM_OF_ROWS</name>
+        <initializer>(1U)</initializer>
+        <briefdescription>
+<para>ROM OSPI Cmd Seq Ctrl number of rows. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="369" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="369" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1a6ffcc87cc5e6af291149f5a8a963960a" prot="public" static="no">
+        <name>XNVM_EFUSE_PUFHD_INVLD_EFUSE_SHIFT</name>
+        <initializer>(0x13U)</initializer>
+        <briefdescription>
+<para>Puf Invalid shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="371" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="371" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1a8d4d862f90b36a0ba13b6f03eecb49ff" prot="public" static="no">
+        <name>XNVM_EFUSE_DIS_SJTAG_EFUSE_SHIFT</name>
+        <initializer>(0x12U)</initializer>
+        <briefdescription>
+<para>Disable Secure JTAG shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="372" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="372" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1a5c6af909f412780716574fc3f4c2b47a" prot="public" static="no">
+        <name>XNVM_EFUSE_OSPI_RESET_RECOVERY_DELAY_CTRL_SHIFT</name>
+        <initializer>(0xBU)</initializer>
+        <briefdescription>
+<para>OSPI Reset Recovery Delay Control shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="373" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="373" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1aff2bb2d7f14ba3148f8e323c92ae05cf" prot="public" static="no">
+        <name>XNVM_EFUSE_ROM_RSVD_OSPI_DEV_RESET_CHOICE_SHIFT</name>
+        <initializer>(0xAU)</initializer>
+        <briefdescription>
+<para>ROM RSVD OSPI Device Reset Choice shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="374" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="374" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1ac03957a91b13ce7e2612a13f08d26324" prot="public" static="no">
+        <name>XNVM_EFUSE_ROM_OSPI_CMD_SEQ_CTRL_SHIFT</name>
+        <initializer>(0x8U)</initializer>
+        <briefdescription>
+<para>ROM OSPI Cmd Seq Ctrl shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="375" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="375" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1a3c6ca63f03bc66b4d5e629612ebcc4ca" prot="public" static="no">
+        <name>XNVM_EFUSE_PUFHD_INVLD_EFUSE_MASK</name>
+        <initializer>(0x00006000U)</initializer>
+        <briefdescription>
+<para>Puf Invalid mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="377" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="377" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1ac44968d8b7ce0dc5d79e00cedd9f05ce" prot="public" static="no">
+        <name>XNVM_EFUSE_DIS_SJTAG_EFUSE_MASK</name>
+        <initializer>(0x00001000U)</initializer>
+        <briefdescription>
+<para>Disable Secure JTAG mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="378" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="378" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1a51a0372a5c77bbf6bc6f93a5365590d8" prot="public" static="no">
+        <name>XNVM_EFUSE_OSPI_RESET_RECOVERY_DELAY_CTRL_MASK</name>
+        <initializer>(0x00000800U)</initializer>
+        <briefdescription>
+<para>OSPI Reset Recovery Delay Control mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="379" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="379" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1a9c528d05be6ebd8a80855590643be97e" prot="public" static="no">
+        <name>XNVM_EFUSE_ROM_RSVD_OSPI_DEV_RESET_CHOICE_MASK</name>
+        <initializer>(0x00000400U)</initializer>
+        <briefdescription>
+<para>ROM RSVD OSPI Device Reset Choice mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="380" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="380" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1a12dd5588fb0cdfc722ff07a5e3de2c6f" prot="public" static="no">
+        <name>XNVM_EFUSE_ROM_OSPI_CMD_SEQ_CTRL_MASK</name>
+        <initializer>(0x00000300U)</initializer>
+        <briefdescription>
+<para>ROM OSPI Cmd Seq Ctrl mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="381" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="381" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1a42abd7f1ccff2680c93180730348f189" prot="public" static="no">
+        <name>XNVM_EFUSE_PUFHD_INVLD_EFUSE_BITS</name>
+        <initializer>(0x02U)</initializer>
+        <briefdescription>
+<para>Puf Invalid bits. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="383" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="383" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1ac7c6409dcf35868bf893ac7e7c7ecae5" prot="public" static="no">
+        <name>XNVM_EFUSE_DIS_SJTAG_EFUSE_BITS</name>
+        <initializer>(0x01U)</initializer>
+        <briefdescription>
+<para>Disable Secure JTAG bits. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="384" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="384" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1a96a116dbdba27c7fc740f6d4c58b7156" prot="public" static="no">
+        <name>XNVM_EFUSE_OSPI_RESET_RECOVERY_DELAY_CTRL_BITS</name>
+        <initializer>(0x01U)</initializer>
+        <briefdescription>
+<para>OSPI Reset Recovery Delay Control bits. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="385" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="385" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1ad1d95dfb8c4c4f758a53fff2a92a7433" prot="public" static="no">
+        <name>XNVM_EFUSE_ROM_RSVD_OSPI_DEV_RESET_CHOICE_BITS</name>
+        <initializer>(0x01U)</initializer>
+        <briefdescription>
+<para>ROM RSVD OSPI Device Reset Choice bits. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="386" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="386" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1a3b908eed42f640b8953e70019799a577" prot="public" static="no">
+        <name>XNVM_EFUSE_ROM_OSPI_CMD_SEQ_CTRL_BITS</name>
+        <initializer>(0x02U)</initializer>
+        <briefdescription>
+<para>ROM OSPI Cmd Seq Ctrl bits. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="387" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="387" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1a28badbf87823b5af74224f5bf97db0f0" prot="public" static="no">
+        <name>XNVM_EFUSE_PPK1_START_OFFSET</name>
+        <initializer>(0x000010A0U)</initializer>
+        <briefdescription>
+<para>PPK1 cache start offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="322" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="322" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1aec6baa302534e32c619a34c867489499" prot="public" static="no">
+        <name>XNVM_EFUSE_SEC_CTRL_PPK1_WR_LK_SHIFT</name>
+        <initializer>(13U)</initializer>
+        <briefdescription>
+<para>PPK1 write lock shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="323" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="323" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1a62e9fe37f5155964924b6db1e347bba7" prot="public" static="no">
+        <name>XNVM_EFUSE_SEC_CTRL_PPK1_INVLD0_SHIFT</name>
+        <initializer>(14U)</initializer>
+        <briefdescription>
+<para>PPK1 invalidation 0 shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="324" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="324" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1a94dce4b58df53feab20151a5068e27f0" prot="public" static="no">
+        <name>XNVM_EFUSE_SEC_CTRL_PPK1_INVLD1_SHIFT</name>
+        <initializer>(30U)</initializer>
+        <briefdescription>
+<para>PPK1 invalidation 1 shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="325" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="325" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1a930ca7c654b909efc57647769579b9dd" prot="public" static="no">
+        <name>XNVM_EFUSE_SEC_CTRL_PPK1_WR_LK_MASK</name>
+        <initializer>(0x00002000U)</initializer>
+        <briefdescription>
+<para>PPK1 write lock mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="326" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="326" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1aa189ed29d6f5918e0e804ea05acb86f7" prot="public" static="no">
+        <name>XNVM_EFUSE_SEC_CTRL_PPK1_INVLD0_MASK</name>
+        <initializer>(0x00004000U)</initializer>
+        <briefdescription>
+<para>PPK1 invalidation 0 mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="327" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="327" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1aa734d4bdc125e774182bc34e7471223d" prot="public" static="no">
+        <name>XNVM_EFUSE_SEC_CTRL_PPK1_INVLD1_MASK</name>
+        <initializer>(0x40000000U)</initializer>
+        <briefdescription>
+<para>PPK1 invalidation 1 mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="328" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="328" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1a0e0deb99f8fdaf875839971ff5e32c35" prot="public" static="no">
+        <name>XNVM_EFUSE_SEC_CTRL_PPK2_WR_LK_SHIFT</name>
+        <initializer>(11U)</initializer>
+        <briefdescription>
+<para>PPK2 write lock shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="329" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="329" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1a1ded523ef0f02ce7bc06e2bbf359bc52" prot="public" static="no">
+        <name>XNVM_EFUSE_SEC_CTRL_PPK2_INVLD0_SHIFT</name>
+        <initializer>(12U)</initializer>
+        <briefdescription>
+<para>PPK2 invalidation 0 shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="330" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="330" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1a44599714b9e521cd6c9d8d73cc13455e" prot="public" static="no">
+        <name>XNVM_EFUSE_SEC_CTRL_PPK2_INVLD1_SHIFT</name>
+        <initializer>(29U)</initializer>
+        <briefdescription>
+<para>PPK2 invalidation 1 shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="331" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="331" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1a42ea0fc5268526d389c8fef4221d67fb" prot="public" static="no">
+        <name>XNVM_EFUSE_SEC_CTRL_PPK2_WR_LK_MASK</name>
+        <initializer>(0x00000800U)</initializer>
+        <briefdescription>
+<para>PPK2 write lock mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="332" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="332" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1a0e4b7ed07c0a406cc313235b8724637e" prot="public" static="no">
+        <name>XNVM_EFUSE_SEC_CTRL_PPK2_INVLD0_MASK</name>
+        <initializer>(0x00001000U)</initializer>
+        <briefdescription>
+<para>PPK2 invalidation 0 mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="333" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="333" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1a5f23d5b14a6f28ec23870f99757a5501" prot="public" static="no">
+        <name>XNVM_EFUSE_SEC_CTRL_PPK2_INVLD1_MASK</name>
+        <initializer>(0x20000000U)</initializer>
+        <briefdescription>
+<para>PPK2 invalidation 1 mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="334" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="334" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1a33a8c0d8d1a1536769f407f2fb3cc355" prot="public" static="no">
+        <name>XNVM_EFUSE_SEC_CTRL_PPK1_INVLD_0_COL</name>
+        <initializer>(27U)</initializer>
+        <briefdescription>
+<para>PPK1 invalid 0 bit column value: 27. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="335" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="335" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1a4d73b2698862251fa3b72bc8093d7dae" prot="public" static="no">
+        <name>XNVM_EFUSE_SEC_CTRL_PPK1_INVLD_1_COL</name>
+        <initializer>(28U)</initializer>
+        <briefdescription>
+<para>PPK1 invalid 1 bit column value: 28. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="336" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="336" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1a25d341c887ba06db7e4937c7e8f33433" prot="public" static="no">
+        <name>XNVM_EFUSE_SEC_CTRL_PPK1_WR_LK_COL</name>
+        <initializer>(27U)</initializer>
+        <briefdescription>
+<para>PPK1 write lock bit column value: 27. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="337" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="337" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1a9e743571c13f0dc004d8bc0f14b8fe2e" prot="public" static="no">
+        <name>XNVM_EFUSE_SEC_CTRL_PPK2_INVLD_0_COL</name>
+        <initializer>(29U)</initializer>
+        <briefdescription>
+<para>PPK2 invalid 0 bit column value: 29. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="338" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="338" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1aaa7b2817a68662ebed2a891fcffe1503" prot="public" static="no">
+        <name>XNVM_EFUSE_SEC_CTRL_PPK2_INVLD_1_COL</name>
+        <initializer>(30U)</initializer>
+        <briefdescription>
+<para>PPK2 invalid 1 bit column value: 30. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="339" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="339" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xnvm__efuse__hw_8h_1aad39379cf73d4953f6642fd96b016793" prot="public" static="no">
+        <name>XNVM_EFUSE_SEC_CTRL_PPK2_WR_LK_COL</name>
+        <initializer>(28U)</initializer>
+        <briefdescription>
+<para>PPK2 write lock bit column value: 28. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" line="340" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h" bodystart="340" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2024<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="31"><highlight class="preprocessor">#ifndef<sp/>XNVM_EFUSE_HW_H</highlight></codeline>
+<codeline lineno="32"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_HW_H</highlight></codeline>
+<codeline lineno="33"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="35"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="37"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_io.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CTRL_BASEADDR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x04160000U<sp/></highlight></codeline>
+<codeline lineno="53"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_WR_LOCK_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000000U<sp/></highlight></codeline>
+<codeline lineno="55"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_WR_UNLOCK_VALUE<sp/><sp/><sp/><sp/><sp/><sp/>0xDF0DU<sp/></highlight></codeline>
+<codeline lineno="62"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CFG_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000004U<sp/></highlight></codeline>
+<codeline lineno="63"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CFG_MARGIN_RD_MASK<sp/><sp/><sp/>0x0000000cU<sp/></highlight></codeline>
+<codeline lineno="64"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CFG_NORMAL_RD<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00U<sp/></highlight></codeline>
+<codeline lineno="65"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CFG_MARGIN_2_RD<sp/><sp/><sp/><sp/><sp/><sp/>0x02U<sp/></highlight></codeline>
+<codeline lineno="66"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CFG_MARGIN_RD_SHIFT<sp/><sp/>2U<sp/></highlight></codeline>
+<codeline lineno="67"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CFG_PGM_EN_SHIFT<sp/><sp/><sp/><sp/><sp/>1U<sp/></highlight></codeline>
+<codeline lineno="75"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_STS_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000008U<sp/></highlight></codeline>
+<codeline lineno="77"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_STS_AES_CRC_PASS_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000080U<sp/></highlight></codeline>
+<codeline lineno="79"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_STS_AES_CRC_DONE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000040U<sp/></highlight></codeline>
+<codeline lineno="81"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_STS_0_TBIT_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0U<sp/></highlight></codeline>
+<codeline lineno="89"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_PGM_ADDR_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/>0x0000000CU<sp/></highlight></codeline>
+<codeline lineno="96"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_RD_ADDR_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000010U<sp/></highlight></codeline>
+<codeline lineno="103"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_RD_DATA_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000014U<sp/></highlight></codeline>
+<codeline lineno="110"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_TPGM_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000018U<sp/></highlight></codeline>
+<codeline lineno="117"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_TRD_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0000001CU<sp/></highlight></codeline>
+<codeline lineno="124"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_TSU_H_PS_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/>0x00000020U<sp/></highlight></codeline>
+<codeline lineno="131"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_TSU_H_PS_CS_OFFSET<sp/><sp/><sp/>0x00000024U<sp/></highlight></codeline>
+<codeline lineno="138"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_TSU_H_CS_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/>0x0000002CU<sp/></highlight></codeline>
+<codeline lineno="145"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_ISR_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000030U<sp/></highlight></codeline>
+<codeline lineno="147"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_ISR_CACHE_ERR_MASK<sp/><sp/><sp/>0x00000010U<sp/></highlight></codeline>
+<codeline lineno="154"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CACHE_LOAD_OFFSET<sp/><sp/><sp/><sp/>0x00000044U<sp/></highlight></codeline>
+<codeline lineno="155"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CACHE_LOAD_MASK<sp/><sp/><sp/><sp/><sp/><sp/>0x00000001U<sp/></highlight></codeline>
+<codeline lineno="162"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_AES_CRC_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0000004CU<sp/></highlight></codeline>
+<codeline lineno="169"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_TEST_CTRL_REG_OFFSET<sp/>0x00000100U<sp/></highlight></codeline>
+<codeline lineno="176"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_XILINX_CTRL_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00001000U<sp/></highlight></codeline>
+<codeline lineno="177"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CONTROL_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00001004U<sp/></highlight></codeline>
+<codeline lineno="178"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_DNA_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0000100CU<sp/></highlight></codeline>
+<codeline lineno="179"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_USER_FUSE_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00001020U<sp/></highlight></codeline>
+<codeline lineno="180"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_PPK0_START_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00001080U<sp/></highlight></codeline>
+<codeline lineno="181"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_PPK2_START_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x000010C0U<sp/></highlight></codeline>
+<codeline lineno="182"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_DEC_ONLY_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00001140U<sp/></highlight></codeline>
+<codeline lineno="183"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_AES_IV_RANGE_START_OFFSET<sp/><sp/><sp/><sp/>0x00001130U<sp/></highlight></codeline>
+<codeline lineno="184"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_BLACK_IV_START_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00001144U<sp/></highlight></codeline>
+<codeline lineno="185"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CRC_EN_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00001150U<sp/></highlight></codeline>
+<codeline lineno="186"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_SPK_REVOKE_ID_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00001124U<sp/></highlight></codeline>
+<codeline lineno="187"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_AES_REVOKE_ID_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0000113CU<sp/></highlight></codeline>
+<codeline lineno="188"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_XILINX_CTRL_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00001000U<sp/></highlight></codeline>
+<codeline lineno="197"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_BOOT_MODE_DIS_ROW_60<sp/>(60U)<sp/></highlight></codeline>
+<codeline lineno="198"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_BOOT_MODE_DIS_ROW_61<sp/>(61U)<sp/></highlight></codeline>
+<codeline lineno="200"><highlight class="preprocessor">#define<sp/><sp/>XNVM_EFUSE_QSPI32_BOOT_MODE_DIS_COL<sp/><sp/><sp/><sp/>(8U)<sp/></highlight></codeline>
+<codeline lineno="201"><highlight class="preprocessor">#define<sp/><sp/>XNVM_EFUSE_OSPI_BOOT_MODE_DIS_COL<sp/><sp/><sp/><sp/><sp/><sp/>(9U)<sp/></highlight></codeline>
+<codeline lineno="202"><highlight class="preprocessor">#define<sp/><sp/>XNVM_EFUSE_JTAG_BOOT_MODE_DIS_COL<sp/><sp/><sp/><sp/><sp/><sp/>(11U)<sp/></highlight></codeline>
+<codeline lineno="203"><highlight class="preprocessor">#define<sp/><sp/>XNVM_EFUSE_SMAP_BOOT_MODE_DIS_COL<sp/><sp/><sp/><sp/><sp/><sp/>(12U)<sp/></highlight></codeline>
+<codeline lineno="204"><highlight class="preprocessor">#define<sp/><sp/>XNVM_EFUSE_SERIAL_BOOT_MODE_DIS_COL<sp/><sp/><sp/><sp/>(13U)<sp/></highlight></codeline>
+<codeline lineno="205"><highlight class="preprocessor">#define<sp/><sp/>XNVM_EFUSE_QSPI24_BOOT_MODE_DIS_COL<sp/><sp/><sp/><sp/>(15U)<sp/></highlight></codeline>
+<codeline lineno="207"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_QSPI24_BOOT_MODE_DIS_MASK<sp/><sp/><sp/><sp/>(0x00000002U)<sp/></highlight></codeline>
+<codeline lineno="208"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_QSPI32_BOOT_MODE_DIS_MASK<sp/><sp/><sp/><sp/>(0x00000004U)<sp/></highlight></codeline>
+<codeline lineno="209"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_OSPI_BOOT_MODE_DIS_MASK<sp/><sp/><sp/><sp/><sp/><sp/>(0x00000008U)<sp/></highlight></codeline>
+<codeline lineno="210"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_JTAG_BOOT_MODE_DIS_MASK<sp/><sp/><sp/><sp/><sp/><sp/>(0x00000020U)<sp/></highlight></codeline>
+<codeline lineno="211"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_SMAP_BOOT_MODE_DIS_MASK<sp/><sp/><sp/><sp/><sp/><sp/>(0x00000040U)<sp/></highlight></codeline>
+<codeline lineno="212"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_SERIAL_BOOT_MODE_DIS_MASK<sp/><sp/><sp/><sp/>(0x00000080U)<sp/></highlight></codeline>
+<codeline lineno="214"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_BOOT_MODE_DISABLE_EFUSE_BITS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x01U)<sp/></highlight></codeline>
+<codeline lineno="215"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_BOOT_MODE_DIS_QSPI24_EFUSE_SHIFT<sp/><sp/><sp/><sp/><sp/>(0x1U)<sp/></highlight></codeline>
+<codeline lineno="216"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_BOOT_MODE_DIS_QSPI32_EFUSE_SHIFT<sp/><sp/><sp/><sp/><sp/>(0x2U)<sp/></highlight></codeline>
+<codeline lineno="217"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_BOOT_MODE_DIS_OSPI_EFUSE_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x3U)<sp/></highlight></codeline>
+<codeline lineno="218"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_BOOT_MODE_DIS_JTAG_EFUSE_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x5U)<sp/></highlight></codeline>
+<codeline lineno="219"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_BOOT_MODE_DIS_SMAP_EFUSE_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x6U)<sp/></highlight></codeline>
+<codeline lineno="220"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_BOOT_MODE_DIS_SERIAL_EFUSE_SHIFT<sp/><sp/><sp/><sp/><sp/>(0x7U)<sp/></highlight></codeline>
+<codeline lineno="222"><highlight class="preprocessor">#define<sp/>XNVM_PLM_CONFIG_BASE_ADDRESS<sp/><sp/><sp/><sp/>(0x0402B200U)<sp/></highlight></codeline>
+<codeline lineno="223"><highlight class="preprocessor">#define<sp/>XNVM_RTCA_EFUSE_CLK_FREQUENCY_OFFSET<sp/><sp/><sp/><sp/>(0x0000002CU)<sp/></highlight></codeline>
+<codeline lineno="224"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CLK_CTRL_ADDR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x040A003CU)<sp/></highlight></codeline>
+<codeline lineno="225"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_IO_CTRL_ADDR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x040A00E8U)<sp/></highlight></codeline>
+<codeline lineno="226"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CLK_SRC_EMCCLK_VALUE<sp/>(0x1U)<sp/></highlight></codeline>
+<codeline lineno="227"><highlight class="preprocessor">#define<sp/>XNVM_EMCCLK_MIN_FREQUENCY<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(25000000U)<sp/></highlight></codeline>
+<codeline lineno="228"><highlight class="preprocessor">#define<sp/>XNVM_EMCCLK_MAX_FREQUENCY<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(200000000U)<sp/></highlight></codeline>
+<codeline lineno="229"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_EMC_CLK_EN_VAL<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1U<sp/>&lt;&lt;<sp/>1U)<sp/></highlight></codeline>
+<codeline lineno="237"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_SEC_CTRL_BITS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x01U)<sp/></highlight></codeline>
+<codeline lineno="239"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_SEC_CTRL_SCAN_CLEAR_EN_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0U)<sp/></highlight></codeline>
+<codeline lineno="240"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_SEC_CTRL_AES_DIS_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1U)<sp/></highlight></codeline>
+<codeline lineno="241"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_SEC_CTRL_RMA_DISABLE_0_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(6U)<sp/></highlight></codeline>
+<codeline lineno="242"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_SEC_CTRL_RMA_ENABLE_0_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(7U)<sp/></highlight></codeline>
+<codeline lineno="243"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_SEC_CTRL_JTAG_DIS_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(8U)<sp/></highlight></codeline>
+<codeline lineno="244"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_SEC_CTRL_PUF_TEST2_DIS_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(9U)<sp/></highlight></codeline>
+<codeline lineno="245"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_SEC_CTRL_HASH_PUF_OR_KEY_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(10U)<sp/></highlight></codeline>
+<codeline lineno="246"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_SEC_CTRL_PPK0_WR_LK_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(15U)<sp/></highlight></codeline>
+<codeline lineno="247"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_SEC_CTRL_PPK0_INVLD0_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(16U)<sp/></highlight></codeline>
+<codeline lineno="248"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_SEC_CTRL_AES_RD_WR_LK_0_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(17U)<sp/></highlight></codeline>
+<codeline lineno="249"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_SEC_CTRL_AES_RD_WR_LK_1_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(18U)<sp/></highlight></codeline>
+<codeline lineno="250"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_SEC_CTRL_JTAG_ERR_OUT_DIS_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/>(26U)<sp/></highlight></codeline>
+<codeline lineno="251"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_SEC_CTRL_USER_WR_LK_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(27U)<sp/></highlight></codeline>
+<codeline lineno="252"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_SEC_CTRL_PPK0_INVLD1_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(31U)<sp/></highlight></codeline>
+<codeline lineno="254"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_SEC_CTRL_SCAN_CLEAR_EN_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000001U)<sp/></highlight></codeline>
+<codeline lineno="255"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_SEC_CTRL_AES_DIS_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000002U)<sp/></highlight></codeline>
+<codeline lineno="256"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_SEC_CTRL_RMA_DISABLE_0_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000040U)<sp/></highlight></codeline>
+<codeline lineno="257"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_SEC_CTRL_RMA_ENABLE_0_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000080U)<sp/></highlight></codeline>
+<codeline lineno="258"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_SEC_CTRL_JTAG_DIS_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000100U)<sp/></highlight></codeline>
+<codeline lineno="259"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_SEC_CTRL_PUF_TEST2_DIS_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000200U)<sp/></highlight></codeline>
+<codeline lineno="260"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_SEC_CTRL_HASH_PUF_OR_KEY_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000400U)<sp/></highlight></codeline>
+<codeline lineno="261"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_SEC_CTRL_PPK0_WR_LK_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00008000U)<sp/></highlight></codeline>
+<codeline lineno="262"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_SEC_CTRL_PPK0_INVLD0_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00010000U)<sp/></highlight></codeline>
+<codeline lineno="263"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_SEC_CTRL_AES_RD_WR_LK_0_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00020000U)<sp/></highlight></codeline>
+<codeline lineno="264"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_SEC_CTRL_AES_RD_WR_LK_1_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00040000U)<sp/></highlight></codeline>
+<codeline lineno="265"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_SEC_CTRL_JTAG_ERR_OUT_DIS_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x04000000U)<sp/></highlight></codeline>
+<codeline lineno="266"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_SEC_CTRL_USER_WR_LK_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x08000000U)<sp/></highlight></codeline>
+<codeline lineno="267"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_SEC_CTRL_PPK0_INVLD1_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x80000000U)<sp/></highlight></codeline>
+<codeline lineno="269"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_SEC_CTRL_ROW_0<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0U)<sp/></highlight></codeline>
+<codeline lineno="270"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_SEC_CTRL_ROW_1<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1U)<sp/></highlight></codeline>
+<codeline lineno="271"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_SEC_CTRL_ROW_2<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(2U)<sp/></highlight></codeline>
+<codeline lineno="272"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_SEC_CTRL_ROW_3<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(3U)<sp/></highlight></codeline>
+<codeline lineno="273"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_SEC_CTRL_ROW_4<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(18U)<sp/></highlight></codeline>
+<codeline lineno="275"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_SEC_CTRL_RMA_DISABLE_0_COL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(3U)<sp/></highlight></codeline>
+<codeline lineno="276"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_SEC_CTRL_RMA_ENABLE_0_COL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(4U)<sp/></highlight></codeline>
+<codeline lineno="277"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_SEC_CTRL_SCAN_CLEAR_EN_COL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(5U)<sp/></highlight></codeline>
+<codeline lineno="278"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_SEC_CTRL_HASH_PUF_OR_KEY_COL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(6U)<sp/></highlight></codeline>
+<codeline lineno="279"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_SEC_CTRL_JTAG_ERR_OUT_DIS_COL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(14U)<sp/></highlight></codeline>
+<codeline lineno="280"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_SEC_CTRL_USER_WR_LK_COL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(15U)<sp/></highlight></codeline>
+<codeline lineno="281"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_SEC_CTRL_PUF_TEST2_DIS_COL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(24U)<sp/></highlight></codeline>
+<codeline lineno="282"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_SEC_CTRL_PPK0_INVLD_0_COL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(25U)<sp/></highlight></codeline>
+<codeline lineno="283"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_SEC_CTRL_PPK0_INVLD_1_COL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(26U)<sp/></highlight></codeline>
+<codeline lineno="284"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_SEC_CTRL_AES_RD_WR_LK_0_COL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(24U)<sp/></highlight></codeline>
+<codeline lineno="285"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_SEC_CTRL_AES_RD_WR_LK_1_COL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(25U)<sp/></highlight></codeline>
+<codeline lineno="286"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_SEC_CTRL_PPK0_WR_LK_COL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(26U)<sp/></highlight></codeline>
+<codeline lineno="287"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_SEC_CTRL_JTAG_DIS_COL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(29U)<sp/></highlight></codeline>
+<codeline lineno="288"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_SEC_CTRL_AES_DIS_COL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(30U)<sp/></highlight></codeline>
+<codeline lineno="297"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_SEC_CTRL_DFT_BITS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(2U)<sp/></highlight></codeline>
+<codeline lineno="299"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CRC_EN_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0U)<sp/></highlight></codeline>
+<codeline lineno="300"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_DFT_DIS_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1U)<sp/></highlight></codeline>
+<codeline lineno="301"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_LCKDOWN_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(3U)<sp/></highlight></codeline>
+<codeline lineno="302"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_RMA_DISABLE_1_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(4U)<sp/></highlight></codeline>
+<codeline lineno="303"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_RMA_ENABLE_1_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(5U)<sp/></highlight></codeline>
+<codeline lineno="305"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_SEC_CTRL_CRC_EN_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0X00000001U)<sp/></highlight></codeline>
+<codeline lineno="306"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_SEC_CTRL_DFT_DIS_0_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0X00000002U)<sp/></highlight></codeline>
+<codeline lineno="307"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_SEC_CTRL_DFT_DIS_1_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0X00000004U)<sp/></highlight></codeline>
+<codeline lineno="308"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_SEC_CTRL_LCKDOWN_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0X00000008U)<sp/></highlight></codeline>
+<codeline lineno="309"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_SEC_CTRL_RMA_DISABLE_1_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0X00000010U)<sp/></highlight></codeline>
+<codeline lineno="310"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_SEC_CTRL_RMA_ENABLE_1_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0X00000020U)<sp/></highlight></codeline>
+<codeline lineno="312"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_SEC_CTRL_CRC_EN_COL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(24U)<sp/></highlight></codeline>
+<codeline lineno="313"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_SEC_CTRL_DFT_DISABLE_0_COL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(25U)<sp/></highlight></codeline>
+<codeline lineno="314"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_SEC_CTRL_DFT_DISABLE_1_COL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(26U)<sp/></highlight></codeline>
+<codeline lineno="315"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_SEC_CTRL_LCKDOWN_COL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(27U)<sp/></highlight></codeline>
+<codeline lineno="316"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_SEC_CTRL_RMA_DISABLE_1_COL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(28U)<sp/></highlight></codeline>
+<codeline lineno="317"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_SEC_CTRL_RMA_ENABLE_1_COL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(29U)<sp/></highlight></codeline>
+<codeline lineno="321"><highlight class="preprocessor">#ifndef<sp/>SPARTANUPLUSAES1</highlight></codeline>
+<codeline lineno="322"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_PPK1_START_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x000010A0U)<sp/></highlight></codeline>
+<codeline lineno="323"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_SEC_CTRL_PPK1_WR_LK_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(13U)<sp/></highlight></codeline>
+<codeline lineno="324"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_SEC_CTRL_PPK1_INVLD0_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(14U)<sp/></highlight></codeline>
+<codeline lineno="325"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_SEC_CTRL_PPK1_INVLD1_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(30U)<sp/></highlight></codeline>
+<codeline lineno="326"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_SEC_CTRL_PPK1_WR_LK_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00002000U)<sp/></highlight></codeline>
+<codeline lineno="327"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_SEC_CTRL_PPK1_INVLD0_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00004000U)<sp/></highlight></codeline>
+<codeline lineno="328"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_SEC_CTRL_PPK1_INVLD1_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x40000000U)<sp/></highlight></codeline>
+<codeline lineno="329"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_SEC_CTRL_PPK2_WR_LK_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(11U)<sp/></highlight></codeline>
+<codeline lineno="330"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_SEC_CTRL_PPK2_INVLD0_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(12U)<sp/></highlight></codeline>
+<codeline lineno="331"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_SEC_CTRL_PPK2_INVLD1_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(29U)<sp/></highlight></codeline>
+<codeline lineno="332"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_SEC_CTRL_PPK2_WR_LK_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000800U)<sp/></highlight></codeline>
+<codeline lineno="333"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_SEC_CTRL_PPK2_INVLD0_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00001000U)<sp/></highlight></codeline>
+<codeline lineno="334"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_SEC_CTRL_PPK2_INVLD1_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x20000000U)<sp/></highlight></codeline>
+<codeline lineno="335"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_SEC_CTRL_PPK1_INVLD_0_COL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(27U)<sp/></highlight></codeline>
+<codeline lineno="336"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_SEC_CTRL_PPK1_INVLD_1_COL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(28U)<sp/></highlight></codeline>
+<codeline lineno="337"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_SEC_CTRL_PPK1_WR_LK_COL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(27U)<sp/></highlight></codeline>
+<codeline lineno="338"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_SEC_CTRL_PPK2_INVLD_0_COL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(29U)<sp/></highlight></codeline>
+<codeline lineno="339"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_SEC_CTRL_PPK2_INVLD_1_COL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(30U)<sp/></highlight></codeline>
+<codeline lineno="340"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_SEC_CTRL_PPK2_WR_LK_COL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(28U)<sp/></highlight></codeline>
+<codeline lineno="342"><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="343"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_PPK1_START_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x000010B0U)<sp/></highlight></codeline>
+<codeline lineno="344"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_SEC_CTRL_PPK1_WR_LK_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(11U)<sp/></highlight></codeline>
+<codeline lineno="345"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_SEC_CTRL_PPK1_INVLD0_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(12U)<sp/></highlight></codeline>
+<codeline lineno="346"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_SEC_CTRL_PPK1_INVLD1_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(29U)<sp/></highlight></codeline>
+<codeline lineno="347"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_SEC_CTRL_PPK1_WR_LK_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000800U)<sp/></highlight></codeline>
+<codeline lineno="348"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_SEC_CTRL_PPK1_INVLD0_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00001000U)<sp/></highlight></codeline>
+<codeline lineno="349"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_SEC_CTRL_PPK1_INVLD1_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x20000000U)<sp/></highlight></codeline>
+<codeline lineno="350"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_SEC_CTRL_PPK1_INVLD_0_COL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(29U)<sp/></highlight></codeline>
+<codeline lineno="351"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_SEC_CTRL_PPK1_INVLD_1_COL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(30U)<sp/></highlight></codeline>
+<codeline lineno="352"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_SEC_CTRL_PPK1_WR_LK_COL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(28U)<sp/></highlight></codeline>
+<codeline lineno="353"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_BOOT_MODE_DIS_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x0000104CU)<sp/></highlight></codeline>
+<codeline lineno="354"><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="355"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="361"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_PUFHD_INVLD_START_COL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(13U)<sp/></highlight></codeline>
+<codeline lineno="362"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_PUFHD_INVLD_END_COL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(14U)<sp/></highlight></codeline>
+<codeline lineno="363"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_PUFHD_INVLD_NUM_OF_ROWS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1U)<sp/></highlight></codeline>
+<codeline lineno="364"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_DIS_SJTAG_COL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(12U)<sp/></highlight></codeline>
+<codeline lineno="365"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_OSPI_RESET_RECOVERY_DELAY_CTRL_COL<sp/><sp/><sp/>(11U)<sp/></highlight></codeline>
+<codeline lineno="366"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_ROM_RSVD_OSPI_DEV_RESET_CHOICE_COL<sp/><sp/><sp/>(10U)<sp/></highlight></codeline>
+<codeline lineno="367"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_ROM_OSPI_CMD_SEQ_CTRL_START_COL<sp/><sp/><sp/><sp/><sp/><sp/>(8U)<sp/></highlight></codeline>
+<codeline lineno="368"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_ROM_OSPI_CMD_SEQ_CTRL_END_COL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(9U)<sp/></highlight></codeline>
+<codeline lineno="369"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_ROM_OSPI_CMD_SEQ_CTRL_NUM_OF_ROWS<sp/><sp/><sp/><sp/>(1U)<sp/></highlight></codeline>
+<codeline lineno="371"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_PUFHD_INVLD_EFUSE_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x13U)<sp/></highlight></codeline>
+<codeline lineno="372"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_DIS_SJTAG_EFUSE_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x12U)<sp/></highlight></codeline>
+<codeline lineno="373"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_OSPI_RESET_RECOVERY_DELAY_CTRL_SHIFT<sp/>(0xBU)<sp/></highlight></codeline>
+<codeline lineno="374"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_ROM_RSVD_OSPI_DEV_RESET_CHOICE_SHIFT<sp/>(0xAU)<sp/></highlight></codeline>
+<codeline lineno="375"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_ROM_OSPI_CMD_SEQ_CTRL_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x8U)<sp/></highlight></codeline>
+<codeline lineno="377"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_PUFHD_INVLD_EFUSE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00006000U)<sp/></highlight></codeline>
+<codeline lineno="378"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_DIS_SJTAG_EFUSE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00001000U)<sp/></highlight></codeline>
+<codeline lineno="379"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_OSPI_RESET_RECOVERY_DELAY_CTRL_MASK<sp/><sp/>(0x00000800U)<sp/></highlight></codeline>
+<codeline lineno="380"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_ROM_RSVD_OSPI_DEV_RESET_CHOICE_MASK<sp/><sp/>(0x00000400U)<sp/></highlight></codeline>
+<codeline lineno="381"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_ROM_OSPI_CMD_SEQ_CTRL_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000300U)<sp/></highlight></codeline>
+<codeline lineno="383"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_PUFHD_INVLD_EFUSE_BITS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x02U)<sp/></highlight></codeline>
+<codeline lineno="384"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_DIS_SJTAG_EFUSE_BITS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x01U)<sp/></highlight></codeline>
+<codeline lineno="385"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_OSPI_RESET_RECOVERY_DELAY_CTRL_BITS<sp/><sp/>(0x01U)<sp/></highlight></codeline>
+<codeline lineno="386"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_ROM_RSVD_OSPI_DEV_RESET_CHOICE_BITS<sp/><sp/>(0x01U)<sp/></highlight></codeline>
+<codeline lineno="387"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_ROM_OSPI_CMD_SEQ_CTRL_BITS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x02U)<sp/></highlight></codeline>
+<codeline lineno="391"><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="392"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="393"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="394"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="395"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XNVM_EFUSE_HW_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h"/>
+  </compounddef>
+</doxygen>

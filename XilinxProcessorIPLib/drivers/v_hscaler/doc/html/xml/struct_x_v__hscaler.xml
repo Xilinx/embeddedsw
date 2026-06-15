@@ -1,0 +1,143 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_v__hscaler" kind="struct" prot="public">
+    <compoundname>XV_hscaler</compoundname>
+    <includes local="no">xv_hscaler.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_v__hscaler_1a593e6539aa573e9b57c5126b8db1cc5b" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_v__hscaler___config" kindref="compound">XV_hscaler_Config</ref></type>
+        <definition>XV_hscaler_Config XV_hscaler::Config</definition>
+        <argsstring></argsstring>
+        <name>Config</name>
+        <briefdescription>
+<para>Hardware Configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.h" line="75" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.h" bodystart="75" bodyend="-1"/>
+        <referencedby refid="xv__hscaler_8h_1a878705caed628a1ea0b1392e59d5110c" compoundref="xv__hscaler_8c" startline="54" endline="69">XV_hscaler_CfgInitialize</referencedby>
+        <referencedby refid="xv__hscaler_8h_1a0e12a42bfc0aa099330be45c38d31247" compoundref="xv__hscaler_8c" startline="197" endline="204">XV_hscaler_DisableAutoRestart</referencedby>
+        <referencedby refid="xv__hscaler_8h_1ae0d2437aa5d0f104aa9f8ea08d3e6211" compoundref="xv__hscaler_8c" startline="177" endline="184">XV_hscaler_EnableAutoRestart</referencedby>
+        <referencedby refid="xv__hscaler_8h_1a79190851fa4145de7d1c29ab857cac57" compoundref="xv__hscaler_8c" startline="377" endline="389">XV_hscaler_Get_HwReg_ColorMode</referencedby>
+        <referencedby refid="xv__hscaler_8h_1a08c9bcc7a731476d88da89f2deb936d8" compoundref="xv__hscaler_8c" startline="423" endline="435">XV_hscaler_Get_HwReg_ColorModeOut</referencedby>
+        <referencedby refid="xv__hscaler_8h_1ac190df8dce38c64114270927fdac8f7b" compoundref="xv__hscaler_8c" startline="237" endline="249">XV_hscaler_Get_HwReg_Height</referencedby>
+        <referencedby refid="xv__hscaler_8h_1a67bc579c834cf0a9c8ec4b91798ed277" compoundref="xv__hscaler_8c" startline="473" endline="478">XV_hscaler_Get_HwReg_hfltCoeff_BaseAddress</referencedby>
+        <referencedby refid="xv__hscaler_8h_1a9dd38d3ec68c6a24373e2258bb230801" compoundref="xv__hscaler_8c" startline="486" endline="491">XV_hscaler_Get_HwReg_hfltCoeff_HighAddress</referencedby>
+        <referencedby refid="xv__hscaler_8h_1a36eb6b3dd64414ce9d68d00112df8172" compoundref="xv__hscaler_8c" startline="633" endline="638">XV_hscaler_Get_HwReg_phasesH_V_BaseAddress</referencedby>
+        <referencedby refid="xv__hscaler_8h_1a605973db41319b380b0041c3c0d5a107" compoundref="xv__hscaler_8c" startline="646" endline="651">XV_hscaler_Get_HwReg_phasesH_V_HighAddress</referencedby>
+        <referencedby refid="xv__hscaler_8h_1adab95db7c44af21bf6a75d2c9ba775f8" compoundref="xv__hscaler_8c" startline="457" endline="465">XV_hscaler_Get_HwReg_PixelRate</referencedby>
+        <referencedby refid="xv__hscaler_8h_1a1fc1fada8eef0ec2cf40826a5d9aa8c3" compoundref="xv__hscaler_8c" startline="283" endline="295">XV_hscaler_Get_HwReg_WidthIn</referencedby>
+        <referencedby refid="xv__hscaler_8h_1a47d66f0357445ffe3752f78d302a2b39" compoundref="xv__hscaler_8c" startline="330" endline="342">XV_hscaler_Get_HwReg_WidthOut</referencedby>
+        <referencedby refid="xv__hscaler_8h_1a2c492d985fc6df4cb4ce858dd35617a2" compoundref="xv__hscaler_8c" startline="855" endline="860">XV_hscaler_InterruptClear</referencedby>
+        <referencedby refid="xv__hscaler_8h_1ae522d137b8398bfc2c9706319c821747" compoundref="xv__hscaler_8c" startline="838" endline="846">XV_hscaler_InterruptDisable</referencedby>
+        <referencedby refid="xv__hscaler_8h_1a47a48f9ec15578d32aa409fe06fea3a4" compoundref="xv__hscaler_8c" startline="821" endline="829">XV_hscaler_InterruptEnable</referencedby>
+        <referencedby refid="xv__hscaler_8h_1a36467e08c522877a0f4a1d521ec3543f" compoundref="xv__hscaler_8c" startline="868" endline="873">XV_hscaler_InterruptGetEnabled</referencedby>
+        <referencedby refid="xv__hscaler_8h_1a5def33610cf1c5899547cf03cef0dc25" compoundref="xv__hscaler_8c" startline="881" endline="886">XV_hscaler_InterruptGetStatus</referencedby>
+        <referencedby refid="xv__hscaler_8h_1abaf7bf955ac699e839aba79c662b5797" compoundref="xv__hscaler_8c" startline="807" endline="812">XV_hscaler_InterruptGlobalDisable</referencedby>
+        <referencedby refid="xv__hscaler_8h_1a0c1461ec110c3848ebd17e3f522b1a8a" compoundref="xv__hscaler_8c" startline="794" endline="799">XV_hscaler_InterruptGlobalEnable</referencedby>
+        <referencedby refid="xv__hscaler_8h_1a9952f215099f3805314cb81b8681aa01" compoundref="xv__hscaler_8c" startline="106" endline="116">XV_hscaler_IsDone</referencedby>
+        <referencedby refid="xv__hscaler_8h_1a10e8034f617beb44377a8e7d0a9419c8" compoundref="xv__hscaler_8c" startline="129" endline="139">XV_hscaler_IsIdle</referencedby>
+        <referencedby refid="xv__hscaler_8h_1a9c646387ef49b919ff45e3d6972a9d44" compoundref="xv__hscaler_8c" startline="153" endline="164">XV_hscaler_IsReady</referencedby>
+        <referencedby refid="xv__hscaler_8h_1a05e8fd58fafd88170c2dc8003670e3db" compoundref="xv__hscaler_8c" startline="613" endline="626">XV_hscaler_Read_HwReg_hfltCoeff_Bytes</referencedby>
+        <referencedby refid="xv__hscaler_8h_1a76df144d2c4bbf3ebc583cc8e22ee087" compoundref="xv__hscaler_8c" startline="565" endline="578">XV_hscaler_Read_HwReg_hfltCoeff_Words</referencedby>
+        <referencedby refid="xv__hscaler_8h_1a5e035c5e7c7b4ccbc4071374ef70fb1f" compoundref="xv__hscaler_8c" startline="773" endline="786">XV_hscaler_Read_HwReg_phasesH_V_Bytes</referencedby>
+        <referencedby refid="xv__hscaler_8h_1aa0ad3a0a80c4c4c48c7ad3afa83d92b9" compoundref="xv__hscaler_8c" startline="725" endline="738">XV_hscaler_Read_HwReg_phasesH_V_Words</referencedby>
+        <referencedby refid="xv__hscaler_8h_1a715cce4654d3329eb225723337022bda" compoundref="xv__hscaler_8c" startline="355" endline="364">XV_hscaler_Set_HwReg_ColorMode</referencedby>
+        <referencedby refid="xv__hscaler_8h_1a9b136b4250b89f0ab859b80ed8b08054" compoundref="xv__hscaler_8c" startline="402" endline="411">XV_hscaler_Set_HwReg_ColorModeOut</referencedby>
+        <referencedby refid="xv__hscaler_8h_1aefbc1e5012fd62aeed4c3385acafda5f" compoundref="xv__hscaler_8c" startline="217" endline="224">XV_hscaler_Set_HwReg_Height</referencedby>
+        <referencedby refid="xv__hscaler_8h_1adc83c87e2c16e1e2109c13caa6a50bd3" compoundref="xv__hscaler_8c" startline="444" endline="449">XV_hscaler_Set_HwReg_PixelRate</referencedby>
+        <referencedby refid="xv__hscaler_8h_1a612846a6bdddf446da065874f5686bec" compoundref="xv__hscaler_8c" startline="262" endline="271">XV_hscaler_Set_HwReg_WidthIn</referencedby>
+        <referencedby refid="xv__hscaler_8h_1a06e278f308d4923c8859d8a2679fdeb6" compoundref="xv__hscaler_8c" startline="308" endline="317">XV_hscaler_Set_HwReg_WidthOut</referencedby>
+        <referencedby refid="xv__hscaler_8h_1a8c6d07fe34c3f3c7c54806a69b1c76a7" compoundref="xv__hscaler_8c" startline="82" endline="94">XV_hscaler_Start</referencedby>
+        <referencedby refid="xv__hscaler_8h_1ae874af417c8808478e58e61442bac5c0" compoundref="xv__hscaler_8c" startline="589" endline="602">XV_hscaler_Write_HwReg_hfltCoeff_Bytes</referencedby>
+        <referencedby refid="xv__hscaler_8h_1aa290c0d38d0e82b944b38cf9f81a1f60" compoundref="xv__hscaler_8c" startline="541" endline="554">XV_hscaler_Write_HwReg_hfltCoeff_Words</referencedby>
+        <referencedby refid="xv__hscaler_8h_1a0a7a5d85bddc374983b20b66d9d0e1f7" compoundref="xv__hscaler_8c" startline="749" endline="762">XV_hscaler_Write_HwReg_phasesH_V_Bytes</referencedby>
+        <referencedby refid="xv__hscaler_8h_1af65f59bef917becda7af8812e260a9e8" compoundref="xv__hscaler_8c" startline="701" endline="714">XV_hscaler_Write_HwReg_phasesH_V_Words</referencedby>
+        <referencedby refid="group__v__hscaler_1ga7e3786ef99dc9aeab864629c72e8f000" compoundref="xv__hscaler__l2_8c" startline="667" endline="750">XV_HScalerDbgReportStatus</referencedby>
+        <referencedby refid="group__v__hscaler_1ga2d4f69120d87bc983e2c6b17e0df404b" compoundref="xv__hscaler__l2_8c" startline="273" endline="332">XV_HScalerLoadExtCoeff</referencedby>
+        <referencedby refid="group__v__hscaler_1gae6e04c78787b26aea73ce5c28b1d78b6" compoundref="xv__hscaler__l2_8c" startline="603" endline="654">XV_HScalerSetup</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v__hscaler_1ad5d2908149e2c582f9e3377b05755b1e" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XV_hscaler::IsReady</definition>
+        <argsstring></argsstring>
+        <name>IsReady</name>
+        <briefdescription>
+<para>Device is initialized and ready. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.h" line="76" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.h" bodystart="76" bodyend="-1"/>
+        <referencedby refid="xv__hscaler_8h_1a878705caed628a1ea0b1392e59d5110c" compoundref="xv__hscaler_8c" startline="54" endline="69">XV_hscaler_CfgInitialize</referencedby>
+        <referencedby refid="xv__hscaler_8h_1a0e12a42bfc0aa099330be45c38d31247" compoundref="xv__hscaler_8c" startline="197" endline="204">XV_hscaler_DisableAutoRestart</referencedby>
+        <referencedby refid="xv__hscaler_8h_1ae0d2437aa5d0f104aa9f8ea08d3e6211" compoundref="xv__hscaler_8c" startline="177" endline="184">XV_hscaler_EnableAutoRestart</referencedby>
+        <referencedby refid="xv__hscaler_8h_1a79190851fa4145de7d1c29ab857cac57" compoundref="xv__hscaler_8c" startline="377" endline="389">XV_hscaler_Get_HwReg_ColorMode</referencedby>
+        <referencedby refid="xv__hscaler_8h_1a08c9bcc7a731476d88da89f2deb936d8" compoundref="xv__hscaler_8c" startline="423" endline="435">XV_hscaler_Get_HwReg_ColorModeOut</referencedby>
+        <referencedby refid="xv__hscaler_8h_1ac190df8dce38c64114270927fdac8f7b" compoundref="xv__hscaler_8c" startline="237" endline="249">XV_hscaler_Get_HwReg_Height</referencedby>
+        <referencedby refid="xv__hscaler_8h_1a67bc579c834cf0a9c8ec4b91798ed277" compoundref="xv__hscaler_8c" startline="473" endline="478">XV_hscaler_Get_HwReg_hfltCoeff_BaseAddress</referencedby>
+        <referencedby refid="xv__hscaler_8h_1a20194c817d458ecc451c979aba353cd7" compoundref="xv__hscaler_8c" startline="512" endline="517">XV_hscaler_Get_HwReg_hfltCoeff_BitWidth</referencedby>
+        <referencedby refid="xv__hscaler_8h_1abc51de334949b8964b3366833061931d" compoundref="xv__hscaler_8c" startline="525" endline="530">XV_hscaler_Get_HwReg_hfltCoeff_Depth</referencedby>
+        <referencedby refid="xv__hscaler_8h_1a9dd38d3ec68c6a24373e2258bb230801" compoundref="xv__hscaler_8c" startline="486" endline="491">XV_hscaler_Get_HwReg_hfltCoeff_HighAddress</referencedby>
+        <referencedby refid="xv__hscaler_8h_1a90f47d3afdcb958c1f7082f12f099f1c" compoundref="xv__hscaler_8c" startline="499" endline="504">XV_hscaler_Get_HwReg_hfltCoeff_TotalBytes</referencedby>
+        <referencedby refid="xv__hscaler_8h_1a36eb6b3dd64414ce9d68d00112df8172" compoundref="xv__hscaler_8c" startline="633" endline="638">XV_hscaler_Get_HwReg_phasesH_V_BaseAddress</referencedby>
+        <referencedby refid="xv__hscaler_8h_1a8208826091c04cbac03e9f5f889874e7" compoundref="xv__hscaler_8c" startline="672" endline="677">XV_hscaler_Get_HwReg_phasesH_V_BitWidth</referencedby>
+        <referencedby refid="xv__hscaler_8h_1a577a9f7144f10f16463b47854ea4eb1a" compoundref="xv__hscaler_8c" startline="685" endline="690">XV_hscaler_Get_HwReg_phasesH_V_Depth</referencedby>
+        <referencedby refid="xv__hscaler_8h_1a605973db41319b380b0041c3c0d5a107" compoundref="xv__hscaler_8c" startline="646" endline="651">XV_hscaler_Get_HwReg_phasesH_V_HighAddress</referencedby>
+        <referencedby refid="xv__hscaler_8h_1aa83934864e6c11c891b51d14fbe8576f" compoundref="xv__hscaler_8c" startline="659" endline="664">XV_hscaler_Get_HwReg_phasesH_V_TotalBytes</referencedby>
+        <referencedby refid="xv__hscaler_8h_1adab95db7c44af21bf6a75d2c9ba775f8" compoundref="xv__hscaler_8c" startline="457" endline="465">XV_hscaler_Get_HwReg_PixelRate</referencedby>
+        <referencedby refid="xv__hscaler_8h_1a1fc1fada8eef0ec2cf40826a5d9aa8c3" compoundref="xv__hscaler_8c" startline="283" endline="295">XV_hscaler_Get_HwReg_WidthIn</referencedby>
+        <referencedby refid="xv__hscaler_8h_1a47d66f0357445ffe3752f78d302a2b39" compoundref="xv__hscaler_8c" startline="330" endline="342">XV_hscaler_Get_HwReg_WidthOut</referencedby>
+        <referencedby refid="xv__hscaler__sinit_8c_1a0731bb21cae22988aefb0ec791851e7b" compoundref="xv__hscaler__sinit_8c" startline="137" endline="151">XV_hscaler_Initialize</referencedby>
+        <referencedby refid="xv__hscaler_8h_1a2c492d985fc6df4cb4ce858dd35617a2" compoundref="xv__hscaler_8c" startline="855" endline="860">XV_hscaler_InterruptClear</referencedby>
+        <referencedby refid="xv__hscaler_8h_1ae522d137b8398bfc2c9706319c821747" compoundref="xv__hscaler_8c" startline="838" endline="846">XV_hscaler_InterruptDisable</referencedby>
+        <referencedby refid="xv__hscaler_8h_1a47a48f9ec15578d32aa409fe06fea3a4" compoundref="xv__hscaler_8c" startline="821" endline="829">XV_hscaler_InterruptEnable</referencedby>
+        <referencedby refid="xv__hscaler_8h_1a36467e08c522877a0f4a1d521ec3543f" compoundref="xv__hscaler_8c" startline="868" endline="873">XV_hscaler_InterruptGetEnabled</referencedby>
+        <referencedby refid="xv__hscaler_8h_1a5def33610cf1c5899547cf03cef0dc25" compoundref="xv__hscaler_8c" startline="881" endline="886">XV_hscaler_InterruptGetStatus</referencedby>
+        <referencedby refid="xv__hscaler_8h_1abaf7bf955ac699e839aba79c662b5797" compoundref="xv__hscaler_8c" startline="807" endline="812">XV_hscaler_InterruptGlobalDisable</referencedby>
+        <referencedby refid="xv__hscaler_8h_1a0c1461ec110c3848ebd17e3f522b1a8a" compoundref="xv__hscaler_8c" startline="794" endline="799">XV_hscaler_InterruptGlobalEnable</referencedby>
+        <referencedby refid="xv__hscaler_8h_1a9952f215099f3805314cb81b8681aa01" compoundref="xv__hscaler_8c" startline="106" endline="116">XV_hscaler_IsDone</referencedby>
+        <referencedby refid="xv__hscaler_8h_1a10e8034f617beb44377a8e7d0a9419c8" compoundref="xv__hscaler_8c" startline="129" endline="139">XV_hscaler_IsIdle</referencedby>
+        <referencedby refid="xv__hscaler_8h_1a9c646387ef49b919ff45e3d6972a9d44" compoundref="xv__hscaler_8c" startline="153" endline="164">XV_hscaler_IsReady</referencedby>
+        <referencedby refid="xv__hscaler_8h_1a05e8fd58fafd88170c2dc8003670e3db" compoundref="xv__hscaler_8c" startline="613" endline="626">XV_hscaler_Read_HwReg_hfltCoeff_Bytes</referencedby>
+        <referencedby refid="xv__hscaler_8h_1a76df144d2c4bbf3ebc583cc8e22ee087" compoundref="xv__hscaler_8c" startline="565" endline="578">XV_hscaler_Read_HwReg_hfltCoeff_Words</referencedby>
+        <referencedby refid="xv__hscaler_8h_1a5e035c5e7c7b4ccbc4071374ef70fb1f" compoundref="xv__hscaler_8c" startline="773" endline="786">XV_hscaler_Read_HwReg_phasesH_V_Bytes</referencedby>
+        <referencedby refid="xv__hscaler_8h_1aa0ad3a0a80c4c4c48c7ad3afa83d92b9" compoundref="xv__hscaler_8c" startline="725" endline="738">XV_hscaler_Read_HwReg_phasesH_V_Words</referencedby>
+        <referencedby refid="xv__hscaler_8h_1a715cce4654d3329eb225723337022bda" compoundref="xv__hscaler_8c" startline="355" endline="364">XV_hscaler_Set_HwReg_ColorMode</referencedby>
+        <referencedby refid="xv__hscaler_8h_1a9b136b4250b89f0ab859b80ed8b08054" compoundref="xv__hscaler_8c" startline="402" endline="411">XV_hscaler_Set_HwReg_ColorModeOut</referencedby>
+        <referencedby refid="xv__hscaler_8h_1aefbc1e5012fd62aeed4c3385acafda5f" compoundref="xv__hscaler_8c" startline="217" endline="224">XV_hscaler_Set_HwReg_Height</referencedby>
+        <referencedby refid="xv__hscaler_8h_1adc83c87e2c16e1e2109c13caa6a50bd3" compoundref="xv__hscaler_8c" startline="444" endline="449">XV_hscaler_Set_HwReg_PixelRate</referencedby>
+        <referencedby refid="xv__hscaler_8h_1a612846a6bdddf446da065874f5686bec" compoundref="xv__hscaler_8c" startline="262" endline="271">XV_hscaler_Set_HwReg_WidthIn</referencedby>
+        <referencedby refid="xv__hscaler_8h_1a06e278f308d4923c8859d8a2679fdeb6" compoundref="xv__hscaler_8c" startline="308" endline="317">XV_hscaler_Set_HwReg_WidthOut</referencedby>
+        <referencedby refid="xv__hscaler_8h_1a8c6d07fe34c3f3c7c54806a69b1c76a7" compoundref="xv__hscaler_8c" startline="82" endline="94">XV_hscaler_Start</referencedby>
+        <referencedby refid="xv__hscaler_8h_1ae874af417c8808478e58e61442bac5c0" compoundref="xv__hscaler_8c" startline="589" endline="602">XV_hscaler_Write_HwReg_hfltCoeff_Bytes</referencedby>
+        <referencedby refid="xv__hscaler_8h_1aa290c0d38d0e82b944b38cf9f81a1f60" compoundref="xv__hscaler_8c" startline="541" endline="554">XV_hscaler_Write_HwReg_hfltCoeff_Words</referencedby>
+        <referencedby refid="xv__hscaler_8h_1a0a7a5d85bddc374983b20b66d9d0e1f7" compoundref="xv__hscaler_8c" startline="749" endline="762">XV_hscaler_Write_HwReg_phasesH_V_Bytes</referencedby>
+        <referencedby refid="xv__hscaler_8h_1af65f59bef917becda7af8812e260a9e8" compoundref="xv__hscaler_8c" startline="701" endline="714">XV_hscaler_Write_HwReg_phasesH_V_Words</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Driver instance data. </para>    </briefdescription>
+    <detaileddescription>
+<para>An instance must be allocated for each core in use. </para>    </detaileddescription>
+    <collaborationgraph>
+      <node id="2">
+        <label>XV_hscaler_Config</label>
+        <link refid="struct_x_v__hscaler___config"/>
+      </node>
+      <node id="1">
+        <label>XV_hscaler</label>
+        <link refid="struct_x_v__hscaler"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>Config</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.h" line="74" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.h" bodystart="74" bodyend="77"/>
+    <listofallmembers>
+      <member refid="struct_x_v__hscaler_1a593e6539aa573e9b57c5126b8db1cc5b" prot="public" virt="non-virtual"><scope>XV_hscaler</scope><name>Config</name></member>
+      <member refid="struct_x_v__hscaler_1ad5d2908149e2c582f9e3377b05755b1e" prot="public" virt="non-virtual"><scope>XV_hscaler</scope><name>IsReady</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

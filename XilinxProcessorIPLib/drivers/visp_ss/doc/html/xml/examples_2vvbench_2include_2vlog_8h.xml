@@ -1,0 +1,967 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="examples_2vvbench_2include_2vlog_8h" kind="file">
+    <compoundname>examples/vvbench/include/vlog.h</compoundname>
+    <includes local="no">stdio.h</includes>
+    <includes local="no">stdlib.h</includes>
+    <includes refid="oslayer_8h" local="no">oslayer.h</includes>
+    <includedby refid="apu__to__rpu__ipi_8c" local="yes">apu_to_rpu_ipi.c</includedby>
+    <includedby refid="mbox__api_8c" local="yes">mbox_api.c</includedby>
+    <includedby refid="mbox__cmd_8c" local="yes">mbox_cmd.c</includedby>
+    <includedby refid="iba_8c" local="yes">iba.c</includedby>
+    <includedby refid="oba_8c" local="yes">oba.c</includedby>
+    <includedby refid="vvbench_8h" local="yes">vvbench.h</includedby>
+    <includedby refid="vvdevice_8h" local="yes">vvdevice.h</includedby>
+    <includedby refid="vvformat_8h" local="yes">vvformat.h</includedby>
+    <includedby refid="vvbench__2dnr__api__v5__2_8c" local="yes">vvbench_2dnr_api_v5_2.c</includedby>
+    <includedby refid="vvbench__3dnr__api__dummy_8c" local="yes">vvbench_3dnr_api_dummy.c</includedby>
+    <includedby refid="vvbench__ae__api__v4_8c" local="yes">vvbench_ae_api_v4.c</includedby>
+    <includedby refid="vvbench__af__api__v4_8c" local="yes">vvbench_af_api_v4.c</includedby>
+    <includedby refid="vvbench__afm__api__dummy_8c" local="yes">vvbench_afm_api_dummy.c</includedby>
+    <includedby refid="vvbench__afm__api__v3__dummy_8c" local="yes">vvbench_afm_api_v3_dummy.c</includedby>
+    <includedby refid="vvbench__awb__api__v4_8c" local="yes">vvbench_awb_api_v4.c</includedby>
+    <includedby refid="vvbench__bls__api_8c" local="yes">vvbench_bls_api.c</includedby>
+    <includedby refid="vvbench__ccm__api__v1__1_8c" local="yes">vvbench_ccm_api_v1_1.c</includedby>
+    <includedby refid="vvbench__cnr__api__dummy_8c" local="yes">vvbench_cnr_api_dummy.c</includedby>
+    <includedby refid="vvbench__cpd__api__v1__1_8c" local="yes">vvbench_cpd_api_v1_1.c</includedby>
+    <includedby refid="vvbench__cproc__api_8c" local="yes">vvbench_cproc_api.c</includedby>
+    <includedby refid="vvbench__dg__api_8c" local="yes">vvbench_dg_api.c</includedby>
+    <includedby refid="vvbench__dmsc__api__v2_8c" local="yes">vvbench_dmsc_api_v2.c</includedby>
+    <includedby refid="vvbench__dpcc__api_8c" local="yes">vvbench_dpcc_api.c</includedby>
+    <includedby refid="vvbench__ee__api__v2_8c" local="yes">vvbench_ee_api_v2.c</includedby>
+    <includedby refid="vvbench__exp__api__v2_8c" local="yes">vvbench_exp_api_v2.c</includedby>
+    <includedby refid="vvbench__exp__api__v3__dummy_8c" local="yes">vvbench_exp_api_v3_dummy.c</includedby>
+    <includedby refid="vvbench__fusa__api_8c" local="yes">vvbench_fusa_api.c</includedby>
+    <includedby refid="vvbench__gc__api__v2_8c" local="yes">vvbench_gc_api_v2.c</includedby>
+    <includedby refid="vvbench__ge__api_8c" local="yes">vvbench_ge_api.c</includedby>
+    <includedby refid="vvbench__gtm__api_8c" local="yes">vvbench_gtm_api.c</includedby>
+    <includedby refid="vvbench__hdr__api__dummy_8c" local="yes">vvbench_hdr_api_dummy.c</includedby>
+    <includedby refid="vvbench__hist256__api_8c" local="yes">vvbench_hist256_api.c</includedby>
+    <includedby refid="vvbench__hist64__api_8c" local="yes">vvbench_hist64_api.c</includedby>
+    <includedby refid="vvbench__lsc__api__v3_8c" local="yes">vvbench_lsc_api_v3.c</includedby>
+    <includedby refid="vvbench__lut3d__api__dummy_8c" local="yes">vvbench_lut3d_api_dummy.c</includedby>
+    <includedby refid="vvbench__pdaf__api__dummy_8c" local="yes">vvbench_pdaf_api_dummy.c</includedby>
+    <includedby refid="vvbench__rgbir__api__v2__1_8c" local="yes">vvbench_rgbir_api_v2_1.c</includedby>
+    <includedby refid="vvbench__tpg__api_8c" local="yes">vvbench_tpg_api.c</includedby>
+    <includedby refid="vvbench__vi200__api__dummy_8c" local="yes">vvbench_vi200_api_dummy.c</includedby>
+    <includedby refid="vvbench__wb__api__v1__1_8c" local="yes">vvbench_wb_api_v1_1.c</includedby>
+    <includedby refid="vvbench__wdr__api__v5__2_8c" local="yes">vvbench_wdr_api_v5_2.c</includedby>
+    <includedby refid="vvdevice_8c" local="yes">vvdevice.c</includedby>
+    <includedby refid="vvpath_8c" local="yes">vvpath.c</includedby>
+    <incdepgraph>
+      <node id="8262">
+        <label>oslayer.h</label>
+        <link refid="oslayer_8h"/>
+        <childnode refid="8263" relation="include">
+        </childnode>
+        <childnode refid="8269" relation="include">
+        </childnode>
+      </node>
+      <node id="8261">
+        <label>stdlib.h</label>
+      </node>
+      <node id="8267">
+        <label>stddef.h</label>
+      </node>
+      <node id="8266">
+        <label>limits.h</label>
+      </node>
+      <node id="8268">
+        <label>string.h</label>
+      </node>
+      <node id="8269">
+        <label>ff.h</label>
+      </node>
+      <node id="8264">
+        <label>types.h</label>
+        <link refid="types_8h"/>
+        <childnode refid="8265" relation="include">
+        </childnode>
+        <childnode refid="8266" relation="include">
+        </childnode>
+        <childnode refid="8267" relation="include">
+        </childnode>
+      </node>
+      <node id="8259">
+        <label>vlog.h</label>
+        <link refid="examples/vvbench/include/vlog.h"/>
+        <childnode refid="8260" relation="include">
+        </childnode>
+        <childnode refid="8261" relation="include">
+        </childnode>
+        <childnode refid="8262" relation="include">
+        </childnode>
+      </node>
+      <node id="8263">
+        <label>builtins.h</label>
+        <link refid="builtins_8h"/>
+        <childnode refid="8264" relation="include">
+        </childnode>
+        <childnode refid="8268" relation="include">
+        </childnode>
+      </node>
+      <node id="8260">
+        <label>stdio.h</label>
+      </node>
+      <node id="8265">
+        <label>linux_compat.h</label>
+        <link refid="linux__compat_8h"/>
+        <childnode refid="8260" relation="include">
+        </childnode>
+        <childnode refid="8261" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="8307">
+        <label>vvbench_cpd_api_v1_1.c</label>
+      </node>
+      <node id="8272">
+        <label>mbox_api.c</label>
+      </node>
+      <node id="8284">
+        <label>vvdevice_common.h</label>
+        <childnode refid="8285" relation="include">
+        </childnode>
+        <childnode refid="8288" relation="include">
+        </childnode>
+        <childnode refid="8290" relation="include">
+        </childnode>
+        <childnode refid="8292" relation="include">
+        </childnode>
+        <childnode refid="8294" relation="include">
+        </childnode>
+        <childnode refid="8296" relation="include">
+        </childnode>
+        <childnode refid="8298" relation="include">
+        </childnode>
+        <childnode refid="8300" relation="include">
+        </childnode>
+        <childnode refid="8302" relation="include">
+        </childnode>
+        <childnode refid="8304" relation="include">
+        </childnode>
+        <childnode refid="8306" relation="include">
+        </childnode>
+        <childnode refid="8308" relation="include">
+        </childnode>
+        <childnode refid="8310" relation="include">
+        </childnode>
+        <childnode refid="8312" relation="include">
+        </childnode>
+        <childnode refid="8314" relation="include">
+        </childnode>
+        <childnode refid="8316" relation="include">
+        </childnode>
+        <childnode refid="8318" relation="include">
+        </childnode>
+        <childnode refid="8320" relation="include">
+        </childnode>
+        <childnode refid="8322" relation="include">
+        </childnode>
+        <childnode refid="8324" relation="include">
+        </childnode>
+        <childnode refid="8326" relation="include">
+        </childnode>
+        <childnode refid="8328" relation="include">
+        </childnode>
+        <childnode refid="8330" relation="include">
+        </childnode>
+        <childnode refid="8332" relation="include">
+        </childnode>
+        <childnode refid="8334" relation="include">
+        </childnode>
+        <childnode refid="8336" relation="include">
+        </childnode>
+        <childnode refid="8338" relation="include">
+        </childnode>
+        <childnode refid="8340" relation="include">
+        </childnode>
+        <childnode refid="8342" relation="include">
+        </childnode>
+        <childnode refid="8344" relation="include">
+        </childnode>
+        <childnode refid="8346" relation="include">
+        </childnode>
+        <childnode refid="8348" relation="include">
+        </childnode>
+        <childnode refid="8350" relation="include">
+        </childnode>
+        <childnode refid="8352" relation="include">
+        </childnode>
+      </node>
+      <node id="8331">
+        <label>vvbench_hdr_api_dummy.c</label>
+      </node>
+      <node id="8329">
+        <label>vvbench_gtm_api.c</label>
+      </node>
+      <node id="8325">
+        <label>vvbench_gc_api_v2.c</label>
+      </node>
+      <node id="8271">
+        <label>apu_to_rpu_ipi.c</label>
+      </node>
+      <node id="8335">
+        <label>vvbench_hist256_api.c</label>
+      </node>
+      <node id="8282">
+        <label>vvdevice.c</label>
+      </node>
+      <node id="8312">
+        <label>vvbench_dmsc_api.h</label>
+        <childnode refid="8286" relation="include">
+        </childnode>
+        <childnode refid="8313" relation="include">
+        </childnode>
+      </node>
+      <node id="8293">
+        <label>vvbench_af_api_v4.c</label>
+      </node>
+      <node id="8306">
+        <label>vvbench_cpd_api.h</label>
+        <childnode refid="8286" relation="include">
+        </childnode>
+        <childnode refid="8307" relation="include">
+        </childnode>
+      </node>
+      <node id="8349">
+        <label>vvbench_wb_api_v1_1.c</label>
+      </node>
+      <node id="8332">
+        <label>vvbench_hist64_api.h</label>
+        <childnode refid="8286" relation="include">
+        </childnode>
+        <childnode refid="8333" relation="include">
+        </childnode>
+      </node>
+      <node id="8313">
+        <label>vvbench_dmsc_api_v2.c</label>
+      </node>
+      <node id="8353">
+        <label>vvMetadata.c</label>
+      </node>
+      <node id="8283">
+        <label>vvpath.c</label>
+      </node>
+      <node id="8343">
+        <label>vvbench_rgbir_api_v2_1.c</label>
+      </node>
+      <node id="8288">
+        <label>vvbench_3dnr_api.h</label>
+        <childnode refid="8286" relation="include">
+        </childnode>
+        <childnode refid="8289" relation="include">
+        </childnode>
+      </node>
+      <node id="8323">
+        <label>vvbench_fusa_api.c</label>
+      </node>
+      <node id="8302">
+        <label>vvbench_ccm_api.h</label>
+        <childnode refid="8286" relation="include">
+        </childnode>
+        <childnode refid="8303" relation="include">
+        </childnode>
+      </node>
+      <node id="8286">
+        <label>submodule_def.h</label>
+        <childnode refid="8278" relation="include">
+        </childnode>
+        <childnode refid="8282" relation="include">
+        </childnode>
+      </node>
+      <node id="8350">
+        <label>vvbench_wdr_api.h</label>
+        <childnode refid="8286" relation="include">
+        </childnode>
+        <childnode refid="8351" relation="include">
+        </childnode>
+      </node>
+      <node id="8338">
+        <label>vvbench_lut3d_api.h</label>
+        <childnode refid="8286" relation="include">
+        </childnode>
+        <childnode refid="8339" relation="include">
+        </childnode>
+      </node>
+      <node id="8317">
+        <label>vvbench_ee_api_v2.c</label>
+      </node>
+      <node id="8342">
+        <label>vvbench_rgbir_api.h</label>
+        <childnode refid="8286" relation="include">
+        </childnode>
+        <childnode refid="8343" relation="include">
+        </childnode>
+      </node>
+      <node id="8333">
+        <label>vvbench_hist64_api.c</label>
+      </node>
+      <node id="8310">
+        <label>vvbench_dg_api.h</label>
+        <childnode refid="8286" relation="include">
+        </childnode>
+        <childnode refid="8311" relation="include">
+        </childnode>
+      </node>
+      <node id="8320">
+        <label>vvbench_exp_api_v3.h</label>
+        <childnode refid="8286" relation="include">
+        </childnode>
+        <childnode refid="8291" relation="include">
+        </childnode>
+        <childnode refid="8321" relation="include">
+        </childnode>
+      </node>
+      <node id="8292">
+        <label>vvbench_af_api.h</label>
+        <childnode refid="8286" relation="include">
+        </childnode>
+        <childnode refid="8293" relation="include">
+        </childnode>
+      </node>
+      <node id="8336">
+        <label>vvbench_lsc_api.h</label>
+        <childnode refid="8286" relation="include">
+        </childnode>
+        <childnode refid="8337" relation="include">
+        </childnode>
+      </node>
+      <node id="8319">
+        <label>vvbench_exp_api_v2.c</label>
+      </node>
+      <node id="8354">
+        <label>vvformat.h</label>
+        <childnode refid="8355" relation="include">
+        </childnode>
+      </node>
+      <node id="8352">
+        <label>vvbench_gwdr_api.h</label>
+        <childnode refid="8282" relation="include">
+        </childnode>
+      </node>
+      <node id="8298">
+        <label>vvbench_awb_api.h</label>
+        <childnode refid="8286" relation="include">
+        </childnode>
+        <childnode refid="8299" relation="include">
+        </childnode>
+      </node>
+      <node id="8278">
+        <label>vvbparser.c</label>
+      </node>
+      <node id="8309">
+        <label>vvbench_cproc_api.c</label>
+      </node>
+      <node id="8285">
+        <label>vvbench_2dnr_api.h</label>
+        <childnode refid="8286" relation="include">
+        </childnode>
+        <childnode refid="8287" relation="include">
+        </childnode>
+      </node>
+      <node id="8321">
+        <label>vvbench_exp_api_v3_dummy.c</label>
+      </node>
+      <node id="8308">
+        <label>vvbench_cproc_api.h</label>
+        <childnode refid="8286" relation="include">
+        </childnode>
+        <childnode refid="8309" relation="include">
+        </childnode>
+      </node>
+      <node id="8322">
+        <label>vvbench_fusa_api.h</label>
+        <childnode refid="8286" relation="include">
+        </childnode>
+        <childnode refid="8323" relation="include">
+        </childnode>
+      </node>
+      <node id="8289">
+        <label>vvbench_3dnr_api_dummy.c</label>
+      </node>
+      <node id="8295">
+        <label>vvbench_afm_api_dummy.c</label>
+      </node>
+      <node id="8315">
+        <label>vvbench_dpcc_api.c</label>
+      </node>
+      <node id="8355">
+        <label>vvformat.c</label>
+      </node>
+      <node id="8318">
+        <label>vvbench_exp_api_v2.h</label>
+        <childnode refid="8286" relation="include">
+        </childnode>
+        <childnode refid="8319" relation="include">
+        </childnode>
+      </node>
+      <node id="8281">
+        <label>vvpath.h</label>
+        <childnode refid="8282" relation="include">
+        </childnode>
+        <childnode refid="8283" relation="include">
+        </childnode>
+      </node>
+      <node id="8326">
+        <label>vvbench_ge_api.h</label>
+        <childnode refid="8286" relation="include">
+        </childnode>
+        <childnode refid="8327" relation="include">
+        </childnode>
+      </node>
+      <node id="8276">
+        <label>vvbench.h</label>
+        <childnode refid="8277" relation="include">
+        </childnode>
+        <childnode refid="8278" relation="include">
+        </childnode>
+      </node>
+      <node id="8314">
+        <label>vvbench_dpcc_api.h</label>
+        <childnode refid="8286" relation="include">
+        </childnode>
+        <childnode refid="8315" relation="include">
+        </childnode>
+      </node>
+      <node id="8316">
+        <label>vvbench_ee_api.h</label>
+        <childnode refid="8286" relation="include">
+        </childnode>
+        <childnode refid="8317" relation="include">
+        </childnode>
+      </node>
+      <node id="8328">
+        <label>vvbench_gtm_api.h</label>
+        <childnode refid="8286" relation="include">
+        </childnode>
+        <childnode refid="8329" relation="include">
+        </childnode>
+      </node>
+      <node id="8303">
+        <label>vvbench_ccm_api_v1_1.c</label>
+      </node>
+      <node id="8324">
+        <label>vvbench_gc_api.h</label>
+        <childnode refid="8286" relation="include">
+        </childnode>
+        <childnode refid="8325" relation="include">
+        </childnode>
+      </node>
+      <node id="8348">
+        <label>vvbench_wb_api.h</label>
+        <childnode refid="8286" relation="include">
+        </childnode>
+        <childnode refid="8349" relation="include">
+        </childnode>
+      </node>
+      <node id="8279">
+        <label>vvdevice.h</label>
+        <childnode refid="8280" relation="include">
+        </childnode>
+        <childnode refid="8284" relation="include">
+        </childnode>
+        <childnode refid="8281" relation="include">
+        </childnode>
+        <childnode refid="8282" relation="include">
+        </childnode>
+        <childnode refid="8353" relation="include">
+        </childnode>
+        <childnode refid="8283" relation="include">
+        </childnode>
+      </node>
+      <node id="8339">
+        <label>vvbench_lut3d_api_dummy.c</label>
+      </node>
+      <node id="8346">
+        <label>vvbench_vi200_api.h</label>
+        <childnode refid="8286" relation="include">
+        </childnode>
+        <childnode refid="8347" relation="include">
+        </childnode>
+      </node>
+      <node id="8296">
+        <label>vvbench_afm_api_v3.h</label>
+        <childnode refid="8286" relation="include">
+        </childnode>
+        <childnode refid="8293" relation="include">
+        </childnode>
+        <childnode refid="8297" relation="include">
+        </childnode>
+      </node>
+      <node id="8304">
+        <label>vvbench_cnr_api.h</label>
+        <childnode refid="8286" relation="include">
+        </childnode>
+        <childnode refid="8305" relation="include">
+        </childnode>
+      </node>
+      <node id="8300">
+        <label>vvbench_bls_api.h</label>
+        <childnode refid="8286" relation="include">
+        </childnode>
+        <childnode refid="8301" relation="include">
+        </childnode>
+      </node>
+      <node id="8311">
+        <label>vvbench_dg_api.c</label>
+      </node>
+      <node id="8277">
+        <label>vvbench.c</label>
+      </node>
+      <node id="8344">
+        <label>vvbench_tpg_api.h</label>
+        <childnode refid="8286" relation="include">
+        </childnode>
+        <childnode refid="8345" relation="include">
+        </childnode>
+      </node>
+      <node id="8301">
+        <label>vvbench_bls_api.c</label>
+      </node>
+      <node id="8275">
+        <label>oba.c</label>
+      </node>
+      <node id="8297">
+        <label>vvbench_afm_api_v3_dummy.c</label>
+      </node>
+      <node id="8294">
+        <label>vvbench_afm_api.h</label>
+        <childnode refid="8286" relation="include">
+        </childnode>
+        <childnode refid="8293" relation="include">
+        </childnode>
+        <childnode refid="8295" relation="include">
+        </childnode>
+      </node>
+      <node id="8287">
+        <label>vvbench_2dnr_api_v5_2.c</label>
+      </node>
+      <node id="8351">
+        <label>vvbench_wdr_api_v5_2.c</label>
+      </node>
+      <node id="8290">
+        <label>vvbench_ae_api.h</label>
+        <childnode refid="8286" relation="include">
+        </childnode>
+        <childnode refid="8291" relation="include">
+        </childnode>
+      </node>
+      <node id="8347">
+        <label>vvbench_vi200_api_dummy.c</label>
+      </node>
+      <node id="8330">
+        <label>vvbench_hdr_api.h</label>
+        <childnode refid="8286" relation="include">
+        </childnode>
+        <childnode refid="8331" relation="include">
+        </childnode>
+      </node>
+      <node id="8345">
+        <label>vvbench_tpg_api.c</label>
+      </node>
+      <node id="8305">
+        <label>vvbench_cnr_api_dummy.c</label>
+      </node>
+      <node id="8274">
+        <label>iba.c</label>
+      </node>
+      <node id="8334">
+        <label>vvbench_hist256_api.h</label>
+        <childnode refid="8286" relation="include">
+        </childnode>
+        <childnode refid="8335" relation="include">
+        </childnode>
+      </node>
+      <node id="8280">
+        <label>vvbparser.h</label>
+        <childnode refid="8281" relation="include">
+        </childnode>
+        <childnode refid="8278" relation="include">
+        </childnode>
+        <childnode refid="8282" relation="include">
+        </childnode>
+      </node>
+      <node id="8337">
+        <label>vvbench_lsc_api_v3.c</label>
+      </node>
+      <node id="8273">
+        <label>mbox_cmd.c</label>
+      </node>
+      <node id="8341">
+        <label>vvbench_pdaf_api_dummy.c</label>
+      </node>
+      <node id="8270">
+        <label>vlog.h</label>
+        <link refid="examples/vvbench/include/vlog.h"/>
+        <childnode refid="8271" relation="include">
+        </childnode>
+        <childnode refid="8272" relation="include">
+        </childnode>
+        <childnode refid="8273" relation="include">
+        </childnode>
+        <childnode refid="8274" relation="include">
+        </childnode>
+        <childnode refid="8275" relation="include">
+        </childnode>
+        <childnode refid="8276" relation="include">
+        </childnode>
+        <childnode refid="8279" relation="include">
+        </childnode>
+        <childnode refid="8354" relation="include">
+        </childnode>
+        <childnode refid="8287" relation="include">
+        </childnode>
+        <childnode refid="8289" relation="include">
+        </childnode>
+        <childnode refid="8291" relation="include">
+        </childnode>
+        <childnode refid="8293" relation="include">
+        </childnode>
+        <childnode refid="8295" relation="include">
+        </childnode>
+        <childnode refid="8297" relation="include">
+        </childnode>
+        <childnode refid="8299" relation="include">
+        </childnode>
+        <childnode refid="8301" relation="include">
+        </childnode>
+        <childnode refid="8303" relation="include">
+        </childnode>
+        <childnode refid="8305" relation="include">
+        </childnode>
+        <childnode refid="8307" relation="include">
+        </childnode>
+        <childnode refid="8309" relation="include">
+        </childnode>
+        <childnode refid="8311" relation="include">
+        </childnode>
+        <childnode refid="8313" relation="include">
+        </childnode>
+        <childnode refid="8315" relation="include">
+        </childnode>
+        <childnode refid="8317" relation="include">
+        </childnode>
+        <childnode refid="8319" relation="include">
+        </childnode>
+        <childnode refid="8321" relation="include">
+        </childnode>
+        <childnode refid="8323" relation="include">
+        </childnode>
+        <childnode refid="8325" relation="include">
+        </childnode>
+        <childnode refid="8327" relation="include">
+        </childnode>
+        <childnode refid="8329" relation="include">
+        </childnode>
+        <childnode refid="8331" relation="include">
+        </childnode>
+        <childnode refid="8335" relation="include">
+        </childnode>
+        <childnode refid="8333" relation="include">
+        </childnode>
+        <childnode refid="8337" relation="include">
+        </childnode>
+        <childnode refid="8339" relation="include">
+        </childnode>
+        <childnode refid="8341" relation="include">
+        </childnode>
+        <childnode refid="8343" relation="include">
+        </childnode>
+        <childnode refid="8345" relation="include">
+        </childnode>
+        <childnode refid="8347" relation="include">
+        </childnode>
+        <childnode refid="8349" relation="include">
+        </childnode>
+        <childnode refid="8351" relation="include">
+        </childnode>
+        <childnode refid="8282" relation="include">
+        </childnode>
+        <childnode refid="8283" relation="include">
+        </childnode>
+      </node>
+      <node id="8327">
+        <label>vvbench_ge_api.c</label>
+      </node>
+      <node id="8291">
+        <label>vvbench_ae_api_v4.c</label>
+      </node>
+      <node id="8299">
+        <label>vvbench_awb_api_v4.c</label>
+      </node>
+      <node id="8340">
+        <label>vvbench_pdaf_api.h</label>
+        <childnode refid="8286" relation="include">
+        </childnode>
+        <childnode refid="8341" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="examples_2vvbench_2include_2vlog_8h_1a1414676cb492bf985bbb76d90ffd7f4f" prot="public" static="no">
+        <name>__VLOG_INT</name>
+        <param><defname>format</defname></param>
+        <param><defname>...</defname></param>
+        <initializer>&quot;[%s] &quot; format &quot;\033[0m%s&quot;, LOGTAG, __VA_ARGS__</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vlog.h" line="65" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vlog.h" bodystart="65" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="examples_2vvbench_2include_2vlog_8h_1aa839997a58e14061861cd634fdb7664d" prot="public" static="no">
+        <name>LOGD</name>
+        <param><defname>...</defname></param>
+        <initializer>if (VsiVvbenchGetLogLevel() &lt;= VVLOG_LEVEL_DEBUG) { \
+		printf(&quot;[%.6lf]&quot;,timeStampGet()); \
+		printf(&quot;\033[1;30;37mDEBUG  : &quot; __VLOG_INT(__VA_ARGS__, &quot;\n&quot;)); \
+	}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vlog.h" line="67" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vlog.h" bodystart="67" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="examples_2vvbench_2include_2vlog_8h_1a5512e59d578a380a441a70256af997d0" prot="public" static="no">
+        <name>LOGI</name>
+        <param><defname>...</defname></param>
+        <initializer>if (VsiVvbenchGetLogLevel() &lt;= VVLOG_LEVEL_INFO) { \
+		printf(&quot;[%.6lf]&quot;,timeStampGet()); \
+		printf(&quot;\033[1;30;32mINFO  : &quot; __VLOG_INT(__VA_ARGS__, &quot;\n&quot;)); \
+	}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vlog.h" line="73" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vlog.h" bodystart="73" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="examples_2vvbench_2include_2vlog_8h_1a07f1b0d507acedeb7550353eba4f6e66" prot="public" static="no">
+        <name>LOGW</name>
+        <param><defname>...</defname></param>
+        <initializer>if (VsiVvbenchGetLogLevel() &lt;= VVLOG_LEVEL_WARNING) { \
+		printf(&quot;[%.6lf]&quot;,timeStampGet()); \
+		printf(&quot;\033[1;30;33mWARN  : &quot; __VLOG_INT(__VA_ARGS__, &quot;\n&quot;)); \
+	}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vlog.h" line="79" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vlog.h" bodystart="79" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="examples_2vvbench_2include_2vlog_8h_1ae02538a80ad5fc009caec73487d11a8d" prot="public" static="no">
+        <name>LOGE</name>
+        <param><defname>...</defname></param>
+        <initializer>if (VsiVvbenchGetLogLevel() &lt;= VVLOG_LEVEL_ERROR) { \
+		printf(&quot;[%.6lf]&quot;,timeStampGet()); \
+		printf(&quot;\033[1;30;31mERROR  : &quot; __VLOG_INT(__VA_ARGS__, &quot;\n&quot;)); \
+	}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vlog.h" line="85" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vlog.h" bodystart="85" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="examples_2vvbench_2include_2vlog_8h_1abc5c98fcc1211af2b80116dd6e0a035d" prot="public" static="no">
+        <name>@11</name>
+        <enumvalue id="examples_2vvbench_2include_2vlog_8h_1abc5c98fcc1211af2b80116dd6e0a035daf3dd46e0aa5764bc56f4c239a8d91309" prot="public">
+          <name>VVLOG_LEVEL_VERBOSE</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="examples_2vvbench_2include_2vlog_8h_1abc5c98fcc1211af2b80116dd6e0a035da60cdcc21416c9413d225fb9be645df1e" prot="public">
+          <name>VVLOG_LEVEL_DEBUG</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="examples_2vvbench_2include_2vlog_8h_1abc5c98fcc1211af2b80116dd6e0a035da888415f52cc723a8399c26fad79184e3" prot="public">
+          <name>VVLOG_LEVEL_INFO</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="examples_2vvbench_2include_2vlog_8h_1abc5c98fcc1211af2b80116dd6e0a035daf293b0a74b5bad7c5ab3f6fc979c9719" prot="public">
+          <name>VVLOG_LEVEL_WARNING</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="examples_2vvbench_2include_2vlog_8h_1abc5c98fcc1211af2b80116dd6e0a035da68c588cb2269a31a3c1c0232ac6e1f0b" prot="public">
+          <name>VVLOG_LEVEL_ERROR</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vlog.h" line="36" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vlog.h" bodystart="36" bodyend="42"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="examples_2vvbench_2include_2vlog_8h_1a543be2208bf11ba0ce425b55500934eb" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int vvbenchLogLevel</definition>
+        <argsstring></argsstring>
+        <name>vvbenchLogLevel</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vlog.h" line="44" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvbench.c" bodystart="61" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="examples_2vvbench_2include_2vlog_8h_1a8ada187eba62a59ff5d475d76a115b09" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>int</type>
+        <definition>static int VsiVvbenchGetLogLevel</definition>
+        <argsstring>()</argsstring>
+        <name>VsiVvbenchGetLogLevel</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vlog.h" line="46" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vlog.h" bodystart="46" bodyend="53"/>
+      </memberdef>
+      <memberdef kind="function" id="examples_2vvbench_2include_2vlog_8h_1afd879d4f5a8df248c75bdc59e86abe2b" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>float32_t</type>
+        <definition>static float32_t timeStampGet</definition>
+        <argsstring>()</argsstring>
+        <name>timeStampGet</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vlog.h" line="55" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vlog.h" bodystart="55" bodyend="62"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">//<sp/>Copyright<sp/>(C)<sp/>2024<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************</highlight></codeline>
+<codeline lineno="3"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="4"><highlight class="comment"><sp/>*<sp/>The<sp/>MIT<sp/>License<sp/>(MIT)</highlight></codeline>
+<codeline lineno="5"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="6"><highlight class="comment"><sp/>*<sp/>Copyright<sp/>(c)<sp/>2014-2026<sp/>Vivantec<sp/>Corporation</highlight></codeline>
+<codeline lineno="7"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="8"><highlight class="comment"><sp/>*<sp/>Permission<sp/>is<sp/>hereby<sp/>granted,<sp/>free<sp/>of<sp/>charge,<sp/>to<sp/>any<sp/>person<sp/>obtaining<sp/>a</highlight></codeline>
+<codeline lineno="9"><highlight class="comment"><sp/>*<sp/>copy<sp/>of<sp/>this<sp/>software<sp/>and<sp/>associated<sp/>documentation<sp/>files<sp/>(the<sp/>&quot;Software&quot;),</highlight></codeline>
+<codeline lineno="10"><highlight class="comment"><sp/>*<sp/>to<sp/>deal<sp/>in<sp/>the<sp/>Software<sp/>without<sp/>restriction,<sp/>including<sp/>without<sp/>limitation</highlight></codeline>
+<codeline lineno="11"><highlight class="comment"><sp/>*<sp/>the<sp/>rights<sp/>to<sp/>use,<sp/>copy,<sp/>modify,<sp/>merge,<sp/>publish,<sp/>distribute,<sp/>sublicense,</highlight></codeline>
+<codeline lineno="12"><highlight class="comment"><sp/>*<sp/>and/or<sp/>sell<sp/>copies<sp/>of<sp/>the<sp/>Software,<sp/>and<sp/>to<sp/>permit<sp/>persons<sp/>to<sp/>whom<sp/>the</highlight></codeline>
+<codeline lineno="13"><highlight class="comment"><sp/>*<sp/>Software<sp/>is<sp/>furnished<sp/>to<sp/>do<sp/>so,<sp/>subject<sp/>to<sp/>the<sp/>following<sp/>conditions:</highlight></codeline>
+<codeline lineno="14"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="15"><highlight class="comment"><sp/>*<sp/>The<sp/>above<sp/>copyright<sp/>notice<sp/>and<sp/>this<sp/>permission<sp/>notice<sp/>shall<sp/>be<sp/>included<sp/>in</highlight></codeline>
+<codeline lineno="16"><highlight class="comment"><sp/>*<sp/>all<sp/>copies<sp/>or<sp/>substantial<sp/>portions<sp/>of<sp/>the<sp/>Software.</highlight></codeline>
+<codeline lineno="17"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="18"><highlight class="comment"><sp/>*<sp/>THE<sp/>SOFTWARE<sp/>IS<sp/>PROVIDED<sp/>&quot;AS<sp/>IS&quot;,<sp/>WITHOUT<sp/>WARRANTY<sp/>OF<sp/>ANY<sp/>KIND,<sp/>EXPRESS<sp/>OR</highlight></codeline>
+<codeline lineno="19"><highlight class="comment"><sp/>*<sp/>IMPLIED,<sp/>INCLUDING<sp/>BUT<sp/>NOT<sp/>LIMITED<sp/>TO<sp/>THE<sp/>WARRANTIES<sp/>OF<sp/>MERCHANTABILITY,</highlight></codeline>
+<codeline lineno="20"><highlight class="comment"><sp/>*<sp/>FITNESS<sp/>FOR<sp/>A<sp/>PARTICULAR<sp/>PURPOSE<sp/>AND<sp/>NONINFRINGEMENT.<sp/>IN<sp/>NO<sp/>EVENT<sp/>SHALL<sp/>THE</highlight></codeline>
+<codeline lineno="21"><highlight class="comment"><sp/>*<sp/>AUTHORS<sp/>OR<sp/>COPYRIGHT<sp/>HOLDERS<sp/>BE<sp/>LIABLE<sp/>FOR<sp/>ANY<sp/>CLAIM,<sp/>DAMAGES<sp/>OR<sp/>OTHER</highlight></codeline>
+<codeline lineno="22"><highlight class="comment"><sp/>*<sp/>LIABILITY,<sp/>WHETHER<sp/>IN<sp/>AN<sp/>ACTION<sp/>OF<sp/>CONTRACT,<sp/>TORT<sp/>OR<sp/>OTHERWISE,<sp/>ARISING</highlight></codeline>
+<codeline lineno="23"><highlight class="comment"><sp/>*<sp/>FROM,<sp/>OUT<sp/>OF<sp/>OR<sp/>IN<sp/>CONNECTION<sp/>WITH<sp/>THE<sp/>SOFTWARE<sp/>OR<sp/>THE<sp/>USE<sp/>OR<sp/>OTHER</highlight></codeline>
+<codeline lineno="24"><highlight class="comment"><sp/>*<sp/>DEALINGS<sp/>IN<sp/>THE<sp/>SOFTWARE.</highlight></codeline>
+<codeline lineno="25"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="26"><highlight class="comment"><sp/>******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>_VLOG_H_</highlight></codeline>
+<codeline lineno="30"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>_VLOG_H_</highlight></codeline>
+<codeline lineno="31"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;stdio.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;stdlib.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="oslayer_8h" kindref="compound">oslayer.h</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VVLOG_LEVEL_VERBOSE<sp/>=<sp/>0,</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VVLOG_LEVEL_DEBUG,</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VVLOG_LEVEL_INFO,</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VVLOG_LEVEL_WARNING,</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VVLOG_LEVEL_ERROR,</highlight></codeline>
+<codeline lineno="42"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>vvbenchLogLevel;</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>VsiVvbenchGetLogLevel()</highlight></codeline>
+<codeline lineno="47"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(vvbenchLogLevel<sp/>!=<sp/>-1)</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>vvbenchLogLevel;</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>vvbenchLogLevel<sp/>=<sp/>VVLOG_LEVEL_DEBUG;</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>vvbenchLogLevel;</highlight></codeline>
+<codeline lineno="53"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/>float32_t<sp/>timeStampGet()</highlight></codeline>
+<codeline lineno="56"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>float32_t<sp/>timeStamp;</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="oslayer_8h_1a5d47f198ef4e8d3adf5dfdb9e17d1310" kindref="member">osTimeStampNs</ref>(&amp;timeStamp);</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>timeStamp;</highlight></codeline>
+<codeline lineno="62"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight><highlight class="comment">//<sp/>c++11<sp/>workaround<sp/>empty<sp/>variadic<sp/>macro</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>__VLOG_INT(format,<sp/>...)<sp/>&quot;[%s]<sp/>&quot;<sp/>format<sp/>&quot;\033[0m%s&quot;,<sp/>LOGTAG,<sp/>__VA_ARGS__</highlight></codeline>
+<codeline lineno="66"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>LOGD(...)\</highlight></codeline>
+<codeline lineno="68"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>if<sp/>(VsiVvbenchGetLogLevel()<sp/>&lt;=<sp/>VVLOG_LEVEL_DEBUG)<sp/>{<sp/>\</highlight></codeline>
+<codeline lineno="69"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>printf(&quot;[%.6lf]&quot;,timeStampGet());<sp/>\</highlight></codeline>
+<codeline lineno="70"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>printf(&quot;\033[1;30;37mDEBUG<sp/><sp/>:<sp/>&quot;<sp/>__VLOG_INT(__VA_ARGS__,<sp/>&quot;\n&quot;));<sp/>\</highlight></codeline>
+<codeline lineno="71"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/>//<sp/>white</highlight></codeline>
+<codeline lineno="72"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>LOGI(...)\</highlight></codeline>
+<codeline lineno="74"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>if<sp/>(VsiVvbenchGetLogLevel()<sp/>&lt;=<sp/>VVLOG_LEVEL_INFO)<sp/>{<sp/>\</highlight></codeline>
+<codeline lineno="75"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>printf(&quot;[%.6lf]&quot;,timeStampGet());<sp/>\</highlight></codeline>
+<codeline lineno="76"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>printf(&quot;\033[1;30;32mINFO<sp/><sp/>:<sp/>&quot;<sp/>__VLOG_INT(__VA_ARGS__,<sp/>&quot;\n&quot;));<sp/>\</highlight></codeline>
+<codeline lineno="77"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/>//<sp/>green</highlight></codeline>
+<codeline lineno="78"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="79"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>LOGW(...)\</highlight></codeline>
+<codeline lineno="80"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>if<sp/>(VsiVvbenchGetLogLevel()<sp/>&lt;=<sp/>VVLOG_LEVEL_WARNING)<sp/>{<sp/>\</highlight></codeline>
+<codeline lineno="81"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>printf(&quot;[%.6lf]&quot;,timeStampGet());<sp/>\</highlight></codeline>
+<codeline lineno="82"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>printf(&quot;\033[1;30;33mWARN<sp/><sp/>:<sp/>&quot;<sp/>__VLOG_INT(__VA_ARGS__,<sp/>&quot;\n&quot;));<sp/>\</highlight></codeline>
+<codeline lineno="83"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/>//<sp/>yellow</highlight></codeline>
+<codeline lineno="84"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="85"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>LOGE(...)\</highlight></codeline>
+<codeline lineno="86"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>if<sp/>(VsiVvbenchGetLogLevel()<sp/>&lt;=<sp/>VVLOG_LEVEL_ERROR)<sp/>{<sp/>\</highlight></codeline>
+<codeline lineno="87"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>printf(&quot;[%.6lf]&quot;,timeStampGet());<sp/>\</highlight></codeline>
+<codeline lineno="88"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>printf(&quot;\033[1;30;31mERROR<sp/><sp/>:<sp/>&quot;<sp/>__VLOG_INT(__VA_ARGS__,<sp/>&quot;\n&quot;));<sp/>\</highlight></codeline>
+<codeline lineno="89"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/>//<sp/>red</highlight></codeline>
+<codeline lineno="90"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="91"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/>//<sp/>_VLOG_H_</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vlog.h"/>
+  </compounddef>
+</doxygen>

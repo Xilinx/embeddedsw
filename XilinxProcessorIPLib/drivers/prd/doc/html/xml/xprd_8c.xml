@@ -1,0 +1,260 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xprd_8c" kind="file">
+    <compoundname>xprd.c</compoundname>
+    <includes refid="xprd_8h" local="yes">xprd.h</includes>
+    <incdepgraph>
+      <node id="7">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="9">
+        <label>xprd_hw.h</label>
+        <link refid="xprd__hw_8h"/>
+        <childnode refid="10" relation="include">
+        </childnode>
+      </node>
+      <node id="10">
+        <label>xil_io.h</label>
+      </node>
+      <node id="8">
+        <label>xstatus.h</label>
+      </node>
+      <node id="4">
+        <label>xprd.c</label>
+        <link refid="xprd.c"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>xprd.h</label>
+        <link refid="xprd_8h"/>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>xil_types.h</label>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__prd_1ga424f5c8b2cad657a5aea953ba959be55" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XPrd_CfgInitialize</definition>
+        <argsstring>(XPrd *InstancePtr, XPrd_Config *ConfigPtr, u32 EffectiveAddress)</argsstring>
+        <name>XPrd_CfgInitialize</name>
+        <param>
+          <type><ref refid="struct_x_prd" kindref="compound">XPrd</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>XPrd_Config *</type>
+          <declname>ConfigPtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>EffectiveAddress</declname>
+        </param>
+        <briefdescription>
+<para>This function initializes a <ref refid="struct_x_prd" kindref="compound">XPrd</ref> instance/driver. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_prd" kindref="compound">XPrd</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ConfigPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>points to the <ref refid="struct_x_prd" kindref="compound">XPrd</ref> device configuration structure. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>EffectiveAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the device base address in the virtual memory address space. If the address translation is not used then the physical address is passed.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if initialization was successful.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Set some default values for instance data, don&apos;t indicate the device is ready to use until everything has been initialized successfully.</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prd/src/xprd.c" line="64" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prd/src/xprd.c" bodystart="64" bodyend="85"/>
+        <references refid="struct_x_prd_1a56436a9e781a4203a9cb2f63c75fff80" compoundref="xprd_8h" startline="123">XPrd::Config</references>
+        <references refid="struct_x_prd_1ae394be32476d0fb74f270326b8d73743" compoundref="xprd_8h" startline="124">XPrd::IsReady</references>
+        <referencedby refid="xprd__example_8c_1a0be6b2318e2ad4f307f868f0eb84ad2e" compoundref="xprd__example_8c" startline="126" endline="184">XPrd_Example</referencedby>
+        <referencedby refid="xprd__selftest__example_8c_1a2a19849e01a0a6fcd64136354d7bbe9c" compoundref="xprd__selftest__example_8c" startline="126" endline="160">XPrd_SelfTestExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__prd_1gacb64d55940567d71186233e1e230c0d0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XPrd_SetDecouplerState</definition>
+        <argsstring>(XPrd *InstancePtr, XPrd_State DecouplerValue)</argsstring>
+        <name>XPrd_SetDecouplerState</name>
+        <param>
+          <type><ref refid="struct_x_prd" kindref="compound">XPrd</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="group__prd_1ga0535d78c352329f7600250c0936ffc21" kindref="member">XPrd_State</ref></type>
+          <declname>DecouplerValue</declname>
+        </param>
+        <briefdescription>
+<para>This function is used to set Decoupler On or Off. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_prd" kindref="compound">XPrd</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DecouplerValue</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is to set Decoupler On or Off. Value can be either 0 or 1. Values are<itemizedlist>
+<listitem><para>XPRD_DECOUPLER_OFF(0) if Decoupler is Off</para></listitem><listitem><para>XPRD_DECOUPLER_ON(1) if Decoupler is On</para></listitem></itemizedlist>
+</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>When Decoupler is On then it separates the Reconfigurable partition from static logic while Partial Reconfiguration occurs. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prd/src/xprd.c" line="106" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prd/src/xprd.c" bodystart="106" bodyend="115"/>
+        <references refid="struct_x_prd_1a56436a9e781a4203a9cb2f63c75fff80" compoundref="xprd_8h" startline="123">XPrd::Config</references>
+        <references refid="struct_x_prd_1ae394be32476d0fb74f270326b8d73743" compoundref="xprd_8h" startline="124">XPrd::IsReady</references>
+        <references refid="group__prd_1ga822c5f24e18d6a6b7b1c23cfbf640693" compoundref="xprd__hw_8h" startline="45">XPRD_CTRL_OFFSET</references>
+        <references refid="group__prd_1gga0535d78c352329f7600250c0936ffc21ac14eedee45ec9f0d49f1bd9c395177f2" compoundref="xprd_8h" startline="104">XPRD_DECOUPLER_OFF</references>
+        <references refid="group__prd_1gga0535d78c352329f7600250c0936ffc21a91d1acd860924ac7a0255af3fd3fbb30" compoundref="xprd_8h" startline="105">XPRD_DECOUPLER_ON</references>
+        <references refid="group__prd_1ga93e7e75f1c667dcddcdb0a1a43230415" compoundref="xprd__hw_8h" startline="93">XPrd_WriteReg</references>
+        <referencedby refid="xprd__example_8c_1a7d27eeac5a2c92eea613b73500530488" compoundref="xprd__example_8c" startline="201" endline="250">XPrd_TestDecouplerState</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__prd_1gad37688cbdb9d0b50c481132f6f05cee0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="group__prd_1ga0535d78c352329f7600250c0936ffc21" kindref="member">XPrd_State</ref></type>
+        <definition>XPrd_State XPrd_GetDecouplerState</definition>
+        <argsstring>(XPrd *InstancePtr)</argsstring>
+        <name>XPrd_GetDecouplerState</name>
+        <param>
+          <type><ref refid="struct_x_prd" kindref="compound">XPrd</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function is used to read the state of the Decoupler. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_prd" kindref="compound">XPrd</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Returns decoupler state.<itemizedlist>
+<listitem><para>XPRD_DECOUPLER_ON(1) if Decoupler is enabled.</para></listitem><listitem><para>XPRD_DECOUPLER_OFF(0) if Decoupler is disabled.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prd/src/xprd.c" line="131" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prd/src/xprd.c" bodystart="131" bodyend="142"/>
+        <references refid="struct_x_prd_1a56436a9e781a4203a9cb2f63c75fff80" compoundref="xprd_8h" startline="123">XPrd::Config</references>
+        <references refid="struct_x_prd_1ae394be32476d0fb74f270326b8d73743" compoundref="xprd_8h" startline="124">XPrd::IsReady</references>
+        <references refid="group__prd_1ga73f34d1bb856e71aedea43644e2da1db" compoundref="xprd__hw_8h" startline="59">XPRD_CTRL_DECOUPLER_MASK</references>
+        <references refid="group__prd_1ga822c5f24e18d6a6b7b1c23cfbf640693" compoundref="xprd__hw_8h" startline="45">XPRD_CTRL_OFFSET</references>
+        <references refid="group__prd_1gga0535d78c352329f7600250c0936ffc21ac14eedee45ec9f0d49f1bd9c395177f2" compoundref="xprd_8h" startline="104">XPRD_DECOUPLER_OFF</references>
+        <references refid="group__prd_1gga0535d78c352329f7600250c0936ffc21a91d1acd860924ac7a0255af3fd3fbb30" compoundref="xprd_8h" startline="105">XPRD_DECOUPLER_ON</references>
+        <references refid="group__prd_1gaffb12c25656847672ed8f5cb804467f3" compoundref="xprd__hw_8h" startline="78">XPrd_ReadReg</references>
+        <referencedby refid="xprd__example_8c_1a7d27eeac5a2c92eea613b73500530488" compoundref="xprd__example_8c" startline="201" endline="250">XPrd_TestDecouplerState</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2016<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2023<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="31"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xprd_8h" kindref="compound">xprd.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="comment">/******************************<sp/>Functions<sp/>Definitions<sp/>************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="64" refid="group__prd_1ga424f5c8b2cad657a5aea953ba959be55" refkind="member"><highlight class="normal">s32<sp/><ref refid="group__prd_1ga424f5c8b2cad657a5aea953ba959be55" kindref="member">XPrd_CfgInitialize</ref>(<ref refid="struct_x_prd" kindref="compound">XPrd</ref><sp/>*InstancePtr,<sp/>XPrd_Config<sp/>*ConfigPtr,</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>EffectiveAddress)</highlight></codeline>
+<codeline lineno="66"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(ConfigPtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(EffectiveAddress<sp/>!=<sp/>0x00);</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_prd_1a56436a9e781a4203a9cb2f63c75fff80" kindref="member">Config</ref>.BaseAddress<sp/>=<sp/>EffectiveAddress;</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="78"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_prd_1a56436a9e781a4203a9cb2f63c75fff80" kindref="member">Config</ref>.DeviceId<sp/>=<sp/>ConfigPtr-&gt;DeviceId;</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="80"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Indicate<sp/>the<sp/>component<sp/>is<sp/>now<sp/>ready<sp/>to<sp/>use<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_prd_1ae394be32476d0fb74f270326b8d73743" kindref="member">IsReady</ref><sp/>=<sp/>XIL_COMPONENT_IS_READY;</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"></highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="85"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"></highlight></codeline>
+<codeline lineno="87"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="106" refid="group__prd_1gacb64d55940567d71186233e1e230c0d0" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__prd_1gacb64d55940567d71186233e1e230c0d0" kindref="member">XPrd_SetDecouplerState</ref>(<ref refid="struct_x_prd" kindref="compound">XPrd</ref><sp/>*InstancePtr,<sp/><ref refid="group__prd_1ga0535d78c352329f7600250c0936ffc21" kindref="member">XPrd_State</ref><sp/>DecouplerValue)</highlight></codeline>
+<codeline lineno="107"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_prd_1ae394be32476d0fb74f270326b8d73743" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid((DecouplerValue<sp/>==<sp/><ref refid="group__prd_1gga0535d78c352329f7600250c0936ffc21a91d1acd860924ac7a0255af3fd3fbb30" kindref="member">XPRD_DECOUPLER_ON</ref>)<sp/>||</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(DecouplerValue<sp/>==<sp/><ref refid="group__prd_1gga0535d78c352329f7600250c0936ffc21ac14eedee45ec9f0d49f1bd9c395177f2" kindref="member">XPRD_DECOUPLER_OFF</ref>));</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"></highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__prd_1ga93e7e75f1c667dcddcdb0a1a43230415" kindref="member">XPrd_WriteReg</ref>(((InstancePtr-&gt;<ref refid="struct_x_prd_1a56436a9e781a4203a9cb2f63c75fff80" kindref="member">Config</ref>.BaseAddress)<sp/>+<sp/><ref refid="group__prd_1ga822c5f24e18d6a6b7b1c23cfbf640693" kindref="member">XPRD_CTRL_OFFSET</ref>),</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DecouplerValue);</highlight></codeline>
+<codeline lineno="115"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"></highlight></codeline>
+<codeline lineno="117"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="131" refid="group__prd_1gad37688cbdb9d0b50c481132f6f05cee0" refkind="member"><highlight class="normal"><ref refid="group__prd_1ga0535d78c352329f7600250c0936ffc21" kindref="member">XPrd_State</ref><sp/><ref refid="group__prd_1gad37688cbdb9d0b50c481132f6f05cee0" kindref="member">XPrd_GetDecouplerState</ref>(<ref refid="struct_x_prd" kindref="compound">XPrd</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="132"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Data;</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"></highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_prd_1ae394be32476d0fb74f270326b8d73743" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"></highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Data<sp/>=<sp/><ref refid="group__prd_1gaffb12c25656847672ed8f5cb804467f3" kindref="member">XPrd_ReadReg</ref>((InstancePtr-&gt;<ref refid="struct_x_prd_1a56436a9e781a4203a9cb2f63c75fff80" kindref="member">Config</ref>.BaseAddress)<sp/>+</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__prd_1ga822c5f24e18d6a6b7b1c23cfbf640693" kindref="member">XPRD_CTRL_OFFSET</ref>)<sp/>&amp;<sp/><ref refid="group__prd_1ga73f34d1bb856e71aedea43644e2da1db" kindref="member">XPRD_CTRL_DECOUPLER_MASK</ref>;</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"></highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(Data)<sp/>?<sp/><ref refid="group__prd_1gga0535d78c352329f7600250c0936ffc21a91d1acd860924ac7a0255af3fd3fbb30" kindref="member">XPRD_DECOUPLER_ON</ref><sp/>:<sp/><ref refid="group__prd_1gga0535d78c352329f7600250c0936ffc21ac14eedee45ec9f0d49f1bd9c395177f2" kindref="member">XPRD_DECOUPLER_OFF</ref>;</highlight></codeline>
+<codeline lineno="142"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prd/src/xprd.c"/>
+  </compounddef>
+</doxygen>

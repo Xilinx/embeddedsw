@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_dfe_ccf___antenna_cfg" kind="struct" prot="public">
+    <compoundname>XDfeCcf_AntennaCfg</compoundname>
+    <includes local="no">xdfeccf.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_dfe_ccf___antenna_cfg_1a4784b546fe3413211e18ccee38d87582" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfeCcf_AntennaCfg::Enable[XDFECCF_ANT_NUM_MAX]</definition>
+        <argsstring>[XDFECCF_ANT_NUM_MAX]</argsstring>
+        <name>Enable</name>
+        <briefdescription>
+<para>[0: disable, 1: enable] Antenna enablement </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" line="352" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" bodystart="352" bodyend="-1"/>
+        <referencedby refid="group__dfeccf_1ga890dacc7d32bf591be36640065cfe414" compoundref="xdfeccf_8c" startline="1772" endline="1792">XDfeCcf_UpdateAntenna</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Configuration for a single Antenna. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" line="351" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" bodystart="351" bodyend="353"/>
+    <listofallmembers>
+      <member refid="struct_x_dfe_ccf___antenna_cfg_1a4784b546fe3413211e18ccee38d87582" prot="public" virt="non-virtual"><scope>XDfeCcf_AntennaCfg</scope><name>Enable</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

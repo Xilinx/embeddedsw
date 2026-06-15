@@ -1,0 +1,100 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_dfe_ofdm___c_c_cfg" kind="struct" prot="public">
+    <compoundname>XDfeOfdm_CCCfg</compoundname>
+    <includes local="no">xdfeofdm.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_dfe_ofdm___c_c_cfg_1a76a6f2071855ae642f660f362342666e" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_dfe_ofdm___c_c_sequence" kindref="compound">XDfeOfdm_CCSequence</ref></type>
+        <definition>XDfeOfdm_CCSequence XDfeOfdm_CCCfg::CCSequence</definition>
+        <argsstring></argsstring>
+        <name>CCSequence</name>
+        <briefdescription>
+<para>CCID sequence. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeofdm/src/xdfeofdm.h" line="373" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeofdm/src/xdfeofdm.h" bodystart="373" bodyend="-1"/>
+        <referencedby refid="group__dfeofdm_1gade552f0bcf5ed9eac51ca4fcc4b983fa" compoundref="xdfeofdm_8c" startline="1369" endline="1451">XDfeOfdm_AddCCtoCCCfg</referencedby>
+        <referencedby refid="group__dfeofdm_1gaa9f6889b400fc2fcd705f0760c6fa696" compoundref="xdfeofdm_8c" startline="1465" endline="1515">XDfeOfdm_GetCarrierCfg</referencedby>
+        <referencedby refid="group__dfeofdm_1ga895d37558bb4351d118f1970d79a2d7b" compoundref="xdfeofdm_8c" startline="1270" endline="1309">XDfeOfdm_GetCurrentCCCfg</referencedby>
+        <referencedby refid="group__dfeofdm_1ga0f253b33e1be8d4b37bbddf681669a13" compoundref="xdfeofdm_8c" startline="1322" endline="1338">XDfeOfdm_GetEmptyCCCfg</referencedby>
+        <referencedby refid="group__dfeofdm_1ga030e66a15c8f0c1b4493aa605dca2c30" compoundref="xdfeofdm_8c" startline="1533" endline="1557">XDfeOfdm_RemoveCCfromCCCfg</referencedby>
+        <referencedby refid="group__dfeofdm_1gaef40749e07cdc3a4a00a2e8228d5d8b8" compoundref="xdfeofdm_8c" startline="1648" endline="1750">XDfeOfdm_SetNextCCCfg</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_ofdm___c_c_cfg_1a76ec325f1e745eab6ac9ffeb8f5b8513" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_dfe_ofdm___f_t_sequence" kindref="compound">XDfeOfdm_FTSequence</ref></type>
+        <definition>XDfeOfdm_FTSequence XDfeOfdm_CCCfg::FTSequence</definition>
+        <argsstring></argsstring>
+        <name>FTSequence</name>
+        <briefdescription>
+<para>CCID sequence. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeofdm/src/xdfeofdm.h" line="374" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeofdm/src/xdfeofdm.h" bodystart="374" bodyend="-1"/>
+        <referencedby refid="group__dfeofdm_1ga895d37558bb4351d118f1970d79a2d7b" compoundref="xdfeofdm_8c" startline="1270" endline="1309">XDfeOfdm_GetCurrentCCCfg</referencedby>
+        <referencedby refid="group__dfeofdm_1ga0f253b33e1be8d4b37bbddf681669a13" compoundref="xdfeofdm_8c" startline="1322" endline="1338">XDfeOfdm_GetEmptyCCCfg</referencedby>
+        <referencedby refid="group__dfeofdm_1gaef40749e07cdc3a4a00a2e8228d5d8b8" compoundref="xdfeofdm_8c" startline="1648" endline="1750">XDfeOfdm_SetNextCCCfg</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_ofdm___c_c_cfg_1af8215954862eaa1ceb1cdf785003abb5" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_dfe_ofdm___internal_carrier_cfg" kindref="compound">XDfeOfdm_InternalCarrierCfg</ref></type>
+        <definition>XDfeOfdm_InternalCarrierCfg XDfeOfdm_CCCfg::CarrierCfg[XDFEOFDM_CC_NUM]</definition>
+        <argsstring>[XDFEOFDM_CC_NUM]</argsstring>
+        <name>CarrierCfg</name>
+        <briefdescription>
+<para>CC configurations. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeofdm/src/xdfeofdm.h" line="376" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeofdm/src/xdfeofdm.h" bodystart="376" bodyend="-1"/>
+        <referencedby refid="group__dfeofdm_1gade552f0bcf5ed9eac51ca4fcc4b983fa" compoundref="xdfeofdm_8c" startline="1369" endline="1451">XDfeOfdm_AddCCtoCCCfg</referencedby>
+        <referencedby refid="group__dfeofdm_1gaa9f6889b400fc2fcd705f0760c6fa696" compoundref="xdfeofdm_8c" startline="1465" endline="1515">XDfeOfdm_GetCarrierCfg</referencedby>
+        <referencedby refid="group__dfeofdm_1ga895d37558bb4351d118f1970d79a2d7b" compoundref="xdfeofdm_8c" startline="1270" endline="1309">XDfeOfdm_GetCurrentCCCfg</referencedby>
+        <referencedby refid="group__dfeofdm_1ga030e66a15c8f0c1b4493aa605dca2c30" compoundref="xdfeofdm_8c" startline="1533" endline="1557">XDfeOfdm_RemoveCCfromCCCfg</referencedby>
+        <referencedby refid="group__dfeofdm_1gaef40749e07cdc3a4a00a2e8228d5d8b8" compoundref="xdfeofdm_8c" startline="1648" endline="1750">XDfeOfdm_SetNextCCCfg</referencedby>
+        <referencedby refid="group__dfeofdm_1ga38d91645f0bc01f170a6333fb22f47cd" compoundref="xdfeofdm_8c" startline="1577" endline="1637">XDfeOfdm_UpdateCCinCCCfg</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Full CC configuration. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="8">
+        <label>XDfeOfdm_FTSequence</label>
+        <link refid="struct_x_dfe_ofdm___f_t_sequence"/>
+      </node>
+      <node id="9">
+        <label>XDfeOfdm_CCSequence</label>
+        <link refid="struct_x_dfe_ofdm___c_c_sequence"/>
+      </node>
+      <node id="6">
+        <label>XDfeOfdm_CCCfg</label>
+        <link refid="struct_x_dfe_ofdm___c_c_cfg"/>
+        <childnode refid="7" relation="usage">
+          <edgelabel>CarrierCfg</edgelabel>
+        </childnode>
+        <childnode refid="8" relation="usage">
+          <edgelabel>FTSequence</edgelabel>
+        </childnode>
+        <childnode refid="9" relation="usage">
+          <edgelabel>CCSequence</edgelabel>
+        </childnode>
+      </node>
+      <node id="7">
+        <label>XDfeOfdm_InternalCarrierCfg</label>
+        <link refid="struct_x_dfe_ofdm___internal_carrier_cfg"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeofdm/src/xdfeofdm.h" line="372" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeofdm/src/xdfeofdm.h" bodystart="372" bodyend="377"/>
+    <listofallmembers>
+      <member refid="struct_x_dfe_ofdm___c_c_cfg_1af8215954862eaa1ceb1cdf785003abb5" prot="public" virt="non-virtual"><scope>XDfeOfdm_CCCfg</scope><name>CarrierCfg</name></member>
+      <member refid="struct_x_dfe_ofdm___c_c_cfg_1a76a6f2071855ae642f660f362342666e" prot="public" virt="non-virtual"><scope>XDfeOfdm_CCCfg</scope><name>CCSequence</name></member>
+      <member refid="struct_x_dfe_ofdm___c_c_cfg_1a76ec325f1e745eab6ac9ffeb8f5b8513" prot="public" virt="non-virtual"><scope>XDfeOfdm_CCCfg</scope><name>FTSequence</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

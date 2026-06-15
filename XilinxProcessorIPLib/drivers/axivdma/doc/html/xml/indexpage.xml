@@ -1,0 +1,115 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="indexpage" kind="page">
+    <compoundname>index</compoundname>
+    <title>axivdma</title>
+    <detaileddescription>
+<para>This is the Xilinx MVI AXI Video DMA device driver. The DMA engine transfers frames from the AXI Bus or to the AXI Bus. It is in the chain of video IPs, which process video frames.</para><para>It supports the following features:<itemizedlist>
+<listitem><para>Continuous transfers of video frames, AKA circular buffer mode</para></listitem><listitem><para>Continuous transfers of one specific video frame, AKA park mode</para></listitem><listitem><para>Optionally only transfer a certain amount of video frames</para></listitem><listitem><para>Optionally transfer unaligned frame buffers</para></listitem></itemizedlist>
+</para><para>An AXI Video DMA engine can have one or two channels. If configured as two channels, then one of the channels reads data from memory, and the other channel writes to the memory.</para><para>For a full description of AXI Video DMA features, please see the hardware spec.</para><para>The driver composes of three parts: initialization, start a DMA transfer, and interrupt handling.</para><para><bold> Driver Initialization </bold></para><para>To initialize the driver, the caller needs to pass a configuration structure to the driver. This configuration structure contains information about the hardware build.</para><para>A caller can manually setup the configuration structure, or call XAxiVdma_LoopkupConfig().</para><para>The sequence of initialization of the driver is:<orderedlist>
+<listitem><para><ref refid="group__axivdma_1ga731fd42d22c597c0e045970e26f22681" kindref="member">XAxiVdma_LookupConfig()</ref> to get the configuration structure, or manually setup the structure.</para></listitem><listitem><para><ref refid="group__axivdma_1ga7dff0c11a9aa88a19519734702904dca" kindref="member">XAxiVdma_CfgInitialize()</ref> to initialize the driver &amp; device.</para></listitem><listitem><para><ref refid="group__axivdma_1gaf331929e09bf1454dc2835b6ecc4ff30" kindref="member">XAxiVdma_SetFrmStore()</ref> to set the desired frame store number which is optional.</para></listitem><listitem><para>If interrupt is desired:<itemizedlist>
+<listitem><para>Set frame counter using <ref refid="group__axivdma_1gaabe404c2a5c1483bc95be749c7540ba4" kindref="member">XAxiVdma_SetFrameCounter()</ref></para></listitem><listitem><para>Set call back functions for each channel. There are two types of call backfunctions: general and error</para></listitem><listitem><para>Enable interrupts that the user cares about</para></listitem></itemizedlist>
+</para></listitem></orderedlist>
+</para><para><bold>Start a DMA Transaction </bold></para><para>If you are using the driver API to start the transfer, then there are two ways to start a DMA transaction:</para><para><orderedlist>
+<listitem><para>Invoke <ref refid="group__axivdma_1ga1dc126d885558e03cf06a4d9c05d5668" kindref="member">XAxiVdma_StartWriteFrame()</ref> or <ref refid="group__axivdma_1gab2646b6aeea2ff64c4b42319ffb49804" kindref="member">XAxiVdma_StartReadFrame()</ref> to start a DMA operation, depending on the purpose of the transfer (Read or Write).</para></listitem><listitem><para>Or, call the phased functions as the following:<itemizedlist>
+<listitem><para>Call <ref refid="group__axivdma_1ga3c50e96d431d9f1ee7d6200266c0dbd3" kindref="member">XAxiVdma_DmaConfig()</ref> to set up a DMA operation configuration</para></listitem><listitem><para>Call <ref refid="group__axivdma_1ga8fa5b3e7978fda9bde7498a9d4af3c73" kindref="member">XAxiVdma_DmaSetBufferAddr()</ref> to set up the DMA buffers</para></listitem><listitem><para>Call <ref refid="group__axivdma_1gadf310ae3bd4c0ae9ebf3e445a2fbe444" kindref="member">XAxiVdma_DmaStart()</ref> to kick off the DMA operation</para></listitem></itemizedlist>
+</para></listitem></orderedlist>
+</para><para>If you are writing your own functions to start the transfer, the order of setting up the hardware must be the following:</para><para><itemizedlist>
+<listitem><para>Do any processing or setting, but do not start the hardware, means do not set the RUN/STOP bit in the XAXIVDMA_CR_OFFSET register.</para></listitem><listitem><para>After any reset you need to do, write the head of your BD ring into the XAXIVDMA_CDESC_OFFSET register.</para></listitem><listitem><para>You can do other setup for the hardware.</para></listitem><listitem><para>Start your hardware, by setting up the RUN/STOP bit in the XAXIVDMA_CR_OFFSET register.</para></listitem><listitem><para>You can do other setup for the hardware.</para></listitem><listitem><para>If you are done with all the setup, now write the tail of your BD ring to the XAXIVDMA_TDESC_OFFSET register to start the transfer.</para></listitem></itemizedlist>
+</para><para>You can refer to <ref refid="group__axivdma_1ga3b9c24a02c4b4f99d40820a647de811d" kindref="member">XAxiVdma_ChannelStartTransfer()</ref> to see how this order is preserved there. The function is in <ref refid="xaxivdma__channel_8c" kindref="compound">xaxivdma_channel.c</ref>.</para><para>Note a Read VDMA could work with one out of multiple write VDMA instances and vice versa. The PointNum in structure <ref refid="struct_x_axi_vdma___dma_setup" kindref="compound">XAxiVdma_DmaSetup</ref> decides which VDMA instance this VDMA is working with.</para><para><bold>Interrupt Handling </bold></para><para>Each VDMA channel supports 2 kinds of interrupts:<itemizedlist>
+<listitem><para>General Interrupt: An interrupt other than error interrupt.</para></listitem><listitem><para>Error Interrupt: An error just happened.</para></listitem></itemizedlist>
+</para><para>The driver does the interrupt handling, and dispatch to the user application through callback functions that user has registered. If there are no registered callback functions, then a stub callback function is called.</para><para>Each channel has two interrupt callback functions. One for IOC and delay interrupt, or general interrupt; one for error interrupt.</para><para><bold>Reset</bold></para><para>Reset a DMA channel causes the channel enter the following state:</para><para><itemizedlist>
+<listitem><para>Interrupts are disabled</para></listitem><listitem><para>Coalescing threshold is one</para></listitem><listitem><para>Delay counter is 0</para></listitem><listitem><para>RUN/STOP bit low</para></listitem><listitem><para>Halted bit high</para></listitem><listitem><para>XAXIVDMA_CDESC_OFFSET register has 0</para></listitem><listitem><para>XAXIVDMA_TDESC_OFFSET register has 0</para></listitem></itemizedlist>
+</para><para>If there is an active transfer going on when reset (or stop) is issued to the hardware, the current transfer will gracefully finish. For a maximum transfer length of (0x1FFF * 0xFFFF) bytes, on a 100 MHz system, it can take as long as 1.34 seconds, assuming that the system responds to DMA engine&apos;s requests quickly.</para><para>To ensure that the hardware finishes the reset, please use <ref refid="group__axivdma_1ga3e01bd69f101126d5962f7078ee3e520" kindref="member">XAxiVdma_ResetNotDone()</ref> to check for completion of the reset.</para><para>To start a transfer after a reset, the following actions are the minimal requirement before setting RUN/STOP bit high to avoid crashing the system:</para><para><itemizedlist>
+<listitem><para>XAXIVDMA_CDESC_OFFSET register has a valid BD pointer, it should be the head of the BD ring.</para></listitem><listitem><para>XAXIVDMA_TDESC_OFFSET register has a valid BD pointer, it should be the tail of the BD ring.</para></listitem></itemizedlist>
+</para><para>If you are using the driver API to start a transfer after a reset, then it should be fine.</para><para><bold>Stop</bold></para><para>Stop a channel using XAxiVDma_DmaStop() is similar to a reset, except the registers are kept intact.</para><para>To start a transfer after a stop:</para><para><itemizedlist>
+<listitem><para>If there are error bits in the status register, then a reset is necessary. Please refer to the <bold>Reset</bold> section for more details on how to start a transfer after a reset.</para></listitem><listitem><para>If there are no error bits in the status register, then you can call <ref refid="group__axivdma_1gadf310ae3bd4c0ae9ebf3e445a2fbe444" kindref="member">XAxiVdma_DmaStart()</ref> to start the transfer again. Note that the transfer always starts from the first video frame.</para></listitem></itemizedlist>
+</para><para><bold> Examples</bold></para><para>We provide one example on how to use the AXI VDMA with AXI Video IPs. This example does not work by itself. To make it work, you must have two other Video IPs to connect to the VDMA. One of the Video IP does the write and the other does the read.</para><para><bold>Cache Coherency</bold></para><para>This driver does not handle any cache coherency for the data buffers. The application is responsible for handling cache coherency, if the cache is enabled.</para><para><bold>Alignment</bold></para><para>The VDMA supports any buffer alignment when DRE is enabled in the hardware configuration. It only supports word-aligned buffers otherwise. Note that &quot;word&quot; is defined by C_M_AXIS_MM2S_TDATA_WIDTH and C_S_AXIS_S2MM_TDATA_WIDTH for the read and write channel specifically.</para><para>If the horizontal frame size is not word-aligned, then DRE must be enabled in the hardware. Otherwise, undefined results happen.</para><para><bold>Address Translation</bold></para><para>Buffer addresses for transfers are physical addresses. If the system does not use MMU, then physical and virtual addresses are the same.</para><para><bold>API Change from PLB Video DMA</bold></para><para>We try to keep the API as consistent with the PLB Video DMA driver as possible. However, due to hardware differences, some of the PLB video DMA driver APIs are changed or removed. Two API functions are added to the AXI DMA driver.</para><para>For details on the API changes, please refer to <ref refid="xaxivdma__porting__guide_8h" kindref="compound">xaxivdma_porting_guide.h</ref>.</para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+1.00a jz   08/16/10 First release
+2.00a jz   12/10/10 Added support for direct register access mode, v3 core
+2.01a jz   01/19/11 Added ability to re-assign BD addresses
+              Replaced include xenv.h with string.h in <ref refid="xaxivdma__i_8h" kindref="compound">xaxivdma_i.h</ref>
+                      file.
+2.01a   rkv  03/28/11 Added support for frame store register and
+                    XAxiVdma_ChannelInit API is changed.
+3.00a srt  08/26/11 - Added support for Flush on Frame Sync and dynamic
+                programming of Line Buffer Thresholds.<itemizedlist>
+<listitem><para>XAxiVdma_ChannelErrors API is changed to support for
+                Flush on Frame Sync feature.</para></listitem><listitem><para>Two flags, XST_VDMA_MISMATCH_ERROR &amp; XAXIVDMA_MIS
+                MATCH_ERROR are added to report error status when
+                Flush on Frame Sync feature is enabled.
+4.00a srt  11/21/11 - XAxiVdma_ChannelSetBufferAddr API is changed to
+                support 32 Frame Stores.</para></listitem><listitem><para>XAxiVdma_ChannelConfig API is changed to support
+                modified Park Offset Register bits.</para></listitem><listitem><para>Added APIs:
+                <ref refid="group__axivdma_1gaa3376589f8781eec1f0d619e1a0d3078" kindref="member">XAxiVdma_FsyncSrcSelect()</ref>
+                <ref refid="group__axivdma_1gacf7ed6b0ef406b80e49ff25634f6d5f1" kindref="member">XAxiVdma_GenLockSourceSelect()</ref></para></listitem><listitem><para>Modified structures <ref refid="struct_x_axi_vdma___config" kindref="compound">XAxiVdma_Config</ref> and <ref refid="struct_x_axi_vdma" kindref="compound">XAxiVdma</ref> to
+                include new parameters.
+4.01a srt  06/13/12 - Added APIs:
+                <ref refid="group__axivdma_1ga4d93d3dea2f117948c175371d983a0e1" kindref="member">XAxiVdma_GetDmaChannelErrors()</ref>
+                <ref refid="group__axivdma_1gac01b1199d15a3a95cafb01f61dd1d0d3" kindref="member">XAxiVdma_ClearDmaChannelErrors()</ref>
+                XAxiVdma_ClearChannelErrors()</para></listitem><listitem><para>XAxiVdma_ChannelErrors API is changed to remove
+                Mismatch error logic.</para></listitem><listitem><para>Removed Error checking logic in the channel APIs.
+                Provided User APIs to do this.</para></listitem><listitem><para>Added new error bit mask XAXIVDMA_SR_ERR_SOF_LATE_MASK</para></listitem><listitem><para>XAXIVDMA_MISMATCH_ERROR flag is deprecated.<itemizedlist>
+<listitem><para>Modified the logic of Error handling in interrupt
+                handlers.
+4.02a srt  10/11/12 - XAxiVdma_SetFrmStore function changed to remove
+                      Reset logic after setting number of frame stores.
+                (CR 678734)</para></listitem></itemizedlist>
+</para></listitem><listitem><para>Changed Error bitmasks to support IP version 5.02a.
+                (CR 679959)
+4.03a srt  01/18/13 - Updated logic of GenLockSourceSelect() &amp; FsyncSrcSelect()
+                      APIs for newer versions of IP (CR: 691052).</para></listitem><listitem><para>Modified CfgInitialize() API to initialize
+                StreamWidth parameters and added TDATA_WIDTH parameters
+                to tcl file (CR 691866)</para></listitem><listitem><para>Updated DDR base address for IPI designs (CR 703656).
+4.04a srt  03/03/13 - Support for the GenlockRepeat Control bit (Bit 15)
+                      added in the new version of IP v5.04 (CR: 691391)</para><para><itemizedlist>
+<listitem><para>Updated driver tcl, <ref refid="xaxivdma__g_8c" kindref="compound">xaxivdma_g.c</ref> and  <ref refid="struct_x_axi_vdma___config" kindref="compound">XAxiVdma_Config</ref>
+                structure in <ref refid="xaxivdma_8h" kindref="compound">xaxivdma.h</ref> to import the relevant VDMA IP
+                DEBUG_INFO_* parameters into the driver.
+                This fixes CR# 703738.
+4.05a srt  05/01/3  - Merged v4.03a driver with v4.04a driver.
+                     Driver v4.03a - Supports VDMA IPv5.04a XPS release
+                     Driver v4.04a - Supports VDMA IPv6.00a IPI release
+                       The parameters C_ENABLE_DEBUG_* are only available in
+                 VDMA IPv6.00a. These parameters should be set to &apos;1&apos;
+                 for older versions of IP (XPS) and added this logic in
+                 the driver tcl file.<itemizedlist>
+<listitem><para>Added unalignment checks for Hsize and Stride
+                (CR 710279)
+4.06a srt  04/09/13 - Added support for the newly added S2MM_DMA_IRQ_MASK
+                      register (CR 734741)
+5.0   adk  19/12/13 - Updated as per the New Tcl API&apos;s
+5.1   adk  20/01/15  Added support for peripheral test. Created the self
+               test example to include it on peripheral test&apos;s(CR#823144).
+5.1   adk  29/01/15  Added the sefltest api (XAxiVdma_Selftest) to the driver source files
+                    (<ref refid="xaxivdma__selftest_8c" kindref="compound">xaxivdma_selftest.c</ref>) and called this from the selftest example
+6.0   vak  27/07/15  Added example for demonstarting triple buffer api.
+6.0   vak  27/07/15  Added 64 bit addressing support to the driver.
+6.0   vak  26/08/15  Added checks to align hsize and stride based on channel direction
+                     (read or write)(CR 874861)
+6.1   sk   11/10/15 Used UINTPTR instead of u32 for Baseaddress CR# 867425.
+                    Changed the prototype of XAxiVdma_CfgInitialize API.
+6.2   ms   01/23/17 Modified xil_printf statement in main function for all
+                    examples to ensure that &quot;Successfully ran&quot; and &quot;Failed&quot;
+                    strings are available in all examples. This is a fix
+                    for CR-965028.
+6.3   ms   02/20/17 Fixed compilation error in <ref refid="xaxivdma__intr_8c" kindref="compound">xaxivdma_intr.c</ref>. CR-969129.
+      ms   03/17/17 Modified the text file in examples folder for doxygen
+                    generation.
+      ms   04/05/17 Modified Comment lines in functions of axivdma
+                    examples to recognize it as documentation block
+                    for doxygen generation of examples.
+6.4   ms   04/18/17 Modified tcl file to add suffix U for all macro
+                    definitions of axivdma in xparameters.h
+      ms   08/07/17 Fixed compilation warnings in <ref refid="xaxivdma__sinit_8c" kindref="compound">xaxivdma_sinit.c</ref>
+6.6   rsp  07/02/18 Add vertical flip states in config structures
+6.12  sa   08/12/22 Updated the examples to use latest MIG cannoical define
+                       i.e XPAR_MIG_0_C0_DDR4_MEMORY_MAP_BASEADDR.</para></listitem></itemizedlist>
+</para></listitem></itemizedlist>
+</para></listitem></itemizedlist>
+</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

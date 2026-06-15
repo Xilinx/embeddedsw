@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_4e4d22e38ca4e2e8207825ee2d00bc54" kind="dir">
+    <compoundname>src</compoundname>
+    <innerfile refid="xbasic__types_8c">xbasic_types.c</innerfile>
+    <innerfile refid="xbasic__types_8h">xbasic_types.h</innerfile>
+    <innerfile refid="xdebug_8h">xdebug.h</innerfile>
+    <innerfile refid="xenv_8h">xenv.h</innerfile>
+    <innerfile refid="xenv__linux_8h">xenv_linux.h</innerfile>
+    <innerfile refid="xenv__none_8h">xenv_none.h</innerfile>
+    <innerfile refid="xenv__standalone_8h">xenv_standalone.h</innerfile>
+    <innerfile refid="xenv__vxworks_8h">xenv_vxworks.h</innerfile>
+    <innerfile refid="xparameters_8h">xparameters.h</innerfile>
+    <innerfile refid="xstatus_8h">xstatus.h</innerfile>
+    <innerfile refid="xutil_8h">xutil.h</innerfile>
+    <innerfile refid="xutil__memtest_8c">xutil_memtest.c</innerfile>
+    <innerfile refid="xversion_8c">xversion.c</innerfile>
+    <innerfile refid="xversion_8h">xversion.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/common/src/"/>
+  </compounddef>
+</doxygen>

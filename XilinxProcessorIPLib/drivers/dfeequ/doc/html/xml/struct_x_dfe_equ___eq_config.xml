@@ -1,0 +1,82 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_dfe_equ___eq_config" kind="struct" prot="public">
+    <compoundname>XDfeEqu_EqConfig</compoundname>
+    <includes local="no">xdfeequ.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_dfe_equ___eq_config_1a8b87735d2a2b4acc3438a365167c85cf" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfeEqu_EqConfig::Flush</definition>
+        <argsstring></argsstring>
+        <name>Flush</name>
+        <briefdescription>
+<para>[0,1] Set high to flush the buffers. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeequ/src/xdfeequ.h" line="281" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeequ/src/xdfeequ.h" bodystart="281" bodyend="-1"/>
+        <referencedby refid="group__dfeequ_1ga493536b08c0b66462836a39423895aae" compoundref="xdfeequ_8c" startline="957" endline="993">XDfeEqu_Update</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_equ___eq_config_1a42c1ff0831f5080a2cc3db9f90c482d6" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfeEqu_EqConfig::DatapathMode</definition>
+        <argsstring></argsstring>
+        <name>DatapathMode</name>
+        <briefdescription>
+<para><verbatim>           [real, complex]
+</verbatim> Set depending on whether the equalizer is running in real, complex mode. </para>        </briefdescription>
+        <detaileddescription>
+<para>Each of the eight channels consists of 2 sub-channels. In complex mode, the 2 sub-channels form a single filter channel acting on the data&apos;s real and imaginary parts. In real mode, the two sub-channels act as independent filter channels acting on the two real samples at the input. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeequ/src/xdfeequ.h" line="282" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeequ/src/xdfeequ.h" bodystart="282" bodyend="-1"/>
+        <referencedby refid="group__dfeequ_1ga84403d8f6f2f4e9a45668d9dc7dc5b28" compoundref="xdfeequ_8c" startline="810" endline="850">XDfeEqu_Initialize</referencedby>
+        <referencedby refid="group__dfeequ_1ga12d7169da8086c7d940094f4c468e3dd" compoundref="xdfeequ__pass__through__example_8c" startline="63" endline="131">XDfeEqu_PassThroughExample</referencedby>
+        <referencedby refid="group__dfeequ_1gaf6db33d7a9353be5cfaa65046001a7ee" compoundref="xdfeequ__one__instance__initialization__example_8c" startline="57" endline="102">XDfeEqu_SelfExample</referencedby>
+        <referencedby refid="group__dfeequ_1ga493536b08c0b66462836a39423895aae" compoundref="xdfeequ_8c" startline="957" endline="993">XDfeEqu_Update</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_equ___eq_config_1af759999d7e1c6ca30d74d8b20de771eb" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfeEqu_EqConfig::RealDatapathSet</definition>
+        <argsstring></argsstring>
+        <name>RealDatapathSet</name>
+        <briefdescription>
+<para><verbatim>              [0-3] Coefficient set to use for real
+</verbatim> data path. </para>        </briefdescription>
+        <detaileddescription>
+<para>In complex mode the datapath set is limited to 0 or 2. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeequ/src/xdfeequ.h" line="290" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeequ/src/xdfeequ.h" bodystart="290" bodyend="-1"/>
+        <referencedby refid="group__dfeequ_1ga493536b08c0b66462836a39423895aae" compoundref="xdfeequ_8c" startline="957" endline="993">XDfeEqu_Update</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_equ___eq_config_1ab4f796d382674ed0dec3101676dd20de" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfeEqu_EqConfig::ImDatapathSet</definition>
+        <argsstring></argsstring>
+        <name>ImDatapathSet</name>
+        <briefdescription>
+<para><verbatim>            [0-1] Coefficient set to use for imaginary
+</verbatim> datapath. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeequ/src/xdfeequ.h" line="293" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeequ/src/xdfeequ.h" bodystart="293" bodyend="-1"/>
+        <referencedby refid="group__dfeequ_1ga493536b08c0b66462836a39423895aae" compoundref="xdfeequ_8c" startline="957" endline="993">XDfeEqu_Update</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Equalizer Configuration Structure. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeequ/src/xdfeequ.h" line="280" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeequ/src/xdfeequ.h" bodystart="280" bodyend="295"/>
+    <listofallmembers>
+      <member refid="struct_x_dfe_equ___eq_config_1a42c1ff0831f5080a2cc3db9f90c482d6" prot="public" virt="non-virtual"><scope>XDfeEqu_EqConfig</scope><name>DatapathMode</name></member>
+      <member refid="struct_x_dfe_equ___eq_config_1a8b87735d2a2b4acc3438a365167c85cf" prot="public" virt="non-virtual"><scope>XDfeEqu_EqConfig</scope><name>Flush</name></member>
+      <member refid="struct_x_dfe_equ___eq_config_1ab4f796d382674ed0dec3101676dd20de" prot="public" virt="non-virtual"><scope>XDfeEqu_EqConfig</scope><name>ImDatapathSet</name></member>
+      <member refid="struct_x_dfe_equ___eq_config_1af759999d7e1c6ca30d74d8b20de771eb" prot="public" virt="non-virtual"><scope>XDfeEqu_EqConfig</scope><name>RealDatapathSet</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

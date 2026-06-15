@@ -1,0 +1,100 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_cam_device_dmsc_skin_config__s" kind="struct" prot="public">
+    <compoundname>CamDeviceDmscSkinConfig_s</compoundname>
+    <includes local="no">cam_device_dmsc_api.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_cam_device_dmsc_skin_config__s_1ac4d3214fc79e3d2317e9d897cf21108b" prot="public" static="no" mutable="no">
+        <type>int16_t</type>
+        <definition>int16_t CamDeviceDmscSkinConfig_s::dmscSkinCbThrMax</definition>
+        <argsstring></argsstring>
+        <name>dmscSkinCbThrMax</name>
+        <briefdescription>
+<para>Maximum threshold of skin color area in Cb color space. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dmsc_v2/cam_device_dmsc_api.h" line="200" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dmsc_v2/cam_device_dmsc_api.h" bodystart="200" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_dmsc_skin_config__s_1a41cd14b29e22bd5562a32d8496ef9a0b" prot="public" static="no" mutable="no">
+        <type>int16_t</type>
+        <definition>int16_t CamDeviceDmscSkinConfig_s::dmscSkinCbThrMin</definition>
+        <argsstring></argsstring>
+        <name>dmscSkinCbThrMin</name>
+        <briefdescription>
+<para>Minimum threshold of skin color area in Cb color space. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dmsc_v2/cam_device_dmsc_api.h" line="201" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dmsc_v2/cam_device_dmsc_api.h" bodystart="201" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_dmsc_skin_config__s_1af8f8113ed3729614b7a0d55b2d6f0008" prot="public" static="no" mutable="no">
+        <type>int16_t</type>
+        <definition>int16_t CamDeviceDmscSkinConfig_s::dmscSkinCrThrMax</definition>
+        <argsstring></argsstring>
+        <name>dmscSkinCrThrMax</name>
+        <briefdescription>
+<para>Maximum threshold of skin color area in Cr color space. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dmsc_v2/cam_device_dmsc_api.h" line="202" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dmsc_v2/cam_device_dmsc_api.h" bodystart="202" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_dmsc_skin_config__s_1ad00efd71d3d6a69404c2d3011fa3892e" prot="public" static="no" mutable="no">
+        <type>int16_t</type>
+        <definition>int16_t CamDeviceDmscSkinConfig_s::dmscSkinCrThrMin</definition>
+        <argsstring></argsstring>
+        <name>dmscSkinCrThrMin</name>
+        <briefdescription>
+<para>Minimum threshold of skin color area in Cr color space. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dmsc_v2/cam_device_dmsc_api.h" line="203" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dmsc_v2/cam_device_dmsc_api.h" bodystart="203" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_dmsc_skin_config__s_1abe32f1c27dc28fb2c3c6bf28d62bfc34" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t CamDeviceDmscSkinConfig_s::dmscSkinYThrMax</definition>
+        <argsstring></argsstring>
+        <name>dmscSkinYThrMax</name>
+        <briefdescription>
+<para>Maximum threshold of skin color area in Y color space. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dmsc_v2/cam_device_dmsc_api.h" line="204" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dmsc_v2/cam_device_dmsc_api.h" bodystart="204" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_dmsc_skin_config__s_1a209b86059b991139cec4478f6ee3f2d0" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t CamDeviceDmscSkinConfig_s::dmscSkinYThrMin</definition>
+        <argsstring></argsstring>
+        <name>dmscSkinYThrMin</name>
+        <briefdescription>
+<para>Minimum threshold of skin color area in Y color space. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dmsc_v2/cam_device_dmsc_api.h" line="205" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dmsc_v2/cam_device_dmsc_api.h" bodystart="205" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>VsCamDevice DMSC skin configuration. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dmsc_v2/cam_device_dmsc_api.h" line="199" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dmsc_v2/cam_device_dmsc_api.h" bodystart="199" bodyend="206"/>
+    <listofallmembers>
+      <member refid="struct_cam_device_dmsc_skin_config__s_1ac4d3214fc79e3d2317e9d897cf21108b" prot="public" virt="non-virtual"><scope>CamDeviceDmscSkinConfig_s</scope><name>dmscSkinCbThrMax</name></member>
+      <member refid="struct_cam_device_dmsc_skin_config__s_1a41cd14b29e22bd5562a32d8496ef9a0b" prot="public" virt="non-virtual"><scope>CamDeviceDmscSkinConfig_s</scope><name>dmscSkinCbThrMin</name></member>
+      <member refid="struct_cam_device_dmsc_skin_config__s_1af8f8113ed3729614b7a0d55b2d6f0008" prot="public" virt="non-virtual"><scope>CamDeviceDmscSkinConfig_s</scope><name>dmscSkinCrThrMax</name></member>
+      <member refid="struct_cam_device_dmsc_skin_config__s_1ad00efd71d3d6a69404c2d3011fa3892e" prot="public" virt="non-virtual"><scope>CamDeviceDmscSkinConfig_s</scope><name>dmscSkinCrThrMin</name></member>
+      <member refid="struct_cam_device_dmsc_skin_config__s_1abe32f1c27dc28fb2c3c6bf28d62bfc34" prot="public" virt="non-virtual"><scope>CamDeviceDmscSkinConfig_s</scope><name>dmscSkinYThrMax</name></member>
+      <member refid="struct_cam_device_dmsc_skin_config__s_1a209b86059b991139cec4478f6ee3f2d0" prot="public" virt="non-virtual"><scope>CamDeviceDmscSkinConfig_s</scope><name>dmscSkinYThrMin</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

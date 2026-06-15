@@ -1,0 +1,89 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_tmr_ctr___config" kind="struct" prot="public">
+    <compoundname>XTmrCtr_Config</compoundname>
+    <includes local="no">xtmrctr.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_tmr_ctr___config_1a561d64cc972fdc500b0ff1053bee9c11" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* XTmrCtr_Config::Name</definition>
+        <argsstring></argsstring>
+        <name>Name</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmrctr/src/xtmrctr.h" line="222" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmrctr/src/xtmrctr.h" bodystart="222" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_tmr_ctr___config_1a399beafc33fb2989566b777768b560c0" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XTmrCtr_Config::BaseAddress</definition>
+        <argsstring></argsstring>
+        <name>BaseAddress</name>
+        <briefdescription>
+<para>Register base address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmrctr/src/xtmrctr.h" line="224" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmrctr/src/xtmrctr.h" bodystart="224" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga220874785f096cc5f38b3bec907a008c" compoundref="xtmrctr_8c" startline="96" endline="115">XTmrCtr_CfgInitialize</referencedby>
+        <referencedby refid="group___overview_1ga8fbe1a132a6c742c79cb73dee233e779" compoundref="xtmrctr_8c" startline="197" endline="224">XTmrCtr_Initialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_tmr_ctr___config_1a8841b74af7282d4328dafd915b277b10" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XTmrCtr_Config::SysClockFreqHz</definition>
+        <argsstring></argsstring>
+        <name>SysClockFreqHz</name>
+        <briefdescription>
+<para>The AXI bus clock frequency. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmrctr/src/xtmrctr.h" line="225" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmrctr/src/xtmrctr.h" bodystart="225" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga295c8b4acc8b8fd71cb1085d3fa2c53c" compoundref="xtmrctr_8c" startline="533" endline="600">XTmrCtr_PwmConfigure</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_tmr_ctr___config_1a3051cf445f5f72d5ef22264929cbda0a" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XTmrCtr_Config::IntrId</definition>
+        <argsstring></argsstring>
+        <name>IntrId</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmrctr/src/xtmrctr.h" line="227" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmrctr/src/xtmrctr.h" bodystart="227" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_tmr_ctr___config_1a36fd1162d523e37482e7272e3fa62476" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XTmrCtr_Config::IntrParent</definition>
+        <argsstring></argsstring>
+        <name>IntrParent</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmrctr/src/xtmrctr.h" line="228" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmrctr/src/xtmrctr.h" bodystart="228" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef contains configuration information for the device. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmrctr/src/xtmrctr.h" line="218" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmrctr/src/xtmrctr.h" bodystart="218" bodyend="230"/>
+    <listofallmembers>
+      <member refid="struct_x_tmr_ctr___config_1a399beafc33fb2989566b777768b560c0" prot="public" virt="non-virtual"><scope>XTmrCtr_Config</scope><name>BaseAddress</name></member>
+      <member refid="struct_x_tmr_ctr___config_1a3051cf445f5f72d5ef22264929cbda0a" prot="public" virt="non-virtual"><scope>XTmrCtr_Config</scope><name>IntrId</name></member>
+      <member refid="struct_x_tmr_ctr___config_1a36fd1162d523e37482e7272e3fa62476" prot="public" virt="non-virtual"><scope>XTmrCtr_Config</scope><name>IntrParent</name></member>
+      <member refid="struct_x_tmr_ctr___config_1a561d64cc972fdc500b0ff1053bee9c11" prot="public" virt="non-virtual"><scope>XTmrCtr_Config</scope><name>Name</name></member>
+      <member refid="struct_x_tmr_ctr___config_1a8841b74af7282d4328dafd915b277b10" prot="public" virt="non-virtual"><scope>XTmrCtr_Config</scope><name>SysClockFreqHz</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,740 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xasu__eccinfo_8h" kind="file">
+    <compoundname>xasu_eccinfo.h</compoundname>
+    <includes local="yes">xil_types.h</includes>
+    <includes local="yes">xasu_bsp_config.h</includes>
+    <includedby refid="xasu__ecc_8h" local="yes">xasu_ecc.h</includedby>
+    <includedby refid="xasu__keymanager_8c" local="yes">xasu_keymanager.c</includedby>
+    <includedby refid="xasu__ecies__common_8c" local="yes">xasu_ecies_common.c</includedby>
+    <includedby refid="xasu__keymanagerinfo_8h" local="yes">xasu_keymanagerinfo.h</includedby>
+    <includedby refid="xasu__ocp__common_8c" local="yes">xasu_ocp_common.c</includedby>
+    <includedby refid="xasu__ecies__example_8c" local="yes">xasu_ecies_example.c</includedby>
+    <incdepgraph>
+      <node id="274">
+        <label>xasu_bsp_config.h</label>
+      </node>
+      <node id="273">
+        <label>xil_types.h</label>
+      </node>
+      <node id="272">
+        <label>xasu_eccinfo.h</label>
+        <link refid="xasu_eccinfo.h"/>
+        <childnode refid="273" relation="include">
+        </childnode>
+        <childnode refid="274" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="279">
+        <label>xasu_ecc_example.c</label>
+        <link refid="xasu__ecc__example_8c"/>
+      </node>
+      <node id="288">
+        <label>xasu_hmac.c</label>
+        <link refid="xasu__hmac_8c"/>
+      </node>
+      <node id="290">
+        <label>xasu_keymanager_common.c</label>
+        <link refid="xasu__keymanager__common_8c"/>
+      </node>
+      <node id="286">
+        <label>xasu_keymanager_common.h</label>
+        <link refid="xasu__keymanager__common_8h"/>
+        <childnode refid="287" relation="include">
+        </childnode>
+        <childnode refid="277" relation="include">
+        </childnode>
+        <childnode refid="288" relation="include">
+        </childnode>
+        <childnode refid="282" relation="include">
+        </childnode>
+        <childnode refid="289" relation="include">
+        </childnode>
+        <childnode refid="290" relation="include">
+        </childnode>
+        <childnode refid="291" relation="include">
+        </childnode>
+        <childnode refid="292" relation="include">
+        </childnode>
+        <childnode refid="293" relation="include">
+        </childnode>
+      </node>
+      <node id="291">
+        <label>xasu_keywrap_common.c</label>
+        <link refid="xasu__keywrap__common_8c"/>
+      </node>
+      <node id="295">
+        <label>xasu_ecies_example.c</label>
+        <link refid="xasu__ecies__example_8c"/>
+      </node>
+      <node id="281">
+        <label>xasu_multi_crypto_example.c</label>
+        <link refid="xasu__multi__crypto__example_8c"/>
+      </node>
+      <node id="277">
+        <label>xasu_ecc.c</label>
+        <link refid="xasu__ecc_8c"/>
+      </node>
+      <node id="276">
+        <label>xasu_ecc.h</label>
+        <link refid="xasu__ecc_8h"/>
+        <childnode refid="277" relation="include">
+        </childnode>
+        <childnode refid="278" relation="include">
+        </childnode>
+        <childnode refid="279" relation="include">
+        </childnode>
+        <childnode refid="280" relation="include">
+        </childnode>
+        <childnode refid="281" relation="include">
+        </childnode>
+      </node>
+      <node id="293">
+        <label>xasu_rsa_common.c</label>
+        <link refid="xasu__rsa__common_8c"/>
+      </node>
+      <node id="294">
+        <label>xasu_ocp_common.c</label>
+        <link refid="xasu__ocp__common_8c"/>
+      </node>
+      <node id="284">
+        <label>xasu_keymanagerinfo.h</label>
+        <link refid="xasu__keymanagerinfo_8h"/>
+        <childnode refid="285" relation="include">
+        </childnode>
+        <childnode refid="286" relation="include">
+        </childnode>
+      </node>
+      <node id="283">
+        <label>xasu_ecies_common.c</label>
+        <link refid="xasu__ecies__common_8c"/>
+      </node>
+      <node id="287">
+        <label>xasu_aes.c</label>
+        <link refid="xasu__aes_8c"/>
+      </node>
+      <node id="278">
+        <label>xasu_ecies.c</label>
+        <link refid="xasu__ecies_8c"/>
+      </node>
+      <node id="289">
+        <label>xasu_kdf_common.c</label>
+        <link refid="xasu__kdf__common_8c"/>
+      </node>
+      <node id="275">
+        <label>xasu_eccinfo.h</label>
+        <link refid="xasu_eccinfo.h"/>
+        <childnode refid="276" relation="include">
+        </childnode>
+        <childnode refid="282" relation="include">
+        </childnode>
+        <childnode refid="283" relation="include">
+        </childnode>
+        <childnode refid="284" relation="include">
+        </childnode>
+        <childnode refid="294" relation="include">
+        </childnode>
+        <childnode refid="295" relation="include">
+        </childnode>
+      </node>
+      <node id="282">
+        <label>xasu_keymanager.c</label>
+        <link refid="xasu__keymanager_8c"/>
+      </node>
+      <node id="285">
+        <label>xasu_keymanager.h</label>
+        <link refid="xasu__keymanager_8h"/>
+        <childnode refid="282" relation="include">
+        </childnode>
+      </node>
+      <node id="292">
+        <label>xasu_lms_common.c</label>
+        <link refid="xasu__lms__common_8c"/>
+      </node>
+      <node id="280">
+        <label>xasu_ecdh_example.c</label>
+        <link refid="xasu__ecdh__example_8c"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_x_asu___ecc_key_object" prot="public">XAsu_EccKeyObject</innerclass>
+    <innerclass refid="struct_x_asu___ecc_params" prot="public">XAsu_EccParams</innerclass>
+    <innerclass refid="struct_x_asu___ecc_key_params" prot="public">XAsu_EccKeyParams</innerclass>
+    <innerclass refid="struct_x_asu___ecdh_params" prot="public">XAsu_EcdhParams</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__xasu__common__defs_1ga10d0113501562343bd8bb8cb20ad7355" prot="public" static="no">
+        <name>XASU_DOUBLE_CURVE_LENGTH_SHIFT</name>
+        <initializer>(0x1U)</initializer>
+        <briefdescription>
+<para>Shift value to double the curve length. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eccinfo.h" line="47" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eccinfo.h" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga549a33ccfc02a7609c2f7868db91aecd" prot="public" static="no">
+        <name>XASU_ECC_GEN_SIGNATURE_CMD_ID</name>
+        <initializer>(0U)</initializer>
+        <briefdescription>
+<para>Command ID for ECC sign generation. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eccinfo.h" line="50" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eccinfo.h" bodystart="50" bodyend="-1"/>
+        <referencedby refid="group__xasu__ecc__client__apis_1gaaabcb4485412f47df39713bd5df6a544" compoundref="xasu__ecc_8c" startline="71" endline="106">XAsu_EccGenSign</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga169bc6365e7267e189aef9fcf1bacf81" prot="public" static="no">
+        <name>XASU_ECC_VERIFY_SIGNATURE_CMD_ID</name>
+        <initializer>(1U)</initializer>
+        <briefdescription>
+<para>Command ID for ECC sign verification. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eccinfo.h" line="51" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eccinfo.h" bodystart="51" bodyend="-1"/>
+        <referencedby refid="group__xasu__ecc__client__apis_1ga4b8e73d2c2143da5c419680e6a1d6c59" compoundref="xasu__ecc_8c" startline="124" endline="159">XAsu_EccVerifySign</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga9a001666cbead1c0995a30c81d3cf705" prot="public" static="no">
+        <name>XASU_ECC_KAT_CMD_ID</name>
+        <initializer>(2U)</initializer>
+        <briefdescription>
+<para>Command ID for ECC KAT. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eccinfo.h" line="52" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eccinfo.h" bodystart="52" bodyend="-1"/>
+        <referencedby refid="group__xasu__ecc__client__apis_1gaf5f7b17a3df3c792590f9a0304e466a9" compoundref="xasu__ecc_8c" startline="303" endline="338">XAsu_EccKat</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga10dae1a65991613bacadcdafe44a7c79" prot="public" static="no">
+        <name>XASU_ECDH_SHARED_SECRET_CMD_ID</name>
+        <initializer>(3U)</initializer>
+        <briefdescription>
+<para>Command ID for ECDH generate shared secret. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eccinfo.h" line="53" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eccinfo.h" bodystart="53" bodyend="-1"/>
+        <referencedby refid="group__xasu__ecc__client__apis_1ga479b14161470bf8787e6f265bb4d23d8" compoundref="xasu__ecc_8c" startline="357" endline="392">XAsu_EcdhGenSharedSecret</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga88d456387e78867dfe712550898b9f6e" prot="public" static="no">
+        <name>XASU_ECDH_KAT_CMD_ID</name>
+        <initializer>(4U)</initializer>
+        <briefdescription>
+<para>Command ID for ECDH KAT. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eccinfo.h" line="54" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eccinfo.h" bodystart="54" bodyend="-1"/>
+        <referencedby refid="group__xasu__ecc__client__apis_1ga856dd75948e7f1643841339257eade80" compoundref="xasu__ecc_8c" startline="406" endline="434">XAsu_EcdhKat</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga6ae858dda9f5299a42254dfa7c9cc73f" prot="public" static="no">
+        <name>XASU_ECC_GEN_PUBKEY_CMD_ID</name>
+        <initializer>(5U)</initializer>
+        <briefdescription>
+<para>Command ID for ECC public key generation. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eccinfo.h" line="55" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eccinfo.h" bodystart="55" bodyend="-1"/>
+        <referencedby refid="group__xasu__ecc__client__apis_1ga48e7b1ccb5585cef9da33497b4ddecd4" compoundref="xasu__ecc_8c" startline="179" endline="215">XAsu_EccGenPubKey</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1gae1a496679846654aac02da3220276642" prot="public" static="no">
+        <name>XASU_ECC_VAL_PUBKEY_CMD_ID</name>
+        <initializer>(6U)</initializer>
+        <briefdescription>
+<para>Command ID for ECC public key validation. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eccinfo.h" line="56" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eccinfo.h" bodystart="56" bodyend="-1"/>
+        <referencedby refid="group__xasu__ecc__client__apis_1ga66e66b97823b69487c4c2e10635dc226" compoundref="xasu__ecc_8c" startline="234" endline="286">XAsu_EccValidatePubKey</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1gaf83ac21da2a6dc8fd0458dd4f47cda6f" prot="public" static="no">
+        <name>XASU_ECC_MAX_CMDS</name>
+        <initializer>(7U)</initializer>
+        <briefdescription>
+<para>Maximum number of commands supported by ECC module. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eccinfo.h" line="57" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eccinfo.h" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1gae0d5b0eb8d6006304f667517a55da079" prot="public" static="no">
+        <name>XASU_ECC_NIST_P256</name>
+        <initializer>(0U)</initializer>
+        <briefdescription>
+<para>NIST P-256 curve. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eccinfo.h" line="60" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eccinfo.h" bodystart="60" bodyend="-1"/>
+        <referencedby refid="group__xasufw__ecdh__client__example_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xasu__ecdh__example_8c" startline="101" endline="227">main</referencedby>
+        <referencedby refid="group__xasu__ecc__client__apis_1gaf5f7b17a3df3c792590f9a0304e466a9" compoundref="xasu__ecc_8c" startline="303" endline="338">XAsu_EccKat</referencedby>
+        <referencedby refid="group__xasu__ecies__common__apis_1gabea090d5e90377bd531c47b85e8854bc" compoundref="xasu__ecies__common_8c" startline="120" endline="169">XAsu_EccValidateCurveInfo</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga88f95ad530f35943b833d493264927f0" prot="public" static="no">
+        <name>XASU_ECC_NIST_P384</name>
+        <initializer>(1U)</initializer>
+        <briefdescription>
+<para>NIST P-384 curve. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eccinfo.h" line="61" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eccinfo.h" bodystart="61" bodyend="-1"/>
+        <referencedby refid="group__xasu__ecies__common__apis_1gabea090d5e90377bd531c47b85e8854bc" compoundref="xasu__ecies__common_8c" startline="120" endline="169">XAsu_EccValidateCurveInfo</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga754d019499ce9c9e2714a9ef84ab84d1" prot="public" static="no">
+        <name>XASU_ECC_NIST_P192</name>
+        <initializer>(2U)</initializer>
+        <briefdescription>
+<para>NIST P-192 curve. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eccinfo.h" line="62" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eccinfo.h" bodystart="62" bodyend="-1"/>
+        <referencedby refid="group__xasu__ecies__common__apis_1gabea090d5e90377bd531c47b85e8854bc" compoundref="xasu__ecies__common_8c" startline="120" endline="169">XAsu_EccValidateCurveInfo</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga1d16dca0caf0a762ede1a0e8672010a2" prot="public" static="no">
+        <name>XASU_ECC_NIST_P224</name>
+        <initializer>(3U)</initializer>
+        <briefdescription>
+<para>NIST P-224 curve. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eccinfo.h" line="63" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eccinfo.h" bodystart="63" bodyend="-1"/>
+        <referencedby refid="group__xasu__ecies__common__apis_1gabea090d5e90377bd531c47b85e8854bc" compoundref="xasu__ecies__common_8c" startline="120" endline="169">XAsu_EccValidateCurveInfo</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga73d575865c062728ed5a08b966bf8334" prot="public" static="no">
+        <name>XASU_ECC_NIST_P521</name>
+        <initializer>(4U)</initializer>
+        <briefdescription>
+<para>NIST P-521 curve. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eccinfo.h" line="64" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eccinfo.h" bodystart="64" bodyend="-1"/>
+        <referencedby refid="group__xasu__ecies__common__apis_1gabea090d5e90377bd531c47b85e8854bc" compoundref="xasu__ecies__common_8c" startline="120" endline="169">XAsu_EccValidateCurveInfo</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga1c82f52a87a08576a6bde00ee9affc44" prot="public" static="no">
+        <name>XASU_ECC_BRAINPOOL_P256</name>
+        <initializer>(5U)</initializer>
+        <briefdescription>
+<para>Brainpool P-256 curve. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eccinfo.h" line="65" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eccinfo.h" bodystart="65" bodyend="-1"/>
+        <referencedby refid="group__xasu__ecies__common__apis_1gabea090d5e90377bd531c47b85e8854bc" compoundref="xasu__ecies__common_8c" startline="120" endline="169">XAsu_EccValidateCurveInfo</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1gac03e0be6a7084a1bd1cba733058768f0" prot="public" static="no">
+        <name>XASU_ECC_BRAINPOOL_P320</name>
+        <initializer>(6U)</initializer>
+        <briefdescription>
+<para>Brainpool P-320 curve. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eccinfo.h" line="66" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eccinfo.h" bodystart="66" bodyend="-1"/>
+        <referencedby refid="group__xasu__ecies__common__apis_1gabea090d5e90377bd531c47b85e8854bc" compoundref="xasu__ecies__common_8c" startline="120" endline="169">XAsu_EccValidateCurveInfo</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1gae0315d337fe37995bcf91bf563360b61" prot="public" static="no">
+        <name>XASU_ECC_BRAINPOOL_P384</name>
+        <initializer>(7U)</initializer>
+        <briefdescription>
+<para>Brainpool P-384 curve. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eccinfo.h" line="67" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eccinfo.h" bodystart="67" bodyend="-1"/>
+        <referencedby refid="group__xasu__ecies__common__apis_1gabea090d5e90377bd531c47b85e8854bc" compoundref="xasu__ecies__common_8c" startline="120" endline="169">XAsu_EccValidateCurveInfo</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga572ce71914996f8df084f6f0804e82ef" prot="public" static="no">
+        <name>XASU_ECC_BRAINPOOL_P512</name>
+        <initializer>(8U)</initializer>
+        <briefdescription>
+<para>Brainpool P-512 curve. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eccinfo.h" line="68" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eccinfo.h" bodystart="68" bodyend="-1"/>
+        <referencedby refid="group__xasu__ecies__common__apis_1gabea090d5e90377bd531c47b85e8854bc" compoundref="xasu__ecies__common_8c" startline="120" endline="169">XAsu_EccValidateCurveInfo</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1gaa2b7c60491a82de1e957abc66e6a299d" prot="public" static="no">
+        <name>XASU_ECC_NIST_ED25519</name>
+        <initializer>(9U)</initializer>
+        <briefdescription>
+<para>NIST ED25519 curve. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eccinfo.h" line="69" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eccinfo.h" bodystart="69" bodyend="-1"/>
+        <referencedby refid="group__xasu__ecc__client__apis_1gaf5f7b17a3df3c792590f9a0304e466a9" compoundref="xasu__ecc_8c" startline="303" endline="338">XAsu_EccKat</referencedby>
+        <referencedby refid="group__xasu__ecies__common__apis_1gabea090d5e90377bd531c47b85e8854bc" compoundref="xasu__ecies__common_8c" startline="120" endline="169">XAsu_EccValidateCurveInfo</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga165bdfeb12775565e04c4f325b658e93" prot="public" static="no">
+        <name>XASU_ECC_NIST_ED448</name>
+        <initializer>(10U)</initializer>
+        <briefdescription>
+<para>NIST ED448 curve. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eccinfo.h" line="70" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eccinfo.h" bodystart="70" bodyend="-1"/>
+        <referencedby refid="group__xasu__ecc__client__apis_1gaf5f7b17a3df3c792590f9a0304e466a9" compoundref="xasu__ecc_8c" startline="303" endline="338">XAsu_EccKat</referencedby>
+        <referencedby refid="group__xasu__ecies__common__apis_1gabea090d5e90377bd531c47b85e8854bc" compoundref="xasu__ecies__common_8c" startline="120" endline="169">XAsu_EccValidateCurveInfo</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1gad73ba0297081b9bfbfb58a959898c527" prot="public" static="no">
+        <name>XASU_ECC_NIST_ED25519_PH</name>
+        <initializer>(11U)</initializer>
+        <briefdescription>
+<para>NIST Hash-ED25519 curve. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eccinfo.h" line="71" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eccinfo.h" bodystart="71" bodyend="-1"/>
+        <referencedby refid="group__xasu__ecies__common__apis_1gabea090d5e90377bd531c47b85e8854bc" compoundref="xasu__ecies__common_8c" startline="120" endline="169">XAsu_EccValidateCurveInfo</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga6f90795d7edb6d0ab23606dba11cda51" prot="public" static="no">
+        <name>XASU_ECC_NIST_ED448_PH</name>
+        <initializer>(12U)</initializer>
+        <briefdescription>
+<para>NIST Hash-ED448 curve. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eccinfo.h" line="72" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eccinfo.h" bodystart="72" bodyend="-1"/>
+        <referencedby refid="group__xasu__ecies__common__apis_1gabea090d5e90377bd531c47b85e8854bc" compoundref="xasu__ecies__common_8c" startline="120" endline="169">XAsu_EccValidateCurveInfo</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1gac4a7489bb920d096da9a133d65d3345b" prot="public" static="no">
+        <name>XASU_ECC_CURVE25519</name>
+        <initializer>(13U)</initializer>
+        <briefdescription>
+<para>Curve25519 curve. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eccinfo.h" line="73" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eccinfo.h" bodystart="73" bodyend="-1"/>
+        <referencedby refid="group__xasu__ecies__common__apis_1gabea090d5e90377bd531c47b85e8854bc" compoundref="xasu__ecies__common_8c" startline="120" endline="169">XAsu_EccValidateCurveInfo</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga038d5d6cf5625497fad4bd0556a3a5d5" prot="public" static="no">
+        <name>XASU_ECC_CURVE448</name>
+        <initializer>(14U)</initializer>
+        <briefdescription>
+<para>Curve448 curve. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eccinfo.h" line="74" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eccinfo.h" bodystart="74" bodyend="-1"/>
+        <referencedby refid="group__xasu__ecies__common__apis_1gabea090d5e90377bd531c47b85e8854bc" compoundref="xasu__ecies__common_8c" startline="120" endline="169">XAsu_EccValidateCurveInfo</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga738898d2f2254bccc70b957aae4454ad" prot="public" static="no">
+        <name>XASU_ECC_P192_PVT_KEY_SIZE_IN_BYTES</name>
+        <initializer>(24U)</initializer>
+        <briefdescription>
+<para>Size of NIST P-192 private key size in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eccinfo.h" line="77" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eccinfo.h" bodystart="76" bodyend="-1"/>
+        <referencedby refid="group__xasu__ecies__common__apis_1gabea090d5e90377bd531c47b85e8854bc" compoundref="xasu__ecies__common_8c" startline="120" endline="169">XAsu_EccValidateCurveInfo</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga976161f17e148ae433db7c62b8346a4f" prot="public" static="no">
+        <name>XASU_ECC_P224_PVT_KEY_SIZE_IN_BYTES</name>
+        <initializer>(28U)</initializer>
+        <briefdescription>
+<para>Size of NIST P-224 private key size in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eccinfo.h" line="79" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eccinfo.h" bodystart="79" bodyend="-1"/>
+        <referencedby refid="group__xasu__ecies__common__apis_1gabea090d5e90377bd531c47b85e8854bc" compoundref="xasu__ecies__common_8c" startline="120" endline="169">XAsu_EccValidateCurveInfo</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga166c1c1d215da0a56a5c4e042d78b4d5" prot="public" static="no">
+        <name>XASU_ECC_P256_PVT_KEY_SIZE_IN_BYTES</name>
+        <initializer>(32U)</initializer>
+        <briefdescription>
+<para>Size of NIST P-256 private key size in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eccinfo.h" line="81" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eccinfo.h" bodystart="82" bodyend="-1"/>
+        <referencedby refid="group__xasu__ecies__example_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xasu__ecies__example_8c" startline="109" endline="236">main</referencedby>
+        <referencedby refid="group__xasu__ecies__common__apis_1gabea090d5e90377bd531c47b85e8854bc" compoundref="xasu__ecies__common_8c" startline="120" endline="169">XAsu_EccValidateCurveInfo</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1gabd0b7982d7b8c999efca697c2fe10e3a" prot="public" static="no">
+        <name>XASU_ECC_P320_PVT_KEY_SIZE_IN_BYTES</name>
+        <initializer>(40U)</initializer>
+        <briefdescription>
+<para>Size of NIST P-320 private key size in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eccinfo.h" line="83" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eccinfo.h" bodystart="85" bodyend="-1"/>
+        <referencedby refid="group__xasu__ecies__common__apis_1gabea090d5e90377bd531c47b85e8854bc" compoundref="xasu__ecies__common_8c" startline="120" endline="169">XAsu_EccValidateCurveInfo</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga561202b987c6542752ab230cbb5d3257" prot="public" static="no">
+        <name>XASU_ECC_P384_PVT_KEY_SIZE_IN_BYTES</name>
+        <initializer>(48U)</initializer>
+        <briefdescription>
+<para>Size of NIST P-384 private key size in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eccinfo.h" line="85" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eccinfo.h" bodystart="88" bodyend="-1"/>
+        <referencedby refid="group__xasu__ecies__common__apis_1gabea090d5e90377bd531c47b85e8854bc" compoundref="xasu__ecies__common_8c" startline="120" endline="169">XAsu_EccValidateCurveInfo</referencedby>
+        <referencedby refid="group__xasu__ocp__common__apis_1ga3e41f95cc96b47f6c22d3a45f9acacf7" compoundref="xasu__ocp__common_8c" startline="86" endline="101">XAsu_OcpValidateAttestParams</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga43bafac78b7dbc5623a08b5795b9313e" prot="public" static="no">
+        <name>XASU_ECC_P512_PVT_KEY_SIZE_IN_BYTES</name>
+        <initializer>(64U)</initializer>
+        <briefdescription>
+<para>Size of Brainpool P-512 private key size in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eccinfo.h" line="87" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eccinfo.h" bodystart="91" bodyend="-1"/>
+        <referencedby refid="group__xasu__ecies__common__apis_1gabea090d5e90377bd531c47b85e8854bc" compoundref="xasu__ecies__common_8c" startline="120" endline="169">XAsu_EccValidateCurveInfo</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga8472a238724905399a7aa23e410523f7" prot="public" static="no">
+        <name>XASU_ECC_P521_PVT_KEY_SIZE_IN_BYTES</name>
+        <initializer>(66U)</initializer>
+        <briefdescription>
+<para>Size of NIST P-521 private key size in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eccinfo.h" line="89" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eccinfo.h" bodystart="94" bodyend="-1"/>
+        <referencedby refid="group__xasu__ecies__common__apis_1gabea090d5e90377bd531c47b85e8854bc" compoundref="xasu__ecies__common_8c" startline="120" endline="169">XAsu_EccValidateCurveInfo</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1gae16783efc2fed98ddee55f272ec0ed18" prot="public" static="no">
+        <name>XASU_ECC_ED448_PVT_KEY_SIZE_IN_BYTES</name>
+        <initializer>(57U)</initializer>
+        <briefdescription>
+<para>Size of Edwards Ed448 private key size in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eccinfo.h" line="91" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eccinfo.h" bodystart="97" bodyend="-1"/>
+        <referencedby refid="group__xasu__ecies__common__apis_1gabea090d5e90377bd531c47b85e8854bc" compoundref="xasu__ecies__common_8c" startline="120" endline="169">XAsu_EccValidateCurveInfo</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga529b019add259716d19b52b45d6b4dbf" prot="public" static="no">
+        <name>XASU_ECC_CURVE448_PVT_KEY_SIZE_IN_BYTES</name>
+        <initializer>(56U)</initializer>
+        <briefdescription>
+<para>Size of Curve448 private key size in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eccinfo.h" line="93" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eccinfo.h" bodystart="100" bodyend="-1"/>
+        <referencedby refid="group__xasu__ecies__common__apis_1gabea090d5e90377bd531c47b85e8854bc" compoundref="xasu__ecies__common_8c" startline="120" endline="169">XAsu_EccValidateCurveInfo</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1gaf1215bddb9131b0abcb3f0575c726a11" prot="public" static="no">
+        <name>XASU_ECC_P521_PUB_KEY_SIZE_IN_BYTES</name>
+        <initializer>(132U)</initializer>
+        <briefdescription>
+<para>Size of NIST P-521 public key size in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eccinfo.h" line="95" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eccinfo.h" bodystart="103" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga9830e27a66ccdfb2477f782084d7b35f" prot="public" static="no">
+        <name>XASU_ECC_P384_PUB_KEY_SIZE_IN_BYTES</name>
+        <initializer>(96U)</initializer>
+        <briefdescription>
+<para>Size of NIST P-384 public key size in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eccinfo.h" line="97" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eccinfo.h" bodystart="106" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xasu__eccinfo_8h_1aa8a9b65645fc338b98978e4ce13e7966" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>u32</type>
+        <definition>static u32 XAsu_DoubleCurveLength</definition>
+        <argsstring>(u32 CurveLength)</argsstring>
+        <name>XAsu_DoubleCurveLength</name>
+        <param>
+          <type>u32</type>
+          <declname>CurveLength</declname>
+        </param>
+        <briefdescription>
+<para>This function is to get the double curve length. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>CurveLength</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Length of the curve.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>Double Curve length. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eccinfo.h" line="160" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eccinfo.h" bodystart="160" bodyend="163"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file contains the ECC definitions which are common across the client and server. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+1.0   yog  07/11/24 Initial release
+      yog  08/19/24 Added <ref refid="struct_x_asu___ecc_params" kindref="compound">XAsu_EccParams</ref> structure, module command ID&apos;s and curve type values
+      ss   12/02/24 Added support for ECDH
+      yog  03/25/25 Added <ref refid="struct_x_asu___ecc_key_params" kindref="compound">XAsu_EccKeyParams</ref> structure and XASU_ECC_GEN_PUBKEY_CMD_ID.
+      yog  07/11/25 Added XASU_ECC_P448_SIZE_IN_BYTES macro and updated curve type macro values.</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/**************************************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2024<sp/>-<sp/>2026,<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">**************************************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/*************************************************************************************************/</highlight></codeline>
+<codeline lineno="33"><highlight class="preprocessor">#ifndef<sp/>XASU_ECCINFO_H_</highlight></codeline>
+<codeline lineno="34"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XASU_ECCINFO_H_</highlight></codeline>
+<codeline lineno="35"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="37"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="39"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="comment">/***************************************<sp/>Include<sp/>Files<sp/>*******************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>SDT</highlight></codeline>
+<codeline lineno="43"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xasu_bsp_config.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="45"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="comment">/************************************<sp/>Constant<sp/>Definitions<sp/>***************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47" refid="group__xasu__common__defs_1ga10d0113501562343bd8bb8cb20ad7355" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XASU_DOUBLE_CURVE_LENGTH_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x1U)<sp/></highlight></codeline>
+<codeline lineno="49"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>ECC<sp/>module<sp/>command<sp/>IDs<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="50" refid="group__xasu__common__defs_1ga549a33ccfc02a7609c2f7868db91aecd" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XASU_ECC_GEN_SIGNATURE_CMD_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0U)<sp/></highlight></codeline>
+<codeline lineno="51" refid="group__xasu__common__defs_1ga169bc6365e7267e189aef9fcf1bacf81" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_ECC_VERIFY_SIGNATURE_CMD_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1U)<sp/></highlight></codeline>
+<codeline lineno="52" refid="group__xasu__common__defs_1ga9a001666cbead1c0995a30c81d3cf705" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_ECC_KAT_CMD_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(2U)<sp/></highlight></codeline>
+<codeline lineno="53" refid="group__xasu__common__defs_1ga10dae1a65991613bacadcdafe44a7c79" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_ECDH_SHARED_SECRET_CMD_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(3U)<sp/></highlight></codeline>
+<codeline lineno="54" refid="group__xasu__common__defs_1ga88d456387e78867dfe712550898b9f6e" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_ECDH_KAT_CMD_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(4U)<sp/></highlight></codeline>
+<codeline lineno="55" refid="group__xasu__common__defs_1ga6ae858dda9f5299a42254dfa7c9cc73f" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_ECC_GEN_PUBKEY_CMD_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(5U)<sp/></highlight></codeline>
+<codeline lineno="56" refid="group__xasu__common__defs_1gae1a496679846654aac02da3220276642" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_ECC_VAL_PUBKEY_CMD_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(6U)<sp/></highlight></codeline>
+<codeline lineno="57" refid="group__xasu__common__defs_1gaf83ac21da2a6dc8fd0458dd4f47cda6f" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_ECC_MAX_CMDS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(7U)<sp/></highlight></codeline>
+<codeline lineno="59"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>ECC<sp/>curve<sp/>Type<sp/>index<sp/>values<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="60" refid="group__xasu__common__defs_1gae0d5b0eb8d6006304f667517a55da079" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XASU_ECC_NIST_P256<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0U)<sp/></highlight></codeline>
+<codeline lineno="61" refid="group__xasu__common__defs_1ga88f95ad530f35943b833d493264927f0" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_ECC_NIST_P384<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1U)<sp/></highlight></codeline>
+<codeline lineno="62" refid="group__xasu__common__defs_1ga754d019499ce9c9e2714a9ef84ab84d1" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_ECC_NIST_P192<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(2U)<sp/></highlight></codeline>
+<codeline lineno="63" refid="group__xasu__common__defs_1ga1d16dca0caf0a762ede1a0e8672010a2" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_ECC_NIST_P224<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(3U)<sp/></highlight></codeline>
+<codeline lineno="64" refid="group__xasu__common__defs_1ga73d575865c062728ed5a08b966bf8334" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_ECC_NIST_P521<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(4U)<sp/></highlight></codeline>
+<codeline lineno="65" refid="group__xasu__common__defs_1ga1c82f52a87a08576a6bde00ee9affc44" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_ECC_BRAINPOOL_P256<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(5U)<sp/></highlight></codeline>
+<codeline lineno="66" refid="group__xasu__common__defs_1gac03e0be6a7084a1bd1cba733058768f0" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_ECC_BRAINPOOL_P320<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(6U)<sp/></highlight></codeline>
+<codeline lineno="67" refid="group__xasu__common__defs_1gae0315d337fe37995bcf91bf563360b61" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_ECC_BRAINPOOL_P384<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(7U)<sp/></highlight></codeline>
+<codeline lineno="68" refid="group__xasu__common__defs_1ga572ce71914996f8df084f6f0804e82ef" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_ECC_BRAINPOOL_P512<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(8U)<sp/></highlight></codeline>
+<codeline lineno="69" refid="group__xasu__common__defs_1gaa2b7c60491a82de1e957abc66e6a299d" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_ECC_NIST_ED25519<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(9U)<sp/></highlight></codeline>
+<codeline lineno="70" refid="group__xasu__common__defs_1ga165bdfeb12775565e04c4f325b658e93" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_ECC_NIST_ED448<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(10U)<sp/></highlight></codeline>
+<codeline lineno="71" refid="group__xasu__common__defs_1gad73ba0297081b9bfbfb58a959898c527" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_ECC_NIST_ED25519_PH<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(11U)<sp/></highlight></codeline>
+<codeline lineno="72" refid="group__xasu__common__defs_1ga6f90795d7edb6d0ab23606dba11cda51" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_ECC_NIST_ED448_PH<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(12U)<sp/></highlight></codeline>
+<codeline lineno="73" refid="group__xasu__common__defs_1gac4a7489bb920d096da9a133d65d3345b" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_ECC_CURVE25519<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(13U)<sp/></highlight></codeline>
+<codeline lineno="74" refid="group__xasu__common__defs_1ga038d5d6cf5625497fad4bd0556a3a5d5" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_ECC_CURVE448<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(14U)<sp/></highlight></codeline>
+<codeline lineno="76" refid="group__xasu__common__defs_1ga738898d2f2254bccc70b957aae4454ad" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_ECC_P192_PVT_KEY_SIZE_IN_BYTES<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(24U)<sp/></highlight></codeline>
+<codeline lineno="78"><highlight class="preprocessor">#define<sp/>XASU_ECC_P224_PVT_KEY_SIZE_IN_BYTES<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(28U)<sp/></highlight></codeline>
+<codeline lineno="80"><highlight class="preprocessor">#define<sp/>XASU_ECC_P256_PVT_KEY_SIZE_IN_BYTES<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(32U)<sp/></highlight></codeline>
+<codeline lineno="82" refid="group__xasu__common__defs_1ga166c1c1d215da0a56a5c4e042d78b4d5" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_ECC_P320_PVT_KEY_SIZE_IN_BYTES<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(40U)<sp/></highlight></codeline>
+<codeline lineno="84"><highlight class="preprocessor">#define<sp/>XASU_ECC_P384_PVT_KEY_SIZE_IN_BYTES<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(48U)<sp/></highlight></codeline>
+<codeline lineno="86"><highlight class="preprocessor">#define<sp/>XASU_ECC_P512_PVT_KEY_SIZE_IN_BYTES<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(64U)<sp/></highlight></codeline>
+<codeline lineno="88" refid="group__xasu__common__defs_1ga561202b987c6542752ab230cbb5d3257" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_ECC_P521_PVT_KEY_SIZE_IN_BYTES<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(66U)<sp/></highlight></codeline>
+<codeline lineno="90"><highlight class="preprocessor">#define<sp/>XASU_ECC_ED448_PVT_KEY_SIZE_IN_BYTES<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(57U)<sp/></highlight></codeline>
+<codeline lineno="92"><highlight class="preprocessor">#define<sp/>XASU_ECC_CURVE448_PVT_KEY_SIZE_IN_BYTES<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(56U)<sp/></highlight></codeline>
+<codeline lineno="94" refid="group__xasu__common__defs_1ga8472a238724905399a7aa23e410523f7" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_ECC_P521_PUB_KEY_SIZE_IN_BYTES<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(132U)<sp/></highlight></codeline>
+<codeline lineno="96"><highlight class="preprocessor">#define<sp/>XASU_ECC_P384_PUB_KEY_SIZE_IN_BYTES<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(96U)<sp/></highlight></codeline>
+<codeline lineno="100" refid="group__xasu__common__defs_1ga529b019add259716d19b52b45d6b4dbf" refkind="member"><highlight class="preprocessor"></highlight><highlight class="comment">/**************************************<sp/>Type<sp/>Definitions<sp/>*****************************************/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="101"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="102"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="103" refid="group__xasu__common__defs_1gaf1215bddb9131b0abcb3f0575c726a11" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>KeyAddr;<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>KeyId;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>KeyLen;<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="106" refid="group__xasu__common__defs_1ga9830e27a66ccdfb2477f782084d7b35f" refkind="member"><highlight class="normal">}<sp/><ref refid="struct_x_asu___ecc_key_object" kindref="compound">XAsu_EccKeyObject</ref>;</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"></highlight></codeline>
+<codeline lineno="109"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_asu___ecc_key_object" kindref="compound">XAsu_EccKeyObject</ref><sp/>Key;<sp/><sp/></highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>DigestAddr;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>SignAddr;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="113" refid="struct_x_asu___ecc_key_object" refkind="compound"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>CurveType;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="114" refid="struct_x_asu___ecc_key_object_1a90332b73852c71bf7e81d3a613b504f4" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>DigestLen;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="115" refid="struct_x_asu___ecc_key_object_1a02196f5aadc4a8e9a43a6e2d767306c0" refkind="member"><highlight class="normal">}<sp/><ref refid="struct_x_asu___ecc_params" kindref="compound">XAsu_EccParams</ref>;</highlight></codeline>
+<codeline lineno="116" refid="struct_x_asu___ecc_key_object_1ac7340774e8e250d8d2712cc5eaad1690" refkind="member"><highlight class="normal"></highlight></codeline>
+<codeline lineno="118"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_asu___ecc_key_object" kindref="compound">XAsu_EccKeyObject</ref><sp/>PvtKey;<sp/></highlight></codeline>
+<codeline lineno="120" refid="struct_x_asu___ecc_params" refkind="compound"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>PubKeyAddr;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="121" refid="struct_x_asu___ecc_params_1a1cdc96ffb752849a2a1fce1c3175e09c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>CurveType;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="122" refid="struct_x_asu___ecc_params_1a6f5c67aee496219d6f142931d319dd9f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Reserved[4];<sp/></highlight></codeline>
+<codeline lineno="123" refid="struct_x_asu___ecc_params_1a3c070c1842824e7ca5f66152cff6845e" refkind="member"><highlight class="normal">}<sp/><ref refid="struct_x_asu___ecc_key_params" kindref="compound">XAsu_EccKeyParams</ref>;</highlight></codeline>
+<codeline lineno="124" refid="struct_x_asu___ecc_params_1ac00e04d777de8519557ffa65384cdc5d" refkind="member"><highlight class="normal"></highlight></codeline>
+<codeline lineno="126"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_asu___ecc_key_object" kindref="compound">XAsu_EccKeyObject</ref><sp/>PvtKey;<sp/></highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_asu___ecc_key_object" kindref="compound">XAsu_EccKeyObject</ref><sp/>PubKey;<sp/></highlight></codeline>
+<codeline lineno="129" refid="struct_x_asu___ecc_key_params" refkind="compound"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>SharedSecretAddr;<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="130" refid="struct_x_asu___ecc_key_params_1a5d2bdcbf89a67623051f0da37988dd1b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>SharedSecretObjIdAddr;<sp/></highlight></codeline>
+<codeline lineno="131" refid="struct_x_asu___ecc_key_params_1a89ea1775c2f9736d7cf50876c80b5951" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>CurveType;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="132" refid="struct_x_asu___ecc_key_params_1a0d0ce8eef9e2961c1b392c827d3caba7" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Reserved[4];<sp/></highlight></codeline>
+<codeline lineno="133" refid="struct_x_asu___ecc_key_params_1a0fdc3fb597fbcf7afc9bfd2afb20478f" refkind="member"><highlight class="normal">}<sp/><ref refid="struct_x_asu___ecdh_params" kindref="compound">XAsu_EcdhParams</ref>;</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"></highlight></codeline>
+<codeline lineno="135"><highlight class="normal"></highlight><highlight class="comment">/***************************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="136"><highlight class="normal"></highlight></codeline>
+<codeline lineno="137" refid="struct_x_asu___ecdh_params" refkind="compound"><highlight class="normal"></highlight><highlight class="comment">/************************************<sp/>Function<sp/>Prototypes<sp/>****************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="138" refid="struct_x_asu___ecdh_params_1acd73d8515295ec4480c20ccadd3252cd" refkind="member"><highlight class="normal"></highlight></codeline>
+<codeline lineno="139" refid="struct_x_asu___ecdh_params_1aa448e9b41c1b225d1951926c50c80d72" refkind="member"><highlight class="normal"></highlight><highlight class="comment">/*************************************************************************************************/</highlight></codeline>
+<codeline lineno="149"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/>u32<sp/>XAsu_DoubleCurveLength(u32<sp/>CurveLength)</highlight></codeline>
+<codeline lineno="150"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(CurveLength<sp/>&lt;&lt;<sp/><ref refid="group__xasu__common__defs_1ga10d0113501562343bd8bb8cb20ad7355" kindref="member">XASU_DOUBLE_CURVE_LENGTH_SHIFT</ref>);</highlight></codeline>
+<codeline lineno="152"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"></highlight></codeline>
+<codeline lineno="154"><highlight class="normal"></highlight><highlight class="comment">/************************************<sp/>Variable<sp/>Definitions<sp/>***************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="155"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="156"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="158"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="159"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/></highlight><highlight class="comment">/*<sp/>XASU_ECCINFO_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eccinfo.h"/>
+  </compounddef>
+</doxygen>

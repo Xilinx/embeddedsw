@@ -1,0 +1,100 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_vid_c___video_timing_mode" kind="struct" prot="public">
+    <compoundname>XVidC_VideoTimingMode</compoundname>
+    <includes local="no">xvidc.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_vid_c___video_timing_mode_1ac2432f8f615705219ca240bf47d87a9c" prot="public" static="no" mutable="no">
+        <type><ref refid="group__video__common_1ga562f08faf2fc329b1cd7147b3d66ef53" kindref="member">XVidC_VideoMode</ref></type>
+        <definition>XVidC_VideoMode XVidC_VideoTimingMode::VmId</definition>
+        <argsstring></argsstring>
+        <name>VmId</name>
+        <briefdescription>
+<para>Video mode identifier. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc.h" line="654" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc.h" bodystart="654" bodyend="-1"/>
+        <referencedby refid="group__video__common_1ga0a1cda75da460feccd4ab2c2ee712fa5" compoundref="xvidc_8c" startline="314" endline="417">XVidC_GetVideoModeId</referencedby>
+        <referencedby refid="group__video__common_1ga268ce8ec4d2d07109eb7795073e04cbb" compoundref="xvidc_8c" startline="439" endline="594">XVidC_GetVideoModeIdExtensive</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vid_c___video_timing_mode_1afec5ad94ad6cf23b7880e7dad5fc4106" prot="public" static="no" mutable="no">
+        <type>char</type>
+        <definition>char XVidC_VideoTimingMode::Name[21]</definition>
+        <argsstring>[21]</argsstring>
+        <name>Name</name>
+        <briefdescription>
+<para>Video mode name string. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc.h" line="655" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc.h" bodystart="655" bodyend="-1"/>
+        <referencedby refid="group__video__common_1ga536ee41269fe7c0519dc8c3838af2d93" compoundref="xvidc_8c" startline="684" endline="698">XVidC_GetVideoModeStr</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vid_c___video_timing_mode_1a49a18969ef2ed7ce9b33018abc2df615" prot="public" static="no" mutable="no">
+        <type><ref refid="group__video__common_1gac192cb9c275d8ef2c985646f420c1a4e" kindref="member">XVidC_FrameRate</ref></type>
+        <definition>XVidC_FrameRate XVidC_VideoTimingMode::FrameRate</definition>
+        <argsstring></argsstring>
+        <name>FrameRate</name>
+        <briefdescription>
+<para>Frame rate for this mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc.h" line="656" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc.h" bodystart="656" bodyend="-1"/>
+        <referencedby refid="group__video__common_1ga5359c410dfcc1bb7a851f77f0b92b287" compoundref="xvidc_8c" startline="877" endline="887">XVidC_GetFrameRate</referencedby>
+        <referencedby refid="group__video__common_1ga3a1ddd84b3b0115149c1b0820c6ba6f4" compoundref="xvidc_8c" startline="711" endline="746">XVidC_GetFrameRateStr</referencedby>
+        <referencedby refid="group__video__common_1gae37000ca466121ef99a1e1fd4b587d91" compoundref="xvidc_8c" startline="155" endline="187">XVidC_GetPixelClockHzByVmId</referencedby>
+        <referencedby refid="group__video__common_1ga0a1cda75da460feccd4ab2c2ee712fa5" compoundref="xvidc_8c" startline="314" endline="417">XVidC_GetVideoModeId</referencedby>
+        <referencedby refid="group__video__common_1ga268ce8ec4d2d07109eb7795073e04cbb" compoundref="xvidc_8c" startline="439" endline="594">XVidC_GetVideoModeIdExtensive</referencedby>
+        <referencedby refid="group__video__common_1ga4377fff1a8e427e5f7bb642c5b115046" compoundref="xvidc_8c" startline="617" endline="649">XVidC_GetVideoModeIdRb</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vid_c___video_timing_mode_1a13601eb4bde0d026402fa7b05750eec4" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_vid_c___video_timing" kindref="compound">XVidC_VideoTiming</ref></type>
+        <definition>XVidC_VideoTiming XVidC_VideoTimingMode::Timing</definition>
+        <argsstring></argsstring>
+        <name>Timing</name>
+        <briefdescription>
+<para>Timing parameters for this mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc.h" line="657" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc.h" bodystart="657" bodyend="-1"/>
+        <referencedby refid="group__video__common_1gae37000ca466121ef99a1e1fd4b587d91" compoundref="xvidc_8c" startline="155" endline="187">XVidC_GetPixelClockHzByVmId</referencedby>
+        <referencedby refid="group__video__common_1ga88a549f52e28fcf7b3e249f42e847bc1" compoundref="xvidc_8c" startline="900" endline="910">XVidC_GetTimingInfo</referencedby>
+        <referencedby refid="group__video__common_1ga7b982d86111b66608e263b5ecd639e42" compoundref="xvidc_8c" startline="203" endline="217">XVidC_GetVideoFormat</referencedby>
+        <referencedby refid="group__video__common_1ga0a1cda75da460feccd4ab2c2ee712fa5" compoundref="xvidc_8c" startline="314" endline="417">XVidC_GetVideoModeId</referencedby>
+        <referencedby refid="group__video__common_1ga268ce8ec4d2d07109eb7795073e04cbb" compoundref="xvidc_8c" startline="439" endline="594">XVidC_GetVideoModeIdExtensive</referencedby>
+        <referencedby refid="group__video__common_1ga4377fff1a8e427e5f7bb642c5b115046" compoundref="xvidc_8c" startline="617" endline="649">XVidC_GetVideoModeIdRb</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Video timing mode from the video timing table. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="24">
+        <label>XVidC_VideoTimingMode</label>
+        <link refid="struct_x_vid_c___video_timing_mode"/>
+        <childnode refid="25" relation="usage">
+          <edgelabel>Timing</edgelabel>
+        </childnode>
+      </node>
+      <node id="25">
+        <label>XVidC_VideoTiming</label>
+        <link refid="struct_x_vid_c___video_timing"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc.h" line="653" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc.h" bodystart="653" bodyend="658"/>
+    <listofallmembers>
+      <member refid="struct_x_vid_c___video_timing_mode_1a49a18969ef2ed7ce9b33018abc2df615" prot="public" virt="non-virtual"><scope>XVidC_VideoTimingMode</scope><name>FrameRate</name></member>
+      <member refid="struct_x_vid_c___video_timing_mode_1afec5ad94ad6cf23b7880e7dad5fc4106" prot="public" virt="non-virtual"><scope>XVidC_VideoTimingMode</scope><name>Name</name></member>
+      <member refid="struct_x_vid_c___video_timing_mode_1a13601eb4bde0d026402fa7b05750eec4" prot="public" virt="non-virtual"><scope>XVidC_VideoTimingMode</scope><name>Timing</name></member>
+      <member refid="struct_x_vid_c___video_timing_mode_1ac2432f8f615705219ca240bf47d87a9c" prot="public" virt="non-virtual"><scope>XVidC_VideoTimingMode</scope><name>VmId</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

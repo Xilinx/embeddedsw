@@ -1,0 +1,248 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xv__frmbufrd__l2__intr_8c" kind="file">
+    <compoundname>xv_frmbufrd_l2_intr.c</compoundname>
+    <includes refid="xv__frmbufrd__l2_8h" local="yes">xv_frmbufrd_l2.h</includes>
+    <incdepgraph>
+      <node id="98">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="100">
+        <label>xil_io.h</label>
+      </node>
+      <node id="93">
+        <label>xv_frmbufrd_l2_intr.c</label>
+        <link refid="xv_frmbufrd_l2_intr.c"/>
+        <childnode refid="94" relation="include">
+        </childnode>
+      </node>
+      <node id="94">
+        <label>xv_frmbufrd_l2.h</label>
+        <link refid="xv__frmbufrd__l2_8h"/>
+        <childnode refid="95" relation="include">
+        </childnode>
+        <childnode refid="96" relation="include">
+        </childnode>
+      </node>
+      <node id="99">
+        <label>xstatus.h</label>
+      </node>
+      <node id="95">
+        <label>xvidc.h</label>
+      </node>
+      <node id="101">
+        <label>xv_frmbufrd_hw.h</label>
+        <link refid="xv__frmbufrd__hw_8h"/>
+      </node>
+      <node id="96">
+        <label>xv_frmbufrd.h</label>
+        <link refid="xv__frmbufrd_8h"/>
+        <childnode refid="97" relation="include">
+        </childnode>
+        <childnode refid="98" relation="include">
+        </childnode>
+        <childnode refid="99" relation="include">
+        </childnode>
+        <childnode refid="100" relation="include">
+        </childnode>
+        <childnode refid="101" relation="include">
+        </childnode>
+      </node>
+      <node id="97">
+        <label>xil_types.h</label>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__v__frmbuf__rd_1ga90785baf366d034a2e602ec6cd5a9dff" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XVFrmbufRd_SetCallback</definition>
+        <argsstring>(XV_FrmbufRd_l2 *InstancePtr, u32 HandlerType, void *CallbackFunc, void *CallbackRef)</argsstring>
+        <name>XVFrmbufRd_SetCallback</name>
+        <param>
+          <type><ref refid="struct_x_v___frmbuf_rd__l2" kindref="compound">XV_FrmbufRd_l2</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>HandlerType</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>CallbackFunc</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>CallbackRef</declname>
+        </param>
+        <briefdescription>
+<para>This function installs an asynchronous callback function for the given HandlerType: </para>        </briefdescription>
+        <detaileddescription>
+<para><preformatted>
+HandlerType                     Callback Function Type
+-----------------------         --------------------------------------------------
+(XVFRMBUFRD_HANDLER_DONE)       DoneCallback
+(XVFRMBUFRD_HANDLER_READY)      ReadyCallback
+</preformatted></para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the Frame Buffer Read core instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CallbackFunc</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the address of the callback function. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CallbackRef</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a user data item that will be passed to the callback function when it is invoked. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>HandlerType</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>specifies the type of handler.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if callback function installed successfully.</para></listitem><listitem><para>XST_INVALID_PARAM when HandlerType is invalid.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>Invoking this function for a handler that already has been installed replaces it with the new handler. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd_l2_intr.c" line="62" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd_l2_intr.c" bodystart="62" bodyend="90"/>
+        <references refid="struct_x_v___frmbuf_rd__l2_1af5197034b172783210b2cb88547bfa87" compoundref="xv__frmbufrd__l2_8h" startline="167">XV_FrmbufRd_l2::CallbackDoneRef</references>
+        <references refid="struct_x_v___frmbuf_rd__l2_1aff68a0427bdc269ca05fde57f7cc8743" compoundref="xv__frmbufrd__l2_8h" startline="171">XV_FrmbufRd_l2::CallbackReadyRef</references>
+        <references refid="struct_x_v___frmbuf_rd__l2_1a89bc60bff119d8099d26f5e5fa6bebfa" compoundref="xv__frmbufrd__l2_8h" startline="165">XV_FrmbufRd_l2::FrameDoneCallback</references>
+        <references refid="struct_x_v___frmbuf_rd__l2_1a48f7a71fe84c44380cc6c1d253e0fa67" compoundref="xv__frmbufrd__l2_8h" startline="169">XV_FrmbufRd_l2::FrameReadyCallback</references>
+        <references refid="group__v__frmbuf__rd_1gga08b753ae28c0a8c47f3a57428c84390ea3fded5e73774f181a0d9189a97f5c630" compoundref="xv__frmbufrd__l2_8h" startline="137">XVFRMBUFRD_HANDLER_DONE</references>
+        <references refid="group__v__frmbuf__rd_1gga08b753ae28c0a8c47f3a57428c84390ea2576014c6c4d14a4364c9f90938c75a3" compoundref="xv__frmbufrd__l2_8h" startline="138">XVFRMBUFRD_HANDLER_READY</references>
+        <referencedby refid="xv__frmbufrd__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xv__frmbufrd__example_8c" startline="651" endline="801">main</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__v__frmbuf__rd_1gab2c3dd4bfc1f4acf08353543704c836b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XVFrmbufRd_InterruptHandler</definition>
+        <argsstring>(void *InstancePtr)</argsstring>
+        <name>XVFrmbufRd_InterruptHandler</name>
+        <param>
+          <type>void *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function is the interrupt handler for the frame buffer read core driver. </para>        </briefdescription>
+        <detaileddescription>
+<para>This handler clears the pending interrupt and determined if the source is frame done signal. If yes, starts the next frame processing and calls the registered callback function</para><para>The application is responsible for connecting this function to the interrupt system. Application beyond this driver is also responsible for providing callbacks to handle interrupts and installing the callbacks using <ref refid="group__v__frmbuf__rd_1ga90785baf366d034a2e602ec6cd5a9dff" kindref="member">XVFrmbufRd_SetCallback()</ref> during initialization phase.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the core instance that just interrupted.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd_l2_intr.c" line="112" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd_l2_intr.c" bodystart="112" bodyend="143"/>
+        <references refid="struct_x_v___frmbuf_rd__l2_1af5197034b172783210b2cb88547bfa87" compoundref="xv__frmbufrd__l2_8h" startline="167">XV_FrmbufRd_l2::CallbackDoneRef</references>
+        <references refid="struct_x_v___frmbuf_rd__l2_1aff68a0427bdc269ca05fde57f7cc8743" compoundref="xv__frmbufrd__l2_8h" startline="171">XV_FrmbufRd_l2::CallbackReadyRef</references>
+        <references refid="struct_x_v___frmbuf_rd__l2_1a89bc60bff119d8099d26f5e5fa6bebfa" compoundref="xv__frmbufrd__l2_8h" startline="165">XV_FrmbufRd_l2::FrameDoneCallback</references>
+        <references refid="struct_x_v___frmbuf_rd__l2_1a48f7a71fe84c44380cc6c1d253e0fa67" compoundref="xv__frmbufrd__l2_8h" startline="169">XV_FrmbufRd_l2::FrameReadyCallback</references>
+        <references refid="struct_x_v___frmbuf_rd__l2_1a0ae31af8998fd7d5456807e3397602ca" compoundref="xv__frmbufrd__l2_8h" startline="162">XV_FrmbufRd_l2::FrmbufRd</references>
+        <references refid="struct_x_v__frmbufrd_1a4eaed8d81587971809682b514a80455a" compoundref="xv__frmbufrd_8h" startline="126">XV_frmbufrd::IsReady</references>
+        <references refid="xv__frmbufrd_8c_1aec9552b179c61f7d769220de8c3f4be6" compoundref="xv__frmbufrd_8c" startline="728" endline="733">XV_frmbufrd_InterruptClear</references>
+        <references refid="xv__frmbufrd_8c_1a4a3398981b9176a6eb4c96d0d6fa2b85" compoundref="xv__frmbufrd_8c" startline="766" endline="771">XV_frmbufrd_InterruptGetStatus</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2017-2022<sp/>Xilinx,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>2022-2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="31"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xv__frmbufrd__l2_8h" kindref="compound">xv_frmbufrd_l2.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="62" refid="group__v__frmbuf__rd_1ga90785baf366d034a2e602ec6cd5a9dff" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__v__frmbuf__rd_1ga90785baf366d034a2e602ec6cd5a9dff" kindref="member">XVFrmbufRd_SetCallback</ref>(<ref refid="struct_x_v___frmbuf_rd__l2" kindref="compound">XV_FrmbufRd_l2</ref><sp/>*InstancePtr,<sp/>u32<sp/>HandlerType,</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallbackFunc,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallbackRef)</highlight></codeline>
+<codeline lineno="64"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Status;</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(HandlerType<sp/>&gt;=<sp/>(<ref refid="group__v__frmbuf__rd_1gga08b753ae28c0a8c47f3a57428c84390ea3fded5e73774f181a0d9189a97f5c630" kindref="member">XVFRMBUFRD_HANDLER_DONE</ref>));</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(CallbackFunc<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(CallbackRef<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Check<sp/>for<sp/>handler<sp/>type<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">switch</highlight><highlight class="normal"><sp/>(HandlerType)<sp/>{</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>(<ref refid="group__v__frmbuf__rd_1gga08b753ae28c0a8c47f3a57428c84390ea3fded5e73774f181a0d9189a97f5c630" kindref="member">XVFRMBUFRD_HANDLER_DONE</ref>):</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_v___frmbuf_rd__l2_1a89bc60bff119d8099d26f5e5fa6bebfa" kindref="member">FrameDoneCallback</ref><sp/>=<sp/>(<ref refid="xv__frmbufrd__l2_8h_1af768bed50faa73ab2b391458998ec4ce" kindref="member">XVFrmbufRd_Callback</ref>)CallbackFunc;</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_v___frmbuf_rd__l2_1af5197034b172783210b2cb88547bfa87" kindref="member">CallbackDoneRef</ref><sp/>=<sp/>CallbackRef;</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(XST_SUCCESS);</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>(<ref refid="group__v__frmbuf__rd_1gga08b753ae28c0a8c47f3a57428c84390ea2576014c6c4d14a4364c9f90938c75a3" kindref="member">XVFRMBUFRD_HANDLER_READY</ref>):</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_v___frmbuf_rd__l2_1a48f7a71fe84c44380cc6c1d253e0fa67" kindref="member">FrameReadyCallback</ref><sp/>=<sp/>(<ref refid="xv__frmbufrd__l2_8h_1af768bed50faa73ab2b391458998ec4ce" kindref="member">XVFrmbufRd_Callback</ref>)CallbackFunc;</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_v___frmbuf_rd__l2_1aff68a0427bdc269ca05fde57f7cc8743" kindref="member">CallbackReadyRef</ref><sp/>=<sp/>CallbackRef;</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(XST_SUCCESS);</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(XST_INVALID_PARAM);</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"></highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="90"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"></highlight></codeline>
+<codeline lineno="92"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="112" refid="group__v__frmbuf__rd_1gab2c3dd4bfc1f4acf08353543704c836b" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__v__frmbuf__rd_1gab2c3dd4bfc1f4acf08353543704c836b" kindref="member">XVFrmbufRd_InterruptHandler</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="113"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_v___frmbuf_rd__l2" kindref="compound">XV_FrmbufRd_l2</ref><sp/>*FrmbufRdPtr<sp/>=<sp/>(<ref refid="struct_x_v___frmbuf_rd__l2" kindref="compound">XV_FrmbufRd_l2</ref><sp/>*)InstancePtr;</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Status;</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"></highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(FrmbufRdPtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(FrmbufRdPtr-&gt;<ref refid="struct_x_v___frmbuf_rd__l2_1a0ae31af8998fd7d5456807e3397602ca" kindref="member">FrmbufRd</ref>.<ref refid="struct_x_v__frmbufrd_1a4eaed8d81587971809682b514a80455a" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"></highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Get<sp/>the<sp/>interrupt<sp/>source<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="xv__frmbufrd_8c_1a4a3398981b9176a6eb4c96d0d6fa2b85" kindref="member">XV_frmbufrd_InterruptGetStatus</ref>(&amp;FrmbufRdPtr-&gt;<ref refid="struct_x_v___frmbuf_rd__l2_1a0ae31af8998fd7d5456807e3397602ca" kindref="member">FrmbufRd</ref>);</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"></highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Check<sp/>for<sp/>Done<sp/>Signal<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(Status<sp/>&amp;<sp/>XVFRMBUFRD_IRQ_DONE_MASK)<sp/>{</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Clear<sp/>the<sp/>interrupt<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xv__frmbufrd_8c_1aec9552b179c61f7d769220de8c3f4be6" kindref="member">XV_frmbufrd_InterruptClear</ref>(&amp;FrmbufRdPtr-&gt;<ref refid="struct_x_v___frmbuf_rd__l2_1a0ae31af8998fd7d5456807e3397602ca" kindref="member">FrmbufRd</ref>,<sp/>XVFRMBUFRD_IRQ_DONE_MASK);</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//Call<sp/>user<sp/>registered<sp/>callback<sp/>function,<sp/>if<sp/>any</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(FrmbufRdPtr-&gt;<ref refid="struct_x_v___frmbuf_rd__l2_1a89bc60bff119d8099d26f5e5fa6bebfa" kindref="member">FrameDoneCallback</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FrmbufRdPtr-&gt;<ref refid="struct_x_v___frmbuf_rd__l2_1a89bc60bff119d8099d26f5e5fa6bebfa" kindref="member">FrameDoneCallback</ref>(FrmbufRdPtr-&gt;<ref refid="struct_x_v___frmbuf_rd__l2_1af5197034b172783210b2cb88547bfa87" kindref="member">CallbackDoneRef</ref>);</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"></highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Check<sp/>for<sp/>Ready<sp/>Signal<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(Status<sp/>&amp;<sp/>XVFRMBUFRD_IRQ_READY_MASK)<sp/>{</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Clear<sp/>the<sp/>interrupt<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xv__frmbufrd_8c_1aec9552b179c61f7d769220de8c3f4be6" kindref="member">XV_frmbufrd_InterruptClear</ref>(&amp;FrmbufRdPtr-&gt;<ref refid="struct_x_v___frmbuf_rd__l2_1a0ae31af8998fd7d5456807e3397602ca" kindref="member">FrmbufRd</ref>,<sp/>XVFRMBUFRD_IRQ_READY_MASK);</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//Call<sp/>user<sp/>registered<sp/>callback<sp/>function,<sp/>if<sp/>any</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(FrmbufRdPtr-&gt;<ref refid="struct_x_v___frmbuf_rd__l2_1a48f7a71fe84c44380cc6c1d253e0fa67" kindref="member">FrameReadyCallback</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FrmbufRdPtr-&gt;<ref refid="struct_x_v___frmbuf_rd__l2_1a48f7a71fe84c44380cc6c1d253e0fa67" kindref="member">FrameReadyCallback</ref>(FrmbufRdPtr-&gt;<ref refid="struct_x_v___frmbuf_rd__l2_1aff68a0427bdc269ca05fde57f7cc8743" kindref="member">CallbackReadyRef</ref>);</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="143"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd_l2_intr.c"/>
+  </compounddef>
+</doxygen>

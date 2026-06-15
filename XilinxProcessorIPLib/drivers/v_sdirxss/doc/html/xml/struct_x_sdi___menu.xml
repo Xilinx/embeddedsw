@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_sdi___menu" kind="struct" prot="public">
+    <compoundname>XSdi_Menu</compoundname>
+    <includes local="no">xsdi_menu.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_sdi___menu_1a0efd38178be10991857ce88c2a3900f3" prot="public" static="no" mutable="no">
+        <type>XSdi_MenuType</type>
+        <definition>XSdi_MenuType XSdi_Menu::CurrentMenu</definition>
+        <argsstring></argsstring>
+        <name>CurrentMenu</name>
+        <briefdescription>
+<para>Current menu. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/examples/scu200_picxo_example/xsdi_menu.h" line="65" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/examples/scu200_picxo_example/xsdi_menu.h" bodystart="65" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_sdi___menu_1a1a6d29151959481ed32f31b38956344d" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSdi_Menu::UartBaseAddress</definition>
+        <argsstring></argsstring>
+        <name>UartBaseAddress</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/examples/scu200_picxo_example/xsdi_menu.h" line="66" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/examples/scu200_picxo_example/xsdi_menu.h" bodystart="66" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_sdi___menu_1a60fc9396ae586548322f7cadd9413551" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XSdi_Menu::Value</definition>
+        <argsstring></argsstring>
+        <name>Value</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/examples/scu200_picxo_example/xsdi_menu.h" line="67" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/examples/scu200_picxo_example/xsdi_menu.h" bodystart="67" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_sdi___menu_1ad2bb9b89511f843a242180488265f229" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XSdi_Menu::WaitForColorbar</definition>
+        <argsstring></argsstring>
+        <name>WaitForColorbar</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/examples/scu200_picxo_example/xsdi_menu.h" line="68" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/examples/scu200_picxo_example/xsdi_menu.h" bodystart="68" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>The SDI menu instance data. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/examples/scu200_picxo_example/xsdi_menu.h" line="64" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/examples/scu200_picxo_example/xsdi_menu.h" bodystart="63" bodyend="69"/>
+    <listofallmembers>
+      <member refid="struct_x_sdi___menu_1a0efd38178be10991857ce88c2a3900f3" prot="public" virt="non-virtual"><scope>XSdi_Menu</scope><name>CurrentMenu</name></member>
+      <member refid="struct_x_sdi___menu_1a1a6d29151959481ed32f31b38956344d" prot="public" virt="non-virtual"><scope>XSdi_Menu</scope><name>UartBaseAddress</name></member>
+      <member refid="struct_x_sdi___menu_1a60fc9396ae586548322f7cadd9413551" prot="public" virt="non-virtual"><scope>XSdi_Menu</scope><name>Value</name></member>
+      <member refid="struct_x_sdi___menu_1ad2bb9b89511f843a242180488265f229" prot="public" virt="non-virtual"><scope>XSdi_Menu</scope><name>WaitForColorbar</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

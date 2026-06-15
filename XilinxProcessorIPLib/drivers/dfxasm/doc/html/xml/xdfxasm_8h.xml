@@ -1,0 +1,359 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xdfxasm_8h" kind="file">
+    <compoundname>xdfxasm.h</compoundname>
+    <includes local="yes">xil_types.h</includes>
+    <includes local="yes">xil_assert.h</includes>
+    <includes local="yes">xstatus.h</includes>
+    <includes refid="xdfxasm__hw_8h" local="yes">xdfxasm_hw.h</includes>
+    <includedby refid="xdfxasm_8c" local="yes">xdfxasm.c</includedby>
+    <includedby refid="xdfxasm__g_8c" local="yes">xdfxasm_g.c</includedby>
+    <includedby refid="xdfxasm__sinit_8c" local="yes">xdfxasm_sinit.c</includedby>
+    <includedby refid="xdfxasm__example_8c" local="yes">xdfxasm_example.c</includedby>
+    <incdepgraph>
+      <node id="14">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="16">
+        <label>xdfxasm_hw.h</label>
+        <link refid="xdfxasm__hw_8h"/>
+        <childnode refid="17" relation="include">
+        </childnode>
+      </node>
+      <node id="17">
+        <label>xil_io.h</label>
+      </node>
+      <node id="15">
+        <label>xstatus.h</label>
+      </node>
+      <node id="12">
+        <label>xdfxasm.h</label>
+        <link refid="xdfxasm.h"/>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+      </node>
+      <node id="13">
+        <label>xil_types.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="20">
+        <label>xdfxasm_g.c</label>
+      </node>
+      <node id="21">
+        <label>xdfxasm_sinit.c</label>
+        <link refid="xdfxasm__sinit_8c"/>
+      </node>
+      <node id="19">
+        <label>xdfxasm.c</label>
+        <link refid="xdfxasm_8c"/>
+      </node>
+      <node id="18">
+        <label>xdfxasm.h</label>
+        <link refid="xdfxasm.h"/>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+      </node>
+      <node id="22">
+        <label>xdfxasm_example.c</label>
+        <link refid="xdfxasm__example_8c"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_x_dfxasm___config" prot="public">XDfxasm_Config</innerclass>
+    <innerclass refid="struct_x_dfxasm" prot="public">XDfxasm</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__dfxasm_1ga78bb352e742614d8a8899f49a238825b" prot="public" static="no">
+        <name>XDFX_ASM_H_</name>
+        <initializer>/* by using protection macros */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfxasm/src/xdfxasm.h" line="72" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfxasm/src/xdfxasm.h" bodystart="72" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="group__dfxasm_1gae411ce8d8656c0b2b86c41d9f0518879" prot="public" static="no">
+        <name>XDfxasm_State</name>
+        <enumvalue id="group__dfxasm_1ggae411ce8d8656c0b2b86c41d9f0518879a30eb8164856b0f61a09157bd519609e2" prot="public">
+          <name>XDFX_ASM_PASSTHROUGH_MODE</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__dfxasm_1ggae411ce8d8656c0b2b86c41d9f0518879ae5db6c200da9c33f21d241040296aff1" prot="public">
+          <name>XDFX_ASM_SHUTDOWN_MODE</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfxasm/src/xdfxasm.h" line="90" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfxasm/src/xdfxasm.h" bodystart="90" bodyend="93"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__dfxasm_1ga675a9e008159dcd1c3dce0c0f7c89d7c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XDfxasm_Config *</type>
+        <definition>XDfxasm_Config * XDfxasm_LookupConfig</definition>
+        <argsstring>(UINTPTR BaseAddress)</argsstring>
+        <name>XDfxasm_LookupConfig</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <briefdescription>
+<para>This function looks for the device configuration based on the unique device ID/BaseAddress. </para>        </briefdescription>
+        <detaileddescription>
+<para>The table XDfxasm_ConfigTable[] contains the configuration information for each device in the system.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains the base address of the device</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>A pointer to the configuration table entry corresponding to the given device ID/BaseAddress, or NULL if no match is found.</para></simplesect>
+<simplesect kind="note"><para>In XSCT/classic flow, DeviceId is used to look up the device configuration. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfxasm/src/xdfxasm.h" line="122" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfxasm/src/xdfxasm_sinit.c" bodystart="89" bodyend="104"/>
+        <referencedby refid="xdfxasm__example_8c_1af912ad10837e3f41d017989e080b019f" compoundref="xdfxasm__example_8c" startline="126" endline="157">XDfxasm_Example</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__dfxasm_1gadfe5b93b82691e4bb3318a18e9e46724" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XDfxasm_CfgInitialize</definition>
+        <argsstring>(XDfxasm *InstancePtr, XDfxasm_Config *ConfigPtr, UINTPTR EffectiveAddress)</argsstring>
+        <name>XDfxasm_CfgInitialize</name>
+        <param>
+          <type><ref refid="struct_x_dfxasm" kindref="compound">XDfxasm</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>XDfxasm_Config *</type>
+          <declname>ConfigPtr</declname>
+        </param>
+        <param>
+          <type>UINTPTR</type>
+          <declname>EffectiveAddress</declname>
+        </param>
+        <briefdescription>
+<para>This function initializes a <ref refid="struct_x_dfxasm" kindref="compound">XDfxasm</ref> instance/driver. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dfxasm" kindref="compound">XDfxasm</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ConfigPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>points to the <ref refid="struct_x_dfxasm" kindref="compound">XDfxasm</ref> device configuration structure. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>EffectiveAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the device base address in the virtual memory address space. If the address translation is not used then the physical address is passed.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if initialization was successful.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Set some default values for instance data, don&apos;t indicate the device is ready to use until everything has been initialized successfully.</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfxasm/src/xdfxasm.c" line="64" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfxasm/src/xdfxasm.c" bodystart="64" bodyend="84"/>
+        <references refid="struct_x_dfxasm_1a8e2913c94397c5c7e4246abe2060b206" compoundref="xdfxasm_8h" startline="110">XDfxasm::Config</references>
+        <references refid="struct_x_dfxasm_1a7ff8aef63ccbcb05208e98fb05d89599" compoundref="xdfxasm_8h" startline="111">XDfxasm::IsReady</references>
+        <referencedby refid="xdfxasm__example_8c_1af912ad10837e3f41d017989e080b019f" compoundref="xdfxasm__example_8c" startline="126" endline="157">XDfxasm_Example</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__dfxasm_1ga9ce867d2441c25c264a7ef380c819ba1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDfxasm_SetState</definition>
+        <argsstring>(XDfxasm *InstancePtr, XDfxasm_State ShutdownValue)</argsstring>
+        <name>XDfxasm_SetState</name>
+        <param>
+          <type><ref refid="struct_x_dfxasm" kindref="compound">XDfxasm</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>XDfxasm_State</type>
+          <declname>ShutdownValue</declname>
+        </param>
+        <briefdescription>
+<para>This function is used to set shutdown manager in shutdown or pass through mode. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dfxasm" kindref="compound">XDfxasm</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ShutdownValue</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is to set shutdown manager in shutdown or pass through mode. Value can be either 0 or 1. Values are<itemizedlist>
+<listitem><para>XDFX_ASM_PASSTHROUGH_MODE(0) if in passthrough mode<itemizedlist>
+<listitem><para>XDFX_ASM_SHUTDOWN_MODE(1) if in shutdown mode</para></listitem></itemizedlist>
+</para></listitem></itemizedlist>
+</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>When Shutdown manager is in shutdown mode it blocks the axi traffic that&apos;s going to the Reconfigurable partition from static logic while Partial Reconfiguration occurs. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfxasm/src/xdfxasm.c" line="105" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfxasm/src/xdfxasm.c" bodystart="105" bodyend="114"/>
+        <references refid="struct_x_dfxasm_1a8e2913c94397c5c7e4246abe2060b206" compoundref="xdfxasm_8h" startline="110">XDfxasm::Config</references>
+        <references refid="struct_x_dfxasm_1a7ff8aef63ccbcb05208e98fb05d89599" compoundref="xdfxasm_8h" startline="111">XDfxasm::IsReady</references>
+        <references refid="group__dfxasm_1gab1c260601f1123450c205d6c6a0bc308" compoundref="xdfxasm__hw_8h" startline="47">XDFX_ASM_CTRL_OFFSET</references>
+        <references refid="group__dfxasm_1gacb795d12bfcf138db49ba64d9c1b614e" compoundref="xdfxasm__hw_8h" startline="97">XDfxasm_WriteReg</references>
+        <referencedby refid="xdfxasm__example_8c_1a276f161582681a2b43e64e3da9ebe988" compoundref="xdfxasm__example_8c" startline="173" endline="195">XDfxasm_TestState</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__dfxasm_1ga71614d1412d3974e2b21d089c16c4210" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XDfxasm_GetState</definition>
+        <argsstring>(XDfxasm *InstancePtr)</argsstring>
+        <name>XDfxasm_GetState</name>
+        <param>
+          <type><ref refid="struct_x_dfxasm" kindref="compound">XDfxasm</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function is used to read the state of the shutdown manager. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dfxasm" kindref="compound">XDfxasm</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Returns shutdown manager state and its bit significance is as follows. -BIT0 - 0 Entry to Pass Through mode has been requested<itemizedlist>
+<listitem><para>1 Entry to Shutdown mode has been requested -BIT1 - 0 The read or the write channel (or both) are in the Pass Through mode</para></listitem><listitem><para>1 Both the read and write channels are in the Shutdown Mode -BIT2 - 0 The write channel is in the Pass Through mode</para></listitem><listitem><para>1 The write channel is in the Shutdown Mode -BIT3 - 0 The read channel is in the Pass Through mode</para></listitem><listitem><para>1 The read channel is in the Shutdown Mode</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfxasm/src/xdfxasm.c" line="139" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfxasm/src/xdfxasm.c" bodystart="139" bodyend="150"/>
+        <references refid="struct_x_dfxasm_1a8e2913c94397c5c7e4246abe2060b206" compoundref="xdfxasm_8h" startline="110">XDfxasm::Config</references>
+        <references refid="struct_x_dfxasm_1a7ff8aef63ccbcb05208e98fb05d89599" compoundref="xdfxasm_8h" startline="111">XDfxasm::IsReady</references>
+        <references refid="group__dfxasm_1gab1c260601f1123450c205d6c6a0bc308" compoundref="xdfxasm__hw_8h" startline="47">XDFX_ASM_CTRL_OFFSET</references>
+        <references refid="group__dfxasm_1ga6e9e6fde6fb0e9b0a4103d87fbaa5ec2" compoundref="xdfxasm__hw_8h" startline="61">XDFX_ASM_CTRL_SHUTDOWN_MASK</references>
+        <references refid="group__dfxasm_1ga176bab706eb493327c1ad34a47d00c44" compoundref="xdfxasm__hw_8h" startline="82">XDfxasm_ReadReg</references>
+        <referencedby refid="xdfxasm__example_8c_1a276f161582681a2b43e64e3da9ebe988" compoundref="xdfxasm__example_8c" startline="173" endline="195">XDfxasm_TestState</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2021<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2023<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="71"><highlight class="preprocessor">#ifndef<sp/>XDFX_ASM_H_<sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>prevent<sp/>circular<sp/>inclusions<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="72"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDFX_ASM_H_<sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>by<sp/>using<sp/>protection<sp/>macros<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="73"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="75"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="77"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="79"><highlight class="normal"></highlight></codeline>
+<codeline lineno="80"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="81"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_assert.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="82"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xstatus.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="83"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xdfxasm__hw_8h" kindref="compound">xdfxasm_hw.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="84"><highlight class="normal"></highlight></codeline>
+<codeline lineno="85"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="86"><highlight class="normal"></highlight></codeline>
+<codeline lineno="87"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="88"><highlight class="normal"></highlight></codeline>
+<codeline lineno="89"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>This<sp/>typedef<sp/>contains<sp/>information<sp/>about<sp/>Shutdown<sp/>manager<sp/>Values<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDFX_ASM_PASSTHROUGH_MODE,<sp/></highlight><highlight class="comment">/*<sp/>Passthrough<sp/>mode<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDFX_ASM_SHUTDOWN_MODE,<sp/></highlight><highlight class="comment">/*<sp/>Shutdown<sp/>mode<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="93"><highlight class="normal">}<sp/>XDfxasm_State;</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"></highlight></codeline>
+<codeline lineno="95"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>This<sp/>typedef<sp/>contains<sp/>configuration<sp/>information<sp/>for<sp/>a<sp/>device<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="96"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="98"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>DeviceId;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="99"><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="100"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*Name;</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="102"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR<sp/>BaseAddress;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="103"><highlight class="normal">}<sp/>XDfxasm_Config;</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"></highlight></codeline>
+<codeline lineno="109" refid="struct_x_dfxasm" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="110" refid="struct_x_dfxasm_1a8e2913c94397c5c7e4246abe2060b206" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDfxasm_Config<sp/><ref refid="struct_x_dfxasm_1a8e2913c94397c5c7e4246abe2060b206" kindref="member">Config</ref>;<sp/><sp/></highlight></codeline>
+<codeline lineno="111" refid="struct_x_dfxasm_1a7ff8aef63ccbcb05208e98fb05d89599" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_dfxasm_1a7ff8aef63ccbcb05208e98fb05d89599" kindref="member">IsReady</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="112"><highlight class="normal">}<sp/><ref refid="struct_x_dfxasm" kindref="compound">XDfxasm</ref>;</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"></highlight></codeline>
+<codeline lineno="114"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="115"><highlight class="normal"></highlight></codeline>
+<codeline lineno="116"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="117"><highlight class="normal"></highlight></codeline>
+<codeline lineno="118"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Functions<sp/>in<sp/>xdfxasm_sinit.c<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="119"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="120"><highlight class="preprocessor"></highlight><highlight class="normal">XDfxasm_Config<sp/>*<ref refid="group__dfxasm_1ga675a9e008159dcd1c3dce0c0f7c89d7c" kindref="member">XDfxasm_LookupConfig</ref>(u16<sp/>DeviceId);</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="122"><highlight class="preprocessor"></highlight><highlight class="normal">XDfxasm_Config<sp/>*<ref refid="group__dfxasm_1ga675a9e008159dcd1c3dce0c0f7c89d7c" kindref="member">XDfxasm_LookupConfig</ref>(UINTPTR<sp/>BaseAddress);</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="124"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="125"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Functions<sp/>in<sp/>xdfxasm.c<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="126"><highlight class="normal">s32<sp/><ref refid="group__dfxasm_1gadfe5b93b82691e4bb3318a18e9e46724" kindref="member">XDfxasm_CfgInitialize</ref>(<ref refid="struct_x_dfxasm" kindref="compound">XDfxasm</ref><sp/>*InstancePtr,<sp/>XDfxasm_Config<sp/>*ConfigPtr,</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR<sp/>EffectiveAddress);</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__dfxasm_1ga9ce867d2441c25c264a7ef380c819ba1" kindref="member">XDfxasm_SetState</ref>(<ref refid="struct_x_dfxasm" kindref="compound">XDfxasm</ref><sp/>*InstancePtr,<sp/>XDfxasm_State<sp/>ShutdownValue);</highlight></codeline>
+<codeline lineno="129"><highlight class="normal">u32<sp/><ref refid="group__dfxasm_1ga71614d1412d3974e2b21d089c16c4210" kindref="member">XDfxasm_GetState</ref>(<ref refid="struct_x_dfxasm" kindref="compound">XDfxasm</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"></highlight></codeline>
+<codeline lineno="131"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="132"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="134"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="135"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>End<sp/>of<sp/>protection<sp/>macro<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="136"><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfxasm/src/xdfxasm.h"/>
+  </compounddef>
+</doxygen>

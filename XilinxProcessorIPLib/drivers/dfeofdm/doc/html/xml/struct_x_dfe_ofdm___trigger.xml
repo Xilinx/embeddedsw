@@ -1,0 +1,112 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_dfe_ofdm___trigger" kind="struct" prot="public">
+    <compoundname>XDfeOfdm_Trigger</compoundname>
+    <includes local="no">xdfeofdm.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_dfe_ofdm___trigger_1a37c8475c743bbb66242ae0abdeba3be6" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfeOfdm_Trigger::TriggerEnable</definition>
+        <argsstring></argsstring>
+        <name>TriggerEnable</name>
+        <briefdescription>
+<para>[0,1], Enable Trigger: </para>        </briefdescription>
+        <detaileddescription>
+<para><itemizedlist>
+<listitem><para>0 = DISABLED: Trigger Pulse and State outputs are disabled.</para></listitem><listitem><para>1 = ENABLED: Trigger Pulse and State outputs are enabled and follow the settings described below. </para></listitem></itemizedlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeofdm/src/xdfeofdm.h" line="193" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeofdm/src/xdfeofdm.h" bodystart="193" bodyend="-1"/>
+        <referencedby refid="group__dfeofdm_1ga8432ece95eb4a12d2f1eb60e87436809" compoundref="xdfeofdm_8c" startline="2100" endline="2168">XDfeOfdm_GetTriggersCfg</referencedby>
+        <referencedby refid="group__dfeofdm_1ga5e4d810d0e04bbad650fbb60115254e4" compoundref="xdfeofdm_8c" startline="2179" endline="2262">XDfeOfdm_SetTriggersCfg</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_ofdm___trigger_1a7588c100fa85f1c3921c785dc949577b" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfeOfdm_Trigger::Mode</definition>
+        <argsstring></argsstring>
+        <name>Mode</name>
+        <briefdescription>
+<para>[0-3], Specify Trigger Mode. </para>        </briefdescription>
+        <detaileddescription>
+<para>In TUSER_Single_Shot mode, as soon as the TUSER_Edge_level condition is met, the State output will be driven to the value specified in STATE_OUTPUT. The Pulse output will pulse high at the same time. No further change will occur until the trigger register is re-written. In TUSER Continuous mode, each time a TUSER_Edge_level condition is met the State output will be driven to the value specified in STATE_OUTPUT This will happen continuously until the trigger register is re-written. The pulse output is disabled in Continuous mode:<itemizedlist>
+<listitem><para>0 = IMMEDIATE: Applies the value of STATE_OUTPUT immediatetly the register is written.</para></listitem><listitem><para>1 = TUSER_SINGLE_SHOT: Applies the value of STATE_OUTPUT once when the TUSER_EDGE_LEVEL condition is satisfied.</para></listitem><listitem><para>2 = TUSER_CONTINUOUS: Applies the value of STATE_OUTPUT continually when TUSER_EDGE_LEVEL condition is satisfied.</para></listitem><listitem><para>3 = RESERVED: Reserved - will default to 0 behaviour. </para></listitem></itemizedlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeofdm/src/xdfeofdm.h" line="197" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeofdm/src/xdfeofdm.h" bodystart="197" bodyend="-1"/>
+        <referencedby refid="group__dfeofdm_1ga6d938668e6e1b73a585775cbe0eab471" compoundref="xdfeofdm___add_c_c__example_8c" startline="63" endline="168">XDfeOfdm_AddCCExample</referencedby>
+        <referencedby refid="group__dfeofdm_1ga8432ece95eb4a12d2f1eb60e87436809" compoundref="xdfeofdm_8c" startline="2100" endline="2168">XDfeOfdm_GetTriggersCfg</referencedby>
+        <referencedby refid="group__dfeofdm_1gaf304555910bc042c2de8437ac0b448d3" compoundref="xdfeofdm__multi_add_c_c__example_8c" startline="63" endline="175">XDfeOfdm_MultiAddCCExample</referencedby>
+        <referencedby refid="group__dfeofdm_1ga5e4d810d0e04bbad650fbb60115254e4" compoundref="xdfeofdm_8c" startline="2179" endline="2262">XDfeOfdm_SetTriggersCfg</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_ofdm___trigger_1afa7f0e1385ceb726bc0675cdbe6afc8f" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfeOfdm_Trigger::TuserEdgeLevel</definition>
+        <argsstring></argsstring>
+        <name>TuserEdgeLevel</name>
+        <briefdescription>
+<para><verbatim>             [0-3], Specify either Edge or Level of the TUSER
+</verbatim> input as the source condition of the trigger. </para>        </briefdescription>
+        <detaileddescription>
+<para>Difference between Level and Edge is Level will generate a trigger immediately the TUSER level is detected. Edge will ensure a TUSER transition has come first:<itemizedlist>
+<listitem><para>0 = LOW: Trigger occurs immediately after a low-level is seen on TUSER provided tvalid is High.</para></listitem><listitem><para>1 = HIGH: Trigger occurs immediately after a high-level is seen on TUSER provided tvalid is High.</para></listitem><listitem><para>2 = FALLING: Trigger occurs immediately after a high to low transition on TUSER provided tvalid is High.</para></listitem><listitem><para>3 = RISING: Trigger occurs immediately after a low to high transition on TUSER provided tvalid is High. </para></listitem></itemizedlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeofdm/src/xdfeofdm.h" line="213" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeofdm/src/xdfeofdm.h" bodystart="213" bodyend="-1"/>
+        <referencedby refid="group__dfeofdm_1ga6d938668e6e1b73a585775cbe0eab471" compoundref="xdfeofdm___add_c_c__example_8c" startline="63" endline="168">XDfeOfdm_AddCCExample</referencedby>
+        <referencedby refid="group__dfeofdm_1ga8432ece95eb4a12d2f1eb60e87436809" compoundref="xdfeofdm_8c" startline="2100" endline="2168">XDfeOfdm_GetTriggersCfg</referencedby>
+        <referencedby refid="group__dfeofdm_1gaf304555910bc042c2de8437ac0b448d3" compoundref="xdfeofdm__multi_add_c_c__example_8c" startline="63" endline="175">XDfeOfdm_MultiAddCCExample</referencedby>
+        <referencedby refid="group__dfeofdm_1ga5e4d810d0e04bbad650fbb60115254e4" compoundref="xdfeofdm_8c" startline="2179" endline="2262">XDfeOfdm_SetTriggersCfg</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_ofdm___trigger_1a1fa09d1d1e1eb52f107b13c4aee499e0" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfeOfdm_Trigger::StateOutput</definition>
+        <argsstring></argsstring>
+        <name>StateOutput</name>
+        <briefdescription>
+<para>[0,1], Specify the State output value: </para>        </briefdescription>
+        <detaileddescription>
+<para><itemizedlist>
+<listitem><para>0 = DISABLED: Place the State output into the Disabled state.</para></listitem><listitem><para>1 = ENABLED: Place the State output into the Enabled state. </para></listitem></itemizedlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeofdm/src/xdfeofdm.h" line="225" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeofdm/src/xdfeofdm.h" bodystart="225" bodyend="-1"/>
+        <referencedby refid="group__dfeofdm_1ga8432ece95eb4a12d2f1eb60e87436809" compoundref="xdfeofdm_8c" startline="2100" endline="2168">XDfeOfdm_GetTriggersCfg</referencedby>
+        <referencedby refid="group__dfeofdm_1ga5e4d810d0e04bbad650fbb60115254e4" compoundref="xdfeofdm_8c" startline="2179" endline="2262">XDfeOfdm_SetTriggersCfg</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_ofdm___trigger_1a08962b0f9f87949435bb7d06891bc00f" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfeOfdm_Trigger::TUSERBit</definition>
+        <argsstring></argsstring>
+        <name>TUSERBit</name>
+        <briefdescription>
+<para><verbatim>       [0-255], Specify which DIN TUSER bit to use as the source
+</verbatim> for the trigger when MODE = 1 or 2. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeofdm/src/xdfeofdm.h" line="228" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeofdm/src/xdfeofdm.h" bodystart="228" bodyend="-1"/>
+        <referencedby refid="group__dfeofdm_1ga6d938668e6e1b73a585775cbe0eab471" compoundref="xdfeofdm___add_c_c__example_8c" startline="63" endline="168">XDfeOfdm_AddCCExample</referencedby>
+        <referencedby refid="group__dfeofdm_1ga8432ece95eb4a12d2f1eb60e87436809" compoundref="xdfeofdm_8c" startline="2100" endline="2168">XDfeOfdm_GetTriggersCfg</referencedby>
+        <referencedby refid="group__dfeofdm_1gaf304555910bc042c2de8437ac0b448d3" compoundref="xdfeofdm__multi_add_c_c__example_8c" startline="63" endline="175">XDfeOfdm_MultiAddCCExample</referencedby>
+        <referencedby refid="group__dfeofdm_1ga5e4d810d0e04bbad650fbb60115254e4" compoundref="xdfeofdm_8c" startline="2179" endline="2262">XDfeOfdm_SetTriggersCfg</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Trigger configuration. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeofdm/src/xdfeofdm.h" line="192" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeofdm/src/xdfeofdm.h" bodystart="192" bodyend="230"/>
+    <listofallmembers>
+      <member refid="struct_x_dfe_ofdm___trigger_1a7588c100fa85f1c3921c785dc949577b" prot="public" virt="non-virtual"><scope>XDfeOfdm_Trigger</scope><name>Mode</name></member>
+      <member refid="struct_x_dfe_ofdm___trigger_1a1fa09d1d1e1eb52f107b13c4aee499e0" prot="public" virt="non-virtual"><scope>XDfeOfdm_Trigger</scope><name>StateOutput</name></member>
+      <member refid="struct_x_dfe_ofdm___trigger_1a37c8475c743bbb66242ae0abdeba3be6" prot="public" virt="non-virtual"><scope>XDfeOfdm_Trigger</scope><name>TriggerEnable</name></member>
+      <member refid="struct_x_dfe_ofdm___trigger_1a08962b0f9f87949435bb7d06891bc00f" prot="public" virt="non-virtual"><scope>XDfeOfdm_Trigger</scope><name>TUSERBit</name></member>
+      <member refid="struct_x_dfe_ofdm___trigger_1afa7f0e1385ceb726bc0675cdbe6afc8f" prot="public" virt="non-virtual"><scope>XDfeOfdm_Trigger</scope><name>TuserEdgeLevel</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

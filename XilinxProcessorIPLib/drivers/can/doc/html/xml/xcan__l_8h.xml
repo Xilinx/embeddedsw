@@ -1,0 +1,1926 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xcan__l_8h" kind="file">
+    <compoundname>xcan_l.h</compoundname>
+    <includes local="yes">xil_types.h</includes>
+    <includes local="yes">xil_assert.h</includes>
+    <includes local="yes">xil_io.h</includes>
+    <includedby refid="xcan_8h" local="yes">xcan.h</includedby>
+    <incdepgraph>
+      <node id="67">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="68">
+        <label>xil_io.h</label>
+      </node>
+      <node id="65">
+        <label>xcan_l.h</label>
+        <link refid="xcan_l.h"/>
+        <childnode refid="66" relation="include">
+        </childnode>
+        <childnode refid="67" relation="include">
+        </childnode>
+        <childnode refid="68" relation="include">
+        </childnode>
+      </node>
+      <node id="66">
+        <label>xil_types.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="77">
+        <label>xcan_polled_example.c</label>
+        <link refid="xcan__polled__example_8c"/>
+      </node>
+      <node id="74">
+        <label>xcan_intr.c</label>
+        <link refid="xcan__intr_8c"/>
+      </node>
+      <node id="76">
+        <label>xcan_intr_example.c</label>
+        <link refid="xcan__intr__example_8c"/>
+      </node>
+      <node id="72">
+        <label>xcan_config.c</label>
+        <link refid="xcan__config_8c"/>
+      </node>
+      <node id="69">
+        <label>xcan_l.h</label>
+        <link refid="xcan_l.h"/>
+        <childnode refid="70" relation="include">
+        </childnode>
+      </node>
+      <node id="75">
+        <label>xcan_selftest.c</label>
+        <link refid="xcan__selftest_8c"/>
+      </node>
+      <node id="71">
+        <label>xcan.c</label>
+        <link refid="xcan_8c"/>
+      </node>
+      <node id="70">
+        <label>xcan.h</label>
+        <link refid="xcan_8h"/>
+        <childnode refid="71" relation="include">
+        </childnode>
+        <childnode refid="72" relation="include">
+        </childnode>
+        <childnode refid="73" relation="include">
+        </childnode>
+        <childnode refid="74" relation="include">
+        </childnode>
+        <childnode refid="75" relation="include">
+        </childnode>
+        <childnode refid="76" relation="include">
+        </childnode>
+        <childnode refid="77" relation="include">
+        </childnode>
+      </node>
+      <node id="73">
+        <label>xcan_g.c</label>
+        <link refid="xcan__g_8c"/>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="user-defined">
+      <header>Register offsets for the CAN. Each register is 32 bits.</header>
+      <memberdef kind="define" id="group__can_1ga183cc527b562ba6494c84f9dc56ed83f" prot="public" static="no">
+        <name>XCAN_SRR_OFFSET</name>
+        <initializer>0x000</initializer>
+        <briefdescription>
+<para>Software Reset Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" line="52" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" bodystart="52" bodyend="-1"/>
+        <referencedby refid="group__can_1ga994a0b0bd9c938e99de9d7ffceb10ef3" compoundref="xcan_8c" startline="320" endline="423">XCan_EnterMode</referencedby>
+        <referencedby refid="group__can_1ga6c52fb4d4b12d62e3e713ad182f00d8b" compoundref="xcan_8c" startline="246" endline="253">XCan_Reset</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__can_1ga37e8ec0e57e9eac25cdd6de317871872" prot="public" static="no">
+        <name>XCAN_MSR_OFFSET</name>
+        <initializer>0x004</initializer>
+        <briefdescription>
+<para>Mode Select Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" line="53" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" bodystart="53" bodyend="-1"/>
+        <referencedby refid="group__can_1ga994a0b0bd9c938e99de9d7ffceb10ef3" compoundref="xcan_8c" startline="320" endline="423">XCan_EnterMode</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__can_1gad8e0a08c36f9f9528728ca28bb9e6244" prot="public" static="no">
+        <name>XCAN_BRPR_OFFSET</name>
+        <initializer>0x008</initializer>
+        <briefdescription>
+<para>Baud Rate Prescaler Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" line="54" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" bodystart="54" bodyend="-1"/>
+        <referencedby refid="group__can_1gaee29a9e04aa8993561e0c11d1222c1f9" compoundref="xcan__config_8c" startline="101" endline="111">XCan_GetBaudRatePrescaler</referencedby>
+        <referencedby refid="group__can_1ga75aabbb82d96151cadfd3c26a2a285e9" compoundref="xcan__config_8c" startline="66" endline="83">XCan_SetBaudRatePrescaler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__can_1gacdaadb8b222d87fe9dcebd4e7bfd6598" prot="public" static="no">
+        <name>XCAN_BTR_OFFSET</name>
+        <initializer>0x00C</initializer>
+        <briefdescription>
+<para>Bit Timing Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" line="55" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" bodystart="55" bodyend="-1"/>
+        <referencedby refid="group__can_1gab70138a7e54403355ec194f468f945fd" compoundref="xcan__config_8c" startline="190" endline="205">XCan_GetBitTiming</referencedby>
+        <referencedby refid="group__can_1gaf60120410396727f6e9304ce9ba65980" compoundref="xcan__config_8c" startline="142" endline="167">XCan_SetBitTiming</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__can_1ga811994746b6bfc676d2218474989bf7f" prot="public" static="no">
+        <name>XCAN_ECR_OFFSET</name>
+        <initializer>0x010</initializer>
+        <briefdescription>
+<para>Error Counter Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" line="56" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" bodystart="56" bodyend="-1"/>
+        <referencedby refid="group__can_1ga1a905b9f2f47e605267817c58edd1112" compoundref="xcan_8c" startline="466" endline="479">XCan_GetBusErrorCounter</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__can_1ga2e6ded36219c702549174550fdb4cf12" prot="public" static="no">
+        <name>XCAN_ESR_OFFSET</name>
+        <initializer>0x014</initializer>
+        <briefdescription>
+<para>Error Status Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" line="57" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" bodystart="57" bodyend="-1"/>
+        <referencedby refid="group__can_1ga757aecce4c0c06ff8f4cb3dd4d0c79fa" compoundref="xcan_8c" startline="525" endline="531">XCan_ClearBusErrorStatus</referencedby>
+        <referencedby refid="group__can_1ga242ec83578f9966bd7d562ed7f5dedd3" compoundref="xcan_8c" startline="495" endline="505">XCan_GetBusErrorStatus</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__can_1ga64573916e0c04f2a49f77e20801a41bf" prot="public" static="no">
+        <name>XCAN_SR_OFFSET</name>
+        <initializer>0x018</initializer>
+        <briefdescription>
+<para>Status Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" line="58" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" bodystart="58" bodyend="-1"/>
+        <referencedby refid="group__can_1ga502a294405726d96834c2abf574a96e8" compoundref="xcan_8c" startline="438" endline="448">XCan_GetStatus</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__can_1ga0816aca8c9bca41953439ad0c14cbf4a" prot="public" static="no">
+        <name>XCAN_ISR_OFFSET</name>
+        <initializer>0x01C</initializer>
+        <briefdescription>
+<para>Interrupt Status Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" line="60" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" bodystart="60" bodyend="-1"/>
+        <referencedby refid="group__can_1ga26bb19c641bfce1cb3dac4f5c0b7f71d" compoundref="xcan__intr_8c" startline="151" endline="161">XCan_InterruptGetStatus</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__can_1ga1da1e22f27800aaa28b46b39fa2d6fd0" prot="public" static="no">
+        <name>XCAN_IER_OFFSET</name>
+        <initializer>0x020</initializer>
+        <briefdescription>
+<para>Interrupt Enable Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" line="61" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" bodystart="61" bodyend="-1"/>
+        <referencedby refid="group__can_1ga163cd737c7421ddbd0ff492883e32558" compoundref="xcan__intr_8c" startline="94" endline="109">XCan_InterruptDisable</referencedby>
+        <referencedby refid="group__can_1ga1abd3a018094fd4d586599d708c33e4f" compoundref="xcan__intr_8c" startline="67" endline="74">XCan_InterruptEnable</referencedby>
+        <referencedby refid="group__can_1ga5670f843250e65969ce6ef36d0e06e24" compoundref="xcan__intr_8c" startline="124" endline="134">XCan_InterruptGetEnabled</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__can_1gad0a76d28ba0a9ae4dc4085c0200e5f65" prot="public" static="no">
+        <name>XCAN_ICR_OFFSET</name>
+        <initializer>0x024</initializer>
+        <briefdescription>
+<para>Interrupt Clear Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" line="62" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" bodystart="62" bodyend="-1"/>
+        <referencedby refid="group__can_1gac53101769980d4aa036844100ac732af" compoundref="xcan__intr_8c" startline="180" endline="195">XCan_InterruptClear</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__can_1ga2145be62a44e81c1899cded24970b3ae" prot="public" static="no">
+        <name>XCAN_TXFIFO_ID_OFFSET</name>
+        <initializer>0x030</initializer>
+        <briefdescription>
+<para>TX FIFO ID. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" line="64" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" bodystart="64" bodyend="-1"/>
+        <referencedby refid="group__can_1gad4717011f46b8e9d5e15c0bfb04c33c8" compoundref="xcan_8c" startline="555" endline="582">XCan_Send</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__can_1gad09ad273f7d2eb11013eef48d20127ec" prot="public" static="no">
+        <name>XCAN_TXFIFO_DLC_OFFSET</name>
+        <initializer>0x034</initializer>
+        <briefdescription>
+<para>TX FIFO DLC. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" line="65" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" bodystart="65" bodyend="-1"/>
+        <referencedby refid="group__can_1gad4717011f46b8e9d5e15c0bfb04c33c8" compoundref="xcan_8c" startline="555" endline="582">XCan_Send</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__can_1gaa79a11d4a8c19f30b975ca12c69ac59b" prot="public" static="no">
+        <name>XCAN_TXFIFO_DW1_OFFSET</name>
+        <initializer>0x038</initializer>
+        <briefdescription>
+<para>TX FIFO Data Word 1. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" line="66" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" bodystart="66" bodyend="-1"/>
+        <referencedby refid="group__can_1gad4717011f46b8e9d5e15c0bfb04c33c8" compoundref="xcan_8c" startline="555" endline="582">XCan_Send</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__can_1ga837960e76adad251699823f379f5805d" prot="public" static="no">
+        <name>XCAN_TXFIFO_DW2_OFFSET</name>
+        <initializer>0x03C</initializer>
+        <briefdescription>
+<para>TX FIFO Data Word 2. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" line="67" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" bodystart="67" bodyend="-1"/>
+        <referencedby refid="group__can_1gad4717011f46b8e9d5e15c0bfb04c33c8" compoundref="xcan_8c" startline="555" endline="582">XCan_Send</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__can_1ga0a9763565a11cd5050b4e9c41465ddf9" prot="public" static="no">
+        <name>XCAN_TXBUF_ID_OFFSET</name>
+        <initializer>0x040</initializer>
+        <briefdescription>
+<para>TX High Priority Buffer ID. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" line="69" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" bodystart="69" bodyend="-1"/>
+        <referencedby refid="group__can_1ga8ba9b10678fbc6bd6093fdc5e9eb3edd" compoundref="xcan_8c" startline="667" endline="696">XCan_SendHighPriority</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__can_1gadc3975197d179762353e8a920a9caa0d" prot="public" static="no">
+        <name>XCAN_TXBUF_DLC_OFFSET</name>
+        <initializer>0x044</initializer>
+        <briefdescription>
+<para>TX High Priority Buffer DLC. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" line="70" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" bodystart="70" bodyend="-1"/>
+        <referencedby refid="group__can_1ga8ba9b10678fbc6bd6093fdc5e9eb3edd" compoundref="xcan_8c" startline="667" endline="696">XCan_SendHighPriority</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__can_1ga6311c1adc84203d7c48ac90a6717c4b2" prot="public" static="no">
+        <name>XCAN_TXBUF_DW1_OFFSET</name>
+        <initializer>0x048</initializer>
+        <briefdescription>
+<para>TX High Priority Buf Data Word 1. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" line="71" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" bodystart="71" bodyend="-1"/>
+        <referencedby refid="group__can_1ga8ba9b10678fbc6bd6093fdc5e9eb3edd" compoundref="xcan_8c" startline="667" endline="696">XCan_SendHighPriority</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__can_1gae0eb36caf4ea62b4655b5238a246f3d7" prot="public" static="no">
+        <name>XCAN_TXBUF_DW2_OFFSET</name>
+        <initializer>0x04C</initializer>
+        <briefdescription>
+<para>TX High Priority Buf Data Word 2. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" line="72" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" bodystart="72" bodyend="-1"/>
+        <referencedby refid="group__can_1ga8ba9b10678fbc6bd6093fdc5e9eb3edd" compoundref="xcan_8c" startline="667" endline="696">XCan_SendHighPriority</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__can_1gadf7eec8a99d418df572dd70e8668c725" prot="public" static="no">
+        <name>XCAN_RXFIFO_ID_OFFSET</name>
+        <initializer>0x050</initializer>
+        <briefdescription>
+<para>RX FIFO ID. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" line="74" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" bodystart="74" bodyend="-1"/>
+        <referencedby refid="group__can_1ga1d8ac17789423c440872ffd4585b8c3c" compoundref="xcan_8c" startline="604" endline="640">XCan_Recv</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__can_1gae43dd788b3c5a301e7aa0ea2d194a19c" prot="public" static="no">
+        <name>XCAN_RXFIFO_DLC_OFFSET</name>
+        <initializer>0x054</initializer>
+        <briefdescription>
+<para>RX FIFO DLC. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" line="75" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" bodystart="75" bodyend="-1"/>
+        <referencedby refid="group__can_1ga1d8ac17789423c440872ffd4585b8c3c" compoundref="xcan_8c" startline="604" endline="640">XCan_Recv</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__can_1gab2410ced842a8a4b3217613e43f6329d" prot="public" static="no">
+        <name>XCAN_RXFIFO_DW1_OFFSET</name>
+        <initializer>0x058</initializer>
+        <briefdescription>
+<para>RX FIFO Data Word 1. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" line="76" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" bodystart="76" bodyend="-1"/>
+        <referencedby refid="group__can_1ga1d8ac17789423c440872ffd4585b8c3c" compoundref="xcan_8c" startline="604" endline="640">XCan_Recv</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__can_1ga8fc00d0a9a84331527a2ab31580722cd" prot="public" static="no">
+        <name>XCAN_RXFIFO_DW2_OFFSET</name>
+        <initializer>0x05C</initializer>
+        <briefdescription>
+<para>RX FIFO Data Word 2. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" line="77" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" bodystart="77" bodyend="-1"/>
+        <referencedby refid="group__can_1ga1d8ac17789423c440872ffd4585b8c3c" compoundref="xcan_8c" startline="604" endline="640">XCan_Recv</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__can_1gae50c7c6336131825980fe6adbe7efee8" prot="public" static="no">
+        <name>XCAN_AFR_OFFSET</name>
+        <initializer>0x060</initializer>
+        <briefdescription>
+<para>Acceptance Filter Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" line="79" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" bodystart="79" bodyend="-1"/>
+        <referencedby refid="group__can_1ga8bc758e3b0a5fc41bcb17b49fa1e7ed4" compoundref="xcan_8c" startline="768" endline="789">XCan_AcceptFilterDisable</referencedby>
+        <referencedby refid="group__can_1gae04419e368e843d5bf7384b8f32ba9b6" compoundref="xcan_8c" startline="720" endline="742">XCan_AcceptFilterEnable</referencedby>
+        <referencedby refid="group__can_1ga02c9fb502d3fd8a0537c9efdf456defd" compoundref="xcan_8c" startline="809" endline="820">XCan_AcceptFilterGetEnabled</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__can_1ga3ce2f3043fb07e08c1089cb0312e5663" prot="public" static="no">
+        <name>XCAN_AFMR1_OFFSET</name>
+        <initializer>0x064</initializer>
+        <briefdescription>
+<para>Acceptance Filter Mask Register 1. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" line="80" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" bodystart="80" bodyend="-1"/>
+        <referencedby refid="group__can_1gab2385a83eb4e0e5f7bae366ac8ec86ec" compoundref="xcan_8c" startline="949" endline="1002">XCan_AcceptFilterGet</referencedby>
+        <referencedby refid="group__can_1ga3079df9559ea328b414b0f8438c7991e" compoundref="xcan_8c" startline="855" endline="923">XCan_AcceptFilterSet</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__can_1gaeae513870fb472a5e3b2e04ab014989b" prot="public" static="no">
+        <name>XCAN_AFIR1_OFFSET</name>
+        <initializer>0x068</initializer>
+        <briefdescription>
+<para>Acceptance Filter ID Register 1. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" line="81" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" bodystart="81" bodyend="-1"/>
+        <referencedby refid="group__can_1gab2385a83eb4e0e5f7bae366ac8ec86ec" compoundref="xcan_8c" startline="949" endline="1002">XCan_AcceptFilterGet</referencedby>
+        <referencedby refid="group__can_1ga3079df9559ea328b414b0f8438c7991e" compoundref="xcan_8c" startline="855" endline="923">XCan_AcceptFilterSet</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__can_1ga63a9cc840f2bf558f1f6d20a73291021" prot="public" static="no">
+        <name>XCAN_AFMR2_OFFSET</name>
+        <initializer>0x06C</initializer>
+        <briefdescription>
+<para>Acceptance Filter Mask Register 2. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" line="82" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" bodystart="82" bodyend="-1"/>
+        <referencedby refid="group__can_1gab2385a83eb4e0e5f7bae366ac8ec86ec" compoundref="xcan_8c" startline="949" endline="1002">XCan_AcceptFilterGet</referencedby>
+        <referencedby refid="group__can_1ga3079df9559ea328b414b0f8438c7991e" compoundref="xcan_8c" startline="855" endline="923">XCan_AcceptFilterSet</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__can_1ga4ffe3a7d173cc3650af040007c210000" prot="public" static="no">
+        <name>XCAN_AFIR2_OFFSET</name>
+        <initializer>0x070</initializer>
+        <briefdescription>
+<para>Acceptance Filter ID Register 2. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" line="83" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" bodystart="83" bodyend="-1"/>
+        <referencedby refid="group__can_1gab2385a83eb4e0e5f7bae366ac8ec86ec" compoundref="xcan_8c" startline="949" endline="1002">XCan_AcceptFilterGet</referencedby>
+        <referencedby refid="group__can_1ga3079df9559ea328b414b0f8438c7991e" compoundref="xcan_8c" startline="855" endline="923">XCan_AcceptFilterSet</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__can_1ga5d90112035780fe4a9f8194d7d849176" prot="public" static="no">
+        <name>XCAN_AFMR3_OFFSET</name>
+        <initializer>0x074</initializer>
+        <briefdescription>
+<para>Acceptance Filter Mask Register 3. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" line="84" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" bodystart="84" bodyend="-1"/>
+        <referencedby refid="group__can_1gab2385a83eb4e0e5f7bae366ac8ec86ec" compoundref="xcan_8c" startline="949" endline="1002">XCan_AcceptFilterGet</referencedby>
+        <referencedby refid="group__can_1ga3079df9559ea328b414b0f8438c7991e" compoundref="xcan_8c" startline="855" endline="923">XCan_AcceptFilterSet</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__can_1ga7d6dc1de58e390987497d4956b3deaa6" prot="public" static="no">
+        <name>XCAN_AFIR3_OFFSET</name>
+        <initializer>0x078</initializer>
+        <briefdescription>
+<para>Acceptance Filter ID Register 3. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" line="85" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" bodystart="85" bodyend="-1"/>
+        <referencedby refid="group__can_1gab2385a83eb4e0e5f7bae366ac8ec86ec" compoundref="xcan_8c" startline="949" endline="1002">XCan_AcceptFilterGet</referencedby>
+        <referencedby refid="group__can_1ga3079df9559ea328b414b0f8438c7991e" compoundref="xcan_8c" startline="855" endline="923">XCan_AcceptFilterSet</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__can_1ga9fed14446aa518298d1868228c971499" prot="public" static="no">
+        <name>XCAN_AFMR4_OFFSET</name>
+        <initializer>0x07C</initializer>
+        <briefdescription>
+<para>Acceptance Filter Mask Register 4. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" line="86" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" bodystart="86" bodyend="-1"/>
+        <referencedby refid="group__can_1gab2385a83eb4e0e5f7bae366ac8ec86ec" compoundref="xcan_8c" startline="949" endline="1002">XCan_AcceptFilterGet</referencedby>
+        <referencedby refid="group__can_1ga3079df9559ea328b414b0f8438c7991e" compoundref="xcan_8c" startline="855" endline="923">XCan_AcceptFilterSet</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__can_1gad1359d3b320efecc87aa3dba24a0c4fa" prot="public" static="no">
+        <name>XCAN_AFIR4_OFFSET</name>
+        <initializer>0x080</initializer>
+        <briefdescription>
+<para>Acceptance Filter ID Register 4. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" line="87" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" bodystart="87" bodyend="-1"/>
+        <referencedby refid="group__can_1gab2385a83eb4e0e5f7bae366ac8ec86ec" compoundref="xcan_8c" startline="949" endline="1002">XCan_AcceptFilterGet</referencedby>
+        <referencedby refid="group__can_1ga3079df9559ea328b414b0f8438c7991e" compoundref="xcan_8c" startline="855" endline="923">XCan_AcceptFilterSet</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__can_1ga078754fce159d323c3cdd60c0842b8f3" prot="public" static="no">
+        <name>XCAN_ECC_CFG_OFFSET</name>
+        <initializer>0x0C8</initializer>
+        <briefdescription>
+<para>ECC Configuration register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" line="89" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" bodystart="89" bodyend="-1"/>
+        <referencedby refid="group__can_1ga0b5089d7561e88dec96e54fa618a6da4" compoundref="xcan_8c" startline="1190" endline="1201">XCan_ResetECC</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__can_1ga093ec0385610ae9e0a7861e06921bb5d" prot="public" static="no">
+        <name>XCAN_TXTLFIFO_ECC_OFFSET</name>
+        <initializer>0x0CC</initializer>
+        <briefdescription>
+<para>TXTL FIFO ECC error counter. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" line="90" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" bodystart="90" bodyend="-1"/>
+        <referencedby refid="group__can_1ga5cf8f7db6b6726cd217e58e6224d56ad" compoundref="xcan_8c" startline="1215" endline="1252">XCan_GetECCCount</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__can_1gaeed70ad0a591fb1f8c44a83f358a5842" prot="public" static="no">
+        <name>XCAN_TXOLFIFO_ECC_OFFSET</name>
+        <initializer>0x0D0</initializer>
+        <briefdescription>
+<para>TXOL FIFO ECC error counter. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" line="91" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" bodystart="91" bodyend="-1"/>
+        <referencedby refid="group__can_1ga5cf8f7db6b6726cd217e58e6224d56ad" compoundref="xcan_8c" startline="1215" endline="1252">XCan_GetECCCount</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__can_1ga05a0b3283999fc56204a5afbb013e048" prot="public" static="no">
+        <name>XCAN_RXFIFO_ECC_OFFSET</name>
+        <initializer>0X0D4</initializer>
+        <briefdescription>
+<para>RX FIFO ECC error counter. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" line="92" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" bodystart="92" bodyend="-1"/>
+        <referencedby refid="group__can_1ga5cf8f7db6b6726cd217e58e6224d56ad" compoundref="xcan_8c" startline="1215" endline="1252">XCan_GetECCCount</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Software Reset Register</header>
+      <memberdef kind="define" id="group__can_1ga88b33f06b1f8f23cccef753f39a2a849" prot="public" static="no">
+        <name>XCAN_SRR_CEN_MASK</name>
+        <initializer>0x00000002</initializer>
+        <briefdescription>
+<para>Can Enable Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" line="99" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" bodystart="99" bodyend="-1"/>
+        <referencedby refid="group__can_1ga994a0b0bd9c938e99de9d7ffceb10ef3" compoundref="xcan_8c" startline="320" endline="423">XCan_EnterMode</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__can_1ga4eb9794178ded7bbea3907075d6c12c8" prot="public" static="no">
+        <name>XCAN_SRR_SRST_MASK</name>
+        <initializer>0x00000001</initializer>
+        <briefdescription>
+<para>Reset Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" line="100" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" bodystart="100" bodyend="-1"/>
+        <referencedby refid="group__can_1ga6c52fb4d4b12d62e3e713ad182f00d8b" compoundref="xcan_8c" startline="246" endline="253">XCan_Reset</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Mode Select Register</header>
+      <memberdef kind="define" id="group__can_1gaf23ad222a88f27062a9f3d3beb96ba58" prot="public" static="no">
+        <name>XCAN_MSR_LBACK_MASK</name>
+        <initializer>0x00000002</initializer>
+        <briefdescription>
+<para>Loop Back Mode Select Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" line="106" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" bodystart="106" bodyend="-1"/>
+        <referencedby refid="group__can_1ga994a0b0bd9c938e99de9d7ffceb10ef3" compoundref="xcan_8c" startline="320" endline="423">XCan_EnterMode</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__can_1ga80a3feff44116b7a753f9dfa0f112c80" prot="public" static="no">
+        <name>XCAN_MSR_SLEEP_MASK</name>
+        <initializer>0x00000001</initializer>
+        <briefdescription>
+<para>Sleep Mode Select Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" line="107" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" bodystart="107" bodyend="-1"/>
+        <referencedby refid="group__can_1ga994a0b0bd9c938e99de9d7ffceb10ef3" compoundref="xcan_8c" startline="320" endline="423">XCan_EnterMode</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Baud Rate Prescaler register</header>
+      <memberdef kind="define" id="group__can_1ga7734840994c22426e0d4bfd47cc11df2" prot="public" static="no">
+        <name>XCAN_BRPR_BRP_MASK</name>
+        <initializer>0x000000FF</initializer>
+        <briefdescription>
+<para>Baud Rate Prescaler Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" line="113" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" bodystart="113" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Bit Timing Register</header>
+      <memberdef kind="define" id="group__can_1ga482474a9585aad0b5f98f33336d86c38" prot="public" static="no">
+        <name>XCAN_BTR_SJW_MASK</name>
+        <initializer>0x00000180</initializer>
+        <briefdescription>
+<para>Sync Jump Width Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" line="119" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" bodystart="119" bodyend="-1"/>
+        <referencedby refid="group__can_1gab70138a7e54403355ec194f468f945fd" compoundref="xcan__config_8c" startline="190" endline="205">XCan_GetBitTiming</referencedby>
+        <referencedby refid="group__can_1gaf60120410396727f6e9304ce9ba65980" compoundref="xcan__config_8c" startline="142" endline="167">XCan_SetBitTiming</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__can_1ga53d62e28de515b3288a263d20fea0bf3" prot="public" static="no">
+        <name>XCAN_BTR_SJW_SHIFT</name>
+        <initializer>7</initializer>
+        <briefdescription>
+<para>Sync Jump Width Shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" line="120" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" bodystart="120" bodyend="-1"/>
+        <referencedby refid="group__can_1gab70138a7e54403355ec194f468f945fd" compoundref="xcan__config_8c" startline="190" endline="205">XCan_GetBitTiming</referencedby>
+        <referencedby refid="group__can_1gaf60120410396727f6e9304ce9ba65980" compoundref="xcan__config_8c" startline="142" endline="167">XCan_SetBitTiming</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__can_1gac0d704dc38470642a131dda752169999" prot="public" static="no">
+        <name>XCAN_BTR_TS2_MASK</name>
+        <initializer>0x00000070</initializer>
+        <briefdescription>
+<para>Time Segment 2 Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" line="121" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" bodystart="121" bodyend="-1"/>
+        <referencedby refid="group__can_1gab70138a7e54403355ec194f468f945fd" compoundref="xcan__config_8c" startline="190" endline="205">XCan_GetBitTiming</referencedby>
+        <referencedby refid="group__can_1gaf60120410396727f6e9304ce9ba65980" compoundref="xcan__config_8c" startline="142" endline="167">XCan_SetBitTiming</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__can_1gabad8a33a4b1f9e8d865514c2817e4653" prot="public" static="no">
+        <name>XCAN_BTR_TS2_SHIFT</name>
+        <initializer>4</initializer>
+        <briefdescription>
+<para>Time Segment 2 Shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" line="122" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" bodystart="122" bodyend="-1"/>
+        <referencedby refid="group__can_1gab70138a7e54403355ec194f468f945fd" compoundref="xcan__config_8c" startline="190" endline="205">XCan_GetBitTiming</referencedby>
+        <referencedby refid="group__can_1gaf60120410396727f6e9304ce9ba65980" compoundref="xcan__config_8c" startline="142" endline="167">XCan_SetBitTiming</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__can_1ga71bb7c04d078e61946418f812b09cd81" prot="public" static="no">
+        <name>XCAN_BTR_TS1_MASK</name>
+        <initializer>0x0000000F</initializer>
+        <briefdescription>
+<para>Time Segment 1 Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" line="123" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" bodystart="123" bodyend="-1"/>
+        <referencedby refid="group__can_1gab70138a7e54403355ec194f468f945fd" compoundref="xcan__config_8c" startline="190" endline="205">XCan_GetBitTiming</referencedby>
+        <referencedby refid="group__can_1gaf60120410396727f6e9304ce9ba65980" compoundref="xcan__config_8c" startline="142" endline="167">XCan_SetBitTiming</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Error Counter Register</header>
+      <memberdef kind="define" id="group__can_1ga980c4e9bbe063886c5d6476033fc97b0" prot="public" static="no">
+        <name>XCAN_ECR_REC_MASK</name>
+        <initializer>0x0000FF00</initializer>
+        <briefdescription>
+<para>Receive Error Counter Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" line="129" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" bodystart="129" bodyend="-1"/>
+        <referencedby refid="group__can_1ga1a905b9f2f47e605267817c58edd1112" compoundref="xcan_8c" startline="466" endline="479">XCan_GetBusErrorCounter</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__can_1ga0d77caf803599bd6b764722231753aa4" prot="public" static="no">
+        <name>XCAN_ECR_REC_SHIFT</name>
+        <initializer>8</initializer>
+        <briefdescription>
+<para>Receive Error Counter Shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" line="130" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" bodystart="130" bodyend="-1"/>
+        <referencedby refid="group__can_1ga1a905b9f2f47e605267817c58edd1112" compoundref="xcan_8c" startline="466" endline="479">XCan_GetBusErrorCounter</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__can_1ga8e6a2262fbb851245a5d38921c911c15" prot="public" static="no">
+        <name>XCAN_ECR_TEC_MASK</name>
+        <initializer>0x000000FF</initializer>
+        <briefdescription>
+<para>Transmit Error Counter Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" line="131" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" bodystart="131" bodyend="-1"/>
+        <referencedby refid="group__can_1ga1a905b9f2f47e605267817c58edd1112" compoundref="xcan_8c" startline="466" endline="479">XCan_GetBusErrorCounter</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Error Status Register</header>
+      <memberdef kind="define" id="group__can_1gaba97ed0970710fa7b2da922f836fdea7" prot="public" static="no">
+        <name>XCAN_ESR_ACKER_MASK</name>
+        <initializer>0x00000010</initializer>
+        <briefdescription>
+<para>ACK Error Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" line="137" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" bodystart="137" bodyend="-1"/>
+        <referencedby refid="xcan__intr__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xcan__intr__example_8c" startline="181" endline="197">main</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__can_1gaa82168a0c9d1ce36e4ec4310fdf2fcfd" prot="public" static="no">
+        <name>XCAN_ESR_BERR_MASK</name>
+        <initializer>0x00000008</initializer>
+        <briefdescription>
+<para>Bit Error Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" line="138" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" bodystart="138" bodyend="-1"/>
+        <referencedby refid="xcan__intr__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xcan__intr__example_8c" startline="181" endline="197">main</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__can_1ga118328341a73c8b0d602c3f38b9eb587" prot="public" static="no">
+        <name>XCAN_ESR_STER_MASK</name>
+        <initializer>0x00000004</initializer>
+        <briefdescription>
+<para>Stuff Error Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" line="139" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" bodystart="139" bodyend="-1"/>
+        <referencedby refid="xcan__intr__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xcan__intr__example_8c" startline="181" endline="197">main</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__can_1ga71466ab85c99729cb8c88657fedcdfd3" prot="public" static="no">
+        <name>XCAN_ESR_FMER_MASK</name>
+        <initializer>0x00000002</initializer>
+        <briefdescription>
+<para>Form Error Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" line="140" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" bodystart="140" bodyend="-1"/>
+        <referencedby refid="xcan__intr__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xcan__intr__example_8c" startline="181" endline="197">main</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__can_1ga630be69fc280301a8856ed8ccb1c5866" prot="public" static="no">
+        <name>XCAN_ESR_CRCER_MASK</name>
+        <initializer>0x00000001</initializer>
+        <briefdescription>
+<para>CRC Error Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" line="141" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" bodystart="141" bodyend="-1"/>
+        <referencedby refid="xcan__intr__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xcan__intr__example_8c" startline="181" endline="197">main</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Status Register</header>
+      <memberdef kind="define" id="group__can_1ga73da923dd04f1f036ca7e24e6fdc14b7" prot="public" static="no">
+        <name>XCAN_SR_ACFBSY_MASK</name>
+        <initializer>0x00000800</initializer>
+        <briefdescription>
+<para>Acceptance Filter busy Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" line="147" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" bodystart="147" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__can_1gad1399331118c8dd22db86571ce270096" prot="public" static="no">
+        <name>XCAN_SR_TXFLL_MASK</name>
+        <initializer>0x00000400</initializer>
+        <briefdescription>
+<para>TX FIFO is full Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" line="148" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" bodystart="148" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__can_1gae3786b56d4ddf066d41dd3ecbbee85b8" prot="public" static="no">
+        <name>XCAN_SR_TXBFLL_MASK</name>
+        <initializer>0x00000200</initializer>
+        <briefdescription>
+<para>TX High Priority Buffer full. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" line="149" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" bodystart="149" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__can_1ga753f8cdc9cdf16b38bab4efa5c57e32c" prot="public" static="no">
+        <name>XCAN_SR_ESTAT_MASK</name>
+        <initializer>0x00000180</initializer>
+        <briefdescription>
+<para>Error Status Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" line="150" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" bodystart="150" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__can_1ga267319817c1549c24753bd1f217a7e94" prot="public" static="no">
+        <name>XCAN_SR_ESTAT_SHIFT</name>
+        <initializer>7</initializer>
+        <briefdescription>
+<para>Error Status Shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" line="151" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" bodystart="151" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__can_1gaebb32ad0d72b5dc044713da8a52f32ea" prot="public" static="no">
+        <name>XCAN_SR_ERRWRN_MASK</name>
+        <initializer>0x00000040</initializer>
+        <briefdescription>
+<para>Error Warning Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" line="152" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" bodystart="152" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__can_1gaa328f8b176b73bc7bb583c83bd502398" prot="public" static="no">
+        <name>XCAN_SR_BBSY_MASK</name>
+        <initializer>0x00000020</initializer>
+        <briefdescription>
+<para>Bus Busy Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" line="153" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" bodystart="153" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__can_1gab508aa082186be0f16ad8226be6e6694" prot="public" static="no">
+        <name>XCAN_SR_BIDLE_MASK</name>
+        <initializer>0x00000010</initializer>
+        <briefdescription>
+<para>Bus Idle Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" line="154" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" bodystart="154" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__can_1gac015e8212e56cbe343bfa07e55dd8d67" prot="public" static="no">
+        <name>XCAN_SR_NORMAL_MASK</name>
+        <initializer>0x00000008</initializer>
+        <briefdescription>
+<para>Normal Mode Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" line="155" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" bodystart="155" bodyend="-1"/>
+        <referencedby refid="group__can_1ga6b437133a6a2f40f56cf3c80102f5b0d" compoundref="xcan_8c" startline="271" endline="290">XCan_GetMode</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__can_1gae1289ba685bbdbd31634fc1af458c3f0" prot="public" static="no">
+        <name>XCAN_SR_SLEEP_MASK</name>
+        <initializer>0x00000004</initializer>
+        <briefdescription>
+<para>Sleep Mode Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" line="156" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" bodystart="156" bodyend="-1"/>
+        <referencedby refid="group__can_1ga6b437133a6a2f40f56cf3c80102f5b0d" compoundref="xcan_8c" startline="271" endline="290">XCan_GetMode</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__can_1gabd7ac1ae3a9a72f384ac52f6c38ab54e" prot="public" static="no">
+        <name>XCAN_SR_LBACK_MASK</name>
+        <initializer>0x00000002</initializer>
+        <briefdescription>
+<para>Loop Back Mode Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" line="157" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" bodystart="157" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__can_1gaa686e34dea920bf42d5180aaaa232f34" prot="public" static="no">
+        <name>XCAN_SR_CONFIG_MASK</name>
+        <initializer>0x00000001</initializer>
+        <briefdescription>
+<para>Configuration Mode Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" line="158" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" bodystart="158" bodyend="-1"/>
+        <referencedby refid="group__can_1ga6b437133a6a2f40f56cf3c80102f5b0d" compoundref="xcan_8c" startline="271" endline="290">XCan_GetMode</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Interrupt Status/Enable/Clear Register</header>
+      <memberdef kind="define" id="group__can_1ga67744d34a2a65666e55116e2fdb8479b" prot="public" static="no">
+        <name>XCAN_IXR_E2BERX_MASK</name>
+        <initializer>0x00800000</initializer>
+        <briefdescription>
+<para>RX FIFO two bit ECC error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" line="164" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" bodystart="164" bodyend="-1"/>
+        <referencedby refid="group__can_1ga5cf8f7db6b6726cd217e58e6224d56ad" compoundref="xcan_8c" startline="1215" endline="1252">XCan_GetECCCount</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__can_1ga35a9f71ee627fea1fc8cc35c4128cef9" prot="public" static="no">
+        <name>XCAN_IXR_E1BERX_MASK</name>
+        <initializer>0x00400000</initializer>
+        <briefdescription>
+<para>RX FIFO one bit ECC error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" line="165" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" bodystart="165" bodyend="-1"/>
+        <referencedby refid="group__can_1ga5cf8f7db6b6726cd217e58e6224d56ad" compoundref="xcan_8c" startline="1215" endline="1252">XCan_GetECCCount</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__can_1ga590c7e3aa7a7f5aad88f562bdef58cdb" prot="public" static="no">
+        <name>XCAN_IXR_E2BETXOL_MASK</name>
+        <initializer>0x00200000</initializer>
+        <briefdescription>
+<para>TXOL FIFO two bit ECC error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" line="166" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" bodystart="166" bodyend="-1"/>
+        <referencedby refid="group__can_1ga5cf8f7db6b6726cd217e58e6224d56ad" compoundref="xcan_8c" startline="1215" endline="1252">XCan_GetECCCount</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__can_1gabcb177002d5f1ec095045b081b539181" prot="public" static="no">
+        <name>XCAN_IXR_E1BETXOL_MASK</name>
+        <initializer>0x00100000</initializer>
+        <briefdescription>
+<para>TXOL FIFO one bit ECC error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" line="167" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" bodystart="167" bodyend="-1"/>
+        <referencedby refid="group__can_1ga5cf8f7db6b6726cd217e58e6224d56ad" compoundref="xcan_8c" startline="1215" endline="1252">XCan_GetECCCount</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__can_1ga3d731cf466c57dfba1ca0ac76d9864ed" prot="public" static="no">
+        <name>XCAN_IXR_E2BETXTL_MASK</name>
+        <initializer>0x00080000</initializer>
+        <briefdescription>
+<para>TXTL FIFO two bit ECC error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" line="168" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" bodystart="168" bodyend="-1"/>
+        <referencedby refid="group__can_1ga5cf8f7db6b6726cd217e58e6224d56ad" compoundref="xcan_8c" startline="1215" endline="1252">XCan_GetECCCount</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__can_1ga18a7f430a8d8e99d185b2e8e0b09f908" prot="public" static="no">
+        <name>XCAN_IXR_E1BETXTL_MASK</name>
+        <initializer>0x00040000</initializer>
+        <briefdescription>
+<para>TXTL FIFO one bit ECC error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" line="169" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" bodystart="169" bodyend="-1"/>
+        <referencedby refid="group__can_1ga5cf8f7db6b6726cd217e58e6224d56ad" compoundref="xcan_8c" startline="1215" endline="1252">XCan_GetECCCount</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__can_1gaea1b2f81446269b8b30267bf840b3c31" prot="public" static="no">
+        <name>XCAN_IXR_WKUP_MASK</name>
+        <initializer>0x00000800</initializer>
+        <briefdescription>
+<para>Wake up Interrupt Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" line="171" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" bodystart="171" bodyend="-1"/>
+        <referencedby refid="xcan__intr__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xcan__intr__example_8c" startline="181" endline="197">main</referencedby>
+        <referencedby refid="group__can_1gaafc4a0e025e8e3eb800778eba5a00c66" compoundref="xcan__intr_8c" startline="218" endline="305">XCan_IntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__can_1ga5fce703c1f3a145620255809ecf422bb" prot="public" static="no">
+        <name>XCAN_IXR_SLP_MASK</name>
+        <initializer>0x00000400</initializer>
+        <briefdescription>
+<para>Sleep Interrupt Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" line="172" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" bodystart="172" bodyend="-1"/>
+        <referencedby refid="xcan__intr__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xcan__intr__example_8c" startline="181" endline="197">main</referencedby>
+        <referencedby refid="group__can_1gaafc4a0e025e8e3eb800778eba5a00c66" compoundref="xcan__intr_8c" startline="218" endline="305">XCan_IntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__can_1ga43b89eddb5c487830ab99f876eaf5a34" prot="public" static="no">
+        <name>XCAN_IXR_BSOFF_MASK</name>
+        <initializer>0x00000200</initializer>
+        <briefdescription>
+<para>Bus Off Interrupt Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" line="173" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" bodystart="173" bodyend="-1"/>
+        <referencedby refid="xcan__intr__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xcan__intr__example_8c" startline="181" endline="197">main</referencedby>
+        <referencedby refid="group__can_1gaafc4a0e025e8e3eb800778eba5a00c66" compoundref="xcan__intr_8c" startline="218" endline="305">XCan_IntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__can_1gaa8801f97438a944cb1b76ccaa1d3ac38" prot="public" static="no">
+        <name>XCAN_IXR_ERROR_MASK</name>
+        <initializer>0x00000100</initializer>
+        <briefdescription>
+<para>Error Interrupt Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" line="174" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" bodystart="174" bodyend="-1"/>
+        <referencedby refid="group__can_1gaafc4a0e025e8e3eb800778eba5a00c66" compoundref="xcan__intr_8c" startline="218" endline="305">XCan_IntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__can_1ga5b1cb15de038ddda4b5a500ae3d829f4" prot="public" static="no">
+        <name>XCAN_IXR_RXNEMP_MASK</name>
+        <initializer>0x00000080</initializer>
+        <briefdescription>
+<para>RX FIFO Not Empty Intr Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" line="175" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" bodystart="175" bodyend="-1"/>
+        <referencedby refid="group__can_1gaafc4a0e025e8e3eb800778eba5a00c66" compoundref="xcan__intr_8c" startline="218" endline="305">XCan_IntrHandler</referencedby>
+        <referencedby refid="group__can_1ga1d8ac17789423c440872ffd4585b8c3c" compoundref="xcan_8c" startline="604" endline="640">XCan_Recv</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__can_1ga269318cb287c11f639cf185dce640191" prot="public" static="no">
+        <name>XCAN_IXR_RXOFLW_MASK</name>
+        <initializer>0x00000040</initializer>
+        <briefdescription>
+<para>RX FIFO Overflow Intr Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" line="176" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" bodystart="176" bodyend="-1"/>
+        <referencedby refid="xcan__intr__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xcan__intr__example_8c" startline="181" endline="197">main</referencedby>
+        <referencedby refid="group__can_1gaafc4a0e025e8e3eb800778eba5a00c66" compoundref="xcan__intr_8c" startline="218" endline="305">XCan_IntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__can_1ga054d2d002f9141d9d937d262f5b637de" prot="public" static="no">
+        <name>XCAN_IXR_RXUFLW_MASK</name>
+        <initializer>0x00000020</initializer>
+        <briefdescription>
+<para>RX FIFO Underflow Intr Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" line="177" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" bodystart="177" bodyend="-1"/>
+        <referencedby refid="xcan__intr__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xcan__intr__example_8c" startline="181" endline="197">main</referencedby>
+        <referencedby refid="group__can_1gaafc4a0e025e8e3eb800778eba5a00c66" compoundref="xcan__intr_8c" startline="218" endline="305">XCan_IntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__can_1ga473f195ede2bde98dedda9eecfc5efdb" prot="public" static="no">
+        <name>XCAN_IXR_RXOK_MASK</name>
+        <initializer>0x00000010</initializer>
+        <briefdescription>
+<para>New Message Received Intr. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" line="178" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" bodystart="178" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__can_1gaccb86502df2129af8cbddd4da45db912" prot="public" static="no">
+        <name>XCAN_IXR_TXBFLL_MASK</name>
+        <initializer>0x00000008</initializer>
+        <briefdescription>
+<para>TX High Priority Buf Full. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" line="179" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" bodystart="179" bodyend="-1"/>
+        <referencedby refid="xcan__intr__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xcan__intr__example_8c" startline="181" endline="197">main</referencedby>
+        <referencedby refid="group__can_1gaafc4a0e025e8e3eb800778eba5a00c66" compoundref="xcan__intr_8c" startline="218" endline="305">XCan_IntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__can_1ga3436502be0f71ac99a60299c73b86f1f" prot="public" static="no">
+        <name>XCAN_IXR_TXFLL_MASK</name>
+        <initializer>0x00000004</initializer>
+        <briefdescription>
+<para>TX FIFO Full Interrupt Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" line="180" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" bodystart="180" bodyend="-1"/>
+        <referencedby refid="xcan__intr__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xcan__intr__example_8c" startline="181" endline="197">main</referencedby>
+        <referencedby refid="group__can_1gaafc4a0e025e8e3eb800778eba5a00c66" compoundref="xcan__intr_8c" startline="218" endline="305">XCan_IntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__can_1gaa3b70e481b672854a2a8436dfaad2ed2" prot="public" static="no">
+        <name>XCAN_IXR_TXOK_MASK</name>
+        <initializer>0x00000002</initializer>
+        <briefdescription>
+<para>TX Successful Interrupt Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" line="181" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" bodystart="181" bodyend="-1"/>
+        <referencedby refid="group__can_1gaafc4a0e025e8e3eb800778eba5a00c66" compoundref="xcan__intr_8c" startline="218" endline="305">XCan_IntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__can_1ga519a0e1365d4237932311c794a9f3286" prot="public" static="no">
+        <name>XCAN_IXR_ARBLST_MASK</name>
+        <initializer>0x00000001</initializer>
+        <briefdescription>
+<para>Arbitration Lost Intr Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" line="182" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" bodystart="182" bodyend="-1"/>
+        <referencedby refid="xcan__intr__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xcan__intr__example_8c" startline="181" endline="197">main</referencedby>
+        <referencedby refid="group__can_1gaafc4a0e025e8e3eb800778eba5a00c66" compoundref="xcan__intr_8c" startline="218" endline="305">XCan_IntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__can_1gab3ff6f454fae07e0b637ad85e2564b72" prot="public" static="no">
+        <name>XCAN_IXR_ECC_MASK</name>
+        <initializer>(<ref refid="group__can_1ga67744d34a2a65666e55116e2fdb8479b" kindref="member">XCAN_IXR_E2BERX_MASK</ref>   | \
+				<ref refid="group__can_1ga35a9f71ee627fea1fc8cc35c4128cef9" kindref="member">XCAN_IXR_E1BERX_MASK</ref>    | \
+				<ref refid="group__can_1ga590c7e3aa7a7f5aad88f562bdef58cdb" kindref="member">XCAN_IXR_E2BETXOL_MASK</ref>   | \
+				<ref refid="group__can_1gabcb177002d5f1ec095045b081b539181" kindref="member">XCAN_IXR_E1BETXOL_MASK</ref>   | \
+				<ref refid="group__can_1ga3d731cf466c57dfba1ca0ac76d9864ed" kindref="member">XCAN_IXR_E2BETXTL_MASK</ref>   | \
+				<ref refid="group__can_1ga18a7f430a8d8e99d185b2e8e0b09f908" kindref="member">XCAN_IXR_E1BETXTL_MASK</ref>)</initializer>
+        <briefdescription>
+<para>Mask for ECC interrupts. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" line="184" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" bodystart="184" bodyend="-1"/>
+        <referencedby refid="xcan__intr__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xcan__intr__example_8c" startline="181" endline="197">main</referencedby>
+        <referencedby refid="group__can_1gaafc4a0e025e8e3eb800778eba5a00c66" compoundref="xcan__intr_8c" startline="218" endline="305">XCan_IntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__can_1ga553b29006c0052225803342e61f63918" prot="public" static="no">
+        <name>XCAN_IXR_ALL</name>
+        <initializer>(<ref refid="group__can_1gaea1b2f81446269b8b30267bf840b3c31" kindref="member">XCAN_IXR_WKUP_MASK</ref>   | \
+				<ref refid="group__can_1ga5fce703c1f3a145620255809ecf422bb" kindref="member">XCAN_IXR_SLP_MASK</ref>    | \
+				<ref refid="group__can_1ga43b89eddb5c487830ab99f876eaf5a34" kindref="member">XCAN_IXR_BSOFF_MASK</ref>  | \
+				<ref refid="group__can_1gaa8801f97438a944cb1b76ccaa1d3ac38" kindref="member">XCAN_IXR_ERROR_MASK</ref>  | \
+				<ref refid="group__can_1ga5b1cb15de038ddda4b5a500ae3d829f4" kindref="member">XCAN_IXR_RXNEMP_MASK</ref> | \
+				<ref refid="group__can_1ga269318cb287c11f639cf185dce640191" kindref="member">XCAN_IXR_RXOFLW_MASK</ref> | \
+				<ref refid="group__can_1ga054d2d002f9141d9d937d262f5b637de" kindref="member">XCAN_IXR_RXUFLW_MASK</ref> | \
+				<ref refid="group__can_1ga473f195ede2bde98dedda9eecfc5efdb" kindref="member">XCAN_IXR_RXOK_MASK</ref>   | \
+				<ref refid="group__can_1gaccb86502df2129af8cbddd4da45db912" kindref="member">XCAN_IXR_TXBFLL_MASK</ref> | \
+				<ref refid="group__can_1ga3436502be0f71ac99a60299c73b86f1f" kindref="member">XCAN_IXR_TXFLL_MASK</ref>  | \
+				<ref refid="group__can_1gaa3b70e481b672854a2a8436dfaad2ed2" kindref="member">XCAN_IXR_TXOK_MASK</ref>   | \
+				<ref refid="group__can_1ga519a0e1365d4237932311c794a9f3286" kindref="member">XCAN_IXR_ARBLST_MASK</ref>)</initializer>
+        <briefdescription>
+<para>Mask for basic interrupts. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" line="193" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" bodystart="193" bodyend="-1"/>
+        <referencedby refid="xcan__intr__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xcan__intr__example_8c" startline="181" endline="197">main</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>CAN Frame Identifier (TX High Priority Buffer/TX/RX/Acceptance Filter</header>
+      <description><para>Mask/Acceptance Filter ID) </para></description>
+      <memberdef kind="define" id="group__can_1gada1163dd1ad028100277856729da0c76" prot="public" static="no">
+        <name>XCAN_IDR_ID1_MASK</name>
+        <initializer>0xFFE00000</initializer>
+        <briefdescription>
+<para>Standard Messg Ident Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" line="213" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" bodystart="213" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__can_1ga8f9c7951fae58fd2cf90131e0631304e" prot="public" static="no">
+        <name>XCAN_IDR_ID1_SHIFT</name>
+        <initializer>21</initializer>
+        <briefdescription>
+<para>Standard Messg Ident Shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" line="214" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" bodystart="214" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__can_1ga2525f6a15bbfb9db8502779b1f876a49" prot="public" static="no">
+        <name>XCAN_IDR_SRR_MASK</name>
+        <initializer>0x00100000</initializer>
+        <briefdescription>
+<para>Substitute Remote TX Req. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" line="215" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" bodystart="215" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__can_1ga392ae006c23ac043f35d7381b769a466" prot="public" static="no">
+        <name>XCAN_IDR_SRR_SHIFT</name>
+        <initializer>20</initializer>
+        <briefdescription>
+<para>Shift Value for SRR. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" line="216" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" bodystart="216" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__can_1gaf39813df4090219175f47904f099c617" prot="public" static="no">
+        <name>XCAN_IDR_IDE_MASK</name>
+        <initializer>0x00080000</initializer>
+        <briefdescription>
+<para>Identifier Extension Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" line="217" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" bodystart="217" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__can_1ga5a37127b76e4f9356f56edd8f3b0d178" prot="public" static="no">
+        <name>XCAN_IDR_IDE_SHIFT</name>
+        <initializer>19</initializer>
+        <briefdescription>
+<para>Identifier Extension Shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" line="218" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" bodystart="218" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__can_1ga7fd399769caeac6b7a857eb608ded32d" prot="public" static="no">
+        <name>XCAN_IDR_ID2_MASK</name>
+        <initializer>0x0007FFFE</initializer>
+        <briefdescription>
+<para>Extended Message Ident Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" line="219" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" bodystart="219" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__can_1gab713a9e27487c69a7672da10f97b7019" prot="public" static="no">
+        <name>XCAN_IDR_ID2_SHIFT</name>
+        <initializer>1</initializer>
+        <briefdescription>
+<para>Extended Message Ident Shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" line="220" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" bodystart="220" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__can_1ga5c4236ed24ee27b58a4068b14455535d" prot="public" static="no">
+        <name>XCAN_IDR_RTR_MASK</name>
+        <initializer>0x00000001</initializer>
+        <briefdescription>
+<para>Remote TX Request Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" line="221" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" bodystart="221" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>CAN Frame Data Length Code (TX High Priority Buffer/TX/RX)</header>
+      <memberdef kind="define" id="group__can_1gafa0b23b8702612aeff3cc901ead4f3ee" prot="public" static="no">
+        <name>XCAN_DLCR_DLC_MASK</name>
+        <initializer>0xF0000000</initializer>
+        <briefdescription>
+<para>Data Length Code Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" line="227" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" bodystart="227" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__can_1gab4b767107a5599196e3b5b2d61457828" prot="public" static="no">
+        <name>XCAN_DLCR_DLC_SHIFT</name>
+        <initializer>28</initializer>
+        <briefdescription>
+<para>Data Length Code Shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" line="228" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" bodystart="228" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>CAN Frame Data Word 1 (TX High Priority Buffer/TX/RX)</header>
+      <memberdef kind="define" id="group__can_1ga9a48597cc8ff57fb7581c7847b867c22" prot="public" static="no">
+        <name>XCAN_DW1R_DB0_MASK</name>
+        <initializer>0xFF000000</initializer>
+        <briefdescription>
+<para>Data Byte 0 Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" line="234" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" bodystart="234" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__can_1ga796c3b0d3ee690e58c2382bc9c8c8074" prot="public" static="no">
+        <name>XCAN_DW1R_DB0_SHIFT</name>
+        <initializer>24</initializer>
+        <briefdescription>
+<para>Data Byte 0 Shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" line="235" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" bodystart="235" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__can_1ga04c8b1e84e333a103ce8ba3d2dfa65ec" prot="public" static="no">
+        <name>XCAN_DW1R_DB1_MASK</name>
+        <initializer>0x00FF0000</initializer>
+        <briefdescription>
+<para>Data Byte 1 Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" line="236" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" bodystart="236" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__can_1ga32da6621a4d8d7eb4ef4b296e959e37c" prot="public" static="no">
+        <name>XCAN_DW1R_DB1_SHIFT</name>
+        <initializer>16</initializer>
+        <briefdescription>
+<para>Data Byte 1 Shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" line="237" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" bodystart="237" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__can_1ga8dafb075593cdc401eda40234b40709f" prot="public" static="no">
+        <name>XCAN_DW1R_DB2_MASK</name>
+        <initializer>0x0000FF00</initializer>
+        <briefdescription>
+<para>Data Byte 2 Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" line="238" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" bodystart="238" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__can_1gad9a7ce98eb30f0f8d29b9d0df656e114" prot="public" static="no">
+        <name>XCAN_DW1R_DB2_SHIFT</name>
+        <initializer>8</initializer>
+        <briefdescription>
+<para>Data Byte 2 Shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" line="239" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" bodystart="239" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__can_1gac76404750a67b3e94a15970dfded5613" prot="public" static="no">
+        <name>XCAN_DW1R_DB3_MASK</name>
+        <initializer>0x000000FF</initializer>
+        <briefdescription>
+<para>Data Byte 3 Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" line="240" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" bodystart="240" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>CAN Frame Data Word 2 (TX High Priority Buffer/TX/RX)</header>
+      <memberdef kind="define" id="group__can_1ga5dee44a2bfea5c107dd6fcde0aa039fc" prot="public" static="no">
+        <name>XCAN_DW2R_DB4_MASK</name>
+        <initializer>0xFF000000</initializer>
+        <briefdescription>
+<para>Data Byte 4 Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" line="246" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" bodystart="246" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__can_1ga5d77fd15acfe84db47bc12988683fe06" prot="public" static="no">
+        <name>XCAN_DW2R_DB4_SHIFT</name>
+        <initializer>24</initializer>
+        <briefdescription>
+<para>Data Byte 4 Shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" line="247" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" bodystart="247" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__can_1ga175cb760f8307cae1fbde33d81e79592" prot="public" static="no">
+        <name>XCAN_DW2R_DB5_MASK</name>
+        <initializer>0x00FF0000</initializer>
+        <briefdescription>
+<para>Data Byte 5 Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" line="248" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" bodystart="248" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__can_1gac7dab491929841ac7ebc76e28498f863" prot="public" static="no">
+        <name>XCAN_DW2R_DB5_SHIFT</name>
+        <initializer>16</initializer>
+        <briefdescription>
+<para>Data Byte 5 Shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" line="249" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" bodystart="249" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__can_1ga47eab148ef0d8d52bcc485e5830270ec" prot="public" static="no">
+        <name>XCAN_DW2R_DB6_MASK</name>
+        <initializer>0x0000FF00</initializer>
+        <briefdescription>
+<para>Data Byte 6 Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" line="250" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" bodystart="250" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__can_1ga15e5124ba29335a1d8e6d389bc917be8" prot="public" static="no">
+        <name>XCAN_DW2R_DB6_SHIFT</name>
+        <initializer>8</initializer>
+        <briefdescription>
+<para>Data Byte 6 Shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" line="251" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" bodystart="251" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__can_1ga8af389ae9f91d294dc6b4deda4f2b620" prot="public" static="no">
+        <name>XCAN_DW2R_DB7_MASK</name>
+        <initializer>0x000000FF</initializer>
+        <briefdescription>
+<para>Data Byte 7. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" line="252" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" bodystart="252" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Acceptance Filter Register</header>
+      <memberdef kind="define" id="group__can_1gab5671b822a0a80731f0e5052eee1767c" prot="public" static="no">
+        <name>XCAN_AFR_UAF4_MASK</name>
+        <initializer>0x00000008</initializer>
+        <briefdescription>
+<para>Use Acceptance Filter No.4. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" line="258" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" bodystart="258" bodyend="-1"/>
+        <referencedby refid="group__can_1gab2385a83eb4e0e5f7bae366ac8ec86ec" compoundref="xcan_8c" startline="949" endline="1002">XCan_AcceptFilterGet</referencedby>
+        <referencedby refid="group__can_1ga3079df9559ea328b414b0f8438c7991e" compoundref="xcan_8c" startline="855" endline="923">XCan_AcceptFilterSet</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__can_1ga540f1efcafa2d70618be48c52e7637ff" prot="public" static="no">
+        <name>XCAN_AFR_UAF3_MASK</name>
+        <initializer>0x00000004</initializer>
+        <briefdescription>
+<para>Use Acceptance Filter No.3. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" line="259" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" bodystart="259" bodyend="-1"/>
+        <referencedby refid="group__can_1gab2385a83eb4e0e5f7bae366ac8ec86ec" compoundref="xcan_8c" startline="949" endline="1002">XCan_AcceptFilterGet</referencedby>
+        <referencedby refid="group__can_1ga3079df9559ea328b414b0f8438c7991e" compoundref="xcan_8c" startline="855" endline="923">XCan_AcceptFilterSet</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__can_1ga32a8c92478c1129bd0b81f921f7e5e0d" prot="public" static="no">
+        <name>XCAN_AFR_UAF2_MASK</name>
+        <initializer>0x00000002</initializer>
+        <briefdescription>
+<para>Use Acceptance Filter No.2. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" line="260" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" bodystart="260" bodyend="-1"/>
+        <referencedby refid="group__can_1gab2385a83eb4e0e5f7bae366ac8ec86ec" compoundref="xcan_8c" startline="949" endline="1002">XCan_AcceptFilterGet</referencedby>
+        <referencedby refid="group__can_1ga3079df9559ea328b414b0f8438c7991e" compoundref="xcan_8c" startline="855" endline="923">XCan_AcceptFilterSet</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__can_1ga381e95f0585ebeb9aec90d553c9bca05" prot="public" static="no">
+        <name>XCAN_AFR_UAF1_MASK</name>
+        <initializer>0x00000001</initializer>
+        <briefdescription>
+<para>Use Acceptance Filter No.1. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" line="261" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" bodystart="261" bodyend="-1"/>
+        <referencedby refid="group__can_1gab2385a83eb4e0e5f7bae366ac8ec86ec" compoundref="xcan_8c" startline="949" endline="1002">XCan_AcceptFilterGet</referencedby>
+        <referencedby refid="group__can_1ga3079df9559ea328b414b0f8438c7991e" compoundref="xcan_8c" startline="855" endline="923">XCan_AcceptFilterSet</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__can_1gac441a14e138a5e9828289afbe87e97ad" prot="public" static="no">
+        <name>XCAN_AFR_UAF_ALL_MASK</name>
+        <initializer>(<ref refid="group__can_1gab5671b822a0a80731f0e5052eee1767c" kindref="member">XCAN_AFR_UAF4_MASK</ref> | <ref refid="group__can_1ga540f1efcafa2d70618be48c52e7637ff" kindref="member">XCAN_AFR_UAF3_MASK</ref> | \
+				 <ref refid="group__can_1ga32a8c92478c1129bd0b81f921f7e5e0d" kindref="member">XCAN_AFR_UAF2_MASK</ref> | <ref refid="group__can_1ga381e95f0585ebeb9aec90d553c9bca05" kindref="member">XCAN_AFR_UAF1_MASK</ref>)</initializer>
+        <briefdescription>
+<para>Mask for Acceptance Filters. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" line="262" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" bodystart="262" bodyend="-1"/>
+        <referencedby refid="group__can_1ga8bc758e3b0a5fc41bcb17b49fa1e7ed4" compoundref="xcan_8c" startline="768" endline="789">XCan_AcceptFilterDisable</referencedby>
+        <referencedby refid="group__can_1gae04419e368e843d5bf7384b8f32ba9b6" compoundref="xcan_8c" startline="720" endline="742">XCan_AcceptFilterEnable</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>ECC Configuration register</header>
+      <memberdef kind="define" id="group__can_1gad823154b65050d0fd92e0df09f0b1ca0" prot="public" static="no">
+        <name>XCAN_ECC_CFG_RST_MASK</name>
+        <initializer>0x00000007</initializer>
+        <briefdescription>
+<para>Reset Mask for ECC configuration register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" line="270" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" bodystart="270" bodyend="-1"/>
+        <referencedby refid="group__can_1ga0b5089d7561e88dec96e54fa618a6da4" compoundref="xcan_8c" startline="1190" endline="1201">XCan_ResetECC</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__can_1ga25f76cffe03cc4827d00b9b9f92b6f21" prot="public" static="no">
+        <name>XCAN_ECC_CFG_REECRX_MASK</name>
+        <initializer>0x00000004</initializer>
+        <briefdescription>
+<para>Reset RX FIFO ECC error counters. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" line="271" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" bodystart="271" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__can_1gaca8ac8116f9aab163d71daa768e53876" prot="public" static="no">
+        <name>XCAN_ECC_CFG_REECTXOL_MASK</name>
+        <initializer>0x00000002</initializer>
+        <briefdescription>
+<para>Reset TXOL FIFO ECC error counters. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" line="272" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" bodystart="272" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__can_1ga75f2a9e53470228a60bd1b7ca1ed9645" prot="public" static="no">
+        <name>XCAN_ECC_CFG_REECTXTL_MASK</name>
+        <initializer>0x00000001</initializer>
+        <briefdescription>
+<para>Reset TXTL FIFO ECC error counters. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" line="273" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" bodystart="273" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__can_1ga18758fa4d22f6632b4d474a3629d21cd" prot="public" static="no">
+        <name>XCAN_ECC_2BIT_SHIFT</name>
+        <initializer>16</initializer>
+        <briefdescription>
+<para>ECC 2bit error counter shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" line="274" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" bodystart="274" bodyend="-1"/>
+        <referencedby refid="group__can_1ga5cf8f7db6b6726cd217e58e6224d56ad" compoundref="xcan_8c" startline="1215" endline="1252">XCan_GetECCCount</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>CAN frame length constants</header>
+      <memberdef kind="define" id="group__can_1ga0d49049d96621520fa9afe22db2a8a34" prot="public" static="no">
+        <name>XCAN_MAX_FRAME_SIZE</name>
+        <initializer>16</initializer>
+        <briefdescription>
+<para>Maximum CAN frame length in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" line="280" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" bodystart="280" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Mask for Low 16bits and High 16 bits</header>
+      <memberdef kind="define" id="group__can_1ga1f4ae13d03284afb0c4574d52d139e10" prot="public" static="no">
+        <name>XCAN_MASK_LOW_16BITS</name>
+        <initializer>0x0000FFFF</initializer>
+        <briefdescription>
+<para>Mask to obtain lower 16bits. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" line="287" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" bodystart="287" bodyend="-1"/>
+        <referencedby refid="group__can_1ga5cf8f7db6b6726cd217e58e6224d56ad" compoundref="xcan_8c" startline="1215" endline="1252">XCan_GetECCCount</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__can_1gac9b2db5b4abc4a1ee2154108702776d1" prot="public" static="no">
+        <name>XCAN_MASK_HIGH_16BITS</name>
+        <initializer>0XFFFF0000</initializer>
+        <briefdescription>
+<para>Mask to obtain higher 16bits. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" line="288" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" bodystart="288" bodyend="-1"/>
+        <referencedby refid="group__can_1ga5cf8f7db6b6726cd217e58e6224d56ad" compoundref="xcan_8c" startline="1215" endline="1252">XCan_GetECCCount</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__can_1gac65cec1791cdaa6d0b68a80936f25c1a" prot="public" static="no">
+        <name>XCAN_L_H</name>
+        <briefdescription>
+<para>by using protection macros </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" line="34" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" bodystart="34" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__can_1ga2ee91da70cd3c92169c780186a9d6c51" prot="public" static="no">
+        <name>XCan_ReadReg</name>
+        <param><defname>BaseAddress</defname></param>
+        <param><defname>RegOffset</defname></param>
+        <initializer>Xil_In32((BaseAddress) + (RegOffset))</initializer>
+        <briefdescription>
+<para>This macro reads the given register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the device </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegOffset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the register offset to be read</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The 32-bit value of the register</para></simplesect>
+<simplesect kind="note"><para>C-Style signature: u32 <ref refid="group__can_1ga2ee91da70cd3c92169c780186a9d6c51" kindref="member">XCan_ReadReg(u32 BaseAddress, u32 RegOffset)</ref>; </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" line="308" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" bodystart="308" bodyend="-1"/>
+        <referencedby refid="group__can_1ga8bc758e3b0a5fc41bcb17b49fa1e7ed4" compoundref="xcan_8c" startline="768" endline="789">XCan_AcceptFilterDisable</referencedby>
+        <referencedby refid="group__can_1gae04419e368e843d5bf7384b8f32ba9b6" compoundref="xcan_8c" startline="720" endline="742">XCan_AcceptFilterEnable</referencedby>
+        <referencedby refid="group__can_1gab2385a83eb4e0e5f7bae366ac8ec86ec" compoundref="xcan_8c" startline="949" endline="1002">XCan_AcceptFilterGet</referencedby>
+        <referencedby refid="group__can_1ga02c9fb502d3fd8a0537c9efdf456defd" compoundref="xcan_8c" startline="809" endline="820">XCan_AcceptFilterGetEnabled</referencedby>
+        <referencedby refid="group__can_1gaee29a9e04aa8993561e0c11d1222c1f9" compoundref="xcan__config_8c" startline="101" endline="111">XCan_GetBaudRatePrescaler</referencedby>
+        <referencedby refid="group__can_1gab70138a7e54403355ec194f468f945fd" compoundref="xcan__config_8c" startline="190" endline="205">XCan_GetBitTiming</referencedby>
+        <referencedby refid="group__can_1ga1a905b9f2f47e605267817c58edd1112" compoundref="xcan_8c" startline="466" endline="479">XCan_GetBusErrorCounter</referencedby>
+        <referencedby refid="group__can_1ga242ec83578f9966bd7d562ed7f5dedd3" compoundref="xcan_8c" startline="495" endline="505">XCan_GetBusErrorStatus</referencedby>
+        <referencedby refid="group__can_1ga5cf8f7db6b6726cd217e58e6224d56ad" compoundref="xcan_8c" startline="1215" endline="1252">XCan_GetECCCount</referencedby>
+        <referencedby refid="group__can_1ga502a294405726d96834c2abf574a96e8" compoundref="xcan_8c" startline="438" endline="448">XCan_GetStatus</referencedby>
+        <referencedby refid="group__can_1ga5670f843250e65969ce6ef36d0e06e24" compoundref="xcan__intr_8c" startline="124" endline="134">XCan_InterruptGetEnabled</referencedby>
+        <referencedby refid="group__can_1ga26bb19c641bfce1cb3dac4f5c0b7f71d" compoundref="xcan__intr_8c" startline="151" endline="161">XCan_InterruptGetStatus</referencedby>
+        <referencedby refid="group__can_1ga1d8ac17789423c440872ffd4585b8c3c" compoundref="xcan_8c" startline="604" endline="640">XCan_Recv</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__can_1ga4b58327ea939610d5b1816a686ffd6c7" prot="public" static="no">
+        <name>XCan_WriteReg</name>
+        <param><defname>BaseAddress</defname></param>
+        <param><defname>RegOffset</defname></param>
+        <param><defname>Data</defname></param>
+        <initializer>Xil_Out32((BaseAddress) + (RegOffset), (Data))</initializer>
+        <briefdescription>
+<para>This macro writes the given register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the device </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegOffset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the register offset to be written </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 32-bit value to write to the register</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>C-Style signature: u32 <ref refid="group__can_1ga4b58327ea939610d5b1816a686ffd6c7" kindref="member">XCan_WriteReg(u32 BaseAddress, u32 RegOffset, u32 Data)</ref>; </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" line="327" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h" bodystart="327" bodyend="-1"/>
+        <referencedby refid="group__can_1ga8bc758e3b0a5fc41bcb17b49fa1e7ed4" compoundref="xcan_8c" startline="768" endline="789">XCan_AcceptFilterDisable</referencedby>
+        <referencedby refid="group__can_1gae04419e368e843d5bf7384b8f32ba9b6" compoundref="xcan_8c" startline="720" endline="742">XCan_AcceptFilterEnable</referencedby>
+        <referencedby refid="group__can_1ga3079df9559ea328b414b0f8438c7991e" compoundref="xcan_8c" startline="855" endline="923">XCan_AcceptFilterSet</referencedby>
+        <referencedby refid="group__can_1ga757aecce4c0c06ff8f4cb3dd4d0c79fa" compoundref="xcan_8c" startline="525" endline="531">XCan_ClearBusErrorStatus</referencedby>
+        <referencedby refid="group__can_1ga994a0b0bd9c938e99de9d7ffceb10ef3" compoundref="xcan_8c" startline="320" endline="423">XCan_EnterMode</referencedby>
+        <referencedby refid="group__can_1gac53101769980d4aa036844100ac732af" compoundref="xcan__intr_8c" startline="180" endline="195">XCan_InterruptClear</referencedby>
+        <referencedby refid="group__can_1ga163cd737c7421ddbd0ff492883e32558" compoundref="xcan__intr_8c" startline="94" endline="109">XCan_InterruptDisable</referencedby>
+        <referencedby refid="group__can_1ga1abd3a018094fd4d586599d708c33e4f" compoundref="xcan__intr_8c" startline="67" endline="74">XCan_InterruptEnable</referencedby>
+        <referencedby refid="group__can_1ga6c52fb4d4b12d62e3e713ad182f00d8b" compoundref="xcan_8c" startline="246" endline="253">XCan_Reset</referencedby>
+        <referencedby refid="group__can_1ga0b5089d7561e88dec96e54fa618a6da4" compoundref="xcan_8c" startline="1190" endline="1201">XCan_ResetECC</referencedby>
+        <referencedby refid="group__can_1gad4717011f46b8e9d5e15c0bfb04c33c8" compoundref="xcan_8c" startline="555" endline="582">XCan_Send</referencedby>
+        <referencedby refid="group__can_1ga8ba9b10678fbc6bd6093fdc5e9eb3edd" compoundref="xcan_8c" startline="667" endline="696">XCan_SendHighPriority</referencedby>
+        <referencedby refid="group__can_1ga75aabbb82d96151cadfd3c26a2a285e9" compoundref="xcan__config_8c" startline="66" endline="83">XCan_SetBaudRatePrescaler</referencedby>
+        <referencedby refid="group__can_1gaf60120410396727f6e9304ce9ba65980" compoundref="xcan__config_8c" startline="142" endline="167">XCan_SetBitTiming</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2005<sp/>-<sp/>2021<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2023<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="33"><highlight class="preprocessor">#ifndef<sp/>XCAN_L_H<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>prevent<sp/>circular<sp/>inclusions<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="34" refid="group__can_1gac65cec1791cdaa6d0b68a80936f25c1a" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XCAN_L_H<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="36"><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="37"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="39"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_assert.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_io.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight></codeline>
+<codeline lineno="52" refid="group__can_1ga183cc527b562ba6494c84f9dc56ed83f" refkind="member"><highlight class="preprocessor">#define<sp/>XCAN_SRR_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x000<sp/><sp/></highlight></codeline>
+<codeline lineno="53" refid="group__can_1ga37e8ec0e57e9eac25cdd6de317871872" refkind="member"><highlight class="preprocessor">#define<sp/>XCAN_MSR_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x004<sp/><sp/></highlight></codeline>
+<codeline lineno="54" refid="group__can_1gad8e0a08c36f9f9528728ca28bb9e6244" refkind="member"><highlight class="preprocessor">#define<sp/>XCAN_BRPR_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x008<sp/><sp/></highlight></codeline>
+<codeline lineno="55" refid="group__can_1gacdaadb8b222d87fe9dcebd4e7bfd6598" refkind="member"><highlight class="preprocessor">#define<sp/>XCAN_BTR_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00C<sp/><sp/></highlight></codeline>
+<codeline lineno="56" refid="group__can_1ga811994746b6bfc676d2218474989bf7f" refkind="member"><highlight class="preprocessor">#define<sp/>XCAN_ECR_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x010<sp/><sp/></highlight></codeline>
+<codeline lineno="57" refid="group__can_1ga2e6ded36219c702549174550fdb4cf12" refkind="member"><highlight class="preprocessor">#define<sp/>XCAN_ESR_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x014<sp/><sp/></highlight></codeline>
+<codeline lineno="58" refid="group__can_1ga64573916e0c04f2a49f77e20801a41bf" refkind="member"><highlight class="preprocessor">#define<sp/>XCAN_SR_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x018<sp/><sp/></highlight></codeline>
+<codeline lineno="60" refid="group__can_1ga0816aca8c9bca41953439ad0c14cbf4a" refkind="member"><highlight class="preprocessor">#define<sp/>XCAN_ISR_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x01C<sp/><sp/></highlight></codeline>
+<codeline lineno="61" refid="group__can_1ga1da1e22f27800aaa28b46b39fa2d6fd0" refkind="member"><highlight class="preprocessor">#define<sp/>XCAN_IER_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x020<sp/><sp/></highlight></codeline>
+<codeline lineno="62" refid="group__can_1gad0a76d28ba0a9ae4dc4085c0200e5f65" refkind="member"><highlight class="preprocessor">#define<sp/>XCAN_ICR_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x024<sp/><sp/></highlight></codeline>
+<codeline lineno="64" refid="group__can_1ga2145be62a44e81c1899cded24970b3ae" refkind="member"><highlight class="preprocessor">#define<sp/>XCAN_TXFIFO_ID_OFFSET<sp/><sp/><sp/>0x030<sp/><sp/></highlight></codeline>
+<codeline lineno="65" refid="group__can_1gad09ad273f7d2eb11013eef48d20127ec" refkind="member"><highlight class="preprocessor">#define<sp/>XCAN_TXFIFO_DLC_OFFSET<sp/><sp/>0x034<sp/><sp/></highlight></codeline>
+<codeline lineno="66" refid="group__can_1gaa79a11d4a8c19f30b975ca12c69ac59b" refkind="member"><highlight class="preprocessor">#define<sp/>XCAN_TXFIFO_DW1_OFFSET<sp/><sp/>0x038<sp/><sp/></highlight></codeline>
+<codeline lineno="67" refid="group__can_1ga837960e76adad251699823f379f5805d" refkind="member"><highlight class="preprocessor">#define<sp/>XCAN_TXFIFO_DW2_OFFSET<sp/><sp/>0x03C<sp/><sp/></highlight></codeline>
+<codeline lineno="69" refid="group__can_1ga0a9763565a11cd5050b4e9c41465ddf9" refkind="member"><highlight class="preprocessor">#define<sp/>XCAN_TXBUF_ID_OFFSET<sp/><sp/><sp/><sp/>0x040<sp/><sp/></highlight></codeline>
+<codeline lineno="70" refid="group__can_1gadc3975197d179762353e8a920a9caa0d" refkind="member"><highlight class="preprocessor">#define<sp/>XCAN_TXBUF_DLC_OFFSET<sp/><sp/><sp/>0x044<sp/><sp/></highlight></codeline>
+<codeline lineno="71" refid="group__can_1ga6311c1adc84203d7c48ac90a6717c4b2" refkind="member"><highlight class="preprocessor">#define<sp/>XCAN_TXBUF_DW1_OFFSET<sp/><sp/><sp/>0x048<sp/><sp/></highlight></codeline>
+<codeline lineno="72" refid="group__can_1gae0eb36caf4ea62b4655b5238a246f3d7" refkind="member"><highlight class="preprocessor">#define<sp/>XCAN_TXBUF_DW2_OFFSET<sp/><sp/><sp/>0x04C<sp/><sp/></highlight></codeline>
+<codeline lineno="74" refid="group__can_1gadf7eec8a99d418df572dd70e8668c725" refkind="member"><highlight class="preprocessor">#define<sp/>XCAN_RXFIFO_ID_OFFSET<sp/><sp/><sp/>0x050<sp/><sp/></highlight></codeline>
+<codeline lineno="75" refid="group__can_1gae43dd788b3c5a301e7aa0ea2d194a19c" refkind="member"><highlight class="preprocessor">#define<sp/>XCAN_RXFIFO_DLC_OFFSET<sp/><sp/>0x054<sp/><sp/></highlight></codeline>
+<codeline lineno="76" refid="group__can_1gab2410ced842a8a4b3217613e43f6329d" refkind="member"><highlight class="preprocessor">#define<sp/>XCAN_RXFIFO_DW1_OFFSET<sp/><sp/>0x058<sp/><sp/></highlight></codeline>
+<codeline lineno="77" refid="group__can_1ga8fc00d0a9a84331527a2ab31580722cd" refkind="member"><highlight class="preprocessor">#define<sp/>XCAN_RXFIFO_DW2_OFFSET<sp/><sp/>0x05C<sp/><sp/></highlight></codeline>
+<codeline lineno="79" refid="group__can_1gae50c7c6336131825980fe6adbe7efee8" refkind="member"><highlight class="preprocessor">#define<sp/>XCAN_AFR_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x060<sp/><sp/></highlight></codeline>
+<codeline lineno="80" refid="group__can_1ga3ce2f3043fb07e08c1089cb0312e5663" refkind="member"><highlight class="preprocessor">#define<sp/>XCAN_AFMR1_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x064<sp/><sp/></highlight></codeline>
+<codeline lineno="81" refid="group__can_1gaeae513870fb472a5e3b2e04ab014989b" refkind="member"><highlight class="preprocessor">#define<sp/>XCAN_AFIR1_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x068<sp/><sp/></highlight></codeline>
+<codeline lineno="82" refid="group__can_1ga63a9cc840f2bf558f1f6d20a73291021" refkind="member"><highlight class="preprocessor">#define<sp/>XCAN_AFMR2_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x06C<sp/><sp/></highlight></codeline>
+<codeline lineno="83" refid="group__can_1ga4ffe3a7d173cc3650af040007c210000" refkind="member"><highlight class="preprocessor">#define<sp/>XCAN_AFIR2_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x070<sp/><sp/></highlight></codeline>
+<codeline lineno="84" refid="group__can_1ga5d90112035780fe4a9f8194d7d849176" refkind="member"><highlight class="preprocessor">#define<sp/>XCAN_AFMR3_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x074<sp/><sp/></highlight></codeline>
+<codeline lineno="85" refid="group__can_1ga7d6dc1de58e390987497d4956b3deaa6" refkind="member"><highlight class="preprocessor">#define<sp/>XCAN_AFIR3_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x078<sp/><sp/></highlight></codeline>
+<codeline lineno="86" refid="group__can_1ga9fed14446aa518298d1868228c971499" refkind="member"><highlight class="preprocessor">#define<sp/>XCAN_AFMR4_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x07C<sp/><sp/></highlight></codeline>
+<codeline lineno="87" refid="group__can_1gad1359d3b320efecc87aa3dba24a0c4fa" refkind="member"><highlight class="preprocessor">#define<sp/>XCAN_AFIR4_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x080<sp/><sp/></highlight></codeline>
+<codeline lineno="89" refid="group__can_1ga078754fce159d323c3cdd60c0842b8f3" refkind="member"><highlight class="preprocessor">#define<sp/>XCAN_ECC_CFG_OFFSET<sp/><sp/><sp/><sp/><sp/>0x0C8<sp/><sp/></highlight></codeline>
+<codeline lineno="90" refid="group__can_1ga093ec0385610ae9e0a7861e06921bb5d" refkind="member"><highlight class="preprocessor">#define<sp/>XCAN_TXTLFIFO_ECC_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0CC<sp/><sp/></highlight></codeline>
+<codeline lineno="91" refid="group__can_1gaeed70ad0a591fb1f8c44a83f358a5842" refkind="member"><highlight class="preprocessor">#define<sp/>XCAN_TXOLFIFO_ECC_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0D0<sp/><sp/></highlight></codeline>
+<codeline lineno="92" refid="group__can_1ga05a0b3283999fc56204a5afbb013e048" refkind="member"><highlight class="preprocessor">#define<sp/>XCAN_RXFIFO_ECC_OFFSET<sp/><sp/>0X0D4<sp/><sp/></highlight></codeline>
+<codeline lineno="99" refid="group__can_1ga88b33f06b1f8f23cccef753f39a2a849" refkind="member"><highlight class="preprocessor">#define<sp/>XCAN_SRR_CEN_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000002<sp/><sp/></highlight></codeline>
+<codeline lineno="100" refid="group__can_1ga4eb9794178ded7bbea3907075d6c12c8" refkind="member"><highlight class="preprocessor">#define<sp/>XCAN_SRR_SRST_MASK<sp/><sp/><sp/><sp/><sp/><sp/>0x00000001<sp/><sp/></highlight></codeline>
+<codeline lineno="106" refid="group__can_1gaf23ad222a88f27062a9f3d3beb96ba58" refkind="member"><highlight class="preprocessor">#define<sp/>XCAN_MSR_LBACK_MASK<sp/><sp/><sp/><sp/><sp/>0x00000002<sp/><sp/></highlight></codeline>
+<codeline lineno="107" refid="group__can_1ga80a3feff44116b7a753f9dfa0f112c80" refkind="member"><highlight class="preprocessor">#define<sp/>XCAN_MSR_SLEEP_MASK<sp/><sp/><sp/><sp/><sp/>0x00000001<sp/><sp/></highlight></codeline>
+<codeline lineno="113" refid="group__can_1ga7734840994c22426e0d4bfd47cc11df2" refkind="member"><highlight class="preprocessor">#define<sp/>XCAN_BRPR_BRP_MASK<sp/><sp/><sp/><sp/><sp/><sp/>0x000000FF<sp/><sp/></highlight></codeline>
+<codeline lineno="119" refid="group__can_1ga482474a9585aad0b5f98f33336d86c38" refkind="member"><highlight class="preprocessor">#define<sp/>XCAN_BTR_SJW_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000180<sp/><sp/></highlight></codeline>
+<codeline lineno="120" refid="group__can_1ga53d62e28de515b3288a263d20fea0bf3" refkind="member"><highlight class="preprocessor">#define<sp/>XCAN_BTR_SJW_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/>7<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="121" refid="group__can_1gac0d704dc38470642a131dda752169999" refkind="member"><highlight class="preprocessor">#define<sp/>XCAN_BTR_TS2_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000070<sp/><sp/></highlight></codeline>
+<codeline lineno="122" refid="group__can_1gabad8a33a4b1f9e8d865514c2817e4653" refkind="member"><highlight class="preprocessor">#define<sp/>XCAN_BTR_TS2_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/>4<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="123" refid="group__can_1ga71bb7c04d078e61946418f812b09cd81" refkind="member"><highlight class="preprocessor">#define<sp/>XCAN_BTR_TS1_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0000000F<sp/><sp/></highlight></codeline>
+<codeline lineno="129" refid="group__can_1ga980c4e9bbe063886c5d6476033fc97b0" refkind="member"><highlight class="preprocessor">#define<sp/>XCAN_ECR_REC_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0000FF00<sp/><sp/></highlight></codeline>
+<codeline lineno="130" refid="group__can_1ga0d77caf803599bd6b764722231753aa4" refkind="member"><highlight class="preprocessor">#define<sp/>XCAN_ECR_REC_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/>8<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="131" refid="group__can_1ga8e6a2262fbb851245a5d38921c911c15" refkind="member"><highlight class="preprocessor">#define<sp/>XCAN_ECR_TEC_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x000000FF<sp/><sp/></highlight></codeline>
+<codeline lineno="137" refid="group__can_1gaba97ed0970710fa7b2da922f836fdea7" refkind="member"><highlight class="preprocessor">#define<sp/>XCAN_ESR_ACKER_MASK<sp/><sp/><sp/><sp/><sp/>0x00000010<sp/><sp/></highlight></codeline>
+<codeline lineno="138" refid="group__can_1gaa82168a0c9d1ce36e4ec4310fdf2fcfd" refkind="member"><highlight class="preprocessor">#define<sp/>XCAN_ESR_BERR_MASK<sp/><sp/><sp/><sp/><sp/><sp/>0x00000008<sp/><sp/></highlight></codeline>
+<codeline lineno="139" refid="group__can_1ga118328341a73c8b0d602c3f38b9eb587" refkind="member"><highlight class="preprocessor">#define<sp/>XCAN_ESR_STER_MASK<sp/><sp/><sp/><sp/><sp/><sp/>0x00000004<sp/><sp/></highlight></codeline>
+<codeline lineno="140" refid="group__can_1ga71466ab85c99729cb8c88657fedcdfd3" refkind="member"><highlight class="preprocessor">#define<sp/>XCAN_ESR_FMER_MASK<sp/><sp/><sp/><sp/><sp/><sp/>0x00000002<sp/><sp/></highlight></codeline>
+<codeline lineno="141" refid="group__can_1ga630be69fc280301a8856ed8ccb1c5866" refkind="member"><highlight class="preprocessor">#define<sp/>XCAN_ESR_CRCER_MASK<sp/><sp/><sp/><sp/><sp/>0x00000001<sp/><sp/></highlight></codeline>
+<codeline lineno="147" refid="group__can_1ga73da923dd04f1f036ca7e24e6fdc14b7" refkind="member"><highlight class="preprocessor">#define<sp/>XCAN_SR_ACFBSY_MASK<sp/><sp/><sp/><sp/><sp/>0x00000800<sp/><sp/></highlight></codeline>
+<codeline lineno="148" refid="group__can_1gad1399331118c8dd22db86571ce270096" refkind="member"><highlight class="preprocessor">#define<sp/>XCAN_SR_TXFLL_MASK<sp/><sp/><sp/><sp/><sp/><sp/>0x00000400<sp/><sp/></highlight></codeline>
+<codeline lineno="149" refid="group__can_1gae3786b56d4ddf066d41dd3ecbbee85b8" refkind="member"><highlight class="preprocessor">#define<sp/>XCAN_SR_TXBFLL_MASK<sp/><sp/><sp/><sp/><sp/>0x00000200<sp/><sp/></highlight></codeline>
+<codeline lineno="150" refid="group__can_1ga753f8cdc9cdf16b38bab4efa5c57e32c" refkind="member"><highlight class="preprocessor">#define<sp/>XCAN_SR_ESTAT_MASK<sp/><sp/><sp/><sp/><sp/><sp/>0x00000180<sp/><sp/></highlight></codeline>
+<codeline lineno="151" refid="group__can_1ga267319817c1549c24753bd1f217a7e94" refkind="member"><highlight class="preprocessor">#define<sp/>XCAN_SR_ESTAT_SHIFT<sp/><sp/><sp/><sp/><sp/>7<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="152" refid="group__can_1gaebb32ad0d72b5dc044713da8a52f32ea" refkind="member"><highlight class="preprocessor">#define<sp/>XCAN_SR_ERRWRN_MASK<sp/><sp/><sp/><sp/><sp/>0x00000040<sp/><sp/></highlight></codeline>
+<codeline lineno="153" refid="group__can_1gaa328f8b176b73bc7bb583c83bd502398" refkind="member"><highlight class="preprocessor">#define<sp/>XCAN_SR_BBSY_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000020<sp/><sp/></highlight></codeline>
+<codeline lineno="154" refid="group__can_1gab508aa082186be0f16ad8226be6e6694" refkind="member"><highlight class="preprocessor">#define<sp/>XCAN_SR_BIDLE_MASK<sp/><sp/><sp/><sp/><sp/><sp/>0x00000010<sp/><sp/></highlight></codeline>
+<codeline lineno="155" refid="group__can_1gac015e8212e56cbe343bfa07e55dd8d67" refkind="member"><highlight class="preprocessor">#define<sp/>XCAN_SR_NORMAL_MASK<sp/><sp/><sp/><sp/><sp/>0x00000008<sp/><sp/></highlight></codeline>
+<codeline lineno="156" refid="group__can_1gae1289ba685bbdbd31634fc1af458c3f0" refkind="member"><highlight class="preprocessor">#define<sp/>XCAN_SR_SLEEP_MASK<sp/><sp/><sp/><sp/><sp/><sp/>0x00000004<sp/><sp/></highlight></codeline>
+<codeline lineno="157" refid="group__can_1gabd7ac1ae3a9a72f384ac52f6c38ab54e" refkind="member"><highlight class="preprocessor">#define<sp/>XCAN_SR_LBACK_MASK<sp/><sp/><sp/><sp/><sp/><sp/>0x00000002<sp/><sp/></highlight></codeline>
+<codeline lineno="158" refid="group__can_1gaa686e34dea920bf42d5180aaaa232f34" refkind="member"><highlight class="preprocessor">#define<sp/>XCAN_SR_CONFIG_MASK<sp/><sp/><sp/><sp/><sp/>0x00000001<sp/><sp/></highlight></codeline>
+<codeline lineno="164" refid="group__can_1ga67744d34a2a65666e55116e2fdb8479b" refkind="member"><highlight class="preprocessor">#define<sp/>XCAN_IXR_E2BERX_MASK<sp/><sp/><sp/><sp/>0x00800000<sp/><sp/></highlight></codeline>
+<codeline lineno="165" refid="group__can_1ga35a9f71ee627fea1fc8cc35c4128cef9" refkind="member"><highlight class="preprocessor">#define<sp/>XCAN_IXR_E1BERX_MASK<sp/><sp/><sp/><sp/>0x00400000<sp/><sp/></highlight></codeline>
+<codeline lineno="166" refid="group__can_1ga590c7e3aa7a7f5aad88f562bdef58cdb" refkind="member"><highlight class="preprocessor">#define<sp/>XCAN_IXR_E2BETXOL_MASK<sp/><sp/>0x00200000<sp/><sp/></highlight></codeline>
+<codeline lineno="167" refid="group__can_1gabcb177002d5f1ec095045b081b539181" refkind="member"><highlight class="preprocessor">#define<sp/>XCAN_IXR_E1BETXOL_MASK<sp/><sp/>0x00100000<sp/><sp/></highlight></codeline>
+<codeline lineno="168" refid="group__can_1ga3d731cf466c57dfba1ca0ac76d9864ed" refkind="member"><highlight class="preprocessor">#define<sp/>XCAN_IXR_E2BETXTL_MASK<sp/><sp/>0x00080000<sp/><sp/></highlight></codeline>
+<codeline lineno="169" refid="group__can_1ga18a7f430a8d8e99d185b2e8e0b09f908" refkind="member"><highlight class="preprocessor">#define<sp/>XCAN_IXR_E1BETXTL_MASK<sp/><sp/>0x00040000<sp/><sp/></highlight></codeline>
+<codeline lineno="171" refid="group__can_1gaea1b2f81446269b8b30267bf840b3c31" refkind="member"><highlight class="preprocessor">#define<sp/>XCAN_IXR_WKUP_MASK<sp/><sp/><sp/><sp/><sp/><sp/>0x00000800<sp/><sp/></highlight></codeline>
+<codeline lineno="172" refid="group__can_1ga5fce703c1f3a145620255809ecf422bb" refkind="member"><highlight class="preprocessor">#define<sp/>XCAN_IXR_SLP_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000400<sp/><sp/></highlight></codeline>
+<codeline lineno="173" refid="group__can_1ga43b89eddb5c487830ab99f876eaf5a34" refkind="member"><highlight class="preprocessor">#define<sp/>XCAN_IXR_BSOFF_MASK<sp/><sp/><sp/><sp/><sp/>0x00000200<sp/><sp/></highlight></codeline>
+<codeline lineno="174" refid="group__can_1gaa8801f97438a944cb1b76ccaa1d3ac38" refkind="member"><highlight class="preprocessor">#define<sp/>XCAN_IXR_ERROR_MASK<sp/><sp/><sp/><sp/><sp/>0x00000100<sp/><sp/></highlight></codeline>
+<codeline lineno="175" refid="group__can_1ga5b1cb15de038ddda4b5a500ae3d829f4" refkind="member"><highlight class="preprocessor">#define<sp/>XCAN_IXR_RXNEMP_MASK<sp/><sp/><sp/><sp/>0x00000080<sp/><sp/></highlight></codeline>
+<codeline lineno="176" refid="group__can_1ga269318cb287c11f639cf185dce640191" refkind="member"><highlight class="preprocessor">#define<sp/>XCAN_IXR_RXOFLW_MASK<sp/><sp/><sp/><sp/>0x00000040<sp/><sp/></highlight></codeline>
+<codeline lineno="177" refid="group__can_1ga054d2d002f9141d9d937d262f5b637de" refkind="member"><highlight class="preprocessor">#define<sp/>XCAN_IXR_RXUFLW_MASK<sp/><sp/><sp/><sp/>0x00000020<sp/><sp/></highlight></codeline>
+<codeline lineno="178" refid="group__can_1ga473f195ede2bde98dedda9eecfc5efdb" refkind="member"><highlight class="preprocessor">#define<sp/>XCAN_IXR_RXOK_MASK<sp/><sp/><sp/><sp/><sp/><sp/>0x00000010<sp/><sp/></highlight></codeline>
+<codeline lineno="179" refid="group__can_1gaccb86502df2129af8cbddd4da45db912" refkind="member"><highlight class="preprocessor">#define<sp/>XCAN_IXR_TXBFLL_MASK<sp/><sp/><sp/><sp/>0x00000008<sp/><sp/></highlight></codeline>
+<codeline lineno="180" refid="group__can_1ga3436502be0f71ac99a60299c73b86f1f" refkind="member"><highlight class="preprocessor">#define<sp/>XCAN_IXR_TXFLL_MASK<sp/><sp/><sp/><sp/><sp/>0x00000004<sp/><sp/></highlight></codeline>
+<codeline lineno="181" refid="group__can_1gaa3b70e481b672854a2a8436dfaad2ed2" refkind="member"><highlight class="preprocessor">#define<sp/>XCAN_IXR_TXOK_MASK<sp/><sp/><sp/><sp/><sp/><sp/>0x00000002<sp/><sp/></highlight></codeline>
+<codeline lineno="182" refid="group__can_1ga519a0e1365d4237932311c794a9f3286" refkind="member"><highlight class="preprocessor">#define<sp/>XCAN_IXR_ARBLST_MASK<sp/><sp/><sp/><sp/>0x00000001<sp/><sp/></highlight></codeline>
+<codeline lineno="184" refid="group__can_1gab3ff6f454fae07e0b637ad85e2564b72" refkind="member"><highlight class="preprocessor">#define<sp/>XCAN_IXR_ECC_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XCAN_IXR_E2BERX_MASK<sp/><sp/><sp/>|<sp/>\</highlight></codeline>
+<codeline lineno="185"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XCAN_IXR_E1BERX_MASK<sp/><sp/><sp/><sp/>|<sp/>\</highlight></codeline>
+<codeline lineno="186"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XCAN_IXR_E2BETXOL_MASK<sp/><sp/><sp/>|<sp/>\</highlight></codeline>
+<codeline lineno="187"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XCAN_IXR_E1BETXOL_MASK<sp/><sp/><sp/>|<sp/>\</highlight></codeline>
+<codeline lineno="188"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XCAN_IXR_E2BETXTL_MASK<sp/><sp/><sp/>|<sp/>\</highlight></codeline>
+<codeline lineno="189"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XCAN_IXR_E1BETXTL_MASK)</highlight></codeline>
+<codeline lineno="190"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="193" refid="group__can_1ga553b29006c0052225803342e61f63918" refkind="member"><highlight class="preprocessor">#define<sp/>XCAN_IXR_ALL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XCAN_IXR_WKUP_MASK<sp/><sp/><sp/>|<sp/>\</highlight></codeline>
+<codeline lineno="194"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XCAN_IXR_SLP_MASK<sp/><sp/><sp/><sp/>|<sp/>\</highlight></codeline>
+<codeline lineno="195"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XCAN_IXR_BSOFF_MASK<sp/><sp/>|<sp/>\</highlight></codeline>
+<codeline lineno="196"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XCAN_IXR_ERROR_MASK<sp/><sp/>|<sp/>\</highlight></codeline>
+<codeline lineno="197"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XCAN_IXR_RXNEMP_MASK<sp/>|<sp/>\</highlight></codeline>
+<codeline lineno="198"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XCAN_IXR_RXOFLW_MASK<sp/>|<sp/>\</highlight></codeline>
+<codeline lineno="199"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XCAN_IXR_RXUFLW_MASK<sp/>|<sp/>\</highlight></codeline>
+<codeline lineno="200"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XCAN_IXR_RXOK_MASK<sp/><sp/><sp/>|<sp/>\</highlight></codeline>
+<codeline lineno="201"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XCAN_IXR_TXBFLL_MASK<sp/>|<sp/>\</highlight></codeline>
+<codeline lineno="202"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XCAN_IXR_TXFLL_MASK<sp/><sp/>|<sp/>\</highlight></codeline>
+<codeline lineno="203"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XCAN_IXR_TXOK_MASK<sp/><sp/><sp/>|<sp/>\</highlight></codeline>
+<codeline lineno="204"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XCAN_IXR_ARBLST_MASK)</highlight></codeline>
+<codeline lineno="205"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="213" refid="group__can_1gada1163dd1ad028100277856729da0c76" refkind="member"><highlight class="preprocessor">#define<sp/>XCAN_IDR_ID1_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xFFE00000<sp/><sp/></highlight></codeline>
+<codeline lineno="214" refid="group__can_1ga8f9c7951fae58fd2cf90131e0631304e" refkind="member"><highlight class="preprocessor">#define<sp/>XCAN_IDR_ID1_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/>21<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="215" refid="group__can_1ga2525f6a15bbfb9db8502779b1f876a49" refkind="member"><highlight class="preprocessor">#define<sp/>XCAN_IDR_SRR_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00100000<sp/><sp/></highlight></codeline>
+<codeline lineno="216" refid="group__can_1ga392ae006c23ac043f35d7381b769a466" refkind="member"><highlight class="preprocessor">#define<sp/>XCAN_IDR_SRR_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/>20<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="217" refid="group__can_1gaf39813df4090219175f47904f099c617" refkind="member"><highlight class="preprocessor">#define<sp/>XCAN_IDR_IDE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00080000<sp/><sp/></highlight></codeline>
+<codeline lineno="218" refid="group__can_1ga5a37127b76e4f9356f56edd8f3b0d178" refkind="member"><highlight class="preprocessor">#define<sp/>XCAN_IDR_IDE_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/>19<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="219" refid="group__can_1ga7fd399769caeac6b7a857eb608ded32d" refkind="member"><highlight class="preprocessor">#define<sp/>XCAN_IDR_ID2_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0007FFFE<sp/><sp/></highlight></codeline>
+<codeline lineno="220" refid="group__can_1gab713a9e27487c69a7672da10f97b7019" refkind="member"><highlight class="preprocessor">#define<sp/>XCAN_IDR_ID2_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/>1<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="221" refid="group__can_1ga5c4236ed24ee27b58a4068b14455535d" refkind="member"><highlight class="preprocessor">#define<sp/>XCAN_IDR_RTR_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000001<sp/><sp/></highlight></codeline>
+<codeline lineno="227" refid="group__can_1gafa0b23b8702612aeff3cc901ead4f3ee" refkind="member"><highlight class="preprocessor">#define<sp/>XCAN_DLCR_DLC_MASK<sp/><sp/><sp/><sp/><sp/><sp/>0xF0000000<sp/><sp/></highlight></codeline>
+<codeline lineno="228" refid="group__can_1gab4b767107a5599196e3b5b2d61457828" refkind="member"><highlight class="preprocessor">#define<sp/>XCAN_DLCR_DLC_SHIFT<sp/><sp/><sp/><sp/><sp/>28<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="234" refid="group__can_1ga9a48597cc8ff57fb7581c7847b867c22" refkind="member"><highlight class="preprocessor">#define<sp/>XCAN_DW1R_DB0_MASK<sp/><sp/><sp/><sp/><sp/><sp/>0xFF000000<sp/><sp/></highlight></codeline>
+<codeline lineno="235" refid="group__can_1ga796c3b0d3ee690e58c2382bc9c8c8074" refkind="member"><highlight class="preprocessor">#define<sp/>XCAN_DW1R_DB0_SHIFT<sp/><sp/><sp/><sp/><sp/>24<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="236" refid="group__can_1ga04c8b1e84e333a103ce8ba3d2dfa65ec" refkind="member"><highlight class="preprocessor">#define<sp/>XCAN_DW1R_DB1_MASK<sp/><sp/><sp/><sp/><sp/><sp/>0x00FF0000<sp/><sp/></highlight></codeline>
+<codeline lineno="237" refid="group__can_1ga32da6621a4d8d7eb4ef4b296e959e37c" refkind="member"><highlight class="preprocessor">#define<sp/>XCAN_DW1R_DB1_SHIFT<sp/><sp/><sp/><sp/><sp/>16<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="238" refid="group__can_1ga8dafb075593cdc401eda40234b40709f" refkind="member"><highlight class="preprocessor">#define<sp/>XCAN_DW1R_DB2_MASK<sp/><sp/><sp/><sp/><sp/><sp/>0x0000FF00<sp/><sp/></highlight></codeline>
+<codeline lineno="239" refid="group__can_1gad9a7ce98eb30f0f8d29b9d0df656e114" refkind="member"><highlight class="preprocessor">#define<sp/>XCAN_DW1R_DB2_SHIFT<sp/><sp/><sp/><sp/><sp/>8<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="240" refid="group__can_1gac76404750a67b3e94a15970dfded5613" refkind="member"><highlight class="preprocessor">#define<sp/>XCAN_DW1R_DB3_MASK<sp/><sp/><sp/><sp/><sp/><sp/>0x000000FF<sp/><sp/></highlight></codeline>
+<codeline lineno="246" refid="group__can_1ga5dee44a2bfea5c107dd6fcde0aa039fc" refkind="member"><highlight class="preprocessor">#define<sp/>XCAN_DW2R_DB4_MASK<sp/><sp/><sp/><sp/><sp/><sp/>0xFF000000<sp/><sp/></highlight></codeline>
+<codeline lineno="247" refid="group__can_1ga5d77fd15acfe84db47bc12988683fe06" refkind="member"><highlight class="preprocessor">#define<sp/>XCAN_DW2R_DB4_SHIFT<sp/><sp/><sp/><sp/><sp/>24<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="248" refid="group__can_1ga175cb760f8307cae1fbde33d81e79592" refkind="member"><highlight class="preprocessor">#define<sp/>XCAN_DW2R_DB5_MASK<sp/><sp/><sp/><sp/><sp/><sp/>0x00FF0000<sp/><sp/></highlight></codeline>
+<codeline lineno="249" refid="group__can_1gac7dab491929841ac7ebc76e28498f863" refkind="member"><highlight class="preprocessor">#define<sp/>XCAN_DW2R_DB5_SHIFT<sp/><sp/><sp/><sp/><sp/>16<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="250" refid="group__can_1ga47eab148ef0d8d52bcc485e5830270ec" refkind="member"><highlight class="preprocessor">#define<sp/>XCAN_DW2R_DB6_MASK<sp/><sp/><sp/><sp/><sp/><sp/>0x0000FF00<sp/><sp/></highlight></codeline>
+<codeline lineno="251" refid="group__can_1ga15e5124ba29335a1d8e6d389bc917be8" refkind="member"><highlight class="preprocessor">#define<sp/>XCAN_DW2R_DB6_SHIFT<sp/><sp/><sp/><sp/><sp/>8<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="252" refid="group__can_1ga8af389ae9f91d294dc6b4deda4f2b620" refkind="member"><highlight class="preprocessor">#define<sp/>XCAN_DW2R_DB7_MASK<sp/><sp/><sp/><sp/><sp/><sp/>0x000000FF<sp/><sp/></highlight></codeline>
+<codeline lineno="258" refid="group__can_1gab5671b822a0a80731f0e5052eee1767c" refkind="member"><highlight class="preprocessor">#define<sp/>XCAN_AFR_UAF4_MASK<sp/><sp/><sp/><sp/><sp/><sp/>0x00000008<sp/><sp/></highlight></codeline>
+<codeline lineno="259" refid="group__can_1ga540f1efcafa2d70618be48c52e7637ff" refkind="member"><highlight class="preprocessor">#define<sp/>XCAN_AFR_UAF3_MASK<sp/><sp/><sp/><sp/><sp/><sp/>0x00000004<sp/><sp/></highlight></codeline>
+<codeline lineno="260" refid="group__can_1ga32a8c92478c1129bd0b81f921f7e5e0d" refkind="member"><highlight class="preprocessor">#define<sp/>XCAN_AFR_UAF2_MASK<sp/><sp/><sp/><sp/><sp/><sp/>0x00000002<sp/><sp/></highlight></codeline>
+<codeline lineno="261" refid="group__can_1ga381e95f0585ebeb9aec90d553c9bca05" refkind="member"><highlight class="preprocessor">#define<sp/>XCAN_AFR_UAF1_MASK<sp/><sp/><sp/><sp/><sp/><sp/>0x00000001<sp/><sp/></highlight></codeline>
+<codeline lineno="262" refid="group__can_1gac441a14e138a5e9828289afbe87e97ad" refkind="member"><highlight class="preprocessor">#define<sp/>XCAN_AFR_UAF_ALL_MASK<sp/><sp/><sp/>(XCAN_AFR_UAF4_MASK<sp/>|<sp/>XCAN_AFR_UAF3_MASK<sp/>|<sp/>\</highlight></codeline>
+<codeline lineno="263"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XCAN_AFR_UAF2_MASK<sp/>|<sp/>XCAN_AFR_UAF1_MASK)</highlight></codeline>
+<codeline lineno="264"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="270" refid="group__can_1gad823154b65050d0fd92e0df09f0b1ca0" refkind="member"><highlight class="preprocessor">#define<sp/>XCAN_ECC_CFG_RST_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000007<sp/><sp/></highlight></codeline>
+<codeline lineno="271" refid="group__can_1ga25f76cffe03cc4827d00b9b9f92b6f21" refkind="member"><highlight class="preprocessor">#define<sp/>XCAN_ECC_CFG_REECRX_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000004<sp/><sp/></highlight></codeline>
+<codeline lineno="272" refid="group__can_1gaca8ac8116f9aab163d71daa768e53876" refkind="member"><highlight class="preprocessor">#define<sp/>XCAN_ECC_CFG_REECTXOL_MASK<sp/><sp/><sp/><sp/><sp/><sp/>0x00000002<sp/><sp/></highlight></codeline>
+<codeline lineno="273" refid="group__can_1ga75f2a9e53470228a60bd1b7ca1ed9645" refkind="member"><highlight class="preprocessor">#define<sp/>XCAN_ECC_CFG_REECTXTL_MASK<sp/><sp/><sp/><sp/><sp/><sp/>0x00000001<sp/><sp/></highlight></codeline>
+<codeline lineno="274" refid="group__can_1ga18758fa4d22f6632b4d474a3629d21cd" refkind="member"><highlight class="preprocessor">#define<sp/>XCAN_ECC_2BIT_SHIFT<sp/><sp/><sp/><sp/><sp/>16<sp/><sp/></highlight></codeline>
+<codeline lineno="280" refid="group__can_1ga0d49049d96621520fa9afe22db2a8a34" refkind="member"><highlight class="preprocessor">#define<sp/>XCAN_MAX_FRAME_SIZE<sp/>16<sp/><sp/></highlight></codeline>
+<codeline lineno="287" refid="group__can_1ga1f4ae13d03284afb0c4574d52d139e10" refkind="member"><highlight class="preprocessor">#define<sp/>XCAN_MASK_LOW_16BITS<sp/><sp/><sp/><sp/>0x0000FFFF<sp/></highlight></codeline>
+<codeline lineno="288" refid="group__can_1gac9b2db5b4abc4a1ee2154108702776d1" refkind="member"><highlight class="preprocessor">#define<sp/>XCAN_MASK_HIGH_16BITS<sp/><sp/><sp/>0XFFFF0000<sp/></highlight></codeline>
+<codeline lineno="290"><highlight class="preprocessor"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="291"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="292"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="293"><highlight class="normal"></highlight></codeline>
+<codeline lineno="294"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="308" refid="group__can_1ga2ee91da70cd3c92169c780186a9d6c51" refkind="member"><highlight class="preprocessor">#define<sp/>XCan_ReadReg(BaseAddress,<sp/>RegOffset)<sp/>\</highlight></codeline>
+<codeline lineno="309"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_In32((BaseAddress)<sp/>+<sp/>(RegOffset))</highlight></codeline>
+<codeline lineno="310"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="311"><highlight class="normal"></highlight></codeline>
+<codeline lineno="312"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="327" refid="group__can_1ga4b58327ea939610d5b1816a686ffd6c7" refkind="member"><highlight class="preprocessor">#define<sp/>XCan_WriteReg(BaseAddress,<sp/>RegOffset,<sp/>Data)<sp/>\</highlight></codeline>
+<codeline lineno="328"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_Out32((BaseAddress)<sp/>+<sp/>(RegOffset),<sp/>(Data))</highlight></codeline>
+<codeline lineno="329"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="330"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="331"><highlight class="normal"></highlight></codeline>
+<codeline lineno="332"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="333"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="334"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="335"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="336"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>end<sp/>of<sp/>protection<sp/>macro<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="337"><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_l.h"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_dp_rx_ss___iic_sub_core" kind="struct" prot="public">
+    <compoundname>XDpRxSs_IicSubCore</compoundname>
+    <includes local="no">xdprxss.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_dp_rx_ss___iic_sub_core_1a8916c76bf22d1a00f91d84a8a65c06f4" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XDpRxSs_IicSubCore::IsPresent</definition>
+        <argsstring></argsstring>
+        <name>IsPresent</name>
+        <briefdescription>
+<para>Flag to hold the presence of DisplayPort Receiver core. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss.h" line="412" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss.h" bodystart="412" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp_rx_ss___iic_sub_core_1a689137bbe9770ed9ab55e1b566d4960b" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_dp_rx_ss___iic_dummy_sub_core_config" kindref="compound">XDpRxSs_IicDummySubCoreConfig</ref></type>
+        <definition>XDpRxSs_IicDummySubCoreConfig XDpRxSs_IicSubCore::XIicConfig</definition>
+        <argsstring></argsstring>
+        <name>XIicConfig</name>
+        <briefdescription>
+<para>Dummy IIC configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss.h" line="418" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss.h" bodystart="418" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>IIC Sub-core structure. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="59">
+        <label>XDpRxSs_IicDummySubCoreConfig</label>
+        <link refid="struct_x_dp_rx_ss___iic_dummy_sub_core_config"/>
+      </node>
+      <node id="58">
+        <label>XDpRxSs_IicSubCore</label>
+        <link refid="struct_x_dp_rx_ss___iic_sub_core"/>
+        <childnode refid="59" relation="usage">
+          <edgelabel>XIicConfig</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss.h" line="411" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss.h" bodystart="411" bodyend="420"/>
+    <listofallmembers>
+      <member refid="struct_x_dp_rx_ss___iic_sub_core_1a8916c76bf22d1a00f91d84a8a65c06f4" prot="public" virt="non-virtual"><scope>XDpRxSs_IicSubCore</scope><name>IsPresent</name></member>
+      <member refid="struct_x_dp_rx_ss___iic_sub_core_1a689137bbe9770ed9ab55e1b566d4960b" prot="public" virt="non-virtual"><scope>XDpRxSs_IicSubCore</scope><name>XIicConfig</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

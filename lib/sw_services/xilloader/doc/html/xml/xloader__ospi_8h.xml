@@ -1,0 +1,225 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xloader__ospi_8h" kind="file">
+    <compoundname>xloader_ospi.h</compoundname>
+    <includedby refid="xloader_8c" local="yes">xloader.c</includedby>
+    <includedby refid="xloader__ospi_8c" local="yes">xloader_ospi.c</includedby>
+    <invincdepgraph>
+      <node id="766">
+        <label>xloader.c</label>
+        <link refid="xloader_8c"/>
+      </node>
+      <node id="767">
+        <label>xloader_ospi.c</label>
+        <link refid="xloader__ospi_8c"/>
+      </node>
+      <node id="765">
+        <label>xloader_ospi.h</label>
+        <link refid="xloader_ospi.h"/>
+        <childnode refid="766" relation="include">
+        </childnode>
+        <childnode refid="767" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <briefdescription>
+<para>This is the header file which contains ospi declarations for the PLM. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date        Changes
+----- ---- -------- -------------------------------------------------------
+1.00  bsv  08/23/2018 Initial release
+1.01  bsv  09/10/2019 Added support to set OSPI to DDR mode
+      ma   02/03/2020 Change XPlmi_MeasurePerfTime to retrieve Performance
+                      time and print
+      bsv  02/04/2020 Reset qspi instance in init functions for LPD off
+                                        suspend and resume to work
+      bsv  04/09/2020 Code clean up of Xilloader
+1.02  bsv  27/06/2020 Add dual stacked mode support
+      bsv  07/08/2020 APIs specific to this file made static
+      skd  07/14/2020 XLoader_OspiCopy prototype changed
+      skd  08/21/2020 Added GIGADEVICE and ISSI flash ID macros
+      bsv  10/13/2020 Code clean up
+1.03  bsv  07/16/2021 Added Macronix flash support
+      bsv  08/31/2021 Code clean up
+      bm   01/11/2023 Added support for Gigadevice 512M, 1G, 2G parts
+      dd   02/08/2024 Added support for ISSI 512M
+      sk   02/26/2024 Added defines for Spansion flash part
+      ng   03/05/2024 Added support for Macronix OSPI 2G flash part
+      sk   03/15/2024 Added structure for flash info
+      prt  12/30/2024 Added macro to support ISSI 256MB flash part
+      prt  04/02/2025 Added support for Infineon OSPI flash parts
+2.4   abh  10/09/2025 Added macros to be MISRA-C compliant
+      aa   02/03/2026 Added Macro for Macronix flash</preformatted></para><para><preformatted></preformatted></para><para><simplesect kind="note"><para></para></simplesect>
+</para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2018<sp/>-<sp/>2021<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2022<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="48"><highlight class="preprocessor">#ifndef<sp/>XLOADER_OSPI_H</highlight></codeline>
+<codeline lineno="49"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XLOADER_OSPI_H</highlight></codeline>
+<codeline lineno="50"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="52"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="54"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>XLOADER_OSPI</highlight></codeline>
+<codeline lineno="57"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="60"><highlight class="comment"><sp/>*<sp/>Flash<sp/>connection<sp/>type<sp/>as<sp/>defined<sp/>in<sp/>Vivado</highlight></codeline>
+<codeline lineno="61"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>READ_CMD_4B<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x13U)</highlight></codeline>
+<codeline lineno="63"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>READ_CMD_OCTAL_4B<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x7CU)</highlight></codeline>
+<codeline lineno="64"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>READ_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x9FU)</highlight></codeline>
+<codeline lineno="65"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>WRITE_DISABLE_CMD<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x4U)</highlight></codeline>
+<codeline lineno="66"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>OSPI_WRITE_ENABLE_CMD<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x6U)</highlight></codeline>
+<codeline lineno="67"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>ENTER_4B_ADDR_MODE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xB7U)</highlight></codeline>
+<codeline lineno="68"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>EXIT_4B_ADDR_MODE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xE9U)</highlight></codeline>
+<codeline lineno="69"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>READ_FLAG_STATUS_CMD<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x70U)</highlight></codeline>
+<codeline lineno="70"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>WRITE_CONFIG_REG<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x81U)</highlight></codeline>
+<codeline lineno="71"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>READ_CONFIG_REG<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x85U)</highlight></codeline>
+<codeline lineno="72"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>WRITE_CONFIG2_REG_MX<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x72U)</highlight></codeline>
+<codeline lineno="73"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>READ_CONFIG2_REG_MX<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x71U)</highlight></codeline>
+<codeline lineno="74"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>READ_CMD_OPI_MX<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xEEU)</highlight></codeline>
+<codeline lineno="75"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>READ_CMD_OPI_SPN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xEEU)</highlight></codeline>
+<codeline lineno="76"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>WRITE_CONFIG_REG_SPN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x71U)</highlight></codeline>
+<codeline lineno="77"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>READ_CONFIG_REG_SPN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x65U)</highlight></codeline>
+<codeline lineno="78"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CONFIG_REG_4_DIE_1_ADDR_SPN<sp/><sp/><sp/><sp/><sp/>(0x00800005U)</highlight></codeline>
+<codeline lineno="79"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CONFIG_REG_4_DIE_2_ADDR_SPN<sp/><sp/><sp/><sp/><sp/>(0x08800005U)</highlight></codeline>
+<codeline lineno="80"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CONFIG_REG_4_DIE_3_ADDR_SPN<sp/><sp/><sp/><sp/><sp/>(0x10800005U)</highlight></codeline>
+<codeline lineno="81"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CONFIG_REG_4_DIE_4_ADDR_SPN<sp/><sp/><sp/><sp/><sp/>(0x18800005U)</highlight></codeline>
+<codeline lineno="82"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CONFIG_REG_5_DIE_1_ADDR_SPN<sp/><sp/><sp/><sp/><sp/>(0x00800006U)</highlight></codeline>
+<codeline lineno="83"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CONFIG_REG_5_DIE_2_ADDR_SPN<sp/><sp/><sp/><sp/><sp/>(0x08800006U)</highlight></codeline>
+<codeline lineno="84"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CONFIG_REG_5_DIE_3_ADDR_SPN<sp/><sp/><sp/><sp/><sp/>(0x10800006U)</highlight></codeline>
+<codeline lineno="85"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CONFIG_REG_5_DIE_4_ADDR_SPN<sp/><sp/><sp/><sp/><sp/>(0x18800006U)</highlight></codeline>
+<codeline lineno="86"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CONFIG_REG_2_ADDR_MX<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000300U)</highlight></codeline>
+<codeline lineno="87"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="88"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="89"><highlight class="comment"><sp/>*<sp/>Identification<sp/>of<sp/>Flash</highlight></codeline>
+<codeline lineno="90"><highlight class="comment"><sp/>*<sp/>Micron:</highlight></codeline>
+<codeline lineno="91"><highlight class="comment"><sp/>*<sp/>Byte<sp/>0<sp/>is<sp/>Manufacturer<sp/>ID;</highlight></codeline>
+<codeline lineno="92"><highlight class="comment"><sp/>*<sp/>Byte<sp/>1<sp/>is<sp/>first<sp/>byte<sp/>of<sp/>Device<sp/>ID<sp/>-<sp/>0x5B</highlight></codeline>
+<codeline lineno="93"><highlight class="comment"><sp/>*<sp/>Byte<sp/>2<sp/>is<sp/>second<sp/>byte<sp/>of<sp/>Device<sp/>ID<sp/>describes<sp/>flash<sp/>size:</highlight></codeline>
+<codeline lineno="94"><highlight class="comment"><sp/>*<sp/>512Mbit<sp/>:<sp/>0x1A;<sp/>1Gbit<sp/>:<sp/>0x1B;<sp/>2Gbit<sp/>:<sp/>0x1C</highlight></codeline>
+<codeline lineno="95"><highlight class="comment"><sp/>*<sp/>Gigadevice:</highlight></codeline>
+<codeline lineno="96"><highlight class="comment"><sp/>*<sp/>Byte<sp/>0<sp/>is<sp/>Manufacturer<sp/>ID;</highlight></codeline>
+<codeline lineno="97"><highlight class="comment"><sp/>*<sp/>Byte<sp/>1<sp/>is<sp/>first<sp/>byte<sp/>of<sp/>Device<sp/>ID<sp/>-<sp/>0x40<sp/>or<sp/>0x47</highlight></codeline>
+<codeline lineno="98"><highlight class="comment"><sp/>*<sp/>Byte<sp/>2<sp/>is<sp/>second<sp/>byte<sp/>of<sp/>Device<sp/>ID<sp/>describes<sp/>flash<sp/>size:</highlight></codeline>
+<codeline lineno="99"><highlight class="comment"><sp/>*<sp/>256Mbit<sp/>:<sp/>0x19;<sp/>512Mbit<sp/>:<sp/>0x1A;<sp/>1Gbit<sp/>:<sp/>0x1B;<sp/>2Gbit<sp/>:<sp/>0x1C</highlight></codeline>
+<codeline lineno="100"><highlight class="comment"><sp/>*<sp/>ISSI:</highlight></codeline>
+<codeline lineno="101"><highlight class="comment"><sp/>*<sp/>Byte<sp/>0<sp/>is<sp/>Manufacturer<sp/>ID;</highlight></codeline>
+<codeline lineno="102"><highlight class="comment"><sp/>*<sp/>Byte<sp/>1<sp/>is<sp/>first<sp/>byte<sp/>of<sp/>Device<sp/>ID<sp/>-<sp/>0x5A<sp/>or<sp/>0x5B</highlight></codeline>
+<codeline lineno="103"><highlight class="comment"><sp/>*<sp/>Byte<sp/>2<sp/>is<sp/>second<sp/>byte<sp/>of<sp/>Device<sp/>ID<sp/>describes<sp/>flash<sp/>size:</highlight></codeline>
+<codeline lineno="104"><highlight class="comment"><sp/>*<sp/>256Mbit<sp/>:<sp/>0x19;<sp/>512Mbit<sp/>:<sp/>0x1A</highlight></codeline>
+<codeline lineno="105"><highlight class="comment"><sp/>*<sp/>Macronix:</highlight></codeline>
+<codeline lineno="106"><highlight class="comment"><sp/>*<sp/>Byte<sp/>0<sp/>is<sp/>Manufacturer<sp/>ID;</highlight></codeline>
+<codeline lineno="107"><highlight class="comment"><sp/>*<sp/>Byte<sp/>1<sp/>is<sp/>first<sp/>byte<sp/>of<sp/>Device<sp/>ID<sp/>-<sp/>0x80</highlight></codeline>
+<codeline lineno="108"><highlight class="comment"><sp/>*<sp/>Byte<sp/>2<sp/>is<sp/>second<sp/>byte<sp/>of<sp/>Device<sp/>ID<sp/>describes<sp/>flash<sp/>size:</highlight></codeline>
+<codeline lineno="109"><highlight class="comment"><sp/>*<sp/>512Mbit<sp/>:<sp/>0x3A;<sp/><sp/>2Gbit<sp/>:<sp/>0x3C</highlight></codeline>
+<codeline lineno="110"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="111"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>MICRON_OCTAL_ID_BYTE0<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x2CU)<sp/></highlight><highlight class="comment">/*<sp/>Micron<sp/>manufacture<sp/>id<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="112"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>GIGADEVICE_OCTAL_ID_BYTE0<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xC8U)<sp/></highlight><highlight class="comment">/*<sp/>Gigadevice<sp/>manufacture<sp/>id<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="113"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>ISSI_OCTAL_ID_BYTE0<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x9DU)<sp/></highlight><highlight class="comment">/*<sp/>ISSI<sp/>manufacture<sp/>id<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="114"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>MACRONIX_OCTAL_ID_BYTE0<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xC2U)<sp/></highlight><highlight class="comment">/*<sp/>Macronix<sp/>manufacture<sp/>id<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="115"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SPANSION_OCTAL_ID_BYTE0<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x34U)<sp/><sp/></highlight><highlight class="comment">/*<sp/>Spansion<sp/>manufacture<sp/>id<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="116"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SPANSION_OCTAL_ID_BYTE2_256<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x19U)<sp/><sp/></highlight><highlight class="comment">/*<sp/>Spansion<sp/>256Mbit<sp/>flash<sp/>size<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="117"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SPANSION_OCTAL_ID_BYTE2_512<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x1AU)<sp/><sp/></highlight><highlight class="comment">/*<sp/>Spansion<sp/>512Mbit<sp/>flash<sp/>size<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="118"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SPANSION_OCTAL_ID_BYTE2_1G<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x1BU)<sp/><sp/></highlight><highlight class="comment">/*<sp/>Spansion<sp/>1Gbit<sp/>flash<sp/>size<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="119"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SPANSION_OCTAL_ID_BYTE2_2G<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x1CU)<sp/><sp/></highlight><highlight class="comment">/*<sp/>Spansion<sp/>2Gbit<sp/>flash<sp/>size<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="120"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>MICRON_OCTAL_ID_BYTE2_512<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x1AU)<sp/></highlight><highlight class="comment">/*<sp/>Micron<sp/>512Mbit<sp/>flash<sp/>size<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="121"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>MICRON_OCTAL_ID_BYTE2_1G<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x1BU)<sp/></highlight><highlight class="comment">/*<sp/>Micron<sp/>1Gbit<sp/>flash<sp/>size<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="122"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>MICRON_OCTAL_ID_BYTE2_2G<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x1CU)<sp/></highlight><highlight class="comment">/*<sp/>Micron<sp/>2Gbit<sp/>flash<sp/>size<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="123"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>MACRONIX_OCTAL_ID_BYTE2_512<sp/><sp/><sp/><sp/><sp/>(0x3AU)<sp/></highlight><highlight class="comment">/*<sp/>Macronix<sp/>512Mbit<sp/>flash<sp/>size<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="124"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>MACRONIX_OCTAL_ID_BYTE2_2G<sp/><sp/><sp/><sp/><sp/><sp/>(0x3CU)<sp/></highlight><highlight class="comment">/*<sp/>Macronix<sp/>2Gbit<sp/>flash<sp/>size<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="125"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>GIGADEVICE_OCTAL_ID_BYTE2_256<sp/><sp/><sp/>(0x19U)<sp/></highlight><highlight class="comment">/*<sp/>Gigadevice<sp/>256Mbit<sp/>flash<sp/>size<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="126"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>GIGADEVICE_OCTAL_ID_BYTE2_512<sp/><sp/><sp/>(0x1AU)<sp/></highlight><highlight class="comment">/*<sp/>Gigadevice<sp/>512Mbit<sp/>flash<sp/>size<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="127"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>GIGADEVICE_OCTAL_ID_BYTE2_1G<sp/><sp/><sp/><sp/>(0x1BU)<sp/></highlight><highlight class="comment">/*<sp/>Gigadevice<sp/>1Gbit<sp/>flash<sp/>size<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="128"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>GIGADEVICE_OCTAL_ID_BYTE2_2G<sp/><sp/><sp/><sp/>(0x1CU)<sp/></highlight><highlight class="comment">/*<sp/>Gigadevice<sp/>2Gbit<sp/>flash<sp/>size<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="129"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>ISSI_OCTAL_ID_BYTE2_256<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x19U)<sp/></highlight><highlight class="comment">/*<sp/>ISSI<sp/>256Mbit<sp/>flash<sp/>size<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="130"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>ISSI_OCTAL_ID_BYTE2_512<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x1AU)<sp/></highlight><highlight class="comment">/*<sp/>ISSI<sp/>512Mbit<sp/>flash<sp/>size<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="131"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="132"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="133"><highlight class="normal"></highlight></codeline>
+<codeline lineno="134"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="135"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XLOADER_OSPI_MACRONIX_EXTENDED_OPCODE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xFFU)</highlight></codeline>
+<codeline lineno="136"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XLOADER_MACRONIX_OSPI_DDR_DUMMY_CYCLES<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(20U)</highlight></codeline>
+<codeline lineno="137"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XLOADER_SPANSION_OSPI_DDR_DUMMY_CYCLES<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(21U)</highlight></codeline>
+<codeline lineno="138"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XLOADER_OSPI_DDR_DUMMY_CYCLES<sp/><sp/><sp/>(16U)</highlight></codeline>
+<codeline lineno="139"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XLOADER_OSPI_SDR_DUMMY_CYCLES<sp/><sp/><sp/>(8U)</highlight></codeline>
+<codeline lineno="140"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XLOADER_MACRONIX_OSPI_SET_DDR_DUMMY_CYCLES<sp/><sp/><sp/><sp/><sp/><sp/>(4U)</highlight></codeline>
+<codeline lineno="141"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XLOADER_READ_ID_BYTES<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(8U)</highlight></codeline>
+<codeline lineno="142"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XLOADER_BYTES_TO_READ<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(4U)</highlight></codeline>
+<codeline lineno="143"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XLOADER_OSPI_READ_ADDR_SIZE<sp/><sp/><sp/><sp/><sp/>(4U)</highlight></codeline>
+<codeline lineno="144"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XLOADER_OSPI_DDR_MODE_BYTE_CNT<sp/><sp/>(2U)</highlight></codeline>
+<codeline lineno="145"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XLOADER_OSPI_SDR_MODE_BYTE_CNT<sp/><sp/>(1U)</highlight></codeline>
+<codeline lineno="146"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="147"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XLOADER_OSPI_ENTER_4B_ADDR_MODE_CMD_BYTE_CNT<sp/><sp/><sp/><sp/>(0U)</highlight></codeline>
+<codeline lineno="148"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XLOADER_OSPI_ENTER_4B_ADDR_MODE_CMD_ADDR_SIZE<sp/><sp/><sp/>(3U)</highlight></codeline>
+<codeline lineno="149"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XLOADER_OSPI_READ_FLAG_STATUS_CMD_ADDR_SIZE<sp/><sp/><sp/><sp/><sp/>(0U)</highlight></codeline>
+<codeline lineno="150"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XLOADER_OSPI_WRITE_CFG_REG_CMD_ADDR_SIZE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(3U)</highlight></codeline>
+<codeline lineno="151"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XLOADER_MACRONIX_OSPI_WRITE_CFG_REG_CMD_ADDR_SIZE<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(4U)</highlight></codeline>
+<codeline lineno="152"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XLOADER_SPANSION_OSPI_WRITE_CFG_REG_CMD_ADDR_SIZE<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(4U)</highlight></codeline>
+<codeline lineno="153"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XLOADER_OSPI_WRITE_CFG_REG_CMD_BYTE_CNT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1U)</highlight></codeline>
+<codeline lineno="154"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XLOADER_OSPI_READ_CFG_REG_CMD_ADDR_SIZE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(4U)</highlight></codeline>
+<codeline lineno="155"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XLOADER_OSPI_READ_CFG_REG_CMD_BYTE_CNT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(2U)</highlight></codeline>
+<codeline lineno="156"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XLOADER_WRITE_CFG_REG_VAL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xE7U)</highlight></codeline>
+<codeline lineno="157"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XLOADER_MACRONIX_WRITE_CFG_REG_VAL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x02U)</highlight></codeline>
+<codeline lineno="158"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XLOADER_SPANSION_WRITE_CFG_REG_VAL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x43U)</highlight></codeline>
+<codeline lineno="159"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XLOADER_OSPI_WRITE_DONE_MASK<sp/><sp/><sp/><sp/>(0x80U)</highlight></codeline>
+<codeline lineno="160"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XLOADER_WRITE_CFG_ECC_REG_VAL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xA0U)</highlight></codeline>
+<codeline lineno="161"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="162"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>SPANSION_TOTAL_SECTORS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x400U)</highlight></codeline>
+<codeline lineno="163"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SPANSION_TOTAL_PAGES<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x100000U)</highlight></codeline>
+<codeline lineno="164"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SPANSION_SECTOR_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xFFFC0000U)</highlight></codeline>
+<codeline lineno="165"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SPANSION_DIE_COUNT_PER_FLASH<sp/><sp/><sp/><sp/>(0x02U)</highlight></codeline>
+<codeline lineno="166"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>FLASH_SECTOR_SIZE_256KB<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x40000U)</highlight></codeline>
+<codeline lineno="167"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>FLASH_PAGE_SIZE_256<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(256U)</highlight></codeline>
+<codeline lineno="168"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>DDR_READ_CMD_4B_SPN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xEEU)</highlight></codeline>
+<codeline lineno="169"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>WRITE_CMD_4B<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x12U)</highlight></codeline>
+<codeline lineno="170"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>READ_STATUS_CMD<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x05U)</highlight></codeline>
+<codeline lineno="171"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="172"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>SPANSION_ENABLE_2BIT_ECC</highlight></codeline>
+<codeline lineno="173"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="174"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="175"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XLoader_OspiInit(u32<sp/>DeviceFlags);</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XLoader_OspiCopy(u64<sp/>SrcAddr,<sp/>u64<sp/>DestAddress,<sp/>u32<sp/>Length,<sp/>u32<sp/>Flags);</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XLoader_OspiRelease(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"></highlight></codeline>
+<codeline lineno="179"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="180"><highlight class="normal"></highlight></codeline>
+<codeline lineno="181"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="182"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>jedec_id;<sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>JEDEC<sp/>ID<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="183"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>SectSize;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Individual<sp/>sector<sp/>size<sp/>or</highlight></codeline>
+<codeline lineno="184"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>combined<sp/>sector<sp/>size<sp/>in<sp/>case<sp/>of<sp/>parallel<sp/>config*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>NumSect;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Total<sp/>no.<sp/>of<sp/>sectors<sp/>in<sp/>one/two<sp/>flash<sp/>devices<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>PageSize;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Individual<sp/>page<sp/>size<sp/>or</highlight></codeline>
+<codeline lineno="187"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>combined<sp/>page<sp/>size<sp/>in<sp/>case<sp/>of<sp/>parallel<sp/>config*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="188"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>NumPage;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Total<sp/>no.<sp/>of<sp/>pages<sp/>in<sp/>one/two<sp/>flash<sp/>devices<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>FlashDeviceSize;<sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>This<sp/>is<sp/>the<sp/>size<sp/>of<sp/>one<sp/>flash<sp/>device</highlight></codeline>
+<codeline lineno="190"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>NOT<sp/>the<sp/>combination<sp/>of<sp/>both<sp/>devices,<sp/>if<sp/>present</highlight></codeline>
+<codeline lineno="191"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="192"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>SectMask;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Mask<sp/>to<sp/>get<sp/>sector<sp/>start<sp/>address<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="193"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>ReadCmd;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Read<sp/>command<sp/>used<sp/>to<sp/>read<sp/>data<sp/>from<sp/>flash<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="194"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>WriteCmd;<sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Write<sp/>command<sp/>used<sp/>to<sp/>write<sp/>data<sp/>to<sp/>flash<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="195"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>NumDie;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>No.<sp/>of<sp/>die<sp/>forming<sp/>a<sp/>single<sp/>flash<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="196"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>StatusCmd;<sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Status<sp/>Command<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="197"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>DummyCycles;<sp/></highlight><highlight class="comment">/*<sp/>Number<sp/>of<sp/>Dummy<sp/>cycles<sp/>for<sp/>Read<sp/>operation<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="198"><highlight class="normal">}<sp/>FlashInfo;</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"></highlight></codeline>
+<codeline lineno="200"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>end<sp/>of<sp/>XLOADER_OSPI<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="201"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="202"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="203"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="205"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="206"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/></highlight><highlight class="comment">/*<sp/>XLOADER_OSPI_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_ospi.h"/>
+  </compounddef>
+</doxygen>

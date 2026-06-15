@@ -1,0 +1,1995 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xaxicdma_8h" kind="file">
+    <compoundname>xaxicdma.h</compoundname>
+    <includes refid="xaxicdma__bd_8h" local="yes">xaxicdma_bd.h</includes>
+    <includes local="no">string.h</includes>
+    <includes local="yes">xil_cache.h</includes>
+    <includedby refid="xaxicdma_8c" local="yes">xaxicdma.c</includedby>
+    <includedby refid="xaxicdma__i_8h" local="yes">xaxicdma_i.h</includedby>
+    <includedby refid="xaxicdma__bd_8c" local="yes">xaxicdma_bd.c</includedby>
+    <includedby refid="xaxicdma__bdring_8c" local="yes">xaxicdma_bdring.c</includedby>
+    <includedby refid="xaxicdma__g_8c" local="yes">xaxicdma_g.c</includedby>
+    <includedby refid="xaxicdma__intr_8c" local="yes">xaxicdma_intr.c</includedby>
+    <includedby refid="xaxicdma__sinit_8c" local="yes">xaxicdma_sinit.c</includedby>
+    <includedby refid="xaxicdma__example__hybrid__intr_8c" local="yes">xaxicdma_example_hybrid_intr.c</includedby>
+    <includedby refid="xaxicdma__example__hybrid__poll_8c" local="yes">xaxicdma_example_hybrid_poll.c</includedby>
+    <includedby refid="xaxicdma__example__sg__intr_8c" local="yes">xaxicdma_example_sg_intr.c</includedby>
+    <includedby refid="xaxicdma__example__sg__poll_8c" local="yes">xaxicdma_example_sg_poll.c</includedby>
+    <includedby refid="xaxicdma__example__simple__intr_8c" local="yes">xaxicdma_example_simple_intr.c</includedby>
+    <includedby refid="xaxicdma__example__simple__poll_8c" local="yes">xaxicdma_example_simple_poll.c</includedby>
+    <incdepgraph>
+      <node id="23">
+        <label>xil_io.h</label>
+      </node>
+      <node id="19">
+        <label>xaxicdma_bd.h</label>
+        <link refid="xaxicdma__bd_8h"/>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+      </node>
+      <node id="26">
+        <label>xil_cache.h</label>
+      </node>
+      <node id="24">
+        <label>xdebug.h</label>
+      </node>
+      <node id="21">
+        <label>xaxicdma_hw.h</label>
+        <link refid="xaxicdma__hw_8h"/>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+      </node>
+      <node id="25">
+        <label>string.h</label>
+      </node>
+      <node id="20">
+        <label>xstatus.h</label>
+      </node>
+      <node id="22">
+        <label>xil_types.h</label>
+      </node>
+      <node id="18">
+        <label>xaxicdma.h</label>
+        <link refid="xaxicdma.h"/>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="33">
+        <label>xaxicdma_g.c</label>
+        <link refid="xaxicdma__g_8c"/>
+      </node>
+      <node id="32">
+        <label>xaxicdma_bd.c</label>
+        <link refid="xaxicdma__bd_8c"/>
+      </node>
+      <node id="30">
+        <label>xaxicdma_bdring.c</label>
+        <link refid="xaxicdma__bdring_8c"/>
+      </node>
+      <node id="31">
+        <label>xaxicdma_intr.c</label>
+        <link refid="xaxicdma__intr_8c"/>
+      </node>
+      <node id="40">
+        <label>xaxicdma_example_simple_poll.c</label>
+        <link refid="xaxicdma__example__simple__poll_8c"/>
+      </node>
+      <node id="38">
+        <label>xaxicdma_example_sg_poll.c</label>
+        <link refid="xaxicdma__example__sg__poll_8c"/>
+      </node>
+      <node id="29">
+        <label>xaxicdma_i.h</label>
+        <link refid="xaxicdma__i_8h"/>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="30" relation="include">
+        </childnode>
+        <childnode refid="31" relation="include">
+        </childnode>
+      </node>
+      <node id="34">
+        <label>xaxicdma_sinit.c</label>
+        <link refid="xaxicdma__sinit_8c"/>
+      </node>
+      <node id="37">
+        <label>xaxicdma_example_sg_intr.c</label>
+        <link refid="xaxicdma__example__sg__intr_8c"/>
+      </node>
+      <node id="39">
+        <label>xaxicdma_example_simple_intr.c</label>
+        <link refid="xaxicdma__example__simple__intr_8c"/>
+      </node>
+      <node id="28">
+        <label>xaxicdma.c</label>
+        <link refid="xaxicdma_8c"/>
+      </node>
+      <node id="27">
+        <label>xaxicdma.h</label>
+        <link refid="xaxicdma.h"/>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
+        </childnode>
+        <childnode refid="32" relation="include">
+        </childnode>
+        <childnode refid="30" relation="include">
+        </childnode>
+        <childnode refid="33" relation="include">
+        </childnode>
+        <childnode refid="31" relation="include">
+        </childnode>
+        <childnode refid="34" relation="include">
+        </childnode>
+        <childnode refid="35" relation="include">
+        </childnode>
+        <childnode refid="36" relation="include">
+        </childnode>
+        <childnode refid="37" relation="include">
+        </childnode>
+        <childnode refid="38" relation="include">
+        </childnode>
+        <childnode refid="39" relation="include">
+        </childnode>
+        <childnode refid="40" relation="include">
+        </childnode>
+      </node>
+      <node id="36">
+        <label>xaxicdma_example_hybrid_poll.c</label>
+        <link refid="xaxicdma__example__hybrid__poll_8c"/>
+      </node>
+      <node id="35">
+        <label>xaxicdma_example_hybrid_intr.c</label>
+        <link refid="xaxicdma__example__hybrid__intr_8c"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_x_axi_cdma___intr_handler_list" prot="public">XAxiCdma_IntrHandlerList</innerclass>
+    <innerclass refid="struct_x_axi_cdma___config" prot="public">XAxiCdma_Config</innerclass>
+    <innerclass refid="struct_x_axi_cdma" prot="public">XAxiCdma</innerclass>
+      <sectiondef kind="user-defined">
+      <header>Call Back function</header>
+      <description><para>If interrupt is enabled, and the application wants to be notified about the completion of a transfer, the application should register its call back function to the driver.</para><para>The call back function is registered through the transfer submission.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>CallBackRef</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the call back reference passed in by application. A NULL pointer is acceptable.</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>IrqMask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the interrupt mask regarding this completion </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>NumBdPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the pointer to number of BDs this handler should handle, for simple transfer, it is ignored. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para></description>
+      <memberdef kind="typedef" id="group__axicdma_1ga190041f3a52f247fbc91a93041095aac" prot="public" static="no">
+        <type>void(*</type>
+        <definition>typedef void(* XAxiCdma_CallBackFn)(void *CallBackRef, u32 IrqMask, int *NumBdPtr)</definition>
+        <argsstring>)(void *CallBackRef, u32 IrqMask, int *NumBdPtr)</argsstring>
+        <name>XAxiCdma_CallBackFn</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" line="382" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" bodystart="382" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__axicdma_1ga6f61cbb8624c65bb64d0012bf24a5284" prot="public" static="no">
+        <name>XAXICDMA_COALESCE_NO_CHANGE</name>
+        <initializer>0xFFFFFFFF</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" line="343" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" bodystart="343" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__axicdma_1gabc7205cc3ca63a53529e9de35491ee0e" prot="public" static="no">
+        <name>XAXICDMA_ALL_BDS</name>
+        <initializer>0x7FFFFFFF /* 2147 Million */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" line="344" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" bodystart="344" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__axicdma_1ga91c5de92ad6a33c0eda5c1283e5281d4" prot="public" static="no">
+        <name>XAXICDMA_SG_MODE</name>
+        <initializer>1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" line="348" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" bodystart="348" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__axicdma_1ga57779d0c9c90168a091b83ccd9b44719" prot="public" static="no">
+        <name>XAXICDMA_SIMPLE_MODE</name>
+        <initializer>2</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" line="349" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" bodystart="349" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__axicdma_1gae8226c9464f82e72e2d0043576347c00" prot="public" static="no">
+        <name>XAXICDMA_MAXIMUM_MAX_HANDLER</name>
+        <initializer>20</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" line="357" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" bodystart="357" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__axicdma_1gaee794b3af79e9784fcaaabc75e7cae6f" prot="public" static="no">
+        <name>XAXICDMA_KEYHOLE_READ</name>
+        <initializer>0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" line="361" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" bodystart="361" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__axicdma_1ga2e31a8c43cde3589ce58ce75a8668a1d" prot="public" static="no">
+        <name>XAXICDMA_KEYHOLE_WRITE</name>
+        <initializer>1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" line="362" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" bodystart="362" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__axicdma_1ga920b87736bbfeff00324ef3bc74428d5" prot="public" static="no">
+        <name>XAXICDMA_CACHE_FLUSH</name>
+        <param><defname>BdPtr</defname></param>
+        <initializer>Xil_DCacheFlushRange((BdPtr), <ref refid="group__axicdma_1ga17eecb43d41d19d66cca58097dec4891" kindref="member">XAXICDMA_BD_HW_NUM_BYTES</ref>);</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" line="507" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" bodystart="507" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__axicdma_1gab1ee176def1394c3bfe82340cc8396f2" prot="public" static="no">
+        <name>XAXICDMA_CACHE_INVALIDATE</name>
+        <param><defname>BdPtr</defname></param>
+        <initializer>Xil_DCacheInvalidateRange((BdPtr), <ref refid="group__axicdma_1ga17eecb43d41d19d66cca58097dec4891" kindref="member">XAXICDMA_BD_HW_NUM_BYTES</ref>)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" line="510" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" bodystart="510" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__axicdma_1ga856f02999291c9c30d44e2c63822c6e8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XAxiCdma_Config *</type>
+        <definition>XAxiCdma_Config * XAxiCdma_LookupConfig</definition>
+        <argsstring>(UINTPTR BaseAddress)</argsstring>
+        <name>XAxiCdma_LookupConfig</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <briefdescription>
+<para>Looks up the device configuration based on the unique device ID/BaseAddress. </para>        </briefdescription>
+        <detaileddescription>
+<para>A table contains the configuration info for each device in the system.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains the base address of the device</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>A pointer to the configuration table entry corresponding to the given device ID/BaseAddress, or NULL if no match is found.</para></simplesect>
+<simplesect kind="note"><para>In XSCT/classic flow, DeviceId is used to look up the device configuration. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" line="521" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_sinit.c" bodystart="74" bodyend="89"/>
+        <referencedby refid="xaxicdma__example__hybrid__intr_8c_1acd911a5613750742b62bcb5b8de6398f" compoundref="xaxicdma__example__hybrid__intr_8c" startline="1025" endline="1148">XAxiCdma_HybridIntrExample</referencedby>
+        <referencedby refid="xaxicdma__example__hybrid__poll_8c_1a3e07cf3c4c4ef7c370d4d73675ad0e56" compoundref="xaxicdma__example__hybrid__poll_8c" startline="721" endline="819">XAxiCdma_HybridPollExample</referencedby>
+        <referencedby refid="xaxicdma__example__sg__intr_8c_1a32d028b789077c63fa5b20b7953c4f67" compoundref="xaxicdma__example__sg__intr_8c" startline="814" endline="949">XAxiCdma_SgIntrExample</referencedby>
+        <referencedby refid="xaxicdma__example__sg__poll_8c_1a181467aa90f99b2abf37424af8373b89" compoundref="xaxicdma__example__sg__poll_8c" startline="526" endline="649">XAxiCdma_SgPollExample</referencedby>
+        <referencedby refid="xaxicdma__example__simple__intr_8c_1a594d3f0ffc0da3e2b2b3758a499e21bb" compoundref="xaxicdma__example__simple__intr_8c" startline="254" endline="319">XAxiCdma_SimpleIntrExample</referencedby>
+        <referencedby refid="xaxicdma__example__simple__poll_8c_1a87209e4dc5ba9c6092d82623d1af223f" compoundref="xaxicdma__example__simple__poll_8c" startline="195" endline="236">XAxiCdma_SimplePollExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__axicdma_1gab746b095007351c2fb2c1a7cf3693f2c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XAxiCdma_CfgInitialize</definition>
+        <argsstring>(XAxiCdma *InstancePtr, XAxiCdma_Config *CfgPtr, UINTPTR EffectiveAddr)</argsstring>
+        <name>XAxiCdma_CfgInitialize</name>
+        <param>
+          <type>XAxiCdma *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>XAxiCdma_Config *</type>
+          <declname>CfgPtr</declname>
+        </param>
+        <param>
+          <type>UINTPTR</type>
+          <declname>EffectiveAddr</declname>
+        </param>
+        <briefdescription>
+<para>This function initializes the driver. </para>        </briefdescription>
+        <detaileddescription>
+<para>It should be called before any other function calls to the driver.</para><para>It sets up the driver according to the hardware build. It resets the hardware at the end.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the driver instance that is working on </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CfgPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the pointer to the hardware configuration structure </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>EffectiveAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the virtual address of the hardware instance. If address translation is not in use, please use the physical address</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS for success</para></listitem><listitem><para>XST_INVALID_PARAM if word length is less than 4</para></listitem><listitem><para>XST_FAILURE for reset failure</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.c" line="134" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.c" bodystart="134" bodyend="221"/>
+        <references refid="group__axicdma_1gabcf011ecc845a7382ff3ad2271e0677c" compoundref="xaxicdma__hw_8h" startline="61">XAXICDMA_4_1_MAX_TRANSFER_LEN</references>
+        <references refid="group__axicdma_1gac84f0c20f910716d8f3e48ff23294440" compoundref="xaxicdma__hw_8h" startline="60">XAXICDMA_MAX_TRANSFER_LEN</references>
+        <references refid="group__axicdma_1ga2f2bfb34c5bfec00baa06b782e7e68a6" compoundref="xaxicdma__hw_8h" startline="242">XAxiCdma_ReadReg</references>
+        <references refid="group__axicdma_1gaaf97cc8317af0bf1678973925beff0c5" compoundref="xaxicdma_8c" startline="66" endline="88">XAxiCdma_Reset</references>
+        <references refid="group__axicdma_1ga2575375744593bd55425365dde7744e5" compoundref="xaxicdma_8c" startline="103" endline="110">XAxiCdma_ResetIsDone</references>
+        <references refid="group__axicdma_1gaa5e9b49d3805237bc9ed772948fbf4ae" compoundref="xaxicdma__hw_8h" startline="70">XAXICDMA_SR_OFFSET</references>
+        <references refid="group__axicdma_1gada1a00e54aeb12049cd23a005eb47c52" compoundref="xaxicdma__hw_8h" startline="123">XAXICDMA_SR_SGINCLD_MASK</references>
+        <referencedby refid="xaxicdma__example__hybrid__intr_8c_1acd911a5613750742b62bcb5b8de6398f" compoundref="xaxicdma__example__hybrid__intr_8c" startline="1025" endline="1148">XAxiCdma_HybridIntrExample</referencedby>
+        <referencedby refid="xaxicdma__example__hybrid__poll_8c_1a3e07cf3c4c4ef7c370d4d73675ad0e56" compoundref="xaxicdma__example__hybrid__poll_8c" startline="721" endline="819">XAxiCdma_HybridPollExample</referencedby>
+        <referencedby refid="xaxicdma__example__sg__intr_8c_1a32d028b789077c63fa5b20b7953c4f67" compoundref="xaxicdma__example__sg__intr_8c" startline="814" endline="949">XAxiCdma_SgIntrExample</referencedby>
+        <referencedby refid="xaxicdma__example__sg__poll_8c_1a181467aa90f99b2abf37424af8373b89" compoundref="xaxicdma__example__sg__poll_8c" startline="526" endline="649">XAxiCdma_SgPollExample</referencedby>
+        <referencedby refid="xaxicdma__example__simple__intr_8c_1a594d3f0ffc0da3e2b2b3758a499e21bb" compoundref="xaxicdma__example__simple__intr_8c" startline="254" endline="319">XAxiCdma_SimpleIntrExample</referencedby>
+        <referencedby refid="xaxicdma__example__simple__poll_8c_1a87209e4dc5ba9c6092d82623d1af223f" compoundref="xaxicdma__example__simple__poll_8c" startline="195" endline="236">XAxiCdma_SimplePollExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__axicdma_1gaaf97cc8317af0bf1678973925beff0c5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XAxiCdma_Reset</definition>
+        <argsstring>(XAxiCdma *InstancePtr)</argsstring>
+        <name>XAxiCdma_Reset</name>
+        <param>
+          <type>XAxiCdma *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function conducts hardware reset. </para>        </briefdescription>
+        <detaileddescription>
+<para>Current transfer will finish gracefully. However, all queued SG transfers that have not started will be flushed from the hardware.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the driver instance we are working on</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.c" line="66" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.c" bodystart="66" bodyend="88"/>
+        <references refid="group__axicdma_1ga1f23c9a4fe3565eb423286405a1de5ca" compoundref="xaxicdma__hw_8h" startline="69">XAXICDMA_CR_OFFSET</references>
+        <references refid="group__axicdma_1ga0f6d1104468e9f155a3b9477a84531a6" compoundref="xaxicdma__hw_8h" startline="111">XAXICDMA_CR_RESET_MASK</references>
+        <references refid="group__axicdma_1ga4d7304606411f8ed955c6d930e387c18" compoundref="xaxicdma__hw_8h" startline="261">XAxiCdma_WriteReg</references>
+        <referencedby refid="group__axicdma_1gab746b095007351c2fb2c1a7cf3693f2c" compoundref="xaxicdma_8c" startline="134" endline="221">XAxiCdma_CfgInitialize</referencedby>
+        <referencedby refid="group__axicdma_1ga8acd5bf5f5f072c6e425a8cc1b589498" compoundref="xaxicdma__intr_8c" startline="114" endline="231">XAxiCdma_IntrHandler</referencedby>
+        <referencedby refid="xaxicdma__example__sg__poll_8c_1a181467aa90f99b2abf37424af8373b89" compoundref="xaxicdma__example__sg__poll_8c" startline="526" endline="649">XAxiCdma_SgPollExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__axicdma_1ga2575375744593bd55425365dde7744e5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XAxiCdma_ResetIsDone</definition>
+        <argsstring>(XAxiCdma *InstancePtr)</argsstring>
+        <name>XAxiCdma_ResetIsDone</name>
+        <param>
+          <type>XAxiCdma *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function checks whether the hardware reset is done. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the driver instance we are working on</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>1 if the reset has finished successfully</para></listitem><listitem><para>0 if the reset is not done</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.c" line="103" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.c" bodystart="103" bodyend="110"/>
+        <references refid="group__axicdma_1ga1f23c9a4fe3565eb423286405a1de5ca" compoundref="xaxicdma__hw_8h" startline="69">XAXICDMA_CR_OFFSET</references>
+        <references refid="group__axicdma_1ga0f6d1104468e9f155a3b9477a84531a6" compoundref="xaxicdma__hw_8h" startline="111">XAXICDMA_CR_RESET_MASK</references>
+        <references refid="group__axicdma_1ga2f2bfb34c5bfec00baa06b782e7e68a6" compoundref="xaxicdma__hw_8h" startline="242">XAxiCdma_ReadReg</references>
+        <referencedby refid="group__axicdma_1gab746b095007351c2fb2c1a7cf3693f2c" compoundref="xaxicdma_8c" startline="134" endline="221">XAxiCdma_CfgInitialize</referencedby>
+        <referencedby refid="group__axicdma_1ga8acd5bf5f5f072c6e425a8cc1b589498" compoundref="xaxicdma__intr_8c" startline="114" endline="231">XAxiCdma_IntrHandler</referencedby>
+        <referencedby refid="xaxicdma__example__sg__poll_8c_1a181467aa90f99b2abf37424af8373b89" compoundref="xaxicdma__example__sg__poll_8c" startline="526" endline="649">XAxiCdma_SgPollExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__axicdma_1gaee6e140ed15cd9b7e49145e01220115a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XAxiCdma_IsBusy</definition>
+        <argsstring>(XAxiCdma *InstancePtr)</argsstring>
+        <name>XAxiCdma_IsBusy</name>
+        <param>
+          <type>XAxiCdma *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function checks whether the hardware is doing transfer. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the driver instance we are working on</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>1 if the hardware is doing a transfer</para></listitem><listitem><para>0 if the hardware is idle</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.c" line="236" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.c" bodystart="236" bodyend="243"/>
+        <references refid="group__axicdma_1ga2f2bfb34c5bfec00baa06b782e7e68a6" compoundref="xaxicdma__hw_8h" startline="242">XAxiCdma_ReadReg</references>
+        <references refid="group__axicdma_1ga73bb174cc046fe8f5d51da6f2d11cfaa" compoundref="xaxicdma__hw_8h" startline="122">XAXICDMA_SR_IDLE_MASK</references>
+        <references refid="group__axicdma_1gaa5e9b49d3805237bc9ed772948fbf4ae" compoundref="xaxicdma__hw_8h" startline="70">XAXICDMA_SR_OFFSET</references>
+        <referencedby refid="group__axicdma_1ga3183f9f25654d2a066c19213f29897be" compoundref="xaxicdma__bdring_8c" startline="534" endline="585">XAxiCdma_BdRingClone</referencedby>
+        <referencedby refid="group__axicdma_1ga815f36efce97dba797f67f9acbbb761d" compoundref="xaxicdma_8c" startline="280" endline="321">XAxiCdma_SelectKeyHole</referencedby>
+        <referencedby refid="group__axicdma_1ga1e81ba2046ada4a40527c50ee7fdce9a" compoundref="xaxicdma_8c" startline="454" endline="542">XAxiCdma_SimpleTransfer</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__axicdma_1ga91adf55050cb617cee00b0ba2f0d754e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XAxiCdma_SetCoalesce</definition>
+        <argsstring>(XAxiCdma *InstancePtr, u32 Counter, u32 Delay)</argsstring>
+        <name>XAxiCdma_SetCoalesce</name>
+        <param>
+          <type>XAxiCdma *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Counter</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Delay</declname>
+        </param>
+        <briefdescription>
+<para>This function tries to set the interrupt coalescing threshold counter and the delay counter. </para>        </briefdescription>
+        <detaileddescription>
+<para>If to set only one of the counters, set the value of the other counter to be XAXICDMA_COALESCE_NO_CHANGE.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the driver instance we are working on </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Counter</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the coalescing threshold to set to, the valid range is 1 to XAXICDMA_COALESCE_MAX. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Delay</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the delay timeout counter to set to, the valid range is 0 to XAXICDMA_DELAY_MAX. Setting a value of 0 disables the delay interrupt.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS for success</para></listitem><listitem><para>XST_FAILURE if hardware is in invalid state, for example, reset failed</para></listitem><listitem><para>XST_INVALID_PARAM if one of the counters is not in the valid range</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.c" line="567" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.c" bodystart="567" bodyend="608"/>
+        <references refid="group__axicdma_1ga0bb5457c991743bf45e9db3201df17ed" compoundref="xaxicdma__hw_8h" startline="166">XAXICDMA_COALESCE_MAX</references>
+        <references refid="group__axicdma_1ga1f23c9a4fe3565eb423286405a1de5ca" compoundref="xaxicdma__hw_8h" startline="69">XAXICDMA_CR_OFFSET</references>
+        <references refid="group__axicdma_1ga5c26fb92eb7913f78454aeaae8f91115" compoundref="xaxicdma__hw_8h" startline="165">XAXICDMA_DELAY_MAX</references>
+        <references refid="group__axicdma_1ga2f2bfb34c5bfec00baa06b782e7e68a6" compoundref="xaxicdma__hw_8h" startline="242">XAxiCdma_ReadReg</references>
+        <references refid="group__axicdma_1ga4d7304606411f8ed955c6d930e387c18" compoundref="xaxicdma__hw_8h" startline="261">XAxiCdma_WriteReg</references>
+        <references refid="group__axicdma_1ga156955220ded772774e8146b2ff6e7d6" compoundref="xaxicdma__hw_8h" startline="160">XAXICDMA_XR_COALESCE_MASK</references>
+        <references refid="group__axicdma_1ga20aec8c77e90ca555dc44341c40af592" compoundref="xaxicdma__hw_8h" startline="159">XAXICDMA_XR_DELAY_MASK</references>
+      </memberdef>
+      <memberdef kind="function" id="group__axicdma_1ga92087f03877293982f895e8178557f6a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XAxiCdma_GetCoalesce</definition>
+        <argsstring>(XAxiCdma *InstancePtr, u32 *CounterPtr, u32 *DelayPtr)</argsstring>
+        <name>XAxiCdma_GetCoalesce</name>
+        <param>
+          <type>XAxiCdma *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>CounterPtr</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>DelayPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function gets the current setting of the interrupt coalescing threshold counter and the delay counter. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the driver instance we are working on </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CounterPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the return value for the coalescing counter setting </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DelayPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the return value for the delay counter setting</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>A zero coalescing threshold indicates invalid results</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.c" line="625" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.c" bodystart="625" bodyend="649"/>
+        <references refid="group__axicdma_1ga1f23c9a4fe3565eb423286405a1de5ca" compoundref="xaxicdma__hw_8h" startline="69">XAXICDMA_CR_OFFSET</references>
+        <references refid="group__axicdma_1ga2f2bfb34c5bfec00baa06b782e7e68a6" compoundref="xaxicdma__hw_8h" startline="242">XAxiCdma_ReadReg</references>
+        <references refid="group__axicdma_1ga156955220ded772774e8146b2ff6e7d6" compoundref="xaxicdma__hw_8h" startline="160">XAXICDMA_XR_COALESCE_MASK</references>
+        <references refid="group__axicdma_1ga20aec8c77e90ca555dc44341c40af592" compoundref="xaxicdma__hw_8h" startline="159">XAXICDMA_XR_DELAY_MASK</references>
+      </memberdef>
+      <memberdef kind="function" id="group__axicdma_1gae1fbdb8f7ad8926f744c771e07814f72" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XAxiCdma_GetError</definition>
+        <argsstring>(XAxiCdma *InstancePtr)</argsstring>
+        <name>XAxiCdma_GetError</name>
+        <param>
+          <type>XAxiCdma *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function gets the status on error bits. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the driver instance we are working on</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The error bits in the status register. Zero indicates no errors.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.c" line="45" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.c" bodystart="45" bodyend="50"/>
+        <references refid="group__axicdma_1ga2f2bfb34c5bfec00baa06b782e7e68a6" compoundref="xaxicdma__hw_8h" startline="242">XAxiCdma_ReadReg</references>
+        <references refid="group__axicdma_1gabec2417b4096d65fa8f07a84eef38cea" compoundref="xaxicdma__hw_8h" startline="130">XAXICDMA_SR_ERR_ALL_MASK</references>
+        <references refid="group__axicdma_1gaa5e9b49d3805237bc9ed772948fbf4ae" compoundref="xaxicdma__hw_8h" startline="70">XAXICDMA_SR_OFFSET</references>
+        <referencedby refid="xaxicdma__example__sg__intr_8c_1a32d028b789077c63fa5b20b7953c4f67" compoundref="xaxicdma__example__sg__intr_8c" startline="814" endline="949">XAxiCdma_SgIntrExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__axicdma_1ga9f146fe224ea4c9a86477de3030dd79a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XAxiCdma_IntrEnable</definition>
+        <argsstring>(XAxiCdma *InstancePtr, u32 Mask)</argsstring>
+        <name>XAxiCdma_IntrEnable</name>
+        <param>
+          <type>XAxiCdma *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Mask</declname>
+        </param>
+        <briefdescription>
+<para>This function enables interrupts specified by the Mask. </para>        </briefdescription>
+        <detaileddescription>
+<para>Interrupts that are not in the mask are not affected.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the driver instance we are working on </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the mask for the interrupts to be enabled</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" line="533" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_intr.c" bodystart="44" bodyend="52"/>
+        <references refid="group__axicdma_1ga1f23c9a4fe3565eb423286405a1de5ca" compoundref="xaxicdma__hw_8h" startline="69">XAXICDMA_CR_OFFSET</references>
+        <references refid="group__axicdma_1ga2f2bfb34c5bfec00baa06b782e7e68a6" compoundref="xaxicdma__hw_8h" startline="242">XAxiCdma_ReadReg</references>
+        <references refid="group__axicdma_1ga4d7304606411f8ed955c6d930e387c18" compoundref="xaxicdma__hw_8h" startline="261">XAxiCdma_WriteReg</references>
+        <references refid="group__axicdma_1gad2b921e876e581f84be0e7c152d13221" compoundref="xaxicdma__hw_8h" startline="148">XAXICDMA_XR_IRQ_ALL_MASK</references>
+        <referencedby refid="xaxicdma__example__hybrid__intr_8c_1acd911a5613750742b62bcb5b8de6398f" compoundref="xaxicdma__example__hybrid__intr_8c" startline="1025" endline="1148">XAxiCdma_HybridIntrExample</referencedby>
+        <referencedby refid="xaxicdma__example__sg__intr_8c_1a32d028b789077c63fa5b20b7953c4f67" compoundref="xaxicdma__example__sg__intr_8c" startline="814" endline="949">XAxiCdma_SgIntrExample</referencedby>
+        <referencedby refid="xaxicdma__example__simple__intr_8c_1a594d3f0ffc0da3e2b2b3758a499e21bb" compoundref="xaxicdma__example__simple__intr_8c" startline="254" endline="319">XAxiCdma_SimpleIntrExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__axicdma_1ga1a269e884ce6e3552313521dea8032b6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XAxiCdma_IntrGetEnabled</definition>
+        <argsstring>(XAxiCdma *InstancePtr)</argsstring>
+        <name>XAxiCdma_IntrGetEnabled</name>
+        <param>
+          <type>XAxiCdma *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function gets the mask for the interrupts that are currently enabled. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the driver instance we are working on</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The bit mask for the interrupts that are currently enabled</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" line="534" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_intr.c" bodystart="65" bodyend="69"/>
+        <references refid="group__axicdma_1ga1f23c9a4fe3565eb423286405a1de5ca" compoundref="xaxicdma__hw_8h" startline="69">XAXICDMA_CR_OFFSET</references>
+        <references refid="group__axicdma_1ga2f2bfb34c5bfec00baa06b782e7e68a6" compoundref="xaxicdma__hw_8h" startline="242">XAxiCdma_ReadReg</references>
+        <references refid="group__axicdma_1gad2b921e876e581f84be0e7c152d13221" compoundref="xaxicdma__hw_8h" startline="148">XAXICDMA_XR_IRQ_ALL_MASK</references>
+        <referencedby refid="group__axicdma_1ga1e81ba2046ada4a40527c50ee7fdce9a" compoundref="xaxicdma_8c" startline="454" endline="542">XAxiCdma_SimpleTransfer</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__axicdma_1gabdccf08d74f4e037b06a36a2e9db2877" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XAxiCdma_IntrDisable</definition>
+        <argsstring>(XAxiCdma *InstancePtr, u32 Mask)</argsstring>
+        <name>XAxiCdma_IntrDisable</name>
+        <param>
+          <type>XAxiCdma *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Mask</declname>
+        </param>
+        <briefdescription>
+<para>This function disables interrupts specified by the Mask. </para>        </briefdescription>
+        <detaileddescription>
+<para>Interrupts that are not in the mask are not affected.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the driver instance we are working on </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the mask for the interrupts to be disabled</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" line="535" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_intr.c" bodystart="84" bodyend="92"/>
+        <references refid="group__axicdma_1ga1f23c9a4fe3565eb423286405a1de5ca" compoundref="xaxicdma__hw_8h" startline="69">XAXICDMA_CR_OFFSET</references>
+        <references refid="group__axicdma_1ga2f2bfb34c5bfec00baa06b782e7e68a6" compoundref="xaxicdma__hw_8h" startline="242">XAxiCdma_ReadReg</references>
+        <references refid="group__axicdma_1ga4d7304606411f8ed955c6d930e387c18" compoundref="xaxicdma__hw_8h" startline="261">XAxiCdma_WriteReg</references>
+        <references refid="group__axicdma_1gad2b921e876e581f84be0e7c152d13221" compoundref="xaxicdma__hw_8h" startline="148">XAXICDMA_XR_IRQ_ALL_MASK</references>
+        <referencedby refid="xaxicdma__example__hybrid__poll_8c_1a3e07cf3c4c4ef7c370d4d73675ad0e56" compoundref="xaxicdma__example__hybrid__poll_8c" startline="721" endline="819">XAxiCdma_HybridPollExample</referencedby>
+        <referencedby refid="xaxicdma__example__simple__poll_8c_1a87209e4dc5ba9c6092d82623d1af223f" compoundref="xaxicdma__example__simple__poll_8c" startline="195" endline="236">XAxiCdma_SimplePollExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__axicdma_1ga8acd5bf5f5f072c6e425a8cc1b589498" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XAxiCdma_IntrHandler</definition>
+        <argsstring>(void *HandlerRef)</argsstring>
+        <name>XAxiCdma_IntrHandler</name>
+        <param>
+          <type>void *</type>
+          <declname>HandlerRef</declname>
+        </param>
+        <briefdescription>
+<para>This function is the interrupt handler for the driver, it handles all the interrupts. </para>        </briefdescription>
+        <detaileddescription>
+<para>For the completion of a transfer that has a callback function, the callback function is called.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>HandlerRef</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a reference pointer passed to the interrupt registration function. It will be a pointer to the driver instance we are working on</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>If one transfer does not have all its submitted BDs completed successfully,then a reset is needed to clean up the mess left by that transfer.Otherwise, the wrong interrupt callback maybe called for the following transfers. However, if you always use the same interrupt callback for all the transfers, and you are the only user of the DMA engine, then you do not have to worry about this. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" line="536" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_intr.c" bodystart="114" bodyend="231"/>
+        <references refid="group__axicdma_1ga2f2bfb34c5bfec00baa06b782e7e68a6" compoundref="xaxicdma__hw_8h" startline="242">XAxiCdma_ReadReg</references>
+        <references refid="group__axicdma_1gaaf97cc8317af0bf1678973925beff0c5" compoundref="xaxicdma_8c" startline="66" endline="88">XAxiCdma_Reset</references>
+        <references refid="group__axicdma_1ga2575375744593bd55425365dde7744e5" compoundref="xaxicdma_8c" startline="103" endline="110">XAxiCdma_ResetIsDone</references>
+        <references refid="group__axicdma_1gabec2417b4096d65fa8f07a84eef38cea" compoundref="xaxicdma__hw_8h" startline="130">XAXICDMA_SR_ERR_ALL_MASK</references>
+        <references refid="group__axicdma_1gaa5e9b49d3805237bc9ed772948fbf4ae" compoundref="xaxicdma__hw_8h" startline="70">XAXICDMA_SR_OFFSET</references>
+        <references refid="group__axicdma_1ga4d7304606411f8ed955c6d930e387c18" compoundref="xaxicdma__hw_8h" startline="261">XAxiCdma_WriteReg</references>
+        <references refid="group__axicdma_1gad2b921e876e581f84be0e7c152d13221" compoundref="xaxicdma__hw_8h" startline="148">XAXICDMA_XR_IRQ_ALL_MASK</references>
+        <references refid="group__axicdma_1gaa4987449eeea265c2cbe875a7eed3ee8" compoundref="xaxicdma__hw_8h" startline="147">XAXICDMA_XR_IRQ_ERROR_MASK</references>
+        <referencedby refid="xaxicdma__example__simple__intr_8c_1a594d3f0ffc0da3e2b2b3758a499e21bb" compoundref="xaxicdma__example__simple__intr_8c" startline="254" endline="319">XAxiCdma_SimpleIntrExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__axicdma_1ga1e81ba2046ada4a40527c50ee7fdce9a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XAxiCdma_SimpleTransfer</definition>
+        <argsstring>(XAxiCdma *InstancePtr, UINTPTR SrcAddr, UINTPTR DstAddr, int Length, XAxiCdma_CallBackFn SimpleCallBack, void *CallBackRef)</argsstring>
+        <name>XAxiCdma_SimpleTransfer</name>
+        <param>
+          <type>XAxiCdma *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>UINTPTR</type>
+          <declname>SrcAddr</declname>
+        </param>
+        <param>
+          <type>UINTPTR</type>
+          <declname>DstAddr</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>Length</declname>
+        </param>
+        <param>
+          <type>XAxiCdma_CallBackFn</type>
+          <declname>SimpleCallBack</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>CallBackRef</declname>
+        </param>
+        <briefdescription>
+<para>This function does one simple transfer submission. </para>        </briefdescription>
+        <detaileddescription>
+<para>It checks in the following sequence:<itemizedlist>
+<listitem><para>if engine is busy, cannot submit</para></listitem><listitem><para>if software is still handling the completion of the previous simple transfer, cannot submit</para></listitem><listitem><para>if engine is in SG mode and cannot switch to simple mode, cannot submit</para></listitem></itemizedlist>
+</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the pointer to the driver instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>SrcAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the address of the source buffer </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DstAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the address of the destination buffer </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Length</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the length of the transfer </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>SimpleCallBack</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the callback function for the simple transfer </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CallBackRef</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the callback reference pointer</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS for success of submission</para></listitem><listitem><para>XST_FAILURE for submission failure, maybe caused by: Another simple transfer is still going . Another SG transfer is still going</para></listitem><listitem><para>XST_INVALID_PARAM if: Length out of valid range [1: XAXICDMA_MAX_TRANSFER_LEN] Or, address not aligned when DRE is not built in</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>Only set the callback function if using interrupt to signal the completion.If used in polling mode, please set the callback function to be NULL. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.c" line="454" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.c" bodystart="454" bodyend="542"/>
+        <references refid="group__axicdma_1gaf2b93c5bebf2fdcf9516bcfefc7ae356" compoundref="xaxicdma__hw_8h" startline="105">XAXICDMA_BTT_OFFSET</references>
+        <references refid="group__axicdma_1ga9a61d8801792647638b54afcafbd8a86" compoundref="xaxicdma__hw_8h" startline="82">XAXICDMA_DSTADDR_MSB_OFFSET</references>
+        <references refid="group__axicdma_1ga3064fdc2bc683fa002bedf51498d810c" compoundref="xaxicdma__hw_8h" startline="79">XAXICDMA_DSTADDR_OFFSET</references>
+        <references refid="group__axicdma_1ga1a269e884ce6e3552313521dea8032b6" compoundref="xaxicdma__intr_8c" startline="65" endline="69">XAxiCdma_IntrGetEnabled</references>
+        <references refid="group__axicdma_1gaee6e140ed15cd9b7e49145e01220115a" compoundref="xaxicdma_8c" startline="236" endline="243">XAxiCdma_IsBusy</references>
+        <references refid="group__axicdma_1gac84f0c20f910716d8f3e48ff23294440" compoundref="xaxicdma__hw_8h" startline="60">XAXICDMA_MAX_TRANSFER_LEN</references>
+        <references refid="group__axicdma_1gaeca7eef88c0b04de01219565d5039d93" compoundref="xaxicdma__hw_8h" startline="78">XAXICDMA_SRCADDR_MSB_OFFSET</references>
+        <references refid="group__axicdma_1ga53c4bf8e65e8770c6fe129160ad07e29" compoundref="xaxicdma__hw_8h" startline="77">XAXICDMA_SRCADDR_OFFSET</references>
+        <references refid="group__axicdma_1ga4d7304606411f8ed955c6d930e387c18" compoundref="xaxicdma__hw_8h" startline="261">XAxiCdma_WriteReg</references>
+        <references refid="group__axicdma_1ga14246912a21d68d0dde910704b6d0ac6" compoundref="xaxicdma__hw_8h" startline="149">XAXICDMA_XR_IRQ_SIMPLE_ALL_MASK</references>
+      </memberdef>
+      <memberdef kind="function" id="group__axicdma_1ga815f36efce97dba797f67f9acbbb761d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XAxiCdma_SelectKeyHole</definition>
+        <argsstring>(XAxiCdma *InstancePtr, u32 Direction, u32 Select)</argsstring>
+        <name>XAxiCdma_SelectKeyHole</name>
+        <param>
+          <type>XAxiCdma *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Direction</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Select</declname>
+        </param>
+        <briefdescription>
+<para>This function configures KeyHole Write/Read Feature. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the driver instance we are working on</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Direction</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is WRITE/READ  Select is the option to enable (TRUE) or disable (FALSE).</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>- XST_SUCCESS for success<itemizedlist>
+<listitem><para>XST_DEVICE_BUSY when transfer is in progress</para></listitem><listitem><para>XST_NO_FEATURE when not configured with feature</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.c" line="280" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.c" bodystart="280" bodyend="321"/>
+        <references refid="group__axicdma_1gab6f6efa84ee457f155a4c7a94e4227da" compoundref="xaxicdma__bdring_8c" startline="177" endline="186">XAxiCdma_BdRingGetCurrBd</references>
+        <references refid="group__axicdma_1gabfe3657b7aad9487946d6bb436aeba18" compoundref="xaxicdma__bdring_8c" startline="280" endline="309">XAxiCdma_BdRingNext</references>
+        <references refid="group__axicdma_1gae1333cf9309c85b0f620e026c889e01c" compoundref="xaxicdma__bdring_8c" startline="156" endline="164">XAxiCdma_BdSetCurBdPtr</references>
+        <references refid="group__axicdma_1gac31916a2867c9e47834091131d449f88" compoundref="xaxicdma__hw_8h" startline="113">XAXICDMA_CR_KHOLE_RD_MASK</references>
+        <references refid="group__axicdma_1ga5ddbb13c86e6c75d5dd928447e3ec8bb" compoundref="xaxicdma__hw_8h" startline="114">XAXICDMA_CR_KHOLE_WR_MASK</references>
+        <references refid="group__axicdma_1ga1f23c9a4fe3565eb423286405a1de5ca" compoundref="xaxicdma__hw_8h" startline="69">XAXICDMA_CR_OFFSET</references>
+        <references refid="group__axicdma_1gae0e7fa6cee94c02784164c315268c6a6" compoundref="xaxicdma__hw_8h" startline="112">XAXICDMA_CR_SGMODE_MASK</references>
+        <references refid="group__axicdma_1gaee6e140ed15cd9b7e49145e01220115a" compoundref="xaxicdma_8c" startline="236" endline="243">XAxiCdma_IsBusy</references>
+        <references refid="group__axicdma_1ga2f2bfb34c5bfec00baa06b782e7e68a6" compoundref="xaxicdma__hw_8h" startline="242">XAxiCdma_ReadReg</references>
+        <references refid="group__axicdma_1ga4d7304606411f8ed955c6d930e387c18" compoundref="xaxicdma__hw_8h" startline="261">XAxiCdma_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__axicdma_1ga18d5a9deaab709c610d32e42c77df952" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XAxiCdma_BdRingCntCalc</definition>
+        <argsstring>(u32 Alignment, u32 Bytes, UINTPTR BdBuffAddr)</argsstring>
+        <name>XAxiCdma_BdRingCntCalc</name>
+        <param>
+          <type>u32</type>
+          <declname>Alignment</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Bytes</declname>
+        </param>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BuffAddr</declname>
+          <defname>BdBuffAddr</defname>
+        </param>
+        <briefdescription>
+<para>This function calculates how many BDs can be built using given number of bytes of memory, according to alignment provided. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Alignment</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the preferred alignment for the BDs </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Bytes</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the number of bytes of memory to build BDs with </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>BdBuffAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the buffer address allocated for the BDs. This is to check the alignment of the buffer to make sure the the buffer is aligned to the BD alignment. An invalid buffer address results in 0.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The number of BDs can be built. 0 means buffer address is not valid.</para></simplesect>
+<simplesect kind="note"><para>The application is responsible to align the buffer before pass it to this function. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" line="543" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_bdring.c" bodystart="109" bodyend="123"/>
+      </memberdef>
+      <memberdef kind="function" id="group__axicdma_1ga1525cddb18badb5737c1017f2a0d34e1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XAxiCdma_BdRingMemCalc</definition>
+        <argsstring>(u32 Alignment, int NumBd)</argsstring>
+        <name>XAxiCdma_BdRingMemCalc</name>
+        <param>
+          <type>u32</type>
+          <declname>Alignment</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>NumBd</declname>
+        </param>
+        <briefdescription>
+<para>This function calculates how much memory is needed to build requested number of BDs. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Alignment</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the preferred alignment for the BDs </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>NumBd</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the number of BDs to be built</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The number of bytes of memory needed to build the BDs</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" line="544" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_bdring.c" bodystart="138" bodyend="142"/>
+      </memberdef>
+      <memberdef kind="function" id="group__axicdma_1ga6dda9c5b4ded0bdbf1e85d6532461ef6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XAxiCdma_BdRingGetCnt</definition>
+        <argsstring>(XAxiCdma *InstancePtr)</argsstring>
+        <name>XAxiCdma_BdRingGetCnt</name>
+        <param>
+          <type>XAxiCdma *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function gets the total number of BDs in the BD ring. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the driver instance we are working on</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The total number of BDs for this instance</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" line="545" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_bdring.c" bodystart="199" bodyend="202"/>
+      </memberdef>
+      <memberdef kind="function" id="group__axicdma_1ga07f505ed309a6eb2172e7e8e154fa082" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XAxiCdma_BdRingGetFreeCnt</definition>
+        <argsstring>(XAxiCdma *InstancePtr)</argsstring>
+        <name>XAxiCdma_BdRingGetFreeCnt</name>
+        <param>
+          <type>XAxiCdma *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function gets the number of free BDs. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the driver instance we are working on</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The total number of free BDs for this instance</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" line="546" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_bdring.c" bodystart="215" bodyend="218"/>
+      </memberdef>
+      <memberdef kind="function" id="group__axicdma_1ga4677cddba8354ca3979f9b6ae386ffde" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XAxiCdma_BdRingSnapShotCurrBd</definition>
+        <argsstring>(XAxiCdma *InstancePtr)</argsstring>
+        <name>XAxiCdma_BdRingSnapShotCurrBd</name>
+        <param>
+          <type>XAxiCdma *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function grabs a copy of the current BD pointer from the hardware. </para>        </briefdescription>
+        <detaileddescription>
+<para>It is normally used to prepare for the hardware reset. The snapshot of the current BD pointer should be reloaded once the reset is done.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the driver instance we are working on</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" line="547" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_bdring.c" bodystart="233" bodyend="242"/>
+        <references refid="group__axicdma_1gab6f6efa84ee457f155a4c7a94e4227da" compoundref="xaxicdma__bdring_8c" startline="177" endline="186">XAxiCdma_BdRingGetCurrBd</references>
+        <references refid="group__axicdma_1gabfe3657b7aad9487946d6bb436aeba18" compoundref="xaxicdma__bdring_8c" startline="280" endline="309">XAxiCdma_BdRingNext</references>
+      </memberdef>
+      <memberdef kind="function" id="group__axicdma_1gab6f6efa84ee457f155a4c7a94e4227da" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="group__axicdma_1ga33f9ce1ca035334d63cd08d4cf26daea" kindref="member">XAxiCdma_Bd</ref> *</type>
+        <definition>XAxiCdma_Bd * XAxiCdma_BdRingGetCurrBd</definition>
+        <argsstring>(XAxiCdma *InstancePtr)</argsstring>
+        <name>XAxiCdma_BdRingGetCurrBd</name>
+        <param>
+          <type>XAxiCdma *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function grabs a copy of the current BD pointer from the hardware. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the driver instance we are working on</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The BD pointer in CDESC register</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" line="548" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_bdring.c" bodystart="177" bodyend="186"/>
+        <references refid="group__axicdma_1gaac2ba51f1e81b8ed8fe31bc5632d2980" compoundref="xaxicdma__hw_8h" startline="74">XAXICDMA_CDESC_MSB_OFFSET</references>
+        <references refid="group__axicdma_1gaf62f028c2ed24dea6e0ebf8388cdf670" compoundref="xaxicdma__hw_8h" startline="71">XAXICDMA_CDESC_OFFSET</references>
+        <referencedby refid="group__axicdma_1ga4677cddba8354ca3979f9b6ae386ffde" compoundref="xaxicdma__bdring_8c" startline="233" endline="242">XAxiCdma_BdRingSnapShotCurrBd</referencedby>
+        <referencedby refid="group__axicdma_1ga815f36efce97dba797f67f9acbbb761d" compoundref="xaxicdma_8c" startline="280" endline="321">XAxiCdma_SelectKeyHole</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__axicdma_1gabfe3657b7aad9487946d6bb436aeba18" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="group__axicdma_1ga33f9ce1ca035334d63cd08d4cf26daea" kindref="member">XAxiCdma_Bd</ref> *</type>
+        <definition>XAxiCdma_Bd * XAxiCdma_BdRingNext</definition>
+        <argsstring>(XAxiCdma *InstancePtr, XAxiCdma_Bd *BdPtr)</argsstring>
+        <name>XAxiCdma_BdRingNext</name>
+        <param>
+          <type>XAxiCdma *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="group__axicdma_1ga33f9ce1ca035334d63cd08d4cf26daea" kindref="member">XAxiCdma_Bd</ref> *</type>
+          <declname>BdPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function gets the next BD of the current BD on the BD ring. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the driver instance we are working on </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>BdPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the current BD</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The next BD on the ring from the current BD, NULL if passed in BdPtr not valid.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" line="549" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_bdring.c" bodystart="280" bodyend="309"/>
+        <references refid="group__axicdma_1gaae822f32753ddd2fec7be5d3c9e9a4ff" compoundref="xaxicdma__hw_8h" startline="47">XAXICDMA_BD_MINIMUM_ALIGNMENT</references>
+        <referencedby refid="group__axicdma_1gafce6a8283bdec8b9c35169c7cd29f4dc" compoundref="xaxicdma__bdring_8c" startline="901" endline="971">XAxiCdma_BdRingFromHw</referencedby>
+        <referencedby refid="group__axicdma_1ga4677cddba8354ca3979f9b6ae386ffde" compoundref="xaxicdma__bdring_8c" startline="233" endline="242">XAxiCdma_BdRingSnapShotCurrBd</referencedby>
+        <referencedby refid="group__axicdma_1ga3c5cd26d9fd3311c2ccfa4253c587e68" compoundref="xaxicdma__bdring_8c" startline="748" endline="886">XAxiCdma_BdRingToHw</referencedby>
+        <referencedby refid="group__axicdma_1ga815f36efce97dba797f67f9acbbb761d" compoundref="xaxicdma_8c" startline="280" endline="321">XAxiCdma_SelectKeyHole</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__axicdma_1ga24af2a3eacaf56c972e6313683a3f7e0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="group__axicdma_1ga33f9ce1ca035334d63cd08d4cf26daea" kindref="member">XAxiCdma_Bd</ref> *</type>
+        <definition>XAxiCdma_Bd * XAxiCdma_BdRingPrev</definition>
+        <argsstring>(XAxiCdma *InstancePtr, XAxiCdma_Bd *BdPtr)</argsstring>
+        <name>XAxiCdma_BdRingPrev</name>
+        <param>
+          <type>XAxiCdma *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="group__axicdma_1ga33f9ce1ca035334d63cd08d4cf26daea" kindref="member">XAxiCdma_Bd</ref> *</type>
+          <declname>BdPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function gets the previous BD of the current BD on the BD ring. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the driver instance we are working on </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>BdPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the current BD</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The previous BD on the ring from the current BD</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" line="550" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_bdring.c" bodystart="323" bodyend="352"/>
+        <references refid="group__axicdma_1gaae822f32753ddd2fec7be5d3c9e9a4ff" compoundref="xaxicdma__hw_8h" startline="47">XAXICDMA_BD_MINIMUM_ALIGNMENT</references>
+        <referencedby refid="group__axicdma_1ga3c5cd26d9fd3311c2ccfa4253c587e68" compoundref="xaxicdma__bdring_8c" startline="748" endline="886">XAxiCdma_BdRingToHw</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__axicdma_1gab36598e09c09ffa680b6c0f207baf9f5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>LONG</type>
+        <definition>LONG XAxiCdma_BdRingCreate</definition>
+        <argsstring>(XAxiCdma *InstancePtr, UINTPTR PhysAddr, UINTPTR VirtAddr, u32 Alignment, int BdCount)</argsstring>
+        <name>XAxiCdma_BdRingCreate</name>
+        <param>
+          <type>XAxiCdma *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>UINTPTR</type>
+          <declname>PhysAddr</declname>
+        </param>
+        <param>
+          <type>UINTPTR</type>
+          <declname>VirtAddr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Alignment</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>BdCount</declname>
+        </param>
+        <briefdescription>
+<para>This function creates the BD ring for the driver instance. </para>        </briefdescription>
+        <detaileddescription>
+<para>If a BD ring pre-exist of this ring, the previous ring is lost.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the driver instance we are working on </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>PhysAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the physical address of the memory for the BD ring </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>VirtAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the virtual address of the memory for the BD ring </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Alignment</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the alignment for the BDs </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>BdCount</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the number of BDs to create in the ring</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS for success</para></listitem><listitem><para>XST_INVALID_PARAM for invalid parameter</para></listitem><listitem><para>XST_DMA_SG_LIST_ERROR for invalid memory region</para></listitem><listitem><para>XST_FAILURE if the hardware build is simple mode only</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>For a system that has flat memory layout, then the PhysAddr and the VirtAddr are the same. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" line="551" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_bdring.c" bodystart="375" bodyend="515"/>
+        <references refid="group__axicdma_1gaae822f32753ddd2fec7be5d3c9e9a4ff" compoundref="xaxicdma__hw_8h" startline="47">XAXICDMA_BD_MINIMUM_ALIGNMENT</references>
+        <references refid="group__axicdma_1ga270070a493422c1d6f64842febb012d8" compoundref="xaxicdma__bd_8c" startline="406" endline="412">XAxiCdma_BdSetHasDRE</references>
+        <references refid="group__axicdma_1ga1025e9931f9d6fc4b7a0d526169eeab0" compoundref="xaxicdma__bd_8c" startline="386" endline="392">XAxiCdma_BdSetIsLite</references>
+        <references refid="group__axicdma_1ga03aff38e0c27e9925e4a79986e351e0d" compoundref="xaxicdma__bd_8c" startline="446" endline="452">XAxiCdma_BdSetMaxLen</references>
+        <references refid="group__axicdma_1gab4d51959154b33364f8e3104c4a1afb0" compoundref="xaxicdma__bd_8c" startline="114" endline="125">XAxiCdma_BdSetNextPtr</references>
+        <references refid="group__axicdma_1ga27a4cefa4eee7b30158763c0619c725b" compoundref="xaxicdma__bd_8c" startline="361" endline="372">XAxiCdma_BdSetPhysAddr</references>
+        <references refid="group__axicdma_1ga7956eaa8a90bcf2a0894d513b9c15639" compoundref="xaxicdma__bd_8c" startline="426" endline="432">XAxiCdma_BdSetWordLen</references>
+      </memberdef>
+      <memberdef kind="function" id="group__axicdma_1ga3183f9f25654d2a066c19213f29897be" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>LONG</type>
+        <definition>LONG XAxiCdma_BdRingClone</definition>
+        <argsstring>(XAxiCdma *InstancePtr, XAxiCdma_Bd *TemplateBdPtr)</argsstring>
+        <name>XAxiCdma_BdRingClone</name>
+        <param>
+          <type>XAxiCdma *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="group__axicdma_1ga33f9ce1ca035334d63cd08d4cf26daea" kindref="member">XAxiCdma_Bd</ref> *</type>
+          <declname>TemplateBdPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function clones all BDs in the BD ring to be the same as the given BD. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the driver instance we are working on </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>TemplateBdPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the BD to be copied from</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS for success</para></listitem><listitem><para>XST_DMA_SG_NO_LIST if there is no BD ring</para></listitem><listitem><para>XST_DEVICE_IS_STARTED if the hardware is running</para></listitem><listitem><para>XST_DMA_SG_LIST_ERROR is the BD ring is still in use</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" line="553" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_bdring.c" bodystart="534" bodyend="585"/>
+        <references refid="group__axicdma_1ga5ee87642c7b803ad1543c5f839872594" compoundref="xaxicdma__bd_8c" startline="161" endline="167">XAxiCdma_BdClearSts</references>
+        <references refid="group__axicdma_1gaa16c4a61c0b1b2892ee5869e62546884" compoundref="xaxicdma__bd_8c" startline="68" endline="76">XAxiCdma_BdClone</references>
+        <references refid="group__axicdma_1gaee6e140ed15cd9b7e49145e01220115a" compoundref="xaxicdma_8c" startline="236" endline="243">XAxiCdma_IsBusy</references>
+      </memberdef>
+      <memberdef kind="function" id="group__axicdma_1ga27dd0cdc27b7a724533db75336c4acc6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>LONG</type>
+        <definition>LONG XAxiCdma_BdRingAlloc</definition>
+        <argsstring>(XAxiCdma *InstancePtr, int NumBd, XAxiCdma_Bd **BdSetPtr)</argsstring>
+        <name>XAxiCdma_BdRingAlloc</name>
+        <param>
+          <type>XAxiCdma *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>NumBd</declname>
+        </param>
+        <param>
+          <type><ref refid="group__axicdma_1ga33f9ce1ca035334d63cd08d4cf26daea" kindref="member">XAxiCdma_Bd</ref> **</type>
+          <declname>BdSetPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function requests number of BDs from the BD ring. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the driver instance we are working on </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>NumBd</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the number of BDs to request </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>BdSetPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the pointer to the set of BDs returned</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS for success</para></listitem><listitem><para>XST_INVALID_PARAM if requests non-positive number of BDs</para></listitem><listitem><para>XST_FAILURE if not enough free BDs available</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" line="554" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_bdring.c" bodystart="603" bodyend="626"/>
+      </memberdef>
+      <memberdef kind="function" id="group__axicdma_1ga9be6e4072c2a17f4519ffa9f9ec3332f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>LONG</type>
+        <definition>LONG XAxiCdma_BdRingUnAlloc</definition>
+        <argsstring>(XAxiCdma *InstancePtr, int NumBd, XAxiCdma_Bd *BdSetPtr)</argsstring>
+        <name>XAxiCdma_BdRingUnAlloc</name>
+        <param>
+          <type>XAxiCdma *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>NumBd</declname>
+        </param>
+        <param>
+          <type><ref refid="group__axicdma_1ga33f9ce1ca035334d63cd08d4cf26daea" kindref="member">XAxiCdma_Bd</ref> *</type>
+          <declname>BdSetPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function tries to free the number of BDs back to the ring. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the driver instance we are working on </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>NumBd</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the number of BDs to return </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>BdSetPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the set of BDs to be returned</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS for success</para></listitem><listitem><para>XST_INVALID_PARAM if to free non-positive number of BDs</para></listitem><listitem><para>XST_FAILURE if BD ring management shows an error</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" line="556" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_bdring.c" bodystart="644" bodyend="678"/>
+      </memberdef>
+      <memberdef kind="function" id="group__axicdma_1ga3c5cd26d9fd3311c2ccfa4253c587e68" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>LONG</type>
+        <definition>LONG XAxiCdma_BdRingToHw</definition>
+        <argsstring>(XAxiCdma *InstancePtr, int NumBd, XAxiCdma_Bd *BdSetPtr, XAxiCdma_CallBackFn CallBackFn, void *CallBackRef)</argsstring>
+        <name>XAxiCdma_BdRingToHw</name>
+        <param>
+          <type>XAxiCdma *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>NumBd</declname>
+        </param>
+        <param>
+          <type><ref refid="group__axicdma_1ga33f9ce1ca035334d63cd08d4cf26daea" kindref="member">XAxiCdma_Bd</ref> *</type>
+          <declname>BdSetPtr</declname>
+        </param>
+        <param>
+          <type>XAxiCdma_CallBackFn</type>
+          <declname>CallBack</declname>
+          <defname>CallBackFn</defname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>CallBackRef</declname>
+        </param>
+        <briefdescription>
+<para>This function tries to enqueue the number of BDs to the hardware. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the driver instance we are working on </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>NumBd</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the number of BDs to enqueue </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>BdSetPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the set of BDs to be enqueued </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CallBackFn</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the callback function for this transfer, NULL is fine </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CallBackRef</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the callback reference pointer</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS for success</para></listitem><listitem><para>XST_INVALID_PARAM if enqueues negative number of BDs or zero transfer len</para></listitem><listitem><para>XST_DMA_SG_LIST_ERROR if BD ring management has a problem</para></listitem><listitem><para>XST_FIFO_NO_ROOM if the interrupt handler array is full</para></listitem><listitem><para>XST_FAILURE for: Hardware is in invalid state, for example, reset failed Or, the hardware build is simple mode only</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" line="558" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_bdring.c" bodystart="748" bodyend="886"/>
+        <references refid="group__axicdma_1ga5ee87642c7b803ad1543c5f839872594" compoundref="xaxicdma__bd_8c" startline="161" endline="167">XAxiCdma_BdClearSts</references>
+        <references refid="group__axicdma_1ga2d0201500b1c123a0eb67c02f9666598" compoundref="xaxicdma__bd_8c" startline="343" endline="347">XAxiCdma_BdGetLength</references>
+        <references refid="group__axicdma_1ga535e9b3301b3227aed27e42961304165" compoundref="xaxicdma__bd_8c" startline="465" endline="477">XAxiCdma_BdGetPhysAddr</references>
+        <references refid="group__axicdma_1gabfe3657b7aad9487946d6bb436aeba18" compoundref="xaxicdma__bdring_8c" startline="280" endline="309">XAxiCdma_BdRingNext</references>
+        <references refid="group__axicdma_1ga24af2a3eacaf56c972e6313683a3f7e0" compoundref="xaxicdma__bdring_8c" startline="323" endline="352">XAxiCdma_BdRingPrev</references>
+        <references refid="group__axicdma_1ga1141024e912e7012d2c716cef9fc791f" compoundref="xaxicdma__bdring_8c" startline="256" endline="264">XAxiCdma_BdSetTailBdPtr</references>
+      </memberdef>
+      <memberdef kind="function" id="group__axicdma_1gafce6a8283bdec8b9c35169c7cd29f4dc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XAxiCdma_BdRingFromHw</definition>
+        <argsstring>(XAxiCdma *InstancePtr, int BdLimit, XAxiCdma_Bd **BdSetPtr)</argsstring>
+        <name>XAxiCdma_BdRingFromHw</name>
+        <param>
+          <type>XAxiCdma *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>BdLimit</declname>
+        </param>
+        <param>
+          <type><ref refid="group__axicdma_1ga33f9ce1ca035334d63cd08d4cf26daea" kindref="member">XAxiCdma_Bd</ref> **</type>
+          <declname>BdSetPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function tries to retrieve completed BDs from the hardware. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the driver instance we are working on </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>BdLimit</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the maximum number of completed BDs to retrieve </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>BdSetPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the set of completed BDs</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The number of completed BDs.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" line="561" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_bdring.c" bodystart="901" bodyend="971"/>
+        <references refid="group__axicdma_1gac206252f0aeb8a2f8c28aaf7c0f8361e" compoundref="xaxicdma__hw_8h" startline="212">XAXICDMA_BD_STS_COMPLETE_MASK</references>
+        <references refid="group__axicdma_1ga25c6311cbd4ac7c3a1dec2e2a59c0bf7" compoundref="xaxicdma__bd_8c" startline="138" endline="143">XAxiCdma_BdGetSts</references>
+        <references refid="group__axicdma_1gabfe3657b7aad9487946d6bb436aeba18" compoundref="xaxicdma__bdring_8c" startline="280" endline="309">XAxiCdma_BdRingNext</references>
+      </memberdef>
+      <memberdef kind="function" id="group__axicdma_1gab204e3f92e4edd3865ecf6b344f0b864" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XAxiCdma_BdRingFree</definition>
+        <argsstring>(XAxiCdma *InstancePtr, int NumBd, XAxiCdma_Bd *BdSetPtr)</argsstring>
+        <name>XAxiCdma_BdRingFree</name>
+        <param>
+          <type>XAxiCdma *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>NumBd</declname>
+        </param>
+        <param>
+          <type><ref refid="group__axicdma_1ga33f9ce1ca035334d63cd08d4cf26daea" kindref="member">XAxiCdma_Bd</ref> *</type>
+          <declname>BdSetPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function returns the BDs back to the free pool of the BD ring. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the driver instance we are working on </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>NumBd</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the number of BDs to free </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>BdSetPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the set of BDs to be freed</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS for success</para></listitem><listitem><para>XST_INVALID_PARAM if number of BDs is negative</para></listitem><listitem><para>XST_DMA_SG_LIST_ERROR if the BD ring management has a problem</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" line="563" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_bdring.c" bodystart="989" bodyend="1025"/>
+      </memberdef>
+      <memberdef kind="function" id="group__axicdma_1gae1333cf9309c85b0f620e026c889e01c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XAxiCdma_BdSetCurBdPtr</definition>
+        <argsstring>(XAxiCdma *InstancePtr, UINTPTR CurBdPtr)</argsstring>
+        <name>XAxiCdma_BdSetCurBdPtr</name>
+        <param>
+          <type>XAxiCdma *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>UINTPTR</type>
+          <declname>CurBdPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function set the Current BD ptr of a BD. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BdPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the pointer to the BD to set the Next BD ptr </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CurBdPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the valud of Current BD ptr</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" line="565" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_bdring.c" bodystart="156" bodyend="164"/>
+        <references refid="group__axicdma_1gaac2ba51f1e81b8ed8fe31bc5632d2980" compoundref="xaxicdma__hw_8h" startline="74">XAXICDMA_CDESC_MSB_OFFSET</references>
+        <references refid="group__axicdma_1gaf62f028c2ed24dea6e0ebf8388cdf670" compoundref="xaxicdma__hw_8h" startline="71">XAXICDMA_CDESC_OFFSET</references>
+        <references refid="group__axicdma_1gaca543a8c03c6cd2d6d7284cc4bd119c2" compoundref="xaxicdma__hw_8h" startline="136">XAXICDMA_DESC_LSB_MASK</references>
+        <references refid="group__axicdma_1ga4d7304606411f8ed955c6d930e387c18" compoundref="xaxicdma__hw_8h" startline="261">XAxiCdma_WriteReg</references>
+        <referencedby refid="group__axicdma_1ga815f36efce97dba797f67f9acbbb761d" compoundref="xaxicdma_8c" startline="280" endline="321">XAxiCdma_SelectKeyHole</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__axicdma_1ga1141024e912e7012d2c716cef9fc791f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XAxiCdma_BdSetTailBdPtr</definition>
+        <argsstring>(XAxiCdma *InstancePtr, UINTPTR TailBdPtr)</argsstring>
+        <name>XAxiCdma_BdSetTailBdPtr</name>
+        <param>
+          <type>XAxiCdma *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>UINTPTR</type>
+          <declname>TailBdPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function set the Tail BD ptr of a BD. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BdPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the pointer to the BD to set the Next BD ptr </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Tail</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Bd is the value of Tail BD ptr</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" line="566" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_bdring.c" bodystart="256" bodyend="264"/>
+        <references refid="group__axicdma_1gaca543a8c03c6cd2d6d7284cc4bd119c2" compoundref="xaxicdma__hw_8h" startline="136">XAXICDMA_DESC_LSB_MASK</references>
+        <references refid="group__axicdma_1gaed7af011eefd18c937d40571593b9297" compoundref="xaxicdma__hw_8h" startline="76">XAXICDMA_TDESC_MSB_OFFSET</references>
+        <references refid="group__axicdma_1ga5a00af58a865daf4ee6995ade0c9cdd1" compoundref="xaxicdma__hw_8h" startline="75">XAXICDMA_TDESC_OFFSET</references>
+        <references refid="group__axicdma_1ga4d7304606411f8ed955c6d930e387c18" compoundref="xaxicdma__hw_8h" startline="261">XAxiCdma_WriteReg</references>
+        <referencedby refid="group__axicdma_1ga3c5cd26d9fd3311c2ccfa4253c587e68" compoundref="xaxicdma__bdring_8c" startline="748" endline="886">XAxiCdma_BdRingToHw</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__axicdma_1ga3287c31f1aa41a1e4a535af134324524" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XAxiCdma_DumpRegisters</definition>
+        <argsstring>(XAxiCdma *InstancePtr)</argsstring>
+        <name>XAxiCdma_DumpRegisters</name>
+        <param>
+          <type>XAxiCdma *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function dumps the registers of this DMA instance. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the driver instance we are working on</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.c" line="662" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.c" bodystart="662" bodyend="693"/>
+        <references refid="group__axicdma_1gaf2b93c5bebf2fdcf9516bcfefc7ae356" compoundref="xaxicdma__hw_8h" startline="105">XAXICDMA_BTT_OFFSET</references>
+        <references refid="group__axicdma_1gaac2ba51f1e81b8ed8fe31bc5632d2980" compoundref="xaxicdma__hw_8h" startline="74">XAXICDMA_CDESC_MSB_OFFSET</references>
+        <references refid="group__axicdma_1gaf62f028c2ed24dea6e0ebf8388cdf670" compoundref="xaxicdma__hw_8h" startline="71">XAXICDMA_CDESC_OFFSET</references>
+        <references refid="group__axicdma_1ga1f23c9a4fe3565eb423286405a1de5ca" compoundref="xaxicdma__hw_8h" startline="69">XAXICDMA_CR_OFFSET</references>
+        <references refid="group__axicdma_1ga9a61d8801792647638b54afcafbd8a86" compoundref="xaxicdma__hw_8h" startline="82">XAXICDMA_DSTADDR_MSB_OFFSET</references>
+        <references refid="group__axicdma_1ga3064fdc2bc683fa002bedf51498d810c" compoundref="xaxicdma__hw_8h" startline="79">XAXICDMA_DSTADDR_OFFSET</references>
+        <references refid="group__axicdma_1ga2f2bfb34c5bfec00baa06b782e7e68a6" compoundref="xaxicdma__hw_8h" startline="242">XAxiCdma_ReadReg</references>
+        <references refid="group__axicdma_1gaa5e9b49d3805237bc9ed772948fbf4ae" compoundref="xaxicdma__hw_8h" startline="70">XAXICDMA_SR_OFFSET</references>
+        <references refid="group__axicdma_1gaeca7eef88c0b04de01219565d5039d93" compoundref="xaxicdma__hw_8h" startline="78">XAXICDMA_SRCADDR_MSB_OFFSET</references>
+        <references refid="group__axicdma_1ga53c4bf8e65e8770c6fe129160ad07e29" compoundref="xaxicdma__hw_8h" startline="77">XAXICDMA_SRCADDR_OFFSET</references>
+        <references refid="group__axicdma_1gaed7af011eefd18c937d40571593b9297" compoundref="xaxicdma__hw_8h" startline="76">XAXICDMA_TDESC_MSB_OFFSET</references>
+        <references refid="group__axicdma_1ga5a00af58a865daf4ee6995ade0c9cdd1" compoundref="xaxicdma__hw_8h" startline="75">XAXICDMA_TDESC_OFFSET</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2010<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022<sp/>-<sp/>2025<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="325"><highlight class="preprocessor">#ifndef<sp/>XAXICDMA_H_<sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>prevent<sp/>circular<sp/>inclusions<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="326"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XAXICDMA_H_</highlight></codeline>
+<codeline lineno="327"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="328"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="329"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="330"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="331"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="332"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="333"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xaxicdma__bd_8h" kindref="compound">xaxicdma_bd.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="334"><highlight class="normal"></highlight></codeline>
+<codeline lineno="335"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__MICROBLAZE__</highlight></codeline>
+<codeline lineno="336"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xenv.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="337"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="338"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&lt;string.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="339"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_cache.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="340"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="341"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="342"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="343"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XAXICDMA_COALESCE_NO_CHANGE<sp/><sp/>0xFFFFFFFF</highlight></codeline>
+<codeline lineno="344"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XAXICDMA_ALL_BDS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x7FFFFFFF<sp/></highlight><highlight class="comment">/*<sp/>2147<sp/>Million<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="345"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="346"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Constants<sp/>for<sp/>engine<sp/>mode:<sp/>simple/SG</highlight></codeline>
+<codeline lineno="347"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="348"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XAXICDMA_SG_MODE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1</highlight></codeline>
+<codeline lineno="349"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XAXICDMA_SIMPLE_MODE<sp/><sp/><sp/><sp/>2</highlight></codeline>
+<codeline lineno="350"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="351"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Maximum<sp/>active<sp/>SG<sp/>interrupt<sp/>handler<sp/>this<sp/>driver<sp/>can<sp/>manage</highlight></codeline>
+<codeline lineno="352"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="353"><highlight class="comment"><sp/>*<sp/>The<sp/>limitation<sp/>comes<sp/>from<sp/>the<sp/>interrupt<sp/>handler.<sp/>It<sp/>is<sp/>now<sp/>one<sp/>interrupt</highlight></codeline>
+<codeline lineno="354"><highlight class="comment"><sp/>*<sp/>handler<sp/>for<sp/>one<sp/>transfer.<sp/>It<sp/>is<sp/>possible<sp/>to<sp/>simplify,<sp/>as<sp/>in<sp/>most<sp/>use<sp/>cases,</highlight></codeline>
+<codeline lineno="355"><highlight class="comment"><sp/>*<sp/>to<sp/>have<sp/>one<sp/>interrupt<sp/>handler<sp/>for<sp/>all<sp/>SG<sp/>transfers</highlight></codeline>
+<codeline lineno="356"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="357"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XAXICDMA_MAXIMUM_MAX_HANDLER<sp/>20</highlight></codeline>
+<codeline lineno="358"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="359"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Constants<sp/>of<sp/>KeyHole<sp/>feature<sp/>selection:<sp/>Write/Read</highlight></codeline>
+<codeline lineno="360"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="361"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XAXICDMA_KEYHOLE_READ<sp/><sp/><sp/>0</highlight></codeline>
+<codeline lineno="362"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XAXICDMA_KEYHOLE_WRITE<sp/><sp/>1</highlight></codeline>
+<codeline lineno="363"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="364"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="365"><highlight class="normal"></highlight></codeline>
+<codeline lineno="382"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>void<sp/>(*XAxiCdma_CallBackFn)(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallBackRef,<sp/>u32<sp/>IrqMask,</highlight></codeline>
+<codeline lineno="383"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>*NumBdPtr);</highlight></codeline>
+<codeline lineno="384"><highlight class="normal"></highlight></codeline>
+<codeline lineno="392"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="393"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XAxiCdma_CallBackFn<sp/>CallBackFn;<sp/></highlight></codeline>
+<codeline lineno="394"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallBackRef;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="395"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>NumBds;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="396"><highlight class="normal">}<sp/>XAxiCdma_IntrHandlerList;</highlight></codeline>
+<codeline lineno="397"><highlight class="normal"></highlight></codeline>
+<codeline lineno="406"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="407"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="408"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>DeviceId;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="409"><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="410"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*Name;<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="411"><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="412"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR<sp/>BaseAddress;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="413"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>HasDRE;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="414"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>IsLite;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="415"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>DataWidth;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="416"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>BurstLen;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="417"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>AddrWidth;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="418"><highlight class="preprocessor">#ifdef<sp/>SDT</highlight></codeline>
+<codeline lineno="419"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>IntrId;<sp/></highlight></codeline>
+<codeline lineno="420"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR<sp/>IntrParent;<sp/></highlight></codeline>
+<codeline lineno="421"><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="422"><highlight class="preprocessor"></highlight><highlight class="normal">}<sp/>XAxiCdma_Config;</highlight></codeline>
+<codeline lineno="423"><highlight class="normal"></highlight></codeline>
+<codeline lineno="432"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="433"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR<sp/>BaseAddr;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="435"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Initialized;<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="436"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>SimpleOnlyBuild;<sp/><sp/></highlight></codeline>
+<codeline lineno="437"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>HasDRE;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="438"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>IsLite;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="439"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>WordLength;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="440"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>MaxTransLen;<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="441"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>SimpleNotDone;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="442"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>SGWaiting;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="444"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>BD<sp/>ring<sp/>fields<sp/>for<sp/>SG<sp/>transfer<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="445"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR<sp/>FirstBdPhysAddr;<sp/><sp/></highlight></codeline>
+<codeline lineno="446"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR<sp/>FirstBdAddr;<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="447"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR<sp/>LastBdAddr;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="448"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>BdRingTotalLen;<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="449"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>BdSeparation;<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="450"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__axicdma_1ga33f9ce1ca035334d63cd08d4cf26daea" kindref="member">XAxiCdma_Bd</ref><sp/>*FreeBdHead;<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="451"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__axicdma_1ga33f9ce1ca035334d63cd08d4cf26daea" kindref="member">XAxiCdma_Bd</ref><sp/>*PreBdHead;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="452"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__axicdma_1ga33f9ce1ca035334d63cd08d4cf26daea" kindref="member">XAxiCdma_Bd</ref><sp/>*HwBdHead;<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="453"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__axicdma_1ga33f9ce1ca035334d63cd08d4cf26daea" kindref="member">XAxiCdma_Bd</ref><sp/>*HwBdTail;<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="454"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__axicdma_1ga33f9ce1ca035334d63cd08d4cf26daea" kindref="member">XAxiCdma_Bd</ref><sp/>*PostBdHead;<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="455"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__axicdma_1ga33f9ce1ca035334d63cd08d4cf26daea" kindref="member">XAxiCdma_Bd</ref><sp/>*BdaRestart;<sp/></highlight></codeline>
+<codeline lineno="456"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>FreeBdCnt;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="457"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>PreBdCnt;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="458"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>HwBdCnt;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="459"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>PostBdCnt;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="460"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>AllBdCnt;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="461"><highlight class="preprocessor">#ifdef<sp/>SDT</highlight></codeline>
+<codeline lineno="462"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>BurstLen;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="463"><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="464"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="465"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Callback<sp/>function<sp/>for<sp/>simple<sp/>transfer*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="466"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XAxiCdma_CallBackFn<sp/>SimpleCallBackFn;<sp/></highlight></codeline>
+<codeline lineno="468"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*SimpleCallBackRef;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="470"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>SgHandlerHead;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="471"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>SgHandlerTail;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="472"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XAxiCdma_IntrHandlerList<sp/>Handlers[XAXICDMA_MAXIMUM_MAX_HANDLER];</highlight></codeline>
+<codeline lineno="474"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>AddrWidth;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="476"><highlight class="normal">}<sp/>XAxiCdma;</highlight></codeline>
+<codeline lineno="477"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>@}<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="478"><highlight class="normal"></highlight></codeline>
+<codeline lineno="479"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="480"><highlight class="normal"></highlight></codeline>
+<codeline lineno="481"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="482"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="483"><highlight class="comment"><sp/>*<sp/>Macros<sp/>to<sp/>flush<sp/>and<sp/>invalidate<sp/>cache<sp/>for<sp/>BDs<sp/>should<sp/>they<sp/>be</highlight></codeline>
+<codeline lineno="484"><highlight class="comment"><sp/>*<sp/>located<sp/>in<sp/>cached<sp/>memory.<sp/>These<sp/>macros<sp/>may<sp/>NOPs<sp/>if<sp/>the<sp/>underlying</highlight></codeline>
+<codeline lineno="485"><highlight class="comment"><sp/>*<sp/>XCACHE_FLUSH_DCACHE_RANGE<sp/>and<sp/>XCACHE_INVALIDATE_DCACHE_RANGE<sp/>macros<sp/>are<sp/>not</highlight></codeline>
+<codeline lineno="486"><highlight class="comment"><sp/>*<sp/>implemented<sp/>or<sp/>they<sp/>do<sp/>nothing.</highlight></codeline>
+<codeline lineno="487"><highlight class="comment"><sp/>*****************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="488"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__aarch64__</highlight></codeline>
+<codeline lineno="489"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XAXICDMA_CACHE_FLUSH(BdPtr)</highlight></codeline>
+<codeline lineno="490"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XAXICDMA_CACHE_INVALIDATE(BdPtr)</highlight></codeline>
+<codeline lineno="491"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#elif<sp/>__MICROBLAZE__</highlight></codeline>
+<codeline lineno="492"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#ifdef<sp/>XCACHE_FLUSH_DCACHE_RANGE</highlight></codeline>
+<codeline lineno="493"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XAXICDMA_CACHE_FLUSH(BdPtr)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="494"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XCACHE_FLUSH_DCACHE_RANGE((BdPtr),<sp/>XAXICDMA_BD_HW_NUM_BYTES)</highlight></codeline>
+<codeline lineno="495"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="496"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XAXICDMA_CACHE_FLUSH(BdPtr)</highlight></codeline>
+<codeline lineno="497"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="498"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="499"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>XCACHE_INVALIDATE_DCACHE_RANGE</highlight></codeline>
+<codeline lineno="500"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XAXICDMA_CACHE_INVALIDATE(BdPtr)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="501"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XCACHE_INVALIDATE_DCACHE_RANGE((BdPtr),<sp/>XAXICDMA_BD_HW_NUM_BYTES)</highlight></codeline>
+<codeline lineno="502"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="503"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XAXICDMA_CACHE_INVALIDATE(BdPtr)</highlight></codeline>
+<codeline lineno="504"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="505"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="506"><highlight class="normal"></highlight><highlight class="preprocessor">#else<sp/></highlight><highlight class="comment">/*<sp/>__MICROBLAZE__*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="507"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XAXICDMA_CACHE_FLUSH(BdPtr)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="508"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_DCacheFlushRange((BdPtr),<sp/>XAXICDMA_BD_HW_NUM_BYTES);</highlight></codeline>
+<codeline lineno="509"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="510"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XAXICDMA_CACHE_INVALIDATE(BdPtr)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="511"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_DCacheInvalidateRange((BdPtr),<sp/>XAXICDMA_BD_HW_NUM_BYTES)</highlight></codeline>
+<codeline lineno="512"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="513"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="514"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="515"><highlight class="normal"></highlight></codeline>
+<codeline lineno="516"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="517"><highlight class="normal"></highlight></codeline>
+<codeline lineno="518"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="519"><highlight class="preprocessor"></highlight><highlight class="normal">XAxiCdma_Config<sp/>*<ref refid="group__axicdma_1ga856f02999291c9c30d44e2c63822c6e8" kindref="member">XAxiCdma_LookupConfig</ref>(u32<sp/>DeviceId);</highlight></codeline>
+<codeline lineno="520"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="521"><highlight class="preprocessor"></highlight><highlight class="normal">XAxiCdma_Config<sp/>*<ref refid="group__axicdma_1ga856f02999291c9c30d44e2c63822c6e8" kindref="member">XAxiCdma_LookupConfig</ref>(UINTPTR<sp/>BaseAddress);</highlight></codeline>
+<codeline lineno="522"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="523"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="524"><highlight class="normal">u32<sp/><ref refid="group__axicdma_1gab746b095007351c2fb2c1a7cf3693f2c" kindref="member">XAxiCdma_CfgInitialize</ref>(XAxiCdma<sp/>*InstancePtr,<sp/>XAxiCdma_Config<sp/>*CfgPtr,</highlight></codeline>
+<codeline lineno="525"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR<sp/>EffectiveAddr);</highlight></codeline>
+<codeline lineno="526"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__axicdma_1gaaf97cc8317af0bf1678973925beff0c5" kindref="member">XAxiCdma_Reset</ref>(XAxiCdma<sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="527"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__axicdma_1ga2575375744593bd55425365dde7744e5" kindref="member">XAxiCdma_ResetIsDone</ref>(XAxiCdma<sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="528"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__axicdma_1gaee6e140ed15cd9b7e49145e01220115a" kindref="member">XAxiCdma_IsBusy</ref>(XAxiCdma<sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="529"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__axicdma_1ga91adf55050cb617cee00b0ba2f0d754e" kindref="member">XAxiCdma_SetCoalesce</ref>(XAxiCdma<sp/>*InstancePtr,<sp/>u32<sp/>Counter,<sp/>u32<sp/>Delay);</highlight></codeline>
+<codeline lineno="530"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__axicdma_1ga92087f03877293982f895e8178557f6a" kindref="member">XAxiCdma_GetCoalesce</ref>(XAxiCdma<sp/>*InstancePtr,<sp/>u32<sp/>*CounterPtr,</highlight></codeline>
+<codeline lineno="531"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>*DelayPtr);</highlight></codeline>
+<codeline lineno="532"><highlight class="normal">u32<sp/><ref refid="group__axicdma_1gae1fbdb8f7ad8926f744c771e07814f72" kindref="member">XAxiCdma_GetError</ref>(XAxiCdma<sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="533"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__axicdma_1ga9f146fe224ea4c9a86477de3030dd79a" kindref="member">XAxiCdma_IntrEnable</ref>(XAxiCdma<sp/>*InstancePtr,<sp/>u32<sp/>Mask);</highlight></codeline>
+<codeline lineno="534"><highlight class="normal">u32<sp/><ref refid="group__axicdma_1ga1a269e884ce6e3552313521dea8032b6" kindref="member">XAxiCdma_IntrGetEnabled</ref>(XAxiCdma<sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="535"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__axicdma_1gabdccf08d74f4e037b06a36a2e9db2877" kindref="member">XAxiCdma_IntrDisable</ref>(XAxiCdma<sp/>*InstancePtr,<sp/>u32<sp/>Mask);</highlight></codeline>
+<codeline lineno="536"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__axicdma_1ga8acd5bf5f5f072c6e425a8cc1b589498" kindref="member">XAxiCdma_IntrHandler</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*HandlerRef);</highlight></codeline>
+<codeline lineno="537"><highlight class="normal">u32<sp/><ref refid="group__axicdma_1ga1e81ba2046ada4a40527c50ee7fdce9a" kindref="member">XAxiCdma_SimpleTransfer</ref>(XAxiCdma<sp/>*InstancePtr,<sp/>UINTPTR<sp/>SrcAddr,<sp/>UINTPTR<sp/>DstAddr,</highlight></codeline>
+<codeline lineno="538"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Length,<sp/>XAxiCdma_CallBackFn<sp/>SimpleCallBack,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallbackRef);</highlight></codeline>
+<codeline lineno="539"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__axicdma_1ga815f36efce97dba797f67f9acbbb761d" kindref="member">XAxiCdma_SelectKeyHole</ref>(XAxiCdma<sp/>*InstancePtr,<sp/>u32<sp/>Direction,<sp/>u32<sp/>Select);</highlight></codeline>
+<codeline lineno="540"><highlight class="normal"></highlight></codeline>
+<codeline lineno="541"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>BD<sp/>ring<sp/>API<sp/>functions</highlight></codeline>
+<codeline lineno="542"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="543"><highlight class="normal">u32<sp/><ref refid="group__axicdma_1ga18d5a9deaab709c610d32e42c77df952" kindref="member">XAxiCdma_BdRingCntCalc</ref>(u32<sp/>Alignment,<sp/>u32<sp/>Bytes,<sp/>UINTPTR<sp/>BuffAddr);</highlight></codeline>
+<codeline lineno="544"><highlight class="normal">u32<sp/><ref refid="group__axicdma_1ga1525cddb18badb5737c1017f2a0d34e1" kindref="member">XAxiCdma_BdRingMemCalc</ref>(u32<sp/>Alignment,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>NumBd);</highlight></codeline>
+<codeline lineno="545"><highlight class="normal">u32<sp/><ref refid="group__axicdma_1ga6dda9c5b4ded0bdbf1e85d6532461ef6" kindref="member">XAxiCdma_BdRingGetCnt</ref>(XAxiCdma<sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="546"><highlight class="normal">u32<sp/><ref refid="group__axicdma_1ga07f505ed309a6eb2172e7e8e154fa082" kindref="member">XAxiCdma_BdRingGetFreeCnt</ref>(XAxiCdma<sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="547"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__axicdma_1ga4677cddba8354ca3979f9b6ae386ffde" kindref="member">XAxiCdma_BdRingSnapShotCurrBd</ref>(XAxiCdma<sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="548"><highlight class="normal"><ref refid="group__axicdma_1ga33f9ce1ca035334d63cd08d4cf26daea" kindref="member">XAxiCdma_Bd</ref><sp/>*<ref refid="group__axicdma_1gab6f6efa84ee457f155a4c7a94e4227da" kindref="member">XAxiCdma_BdRingGetCurrBd</ref>(XAxiCdma<sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="549"><highlight class="normal"><ref refid="group__axicdma_1ga33f9ce1ca035334d63cd08d4cf26daea" kindref="member">XAxiCdma_Bd</ref><sp/>*<ref refid="group__axicdma_1gabfe3657b7aad9487946d6bb436aeba18" kindref="member">XAxiCdma_BdRingNext</ref>(XAxiCdma<sp/>*InstancePtr,<sp/><ref refid="group__axicdma_1ga33f9ce1ca035334d63cd08d4cf26daea" kindref="member">XAxiCdma_Bd</ref><sp/>*BdPtr);</highlight></codeline>
+<codeline lineno="550"><highlight class="normal"><ref refid="group__axicdma_1ga33f9ce1ca035334d63cd08d4cf26daea" kindref="member">XAxiCdma_Bd</ref><sp/>*<ref refid="group__axicdma_1ga24af2a3eacaf56c972e6313683a3f7e0" kindref="member">XAxiCdma_BdRingPrev</ref>(XAxiCdma<sp/>*InstancePtr,<sp/><ref refid="group__axicdma_1ga33f9ce1ca035334d63cd08d4cf26daea" kindref="member">XAxiCdma_Bd</ref><sp/>*BdPtr);</highlight></codeline>
+<codeline lineno="551"><highlight class="normal">LONG<sp/><ref refid="group__axicdma_1gab36598e09c09ffa680b6c0f207baf9f5" kindref="member">XAxiCdma_BdRingCreate</ref>(XAxiCdma<sp/>*InstancePtr,<sp/>UINTPTR<sp/>PhysAddr,</highlight></codeline>
+<codeline lineno="552"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR<sp/>VirtAddr,<sp/>u32<sp/>Alignment,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>BdCount);</highlight></codeline>
+<codeline lineno="553"><highlight class="normal">LONG<sp/><ref refid="group__axicdma_1ga3183f9f25654d2a066c19213f29897be" kindref="member">XAxiCdma_BdRingClone</ref>(XAxiCdma<sp/>*InstancePtr,<sp/><ref refid="group__axicdma_1ga33f9ce1ca035334d63cd08d4cf26daea" kindref="member">XAxiCdma_Bd</ref><sp/>*TemplateBdPtr);</highlight></codeline>
+<codeline lineno="554"><highlight class="normal">LONG<sp/><ref refid="group__axicdma_1ga27dd0cdc27b7a724533db75336c4acc6" kindref="member">XAxiCdma_BdRingAlloc</ref>(XAxiCdma<sp/>*InstancePtr,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>NumBd,</highlight></codeline>
+<codeline lineno="555"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__axicdma_1ga33f9ce1ca035334d63cd08d4cf26daea" kindref="member">XAxiCdma_Bd</ref><sp/>**BdSetPtr);</highlight></codeline>
+<codeline lineno="556"><highlight class="normal">LONG<sp/><ref refid="group__axicdma_1ga9be6e4072c2a17f4519ffa9f9ec3332f" kindref="member">XAxiCdma_BdRingUnAlloc</ref>(XAxiCdma<sp/>*InstancePtr,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>NumBd,</highlight></codeline>
+<codeline lineno="557"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__axicdma_1ga33f9ce1ca035334d63cd08d4cf26daea" kindref="member">XAxiCdma_Bd</ref><sp/>*BdSetPtr);</highlight></codeline>
+<codeline lineno="558"><highlight class="normal">LONG<sp/><ref refid="group__axicdma_1ga3c5cd26d9fd3311c2ccfa4253c587e68" kindref="member">XAxiCdma_BdRingToHw</ref>(XAxiCdma<sp/>*InstancePtr,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>NumBd,</highlight></codeline>
+<codeline lineno="559"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__axicdma_1ga33f9ce1ca035334d63cd08d4cf26daea" kindref="member">XAxiCdma_Bd</ref><sp/>*BdSetPtr,<sp/>XAxiCdma_CallBackFn<sp/>CallBack,</highlight></codeline>
+<codeline lineno="560"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallBackRef);</highlight></codeline>
+<codeline lineno="561"><highlight class="normal">u32<sp/><ref refid="group__axicdma_1gafce6a8283bdec8b9c35169c7cd29f4dc" kindref="member">XAxiCdma_BdRingFromHw</ref>(XAxiCdma<sp/>*InstancePtr,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>BdLimit,</highlight></codeline>
+<codeline lineno="562"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__axicdma_1ga33f9ce1ca035334d63cd08d4cf26daea" kindref="member">XAxiCdma_Bd</ref><sp/>**BdSetPtr);</highlight></codeline>
+<codeline lineno="563"><highlight class="normal">u32<sp/><ref refid="group__axicdma_1gab204e3f92e4edd3865ecf6b344f0b864" kindref="member">XAxiCdma_BdRingFree</ref>(XAxiCdma<sp/>*InstancePtr,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>NumBd,</highlight></codeline>
+<codeline lineno="564"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__axicdma_1ga33f9ce1ca035334d63cd08d4cf26daea" kindref="member">XAxiCdma_Bd</ref><sp/>*BdSetPtr);</highlight></codeline>
+<codeline lineno="565"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__axicdma_1gae1333cf9309c85b0f620e026c889e01c" kindref="member">XAxiCdma_BdSetCurBdPtr</ref>(XAxiCdma<sp/>*InstancePtr,<sp/>UINTPTR<sp/>CurBdPtr);</highlight></codeline>
+<codeline lineno="566"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__axicdma_1ga1141024e912e7012d2c716cef9fc791f" kindref="member">XAxiCdma_BdSetTailBdPtr</ref>(XAxiCdma<sp/>*InstancePtr,<sp/>UINTPTR<sp/>TailBdPtr);</highlight></codeline>
+<codeline lineno="567"><highlight class="normal"></highlight></codeline>
+<codeline lineno="568"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Debug<sp/>utility<sp/>function</highlight></codeline>
+<codeline lineno="569"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="570"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__axicdma_1ga3287c31f1aa41a1e4a535af134324524" kindref="member">XAxiCdma_DumpRegisters</ref>(XAxiCdma<sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="571"><highlight class="normal"></highlight></codeline>
+<codeline lineno="572"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="573"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="574"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="575"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="576"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>prevent<sp/>circular<sp/>inclusions<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="577"><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h"/>
+  </compounddef>
+</doxygen>

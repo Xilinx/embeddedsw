@@ -1,0 +1,658 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xuartns550__intr_8c" kind="file">
+    <compoundname>xuartns550_intr.c</compoundname>
+    <includes refid="xuartns550_8h" local="yes">xuartns550.h</includes>
+    <includes refid="xuartns550__i_8h" local="yes">xuartns550_i.h</includes>
+    <includes local="yes">xil_io.h</includes>
+    <incdepgraph>
+      <node id="81">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="84">
+        <label>xil_io.h</label>
+      </node>
+      <node id="78">
+        <label>xuartns550_intr.c</label>
+        <link refid="xuartns550_intr.c"/>
+        <childnode refid="79" relation="include">
+        </childnode>
+        <childnode refid="85" relation="include">
+        </childnode>
+        <childnode refid="84" relation="include">
+        </childnode>
+      </node>
+      <node id="79">
+        <label>xuartns550.h</label>
+        <link refid="xuartns550_8h"/>
+        <childnode refid="80" relation="include">
+        </childnode>
+        <childnode refid="81" relation="include">
+        </childnode>
+        <childnode refid="82" relation="include">
+        </childnode>
+        <childnode refid="83" relation="include">
+        </childnode>
+      </node>
+      <node id="83">
+        <label>xuartns550_l.h</label>
+        <link refid="xuartns550__l_8h"/>
+        <childnode refid="80" relation="include">
+        </childnode>
+        <childnode refid="81" relation="include">
+        </childnode>
+        <childnode refid="84" relation="include">
+        </childnode>
+      </node>
+      <node id="82">
+        <label>xstatus.h</label>
+      </node>
+      <node id="80">
+        <label>xil_types.h</label>
+      </node>
+      <node id="85">
+        <label>xuartns550_i.h</label>
+        <link refid="xuartns550__i_8h"/>
+        <childnode refid="79" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="group__uartns550_1ga35bf39b965ef886056fbc6f1b84647bf" prot="public" static="no">
+        <type>void(*</type>
+        <definition>typedef void(* Handler)(XUartNs550 *InstancePtr)</definition>
+        <argsstring>)(XUartNs550 *InstancePtr)</argsstring>
+        <name>Handler</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_intr.c" line="64" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_intr.c" bodystart="64" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__uartns550_1ga13a30be3e28d24c0c21e1fda90b0adf4" prot="public" static="yes" mutable="no">
+        <type>Handler</type>
+        <definition>Handler HandlerTable[13]</definition>
+        <argsstring>[13]</argsstring>
+        <name>HandlerTable</name>
+        <initializer>= {
+	ModemHandler,
+	NoInterruptHandler,
+	SendDataHandler,
+	NULL,
+	ReceiveDataHandler,
+	NULL,
+	ReceiveStatusHandler,
+	NULL,
+	NULL,
+	NULL,
+	NULL,
+	NULL,
+	ReceiveTimeoutHandler
+}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_intr.c" line="70" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_intr.c" bodystart="70" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__uartns550_1gae40959943dd11dadba2dad8e50dce788" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void NoInterruptHandler</definition>
+        <argsstring>(XUartNs550 *InstancePtr)</argsstring>
+        <name>NoInterruptHandler</name>
+        <param>
+          <type><ref refid="struct_x_uart_ns550" kindref="compound">XUartNs550</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function handles the case when the value read from the interrupt ID register indicates no interrupt is to be serviced. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_uart_ns550" kindref="compound">XUartNs550</ref> instance .</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_intr.c" line="55" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_intr.c" bodystart="180" bodyend="193"/>
+      </memberdef>
+      <memberdef kind="function" id="group__uartns550_1ga467a83ea95572f8433a8eee897cbf4bc" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void ReceiveStatusHandler</definition>
+        <argsstring>(XUartNs550 *InstancePtr)</argsstring>
+        <name>ReceiveStatusHandler</name>
+        <param>
+          <type><ref refid="struct_x_uart_ns550" kindref="compound">XUartNs550</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function handles interrupts for receive status updates which include overrun errors, framing errors, parity errors, and the break interrupt. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_uart_ns550" kindref="compound">XUartNs550</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para></para></simplesect>
+If this handler executes and data is not supposed to be received, then this probably means data is being received that contains errors and the the user may need to clear the receive FIFOs to dump the data. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_intr.c" line="56" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_intr.c" bodystart="212" bodyend="246"/>
+      </memberdef>
+      <memberdef kind="function" id="group__uartns550_1ga918c031ce2c47a243c2a473baf82fe55" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void ReceiveTimeoutHandler</definition>
+        <argsstring>(XUartNs550 *InstancePtr)</argsstring>
+        <name>ReceiveTimeoutHandler</name>
+        <param>
+          <type><ref refid="struct_x_uart_ns550" kindref="compound">XUartNs550</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function handles the receive timeout interrupt. </para>        </briefdescription>
+        <detaileddescription>
+<para>This interrupt occurs whenever a number of bytes have been present in the FIFO for 4 character times, the receiver is not receiving any data, and the number of bytes present is less than the FIFO threshold.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_uart_ns550" kindref="compound">XUartNs550</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_intr.c" line="57" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_intr.c" bodystart="262" bodyend="299"/>
+      </memberdef>
+      <memberdef kind="function" id="group__uartns550_1ga6b4e5869123e0a3021a51bc663376468" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void ReceiveDataHandler</definition>
+        <argsstring>(XUartNs550 *InstancePtr)</argsstring>
+        <name>ReceiveDataHandler</name>
+        <param>
+          <type><ref refid="struct_x_uart_ns550" kindref="compound">XUartNs550</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function handles the interrupt when data is received, either a single byte when FIFOs are not enabled, or multiple bytes with the FIFO. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_uart_ns550" kindref="compound">XUartNs550</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_intr.c" line="58" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_intr.c" bodystart="313" bodyend="358"/>
+      </memberdef>
+      <memberdef kind="function" id="group__uartns550_1gac38eac054d6992e83a30f8ea5b5e5a74" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void SendDataHandler</definition>
+        <argsstring>(XUartNs550 *InstancePtr)</argsstring>
+        <name>SendDataHandler</name>
+        <param>
+          <type><ref refid="struct_x_uart_ns550" kindref="compound">XUartNs550</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function handles the interrupt when data has been sent, the transmit FIFO is empty (transmitter holding register). </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_uart_ns550" kindref="compound">XUartNs550</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_intr.c" line="59" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_intr.c" bodystart="373" bodyend="410"/>
+      </memberdef>
+      <memberdef kind="function" id="group__uartns550_1ga17a47130049442e4d876b80c0a02d2b8" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void ModemHandler</definition>
+        <argsstring>(XUartNs550 *InstancePtr)</argsstring>
+        <name>ModemHandler</name>
+        <param>
+          <type><ref refid="struct_x_uart_ns550" kindref="compound">XUartNs550</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function handles modem interrupts. </para>        </briefdescription>
+        <detaileddescription>
+<para>It does not do any processing except to call the application handler to indicate a modem event.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_uart_ns550" kindref="compound">XUartNs550</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_intr.c" line="60" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_intr.c" bodystart="425" bodyend="447"/>
+      </memberdef>
+      <memberdef kind="function" id="group__uartns550_1gadf7c4826f92d5e8fd70763f4448a360d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XUartNs550_SetHandler</definition>
+        <argsstring>(XUartNs550 *InstancePtr, XUartNs550_Handler FuncPtr, void *CallBackRef)</argsstring>
+        <name>XUartNs550_SetHandler</name>
+        <param>
+          <type><ref refid="struct_x_uart_ns550" kindref="compound">XUartNs550</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="group__uartns550_1gae4e97640db5af678d474f3398045d64a" kindref="member">XUartNs550_Handler</ref></type>
+          <declname>FuncPtr</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>CallBackRef</declname>
+        </param>
+        <briefdescription>
+<para>This function sets the handler that will be called when an event (interrupt) occurs in the driver. </para>        </briefdescription>
+        <detaileddescription>
+<para>The purpose of the handler is to allow application specific processing to be performed.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_uart_ns550" kindref="compound">XUartNs550</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>FuncPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the pointer to the callback function. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CallBackRef</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the upper layer callback reference passed back when the callback function is invoked.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para></para></simplesect>
+There is no assert on the CallBackRef since the driver doesn&apos;t know what it is (nor should it) </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550.h" line="481" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_intr.c" bodystart="106" bodyend="120"/>
+        <references refid="struct_x_uart_ns550_1a5c84c97e3c9fd52705cfe2354744ff9f" compoundref="xuartns550_8h" startline="426">XUartNs550::CallBackRef</references>
+        <references refid="struct_x_uart_ns550_1a9cef284a40cb119ea1528b008f542862" compoundref="xuartns550_8h" startline="425">XUartNs550::Handler</references>
+        <references refid="struct_x_uart_ns550_1a91623aea4128b71058dba19670cc4b42" compoundref="xuartns550_8h" startline="418">XUartNs550::IsReady</references>
+        <referencedby refid="xuartns550__intr__example_8c_1a11f829fa6a144951a80eaaf4f433dfe9" compoundref="xuartns550__intr__example_8c" startline="228" endline="370">UartNs550IntrExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__uartns550_1ga6e8579fcf317e1f30d61b4fb7fe60434" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XUartNs550_InterruptHandler</definition>
+        <argsstring>(XUartNs550 *InstancePtr)</argsstring>
+        <name>XUartNs550_InterruptHandler</name>
+        <param>
+          <type><ref refid="struct_x_uart_ns550" kindref="compound">XUartNs550</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function is the interrupt handler for the 16450/16550 UART driver. </para>        </briefdescription>
+        <detaileddescription>
+<para>It must be connected to an interrupt system by the user such that it is called when an interrupt for any 16450/16550 UART occurs. This function does not save or restore the processor context such that the user must ensure this occurs.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains a pointer to the instance of the UART that the interrupt is for.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550.h" line="484" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_intr.c" bodystart="139" bodyend="160"/>
+        <references refid="struct_x_uart_ns550_1accb5967cc8b50d37db493b436836c25c" compoundref="xuartns550_8h" startline="416">XUartNs550::BaseAddress</references>
+        <references refid="group__uartns550_1ga58ff500307c70fda263888b18fc6389c" compoundref="xuartns550__l_8h" startline="182">XUartNs550_ReadReg</references>
+        <references refid="group__uartns550_1ga36427b607774c1107afd847eb85bc4c9" compoundref="xuartns550__l_8h" startline="66">XUN_IIR_OFFSET</references>
+        <references refid="group__uartns550_1ga1770fc9ccf8e1fb1549e53fb83bf2980" compoundref="xuartns550__l_8h" startline="100">XUN_INT_ID_MASK</references>
+        <referencedby refid="xuartns550__intr__example_8c_1a11f829fa6a144951a80eaaf4f433dfe9" compoundref="xuartns550__intr__example_8c" startline="228" endline="370">UartNs550IntrExample</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2002<sp/>-<sp/>2021<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2023<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="41"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xuartns550_8h" kindref="compound">xuartns550.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xuartns550__i_8h" kindref="compound">xuartns550_i.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_io.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>NoInterruptHandler(<ref refid="struct_x_uart_ns550" kindref="compound">XUartNs550</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>ReceiveStatusHandler(<ref refid="struct_x_uart_ns550" kindref="compound">XUartNs550</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>ReceiveTimeoutHandler(<ref refid="struct_x_uart_ns550" kindref="compound">XUartNs550</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>ReceiveDataHandler(<ref refid="struct_x_uart_ns550" kindref="compound">XUartNs550</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>SendDataHandler(<ref refid="struct_x_uart_ns550" kindref="compound">XUartNs550</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>ModemHandler(<ref refid="struct_x_uart_ns550" kindref="compound">XUartNs550</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>void<sp/>(*Handler)(<ref refid="struct_x_uart_ns550" kindref="compound">XUartNs550</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>The<sp/>following<sp/>tables<sp/>is<sp/>a<sp/>function<sp/>pointer<sp/>table<sp/>that<sp/>contains<sp/>pointers</highlight></codeline>
+<codeline lineno="67"><highlight class="comment"><sp/>*<sp/>to<sp/>each<sp/>of<sp/>the<sp/>handlers<sp/>for<sp/>specific<sp/>kinds<sp/>of<sp/>interrupts.<sp/>The<sp/>table<sp/>is</highlight></codeline>
+<codeline lineno="68"><highlight class="comment"><sp/>*<sp/>indexed<sp/>by<sp/>the<sp/>value<sp/>read<sp/>from<sp/>the<sp/>interrupt<sp/>ID<sp/>register.</highlight></codeline>
+<codeline lineno="69"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>Handler<sp/>HandlerTable[13]<sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ModemHandler,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>0<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>NoInterruptHandler,<sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>1<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SendDataHandler,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>2<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>NULL,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>3<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ReceiveDataHandler,<sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>4<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>NULL,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>5<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ReceiveStatusHandler,<sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>6<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>NULL,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>7<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>NULL,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>8<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>NULL,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>9<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>NULL,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>10<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>NULL,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>11<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ReceiveTimeoutHandler<sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>12<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="84"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"></highlight></codeline>
+<codeline lineno="86"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="106" refid="group__uartns550_1gadf7c4826f92d5e8fd70763f4448a360d" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__uartns550_1gadf7c4826f92d5e8fd70763f4448a360d" kindref="member">XUartNs550_SetHandler</ref>(<ref refid="struct_x_uart_ns550" kindref="compound">XUartNs550</ref><sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__uartns550_1gae4e97640db5af678d474f3398045d64a" kindref="member">XUartNs550_Handler</ref><sp/>FuncPtr,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallBackRef)</highlight></codeline>
+<codeline lineno="108"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="110"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Assert<sp/>validates<sp/>the<sp/>input<sp/>arguments</highlight></codeline>
+<codeline lineno="111"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>CallBackRef<sp/>not<sp/>checked,<sp/>no<sp/>way<sp/>to<sp/>know<sp/>what<sp/>is<sp/>valid</highlight></codeline>
+<codeline lineno="112"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="113"><highlight class="normal"></highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(FuncPtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_uart_ns550_1a91623aea4128b71058dba19670cc4b42" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"></highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_uart_ns550_1a9cef284a40cb119ea1528b008f542862" kindref="member">Handler</ref><sp/>=<sp/>FuncPtr;</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_uart_ns550_1a5c84c97e3c9fd52705cfe2354744ff9f" kindref="member">CallBackRef</ref><sp/>=<sp/>CallBackRef;</highlight></codeline>
+<codeline lineno="120"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"></highlight></codeline>
+<codeline lineno="122"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="139" refid="group__uartns550_1ga6e8579fcf317e1f30d61b4fb7fe60434" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__uartns550_1ga6e8579fcf317e1f30d61b4fb7fe60434" kindref="member">XUartNs550_InterruptHandler</ref>(<ref refid="struct_x_uart_ns550" kindref="compound">XUartNs550</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="140"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>IsrStatus;</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"></highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"></highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="146"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Read<sp/>the<sp/>interrupt<sp/>ID<sp/>register<sp/>to<sp/>determine<sp/>which,<sp/>only<sp/>one,</highlight></codeline>
+<codeline lineno="147"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>interrupt<sp/>is<sp/>active</highlight></codeline>
+<codeline lineno="148"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IsrStatus<sp/>=<sp/>(u8)<ref refid="group__uartns550_1ga58ff500307c70fda263888b18fc6389c" kindref="member">XUartNs550_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_uart_ns550_1accb5967cc8b50d37db493b436836c25c" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__uartns550_1ga36427b607774c1107afd847eb85bc4c9" kindref="member">XUN_IIR_OFFSET</ref>)<sp/>&amp;</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__uartns550_1ga1770fc9ccf8e1fb1549e53fb83bf2980" kindref="member">XUN_INT_ID_MASK</ref>;</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"></highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="154"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Make<sp/>sure<sp/>the<sp/>handler<sp/>table<sp/>has<sp/>a<sp/>handler<sp/>defined<sp/>for<sp/>the<sp/>interrupt</highlight></codeline>
+<codeline lineno="155"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>that<sp/>is<sp/>active,<sp/>and<sp/>then<sp/>call<sp/>the<sp/>handler</highlight></codeline>
+<codeline lineno="156"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(HandlerTable[IsrStatus]<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"></highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>HandlerTable[IsrStatus](InstancePtr);</highlight></codeline>
+<codeline lineno="160"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"></highlight></codeline>
+<codeline lineno="162"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="180"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>NoInterruptHandler(<ref refid="struct_x_uart_ns550" kindref="compound">XUartNs550</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="181"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="182"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/>u32<sp/>LsrRegister;</highlight></codeline>
+<codeline lineno="183"><highlight class="normal"></highlight></codeline>
+<codeline lineno="184"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="185"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Reading<sp/>the<sp/>ID<sp/>register<sp/>clears<sp/>the<sp/>currently<sp/>asserted<sp/>interrupts</highlight></codeline>
+<codeline lineno="186"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="187"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LsrRegister<sp/>=<sp/><ref refid="group__uartns550_1gacfbf9e5ce401ea4b07a19752802926f7" kindref="member">XUartNs550_GetLineStatusReg</ref>(InstancePtr-&gt;<ref refid="struct_x_uart_ns550_1accb5967cc8b50d37db493b436836c25c" kindref="member">BaseAddress</ref>);</highlight></codeline>
+<codeline lineno="188"><highlight class="normal"></highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="190"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Update<sp/>the<sp/>stats<sp/>to<sp/>reflect<sp/>any<sp/>errors<sp/>that<sp/>might<sp/>be<sp/>read</highlight></codeline>
+<codeline lineno="191"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="192"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XUartNs550_UpdateStats(InstancePtr,<sp/>(u8)LsrRegister);</highlight></codeline>
+<codeline lineno="193"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="194"><highlight class="normal"></highlight></codeline>
+<codeline lineno="195"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="212"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>ReceiveStatusHandler(<ref refid="struct_x_uart_ns550" kindref="compound">XUartNs550</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="213"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="214"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>LsrRegister;</highlight></codeline>
+<codeline lineno="215"><highlight class="normal"></highlight></codeline>
+<codeline lineno="216"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="217"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>If<sp/>there<sp/>are<sp/>bytes<sp/>still<sp/>to<sp/>be<sp/>received<sp/>in<sp/>the<sp/>specified<sp/>buffer</highlight></codeline>
+<codeline lineno="218"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>go<sp/>ahead<sp/>and<sp/>receive<sp/>them</highlight></codeline>
+<codeline lineno="219"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="220"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_uart_ns550_1ab54b7f86adf3dc90af130717e7abe1da" kindref="member">ReceiveBuffer</ref>.<ref refid="struct_x_uart_ns550_buffer_1a3ed337f8095b814045280a7903a10630" kindref="member">RemainingBytes</ref><sp/>!=<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="221"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__uartns550_1ga6df754edf91aea638537a15536d4d34e" kindref="member">XUartNs550_ReceiveBuffer</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="222"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="223"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="224"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Reading<sp/>the<sp/>ID<sp/>register<sp/>clears<sp/>the<sp/>currently<sp/>asserted</highlight></codeline>
+<codeline lineno="225"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>interrupts<sp/>and<sp/>this<sp/>must<sp/>be<sp/>done<sp/>since<sp/>there<sp/>was<sp/>no<sp/>data</highlight></codeline>
+<codeline lineno="226"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>to<sp/>receive,<sp/>update<sp/>the<sp/>status<sp/>for<sp/>the<sp/>status<sp/>read</highlight></codeline>
+<codeline lineno="227"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="228"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LsrRegister<sp/>=</highlight></codeline>
+<codeline lineno="229"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__uartns550_1gacfbf9e5ce401ea4b07a19752802926f7" kindref="member">XUartNs550_GetLineStatusReg</ref>(InstancePtr-&gt;<ref refid="struct_x_uart_ns550_1accb5967cc8b50d37db493b436836c25c" kindref="member">BaseAddress</ref>);</highlight></codeline>
+<codeline lineno="230"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XUartNs550_UpdateStats(InstancePtr,<sp/>(u8)LsrRegister);</highlight></codeline>
+<codeline lineno="231"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="232"><highlight class="normal"></highlight></codeline>
+<codeline lineno="233"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="234"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Call<sp/>the<sp/>application<sp/>handler<sp/>to<sp/>indicate<sp/>that<sp/>there<sp/>is<sp/>a<sp/>receive</highlight></codeline>
+<codeline lineno="235"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>error<sp/>or<sp/>a<sp/>break<sp/>interrupt,<sp/>if<sp/>the<sp/>application<sp/>cares<sp/>about<sp/>the</highlight></codeline>
+<codeline lineno="236"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>error<sp/>it<sp/>call<sp/>a<sp/>function<sp/>to<sp/>get<sp/>the<sp/>last<sp/>errors</highlight></codeline>
+<codeline lineno="237"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="238"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_uart_ns550_1a9cef284a40cb119ea1528b008f542862" kindref="member">Handler</ref>(InstancePtr-&gt;<ref refid="struct_x_uart_ns550_1a5c84c97e3c9fd52705cfe2354744ff9f" kindref="member">CallBackRef</ref>,<sp/><ref refid="group__uartns550_1ga658d137ce80d2dba58593fdc9266eded" kindref="member">XUN_EVENT_RECV_ERROR</ref>,</highlight></codeline>
+<codeline lineno="239"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_uart_ns550_1ab54b7f86adf3dc90af130717e7abe1da" kindref="member">ReceiveBuffer</ref>.<ref refid="struct_x_uart_ns550_buffer_1a4dcea1c6eeab4b433d5e2528bb8df23c" kindref="member">RequestedBytes</ref><sp/>-</highlight></codeline>
+<codeline lineno="240"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_uart_ns550_1ab54b7f86adf3dc90af130717e7abe1da" kindref="member">ReceiveBuffer</ref>.<ref refid="struct_x_uart_ns550_buffer_1a3ed337f8095b814045280a7903a10630" kindref="member">RemainingBytes</ref>);</highlight></codeline>
+<codeline lineno="241"><highlight class="normal"></highlight></codeline>
+<codeline lineno="242"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="243"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Update<sp/>the<sp/>receive<sp/>stats<sp/>to<sp/>reflect<sp/>the<sp/>receive<sp/>interrupt</highlight></codeline>
+<codeline lineno="244"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="245"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_uart_ns550_1afa9d8ab9f317702502fdc31e6272535a" kindref="member">Stats</ref>.<ref refid="struct_x_uart_ns550_stats_1a9acf15361c4758bf0e0f6f2b8b8e9144" kindref="member">StatusInterrupts</ref>++;</highlight></codeline>
+<codeline lineno="246"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="247"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="262"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>ReceiveTimeoutHandler(<ref refid="struct_x_uart_ns550" kindref="compound">XUartNs550</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="263"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="264"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Event;</highlight></codeline>
+<codeline lineno="265"><highlight class="normal"></highlight></codeline>
+<codeline lineno="266"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="267"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>If<sp/>there<sp/>are<sp/>bytes<sp/>still<sp/>to<sp/>be<sp/>received<sp/>in<sp/>the<sp/>specified<sp/>buffer</highlight></codeline>
+<codeline lineno="268"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>go<sp/>ahead<sp/>and<sp/>receive<sp/>them</highlight></codeline>
+<codeline lineno="269"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="270"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_uart_ns550_1ab54b7f86adf3dc90af130717e7abe1da" kindref="member">ReceiveBuffer</ref>.<ref refid="struct_x_uart_ns550_buffer_1a3ed337f8095b814045280a7903a10630" kindref="member">RemainingBytes</ref><sp/>!=<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="271"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__uartns550_1ga6df754edf91aea638537a15536d4d34e" kindref="member">XUartNs550_ReceiveBuffer</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="272"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="273"><highlight class="normal"></highlight></codeline>
+<codeline lineno="274"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="275"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>If<sp/>there<sp/>are<sp/>no<sp/>more<sp/>bytes<sp/>to<sp/>receive<sp/>then<sp/>indicate<sp/>that<sp/>this<sp/>is</highlight></codeline>
+<codeline lineno="276"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>not<sp/>a<sp/>receive<sp/>timeout<sp/>but<sp/>the<sp/>end<sp/>of<sp/>the<sp/>buffer<sp/>reached,<sp/>a<sp/>timeout</highlight></codeline>
+<codeline lineno="277"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>normally<sp/>occurs<sp/>if<sp/>#<sp/>of<sp/>bytes<sp/>is<sp/>not<sp/>divisible<sp/>by<sp/>FIFO<sp/>threshold,</highlight></codeline>
+<codeline lineno="278"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>don&apos;t<sp/>rely<sp/>on<sp/>previous<sp/>test<sp/>of<sp/>remaining<sp/>bytes<sp/>since<sp/>receive<sp/>function</highlight></codeline>
+<codeline lineno="279"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>updates<sp/>it</highlight></codeline>
+<codeline lineno="280"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="281"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_uart_ns550_1ab54b7f86adf3dc90af130717e7abe1da" kindref="member">ReceiveBuffer</ref>.<ref refid="struct_x_uart_ns550_buffer_1a3ed337f8095b814045280a7903a10630" kindref="member">RemainingBytes</ref><sp/>!=<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="282"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Event<sp/>=<sp/><ref refid="group__uartns550_1gadcf08384f79c532d7476ef470eeef32a" kindref="member">XUN_EVENT_RECV_TIMEOUT</ref>;</highlight></codeline>
+<codeline lineno="283"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="284"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Event<sp/>=<sp/><ref refid="group__uartns550_1gabc9845fc2ec5078c1beea2b1e1f8458c" kindref="member">XUN_EVENT_RECV_DATA</ref>;</highlight></codeline>
+<codeline lineno="285"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="286"><highlight class="normal"></highlight></codeline>
+<codeline lineno="287"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="288"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Call<sp/>the<sp/>application<sp/>handler<sp/>to<sp/>indicate<sp/>that<sp/>there<sp/>is<sp/>a<sp/>receive</highlight></codeline>
+<codeline lineno="289"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>timeout<sp/>or<sp/>data<sp/>event</highlight></codeline>
+<codeline lineno="290"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="291"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_uart_ns550_1a9cef284a40cb119ea1528b008f542862" kindref="member">Handler</ref>(InstancePtr-&gt;<ref refid="struct_x_uart_ns550_1a5c84c97e3c9fd52705cfe2354744ff9f" kindref="member">CallBackRef</ref>,<sp/>Event,</highlight></codeline>
+<codeline lineno="292"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_uart_ns550_1ab54b7f86adf3dc90af130717e7abe1da" kindref="member">ReceiveBuffer</ref>.<ref refid="struct_x_uart_ns550_buffer_1a4dcea1c6eeab4b433d5e2528bb8df23c" kindref="member">RequestedBytes</ref><sp/>-</highlight></codeline>
+<codeline lineno="293"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_uart_ns550_1ab54b7f86adf3dc90af130717e7abe1da" kindref="member">ReceiveBuffer</ref>.<ref refid="struct_x_uart_ns550_buffer_1a3ed337f8095b814045280a7903a10630" kindref="member">RemainingBytes</ref>);</highlight></codeline>
+<codeline lineno="294"><highlight class="normal"></highlight></codeline>
+<codeline lineno="295"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="296"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Update<sp/>the<sp/>receive<sp/>stats<sp/>to<sp/>reflect<sp/>the<sp/>receive<sp/>interrupt</highlight></codeline>
+<codeline lineno="297"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="298"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_uart_ns550_1afa9d8ab9f317702502fdc31e6272535a" kindref="member">Stats</ref>.<ref refid="struct_x_uart_ns550_stats_1ab2e33346a9d877573006f4290958922f" kindref="member">ReceiveInterrupts</ref>++;</highlight></codeline>
+<codeline lineno="299"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="300"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="313"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>ReceiveDataHandler(<ref refid="struct_x_uart_ns550" kindref="compound">XUartNs550</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="314"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="315"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Event;</highlight></codeline>
+<codeline lineno="316"><highlight class="normal"></highlight></codeline>
+<codeline lineno="317"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="318"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>If<sp/>there<sp/>are<sp/>bytes<sp/>still<sp/>to<sp/>be<sp/>received<sp/>in<sp/>the<sp/>specified<sp/>buffer</highlight></codeline>
+<codeline lineno="319"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>go<sp/>ahead<sp/>and<sp/>receive<sp/>them</highlight></codeline>
+<codeline lineno="320"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="321"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_uart_ns550_1ab54b7f86adf3dc90af130717e7abe1da" kindref="member">ReceiveBuffer</ref>.<ref refid="struct_x_uart_ns550_buffer_1a3ed337f8095b814045280a7903a10630" kindref="member">RemainingBytes</ref><sp/>!=<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="322"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__uartns550_1ga6df754edf91aea638537a15536d4d34e" kindref="member">XUartNs550_ReceiveBuffer</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="323"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="324"><highlight class="normal"></highlight></codeline>
+<codeline lineno="325"><highlight class="normal"></highlight></codeline>
+<codeline lineno="326"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_uart_ns550_1ab54b7f86adf3dc90af130717e7abe1da" kindref="member">ReceiveBuffer</ref>.<ref refid="struct_x_uart_ns550_buffer_1a3ed337f8095b814045280a7903a10630" kindref="member">RemainingBytes</ref><sp/>!=<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="327"><highlight class="normal"></highlight></codeline>
+<codeline lineno="328"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="329"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>If<sp/>there<sp/>are<sp/>more<sp/>bytes<sp/>to<sp/>receive<sp/>then<sp/>indicate<sp/>that<sp/>this<sp/>is</highlight></codeline>
+<codeline lineno="330"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>a<sp/>Receive<sp/>Timeout.</highlight></codeline>
+<codeline lineno="331"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>This<sp/>happens<sp/>in<sp/>the<sp/>case<sp/>the<sp/>number<sp/>of<sp/>bytes<sp/>received<sp/>equal</highlight></codeline>
+<codeline lineno="332"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>to<sp/>the<sp/>FIFO<sp/>threshold<sp/>as<sp/>the<sp/>Timeout<sp/>Interrupt<sp/>is<sp/>masked</highlight></codeline>
+<codeline lineno="333"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="334"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Event<sp/>=<sp/><ref refid="group__uartns550_1gadcf08384f79c532d7476ef470eeef32a" kindref="member">XUN_EVENT_RECV_TIMEOUT</ref>;</highlight></codeline>
+<codeline lineno="335"><highlight class="normal"></highlight></codeline>
+<codeline lineno="336"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="337"><highlight class="normal"></highlight></codeline>
+<codeline lineno="338"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="339"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>If<sp/>the<sp/>last<sp/>byte<sp/>of<sp/>a<sp/>message<sp/>was<sp/>received<sp/>then<sp/>call<sp/>the</highlight></codeline>
+<codeline lineno="340"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>application<sp/>handler</highlight></codeline>
+<codeline lineno="341"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="342"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Event<sp/>=<sp/><ref refid="group__uartns550_1gabc9845fc2ec5078c1beea2b1e1f8458c" kindref="member">XUN_EVENT_RECV_DATA</ref>;</highlight></codeline>
+<codeline lineno="343"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="344"><highlight class="normal"></highlight></codeline>
+<codeline lineno="345"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="346"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Call<sp/>the<sp/>application<sp/>handler<sp/>to<sp/>indicate<sp/>that<sp/>there<sp/>is<sp/>a<sp/>receive</highlight></codeline>
+<codeline lineno="347"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>timeout<sp/>or<sp/>data<sp/>event</highlight></codeline>
+<codeline lineno="348"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="349"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_uart_ns550_1a9cef284a40cb119ea1528b008f542862" kindref="member">Handler</ref>(InstancePtr-&gt;<ref refid="struct_x_uart_ns550_1a5c84c97e3c9fd52705cfe2354744ff9f" kindref="member">CallBackRef</ref>,<sp/>Event,</highlight></codeline>
+<codeline lineno="350"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_uart_ns550_1ab54b7f86adf3dc90af130717e7abe1da" kindref="member">ReceiveBuffer</ref>.<ref refid="struct_x_uart_ns550_buffer_1a4dcea1c6eeab4b433d5e2528bb8df23c" kindref="member">RequestedBytes</ref><sp/>-</highlight></codeline>
+<codeline lineno="351"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_uart_ns550_1ab54b7f86adf3dc90af130717e7abe1da" kindref="member">ReceiveBuffer</ref>.<ref refid="struct_x_uart_ns550_buffer_1a3ed337f8095b814045280a7903a10630" kindref="member">RemainingBytes</ref>);</highlight></codeline>
+<codeline lineno="352"><highlight class="normal"></highlight></codeline>
+<codeline lineno="353"><highlight class="normal"></highlight></codeline>
+<codeline lineno="354"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="355"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Update<sp/>the<sp/>receive<sp/>stats<sp/>to<sp/>reflect<sp/>the<sp/>receive<sp/>interrupt</highlight></codeline>
+<codeline lineno="356"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="357"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_uart_ns550_1afa9d8ab9f317702502fdc31e6272535a" kindref="member">Stats</ref>.<ref refid="struct_x_uart_ns550_stats_1ab2e33346a9d877573006f4290958922f" kindref="member">ReceiveInterrupts</ref>++;</highlight></codeline>
+<codeline lineno="358"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="359"><highlight class="normal"></highlight></codeline>
+<codeline lineno="360"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="373"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>SendDataHandler(<ref refid="struct_x_uart_ns550" kindref="compound">XUartNs550</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="374"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="375"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>IerRegister;</highlight></codeline>
+<codeline lineno="376"><highlight class="normal"></highlight></codeline>
+<codeline lineno="377"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="378"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>If<sp/>there<sp/>are<sp/>not<sp/>bytes<sp/>to<sp/>be<sp/>sent<sp/>from<sp/>the<sp/>specified<sp/>buffer<sp/>then</highlight></codeline>
+<codeline lineno="379"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>disable<sp/>the<sp/>transmit<sp/>interrupt<sp/>so<sp/>it<sp/>will<sp/>stop<sp/>interrupting<sp/>as<sp/>it</highlight></codeline>
+<codeline lineno="380"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>interrupts<sp/>any<sp/>time<sp/>the<sp/>FIFO<sp/>is<sp/>empty</highlight></codeline>
+<codeline lineno="381"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="382"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_uart_ns550_1a6e94aedae6660c25485e826e8488f081" kindref="member">SendBuffer</ref>.<ref refid="struct_x_uart_ns550_buffer_1a3ed337f8095b814045280a7903a10630" kindref="member">RemainingBytes</ref><sp/>==<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="383"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IerRegister<sp/>=<sp/><ref refid="group__uartns550_1ga58ff500307c70fda263888b18fc6389c" kindref="member">XUartNs550_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_uart_ns550_1accb5967cc8b50d37db493b436836c25c" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="384"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__uartns550_1ga270ca9810a3fde617c7fd9f5bc707e6d" kindref="member">XUN_IER_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="385"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__uartns550_1gae648146666080fdac4f6949b6ed3101a" kindref="member">XUartNs550_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_uart_ns550_1accb5967cc8b50d37db493b436836c25c" kindref="member">BaseAddress</ref>,<sp/><ref refid="group__uartns550_1ga270ca9810a3fde617c7fd9f5bc707e6d" kindref="member">XUN_IER_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="386"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IerRegister<sp/>&amp;<sp/>~<ref refid="group__uartns550_1ga8536fc383eb2b08497a576b186547930" kindref="member">XUN_IER_TX_EMPTY</ref>);</highlight></codeline>
+<codeline lineno="387"><highlight class="normal"></highlight></codeline>
+<codeline lineno="388"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="389"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Call<sp/>the<sp/>application<sp/>handler<sp/>to<sp/>indicate<sp/>the<sp/>data</highlight></codeline>
+<codeline lineno="390"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>has<sp/>been<sp/>sent</highlight></codeline>
+<codeline lineno="391"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="392"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_uart_ns550_1a9cef284a40cb119ea1528b008f542862" kindref="member">Handler</ref>(InstancePtr-&gt;<ref refid="struct_x_uart_ns550_1a5c84c97e3c9fd52705cfe2354744ff9f" kindref="member">CallBackRef</ref>,</highlight></codeline>
+<codeline lineno="393"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__uartns550_1ga935c9a27e790c469337b884f42db9266" kindref="member">XUN_EVENT_SENT_DATA</ref>,</highlight></codeline>
+<codeline lineno="394"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_uart_ns550_1a6e94aedae6660c25485e826e8488f081" kindref="member">SendBuffer</ref>.<ref refid="struct_x_uart_ns550_buffer_1a4dcea1c6eeab4b433d5e2528bb8df23c" kindref="member">RequestedBytes</ref><sp/>-</highlight></codeline>
+<codeline lineno="395"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_uart_ns550_1a6e94aedae6660c25485e826e8488f081" kindref="member">SendBuffer</ref>.<ref refid="struct_x_uart_ns550_buffer_1a3ed337f8095b814045280a7903a10630" kindref="member">RemainingBytes</ref>);</highlight></codeline>
+<codeline lineno="396"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="397"><highlight class="normal"></highlight></codeline>
+<codeline lineno="398"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="399"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Otherwise<sp/>there<sp/>is<sp/>still<sp/>more<sp/>data<sp/>to<sp/>send<sp/>in<sp/>the<sp/>specified<sp/>buffer</highlight></codeline>
+<codeline lineno="400"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>so<sp/>go<sp/>ahead<sp/>and<sp/>send<sp/>it</highlight></codeline>
+<codeline lineno="401"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="402"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="403"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__uartns550_1ga9046228564fdafeb5715dce1c0b46766" kindref="member">XUartNs550_SendBuffer</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="404"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="405"><highlight class="normal"></highlight></codeline>
+<codeline lineno="406"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="407"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Update<sp/>the<sp/>transmit<sp/>stats<sp/>to<sp/>reflect<sp/>the<sp/>transmit<sp/>interrupt</highlight></codeline>
+<codeline lineno="408"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="409"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_uart_ns550_1afa9d8ab9f317702502fdc31e6272535a" kindref="member">Stats</ref>.<ref refid="struct_x_uart_ns550_stats_1afeb7865c20a883942eb6e5d749c079eb" kindref="member">TransmitInterrupts</ref>++;</highlight></codeline>
+<codeline lineno="410"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="411"><highlight class="normal"></highlight></codeline>
+<codeline lineno="412"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="425"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>ModemHandler(<ref refid="struct_x_uart_ns550" kindref="compound">XUartNs550</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="426"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="427"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>MsrRegister;</highlight></codeline>
+<codeline lineno="428"><highlight class="normal"></highlight></codeline>
+<codeline lineno="429"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="430"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Read<sp/>the<sp/>modem<sp/>status<sp/>register<sp/>so<sp/>that<sp/>the<sp/>interrupt<sp/>is<sp/>acknowledged</highlight></codeline>
+<codeline lineno="431"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>and<sp/>so<sp/>that<sp/>it<sp/>can<sp/>be<sp/>passed<sp/>to<sp/>the<sp/>callback<sp/>handler<sp/>with<sp/>the<sp/>event</highlight></codeline>
+<codeline lineno="432"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="433"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MsrRegister<sp/>=<sp/><ref refid="group__uartns550_1ga58ff500307c70fda263888b18fc6389c" kindref="member">XUartNs550_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_uart_ns550_1accb5967cc8b50d37db493b436836c25c" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="434"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__uartns550_1ga69e96899321d1c793301e52cb4ff7d5b" kindref="member">XUN_MSR_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="435"><highlight class="normal"></highlight></codeline>
+<codeline lineno="436"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="437"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Call<sp/>the<sp/>application<sp/>handler<sp/>to<sp/>indicate<sp/>the<sp/>modem<sp/>status<sp/>changed,</highlight></codeline>
+<codeline lineno="438"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>passing<sp/>the<sp/>modem<sp/>status<sp/>and<sp/>the<sp/>event<sp/>data<sp/>in<sp/>the<sp/>call</highlight></codeline>
+<codeline lineno="439"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="440"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_uart_ns550_1a9cef284a40cb119ea1528b008f542862" kindref="member">Handler</ref>(InstancePtr-&gt;<ref refid="struct_x_uart_ns550_1a5c84c97e3c9fd52705cfe2354744ff9f" kindref="member">CallBackRef</ref>,<sp/><ref refid="group__uartns550_1gae10be1699ad350ccd9290a85e9d07832" kindref="member">XUN_EVENT_MODEM</ref>,</highlight></codeline>
+<codeline lineno="441"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u8)<sp/>MsrRegister);</highlight></codeline>
+<codeline lineno="442"><highlight class="normal"></highlight></codeline>
+<codeline lineno="443"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="444"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Update<sp/>the<sp/>modem<sp/>stats<sp/>to<sp/>reflect<sp/>the<sp/>modem<sp/>interrupt</highlight></codeline>
+<codeline lineno="445"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="446"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_uart_ns550_1afa9d8ab9f317702502fdc31e6272535a" kindref="member">Stats</ref>.<ref refid="struct_x_uart_ns550_stats_1aa65ee74968a73e8c7b8b218faf5d3530" kindref="member">ModemInterrupts</ref>++;</highlight></codeline>
+<codeline lineno="447"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_intr.c"/>
+  </compounddef>
+</doxygen>

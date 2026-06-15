@@ -1,0 +1,296 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_emac_ps___config" kind="struct" prot="public">
+    <compoundname>XEmacPs_Config</compoundname>
+    <includes local="no">xemacps.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_emac_ps___config_1a58e0f337458ac74346205bafbd77fd05" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* XEmacPs_Config::Name</definition>
+        <argsstring></argsstring>
+        <name>Name</name>
+        <briefdescription>
+<para>Unique name of the device. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/src/xemacps.h" line="518" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/src/xemacps.h" bodystart="518" bodyend="-1"/>
+        <referencedby refid="group__emacps_1gaeb338ba25655183c84ca60ecc8ff08ea" compoundref="xemacps__sinit_8c" startline="73" endline="86">XEmacPs_LookupConfig</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_emac_ps___config_1a96d8fef7452fcad2bb1831e39751bb96" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XEmacPs_Config::BaseAddress</definition>
+        <argsstring></argsstring>
+        <name>BaseAddress</name>
+        <briefdescription>
+<para>Physical base address of IPIF registers. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/src/xemacps.h" line="522" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/src/xemacps.h" bodystart="522" bodyend="-1"/>
+        <referencedby refid="xemacps__example__intr__dma_8c_1aa91855dbce2897b52a49dd1e100c4f38" compoundref="xemacps__example__intr__dma_8c" startline="407" endline="698">EmacPsDmaIntrExample</referencedby>
+        <referencedby refid="xemacps__example__intr__dma_8c_1afa31ff7ff7de0863dde3919fa1602671" compoundref="xemacps__example__intr__dma_8c" startline="718" endline="1036">EmacPsDmaSingleFrameIntrExample</referencedby>
+        <referencedby refid="xemacps__example__util_8c_1aca39e6c6bf9a344d743f808eab6031e1" compoundref="xemacps__example__util_8c" startline="307" endline="316">EmacPsUtilEnterLocalLoopback</referencedby>
+        <referencedby refid="xemacps__example__intr__dma_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xemacps__example__intr__dma_8c" startline="344" endline="378">main</referencedby>
+        <referencedby refid="group__emacps_1gaf9913952f91b64eb8d640bea7e203b67" compoundref="xemacps_8c" startline="82" endline="133">XEmacPs_CfgInitialize</referencedby>
+        <referencedby refid="group__emacps_1ga198e6a798ce0be3a5ab09e0d102766ef" compoundref="xemacps__control_8c" startline="334" endline="345">XEmacPs_ClearHash</referencedby>
+        <referencedby refid="group__emacps_1gabb648a63fc211d57a0f8e23fc030879a" compoundref="xemacps__control_8c" startline="600" endline="746">XEmacPs_ClearOptions</referencedby>
+        <referencedby refid="group__emacps_1ga964388cc8612bbac61a794fecc6ecdfd" compoundref="xemacps__control_8c" startline="278" endline="326">XEmacPs_DeleteHash</referencedby>
+        <referencedby refid="group__emacps_1ga3c214f5026dda759dfd48441818d3a6b" compoundref="xemacps__control_8c" startline="1146" endline="1181">XEmacPs_DMABLengthUpdate</referencedby>
+        <referencedby refid="group__emacps_1ga4d40aa55e3fbbf2e29379e15d07e3bd8" compoundref="xemacps__control_8c" startline="357" endline="371">XEmacPs_GetHash</referencedby>
+        <referencedby refid="group__emacps_1gac937dc7f20125b0af5b07de435d83df4" compoundref="xemacps__control_8c" startline="122" endline="147">XEmacPs_GetMacAddress</referencedby>
+        <referencedby refid="group__emacps_1ga0d7ec49a34ff5c1b4592ad6c9830a6b0" compoundref="xemacps__control_8c" startline="819" endline="840">XEmacPs_GetOperatingSpeed</referencedby>
+        <referencedby refid="group__emacps_1ga7fc1d16432c05d4e773bed878f528184" compoundref="xemacps__intr_8c" startline="123" endline="236">XEmacPs_IntrHandler</referencedby>
+        <referencedby refid="group__emacps_1gaf2ea437d9057a36f91d322b0a4145091" compoundref="xemacps__control_8c" startline="1046" endline="1050">XEmacPs_IsCommonMdioPresent</referencedby>
+        <referencedby refid="group__emacps_1ga0cd6edb3e572b7a40f9e2891f193c584" compoundref="xemacps__control_8c" startline="983" endline="1028">XEmacPs_PhyRead</referencedby>
+        <referencedby refid="group__emacps_1ga4de9e514b9514799dbd37df83ea77f89" compoundref="xemacps__control_8c" startline="1093" endline="1134">XEmacPs_PhyWrite</referencedby>
+        <referencedby refid="group__emacps_1gadd5f487c873ef70ab8fda69b4ec3938e" compoundref="xemacps_8c" startline="324" endline="491">XEmacPs_Reset</referencedby>
+        <referencedby refid="group__emacps_1gaceedc7d23c670458153ed3ecd57d2c46" compoundref="xemacps__control_8c" startline="783" endline="804">XEmacPs_SendPausePacket</referencedby>
+        <referencedby refid="group__emacps_1gad7bc021ae0b0e7f2f64d2c2f02fdd4bd" compoundref="xemacps__control_8c" startline="208" endline="258">XEmacPs_SetHash</referencedby>
+        <referencedby refid="group__emacps_1gaf096389aeabb511be2d9d3c5df0e4658" compoundref="xemacps__control_8c" startline="66" endline="109">XEmacPs_SetMacAddress</referencedby>
+        <referencedby refid="group__emacps_1ga5d0b4b9258cdead2c0875a0853c087b3" compoundref="xemacps__control_8c" startline="918" endline="943">XEmacPs_SetMdioDivisor</referencedby>
+        <referencedby refid="group__emacps_1gae1f519684cc62697fd17f49e2658abd6" compoundref="xemacps__control_8c" startline="856" endline="883">XEmacPs_SetOperatingSpeed</referencedby>
+        <referencedby refid="group__emacps_1ga1ceab9806b4a66e5d2b71daaf9abbf0c" compoundref="xemacps__control_8c" startline="431" endline="580">XEmacPs_SetOptions</referencedby>
+        <referencedby refid="group__emacps_1ga41c143d1143d61bb5c198f0e35843d7c" compoundref="xemacps_8c" startline="521" endline="555">XEmacPs_SetQueuePtr</referencedby>
+        <referencedby refid="group__emacps_1ga90af7ddb40a6d67b84f66aacfe192599" compoundref="xemacps__control_8c" startline="388" endline="411">XEmacPs_SetTypeIdCheck</referencedby>
+        <referencedby refid="group__emacps_1ga59068c475e39ab63193369fdf252a999" compoundref="xemacps__pcs_8c" startline="44" endline="72">XEmacPs_SetupPCS</referencedby>
+        <referencedby refid="group__emacps_1gabe875d0d136e28a166363d66dd7b7f27" compoundref="xemacps_8c" startline="163" endline="237">XEmacPs_Start</referencedby>
+        <referencedby refid="group__emacps_1gaf27b057022a2e97201f6d55d61d4a3da" compoundref="xemacps_8c" startline="265" endline="289">XEmacPs_Stop</referencedby>
+        <referencedby refid="xemacps__example__intr__dma_8c_1a938f994841cac409516f536c1f5ab844" compoundref="xemacps__example__intr__dma_8c" startline="1525" endline="1680">XEmacPsClkSetup</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_emac_ps___config_1a790a88218e34631c9b3163179eb4f6cf" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XEmacPs_Config::IsCacheCoherent</definition>
+        <argsstring></argsstring>
+        <name>IsCacheCoherent</name>
+        <briefdescription>
+<para>Applicable only to A53 in EL1 mode; describes whether Cache Coherent or not. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/src/xemacps.h" line="523" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/src/xemacps.h" bodystart="523" bodyend="-1"/>
+        <referencedby refid="xemacps__example__intr__dma_8c_1afa31ff7ff7de0863dde3919fa1602671" compoundref="xemacps__example__intr__dma_8c" startline="718" endline="1036">EmacPsDmaSingleFrameIntrExample</referencedby>
+        <referencedby refid="group__emacps_1gaf9913952f91b64eb8d640bea7e203b67" compoundref="xemacps_8c" startline="82" endline="133">XEmacPs_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_emac_ps___config_1aa28d0460fb5df9f43d2d52a538f220e8" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XEmacPs_Config::IntrId</definition>
+        <argsstring></argsstring>
+        <name>IntrId</name>
+        <briefdescription>
+<para>Interrupt number. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/src/xemacps.h" line="526" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/src/xemacps.h" bodystart="526" bodyend="-1"/>
+        <referencedby refid="xemacps__example__intr__dma_8c_1aa91855dbce2897b52a49dd1e100c4f38" compoundref="xemacps__example__intr__dma_8c" startline="407" endline="698">EmacPsDmaIntrExample</referencedby>
+        <referencedby refid="group__emacps_1gaf9913952f91b64eb8d640bea7e203b67" compoundref="xemacps_8c" startline="82" endline="133">XEmacPs_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_emac_ps___config_1afdec33987e2682b4bb23f5543be5dee0" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XEmacPs_Config::IntrParent</definition>
+        <argsstring></argsstring>
+        <name>IntrParent</name>
+        <briefdescription>
+<para>Parent interrupt controller address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/src/xemacps.h" line="527" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/src/xemacps.h" bodystart="527" bodyend="-1"/>
+        <referencedby refid="xemacps__example__intr__dma_8c_1aa91855dbce2897b52a49dd1e100c4f38" compoundref="xemacps__example__intr__dma_8c" startline="407" endline="698">EmacPsDmaIntrExample</referencedby>
+        <referencedby refid="group__emacps_1gaf9913952f91b64eb8d640bea7e203b67" compoundref="xemacps_8c" startline="82" endline="133">XEmacPs_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_emac_ps___config_1a97f93711fcfffbcc27a108320d0ebb93" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XEmacPs_Config::RefClk</definition>
+        <argsstring></argsstring>
+        <name>RefClk</name>
+        <briefdescription>
+<para>Input clock. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/src/xemacps.h" line="530" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/src/xemacps.h" bodystart="530" bodyend="-1"/>
+        <referencedby refid="group__emacps_1gaf9913952f91b64eb8d640bea7e203b67" compoundref="xemacps_8c" startline="82" endline="133">XEmacPs_CfgInitialize</referencedby>
+        <referencedby refid="group__emacps_1gabe875d0d136e28a166363d66dd7b7f27" compoundref="xemacps_8c" startline="163" endline="237">XEmacPs_Start</referencedby>
+        <referencedby refid="group__emacps_1gaf27b057022a2e97201f6d55d61d4a3da" compoundref="xemacps_8c" startline="265" endline="289">XEmacPs_Stop</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_emac_ps___config_1ab8dd55dfcd445c483bc02745e5430101" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* XEmacPs_Config::PhyType</definition>
+        <argsstring></argsstring>
+        <name>PhyType</name>
+        <briefdescription>
+<para>PhyType indicates which type of PHY interface is used (MII, GMII, RGMII, etc. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/src/xemacps.h" line="533" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/src/xemacps.h" bodystart="533" bodyend="-1"/>
+        <referencedby refid="group__emacps_1gaf9913952f91b64eb8d640bea7e203b67" compoundref="xemacps_8c" startline="82" endline="133">XEmacPs_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_emac_ps___config_1a983f2c4802774cd3fd9dfa22dfa7832f" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XEmacPs_Config::PhyAddr</definition>
+        <argsstring></argsstring>
+        <name>PhyAddr</name>
+        <briefdescription>
+<para>PHY address for MDIO register access. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/src/xemacps.h" line="536" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/src/xemacps.h" bodystart="536" bodyend="-1"/>
+        <referencedby refid="group__emacps_1gaf9913952f91b64eb8d640bea7e203b67" compoundref="xemacps_8c" startline="82" endline="133">XEmacPs_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_emac_ps___config_1acab2170d4c42bad728a3dfe3090ae12b" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XEmacPs_Config::MdioProducerBaseAddr</definition>
+        <argsstring></argsstring>
+        <name>MdioProducerBaseAddr</name>
+        <briefdescription>
+<para>GEM Base address of MDIO Master. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/src/xemacps.h" line="537" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/src/xemacps.h" bodystart="537" bodyend="-1"/>
+        <referencedby refid="group__emacps_1gaf9913952f91b64eb8d640bea7e203b67" compoundref="xemacps_8c" startline="82" endline="133">XEmacPs_CfgInitialize</referencedby>
+        <referencedby refid="group__emacps_1gaf2ea437d9057a36f91d322b0a4145091" compoundref="xemacps__control_8c" startline="1046" endline="1050">XEmacPs_IsCommonMdioPresent</referencedby>
+        <referencedby refid="group__emacps_1ga0cd6edb3e572b7a40f9e2891f193c584" compoundref="xemacps__control_8c" startline="983" endline="1028">XEmacPs_PhyRead</referencedby>
+        <referencedby refid="group__emacps_1ga4de9e514b9514799dbd37df83ea77f89" compoundref="xemacps__control_8c" startline="1093" endline="1134">XEmacPs_PhyWrite</referencedby>
+        <referencedby refid="group__emacps_1gadd5f487c873ef70ab8fda69b4ec3938e" compoundref="xemacps_8c" startline="324" endline="491">XEmacPs_Reset</referencedby>
+        <referencedby refid="group__emacps_1ga5d0b4b9258cdead2c0875a0853c087b3" compoundref="xemacps__control_8c" startline="918" endline="943">XEmacPs_SetMdioDivisor</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_emac_ps___config_1a6cfab6c0bcaa8aca9c13b653e95222db" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XEmacPs_Config::GmiitoRgmiiConvPhyAddr</definition>
+        <argsstring></argsstring>
+        <name>GmiitoRgmiiConvPhyAddr</name>
+        <briefdescription>
+<para>GMII-to-RGMII converter PHY address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/src/xemacps.h" line="538" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/src/xemacps.h" bodystart="538" bodyend="-1"/>
+        <referencedby refid="group__emacps_1gaf9913952f91b64eb8d640bea7e203b67" compoundref="xemacps_8c" startline="82" endline="133">XEmacPs_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_emac_ps___config_1aa7353981b162abb41659a99ddac917c0" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XEmacPs_Config::S1GDiv0</definition>
+        <argsstring></argsstring>
+        <name>S1GDiv0</name>
+        <briefdescription>
+<para>1Gbps Clock Divider 0 </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/src/xemacps.h" line="540" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/src/xemacps.h" bodystart="540" bodyend="-1"/>
+        <referencedby refid="group__emacps_1gaf9913952f91b64eb8d640bea7e203b67" compoundref="xemacps_8c" startline="82" endline="133">XEmacPs_CfgInitialize</referencedby>
+        <referencedby refid="xemacps__example__intr__dma_8c_1a938f994841cac409516f536c1f5ab844" compoundref="xemacps__example__intr__dma_8c" startline="1525" endline="1680">XEmacPsClkSetup</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_emac_ps___config_1a7a8a5366314af6d68f2806823f156b28" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XEmacPs_Config::S1GDiv1</definition>
+        <argsstring></argsstring>
+        <name>S1GDiv1</name>
+        <briefdescription>
+<para>1Gbps Clock Divider 1 </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/src/xemacps.h" line="541" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/src/xemacps.h" bodystart="541" bodyend="-1"/>
+        <referencedby refid="group__emacps_1gaf9913952f91b64eb8d640bea7e203b67" compoundref="xemacps_8c" startline="82" endline="133">XEmacPs_CfgInitialize</referencedby>
+        <referencedby refid="xemacps__example__intr__dma_8c_1a938f994841cac409516f536c1f5ab844" compoundref="xemacps__example__intr__dma_8c" startline="1525" endline="1680">XEmacPsClkSetup</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_emac_ps___config_1a029a7af6d33fcab6730e2b9cbea59542" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XEmacPs_Config::S100MDiv0</definition>
+        <argsstring></argsstring>
+        <name>S100MDiv0</name>
+        <briefdescription>
+<para>100Mbps Clock Divider 0 </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/src/xemacps.h" line="542" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/src/xemacps.h" bodystart="542" bodyend="-1"/>
+        <referencedby refid="group__emacps_1gaf9913952f91b64eb8d640bea7e203b67" compoundref="xemacps_8c" startline="82" endline="133">XEmacPs_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_emac_ps___config_1a8dd39603fdc1a9788949931db6fa6be6" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XEmacPs_Config::S100MDiv1</definition>
+        <argsstring></argsstring>
+        <name>S100MDiv1</name>
+        <briefdescription>
+<para>100Mbps Clock Divider 1 </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/src/xemacps.h" line="543" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/src/xemacps.h" bodystart="543" bodyend="-1"/>
+        <referencedby refid="group__emacps_1gaf9913952f91b64eb8d640bea7e203b67" compoundref="xemacps_8c" startline="82" endline="133">XEmacPs_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_emac_ps___config_1a464a25eb3e35cae122f99baeb267db0e" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XEmacPs_Config::S10MDiv0</definition>
+        <argsstring></argsstring>
+        <name>S10MDiv0</name>
+        <briefdescription>
+<para>10Mbps Clock Divider 0 </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/src/xemacps.h" line="544" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/src/xemacps.h" bodystart="544" bodyend="-1"/>
+        <referencedby refid="group__emacps_1gaf9913952f91b64eb8d640bea7e203b67" compoundref="xemacps_8c" startline="82" endline="133">XEmacPs_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_emac_ps___config_1a1a2a00acc17d523fda1c3578a94f808a" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XEmacPs_Config::S10MDiv1</definition>
+        <argsstring></argsstring>
+        <name>S10MDiv1</name>
+        <briefdescription>
+<para>10Mbps Clock Divider 1 </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/src/xemacps.h" line="545" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/src/xemacps.h" bodystart="545" bodyend="-1"/>
+        <referencedby refid="group__emacps_1gaf9913952f91b64eb8d640bea7e203b67" compoundref="xemacps_8c" startline="82" endline="133">XEmacPs_CfgInitialize</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef contains configuration information for a device. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/src/xemacps.h" line="516" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/src/xemacps.h" bodystart="516" bodyend="546"/>
+    <listofallmembers>
+      <member refid="struct_x_emac_ps___config_1a96d8fef7452fcad2bb1831e39751bb96" prot="public" virt="non-virtual"><scope>XEmacPs_Config</scope><name>BaseAddress</name></member>
+      <member refid="struct_x_emac_ps___config_1a6cfab6c0bcaa8aca9c13b653e95222db" prot="public" virt="non-virtual"><scope>XEmacPs_Config</scope><name>GmiitoRgmiiConvPhyAddr</name></member>
+      <member refid="struct_x_emac_ps___config_1aa28d0460fb5df9f43d2d52a538f220e8" prot="public" virt="non-virtual"><scope>XEmacPs_Config</scope><name>IntrId</name></member>
+      <member refid="struct_x_emac_ps___config_1afdec33987e2682b4bb23f5543be5dee0" prot="public" virt="non-virtual"><scope>XEmacPs_Config</scope><name>IntrParent</name></member>
+      <member refid="struct_x_emac_ps___config_1a790a88218e34631c9b3163179eb4f6cf" prot="public" virt="non-virtual"><scope>XEmacPs_Config</scope><name>IsCacheCoherent</name></member>
+      <member refid="struct_x_emac_ps___config_1acab2170d4c42bad728a3dfe3090ae12b" prot="public" virt="non-virtual"><scope>XEmacPs_Config</scope><name>MdioProducerBaseAddr</name></member>
+      <member refid="struct_x_emac_ps___config_1a58e0f337458ac74346205bafbd77fd05" prot="public" virt="non-virtual"><scope>XEmacPs_Config</scope><name>Name</name></member>
+      <member refid="struct_x_emac_ps___config_1a983f2c4802774cd3fd9dfa22dfa7832f" prot="public" virt="non-virtual"><scope>XEmacPs_Config</scope><name>PhyAddr</name></member>
+      <member refid="struct_x_emac_ps___config_1ab8dd55dfcd445c483bc02745e5430101" prot="public" virt="non-virtual"><scope>XEmacPs_Config</scope><name>PhyType</name></member>
+      <member refid="struct_x_emac_ps___config_1a97f93711fcfffbcc27a108320d0ebb93" prot="public" virt="non-virtual"><scope>XEmacPs_Config</scope><name>RefClk</name></member>
+      <member refid="struct_x_emac_ps___config_1a029a7af6d33fcab6730e2b9cbea59542" prot="public" virt="non-virtual"><scope>XEmacPs_Config</scope><name>S100MDiv0</name></member>
+      <member refid="struct_x_emac_ps___config_1a8dd39603fdc1a9788949931db6fa6be6" prot="public" virt="non-virtual"><scope>XEmacPs_Config</scope><name>S100MDiv1</name></member>
+      <member refid="struct_x_emac_ps___config_1a464a25eb3e35cae122f99baeb267db0e" prot="public" virt="non-virtual"><scope>XEmacPs_Config</scope><name>S10MDiv0</name></member>
+      <member refid="struct_x_emac_ps___config_1a1a2a00acc17d523fda1c3578a94f808a" prot="public" virt="non-virtual"><scope>XEmacPs_Config</scope><name>S10MDiv1</name></member>
+      <member refid="struct_x_emac_ps___config_1aa7353981b162abb41659a99ddac917c0" prot="public" virt="non-virtual"><scope>XEmacPs_Config</scope><name>S1GDiv0</name></member>
+      <member refid="struct_x_emac_ps___config_1a7a8a5366314af6d68f2806823f156b28" prot="public" virt="non-virtual"><scope>XEmacPs_Config</scope><name>S1GDiv1</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,2386 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="bigdigits_8h" kind="file">
+    <compoundname>bigdigits.h</compoundname>
+    <includes local="no">stdlib.h</includes>
+    <includes refid="bigdtypes_8h" local="yes">bigdtypes.h</includes>
+    <includedby refid="bigdigits_8c" local="yes">bigdigits.c</includedby>
+    <includedby refid="xhdcp22__common_8h" local="yes">xhdcp22_common.h</includedby>
+    <incdepgraph>
+      <node id="50">
+        <label>stdlib.h</label>
+      </node>
+      <node id="49">
+        <label>bigdigits.h</label>
+        <link refid="bigdigits.h"/>
+        <childnode refid="50" relation="include">
+        </childnode>
+        <childnode refid="51" relation="include">
+        </childnode>
+      </node>
+      <node id="52">
+        <label>stddef.h</label>
+      </node>
+      <node id="51">
+        <label>bigdtypes.h</label>
+        <childnode refid="52" relation="include">
+        </childnode>
+        <childnode refid="53" relation="include">
+        </childnode>
+      </node>
+      <node id="53">
+        <label>xil_types.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="55">
+        <label>bigdigits.c</label>
+      </node>
+      <node id="54">
+        <label>bigdigits.h</label>
+        <link refid="bigdigits.h"/>
+        <childnode refid="55" relation="include">
+        </childnode>
+        <childnode refid="56" relation="include">
+        </childnode>
+      </node>
+      <node id="57">
+        <label>hdcp_key_utility.c</label>
+      </node>
+      <node id="58">
+        <label>hmac.c</label>
+        <link refid="hmac_8c"/>
+      </node>
+      <node id="56">
+        <label>xhdcp22_common.h</label>
+        <link refid="xhdcp22__common_8h"/>
+        <childnode refid="57" relation="include">
+        </childnode>
+        <childnode refid="58" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="bigdigits_8h_1ab327a32aba8721bc5fb2119a624eee57" prot="public" static="no">
+        <name>NO_ALLOCS</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/bigdigits.h" line="33" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/bigdigits.h" bodystart="33" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="bigdigits_8h_1ab56c606f91a4f8d105bbf3bbe0640b6c" prot="public" static="no">
+        <type>uint32_t</type>
+        <definition>typedef uint32_t DIGIT_T</definition>
+        <argsstring></argsstring>
+        <name>DIGIT_T</name>
+        <briefdescription>
+<para>The basic BigDigit element, an unsigned 32-bit integer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/bigdigits.h" line="41" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/bigdigits.h" bodystart="41" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="bigdigits_8h_1a77bf097cd0692608f06b524ff1ef04db" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 mpAdd</definition>
+        <argsstring>(u32 w[], const u32 u[], const u32 v[], size_t ndigits)</argsstring>
+        <name>mpAdd</name>
+        <param>
+          <type>u32</type>
+          <declname>w</declname>
+          <array>[]</array>
+        </param>
+        <param>
+          <type>const u32</type>
+          <declname>u</declname>
+          <array>[]</array>
+        </param>
+        <param>
+          <type>const u32</type>
+          <declname>v</declname>
+          <array>[]</array>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>ndigits</declname>
+        </param>
+        <briefdescription>
+<para>Computes w = u + v, returns carry. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/bigdigits.h" line="100" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/bigdigits.c" bodystart="510" bodyend="545"/>
+        <referencedby refid="bigdigits_8h_1a453714cb1ce75fc02fceceaf8b35a75a" compoundref="bigdigits_8c" startline="1997" endline="2053">mpCubeRoot</referencedby>
+        <referencedby refid="bigdigits_8h_1a2a9beba8b1b46a0f415197f512dff569" compoundref="bigdigits_8c" startline="693" endline="846">mpDivide</referencedby>
+        <referencedby refid="bigdigits_8h_1a644f6447391ea04fdb9ba7f8b5d78de7" compoundref="bigdigits_8c" startline="1766" endline="1846">mpModInv</referencedby>
+        <referencedby refid="bigdigits_8h_1a0d06f675857ffa2d8cf5c06e40ce1f98" compoundref="bigdigits_8c" startline="1941" endline="1995">mpSqrt</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="bigdigits_8h_1aa160f8403c9e4e296c4cfe1afa98f5d7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 mpSubtract</definition>
+        <argsstring>(u32 w[], const u32 u[], const u32 v[], size_t ndigits)</argsstring>
+        <name>mpSubtract</name>
+        <param>
+          <type>u32</type>
+          <declname>w</declname>
+          <array>[]</array>
+        </param>
+        <param>
+          <type>const u32</type>
+          <declname>u</declname>
+          <array>[]</array>
+        </param>
+        <param>
+          <type>const u32</type>
+          <declname>v</declname>
+          <array>[]</array>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>ndigits</declname>
+        </param>
+        <briefdescription>
+<para>Computes w = u - v, returns borrow. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/bigdigits.h" line="103" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/bigdigits.c" bodystart="547" bodyend="582"/>
+        <referencedby refid="bigdigits_8h_1ae0571c6d22df02f1d06ad35d85df6f67" compoundref="bigdigits_8c" startline="1848" endline="1939">mpGcd</referencedby>
+        <referencedby refid="bigdigits_8h_1a644f6447391ea04fdb9ba7f8b5d78de7" compoundref="bigdigits_8c" startline="1766" endline="1846">mpModInv</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="bigdigits_8h_1aa57007f55945e5caad5fa4e4da0ab2ec" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int mpMultiply</definition>
+        <argsstring>(u32 w[], const u32 u[], const u32 v[], size_t ndigits)</argsstring>
+        <name>mpMultiply</name>
+        <param>
+          <type>u32</type>
+          <declname>w</declname>
+          <array>[]</array>
+        </param>
+        <param>
+          <type>const u32</type>
+          <declname>u</declname>
+          <array>[]</array>
+        </param>
+        <param>
+          <type>const u32</type>
+          <declname>v</declname>
+          <array>[]</array>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>ndigits</declname>
+        </param>
+        <briefdescription>
+<para>Computes product w = u * v. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="out">w</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>To receive the product, an array of size 2 x <computeroutput>ndigits</computeroutput> </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">u</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>An array of size <computeroutput>ndigits</computeroutput> </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">v</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>An array of size <computeroutput>ndigits</computeroutput> </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">ndigits</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>size of arrays <computeroutput>u</computeroutput> and <computeroutput>v</computeroutput> </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="warning"><para>The product must be of size 2 x <computeroutput>ndigits</computeroutput> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/bigdigits.h" line="112" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/bigdigits.c" bodystart="584" bodyend="637"/>
+        <references refid="bigdigits_8h_1a8479a1c0578e65b051674817c5bd77b9" compoundref="bigdigits_8c" startline="271" endline="331">spMultiply</references>
+        <referencedby refid="bigdigits_8h_1a644f6447391ea04fdb9ba7f8b5d78de7" compoundref="bigdigits_8c" startline="1766" endline="1846">mpModInv</referencedby>
+        <referencedby refid="bigdigits_8h_1ab38130bb56dec16ad7ee185182e689e0" compoundref="bigdigits_8c" startline="1742" endline="1764">mpModMult</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="bigdigits_8h_1a2a9beba8b1b46a0f415197f512dff569" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int mpDivide</definition>
+        <argsstring>(u32 q[], u32 r[], const u32 u[], size_t udigits, u32 v[], size_t vdigits)</argsstring>
+        <name>mpDivide</name>
+        <param>
+          <type>u32</type>
+          <declname>q</declname>
+          <array>[]</array>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>r</declname>
+          <array>[]</array>
+        </param>
+        <param>
+          <type>const u32</type>
+          <declname>u</declname>
+          <array>[]</array>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>udigits</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>v</declname>
+          <array>[]</array>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>vdigits</declname>
+        </param>
+        <briefdescription>
+<para>Computes integer division of u by v such that u=qv+r. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="out">q</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>to receive quotient = u div v, an array of size <computeroutput>udigits</computeroutput> </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">r</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>to receive divisor = u mod v, an array of size <computeroutput>udigits</computeroutput> </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">u</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>dividend of size <computeroutput>udigits</computeroutput> </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">udigits</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>size of arrays <computeroutput>q</computeroutput> <computeroutput>r</computeroutput> and <computeroutput>u</computeroutput> </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">v</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>divisor of size <computeroutput>vdigits</computeroutput> </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">vdigits</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>size of array <computeroutput>v</computeroutput> </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="warning"><para>Trashes q and r first </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/bigdigits.h" line="123" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/bigdigits.c" bodystart="693" bodyend="846"/>
+        <references refid="bigdigits_8h_1a77bf097cd0692608f06b524ff1ef04db" compoundref="bigdigits_8c" startline="510" endline="545">mpAdd</references>
+        <references refid="bigdigits_8h_1a4688fa13c48155ed2cfc18ebef0e838f" compoundref="bigdigits_8c" startline="1038" endline="1054">mpCompare</references>
+        <references refid="bigdigits_8h_1afe97063d506389797a9647a8803edc65" compoundref="bigdigits_8c" startline="1114" endline="1123">mpSetDigit</references>
+        <references refid="bigdigits_8h_1aa40ded0449ebaf383877100804197948" compoundref="bigdigits_8c" startline="1090" endline="1098">mpSetEqual</references>
+        <references refid="bigdigits_8h_1a0a32c0a32ee38fd15afb14cccc5601d9" compoundref="bigdigits_8c" startline="1100" endline="1112">mpSetZero</references>
+        <references refid="bigdigits_8h_1af6837bac786e6c592602feb8a37c52d5">mpShiftLeft</references>
+        <references refid="bigdigits_8h_1aaab56ae575c4e3bc18d5a89df21c53f7" compoundref="bigdigits_8c" startline="1174" endline="1218">mpShiftRight</references>
+        <references refid="bigdigits_8h_1a2057382ebab06472fed38f5b71399f6a" compoundref="bigdigits_8c" startline="1424" endline="1476">mpShortDiv</references>
+        <references refid="bigdigits_8h_1a89d8fb72ea0b381ce9099b09901cec10" compoundref="bigdigits_8c" startline="1057" endline="1065">mpSizeof</references>
+        <references refid="bigdigits_8h_1a3bdaee33308ee8393ba8bae4fe8f4220" compoundref="bigdigits_8c" startline="355" endline="503">spDivide</references>
+        <referencedby refid="bigdigits_8h_1a453714cb1ce75fc02fceceaf8b35a75a" compoundref="bigdigits_8c" startline="1997" endline="2053">mpCubeRoot</referencedby>
+        <referencedby refid="bigdigits_8h_1a644f6447391ea04fdb9ba7f8b5d78de7" compoundref="bigdigits_8c" startline="1766" endline="1846">mpModInv</referencedby>
+        <referencedby refid="bigdigits_8h_1a8e3034074cb07fb9b9764d3448c03ab6" compoundref="bigdigits_8c" startline="1703" endline="1740">mpModulo</referencedby>
+        <referencedby refid="bigdigits_8h_1a0d06f675857ffa2d8cf5c06e40ce1f98" compoundref="bigdigits_8c" startline="1941" endline="1995">mpSqrt</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="bigdigits_8h_1a8e3034074cb07fb9b9764d3448c03ab6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int mpModulo</definition>
+        <argsstring>(u32 r[], const u32 u[], size_t udigits, u32 v[], size_t vdigits)</argsstring>
+        <name>mpModulo</name>
+        <param>
+          <type>u32</type>
+          <declname>r</declname>
+          <array>[]</array>
+        </param>
+        <param>
+          <type>const u32</type>
+          <declname>u</declname>
+          <array>[]</array>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>udigits</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>v</declname>
+          <array>[]</array>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>vdigits</declname>
+        </param>
+        <briefdescription>
+<para>Computes remainder r = u mod v. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="out">r</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>to receive divisor = u mod v, an array of size <computeroutput>vdigits</computeroutput> </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">u</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>dividend of size <computeroutput>udigits</computeroutput> </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">udigits</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>size of arrays <computeroutput>r</computeroutput> and <computeroutput>u</computeroutput> </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">v</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>divisor of size <computeroutput>vdigits</computeroutput> </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">vdigits</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>size of array <computeroutput>v</computeroutput> </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="remark"><para>Note that <computeroutput>r</computeroutput> is <computeroutput>vdigits</computeroutput> long here, but is <computeroutput>udigits</computeroutput> long in <ref refid="bigdigits_8h_1a2a9beba8b1b46a0f415197f512dff569" kindref="member">mpDivide()</ref>. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/bigdigits.h" line="134" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/bigdigits.c" bodystart="1703" bodyend="1740"/>
+        <references refid="bigdigits_8h_1a2a9beba8b1b46a0f415197f512dff569" compoundref="bigdigits_8c" startline="693" endline="846">mpDivide</references>
+        <references refid="bigdigits_8h_1aa40ded0449ebaf383877100804197948" compoundref="bigdigits_8c" startline="1090" endline="1098">mpSetEqual</references>
+        <referencedby refid="bigdigits_8h_1ae0571c6d22df02f1d06ad35d85df6f67" compoundref="bigdigits_8c" startline="1848" endline="1939">mpGcd</referencedby>
+        <referencedby refid="bigdigits_8h_1a32626062a7c127eed845c799c2176c38" compoundref="bigdigits_8c" startline="2055" endline="2140">mpJacobi</referencedby>
+        <referencedby refid="bigdigits_8h_1ab38130bb56dec16ad7ee185182e689e0" compoundref="bigdigits_8c" startline="1742" endline="1764">mpModMult</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="bigdigits_8h_1ac2504130118989f74890ebe55abf2beb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int mpSquare</definition>
+        <argsstring>(u32 w[], const u32 x[], size_t ndigits)</argsstring>
+        <name>mpSquare</name>
+        <param>
+          <type>u32</type>
+          <declname>w</declname>
+          <array>[]</array>
+        </param>
+        <param>
+          <type>const u32</type>
+          <declname>x</declname>
+          <array>[]</array>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>ndigits</declname>
+        </param>
+        <briefdescription>
+<para>Computes square w = x^2. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="out">w</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>array of size 2 x <computeroutput>ndigits</computeroutput> to receive square </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>array of size <computeroutput>ndigits</computeroutput> </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">ndigits</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>size of array <computeroutput>x</computeroutput> </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="warning"><para>The product <computeroutput>w</computeroutput> must be of size 2 x <computeroutput>ndigits</computeroutput> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/bigdigits.h" line="142" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/bigdigits.c" bodystart="849" bodyend="956"/>
+        <references refid="bigdigits_8h_1a8479a1c0578e65b051674817c5bd77b9" compoundref="bigdigits_8c" startline="271" endline="331">spMultiply</references>
+      </memberdef>
+      <memberdef kind="function" id="bigdigits_8h_1a0d06f675857ffa2d8cf5c06e40ce1f98" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int mpSqrt</definition>
+        <argsstring>(u32 s[], const u32 x[], size_t ndigits)</argsstring>
+        <name>mpSqrt</name>
+        <param>
+          <type>u32</type>
+          <declname>s</declname>
+          <array>[]</array>
+        </param>
+        <param>
+          <type>const u32</type>
+          <declname>x</declname>
+          <array>[]</array>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>ndigits</declname>
+        </param>
+        <briefdescription>
+<para>Computes integer square root s = floor(sqrt(x)) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/bigdigits.h" line="145" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/bigdigits.c" bodystart="1941" bodyend="1995"/>
+        <references refid="bigdigits_8h_1a77bf097cd0692608f06b524ff1ef04db" compoundref="bigdigits_8c" startline="510" endline="545">mpAdd</references>
+        <references refid="bigdigits_8h_1a4688fa13c48155ed2cfc18ebef0e838f" compoundref="bigdigits_8c" startline="1038" endline="1054">mpCompare</references>
+        <references refid="bigdigits_8h_1a2a9beba8b1b46a0f415197f512dff569" compoundref="bigdigits_8c" startline="693" endline="846">mpDivide</references>
+        <references refid="bigdigits_8h_1aa40ded0449ebaf383877100804197948" compoundref="bigdigits_8c" startline="1090" endline="1098">mpSetEqual</references>
+        <references refid="bigdigits_8h_1aaab56ae575c4e3bc18d5a89df21c53f7" compoundref="bigdigits_8c" startline="1174" endline="1218">mpShiftRight</references>
+        <references refid="bigdigits_8h_1a54a5d832ff76748576c7447d7eeb8e7d" compoundref="bigdigits_8c" startline="1504" endline="1523">mpShortCmp</references>
+      </memberdef>
+      <memberdef kind="function" id="bigdigits_8h_1a453714cb1ce75fc02fceceaf8b35a75a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int mpCubeRoot</definition>
+        <argsstring>(u32 s[], const u32 x[], size_t ndigits)</argsstring>
+        <name>mpCubeRoot</name>
+        <param>
+          <type>u32</type>
+          <declname>s</declname>
+          <array>[]</array>
+        </param>
+        <param>
+          <type>const u32</type>
+          <declname>x</declname>
+          <array>[]</array>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>ndigits</declname>
+        </param>
+        <briefdescription>
+<para>Computes integer cube root s = floor(cuberoot(x)) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/bigdigits.h" line="148" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/bigdigits.c" bodystart="1997" bodyend="2053"/>
+        <references refid="bigdigits_8h_1a77bf097cd0692608f06b524ff1ef04db" compoundref="bigdigits_8c" startline="510" endline="545">mpAdd</references>
+        <references refid="bigdigits_8h_1a4688fa13c48155ed2cfc18ebef0e838f" compoundref="bigdigits_8c" startline="1038" endline="1054">mpCompare</references>
+        <references refid="bigdigits_8h_1a2a9beba8b1b46a0f415197f512dff569" compoundref="bigdigits_8c" startline="693" endline="846">mpDivide</references>
+        <references refid="bigdigits_8h_1aa40ded0449ebaf383877100804197948" compoundref="bigdigits_8c" startline="1090" endline="1098">mpSetEqual</references>
+        <references refid="bigdigits_8h_1a54a5d832ff76748576c7447d7eeb8e7d" compoundref="bigdigits_8c" startline="1504" endline="1523">mpShortCmp</references>
+        <references refid="bigdigits_8h_1a2057382ebab06472fed38f5b71399f6a" compoundref="bigdigits_8c" startline="1424" endline="1476">mpShortDiv</references>
+      </memberdef>
+      <memberdef kind="function" id="bigdigits_8h_1a934236a4337de87363660bc227aece52" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int mpEqual</definition>
+        <argsstring>(const u32 a[], const u32 b[], size_t ndigits)</argsstring>
+        <name>mpEqual</name>
+        <param>
+          <type>const u32</type>
+          <declname>a</declname>
+          <array>[]</array>
+        </param>
+        <param>
+          <type>const u32</type>
+          <declname>b</declname>
+          <array>[]</array>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>ndigits</declname>
+        </param>
+        <briefdescription>
+<para>Returns true if a == b, else false, using constant-time algorithm. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="remark"><para>Constant-time with respect to <computeroutput>ndigits</computeroutput></para></simplesect>
+Returns true if a == b, else false, using constant-time algorithm. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/bigdigits.h" line="158" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/bigdigits.c" bodystart="1013" bodyend="1022"/>
+      </memberdef>
+      <memberdef kind="function" id="bigdigits_8h_1a4688fa13c48155ed2cfc18ebef0e838f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int mpCompare</definition>
+        <argsstring>(const u32 a[], const u32 b[], size_t ndigits)</argsstring>
+        <name>mpCompare</name>
+        <param>
+          <type>const u32</type>
+          <declname>a</declname>
+          <array>[]</array>
+        </param>
+        <param>
+          <type>const u32</type>
+          <declname>b</declname>
+          <array>[]</array>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>ndigits</declname>
+        </param>
+        <briefdescription>
+<para>Returns sign of <computeroutput>(a-b)</computeroutput> as <computeroutput>{-1,0,+1}</computeroutput> using constant-time algorithm. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="remark"><para>Constant-time with respect to <computeroutput>ndigits</computeroutput></para></simplesect>
+Returns sign of <computeroutput>(a-b)</computeroutput> as <computeroutput>{-1,0,+1}</computeroutput> using constant-time algorithm. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/bigdigits.h" line="163" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/bigdigits.c" bodystart="1038" bodyend="1054"/>
+        <referencedby refid="bigdigits_8h_1a453714cb1ce75fc02fceceaf8b35a75a" compoundref="bigdigits_8c" startline="1997" endline="2053">mpCubeRoot</referencedby>
+        <referencedby refid="bigdigits_8h_1a2a9beba8b1b46a0f415197f512dff569" compoundref="bigdigits_8c" startline="693" endline="846">mpDivide</referencedby>
+        <referencedby refid="bigdigits_8h_1ae0571c6d22df02f1d06ad35d85df6f67" compoundref="bigdigits_8c" startline="1848" endline="1939">mpGcd</referencedby>
+        <referencedby refid="bigdigits_8h_1a153f831f4e86caa9d90109df71b15b45" compoundref="bigdigits_8c" startline="2213" endline="2352">mpRabinMiller</referencedby>
+        <referencedby refid="bigdigits_8h_1a0d06f675857ffa2d8cf5c06e40ce1f98" compoundref="bigdigits_8c" startline="1941" endline="1995">mpSqrt</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="bigdigits_8h_1a328c19b60c24beb9f1f3a6b8cf341aa2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int mpIsZero</definition>
+        <argsstring>(const u32 a[], size_t ndigits)</argsstring>
+        <name>mpIsZero</name>
+        <param>
+          <type>const u32</type>
+          <declname>a</declname>
+          <array>[]</array>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>ndigits</declname>
+        </param>
+        <briefdescription>
+<para>Returns true if a is zero, else false, using constant-time algorithm. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="remark"><para>Constant-time with respect to <computeroutput>ndigits</computeroutput></para></simplesect>
+Returns true if a is zero, else false, using constant-time algorithm. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/bigdigits.h" line="168" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/bigdigits.c" bodystart="1025" bodyend="1035"/>
+        <referencedby refid="bigdigits_8h_1ae0571c6d22df02f1d06ad35d85df6f67" compoundref="bigdigits_8c" startline="1848" endline="1939">mpGcd</referencedby>
+        <referencedby refid="bigdigits_8h_1a32626062a7c127eed845c799c2176c38" compoundref="bigdigits_8c" startline="2055" endline="2140">mpJacobi</referencedby>
+        <referencedby refid="bigdigits_8h_1a644f6447391ea04fdb9ba7f8b5d78de7" compoundref="bigdigits_8c" startline="1766" endline="1846">mpModInv</referencedby>
+        <referencedby refid="bigdigits_8h_1a153f831f4e86caa9d90109df71b15b45" compoundref="bigdigits_8c" startline="2213" endline="2352">mpRabinMiller</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="bigdigits_8h_1ae3ecf0ae65f624c972903c0961863428" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int mpEqual_q</definition>
+        <argsstring>(const u32 a[], const u32 b[], size_t ndigits)</argsstring>
+        <name>mpEqual_q</name>
+        <param>
+          <type>const u32</type>
+          <declname>a</declname>
+          <array>[]</array>
+        </param>
+        <param>
+          <type>const u32</type>
+          <declname>b</declname>
+          <array>[]</array>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>ndigits</declname>
+        </param>
+        <briefdescription>
+<para>Returns true if a == b, else false (quick) </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="remark"><para>Not constant-time.</para></simplesect>
+Returns true if a == b, else false (quick)</para><para>Not constant-time. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/bigdigits.h" line="176" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/bigdigits.c" bodystart="959" bodyend="971"/>
+      </memberdef>
+      <memberdef kind="function" id="bigdigits_8h_1a7e5d6a0e98281e52883da702ea151597" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int mpCompare_q</definition>
+        <argsstring>(const u32 a[], const u32 b[], size_t ndigits)</argsstring>
+        <name>mpCompare_q</name>
+        <param>
+          <type>const u32</type>
+          <declname>a</declname>
+          <array>[]</array>
+        </param>
+        <param>
+          <type>const u32</type>
+          <declname>b</declname>
+          <array>[]</array>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>ndigits</declname>
+        </param>
+        <briefdescription>
+<para>Returns sign of <computeroutput>(a-b)</computeroutput> as <computeroutput>{-1,0,+1}</computeroutput> (quick) </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="remark"><para>Not constant-time.</para></simplesect>
+Returns sign of <computeroutput>(a-b)</computeroutput> as <computeroutput>{-1,0,+1}</computeroutput> (quick)</para><para>Not constant-time. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/bigdigits.h" line="181" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/bigdigits.c" bodystart="974" bodyend="987"/>
+      </memberdef>
+      <memberdef kind="function" id="bigdigits_8h_1a530cb494f383cbc7b0938f1e75c4c824" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int mpIsZero_q</definition>
+        <argsstring>(const u32 a[], size_t ndigits)</argsstring>
+        <name>mpIsZero_q</name>
+        <param>
+          <type>const u32</type>
+          <declname>a</declname>
+          <array>[]</array>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>ndigits</declname>
+        </param>
+        <briefdescription>
+<para>Returns true if a is zero, else false (quick) </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="remark"><para>Not constant-time.</para></simplesect>
+Returns true if a is zero, else false (quick)</para><para>Not constant-time. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/bigdigits.h" line="186" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/bigdigits.c" bodystart="990" bodyend="1003"/>
+      </memberdef>
+      <memberdef kind="function" id="bigdigits_8h_1a4ca7d847e83c72e810774d3c8faf3d42" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int mpModExp</definition>
+        <argsstring>(u32 y[], const u32 x[], const u32 e[], u32 m[], size_t ndigits)</argsstring>
+        <name>mpModExp</name>
+        <param>
+          <type>u32</type>
+          <declname>y</declname>
+          <array>[]</array>
+        </param>
+        <param>
+          <type>const u32</type>
+          <declname>x</declname>
+          <array>[]</array>
+        </param>
+        <param>
+          <type>const u32</type>
+          <declname>e</declname>
+          <array>[]</array>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>m</declname>
+          <array>[]</array>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>ndigits</declname>
+        </param>
+        <briefdescription>
+<para>Computes y = x^e mod m. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/bigdigits.h" line="198" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/bigdigits.c" bodystart="2476" bodyend="2484"/>
+        <referencedby refid="bigdigits_8h_1a153f831f4e86caa9d90109df71b15b45" compoundref="bigdigits_8c" startline="2213" endline="2352">mpRabinMiller</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="bigdigits_8h_1a81f43e382a5babc239c97b076fe7829b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int mpModExp_ct</definition>
+        <argsstring>(u32 yout[], const u32 x[], const u32 e[], u32 m[], size_t ndigits)</argsstring>
+        <name>mpModExp_ct</name>
+        <param>
+          <type>u32</type>
+          <declname>yout</declname>
+          <array>[]</array>
+        </param>
+        <param>
+          <type>const u32</type>
+          <declname>x</declname>
+          <array>[]</array>
+        </param>
+        <param>
+          <type>const u32</type>
+          <declname>e</declname>
+          <array>[]</array>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>m</declname>
+          <array>[]</array>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>ndigits</declname>
+        </param>
+        <briefdescription>
+<para>Computes y = x^e mod m in constant time. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="remark"><para>Resistant to simple power analysis attack on private exponent. Slower than <ref refid="bigdigits_8h_1a4ca7d847e83c72e810774d3c8faf3d42" kindref="member">mpModExp()</ref>.</para></simplesect>
+Computes y = x^e mod m in constant time. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/bigdigits.h" line="204" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/bigdigits.c" bodystart="2563" bodyend="2647"/>
+        <references refid="bigdigits_8h_1afe97063d506389797a9647a8803edc65" compoundref="bigdigits_8c" startline="1114" endline="1123">mpSetDigit</references>
+        <references refid="bigdigits_8h_1aa40ded0449ebaf383877100804197948" compoundref="bigdigits_8c" startline="1090" endline="1098">mpSetEqual</references>
+        <references refid="bigdigits_8h_1a89d8fb72ea0b381ce9099b09901cec10" compoundref="bigdigits_8c" startline="1057" endline="1065">mpSizeof</references>
+      </memberdef>
+      <memberdef kind="function" id="bigdigits_8h_1ab38130bb56dec16ad7ee185182e689e0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int mpModMult</definition>
+        <argsstring>(u32 a[], const u32 x[], const u32 y[], u32 m[], size_t ndigits)</argsstring>
+        <name>mpModMult</name>
+        <param>
+          <type>u32</type>
+          <declname>a</declname>
+          <array>[]</array>
+        </param>
+        <param>
+          <type>const u32</type>
+          <declname>x</declname>
+          <array>[]</array>
+        </param>
+        <param>
+          <type>const u32</type>
+          <declname>y</declname>
+          <array>[]</array>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>m</declname>
+          <array>[]</array>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>ndigits</declname>
+        </param>
+        <briefdescription>
+<para>Computes a = (x * y) mod m. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/bigdigits.h" line="207" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/bigdigits.c" bodystart="1742" bodyend="1764"/>
+        <references refid="bigdigits_8h_1a8e3034074cb07fb9b9764d3448c03ab6" compoundref="bigdigits_8c" startline="1703" endline="1740">mpModulo</references>
+        <references refid="bigdigits_8h_1aa57007f55945e5caad5fa4e4da0ab2ec" compoundref="bigdigits_8c" startline="584" endline="637">mpMultiply</references>
+        <referencedby refid="bigdigits_8h_1a153f831f4e86caa9d90109df71b15b45" compoundref="bigdigits_8c" startline="2213" endline="2352">mpRabinMiller</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="bigdigits_8h_1a644f6447391ea04fdb9ba7f8b5d78de7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int mpModInv</definition>
+        <argsstring>(u32 inv[], const u32 u[], const u32 m[], size_t ndigits)</argsstring>
+        <name>mpModInv</name>
+        <param>
+          <type>u32</type>
+          <declname>inv</declname>
+          <array>[]</array>
+        </param>
+        <param>
+          <type>const u32</type>
+          <declname>u</declname>
+          <array>[]</array>
+        </param>
+        <param>
+          <type>const u32</type>
+          <declname>m</declname>
+          <array>[]</array>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>ndigits</declname>
+        </param>
+        <briefdescription>
+<para>Computes the inverse of <computeroutput>u</computeroutput> modulo <computeroutput>m</computeroutput>, inv = u^{-1} mod m. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/bigdigits.h" line="210" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/bigdigits.c" bodystart="1766" bodyend="1846"/>
+        <references refid="bigdigits_8h_1a77bf097cd0692608f06b524ff1ef04db" compoundref="bigdigits_8c" startline="510" endline="545">mpAdd</references>
+        <references refid="bigdigits_8h_1a2a9beba8b1b46a0f415197f512dff569" compoundref="bigdigits_8c" startline="693" endline="846">mpDivide</references>
+        <references refid="bigdigits_8h_1a328c19b60c24beb9f1f3a6b8cf341aa2" compoundref="bigdigits_8c" startline="1025" endline="1035">mpIsZero</references>
+        <references refid="bigdigits_8h_1aa57007f55945e5caad5fa4e4da0ab2ec" compoundref="bigdigits_8c" startline="584" endline="637">mpMultiply</references>
+        <references refid="bigdigits_8h_1afe97063d506389797a9647a8803edc65" compoundref="bigdigits_8c" startline="1114" endline="1123">mpSetDigit</references>
+        <references refid="bigdigits_8h_1aa40ded0449ebaf383877100804197948" compoundref="bigdigits_8c" startline="1090" endline="1098">mpSetEqual</references>
+        <references refid="bigdigits_8h_1a0a32c0a32ee38fd15afb14cccc5601d9" compoundref="bigdigits_8c" startline="1100" endline="1112">mpSetZero</references>
+        <references refid="bigdigits_8h_1a54a5d832ff76748576c7447d7eeb8e7d" compoundref="bigdigits_8c" startline="1504" endline="1523">mpShortCmp</references>
+        <references refid="bigdigits_8h_1aa160f8403c9e4e296c4cfe1afa98f5d7" compoundref="bigdigits_8c" startline="547" endline="582">mpSubtract</references>
+      </memberdef>
+      <memberdef kind="function" id="bigdigits_8h_1ae0571c6d22df02f1d06ad35d85df6f67" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int mpGcd</definition>
+        <argsstring>(u32 g[], const u32 x[], const u32 y[], size_t ndigits)</argsstring>
+        <name>mpGcd</name>
+        <param>
+          <type>u32</type>
+          <declname>g</declname>
+          <array>[]</array>
+        </param>
+        <param>
+          <type>const u32</type>
+          <declname>x</declname>
+          <array>[]</array>
+        </param>
+        <param>
+          <type>const u32</type>
+          <declname>y</declname>
+          <array>[]</array>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>ndigits</declname>
+        </param>
+        <briefdescription>
+<para>Computes g = gcd(x, y), the greatest common divisor of x and y. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/bigdigits.h" line="213" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/bigdigits.c" bodystart="1848" bodyend="1939"/>
+        <references refid="bigdigits_8h_1a4688fa13c48155ed2cfc18ebef0e838f" compoundref="bigdigits_8c" startline="1038" endline="1054">mpCompare</references>
+        <references refid="bigdigits_8h_1a328c19b60c24beb9f1f3a6b8cf341aa2" compoundref="bigdigits_8c" startline="1025" endline="1035">mpIsZero</references>
+        <references refid="bigdigits_8h_1a8e3034074cb07fb9b9764d3448c03ab6" compoundref="bigdigits_8c" startline="1703" endline="1740">mpModulo</references>
+        <references refid="bigdigits_8h_1aa40ded0449ebaf383877100804197948" compoundref="bigdigits_8c" startline="1090" endline="1098">mpSetEqual</references>
+        <references refid="bigdigits_8h_1af6837bac786e6c592602feb8a37c52d5">mpShiftLeft</references>
+        <references refid="bigdigits_8h_1aaab56ae575c4e3bc18d5a89df21c53f7" compoundref="bigdigits_8c" startline="1174" endline="1218">mpShiftRight</references>
+        <references refid="bigdigits_8h_1aa160f8403c9e4e296c4cfe1afa98f5d7" compoundref="bigdigits_8c" startline="547" endline="582">mpSubtract</references>
+      </memberdef>
+      <memberdef kind="function" id="bigdigits_8h_1a32626062a7c127eed845c799c2176c38" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int mpJacobi</definition>
+        <argsstring>(const u32 a[], const u32 n[], size_t ndigits)</argsstring>
+        <name>mpJacobi</name>
+        <param>
+          <type>const u32</type>
+          <declname>a</declname>
+          <array>[]</array>
+        </param>
+        <param>
+          <type>const u32</type>
+          <declname>n</declname>
+          <array>[]</array>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>ndigits</declname>
+        </param>
+        <briefdescription>
+<para>Returns the Jacobi symbol (a/n) in {-1, 0, +1}. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="remark"><para>If n is prime then the Jacobi symbol becomes the Legendre symbol (a/p) defined to be<itemizedlist>
+<listitem><para>(a/p) = +1 if a is a quadratic residue modulo p</para></listitem><listitem><para>(a/p) = -1 if a is a quadratic non-residue modulo p</para></listitem><listitem><para>(a/p) = 0 if a is divisible by p </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/bigdigits.h" line="221" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/bigdigits.c" bodystart="2055" bodyend="2140"/>
+        <references refid="bigdigits_8h_1a328c19b60c24beb9f1f3a6b8cf341aa2" compoundref="bigdigits_8c" startline="1025" endline="1035">mpIsZero</references>
+        <references refid="bigdigits_8h_1a8e3034074cb07fb9b9764d3448c03ab6" compoundref="bigdigits_8c" startline="1703" endline="1740">mpModulo</references>
+        <references refid="bigdigits_8h_1aa40ded0449ebaf383877100804197948" compoundref="bigdigits_8c" startline="1090" endline="1098">mpSetEqual</references>
+        <references refid="bigdigits_8h_1aaab56ae575c4e3bc18d5a89df21c53f7" compoundref="bigdigits_8c" startline="1174" endline="1218">mpShiftRight</references>
+        <references refid="bigdigits_8h_1a54a5d832ff76748576c7447d7eeb8e7d" compoundref="bigdigits_8c" startline="1504" endline="1523">mpShortCmp</references>
+        <references refid="bigdigits_8h_1aa248383631135e0a8504d2bd569fbce2" compoundref="bigdigits_8c" startline="1478" endline="1501">mpShortMod</references>
+      </memberdef>
+      <memberdef kind="function" id="bigdigits_8h_1a1a73f82be10b0ca4c8a7e51c52bad262" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>size_t</type>
+        <definition>size_t mpBitLength</definition>
+        <argsstring>(const u32 a[], size_t ndigits)</argsstring>
+        <name>mpBitLength</name>
+        <param>
+          <type>const u32</type>
+          <declname>a</declname>
+          <array>[]</array>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>ndigits</declname>
+        </param>
+        <briefdescription>
+<para>Returns number of significant bits in a. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/bigdigits.h" line="229" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/bigdigits.c" bodystart="1067" bodyend="1088"/>
+        <references refid="bigdigits_8h_1a89d8fb72ea0b381ce9099b09901cec10" compoundref="bigdigits_8c" startline="1057" endline="1065">mpSizeof</references>
+        <referencedby refid="bigdigits_8h_1ac059684115bb5942c2633d99ec41d149" compoundref="bigdigits_8c" startline="1672" endline="1698">mpConvToOctets</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="bigdigits_8h_1af6837bac786e6c592602feb8a37c52d5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 mpShiftLeft</definition>
+        <argsstring>(u32 a[], const u32 b[], size_t x, size_t ndigits)</argsstring>
+        <name>mpShiftLeft</name>
+        <param>
+          <type>u32</type>
+          <declname>a</declname>
+          <array>[]</array>
+        </param>
+        <param>
+          <type>const u32</type>
+          <declname>b</declname>
+          <array>[]</array>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>ndigits</declname>
+        </param>
+        <briefdescription>
+<para>Computes a = b &lt;&lt; x. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/bigdigits.h" line="232" column="1"/>
+        <referencedby refid="bigdigits_8h_1a2a9beba8b1b46a0f415197f512dff569" compoundref="bigdigits_8c" startline="693" endline="846">mpDivide</referencedby>
+        <referencedby refid="bigdigits_8h_1ae0571c6d22df02f1d06ad35d85df6f67" compoundref="bigdigits_8c" startline="1848" endline="1939">mpGcd</referencedby>
+        <referencedby refid="bigdigits_8h_1a2057382ebab06472fed38f5b71399f6a" compoundref="bigdigits_8c" startline="1424" endline="1476">mpShortDiv</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="bigdigits_8h_1aaab56ae575c4e3bc18d5a89df21c53f7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 mpShiftRight</definition>
+        <argsstring>(u32 a[], const u32 b[], size_t x, size_t ndigits)</argsstring>
+        <name>mpShiftRight</name>
+        <param>
+          <type>u32</type>
+          <declname>a</declname>
+          <array>[]</array>
+        </param>
+        <param>
+          <type>const u32</type>
+          <declname>b</declname>
+          <array>[]</array>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>ndigits</declname>
+        </param>
+        <briefdescription>
+<para>Computes a = b &gt;&gt; x. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/bigdigits.h" line="235" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/bigdigits.c" bodystart="1174" bodyend="1218"/>
+        <referencedby refid="bigdigits_8h_1a2a9beba8b1b46a0f415197f512dff569" compoundref="bigdigits_8c" startline="693" endline="846">mpDivide</referencedby>
+        <referencedby refid="bigdigits_8h_1ae0571c6d22df02f1d06ad35d85df6f67" compoundref="bigdigits_8c" startline="1848" endline="1939">mpGcd</referencedby>
+        <referencedby refid="bigdigits_8h_1a32626062a7c127eed845c799c2176c38" compoundref="bigdigits_8c" startline="2055" endline="2140">mpJacobi</referencedby>
+        <referencedby refid="bigdigits_8h_1a153f831f4e86caa9d90109df71b15b45" compoundref="bigdigits_8c" startline="2213" endline="2352">mpRabinMiller</referencedby>
+        <referencedby refid="bigdigits_8h_1a0d06f675857ffa2d8cf5c06e40ce1f98" compoundref="bigdigits_8c" startline="1941" endline="1995">mpSqrt</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="bigdigits_8h_1ae8518e5f683a939df4e2e9f97ae51b2b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void mpXorBits</definition>
+        <argsstring>(u32 a[], const u32 b[], const u32 c[], size_t ndigits)</argsstring>
+        <name>mpXorBits</name>
+        <param>
+          <type>u32</type>
+          <declname>a</declname>
+          <array>[]</array>
+        </param>
+        <param>
+          <type>const u32</type>
+          <declname>b</declname>
+          <array>[]</array>
+        </param>
+        <param>
+          <type>const u32</type>
+          <declname>c</declname>
+          <array>[]</array>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>ndigits</declname>
+        </param>
+        <briefdescription>
+<para>Computes bitwise a = b XOR c. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/bigdigits.h" line="238" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/bigdigits.c" bodystart="1279" bodyend="1285"/>
+      </memberdef>
+      <memberdef kind="function" id="bigdigits_8h_1a94209753b2498a21d8be57b0d9f8a205" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void mpOrBits</definition>
+        <argsstring>(u32 a[], const u32 b[], const u32 c[], size_t ndigits)</argsstring>
+        <name>mpOrBits</name>
+        <param>
+          <type>u32</type>
+          <declname>a</declname>
+          <array>[]</array>
+        </param>
+        <param>
+          <type>const u32</type>
+          <declname>b</declname>
+          <array>[]</array>
+        </param>
+        <param>
+          <type>const u32</type>
+          <declname>c</declname>
+          <array>[]</array>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>ndigits</declname>
+        </param>
+        <briefdescription>
+<para>Computes bitwise a = b OR c. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/bigdigits.h" line="241" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/bigdigits.c" bodystart="1287" bodyend="1293"/>
+      </memberdef>
+      <memberdef kind="function" id="bigdigits_8h_1a3f880cfbf3bc582f54ac675df8bd6b22" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void mpAndBits</definition>
+        <argsstring>(u32 a[], const u32 b[], const u32 c[], size_t ndigits)</argsstring>
+        <name>mpAndBits</name>
+        <param>
+          <type>u32</type>
+          <declname>a</declname>
+          <array>[]</array>
+        </param>
+        <param>
+          <type>const u32</type>
+          <declname>b</declname>
+          <array>[]</array>
+        </param>
+        <param>
+          <type>const u32</type>
+          <declname>c</declname>
+          <array>[]</array>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>ndigits</declname>
+        </param>
+        <briefdescription>
+<para>Computes bitwise a = b AND c. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/bigdigits.h" line="244" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/bigdigits.c" bodystart="1295" bodyend="1301"/>
+      </memberdef>
+      <memberdef kind="function" id="bigdigits_8h_1a45d11ad9b80ea9993d429bae4d4e3c51" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void mpNotBits</definition>
+        <argsstring>(u32 a[], const u32 b[], size_t ndigits)</argsstring>
+        <name>mpNotBits</name>
+        <param>
+          <type>u32</type>
+          <declname>a</declname>
+          <array>[]</array>
+        </param>
+        <param>
+          <type>const u32</type>
+          <declname>b</declname>
+          <array>[]</array>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>ndigits</declname>
+        </param>
+        <briefdescription>
+<para>Computes bitwise a = NOT b. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/bigdigits.h" line="247" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/bigdigits.c" bodystart="1303" bodyend="1309"/>
+        <referencedby refid="bigdigits_8h_1a8666a8cd063b0aeb53956f14edd219ff" compoundref="bigdigits_8c" startline="1537" endline="1554">mpChs</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="bigdigits_8h_1ab9a5dfe293ccd4f86979bb207bcdc457" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void mpModPowerOf2</definition>
+        <argsstring>(u32 a[], size_t ndigits, size_t L)</argsstring>
+        <name>mpModPowerOf2</name>
+        <param>
+          <type>u32</type>
+          <declname>a</declname>
+          <array>[]</array>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>ndigits</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>L</declname>
+        </param>
+        <briefdescription>
+<para>Computes a = a mod 2^L, ie clears all bits greater than L. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/bigdigits.h" line="250" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/bigdigits.c" bodystart="1261" bodyend="1277"/>
+      </memberdef>
+      <memberdef kind="function" id="bigdigits_8h_1a446a5ab32deeb02277479dff4953e13e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int mpSetBit</definition>
+        <argsstring>(u32 a[], size_t ndigits, size_t n, int value)</argsstring>
+        <name>mpSetBit</name>
+        <param>
+          <type>u32</type>
+          <declname>a</declname>
+          <array>[]</array>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>ndigits</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>n</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+<para>Sets bit n of a (0..nbits-1) with value 1 or 0. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/bigdigits.h" line="253" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/bigdigits.c" bodystart="1220" bodyend="1241"/>
+      </memberdef>
+      <memberdef kind="function" id="bigdigits_8h_1ab62a26b7b7bc001f81a650f4b382df0a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int mpGetBit</definition>
+        <argsstring>(u32 a[], size_t ndigits, size_t n)</argsstring>
+        <name>mpGetBit</name>
+        <param>
+          <type>u32</type>
+          <declname>a</declname>
+          <array>[]</array>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>ndigits</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>n</declname>
+        </param>
+        <briefdescription>
+<para>Returns value 1 or 0 of bit n (0..nbits-1) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/bigdigits.h" line="256" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/bigdigits.c" bodystart="1243" bodyend="1259"/>
+      </memberdef>
+      <memberdef kind="function" id="bigdigits_8h_1a0a32c0a32ee38fd15afb14cccc5601d9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 mpSetZero</definition>
+        <argsstring>(u32 a[], size_t ndigits)</argsstring>
+        <name>mpSetZero</name>
+        <param>
+          <type>u32</type>
+          <declname>a</declname>
+          <array>[]</array>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>ndigits</declname>
+        </param>
+        <briefdescription>
+<para>Sets a = 0. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/bigdigits.h" line="264" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/bigdigits.c" bodystart="1100" bodyend="1112"/>
+        <referencedby refid="bigdigits_8h_1af17b0b6a122dad76d5c447f0e5979535" compoundref="bigdigits_8c" startline="1648" endline="1670">mpConvFromOctets</referencedby>
+        <referencedby refid="bigdigits_8h_1a2a9beba8b1b46a0f415197f512dff569" compoundref="bigdigits_8c" startline="693" endline="846">mpDivide</referencedby>
+        <referencedby refid="bigdigits_8h_1a644f6447391ea04fdb9ba7f8b5d78de7" compoundref="bigdigits_8c" startline="1766" endline="1846">mpModInv</referencedby>
+        <referencedby refid="bigdigits_8h_1a3df35cea910a1b2ddd4a0f909b11fe5e" compoundref="bigdigits_8c" startline="2360" endline="2388">mpQuickRandBits</referencedby>
+        <referencedby refid="bigdigits_8h_1a153f831f4e86caa9d90109df71b15b45" compoundref="bigdigits_8c" startline="2213" endline="2352">mpRabinMiller</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="bigdigits_8h_1afe97063d506389797a9647a8803edc65" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void mpSetDigit</definition>
+        <argsstring>(u32 a[], u32 d, size_t ndigits)</argsstring>
+        <name>mpSetDigit</name>
+        <param>
+          <type>u32</type>
+          <declname>a</declname>
+          <array>[]</array>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>d</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>ndigits</declname>
+        </param>
+        <briefdescription>
+<para>Sets a = d where d is a single digit. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/bigdigits.h" line="267" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/bigdigits.c" bodystart="1114" bodyend="1123"/>
+        <referencedby refid="bigdigits_8h_1a2a9beba8b1b46a0f415197f512dff569" compoundref="bigdigits_8c" startline="693" endline="846">mpDivide</referencedby>
+        <referencedby refid="bigdigits_8h_1a81f43e382a5babc239c97b076fe7829b" compoundref="bigdigits_8c" startline="2563" endline="2647">mpModExp_ct</referencedby>
+        <referencedby refid="bigdigits_8h_1a644f6447391ea04fdb9ba7f8b5d78de7" compoundref="bigdigits_8c" startline="1766" endline="1846">mpModInv</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="bigdigits_8h_1aa40ded0449ebaf383877100804197948" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void mpSetEqual</definition>
+        <argsstring>(u32 a[], const u32 b[], size_t ndigits)</argsstring>
+        <name>mpSetEqual</name>
+        <param>
+          <type>u32</type>
+          <declname>a</declname>
+          <array>[]</array>
+        </param>
+        <param>
+          <type>const u32</type>
+          <declname>b</declname>
+          <array>[]</array>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>ndigits</declname>
+        </param>
+        <briefdescription>
+<para>Sets a = b. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/bigdigits.h" line="270" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/bigdigits.c" bodystart="1090" bodyend="1098"/>
+        <referencedby refid="bigdigits_8h_1a4bcb8a0e0ed0e1fbfac8fd507c75bc1a" compoundref="bigdigits_8c" startline="1557" endline="1567">mpAbs</referencedby>
+        <referencedby refid="bigdigits_8h_1a453714cb1ce75fc02fceceaf8b35a75a" compoundref="bigdigits_8c" startline="1997" endline="2053">mpCubeRoot</referencedby>
+        <referencedby refid="bigdigits_8h_1a2a9beba8b1b46a0f415197f512dff569" compoundref="bigdigits_8c" startline="693" endline="846">mpDivide</referencedby>
+        <referencedby refid="bigdigits_8h_1ae0571c6d22df02f1d06ad35d85df6f67" compoundref="bigdigits_8c" startline="1848" endline="1939">mpGcd</referencedby>
+        <referencedby refid="bigdigits_8h_1a32626062a7c127eed845c799c2176c38" compoundref="bigdigits_8c" startline="2055" endline="2140">mpJacobi</referencedby>
+        <referencedby refid="bigdigits_8h_1a81f43e382a5babc239c97b076fe7829b" compoundref="bigdigits_8c" startline="2563" endline="2647">mpModExp_ct</referencedby>
+        <referencedby refid="bigdigits_8h_1a644f6447391ea04fdb9ba7f8b5d78de7" compoundref="bigdigits_8c" startline="1766" endline="1846">mpModInv</referencedby>
+        <referencedby refid="bigdigits_8h_1a8e3034074cb07fb9b9764d3448c03ab6" compoundref="bigdigits_8c" startline="1703" endline="1740">mpModulo</referencedby>
+        <referencedby refid="bigdigits_8h_1a153f831f4e86caa9d90109df71b15b45" compoundref="bigdigits_8c" startline="2213" endline="2352">mpRabinMiller</referencedby>
+        <referencedby refid="bigdigits_8h_1a0d06f675857ffa2d8cf5c06e40ce1f98" compoundref="bigdigits_8c" startline="1941" endline="1995">mpSqrt</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="bigdigits_8h_1a89d8fb72ea0b381ce9099b09901cec10" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>size_t</type>
+        <definition>size_t mpSizeof</definition>
+        <argsstring>(const u32 a[], size_t ndigits)</argsstring>
+        <name>mpSizeof</name>
+        <param>
+          <type>const u32</type>
+          <declname>a</declname>
+          <array>[]</array>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>ndigits</declname>
+        </param>
+        <briefdescription>
+<para>Returns number of significant non-zero digits in a. </para>        </briefdescription>
+        <detaileddescription>
+<para>Returns number of significant non-zero digits in a. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/bigdigits.h" line="278" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/bigdigits.c" bodystart="1057" bodyend="1065"/>
+        <referencedby refid="bigdigits_8h_1a1a73f82be10b0ca4c8a7e51c52bad262" compoundref="bigdigits_8c" startline="1067" endline="1088">mpBitLength</referencedby>
+        <referencedby refid="bigdigits_8h_1a2a9beba8b1b46a0f415197f512dff569" compoundref="bigdigits_8c" startline="693" endline="846">mpDivide</referencedby>
+        <referencedby refid="bigdigits_8h_1a81f43e382a5babc239c97b076fe7829b" compoundref="bigdigits_8c" startline="2563" endline="2647">mpModExp_ct</referencedby>
+        <referencedby refid="bigdigits_8h_1a153f831f4e86caa9d90109df71b15b45" compoundref="bigdigits_8c" startline="2213" endline="2352">mpRabinMiller</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="bigdigits_8h_1afee0546db3e24c672b9bc35fbe3d24ca" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int mpIsPrime</definition>
+        <argsstring>(u32 w[], size_t ndigits, size_t t)</argsstring>
+        <name>mpIsPrime</name>
+        <param>
+          <type>u32</type>
+          <declname>w</declname>
+          <array>[]</array>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>ndigits</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>t</declname>
+        </param>
+        <briefdescription>
+<para>Returns true (1) if <computeroutput>w</computeroutput> is probably prime. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">w</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number to test </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">ndigits</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>size of array <computeroutput>w</computeroutput> </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">t</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The count of Rabin-Miller primality tests to carry out (recommended at least 80) </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>true (1) if w is probably prime otherwise false (0) </para></simplesect>
+<simplesect kind="remark"><para>Uses FIPS-186-2/Rabin-Miller with trial division by small primes, which is faster in most cases than <ref refid="bigdigits_8h_1a153f831f4e86caa9d90109df71b15b45" kindref="member">mpRabinMiller()</ref>. </para></simplesect>
+<simplesect kind="see"><para><ref refid="bigdigits_8h_1a153f831f4e86caa9d90109df71b15b45" kindref="member">mpRabinMiller()</ref>. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/bigdigits.h" line="289" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/bigdigits.c" bodystart="2170" bodyend="2207"/>
+        <references refid="bigdigits_8h_1a153f831f4e86caa9d90109df71b15b45" compoundref="bigdigits_8c" startline="2213" endline="2352">mpRabinMiller</references>
+        <references refid="bigdigits_8h_1a54a5d832ff76748576c7447d7eeb8e7d" compoundref="bigdigits_8c" startline="1504" endline="1523">mpShortCmp</references>
+        <references refid="bigdigits_8h_1aa248383631135e0a8504d2bd569fbce2" compoundref="bigdigits_8c" startline="1478" endline="1501">mpShortMod</references>
+      </memberdef>
+      <memberdef kind="function" id="bigdigits_8h_1a153f831f4e86caa9d90109df71b15b45" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int mpRabinMiller</definition>
+        <argsstring>(u32 w[], size_t ndigits, size_t t)</argsstring>
+        <name>mpRabinMiller</name>
+        <param>
+          <type>u32</type>
+          <declname>w</declname>
+          <array>[]</array>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>ndigits</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>t</declname>
+        </param>
+        <briefdescription>
+<para>Returns true (1) if <computeroutput>w</computeroutput> is probably prime using just the Rabin-Miller test. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="see"><para><ref refid="bigdigits_8h_1afee0546db3e24c672b9bc35fbe3d24ca" kindref="member">mpIsPrime()</ref> is preferred. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/bigdigits.h" line="294" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/bigdigits.c" bodystart="2213" bodyend="2352"/>
+        <references refid="bigdigits_8h_1a4688fa13c48155ed2cfc18ebef0e838f" compoundref="bigdigits_8c" startline="1038" endline="1054">mpCompare</references>
+        <references refid="bigdigits_8h_1a328c19b60c24beb9f1f3a6b8cf341aa2" compoundref="bigdigits_8c" startline="1025" endline="1035">mpIsZero</references>
+        <references refid="bigdigits_8h_1a4ca7d847e83c72e810774d3c8faf3d42" compoundref="bigdigits_8c" startline="2476" endline="2484">mpModExp</references>
+        <references refid="bigdigits_8h_1ab38130bb56dec16ad7ee185182e689e0" compoundref="bigdigits_8c" startline="1742" endline="1764">mpModMult</references>
+        <references refid="bigdigits_8h_1aa40ded0449ebaf383877100804197948" compoundref="bigdigits_8c" startline="1090" endline="1098">mpSetEqual</references>
+        <references refid="bigdigits_8h_1a0a32c0a32ee38fd15afb14cccc5601d9" compoundref="bigdigits_8c" startline="1100" endline="1112">mpSetZero</references>
+        <references refid="bigdigits_8h_1aaab56ae575c4e3bc18d5a89df21c53f7" compoundref="bigdigits_8c" startline="1174" endline="1218">mpShiftRight</references>
+        <references refid="bigdigits_8h_1ad6970367c69eee9ed5c65e140b067cf3" compoundref="bigdigits_8c" startline="1314" endline="1348">mpShortAdd</references>
+        <references refid="bigdigits_8h_1a54a5d832ff76748576c7447d7eeb8e7d" compoundref="bigdigits_8c" startline="1504" endline="1523">mpShortCmp</references>
+        <references refid="bigdigits_8h_1acf60cb91d9bf64b9ab8cd6c7995a2c6f" compoundref="bigdigits_8c" startline="1350" endline="1384">mpShortSub</references>
+        <references refid="bigdigits_8h_1a89d8fb72ea0b381ce9099b09901cec10" compoundref="bigdigits_8c" startline="1057" endline="1065">mpSizeof</references>
+        <referencedby refid="bigdigits_8h_1afee0546db3e24c672b9bc35fbe3d24ca" compoundref="bigdigits_8c" startline="2170" endline="2207">mpIsPrime</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="bigdigits_8h_1ad6970367c69eee9ed5c65e140b067cf3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 mpShortAdd</definition>
+        <argsstring>(u32 w[], const u32 u[], u32 d, size_t ndigits)</argsstring>
+        <name>mpShortAdd</name>
+        <param>
+          <type>u32</type>
+          <declname>w</declname>
+          <array>[]</array>
+        </param>
+        <param>
+          <type>const u32</type>
+          <declname>u</declname>
+          <array>[]</array>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>d</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>ndigits</declname>
+        </param>
+        <briefdescription>
+<para>Computes w = u + d, returns carry. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/bigdigits.h" line="301" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/bigdigits.c" bodystart="1314" bodyend="1348"/>
+        <referencedby refid="bigdigits_8h_1a8666a8cd063b0aeb53956f14edd219ff" compoundref="bigdigits_8c" startline="1537" endline="1554">mpChs</referencedby>
+        <referencedby refid="bigdigits_8h_1a153f831f4e86caa9d90109df71b15b45" compoundref="bigdigits_8c" startline="2213" endline="2352">mpRabinMiller</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="bigdigits_8h_1acf60cb91d9bf64b9ab8cd6c7995a2c6f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 mpShortSub</definition>
+        <argsstring>(u32 w[], const u32 u[], u32 d, size_t ndigits)</argsstring>
+        <name>mpShortSub</name>
+        <param>
+          <type>u32</type>
+          <declname>w</declname>
+          <array>[]</array>
+        </param>
+        <param>
+          <type>const u32</type>
+          <declname>u</declname>
+          <array>[]</array>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>d</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>ndigits</declname>
+        </param>
+        <briefdescription>
+<para>Computes w = u - d, returns borrow. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/bigdigits.h" line="304" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/bigdigits.c" bodystart="1350" bodyend="1384"/>
+        <referencedby refid="bigdigits_8h_1a8666a8cd063b0aeb53956f14edd219ff" compoundref="bigdigits_8c" startline="1537" endline="1554">mpChs</referencedby>
+        <referencedby refid="bigdigits_8h_1a153f831f4e86caa9d90109df71b15b45" compoundref="bigdigits_8c" startline="2213" endline="2352">mpRabinMiller</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="bigdigits_8h_1a86a47b90849a08b00a9030d3ca076144" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 mpShortMult</definition>
+        <argsstring>(u32 p[], const u32 x[], u32 d, size_t ndigits)</argsstring>
+        <name>mpShortMult</name>
+        <param>
+          <type>u32</type>
+          <declname>p</declname>
+          <array>[]</array>
+        </param>
+        <param>
+          <type>const u32</type>
+          <declname>x</declname>
+          <array>[]</array>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>d</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>ndigits</declname>
+        </param>
+        <briefdescription>
+<para>Computes product p = x * d. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/bigdigits.h" line="307" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/bigdigits.c" bodystart="1386" bodyend="1422"/>
+        <references refid="bigdigits_8h_1a8479a1c0578e65b051674817c5bd77b9" compoundref="bigdigits_8c" startline="271" endline="331">spMultiply</references>
+      </memberdef>
+      <memberdef kind="function" id="bigdigits_8h_1a2057382ebab06472fed38f5b71399f6a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 mpShortDiv</definition>
+        <argsstring>(u32 q[], const u32 u[], u32 d, size_t ndigits)</argsstring>
+        <name>mpShortDiv</name>
+        <param>
+          <type>u32</type>
+          <declname>q</declname>
+          <array>[]</array>
+        </param>
+        <param>
+          <type>const u32</type>
+          <declname>u</declname>
+          <array>[]</array>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>d</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>ndigits</declname>
+        </param>
+        <briefdescription>
+<para>Computes quotient q = u div d, returns remainder. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/bigdigits.h" line="310" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/bigdigits.c" bodystart="1424" bodyend="1476"/>
+        <references refid="bigdigits_8h_1af6837bac786e6c592602feb8a37c52d5">mpShiftLeft</references>
+        <references refid="bigdigits_8h_1a3bdaee33308ee8393ba8bae4fe8f4220" compoundref="bigdigits_8c" startline="355" endline="503">spDivide</references>
+        <referencedby refid="bigdigits_8h_1a453714cb1ce75fc02fceceaf8b35a75a" compoundref="bigdigits_8c" startline="1997" endline="2053">mpCubeRoot</referencedby>
+        <referencedby refid="bigdigits_8h_1a2a9beba8b1b46a0f415197f512dff569" compoundref="bigdigits_8c" startline="693" endline="846">mpDivide</referencedby>
+        <referencedby refid="bigdigits_8h_1aa248383631135e0a8504d2bd569fbce2" compoundref="bigdigits_8c" startline="1478" endline="1501">mpShortMod</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="bigdigits_8h_1aa248383631135e0a8504d2bd569fbce2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 mpShortMod</definition>
+        <argsstring>(const u32 a[], u32 d, size_t ndigits)</argsstring>
+        <name>mpShortMod</name>
+        <param>
+          <type>const u32</type>
+          <declname>a</declname>
+          <array>[]</array>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>d</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>ndigits</declname>
+        </param>
+        <briefdescription>
+<para>Computes remainder r = a mod d. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/bigdigits.h" line="313" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/bigdigits.c" bodystart="1478" bodyend="1501"/>
+        <references refid="bigdigits_8h_1a2057382ebab06472fed38f5b71399f6a" compoundref="bigdigits_8c" startline="1424" endline="1476">mpShortDiv</references>
+        <referencedby refid="bigdigits_8h_1afee0546db3e24c672b9bc35fbe3d24ca" compoundref="bigdigits_8c" startline="2170" endline="2207">mpIsPrime</referencedby>
+        <referencedby refid="bigdigits_8h_1a32626062a7c127eed845c799c2176c38" compoundref="bigdigits_8c" startline="2055" endline="2140">mpJacobi</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="bigdigits_8h_1a54a5d832ff76748576c7447d7eeb8e7d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int mpShortCmp</definition>
+        <argsstring>(const u32 a[], u32 d, size_t ndigits)</argsstring>
+        <name>mpShortCmp</name>
+        <param>
+          <type>const u32</type>
+          <declname>a</declname>
+          <array>[]</array>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>d</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>ndigits</declname>
+        </param>
+        <briefdescription>
+<para>Returns sign of (a - d) where d is a single digit. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/bigdigits.h" line="316" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/bigdigits.c" bodystart="1504" bodyend="1523"/>
+        <referencedby refid="bigdigits_8h_1a453714cb1ce75fc02fceceaf8b35a75a" compoundref="bigdigits_8c" startline="1997" endline="2053">mpCubeRoot</referencedby>
+        <referencedby refid="bigdigits_8h_1afee0546db3e24c672b9bc35fbe3d24ca" compoundref="bigdigits_8c" startline="2170" endline="2207">mpIsPrime</referencedby>
+        <referencedby refid="bigdigits_8h_1a32626062a7c127eed845c799c2176c38" compoundref="bigdigits_8c" startline="2055" endline="2140">mpJacobi</referencedby>
+        <referencedby refid="bigdigits_8h_1a644f6447391ea04fdb9ba7f8b5d78de7" compoundref="bigdigits_8c" startline="1766" endline="1846">mpModInv</referencedby>
+        <referencedby refid="bigdigits_8h_1a153f831f4e86caa9d90109df71b15b45" compoundref="bigdigits_8c" startline="2213" endline="2352">mpRabinMiller</referencedby>
+        <referencedby refid="bigdigits_8h_1a0d06f675857ffa2d8cf5c06e40ce1f98" compoundref="bigdigits_8c" startline="1941" endline="1995">mpSqrt</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="bigdigits_8h_1a8479a1c0578e65b051674817c5bd77b9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int spMultiply</definition>
+        <argsstring>(u32 p[2], u32 x, u32 y)</argsstring>
+        <name>spMultiply</name>
+        <param>
+          <type>u32</type>
+          <declname>p</declname>
+          <array>[2]</array>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>y</declname>
+        </param>
+        <briefdescription>
+<para>Computes p = x * y, where x and y are single digits. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/bigdigits.h" line="330" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/bigdigits.c" bodystart="271" bodyend="331"/>
+        <referencedby refid="bigdigits_8h_1aa57007f55945e5caad5fa4e4da0ab2ec" compoundref="bigdigits_8c" startline="584" endline="637">mpMultiply</referencedby>
+        <referencedby refid="bigdigits_8h_1a86a47b90849a08b00a9030d3ca076144" compoundref="bigdigits_8c" startline="1386" endline="1422">mpShortMult</referencedby>
+        <referencedby refid="bigdigits_8h_1ac2504130118989f74890ebe55abf2beb" compoundref="bigdigits_8c" startline="849" endline="956">mpSquare</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="bigdigits_8h_1a3bdaee33308ee8393ba8bae4fe8f4220" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 spDivide</definition>
+        <argsstring>(u32 *q, u32 *r, const u32 u[2], u32 v)</argsstring>
+        <name>spDivide</name>
+        <param>
+          <type>u32 *</type>
+          <declname>q</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>r</declname>
+        </param>
+        <param>
+          <type>const u32</type>
+          <declname>u</declname>
+          <array>[2]</array>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>v</declname>
+        </param>
+        <briefdescription>
+<para>Computes quotient q = u div v, remainder r = u mod v, where q, r and v are single digits. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/bigdigits.h" line="333" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/bigdigits.c" bodystart="355" bodyend="503"/>
+        <referencedby refid="bigdigits_8h_1a2a9beba8b1b46a0f415197f512dff569" compoundref="bigdigits_8c" startline="693" endline="846">mpDivide</referencedby>
+        <referencedby refid="bigdigits_8h_1a2057382ebab06472fed38f5b71399f6a" compoundref="bigdigits_8c" startline="1424" endline="1476">mpShortDiv</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="bigdigits_8h_1ad7e9dd871ac50a08b8ccae4592ba120e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 spSimpleRand</definition>
+        <argsstring>(u32 lower, u32 upper)</argsstring>
+        <name>spSimpleRand</name>
+        <param>
+          <type>u32</type>
+          <declname>lower</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>upper</declname>
+        </param>
+        <briefdescription>
+<para>Returns a simple pseudo-random digit between lower and upper. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="remark"><para>Not crypto secure. </para></simplesect>
+<simplesect kind="see"><para>spBetterRand() </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/bigdigits.h" line="344" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/bigdigits.c" bodystart="2446" bodyend="2461"/>
+        <referencedby refid="bigdigits_8h_1a3df35cea910a1b2ddd4a0f909b11fe5e" compoundref="bigdigits_8c" startline="2360" endline="2388">mpQuickRandBits</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="bigdigits_8h_1a3df35cea910a1b2ddd4a0f909b11fe5e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>size_t</type>
+        <definition>size_t mpQuickRandBits</definition>
+        <argsstring>(u32 a[], size_t ndigits, size_t nbits)</argsstring>
+        <name>mpQuickRandBits</name>
+        <param>
+          <type>u32</type>
+          <declname>a</declname>
+          <array>[]</array>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>ndigits</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>nbits</declname>
+        </param>
+        <briefdescription>
+<para>Generate a quick-and-dirty random mp number a of bit length at most <computeroutput>nbits</computeroutput> using plain-old-rand. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="remark"><para>Not crypto secure. </para></simplesect>
+<simplesect kind="see"><para>mpRandomBits()</para></simplesect>
+Generate a quick-and-dirty random mp number a of bit length at most <computeroutput>nbits</computeroutput> using plain-old-rand. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/bigdigits.h" line="350" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/bigdigits.c" bodystart="2360" bodyend="2388"/>
+        <references refid="bigdigits_8h_1a0a32c0a32ee38fd15afb14cccc5601d9" compoundref="bigdigits_8c" startline="1100" endline="1112">mpSetZero</references>
+        <references refid="bigdigits_8h_1ad7e9dd871ac50a08b8ccae4592ba120e" compoundref="bigdigits_8c" startline="2446" endline="2461">spSimpleRand</references>
+      </memberdef>
+      <memberdef kind="function" id="bigdigits_8h_1a65d767d47344f3c1f25e8e40f033d800" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void mpPrintHex</definition>
+        <argsstring>(const char *prefix, const u32 *p, size_t ndigits, const char *suffix)</argsstring>
+        <name>mpPrintHex</name>
+        <param>
+          <type>const char *</type>
+          <declname>prefix</declname>
+        </param>
+        <param>
+          <type>const u32 *</type>
+          <declname>p</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>ndigits</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>suffix</declname>
+        </param>
+        <briefdescription>
+<para>Print in hex format with optional prefix and suffix strings. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/bigdigits.h" line="361" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/bigdigits.c" bodystart="1625" bodyend="1643"/>
+      </memberdef>
+      <memberdef kind="function" id="bigdigits_8h_1ac466319fe455605d132019da44c042a3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void mpPrint</definition>
+        <argsstring>(const u32 *p, size_t ndigits)</argsstring>
+        <name>mpPrint</name>
+        <param>
+          <type>const u32 *</type>
+          <declname>p</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>ndigits</declname>
+        </param>
+        <briefdescription>
+<para>Print in decimal format with optional prefix and suffix strings. </para>        </briefdescription>
+        <detaileddescription>
+<para>Print all digits in hex incl leading zero digits </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/bigdigits.h" line="369" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/bigdigits.c" bodystart="1573" bodyend="1579"/>
+        <referencedby refid="bigdigits_8h_1a9bbb54139efc28eba4a5299a94d31258" compoundref="bigdigits_8c" startline="1595" endline="1608">mpPrintTrim</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="bigdigits_8h_1a11fb08a4b901049e10a6bd5e769f8d90" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void mpPrintNL</definition>
+        <argsstring>(const u32 *p, size_t ndigits)</argsstring>
+        <name>mpPrintNL</name>
+        <param>
+          <type>const u32 *</type>
+          <declname>p</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>ndigits</declname>
+        </param>
+        <briefdescription>
+<para>Print all digits in hex with newlines. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/bigdigits.h" line="371" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/bigdigits.c" bodystart="1581" bodyend="1593"/>
+        <referencedby refid="bigdigits_8h_1a302c68abf9fd95006d1a2b56f1515bac" compoundref="bigdigits_8c" startline="1610" endline="1623">mpPrintTrimNL</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="bigdigits_8h_1a9bbb54139efc28eba4a5299a94d31258" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void mpPrintTrim</definition>
+        <argsstring>(const u32 *p, size_t ndigits)</argsstring>
+        <name>mpPrintTrim</name>
+        <param>
+          <type>const u32 *</type>
+          <declname>p</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>ndigits</declname>
+        </param>
+        <briefdescription>
+<para>Print in hex but trim leading zero digits. </para>        </briefdescription>
+        <detaileddescription>
+<para><xrefsect id="deprecated_1_deprecated000001"><xreftitle>Deprecated</xreftitle><xrefdescription><para>Use <ref refid="bigdigits_8h_1a65d767d47344f3c1f25e8e40f033d800" kindref="member">mpPrintHex()</ref> </para></xrefdescription></xrefsect></para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/bigdigits.h" line="375" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/bigdigits.c" bodystart="1595" bodyend="1608"/>
+        <references refid="bigdigits_8h_1ac466319fe455605d132019da44c042a3" compoundref="bigdigits_8c" startline="1573" endline="1579">mpPrint</references>
+      </memberdef>
+      <memberdef kind="function" id="bigdigits_8h_1a302c68abf9fd95006d1a2b56f1515bac" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void mpPrintTrimNL</definition>
+        <argsstring>(const u32 *p, size_t ndigits)</argsstring>
+        <name>mpPrintTrimNL</name>
+        <param>
+          <type>const u32 *</type>
+          <declname>p</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>ndigits</declname>
+        </param>
+        <briefdescription>
+<para>Print in hex, trim leading zeroes, add newlines. </para>        </briefdescription>
+        <detaileddescription>
+<para><xrefsect id="deprecated_1_deprecated000002"><xreftitle>Deprecated</xreftitle><xrefdescription><para>Use <ref refid="bigdigits_8h_1a65d767d47344f3c1f25e8e40f033d800" kindref="member">mpPrintHex()</ref> </para></xrefdescription></xrefsect></para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/bigdigits.h" line="379" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/bigdigits.c" bodystart="1610" bodyend="1623"/>
+        <references refid="bigdigits_8h_1a11fb08a4b901049e10a6bd5e769f8d90" compoundref="bigdigits_8c" startline="1581" endline="1593">mpPrintNL</references>
+      </memberdef>
+      <memberdef kind="function" id="bigdigits_8h_1af17b0b6a122dad76d5c447f0e5979535" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>size_t</type>
+        <definition>size_t mpConvFromOctets</definition>
+        <argsstring>(u32 a[], size_t ndigits, const unsigned char *c, size_t nbytes)</argsstring>
+        <name>mpConvFromOctets</name>
+        <param>
+          <type>u32</type>
+          <declname>a</declname>
+          <array>[]</array>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>ndigits</declname>
+        </param>
+        <param>
+          <type>const unsigned char *</type>
+          <declname>c</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>nbytes</declname>
+        </param>
+        <briefdescription>
+<para>Converts nbytes octets into big digit a of max size ndigits. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>actual number of digits set </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/bigdigits.h" line="387" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/bigdigits.c" bodystart="1648" bodyend="1670"/>
+        <references refid="bigdigits_8h_1a0a32c0a32ee38fd15afb14cccc5601d9" compoundref="bigdigits_8c" startline="1100" endline="1112">mpSetZero</references>
+      </memberdef>
+      <memberdef kind="function" id="bigdigits_8h_1ac059684115bb5942c2633d99ec41d149" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>size_t</type>
+        <definition>size_t mpConvToOctets</definition>
+        <argsstring>(const u32 a[], size_t ndigits, unsigned char *c, size_t nbytes)</argsstring>
+        <name>mpConvToOctets</name>
+        <param>
+          <type>const u32</type>
+          <declname>a</declname>
+          <array>[]</array>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>ndigits</declname>
+        </param>
+        <param>
+          <type>unsigned char *</type>
+          <declname>c</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>nbytes</declname>
+        </param>
+        <briefdescription>
+<para>Converts big digit a into string of octets, in big-endian order, padding to nbytes or truncating if necessary. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>number of non-zero octets required. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/bigdigits.h" line="390" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/bigdigits.c" bodystart="1672" bodyend="1698"/>
+        <references refid="bigdigits_8h_1a1a73f82be10b0ca4c8a7e51c52bad262" compoundref="bigdigits_8c" startline="1067" endline="1088">mpBitLength</references>
+      </memberdef>
+      <memberdef kind="function" id="bigdigits_8h_1a7aceff23b773fe9cca62ef91db0e30ab" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int mpIsNegative</definition>
+        <argsstring>(const u32 x[], size_t ndigits)</argsstring>
+        <name>mpIsNegative</name>
+        <param>
+          <type>const u32</type>
+          <declname>x</declname>
+          <array>[]</array>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>ndigits</declname>
+        </param>
+        <briefdescription>
+<para>Returns true (1) if x &lt; 0, else false (0) </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="remark"><para>Expects a negative number to be stored in two&apos;s-complement representation.</para></simplesect>
+Returns true (1) if x &lt; 0, else false (0) </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/bigdigits.h" line="433" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/bigdigits.c" bodystart="1531" bodyend="1534"/>
+        <referencedby refid="bigdigits_8h_1a4bcb8a0e0ed0e1fbfac8fd507c75bc1a" compoundref="bigdigits_8c" startline="1557" endline="1567">mpAbs</referencedby>
+        <referencedby refid="bigdigits_8h_1a8666a8cd063b0aeb53956f14edd219ff" compoundref="bigdigits_8c" startline="1537" endline="1554">mpChs</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="bigdigits_8h_1a8666a8cd063b0aeb53956f14edd219ff" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int mpChs</definition>
+        <argsstring>(u32 x[], const u32 y[], size_t ndigits)</argsstring>
+        <name>mpChs</name>
+        <param>
+          <type>u32</type>
+          <declname>x</declname>
+          <array>[]</array>
+        </param>
+        <param>
+          <type>const u32</type>
+          <declname>y</declname>
+          <array>[]</array>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>ndigits</declname>
+        </param>
+        <briefdescription>
+<para>Sets x = -y. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="remark"><para>Expects a negative number to be stored in two&apos;s-complement representation. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/bigdigits.h" line="438" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/bigdigits.c" bodystart="1537" bodyend="1554"/>
+        <references refid="bigdigits_8h_1a7aceff23b773fe9cca62ef91db0e30ab" compoundref="bigdigits_8c" startline="1531" endline="1534">mpIsNegative</references>
+        <references refid="bigdigits_8h_1a45d11ad9b80ea9993d429bae4d4e3c51" compoundref="bigdigits_8c" startline="1303" endline="1309">mpNotBits</references>
+        <references refid="bigdigits_8h_1ad6970367c69eee9ed5c65e140b067cf3" compoundref="bigdigits_8c" startline="1314" endline="1348">mpShortAdd</references>
+        <references refid="bigdigits_8h_1acf60cb91d9bf64b9ab8cd6c7995a2c6f" compoundref="bigdigits_8c" startline="1350" endline="1384">mpShortSub</references>
+        <referencedby refid="bigdigits_8h_1a4bcb8a0e0ed0e1fbfac8fd507c75bc1a" compoundref="bigdigits_8c" startline="1557" endline="1567">mpAbs</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="bigdigits_8h_1a4bcb8a0e0ed0e1fbfac8fd507c75bc1a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int mpAbs</definition>
+        <argsstring>(u32 x[], const u32 y[], size_t ndigits)</argsstring>
+        <name>mpAbs</name>
+        <param>
+          <type>u32</type>
+          <declname>x</declname>
+          <array>[]</array>
+        </param>
+        <param>
+          <type>const u32</type>
+          <declname>y</declname>
+          <array>[]</array>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>ndigits</declname>
+        </param>
+        <briefdescription>
+<para>Sets x = |y|, the absolute value of y. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="remark"><para>Expects a negative number to be stored in two&apos;s-complement representation.</para></simplesect>
+Sets x = |y|, the absolute value of y. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/bigdigits.h" line="443" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/bigdigits.c" bodystart="1557" bodyend="1567"/>
+        <references refid="bigdigits_8h_1a8666a8cd063b0aeb53956f14edd219ff" compoundref="bigdigits_8c" startline="1537" endline="1554">mpChs</references>
+        <references refid="bigdigits_8h_1a7aceff23b773fe9cca62ef91db0e30ab" compoundref="bigdigits_8c" startline="1531" endline="1534">mpIsNegative</references>
+        <references refid="bigdigits_8h_1aa40ded0449ebaf383877100804197948" compoundref="bigdigits_8c" startline="1090" endline="1098">mpSetEqual</references>
+      </memberdef>
+      <memberdef kind="function" id="bigdigits_8h_1a5593505351c9c1938ad52404c8f9a44c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int mpVersion</definition>
+        <argsstring>(void)</argsstring>
+        <name>mpVersion</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Returns version number = major*1000+minor*100+release*10+PP_OPTIONS. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/bigdigits.h" line="449" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/bigdigits.c" bodystart="162" bodyend="165"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Interface to core BigDigits &quot;mp&quot; functions using fixed-length arrays. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/*<sp/>$Id:<sp/>bigdigits.h<sp/>$<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="comment">/*****<sp/>BEGIN<sp/>LICENSE<sp/>BLOCK<sp/>*****</highlight></codeline>
+<codeline lineno="8"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="9"><highlight class="comment"><sp/>*<sp/>This<sp/>Source<sp/>Code<sp/>Form<sp/>is<sp/>subject<sp/>to<sp/>the<sp/>terms<sp/>of<sp/>the<sp/>Mozilla<sp/>Public</highlight></codeline>
+<codeline lineno="10"><highlight class="comment"><sp/>*<sp/>License,<sp/>v.<sp/>2.0.<sp/>If<sp/>a<sp/>copy<sp/>of<sp/>the<sp/>MPL<sp/>was<sp/>not<sp/>distributed<sp/>with<sp/>this</highlight></codeline>
+<codeline lineno="11"><highlight class="comment"><sp/>*<sp/>file,<sp/>You<sp/>can<sp/>obtain<sp/>one<sp/>at<sp/>http://mozilla.org/MPL/2.0/.</highlight></codeline>
+<codeline lineno="12"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="13"><highlight class="comment"><sp/>*<sp/>Copyright<sp/>(c)<sp/>2001-15<sp/>David<sp/>Ireland,<sp/>D.I.<sp/>Management<sp/>Services<sp/>Pty<sp/>Limited</highlight></codeline>
+<codeline lineno="14"><highlight class="comment"><sp/>*<sp/>&lt;http://www.di-mgt.com.au/bigdigits.html&gt;.<sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="15"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="16"><highlight class="comment"><sp/>*****<sp/>END<sp/>LICENSE<sp/>BLOCK<sp/>*****/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="18"><highlight class="comment"><sp/>*<sp/>Last<sp/>updated:</highlight></codeline>
+<codeline lineno="19"><highlight class="comment"><sp/>*<sp/>$Date:<sp/>2015-10-22<sp/>10:23:00<sp/>$</highlight></codeline>
+<codeline lineno="20"><highlight class="comment"><sp/>*<sp/>$Revision:<sp/>2.5.0<sp/>$</highlight></codeline>
+<codeline lineno="21"><highlight class="comment"><sp/>*<sp/>$Author:<sp/>dai<sp/>$</highlight></codeline>
+<codeline lineno="22"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>BIGDIGITS_H_</highlight></codeline>
+<codeline lineno="25"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>BIGDIGITS_H_<sp/>1</highlight></codeline>
+<codeline lineno="26"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;stdlib.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;bigdtypes.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="comment">/****<sp/>USER<sp/>CONFIGURABLE<sp/>SECTION<sp/>****/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Disable<sp/>dynamic<sp/>memory<sp/>allocation<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>NO_ALLOCS</highlight></codeline>
+<codeline lineno="34"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Define<sp/>type<sp/>and<sp/>size<sp/>of<sp/>DIGIT<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>[v2.1]<sp/>Changed<sp/>to<sp/>use<sp/>C99<sp/>exact-width<sp/>types.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>[v2.2]<sp/>Put<sp/>macros<sp/>for<sp/>exact-width<sp/>types<sp/>in<sp/>separate<sp/>file<sp/>&quot;bigdtypes.h&quot;<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41" refid="bigdigits_8h_1ab56c606f91a4f8d105bbf3bbe0640b6c" refkind="member"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>uint32_t<sp/><ref refid="bigdigits_8h_1ab56c606f91a4f8d105bbf3bbe0640b6c" kindref="member">DIGIT_T</ref>;</highlight></codeline>
+<codeline lineno="43"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>uint16_t<sp/>HALF_u32;</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Sizes<sp/>to<sp/>match<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>MAX_DIGIT<sp/>0xFFFFFFFFUL</highlight></codeline>
+<codeline lineno="47"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>MAX_HALF_DIGIT<sp/>0xFFFFUL<sp/></highlight><highlight class="comment">/*<sp/>NB<sp/>&apos;L&apos;<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="48"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>BITS_PER_DIGIT<sp/>32</highlight></codeline>
+<codeline lineno="49"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>HIBITMASK<sp/>0x80000000UL</highlight></codeline>
+<codeline lineno="50"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight><highlight class="comment">/*<sp/><sp/><sp/><sp/><sp/><sp/>[v2.2]<sp/>added<sp/>option<sp/>to<sp/>avoid<sp/>allocating<sp/>temp<sp/>storage</highlight></codeline>
+<codeline lineno="52"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>and<sp/>use<sp/>fixed<sp/>automatic<sp/>arrays<sp/>instead.</highlight></codeline>
+<codeline lineno="53"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Define<sp/>NO_ALLOCS<sp/>to<sp/>invoke<sp/>this.</highlight></codeline>
+<codeline lineno="54"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Only<sp/>applicable<sp/>to<sp/>mp<sp/>functions.<sp/>Do<sp/>not<sp/>use<sp/>with<sp/>bd.</highlight></codeline>
+<codeline lineno="55"><highlight class="comment">*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Specify<sp/>the<sp/>maximum<sp/>number<sp/>of<sp/>digits<sp/>allowed<sp/>in<sp/>a<sp/>temp<sp/>mp<sp/>array</highlight></codeline>
+<codeline lineno="57"><highlight class="comment"><sp/><sp/><sp/>--<sp/>ignored<sp/>unless<sp/>NO_ALLOCS<sp/>is<sp/>defined<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>NO_ALLOCS</highlight></codeline>
+<codeline lineno="59"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>MAX_FIXED_BIT_LENGTH<sp/>4096</highlight></codeline>
+<codeline lineno="60"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>MAX_FIXED_DIGITS<sp/>(MAX_FIXED_BIT_LENGTH<sp/>/<sp/>BITS_PER_DIGIT)</highlight></codeline>
+<codeline lineno="61"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="62"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight><highlight class="comment">/****<sp/>END<sp/>OF<sp/>USER<sp/>CONFIGURABLE<sp/>SECTION<sp/>****/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight><highlight class="comment">/****<sp/>OPTIONAL<sp/>PREPROCESSOR<sp/>DEFINITIONS<sp/>****/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="67"><highlight class="comment"><sp/><sp/><sp/>Choose<sp/>one<sp/>of<sp/>{USE_SPASM<sp/>|<sp/>USE_64WITH32}</highlight></codeline>
+<codeline lineno="68"><highlight class="comment"><sp/><sp/><sp/>USE_SPASM:<sp/>to<sp/>use<sp/>the<sp/>faster<sp/>x86<sp/>ASM<sp/>routines<sp/>(if<sp/>__asm<sp/>option<sp/>is<sp/>available<sp/>with<sp/>your<sp/>compiler).</highlight></codeline>
+<codeline lineno="69"><highlight class="comment"><sp/><sp/><sp/>USE_64WITH32:<sp/>to<sp/>use<sp/>the<sp/>64-bit<sp/>integers<sp/>if<sp/>available<sp/>(e.g.<sp/>long<sp/>long).</highlight></codeline>
+<codeline lineno="70"><highlight class="comment"><sp/><sp/><sp/>Default:<sp/>use<sp/>default<sp/>internal<sp/>routines<sp/>spDivide<sp/>and<sp/>spMultiply.</highlight></codeline>
+<codeline lineno="71"><highlight class="comment"><sp/><sp/><sp/>The<sp/>USE_SPASM<sp/>option<sp/>takes<sp/>precedence<sp/>over<sp/>USE_64WITH32.</highlight></codeline>
+<codeline lineno="72"><highlight class="comment">*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Useful<sp/>macros<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>ISODD(x)<sp/>((x)<sp/>&amp;<sp/>0x1)</highlight></codeline>
+<codeline lineno="76"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>ISEVEN(x)<sp/>(!ISODD(x))</highlight></codeline>
+<codeline lineno="77"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>mpISODD(x,<sp/>n)<sp/>(x[0]<sp/>&amp;<sp/>0x1)</highlight></codeline>
+<codeline lineno="78"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>mpISEVEN(x,<sp/>n)<sp/>(!(x[0]<sp/>&amp;<sp/>0x1))</highlight></codeline>
+<codeline lineno="79"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="80"><highlight class="normal"></highlight></codeline>
+<codeline lineno="81"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="82"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="84"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="85"><highlight class="normal"></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*copyright_notice(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Forces<sp/>linker<sp/>to<sp/>include<sp/>copyright<sp/>notice<sp/>in<sp/>executable<sp/>*/</highlight></codeline>
+<codeline lineno="89"><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="90"><highlight class="comment"><sp/>*<sp/>Multiple<sp/>precision<sp/>calculations</highlight></codeline>
+<codeline lineno="91"><highlight class="comment"><sp/>*<sp/>Using<sp/>known,<sp/>equal<sp/>ndigits</highlight></codeline>
+<codeline lineno="92"><highlight class="comment"><sp/>*<sp/>except<sp/>where<sp/>noted</highlight></codeline>
+<codeline lineno="93"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="94"><highlight class="normal"></highlight></codeline>
+<codeline lineno="95"><highlight class="normal"></highlight><highlight class="comment">/*************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="96"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>ARITHMETIC<sp/>OPERATIONS<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="97"><highlight class="normal"></highlight><highlight class="comment">/*************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="98"><highlight class="normal"></highlight></codeline>
+<codeline lineno="100"><highlight class="normal">u32<sp/><ref refid="bigdigits_8h_1a77bf097cd0692608f06b524ff1ef04db" kindref="member">mpAdd</ref>(u32<sp/>w[],<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>u[],<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>v[],<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>ndigits);</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"></highlight></codeline>
+<codeline lineno="103"><highlight class="normal">u32<sp/><ref refid="bigdigits_8h_1aa160f8403c9e4e296c4cfe1afa98f5d7" kindref="member">mpSubtract</ref>(u32<sp/>w[],<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>u[],<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>v[],<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>ndigits);</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"></highlight></codeline>
+<codeline lineno="112"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="bigdigits_8h_1aa57007f55945e5caad5fa4e4da0ab2ec" kindref="member">mpMultiply</ref>(u32<sp/>w[],<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>u[],<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>v[],<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>ndigits);</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"></highlight></codeline>
+<codeline lineno="123"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="bigdigits_8h_1a2a9beba8b1b46a0f415197f512dff569" kindref="member">mpDivide</ref>(u32<sp/>q[],<sp/>u32<sp/>r[],<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>u[],</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>udigits,<sp/>u32<sp/>v[],<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>vdigits);</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"></highlight></codeline>
+<codeline lineno="134"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="bigdigits_8h_1a8e3034074cb07fb9b9764d3448c03ab6" kindref="member">mpModulo</ref>(u32<sp/>r[],<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>u[],<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>udigits,<sp/>u32<sp/>v[],<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>vdigits);</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"></highlight></codeline>
+<codeline lineno="142"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="bigdigits_8h_1ac2504130118989f74890ebe55abf2beb" kindref="member">mpSquare</ref>(u32<sp/>w[],<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>x[],<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>ndigits);</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"></highlight></codeline>
+<codeline lineno="145"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="bigdigits_8h_1a0d06f675857ffa2d8cf5c06e40ce1f98" kindref="member">mpSqrt</ref>(u32<sp/>s[],<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>x[],<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>ndigits);</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"></highlight></codeline>
+<codeline lineno="148"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="bigdigits_8h_1a453714cb1ce75fc02fceceaf8b35a75a" kindref="member">mpCubeRoot</ref>(u32<sp/>s[],<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>x[],<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>ndigits);</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"></highlight></codeline>
+<codeline lineno="150"><highlight class="normal"></highlight><highlight class="comment">/*************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="151"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>COMPARISON<sp/>OPERATIONS<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="152"><highlight class="normal"></highlight><highlight class="comment">/*************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="153"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>[v2.5]<sp/>Changed<sp/>to<sp/>constant-time<sp/>algorithms<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="154"><highlight class="normal"></highlight></codeline>
+<codeline lineno="158"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="bigdigits_8h_1a934236a4337de87363660bc227aece52" kindref="member">mpEqual</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>a[],<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>b[],<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>ndigits);</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"></highlight></codeline>
+<codeline lineno="163"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="bigdigits_8h_1a4688fa13c48155ed2cfc18ebef0e838f" kindref="member">mpCompare</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>a[],<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>b[],<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>ndigits);</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"></highlight></codeline>
+<codeline lineno="168"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="bigdigits_8h_1a328c19b60c24beb9f1f3a6b8cf341aa2" kindref="member">mpIsZero</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>a[],<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>ndigits);</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"></highlight></codeline>
+<codeline lineno="170"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>OLDER,<sp/>QUICKER<sp/>VERSIONS<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="171"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Renamed<sp/>in<sp/>[v2.5]<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="172"><highlight class="normal"></highlight></codeline>
+<codeline lineno="176"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="bigdigits_8h_1ae3ecf0ae65f624c972903c0961863428" kindref="member">mpEqual_q</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>a[],<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>b[],<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>ndigits);</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"></highlight></codeline>
+<codeline lineno="181"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="bigdigits_8h_1a7e5d6a0e98281e52883da702ea151597" kindref="member">mpCompare_q</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>a[],<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>b[],<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>ndigits);</highlight></codeline>
+<codeline lineno="182"><highlight class="normal"></highlight></codeline>
+<codeline lineno="186"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="bigdigits_8h_1a530cb494f383cbc7b0938f1e75c4c824" kindref="member">mpIsZero_q</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>a[],<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>ndigits);</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"></highlight></codeline>
+<codeline lineno="188"><highlight class="normal"></highlight></codeline>
+<codeline lineno="189"><highlight class="normal"></highlight><highlight class="comment">/****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="190"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>NUMBER<sp/>THEORY<sp/>OPERATIONS<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="191"><highlight class="normal"></highlight><highlight class="comment">/****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="192"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>[v2.2]<sp/>removed<sp/>`const`<sp/>restriction<sp/>on<sp/>m[]<sp/>for<sp/>mpModMult<sp/>and<sp/>mpModExp</highlight></codeline>
+<codeline lineno="193"><highlight class="comment"><sp/>*<sp/>(to<sp/>allow<sp/>faster<sp/>in-place<sp/>manipulation<sp/>instead<sp/>of<sp/>using<sp/>a<sp/>temp<sp/>variable).</highlight></codeline>
+<codeline lineno="194"><highlight class="comment"><sp/>*<sp/>[v2.5]<sp/>added<sp/>mpModExp_ct(),<sp/>a<sp/>constant-time<sp/>variant<sp/>of<sp/>mpModExp().</highlight></codeline>
+<codeline lineno="195"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="196"><highlight class="normal"></highlight></codeline>
+<codeline lineno="198"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="bigdigits_8h_1a4ca7d847e83c72e810774d3c8faf3d42" kindref="member">mpModExp</ref>(u32<sp/>y[],<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>x[],<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>e[],<sp/>u32<sp/>m[],<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>ndigits);</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"></highlight></codeline>
+<codeline lineno="204"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="bigdigits_8h_1a81f43e382a5babc239c97b076fe7829b" kindref="member">mpModExp_ct</ref>(u32<sp/>yout[],<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>x[],<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>e[],<sp/>u32<sp/>m[],<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>ndigits);</highlight></codeline>
+<codeline lineno="205"><highlight class="normal"></highlight></codeline>
+<codeline lineno="207"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="bigdigits_8h_1ab38130bb56dec16ad7ee185182e689e0" kindref="member">mpModMult</ref>(u32<sp/>a[],<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>x[],<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>y[],<sp/>u32<sp/>m[],<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>ndigits);</highlight></codeline>
+<codeline lineno="208"><highlight class="normal"></highlight></codeline>
+<codeline lineno="210"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="bigdigits_8h_1a644f6447391ea04fdb9ba7f8b5d78de7" kindref="member">mpModInv</ref>(u32<sp/>inv[],<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>u[],<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>m[],<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>ndigits);</highlight></codeline>
+<codeline lineno="211"><highlight class="normal"></highlight></codeline>
+<codeline lineno="213"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="bigdigits_8h_1ae0571c6d22df02f1d06ad35d85df6f67" kindref="member">mpGcd</ref>(u32<sp/>g[],<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>x[],<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>y[],<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>ndigits);</highlight></codeline>
+<codeline lineno="214"><highlight class="normal"></highlight></codeline>
+<codeline lineno="221"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="bigdigits_8h_1a32626062a7c127eed845c799c2176c38" kindref="member">mpJacobi</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>a[],<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>n[],<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>ndigits);</highlight></codeline>
+<codeline lineno="222"><highlight class="normal"></highlight></codeline>
+<codeline lineno="223"><highlight class="normal"></highlight></codeline>
+<codeline lineno="224"><highlight class="normal"></highlight><highlight class="comment">/**********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="225"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>BITWISE<sp/>OPERATIONS<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="226"><highlight class="normal"></highlight><highlight class="comment">/**********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="227"><highlight class="normal"></highlight></codeline>
+<codeline lineno="229"><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/><ref refid="bigdigits_8h_1a1a73f82be10b0ca4c8a7e51c52bad262" kindref="member">mpBitLength</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>a[],<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>ndigits);</highlight></codeline>
+<codeline lineno="230"><highlight class="normal"></highlight></codeline>
+<codeline lineno="232"><highlight class="normal">u32<sp/><ref refid="bigdigits_8h_1af6837bac786e6c592602feb8a37c52d5" kindref="member">mpShiftLeft</ref>(u32<sp/>a[],<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>b[],<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>x,<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>ndigits);</highlight></codeline>
+<codeline lineno="233"><highlight class="normal"></highlight></codeline>
+<codeline lineno="235"><highlight class="normal">u32<sp/><ref refid="bigdigits_8h_1aaab56ae575c4e3bc18d5a89df21c53f7" kindref="member">mpShiftRight</ref>(u32<sp/>a[],<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>b[],<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>x,<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>ndigits);</highlight></codeline>
+<codeline lineno="236"><highlight class="normal"></highlight></codeline>
+<codeline lineno="238"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="bigdigits_8h_1ae8518e5f683a939df4e2e9f97ae51b2b" kindref="member">mpXorBits</ref>(u32<sp/>a[],<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>b[],<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>c[],<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>ndigits);</highlight></codeline>
+<codeline lineno="239"><highlight class="normal"></highlight></codeline>
+<codeline lineno="241"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="bigdigits_8h_1a94209753b2498a21d8be57b0d9f8a205" kindref="member">mpOrBits</ref>(u32<sp/>a[],<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>b[],<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>c[],<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>ndigits);</highlight></codeline>
+<codeline lineno="242"><highlight class="normal"></highlight></codeline>
+<codeline lineno="244"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="bigdigits_8h_1a3f880cfbf3bc582f54ac675df8bd6b22" kindref="member">mpAndBits</ref>(u32<sp/>a[],<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>b[],<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>c[],<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>ndigits);</highlight></codeline>
+<codeline lineno="245"><highlight class="normal"></highlight></codeline>
+<codeline lineno="247"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="bigdigits_8h_1a45d11ad9b80ea9993d429bae4d4e3c51" kindref="member">mpNotBits</ref>(u32<sp/>a[],<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>b[],<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>ndigits);</highlight></codeline>
+<codeline lineno="248"><highlight class="normal"></highlight></codeline>
+<codeline lineno="250"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="bigdigits_8h_1ab9a5dfe293ccd4f86979bb207bcdc457" kindref="member">mpModPowerOf2</ref>(u32<sp/>a[],<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>ndigits,<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>L);</highlight></codeline>
+<codeline lineno="251"><highlight class="normal"></highlight></codeline>
+<codeline lineno="253"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="bigdigits_8h_1a446a5ab32deeb02277479dff4953e13e" kindref="member">mpSetBit</ref>(u32<sp/>a[],<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>ndigits,<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>n,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>value);</highlight></codeline>
+<codeline lineno="254"><highlight class="normal"></highlight></codeline>
+<codeline lineno="256"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="bigdigits_8h_1ab62a26b7b7bc001f81a650f4b382df0a" kindref="member">mpGetBit</ref>(u32<sp/>a[],<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>ndigits,<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>n);</highlight></codeline>
+<codeline lineno="257"><highlight class="normal"></highlight></codeline>
+<codeline lineno="258"><highlight class="normal"></highlight></codeline>
+<codeline lineno="259"><highlight class="normal"></highlight><highlight class="comment">/*************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="260"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>ASSIGNMENT<sp/>OPERATIONS<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="261"><highlight class="normal"></highlight><highlight class="comment">/*************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="262"><highlight class="normal"></highlight></codeline>
+<codeline lineno="264"><highlight class="normal">u32<sp/><ref refid="bigdigits_8h_1a0a32c0a32ee38fd15afb14cccc5601d9" kindref="member">mpSetZero</ref>(u32<sp/>a[],<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>ndigits);</highlight></codeline>
+<codeline lineno="265"><highlight class="normal"></highlight></codeline>
+<codeline lineno="267"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="bigdigits_8h_1afe97063d506389797a9647a8803edc65" kindref="member">mpSetDigit</ref>(u32<sp/>a[],<sp/>u32<sp/>d,<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>ndigits);</highlight></codeline>
+<codeline lineno="268"><highlight class="normal"></highlight></codeline>
+<codeline lineno="270"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="bigdigits_8h_1aa40ded0449ebaf383877100804197948" kindref="member">mpSetEqual</ref>(u32<sp/>a[],<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>b[],<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>ndigits);</highlight></codeline>
+<codeline lineno="271"><highlight class="normal"></highlight></codeline>
+<codeline lineno="272"><highlight class="normal"></highlight></codeline>
+<codeline lineno="273"><highlight class="normal"></highlight><highlight class="comment">/**********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="274"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>OTHER<sp/>MP<sp/>UTILITIES<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="275"><highlight class="normal"></highlight><highlight class="comment">/**********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="276"><highlight class="normal"></highlight></codeline>
+<codeline lineno="278"><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/><ref refid="bigdigits_8h_1a89d8fb72ea0b381ce9099b09901cec10" kindref="member">mpSizeof</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>a[],<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>ndigits);</highlight></codeline>
+<codeline lineno="279"><highlight class="normal"></highlight></codeline>
+<codeline lineno="289"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="bigdigits_8h_1afee0546db3e24c672b9bc35fbe3d24ca" kindref="member">mpIsPrime</ref>(u32<sp/>w[],<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>ndigits,<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>t);</highlight></codeline>
+<codeline lineno="290"><highlight class="normal"></highlight></codeline>
+<codeline lineno="294"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="bigdigits_8h_1a153f831f4e86caa9d90109df71b15b45" kindref="member">mpRabinMiller</ref>(u32<sp/>w[],<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>ndigits,<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>t);</highlight></codeline>
+<codeline lineno="295"><highlight class="normal"></highlight></codeline>
+<codeline lineno="296"><highlight class="normal"></highlight><highlight class="comment">/**********************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="297"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>FUNCTIONS<sp/>THAT<sp/>OPERATE<sp/>WITH<sp/>A<sp/>SINGLE<sp/>DIGIT<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="298"><highlight class="normal"></highlight><highlight class="comment">/**********************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="299"><highlight class="normal"></highlight></codeline>
+<codeline lineno="301"><highlight class="normal">u32<sp/><ref refid="bigdigits_8h_1ad6970367c69eee9ed5c65e140b067cf3" kindref="member">mpShortAdd</ref>(u32<sp/>w[],<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>u[],<sp/>u32<sp/>d,<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>ndigits);</highlight></codeline>
+<codeline lineno="302"><highlight class="normal"></highlight></codeline>
+<codeline lineno="304"><highlight class="normal">u32<sp/><ref refid="bigdigits_8h_1acf60cb91d9bf64b9ab8cd6c7995a2c6f" kindref="member">mpShortSub</ref>(u32<sp/>w[],<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>u[],<sp/>u32<sp/>d,<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>ndigits);</highlight></codeline>
+<codeline lineno="305"><highlight class="normal"></highlight></codeline>
+<codeline lineno="307"><highlight class="normal">u32<sp/><ref refid="bigdigits_8h_1a86a47b90849a08b00a9030d3ca076144" kindref="member">mpShortMult</ref>(u32<sp/>p[],<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>x[],<sp/>u32<sp/>d,<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>ndigits);</highlight></codeline>
+<codeline lineno="308"><highlight class="normal"></highlight></codeline>
+<codeline lineno="310"><highlight class="normal">u32<sp/><ref refid="bigdigits_8h_1a2057382ebab06472fed38f5b71399f6a" kindref="member">mpShortDiv</ref>(u32<sp/>q[],<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>u[],<sp/>u32<sp/>d,<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>ndigits);</highlight></codeline>
+<codeline lineno="311"><highlight class="normal"></highlight></codeline>
+<codeline lineno="313"><highlight class="normal">u32<sp/><ref refid="bigdigits_8h_1aa248383631135e0a8504d2bd569fbce2" kindref="member">mpShortMod</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>a[],<sp/>u32<sp/>d,<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>ndigits);</highlight></codeline>
+<codeline lineno="314"><highlight class="normal"></highlight></codeline>
+<codeline lineno="316"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="bigdigits_8h_1a54a5d832ff76748576c7447d7eeb8e7d" kindref="member">mpShortCmp</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>a[],<sp/>u32<sp/>d,<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>ndigits);</highlight></codeline>
+<codeline lineno="317"><highlight class="normal"></highlight></codeline>
+<codeline lineno="318"><highlight class="normal"></highlight><highlight class="comment">/**************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="319"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>CORE<sp/>SINGLE<sp/>PRECISION<sp/>CALCULATIONS<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="320"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>(double<sp/>where<sp/>necessary)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="321"><highlight class="normal"></highlight><highlight class="comment">/**************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="322"><highlight class="normal"></highlight></codeline>
+<codeline lineno="323"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>NOTE<sp/>spMultiply<sp/>and<sp/>spDivide<sp/>are<sp/>used<sp/>by<sp/>almost<sp/>all<sp/>mp<sp/>functions.</highlight></codeline>
+<codeline lineno="324"><highlight class="comment"><sp/><sp/><sp/>Using<sp/>the<sp/>Intel<sp/>MASM<sp/>alternatives<sp/>gives<sp/>significant<sp/>speed<sp/>improvements</highlight></codeline>
+<codeline lineno="325"><highlight class="comment"><sp/><sp/><sp/>--<sp/>to<sp/>use,<sp/>define<sp/>USE_SPASM<sp/>as<sp/>a<sp/>preprocessor<sp/>directive.</highlight></codeline>
+<codeline lineno="326"><highlight class="comment"><sp/><sp/><sp/>[v2.2]<sp/>Removed<sp/>references<sp/>to<sp/>spasm*<sp/>versions.</highlight></codeline>
+<codeline lineno="327"><highlight class="comment">*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="328"><highlight class="normal"></highlight></codeline>
+<codeline lineno="330"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="bigdigits_8h_1a8479a1c0578e65b051674817c5bd77b9" kindref="member">spMultiply</ref>(u32<sp/>p[2],<sp/>u32<sp/>x,<sp/>u32<sp/>y);</highlight></codeline>
+<codeline lineno="331"><highlight class="normal"></highlight></codeline>
+<codeline lineno="333"><highlight class="normal">u32<sp/><ref refid="bigdigits_8h_1a3bdaee33308ee8393ba8bae4fe8f4220" kindref="member">spDivide</ref>(u32<sp/>*q,<sp/>u32<sp/>*r,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>u[2],<sp/>u32<sp/>v);</highlight></codeline>
+<codeline lineno="334"><highlight class="normal"></highlight></codeline>
+<codeline lineno="335"><highlight class="normal"></highlight><highlight class="comment">/****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="336"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>RANDOM<sp/>NUMBER<sp/>FUNCTIONS<sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="337"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>CAUTION:<sp/>NOT<sp/>thread-safe<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="338"><highlight class="normal"></highlight><highlight class="comment">/****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="339"><highlight class="normal"></highlight></codeline>
+<codeline lineno="344"><highlight class="normal">u32<sp/><ref refid="bigdigits_8h_1ad7e9dd871ac50a08b8ccae4592ba120e" kindref="member">spSimpleRand</ref>(u32<sp/>lower,<sp/>u32<sp/>upper);</highlight></codeline>
+<codeline lineno="345"><highlight class="normal"></highlight></codeline>
+<codeline lineno="350"><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/><ref refid="bigdigits_8h_1a3df35cea910a1b2ddd4a0f909b11fe5e" kindref="member">mpQuickRandBits</ref>(u32<sp/>a[],<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>ndigits,<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>nbits);</highlight></codeline>
+<codeline lineno="351"><highlight class="normal"></highlight></codeline>
+<codeline lineno="352"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>[Version<sp/>2.1:<sp/>spBetterRand<sp/>moved<sp/>to<sp/>spRandom.h]<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="353"><highlight class="normal"></highlight></codeline>
+<codeline lineno="354"><highlight class="normal"></highlight><highlight class="comment">/*******************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="355"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>PRINT<sp/>UTILITIES<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="356"><highlight class="normal"></highlight><highlight class="comment">/*******************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="357"><highlight class="normal"></highlight></codeline>
+<codeline lineno="358"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>[v2.3]<sp/>Added<sp/>these<sp/>more<sp/>convenient<sp/>print<sp/>functions<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="359"><highlight class="normal"></highlight></codeline>
+<codeline lineno="361"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="bigdigits_8h_1a65d767d47344f3c1f25e8e40f033d800" kindref="member">mpPrintHex</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*prefix,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>*p,<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>ndigits,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*suffix);</highlight></codeline>
+<codeline lineno="363"><highlight class="comment">//<sp/>void<sp/>mpPrintDecimal(const<sp/>char<sp/>*prefix,<sp/>const<sp/>u32<sp/>*p,<sp/>size_t<sp/>ndigits,<sp/>const<sp/>char<sp/>*suffix);</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="364"><highlight class="normal"></highlight></codeline>
+<codeline lineno="365"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>See<sp/>also<sp/>mpPrintDecimalSigned()<sp/>-<sp/>new<sp/>in<sp/>[v2.5]<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="366"><highlight class="normal"></highlight></codeline>
+<codeline lineno="367"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Older<sp/>print<sp/>functions,<sp/>all<sp/>printing<sp/>in<sp/>hex<sp/>*/</highlight></codeline>
+<codeline lineno="369"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="bigdigits_8h_1ac466319fe455605d132019da44c042a3" kindref="member">mpPrint</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>*p,<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>ndigits);</highlight></codeline>
+<codeline lineno="371"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="bigdigits_8h_1a11fb08a4b901049e10a6bd5e769f8d90" kindref="member">mpPrintNL</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>*p,<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>ndigits);</highlight></codeline>
+<codeline lineno="375"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="bigdigits_8h_1a9bbb54139efc28eba4a5299a94d31258" kindref="member">mpPrintTrim</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>*p,<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>ndigits);</highlight></codeline>
+<codeline lineno="379"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="bigdigits_8h_1a302c68abf9fd95006d1a2b56f1515bac" kindref="member">mpPrintTrimNL</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>*p,<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>ndigits);</highlight></codeline>
+<codeline lineno="380"><highlight class="normal"></highlight></codeline>
+<codeline lineno="381"><highlight class="normal"></highlight><highlight class="comment">/************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="382"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>CONVERSION<sp/>UTILITIES<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="383"><highlight class="normal"></highlight><highlight class="comment">/************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="384"><highlight class="normal"></highlight></codeline>
+<codeline lineno="387"><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/><ref refid="bigdigits_8h_1af17b0b6a122dad76d5c447f0e5979535" kindref="member">mpConvFromOctets</ref>(u32<sp/>a[],<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>ndigits,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*c,<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>nbytes);</highlight></codeline>
+<codeline lineno="390"><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/><ref refid="bigdigits_8h_1ac059684115bb5942c2633d99ec41d149" kindref="member">mpConvToOctets</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>a[],<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>ndigits,<sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*c,<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>nbytes);</highlight></codeline>
+<codeline lineno="391"><highlight class="normal"></highlight></codeline>
+<codeline lineno="392"><highlight class="normal"></highlight><highlight class="comment">/****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="393"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>SIGNED<sp/>INTEGER<sp/>FUNCTIONS<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="394"><highlight class="normal"></highlight><highlight class="comment">/****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="395"><highlight class="normal"></highlight></codeline>
+<codeline lineno="396"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="397"><highlight class="comment">NOTES<sp/>ON<sp/>SIGNED-INTEGER<sp/>OPERATIONS</highlight></codeline>
+<codeline lineno="398"><highlight class="comment">----------------------------------</highlight></codeline>
+<codeline lineno="399"><highlight class="comment">You<sp/>can<sp/>choose<sp/>to<sp/>treat<sp/>BigDigits<sp/>integers<sp/>as<sp/>&quot;signed&quot;<sp/>with<sp/>their<sp/>values<sp/>stored<sp/>in<sp/>two&apos;s-complement<sp/>representation.</highlight></codeline>
+<codeline lineno="400"><highlight class="comment">A<sp/>negative<sp/>number<sp/>will<sp/>be<sp/>a<sp/>BigDigit<sp/>integer<sp/>with<sp/>its<sp/>left-most<sp/>bit<sp/>set<sp/>to<sp/>one,<sp/>i.e.</highlight></codeline>
+<codeline lineno="401"><highlight class="comment"></highlight></codeline>
+<codeline lineno="402"><highlight class="comment"><sp/><sp/><sp/><sp/>mpGetBit(a,<sp/>ndigits,<sp/>(ndigits<sp/>*<sp/>BITS_PER_DIGIT<sp/>-<sp/>1))<sp/>==<sp/>1</highlight></codeline>
+<codeline lineno="403"><highlight class="comment"></highlight></codeline>
+<codeline lineno="404"><highlight class="comment">This<sp/>works<sp/>automatically<sp/>for<sp/>simple<sp/>arithmetic<sp/>operations<sp/>like<sp/>add,<sp/>subtract<sp/>and<sp/>multiply<sp/>(but<sp/>not<sp/>division).</highlight></codeline>
+<codeline lineno="405"><highlight class="comment">For<sp/>example,</highlight></codeline>
+<codeline lineno="406"><highlight class="comment"></highlight></codeline>
+<codeline lineno="407"><highlight class="comment"><sp/><sp/><sp/><sp/>mpSetDigit(u,<sp/>2,<sp/>NDIGITS);</highlight></codeline>
+<codeline lineno="408"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>mpSetDigit(v,<sp/>5,<sp/>NDIGITS);</highlight></codeline>
+<codeline lineno="409"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>mpSubtract(w,<sp/>u,<sp/>v,<sp/>NDIGITS);</highlight></codeline>
+<codeline lineno="410"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>mpPrintDecimalSigned(&quot;signed<sp/>w=&quot;,<sp/>w,<sp/>NDIGITS,<sp/>&quot;\n&quot;);</highlight></codeline>
+<codeline lineno="411"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>mpPrintHex(&quot;unsigned<sp/>w=&quot;,<sp/>w,<sp/>NDIGITS,<sp/>&quot;\n&quot;);</highlight></codeline>
+<codeline lineno="412"><highlight class="comment"></highlight></codeline>
+<codeline lineno="413"><highlight class="comment">will<sp/>result<sp/>in<sp/>the<sp/>output</highlight></codeline>
+<codeline lineno="414"><highlight class="comment"></highlight></codeline>
+<codeline lineno="415"><highlight class="comment"><sp/><sp/><sp/><sp/>signed<sp/>w=-3</highlight></codeline>
+<codeline lineno="416"><highlight class="comment"><sp/><sp/><sp/><sp/>unsigned<sp/>w=0xfffffffffffffffffffffffffffffffd</highlight></codeline>
+<codeline lineno="417"><highlight class="comment"></highlight></codeline>
+<codeline lineno="418"><highlight class="comment">It<sp/>does<sp/>*not*<sp/>work<sp/>for<sp/>division<sp/>or<sp/>any<sp/>number-theoretic<sp/>function<sp/>like<sp/>mpModExp(),</highlight></codeline>
+<codeline lineno="419"><highlight class="comment">all<sp/>of<sp/>which<sp/>treat<sp/>their<sp/>parameters<sp/>as<sp/>&quot;unsigned&quot;<sp/>integers<sp/>and<sp/>will<sp/>not<sp/>give<sp/>the<sp/>&quot;signed&quot;<sp/>result<sp/>you<sp/>expect.</highlight></codeline>
+<codeline lineno="420"><highlight class="comment"></highlight></codeline>
+<codeline lineno="421"><highlight class="comment">To<sp/>set<sp/>a<sp/>small<sp/>negative<sp/>number<sp/>do:</highlight></codeline>
+<codeline lineno="422"><highlight class="comment"></highlight></codeline>
+<codeline lineno="423"><highlight class="comment"><sp/><sp/><sp/><sp/>mpSetDigit(v,<sp/>5,<sp/>NDIGITS);</highlight></codeline>
+<codeline lineno="424"><highlight class="comment"><sp/><sp/><sp/><sp/>mpChs(v,<sp/>v,<sp/>NDIGITS);</highlight></codeline>
+<codeline lineno="425"><highlight class="comment"></highlight></codeline>
+<codeline lineno="426"><highlight class="comment">--------------</highlight></codeline>
+<codeline lineno="427"><highlight class="comment">*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="428"><highlight class="normal"></highlight></codeline>
+<codeline lineno="429"><highlight class="normal"></highlight></codeline>
+<codeline lineno="433"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="bigdigits_8h_1a7aceff23b773fe9cca62ef91db0e30ab" kindref="member">mpIsNegative</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>x[],<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>ndigits);</highlight></codeline>
+<codeline lineno="434"><highlight class="normal"></highlight></codeline>
+<codeline lineno="438"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="bigdigits_8h_1a8666a8cd063b0aeb53956f14edd219ff" kindref="member">mpChs</ref>(u32<sp/>x[],<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>y[],<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>ndigits);</highlight></codeline>
+<codeline lineno="439"><highlight class="normal"></highlight></codeline>
+<codeline lineno="443"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="bigdigits_8h_1a4bcb8a0e0ed0e1fbfac8fd507c75bc1a" kindref="member">mpAbs</ref>(u32<sp/>x[],<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>y[],<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>ndigits);</highlight></codeline>
+<codeline lineno="444"><highlight class="normal"></highlight></codeline>
+<codeline lineno="445"><highlight class="normal"></highlight><highlight class="comment">/****************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="446"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>VERSION<sp/>INFO<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="447"><highlight class="normal"></highlight><highlight class="comment">/****************/</highlight></codeline>
+<codeline lineno="449"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="bigdigits_8h_1a5593505351c9c1938ad52404c8f9a44c" kindref="member">mpVersion</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="450"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Version<sp/>number<sp/>=<sp/>major*1000+minor*100+release*10+uses_asm(0|1)+uses_64(0|2)+uses_noalloc(0|5)</highlight></codeline>
+<codeline lineno="451"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>E.g.<sp/>Version<sp/>2.3.0<sp/>will<sp/>return<sp/>230x<sp/>where<sp/>x<sp/>denotes<sp/>the<sp/>preprocessor<sp/>options</highlight></codeline>
+<codeline lineno="452"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>x<sp/>|<sp/>USE_SPASM<sp/>|<sp/>USE_64WITH32<sp/>|<sp/>NO_ALLOCS</highlight></codeline>
+<codeline lineno="453"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>----------------------------------------</highlight></codeline>
+<codeline lineno="454"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0<sp/><sp/><sp/><sp/><sp/><sp/>No<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>No<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>No</highlight></codeline>
+<codeline lineno="455"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1<sp/><sp/><sp/><sp/><sp/><sp/>Yes<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>No<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>No</highlight></codeline>
+<codeline lineno="456"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>2<sp/><sp/><sp/><sp/><sp/><sp/>No<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Yes<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>No</highlight></codeline>
+<codeline lineno="457"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>3<sp/><sp/><sp/><sp/><sp/><sp/>Yes<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Yes*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>No</highlight></codeline>
+<codeline lineno="458"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>5<sp/><sp/><sp/><sp/><sp/><sp/>No<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>No<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Yes</highlight></codeline>
+<codeline lineno="459"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>6<sp/><sp/><sp/><sp/><sp/><sp/>Yes<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>No<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Yes</highlight></codeline>
+<codeline lineno="460"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>7<sp/><sp/><sp/><sp/><sp/><sp/>No<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Yes<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Yes</highlight></codeline>
+<codeline lineno="461"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>8<sp/><sp/><sp/><sp/><sp/><sp/>Yes<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Yes*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Yes</highlight></codeline>
+<codeline lineno="462"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>----------------------------------------</highlight></codeline>
+<codeline lineno="463"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>USE_SPASM<sp/>will<sp/>take<sp/>precedence<sp/>over<sp/>USE_64WITH32.</highlight></codeline>
+<codeline lineno="464"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="465"><highlight class="normal"></highlight></codeline>
+<codeline lineno="467"><highlight class="comment">/*************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="468"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>MEMORY<sp/>ALLOCATION<sp/>FUNCTIONS<sp/>-<sp/>USED<sp/>INTERNALLY<sp/>AND<sp/>BY<sp/>BIGD<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="469"><highlight class="normal"></highlight><highlight class="comment">/*************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="470"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>[v2.2]<sp/>added<sp/>option<sp/>to<sp/>avoid<sp/>memory<sp/>allocation<sp/>if<sp/>NO_ALLOCS<sp/>is<sp/>defined<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="471"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>NO_ALLOCS</highlight></codeline>
+<codeline lineno="472"><highlight class="preprocessor"></highlight><highlight class="normal">u32<sp/>*mpAlloc(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>ndigits);</highlight></codeline>
+<codeline lineno="473"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>mpFree(u32<sp/>**p);</highlight></codeline>
+<codeline lineno="474"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="475"><highlight class="preprocessor"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>mpFail(</highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*msg);</highlight></codeline>
+<codeline lineno="476"><highlight class="normal"></highlight></codeline>
+<codeline lineno="477"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Clean<sp/>up<sp/>by<sp/>zeroising<sp/>and<sp/>freeing<sp/>allocated<sp/>memory<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="478"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>NO_ALLOCS</highlight></codeline>
+<codeline lineno="479"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>mpDESTROY(b,<sp/>n)<sp/>do{if(b<sp/>!=<sp/>NULL)mpSetZero(b,n);}while(0)</highlight></codeline>
+<codeline lineno="480"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="481"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>mpDESTROY(b,<sp/>n)<sp/>do{if(b<sp/>!=<sp/>NULL)mpSetZero(b,n);mpFree(&amp;b);}while(0)</highlight></codeline>
+<codeline lineno="482"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="483"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="485"><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="486"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="487"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="488"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="489"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/></highlight><highlight class="comment">/*<sp/>BIGDIGITS_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/bigdigits.h"/>
+  </compounddef>
+</doxygen>

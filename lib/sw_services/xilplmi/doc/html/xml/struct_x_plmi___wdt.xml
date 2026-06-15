@@ -1,0 +1,99 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_plmi___wdt" kind="struct" prot="public">
+    <compoundname>XPlmi_Wdt</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_plmi___wdt_1af6b41ffe97dd6b7e7ecb11c710f0aff2" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XPlmi_Wdt::PlmLiveStatus</definition>
+        <argsstring></argsstring>
+        <name>PlmLiveStatus</name>
+        <briefdescription>
+<para>PLM sets this bit to indicate it is alive. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_net/server/xplmi_wdt.c" line="76" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_net/server/xplmi_wdt.c" bodystart="76" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_plmi___wdt_1a0aa885b6605928fb11f6409e5465091d" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XPlmi_Wdt::IsEnabled</definition>
+        <argsstring></argsstring>
+        <name>IsEnabled</name>
+        <briefdescription>
+<para>Used to indicate if WDT is enabled or not. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_net/server/xplmi_wdt.c" line="77" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_net/server/xplmi_wdt.c" bodystart="77" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_plmi___wdt_1a32e8764c8865c3e8f07b0afd12c8fb06" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPlmi_Wdt::Periodicity</definition>
+        <argsstring></argsstring>
+        <name>Periodicity</name>
+        <briefdescription>
+<para>WDT period at which PLM should set the live status. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_net/server/xplmi_wdt.c" line="78" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_net/server/xplmi_wdt.c" bodystart="78" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_plmi___wdt_1aec522a5ce9e030414fcdda46c91a23d8" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPlmi_Wdt::GpioAddr</definition>
+        <argsstring></argsstring>
+        <name>GpioAddr</name>
+        <briefdescription>
+<para>GPIO address corresponding to MIO used for WDT. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_net/server/xplmi_wdt.c" line="79" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_net/server/xplmi_wdt.c" bodystart="79" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_plmi___wdt_1a23d504bfc4a4d8045124f6d9244b785d" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPlmi_Wdt::GpioMask</definition>
+        <argsstring></argsstring>
+        <name>GpioMask</name>
+        <briefdescription>
+<para>GPIO Mask corresponding to MIO used for WDT. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_net/server/xplmi_wdt.c" line="80" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_net/server/xplmi_wdt.c" bodystart="80" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_plmi___wdt_1a7f806f66daa6d7b07b63874e0291a741" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPlmi_Wdt::LastResetPeriod</definition>
+        <argsstring></argsstring>
+        <name>LastResetPeriod</name>
+        <briefdescription>
+<para>Last reset period is used to check last tick time. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_net/server/xplmi_wdt.c" line="81" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_net/server/xplmi_wdt.c" bodystart="81" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Structure to store WDT instance information. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_net/server/xplmi_wdt.c" line="75" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_net/server/xplmi_wdt.c" bodystart="75" bodyend="82"/>
+    <listofallmembers>
+      <member refid="struct_x_plmi___wdt_1aec522a5ce9e030414fcdda46c91a23d8" prot="public" virt="non-virtual"><scope>XPlmi_Wdt</scope><name>GpioAddr</name></member>
+      <member refid="struct_x_plmi___wdt_1a23d504bfc4a4d8045124f6d9244b785d" prot="public" virt="non-virtual"><scope>XPlmi_Wdt</scope><name>GpioMask</name></member>
+      <member refid="struct_x_plmi___wdt_1a0aa885b6605928fb11f6409e5465091d" prot="public" virt="non-virtual"><scope>XPlmi_Wdt</scope><name>IsEnabled</name></member>
+      <member refid="struct_x_plmi___wdt_1a7f806f66daa6d7b07b63874e0291a741" prot="public" virt="non-virtual"><scope>XPlmi_Wdt</scope><name>LastResetPeriod</name></member>
+      <member refid="struct_x_plmi___wdt_1a32e8764c8865c3e8f07b0afd12c8fb06" prot="public" virt="non-virtual"><scope>XPlmi_Wdt</scope><name>Periodicity</name></member>
+      <member refid="struct_x_plmi___wdt_1af6b41ffe97dd6b7e7ecb11c710f0aff2" prot="public" virt="non-virtual"><scope>XPlmi_Wdt</scope><name>PlmLiveStatus</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

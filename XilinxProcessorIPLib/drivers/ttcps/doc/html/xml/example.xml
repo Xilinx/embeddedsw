@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="example" kind="page">
+    <compoundname>example</compoundname>
+    <title>Examples</title>
+    <detaileddescription>
+<para>You can refer to the below stated example applications for more details on how to use ttcps driver.</para><sect1 id="example_1ex1">
+<title>xttcps_intr_example.c</title>
+<para>Contains an example on how to use the XTtcps driver directly. This example shows the usage of the driver in interrupt mode.</para><para>For details, see <ref refid="xttcps__intr__example_8c" kindref="compound">xttcps_intr_example.c</ref>.</para></sect1>
+<sect1 id="example_1ex2">
+<title>xttcps_low_level_example.c</title>
+<para>Contains an example on how to use the XTtcps driver directly. This example shows the usage of the Triple Timer Counter hardware and driver in polled mode.</para><para>For details, see <ref refid="xttcps__low__level__example_8c" kindref="compound">xttcps_low_level_example.c</ref>.</para></sect1>
+<sect1 id="example_1ex3">
+<title>xttcps_rtc_example.c</title>
+<para>Contains an example on how to use the XTtcps driver directly. This example uses one timer/counter to make a real time clock. The number of minutes and seconds is displayed on the console.</para><para>For details, see <ref refid="xttcps__rtc__example_8c" kindref="compound">xttcps_rtc_example.c</ref>.</para></sect1>
+<sect1 id="example_1ex4">
+<title>xttcps_tapp_example.c</title>
+<para>Contains an example on how to use the XTtcps driver directly. This example uses ttc to generate interrupt and update a flag which is checked in interrupt example to confirm whether the interrupt is generated or not.</para><para>For details, see <ref refid="xttcps__tapp__example_8c" kindref="compound">xttcps_tapp_example.c</ref>. </para></sect1>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

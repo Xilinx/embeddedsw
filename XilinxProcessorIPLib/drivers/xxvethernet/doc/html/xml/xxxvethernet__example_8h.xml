@@ -1,0 +1,644 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xxxvethernet__example_8h" kind="file">
+    <compoundname>xxxvethernet_example.h</compoundname>
+    <includes local="yes">xparameters.h</includes>
+    <includes refid="xxxvethernet_8h" local="yes">xxxvethernet.h</includes>
+    <includes local="yes">stdio.h</includes>
+    <includedby refid="xxxvethernet__example__intr__mcdma_8c" local="yes">xxxvethernet_example_intr_mcdma.c</includedby>
+    <includedby refid="xxxvethernet__example__util_8c" local="yes">xxxvethernet_example_util.c</includedby>
+    <includedby refid="xxxvethernet__usxgmii__example__intr__mcdma_8c" local="yes">xxxvethernet_usxgmii_example_intr_mcdma.c</includedby>
+    <incdepgraph>
+      <node id="40">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="43">
+        <label>xil_io.h</label>
+      </node>
+      <node id="37">
+        <label>sleep.h</label>
+      </node>
+      <node id="38">
+        <label>xenv.h</label>
+      </node>
+      <node id="42">
+        <label>xdebug.h</label>
+      </node>
+      <node id="36">
+        <label>xxxvethernet.h</label>
+        <link refid="xxxvethernet_8h"/>
+        <childnode refid="37" relation="include">
+        </childnode>
+        <childnode refid="38" relation="include">
+        </childnode>
+        <childnode refid="39" relation="include">
+        </childnode>
+        <childnode refid="40" relation="include">
+        </childnode>
+        <childnode refid="41" relation="include">
+        </childnode>
+      </node>
+      <node id="34">
+        <label>xxxvethernet_example.h</label>
+        <link refid="xxxvethernet_example.h"/>
+        <childnode refid="35" relation="include">
+        </childnode>
+        <childnode refid="36" relation="include">
+        </childnode>
+        <childnode refid="45" relation="include">
+        </childnode>
+      </node>
+      <node id="39">
+        <label>xstatus.h</label>
+      </node>
+      <node id="44">
+        <label>xil_types.h</label>
+      </node>
+      <node id="35">
+        <label>xparameters.h</label>
+      </node>
+      <node id="41">
+        <label>xxxvethernet_hw.h</label>
+        <link refid="xxxvethernet__hw_8h"/>
+        <childnode refid="42" relation="include">
+        </childnode>
+        <childnode refid="43" relation="include">
+        </childnode>
+        <childnode refid="44" relation="include">
+        </childnode>
+      </node>
+      <node id="45">
+        <label>stdio.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="49">
+        <label>xxxvethernet_usxgmii_example_intr_mcdma.c</label>
+      </node>
+      <node id="47">
+        <label>xxxvethernet_example_intr_mcdma.c</label>
+        <link refid="xxxvethernet__example__intr__mcdma_8c"/>
+      </node>
+      <node id="46">
+        <label>xxxvethernet_example.h</label>
+        <link refid="xxxvethernet_example.h"/>
+        <childnode refid="47" relation="include">
+        </childnode>
+        <childnode refid="48" relation="include">
+        </childnode>
+        <childnode refid="49" relation="include">
+        </childnode>
+      </node>
+      <node id="48">
+        <label>xxxvethernet_example_util.c</label>
+        <link refid="xxxvethernet__example__util_8c"/>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xxxvethernet__example_8h_1a22a0d3158b1a1b46c9267f818bf1ee09" prot="public" static="no">
+        <name>XXV_AXIDEVTYPE_MASK</name>
+        <initializer>0xF</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/examples/xxxvethernet_example.h" line="48" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/examples/xxxvethernet_example.h" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xxxvethernet__example_8h_1a69b001ca8c0dfd7aa1a030cc548c1cd3" prot="public" static="no">
+        <name>XXV_AXIDMA</name>
+        <initializer>0x2</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/examples/xxxvethernet_example.h" line="49" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/examples/xxxvethernet_example.h" bodystart="49" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xxxvethernet__example_8h_1a9a530d9eef9d6a87d280a301c509fcdb" prot="public" static="no">
+        <name>XXV_MCDMA</name>
+        <initializer>0x3</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/examples/xxxvethernet_example.h" line="50" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/examples/xxxvethernet_example.h" bodystart="50" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="xxxvethernet__example_8h_1a29d6e27c06b64df0ab5bbf4dde53be71" prot="public" static="no">
+        <type>unsigned char</type>
+        <definition>typedef unsigned char EthernetFrame[XXE_MAX_JUMBO_FRAME_SIZE]</definition>
+        <argsstring>[XXE_MAX_JUMBO_FRAME_SIZE]</argsstring>
+        <name>EthernetFrame</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/examples/xxxvethernet_example.h" line="62" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/examples/xxxvethernet_example.h" bodystart="62" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="xxxvethernet__example_8h_1a2661792927eafbf2e7e39d2208c18fd2" prot="public" static="no" mutable="no">
+        <type>char</type>
+        <definition>char XxvEthernetMAC[]</definition>
+        <argsstring>[]</argsstring>
+        <name>XxvEthernetMAC</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/examples/xxxvethernet_example.h" line="85" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/examples/xxxvethernet_example_util.c" bodystart="41" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xxxvethernet__example_8h_1a2ae0fbce7d361dbf3c916d7b926bbbae" prot="public" static="no" mutable="no">
+        <type>char</type>
+        <definition>char MacAddr[]</definition>
+        <argsstring>[]</argsstring>
+        <name>MacAddr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/examples/xxxvethernet_example.h" line="86" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/examples/xxxvethernet_example_intr_mcdma.c" bodystart="139" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xxxvethernet__example_8h_1ac7b2dd8efd94522ee03a17593e6565ce" prot="public" static="no" mutable="no">
+        <type>char</type>
+        <definition>char DestAddr[]</definition>
+        <argsstring>[]</argsstring>
+        <name>DestAddr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/examples/xxxvethernet_example.h" line="87" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/examples/xxxvethernet_example_util.c" bodystart="42" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xxxvethernet__example_8h_1a445292fcf7f28cbf3a9c379eb311b371" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XxvEthernetUtilFrameHdrFormatMAC</definition>
+        <argsstring>(EthernetFrame *FramePtr, char *DestAddr, char *SrcAddr)</argsstring>
+        <name>XxvEthernetUtilFrameHdrFormatMAC</name>
+        <param>
+          <type>EthernetFrame *</type>
+          <declname>FramePtr</declname>
+        </param>
+        <param>
+          <type>char *</type>
+          <declname>DestAddr</declname>
+        </param>
+        <param>
+          <type>char *</type>
+          <declname>SrcAddr</declname>
+        </param>
+        <briefdescription>
+<para>Set the MAC addresses in the frame. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>FramePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the pointer to the frame. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DestAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the Destination MAC address.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/examples/xxxvethernet_example.h" line="70" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/examples/xxxvethernet_example_util.c" bodystart="58" bodyend="76"/>
+        <referencedby refid="xxxvethernet__example__intr__mcdma_8c_1a8b7170116154c4ce8b89da78bdf9070d" compoundref="xxxvethernet__example__intr__mcdma_8c" startline="614" endline="817">XxvEthernetSgDmaIntrSingleFrameExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xxxvethernet__example_8h_1a10525c2457e7790f874b9bef3635b322" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XxvEthernetUtilFrameHdrFormatType</definition>
+        <argsstring>(EthernetFrame *FramePtr, u16 FrameType)</argsstring>
+        <name>XxvEthernetUtilFrameHdrFormatType</name>
+        <param>
+          <type>EthernetFrame *</type>
+          <declname>FramePtr</declname>
+        </param>
+        <param>
+          <type>u16</type>
+          <declname>FrameType</declname>
+        </param>
+        <briefdescription>
+<para>Set the frame type for the specified frame. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>FramePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the pointer to the frame. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>FrameType</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the Type to set in frame.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/examples/xxxvethernet_example.h" line="71" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/examples/xxxvethernet_example_util.c" bodystart="91" bodyend="105"/>
+        <referencedby refid="xxxvethernet__example__intr__mcdma_8c_1a8b7170116154c4ce8b89da78bdf9070d" compoundref="xxxvethernet__example__intr__mcdma_8c" startline="614" endline="817">XxvEthernetSgDmaIntrSingleFrameExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xxxvethernet__example_8h_1a3435bac2a9a1be6bd28fda22f93c5f7c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XxvEthernetUtilFrameSetPayloadData</definition>
+        <argsstring>(EthernetFrame *FramePtr, int PayloadSize)</argsstring>
+        <name>XxvEthernetUtilFrameSetPayloadData</name>
+        <param>
+          <type>EthernetFrame *</type>
+          <declname>FramePtr</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>PayloadSize</declname>
+        </param>
+        <briefdescription>
+<para>This function places a pattern in the payload section of a frame. </para>        </briefdescription>
+        <detaileddescription>
+<para>The pattern is a 8 bit incrementing series of numbers starting with 0. Once the pattern reaches 256, then the pattern changes to a 16 bit incrementing pattern: <preformatted>
+  0, 1, 2, ... 254, 255, 00, 00, 00, 01, 00, 02, ...
+</preformatted></para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>FramePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the frame to change. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>PayloadSize</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the number of bytes in the payload that will be set.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/examples/xxxvethernet_example.h" line="73" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/examples/xxxvethernet_example_util.c" bodystart="126" bodyend="159"/>
+        <referencedby refid="xxxvethernet__example__intr__mcdma_8c_1a8b7170116154c4ce8b89da78bdf9070d" compoundref="xxxvethernet__example__intr__mcdma_8c" startline="614" endline="817">XxvEthernetSgDmaIntrSingleFrameExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xxxvethernet__example_8h_1a9442be912857bc50928bb7a53d5b6685" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XxvEthernetUtilFrameVerify</definition>
+        <argsstring>(EthernetFrame *CheckFrame, EthernetFrame *ActualFrame)</argsstring>
+        <name>XxvEthernetUtilFrameVerify</name>
+        <param>
+          <type>EthernetFrame *</type>
+          <declname>CheckFrame</declname>
+        </param>
+        <param>
+          <type>EthernetFrame *</type>
+          <declname>ActualFrame</declname>
+        </param>
+        <briefdescription>
+<para>This function verifies the frame data against a CheckFrame. </para>        </briefdescription>
+        <detaileddescription>
+<para>Validation occurs by comparing the ActualFrame to the header of the CheckFrame. If the headers match, then the payload of ActualFrame is verified for the same pattern Util_FrameSetPayloadData() generates.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>CheckFrame</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to a frame containing the 14 byte header that should be present in the ActualFrame parameter. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ActualFrame</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to a frame to validate.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if successful.</para></listitem><listitem><para>XST_FAILURE in case of failure.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/examples/xxxvethernet_example.h" line="75" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/examples/xxxvethernet_example_util.c" bodystart="180" bodyend="259"/>
+        <referencedby refid="xxxvethernet__example__intr__mcdma_8c_1a8b7170116154c4ce8b89da78bdf9070d" compoundref="xxxvethernet__example__intr__mcdma_8c" startline="614" endline="817">XxvEthernetSgDmaIntrSingleFrameExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xxxvethernet__example_8h_1ad9494c30f93da4a8476ec61c8b1605b5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XxvEthernetUtilFrameMemClear</definition>
+        <argsstring>(EthernetFrame *FramePtr)</argsstring>
+        <name>XxvEthernetUtilFrameMemClear</name>
+        <param>
+          <type>EthernetFrame *</type>
+          <declname>FramePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function sets all bytes of a frame to 0. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>FramePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the frame itself.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/examples/xxxvethernet_example.h" line="77" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/examples/xxxvethernet_example_util.c" bodystart="272" bodyend="283"/>
+        <referencedby refid="xxxvethernet__example__intr__mcdma_8c_1a8b7170116154c4ce8b89da78bdf9070d" compoundref="xxxvethernet__example__intr__mcdma_8c" startline="614" endline="817">XxvEthernetSgDmaIntrSingleFrameExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xxxvethernet__example_8h_1abb5bc0fd706a832742ca65487e6687af" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XxvEthernetUtilEnterLocalLoopback</definition>
+        <argsstring>(XXxvEthernet *XxvEthernetInstancePtr)</argsstring>
+        <name>XxvEthernetUtilEnterLocalLoopback</name>
+        <param>
+          <type><ref refid="struct_x_xxv_ethernet" kindref="compound">XXxvEthernet</ref> *</type>
+          <declname>XxvEthernetInstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function sets 10G ethernet in local loopback. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>XxvEthernetInstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the instance of the XxvEthernet component.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>- XST_SUCCESS if successful.<itemizedlist>
+<listitem><para>XST_FAILURE, in case of failure..</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/examples/xxxvethernet_example.h" line="78" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/examples/xxxvethernet_example_util.c" bodystart="299" bodyend="313"/>
+        <references refid="struct_x_xxv_ethernet___config_1a7224e895cfa19a244b6394008f72b892" compoundref="xxxvethernet_8h" startline="226">XXxvEthernet_Config::BaseAddress</references>
+        <references refid="struct_x_xxv_ethernet_1a59619b2a855f14b1fb7970acdce87206" compoundref="xxxvethernet_8h" startline="257">XXxvEthernet::Config</references>
+        <references refid="group__xxvethernet_1ga739e90cc435465f16f1c78705a69e7e5" compoundref="xxxvethernet__hw_8h" startline="283">XXxvEthernet_ReadReg</references>
+        <references refid="group__xxvethernet_1gaf8fe72cb95db1fbc60514b6485020108" compoundref="xxxvethernet__hw_8h" startline="311">XXxvEthernet_WriteReg</references>
+        <referencedby refid="xxxvethernet__example__intr__mcdma_8c_1ad378e34d2e8428eef9ea834edff258b3" compoundref="xxxvethernet__example__intr__mcdma_8c" startline="285" endline="394">XxvEthernetSgDmaIntrExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xxxvethernet__example_8h_1ae5577a2e1499d8be6c88fcac63e8d553" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XxvEthernetUtilErrorTrap</definition>
+        <argsstring>(const char *Message)</argsstring>
+        <name>XxvEthernetUtilErrorTrap</name>
+        <param>
+          <type>const char *</type>
+          <declname>Message</declname>
+        </param>
+        <briefdescription>
+<para>This function is called by example code when an error is detected. </para>        </briefdescription>
+        <detaileddescription>
+<para>It can be set as a breakpoint with a debugger or it can be used to print out the given message if there is a UART or STDIO device.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Message</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the text explaining the error</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/examples/xxxvethernet_example.h" line="79" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/examples/xxxvethernet_example_util.c" bodystart="459" bodyend="468"/>
+        <referencedby refid="xxxvethernet__example__intr__mcdma_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xxxvethernet__example__intr__mcdma_8c" startline="213" endline="245">main</referencedby>
+        <referencedby refid="xxxvethernet__example__intr__mcdma_8c_1ad378e34d2e8428eef9ea834edff258b3" compoundref="xxxvethernet__example__intr__mcdma_8c" startline="285" endline="394">XxvEthernetSgDmaIntrExample</referencedby>
+        <referencedby refid="xxxvethernet__example__intr__mcdma_8c_1a8b7170116154c4ce8b89da78bdf9070d" compoundref="xxxvethernet__example__intr__mcdma_8c" startline="614" endline="817">XxvEthernetSgDmaIntrSingleFrameExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xxxvethernet__example_8h_1ad48448f068a15369349deec579b8fc38" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XxvEthernetUtilUsxgmiiSetup</definition>
+        <argsstring>(XXxvEthernet *XxvEthernetInstancePtr, u32 Rate, u32 Duplex)</argsstring>
+        <name>XxvEthernetUtilUsxgmiiSetup</name>
+        <param>
+          <type><ref refid="struct_x_xxv_ethernet" kindref="compound">XXxvEthernet</ref> *</type>
+          <declname>XxvEthernetInstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Rate</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Duplex</declname>
+        </param>
+        <briefdescription>
+<para>This function sets up USXGMII at specified speed. </para>        </briefdescription>
+        <detaileddescription>
+<para>Autonegotiation is enabled with the selected settings. If autonegotiation fails, it is restarted after a timeout. The function returns success after autonegotiation is completed. This function enables RX and performs a GT reset first because USXGMII requires the same.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>XxvEthernetInstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the instance of the XxvEthernet component. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Speed</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- can be 1G or 2.5G - use RATE_1G or RATE_2G5 </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Duplex</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- 1 for full duplex, 0 for half duplex</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>- XST_SUCCESS if successful.<itemizedlist>
+<listitem><para>XST_FAILURE, in case of failure..</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/examples/xxxvethernet_example.h" line="80" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/examples/xxxvethernet_example_util.c" bodystart="336" bodyend="379"/>
+        <references refid="struct_x_xxv_ethernet___config_1a7224e895cfa19a244b6394008f72b892" compoundref="xxxvethernet_8h" startline="226">XXxvEthernet_Config::BaseAddress</references>
+        <references refid="struct_x_xxv_ethernet_1a59619b2a855f14b1fb7970acdce87206" compoundref="xxxvethernet_8h" startline="257">XXxvEthernet::Config</references>
+        <references refid="group__xxvethernet_1ga3da7712d31fdec7ef6b9079103304c47" compoundref="xxxvethernet_8h" startline="461">XXxvEthernet_GetUsxgmiiAnSts</references>
+        <references refid="group__xxvethernet_1gabcf02a5b2b0ee38739bbe4fdc5691a59" compoundref="xxxvethernet_8c" startline="373" endline="455">XXxvEthernet_SetOptions</references>
+        <references refid="group__xxvethernet_1ga387d88a4897e7dc60d5709c60d1e6b89" compoundref="xxxvethernet_8h" startline="424">XXxvEthernet_SetUsxgmiiAnEnable</references>
+        <references refid="group__xxvethernet_1ga09e63e61d122a4f18d3dcd51456a1924" compoundref="xxxvethernet_8c" startline="603" endline="658">XXxvEthernet_SetUsxgmiiRateAndDuplex</references>
+        <references refid="group__xxvethernet_1ga3b0404e1d23019f56969ed3747175b44" compoundref="xxxvethernet_8c" startline="706" endline="730">XXxvEthernet_UsxgmiiAnMainRestart</references>
+        <references refid="group__xxvethernet_1gaf8fe72cb95db1fbc60514b6485020108" compoundref="xxxvethernet__hw_8h" startline="311">XXxvEthernet_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="xxxvethernet__example_8h_1a80999962d45ad1ec4e8dcb68df838cdf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XxvEthernetUtilUsxgmiiSetupBypassAN</definition>
+        <argsstring>(XXxvEthernet *XxvEthernetInstancePtr, u32 Rate, u32 Duplex)</argsstring>
+        <name>XxvEthernetUtilUsxgmiiSetupBypassAN</name>
+        <param>
+          <type><ref refid="struct_x_xxv_ethernet" kindref="compound">XXxvEthernet</ref> *</type>
+          <declname>XxvEthernetInstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Rate</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Duplex</declname>
+        </param>
+        <briefdescription>
+<para>This function sets up USXGMII at specified speed. </para>        </briefdescription>
+        <detaileddescription>
+<para>Autonegotiation is bypassed and the status is checked for completion before returning successfully. This function enables RX and performs a GT reset first because USXGMII requires the same.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>XxvEthernetInstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the instance of the XxvEthernet component. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Speed</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- can be 1G or 2.5G - use RATE_1G or RATE_2G5 </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Duplex</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- 1 for full duplex, 0 for half duplex</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>- XST_SUCCESS if successful.<itemizedlist>
+<listitem><para>XST_FAILURE, in case of failure..</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/examples/xxxvethernet_example.h" line="81" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/examples/xxxvethernet_example_util.c" bodystart="401" bodyend="444"/>
+        <references refid="struct_x_xxv_ethernet___config_1a7224e895cfa19a244b6394008f72b892" compoundref="xxxvethernet_8h" startline="226">XXxvEthernet_Config::BaseAddress</references>
+        <references refid="struct_x_xxv_ethernet_1a59619b2a855f14b1fb7970acdce87206" compoundref="xxxvethernet_8h" startline="257">XXxvEthernet::Config</references>
+        <references refid="group__xxvethernet_1ga3da7712d31fdec7ef6b9079103304c47" compoundref="xxxvethernet_8h" startline="461">XXxvEthernet_GetUsxgmiiAnSts</references>
+        <references refid="group__xxvethernet_1gabcf02a5b2b0ee38739bbe4fdc5691a59" compoundref="xxxvethernet_8c" startline="373" endline="455">XXxvEthernet_SetOptions</references>
+        <references refid="group__xxvethernet_1gab0c7d1348f9f31f7abded0d0fa20de64" compoundref="xxxvethernet_8h" startline="442">XXxvEthernet_SetUsxgmiiAnBypass</references>
+        <references refid="group__xxvethernet_1ga09e63e61d122a4f18d3dcd51456a1924" compoundref="xxxvethernet_8c" startline="603" endline="658">XXxvEthernet_SetUsxgmiiRateAndDuplex</references>
+        <references refid="group__xxvethernet_1ga3b0404e1d23019f56969ed3747175b44" compoundref="xxxvethernet_8c" startline="706" endline="730">XXxvEthernet_UsxgmiiAnMainRestart</references>
+        <references refid="group__xxvethernet_1gaf8fe72cb95db1fbc60514b6485020108" compoundref="xxxvethernet__hw_8h" startline="311">XXxvEthernet_WriteReg</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Defines common data types, prototypes, and includes the proper headers for use with the Xxv Ethernet and USXGMII example code residing in this directory. </para>    </briefdescription>
+    <detaileddescription>
+<para>This file along with <ref refid="xxxvethernet__example__util_8c" kindref="compound">xxxvethernet_example_util.c</ref> are utilized with the specific example code in the other source code files provided.</para><para>These examples are designed to be compiled and utilized within the EDK standalone BSP development environment. The readme file contains more information on build requirements needed by these examples.</para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+1.0   hk   06/16/17 First release
+      hk   02/15/18 Add support for USXGMII</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2018<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022<sp/>-<sp/>2025<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="preprocessor">#ifndef<sp/>XXXVETHERNET_EXAMPLE_H</highlight></codeline>
+<codeline lineno="34"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XXXVETHERNET_EXAMPLE_H</highlight></codeline>
+<codeline lineno="35"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="37"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="39"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xparameters.h&quot;</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>defines<sp/>XPAR<sp/>values<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xxxvethernet_8h" kindref="compound">xxxvethernet.h</ref>&quot;</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>defines<sp/>Xxv<sp/>Ethernet<sp/>APIs<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;stdio.h&quot;</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>stdio<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>SDT</highlight></codeline>
+<codeline lineno="48"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XXV_AXIDEVTYPE_MASK<sp/><sp/><sp/><sp/><sp/>0xF</highlight></codeline>
+<codeline lineno="49"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XXV_AXIDMA<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x2</highlight></codeline>
+<codeline lineno="50"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XXV_MCDMA<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x3</highlight></codeline>
+<codeline lineno="51"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="52"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="59"><highlight class="comment"><sp/>*<sp/>Define<sp/>an<sp/>aligned<sp/>data<sp/>type<sp/>for<sp/>an<sp/>ethernet<sp/>frame.<sp/>This<sp/>declaration<sp/>is</highlight></codeline>
+<codeline lineno="60"><highlight class="comment"><sp/>*<sp/>specific<sp/>to<sp/>the<sp/>GNU<sp/>compiler</highlight></codeline>
+<codeline lineno="61"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>EthernetFrame[XXE_MAX_JUMBO_FRAME_SIZE]<sp/>__attribute__<sp/>((aligned(64)));</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="68"><highlight class="comment"><sp/>*<sp/>Utility<sp/>functions<sp/>implemented<sp/>in<sp/>xxxvethernet_example_util.c</highlight></codeline>
+<codeline lineno="69"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xxxvethernet__example_8h_1a445292fcf7f28cbf3a9c379eb311b371" kindref="member">XxvEthernetUtilFrameHdrFormatMAC</ref>(EthernetFrame<sp/>*FramePtr,<sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*DestAddr,<sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*SrcAddr);</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xxxvethernet__example_8h_1a10525c2457e7790f874b9bef3635b322" kindref="member">XxvEthernetUtilFrameHdrFormatType</ref>(EthernetFrame<sp/>*<sp/>FramePtr,</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>FrameType);</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xxxvethernet__example_8h_1a3435bac2a9a1be6bd28fda22f93c5f7c" kindref="member">XxvEthernetUtilFrameSetPayloadData</ref>(EthernetFrame<sp/>*<sp/>FramePtr,</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>PayloadSize);</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xxxvethernet__example_8h_1a9442be912857bc50928bb7a53d5b6685" kindref="member">XxvEthernetUtilFrameVerify</ref>(EthernetFrame<sp/>*<sp/>CheckFrame,</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>EthernetFrame<sp/>*<sp/>ActualFrame);</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xxxvethernet__example_8h_1ad9494c30f93da4a8476ec61c8b1605b5" kindref="member">XxvEthernetUtilFrameMemClear</ref>(EthernetFrame<sp/>*<sp/>FramePtr);</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xxxvethernet__example_8h_1abb5bc0fd706a832742ca65487e6687af" kindref="member">XxvEthernetUtilEnterLocalLoopback</ref>(<ref refid="struct_x_xxv_ethernet" kindref="compound">XXxvEthernet</ref><sp/>*<sp/>XxvEthernetInstancePtr);</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xxxvethernet__example_8h_1ae5577a2e1499d8be6c88fcac63e8d553" kindref="member">XxvEthernetUtilErrorTrap</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*Message);</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xxxvethernet__example_8h_1ad48448f068a15369349deec579b8fc38" kindref="member">XxvEthernetUtilUsxgmiiSetup</ref>(<ref refid="struct_x_xxv_ethernet" kindref="compound">XXxvEthernet</ref><sp/>*XxvEthernetInstancePtr,<sp/>u32<sp/>Rate,<sp/>u32<sp/>Duplex);</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xxxvethernet__example_8h_1a80999962d45ad1ec4e8dcb68df838cdf" kindref="member">XxvEthernetUtilUsxgmiiSetupBypassAN</ref>(<ref refid="struct_x_xxv_ethernet" kindref="compound">XXxvEthernet</ref><sp/>*XxvEthernetInstancePtr,<sp/>u32<sp/>Rate,<sp/>u32<sp/>Duplex);</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"></highlight></codeline>
+<codeline lineno="83"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="84"><highlight class="normal"></highlight></codeline>
+<codeline lineno="85"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>XxvEthernetMAC[];<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Local<sp/>MAC<sp/>address<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="86"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>MacAddr[];</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>DestAddr[];</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"></highlight></codeline>
+<codeline lineno="89"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="90"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="92"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="93"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XXXVETHERNET_EXAMPLE_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/examples/xxxvethernet_example.h"/>
+  </compounddef>
+</doxygen>

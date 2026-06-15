@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_87389ba9449f0611401bff6a322c3a5c" kind="dir">
+    <compoundname>client</compoundname>
+    <innerfile refid="xpuf__client_8c">xpuf_client.c</innerfile>
+    <innerfile refid="xpuf__client_8h">xpuf_client.h</innerfile>
+    <innerfile refid="xpuf__generic_8c">xpuf_generic.c</innerfile>
+    <innerfile refid="xpuf__generic_8h">xpuf_generic.h</innerfile>
+    <innerfile refid="xpuf__mailbox_8c">xpuf_mailbox.c</innerfile>
+    <innerfile refid="xpuf__mailbox_8h">xpuf_mailbox.h</innerfile>
+    <innerfile refid="xpuf__smc_8c">xpuf_smc.c</innerfile>
+    <innerfile refid="xpuf__smc_8h">xpuf_smc.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/common/client/"/>
+  </compounddef>
+</doxygen>

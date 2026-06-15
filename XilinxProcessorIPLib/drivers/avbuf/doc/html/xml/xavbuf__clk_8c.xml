@@ -1,0 +1,1011 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xavbuf__clk_8c" kind="file">
+    <compoundname>xavbuf_clk.c</compoundname>
+    <includes refid="xavbuf__clk_8h" local="yes">xavbuf_clk.h</includes>
+    <includes local="yes">xil_printf.h</includes>
+    <incdepgraph>
+      <node id="21">
+        <label>xil_io.h</label>
+      </node>
+      <node id="24">
+        <label>sleep.h</label>
+      </node>
+      <node id="20">
+        <label>xavbuf_hw.h</label>
+        <link refid="xavbuf__hw_8h"/>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+      </node>
+      <node id="23">
+        <label>xstatus.h</label>
+      </node>
+      <node id="22">
+        <label>xil_types.h</label>
+      </node>
+      <node id="25">
+        <label>xil_printf.h</label>
+      </node>
+      <node id="18">
+        <label>xavbuf_clk.c</label>
+        <link refid="xavbuf_clk.c"/>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+      </node>
+      <node id="19">
+        <label>xavbuf_clk.h</label>
+        <link refid="xavbuf__clk_8h"/>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <innerclass refid="struct_pll_config" prot="public">PllConfig</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xavbuf__clk_8c_1aa89fe10315bb55e79320d3b48bf21ee3" prot="public" static="no">
+        <name>XAVBUF_INPUT_REF_CLK</name>
+        <initializer>3333333333</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf_clk.c" line="34" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf_clk.c" bodystart="34" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xavbuf__clk_8c_1aa318e5747e20378d499bac0808f8c1e1" prot="public" static="no">
+        <name>XAVBUF_PLL_OUT_FREQ</name>
+        <initializer>1450000000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf_clk.c" line="37" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf_clk.c" bodystart="37" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xavbuf__clk_8c_1a92fb293086920535898ce1c3fd2df93b" prot="public" static="no">
+        <name>XAVBUF_INPUT_FREQ_PRECISION</name>
+        <initializer>100</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf_clk.c" line="40" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf_clk.c" bodystart="40" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xavbuf__clk_8c_1a18eb29cdf3b3564cc931c560a14c6d81" prot="public" static="no">
+        <name>XAVBUF_PRECISION</name>
+        <initializer>16</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf_clk.c" line="43" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf_clk.c" bodystart="43" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xavbuf__clk_8c_1af794983aa9bd7c86d0642423d4fee0a5" prot="public" static="no">
+        <name>XAVBUF_SHIFT_DECIMAL</name>
+        <initializer>(1 &lt;&lt;  XAVBUF_PRECISION)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf_clk.c" line="44" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf_clk.c" bodystart="44" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xavbuf__clk_8c_1a1d170e036c8f603a68b604042b93c68a" prot="public" static="no">
+        <name>XAVBUF_DECIMAL</name>
+        <initializer>(XAVBUF_SHIFT_DECIMAL - 1)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf_clk.c" line="45" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf_clk.c" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xavbuf__clk_8c_1a5a5ecc3c6239e87861b3914a41df424c" prot="public" static="no">
+        <name>XDPSSU_MAX_VIDEO_FREQ</name>
+        <initializer>300000000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf_clk.c" line="46" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf_clk.c" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xavbuf__clk_8c_1ad8c6e0d4ca2acdde3b04a0a25d6bb4e0" prot="public" static="no">
+        <name>XAVBUF_AUDIO_SAMPLES</name>
+        <initializer>512</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf_clk.c" line="48" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf_clk.c" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xavbuf__clk_8c_1ab547a4237c834c49eaf72dffb1779f6b" prot="public" static="no">
+        <name>XAVBUF_AUDIO_SAMPLE_RATE_44_1</name>
+        <initializer>44100</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf_clk.c" line="49" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf_clk.c" bodystart="49" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xavbuf__clk_8c_1a419a3ff0f91894235a49af1809b4c5a0" prot="public" static="no">
+        <name>XAVBUF_AUDIO_SAMPLE_RATE_48_0</name>
+        <initializer>48000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf_clk.c" line="50" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf_clk.c" bodystart="50" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xavbuf__clk_8c_1a083d224b6ad801135b5790cbad02f0aa" prot="public" static="no">
+        <name>XAVBUF_EXTERNAL_DIVIDER</name>
+        <initializer>2</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf_clk.c" line="51" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf_clk.c" bodystart="51" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xavbuf__clk_8c_1a1828ad567692f89c399746bc55d676ee" prot="public" static="no">
+        <name>XAVBUF_REG_OFFSET</name>
+        <initializer>4</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf_clk.c" line="54" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf_clk.c" bodystart="54" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xavbuf__clk_8c_1ac1635679f5ba240f9dda9d4fb648a02c" prot="public" static="no">
+        <name>XAVBUF_FPD_CTRL_OFFSET</name>
+        <initializer>12</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf_clk.c" line="55" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf_clk.c" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xavbuf__clk_8c_1adcce91416b9b86e88403dcca9777302d" prot="public" static="no">
+        <name>XAVBUF_LPD_CTRL_OFFSET</name>
+        <initializer>16</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf_clk.c" line="56" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf_clk.c" bodystart="56" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xavbuf__clk_8c_1a672b6a7ce5ef0545ae8391fb2a54ccea" prot="public" static="no">
+        <name>MOD_3</name>
+        <param><defname>a</defname></param>
+        <initializer>((a) % (3))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf_clk.c" line="57" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf_clk.c" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xavbuf__clk_8c_1a522f141560904918c8cd47a127fad247" prot="public" static="no">
+        <name>XAVBUF_FBDIV_OFFSET</name>
+        <initializer>25</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf_clk.c" line="60" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf_clk.c" bodystart="60" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xavbuf__clk_8c_1add8e5fad5958dfef5caeb442d5d22aec" prot="public" static="no">
+        <name>XAVBUF_PLL_LOCK_DLY</name>
+        <initializer>63</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf_clk.c" line="61" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf_clk.c" bodystart="61" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="xavbuf__clk_8c_1a658c738cc66534f74e182666f8e3e356" prot="public" static="yes" mutable="no">
+        <type>const PllConfig</type>
+        <definition>const PllConfig PllFracDivideTable[]</definition>
+        <argsstring>[]</argsstring>
+        <name>PllFracDivideTable</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf_clk.c" line="76" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf_clk.c" bodystart="76" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xavbuf__clk_8c_1aba70239165ad983830e43cb6b408c91f" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void XAVBuf_PllInitialize</definition>
+        <argsstring>(XAVBuf_Pll *PllInstancePtr, u8 Pll, u8 CrossDomain, u8 ExtDividerCnt)</argsstring>
+        <name>XAVBuf_PllInitialize</name>
+        <param>
+          <type><ref refid="struct_x_a_v_buf___pll" kindref="compound">XAVBuf_Pll</ref> *</type>
+          <declname>PllInstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Pll</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>CrossDomain</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>ExtDividerCnt</declname>
+        </param>
+        <briefdescription>
+<para>This function initializes the parameters required to configure PLL. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>PllInstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is pointer to the <ref refid="struct_x_a_v_buf___pll" kindref="compound">XAVBuf_Pll</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Pll</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the PLL chosen to be configured. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Pll</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the PLL chosen to be configured. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CrossDomain</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the bool which is used to mention if the PLL outputs in other domain. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ExtDividerCnt</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is number of external divider out of VCO.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if PLL is configured without an error. XST_FAILURE otherwise.</para></simplesect>
+<simplesect kind="note"><para>In order to avoid floating point usage we have a 16bit fractional fixed point arithmetic implementation </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf_clk.c" line="197" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf_clk.c" bodystart="197" bodyend="226"/>
+      </memberdef>
+      <memberdef kind="function" id="xavbuf__clk_8c_1a583db41d79c126ec1310727cc7a055f1" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int XAVBuf_PllCalcParameterValues</definition>
+        <argsstring>(XAVBuf_Pll *PllInstancePtr, u64 FreqHz)</argsstring>
+        <name>XAVBuf_PllCalcParameterValues</name>
+        <param>
+          <type><ref refid="struct_x_a_v_buf___pll" kindref="compound">XAVBuf_Pll</ref> *</type>
+          <declname>PllInstancePtr</declname>
+        </param>
+        <param>
+          <type>u64</type>
+          <declname>FreqHz</declname>
+        </param>
+        <briefdescription>
+<para>This function calculates the parameters which are required to configure PLL depending upon the requested frequency. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>PllInstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is pointer to the <ref refid="struct_x_a_v_buf___pll" kindref="compound">XAVBuf_Pll</ref> instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>FreqHz</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the requested frequency to DP in Hz</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if parameters are calculated XST_FAILURE otherwise.</para></simplesect>
+<simplesect kind="note"><para>In order to avoid floating point usage we have a 16bit fractional fixed point arithmetic implementation </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf_clk.c" line="243" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf_clk.c" bodystart="243" bodyend="283"/>
+      </memberdef>
+      <memberdef kind="function" id="xavbuf__clk_8c_1a7563e0e50ff65a597446e1bc41e2df7e" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void XAVBuf_ReadModifyWriteReg</definition>
+        <argsstring>(u32 BaseAddress, u32 RegOffset, u32 Mask, u32 Shift, u32 Data)</argsstring>
+        <name>XAVBuf_ReadModifyWriteReg</name>
+        <param>
+          <type>u32</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>RegOffset</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Mask</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Shift</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Data</declname>
+        </param>
+        <briefdescription>
+<para>This function will Read modify and write into corresponding registers. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address to which the value has to be written. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegOffset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the relative offset from Base address. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is used to select the number of bits to be modified. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Shift</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the number bits to be shifted from LSB. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the Data to be written.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf_clk.c" line="301" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf_clk.c" bodystart="301" bodyend="309"/>
+      </memberdef>
+      <memberdef kind="function" id="xavbuf__clk_8c_1a219de3845fadadc6de9e4d5e2e75219e" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int XAVBuf_ConfigurePll</definition>
+        <argsstring>(XAVBuf_Pll *PllInstancePtr)</argsstring>
+        <name>XAVBuf_ConfigurePll</name>
+        <param>
+          <type><ref refid="struct_x_a_v_buf___pll" kindref="compound">XAVBuf_Pll</ref> *</type>
+          <declname>PllInstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function configures PLL. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>PllInstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is pointer to the <ref refid="struct_x_a_v_buf___pll" kindref="compound">XAVBuf_Pll</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if PLL is configured without an error. XST_FAILURE otherwise.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf_clk.c" line="323" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf_clk.c" bodystart="323" bodyend="398"/>
+      </memberdef>
+      <memberdef kind="function" id="xavbuf__clk_8c_1a4c33752b5d075bc884e0e098e8af874b" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void XAVBuf_ConfigureExtDivider</definition>
+        <argsstring>(XAVBuf_Pll *PllInstancePtr, u32 BaseAddress, u32 Offset)</argsstring>
+        <name>XAVBuf_ConfigureExtDivider</name>
+        <param>
+          <type><ref refid="struct_x_a_v_buf___pll" kindref="compound">XAVBuf_Pll</ref> *</type>
+          <declname>PllInstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Offset</declname>
+        </param>
+        <briefdescription>
+<para>This function configures Configures external divider. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>PllInstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is pointer to the <ref refid="struct_x_a_v_buf___pll" kindref="compound">XAVBuf_Pll</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf_clk.c" line="411" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf_clk.c" bodystart="411" bodyend="428"/>
+      </memberdef>
+      <memberdef kind="function" id="xavbuf__clk_8c_1a1ec626441b798f852839e336c4ea726f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XAVBuf_SetPixelClock</definition>
+        <argsstring>(u64 FreqHz)</argsstring>
+        <name>XAVBuf_SetPixelClock</name>
+        <param>
+          <type>u64</type>
+          <declname>FreqHz</declname>
+        </param>
+        <briefdescription>
+<para>This function calls API to calculate and configure PLL with desired frequency for Video. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>FreqHz</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the desired frequency in Hz.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if PLL is configured without an error. XST_FAILURE otherwise.</para></simplesect>
+<simplesect kind="note"><para>The Pll used is design specific. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf_clk.c" line="443" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf_clk.c" bodystart="443" bodyend="487"/>
+        <references refid="xavbuf__hw_8h_1aa9edccf3d4b47ff9b6ff6fde84a26dd0" compoundref="xavbuf__hw_8h" startline="1400">XAVBUF_CLK_FPD_BASEADDR</references>
+        <references refid="xavbuf__hw_8h_1acc9ef500a33218ad23ee1078c452c219" compoundref="xavbuf__hw_8h" startline="1623">XAVBuf_ReadReg</references>
+        <references refid="xavbuf__hw_8h_1adecb43b4a7818f901e9ea65c671981d3" compoundref="xavbuf__hw_8h" startline="1525">XAVBUF_VIDEO_REF_CTRL</references>
+        <references refid="xavbuf__hw_8h_1a755a434c389a82daff000b38de56e0d2" compoundref="xavbuf__hw_8h" startline="1597">XAVBUF_VPLL_SRC_SEL</references>
+      </memberdef>
+      <memberdef kind="function" id="xavbuf__clk_8c_1a4dd63e9fd6add1757a3761690b706e1d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XAVBuf_SetAudioClock</definition>
+        <argsstring>(u64 FreqHz)</argsstring>
+        <name>XAVBuf_SetAudioClock</name>
+        <param>
+          <type>u64</type>
+          <declname>FreqHz</declname>
+        </param>
+        <briefdescription>
+<para>This function calls API to calculate and configure PLL with desired frequency for Audio. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>FreqHz</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the desired frequency in Hz.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if PLL is configured without an error. XST_FAILURE otherwise.</para></simplesect>
+<simplesect kind="note"><para>The Pll used is design specific. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf_clk.c" line="502" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf_clk.c" bodystart="502" bodyend="551"/>
+        <references refid="xavbuf__hw_8h_1ae00cb3dbc395858edb3b99c538abc4b1" compoundref="xavbuf__hw_8h" startline="1547">XAVBUF_AUDIO_REF_CTRL</references>
+        <references refid="xavbuf__hw_8h_1aa9edccf3d4b47ff9b6ff6fde84a26dd0" compoundref="xavbuf__hw_8h" startline="1400">XAVBUF_CLK_FPD_BASEADDR</references>
+        <references refid="xavbuf__hw_8h_1acc9ef500a33218ad23ee1078c452c219" compoundref="xavbuf__hw_8h" startline="1623">XAVBuf_ReadReg</references>
+        <references refid="xavbuf__hw_8h_1a755a434c389a82daff000b38de56e0d2" compoundref="xavbuf__hw_8h" startline="1597">XAVBUF_VPLL_SRC_SEL</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file contains PLL configuring functions. </para>    </briefdescription>
+    <detaileddescription>
+<para>These Functions calculates and configures the PLL depending on desired frequency.</para><para><simplesect kind="note"><para>None.</para></simplesect>
+<preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+1.0   mh  06/24/17 Initial release.
+2.1   tu  12/29/17 LPD and FPD offsets adjusted
+2.6   rv  05/02/23 Added PLL macros
+</preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2010<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2022<sp/>-<sp/>2023<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="28"><highlight class="comment">/*******************************<sp/>Include<sp/>Files<sp/>********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xavbuf__clk_8h" kindref="compound">xavbuf_clk.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_printf.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Constant<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="comment">/*Input<sp/>Frequency<sp/>for<sp/>the<sp/>PLL<sp/>with<sp/>precision<sp/>up<sp/>to<sp/>two<sp/>decimals*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XAVBUF_INPUT_REF_CLK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>3333333333</highlight></codeline>
+<codeline lineno="35"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="comment">/*Frequency<sp/>of<sp/>VCO<sp/>before<sp/>divider<sp/>to<sp/>meet<sp/>jitter<sp/>requirement*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XAVBUF_PLL_OUT_FREQ<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1450000000</highlight></codeline>
+<codeline lineno="38"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Precision<sp/>of<sp/>Input<sp/>Ref<sp/>Frequency<sp/>for<sp/>PLL*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XAVBUF_INPUT_FREQ_PRECISION<sp/><sp/><sp/><sp/><sp/>100</highlight></codeline>
+<codeline lineno="41"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>16<sp/>bit<sp/><sp/>fractional<sp/>shift<sp/>to<sp/>get<sp/>Integer<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XAVBUF_PRECISION<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>16</highlight></codeline>
+<codeline lineno="44"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XAVBUF_SHIFT_DECIMAL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1<sp/>&lt;&lt;<sp/><sp/>XAVBUF_PRECISION)</highlight></codeline>
+<codeline lineno="45"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XAVBUF_DECIMAL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XAVBUF_SHIFT_DECIMAL<sp/>-<sp/>1)</highlight></codeline>
+<codeline lineno="46"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDPSSU_MAX_VIDEO_FREQ<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>300000000</highlight></codeline>
+<codeline lineno="47"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XAVBUF_AUDIO_SAMPLES<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>512</highlight></codeline>
+<codeline lineno="49"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XAVBUF_AUDIO_SAMPLE_RATE_44_1<sp/><sp/><sp/>44100</highlight></codeline>
+<codeline lineno="50"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XAVBUF_AUDIO_SAMPLE_RATE_48_0<sp/><sp/><sp/>48000</highlight></codeline>
+<codeline lineno="51"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XAVBUF_EXTERNAL_DIVIDER<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>2</highlight></codeline>
+<codeline lineno="52"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Register<sp/>offsets<sp/>for<sp/>address<sp/>manipulation<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XAVBUF_REG_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>4</highlight></codeline>
+<codeline lineno="55"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XAVBUF_FPD_CTRL_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>12</highlight></codeline>
+<codeline lineno="56"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XAVBUF_LPD_CTRL_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>16</highlight></codeline>
+<codeline lineno="57"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>MOD_3(a)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((a)<sp/>%<sp/>(3))</highlight></codeline>
+<codeline lineno="58"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>PLL<sp/>configurations<sp/>based<sp/>on<sp/>Zynq<sp/>UltraScale+<sp/>MPSoC<sp/>TRM<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XAVBUF_FBDIV_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>25</highlight></codeline>
+<codeline lineno="61"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XAVBUF_PLL_LOCK_DLY<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>63</highlight></codeline>
+<codeline lineno="62"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight><highlight class="comment">/***************************<sp/>Constant<sp/>Variable<sp/>Definitions<sp/>********************/</highlight></codeline>
+<codeline lineno="67"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct</highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>cp;</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>res;</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>lfhf;</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>lock_dly;</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>lock_cnt;</highlight></codeline>
+<codeline lineno="73"><highlight class="normal">}<sp/>PllConfig;</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>PLL<sp/>fractional<sp/>divide<sp/>programming<sp/>table*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="76"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>PllConfig<sp/>PllFracDivideTable[]<sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{3,<sp/><sp/><sp/><sp/><sp/>5,<sp/><sp/><sp/><sp/><sp/><sp/>3,<sp/><sp/><sp/><sp/><sp/><sp/>63,<sp/><sp/><sp/><sp/><sp/>1000},</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{3,<sp/><sp/><sp/><sp/><sp/>5,<sp/><sp/><sp/><sp/><sp/><sp/>3,<sp/><sp/><sp/><sp/><sp/><sp/>63,<sp/><sp/><sp/><sp/><sp/>1000},</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{3,<sp/><sp/><sp/><sp/><sp/>9,<sp/><sp/><sp/><sp/><sp/><sp/>3,<sp/><sp/><sp/><sp/><sp/><sp/>63,<sp/><sp/><sp/><sp/><sp/>1000},</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{3,<sp/><sp/><sp/><sp/><sp/>9,<sp/><sp/><sp/><sp/><sp/><sp/>3,<sp/><sp/><sp/><sp/><sp/><sp/>63,<sp/><sp/><sp/><sp/><sp/>1000},</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{3,<sp/><sp/><sp/><sp/><sp/>9,<sp/><sp/><sp/><sp/><sp/><sp/>3,<sp/><sp/><sp/><sp/><sp/><sp/>63,<sp/><sp/><sp/><sp/><sp/>1000},</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{3,<sp/><sp/><sp/><sp/><sp/>9,<sp/><sp/><sp/><sp/><sp/><sp/>3,<sp/><sp/><sp/><sp/><sp/><sp/>63,<sp/><sp/><sp/><sp/><sp/>1000},</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{3,<sp/><sp/><sp/><sp/><sp/>14,<sp/><sp/><sp/><sp/><sp/>3,<sp/><sp/><sp/><sp/><sp/><sp/>63,<sp/><sp/><sp/><sp/><sp/>1000},</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{3,<sp/><sp/><sp/><sp/><sp/>14,<sp/><sp/><sp/><sp/><sp/>3,<sp/><sp/><sp/><sp/><sp/><sp/>63,<sp/><sp/><sp/><sp/><sp/>1000},</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{3,<sp/><sp/><sp/><sp/><sp/>14,<sp/><sp/><sp/><sp/><sp/>3,<sp/><sp/><sp/><sp/><sp/><sp/>63,<sp/><sp/><sp/><sp/><sp/>1000},</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{3,<sp/><sp/><sp/><sp/><sp/>14,<sp/><sp/><sp/><sp/><sp/>3,<sp/><sp/><sp/><sp/><sp/><sp/>63,<sp/><sp/><sp/><sp/><sp/>1000},</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{3,<sp/><sp/><sp/><sp/><sp/>14,<sp/><sp/><sp/><sp/><sp/>3,<sp/><sp/><sp/><sp/><sp/><sp/>63,<sp/><sp/><sp/><sp/><sp/>1000},</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{3,<sp/><sp/><sp/><sp/><sp/>14,<sp/><sp/><sp/><sp/><sp/>3,<sp/><sp/><sp/><sp/><sp/><sp/>63,<sp/><sp/><sp/><sp/><sp/>1000},</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{3,<sp/><sp/><sp/><sp/><sp/>14,<sp/><sp/><sp/><sp/><sp/>3,<sp/><sp/><sp/><sp/><sp/><sp/>63,<sp/><sp/><sp/><sp/><sp/>1000},</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{3,<sp/><sp/><sp/><sp/><sp/>14,<sp/><sp/><sp/><sp/><sp/>3,<sp/><sp/><sp/><sp/><sp/><sp/>63,<sp/><sp/><sp/><sp/><sp/>975},</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{3,<sp/><sp/><sp/><sp/><sp/>14,<sp/><sp/><sp/><sp/><sp/>3,<sp/><sp/><sp/><sp/><sp/><sp/>63,<sp/><sp/><sp/><sp/><sp/>950},</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{3,<sp/><sp/><sp/><sp/><sp/>14,<sp/><sp/><sp/><sp/><sp/>3,<sp/><sp/><sp/><sp/><sp/><sp/>63,<sp/><sp/><sp/><sp/><sp/>925},</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{3,<sp/><sp/><sp/><sp/><sp/>1,<sp/><sp/><sp/><sp/><sp/><sp/>3,<sp/><sp/><sp/><sp/><sp/><sp/>63,<sp/><sp/><sp/><sp/><sp/>900},</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{3,<sp/><sp/><sp/><sp/><sp/>1,<sp/><sp/><sp/><sp/><sp/><sp/>3,<sp/><sp/><sp/><sp/><sp/><sp/>63,<sp/><sp/><sp/><sp/><sp/>875},</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{3,<sp/><sp/><sp/><sp/><sp/>1,<sp/><sp/><sp/><sp/><sp/><sp/>3,<sp/><sp/><sp/><sp/><sp/><sp/>63,<sp/><sp/><sp/><sp/><sp/>850},</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{3,<sp/><sp/><sp/><sp/><sp/>1,<sp/><sp/><sp/><sp/><sp/><sp/>3,<sp/><sp/><sp/><sp/><sp/><sp/>63,<sp/><sp/><sp/><sp/><sp/>850},</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{3,<sp/><sp/><sp/><sp/><sp/>1,<sp/><sp/><sp/><sp/><sp/><sp/>3,<sp/><sp/><sp/><sp/><sp/><sp/>63,<sp/><sp/><sp/><sp/><sp/>825},</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{3,<sp/><sp/><sp/><sp/><sp/>1,<sp/><sp/><sp/><sp/><sp/><sp/>3,<sp/><sp/><sp/><sp/><sp/><sp/>63,<sp/><sp/><sp/><sp/><sp/>800},</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{3,<sp/><sp/><sp/><sp/><sp/>1,<sp/><sp/><sp/><sp/><sp/><sp/>3,<sp/><sp/><sp/><sp/><sp/><sp/>63,<sp/><sp/><sp/><sp/><sp/>775},</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{3,<sp/><sp/><sp/><sp/><sp/>6,<sp/><sp/><sp/><sp/><sp/><sp/>3,<sp/><sp/><sp/><sp/><sp/><sp/>63,<sp/><sp/><sp/><sp/><sp/>775},</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{3,<sp/><sp/><sp/><sp/><sp/>6,<sp/><sp/><sp/><sp/><sp/><sp/>3,<sp/><sp/><sp/><sp/><sp/><sp/>63,<sp/><sp/><sp/><sp/><sp/>750},</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{3,<sp/><sp/><sp/><sp/><sp/>6,<sp/><sp/><sp/><sp/><sp/><sp/>3,<sp/><sp/><sp/><sp/><sp/><sp/>63,<sp/><sp/><sp/><sp/><sp/>725},</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{3,<sp/><sp/><sp/><sp/><sp/>6,<sp/><sp/><sp/><sp/><sp/><sp/>3,<sp/><sp/><sp/><sp/><sp/><sp/>63,<sp/><sp/><sp/><sp/><sp/>700},</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{3,<sp/><sp/><sp/><sp/><sp/>6,<sp/><sp/><sp/><sp/><sp/><sp/>3,<sp/><sp/><sp/><sp/><sp/><sp/>63,<sp/><sp/><sp/><sp/><sp/>700},</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{3,<sp/><sp/><sp/><sp/><sp/>6,<sp/><sp/><sp/><sp/><sp/><sp/>3,<sp/><sp/><sp/><sp/><sp/><sp/>63,<sp/><sp/><sp/><sp/><sp/>675},</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{3,<sp/><sp/><sp/><sp/><sp/>6,<sp/><sp/><sp/><sp/><sp/><sp/>3,<sp/><sp/><sp/><sp/><sp/><sp/>63,<sp/><sp/><sp/><sp/><sp/>675},</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{3,<sp/><sp/><sp/><sp/><sp/>6,<sp/><sp/><sp/><sp/><sp/><sp/>3,<sp/><sp/><sp/><sp/><sp/><sp/>63,<sp/><sp/><sp/><sp/><sp/>650},</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{3,<sp/><sp/><sp/><sp/><sp/>6,<sp/><sp/><sp/><sp/><sp/><sp/>3,<sp/><sp/><sp/><sp/><sp/><sp/>63,<sp/><sp/><sp/><sp/><sp/>650},</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{3,<sp/><sp/><sp/><sp/><sp/>6,<sp/><sp/><sp/><sp/><sp/><sp/>3,<sp/><sp/><sp/><sp/><sp/><sp/>63,<sp/><sp/><sp/><sp/><sp/>625},</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{3,<sp/><sp/><sp/><sp/><sp/>6,<sp/><sp/><sp/><sp/><sp/><sp/>3,<sp/><sp/><sp/><sp/><sp/><sp/>63,<sp/><sp/><sp/><sp/><sp/>625},</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{3,<sp/><sp/><sp/><sp/><sp/>6,<sp/><sp/><sp/><sp/><sp/><sp/>3,<sp/><sp/><sp/><sp/><sp/><sp/>63,<sp/><sp/><sp/><sp/><sp/>625},</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{3,<sp/><sp/><sp/><sp/><sp/>6,<sp/><sp/><sp/><sp/><sp/><sp/>3,<sp/><sp/><sp/><sp/><sp/><sp/>63,<sp/><sp/><sp/><sp/><sp/>600},</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{3,<sp/><sp/><sp/><sp/><sp/>6,<sp/><sp/><sp/><sp/><sp/><sp/>3,<sp/><sp/><sp/><sp/><sp/><sp/>63,<sp/><sp/><sp/><sp/><sp/>600},</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{3,<sp/><sp/><sp/><sp/><sp/>6,<sp/><sp/><sp/><sp/><sp/><sp/>3,<sp/><sp/><sp/><sp/><sp/><sp/>63,<sp/><sp/><sp/><sp/><sp/>600},</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{3,<sp/><sp/><sp/><sp/><sp/>6,<sp/><sp/><sp/><sp/><sp/><sp/>3,<sp/><sp/><sp/><sp/><sp/><sp/>63,<sp/><sp/><sp/><sp/><sp/>600},</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{3,<sp/><sp/><sp/><sp/><sp/>6,<sp/><sp/><sp/><sp/><sp/><sp/>3,<sp/><sp/><sp/><sp/><sp/><sp/>63,<sp/><sp/><sp/><sp/><sp/>600},</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{3,<sp/><sp/><sp/><sp/><sp/>10,<sp/><sp/><sp/><sp/><sp/>3,<sp/><sp/><sp/><sp/><sp/><sp/>63,<sp/><sp/><sp/><sp/><sp/>600},</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{3,<sp/><sp/><sp/><sp/><sp/>10,<sp/><sp/><sp/><sp/><sp/>3,<sp/><sp/><sp/><sp/><sp/><sp/>63,<sp/><sp/><sp/><sp/><sp/>600},</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{3,<sp/><sp/><sp/><sp/><sp/>10,<sp/><sp/><sp/><sp/><sp/>3,<sp/><sp/><sp/><sp/><sp/><sp/>63,<sp/><sp/><sp/><sp/><sp/>600},</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{3,<sp/><sp/><sp/><sp/><sp/>10,<sp/><sp/><sp/><sp/><sp/>3,<sp/><sp/><sp/><sp/><sp/><sp/>63,<sp/><sp/><sp/><sp/><sp/>600},</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{3,<sp/><sp/><sp/><sp/><sp/>10,<sp/><sp/><sp/><sp/><sp/>3,<sp/><sp/><sp/><sp/><sp/><sp/>63,<sp/><sp/><sp/><sp/><sp/>600},</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{3,<sp/><sp/><sp/><sp/><sp/>10,<sp/><sp/><sp/><sp/><sp/>3,<sp/><sp/><sp/><sp/><sp/><sp/>63,<sp/><sp/><sp/><sp/><sp/>600},</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{3,<sp/><sp/><sp/><sp/><sp/>10,<sp/><sp/><sp/><sp/><sp/>3,<sp/><sp/><sp/><sp/><sp/><sp/>63,<sp/><sp/><sp/><sp/><sp/>600},</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{3,<sp/><sp/><sp/><sp/><sp/>10,<sp/><sp/><sp/><sp/><sp/>3,<sp/><sp/><sp/><sp/><sp/><sp/>63,<sp/><sp/><sp/><sp/><sp/>600},</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{3,<sp/><sp/><sp/><sp/><sp/>10,<sp/><sp/><sp/><sp/><sp/>3,<sp/><sp/><sp/><sp/><sp/><sp/>63,<sp/><sp/><sp/><sp/><sp/>600},</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{3,<sp/><sp/><sp/><sp/><sp/>10,<sp/><sp/><sp/><sp/><sp/>3,<sp/><sp/><sp/><sp/><sp/><sp/>63,<sp/><sp/><sp/><sp/><sp/>600},</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{3,<sp/><sp/><sp/><sp/><sp/>10,<sp/><sp/><sp/><sp/><sp/>3,<sp/><sp/><sp/><sp/><sp/><sp/>63,<sp/><sp/><sp/><sp/><sp/>600},</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{3,<sp/><sp/><sp/><sp/><sp/>10,<sp/><sp/><sp/><sp/><sp/>3,<sp/><sp/><sp/><sp/><sp/><sp/>63,<sp/><sp/><sp/><sp/><sp/>600},</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{3,<sp/><sp/><sp/><sp/><sp/>10,<sp/><sp/><sp/><sp/><sp/>3,<sp/><sp/><sp/><sp/><sp/><sp/>63,<sp/><sp/><sp/><sp/><sp/>600},</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{3,<sp/><sp/><sp/><sp/><sp/>10,<sp/><sp/><sp/><sp/><sp/>3,<sp/><sp/><sp/><sp/><sp/><sp/>63,<sp/><sp/><sp/><sp/><sp/>600},</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{3,<sp/><sp/><sp/><sp/><sp/>10,<sp/><sp/><sp/><sp/><sp/>3,<sp/><sp/><sp/><sp/><sp/><sp/>63,<sp/><sp/><sp/><sp/><sp/>600},</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{3,<sp/><sp/><sp/><sp/><sp/>10,<sp/><sp/><sp/><sp/><sp/>3,<sp/><sp/><sp/><sp/><sp/><sp/>63,<sp/><sp/><sp/><sp/><sp/>600},</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{4,<sp/><sp/><sp/><sp/><sp/>6,<sp/><sp/><sp/><sp/><sp/><sp/>3,<sp/><sp/><sp/><sp/><sp/><sp/>63,<sp/><sp/><sp/><sp/><sp/>600},</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{4,<sp/><sp/><sp/><sp/><sp/>6,<sp/><sp/><sp/><sp/><sp/><sp/>3,<sp/><sp/><sp/><sp/><sp/><sp/>63,<sp/><sp/><sp/><sp/><sp/>600},</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{4,<sp/><sp/><sp/><sp/><sp/>6,<sp/><sp/><sp/><sp/><sp/><sp/>3,<sp/><sp/><sp/><sp/><sp/><sp/>63,<sp/><sp/><sp/><sp/><sp/>600},</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{4,<sp/><sp/><sp/><sp/><sp/>6,<sp/><sp/><sp/><sp/><sp/><sp/>3,<sp/><sp/><sp/><sp/><sp/><sp/>63,<sp/><sp/><sp/><sp/><sp/>600},</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{4,<sp/><sp/><sp/><sp/><sp/>6,<sp/><sp/><sp/><sp/><sp/><sp/>3,<sp/><sp/><sp/><sp/><sp/><sp/>63,<sp/><sp/><sp/><sp/><sp/>600},</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{4,<sp/><sp/><sp/><sp/><sp/>6,<sp/><sp/><sp/><sp/><sp/><sp/>3,<sp/><sp/><sp/><sp/><sp/><sp/>63,<sp/><sp/><sp/><sp/><sp/>600},</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{3,<sp/><sp/><sp/><sp/><sp/>12,<sp/><sp/><sp/><sp/><sp/>3,<sp/><sp/><sp/><sp/><sp/><sp/>63,<sp/><sp/><sp/><sp/><sp/>600},</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{3,<sp/><sp/><sp/><sp/><sp/>12,<sp/><sp/><sp/><sp/><sp/>3,<sp/><sp/><sp/><sp/><sp/><sp/>63,<sp/><sp/><sp/><sp/><sp/>600},</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{3,<sp/><sp/><sp/><sp/><sp/>12,<sp/><sp/><sp/><sp/><sp/>3,<sp/><sp/><sp/><sp/><sp/><sp/>63,<sp/><sp/><sp/><sp/><sp/>600},</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{3,<sp/><sp/><sp/><sp/><sp/>12,<sp/><sp/><sp/><sp/><sp/>3,<sp/><sp/><sp/><sp/><sp/><sp/>63,<sp/><sp/><sp/><sp/><sp/>600},</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{3,<sp/><sp/><sp/><sp/><sp/>12,<sp/><sp/><sp/><sp/><sp/>3,<sp/><sp/><sp/><sp/><sp/><sp/>63,<sp/><sp/><sp/><sp/><sp/>600},</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{3,<sp/><sp/><sp/><sp/><sp/>12,<sp/><sp/><sp/><sp/><sp/>3,<sp/><sp/><sp/><sp/><sp/><sp/>63,<sp/><sp/><sp/><sp/><sp/>600},</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{3,<sp/><sp/><sp/><sp/><sp/>12,<sp/><sp/><sp/><sp/><sp/>3,<sp/><sp/><sp/><sp/><sp/><sp/>63,<sp/><sp/><sp/><sp/><sp/>600},</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{3,<sp/><sp/><sp/><sp/><sp/>12,<sp/><sp/><sp/><sp/><sp/>3,<sp/><sp/><sp/><sp/><sp/><sp/>63,<sp/><sp/><sp/><sp/><sp/>600},</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{3,<sp/><sp/><sp/><sp/><sp/>12,<sp/><sp/><sp/><sp/><sp/>3,<sp/><sp/><sp/><sp/><sp/><sp/>63,<sp/><sp/><sp/><sp/><sp/>600},</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{3,<sp/><sp/><sp/><sp/><sp/>12,<sp/><sp/><sp/><sp/><sp/>3,<sp/><sp/><sp/><sp/><sp/><sp/>63,<sp/><sp/><sp/><sp/><sp/>600},</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{3,<sp/><sp/><sp/><sp/><sp/>12,<sp/><sp/><sp/><sp/><sp/>3,<sp/><sp/><sp/><sp/><sp/><sp/>63,<sp/><sp/><sp/><sp/><sp/>600},</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{3,<sp/><sp/><sp/><sp/><sp/>12,<sp/><sp/><sp/><sp/><sp/>3,<sp/><sp/><sp/><sp/><sp/><sp/>63,<sp/><sp/><sp/><sp/><sp/>600},</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{3,<sp/><sp/><sp/><sp/><sp/>12,<sp/><sp/><sp/><sp/><sp/>3,<sp/><sp/><sp/><sp/><sp/><sp/>63,<sp/><sp/><sp/><sp/><sp/>600},</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{3,<sp/><sp/><sp/><sp/><sp/>12,<sp/><sp/><sp/><sp/><sp/>3,<sp/><sp/><sp/><sp/><sp/><sp/>63,<sp/><sp/><sp/><sp/><sp/>600},</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{3,<sp/><sp/><sp/><sp/><sp/>12,<sp/><sp/><sp/><sp/><sp/>3,<sp/><sp/><sp/><sp/><sp/><sp/>63,<sp/><sp/><sp/><sp/><sp/>600},</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{3,<sp/><sp/><sp/><sp/><sp/>12,<sp/><sp/><sp/><sp/><sp/>3,<sp/><sp/><sp/><sp/><sp/><sp/>63,<sp/><sp/><sp/><sp/><sp/>600},</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{3,<sp/><sp/><sp/><sp/><sp/>12,<sp/><sp/><sp/><sp/><sp/>3,<sp/><sp/><sp/><sp/><sp/><sp/>63,<sp/><sp/><sp/><sp/><sp/>600},</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{3,<sp/><sp/><sp/><sp/><sp/>12,<sp/><sp/><sp/><sp/><sp/>3,<sp/><sp/><sp/><sp/><sp/><sp/>63,<sp/><sp/><sp/><sp/><sp/>600},</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{3,<sp/><sp/><sp/><sp/><sp/>12,<sp/><sp/><sp/><sp/><sp/>3,<sp/><sp/><sp/><sp/><sp/><sp/>63,<sp/><sp/><sp/><sp/><sp/>600},</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{3,<sp/><sp/><sp/><sp/><sp/>12,<sp/><sp/><sp/><sp/><sp/>3,<sp/><sp/><sp/><sp/><sp/><sp/>63,<sp/><sp/><sp/><sp/><sp/>600},</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{3,<sp/><sp/><sp/><sp/><sp/>12,<sp/><sp/><sp/><sp/><sp/>3,<sp/><sp/><sp/><sp/><sp/><sp/>63,<sp/><sp/><sp/><sp/><sp/>600},</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{3,<sp/><sp/><sp/><sp/><sp/>12,<sp/><sp/><sp/><sp/><sp/>3,<sp/><sp/><sp/><sp/><sp/><sp/>63,<sp/><sp/><sp/><sp/><sp/>600},</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{3,<sp/><sp/><sp/><sp/><sp/>12,<sp/><sp/><sp/><sp/><sp/>3,<sp/><sp/><sp/><sp/><sp/><sp/>63,<sp/><sp/><sp/><sp/><sp/>600},</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{3,<sp/><sp/><sp/><sp/><sp/>12,<sp/><sp/><sp/><sp/><sp/>3,<sp/><sp/><sp/><sp/><sp/><sp/>63,<sp/><sp/><sp/><sp/><sp/>600},</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{3,<sp/><sp/><sp/><sp/><sp/>12,<sp/><sp/><sp/><sp/><sp/>3,<sp/><sp/><sp/><sp/><sp/><sp/>63,<sp/><sp/><sp/><sp/><sp/>600},</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{3,<sp/><sp/><sp/><sp/><sp/>12,<sp/><sp/><sp/><sp/><sp/>3,<sp/><sp/><sp/><sp/><sp/><sp/>63,<sp/><sp/><sp/><sp/><sp/>600},</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{3,<sp/><sp/><sp/><sp/><sp/>12,<sp/><sp/><sp/><sp/><sp/>3,<sp/><sp/><sp/><sp/><sp/><sp/>63,<sp/><sp/><sp/><sp/><sp/>600},</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{3,<sp/><sp/><sp/><sp/><sp/>12,<sp/><sp/><sp/><sp/><sp/>3,<sp/><sp/><sp/><sp/><sp/><sp/>63,<sp/><sp/><sp/><sp/><sp/>600},</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{3,<sp/><sp/><sp/><sp/><sp/>12,<sp/><sp/><sp/><sp/><sp/>3,<sp/><sp/><sp/><sp/><sp/><sp/>63,<sp/><sp/><sp/><sp/><sp/>600},</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{3,<sp/><sp/><sp/><sp/><sp/>12,<sp/><sp/><sp/><sp/><sp/>3,<sp/><sp/><sp/><sp/><sp/><sp/>63,<sp/><sp/><sp/><sp/><sp/>600},</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{3,<sp/><sp/><sp/><sp/><sp/>12,<sp/><sp/><sp/><sp/><sp/>3,<sp/><sp/><sp/><sp/><sp/><sp/>63,<sp/><sp/><sp/><sp/><sp/>600},</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{3,<sp/><sp/><sp/><sp/><sp/>12,<sp/><sp/><sp/><sp/><sp/>3,<sp/><sp/><sp/><sp/><sp/><sp/>63,<sp/><sp/><sp/><sp/><sp/>600},</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{3,<sp/><sp/><sp/><sp/><sp/>12,<sp/><sp/><sp/><sp/><sp/>3,<sp/><sp/><sp/><sp/><sp/><sp/>63,<sp/><sp/><sp/><sp/><sp/>600},</highlight></codeline>
+<codeline lineno="172"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{3,<sp/><sp/><sp/><sp/><sp/>12,<sp/><sp/><sp/><sp/><sp/>3,<sp/><sp/><sp/><sp/><sp/><sp/>63,<sp/><sp/><sp/><sp/><sp/>600},</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{3,<sp/><sp/><sp/><sp/><sp/>12,<sp/><sp/><sp/><sp/><sp/>3,<sp/><sp/><sp/><sp/><sp/><sp/>63,<sp/><sp/><sp/><sp/><sp/>600},</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{3,<sp/><sp/><sp/><sp/><sp/>12,<sp/><sp/><sp/><sp/><sp/>3,<sp/><sp/><sp/><sp/><sp/><sp/>63,<sp/><sp/><sp/><sp/><sp/>600},</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{3,<sp/><sp/><sp/><sp/><sp/>12,<sp/><sp/><sp/><sp/><sp/>3,<sp/><sp/><sp/><sp/><sp/><sp/>63,<sp/><sp/><sp/><sp/><sp/>600},</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{3,<sp/><sp/><sp/><sp/><sp/>12,<sp/><sp/><sp/><sp/><sp/>3,<sp/><sp/><sp/><sp/><sp/><sp/>63,<sp/><sp/><sp/><sp/><sp/>600}</highlight></codeline>
+<codeline lineno="177"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"></highlight></codeline>
+<codeline lineno="179"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="197"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XAVBuf_PllInitialize(<ref refid="struct_x_a_v_buf___pll" kindref="compound">XAVBuf_Pll</ref><sp/>*PllInstancePtr,</highlight></codeline>
+<codeline lineno="198"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Pll,<sp/>u8<sp/>CrossDomain,<sp/>u8<sp/>ExtDividerCnt)</highlight></codeline>
+<codeline lineno="199"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Instantiate<sp/>input<sp/>frequency.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="201"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PllInstancePtr-&gt;InputRefClk<sp/>=<sp/><ref refid="xavbuf__hw_8h_1a972c4ab83c2c855874da45f20d6ff183" kindref="member">XAVBUF_Pss_Ref_Clk</ref>;</highlight></codeline>
+<codeline lineno="202"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PllInstancePtr-&gt;RefClkFreqhz<sp/>=<sp/>XAVBUF_INPUT_REF_CLK;</highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;AVBuf<sp/>Input<sp/>Ref<sp/>Clk<sp/>=<sp/>%lu<sp/>Hz&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PllInstancePtr-&gt;RefClkFreqhz);</highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Turn<sp/>on<sp/>internal<sp/>Divider*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="206"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PllInstancePtr-&gt;Divider<sp/>=<sp/>1;</highlight></codeline>
+<codeline lineno="207"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PllInstancePtr-&gt;Pll<sp/>=<sp/>Pll;</highlight></codeline>
+<codeline lineno="208"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PllInstancePtr-&gt;ExtDividerCnt<sp/>=<sp/>ExtDividerCnt;</highlight></codeline>
+<codeline lineno="209"><highlight class="normal"></highlight></codeline>
+<codeline lineno="210"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Check<sp/>if<sp/>CrossDomain<sp/>is<sp/>requested*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="211"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(CrossDomain)</highlight></codeline>
+<codeline lineno="212"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PllInstancePtr-&gt;DomainSwitchDiv<sp/>=<sp/>6;</highlight></codeline>
+<codeline lineno="213"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="214"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PllInstancePtr-&gt;DomainSwitchDiv<sp/>=<sp/>1;</highlight></codeline>
+<codeline lineno="215"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Check<sp/>where<sp/>PLL<sp/>falls*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="216"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Pll<sp/>&gt;<sp/>2)<sp/>{</highlight></codeline>
+<codeline lineno="217"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PllInstancePtr-&gt;Fpd<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="218"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PllInstancePtr-&gt;BaseAddress<sp/>=<sp/>XAVBUF_CLK_LPD_BASEADDR;</highlight></codeline>
+<codeline lineno="219"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PllInstancePtr-&gt;Offset<sp/>=<sp/>XAVBUF_LPD_CTRL_OFFSET;</highlight></codeline>
+<codeline lineno="220"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="221"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PllInstancePtr-&gt;Fpd<sp/>=<sp/>1;</highlight></codeline>
+<codeline lineno="222"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PllInstancePtr-&gt;BaseAddress<sp/>=<sp/><ref refid="xavbuf__hw_8h_1aa9edccf3d4b47ff9b6ff6fde84a26dd0" kindref="member">XAVBUF_CLK_FPD_BASEADDR</ref>;</highlight></codeline>
+<codeline lineno="223"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PllInstancePtr-&gt;Offset<sp/>=<sp/>XAVBUF_FPD_CTRL_OFFSET;</highlight></codeline>
+<codeline lineno="224"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="225"><highlight class="normal"></highlight></codeline>
+<codeline lineno="226"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="227"><highlight class="normal"></highlight></codeline>
+<codeline lineno="228"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="243"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XAVBuf_PllCalcParameterValues(<ref refid="struct_x_a_v_buf___pll" kindref="compound">XAVBuf_Pll</ref><sp/>*PllInstancePtr,</highlight></codeline>
+<codeline lineno="244"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>FreqHz)</highlight></codeline>
+<codeline lineno="245"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="246"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>ExtDivider;</highlight></codeline>
+<codeline lineno="247"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>Vco;</highlight></codeline>
+<codeline lineno="248"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>VcoIntFrac;</highlight></codeline>
+<codeline lineno="249"><highlight class="normal"></highlight></codeline>
+<codeline lineno="250"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Instantiate<sp/>input<sp/>frequency.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="251"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PllInstancePtr-&gt;InputRefClk<sp/>=<sp/><sp/><ref refid="xavbuf__hw_8h_1a972c4ab83c2c855874da45f20d6ff183" kindref="member">XAVBUF_Pss_Ref_Clk</ref>;</highlight></codeline>
+<codeline lineno="252"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PllInstancePtr-&gt;RefClkFreqhz<sp/>=<sp/><sp/>XAVBUF_INPUT_REF_CLK;</highlight></codeline>
+<codeline lineno="253"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;AVBuf<sp/>Input<sp/>Ref<sp/>Clk<sp/>=<sp/>%lu<sp/>Hz&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="254"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PllInstancePtr-&gt;RefClkFreqhz);</highlight></codeline>
+<codeline lineno="255"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Turn<sp/>on<sp/>internal<sp/>Divider*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="256"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PllInstancePtr-&gt;Divider<sp/>=<sp/>1;</highlight></codeline>
+<codeline lineno="257"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PllInstancePtr-&gt;DomainSwitchDiv<sp/>=<sp/>1;</highlight></codeline>
+<codeline lineno="258"><highlight class="normal"></highlight></codeline>
+<codeline lineno="259"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Estimate<sp/>the<sp/>total<sp/>divider.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="260"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ExtDivider<sp/>=<sp/><sp/>(XAVBUF_PLL_OUT_FREQ<sp/>/<sp/>FreqHz)<sp/>/</highlight></codeline>
+<codeline lineno="261"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PllInstancePtr-&gt;DomainSwitchDiv;</highlight></codeline>
+<codeline lineno="262"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>if<sp/>(ExtDivider<sp/>&gt;<sp/>XAVBUF_PLL_LOCK_DLY<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="263"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PllInstancePtr-&gt;ExtDividerCnt<sp/>==<sp/>2)<sp/>{</highlight></codeline>
+<codeline lineno="264"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PllInstancePtr-&gt;ExtDivider0<sp/>=<sp/>XAVBUF_PLL_LOCK_DLY;</highlight></codeline>
+<codeline lineno="265"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PllInstancePtr-&gt;ExtDivider1<sp/>=<sp/>ExtDivider<sp/>/<sp/>XAVBUF_PLL_LOCK_DLY;</highlight></codeline>
+<codeline lineno="266"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(ExtDivider<sp/>&lt;<sp/>XAVBUF_PLL_LOCK_DLY)<sp/>{</highlight></codeline>
+<codeline lineno="267"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PllInstancePtr-&gt;ExtDivider0<sp/>=<sp/>ExtDivider;</highlight></codeline>
+<codeline lineno="268"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PllInstancePtr-&gt;ExtDivider1<sp/>=<sp/>1;</highlight></codeline>
+<codeline lineno="269"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="270"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="271"><highlight class="normal"></highlight></codeline>
+<codeline lineno="272"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Vco<sp/>=<sp/>FreqHz<sp/>*<sp/>(PllInstancePtr-&gt;ExtDivider1<sp/>*</highlight></codeline>
+<codeline lineno="273"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PllInstancePtr-&gt;ExtDivider0<sp/>*<sp/>2)<sp/>*</highlight></codeline>
+<codeline lineno="274"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PllInstancePtr-&gt;DomainSwitchDiv;</highlight></codeline>
+<codeline lineno="275"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Calculate<sp/>integer<sp/>and<sp/>fractional<sp/>part.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="276"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VcoIntFrac<sp/>=<sp/>(Vco<sp/>*<sp/>XAVBUF_INPUT_FREQ_PRECISION<sp/>*</highlight></codeline>
+<codeline lineno="277"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XAVBUF_SHIFT_DECIMAL)<sp/>/</highlight></codeline>
+<codeline lineno="278"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PllInstancePtr-&gt;RefClkFreqhz;</highlight></codeline>
+<codeline lineno="279"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PllInstancePtr-&gt;Fractional<sp/>=<sp/>VcoIntFrac<sp/>&amp;<sp/><sp/>XAVBUF_DECIMAL;</highlight></codeline>
+<codeline lineno="280"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PllInstancePtr-&gt;FracIntegerFBDIV<sp/>=<sp/>VcoIntFrac<sp/>&gt;&gt;<sp/>XAVBUF_PRECISION;</highlight></codeline>
+<codeline lineno="281"><highlight class="normal"></highlight></codeline>
+<codeline lineno="282"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="283"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="284"><highlight class="normal"></highlight></codeline>
+<codeline lineno="285"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="301"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XAVBuf_ReadModifyWriteReg(u32<sp/>BaseAddress,<sp/>u32<sp/>RegOffset,<sp/>u32<sp/>Mask,</highlight></codeline>
+<codeline lineno="302"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Shift,<sp/>u32<sp/>Data)</highlight></codeline>
+<codeline lineno="303"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="304"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>RegValue;</highlight></codeline>
+<codeline lineno="305"><highlight class="normal"></highlight></codeline>
+<codeline lineno="306"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegValue<sp/>=<sp/><ref refid="xavbuf__hw_8h_1acc9ef500a33218ad23ee1078c452c219" kindref="member">XAVBuf_ReadReg</ref>(BaseAddress,<sp/>RegOffset);</highlight></codeline>
+<codeline lineno="307"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegValue<sp/>=<sp/>(RegValue<sp/>&amp;<sp/>~Mask)<sp/>|<sp/>(Data<sp/>&lt;&lt;<sp/>Shift);</highlight></codeline>
+<codeline lineno="308"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xavbuf__hw_8h_1a16e7e43c2dcc226a26d5e567d6a7dd6e" kindref="member">XAVBuf_WriteReg</ref>(BaseAddress,<sp/>RegOffset,<sp/>RegValue);</highlight></codeline>
+<codeline lineno="309"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="310"><highlight class="normal"></highlight></codeline>
+<codeline lineno="311"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="323"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/>XAVBuf_ConfigurePll(<ref refid="struct_x_a_v_buf___pll" kindref="compound">XAVBuf_Pll</ref><sp/>*PllInstancePtr)</highlight></codeline>
+<codeline lineno="324"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="325"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>BaseAddress<sp/>=<sp/>PllInstancePtr-&gt;BaseAddress;</highlight></codeline>
+<codeline lineno="326"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>timer<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="327"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>RegPll<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="328"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Pll<sp/>=<sp/>PllInstancePtr-&gt;Pll;</highlight></codeline>
+<codeline lineno="329"><highlight class="normal"></highlight></codeline>
+<codeline lineno="330"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegPll<sp/>|=<sp/><ref refid="xavbuf__hw_8h_1a17bac6f1180c1d5633937f41f86df1cf" kindref="member">XAVBUF_ENABLE_BIT</ref><sp/>&lt;&lt;<sp/>XAVBUF_PLL_CTRL_BYPASS_SHIFT;</highlight></codeline>
+<codeline lineno="331"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegPll<sp/>|=<sp/>PllInstancePtr-&gt;FracIntegerFBDIV<sp/>&lt;&lt;</highlight></codeline>
+<codeline lineno="332"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XAVBUF_PLL_CTRL_FBDIV_SHIFT;</highlight></codeline>
+<codeline lineno="333"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegPll<sp/>|=<sp/>PllInstancePtr-&gt;Divider<sp/>&lt;&lt;<sp/>XAVBUF_PLL_CTRL_DIV2_SHIFT;</highlight></codeline>
+<codeline lineno="334"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegPll<sp/>|=<sp/>PllInstancePtr-&gt;InputRefClk<sp/>&lt;&lt;<sp/>XAVBUF_PLL_CTRL_PRE_SRC_SHIFT;</highlight></codeline>
+<codeline lineno="335"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xavbuf__hw_8h_1a16e7e43c2dcc226a26d5e567d6a7dd6e" kindref="member">XAVBuf_WriteReg</ref>(BaseAddress,<sp/><ref refid="xavbuf__hw_8h_1aa01577731c2335ae8d2788c64999c0ad" kindref="member">XAVBUF_PLL_CTRL</ref><sp/>+<sp/>(MOD_3(Pll)<sp/>*</highlight></codeline>
+<codeline lineno="336"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PllInstancePtr-&gt;Offset),<sp/>RegPll);</highlight></codeline>
+<codeline lineno="337"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegPll<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="338"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Set<sp/>the<sp/>values<sp/>for<sp/>lock<sp/>dly,<sp/>lock<sp/>counter,<sp/>capacitor<sp/>and<sp/>resistor.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="339"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegPll<sp/>|=</highlight></codeline>
+<codeline lineno="340"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PllFracDivideTable[PllInstancePtr-&gt;FracIntegerFBDIV<sp/>-</highlight></codeline>
+<codeline lineno="341"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XAVBUF_FBDIV_OFFSET].cp<sp/>&lt;&lt;<sp/>XAVBUF_PLL_CFG_CP_SHIFT;</highlight></codeline>
+<codeline lineno="342"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegPll<sp/>|=</highlight></codeline>
+<codeline lineno="343"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PllFracDivideTable[PllInstancePtr-&gt;FracIntegerFBDIV<sp/>-</highlight></codeline>
+<codeline lineno="344"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XAVBUF_FBDIV_OFFSET].res<sp/>&lt;&lt;<sp/>XAVBUF_PLL_CFG_RES_SHIFT;</highlight></codeline>
+<codeline lineno="345"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegPll<sp/>|=</highlight></codeline>
+<codeline lineno="346"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PllFracDivideTable[PllInstancePtr-&gt;FracIntegerFBDIV<sp/>-</highlight></codeline>
+<codeline lineno="347"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XAVBUF_FBDIV_OFFSET].lfhf<sp/>&lt;&lt;<sp/>XAVBUF_PLL_CFG_LFHF_SHIFT;</highlight></codeline>
+<codeline lineno="348"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegPll<sp/>|=</highlight></codeline>
+<codeline lineno="349"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PllFracDivideTable[PllInstancePtr-&gt;FracIntegerFBDIV<sp/>-</highlight></codeline>
+<codeline lineno="350"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XAVBUF_FBDIV_OFFSET].lock_dly<sp/>&lt;&lt;<sp/>XAVBUF_PLL_CFG_LOCK_DLY_SHIFT;</highlight></codeline>
+<codeline lineno="351"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegPll<sp/>|=</highlight></codeline>
+<codeline lineno="352"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PllFracDivideTable[PllInstancePtr-&gt;FracIntegerFBDIV<sp/>-</highlight></codeline>
+<codeline lineno="353"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XAVBUF_FBDIV_OFFSET].lock_cnt<sp/>&lt;&lt;<sp/>XAVBUF_PLL_CFG_LOCK_CNT_SHIFT;</highlight></codeline>
+<codeline lineno="354"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xavbuf__hw_8h_1a16e7e43c2dcc226a26d5e567d6a7dd6e" kindref="member">XAVBuf_WriteReg</ref>(BaseAddress,<sp/><ref refid="xavbuf__hw_8h_1a53367b26c0f1707d8fd9139242d7c0d9" kindref="member">XAVBUF_PLL_CFG</ref><sp/>+<sp/>(MOD_3(Pll)<sp/>*</highlight></codeline>
+<codeline lineno="355"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PllInstancePtr-&gt;Offset),<sp/>RegPll);</highlight></codeline>
+<codeline lineno="356"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Enable<sp/>and<sp/>set<sp/>Fractional<sp/>Data.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="357"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xavbuf__hw_8h_1a16e7e43c2dcc226a26d5e567d6a7dd6e" kindref="member">XAVBuf_WriteReg</ref>(BaseAddress,<sp/><ref refid="xavbuf__hw_8h_1a1e89448ebf190d8bcae73a09bd7ee761" kindref="member">XAVBUF_PLL_FRAC_CFG</ref><sp/>+<sp/>(MOD_3(Pll)<sp/>*</highlight></codeline>
+<codeline lineno="358"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PllInstancePtr-&gt;Offset),</highlight></codeline>
+<codeline lineno="359"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1U<sp/>&lt;&lt;<sp/>XAVBUF_PLL_FRAC_CFG_ENABLED_SHIFT)<sp/>|</highlight></codeline>
+<codeline lineno="360"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(PllInstancePtr-&gt;Fractional<sp/>&lt;&lt;</highlight></codeline>
+<codeline lineno="361"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XAVBUF_PLL_FRAC_CFG_DATA_SHIFT));</highlight></codeline>
+<codeline lineno="362"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Assert<sp/>reset<sp/>to<sp/>the<sp/>PLL.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="363"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XAVBuf_ReadModifyWriteReg(BaseAddress,<sp/><ref refid="xavbuf__hw_8h_1aa01577731c2335ae8d2788c64999c0ad" kindref="member">XAVBUF_PLL_CTRL</ref><sp/>+<sp/>(MOD_3(Pll)<sp/>*</highlight></codeline>
+<codeline lineno="364"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PllInstancePtr-&gt;Offset),</highlight></codeline>
+<codeline lineno="365"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XAVBUF_PLL_CTRL_RESET_MASK,<sp/>XAVBUF_PLL_CTRL_RESET_SHIFT,</highlight></codeline>
+<codeline lineno="366"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xavbuf__hw_8h_1a17bac6f1180c1d5633937f41f86df1cf" kindref="member">XAVBUF_ENABLE_BIT</ref>);</highlight></codeline>
+<codeline lineno="367"><highlight class="normal"></highlight></codeline>
+<codeline lineno="368"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Deassert<sp/>reset<sp/>to<sp/>the<sp/>PLL.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="369"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XAVBuf_ReadModifyWriteReg(BaseAddress,<sp/><ref refid="xavbuf__hw_8h_1aa01577731c2335ae8d2788c64999c0ad" kindref="member">XAVBUF_PLL_CTRL</ref><sp/>+<sp/>(MOD_3(Pll)<sp/>*</highlight></codeline>
+<codeline lineno="370"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PllInstancePtr-&gt;Offset),</highlight></codeline>
+<codeline lineno="371"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XAVBUF_PLL_CTRL_RESET_MASK,<sp/>XAVBUF_PLL_CTRL_RESET_SHIFT,</highlight></codeline>
+<codeline lineno="372"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XAVBUF_DISABLE_BIT);</highlight></codeline>
+<codeline lineno="373"><highlight class="normal"></highlight></codeline>
+<codeline lineno="374"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(!(<ref refid="xavbuf__hw_8h_1acc9ef500a33218ad23ee1078c452c219" kindref="member">XAVBuf_ReadReg</ref>(BaseAddress,<sp/><ref refid="xavbuf__hw_8h_1a08f52c611abf2d52d31105d84399950f" kindref="member">XAVBUF_PLL_STATUS</ref><sp/>-</highlight></codeline>
+<codeline lineno="375"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((1<sp/>-<sp/>PllInstancePtr-&gt;Fpd)<sp/>*<sp/>XAVBUF_REG_OFFSET))<sp/>&amp;</highlight></codeline>
+<codeline lineno="376"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1<sp/>&lt;&lt;<sp/>MOD_3(Pll))))</highlight></codeline>
+<codeline lineno="377"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(++timer<sp/>&gt;<sp/>1000)</highlight></codeline>
+<codeline lineno="378"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="379"><highlight class="normal"></highlight></codeline>
+<codeline lineno="380"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Deassert<sp/>Bypass.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="381"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XAVBuf_ReadModifyWriteReg(BaseAddress,<sp/><ref refid="xavbuf__hw_8h_1aa01577731c2335ae8d2788c64999c0ad" kindref="member">XAVBUF_PLL_CTRL</ref><sp/>+<sp/>(MOD_3(Pll)<sp/>*</highlight></codeline>
+<codeline lineno="382"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PllInstancePtr-&gt;Offset),</highlight></codeline>
+<codeline lineno="383"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XAVBUF_PLL_CTRL_BYPASS_MASK,<sp/>XAVBUF_PLL_CTRL_BYPASS_SHIFT,</highlight></codeline>
+<codeline lineno="384"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XAVBUF_DISABLE_BIT);</highlight></codeline>
+<codeline lineno="385"><highlight class="normal"></highlight></codeline>
+<codeline lineno="386"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(PllInstancePtr-&gt;DomainSwitchDiv<sp/>!=<sp/>1)</highlight></codeline>
+<codeline lineno="387"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XAVBuf_ReadModifyWriteReg(BaseAddress,</highlight></codeline>
+<codeline lineno="388"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<ref refid="xavbuf__hw_8h_1a674737607eef1147d4bcf181801be912" kindref="member">XAVBUF_DOMAIN_SWITCH_CTRL</ref></highlight></codeline>
+<codeline lineno="389"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>+<sp/>(MOD_3(Pll)<sp/>*<sp/>XAVBUF_REG_OFFSET)<sp/>-<sp/>((1<sp/>-<sp/>PllInstancePtr-&gt;Fpd)</highlight></codeline>
+<codeline lineno="390"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>XAVBUF_REG_OFFSET)),</highlight></codeline>
+<codeline lineno="391"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XAVBUF_DOMAIN_SWITCH_DIVISOR0_MASK,</highlight></codeline>
+<codeline lineno="392"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XAVBUF_DOMAIN_SWITCH_DIVISOR0_SHIFT,</highlight></codeline>
+<codeline lineno="393"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PllInstancePtr-&gt;DomainSwitchDiv);</highlight></codeline>
+<codeline lineno="394"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>usleep(1);</highlight></codeline>
+<codeline lineno="395"><highlight class="normal"></highlight></codeline>
+<codeline lineno="396"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="397"><highlight class="normal"></highlight></codeline>
+<codeline lineno="398"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="399"><highlight class="normal"></highlight></codeline>
+<codeline lineno="400"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="411"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><sp/>XAVBuf_ConfigureExtDivider(<ref refid="struct_x_a_v_buf___pll" kindref="compound">XAVBuf_Pll</ref><sp/>*PllInstancePtr,</highlight></codeline>
+<codeline lineno="412"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>BaseAddress,<sp/>u32<sp/>Offset)</highlight></codeline>
+<codeline lineno="413"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="414"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XAVBuf_ReadModifyWriteReg(BaseAddress,<sp/>Offset,</highlight></codeline>
+<codeline lineno="415"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XAVBUF_VIDEO_REF_CTRL_CLKACT_MASK,</highlight></codeline>
+<codeline lineno="416"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XAVBUF_VIDEO_REF_CTRL_CLKACT_SHIFT,<sp/>XAVBUF_DISABLE_BIT);</highlight></codeline>
+<codeline lineno="417"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XAVBuf_ReadModifyWriteReg(BaseAddress,<sp/>Offset,</highlight></codeline>
+<codeline lineno="418"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XAVBUF_VIDEO_REF_CTRL_DIVISOR1_MASK,</highlight></codeline>
+<codeline lineno="419"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XAVBUF_VIDEO_REF_CTRL_DIVISOR1_SHIFT,</highlight></codeline>
+<codeline lineno="420"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PllInstancePtr-&gt;ExtDivider1);</highlight></codeline>
+<codeline lineno="421"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XAVBuf_ReadModifyWriteReg(BaseAddress,<sp/>Offset,</highlight></codeline>
+<codeline lineno="422"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XAVBUF_VIDEO_REF_CTRL_DIVISOR0_MASK,</highlight></codeline>
+<codeline lineno="423"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XAVBUF_VIDEO_REF_CTRL_DIVISOR0_SHIFT,</highlight></codeline>
+<codeline lineno="424"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PllInstancePtr-&gt;ExtDivider0);</highlight></codeline>
+<codeline lineno="425"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XAVBuf_ReadModifyWriteReg(BaseAddress,<sp/>Offset,</highlight></codeline>
+<codeline lineno="426"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XAVBUF_VIDEO_REF_CTRL_CLKACT_MASK,</highlight></codeline>
+<codeline lineno="427"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XAVBUF_VIDEO_REF_CTRL_CLKACT_SHIFT,<sp/><ref refid="xavbuf__hw_8h_1a17bac6f1180c1d5633937f41f86df1cf" kindref="member">XAVBUF_ENABLE_BIT</ref>);</highlight></codeline>
+<codeline lineno="428"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="429"><highlight class="normal"></highlight></codeline>
+<codeline lineno="430"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="443" refid="xavbuf__clk_8h_1a1ec626441b798f852839e336c4ea726f" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xavbuf__clk_8c_1a1ec626441b798f852839e336c4ea726f" kindref="member">XAVBuf_SetPixelClock</ref>(u64<sp/>FreqHz)</highlight></codeline>
+<codeline lineno="444"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="445"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>PllAssigned;</highlight></codeline>
+<codeline lineno="446"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_a_v_buf___pll" kindref="compound">XAVBuf_Pll</ref><sp/>PllInstancePtr;</highlight></codeline>
+<codeline lineno="447"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Pll;</highlight></codeline>
+<codeline lineno="448"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>CrossDomain;</highlight></codeline>
+<codeline lineno="449"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Flag;</highlight></codeline>
+<codeline lineno="450"><highlight class="normal"></highlight></codeline>
+<codeline lineno="451"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*Verify<sp/>Input<sp/>Arguments*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="452"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(FreqHz<sp/>&lt;<sp/>XDPSSU_MAX_VIDEO_FREQ);</highlight></codeline>
+<codeline lineno="453"><highlight class="normal"></highlight></codeline>
+<codeline lineno="454"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PllAssigned<sp/>=<sp/><ref refid="xavbuf__hw_8h_1acc9ef500a33218ad23ee1078c452c219" kindref="member">XAVBuf_ReadReg</ref>(<ref refid="xavbuf__hw_8h_1aa9edccf3d4b47ff9b6ff6fde84a26dd0" kindref="member">XAVBUF_CLK_FPD_BASEADDR</ref>,</highlight></codeline>
+<codeline lineno="455"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xavbuf__hw_8h_1adecb43b4a7818f901e9ea65c671981d3" kindref="member">XAVBUF_VIDEO_REF_CTRL</ref>)<sp/>&amp;<sp/>XAVBUF_VIDEO_REF_CTRL_SRCSEL_MASK;</highlight></codeline>
+<codeline lineno="456"><highlight class="normal"></highlight></codeline>
+<codeline lineno="457"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">switch</highlight><highlight class="normal"><sp/>(PllAssigned)<sp/>{</highlight></codeline>
+<codeline lineno="458"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="xavbuf__hw_8h_1a755a434c389a82daff000b38de56e0d2" kindref="member">XAVBUF_VPLL_SRC_SEL</ref>:</highlight></codeline>
+<codeline lineno="459"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Pll<sp/>=<sp/>VPLL;</highlight></codeline>
+<codeline lineno="460"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CrossDomain<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="461"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="462"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>XAVBUF_DPLL_SRC_SEL:</highlight></codeline>
+<codeline lineno="463"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Pll<sp/>=<sp/>DPLL;</highlight></codeline>
+<codeline lineno="464"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CrossDomain<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="465"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="466"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>XAVBUF_RPLL_TO_FPD_SRC_SEL:</highlight></codeline>
+<codeline lineno="467"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Pll<sp/>=<sp/>RPLL;</highlight></codeline>
+<codeline lineno="468"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CrossDomain<sp/>=<sp/>1;</highlight></codeline>
+<codeline lineno="469"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="470"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="471"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="472"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="473"><highlight class="normal"></highlight></codeline>
+<codeline lineno="474"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*Calculate<sp/>configure<sp/>PLL<sp/>and<sp/>External<sp/>Divider*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="475"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XAVBuf_PllInitialize(&amp;PllInstancePtr,<sp/>Pll,<sp/>CrossDomain,</highlight></codeline>
+<codeline lineno="476"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XAVBUF_EXTERNAL_DIVIDER);</highlight></codeline>
+<codeline lineno="477"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Flag<sp/>=<sp/>XAVBuf_PllCalcParameterValues(&amp;PllInstancePtr,<sp/>FreqHz);</highlight></codeline>
+<codeline lineno="478"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Flag<sp/>!=<sp/>0)</highlight></codeline>
+<codeline lineno="479"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="480"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Flag<sp/>=<sp/>XAVBuf_ConfigurePll(&amp;PllInstancePtr);</highlight></codeline>
+<codeline lineno="481"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Flag<sp/>!=<sp/>0)</highlight></codeline>
+<codeline lineno="482"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="483"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XAVBuf_ConfigureExtDivider(&amp;PllInstancePtr,<sp/><ref refid="xavbuf__hw_8h_1aa9edccf3d4b47ff9b6ff6fde84a26dd0" kindref="member">XAVBUF_CLK_FPD_BASEADDR</ref>,</highlight></codeline>
+<codeline lineno="484"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xavbuf__hw_8h_1adecb43b4a7818f901e9ea65c671981d3" kindref="member">XAVBUF_VIDEO_REF_CTRL</ref>);</highlight></codeline>
+<codeline lineno="485"><highlight class="normal"></highlight></codeline>
+<codeline lineno="486"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="487"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="488"><highlight class="normal"></highlight></codeline>
+<codeline lineno="489"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="502" refid="xavbuf__clk_8h_1a4dd63e9fd6add1757a3761690b706e1d" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xavbuf__clk_8c_1a4dd63e9fd6add1757a3761690b706e1d" kindref="member">XAVBuf_SetAudioClock</ref>(u64<sp/>FreqHz)</highlight></codeline>
+<codeline lineno="503"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="504"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Flag;</highlight></codeline>
+<codeline lineno="505"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>PllAssigned;</highlight></codeline>
+<codeline lineno="506"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Pll;</highlight></codeline>
+<codeline lineno="507"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>CrossDomain;</highlight></codeline>
+<codeline lineno="508"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_a_v_buf___pll" kindref="compound">XAVBuf_Pll</ref><sp/>XAVBuf_RPllInstancePtr;</highlight></codeline>
+<codeline lineno="509"><highlight class="normal"></highlight></codeline>
+<codeline lineno="510"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*Verify<sp/>Input<sp/>Arguments*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="511"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Flag<sp/>=<sp/>(FreqHz<sp/>==<sp/>(XAVBUF_AUDIO_SAMPLE_RATE_44_1<sp/>*</highlight></codeline>
+<codeline lineno="512"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XAVBUF_AUDIO_SAMPLES))<sp/>||</highlight></codeline>
+<codeline lineno="513"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(FreqHz<sp/>==<sp/>(XAVBUF_AUDIO_SAMPLE_RATE_48_0<sp/>*</highlight></codeline>
+<codeline lineno="514"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XAVBUF_AUDIO_SAMPLES));</highlight></codeline>
+<codeline lineno="515"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(Flag);</highlight></codeline>
+<codeline lineno="516"><highlight class="normal"></highlight></codeline>
+<codeline lineno="517"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PllAssigned<sp/>=<sp/><ref refid="xavbuf__hw_8h_1acc9ef500a33218ad23ee1078c452c219" kindref="member">XAVBuf_ReadReg</ref>(<ref refid="xavbuf__hw_8h_1aa9edccf3d4b47ff9b6ff6fde84a26dd0" kindref="member">XAVBUF_CLK_FPD_BASEADDR</ref>,</highlight></codeline>
+<codeline lineno="518"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xavbuf__hw_8h_1ae00cb3dbc395858edb3b99c538abc4b1" kindref="member">XAVBUF_AUDIO_REF_CTRL</ref>)<sp/>&amp;</highlight></codeline>
+<codeline lineno="519"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XAVBUF_AUDIO_REF_CTRL_SRCSEL_MASK;</highlight></codeline>
+<codeline lineno="520"><highlight class="normal"></highlight></codeline>
+<codeline lineno="521"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">switch</highlight><highlight class="normal"><sp/>(PllAssigned)<sp/>{</highlight></codeline>
+<codeline lineno="522"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="xavbuf__hw_8h_1a755a434c389a82daff000b38de56e0d2" kindref="member">XAVBUF_VPLL_SRC_SEL</ref>:</highlight></codeline>
+<codeline lineno="523"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Pll<sp/>=<sp/>VPLL;</highlight></codeline>
+<codeline lineno="524"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CrossDomain<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="525"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="526"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>XAVBUF_DPLL_SRC_SEL:</highlight></codeline>
+<codeline lineno="527"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Pll<sp/>=<sp/>DPLL;</highlight></codeline>
+<codeline lineno="528"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CrossDomain<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="529"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="530"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>XAVBUF_RPLL_TO_FPD_SRC_SEL:</highlight></codeline>
+<codeline lineno="531"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Pll<sp/>=<sp/>RPLL;</highlight></codeline>
+<codeline lineno="532"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CrossDomain<sp/>=<sp/>1;</highlight></codeline>
+<codeline lineno="533"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="534"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="535"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="536"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="537"><highlight class="normal"></highlight></codeline>
+<codeline lineno="538"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*Calculate<sp/>configure<sp/>PLL<sp/>and<sp/>External<sp/>Divider*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="539"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XAVBuf_PllInitialize(&amp;XAVBuf_RPllInstancePtr,<sp/>Pll,<sp/>CrossDomain,</highlight></codeline>
+<codeline lineno="540"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XAVBUF_EXTERNAL_DIVIDER);</highlight></codeline>
+<codeline lineno="541"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Flag<sp/>=<sp/>XAVBuf_PllCalcParameterValues(&amp;XAVBuf_RPllInstancePtr,<sp/>FreqHz);</highlight></codeline>
+<codeline lineno="542"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Flag<sp/>!=<sp/>0)</highlight></codeline>
+<codeline lineno="543"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="544"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Flag<sp/>=<sp/>XAVBuf_ConfigurePll(&amp;XAVBuf_RPllInstancePtr);</highlight></codeline>
+<codeline lineno="545"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Flag<sp/>!=<sp/>0)</highlight></codeline>
+<codeline lineno="546"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="547"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XAVBuf_ConfigureExtDivider(&amp;XAVBuf_RPllInstancePtr,</highlight></codeline>
+<codeline lineno="548"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xavbuf__hw_8h_1aa9edccf3d4b47ff9b6ff6fde84a26dd0" kindref="member">XAVBUF_CLK_FPD_BASEADDR</ref>,<sp/><ref refid="xavbuf__hw_8h_1ae00cb3dbc395858edb3b99c538abc4b1" kindref="member">XAVBUF_AUDIO_REF_CTRL</ref>);</highlight></codeline>
+<codeline lineno="549"><highlight class="normal"></highlight></codeline>
+<codeline lineno="550"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="551"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf_clk.c"/>
+  </compounddef>
+</doxygen>

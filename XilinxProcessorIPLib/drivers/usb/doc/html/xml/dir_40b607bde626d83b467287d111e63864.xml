@@ -1,0 +1,26 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_40b607bde626d83b467287d111e63864" kind="dir">
+    <compoundname>examples</compoundname>
+    <innerfile refid="data_8h">data.h</innerfile>
+    <innerfile refid="xusb__cp9_8c">xusb_cp9.c</innerfile>
+    <innerfile refid="xusb__cp9_8h">xusb_cp9.h</innerfile>
+    <innerfile refid="xusb__dma__intr__storage_8c">xusb_dma_intr_storage.c</innerfile>
+    <innerfile refid="xusb__keyboard_8c">xusb_keyboard.c</innerfile>
+    <innerfile refid="xusb__keyboard_8h">xusb_keyboard.h</innerfile>
+    <innerfile refid="xusb__microphone_8c">xusb_microphone.c</innerfile>
+    <innerfile refid="xusb__microphone_8h">xusb_microphone.h</innerfile>
+    <innerfile refid="xusb__mouse_8c">xusb_mouse.c</innerfile>
+    <innerfile refid="xusb__mouse_8h">xusb_mouse.h</innerfile>
+    <innerfile refid="xusb__phy__read__write_8c">xusb_phy_read_write.c</innerfile>
+    <innerfile refid="xusb__storage_8c">xusb_storage.c</innerfile>
+    <innerfile refid="xusb__storage_8h">xusb_storage.h</innerfile>
+    <innerfile refid="xusb__storage__polled__mode_8c">xusb_storage_polled_mode.c</innerfile>
+    <innerfile refid="xusb__types_8h">xusb_types.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/"/>
+  </compounddef>
+</doxygen>

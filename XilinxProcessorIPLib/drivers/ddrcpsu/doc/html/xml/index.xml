@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygenindex xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd" version="1.8.5">
+  <compound refid="struct_x_ddrc_psu" kind="struct"><name>XDdrcPsu</name>
+    <member refid="struct_x_ddrc_psu_1a68152052d97d1bb3bdd27e4146d8bebd" kind="variable"><name>Config</name></member>
+    <member refid="struct_x_ddrc_psu_1ac52e5bf675309ebf03b2c44ff8a3fe80" kind="variable"><name>IsReady</name></member>
+  </compound>
+  <compound refid="struct_x_ddrcpsu___config" kind="struct"><name>XDdrcpsu_Config</name>
+    <member refid="struct_x_ddrcpsu___config_1abcb4644c8a30c31e103d42c4ae5acec0" kind="variable"><name>Name</name></member>
+    <member refid="struct_x_ddrcpsu___config_1af6b79d8e85a63e678d25a4676d208cf2" kind="variable"><name>BaseAddress</name></member>
+    <member refid="struct_x_ddrcpsu___config_1a3787c99c7f27f1478ba91e6403f16c3e" kind="variable"><name>HasEccEn</name></member>
+    <member refid="struct_x_ddrcpsu___config_1a522595e32b41f98d80b5fb638889cb5f" kind="variable"><name>InputClockFreq</name></member>
+    <member refid="struct_x_ddrcpsu___config_1aa7f67af7805199977006135a6d7661a0" kind="variable"><name>AddrMapping</name></member>
+    <member refid="struct_x_ddrcpsu___config_1a6d57181f1c341f0dd73bf4ce06916418" kind="variable"><name>DdrFreq</name></member>
+    <member refid="struct_x_ddrcpsu___config_1a906a2d518ee2d8aa5f32fc8c726de8a0" kind="variable"><name>VideoBufSize</name></member>
+    <member refid="struct_x_ddrcpsu___config_1aee1855b94dfae57190cef1bd4d3071d6" kind="variable"><name>BrcMapping</name></member>
+    <member refid="struct_x_ddrcpsu___config_1aa9bd23c82b9a15fd09e2991269d7a223" kind="variable"><name>HasDynamicDDrEn</name></member>
+    <member refid="struct_x_ddrcpsu___config_1a7f192eda0970a40f4f5e3a45165c978c" kind="variable"><name>Memtype</name></member>
+    <member refid="struct_x_ddrcpsu___config_1a60c900478b4360df24d4927f347ef0fa" kind="variable"><name>MemAddrMap</name></member>
+    <member refid="struct_x_ddrcpsu___config_1ab9f8aeb9031b5c62e2a565f19534870d" kind="variable"><name>DataMask_Dbi</name></member>
+    <member refid="struct_x_ddrcpsu___config_1a8ff2f7dcf764160831297871ecadc648" kind="variable"><name>AddressMirror</name></member>
+    <member refid="struct_x_ddrcpsu___config_1a8123d16c32914561fd719decc84a08e2" kind="variable"><name>Secondclk</name></member>
+    <member refid="struct_x_ddrcpsu___config_1a3478bd5082f5e6b0880c6267fb31cdd5" kind="variable"><name>Parity</name></member>
+    <member refid="struct_x_ddrcpsu___config_1ab461decf66dddac8c45c580b475d4e5b" kind="variable"><name>PwrDnEn</name></member>
+    <member refid="struct_x_ddrcpsu___config_1a5495405e3fd7793b41fd5fe12a70f428" kind="variable"><name>ClockStopEn</name></member>
+    <member refid="struct_x_ddrcpsu___config_1ad8fd43980691af97539cff00db71c4be" kind="variable"><name>LpAsr</name></member>
+    <member refid="struct_x_ddrcpsu___config_1ae3607b44de918295477ec6b556cd1dde" kind="variable"><name>TRefMode</name></member>
+    <member refid="struct_x_ddrcpsu___config_1a60716d16a5645f7dc1136996278a4fb9" kind="variable"><name>Fgrm</name></member>
+    <member refid="struct_x_ddrcpsu___config_1a96cf5b31bdc8de7da63e18b025d6e193" kind="variable"><name>SelfRefAbort</name></member>
+    <member refid="struct_x_ddrcpsu___config_1a01a277e500fd84efad468ac9a89e234e" kind="variable"><name>TRefRange</name></member>
+  </compound>
+  <compound refid="_c_make_lists_8txt" kind="file"><name>CMakeLists.txt</name>
+  </compound>
+  <compound refid="xddrcpsu_8c" kind="file"><name>xddrcpsu.c</name>
+    <member refid="group__ddrcpsu_1ga294dc99cc6579e486ecc5380765f7a0e" kind="function"><name>XDdrcPsu_CfgInitialize</name></member>
+  </compound>
+  <compound refid="xddrcpsu_8h" kind="file"><name>xddrcpsu.h</name>
+    <member refid="group__ddrcpsu_1ga1cc26f10017fedf7f24aebdecc0e863f" kind="function"><name>XDdrcPsu_LookupConfig</name></member>
+    <member refid="group__ddrcpsu_1ga294dc99cc6579e486ecc5380765f7a0e" kind="function"><name>XDdrcPsu_CfgInitialize</name></member>
+  </compound>
+  <compound refid="xddrcpsu__sinit_8c" kind="file"><name>xddrcpsu_sinit.c</name>
+    <member refid="group__ddrcpsu_1ga1cc26f10017fedf7f24aebdecc0e863f" kind="function"><name>XDdrcPsu_LookupConfig</name></member>
+  </compound>
+  <compound refid="group__ddrcpsu" kind="group"><name>ddrcpsu</name>
+    <member refid="group__ddrcpsu_1ga294dc99cc6579e486ecc5380765f7a0e" kind="function"><name>XDdrcPsu_CfgInitialize</name></member>
+    <member refid="group__ddrcpsu_1ga1cc26f10017fedf7f24aebdecc0e863f" kind="function"><name>XDdrcPsu_LookupConfig</name></member>
+  </compound>
+  <compound refid="dir_a13873a3e90b179cb328621c1041a626" kind="dir"><name>ddrcpsu</name>
+  </compound>
+  <compound refid="dir_3b6de03431c9be44dd16ef17af0884f9" kind="dir"><name>src</name>
+  </compound>
+  <compound refid="indexpage" kind="page"><name>index</name>
+  </compound>
+</doxygenindex>

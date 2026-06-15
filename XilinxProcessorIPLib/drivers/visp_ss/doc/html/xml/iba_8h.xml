@@ -1,0 +1,1635 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="iba_8h" kind="file">
+    <compoundname>iba.h</compoundname>
+    <includes local="yes">xil_io.h</includes>
+    <includes refid="cam__device__common_8h" local="yes">cam_device_common.h</includes>
+    <includedby refid="iba_8c" local="yes">iba.c</includedby>
+    <includedby refid="vvdevice_8c" local="yes">vvdevice.c</includedby>
+    <incdepgraph>
+      <node id="5567">
+        <label>stdbool.h</label>
+      </node>
+      <node id="5553">
+        <label>xil_io.h</label>
+      </node>
+      <node id="5561">
+        <label>return_codes.h</label>
+        <link refid="return__codes_8h"/>
+      </node>
+      <node id="5568">
+        <label>stdint.h</label>
+      </node>
+      <node id="5558">
+        <label>stdlib.h</label>
+      </node>
+      <node id="5565">
+        <label>sensor_cmd.h</label>
+        <childnode refid="5566" relation="include">
+        </childnode>
+        <childnode refid="5561" relation="include">
+        </childnode>
+      </node>
+      <node id="5560">
+        <label>stddef.h</label>
+      </node>
+      <node id="5559">
+        <label>limits.h</label>
+      </node>
+      <node id="5554">
+        <label>cam_device_common.h</label>
+        <childnode refid="5555" relation="include">
+        </childnode>
+        <childnode refid="5561" relation="include">
+        </childnode>
+        <childnode refid="5562" relation="include">
+        </childnode>
+        <childnode refid="5564" relation="include">
+        </childnode>
+        <childnode refid="5565" relation="include">
+        </childnode>
+      </node>
+      <node id="5564">
+        <label>buf_defs.h</label>
+        <childnode refid="5555" relation="include">
+        </childnode>
+      </node>
+      <node id="5566">
+        <label>mbox_api.h</label>
+        <childnode refid="5567" relation="include">
+        </childnode>
+        <childnode refid="5568" relation="include">
+        </childnode>
+        <childnode refid="5569" relation="include">
+        </childnode>
+      </node>
+      <node id="5563">
+        <label>string.h</label>
+      </node>
+      <node id="5569">
+        <label>mbox_fifo.h</label>
+        <link refid="mbox__fifo_8h"/>
+        <childnode refid="5567" relation="include">
+        </childnode>
+        <childnode refid="5570" relation="include">
+        </childnode>
+      </node>
+      <node id="5570">
+        <label>sys/_stdint.h</label>
+      </node>
+      <node id="5555">
+        <label>types.h</label>
+        <link refid="types_8h"/>
+        <childnode refid="5556" relation="include">
+        </childnode>
+        <childnode refid="5559" relation="include">
+        </childnode>
+        <childnode refid="5560" relation="include">
+        </childnode>
+      </node>
+      <node id="5552">
+        <label>iba.h</label>
+        <link refid="iba.h"/>
+        <childnode refid="5553" relation="include">
+        </childnode>
+        <childnode refid="5554" relation="include">
+        </childnode>
+      </node>
+      <node id="5562">
+        <label>builtins.h</label>
+        <link refid="builtins_8h"/>
+        <childnode refid="5555" relation="include">
+        </childnode>
+        <childnode refid="5563" relation="include">
+        </childnode>
+      </node>
+      <node id="5557">
+        <label>stdio.h</label>
+      </node>
+      <node id="5556">
+        <label>linux_compat.h</label>
+        <link refid="linux__compat_8h"/>
+        <childnode refid="5557" relation="include">
+        </childnode>
+        <childnode refid="5558" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="5573">
+        <label>vvdevice.c</label>
+      </node>
+      <node id="5572">
+        <label>iba.c</label>
+      </node>
+      <node id="5571">
+        <label>iba.h</label>
+        <link refid="iba.h"/>
+        <childnode refid="5572" relation="include">
+        </childnode>
+        <childnode refid="5573" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="structiba__isp__combination" prot="public">iba_isp_combination</innerclass>
+    <innerclass refid="structiba__instance" prot="public">iba_instance</innerclass>
+    <innerclass refid="structvvbench__vdev__iba" prot="public">vvbench_vdev_iba</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="iba_8h_1a096c38c46f4d06bc45bd73fbcdffb9bf" prot="public" static="no">
+        <name>MAX_IBA_PER_TILE</name>
+        <initializer>(5UL)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" line="10" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" bodystart="10" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="iba_8h_1a4306aad7e11bf5483f5a33e2da4b0ad0" prot="public" static="no">
+        <name>MAX_IBA_PER_ISP</name>
+        <initializer>(4UL)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" line="12" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" bodystart="12" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="iba_8h_1a4faae7953c337a0d4e2df13495929992" prot="public" static="no">
+        <name>IBA_WriteReg</name>
+        <param><defname>BaseAddress</defname></param>
+        <param><defname>RegOffset</defname></param>
+        <param><defname>Data</defname></param>
+        <initializer>Xil_Out32( (UINTPTR)(((u8 *)BaseAddress) + (RegOffset)), (u32)(Data)) ; xil_printf(&quot;RPU:IBA reg add 0x%x ,val 0x%x \n&quot;,(UINTPTR)(((u8 *)BaseAddress) + (RegOffset)),Data);</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" line="129" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" bodystart="129" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="iba_8h_1a11ffea82659b5a3d7ee990304f6ef2c7" prot="public" static="no">
+        <name>IBA_ReadReg</name>
+        <param><defname>BaseAddress</defname></param>
+        <param><defname>RegOffset</defname></param>
+        <initializer>Xil_In32( (UINTPTR) (((u8 *)BaseAddress) + (RegOffset)))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" line="131" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" bodystart="131" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="iba_8h_1afc4750dc1d0a4bf4b16f9cfb2d2b615b" prot="public" static="no">
+        <name>XPAR_IBA_INSTANCES</name>
+        <initializer>4</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" line="134" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" bodystart="134" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="iba_8h_1ae3bf2c809872e5ff0a22623738be16f9" prot="public" static="no">
+        <name>XPAR_IBA_ISP_INSTANCE</name>
+        <initializer>6</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" line="135" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" bodystart="135" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="iba_8h_1a9e67398b859fc6b88d4ed8fe4ff8898f" prot="public" static="no">
+        <name>XPAR_IBA_TILE_INSTANCES</name>
+        <initializer>1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" line="136" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" bodystart="136" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="iba_8h_1ad7feb79dfaf9e873aa3661ba81efa6aa" prot="public" static="no">
+        <name>IBA_PIXEL_WIDTH_OFFSET</name>
+        <initializer>(0x0)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" line="141" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" bodystart="141" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="iba_8h_1a82c803a01933d340bb5156d7da19f061" prot="public" static="no">
+        <name>IBA_HORIZONTAL_RES_OFFSET</name>
+        <initializer>(0x4)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" line="142" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" bodystart="142" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="iba_8h_1ab67ff1a8e376f8478c8155500fe53b62" prot="public" static="no">
+        <name>IBA_VERTICAL_RES_OFFSET</name>
+        <initializer>(0x8)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" line="143" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" bodystart="143" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="iba_8h_1aef46319a00531c8a21874568afdd6043" prot="public" static="no">
+        <name>IBA_VRES_LINE_CNT_OFFSET</name>
+        <initializer>(0xc)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" line="144" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" bodystart="144" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="iba_8h_1a9b928871632e56c245c688f0a7aa8700" prot="public" static="no">
+        <name>IBA_FRAME_CNT_OFFSET</name>
+        <initializer>(0x10)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" line="145" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" bodystart="145" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="iba_8h_1a129c1e7b6a6228d1fc620f958d1b723e" prot="public" static="no">
+        <name>IBA_CFG_IA_FIFO_OFFSET</name>
+        <initializer>(0x14)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" line="146" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" bodystart="146" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="iba_8h_1ac15cf2cda95b33b972fea35dfbdd07b4" prot="public" static="no">
+        <name>IBA_HBLANK_PROG_OFFSET</name>
+        <initializer>(0x1C)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" line="147" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" bodystart="147" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="iba_8h_1ab150041f201e0b1eba79bbd1a78813b5" prot="public" static="no">
+        <name>IBA_VBLANK_PROG_OFFSET</name>
+        <initializer>(0x20)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" line="148" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" bodystart="148" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="iba_8h_1a9ae1a4b83137990bc4aa04a764731129" prot="public" static="no">
+        <name>IBA_VIRT_CHANNEL_OFFSET</name>
+        <initializer>(0x24)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" line="149" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" bodystart="149" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="iba_8h_1a77c5197526d2666d95cead85223cc08a" prot="public" static="no">
+        <name>TILE_0_BASE_ADDR</name>
+        <initializer>(0xE8500000)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" line="151" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" bodystart="151" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="iba_8h_1ac3d5d75ab2301f2af0c5c33f5eec936c" prot="public" static="no">
+        <name>TILE_1_BASE_ADDR</name>
+        <initializer>(0xE8600000)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" line="152" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" bodystart="152" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="iba_8h_1adbf372a970bbc248636d2646a9ce66a8" prot="public" static="no">
+        <name>TILE_2_BASE_ADDR</name>
+        <initializer>(0xE8700000)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" line="153" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" bodystart="153" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="iba_8h_1a0d802b468fb73dc9960def20eb31d146" prot="public" static="no">
+        <name>ISP0_BASE_ADDR</name>
+        <initializer>(TILE_0_BASE_ADDR + 0x00000)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" line="155" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" bodystart="155" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="iba_8h_1a7d8b826c09d414fda4c09360e5b0337e" prot="public" static="no">
+        <name>ISP1_BASE_ADDR</name>
+        <initializer>(TILE_0_BASE_ADDR + 0x10000)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" line="156" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" bodystart="156" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="iba_8h_1a86f32cd6bc5e1b07c7023c492ea5320f" prot="public" static="no">
+        <name>ISP2_BASE_ADDR</name>
+        <initializer>(TILE_1_BASE_ADDR + 0x00000)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" line="157" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" bodystart="157" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="iba_8h_1af2920ca8bb3fd0ead11e749546d39806" prot="public" static="no">
+        <name>ISP3_BASE_ADDR</name>
+        <initializer>(TILE_1_BASE_ADDR + 0x10000)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" line="158" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" bodystart="158" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="iba_8h_1af40de6aa9190696922291c8b7be67456" prot="public" static="no">
+        <name>ISP4_BASE_ADDR</name>
+        <initializer>(TILE_2_BASE_ADDR + 0x00000)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" line="159" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" bodystart="159" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="iba_8h_1af31fa81c577b8e93dfa5ef785d4fb681" prot="public" static="no">
+        <name>ISP5_BASE_ADDR</name>
+        <initializer>(TILE_2_BASE_ADDR + 0x10000)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" line="160" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" bodystart="160" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="iba_8h_1ae69046566c2f3028ef528a7f73551f0a" prot="public" static="no">
+        <name>TILE0_SLCR_BASE_ADDR</name>
+        <initializer>(TILE_0_BASE_ADDR + 0x80000)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" line="162" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" bodystart="162" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="iba_8h_1a5907ea2c19e3e5e1ed92c9d0de434ca4" prot="public" static="no">
+        <name>TILE1_SLCR_BASE_ADDR</name>
+        <initializer>(TILE_1_BASE_ADDR + 0x80000)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" line="163" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" bodystart="163" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="iba_8h_1ad8cd16c018bfaae402f7cef673d1b01b" prot="public" static="no">
+        <name>TILE2_SLCR_BASE_ADDR</name>
+        <initializer>(TILE_2_BASE_ADDR + 0x80000)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" line="164" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" bodystart="164" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="iba_8h_1af1de41c318896d50d6d6d083adf5a4b5" prot="public" static="no">
+        <name>ISP_SLCR_VIDIF3_SEL__OFFSET</name>
+        <initializer>(0x2030)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" line="165" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" bodystart="165" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="iba_8h_1a6a9c2d7577ac8310d394b522ff51aa0e" prot="public" static="no">
+        <name>XPAR_TILE0_IBA0_BASEADDR</name>
+        <initializer>(TILE_0_BASE_ADDR + 0x20000)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" line="168" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" bodystart="168" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="iba_8h_1a5ea5641e576b0999e7dc8da97b4ce4b0" prot="public" static="no">
+        <name>XPAR_TILE0_IBA1_BASEADDR</name>
+        <initializer>(TILE_0_BASE_ADDR + 0x21000)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" line="169" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" bodystart="169" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="iba_8h_1a2faf6b88f0aae90f84ba5c848e1d4955" prot="public" static="no">
+        <name>XPAR_TILE0_IBA2_BASEADDR</name>
+        <initializer>(TILE_0_BASE_ADDR + 0x22000)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" line="170" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" bodystart="170" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="iba_8h_1a39f12609286f734293b6244f27e8423d" prot="public" static="no">
+        <name>XPAR_TILE0_IBA3_BASEADDR</name>
+        <initializer>(TILE_0_BASE_ADDR + 0x23000)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" line="171" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" bodystart="171" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="iba_8h_1ada462a4e4e85529fe2ac4b59201102a9" prot="public" static="no">
+        <name>XPAR_TILE0_IBA4_BASEADDR</name>
+        <initializer>(TILE_0_BASE_ADDR + 0x24000)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" line="172" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" bodystart="172" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="iba_8h_1a657c60cc0e7ac8a37346d82f6d47e104" prot="public" static="no">
+        <name>XPAR_TILE1_IBA0_BASEADDR</name>
+        <initializer>(TILE_1_BASE_ADDR + 0x20000)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" line="174" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" bodystart="174" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="iba_8h_1a93c38ebf93cda2b2411957454d438d40" prot="public" static="no">
+        <name>XPAR_TILE1_IBA1_BASEADDR</name>
+        <initializer>(TILE_1_BASE_ADDR + 0x21000)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" line="175" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" bodystart="175" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="iba_8h_1a02dc1f259b308ba95d3aff6fa374dfeb" prot="public" static="no">
+        <name>XPAR_TILE1_IBA2_BASEADDR</name>
+        <initializer>(TILE_1_BASE_ADDR + 0x22000)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" line="176" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" bodystart="176" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="iba_8h_1a8b428d6be4166a52dbb56be695cacc60" prot="public" static="no">
+        <name>XPAR_TILE1_IBA3_BASEADDR</name>
+        <initializer>(TILE_1_BASE_ADDR + 0x23000)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" line="177" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" bodystart="177" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="iba_8h_1afab8c15646530e775681f7b1476f8dae" prot="public" static="no">
+        <name>XPAR_TILE1_IBA4_BASEADDR</name>
+        <initializer>(TILE_1_BASE_ADDR + 0x24000)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" line="178" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" bodystart="178" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="iba_8h_1a4b8a40178d6f0a41976f49e31b449df1" prot="public" static="no">
+        <name>XPAR_TILE2_IBA0_BASEADDR</name>
+        <initializer>(TILE_2_BASE_ADDR + 0x20000)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" line="180" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" bodystart="180" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="iba_8h_1afd71b3dd08f4d6210a4dfb8937f7e9e1" prot="public" static="no">
+        <name>XPAR_TILE2_IBA1_BASEADDR</name>
+        <initializer>(TILE_2_BASE_ADDR + 0x21000)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" line="181" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" bodystart="181" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="iba_8h_1a9ea483500b6df3334e55075f16ddd95e" prot="public" static="no">
+        <name>XPAR_TILE2_IBA2_BASEADDR</name>
+        <initializer>(TILE_2_BASE_ADDR + 0x22000)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" line="182" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" bodystart="182" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="iba_8h_1af8512ca48fddb97ed37af0b2ece241af" prot="public" static="no">
+        <name>XPAR_TILE2_IBA3_BASEADDR</name>
+        <initializer>(TILE_2_BASE_ADDR + 0x23000)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" line="183" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" bodystart="183" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="iba_8h_1acbf7c57a73d8586d79adedc6c217603d" prot="public" static="no">
+        <name>XPAR_TILE2_IBA4_BASEADDR</name>
+        <initializer>(TILE_2_BASE_ADDR + 0x24000)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" line="184" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" bodystart="184" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="iba_8h_1a5e6815b9e9f84154dcb51ccfe4cc0043" prot="public" static="no">
+        <name>ISP_MCM_CTRL_OFFSET</name>
+        <initializer>0x1200</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" line="186" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" bodystart="186" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="iba_8h_1a670145026ec6a994e10e98a2620fb9a5" prot="public" static="no">
+        <name>iba_id</name>
+        <enumvalue id="iba_8h_1a670145026ec6a994e10e98a2620fb9a5a24824c9c663343d67f41f22997e61231" prot="public">
+          <name>IBA_0</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="iba_8h_1a670145026ec6a994e10e98a2620fb9a5ad6c0ebe51f707cade5fc9ac9edb18f83" prot="public">
+          <name>IBA_1</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="iba_8h_1a670145026ec6a994e10e98a2620fb9a5a96a7219a17b9d68d7f3be735f8c717a3" prot="public">
+          <name>IBA_2</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="iba_8h_1a670145026ec6a994e10e98a2620fb9a5ad67c2641d787a8f79131a63eaf359177" prot="public">
+          <name>IBA_3</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="iba_8h_1a670145026ec6a994e10e98a2620fb9a5a3fff1064c9bd6dc735dd2f64745efe89" prot="public">
+          <name>IBA_4</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="iba_8h_1a670145026ec6a994e10e98a2620fb9a5a54c75f76775cab597bf1a0d8adeb0362" prot="public">
+          <name>MAX_IBA</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="iba_8h_1a670145026ec6a994e10e98a2620fb9a5a0ba292ed61bbcf79639c6964f549c267" prot="public">
+          <name>DUMMY_IBA_ID</name>
+          <initializer>= 0XDEADFEED</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" line="14" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" bodystart="14" bodyend="23"/>
+      </memberdef>
+      <memberdef kind="enum" id="iba_8h_1a8a80b68ed2946e10b2ecdd1f841b3cdd" prot="public" static="no">
+        <name>isp_input_mcm_port_id</name>
+        <enumvalue id="iba_8h_1a8a80b68ed2946e10b2ecdd1f841b3cdda27ebaa2c7322b811e90516fbdc9642ef" prot="public">
+          <name>ISP0_MCM_PORT_0</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="iba_8h_1a8a80b68ed2946e10b2ecdd1f841b3cdda3902419368ba9909742f30bec8d23d20" prot="public">
+          <name>ISP0_MCM_PORT_1</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="iba_8h_1a8a80b68ed2946e10b2ecdd1f841b3cddaa8646339cf07622e6eee347a3cae3329" prot="public">
+          <name>ISP0_MCM_PORT_2</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="iba_8h_1a8a80b68ed2946e10b2ecdd1f841b3cdda59f4269508104181be0d24b528ac76b4" prot="public">
+          <name>ISP0_MCM_PORT_3</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="iba_8h_1a8a80b68ed2946e10b2ecdd1f841b3cddaadfed03e98e96e9ced9d6ea89c1ceae0" prot="public">
+          <name>DUMMY_ISP_INPUT_MCM_PORT</name>
+          <initializer>= 0XDEADFEED</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" line="26" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" bodystart="26" bodyend="32"/>
+      </memberdef>
+      <memberdef kind="enum" id="iba_8h_1aad7c329584f8326ac17f666430ee7de9" prot="public" static="no">
+        <name>iba_input_pixel_width</name>
+        <enumvalue id="iba_8h_1aad7c329584f8326ac17f666430ee7de9a3907a949f069105b8761aebdac7509cb" prot="public">
+          <name>SINGLE_PIXEL_WIDTH</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="iba_8h_1aad7c329584f8326ac17f666430ee7de9a2ffdbecd0728edee288f27bdb40e59da" prot="public">
+          <name>DUAL_PIXEL_WIDTH</name>
+          <initializer>= 2</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="iba_8h_1aad7c329584f8326ac17f666430ee7de9ae5a05028606fed2b7131afd19cac82e5" prot="public">
+          <name>QUAD_PIXEL_WIDTH</name>
+          <initializer>= 4</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="iba_8h_1aad7c329584f8326ac17f666430ee7de9a742e4b42ba1ce0b7d172c1de40b14a01" prot="public">
+          <name>DUMMY_IBA_INPUT_PIXEL_WIDTH</name>
+          <initializer>= 0XDEADFEED</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" line="35" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" bodystart="35" bodyend="40"/>
+      </memberdef>
+      <memberdef kind="enum" id="iba_8h_1a5d634ce349eab02aebc44d9a6be3978a" prot="public" static="no">
+        <name>iba_virtual_channel</name>
+        <enumvalue id="iba_8h_1a5d634ce349eab02aebc44d9a6be3978aa38ffc981513bc9fd7cb5d08866cee73a" prot="public">
+          <name>VC0</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="iba_8h_1a5d634ce349eab02aebc44d9a6be3978aaada69d898eb3133bb63f50a2e70ad7fa" prot="public">
+          <name>VC1</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="iba_8h_1a5d634ce349eab02aebc44d9a6be3978aaedd059f7339097ee37b021de6a2891f3" prot="public">
+          <name>VC2</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="iba_8h_1a5d634ce349eab02aebc44d9a6be3978aaf731e8335e6bd1d1cf01b90c61c0bd56" prot="public">
+          <name>VC3</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="iba_8h_1a5d634ce349eab02aebc44d9a6be3978aac5fe7d86791d95a7468de1c87ab53dc8" prot="public">
+          <name>DUMMY_VC</name>
+          <initializer>= 0XDEADFEED</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" line="42" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" bodystart="42" bodyend="48"/>
+      </memberdef>
+      <memberdef kind="enum" id="iba_8h_1a4fe3e051cb49138f4944ffcf2eb75a48" prot="public" static="no">
+        <name>iba_fifo_write_mode</name>
+        <enumvalue id="iba_8h_1a4fe3e051cb49138f4944ffcf2eb75a48a65e9d67098bbce7d36317903fb35f212" prot="public">
+          <name>SINGLE_FIFO_WRITE</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="iba_8h_1a4fe3e051cb49138f4944ffcf2eb75a48a6b8e5e05c40823ac6525475fc7b80f90" prot="public">
+          <name>DUAL_FIFO_WRITE</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="iba_8h_1a4fe3e051cb49138f4944ffcf2eb75a48aca6d3272e09c7975f9fac7976818416e" prot="public">
+          <name>QUAD_FIFO_WRITE</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="iba_8h_1a4fe3e051cb49138f4944ffcf2eb75a48ab4b1e307ca1b07ea39243a3eb4908241" prot="public">
+          <name>DUMMY_IBA_FIFO_WRITE_MODE</name>
+          <initializer>= 0XDEADFEED</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" line="50" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" bodystart="50" bodyend="55"/>
+      </memberdef>
+      <memberdef kind="enum" id="iba_8h_1a79afe7e3c3431d08dd459afbc767195a" prot="public" static="no">
+        <name>tile_id</name>
+        <enumvalue id="iba_8h_1a79afe7e3c3431d08dd459afbc767195aa01e18ac1e0fad31c7a20dfa7a8c0c7ed" prot="public">
+          <name>TILE_0</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="iba_8h_1a79afe7e3c3431d08dd459afbc767195aaf4b4b334c9bffa6527c9046e57ef151a" prot="public">
+          <name>TILE_1</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="iba_8h_1a79afe7e3c3431d08dd459afbc767195aafc50dd7ca42c31a8ba0ae72c2cf203d4" prot="public">
+          <name>TILE_2</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="iba_8h_1a79afe7e3c3431d08dd459afbc767195aa8691ef4c3d6da2516e7da112ee987a7c" prot="public">
+          <name>MAX_TILE</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="iba_8h_1a79afe7e3c3431d08dd459afbc767195aa9db757ef492b1b7d4d77f0b006bb39e2" prot="public">
+          <name>DUMMY_TILE_ID</name>
+          <initializer>= 0XDEADFEED</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" line="57" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" bodystart="57" bodyend="63"/>
+      </memberdef>
+      <memberdef kind="enum" id="iba_8h_1a7edace19d6343e50292c7d09dc7c03c3" prot="public" static="no">
+        <name>iba_isp_instance</name>
+        <enumvalue id="iba_8h_1a7edace19d6343e50292c7d09dc7c03c3aed6d52bee451e0fdf66f16440a59d913" prot="public">
+          <name>ISP0</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="iba_8h_1a7edace19d6343e50292c7d09dc7c03c3a3ee49ffae10595cc33e516498349ec59" prot="public">
+          <name>ISP1</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="iba_8h_1a7edace19d6343e50292c7d09dc7c03c3abf5e04a5388597292fad2ead577b6809" prot="public">
+          <name>ISP2</name>
+          <initializer>= 2</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="iba_8h_1a7edace19d6343e50292c7d09dc7c03c3a5e83a00c86af39842fab4d3d4458d359" prot="public">
+          <name>ISP3</name>
+          <initializer>= 3</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="iba_8h_1a7edace19d6343e50292c7d09dc7c03c3a8d3e19f4b5ccbb44cc36c20f087cc2df" prot="public">
+          <name>ISP4</name>
+          <initializer>= 4</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="iba_8h_1a7edace19d6343e50292c7d09dc7c03c3ac191ff428289606d462c60786d8f58d8" prot="public">
+          <name>ISP5</name>
+          <initializer>= 5</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="iba_8h_1a7edace19d6343e50292c7d09dc7c03c3a931507c8edbda06578f9d1fdee853d4e" prot="public">
+          <name>MAX_ISP</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="iba_8h_1a7edace19d6343e50292c7d09dc7c03c3a500edf8375dcb0e078b5b861089aa96f" prot="public">
+          <name>MAX_ISP_PER_TILE</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="iba_8h_1a7edace19d6343e50292c7d09dc7c03c3a172b704200cdeda050bad0ad6ee4f90d" prot="public">
+          <name>DUMMY_IBA_ISP</name>
+          <initializer>= 0XDEADFEED</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" line="65" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" bodystart="65" bodyend="75"/>
+      </memberdef>
+      <memberdef kind="enum" id="iba_8h_1a3dc51f5d8783a3bd564be70aef640738" prot="public" static="no">
+        <name>iba_mipi_number</name>
+        <enumvalue id="iba_8h_1a3dc51f5d8783a3bd564be70aef640738a1145c8ebed457ea909adf1f8dd703725" prot="public">
+          <name>MIPI_0</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="iba_8h_1a3dc51f5d8783a3bd564be70aef640738ab1f51faca7d9fcf0598045c18894d800" prot="public">
+          <name>MIPI_1</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="iba_8h_1a3dc51f5d8783a3bd564be70aef640738a5428bb6c4af6cf9034441daddeee76f2" prot="public">
+          <name>MIPI_2</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="iba_8h_1a3dc51f5d8783a3bd564be70aef640738aea0f6af6995c9d6c7ece6ec991337a78" prot="public">
+          <name>MIPI_3</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="iba_8h_1a3dc51f5d8783a3bd564be70aef640738a075331c5c6334c076703d436bc22abfe" prot="public">
+          <name>MIPI_4</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="iba_8h_1a3dc51f5d8783a3bd564be70aef640738a8f2d9bfd2c7d5a26c173e0552c16cdbb" prot="public">
+          <name>MIPI_5</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="iba_8h_1a3dc51f5d8783a3bd564be70aef640738a424ee3fadd1538f6dceea8653da3fac8" prot="public">
+          <name>MIPI_6</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="iba_8h_1a3dc51f5d8783a3bd564be70aef640738abc62c546c576fe5bed40226d7273ccb8" prot="public">
+          <name>MIPI_7</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="iba_8h_1a3dc51f5d8783a3bd564be70aef640738ab313f36976e360cf5295830e13acc80a" prot="public">
+          <name>MAX_MIPI_PER_TILE</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="iba_8h_1a3dc51f5d8783a3bd564be70aef640738a9c0ffdd6e3704b73293545fa7778c6d8" prot="public">
+          <name>DUMMY_MIPI_NUMBER</name>
+          <initializer>= 0XDEADFEED</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" line="77" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" bodystart="77" bodyend="88"/>
+      </memberdef>
+      <memberdef kind="enum" id="iba_8h_1abe1bc070489c5b1e61cd321ce3d60ba5" prot="public" static="no">
+        <name>iba_status</name>
+        <enumvalue id="iba_8h_1abe1bc070489c5b1e61cd321ce3d60ba5a514337074ac4a1c644be40556446a6d7" prot="public">
+          <name>IBA_DISABLED</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="iba_8h_1abe1bc070489c5b1e61cd321ce3d60ba5a113ddfec9c9659614c9b473b4a34002f" prot="public">
+          <name>IBA_ENABLED</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="iba_8h_1abe1bc070489c5b1e61cd321ce3d60ba5a5675b6f56288acf37dc3cce969738fb2" prot="public">
+          <name>DUMMY_IBA_STATUS</name>
+          <initializer>= 0XDEADFEED</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" line="90" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" bodystart="90" bodyend="94"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="iba_8h_1a87c0b9e7df2fac58a234050880ee2ea6" prot="public" static="no">
+        <type>enum iba_id</type>
+        <definition>typedef enum iba_id  iba_id_t</definition>
+        <argsstring></argsstring>
+        <name>iba_id_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" line="23" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="iba_8h_1a8b702205fb1b1c73c2a56ff4367cfa8f" prot="public" static="no">
+        <type>enum isp_input_mcm_port_id</type>
+        <definition>typedef enum isp_input_mcm_port_id  iba_out_port_t</definition>
+        <argsstring></argsstring>
+        <name>iba_out_port_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" line="32" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="iba_8h_1aed505ac92829ed84717f6d66c6487427" prot="public" static="no">
+        <type>enum iba_input_pixel_width</type>
+        <definition>typedef enum iba_input_pixel_width  iba_input_pixel_width_t</definition>
+        <argsstring></argsstring>
+        <name>iba_input_pixel_width_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" line="40" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="iba_8h_1af3757969545455252fd4328f90477d49" prot="public" static="no">
+        <type>enum iba_virtual_channel</type>
+        <definition>typedef enum iba_virtual_channel  iba_virtual_channel_id_t</definition>
+        <argsstring></argsstring>
+        <name>iba_virtual_channel_id_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" line="48" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="iba_8h_1ab687a506f195fbe4e43c1c1269a48bcf" prot="public" static="no">
+        <type>enum iba_fifo_write_mode</type>
+        <definition>typedef enum iba_fifo_write_mode  iba_fifo_write_mode_t</definition>
+        <argsstring></argsstring>
+        <name>iba_fifo_write_mode_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" line="55" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="iba_8h_1a67b2b37130c33aebb4d86e47fd188808" prot="public" static="no">
+        <type>enum tile_id</type>
+        <definition>typedef enum tile_id  tile_id_t</definition>
+        <argsstring></argsstring>
+        <name>tile_id_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" line="63" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="iba_8h_1a3280946ffc7510d833b1662790594489" prot="public" static="no">
+        <type>enum iba_isp_instance</type>
+        <definition>typedef enum iba_isp_instance  iba_isp_instance_t</definition>
+        <argsstring></argsstring>
+        <name>iba_isp_instance_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" line="75" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="iba_8h_1a2482fc78bc69339be5c3c45304441b31" prot="public" static="no">
+        <type>enum iba_mipi_number</type>
+        <definition>typedef enum iba_mipi_number  iba_mipi_id_t</definition>
+        <argsstring></argsstring>
+        <name>iba_mipi_id_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" line="88" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="iba_8h_1a84e1492e4ce5b46cfceefc14fc9fe2df" prot="public" static="no">
+        <type>enum iba_status</type>
+        <definition>typedef enum iba_status  iba_status_t</definition>
+        <argsstring></argsstring>
+        <name>iba_status_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" line="94" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="iba_8h_1a8d92f56844204d0698cd42e835f755b8" prot="public" static="no">
+        <type>struct iba_isp_combination</type>
+        <definition>typedef struct iba_isp_combination  iba_isp_split_t</definition>
+        <argsstring></argsstring>
+        <name>iba_isp_split_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" line="98" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="iba_8h_1a4837252b4522a391a98f6eba88f3416e" prot="public" static="no">
+        <type>struct vvbench_vdev_iba</type>
+        <definition>typedef struct vvbench_vdev_iba  vvbench_vdev_iba_t</definition>
+        <argsstring></argsstring>
+        <name>vvbench_vdev_iba_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" line="126" column="1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="iba_8h_1a8d2b4a8379186f6f3054e2fc2f8af4b7" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 BaseAddress</definition>
+        <argsstring></argsstring>
+        <name>BaseAddress</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" line="355" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" bodystart="355" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="iba_8h_1a5f2dacddf268948193f5088dce95576f" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 DeviceId</definition>
+        <argsstring></argsstring>
+        <name>DeviceId</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" line="356" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" bodystart="356" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="iba_8h_1afd7d31de5e1da09d0038c3e1b9b0b1de" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 hres</definition>
+        <argsstring></argsstring>
+        <name>hres</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" line="357" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" bodystart="357" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="iba_8h_1af16799f6dd35afdd44cebe2b547ccdb3" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 vres</definition>
+        <argsstring></argsstring>
+        <name>vres</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" line="358" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" bodystart="358" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="iba_8h_1a8e5cff2631682615067dfbd00e7f5ef0" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 data_format</definition>
+        <argsstring></argsstring>
+        <name>data_format</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" line="359" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" bodystart="359" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="iba_8h_1a85d03a74f9127e8c84b65db1e7f3b2ad" prot="public" static="no" mutable="no">
+        <type>iba_status_t</type>
+        <definition>iba_status_t iba_is_enabled</definition>
+        <argsstring></argsstring>
+        <name>iba_is_enabled</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" line="360" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" bodystart="360" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="iba_8h_1a298569c17d5170198200c38ada952c58" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 hblank_prog</definition>
+        <argsstring></argsstring>
+        <name>hblank_prog</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" line="362" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" bodystart="362" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="iba_8h_1a5de85bac15235833beab50334b05efb3" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 vblank_prog</definition>
+        <argsstring></argsstring>
+        <name>vblank_prog</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" line="363" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" bodystart="363" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="iba_8h_1a2d0b451470a9cdd827ce3048a4bf778d" prot="public" static="no" mutable="no">
+        <type>iba_virtual_channel_id_t</type>
+        <definition>iba_virtual_channel_id_t virtual_channel_id</definition>
+        <argsstring></argsstring>
+        <name>virtual_channel_id</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" line="364" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" bodystart="364" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="iba_8h_1a85186ead4d40c89a80adb9770cb3771f" prot="public" static="no" mutable="no">
+        <type>iba_input_pixel_width_t</type>
+        <definition>iba_input_pixel_width_t input_pixel_width</definition>
+        <argsstring></argsstring>
+        <name>input_pixel_width</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" line="365" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" bodystart="365" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="iba_8h_1ae712699dab8184b2d116b7c1a26bdae4" prot="public" static="no" mutable="no">
+        <type>iba_isp_instance_t</type>
+        <definition>iba_isp_instance_t isp_instance</definition>
+        <argsstring></argsstring>
+        <name>isp_instance</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" line="368" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" bodystart="368" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="iba_8h_1a5207cf055967a43e517e95165225d642" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 frame_rate</definition>
+        <argsstring></argsstring>
+        <name>frame_rate</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" line="369" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" bodystart="369" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="iba_8h_1a82595c09f425fa259d6b98b40b638bf0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>struct iba_instance</type>
+        <definition>struct iba_instance __attribute</definition>
+        <argsstring>((__packed__)) __attribute((aligned(8))) iba_inst_t</argsstring>
+        <name>__attribute</name>
+        <param>
+          <type>(__packed__)</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" line="354" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">//<sp/>Copyright<sp/>(C)<sp/>2024<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>__IBA_H__</highlight></codeline>
+<codeline lineno="4"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>__IBA_H__</highlight></codeline>
+<codeline lineno="5"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_io.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;cam_device_common.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>MAX_IBA_PER_TILE<sp/><sp/><sp/><sp/><sp/>(5UL)</highlight></codeline>
+<codeline lineno="11"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>MAX_IBA_PER_ISP<sp/><sp/>(4UL)</highlight></codeline>
+<codeline lineno="13"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>iba_id<sp/>{</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IBA_0,</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IBA_1,</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IBA_2,</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IBA_3,</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IBA_4,</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MAX_IBA,</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DUMMY_IBA_ID<sp/>=<sp/>0XDEADFEED</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal">}<sp/>iba_id_t;</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>isp_input_mcm_port_id<sp/>{</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ISP0_MCM_PORT_0,</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ISP0_MCM_PORT_1,</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ISP0_MCM_PORT_2,</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ISP0_MCM_PORT_3,</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DUMMY_ISP_INPUT_MCM_PORT<sp/>=<sp/>0XDEADFEED</highlight></codeline>
+<codeline lineno="32"><highlight class="normal">}<sp/>iba_out_port_t;</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>iba_input_pixel_width<sp/>{</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SINGLE_PIXEL_WIDTH<sp/>=<sp/>1,</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DUAL_PIXEL_WIDTH<sp/>=<sp/>2,</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>QUAD_PIXEL_WIDTH<sp/>=<sp/>4,</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DUMMY_IBA_INPUT_PIXEL_WIDTH<sp/>=<sp/>0XDEADFEED</highlight></codeline>
+<codeline lineno="40"><highlight class="normal">}<sp/>iba_input_pixel_width_t;</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>iba_virtual_channel<sp/>{</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VC0<sp/>=<sp/>0,</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VC1,</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VC2,</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VC3,</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DUMMY_VC<sp/>=<sp/>0XDEADFEED</highlight></codeline>
+<codeline lineno="48"><highlight class="normal">}<sp/>iba_virtual_channel_id_t;</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>iba_fifo_write_mode<sp/>{</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SINGLE_FIFO_WRITE<sp/>=<sp/>0,</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DUAL_FIFO_WRITE,</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>QUAD_FIFO_WRITE,</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DUMMY_IBA_FIFO_WRITE_MODE<sp/>=<sp/>0XDEADFEED</highlight></codeline>
+<codeline lineno="55"><highlight class="normal">}<sp/>iba_fifo_write_mode_t;</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>tile_id<sp/>{</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TILE_0<sp/>=<sp/>0,</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TILE_1,</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TILE_2,</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MAX_TILE,</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DUMMY_TILE_ID<sp/>=<sp/>0XDEADFEED</highlight></codeline>
+<codeline lineno="63"><highlight class="normal">}<sp/>tile_id_t;</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>iba_isp_instance<sp/>{</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ISP0<sp/>=<sp/>0,</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ISP1<sp/>=<sp/>1,</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ISP2<sp/>=<sp/>2,</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ISP3<sp/>=<sp/>3,</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ISP4<sp/>=<sp/>4,</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ISP5<sp/>=<sp/>5,</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MAX_ISP,</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MAX_ISP_PER_TILE,</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DUMMY_IBA_ISP<sp/>=<sp/>0XDEADFEED</highlight></codeline>
+<codeline lineno="75"><highlight class="normal">}<sp/>iba_isp_instance_t;</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"></highlight></codeline>
+<codeline lineno="77"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>iba_mipi_number<sp/>{</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MIPI_0<sp/>=<sp/>0,</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MIPI_1,</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MIPI_2,</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MIPI_3,</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MIPI_4,</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MIPI_5,</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MIPI_6,</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MIPI_7,</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MAX_MIPI_PER_TILE,</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DUMMY_MIPI_NUMBER<sp/>=<sp/>0XDEADFEED</highlight></codeline>
+<codeline lineno="88"><highlight class="normal">}<sp/>iba_mipi_id_t;</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"></highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>iba_status<sp/>{</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IBA_DISABLED<sp/>=<sp/>0,</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IBA_ENABLED,</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DUMMY_IBA_STATUS<sp/>=<sp/>0XDEADFEED</highlight></codeline>
+<codeline lineno="94"><highlight class="normal">}<sp/>iba_status_t;</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"></highlight></codeline>
+<codeline lineno="96"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">iba_isp_combination<sp/>{</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"></highlight></codeline>
+<codeline lineno="98"><highlight class="normal">}<sp/>iba_isp_split_t;</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"></highlight></codeline>
+<codeline lineno="100"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">iba_instance<sp/>{</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>BaseAddress;</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>DeviceId;</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>hres;</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>vres;</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>data_format;</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>iba_status_t<sp/>iba_is_enabled;</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*IBA<sp/>input<sp/>interfaces*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>hblank_prog;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>vblank_prog;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>iba_virtual_channel_id_t<sp/>virtual_channel_id;<sp/></highlight><highlight class="comment">/*Virtual<sp/>channel<sp/>of<sp/>MIPI<sp/>to<sp/>which<sp/>IBA<sp/>connected*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>iba_input_pixel_width_t<sp/>input_pixel_width;<sp/><sp/></highlight><highlight class="comment">/*<sp/>From<sp/>Axi<sp/>video<sp/>stream<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="112"><highlight class="normal"></highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*IBA<sp/>output<sp/>interfaces*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>iba_isp_instance_t<sp/>isp_instance;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*To<sp/>which<sp/>ISP<sp/>is<sp/>this<sp/>IBA<sp/>connected*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>frame_rate;</highlight></codeline>
+<codeline lineno="116"><highlight class="normal">}<sp/><ref refid="mbox__fifo_8h_1a9a2e6eb08f03c130861efc945c3831e4" kindref="member">__attribute</ref>((__packed__))<sp/><ref refid="mbox__fifo_8h_1a9a2e6eb08f03c130861efc945c3831e4" kindref="member">__attribute</ref>((aligned(8)))<sp/>iba_inst_t<sp/>;</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"></highlight></codeline>
+<codeline lineno="118"><highlight class="normal">typedef<sp/>struct<sp/>vvbench_vdev_iba<sp/>{</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group____cam__device__general_1ga03d5afda881a720931044845b7659167" kindref="member">CamDeviceInputType_t</ref><sp/>inputType;</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint32_t<sp/>hpId;</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group____cam__device__general_1gaa0ad14aca87c7d7a72a8ad7454245bcd" kindref="member">CamDeviceMcmPortId_t</ref><sp/>portId;</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint32_t<sp/>sensorHeight;</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint32_t<sp/>sensorWidth;</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint32_t<sp/>virtualChannelId;</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint16_t<sp/>ppc;</highlight></codeline>
+<codeline lineno="126"><highlight class="normal">}<sp/>vvbench_vdev_iba_t;</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"></highlight></codeline>
+<codeline lineno="128"><highlight class="normal"></highlight></codeline>
+<codeline lineno="129"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>IBA_WriteReg(BaseAddress,<sp/>RegOffset,<sp/>Data)<sp/>\</highlight></codeline>
+<codeline lineno="130"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_Out32(<sp/>(UINTPTR)(((u8<sp/>*)BaseAddress)<sp/>+<sp/>(RegOffset)),<sp/>(u32)(Data))<sp/>;<sp/>xil_printf(&quot;RPU:IBA<sp/>reg<sp/>add<sp/>0x%x<sp/>,val<sp/>0x%x<sp/>\n&quot;,(UINTPTR)(((u8<sp/>*)BaseAddress)<sp/>+<sp/>(RegOffset)),Data);</highlight></codeline>
+<codeline lineno="131"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>IBA_ReadReg(BaseAddress,<sp/>RegOffset)<sp/>\</highlight></codeline>
+<codeline lineno="132"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_In32(<sp/>(UINTPTR)<sp/>(((u8<sp/>*)BaseAddress)<sp/>+<sp/>(RegOffset)))</highlight></codeline>
+<codeline lineno="133"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="134"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XPAR_IBA_INSTANCES<sp/>4</highlight></codeline>
+<codeline lineno="135"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPAR_IBA_ISP_INSTANCE<sp/><sp/>6</highlight></codeline>
+<codeline lineno="136"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPAR_IBA_TILE_INSTANCES<sp/>1</highlight></codeline>
+<codeline lineno="137"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="138"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="139"><highlight class="comment">*<sp/>The<sp/>configuration<sp/>table<sp/>for<sp/>devices</highlight></codeline>
+<codeline lineno="140"><highlight class="comment">*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="141"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>IBA_PIXEL_WIDTH_OFFSET<sp/><sp/><sp/><sp/>(0x0)</highlight></codeline>
+<codeline lineno="142"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>IBA_HORIZONTAL_RES_OFFSET<sp/>(0x4)</highlight></codeline>
+<codeline lineno="143"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>IBA_VERTICAL_RES_OFFSET<sp/><sp/><sp/>(0x8)</highlight></codeline>
+<codeline lineno="144"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>IBA_VRES_LINE_CNT_OFFSET<sp/><sp/>(0xc)</highlight></codeline>
+<codeline lineno="145"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>IBA_FRAME_CNT_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/>(0x10)</highlight></codeline>
+<codeline lineno="146"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>IBA_CFG_IA_FIFO_OFFSET<sp/><sp/><sp/><sp/>(0x14)</highlight></codeline>
+<codeline lineno="147"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>IBA_HBLANK_PROG_OFFSET<sp/><sp/><sp/>(0x1C)</highlight></codeline>
+<codeline lineno="148"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>IBA_VBLANK_PROG_OFFSET<sp/><sp/><sp/><sp/>(0x20)</highlight></codeline>
+<codeline lineno="149"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>IBA_VIRT_CHANNEL_OFFSET<sp/><sp/><sp/>(0x24)</highlight></codeline>
+<codeline lineno="150"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="151"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>TILE_0_BASE_ADDR<sp/>(0xE8500000)</highlight></codeline>
+<codeline lineno="152"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>TILE_1_BASE_ADDR<sp/>(0xE8600000)</highlight></codeline>
+<codeline lineno="153"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>TILE_2_BASE_ADDR<sp/>(0xE8700000)</highlight></codeline>
+<codeline lineno="154"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="155"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>ISP0_BASE_ADDR<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(TILE_0_BASE_ADDR<sp/>+<sp/>0x00000)</highlight></codeline>
+<codeline lineno="156"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>ISP1_BASE_ADDR<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(TILE_0_BASE_ADDR<sp/>+<sp/>0x10000)</highlight></codeline>
+<codeline lineno="157"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>ISP2_BASE_ADDR<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(TILE_1_BASE_ADDR<sp/>+<sp/>0x00000)</highlight></codeline>
+<codeline lineno="158"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>ISP3_BASE_ADDR<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(TILE_1_BASE_ADDR<sp/>+<sp/>0x10000)</highlight></codeline>
+<codeline lineno="159"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>ISP4_BASE_ADDR<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(TILE_2_BASE_ADDR<sp/>+<sp/>0x00000)</highlight></codeline>
+<codeline lineno="160"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>ISP5_BASE_ADDR<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(TILE_2_BASE_ADDR<sp/>+<sp/>0x10000)</highlight></codeline>
+<codeline lineno="161"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="162"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>TILE0_SLCR_BASE_ADDR<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(TILE_0_BASE_ADDR<sp/>+<sp/>0x80000)</highlight></codeline>
+<codeline lineno="163"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>TILE1_SLCR_BASE_ADDR<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(TILE_1_BASE_ADDR<sp/>+<sp/>0x80000)</highlight></codeline>
+<codeline lineno="164"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>TILE2_SLCR_BASE_ADDR<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(TILE_2_BASE_ADDR<sp/>+<sp/>0x80000)</highlight></codeline>
+<codeline lineno="165"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>ISP_SLCR_VIDIF3_SEL__OFFSET<sp/>(0x2030)</highlight></codeline>
+<codeline lineno="166"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="167"><highlight class="normal"></highlight></codeline>
+<codeline lineno="168"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XPAR_TILE0_IBA0_BASEADDR<sp/>(TILE_0_BASE_ADDR<sp/>+<sp/>0x20000)<sp/>//IBA0<sp/>base<sp/>address</highlight></codeline>
+<codeline lineno="169"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPAR_TILE0_IBA1_BASEADDR<sp/>(TILE_0_BASE_ADDR<sp/>+<sp/>0x21000)<sp/>//IBA0<sp/>base<sp/>address</highlight></codeline>
+<codeline lineno="170"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPAR_TILE0_IBA2_BASEADDR<sp/>(TILE_0_BASE_ADDR<sp/>+<sp/>0x22000)<sp/>//IBA0<sp/>base<sp/>address</highlight></codeline>
+<codeline lineno="171"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPAR_TILE0_IBA3_BASEADDR<sp/>(TILE_0_BASE_ADDR<sp/>+<sp/>0x23000)<sp/>//IBA0<sp/>base<sp/>address</highlight></codeline>
+<codeline lineno="172"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPAR_TILE0_IBA4_BASEADDR<sp/>(TILE_0_BASE_ADDR<sp/>+<sp/>0x24000)<sp/>//ISP1<sp/>IBA0<sp/>base<sp/>address</highlight></codeline>
+<codeline lineno="173"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="174"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XPAR_TILE1_IBA0_BASEADDR<sp/>(TILE_1_BASE_ADDR<sp/>+<sp/>0x20000)<sp/>//IBA0<sp/>base<sp/>address</highlight></codeline>
+<codeline lineno="175"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPAR_TILE1_IBA1_BASEADDR<sp/>(TILE_1_BASE_ADDR<sp/>+<sp/>0x21000)<sp/>//IBA0<sp/>base<sp/>address</highlight></codeline>
+<codeline lineno="176"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPAR_TILE1_IBA2_BASEADDR<sp/>(TILE_1_BASE_ADDR<sp/>+<sp/>0x22000)<sp/>//IBA0<sp/>base<sp/>address</highlight></codeline>
+<codeline lineno="177"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPAR_TILE1_IBA3_BASEADDR<sp/>(TILE_1_BASE_ADDR<sp/>+<sp/>0x23000)<sp/>//IBA0<sp/>base<sp/>address</highlight></codeline>
+<codeline lineno="178"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPAR_TILE1_IBA4_BASEADDR<sp/>(TILE_1_BASE_ADDR<sp/>+<sp/>0x24000)<sp/>//ISP1<sp/>IBA0<sp/>base<sp/>address</highlight></codeline>
+<codeline lineno="179"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="180"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XPAR_TILE2_IBA0_BASEADDR<sp/>(TILE_2_BASE_ADDR<sp/>+<sp/>0x20000)<sp/>//IBA0<sp/>base<sp/>address</highlight></codeline>
+<codeline lineno="181"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPAR_TILE2_IBA1_BASEADDR<sp/>(TILE_2_BASE_ADDR<sp/>+<sp/>0x21000)<sp/>//IBA0<sp/>base<sp/>address</highlight></codeline>
+<codeline lineno="182"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPAR_TILE2_IBA2_BASEADDR<sp/>(TILE_2_BASE_ADDR<sp/>+<sp/>0x22000)<sp/>//IBA0<sp/>base<sp/>address</highlight></codeline>
+<codeline lineno="183"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPAR_TILE2_IBA3_BASEADDR<sp/>(TILE_2_BASE_ADDR<sp/>+<sp/>0x23000)<sp/>//IBA0<sp/>base<sp/>address</highlight></codeline>
+<codeline lineno="184"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPAR_TILE2_IBA4_BASEADDR<sp/>(TILE_2_BASE_ADDR<sp/>+<sp/>0x24000)<sp/>//ISP1<sp/>IBA0<sp/>base<sp/>address</highlight></codeline>
+<codeline lineno="185"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="186"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>ISP_MCM_CTRL_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x1200</highlight></codeline>
+<codeline lineno="187"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="188"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h"/>
+  </compounddef>
+</doxygen>

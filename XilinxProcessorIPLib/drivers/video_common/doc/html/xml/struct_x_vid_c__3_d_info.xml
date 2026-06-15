@@ -1,0 +1,61 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_vid_c__3_d_info" kind="struct" prot="public">
+    <compoundname>XVidC_3DInfo</compoundname>
+    <includes local="no">xvidc.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_vid_c__3_d_info_1a4c040c31612ccb184fe385c2433837d7" prot="public" static="no" mutable="no">
+        <type><ref refid="group__video__common_1ga3f5c78f83e56747ade72ebb51cafffc5" kindref="member">XVidC_3DFormat</ref></type>
+        <definition>XVidC_3DFormat XVidC_3DInfo::Format</definition>
+        <argsstring></argsstring>
+        <name>Format</name>
+        <briefdescription>
+<para>3D format type </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc.h" line="597" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc.h" bodystart="597" bodyend="-1"/>
+        <referencedby refid="group__video__common_1ga6a1bb6f49090b265fa2ae843c65f33b2" compoundref="xvidc_8c" startline="1069" endline="1124">XVidC_ReportStreamInfo</referencedby>
+        <referencedby refid="group__video__common_1gac16f1d37cc0fd40e467411ca816fc9ef" compoundref="xvidc_8c" startline="993" endline="1058">XVidC_Set3DVideoStream</referencedby>
+        <referencedby refid="group__video__common_1ga39b8b95d5bd27e43c55e7af11265c7e0" compoundref="xvidc_8c" startline="930" endline="971">XVidC_SetVideoStream</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vid_c__3_d_info_1a9af5e0788220d47b068e82993320a377" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_vid_c__3_d_sampling_info" kindref="compound">XVidC_3DSamplingInfo</ref></type>
+        <definition>XVidC_3DSamplingInfo XVidC_3DInfo::Sampling</definition>
+        <argsstring></argsstring>
+        <name>Sampling</name>
+        <briefdescription>
+<para>3D sampling information </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc.h" line="598" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc.h" bodystart="598" bodyend="-1"/>
+        <referencedby refid="group__video__common_1ga39b8b95d5bd27e43c55e7af11265c7e0" compoundref="xvidc_8c" startline="930" endline="971">XVidC_SetVideoStream</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>3D info structure. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="11">
+        <label>XVidC_3DSamplingInfo</label>
+        <link refid="struct_x_vid_c__3_d_sampling_info"/>
+      </node>
+      <node id="10">
+        <label>XVidC_3DInfo</label>
+        <link refid="struct_x_vid_c__3_d_info"/>
+        <childnode refid="11" relation="usage">
+          <edgelabel>Sampling</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc.h" line="596" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc.h" bodystart="596" bodyend="599"/>
+    <listofallmembers>
+      <member refid="struct_x_vid_c__3_d_info_1a4c040c31612ccb184fe385c2433837d7" prot="public" virt="non-virtual"><scope>XVidC_3DInfo</scope><name>Format</name></member>
+      <member refid="struct_x_vid_c__3_d_info_1a9af5e0788220d47b068e82993320a377" prot="public" virt="non-virtual"><scope>XVidC_3DInfo</scope><name>Sampling</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

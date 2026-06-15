@@ -1,0 +1,686 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="keymgmt_8h" kind="file">
+    <compoundname>keymgmt.h</compoundname>
+    <includes local="no">stdint.h</includes>
+    <includes local="yes">xil_types.h</includes>
+    <includes local="yes">xstatus.h</includes>
+    <includedby refid="dppt_8h" local="yes">dppt.h</includedby>
+    <includedby refid="eeprom_8h" local="yes">eeprom.h</includedby>
+    <includedby refid="eeprom_8c" local="yes">eeprom.c</includedby>
+    <includedby refid="keymgmt_8c" local="yes">keymgmt.c</includedby>
+    <includedby refid="keymgmt__device_8h" local="yes">keymgmt_device.h</includedby>
+    <includedby refid="keymgmt__loader_8h" local="yes">keymgmt_loader.h</includedby>
+    <includedby refid="keymgmt__device_8c" local="yes">keymgmt_device.c</includedby>
+    <includedby refid="keymgmt__keyfile_8c" local="yes">keymgmt_keyfile.c</includedby>
+    <includedby refid="keymgmt__keyfile_8h" local="yes">keymgmt_keyfile.h</includedby>
+    <includedby refid="keymgmt__loader_8c" local="yes">keymgmt_loader.c</includedby>
+    <includedby refid="keymgmt__testkeys_8c" local="yes">keymgmt_testkeys.c</includedby>
+    <incdepgraph>
+      <node id="231">
+        <label>stdint.h</label>
+      </node>
+      <node id="230">
+        <label>keymgmt.h</label>
+        <link refid="keymgmt.h"/>
+        <childnode refid="231" relation="include">
+        </childnode>
+        <childnode refid="232" relation="include">
+        </childnode>
+        <childnode refid="233" relation="include">
+        </childnode>
+      </node>
+      <node id="233">
+        <label>xstatus.h</label>
+      </node>
+      <node id="232">
+        <label>xil_types.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="237">
+        <label>xdprxss_kc705.c</label>
+      </node>
+      <node id="248">
+        <label>keymgmt_testkeys.c</label>
+        <link refid="keymgmt__testkeys_8c"/>
+      </node>
+      <node id="241">
+        <label>keymgmt.c</label>
+        <link refid="keymgmt_8c"/>
+      </node>
+      <node id="234">
+        <label>keymgmt.h</label>
+        <link refid="keymgmt.h"/>
+        <childnode refid="235" relation="include">
+        </childnode>
+        <childnode refid="239" relation="include">
+        </childnode>
+        <childnode refid="240" relation="include">
+        </childnode>
+        <childnode refid="241" relation="include">
+        </childnode>
+        <childnode refid="243" relation="include">
+        </childnode>
+        <childnode refid="246" relation="include">
+        </childnode>
+        <childnode refid="244" relation="include">
+        </childnode>
+        <childnode refid="242" relation="include">
+        </childnode>
+        <childnode refid="247" relation="include">
+        </childnode>
+        <childnode refid="245" relation="include">
+        </childnode>
+        <childnode refid="248" relation="include">
+        </childnode>
+      </node>
+      <node id="240">
+        <label>eeprom.c</label>
+      </node>
+      <node id="239">
+        <label>eeprom.h</label>
+        <childnode refid="240" relation="include">
+        </childnode>
+        <childnode refid="241" relation="include">
+        </childnode>
+        <childnode refid="242" relation="include">
+        </childnode>
+      </node>
+      <node id="242">
+        <label>keymgmt_keyfile.c</label>
+      </node>
+      <node id="247">
+        <label>keymgmt_keyfile.h</label>
+        <childnode refid="242" relation="include">
+        </childnode>
+        <childnode refid="245" relation="include">
+        </childnode>
+      </node>
+      <node id="235">
+        <label>dppt.h</label>
+        <childnode refid="236" relation="include">
+        </childnode>
+        <childnode refid="237" relation="include">
+        </childnode>
+        <childnode refid="238" relation="include">
+        </childnode>
+      </node>
+      <node id="236">
+        <label>menus.c</label>
+      </node>
+      <node id="238">
+        <label>xedid_print_example.c</label>
+      </node>
+      <node id="245">
+        <label>keymgmt_loader.c</label>
+        <link refid="keymgmt__loader_8c"/>
+      </node>
+      <node id="246">
+        <label>keymgmt_loader.h</label>
+        <link refid="keymgmt__loader_8h"/>
+        <childnode refid="241" relation="include">
+        </childnode>
+        <childnode refid="245" relation="include">
+        </childnode>
+      </node>
+      <node id="244">
+        <label>keymgmt_device.c</label>
+        <link refid="keymgmt__device_8c"/>
+      </node>
+      <node id="243">
+        <label>keymgmt_device.h</label>
+        <link refid="keymgmt__device_8h"/>
+        <childnode refid="241" relation="include">
+        </childnode>
+        <childnode refid="244" relation="include">
+        </childnode>
+        <childnode refid="245" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="keymgmt_8h_1a764c571c18f157174fdaa8bb6b2974d3" prot="public" static="no">
+        <name>DEBUG_HDCP_INIT</name>
+        <initializer>0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/src/key/keymgmt.h" line="29" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/src/key/keymgmt.h" bodystart="29" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="keymgmt_8h_1a8858434351df87749772b90cb9c903b7" prot="public" static="no">
+        <name>KEYMGMT_ERROR_NONE</name>
+        <initializer>( 0)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/src/key/keymgmt.h" line="31" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/src/key/keymgmt.h" bodystart="31" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="keymgmt_8h_1a40c10b9013024aa51ae6c396c7d802d7" prot="public" static="no">
+        <name>KEYMGMT_DEVID_0</name>
+        <initializer>( 0)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/src/key/keymgmt.h" line="33" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/src/key/keymgmt.h" bodystart="33" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="keymgmt_8h_1a0e9635f70c525400ac89c499a8b67e45" prot="public" static="no">
+        <name>KEYMGMT_DEVID_1</name>
+        <initializer>( 1)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/src/key/keymgmt.h" line="34" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/src/key/keymgmt.h" bodystart="34" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="keymgmt_8h_1a10f6fe26df729a1551d061ea7c021d18" prot="public" static="no">
+        <name>KEYMGMT_DEVID_UNKNOWN</name>
+        <initializer>(99)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/src/key/keymgmt.h" line="35" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/src/key/keymgmt.h" bodystart="35" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="keymgmt_8h_1a99b4e4d7bd1c39222f879a6bb4277bd7" prot="public" static="no">
+        <name>KEYMGMT_TABLEID_0</name>
+        <initializer>( 0)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/src/key/keymgmt.h" line="37" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/src/key/keymgmt.h" bodystart="37" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="keymgmt_8h_1a4912281da4f6f7fb87d5761cc9e1b16f" prot="public" static="no">
+        <name>KEYMGMT_TABLEID_1</name>
+        <initializer>( 1)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/src/key/keymgmt.h" line="38" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/src/key/keymgmt.h" bodystart="38" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="keymgmt_8h_1a1732f183a65f42674c932c00306137b9" prot="public" static="no">
+        <name>KEYMGMT_TABLEID_2</name>
+        <initializer>( 2)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/src/key/keymgmt.h" line="39" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/src/key/keymgmt.h" bodystart="39" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="keymgmt_8h_1a0c61b4d3b2f0280397cf2ce902259eb1" prot="public" static="no">
+        <name>KEYMGMT_TABLEID_3</name>
+        <initializer>( 3)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/src/key/keymgmt.h" line="40" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/src/key/keymgmt.h" bodystart="40" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="keymgmt_8h_1a053fddde2f6e8035dcec51b8c5adc4b6" prot="public" static="no">
+        <name>KEYMGMT_TABLEID_4</name>
+        <initializer>( 4)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/src/key/keymgmt.h" line="41" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/src/key/keymgmt.h" bodystart="41" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="keymgmt_8h_1a0437a20a0a4c2e1aa24c0eae319cf5e3" prot="public" static="no">
+        <name>KEYMGMT_TABLEID_5</name>
+        <initializer>( 5)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/src/key/keymgmt.h" line="42" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/src/key/keymgmt.h" bodystart="42" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="keymgmt_8h_1a5e29f2396bd543eb0d86a8db59a61328" prot="public" static="no">
+        <name>KEYMGMT_TABLEID_6</name>
+        <initializer>( 6)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/src/key/keymgmt.h" line="43" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/src/key/keymgmt.h" bodystart="43" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="keymgmt_8h_1ab7dadb4cd4f8f364122a8c8ea8342acf" prot="public" static="no">
+        <name>KEYMGMT_TABLEID_7</name>
+        <initializer>( 7)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/src/key/keymgmt.h" line="44" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/src/key/keymgmt.h" bodystart="44" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="keymgmt_8h_1a972b48c62e621bfcad0bdec9f3da5a43" prot="public" static="no">
+        <name>KEYMGMT_TABLEID_UNKNOWN</name>
+        <initializer>(99)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/src/key/keymgmt.h" line="45" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/src/key/keymgmt.h" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="keymgmt_8h_1a2c3b627b599d39903ec8fcc269ebd10d" prot="public" static="no">
+        <name>KEYMGMT_ROWID_0</name>
+        <initializer>( 0)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/src/key/keymgmt.h" line="47" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/src/key/keymgmt.h" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="keymgmt_8h_1abb4069ae1a36413cb004099870c36bb7" prot="public" static="no">
+        <name>KEYMGMT_ROWID_UNKNOWN</name>
+        <initializer>(99)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/src/key/keymgmt.h" line="48" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/src/key/keymgmt.h" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="keymgmt_8h_1a80979a0d312cc074cbe9e45d855df639" prot="public" static="no">
+        <name>DEBUG_KEYMGMT_INIT</name>
+        <initializer>1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/src/key/keymgmt.h" line="51" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/src/key/keymgmt.h" bodystart="51" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="keymgmt_8h_1a91dfdb2882c4fc87f0699050d5454851" prot="public" static="no">
+        <name>WRITE_KEYS_IN_EEPROM</name>
+        <initializer>1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/src/key/keymgmt.h" line="54" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/src/key/keymgmt.h" bodystart="54" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="keymgmt_8h_1a1ed1e839e93f161c304112f2fa6c6677" prot="public" static="no">
+        <name>IIC_EEPROM_WRITE</name>
+        <initializer>1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/src/key/keymgmt.h" line="56" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/src/key/keymgmt.h" bodystart="56" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="keymgmt_8h_1aebb1220ba4e648b479f3f1e3d6dd4934" prot="public" static="no">
+        <name>IIC_EEPROM_READ</name>
+        <initializer>1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/src/key/keymgmt.h" line="58" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/src/key/keymgmt.h" bodystart="58" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="keymgmt_8h_1ae2f75184be205193d631163e393f15bb" prot="public" static="no">
+        <type>int</type>
+        <definition>typedef int KEYMGMT_tError</definition>
+        <argsstring></argsstring>
+        <name>KEYMGMT_tError</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/src/key/keymgmt.h" line="62" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/src/key/keymgmt.h" bodystart="62" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="keymgmt_8h_1a50dec05eb875d9e8408b0ba8622aa06c" prot="public" static="no">
+        <type>uint8_t</type>
+        <definition>typedef uint8_t KEYMGMT_tDevID</definition>
+        <argsstring></argsstring>
+        <name>KEYMGMT_tDevID</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/src/key/keymgmt.h" line="63" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/src/key/keymgmt.h" bodystart="63" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="keymgmt_8h_1aa06ba00a2371e5dea5b9090469cafd43" prot="public" static="no">
+        <type>uint8_t</type>
+        <definition>typedef uint8_t KEYMGMT_tTableID</definition>
+        <argsstring></argsstring>
+        <name>KEYMGMT_tTableID</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/src/key/keymgmt.h" line="64" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/src/key/keymgmt.h" bodystart="64" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="keymgmt_8h_1a2c6de9dba6a1cba0e4a2f9158f60e3c0" prot="public" static="no">
+        <type>uint8_t</type>
+        <definition>typedef uint8_t KEYMGMT_tRowID</definition>
+        <argsstring></argsstring>
+        <name>KEYMGMT_tRowID</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/src/key/keymgmt.h" line="65" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/src/key/keymgmt.h" bodystart="65" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="keymgmt_8h_1a058c5777cf46edeb5055f313c694910a" prot="public" static="no" mutable="no">
+        <type>const uint8_t</type>
+        <definition>const uint8_t USER_KEYMGMT_ENCDATA[]</definition>
+        <argsstring>[]</argsstring>
+        <name>USER_KEYMGMT_ENCDATA</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/src/key/keymgmt.h" line="66" column="1"/>
+      </memberdef>
+      <memberdef kind="variable" id="keymgmt_8h_1a4b898ff43b1cc24c11f030a6d78acb70" prot="public" static="no" mutable="no">
+        <type>const uint32_t</type>
+        <definition>const uint32_t USER_KEYMGMT_ENCDATA_SZ</definition>
+        <argsstring></argsstring>
+        <name>USER_KEYMGMT_ENCDATA_SZ</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/src/key/keymgmt.h" line="67" column="1"/>
+      </memberdef>
+      <memberdef kind="variable" id="keymgmt_8h_1abdb231140fb5616059ff3917272a52c1" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int gIsKeyWrittenInEeeprom</definition>
+        <argsstring></argsstring>
+        <name>gIsKeyWrittenInEeeprom</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/src/key/keymgmt.h" line="68" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/src/kc/xdprxss_kc705.c" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="keymgmt_8h_1aeccd65b8f83557db781505f8ed86f31b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>KEYMGMT_tError</type>
+        <definition>KEYMGMT_tError KEYMGMT_Init</definition>
+        <argsstring>(void)</argsstring>
+        <name>KEYMGMT_Init</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function initializes the key management module. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>HDCP_ERROR_NONE if successful.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/src/key/keymgmt.h" line="71" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/src/key/keymgmt.c" bodystart="42" bodyend="93"/>
+        <references refid="keymgmt__device_8c_1a65aabf9435fe3aada84d8ce374a6d3ef" compoundref="keymgmt__device_8c" startline="601" endline="654">KEYMGMTDEV_Init</references>
+        <references refid="keymgmt__loader_8c_1a789911b3e5d1c945c63aada5622b56b7" compoundref="keymgmt__loader_8c" startline="241" endline="290">KEYMGMTLDR_Init</references>
+      </memberdef>
+      <memberdef kind="function" id="keymgmt_8h_1af0ef671a754d0cc159ed5aa96f318c4c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void KEYMGMT_Poll</definition>
+        <argsstring>(uint32_t theUptime)</argsstring>
+        <name>KEYMGMT_Poll</name>
+        <param>
+          <type>uint32_t</type>
+          <declname>theUptime</declname>
+        </param>
+        <briefdescription>
+<para>This function polls the key management module. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>theUptime</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the system up time in seconds</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>void</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/src/key/keymgmt.h" line="75" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/src/key/keymgmt.c" bodystart="111" bodyend="120"/>
+        <references refid="keymgmt__loader_8c_1a09e35cf611284401fdb00770c33b3f9c" compoundref="keymgmt__loader_8c" startline="308" endline="315">KEYMGMTLDR_Poll</references>
+      </memberdef>
+      <memberdef kind="function" id="keymgmt_8h_1ae2a7a08adbaa7a25305a1bf0937f0bd7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int KEYMGMT_Debug</definition>
+        <argsstring>(int argc, const char *argv[])</argsstring>
+        <name>KEYMGMT_Debug</name>
+        <param>
+          <type>int</type>
+          <declname>argc</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>argv</declname>
+          <array>[]</array>
+        </param>
+        <briefdescription>
+<para>This function implements the &quot;keymgmt&quot; debug command. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>argc</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the number of command line arguments </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>argv</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the list of the command line arguments</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Always returns zero (0)</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/src/key/keymgmt.h" line="79" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/src/key/keymgmt.c" bodystart="139" bodyend="178"/>
+        <references refid="keymgmt__device_8c_1aeeb0257d3e8f3a17ee979cd07ec96add" compoundref="keymgmt__device_8c" startline="1454" endline="1500">KEYMGMTDEV_Debug</references>
+      </memberdef>
+      <memberdef kind="function" id="keymgmt_8h_1aef8efb4102a761954440455148f808db" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>KEYMGMT_tError</type>
+        <definition>KEYMGMT_tError KEYMGMT_WriteKeysToEeprom</definition>
+        <argsstring>(uint8_t *keyBuf, unsigned int keySize)</argsstring>
+        <name>KEYMGMT_WriteKeysToEeprom</name>
+        <param>
+          <type>uint8_t *</type>
+          <declname>keyBuf</declname>
+        </param>
+        <param>
+          <type>unsigned int</type>
+          <declname>keySize</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/src/key/keymgmt.h" line="81" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="keymgmt_8h_1aff1eb5b34355858da7c92792db0d945b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint32_t</type>
+        <definition>uint32_t iicEepromWriteKeys</definition>
+        <argsstring>(uint8_t *userKeyBuf, unsigned int userKeySize, int userKeysIsTrue)</argsstring>
+        <name>iicEepromWriteKeys</name>
+        <param>
+          <type>uint8_t *</type>
+          <declname>userKeyBuf</declname>
+        </param>
+        <param>
+          <type>unsigned int</type>
+          <declname>userKeySize</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>userKeysIsTrue</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/src/key/keymgmt.h" line="84" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file contains the interface for the key management module. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2020<sp/>-<sp/>2021<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>2022-2025<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="17"><highlight class="preprocessor">#ifndef<sp/>KEYMGMT_H</highlight></codeline>
+<codeline lineno="18"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>KEYMGMT_H</highlight></codeline>
+<codeline lineno="19"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="21"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="23"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Include<sp/>Files<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;stdint.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xstatus.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DEBUG_HDCP_INIT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0</highlight></codeline>
+<codeline lineno="30"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>Constant<sp/>Definitions<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>KEYMGMT_ERROR_NONE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<sp/>0)</highlight></codeline>
+<codeline lineno="32"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>KEYMGMT_DEVID_0<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<sp/>0)</highlight></codeline>
+<codeline lineno="34"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>KEYMGMT_DEVID_1<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<sp/>1)</highlight></codeline>
+<codeline lineno="35"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>KEYMGMT_DEVID_UNKNOWN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(99)</highlight></codeline>
+<codeline lineno="36"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>KEYMGMT_TABLEID_0<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<sp/>0)</highlight></codeline>
+<codeline lineno="38"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>KEYMGMT_TABLEID_1<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<sp/>1)</highlight></codeline>
+<codeline lineno="39"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>KEYMGMT_TABLEID_2<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<sp/>2)</highlight></codeline>
+<codeline lineno="40"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>KEYMGMT_TABLEID_3<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<sp/>3)</highlight></codeline>
+<codeline lineno="41"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>KEYMGMT_TABLEID_4<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<sp/>4)</highlight></codeline>
+<codeline lineno="42"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>KEYMGMT_TABLEID_5<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<sp/>5)</highlight></codeline>
+<codeline lineno="43"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>KEYMGMT_TABLEID_6<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<sp/>6)</highlight></codeline>
+<codeline lineno="44"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>KEYMGMT_TABLEID_7<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<sp/>7)</highlight></codeline>
+<codeline lineno="45"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>KEYMGMT_TABLEID_UNKNOWN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(99)</highlight></codeline>
+<codeline lineno="46"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>KEYMGMT_ROWID_0<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<sp/>0)</highlight></codeline>
+<codeline lineno="48"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>KEYMGMT_ROWID_UNKNOWN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(99)</highlight></codeline>
+<codeline lineno="49"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>DEBUG<sp/>CONSTANTS<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>DEBUG_KEYMGMT_INIT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1</highlight></codeline>
+<codeline lineno="52"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>EEPROM<sp/>Constant<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>WRITE_KEYS_IN_EEPROM<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1</highlight></codeline>
+<codeline lineno="55"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>IIC_EEPROM_WRITE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1</highlight></codeline>
+<codeline lineno="57"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>IIC_EEPROM_READ<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1</highlight></codeline>
+<codeline lineno="59"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Type<sp/>Definitions<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>KEYMGMT_tError;</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>uint8_t<sp/><sp/>KEYMGMT_tDevID;</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>uint8_t<sp/><sp/>KEYMGMT_tTableID;</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>uint8_t<sp/><sp/>KEYMGMT_tRowID;</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>uint8_t<sp/>USER_KEYMGMT_ENCDATA[];</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>uint32_t<sp/>USER_KEYMGMT_ENCDATA_SZ;</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>gIsKeyWrittenInEeeprom;</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Function<sp/>Prototypes<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal">KEYMGMT_tError</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><ref refid="keymgmt_8c_1aeccd65b8f83557db781505f8ed86f31b" kindref="member">KEYMGMT_Init</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><ref refid="keymgmt_8c_1af0ef671a754d0cc159ed5aa96f318c4c" kindref="member">KEYMGMT_Poll</ref>(uint32_t<sp/>theUptime);</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"></highlight></codeline>
+<codeline lineno="77"><highlight class="normal"></highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><ref refid="keymgmt_8c_1ae2a7a08adbaa7a25305a1bf0937f0bd7" kindref="member">KEYMGMT_Debug</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>argc,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>argv[]);</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"></highlight></codeline>
+<codeline lineno="81"><highlight class="normal">KEYMGMT_tError<sp/>KEYMGMT_WriteKeysToEeprom(uint8_t<sp/>*keyBuf,<sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>keySize);</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"></highlight><highlight class="comment">//KEYMGMT_tError<sp/>KEYMGMT_WriteKeysToEeprom();</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="83"><highlight class="normal"></highlight></codeline>
+<codeline lineno="84"><highlight class="normal">uint32_t<sp/>iicEepromWriteKeys(uint8_t<sp/>*userKeyBuf,<sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>userKeySize,</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>userKeysIsTrue);</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"></highlight><highlight class="comment">//uint32_t<sp/>iicEepromWriteKeys();</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="87"><highlight class="normal"></highlight></codeline>
+<codeline lineno="88"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="89"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="91"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>KEYMGMT_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/src/key/keymgmt.h"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_79bf49ef64691e0076eb9bcd3666a4af" kind="dir">
+    <compoundname>xdmapcie</compoundname>
+    <innerdir refid="dir_d4de1a8942de5902e72df52d85c0ec86">examples</innerdir>
+    <innerdir refid="dir_14d8107707ad8607c8030b375d133a64">src</innerdir>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/"/>
+  </compounddef>
+</doxygen>

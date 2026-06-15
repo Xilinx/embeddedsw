@@ -1,0 +1,957 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="ffconf_8h" kind="file">
+    <compoundname>ffconf.h</compoundname>
+    <includes local="yes">xilffs_config.h</includes>
+    <includedby refid="ff_8h" local="yes">ff.h</includedby>
+    <incdepgraph>
+      <node id="49">
+        <label>xilffs_config.h</label>
+      </node>
+      <node id="48">
+        <label>ffconf.h</label>
+        <link refid="ffconf.h"/>
+        <childnode refid="49" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="56">
+        <label>xilffs_polled_example.c</label>
+        <link refid="xilffs__polled__example_8c"/>
+      </node>
+      <node id="54">
+        <label>ffunicode.c</label>
+      </node>
+      <node id="52">
+        <label>diskio.c</label>
+        <link refid="diskio_8c"/>
+      </node>
+      <node id="55">
+        <label>diskio.h</label>
+        <childnode refid="52" relation="include">
+        </childnode>
+      </node>
+      <node id="57">
+        <label>xilffs_polled_ufs_example.c</label>
+        <link refid="xilffs__polled__ufs__example_8c"/>
+      </node>
+      <node id="50">
+        <label>ffconf.h</label>
+        <link refid="ffconf.h"/>
+        <childnode refid="51" relation="include">
+        </childnode>
+      </node>
+      <node id="53">
+        <label>ffsystem.c</label>
+      </node>
+      <node id="51">
+        <label>ff.h</label>
+        <childnode refid="52" relation="include">
+        </childnode>
+        <childnode refid="53" relation="include">
+        </childnode>
+        <childnode refid="54" relation="include">
+        </childnode>
+        <childnode refid="55" relation="include">
+        </childnode>
+        <childnode refid="56" relation="include">
+        </childnode>
+        <childnode refid="57" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="ffconf_8h_1a275a34cd0d8f3b9b04ee91df269136e3" prot="public" static="no">
+        <name>FFCONF_DEF</name>
+        <initializer>80386	/* Revision ID */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ffconf.h" line="5" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ffconf.h" bodystart="5" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ffconf_8h_1ac932d228331b07248a3faa6f5904a49d" prot="public" static="no">
+        <name>FF_FS_READONLY</name>
+        <initializer>0	/* 0:Read/Write */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ffconf.h" line="24" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ffconf.h" bodystart="24" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ffconf_8h_1a33ce7fb406e1c861aa717fc8f4864e58" prot="public" static="no">
+        <name>FF_FS_MINIMIZE</name>
+        <initializer>0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ffconf.h" line="32" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ffconf.h" bodystart="32" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ffconf_8h_1a9870e2a5b84ce00fc47e0fd89b337495" prot="public" static="no">
+        <name>FF_USE_STRFUNC</name>
+        <initializer>0	/* 0:Disable */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ffconf.h" line="50" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ffconf.h" bodystart="50" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ffconf_8h_1aa52eeffe3cb0583877e219481dd8dbdc" prot="public" static="no">
+        <name>FF_USE_FIND</name>
+        <initializer>0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ffconf.h" line="59" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ffconf.h" bodystart="59" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ffconf_8h_1ad700e28d02d7da4b5f1b9c049b117429" prot="public" static="no">
+        <name>FF_USE_MKFS</name>
+        <initializer>0	/* 0:Disable */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ffconf.h" line="66" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ffconf.h" bodystart="66" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ffconf_8h_1ac34dea7a30cf68a1f171af88fa37518a" prot="public" static="no">
+        <name>FF_USE_FASTSEEK</name>
+        <initializer>0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ffconf.h" line="71" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ffconf.h" bodystart="71" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ffconf_8h_1a9629a453509390e34097b3268dcaac19" prot="public" static="no">
+        <name>FF_USE_EXPAND</name>
+        <initializer>0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ffconf.h" line="75" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ffconf.h" bodystart="75" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ffconf_8h_1af22e3a349a7d2c4618fe89a8311ca8d6" prot="public" static="no">
+        <name>FF_USE_CHMOD</name>
+        <initializer>0	/* 0:Disable */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ffconf.h" line="82" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ffconf.h" bodystart="82" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ffconf_8h_1a46c839d4e87f5873f44166c7b5bf7592" prot="public" static="no">
+        <name>FF_USE_LABEL</name>
+        <initializer>0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ffconf.h" line="88" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ffconf.h" bodystart="88" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ffconf_8h_1abb96514dcc1016a49be66162e596a9d0" prot="public" static="no">
+        <name>FF_USE_FORWARD</name>
+        <initializer>0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ffconf.h" line="93" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ffconf.h" bodystart="93" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ffconf_8h_1a7d8e68a5699cf1ceb7ed4fdfba8e2ca0" prot="public" static="no">
+        <name>FF_PRINT_LLI</name>
+        <initializer>0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ffconf.h" line="97" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ffconf.h" bodystart="97" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ffconf_8h_1a81c59406fe9df657bfb6d75e409da207" prot="public" static="no">
+        <name>FF_PRINT_FLOAT</name>
+        <initializer>0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ffconf.h" line="98" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ffconf.h" bodystart="98" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ffconf_8h_1a6ecc215308b4ead043b2e4e513ea203e" prot="public" static="no">
+        <name>FF_STRF_ENCODE</name>
+        <initializer>0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ffconf.h" line="99" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ffconf.h" bodystart="99" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ffconf_8h_1a56bf522419025961acdfaf6388f40402" prot="public" static="no">
+        <name>FF_CODE_PAGE</name>
+        <initializer>932</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ffconf.h" line="124" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ffconf.h" bodystart="124" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ffconf_8h_1ab7f7a23eae4a1de30c8198ed980f9784" prot="public" static="no">
+        <name>FF_USE_LFN</name>
+        <initializer>0		/* 0 to 3 */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ffconf.h" line="156" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ffconf.h" bodystart="156" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ffconf_8h_1adf88cd7c56034e4b94a6f2b3b83f95bf" prot="public" static="no">
+        <name>FF_MAX_LFN</name>
+        <initializer>255</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ffconf.h" line="158" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ffconf.h" bodystart="158" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ffconf_8h_1a95aeacb103bd1c4e03b3e154e450c534" prot="public" static="no">
+        <name>FF_LFN_UNICODE</name>
+        <initializer>0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ffconf.h" line="177" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ffconf.h" bodystart="177" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ffconf_8h_1a7d29ac29d2d2db71cc7d045ea38fa927" prot="public" static="no">
+        <name>FF_LFN_BUF</name>
+        <initializer>255</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ffconf.h" line="189" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ffconf.h" bodystart="189" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ffconf_8h_1ac19c6abcf1fc6e2bbf204003462cfedb" prot="public" static="no">
+        <name>FF_SFN_BUF</name>
+        <initializer>12</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ffconf.h" line="190" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ffconf.h" bodystart="190" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ffconf_8h_1af0d4b41a010f1a611bc6fb9e42357350" prot="public" static="no">
+        <name>FF_FS_RPATH</name>
+        <initializer>0U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ffconf.h" line="205" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ffconf.h" bodystart="205" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ffconf_8h_1a4e9be6e9b0a55cbf1bf6385a5f1d5abf" prot="public" static="no">
+        <name>FF_PATH_DEPTH</name>
+        <initializer>10</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ffconf.h" line="215" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ffconf.h" bodystart="215" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ffconf_8h_1a2343dca8b59f249f6a88574fda8ac31c" prot="public" static="no">
+        <name>FF_VOLUMES</name>
+        <initializer>FILE_SYSTEM_NUM_LOGIC_VOL</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ffconf.h" line="230" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ffconf.h" bodystart="230" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ffconf_8h_1a056575130662da5bc7ac26a5b1d25838" prot="public" static="no">
+        <name>FF_STR_VOLUME_ID</name>
+        <initializer>0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ffconf.h" line="234" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ffconf.h" bodystart="234" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ffconf_8h_1adf45484c0fd7a2ffe8b56f83019317d0" prot="public" static="no">
+        <name>FF_VOLUME_STRS</name>
+        <initializer>&quot;RAM&quot;,&quot;NAND&quot;,&quot;CF&quot;,&quot;SD&quot;,&quot;SD2&quot;,&quot;USB&quot;,&quot;USB2&quot;,&quot;USB3&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ffconf.h" line="235" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ffconf.h" bodystart="235" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ffconf_8h_1a6f07d18b72c37af9fb5deda0e8a13131" prot="public" static="no">
+        <name>FF_MULTI_PARTITION</name>
+        <initializer>0	/* 0:Single partition */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ffconf.h" line="251" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ffconf.h" bodystart="251" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ffconf_8h_1a5c25535bf118c111157fe72fff3cbea5" prot="public" static="no">
+        <name>FF_MIN_SS</name>
+        <initializer>512</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ffconf.h" line="261" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ffconf.h" bodystart="261" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ffconf_8h_1a104c36ee46f9d6e76dadf37f3d9696cc" prot="public" static="no">
+        <name>FF_MAX_SS</name>
+        <initializer>512</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ffconf.h" line="269" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ffconf.h" bodystart="269" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ffconf_8h_1ab92e95c077afccc4d6f847cbf766e1cd" prot="public" static="no">
+        <name>FF_LBA64</name>
+        <initializer>0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ffconf.h" line="279" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ffconf.h" bodystart="279" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ffconf_8h_1a1f3a98483912d219d3688edfa5717949" prot="public" static="no">
+        <name>FF_MIN_GPT</name>
+        <initializer>0x10000000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ffconf.h" line="284" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ffconf.h" bodystart="284" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ffconf_8h_1a263c9f484beef1e88f2de0a96d8dad9b" prot="public" static="no">
+        <name>FF_USE_TRIM</name>
+        <initializer>0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ffconf.h" line="292" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ffconf.h" bodystart="292" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ffconf_8h_1a618a0c0a1db7d420dee23ee81379c387" prot="public" static="no">
+        <name>FF_FS_TINY</name>
+        <initializer>0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ffconf.h" line="304" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ffconf.h" bodystart="304" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ffconf_8h_1a4374b721b8019acc9761fdd8b829ccd0" prot="public" static="no">
+        <name>FF_FS_EXFAT</name>
+        <initializer>0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ffconf.h" line="314" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ffconf.h" bodystart="314" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ffconf_8h_1ad9c1285af8f3963c253b0351558ad40d" prot="public" static="no">
+        <name>FF_FS_NORTC</name>
+        <initializer>0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ffconf.h" line="321" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ffconf.h" bodystart="321" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ffconf_8h_1acc2167f3af4dd4f6ec84a57a82f923dd" prot="public" static="no">
+        <name>FF_NORTC_MON</name>
+        <initializer>1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ffconf.h" line="322" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ffconf.h" bodystart="322" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ffconf_8h_1a1726418a7d765c3ae4da9c43d2349151" prot="public" static="no">
+        <name>FF_NORTC_MDAY</name>
+        <initializer>1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ffconf.h" line="323" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ffconf.h" bodystart="323" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ffconf_8h_1aa23a9857382e458421fb87ef11ff9c63" prot="public" static="no">
+        <name>FF_NORTC_YEAR</name>
+        <initializer>2025</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ffconf.h" line="324" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ffconf.h" bodystart="324" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ffconf_8h_1abd750099aa8f8e7afbccf96fcdf059f7" prot="public" static="no">
+        <name>FF_FS_CRTIME</name>
+        <initializer>0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ffconf.h" line="335" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ffconf.h" bodystart="335" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ffconf_8h_1a660f7a4d681d9006004a8178f29f3c00" prot="public" static="no">
+        <name>FF_FS_NOFSINFO</name>
+        <initializer>0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ffconf.h" line="340" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ffconf.h" bodystart="340" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ffconf_8h_1ab76cc3251ebd18a5c33f9f18656317f3" prot="public" static="no">
+        <name>FF_FS_LOCK</name>
+        <initializer>0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ffconf.h" line="352" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ffconf.h" bodystart="352" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ffconf_8h_1a42c81182eb3a8e31a4129f711ee44666" prot="public" static="no">
+        <name>FF_FS_REENTRANT</name>
+        <initializer>0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ffconf.h" line="364" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ffconf.h" bodystart="364" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ffconf_8h_1a0f4ab16049c9d59da5ee3f503c425b71" prot="public" static="no">
+        <name>FF_FS_TIMEOUT</name>
+        <initializer>1000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ffconf.h" line="365" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ffconf.h" bodystart="365" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="ffconf_8h_1a6819c01db91c6e88717a2c7ec17b38ca" prot="public" static="no">
+        <name>FF_WORD_ACCESS</name>
+        <initializer>0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ffconf.h" line="382" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ffconf.h" bodystart="382" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/*---------------------------------------------------------------------------/</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">/<sp/><sp/>Configurations<sp/>of<sp/>FatFs<sp/>Module</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">/---------------------------------------------------------------------------*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>FFCONF_DEF<sp/><sp/><sp/><sp/><sp/><sp/>80386<sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Revision<sp/>ID<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="6"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="8"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="10"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>SDT</highlight></codeline>
+<codeline lineno="12"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xilffs_config.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="14"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xparameters.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="16"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="comment">/*---------------------------------------------------------------------------/</highlight></codeline>
+<codeline lineno="18"><highlight class="comment">/<sp/>Function<sp/>Configurations</highlight></codeline>
+<codeline lineno="19"><highlight class="comment">/---------------------------------------------------------------------------*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>FILE_SYSTEM_READ_ONLY</highlight></codeline>
+<codeline lineno="22"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>FF_FS_READONLY<sp/><sp/>1<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>1:Read<sp/>only<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="23"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="24"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>FF_FS_READONLY<sp/><sp/>0<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>0:Read/Write<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="25"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="26"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>This<sp/>option<sp/>switches<sp/>read-only<sp/>configuration.<sp/>(0:Read/Write<sp/>or<sp/>1:Read-only)</highlight></codeline>
+<codeline lineno="27"><highlight class="comment">/<sp/><sp/>Read-only<sp/>configuration<sp/>removes<sp/>writing<sp/>API<sp/>functions,<sp/>f_write(),<sp/>f_sync(),</highlight></codeline>
+<codeline lineno="28"><highlight class="comment">/<sp/><sp/>f_unlink(),<sp/>f_mkdir(),<sp/>f_chmod(),<sp/>f_rename(),<sp/>f_truncate(),<sp/>f_getfree()</highlight></codeline>
+<codeline lineno="29"><highlight class="comment">/<sp/><sp/>and<sp/>optional<sp/>writing<sp/>functions<sp/>as<sp/>well.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>FF_FS_MINIMIZE<sp/><sp/>0</highlight></codeline>
+<codeline lineno="33"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>This<sp/>option<sp/>defines<sp/>minimization<sp/>level<sp/>to<sp/>remove<sp/>some<sp/>basic<sp/>API<sp/>functions.</highlight></codeline>
+<codeline lineno="34"><highlight class="comment">/</highlight></codeline>
+<codeline lineno="35"><highlight class="comment">/<sp/><sp/><sp/>0:<sp/>Basic<sp/>functions<sp/>are<sp/>fully<sp/>enabled.</highlight></codeline>
+<codeline lineno="36"><highlight class="comment">/<sp/><sp/><sp/>1:<sp/>f_stat(),<sp/>f_getfree(),<sp/>f_unlink(),<sp/>f_mkdir(),<sp/>f_truncate()<sp/>and<sp/>f_rename()</highlight></codeline>
+<codeline lineno="37"><highlight class="comment">/<sp/><sp/><sp/><sp/><sp/><sp/>are<sp/>removed.</highlight></codeline>
+<codeline lineno="38"><highlight class="comment">/<sp/><sp/><sp/>2:<sp/>f_opendir(),<sp/>f_readdir()<sp/>and<sp/>f_closedir()<sp/>are<sp/>removed<sp/>in<sp/>addition<sp/>to<sp/>1.</highlight></codeline>
+<codeline lineno="39"><highlight class="comment">/<sp/><sp/><sp/>3:<sp/>f_lseek()<sp/>function<sp/>is<sp/>removed<sp/>in<sp/>addition<sp/>to<sp/>2.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>FILE_SYSTEM_USE_STRFUNC</highlight></codeline>
+<codeline lineno="42"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#if<sp/>FILE_SYSTEM_USE_STRFUNC<sp/>==<sp/>0</highlight></codeline>
+<codeline lineno="43"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>FF_USE_STRFUNC<sp/><sp/>0<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>0:Disable<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="44"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#elif<sp/>FILE_SYSTEM_USE_STRFUNC<sp/>==<sp/>1</highlight></codeline>
+<codeline lineno="45"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>FF_USE_STRFUNC<sp/><sp/>1<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>1:Enable<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="46"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#elif<sp/>FILE_SYSTEM_USE_STRFUNC<sp/>==<sp/>2</highlight></codeline>
+<codeline lineno="47"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>FF_USE_STRFUNC<sp/><sp/>2<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>2:Enable<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="48"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="49"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="50"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>FF_USE_STRFUNC<sp/><sp/>0<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>0:Disable<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="51"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="52"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>This<sp/>option<sp/>switches<sp/>string<sp/>functions,<sp/>f_gets(),<sp/>f_putc(),<sp/>f_puts()<sp/>and<sp/>f_printf().</highlight></codeline>
+<codeline lineno="53"><highlight class="comment">/</highlight></codeline>
+<codeline lineno="54"><highlight class="comment">/<sp/><sp/>0:<sp/>Disable<sp/>string<sp/>functions.</highlight></codeline>
+<codeline lineno="55"><highlight class="comment">/<sp/><sp/>1:<sp/>Enable<sp/>without<sp/>LF-CRLF<sp/>conversion.</highlight></codeline>
+<codeline lineno="56"><highlight class="comment">/<sp/><sp/>2:<sp/>Enable<sp/>with<sp/>LF-CRLF<sp/>conversion.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>FF_USE_FIND<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0</highlight></codeline>
+<codeline lineno="60"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>This<sp/>option<sp/>switches<sp/>filtered<sp/>directory<sp/>read<sp/>functions,<sp/>f_findfirst()<sp/>and</highlight></codeline>
+<codeline lineno="61"><highlight class="comment">/<sp/><sp/>f_findnext().<sp/>(0:Disable,<sp/>1:Enable<sp/>2:Enable<sp/>with<sp/>matching<sp/>altname[]<sp/>too)<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>FILE_SYSTEM_USE_MKFS</highlight></codeline>
+<codeline lineno="64"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>FF_USE_MKFS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>1:Enable<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="65"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="66"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>FF_USE_MKFS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>0:Disable<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="67"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="68"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>This<sp/>option<sp/>switches<sp/>f_mkfs().<sp/>(0:Disable<sp/>or<sp/>1:Enable)<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>FF_USE_FASTSEEK<sp/>0</highlight></codeline>
+<codeline lineno="72"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>This<sp/>option<sp/>switches<sp/>fast<sp/>seek<sp/>feature.<sp/>(0:Disable<sp/>or<sp/>1:Enable)<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>FF_USE_EXPAND<sp/><sp/><sp/>0</highlight></codeline>
+<codeline lineno="76"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>This<sp/>option<sp/>switches<sp/>f_expand().<sp/>(0:Disable<sp/>or<sp/>1:Enable)<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="77"><highlight class="normal"></highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight></codeline>
+<codeline lineno="79"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>FILE_SYSTEM_USE_CHMOD</highlight></codeline>
+<codeline lineno="80"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>FF_USE_CHMOD<sp/><sp/><sp/><sp/>1<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>1:Enable<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="81"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="82"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>FF_USE_CHMOD<sp/><sp/><sp/><sp/>0<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>0:Disable<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="83"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="84"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>This<sp/>option<sp/>switches<sp/>attribute<sp/>control<sp/>API<sp/>functions,<sp/>f_chmod()<sp/>and<sp/>f_utime().</highlight></codeline>
+<codeline lineno="85"><highlight class="comment">/<sp/><sp/>(0:Disable<sp/>or<sp/>1:Enable)<sp/>Also<sp/>FF_FS_READONLY<sp/>needs<sp/>to<sp/>be<sp/>0<sp/>to<sp/>enable<sp/>this<sp/>option.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="86"><highlight class="normal"></highlight></codeline>
+<codeline lineno="87"><highlight class="normal"></highlight></codeline>
+<codeline lineno="88"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>FF_USE_LABEL<sp/><sp/><sp/><sp/>0</highlight></codeline>
+<codeline lineno="89"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>This<sp/>option<sp/>switches<sp/>volume<sp/>label<sp/>API<sp/>functions,<sp/>f_getlabel()<sp/>and<sp/>f_setlabel().</highlight></codeline>
+<codeline lineno="90"><highlight class="comment">/<sp/><sp/>(0:Disable<sp/>or<sp/>1:Enable)<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="91"><highlight class="normal"></highlight></codeline>
+<codeline lineno="92"><highlight class="normal"></highlight></codeline>
+<codeline lineno="93"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>FF_USE_FORWARD<sp/><sp/>0</highlight></codeline>
+<codeline lineno="94"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>This<sp/>option<sp/>switches<sp/>f_forward().<sp/>(0:Disable<sp/>or<sp/>1:Enable)<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="95"><highlight class="normal"></highlight></codeline>
+<codeline lineno="96"><highlight class="normal"></highlight></codeline>
+<codeline lineno="97"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>FF_PRINT_LLI<sp/><sp/><sp/><sp/>0</highlight></codeline>
+<codeline lineno="98"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>FF_PRINT_FLOAT<sp/><sp/>0</highlight></codeline>
+<codeline lineno="99"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>FF_STRF_ENCODE<sp/><sp/>0</highlight></codeline>
+<codeline lineno="100"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>FF_USE_STRFUNC<sp/>switches<sp/>string<sp/>API<sp/>functions,<sp/>f_gets(),<sp/>f_putc(),<sp/>f_puts()<sp/>and</highlight></codeline>
+<codeline lineno="101"><highlight class="comment">/<sp/><sp/>f_printf().</highlight></codeline>
+<codeline lineno="102"><highlight class="comment">/</highlight></codeline>
+<codeline lineno="103"><highlight class="comment">/<sp/><sp/><sp/>0:<sp/>Disable.<sp/>FF_PRINT_LLI,<sp/>FF_PRINT_FLOAT<sp/>and<sp/>FF_STRF_ENCODE<sp/>have<sp/>no<sp/>effect.</highlight></codeline>
+<codeline lineno="104"><highlight class="comment">/<sp/><sp/><sp/>1:<sp/>Enable<sp/>without<sp/>LF-CRLF<sp/>conversion.</highlight></codeline>
+<codeline lineno="105"><highlight class="comment">/<sp/><sp/><sp/>2:<sp/>Enable<sp/>with<sp/>LF-CRLF<sp/>conversion.</highlight></codeline>
+<codeline lineno="106"><highlight class="comment">/</highlight></codeline>
+<codeline lineno="107"><highlight class="comment">/<sp/><sp/>FF_PRINT_LLI<sp/>=<sp/>1<sp/>makes<sp/>f_printf()<sp/>support<sp/>long<sp/>long<sp/>argument<sp/>and<sp/>FF_PRINT_FLOAT<sp/>=<sp/>1/2</highlight></codeline>
+<codeline lineno="108"><highlight class="comment">/<sp/><sp/>makes<sp/>f_printf()<sp/>support<sp/>floating<sp/>point<sp/>argument.<sp/>These<sp/>features<sp/>want<sp/>C99<sp/>or<sp/>later.</highlight></codeline>
+<codeline lineno="109"><highlight class="comment">/<sp/><sp/>When<sp/>FF_LFN_UNICODE<sp/>&gt;=<sp/>1<sp/>with<sp/>LFN<sp/>enabled,<sp/>string<sp/>API<sp/>functions<sp/>convert<sp/>the<sp/>character</highlight></codeline>
+<codeline lineno="110"><highlight class="comment">/<sp/><sp/>encoding<sp/>in<sp/>it.<sp/>FF_STRF_ENCODE<sp/>selects<sp/>assumption<sp/>of<sp/>character<sp/>encoding<sp/>ON<sp/>THE<sp/>FILE</highlight></codeline>
+<codeline lineno="111"><highlight class="comment">/<sp/><sp/>to<sp/>be<sp/>read/written<sp/>via<sp/>those<sp/>functions.</highlight></codeline>
+<codeline lineno="112"><highlight class="comment">/</highlight></codeline>
+<codeline lineno="113"><highlight class="comment">/<sp/><sp/><sp/>0:<sp/>ANSI/OEM<sp/>in<sp/>current<sp/>CP</highlight></codeline>
+<codeline lineno="114"><highlight class="comment">/<sp/><sp/><sp/>1:<sp/>Unicode<sp/>in<sp/>UTF-16LE</highlight></codeline>
+<codeline lineno="115"><highlight class="comment">/<sp/><sp/><sp/>2:<sp/>Unicode<sp/>in<sp/>UTF-16BE</highlight></codeline>
+<codeline lineno="116"><highlight class="comment">/<sp/><sp/><sp/>3:<sp/>Unicode<sp/>in<sp/>UTF-8</highlight></codeline>
+<codeline lineno="117"><highlight class="comment">*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="118"><highlight class="normal"></highlight></codeline>
+<codeline lineno="119"><highlight class="normal"></highlight></codeline>
+<codeline lineno="120"><highlight class="normal"></highlight><highlight class="comment">/*---------------------------------------------------------------------------/</highlight></codeline>
+<codeline lineno="121"><highlight class="comment">/<sp/>Locale<sp/>and<sp/>Namespace<sp/>Configurations</highlight></codeline>
+<codeline lineno="122"><highlight class="comment">/---------------------------------------------------------------------------*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="123"><highlight class="normal"></highlight></codeline>
+<codeline lineno="124"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>FF_CODE_PAGE<sp/><sp/><sp/><sp/>932</highlight></codeline>
+<codeline lineno="125"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>This<sp/>option<sp/>specifies<sp/>the<sp/>OEM<sp/>code<sp/>page<sp/>to<sp/>be<sp/>used<sp/>on<sp/>the<sp/>target<sp/>system.</highlight></codeline>
+<codeline lineno="126"><highlight class="comment">/<sp/><sp/>Incorrect<sp/>code<sp/>page<sp/>setting<sp/>can<sp/>cause<sp/>a<sp/>file<sp/>open<sp/>failure.</highlight></codeline>
+<codeline lineno="127"><highlight class="comment">/</highlight></codeline>
+<codeline lineno="128"><highlight class="comment">/<sp/><sp/><sp/>437<sp/>-<sp/>U.S.</highlight></codeline>
+<codeline lineno="129"><highlight class="comment">/<sp/><sp/><sp/>720<sp/>-<sp/>Arabic</highlight></codeline>
+<codeline lineno="130"><highlight class="comment">/<sp/><sp/><sp/>737<sp/>-<sp/>Greek</highlight></codeline>
+<codeline lineno="131"><highlight class="comment">/<sp/><sp/><sp/>771<sp/>-<sp/>KBL</highlight></codeline>
+<codeline lineno="132"><highlight class="comment">/<sp/><sp/><sp/>775<sp/>-<sp/>Baltic</highlight></codeline>
+<codeline lineno="133"><highlight class="comment">/<sp/><sp/><sp/>850<sp/>-<sp/>Latin<sp/>1</highlight></codeline>
+<codeline lineno="134"><highlight class="comment">/<sp/><sp/><sp/>852<sp/>-<sp/>Latin<sp/>2</highlight></codeline>
+<codeline lineno="135"><highlight class="comment">/<sp/><sp/><sp/>855<sp/>-<sp/>Cyrillic</highlight></codeline>
+<codeline lineno="136"><highlight class="comment">/<sp/><sp/><sp/>857<sp/>-<sp/>Turkish</highlight></codeline>
+<codeline lineno="137"><highlight class="comment">/<sp/><sp/><sp/>860<sp/>-<sp/>Portuguese</highlight></codeline>
+<codeline lineno="138"><highlight class="comment">/<sp/><sp/><sp/>861<sp/>-<sp/>Icelandic</highlight></codeline>
+<codeline lineno="139"><highlight class="comment">/<sp/><sp/><sp/>862<sp/>-<sp/>Hebrew</highlight></codeline>
+<codeline lineno="140"><highlight class="comment">/<sp/><sp/><sp/>863<sp/>-<sp/>Canadian<sp/>French</highlight></codeline>
+<codeline lineno="141"><highlight class="comment">/<sp/><sp/><sp/>864<sp/>-<sp/>Arabic</highlight></codeline>
+<codeline lineno="142"><highlight class="comment">/<sp/><sp/><sp/>865<sp/>-<sp/>Nordic</highlight></codeline>
+<codeline lineno="143"><highlight class="comment">/<sp/><sp/><sp/>866<sp/>-<sp/>Russian</highlight></codeline>
+<codeline lineno="144"><highlight class="comment">/<sp/><sp/><sp/>869<sp/>-<sp/>Greek<sp/>2</highlight></codeline>
+<codeline lineno="145"><highlight class="comment">/<sp/><sp/><sp/>932<sp/>-<sp/>Japanese<sp/>(DBCS)</highlight></codeline>
+<codeline lineno="146"><highlight class="comment">/<sp/><sp/><sp/>936<sp/>-<sp/>Simplified<sp/>Chinese<sp/>(DBCS)</highlight></codeline>
+<codeline lineno="147"><highlight class="comment">/<sp/><sp/><sp/>949<sp/>-<sp/>Korean<sp/>(DBCS)</highlight></codeline>
+<codeline lineno="148"><highlight class="comment">/<sp/><sp/><sp/>950<sp/>-<sp/>Traditional<sp/>Chinese<sp/>(DBCS)</highlight></codeline>
+<codeline lineno="149"><highlight class="comment">/<sp/><sp/><sp/><sp/><sp/>0<sp/>-<sp/>Include<sp/>all<sp/>code<sp/>pages<sp/>above<sp/>and<sp/>configured<sp/>by<sp/>f_setcp()</highlight></codeline>
+<codeline lineno="150"><highlight class="comment">*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="151"><highlight class="normal"></highlight></codeline>
+<codeline lineno="152"><highlight class="normal"></highlight></codeline>
+<codeline lineno="153"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>FILE_SYSTEM_USE_LFN</highlight></codeline>
+<codeline lineno="154"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>FF_USE_LFN<sp/><sp/><sp/><sp/><sp/><sp/>FILE_SYSTEM_USE_LFN<sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>0<sp/>to<sp/>3<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="155"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="156"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>FF_USE_LFN<sp/><sp/><sp/><sp/><sp/><sp/>0<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>0<sp/>to<sp/>3<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="157"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="158"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>FF_MAX_LFN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>255</highlight></codeline>
+<codeline lineno="159"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>The<sp/>FF_USE_LFN<sp/>switches<sp/>the<sp/>support<sp/>for<sp/>LFN<sp/>(long<sp/>file<sp/>name).</highlight></codeline>
+<codeline lineno="160"><highlight class="comment">/</highlight></codeline>
+<codeline lineno="161"><highlight class="comment">/<sp/><sp/><sp/>0:<sp/>Disable<sp/>LFN.<sp/>FF_MAX_LFN<sp/>has<sp/>no<sp/>effect.</highlight></codeline>
+<codeline lineno="162"><highlight class="comment">/<sp/><sp/><sp/>1:<sp/>Enable<sp/>LFN<sp/>with<sp/>static<sp/>working<sp/>buffer<sp/>on<sp/>the<sp/>BSS.<sp/>Always<sp/>NOT<sp/>thread-safe.</highlight></codeline>
+<codeline lineno="163"><highlight class="comment">/<sp/><sp/><sp/>2:<sp/>Enable<sp/>LFN<sp/>with<sp/>dynamic<sp/>working<sp/>buffer<sp/>on<sp/>the<sp/>STACK.</highlight></codeline>
+<codeline lineno="164"><highlight class="comment">/<sp/><sp/><sp/>3:<sp/>Enable<sp/>LFN<sp/>with<sp/>dynamic<sp/>working<sp/>buffer<sp/>on<sp/>the<sp/>HEAP.</highlight></codeline>
+<codeline lineno="165"><highlight class="comment">/</highlight></codeline>
+<codeline lineno="166"><highlight class="comment">/<sp/><sp/>To<sp/>enable<sp/>the<sp/>LFN,<sp/>ffunicode.c<sp/>needs<sp/>to<sp/>be<sp/>added<sp/>to<sp/>the<sp/>project.<sp/>The<sp/>LFN<sp/>feature</highlight></codeline>
+<codeline lineno="167"><highlight class="comment">/<sp/><sp/>requiers<sp/>certain<sp/>internal<sp/>working<sp/>buffer<sp/>occupies<sp/>(FF_MAX_LFN<sp/>+<sp/>1)<sp/>*<sp/>2<sp/>bytes<sp/>and</highlight></codeline>
+<codeline lineno="168"><highlight class="comment">/<sp/><sp/>additional<sp/>(FF_MAX_LFN<sp/>+<sp/>44)<sp/>/<sp/>15<sp/>*<sp/>32<sp/>bytes<sp/>when<sp/>exFAT<sp/>is<sp/>enabled.</highlight></codeline>
+<codeline lineno="169"><highlight class="comment">/<sp/><sp/>The<sp/>FF_MAX_LFN<sp/>defines<sp/>size<sp/>of<sp/>the<sp/>working<sp/>buffer<sp/>in<sp/>UTF-16<sp/>code<sp/>unit<sp/>and<sp/>it<sp/>can</highlight></codeline>
+<codeline lineno="170"><highlight class="comment">/<sp/><sp/>be<sp/>in<sp/>range<sp/>of<sp/>12<sp/>to<sp/>255.<sp/>It<sp/>is<sp/>recommended<sp/>to<sp/>be<sp/>set<sp/>255<sp/>to<sp/>fully<sp/>support<sp/>the<sp/>LFN</highlight></codeline>
+<codeline lineno="171"><highlight class="comment">/<sp/><sp/>specification.</highlight></codeline>
+<codeline lineno="172"><highlight class="comment">/<sp/><sp/>When<sp/>use<sp/>stack<sp/>for<sp/>the<sp/>working<sp/>buffer,<sp/>take<sp/>care<sp/>on<sp/>stack<sp/>overflow.<sp/>When<sp/>use<sp/>heap</highlight></codeline>
+<codeline lineno="173"><highlight class="comment">/<sp/><sp/>memory<sp/>for<sp/>the<sp/>working<sp/>buffer,<sp/>memory<sp/>management<sp/>functions,<sp/>ff_memalloc()<sp/>and</highlight></codeline>
+<codeline lineno="174"><highlight class="comment">/<sp/><sp/>ff_memfree()<sp/>exemplified<sp/>in<sp/>ffsystem.c,<sp/>need<sp/>to<sp/>be<sp/>added<sp/>to<sp/>the<sp/>project.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="175"><highlight class="normal"></highlight></codeline>
+<codeline lineno="176"><highlight class="normal"></highlight></codeline>
+<codeline lineno="177"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>FF_LFN_UNICODE<sp/><sp/>0</highlight></codeline>
+<codeline lineno="178"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>This<sp/>option<sp/>switches<sp/>the<sp/>character<sp/>encoding<sp/>on<sp/>the<sp/>API<sp/>when<sp/>LFN<sp/>is<sp/>enabled.</highlight></codeline>
+<codeline lineno="179"><highlight class="comment">/</highlight></codeline>
+<codeline lineno="180"><highlight class="comment">/<sp/><sp/><sp/>0:<sp/>ANSI/OEM<sp/>in<sp/>current<sp/>CP<sp/>(TCHAR<sp/>=<sp/>char)</highlight></codeline>
+<codeline lineno="181"><highlight class="comment">/<sp/><sp/><sp/>1:<sp/>Unicode<sp/>in<sp/>UTF-16<sp/>(TCHAR<sp/>=<sp/>WCHAR)</highlight></codeline>
+<codeline lineno="182"><highlight class="comment">/<sp/><sp/><sp/>2:<sp/>Unicode<sp/>in<sp/>UTF-8<sp/>(TCHAR<sp/>=<sp/>char)</highlight></codeline>
+<codeline lineno="183"><highlight class="comment">/<sp/><sp/><sp/>3:<sp/>Unicode<sp/>in<sp/>UTF-32<sp/>(TCHAR<sp/>=<sp/>DWORD)</highlight></codeline>
+<codeline lineno="184"><highlight class="comment">/</highlight></codeline>
+<codeline lineno="185"><highlight class="comment">/<sp/><sp/>Also<sp/>behavior<sp/>of<sp/>string<sp/>I/O<sp/>functions<sp/>will<sp/>be<sp/>affected<sp/>by<sp/>this<sp/>option.</highlight></codeline>
+<codeline lineno="186"><highlight class="comment">/<sp/><sp/>When<sp/>LFN<sp/>is<sp/>not<sp/>enabled,<sp/>this<sp/>option<sp/>has<sp/>no<sp/>effect.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="187"><highlight class="normal"></highlight></codeline>
+<codeline lineno="188"><highlight class="normal"></highlight></codeline>
+<codeline lineno="189"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>FF_LFN_BUF<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>255</highlight></codeline>
+<codeline lineno="190"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>FF_SFN_BUF<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>12</highlight></codeline>
+<codeline lineno="191"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>This<sp/>set<sp/>of<sp/>options<sp/>defines<sp/>size<sp/>of<sp/>file<sp/>name<sp/>members<sp/>in<sp/>the<sp/>FILINFO<sp/>structure</highlight></codeline>
+<codeline lineno="192"><highlight class="comment">/<sp/><sp/>which<sp/>is<sp/>used<sp/>to<sp/>read<sp/>out<sp/>directory<sp/>items.<sp/>These<sp/>values<sp/>should<sp/>be<sp/>suffcient<sp/>for</highlight></codeline>
+<codeline lineno="193"><highlight class="comment">/<sp/><sp/>the<sp/>file<sp/>names<sp/>to<sp/>read.<sp/>The<sp/>maximum<sp/>possible<sp/>length<sp/>of<sp/>the<sp/>read<sp/>file<sp/>name<sp/>depends</highlight></codeline>
+<codeline lineno="194"><highlight class="comment">/<sp/><sp/>on<sp/>character<sp/>encoding.<sp/>When<sp/>LFN<sp/>is<sp/>not<sp/>enabled,<sp/>these<sp/>options<sp/>have<sp/>no<sp/>effect.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="195"><highlight class="normal"></highlight></codeline>
+<codeline lineno="196"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>FILE_SYSTEM_SET_FS_RPATH</highlight></codeline>
+<codeline lineno="197"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#if<sp/>FILE_SYSTEM_SET_FS_RPATH<sp/>==<sp/>0</highlight></codeline>
+<codeline lineno="198"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>FF_FS_RPATH<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0U</highlight></codeline>
+<codeline lineno="199"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#elif<sp/>FILE_SYSTEM_SET_FS_RPATH<sp/>==<sp/>1</highlight></codeline>
+<codeline lineno="200"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>FF_FS_RPATH<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1U</highlight></codeline>
+<codeline lineno="201"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#elif<sp/>FILE_SYSTEM_SET_FS_RPATH<sp/>==<sp/>2</highlight></codeline>
+<codeline lineno="202"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>FF_FS_RPATH<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>2U</highlight></codeline>
+<codeline lineno="203"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="204"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="205"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>FF_FS_RPATH<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0U</highlight></codeline>
+<codeline lineno="206"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="207"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>This<sp/>option<sp/>configures<sp/>support<sp/>for<sp/>relative<sp/>path<sp/>feature.</highlight></codeline>
+<codeline lineno="208"><highlight class="comment">/</highlight></codeline>
+<codeline lineno="209"><highlight class="comment">/<sp/><sp/><sp/>0:<sp/>Disable<sp/>relative<sp/>path<sp/>and<sp/>remove<sp/>related<sp/>API<sp/>functions.</highlight></codeline>
+<codeline lineno="210"><highlight class="comment">/<sp/><sp/><sp/>1:<sp/>Enable<sp/>relative<sp/>path<sp/>and<sp/>dot<sp/>names.<sp/>f_chdir()<sp/>and<sp/>f_chdrive()<sp/>are<sp/>available.</highlight></codeline>
+<codeline lineno="211"><highlight class="comment">/<sp/><sp/><sp/>2:<sp/>f_getcwd()<sp/>is<sp/>available<sp/>in<sp/>addition<sp/>to<sp/>1.</highlight></codeline>
+<codeline lineno="212"><highlight class="comment">*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="213"><highlight class="normal"></highlight></codeline>
+<codeline lineno="214"><highlight class="normal"></highlight></codeline>
+<codeline lineno="215"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>FF_PATH_DEPTH<sp/><sp/><sp/>10</highlight></codeline>
+<codeline lineno="216"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/><sp/>This<sp/>option<sp/>defines<sp/>maximum<sp/>depth<sp/>of<sp/>directory<sp/>in<sp/>the<sp/>exFAT<sp/>volume.<sp/>It<sp/>is<sp/>NOT</highlight></codeline>
+<codeline lineno="217"><highlight class="comment">/<sp/><sp/><sp/>relevant<sp/>to<sp/>FAT/FAT32<sp/>volume.</highlight></codeline>
+<codeline lineno="218"><highlight class="comment">/<sp/><sp/><sp/>For<sp/>example,<sp/>FF_PATH_DEPTH<sp/>=<sp/>3<sp/>will<sp/>able<sp/>to<sp/>follow<sp/>a<sp/>path<sp/>&quot;/dir1/dir2/dir3/file&quot;</highlight></codeline>
+<codeline lineno="219"><highlight class="comment">/<sp/><sp/><sp/>but<sp/>a<sp/>sub-directory<sp/>in<sp/>the<sp/>dir3<sp/>will<sp/>not<sp/>able<sp/>to<sp/>be<sp/>followed<sp/>and<sp/>set<sp/>current</highlight></codeline>
+<codeline lineno="220"><highlight class="comment">/<sp/><sp/><sp/>directory.</highlight></codeline>
+<codeline lineno="221"><highlight class="comment">/<sp/><sp/><sp/>The<sp/>size<sp/>of<sp/>filesystem<sp/>object<sp/>(FATFS)<sp/>increases<sp/>FF_PATH_DEPTH<sp/>*<sp/>24<sp/>bytes.</highlight></codeline>
+<codeline lineno="222"><highlight class="comment">/<sp/><sp/><sp/>When<sp/>FF_FS_EXFAT<sp/>==<sp/>0<sp/>or<sp/>FF_FS_RPATH<sp/>==<sp/>0,<sp/>this<sp/>option<sp/>has<sp/>no<sp/>effect.</highlight></codeline>
+<codeline lineno="223"><highlight class="comment">*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="224"><highlight class="normal"></highlight></codeline>
+<codeline lineno="225"><highlight class="normal"></highlight></codeline>
+<codeline lineno="226"><highlight class="normal"></highlight></codeline>
+<codeline lineno="227"><highlight class="normal"></highlight><highlight class="comment">/*---------------------------------------------------------------------------/</highlight></codeline>
+<codeline lineno="228"><highlight class="comment">/<sp/>Drive/Volume<sp/>Configurations</highlight></codeline>
+<codeline lineno="229"><highlight class="comment">/---------------------------------------------------------------------------*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="230"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>FF_VOLUMES<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FILE_SYSTEM_NUM_LOGIC_VOL</highlight></codeline>
+<codeline lineno="231"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>Number<sp/>of<sp/>volumes<sp/>(logical<sp/>drives)<sp/>to<sp/>be<sp/>used.<sp/>(1-10)<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="232"><highlight class="normal"></highlight></codeline>
+<codeline lineno="233"><highlight class="normal"></highlight></codeline>
+<codeline lineno="234"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>FF_STR_VOLUME_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0</highlight></codeline>
+<codeline lineno="235"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>FF_VOLUME_STRS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;RAM&quot;,&quot;NAND&quot;,&quot;CF&quot;,&quot;SD&quot;,&quot;SD2&quot;,&quot;USB&quot;,&quot;USB2&quot;,&quot;USB3&quot;</highlight></codeline>
+<codeline lineno="236"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>FF_STR_VOLUME_ID<sp/>switches<sp/>support<sp/>for<sp/>volume<sp/>ID<sp/>in<sp/>arbitrary<sp/>strings.</highlight></codeline>
+<codeline lineno="237"><highlight class="comment">/<sp/><sp/>When<sp/>FF_STR_VOLUME_ID<sp/>is<sp/>set<sp/>to<sp/>1<sp/>or<sp/>2,<sp/>arbitrary<sp/>strings<sp/>can<sp/>be<sp/>used<sp/>as<sp/>drive</highlight></codeline>
+<codeline lineno="238"><highlight class="comment">/<sp/><sp/>number<sp/>in<sp/>the<sp/>path<sp/>name.<sp/>FF_VOLUME_STRS<sp/>defines<sp/>the<sp/>volume<sp/>ID<sp/>strings<sp/>for<sp/>each</highlight></codeline>
+<codeline lineno="239"><highlight class="comment">/<sp/><sp/>logical<sp/>drive.<sp/>Number<sp/>of<sp/>items<sp/>must<sp/>not<sp/>be<sp/>less<sp/>than<sp/>FF_VOLUMES.<sp/>Valid</highlight></codeline>
+<codeline lineno="240"><highlight class="comment">/<sp/><sp/>characters<sp/>for<sp/>the<sp/>volume<sp/>ID<sp/>strings<sp/>are<sp/>A-Z,<sp/>a-z<sp/>and<sp/>0-9,<sp/>however,<sp/>they<sp/>are</highlight></codeline>
+<codeline lineno="241"><highlight class="comment">/<sp/><sp/>compared<sp/>in<sp/>case-insensitive.<sp/>If<sp/>FF_STR_VOLUME_ID<sp/>&gt;=<sp/>1<sp/>and<sp/>FF_VOLUME_STRS<sp/>is</highlight></codeline>
+<codeline lineno="242"><highlight class="comment">/<sp/><sp/>not<sp/>defined,<sp/>a<sp/>user<sp/>defined<sp/>volume<sp/>string<sp/>table<sp/>is<sp/>needed<sp/>as:</highlight></codeline>
+<codeline lineno="243"><highlight class="comment">/</highlight></codeline>
+<codeline lineno="244"><highlight class="comment">/<sp/><sp/>const<sp/>char*<sp/>VolumeStr[FF_VOLUMES]<sp/>=<sp/>{&quot;ram&quot;,&quot;flash&quot;,&quot;sd&quot;,&quot;usb&quot;,...</highlight></codeline>
+<codeline lineno="245"><highlight class="comment">*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="246"><highlight class="normal"></highlight></codeline>
+<codeline lineno="247"><highlight class="normal"></highlight></codeline>
+<codeline lineno="248"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>FILE_SYSTEM_MULTI_PARTITION</highlight></codeline>
+<codeline lineno="249"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>FF_MULTI_PARTITION<sp/><sp/><sp/><sp/><sp/><sp/>1<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>1:Enable<sp/>multiple<sp/>partition<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="250"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="251"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>FF_MULTI_PARTITION<sp/><sp/><sp/><sp/><sp/><sp/>0<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>0:Single<sp/>partition<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="252"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="253"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>This<sp/>option<sp/>switches<sp/>support<sp/>for<sp/>multiple<sp/>volumes<sp/>on<sp/>the<sp/>physical<sp/>drive.</highlight></codeline>
+<codeline lineno="254"><highlight class="comment">/<sp/><sp/>By<sp/>default<sp/>(0),<sp/>each<sp/>logical<sp/>drive<sp/>number<sp/>is<sp/>bound<sp/>to<sp/>the<sp/>same<sp/>physical<sp/>drive</highlight></codeline>
+<codeline lineno="255"><highlight class="comment">/<sp/><sp/>number<sp/>and<sp/>only<sp/>an<sp/>FAT<sp/>volume<sp/>found<sp/>on<sp/>the<sp/>physical<sp/>drive<sp/>will<sp/>be<sp/>mounted.</highlight></codeline>
+<codeline lineno="256"><highlight class="comment">/<sp/><sp/>When<sp/>this<sp/>feature<sp/>is<sp/>enabled<sp/>(1),<sp/>each<sp/>logical<sp/>drive<sp/>number<sp/>can<sp/>be<sp/>bound<sp/>to</highlight></codeline>
+<codeline lineno="257"><highlight class="comment">/<sp/><sp/>arbitrary<sp/>physical<sp/>drive<sp/>and<sp/>partition<sp/>listed<sp/>in<sp/>the<sp/>VolToPart[].<sp/>Also<sp/>f_fdisk()</highlight></codeline>
+<codeline lineno="258"><highlight class="comment">/<sp/><sp/>will<sp/>be<sp/>available.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="259"><highlight class="normal"></highlight></codeline>
+<codeline lineno="260"><highlight class="normal"></highlight></codeline>
+<codeline lineno="261"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>FF_MIN_SS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>512</highlight></codeline>
+<codeline lineno="262"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#ifdef<sp/>XPAR_XUFSPSXC_NUM_INSTANCES</highlight></codeline>
+<codeline lineno="263"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#ifdef<sp/>SDT</highlight></codeline>
+<codeline lineno="264"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>FF_MAX_SS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FILE_SYSTEM_MAX_SECTOR_SIZE</highlight></codeline>
+<codeline lineno="265"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="266"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>FF_MAX_SS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>4096</highlight></codeline>
+<codeline lineno="267"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="268"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="269"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>FF_MAX_SS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>512</highlight></codeline>
+<codeline lineno="270"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="271"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>This<sp/>set<sp/>of<sp/>options<sp/>configures<sp/>the<sp/>range<sp/>of<sp/>sector<sp/>size<sp/>to<sp/>be<sp/>supported.<sp/>(512,</highlight></codeline>
+<codeline lineno="272"><highlight class="comment">/<sp/><sp/>1024,<sp/>2048<sp/>or<sp/>4096)<sp/>Always<sp/>set<sp/>both<sp/>512<sp/>for<sp/>most<sp/>systems,<sp/>generic<sp/>memory<sp/>card<sp/>and</highlight></codeline>
+<codeline lineno="273"><highlight class="comment">/<sp/><sp/>harddisk,<sp/>but<sp/>a<sp/>larger<sp/>value<sp/>may<sp/>be<sp/>required<sp/>for<sp/>on-board<sp/>flash<sp/>memory<sp/>and<sp/>some</highlight></codeline>
+<codeline lineno="274"><highlight class="comment">/<sp/><sp/>type<sp/>of<sp/>optical<sp/>media.<sp/>When<sp/>FF_MAX_SS<sp/>is<sp/>larger<sp/>than<sp/>FF_MIN_SS,<sp/>FatFs<sp/>is</highlight></codeline>
+<codeline lineno="275"><highlight class="comment">/<sp/><sp/>configured<sp/>for<sp/>variable<sp/>sector<sp/>size<sp/>mode<sp/>and<sp/>disk_ioctl()<sp/>needs<sp/>to<sp/>implement</highlight></codeline>
+<codeline lineno="276"><highlight class="comment">/<sp/><sp/>GET_SECTOR_SIZE<sp/>command.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="277"><highlight class="normal"></highlight></codeline>
+<codeline lineno="278"><highlight class="normal"></highlight></codeline>
+<codeline lineno="279"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>FF_LBA64<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0</highlight></codeline>
+<codeline lineno="280"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>This<sp/>option<sp/>switches<sp/>support<sp/>for<sp/>64-bit<sp/>LBA.<sp/>(0:Disable<sp/>or<sp/>1:Enable)</highlight></codeline>
+<codeline lineno="281"><highlight class="comment">/<sp/><sp/>To<sp/>enable<sp/>the<sp/>64-bit<sp/>LBA,<sp/>also<sp/>exFAT<sp/>needs<sp/>to<sp/>be<sp/>enabled.<sp/>(FF_FS_EXFAT<sp/>==<sp/>1)<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="282"><highlight class="normal"></highlight></codeline>
+<codeline lineno="283"><highlight class="normal"></highlight></codeline>
+<codeline lineno="284"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>FF_MIN_GPT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x10000000</highlight></codeline>
+<codeline lineno="285"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>Minimum<sp/>number<sp/>of<sp/>sectors<sp/>to<sp/>switch<sp/>GPT<sp/>as<sp/>partitioning<sp/>format<sp/>in<sp/>f_mkfs<sp/>and</highlight></codeline>
+<codeline lineno="286"><highlight class="comment">/<sp/><sp/>f_fdisk().<sp/>2^32<sp/>sectors<sp/>maximum.<sp/>This<sp/>option<sp/>has<sp/>no<sp/>effect<sp/>when<sp/>FF_LBA64<sp/>==<sp/>0.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="287"><highlight class="normal"></highlight></codeline>
+<codeline lineno="288"><highlight class="normal"></highlight></codeline>
+<codeline lineno="289"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>FILE_SYSTEM_USE_TRIM</highlight></codeline>
+<codeline lineno="290"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>FF_USE_TRIM<sp/><sp/><sp/><sp/><sp/>1</highlight></codeline>
+<codeline lineno="291"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="292"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>FF_USE_TRIM<sp/><sp/><sp/><sp/><sp/>0</highlight></codeline>
+<codeline lineno="293"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="294"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>This<sp/>option<sp/>switches<sp/>support<sp/>for<sp/>ATA-TRIM.<sp/>(0:Disable<sp/>or<sp/>1:Enable)</highlight></codeline>
+<codeline lineno="295"><highlight class="comment">/<sp/><sp/>To<sp/>enable<sp/>this<sp/>feature,<sp/>also<sp/>CTRL_TRIM<sp/>command<sp/>should<sp/>be<sp/>implemented<sp/>to</highlight></codeline>
+<codeline lineno="296"><highlight class="comment">/<sp/><sp/>the<sp/>disk_ioctl().<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="297"><highlight class="normal"></highlight></codeline>
+<codeline lineno="298"><highlight class="normal"></highlight></codeline>
+<codeline lineno="299"><highlight class="normal"></highlight></codeline>
+<codeline lineno="300"><highlight class="normal"></highlight><highlight class="comment">/*---------------------------------------------------------------------------/</highlight></codeline>
+<codeline lineno="301"><highlight class="comment">/<sp/>System<sp/>Configurations</highlight></codeline>
+<codeline lineno="302"><highlight class="comment">/---------------------------------------------------------------------------*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="303"><highlight class="normal"></highlight></codeline>
+<codeline lineno="304"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>FF_FS_TINY<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0</highlight></codeline>
+<codeline lineno="305"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>This<sp/>option<sp/>switches<sp/>tiny<sp/>buffer<sp/>configuration.<sp/>(0:Normal<sp/>or<sp/>1:Tiny)</highlight></codeline>
+<codeline lineno="306"><highlight class="comment">/<sp/><sp/>At<sp/>the<sp/>tiny<sp/>configuration,<sp/>size<sp/>of<sp/>file<sp/>object<sp/>(FIL)<sp/>is<sp/>reduced<sp/>FF_MAX_SS<sp/>bytes.</highlight></codeline>
+<codeline lineno="307"><highlight class="comment">/<sp/><sp/>Instead<sp/>of<sp/>private<sp/>sector<sp/>buffer<sp/>eliminated<sp/>from<sp/>the<sp/>file<sp/>object,<sp/>common<sp/>sector</highlight></codeline>
+<codeline lineno="308"><highlight class="comment">/<sp/><sp/>buffer<sp/>in<sp/>the<sp/>filesystem<sp/>object<sp/>(FATFS)<sp/>is<sp/>used<sp/>for<sp/>the<sp/>file<sp/>data<sp/>transfer.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="309"><highlight class="normal"></highlight></codeline>
+<codeline lineno="310"><highlight class="normal"></highlight></codeline>
+<codeline lineno="311"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>FILE_SYSTEM_FS_EXFAT</highlight></codeline>
+<codeline lineno="312"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>FF_FS_EXFAT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1</highlight></codeline>
+<codeline lineno="313"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="314"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>FF_FS_EXFAT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0</highlight></codeline>
+<codeline lineno="315"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="316"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>This<sp/>option<sp/>switches<sp/>support<sp/>for<sp/>exFAT<sp/>filesystem.<sp/>(0:Disable<sp/>or<sp/>1:Enable)</highlight></codeline>
+<codeline lineno="317"><highlight class="comment">/<sp/><sp/>To<sp/>enable<sp/>exFAT,<sp/>also<sp/>LFN<sp/>needs<sp/>to<sp/>be<sp/>enabled.<sp/>(FF_USE_LFN<sp/>&gt;=<sp/>1)</highlight></codeline>
+<codeline lineno="318"><highlight class="comment">/<sp/><sp/>Note<sp/>that<sp/>enabling<sp/>exFAT<sp/>discards<sp/>ANSI<sp/>C<sp/>(C89)<sp/>compatibility.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="319"><highlight class="normal"></highlight></codeline>
+<codeline lineno="320"><highlight class="normal"></highlight></codeline>
+<codeline lineno="321"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>FF_FS_NORTC<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0</highlight></codeline>
+<codeline lineno="322"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>FF_NORTC_MON<sp/><sp/><sp/><sp/>1</highlight></codeline>
+<codeline lineno="323"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>FF_NORTC_MDAY<sp/><sp/><sp/>1</highlight></codeline>
+<codeline lineno="324"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>FF_NORTC_YEAR<sp/><sp/><sp/>2025</highlight></codeline>
+<codeline lineno="325"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>The<sp/>option<sp/>FF_FS_NORTC<sp/>switches<sp/>timestamp<sp/>feature.<sp/>If<sp/>the<sp/>system<sp/>does<sp/>not<sp/>have</highlight></codeline>
+<codeline lineno="326"><highlight class="comment">/<sp/><sp/>an<sp/>RTC<sp/>or<sp/>valid<sp/>timestamp<sp/>is<sp/>not<sp/>needed,<sp/>set<sp/>FF_FS_NORTC<sp/>=<sp/>1<sp/>to<sp/>disable<sp/>the</highlight></codeline>
+<codeline lineno="327"><highlight class="comment">/<sp/><sp/>timestamp<sp/>feature.<sp/>Every<sp/>object<sp/>modified<sp/>by<sp/>FatFs<sp/>will<sp/>have<sp/>a<sp/>fixed<sp/>timestamp</highlight></codeline>
+<codeline lineno="328"><highlight class="comment">/<sp/><sp/>defined<sp/>by<sp/>FF_NORTC_MON,<sp/>FF_NORTC_MDAY<sp/>and<sp/>FF_NORTC_YEAR<sp/>in<sp/>local<sp/>time.</highlight></codeline>
+<codeline lineno="329"><highlight class="comment">/<sp/><sp/>To<sp/>enable<sp/>timestamp<sp/>function<sp/>(FF_FS_NORTC<sp/>=<sp/>0),<sp/>get_fattime()<sp/>need<sp/>to<sp/>be<sp/>added</highlight></codeline>
+<codeline lineno="330"><highlight class="comment">/<sp/><sp/>to<sp/>the<sp/>project<sp/>to<sp/>read<sp/>current<sp/>time<sp/>form<sp/>real-time<sp/>clock.<sp/>FF_NORTC_MON,</highlight></codeline>
+<codeline lineno="331"><highlight class="comment">/<sp/><sp/>FF_NORTC_MDAY<sp/>and<sp/>FF_NORTC_YEAR<sp/>have<sp/>no<sp/>effect.</highlight></codeline>
+<codeline lineno="332"><highlight class="comment">/<sp/><sp/>These<sp/>options<sp/>have<sp/>no<sp/>effect<sp/>in<sp/>read-only<sp/>configuration<sp/>(FF_FS_READONLY<sp/>=<sp/>1).<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="333"><highlight class="normal"></highlight></codeline>
+<codeline lineno="334"><highlight class="normal"></highlight></codeline>
+<codeline lineno="335"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>FF_FS_CRTIME<sp/><sp/><sp/><sp/>0</highlight></codeline>
+<codeline lineno="336"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>This<sp/>option<sp/>enables(1)/disables(0)<sp/>the<sp/>timestamp<sp/>of<sp/>the<sp/>file<sp/>created.<sp/>When</highlight></codeline>
+<codeline lineno="337"><highlight class="comment">/<sp/><sp/>set<sp/>1,<sp/>the<sp/>file<sp/>created<sp/>time<sp/>is<sp/>available<sp/>in<sp/>FILINFO<sp/>structure.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="338"><highlight class="normal"></highlight></codeline>
+<codeline lineno="339"><highlight class="normal"></highlight></codeline>
+<codeline lineno="340"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>FF_FS_NOFSINFO<sp/><sp/>0</highlight></codeline>
+<codeline lineno="341"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>If<sp/>you<sp/>need<sp/>to<sp/>know<sp/>the<sp/>correct<sp/>free<sp/>space<sp/>on<sp/>the<sp/>FAT32<sp/>volume,<sp/>set<sp/>bit<sp/>0<sp/>of</highlight></codeline>
+<codeline lineno="342"><highlight class="comment">/<sp/><sp/>this<sp/>option,<sp/>and<sp/>f_getfree()<sp/>on<sp/>the<sp/>first<sp/>time<sp/>after<sp/>volume<sp/>mount<sp/>will<sp/>force</highlight></codeline>
+<codeline lineno="343"><highlight class="comment">/<sp/><sp/>a<sp/>full<sp/>FAT<sp/>scan.<sp/>Bit<sp/>1<sp/>controls<sp/>the<sp/>use<sp/>of<sp/>last<sp/>allocated<sp/>cluster<sp/>number.</highlight></codeline>
+<codeline lineno="344"><highlight class="comment">/</highlight></codeline>
+<codeline lineno="345"><highlight class="comment">/<sp/><sp/>bit0=0:<sp/>Use<sp/>free<sp/>cluster<sp/>count<sp/>in<sp/>the<sp/>FSINFO<sp/>if<sp/>available.</highlight></codeline>
+<codeline lineno="346"><highlight class="comment">/<sp/><sp/>bit0=1:<sp/>Do<sp/>not<sp/>trust<sp/>free<sp/>cluster<sp/>count<sp/>in<sp/>the<sp/>FSINFO.</highlight></codeline>
+<codeline lineno="347"><highlight class="comment">/<sp/><sp/>bit1=0:<sp/>Use<sp/>last<sp/>allocated<sp/>cluster<sp/>number<sp/>in<sp/>the<sp/>FSINFO<sp/>if<sp/>available.</highlight></codeline>
+<codeline lineno="348"><highlight class="comment">/<sp/><sp/>bit1=1:<sp/>Do<sp/>not<sp/>trust<sp/>last<sp/>allocated<sp/>cluster<sp/>number<sp/>in<sp/>the<sp/>FSINFO.</highlight></codeline>
+<codeline lineno="349"><highlight class="comment">*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="350"><highlight class="normal"></highlight></codeline>
+<codeline lineno="351"><highlight class="normal"></highlight></codeline>
+<codeline lineno="352"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>FF_FS_LOCK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0</highlight></codeline>
+<codeline lineno="353"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>The<sp/>option<sp/>FF_FS_LOCK<sp/>switches<sp/>file<sp/>lock<sp/>function<sp/>to<sp/>control<sp/>duplicated<sp/>file<sp/>open</highlight></codeline>
+<codeline lineno="354"><highlight class="comment">/<sp/><sp/>and<sp/>illegal<sp/>operation<sp/>to<sp/>open<sp/>objects.<sp/>This<sp/>option<sp/>must<sp/>be<sp/>0<sp/>when<sp/>FF_FS_READONLY</highlight></codeline>
+<codeline lineno="355"><highlight class="comment">/<sp/><sp/>is<sp/>1.</highlight></codeline>
+<codeline lineno="356"><highlight class="comment">/</highlight></codeline>
+<codeline lineno="357"><highlight class="comment">/<sp/><sp/>0:<sp/><sp/>Disable<sp/>file<sp/>lock<sp/>function.<sp/>To<sp/>avoid<sp/>volume<sp/>corruption,<sp/>application<sp/>program</highlight></codeline>
+<codeline lineno="358"><highlight class="comment">/<sp/><sp/><sp/><sp/><sp/><sp/>should<sp/>avoid<sp/>illegal<sp/>open,<sp/>remove<sp/>and<sp/>rename<sp/>to<sp/>the<sp/>open<sp/>objects.</highlight></codeline>
+<codeline lineno="359"><highlight class="comment">/<sp/><sp/>&gt;0:<sp/>Enable<sp/>file<sp/>lock<sp/>function.<sp/>The<sp/>value<sp/>defines<sp/>how<sp/>many<sp/>files/sub-directories</highlight></codeline>
+<codeline lineno="360"><highlight class="comment">/<sp/><sp/><sp/><sp/><sp/><sp/>can<sp/>be<sp/>opened<sp/>simultaneously<sp/>under<sp/>file<sp/>lock<sp/>control.<sp/>Note<sp/>that<sp/>the<sp/>file</highlight></codeline>
+<codeline lineno="361"><highlight class="comment">/<sp/><sp/><sp/><sp/><sp/><sp/>lock<sp/>control<sp/>is<sp/>independent<sp/>of<sp/>re-entrancy.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="362"><highlight class="normal"></highlight></codeline>
+<codeline lineno="363"><highlight class="normal"></highlight></codeline>
+<codeline lineno="364"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>FF_FS_REENTRANT<sp/>0</highlight></codeline>
+<codeline lineno="365"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>FF_FS_TIMEOUT<sp/><sp/><sp/>1000</highlight></codeline>
+<codeline lineno="366"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>The<sp/>option<sp/>FF_FS_REENTRANT<sp/>switches<sp/>the<sp/>re-entrancy<sp/>(thread<sp/>safe)<sp/>of<sp/>the<sp/>FatFs</highlight></codeline>
+<codeline lineno="367"><highlight class="comment">/<sp/><sp/>module<sp/>itself.<sp/>Note<sp/>that<sp/>regardless<sp/>of<sp/>this<sp/>option,<sp/>file<sp/>access<sp/>to<sp/>different</highlight></codeline>
+<codeline lineno="368"><highlight class="comment">/<sp/><sp/>volume<sp/>is<sp/>always<sp/>re-entrant<sp/>and<sp/>volume<sp/>control<sp/>functions,<sp/>f_mount(),<sp/>f_mkfs()</highlight></codeline>
+<codeline lineno="369"><highlight class="comment">/<sp/><sp/>and<sp/>f_fdisk(),<sp/>are<sp/>always<sp/>not<sp/>re-entrant.<sp/>Only<sp/>file/directory<sp/>access<sp/>to</highlight></codeline>
+<codeline lineno="370"><highlight class="comment">/<sp/><sp/>the<sp/>same<sp/>volume<sp/>is<sp/>under<sp/>control<sp/>of<sp/>this<sp/>featuer.</highlight></codeline>
+<codeline lineno="371"><highlight class="comment">/</highlight></codeline>
+<codeline lineno="372"><highlight class="comment">/<sp/><sp/><sp/>0:<sp/>Disable<sp/>re-entrancy.<sp/>FF_FS_TIMEOUT<sp/>have<sp/>no<sp/>effect.</highlight></codeline>
+<codeline lineno="373"><highlight class="comment">/<sp/><sp/><sp/>1:<sp/>Enable<sp/>re-entrancy.<sp/>Also<sp/>user<sp/>provided<sp/>synchronization<sp/>handlers,</highlight></codeline>
+<codeline lineno="374"><highlight class="comment">/<sp/><sp/><sp/><sp/><sp/><sp/>ff_mutex_create(),<sp/>ff_mutex_delete(),<sp/>ff_mutex_take()<sp/>and<sp/>ff_mutex_give(),</highlight></codeline>
+<codeline lineno="375"><highlight class="comment">/<sp/><sp/><sp/><sp/><sp/><sp/>must<sp/>be<sp/>added<sp/>to<sp/>the<sp/>project.<sp/>Samples<sp/>are<sp/>available<sp/>in<sp/>ffsystem.c.</highlight></codeline>
+<codeline lineno="376"><highlight class="comment">/</highlight></codeline>
+<codeline lineno="377"><highlight class="comment">/<sp/><sp/>The<sp/>FF_FS_TIMEOUT<sp/>defines<sp/>timeout<sp/>period<sp/>in<sp/>unit<sp/>of<sp/>O/S<sp/>time<sp/>tick.</highlight></codeline>
+<codeline lineno="378"><highlight class="comment">*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="379"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>FILE_SYSTEM_WORD_ACCESS</highlight></codeline>
+<codeline lineno="380"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>FF_WORD_ACCESS<sp/><sp/>1</highlight></codeline>
+<codeline lineno="381"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="382"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>FF_WORD_ACCESS<sp/><sp/>0</highlight></codeline>
+<codeline lineno="383"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="384"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>The<sp/>FF_WORD_ACCESS<sp/>option<sp/>is<sp/>an<sp/>only<sp/>platform<sp/>dependent<sp/>option.<sp/>It<sp/>defines</highlight></codeline>
+<codeline lineno="385"><highlight class="comment">/<sp/><sp/>which<sp/>access<sp/>method<sp/>is<sp/>used<sp/>to<sp/>the<sp/>word<sp/>data<sp/>on<sp/>the<sp/>FAT<sp/>volume.</highlight></codeline>
+<codeline lineno="386"><highlight class="comment">/</highlight></codeline>
+<codeline lineno="387"><highlight class="comment">/<sp/><sp/><sp/>0:<sp/>Byte-by-byte<sp/>access.<sp/>Always<sp/>compatible<sp/>with<sp/>all<sp/>platforms.</highlight></codeline>
+<codeline lineno="388"><highlight class="comment">/<sp/><sp/><sp/>1:<sp/>Word<sp/>access.<sp/>Do<sp/>not<sp/>choose<sp/>this<sp/>unless<sp/>under<sp/>both<sp/>the<sp/>following<sp/>conditions.</highlight></codeline>
+<codeline lineno="389"><highlight class="comment">/</highlight></codeline>
+<codeline lineno="390"><highlight class="comment">/<sp/><sp/>*<sp/>Address<sp/>misaligned<sp/>memory<sp/>access<sp/>is<sp/>always<sp/>allowed<sp/>for<sp/>ALL<sp/>instructions.</highlight></codeline>
+<codeline lineno="391"><highlight class="comment">/<sp/><sp/>*<sp/>Byte<sp/>order<sp/>on<sp/>the<sp/>memory<sp/>is<sp/>little-endian.</highlight></codeline>
+<codeline lineno="392"><highlight class="comment">/</highlight></codeline>
+<codeline lineno="393"><highlight class="comment">/<sp/><sp/>If<sp/>it<sp/>is<sp/>the<sp/>case,<sp/>FF_WORD_ACCESS<sp/>can<sp/>also<sp/>be<sp/>set<sp/>to<sp/>1<sp/>to<sp/>improve<sp/>performance<sp/>and</highlight></codeline>
+<codeline lineno="394"><highlight class="comment">/<sp/><sp/>reduce<sp/>code<sp/>size.<sp/>Following<sp/>table<sp/>shows<sp/>an<sp/>example<sp/>of<sp/>some<sp/>processor<sp/>types.</highlight></codeline>
+<codeline lineno="395"><highlight class="comment">/</highlight></codeline>
+<codeline lineno="396"><highlight class="comment">/<sp/><sp/><sp/>ARM7TDMI<sp/><sp/><sp/><sp/>0<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ColdFire<sp/><sp/><sp/><sp/>0<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>V850E<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0</highlight></codeline>
+<codeline lineno="397"><highlight class="comment">/<sp/><sp/><sp/>Cortex-M3<sp/><sp/><sp/>0<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Z80<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0/1<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>V850ES<sp/><sp/><sp/><sp/><sp/><sp/>0/1</highlight></codeline>
+<codeline lineno="398"><highlight class="comment">/<sp/><sp/><sp/>Cortex-M0<sp/><sp/><sp/>0<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RX600(LE)<sp/><sp/><sp/>0/1<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TLCS-870<sp/><sp/><sp/><sp/>0/1</highlight></codeline>
+<codeline lineno="399"><highlight class="comment">/<sp/><sp/><sp/>AVR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0/1<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RX600(BE)<sp/><sp/><sp/>0<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TLCS-900<sp/><sp/><sp/><sp/>0/1</highlight></codeline>
+<codeline lineno="400"><highlight class="comment">/<sp/><sp/><sp/>AVR32<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RL78<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>R32C<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0</highlight></codeline>
+<codeline lineno="401"><highlight class="comment">/<sp/><sp/><sp/>PIC18<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0/1<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SH-2<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>M16C<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0/1</highlight></codeline>
+<codeline lineno="402"><highlight class="comment">/<sp/><sp/><sp/>PIC24<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>H8S<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MSP430<sp/><sp/><sp/><sp/><sp/><sp/>0</highlight></codeline>
+<codeline lineno="403"><highlight class="comment">/<sp/><sp/><sp/>PIC32<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>H8/300H<sp/><sp/><sp/><sp/><sp/>0<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>x86<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0/1</highlight></codeline>
+<codeline lineno="404"><highlight class="comment">*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="405"><highlight class="normal"></highlight></codeline>
+<codeline lineno="406"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="407"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="408"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="409"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="410"><highlight class="normal"></highlight><highlight class="comment">/*---<sp/>End<sp/>of<sp/>configuration<sp/>options<sp/>---*/</highlight><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ffconf.h"/>
+  </compounddef>
+</doxygen>

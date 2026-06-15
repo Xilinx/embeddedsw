@@ -1,0 +1,316 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xnvm__bbram__hw_8h" kind="file">
+    <compoundname>xnvm_bbram_hw.h</compoundname>
+    <includedby refid="xnvm__bbram_8c" local="yes">xnvm_bbram.c</includedby>
+    <invincdepgraph>
+      <node id="169">
+        <label>xnvm_bbram_hw.h</label>
+        <link refid="xnvm_bbram_hw.h"/>
+        <childnode refid="170" relation="include">
+        </childnode>
+      </node>
+      <node id="170">
+        <label>xnvm_bbram.c</label>
+        <link refid="xnvm__bbram_8c"/>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="user-defined">
+      <header>BBRAM Controller Base Address</header>
+      <memberdef kind="define" id="xnvm__bbram__hw_8h_1a791e4d21765eb196c6e2819bea01c443" prot="public" static="no">
+        <name>XNVM_BBRAM_BASE_ADDR</name>
+        <initializer>(0xF11F0000U)</initializer>
+        <briefdescription>
+<para>BBRAM Base Address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram_hw.h" line="45" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram_hw.h" bodystart="45" bodyend="-1"/>
+        <referencedby refid="group__xnvm__bbram__server__apis_1ga689df607f805a008e64d9c2a181b2f17" compoundref="xnvm__bbram_8c" startline="364" endline="384">XNvm_BbramZeroize</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>BBRAM Control Register offsets</header>
+      <memberdef kind="define" id="xnvm__bbram__hw_8h_1a7caf87ce570f0ba169e55ce0bd3faf69" prot="public" static="no">
+        <name>XNVM_BBRAM_STATUS_REG</name>
+        <initializer>(0x00U)</initializer>
+        <briefdescription>
+<para>BBRAM Status Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram_hw.h" line="52" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram_hw.h" bodystart="52" bodyend="-1"/>
+        <referencedby refid="group__xnvm__bbram__server__apis_1ga689df607f805a008e64d9c2a181b2f17" compoundref="xnvm__bbram_8c" startline="364" endline="384">XNvm_BbramZeroize</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xnvm__bbram__hw_8h_1ac5e2f0fb82509488c3d0e6f0417bc96e" prot="public" static="no">
+        <name>XNVM_BBRAM_CTRL_REG</name>
+        <initializer>(0x04U)</initializer>
+        <briefdescription>
+<para>BBRAM Control Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram_hw.h" line="53" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram_hw.h" bodystart="53" bodyend="-1"/>
+        <referencedby refid="group__xnvm__bbram__server__apis_1ga689df607f805a008e64d9c2a181b2f17" compoundref="xnvm__bbram_8c" startline="364" endline="384">XNvm_BbramZeroize</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xnvm__bbram__hw_8h_1a6801e42518705030610d149061379da4" prot="public" static="no">
+        <name>XNVM_BBRAM_PGM_MODE_REG</name>
+        <initializer>(0x08U)</initializer>
+        <briefdescription>
+<para>BBRAM Program Mode Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram_hw.h" line="54" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram_hw.h" bodystart="54" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xnvm__bbram__hw_8h_1ace11affedc6517e78ab353885dbd46f5" prot="public" static="no">
+        <name>XNVM_BBRAM_AES_CRC_REG</name>
+        <initializer>(0x0CU)</initializer>
+        <briefdescription>
+<para>BBRAM AES CRC Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram_hw.h" line="55" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram_hw.h" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xnvm__bbram__hw_8h_1a46ecbf17de00ceb1955a2d0d44412533" prot="public" static="no">
+        <name>XNVM_BBRAM_0_REG</name>
+        <initializer>(0x10U)</initializer>
+        <briefdescription>
+<para>BBRAM 0 Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram_hw.h" line="56" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram_hw.h" bodystart="56" bodyend="-1"/>
+        <referencedby refid="group__xnvm__bbram__server__apis_1ga85d604d634dbf207503a9128fee84a50" compoundref="xnvm__bbram_8c" startline="146" endline="214">XNvm_BbramWriteAesKey</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xnvm__bbram__hw_8h_1a9bef32696aa67987c3325cb363a13272" prot="public" static="no">
+        <name>XNVM_BBRAM_8_REG</name>
+        <initializer>(0x30U)</initializer>
+        <briefdescription>
+<para>BBRAM 8 Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram_hw.h" line="57" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram_hw.h" bodystart="57" bodyend="-1"/>
+        <referencedby refid="group__xnvm__bbram__server__apis_1gafcee46d7df5018a118844238cf4e3f65" compoundref="xnvm__bbram_8c" startline="342" endline="353">XNvm_BbramReadUsrData</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xnvm__bbram__hw_8h_1aaab0eca5f9f09e58de06085d9208b118" prot="public" static="no">
+        <name>XNVM_BBRAM_MSW_LOCK_REG</name>
+        <initializer>(0x4CU)</initializer>
+        <briefdescription>
+<para>BBRAM MSW Lock Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram_hw.h" line="58" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram_hw.h" bodystart="58" bodyend="-1"/>
+        <referencedby refid="group__xnvm__bbram__server__apis_1ga3d264db9b87c4fe29a755a02f0bad72f" compoundref="xnvm__bbram_8c" startline="226" endline="245">XNvm_BbramLockUsrDataWrite</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>BBRAM Status Register definition</header>
+      <memberdef kind="define" id="xnvm__bbram__hw_8h_1a88eec70630e98d4d027df42e0735b7cf" prot="public" static="no">
+        <name>XNVM_BBRAM_STATUS_PGM_MODE_DONE</name>
+        <initializer>((u32)0x01U &lt;&lt; 0U)</initializer>
+        <briefdescription>
+<para>BBRAM Program Mode Done mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram_hw.h" line="69" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram_hw.h" bodystart="69" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xnvm__bbram__hw_8h_1a52c1541a393d73c7029173c875f805e3" prot="public" static="no">
+        <name>XNVM_BBRAM_STATUS_ZEROIZED</name>
+        <initializer>((u32)0x01U &lt;&lt; 4U)</initializer>
+        <briefdescription>
+<para>BBRAM Zeroized mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram_hw.h" line="70" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram_hw.h" bodystart="70" bodyend="-1"/>
+        <referencedby refid="group__xnvm__bbram__server__apis_1ga689df607f805a008e64d9c2a181b2f17" compoundref="xnvm__bbram_8c" startline="364" endline="384">XNvm_BbramZeroize</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xnvm__bbram__hw_8h_1a8a0373f4e0a98947ed17db7a5705d19f" prot="public" static="no">
+        <name>XNVM_BBRAM_STATUS_AES_CRC_DONE</name>
+        <initializer>((u32)0x01U &lt;&lt; 8U)</initializer>
+        <briefdescription>
+<para>BBRAM AES CRC Done mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram_hw.h" line="71" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram_hw.h" bodystart="71" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xnvm__bbram__hw_8h_1adc88865275489175d0b41ffa70d5adda" prot="public" static="no">
+        <name>XNVM_BBRAM_STATUS_AES_CRC_PASS</name>
+        <initializer>((u32)0x01U &lt;&lt; 9U)</initializer>
+        <briefdescription>
+<para>BBRAM AES CRC Pass mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram_hw.h" line="72" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram_hw.h" bodystart="72" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>CTRL register</header>
+      <memberdef kind="define" id="xnvm__bbram__hw_8h_1a065b3b8d7d6be2ebeffb4974df61863f" prot="public" static="no">
+        <name>XNVM_BBRAM_CTRL_START_ZEROIZE</name>
+        <initializer>((u32)0x01U &lt;&lt; 0U)</initializer>
+        <briefdescription>
+<para>BBRAM Start Zeroize mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram_hw.h" line="79" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram_hw.h" bodystart="79" bodyend="-1"/>
+        <referencedby refid="group__xnvm__bbram__server__apis_1ga689df607f805a008e64d9c2a181b2f17" compoundref="xnvm__bbram_8c" startline="364" endline="384">XNvm_BbramZeroize</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>PGM_MODE register</header>
+      <memberdef kind="define" id="xnvm__bbram__hw_8h_1af9030aadc91b57ba2036c0aa7c81fdc2" prot="public" static="no">
+        <name>XNVM_EFUSE_PGM_MODE_PASSCODE</name>
+        <initializer>(0x757BDF0DU)</initializer>
+        <briefdescription>
+<para>PGM_MODE Passcode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram_hw.h" line="86" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram_hw.h" bodystart="86" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>MSW_LOCK register definition</header>
+      <memberdef kind="define" id="xnvm__bbram__hw_8h_1a6d26b912dbfc8709d217f9dc3b0f6b15" prot="public" static="no">
+        <name>XNVM_BBRAM_MSW_LOCK</name>
+        <initializer>((u32)0x01U &lt;&lt; 0U)</initializer>
+        <briefdescription>
+<para>BBRAM MSW LOCK Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram_hw.h" line="93" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram_hw.h" bodystart="93" bodyend="-1"/>
+        <referencedby refid="group__xnvm__bbram__server__apis_1ga3d264db9b87c4fe29a755a02f0bad72f" compoundref="xnvm__bbram_8c" startline="226" endline="245">XNvm_BbramLockUsrDataWrite</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Timeout in term of number of times status register polled</header>
+      <memberdef kind="define" id="xnvm__bbram__hw_8h_1a6c2c8d46a75c721ed4bd0893f796030e" prot="public" static="no">
+        <name>XNVM_BBRAM_PGM_MODE_TIMEOUT_VAL</name>
+        <initializer>(0x400U)</initializer>
+        <briefdescription>
+<para>PGM_MODE Timeout. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram_hw.h" line="100" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram_hw.h" bodystart="100" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xnvm__bbram__hw_8h_1afd414f959c99e9ec202ad998ea1a85f4" prot="public" static="no">
+        <name>XNVM_BBRAM_AES_CRC_DONE_TIMEOUT_VAL</name>
+        <initializer>(0x400U)</initializer>
+        <briefdescription>
+<para>CRC_DONE Timeout. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram_hw.h" line="101" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram_hw.h" bodystart="101" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xnvm__bbram__hw_8h_1ae0eba09038fae11350f11f17bd2348f9" prot="public" static="no">
+        <name>XNVM_BBRAM_ZEROIZE_TIMEOUT_VAL</name>
+        <initializer>(0x400U)</initializer>
+        <briefdescription>
+<para>ZEROIZE Timeout. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram_hw.h" line="102" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram_hw.h" bodystart="102" bodyend="-1"/>
+        <referencedby refid="group__xnvm__bbram__server__apis_1ga689df607f805a008e64d9c2a181b2f17" compoundref="xnvm__bbram_8c" startline="364" endline="384">XNvm_BbramZeroize</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file contains NVM library BBRAM modules hardware register definitions. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date        Changes
+<hruler/>
+
+1.0   mmd  04/01/2019 Initial release
+2.1     am   08/19/2020 Resolved MISRA C violations.
+2.4   kal  07/13/2021 Fixed doxygen warnings
+3.1   skg  10/23/2022 Added comments for macros
+3.3   ng   11/22/2023 Fixed doxygen grouping
+3.5   har  03/13/2025 Added XNVM_BBRAM_8_MEM_REG macro definition</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/*******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2019<sp/>-<sp/>2021<sp/>Xilinx,<sp/>Inc.<sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">*******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="30"><highlight class="preprocessor">#ifndef<sp/>XNVM_BBRAM_HW_H</highlight></codeline>
+<codeline lineno="31"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XNVM_BBRAM_HW_H</highlight></codeline>
+<codeline lineno="32"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="34"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="36"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="comment">/******************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="comment">/***************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45" refid="xnvm__bbram__hw_8h_1a791e4d21765eb196c6e2819bea01c443" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_BBRAM_BASE_ADDR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xF11F0000U)<sp/></highlight></codeline>
+<codeline lineno="52" refid="xnvm__bbram__hw_8h_1a7caf87ce570f0ba169e55ce0bd3faf69" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_BBRAM_STATUS_REG<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00U)<sp/></highlight></codeline>
+<codeline lineno="53" refid="xnvm__bbram__hw_8h_1ac5e2f0fb82509488c3d0e6f0417bc96e" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_BBRAM_CTRL_REG<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x04U)<sp/></highlight></codeline>
+<codeline lineno="54" refid="xnvm__bbram__hw_8h_1a6801e42518705030610d149061379da4" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_BBRAM_PGM_MODE_REG<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x08U)<sp/></highlight></codeline>
+<codeline lineno="55" refid="xnvm__bbram__hw_8h_1ace11affedc6517e78ab353885dbd46f5" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_BBRAM_AES_CRC_REG<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x0CU)<sp/></highlight></codeline>
+<codeline lineno="56" refid="xnvm__bbram__hw_8h_1a46ecbf17de00ceb1955a2d0d44412533" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_BBRAM_0_REG<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x10U)<sp/></highlight></codeline>
+<codeline lineno="57" refid="xnvm__bbram__hw_8h_1a9bef32696aa67987c3325cb363a13272" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_BBRAM_8_REG<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x30U)<sp/></highlight></codeline>
+<codeline lineno="58" refid="xnvm__bbram__hw_8h_1aaab0eca5f9f09e58de06085d9208b118" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_BBRAM_MSW_LOCK_REG<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x4CU)<sp/></highlight></codeline>
+<codeline lineno="60"><highlight class="preprocessor">#ifdef<sp/>VERSAL_2VE_2VM</highlight></codeline>
+<codeline lineno="61"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XNVM_BBRAM_8_MEM_REG<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x50U)<sp/></highlight></codeline>
+<codeline lineno="62"><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="63"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="69" refid="xnvm__bbram__hw_8h_1a88eec70630e98d4d027df42e0735b7cf" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_BBRAM_STATUS_PGM_MODE_DONE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u32)0x01U<sp/>&lt;&lt;<sp/>0U)<sp/></highlight></codeline>
+<codeline lineno="70" refid="xnvm__bbram__hw_8h_1a52c1541a393d73c7029173c875f805e3" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_BBRAM_STATUS_ZEROIZED<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u32)0x01U<sp/>&lt;&lt;<sp/>4U)<sp/></highlight></codeline>
+<codeline lineno="71" refid="xnvm__bbram__hw_8h_1a8a0373f4e0a98947ed17db7a5705d19f" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_BBRAM_STATUS_AES_CRC_DONE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u32)0x01U<sp/>&lt;&lt;<sp/>8U)<sp/></highlight></codeline>
+<codeline lineno="72" refid="xnvm__bbram__hw_8h_1adc88865275489175d0b41ffa70d5adda" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_BBRAM_STATUS_AES_CRC_PASS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u32)0x01U<sp/>&lt;&lt;<sp/>9U)<sp/></highlight></codeline>
+<codeline lineno="79" refid="xnvm__bbram__hw_8h_1a065b3b8d7d6be2ebeffb4974df61863f" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_BBRAM_CTRL_START_ZEROIZE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u32)0x01U<sp/>&lt;&lt;<sp/>0U)<sp/></highlight></codeline>
+<codeline lineno="86" refid="xnvm__bbram__hw_8h_1af9030aadc91b57ba2036c0aa7c81fdc2" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_PGM_MODE_PASSCODE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x757BDF0DU)<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="93" refid="xnvm__bbram__hw_8h_1a6d26b912dbfc8709d217f9dc3b0f6b15" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_BBRAM_MSW_LOCK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u32)0x01U<sp/>&lt;&lt;<sp/>0U)<sp/></highlight></codeline>
+<codeline lineno="100" refid="xnvm__bbram__hw_8h_1a6c2c8d46a75c721ed4bd0893f796030e" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_BBRAM_PGM_MODE_TIMEOUT_VAL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x400U)<sp/></highlight></codeline>
+<codeline lineno="101" refid="xnvm__bbram__hw_8h_1afd414f959c99e9ec202ad998ea1a85f4" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_BBRAM_AES_CRC_DONE_TIMEOUT_VAL<sp/><sp/><sp/><sp/><sp/>(0x400U)<sp/></highlight></codeline>
+<codeline lineno="102" refid="xnvm__bbram__hw_8h_1ae0eba09038fae11350f11f17bd2348f9" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_BBRAM_ZEROIZE_TIMEOUT_VAL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x400U)<sp/></highlight></codeline>
+<codeline lineno="105"><highlight class="preprocessor"></highlight><highlight class="comment">/*****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="106"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="107"><highlight class="normal"></highlight><highlight class="comment">/******************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="108"><highlight class="normal"></highlight></codeline>
+<codeline lineno="109"><highlight class="normal"></highlight><highlight class="comment">/***************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="110"><highlight class="normal"></highlight></codeline>
+<codeline lineno="111"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="112"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="114"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="115"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram_hw.h"/>
+  </compounddef>
+</doxygen>

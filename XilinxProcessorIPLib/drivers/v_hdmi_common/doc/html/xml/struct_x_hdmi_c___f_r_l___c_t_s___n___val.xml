@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_hdmi_c___f_r_l___c_t_s___n___val" kind="struct" prot="public">
+    <compoundname>XHdmiC_FRL_CTS_N_Val</compoundname>
+    <includes local="no">xv_hdmic.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_hdmi_c___f_r_l___c_t_s___n___val_1a828844c9ffcff2bcb5d52b164bd3b233" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XHdmiC_FRL_CTS_N_Val::ACR_CTSVal</definition>
+        <argsstring></argsstring>
+        <name>ACR_CTSVal</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="421" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" bodystart="421" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmi_c___f_r_l___c_t_s___n___val_1a8ac22afc378f0343d28844f46e5fb275" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XHdmiC_FRL_CTS_N_Val::ACR_NVal[6]</definition>
+        <argsstring>[6]</argsstring>
+        <name>ACR_NVal</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="422" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" bodystart="422" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>FRL CTS/N Value Table. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="420" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" bodystart="420" bodyend="423"/>
+    <listofallmembers>
+      <member refid="struct_x_hdmi_c___f_r_l___c_t_s___n___val_1a828844c9ffcff2bcb5d52b164bd3b233" prot="public" virt="non-virtual"><scope>XHdmiC_FRL_CTS_N_Val</scope><name>ACR_CTSVal</name></member>
+      <member refid="struct_x_hdmi_c___f_r_l___c_t_s___n___val_1a8ac22afc378f0343d28844f46e5fb275" prot="public" virt="non-virtual"><scope>XHdmiC_FRL_CTS_N_Val</scope><name>ACR_NVal</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

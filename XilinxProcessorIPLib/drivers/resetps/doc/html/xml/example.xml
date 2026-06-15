@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="example" kind="page">
+    <compoundname>example</compoundname>
+    <title>Examples</title>
+    <detaileddescription>
+<para>You can refer to the below stated example applications for more details on how to use resetps driver.</para><sect1 id="example_1ex3">
+<title>xresetps_example.c</title>
+<para>Contains an example on how to use the XResetps driver directly. This example resets multiple peripheral block. A list of peripheral to be reset is maintained. It modifies the peripheral&apos;s register value, then resets the peripheral and then validates the register&apos;s value with reset value.</para><para>For details, see xresetps_i2c_reset_only_example.c. </para></sect1>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

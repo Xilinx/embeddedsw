@@ -1,0 +1,773 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xmmidp__intr_8c" kind="file">
+    <compoundname>xmmidp_intr.c</compoundname>
+    <includes local="no">stdlib.h</includes>
+    <includes local="no">xstatus.h</includes>
+    <includes local="no">sleep.h</includes>
+    <includes refid="xmmidp_8h" local="yes">xmmidp.h</includes>
+    <incdepgraph>
+      <node id="27">
+        <label>xil_io.h</label>
+      </node>
+      <node id="24">
+        <label>sleep.h</label>
+      </node>
+      <node id="22">
+        <label>stdlib.h</label>
+      </node>
+      <node id="21">
+        <label>xmmidp_intr.c</label>
+        <link refid="xmmidp_intr.c"/>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+      </node>
+      <node id="26">
+        <label>xmmidp_hw.h</label>
+        <link refid="xmmidp__hw_8h"/>
+        <childnode refid="27" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+      </node>
+      <node id="23">
+        <label>xstatus.h</label>
+      </node>
+      <node id="25">
+        <label>xmmidp.h</label>
+        <link refid="xmmidp_8h"/>
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
+        </childnode>
+      </node>
+      <node id="29">
+        <label>xvidc.h</label>
+      </node>
+      <node id="28">
+        <label>xil_types.h</label>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__mmi__dppsu14_1gad9754b10ec09c4a56d928cd8471c0ae8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XMmiDp_ClearGeneralHpdEvent</definition>
+        <argsstring>(XMmiDp *InstancePtr)</argsstring>
+        <name>XMmiDp_ClearGeneralHpdEvent</name>
+        <param>
+          <type><ref refid="struct_x_mmi_dp" kindref="compound">XMmiDp</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function clears XMMIDP_GENERAL_INT0 HPD_EVENT bit. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_mmi_dp" kindref="compound">XMmiDp</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_intr.c" line="42" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_intr.c" bodystart="42" bodyend="53"/>
+        <references refid="xmmidp__hw_8h_1ac791e9180f79c5c5948a4e0d7f1ee365" compoundref="xmmidp__hw_8h" startline="529">XMMIDP_GEN_INT0</references>
+        <references refid="xmmidp__hw_8h_1a16f691f61c7261a5bd549161e56b6dd6" compoundref="xmmidp__hw_8h" startline="1976">XMmiDp_ReadReg</references>
+        <references refid="xmmidp__hw_8h_1a62cbf3cd69b9c70a14a1943ad14e6312" compoundref="xmmidp__hw_8h" startline="1993">XMmiDp_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__mmi__dppsu14_1ga6ebd233236c66009d61247de41bb69bb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XMmiDp_GeneralInterruptEnable</definition>
+        <argsstring>(XMmiDp *InstancePtr, u32 Mask)</argsstring>
+        <name>XMmiDp_GeneralInterruptEnable</name>
+        <param>
+          <type><ref refid="struct_x_mmi_dp" kindref="compound">XMmiDp</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Mask</declname>
+        </param>
+        <briefdescription>
+<para>This function enables XMMIDP_GENERAL_INTERRUPT_0 bits based on the mask. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_mmi_dp" kindref="compound">XMmiDp</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>specifies the interrupt bits to enable</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_intr.c" line="66" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_intr.c" bodystart="66" bodyend="76"/>
+        <references refid="xmmidp__hw_8h_1a791d91833b14090f6d757bd1d1260590" compoundref="xmmidp__hw_8h" startline="620">XMMIDP_GEN_INT_ENABLE0</references>
+        <references refid="xmmidp__hw_8h_1a16f691f61c7261a5bd549161e56b6dd6" compoundref="xmmidp__hw_8h" startline="1976">XMmiDp_ReadReg</references>
+        <references refid="xmmidp__hw_8h_1a62cbf3cd69b9c70a14a1943ad14e6312" compoundref="xmmidp__hw_8h" startline="1993">XMmiDp_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__mmi__dppsu14_1ga5b83c2480de23efa469ff14a2660bb24" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XMmiDp_HpdInterruptEnable</definition>
+        <argsstring>(XMmiDp *InstancePtr, u32 Mask)</argsstring>
+        <name>XMmiDp_HpdInterruptEnable</name>
+        <param>
+          <type><ref refid="struct_x_mmi_dp" kindref="compound">XMmiDp</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Mask</declname>
+        </param>
+        <briefdescription>
+<para>This function enables XMMIDP_HPD_INTERRUPT_ENABLE bits based on the mask. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_mmi_dp" kindref="compound">XMmiDp</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>specifies the interrupt bits to enable</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_intr.c" line="90" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_intr.c" bodystart="90" bodyend="100"/>
+        <references refid="xmmidp__hw_8h_1a16f691f61c7261a5bd549161e56b6dd6" compoundref="xmmidp__hw_8h" startline="1976">XMmiDp_ReadReg</references>
+        <references refid="xmmidp__hw_8h_1a62cbf3cd69b9c70a14a1943ad14e6312" compoundref="xmmidp__hw_8h" startline="1993">XMmiDp_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__mmi__dppsu14_1ga5dab35dcbbeb3de888b5eb30208af90c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XMmiDp_GeneralInterruptDisable</definition>
+        <argsstring>(XMmiDp *InstancePtr, u32 Mask)</argsstring>
+        <name>XMmiDp_GeneralInterruptDisable</name>
+        <param>
+          <type><ref refid="struct_x_mmi_dp" kindref="compound">XMmiDp</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Mask</declname>
+        </param>
+        <briefdescription>
+<para>This function disables XMMIDP_GENERAL_INTERRUPT_0 bits based on the mask. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_mmi_dp" kindref="compound">XMmiDp</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>specifies the interrupt bits to disable</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_intr.c" line="114" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_intr.c" bodystart="114" bodyend="124"/>
+        <references refid="xmmidp__hw_8h_1a791d91833b14090f6d757bd1d1260590" compoundref="xmmidp__hw_8h" startline="620">XMMIDP_GEN_INT_ENABLE0</references>
+        <references refid="xmmidp__hw_8h_1a16f691f61c7261a5bd549161e56b6dd6" compoundref="xmmidp__hw_8h" startline="1976">XMmiDp_ReadReg</references>
+        <references refid="xmmidp__hw_8h_1a62cbf3cd69b9c70a14a1943ad14e6312" compoundref="xmmidp__hw_8h" startline="1993">XMmiDp_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__mmi__dppsu14_1ga7cfd65b23a054d8824a30bf6dbb6d180" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XMmiDp_HpdInterruptDisable</definition>
+        <argsstring>(XMmiDp *InstancePtr, u32 Mask)</argsstring>
+        <name>XMmiDp_HpdInterruptDisable</name>
+        <param>
+          <type><ref refid="struct_x_mmi_dp" kindref="compound">XMmiDp</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Mask</declname>
+        </param>
+        <briefdescription>
+<para>This function disables XMMIDP_HPD_INTERRUPT_ENABLE bits based on the mask. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_mmi_dp" kindref="compound">XMmiDp</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>specifies the interrupt bits to disable</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_intr.c" line="138" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_intr.c" bodystart="138" bodyend="148"/>
+        <references refid="xmmidp__hw_8h_1a16f691f61c7261a5bd549161e56b6dd6" compoundref="xmmidp__hw_8h" startline="1976">XMmiDp_ReadReg</references>
+        <references refid="xmmidp__hw_8h_1a62cbf3cd69b9c70a14a1943ad14e6312" compoundref="xmmidp__hw_8h" startline="1993">XMmiDp_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__mmi__dppsu14_1gafacb1150b31fe739bafb1a9700fcf364" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XMmiDp_SetHpdIrqHandler</definition>
+        <argsstring>(XMmiDp *InstancePtr, XMmiDp_HpdIrqHandler CallbackFunc, void *CallbackRef)</argsstring>
+        <name>XMmiDp_SetHpdIrqHandler</name>
+        <param>
+          <type><ref refid="struct_x_mmi_dp" kindref="compound">XMmiDp</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>XMmiDp_HpdIrqHandler</type>
+          <declname>CallbackFunc</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>CallbackRef</declname>
+        </param>
+        <briefdescription>
+<para>This function installs a callback function for when a hpd irq event interrupt occurs. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_mmi_dp" kindref="compound">XMmiDp</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CallbackFunc</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the address to the callback function. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CallbackRef</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the user data item that will be passed to the callback function when it is invoked.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_intr.c" line="165" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_intr.c" bodystart="165" bodyend="177"/>
+      </memberdef>
+      <memberdef kind="function" id="group__mmi__dppsu14_1ga452745fcf9e70884ef210a221f6f4e62" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XMmiDp_SetHpdHotPlugHandler</definition>
+        <argsstring>(XMmiDp *InstancePtr, XMmiDp_HpdHotPlugHandler CallbackFunc, void *CallbackRef)</argsstring>
+        <name>XMmiDp_SetHpdHotPlugHandler</name>
+        <param>
+          <type><ref refid="struct_x_mmi_dp" kindref="compound">XMmiDp</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>XMmiDp_HpdHotPlugHandler</type>
+          <declname>CallbackFunc</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>CallbackRef</declname>
+        </param>
+        <briefdescription>
+<para>This function installs a callback function for when a hpd hotplug interrupt occurs. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_mmi_dp" kindref="compound">XMmiDp</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CallbackFunc</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the address to the callback function. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CallbackRef</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the user data item that will be passed to the callback function when it is invoked.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_intr.c" line="194" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_intr.c" bodystart="194" bodyend="206"/>
+      </memberdef>
+      <memberdef kind="function" id="group__mmi__dppsu14_1ga65d2fe57b1ad90fa623a777d8dfa33e1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XMmiDp_SetHpdHotUnplugHandler</definition>
+        <argsstring>(XMmiDp *InstancePtr, XMmiDp_HpdHotUnplugHandler CallbackFunc, void *CallbackRef)</argsstring>
+        <name>XMmiDp_SetHpdHotUnplugHandler</name>
+        <param>
+          <type><ref refid="struct_x_mmi_dp" kindref="compound">XMmiDp</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>XMmiDp_HpdHotUnplugHandler</type>
+          <declname>CallbackFunc</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>CallbackRef</declname>
+        </param>
+        <briefdescription>
+<para>This function installs a callback function for when a hpd hot unplug interrupt occurs. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_mmi_dp" kindref="compound">XMmiDp</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CallbackFunc</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the address to the callback function. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CallbackRef</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the user data item that will be passed to the callback function when it is invoked.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_intr.c" line="223" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_intr.c" bodystart="223" bodyend="235"/>
+      </memberdef>
+      <memberdef kind="function" id="group__mmi__dppsu14_1ga3a1716c1aca49a915c57d0f3ddfbb57a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XMmiDp_HpdInterruptHandler</definition>
+        <argsstring>(XMmiDp *InstancePtr)</argsstring>
+        <name>XMmiDp_HpdInterruptHandler</name>
+        <param>
+          <type><ref refid="struct_x_mmi_dp" kindref="compound">XMmiDp</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function is the HPD Event interrupt handler for the <ref refid="struct_x_mmi_dp" kindref="compound">XMmiDp</ref> driver. </para>        </briefdescription>
+        <detaileddescription>
+<para>When an interrupt happens, it first detects what kind of interrupt happened, then decides which callback function to invoke.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_mmi_dp" kindref="compound">XMmiDp</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_intr.c" line="251" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_intr.c" bodystart="251" bodyend="310"/>
+        <references refid="xmmidp__hw_8h_1a16f691f61c7261a5bd549161e56b6dd6" compoundref="xmmidp__hw_8h" startline="1976">XMmiDp_ReadReg</references>
+        <references refid="xmmidp__hw_8h_1a62cbf3cd69b9c70a14a1943ad14e6312" compoundref="xmmidp__hw_8h" startline="1993">XMmiDp_WriteReg</references>
+        <referencedby refid="group__mmi__dppsu14_1ga8c43b5a33dff29be895b4e58c810285c" compoundref="xmmidp__intr_8c" startline="325" endline="390">XMmiDp_GeneralInterruptHandler</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__mmi__dppsu14_1ga8c43b5a33dff29be895b4e58c810285c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XMmiDp_GeneralInterruptHandler</definition>
+        <argsstring>(XMmiDp *InstancePtr)</argsstring>
+        <name>XMmiDp_GeneralInterruptHandler</name>
+        <param>
+          <type><ref refid="struct_x_mmi_dp" kindref="compound">XMmiDp</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function is the top-level general interrupt handler for the <ref refid="struct_x_mmi_dp" kindref="compound">XMmiDp</ref> driver. </para>        </briefdescription>
+        <detaileddescription>
+<para>It reads the GENERAL_INTERRUPT register, dispatches HPD events to XMmiDp_HpdInterruptHandler, and clears all pending event bits.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_mmi_dp" kindref="compound">XMmiDp</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_intr.c" line="325" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_intr.c" bodystart="325" bodyend="390"/>
+        <references refid="xmmidp__hw_8h_1ac791e9180f79c5c5948a4e0d7f1ee365" compoundref="xmmidp__hw_8h" startline="529">XMMIDP_GEN_INT0</references>
+        <references refid="xmmidp__hw_8h_1a791d91833b14090f6d757bd1d1260590" compoundref="xmmidp__hw_8h" startline="620">XMMIDP_GEN_INT_ENABLE0</references>
+        <references refid="group__mmi__dppsu14_1ga3a1716c1aca49a915c57d0f3ddfbb57a" compoundref="xmmidp__intr_8c" startline="251" endline="310">XMmiDp_HpdInterruptHandler</references>
+        <references refid="xmmidp__hw_8h_1a16f691f61c7261a5bd549161e56b6dd6" compoundref="xmmidp__hw_8h" startline="1976">XMmiDp_ReadReg</references>
+        <references refid="xmmidp__hw_8h_1a62cbf3cd69b9c70a14a1943ad14e6312" compoundref="xmmidp__hw_8h" startline="1993">XMmiDp_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__mmi__dppsu14_1gad4553e478558bc70246a73bc49d43799" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XMmiDp_SdpStatusInterruptEnable</definition>
+        <argsstring>(XMmiDp *InstancePtr, u32 Mask)</argsstring>
+        <name>XMmiDp_SdpStatusInterruptEnable</name>
+        <param>
+          <type><ref refid="struct_x_mmi_dp" kindref="compound">XMmiDp</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Mask</declname>
+        </param>
+        <briefdescription>
+<para>This function enables SDP_STATUS_ENABLE bits based on the mask. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_mmi_dp" kindref="compound">XMmiDp</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>specifies the interrupt bits to enable</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_intr.c" line="404" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_intr.c" bodystart="404" bodyend="414"/>
+        <references refid="xmmidp__hw_8h_1a16f691f61c7261a5bd549161e56b6dd6" compoundref="xmmidp__hw_8h" startline="1976">XMmiDp_ReadReg</references>
+        <references refid="xmmidp__hw_8h_1a62cbf3cd69b9c70a14a1943ad14e6312" compoundref="xmmidp__hw_8h" startline="1993">XMmiDp_WriteReg</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/*******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2025<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="24"><highlight class="comment">/*******************************<sp/>Include<sp/>Files<sp/>********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;stdlib.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;xstatus.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;sleep.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xmmidp_8h" kindref="compound">xmmidp.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="42" refid="group__mmi__dppsu14_1gad9754b10ec09c4a56d928cd8471c0ae8" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__mmi__dppsu14_1gad9754b10ec09c4a56d928cd8471c0ae8" kindref="member">XMmiDp_ClearGeneralHpdEvent</ref>(<ref refid="struct_x_mmi_dp" kindref="compound">XMmiDp</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="43"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>RegVal<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegVal<sp/>=<sp/><ref refid="xmmidp__hw_8h_1a16f691f61c7261a5bd549161e56b6dd6" kindref="member">XMmiDp_ReadReg</ref>(InstancePtr-&gt;Config.BaseAddr,</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xmmidp__hw_8h_1ac791e9180f79c5c5948a4e0d7f1ee365" kindref="member">XMMIDP_GEN_INT0</ref>);</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegVal<sp/>|=<sp/>XMMIDP_GEN_INT0_HPD_EVENT_MASK;</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xmmidp__hw_8h_1a62cbf3cd69b9c70a14a1943ad14e6312" kindref="member">XMmiDp_WriteReg</ref>(InstancePtr-&gt;Config.BaseAddr,</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xmmidp__hw_8h_1ac791e9180f79c5c5948a4e0d7f1ee365" kindref="member">XMMIDP_GEN_INT0</ref>,<sp/>RegVal);</highlight></codeline>
+<codeline lineno="53"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="66" refid="group__mmi__dppsu14_1ga6ebd233236c66009d61247de41bb69bb" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__mmi__dppsu14_1ga6ebd233236c66009d61247de41bb69bb" kindref="member">XMmiDp_GeneralInterruptEnable</ref>(<ref refid="struct_x_mmi_dp" kindref="compound">XMmiDp</ref><sp/>*InstancePtr,<sp/>u32<sp/>Mask)</highlight></codeline>
+<codeline lineno="67"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>RegVal<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegVal<sp/>=<sp/><ref refid="xmmidp__hw_8h_1a16f691f61c7261a5bd549161e56b6dd6" kindref="member">XMmiDp_ReadReg</ref>(InstancePtr-&gt;Config.BaseAddr,</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xmmidp__hw_8h_1a791d91833b14090f6d757bd1d1260590" kindref="member">XMMIDP_GEN_INT_ENABLE0</ref>);</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegVal<sp/>|=<sp/>Mask;</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xmmidp__hw_8h_1a62cbf3cd69b9c70a14a1943ad14e6312" kindref="member">XMmiDp_WriteReg</ref>(InstancePtr-&gt;Config.BaseAddr,</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xmmidp__hw_8h_1a791d91833b14090f6d757bd1d1260590" kindref="member">XMMIDP_GEN_INT_ENABLE0</ref>,<sp/>RegVal);</highlight></codeline>
+<codeline lineno="76"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"></highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="90" refid="group__mmi__dppsu14_1ga5b83c2480de23efa469ff14a2660bb24" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__mmi__dppsu14_1ga5b83c2480de23efa469ff14a2660bb24" kindref="member">XMmiDp_HpdInterruptEnable</ref>(<ref refid="struct_x_mmi_dp" kindref="compound">XMmiDp</ref><sp/>*InstancePtr,<sp/>u32<sp/>Mask)</highlight></codeline>
+<codeline lineno="91"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>RegVal<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"></highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegVal<sp/>=<sp/><ref refid="xmmidp__hw_8h_1a16f691f61c7261a5bd549161e56b6dd6" kindref="member">XMmiDp_ReadReg</ref>(InstancePtr-&gt;Config.BaseAddr,</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMMIDP_HPD_INTERRUPT_ENABLE);</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegVal<sp/>|=<sp/>Mask;</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"></highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xmmidp__hw_8h_1a62cbf3cd69b9c70a14a1943ad14e6312" kindref="member">XMmiDp_WriteReg</ref>(InstancePtr-&gt;Config.BaseAddr,</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMMIDP_HPD_INTERRUPT_ENABLE,<sp/>RegVal);</highlight></codeline>
+<codeline lineno="100"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"></highlight></codeline>
+<codeline lineno="102"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="114" refid="group__mmi__dppsu14_1ga5dab35dcbbeb3de888b5eb30208af90c" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__mmi__dppsu14_1ga5dab35dcbbeb3de888b5eb30208af90c" kindref="member">XMmiDp_GeneralInterruptDisable</ref>(<ref refid="struct_x_mmi_dp" kindref="compound">XMmiDp</ref><sp/>*InstancePtr,<sp/>u32<sp/>Mask)</highlight></codeline>
+<codeline lineno="115"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>RegVal;</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"></highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegVal<sp/>=<sp/><ref refid="xmmidp__hw_8h_1a16f691f61c7261a5bd549161e56b6dd6" kindref="member">XMmiDp_ReadReg</ref>(InstancePtr-&gt;Config.BaseAddr,</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xmmidp__hw_8h_1a791d91833b14090f6d757bd1d1260590" kindref="member">XMMIDP_GEN_INT_ENABLE0</ref>);</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegVal<sp/>&amp;=<sp/>~Mask;</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"></highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xmmidp__hw_8h_1a62cbf3cd69b9c70a14a1943ad14e6312" kindref="member">XMmiDp_WriteReg</ref>(InstancePtr-&gt;Config.BaseAddr,</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xmmidp__hw_8h_1a791d91833b14090f6d757bd1d1260590" kindref="member">XMMIDP_GEN_INT_ENABLE0</ref>,<sp/>RegVal);</highlight></codeline>
+<codeline lineno="124"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"></highlight></codeline>
+<codeline lineno="126"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="138" refid="group__mmi__dppsu14_1ga7cfd65b23a054d8824a30bf6dbb6d180" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__mmi__dppsu14_1ga7cfd65b23a054d8824a30bf6dbb6d180" kindref="member">XMmiDp_HpdInterruptDisable</ref>(<ref refid="struct_x_mmi_dp" kindref="compound">XMmiDp</ref><sp/>*InstancePtr,<sp/>u32<sp/>Mask)</highlight></codeline>
+<codeline lineno="139"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>RegVal;</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"></highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegVal<sp/>=<sp/><ref refid="xmmidp__hw_8h_1a16f691f61c7261a5bd549161e56b6dd6" kindref="member">XMmiDp_ReadReg</ref>(InstancePtr-&gt;Config.BaseAddr,</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMMIDP_HPD_INTERRUPT_ENABLE);</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegVal<sp/>&amp;=<sp/>~Mask;</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"></highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xmmidp__hw_8h_1a62cbf3cd69b9c70a14a1943ad14e6312" kindref="member">XMmiDp_WriteReg</ref>(InstancePtr-&gt;Config.BaseAddr,</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMMIDP_HPD_INTERRUPT_ENABLE,<sp/>RegVal);</highlight></codeline>
+<codeline lineno="148"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"></highlight></codeline>
+<codeline lineno="150"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="165" refid="group__mmi__dppsu14_1gafacb1150b31fe739bafb1a9700fcf364" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__mmi__dppsu14_1gafacb1150b31fe739bafb1a9700fcf364" kindref="member">XMmiDp_SetHpdIrqHandler</ref>(<ref refid="struct_x_mmi_dp" kindref="compound">XMmiDp</ref><sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMmiDp_HpdIrqHandler<sp/>CallbackFunc,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallbackRef)</highlight></codeline>
+<codeline lineno="167"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(CallbackFunc<sp/>==<sp/>NULL)<sp/>{</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;[HPD]<sp/>WARNING:<sp/>HpdIrq<sp/>callback<sp/>is<sp/>NULL,<sp/>handler<sp/>not<sp/>set\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="172"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"></highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;HpdIrqHandler<sp/>=<sp/>CallbackFunc;</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;HpdIrqCallbackRef<sp/>=<sp/>CallbackRef;</highlight></codeline>
+<codeline lineno="177"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"></highlight></codeline>
+<codeline lineno="179"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="194" refid="group__mmi__dppsu14_1ga452745fcf9e70884ef210a221f6f4e62" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__mmi__dppsu14_1ga452745fcf9e70884ef210a221f6f4e62" kindref="member">XMmiDp_SetHpdHotPlugHandler</ref>(<ref refid="struct_x_mmi_dp" kindref="compound">XMmiDp</ref><sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="195"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMmiDp_HpdHotPlugHandler<sp/>CallbackFunc,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallbackRef)</highlight></codeline>
+<codeline lineno="196"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="197"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="198"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(CallbackFunc<sp/>==<sp/>NULL)<sp/>{</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;[HPD]<sp/>WARNING:<sp/>HotPlug<sp/>callback<sp/>is<sp/>NULL,<sp/>handler<sp/>not<sp/>set\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="202"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="203"><highlight class="normal"></highlight></codeline>
+<codeline lineno="204"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;HpdHotPlugHandler<sp/>=<sp/>CallbackFunc;</highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;HpdHotPlugCallbackRef<sp/>=<sp/>CallbackRef;</highlight></codeline>
+<codeline lineno="206"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="207"><highlight class="normal"></highlight></codeline>
+<codeline lineno="208"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="223" refid="group__mmi__dppsu14_1ga65d2fe57b1ad90fa623a777d8dfa33e1" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__mmi__dppsu14_1ga65d2fe57b1ad90fa623a777d8dfa33e1" kindref="member">XMmiDp_SetHpdHotUnplugHandler</ref>(<ref refid="struct_x_mmi_dp" kindref="compound">XMmiDp</ref><sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="224"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMmiDp_HpdHotUnplugHandler<sp/>CallbackFunc,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallbackRef)</highlight></codeline>
+<codeline lineno="225"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="226"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="227"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="228"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(CallbackFunc<sp/>==<sp/>NULL)<sp/>{</highlight></codeline>
+<codeline lineno="229"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;[HPD]<sp/>WARNING:<sp/>HotUnplug<sp/>callback<sp/>is<sp/>NULL,<sp/>handler<sp/>not<sp/>set\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="230"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="231"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="232"><highlight class="normal"></highlight></codeline>
+<codeline lineno="233"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;HpdHotUnplugHandler<sp/>=<sp/>CallbackFunc;</highlight></codeline>
+<codeline lineno="234"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;HpdHotUnplugCallbackRef<sp/>=<sp/>CallbackRef;</highlight></codeline>
+<codeline lineno="235"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="236"><highlight class="normal"></highlight></codeline>
+<codeline lineno="237"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="251" refid="group__mmi__dppsu14_1ga3a1716c1aca49a915c57d0f3ddfbb57a" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__mmi__dppsu14_1ga3a1716c1aca49a915c57d0f3ddfbb57a" kindref="member">XMmiDp_HpdInterruptHandler</ref>(<ref refid="struct_x_mmi_dp" kindref="compound">XMmiDp</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="252"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="253"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>IntrStatus;</highlight></codeline>
+<codeline lineno="254"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>HpdIen;</highlight></codeline>
+<codeline lineno="255"><highlight class="normal"></highlight></codeline>
+<codeline lineno="256"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="257"><highlight class="normal"></highlight></codeline>
+<codeline lineno="258"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IntrStatus<sp/>=<sp/><ref refid="xmmidp__hw_8h_1a16f691f61c7261a5bd549161e56b6dd6" kindref="member">XMmiDp_ReadReg</ref>(InstancePtr-&gt;Config.BaseAddr,</highlight></codeline>
+<codeline lineno="259"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMMIDP_HPD_STATUS0);</highlight></codeline>
+<codeline lineno="260"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>HpdIen<sp/>=<sp/><ref refid="xmmidp__hw_8h_1a16f691f61c7261a5bd549161e56b6dd6" kindref="member">XMmiDp_ReadReg</ref>(InstancePtr-&gt;Config.BaseAddr,</highlight></codeline>
+<codeline lineno="261"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMMIDP_HPD_INTERRUPT_ENABLE);</highlight></codeline>
+<codeline lineno="262"><highlight class="normal"></highlight></codeline>
+<codeline lineno="263"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;[HPD-ISR]<sp/>HPD_STATUS0=0x%08X&quot;</highlight><highlight class="normal">,<sp/>IntrStatus);</highlight></codeline>
+<codeline lineno="264"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(IntrStatus<sp/>&amp;<sp/>XMMIDP_HPD_STATUS0_HPD_IRQ_MASK)</highlight></codeline>
+<codeline lineno="265"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;<sp/>IRQ&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="266"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(IntrStatus<sp/>&amp;<sp/>XMMIDP_HPD_STATUS0_HOT_PLUG_MASK)</highlight></codeline>
+<codeline lineno="267"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;<sp/>PLUG&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="268"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(IntrStatus<sp/>&amp;<sp/>XMMIDP_HPD_STATUS0_HOT_UNPLUG_MASK)</highlight></codeline>
+<codeline lineno="269"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;<sp/>UNPLUG&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="270"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(IntrStatus<sp/>&amp;<sp/>XMMIDP_HPD_STATUS0_UNPLUG_ERR_MASK)</highlight></codeline>
+<codeline lineno="271"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;<sp/>UNPLUG_ERR&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="272"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;<sp/>state=%d\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="273"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(IntrStatus<sp/>&amp;<sp/>XMMIDP_HPD_STATUS0_STATE_MASK)<sp/>&gt;&gt;</highlight></codeline>
+<codeline lineno="274"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMMIDP_HPD_STATUS0_STATE_SHIFT);</highlight></codeline>
+<codeline lineno="275"><highlight class="normal"></highlight></codeline>
+<codeline lineno="276"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Write-1-to-clear<sp/>the<sp/>HPD<sp/>status<sp/>bits<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="277"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xmmidp__hw_8h_1a62cbf3cd69b9c70a14a1943ad14e6312" kindref="member">XMmiDp_WriteReg</ref>(InstancePtr-&gt;Config.BaseAddr,</highlight></codeline>
+<codeline lineno="278"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMMIDP_HPD_STATUS0,<sp/>IntrStatus);</highlight></codeline>
+<codeline lineno="279"><highlight class="normal"></highlight></codeline>
+<codeline lineno="280"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((IntrStatus<sp/>&amp;<sp/>XMMIDP_HPD_STATUS0_HPD_IRQ_MASK)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="281"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(InstancePtr-&gt;HpdIrqHandler<sp/>!=<sp/>NULL))</highlight></codeline>
+<codeline lineno="282"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;HpdIrqHandler(InstancePtr-&gt;HpdIrqCallbackRef);</highlight></codeline>
+<codeline lineno="283"><highlight class="normal"></highlight></codeline>
+<codeline lineno="284"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((IntrStatus<sp/>&amp;<sp/>XMMIDP_HPD_STATUS0_HOT_PLUG_MASK)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="285"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(InstancePtr-&gt;HpdHotPlugHandler<sp/>!=<sp/>NULL))</highlight></codeline>
+<codeline lineno="286"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;HpdHotPlugHandler(InstancePtr-&gt;HpdHotPlugCallbackRef);</highlight></codeline>
+<codeline lineno="287"><highlight class="normal"></highlight></codeline>
+<codeline lineno="288"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((IntrStatus<sp/>&amp;<sp/>XMMIDP_HPD_STATUS0_HOT_UNPLUG_MASK)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="289"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(InstancePtr-&gt;HpdHotUnplugHandler<sp/>!=<sp/>NULL))</highlight></codeline>
+<codeline lineno="290"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;HpdHotUnplugHandler(InstancePtr-&gt;HpdHotUnplugCallbackRef);</highlight></codeline>
+<codeline lineno="291"><highlight class="normal"></highlight></codeline>
+<codeline lineno="292"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="293"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Re-enable<sp/>HPD<sp/>interrupts<sp/>after<sp/>handling.</highlight></codeline>
+<codeline lineno="294"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>After<sp/>hotplug:<sp/><sp/><sp/>enable<sp/>IRQ<sp/>+<sp/>UNPLUG<sp/>(detect<sp/>disconnect<sp/>while<sp/>connected)</highlight></codeline>
+<codeline lineno="295"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>After<sp/>hotunplug:<sp/>enable<sp/>IRQ<sp/>+<sp/>PLUG<sp/>+<sp/>UNPLUG<sp/>(detect<sp/>reconnect)</highlight></codeline>
+<codeline lineno="296"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>After<sp/>IRQ<sp/>only:<sp/><sp/>preserve<sp/>existing<sp/>enable<sp/>bits</highlight></codeline>
+<codeline lineno="297"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="298"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(IntrStatus<sp/>&amp;<sp/>XMMIDP_HPD_STATUS0_HOT_PLUG_MASK)</highlight></codeline>
+<codeline lineno="299"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>HpdIen<sp/>|=<sp/>XMMIDP_HPD_IRQ_EN_MASK<sp/>|</highlight></codeline>
+<codeline lineno="300"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMMIDP_HPD_UNPLUG_EN_MASK;</highlight></codeline>
+<codeline lineno="301"><highlight class="normal"></highlight></codeline>
+<codeline lineno="302"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(IntrStatus<sp/>&amp;<sp/>XMMIDP_HPD_STATUS0_HOT_UNPLUG_MASK)</highlight></codeline>
+<codeline lineno="303"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>HpdIen<sp/>|=<sp/>XMMIDP_HPD_IRQ_EN_MASK<sp/>|</highlight></codeline>
+<codeline lineno="304"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMMIDP_HPD_PLUG_EN_MASK<sp/>|</highlight></codeline>
+<codeline lineno="305"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMMIDP_HPD_UNPLUG_EN_MASK;</highlight></codeline>
+<codeline lineno="306"><highlight class="normal"></highlight></codeline>
+<codeline lineno="307"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xmmidp__hw_8h_1a62cbf3cd69b9c70a14a1943ad14e6312" kindref="member">XMmiDp_WriteReg</ref>(InstancePtr-&gt;Config.BaseAddr,</highlight></codeline>
+<codeline lineno="308"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMMIDP_HPD_INTERRUPT_ENABLE,<sp/>HpdIen);</highlight></codeline>
+<codeline lineno="309"><highlight class="normal"></highlight></codeline>
+<codeline lineno="310"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="311"><highlight class="normal"></highlight></codeline>
+<codeline lineno="312"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="325" refid="group__mmi__dppsu14_1ga8c43b5a33dff29be895b4e58c810285c" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__mmi__dppsu14_1ga8c43b5a33dff29be895b4e58c810285c" kindref="member">XMmiDp_GeneralInterruptHandler</ref>(<ref refid="struct_x_mmi_dp" kindref="compound">XMmiDp</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="326"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="327"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>GenIntrStatus;</highlight></codeline>
+<codeline lineno="328"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>GenIntrEnable;</highlight></codeline>
+<codeline lineno="329"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>ActiveEvents;</highlight></codeline>
+<codeline lineno="330"><highlight class="normal"></highlight></codeline>
+<codeline lineno="331"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="332"><highlight class="normal"></highlight></codeline>
+<codeline lineno="333"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>GenIntrStatus<sp/>=<sp/><ref refid="xmmidp__hw_8h_1a16f691f61c7261a5bd549161e56b6dd6" kindref="member">XMmiDp_ReadReg</ref>(InstancePtr-&gt;Config.BaseAddr,</highlight></codeline>
+<codeline lineno="334"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xmmidp__hw_8h_1ac791e9180f79c5c5948a4e0d7f1ee365" kindref="member">XMMIDP_GEN_INT0</ref>);</highlight></codeline>
+<codeline lineno="335"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>GenIntrEnable<sp/>=<sp/><ref refid="xmmidp__hw_8h_1a16f691f61c7261a5bd549161e56b6dd6" kindref="member">XMmiDp_ReadReg</ref>(InstancePtr-&gt;Config.BaseAddr,</highlight></codeline>
+<codeline lineno="336"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xmmidp__hw_8h_1a791d91833b14090f6d757bd1d1260590" kindref="member">XMMIDP_GEN_INT_ENABLE0</ref>);</highlight></codeline>
+<codeline lineno="337"><highlight class="normal"></highlight></codeline>
+<codeline lineno="338"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ActiveEvents<sp/>=<sp/>GenIntrStatus<sp/>&amp;<sp/>GenIntrEnable;</highlight></codeline>
+<codeline lineno="339"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!ActiveEvents)</highlight></codeline>
+<codeline lineno="340"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="341"><highlight class="normal"></highlight></codeline>
+<codeline lineno="342"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Write-1-to-clear<sp/>all<sp/>active<sp/>event<sp/>bits<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="343"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xmmidp__hw_8h_1a62cbf3cd69b9c70a14a1943ad14e6312" kindref="member">XMmiDp_WriteReg</ref>(InstancePtr-&gt;Config.BaseAddr,</highlight></codeline>
+<codeline lineno="344"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xmmidp__hw_8h_1ac791e9180f79c5c5948a4e0d7f1ee365" kindref="member">XMMIDP_GEN_INT0</ref>,<sp/>ActiveEvents);</highlight></codeline>
+<codeline lineno="345"><highlight class="normal"></highlight></codeline>
+<codeline lineno="346"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(ActiveEvents<sp/>&amp;<sp/>XMMIDP_GEN_INT0_HPD_EVENT_MASK)</highlight></codeline>
+<codeline lineno="347"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__mmi__dppsu14_1ga3a1716c1aca49a915c57d0f3ddfbb57a" kindref="member">XMmiDp_HpdInterruptHandler</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="348"><highlight class="normal"></highlight></codeline>
+<codeline lineno="349"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(ActiveEvents<sp/>&amp;<sp/>XMMIDP_GEN_INT0_VID_FIFO_OVRFLW_STREAM0_MASK)</highlight></codeline>
+<codeline lineno="350"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;[ISR]<sp/>Video<sp/>FIFO<sp/>overflow<sp/>stream<sp/>0\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="351"><highlight class="normal"></highlight></codeline>
+<codeline lineno="352"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(ActiveEvents<sp/>&amp;<sp/>XMMIDP_GEN_INT0_VID_FIFO_UNDRFLW_STREAM0_MASK)</highlight></codeline>
+<codeline lineno="353"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;[ISR]<sp/>Video<sp/>FIFO<sp/>underflow<sp/>stream<sp/>0\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="354"><highlight class="normal"></highlight></codeline>
+<codeline lineno="355"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(ActiveEvents<sp/>&amp;<sp/>XMMIDP_GEN_INT0_AUD_FIFO_OVRFLW_STREAM0_MASK)</highlight></codeline>
+<codeline lineno="356"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;[ISR]<sp/>Audio<sp/>FIFO<sp/>overflow<sp/>stream<sp/>0\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="357"><highlight class="normal"></highlight></codeline>
+<codeline lineno="358"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(ActiveEvents<sp/>&amp;<sp/>XMMIDP_GEN_INT0_VID_FIFO_OVRFLW_STREAM1_MASK)</highlight></codeline>
+<codeline lineno="359"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;[ISR]<sp/>Video<sp/>FIFO<sp/>overflow<sp/>stream<sp/>1\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="360"><highlight class="normal"></highlight></codeline>
+<codeline lineno="361"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(ActiveEvents<sp/>&amp;<sp/>XMMIDP_GEN_INT0_VID_FIFO_UNDRFLW_STREAM1_MASK)</highlight></codeline>
+<codeline lineno="362"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;[ISR]<sp/>Video<sp/>FIFO<sp/>underflow<sp/>stream<sp/>1\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="363"><highlight class="normal"></highlight></codeline>
+<codeline lineno="364"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(ActiveEvents<sp/>&amp;<sp/>XMMIDP_GEN_INT0_AUD_FIFO_OVRFLW_STREAM1_MASK)</highlight></codeline>
+<codeline lineno="365"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;[ISR]<sp/>Audio<sp/>FIFO<sp/>overflow<sp/>stream<sp/>1\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="366"><highlight class="normal"></highlight></codeline>
+<codeline lineno="367"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(ActiveEvents<sp/>&amp;<sp/>XMMIDP_GEN_INT0_VID_FIFO_OVRFLW_STREAM2_MASK)</highlight></codeline>
+<codeline lineno="368"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;[ISR]<sp/>Video<sp/>FIFO<sp/>overflow<sp/>stream<sp/>2\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="369"><highlight class="normal"></highlight></codeline>
+<codeline lineno="370"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(ActiveEvents<sp/>&amp;<sp/>XMMIDP_GEN_INT0_VID_FIFO_UNDRFLW_STREAM2_MASK)</highlight></codeline>
+<codeline lineno="371"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;[ISR]<sp/>Video<sp/>FIFO<sp/>underflow<sp/>stream<sp/>2\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="372"><highlight class="normal"></highlight></codeline>
+<codeline lineno="373"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(ActiveEvents<sp/>&amp;<sp/>XMMIDP_GEN_INT0_AUD_FIFO_OVRFLW_STREAM2_MASK)</highlight></codeline>
+<codeline lineno="374"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;[ISR]<sp/>Audio<sp/>FIFO<sp/>overflow<sp/>stream<sp/>2\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="375"><highlight class="normal"></highlight></codeline>
+<codeline lineno="376"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(ActiveEvents<sp/>&amp;<sp/>XMMIDP_GEN_INT0_VID_FIFO_OVRFLW_STREAM3_MASK)</highlight></codeline>
+<codeline lineno="377"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;[ISR]<sp/>Video<sp/>FIFO<sp/>overflow<sp/>stream<sp/>3\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="378"><highlight class="normal"></highlight></codeline>
+<codeline lineno="379"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(ActiveEvents<sp/>&amp;<sp/>XMMIDP_GEN_INT0_VID_FIFO_UNDRFLW_STREAM3_MASK)</highlight></codeline>
+<codeline lineno="380"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;[ISR]<sp/>Video<sp/>FIFO<sp/>underflow<sp/>stream<sp/>3\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="381"><highlight class="normal"></highlight></codeline>
+<codeline lineno="382"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(ActiveEvents<sp/>&amp;<sp/>XMMIDP_GEN_INT0_AUD_FIFO_OVRFLW_STREAM3_MASK)</highlight></codeline>
+<codeline lineno="383"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;[ISR]<sp/>Audio<sp/>FIFO<sp/>overflow<sp/>stream<sp/>3\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="384"><highlight class="normal"></highlight></codeline>
+<codeline lineno="385"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(ActiveEvents<sp/>&amp;<sp/>XMMIDP_GEN_INT0_DSC_EVENT_MASK)</highlight></codeline>
+<codeline lineno="386"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;[ISR]<sp/>DSC<sp/>event\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="387"><highlight class="normal"></highlight></codeline>
+<codeline lineno="388"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(ActiveEvents<sp/>&amp;<sp/>XMMIDP_GEN_INT0_PM_EVENT_MASK)</highlight></codeline>
+<codeline lineno="389"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;[ISR]<sp/>PM<sp/>event\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="390"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="391"><highlight class="normal"></highlight></codeline>
+<codeline lineno="392"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="404" refid="group__mmi__dppsu14_1gad4553e478558bc70246a73bc49d43799" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__mmi__dppsu14_1gad4553e478558bc70246a73bc49d43799" kindref="member">XMmiDp_SdpStatusInterruptEnable</ref>(<ref refid="struct_x_mmi_dp" kindref="compound">XMmiDp</ref><sp/>*InstancePtr,<sp/>u32<sp/>Mask)</highlight></codeline>
+<codeline lineno="405"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="406"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>RegVal;</highlight></codeline>
+<codeline lineno="407"><highlight class="normal"></highlight></codeline>
+<codeline lineno="408"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegVal<sp/>=<sp/><ref refid="xmmidp__hw_8h_1a16f691f61c7261a5bd549161e56b6dd6" kindref="member">XMmiDp_ReadReg</ref>(InstancePtr-&gt;Config.BaseAddr,</highlight></codeline>
+<codeline lineno="409"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMMIDP_SDP_STATUS_EN);</highlight></codeline>
+<codeline lineno="410"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegVal<sp/>|=<sp/>Mask;</highlight></codeline>
+<codeline lineno="411"><highlight class="normal"></highlight></codeline>
+<codeline lineno="412"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xmmidp__hw_8h_1a62cbf3cd69b9c70a14a1943ad14e6312" kindref="member">XMmiDp_WriteReg</ref>(InstancePtr-&gt;Config.BaseAddr,</highlight></codeline>
+<codeline lineno="413"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMMIDP_SDP_STATUS_EN,<sp/>RegVal);</highlight></codeline>
+<codeline lineno="414"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_intr.c"/>
+  </compounddef>
+</doxygen>

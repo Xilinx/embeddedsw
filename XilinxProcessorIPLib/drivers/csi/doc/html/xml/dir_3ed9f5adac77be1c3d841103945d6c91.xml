@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_3ed9f5adac77be1c3d841103945d6c91" kind="dir">
+    <compoundname>src</compoundname>
+    <innerfile refid="xcsi_8c">xcsi.c</innerfile>
+    <innerfile refid="xcsi_8h">xcsi.h</innerfile>
+    <innerfile refid="xcsi__g_8c">xcsi_g.c</innerfile>
+    <innerfile refid="xcsi__hw_8h">xcsi_hw.h</innerfile>
+    <innerfile refid="xcsi__intr_8c">xcsi_intr.c</innerfile>
+    <innerfile refid="xcsi__selftest_8c">xcsi_selftest.c</innerfile>
+    <innerfile refid="xcsi__sinit_8c">xcsi_sinit.c</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/"/>
+  </compounddef>
+</doxygen>

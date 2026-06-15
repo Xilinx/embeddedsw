@@ -1,0 +1,2855 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__isi__iss" kind="group">
+    <compoundname>isi_iss</compoundname>
+    <title>CamerIc Driver API</title>
+    <innerclass refid="struct_isi_gain_info__s" prot="public">IsiGainInfo_s</innerclass>
+    <innerclass refid="struct_isi_range__s" prot="public">IsiRange_s</innerclass>
+    <innerclass refid="struct_isi_exp_line_range__s" prot="public">IsiExpLineRange_s</innerclass>
+    <innerclass refid="struct_isi_sensor_gain__s" prot="public">IsiSensorGain_s</innerclass>
+    <innerclass refid="struct_isi_sensor_int_time__s" prot="public">IsiSensorIntTime_s</innerclass>
+    <innerclass refid="struct_isi_sensor_win__s" prot="public">IsiSensorWin_s</innerclass>
+    <innerclass refid="struct_isi_sensor_reg__s" prot="public">IsiSensorReg_s</innerclass>
+    <innerclass refid="struct_isi_sensor_buffer__s" prot="public">IsiSensorBuffer_s</innerclass>
+    <innerclass refid="struct_isi_sensor__s" prot="public">IsiSensor_s</innerclass>
+    <innerclass refid="struct_isi_cam_drv_config__s" prot="public">IsiCamDrvConfig_s</innerclass>
+    <innerclass refid="struct_isi_cam_drv_config_mbox__s" prot="public">IsiCamDrvConfigMbox_s</innerclass>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="group__isi__iss_1ga05217044c2571b0acdd550985a5d5537" prot="public" static="no">
+        <name>IsiSensorInputFormat_e</name>
+        <enumvalue id="group__isi__iss_1gga05217044c2571b0acdd550985a5d5537a2fddf4a1ffddf6e3e062cc27693649a0" prot="public">
+          <name>ISI_FORMAT_YUV420P_8</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+<para>YUV 420P 8-bit. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__isi__iss_1gga05217044c2571b0acdd550985a5d5537a14be345d01c90e38236e78250a9dcf96" prot="public">
+          <name>ISI_FORMAT_YUV420SP_8</name>
+          <briefdescription>
+<para>YUV 420SP 8-bit. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__isi__iss_1gga05217044c2571b0acdd550985a5d5537a23317334d5208c3e75863d91d8907f0c" prot="public">
+          <name>ISI_FORMAT_YUV420P_10</name>
+          <briefdescription>
+<para>YUV 420P 10-bit. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__isi__iss_1gga05217044c2571b0acdd550985a5d5537ade536f747b1a53e1dc79e0585d361e7b" prot="public">
+          <name>ISI_FORMAT_YUV420SP_10</name>
+          <briefdescription>
+<para>YUV 420SP 10-bit. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__isi__iss_1gga05217044c2571b0acdd550985a5d5537a8504713c27dfe8e1f8031740808b6bdd" prot="public">
+          <name>ISI_FORMAT_YUV422P_8</name>
+          <briefdescription>
+<para>YUV 422P 8-bit. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__isi__iss_1gga05217044c2571b0acdd550985a5d5537ae621c2b29c6fdecc9bbeb0108b1c32b3" prot="public">
+          <name>ISI_FORMAT_YUV422SP_8</name>
+          <briefdescription>
+<para>YUV 422SP 8-bit. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__isi__iss_1gga05217044c2571b0acdd550985a5d5537aa0e0401d6723a0c7769664c97234e8b1" prot="public">
+          <name>ISI_FORMAT_YUV422P_10</name>
+          <briefdescription>
+<para>YUV 422P 10-bit. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__isi__iss_1gga05217044c2571b0acdd550985a5d5537a48351b76025b3ce20383890cde0eb22d" prot="public">
+          <name>ISI_FORMAT_YUV422SP_10</name>
+          <briefdescription>
+<para>YUV 422SP 10-bit. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__isi__iss_1gga05217044c2571b0acdd550985a5d5537ac7a037ac8c89d54f922053e8dd8f367c" prot="public">
+          <name>ISI_FORMAT_RAW_8</name>
+          <briefdescription>
+<para>RAW_8. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__isi__iss_1gga05217044c2571b0acdd550985a5d5537af78114e6cbfe77016c960512bfeab9c4" prot="public">
+          <name>ISI_FORMAT_RAW_10</name>
+          <briefdescription>
+<para>RAW_10. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__isi__iss_1gga05217044c2571b0acdd550985a5d5537a569a9340348c54d40e4ff10e10fd2f1a" prot="public">
+          <name>ISI_FORMAT_RAW_12</name>
+          <briefdescription>
+<para>RAW_12. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__isi__iss_1gga05217044c2571b0acdd550985a5d5537ab1423226b6ffa2d82e35da7e5e618dce" prot="public">
+          <name>ISI_FORMAT_RAW_14</name>
+          <briefdescription>
+<para>RAW_14. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__isi__iss_1gga05217044c2571b0acdd550985a5d5537a8a2aaee3d480c498f58cbea806502f4a" prot="public">
+          <name>ISI_FORMAT_RAW_16</name>
+          <briefdescription>
+<para>RAW_16. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__isi__iss_1gga05217044c2571b0acdd550985a5d5537ace6a35749a1116d7033a88954f9a81b9" prot="public">
+          <name>ISI_FORMAT_RAW_20</name>
+          <briefdescription>
+<para>RAW_20. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__isi__iss_1gga05217044c2571b0acdd550985a5d5537a6f15053c5d6ad393960b41c91d444f7d" prot="public">
+          <name>ISI_FORMAT_RAW_24</name>
+          <briefdescription>
+<para>RAW_24. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__isi__iss_1gga05217044c2571b0acdd550985a5d5537afa7dcb1c76bf154fbf46288bea40be8b" prot="public">
+          <name>ISI_FORMAT_MONO_8</name>
+          <briefdescription>
+<para>MONO_8. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__isi__iss_1gga05217044c2571b0acdd550985a5d5537a0e2eac956df7f9d0aa18b1ab2f47fe28" prot="public">
+          <name>DUMMY_ISI_FORMAT</name>
+          <initializer>= 0xdeadfeed</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>IsiSensorInputFormat_t. </para>        </briefdescription>
+        <detaileddescription>
+<para>mode of awb control to handle whitebalance during integration of AR082x </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_common.h" line="122" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_common.h" bodystart="122" bodyend="141"/>
+      </memberdef>
+      <memberdef kind="enum" id="group__isi__iss_1ga91f06ce6d24b4d260e3b1890f848c25b" prot="public" static="no">
+        <name>IsiSensorAwbMode_e</name>
+        <enumvalue id="group__isi__iss_1gga91f06ce6d24b4d260e3b1890f848c25bae47f45f8a83608f83e33c76af27b6ca3" prot="public">
+          <name>ISI_SENSOR_AWB_MODE_NORMAL</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__isi__iss_1gga91f06ce6d24b4d260e3b1890f848c25ba89c61130dfaa1ad1d0556da81d5d8868" prot="public">
+          <name>ISI_SENSOR_AWB_MODE_SENSOR</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__isi__iss_1gga91f06ce6d24b4d260e3b1890f848c25ba77784f56b85e12428f9c1d898b8dda72" prot="public">
+          <name>DUMMY_ISI_002</name>
+          <initializer>= 0xdeadfeed</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>IsiSensorAwbMode_t. </para>        </briefdescription>
+        <detaileddescription>
+<para>mode of awb control to handle whitebalance during integration of AR082x </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_common.h" line="151" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_common.h" bodystart="151" bodyend="155"/>
+      </memberdef>
+      <memberdef kind="enum" id="group__isi__iss_1ga341fb5850662924b0e1bcb2a820329f0" prot="public" static="no">
+        <name>IsiColorComponent_e</name>
+        <enumvalue id="group__isi__iss_1gga341fb5850662924b0e1bcb2a820329f0a0c61dd636928c3c6defbacec44b2946e" prot="public">
+          <name>ISI_COLOR_COMPONENT_RED</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__isi__iss_1gga341fb5850662924b0e1bcb2a820329f0ae3526bbd156f61563079d4ce6b1826f2" prot="public">
+          <name>ISI_COLOR_COMPONENT_GREENR</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__isi__iss_1gga341fb5850662924b0e1bcb2a820329f0a0b6d925d3b29a4988818f635b23b9418" prot="public">
+          <name>ISI_COLOR_COMPONENT_GREENB</name>
+          <initializer>= 2</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__isi__iss_1gga341fb5850662924b0e1bcb2a820329f0a28502e931bbcf6824d5418c76a832bbe" prot="public">
+          <name>ISI_COLOR_COMPONENT_BLUE</name>
+          <initializer>= 3</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__isi__iss_1gga341fb5850662924b0e1bcb2a820329f0a5cd1993f702e324d204aaa676b8913fb" prot="public">
+          <name>ISI_COLOR_COMPONENT_MAX</name>
+          <initializer>= 4</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__isi__iss_1gga341fb5850662924b0e1bcb2a820329f0ae25b7d1097155dc108e3068ca05178b5" prot="public">
+          <name>DUMMY_ISI_003</name>
+          <initializer>= 0xdeadfeed</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>IsiColorComponent_t. </para>        </briefdescription>
+        <detaileddescription>
+<para>color components </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_common.h" line="165" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_common.h" bodystart="165" bodyend="172"/>
+      </memberdef>
+      <memberdef kind="enum" id="group__isi__iss_1gaad75d1d9431942a789b3c0929771d01a" prot="public" static="no">
+        <name>IsiBayerPattern_e</name>
+        <enumvalue id="group__isi__iss_1ggaad75d1d9431942a789b3c0929771d01aaa6a5a61709f2aaffc67a1caafc17b007" prot="public">
+          <name>ISI_BPAT_RGGB</name>
+          <initializer>= 0x00</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__isi__iss_1ggaad75d1d9431942a789b3c0929771d01aa8e4413fb59f64ec0c74137803987384a" prot="public">
+          <name>ISI_BPAT_GRBG</name>
+          <initializer>= 0x01</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__isi__iss_1ggaad75d1d9431942a789b3c0929771d01aa9594239d8d1476251188badf39bbb101" prot="public">
+          <name>ISI_BPAT_GBRG</name>
+          <initializer>= 0x02</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__isi__iss_1ggaad75d1d9431942a789b3c0929771d01aaea668cdf7e7bca13929072bdc28d98f8" prot="public">
+          <name>ISI_BPAT_BGGR</name>
+          <initializer>= 0x03</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__isi__iss_1ggaad75d1d9431942a789b3c0929771d01aa4b21db2b224bf30d5b75070a9fa3ae39" prot="public">
+          <name>ISI_BPAT_BGGIR</name>
+          <initializer>= 0x10</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__isi__iss_1ggaad75d1d9431942a789b3c0929771d01aad961f8e29137c34fcf741e14408c7e9e" prot="public">
+          <name>ISI_BPAT_GRIRG</name>
+          <initializer>= 0x11</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__isi__iss_1ggaad75d1d9431942a789b3c0929771d01aafbb11faa3b4f1e10944e3ed9f40ad898" prot="public">
+          <name>ISI_BPAT_RGGIR</name>
+          <initializer>= 0x12</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__isi__iss_1ggaad75d1d9431942a789b3c0929771d01aaefd13915032fd42cbf5e58760b79b0af" prot="public">
+          <name>ISI_BPAT_GBIRG</name>
+          <initializer>= 0x13</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__isi__iss_1ggaad75d1d9431942a789b3c0929771d01aa3e2bccdb3f6fcbf17e0ac6819c0c30f5" prot="public">
+          <name>ISI_BPAT_GIRRG</name>
+          <initializer>= 0x14</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__isi__iss_1ggaad75d1d9431942a789b3c0929771d01aa18552f3d6aa51fbebda4ee8b278bdb51" prot="public">
+          <name>ISI_BPAT_IRGGB</name>
+          <initializer>= 0x15</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__isi__iss_1ggaad75d1d9431942a789b3c0929771d01aaf6fd1b418622a7c4d9507f9e19c9385f" prot="public">
+          <name>ISI_BPAT_GIRBG</name>
+          <initializer>= 0x16</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__isi__iss_1ggaad75d1d9431942a789b3c0929771d01aa1f82405acb9f77dbc2e732d7a39ecbfe" prot="public">
+          <name>ISI_BPAT_IRGGR</name>
+          <initializer>= 0x17</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__isi__iss_1ggaad75d1d9431942a789b3c0929771d01aa9c0c347cee4ac2f4ca20157e1189bc4e" prot="public">
+          <name>ISI_BPAT_RGIRB</name>
+          <initializer>= 0x18</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__isi__iss_1ggaad75d1d9431942a789b3c0929771d01aa2451aa93339efd50a9c42e6c5f361132" prot="public">
+          <name>ISI_BPAT_GRBIR</name>
+          <initializer>= 0x19</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__isi__iss_1ggaad75d1d9431942a789b3c0929771d01aa3e98f7174520d1b4246e1a46fa55ce61" prot="public">
+          <name>ISI_BPAT_IRBRG</name>
+          <initializer>= 0x20</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__isi__iss_1ggaad75d1d9431942a789b3c0929771d01aadefe35d65129ab05fc924977f25d9be0" prot="public">
+          <name>ISI_BPAT_BIRGR</name>
+          <initializer>= 0x21</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__isi__iss_1ggaad75d1d9431942a789b3c0929771d01aa4fbfe6e053ca6beb4c2619e4b38e06f7" prot="public">
+          <name>ISI_BPAT_BGIRR</name>
+          <initializer>= 0x22</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__isi__iss_1ggaad75d1d9431942a789b3c0929771d01aae1774e51fd5f6783dbacec16f5f07b5d" prot="public">
+          <name>ISI_BPAT_GBRIR</name>
+          <initializer>= 0x23</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__isi__iss_1ggaad75d1d9431942a789b3c0929771d01aadf372cab153827addd1c938a61f64730" prot="public">
+          <name>ISI_BPAT_IRRBG</name>
+          <initializer>= 0x24</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__isi__iss_1ggaad75d1d9431942a789b3c0929771d01aad9585661eea1d675905f2108eda447e7" prot="public">
+          <name>ISI_BPAT_RIRGB</name>
+          <initializer>= 0x25</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__isi__iss_1ggaad75d1d9431942a789b3c0929771d01aa44627f17743f0b208d28577c46a781dc" prot="public">
+          <name>ISI_BPAT_RCCC</name>
+          <initializer>= 0x30</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__isi__iss_1ggaad75d1d9431942a789b3c0929771d01aac23d0c0e58c1e0d20047e49b07594ef9" prot="public">
+          <name>ISI_BPAT_RCCB</name>
+          <initializer>= 0x40</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__isi__iss_1ggaad75d1d9431942a789b3c0929771d01aa7b81f440ed8cc68399ddafed2cff923a" prot="public">
+          <name>ISI_BPAT_RYYCY</name>
+          <initializer>= 0x50</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__isi__iss_1ggaad75d1d9431942a789b3c0929771d01aac2a67c4f7cfc6ec355f58ce9d5d8f8a9" prot="public">
+          <name>DUMMY_ISI_004</name>
+          <initializer>= 0xdeadfeed</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>IsiBayerPattern_t. </para>        </briefdescription>
+        <detaileddescription>
+<para>Bayer pattern of sensor </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_common.h" line="182" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_common.h" bodystart="182" bodyend="207"/>
+      </memberdef>
+      <memberdef kind="enum" id="group__isi__iss_1gac3170db1a6143355db12be4318a11342" prot="public" static="no">
+        <name>IsiSyncSignalPolarity_e</name>
+        <enumvalue id="group__isi__iss_1ggac3170db1a6143355db12be4318a11342aa1e6024025862657dc4da4af6656555c" prot="public">
+          <name>ISI_SYNC_POL_HIGH_ACIVE</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__isi__iss_1ggac3170db1a6143355db12be4318a11342ae6e12d3ccff006cc4ec05c6652d1629c" prot="public">
+          <name>ISI_SYNC_POL_LOW_ACIVE</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__isi__iss_1ggac3170db1a6143355db12be4318a11342affb4fedcf0685bed5415f1b7b87e9e34" prot="public">
+          <name>DUMMY_ISI_005</name>
+          <initializer>= 0xdeadfeed</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>IsiSyncSignalPolarity_t. </para>        </briefdescription>
+        <detaileddescription>
+<para>sensor dvp output H/V sync polarity </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_common.h" line="257" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_common.h" bodystart="257" bodyend="261"/>
+      </memberdef>
+      <memberdef kind="enum" id="group__isi__iss_1ga5685e45df20f3bd5dd9da21dade79fb0" prot="public" static="no">
+        <name>IsiSampleEdgePolarity_e</name>
+        <enumvalue id="group__isi__iss_1gga5685e45df20f3bd5dd9da21dade79fb0acfa6938cbf6e986eb9ca0ec98924088f" prot="public">
+          <name>ISI_SAMPLE_EDGE_POL_NEGATIVE</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__isi__iss_1gga5685e45df20f3bd5dd9da21dade79fb0ada0a6c23ab7ff222a7460c41b71d5be7" prot="public">
+          <name>ISI_SAMPLE_EDGE_POL_POSITIVE</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__isi__iss_1gga5685e45df20f3bd5dd9da21dade79fb0aea28df4fed1f7c46cf6b3ced46bc053b" prot="public">
+          <name>DUMMY_ISI_006</name>
+          <initializer>= 0xdeadfeed</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>IsiSyncSignalPolarity_t. </para>        </briefdescription>
+        <detaileddescription>
+<para>sensor output sample edge polarity </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_common.h" line="270" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_common.h" bodystart="270" bodyend="274"/>
+      </memberdef>
+      <memberdef kind="enum" id="group__isi__iss_1ga45da52b4f3a44dea9910cb07c427d77b" prot="public" static="no">
+        <name>IsiSensorCCIRSequence_e</name>
+        <enumvalue id="group__isi__iss_1gga45da52b4f3a44dea9910cb07c427d77ba1ca35df273f127cb717d5aa9a8062f47" prot="public">
+          <name>ISI_SENSOR_CCIR_SEQUENCE_YCbYCr</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+<para>YCbYCr. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__isi__iss_1gga45da52b4f3a44dea9910cb07c427d77ba456efeeae6ff98049c6afe39c8df8e0f" prot="public">
+          <name>ISI_SENSOR_CCIR_SEQUENCE_YCrYCb</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+<para>YCrYCb. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__isi__iss_1gga45da52b4f3a44dea9910cb07c427d77baf23595ef834184a3b9176a5442084078" prot="public">
+          <name>ISI_SENSOR_CCIR_SEQUENCE_CbYCrY</name>
+          <initializer>= 2</initializer>
+          <briefdescription>
+<para>CbYCrY. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__isi__iss_1gga45da52b4f3a44dea9910cb07c427d77ba225b4f45dd507268ca42b78ffff734cb" prot="public">
+          <name>ISI_SENSOR_CCIR_SEQUENCE_CrYCbY</name>
+          <initializer>= 3</initializer>
+          <briefdescription>
+<para>CrYCbY. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__isi__iss_1gga45da52b4f3a44dea9910cb07c427d77baa873bf1845098dc1bfc2aa1cc991a396" prot="public">
+          <name>DUMMY_ISI_007</name>
+          <initializer>= 0xdeadfeed</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>IsiSensorCCIRequence_t. </para>        </briefdescription>
+        <detaileddescription>
+<para>sensor output ccir sequence. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_common.h" line="283" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_common.h" bodystart="283" bodyend="289"/>
+      </memberdef>
+      <memberdef kind="enum" id="group__isi__iss_1ga945e8f59ad2eaef2570b48269753a292" prot="public" static="no">
+        <name>IsiI2cBitWidth_e</name>
+        <enumvalue id="group__isi__iss_1gga945e8f59ad2eaef2570b48269753a292a66ec7a00a0e9a1f8f6ebaac653ef7ed2" prot="public">
+          <name>ISI_I2C_NONE</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__isi__iss_1gga945e8f59ad2eaef2570b48269753a292aa2d2f62301a505e5dff6b1649ebabcf6" prot="public">
+          <name>ISI_I2C_8BIT</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__isi__iss_1gga945e8f59ad2eaef2570b48269753a292a2cedcd8aea5ee19255fddc87db6e3311" prot="public">
+          <name>ISI_I2C_16BIT</name>
+          <initializer>= 2</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__isi__iss_1gga945e8f59ad2eaef2570b48269753a292ae95262245138e5f3141ce42f4e63c7ae" prot="public">
+          <name>DUMMY_ISI_008</name>
+          <initializer>= 0xdeadfeed</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>IsiI2cBitWidth_t. </para>        </briefdescription>
+        <detaileddescription>
+<para>sensor I2C width information </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_common.h" line="299" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_common.h" bodystart="299" bodyend="304"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="group__isi__iss_1ga4617e08319a9dbf971367c943b9d7d8e" prot="public" static="no">
+        <type>enum <ref refid="group__isi__iss_1ga05217044c2571b0acdd550985a5d5537" kindref="member">IsiSensorInputFormat_e</ref></type>
+        <definition>typedef enum IsiSensorInputFormat_e  IsiSensorInputFormat_t</definition>
+        <argsstring></argsstring>
+        <name>IsiSensorInputFormat_t</name>
+        <briefdescription>
+<para>IsiSensorInputFormat_t. </para>        </briefdescription>
+        <detaileddescription>
+<para>mode of awb control to handle whitebalance during integration of AR082x </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_common.h" line="141" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__isi__iss_1ga7c4d0dc3475eabd1451916951167a4e9" prot="public" static="no">
+        <type>enum <ref refid="group__isi__iss_1ga91f06ce6d24b4d260e3b1890f848c25b" kindref="member">IsiSensorAwbMode_e</ref></type>
+        <definition>typedef enum IsiSensorAwbMode_e  IsiSensorAwbMode_t</definition>
+        <argsstring></argsstring>
+        <name>IsiSensorAwbMode_t</name>
+        <briefdescription>
+<para>IsiSensorAwbMode_t. </para>        </briefdescription>
+        <detaileddescription>
+<para>mode of awb control to handle whitebalance during integration of AR082x </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_common.h" line="155" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__isi__iss_1ga2296decccca8680c7524851c449387c1" prot="public" static="no">
+        <type>enum <ref refid="group__isi__iss_1ga341fb5850662924b0e1bcb2a820329f0" kindref="member">IsiColorComponent_e</ref></type>
+        <definition>typedef enum IsiColorComponent_e  IsiColorComponent_t</definition>
+        <argsstring></argsstring>
+        <name>IsiColorComponent_t</name>
+        <briefdescription>
+<para>IsiColorComponent_t. </para>        </briefdescription>
+        <detaileddescription>
+<para>color components </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_common.h" line="172" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__isi__iss_1ga42f89b8dfb3e7dcd9b143b5c4fd2bd99" prot="public" static="no">
+        <type>enum <ref refid="group__isi__iss_1gaad75d1d9431942a789b3c0929771d01a" kindref="member">IsiBayerPattern_e</ref></type>
+        <definition>typedef enum IsiBayerPattern_e  IsiBayerPattern_t</definition>
+        <argsstring></argsstring>
+        <name>IsiBayerPattern_t</name>
+        <briefdescription>
+<para>IsiBayerPattern_t. </para>        </briefdescription>
+        <detaileddescription>
+<para>Bayer pattern of sensor </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_common.h" line="207" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__isi__iss_1ga04bd1dc8dfeeef062bf191e451b5744e" prot="public" static="no">
+        <type>struct IsiGainInfo_s</type>
+        <definition>typedef struct IsiGainInfo_s  IsiGainInfo_t</definition>
+        <argsstring></argsstring>
+        <name>IsiGainInfo_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_common.h" line="213" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__isi__iss_1gab7d702be0a4fb09dd3aa7d4ca5402b5d" prot="public" static="no">
+        <type>struct IsiRange_s</type>
+        <definition>typedef struct IsiRange_s  IsiRange_t</definition>
+        <argsstring></argsstring>
+        <name>IsiRange_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_common.h" line="218" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__isi__iss_1ga52707798e138ab52b06033f595b22bd8" prot="public" static="no">
+        <type>struct IsiExpLineRange_s</type>
+        <definition>typedef struct IsiExpLineRange_s  IsiExpLineRange_t</definition>
+        <argsstring></argsstring>
+        <name>IsiExpLineRange_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_common.h" line="223" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__isi__iss_1ga7168c0da6a94e4c2b8380eef1c490b3d" prot="public" static="no">
+        <type>struct IsiSensorGain_s</type>
+        <definition>typedef struct IsiSensorGain_s  IsiSensorGain_t</definition>
+        <argsstring></argsstring>
+        <name>IsiSensorGain_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_common.h" line="227" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__isi__iss_1gaaaab904d54942e993117f30f180be256" prot="public" static="no">
+        <type>struct IsiSensorIntTime_s</type>
+        <definition>typedef struct IsiSensorIntTime_s  IsiSensorIntTime_t</definition>
+        <argsstring></argsstring>
+        <name>IsiSensorIntTime_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_common.h" line="231" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__isi__iss_1ga13a9c8dde9113a8ecc4d005aad2529f7" prot="public" static="no">
+        <type>struct IsiSensorWin_s</type>
+        <definition>typedef struct IsiSensorWin_s  IsiSensorWin_t</definition>
+        <argsstring></argsstring>
+        <name>IsiSensorWin_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_common.h" line="238" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__isi__iss_1gae18093fc2db5efec313cbb5b7f4117c3" prot="public" static="no">
+        <type>struct IsiSensorReg_s</type>
+        <definition>typedef struct IsiSensorReg_s  IsiSensorReg_t</definition>
+        <argsstring></argsstring>
+        <name>IsiSensorReg_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_common.h" line="243" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__isi__iss_1gacfd9dd72d218757ebadbc007a44bd714" prot="public" static="no">
+        <type>struct IsiSensorBuffer_s</type>
+        <definition>typedef struct IsiSensorBuffer_s  IsiSensorBuffer_t</definition>
+        <argsstring></argsstring>
+        <name>IsiSensorBuffer_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_common.h" line="248" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__isi__iss_1gab8a90bb4e64e7ee3aa8417bc68ec7b4e" prot="public" static="no">
+        <type>enum <ref refid="group__isi__iss_1gac3170db1a6143355db12be4318a11342" kindref="member">IsiSyncSignalPolarity_e</ref></type>
+        <definition>typedef enum IsiSyncSignalPolarity_e  IsiSyncSignalPolarity_t</definition>
+        <argsstring></argsstring>
+        <name>IsiSyncSignalPolarity_t</name>
+        <briefdescription>
+<para>IsiSyncSignalPolarity_t. </para>        </briefdescription>
+        <detaileddescription>
+<para>sensor dvp output H/V sync polarity </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_common.h" line="261" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__isi__iss_1ga47a0bf4d28c5711fba21739cfa6ad3d9" prot="public" static="no">
+        <type>enum <ref refid="group__isi__iss_1ga5685e45df20f3bd5dd9da21dade79fb0" kindref="member">IsiSampleEdgePolarity_e</ref></type>
+        <definition>typedef enum IsiSampleEdgePolarity_e  IsiSampleEdgePolarity_t</definition>
+        <argsstring></argsstring>
+        <name>IsiSampleEdgePolarity_t</name>
+        <briefdescription>
+<para>IsiSyncSignalPolarity_t. </para>        </briefdescription>
+        <detaileddescription>
+<para>sensor output sample edge polarity </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_common.h" line="274" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__isi__iss_1ga5c44c49d9786ddc34b160713b7d8ed6e" prot="public" static="no">
+        <type>enum <ref refid="group__isi__iss_1ga45da52b4f3a44dea9910cb07c427d77b" kindref="member">IsiSensorCCIRSequence_e</ref></type>
+        <definition>typedef enum IsiSensorCCIRSequence_e  IsiSensorCCIRSequence_t</definition>
+        <argsstring></argsstring>
+        <name>IsiSensorCCIRSequence_t</name>
+        <briefdescription>
+<para>IsiSensorCCIRequence_t. </para>        </briefdescription>
+        <detaileddescription>
+<para>sensor output ccir sequence. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_common.h" line="289" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__isi__iss_1gaa88074964ace0f9286e956673b0ae8d2" prot="public" static="no">
+        <type>enum <ref refid="group__isi__iss_1ga945e8f59ad2eaef2570b48269753a292" kindref="member">IsiI2cBitWidth_e</ref></type>
+        <definition>typedef enum IsiI2cBitWidth_e  IsiI2cBitWidth_t</definition>
+        <argsstring></argsstring>
+        <name>IsiI2cBitWidth_t</name>
+        <briefdescription>
+<para>IsiI2cBitWidth_t. </para>        </briefdescription>
+        <detaileddescription>
+<para>sensor I2C width information </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_common.h" line="304" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__isi__iss_1ga1fea451445f824a3a84e579640b8552d" prot="public" static="no">
+        <type>RESULT(*</type>
+        <definition>typedef RESULT(* IsiCreateIss_t)(IsiSensorInstanceConfig_t *pConfig, IsiSensorHandle_t *pHandle)</definition>
+        <argsstring>)(IsiSensorInstanceConfig_t *pConfig, IsiSensorHandle_t *pHandle)</argsstring>
+        <name>IsiCreateIss_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" line="60" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" bodystart="60" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__isi__iss_1ga1d7a79bc4ee42dcd7095017b97486191" prot="public" static="no">
+        <type>RESULT(*</type>
+        <definition>typedef RESULT(* IsiOpenIss_t)(IsiSensorHandle_t handle, uint32_t mode)</definition>
+        <argsstring>)(IsiSensorHandle_t handle, uint32_t mode)</argsstring>
+        <name>IsiOpenIss_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" line="61" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" bodystart="61" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__isi__iss_1ga92dd758d390707a6f50a4c56b9ce1de5" prot="public" static="no">
+        <type>RESULT(*</type>
+        <definition>typedef RESULT(* IsiCloseIss_t)(IsiSensorHandle_t handle)</definition>
+        <argsstring>)(IsiSensorHandle_t handle)</argsstring>
+        <name>IsiCloseIss_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" line="62" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" bodystart="62" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__isi__iss_1ga6f9d500e540ff1ce959daa9e25a2507b" prot="public" static="no">
+        <type>RESULT(*</type>
+        <definition>typedef RESULT(* IsiReleaseIss_t)(IsiSensorHandle_t handle)</definition>
+        <argsstring>)(IsiSensorHandle_t handle)</argsstring>
+        <name>IsiReleaseIss_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" line="63" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" bodystart="63" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__isi__iss_1ga9e8c0ad2ff72ab14473b0494a8ab5c7b" prot="public" static="no">
+        <type>RESULT(*</type>
+        <definition>typedef RESULT(* IsiReadRegIss_t)(IsiSensorHandle_t handle, const uint16_t addr, uint16_t *pValue)</definition>
+        <argsstring>)(IsiSensorHandle_t handle, const uint16_t addr, uint16_t *pValue)</argsstring>
+        <name>IsiReadRegIss_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" line="64" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" bodystart="64" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__isi__iss_1ga77b3bbcd266f3bd7787a9d6704c0d4c9" prot="public" static="no">
+        <type>RESULT(*</type>
+        <definition>typedef RESULT(* IsiWriteRegIss_t)(IsiSensorHandle_t handle, const uint16_t addr, const uint16_t value)</definition>
+        <argsstring>)(IsiSensorHandle_t handle, const uint16_t addr, const uint16_t value)</argsstring>
+        <name>IsiWriteRegIss_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" line="65" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" bodystart="65" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__isi__iss_1ga996ee6a46c87c8aa0a0f4b0b2ab722a6" prot="public" static="no">
+        <type>RESULT(*</type>
+        <definition>typedef RESULT(* IsiGetModeIss_t)(IsiSensorHandle_t handle, IsiSensorMode_t *pMode)</definition>
+        <argsstring>)(IsiSensorHandle_t handle, IsiSensorMode_t *pMode)</argsstring>
+        <name>IsiGetModeIss_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" line="67" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" bodystart="67" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__isi__iss_1ga51a951dbd570220c9dc16bfaee6791c5" prot="public" static="no">
+        <type>RESULT(*</type>
+        <definition>typedef RESULT(* IsiEnumModeIss_t)(IsiSensorHandle_t handle, IsiSensorEnumMode_t *pEnumMode)</definition>
+        <argsstring>)(IsiSensorHandle_t handle, IsiSensorEnumMode_t *pEnumMode)</argsstring>
+        <name>IsiEnumModeIss_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" line="68" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" bodystart="68" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__isi__iss_1ga7dd18eee1a1b0b9601f89886579a3151" prot="public" static="no">
+        <type>RESULT(*</type>
+        <definition>typedef RESULT(* IsiGetCapsIss_t)(IsiSensorHandle_t handle, IsiCaps_t *pCaps)</definition>
+        <argsstring>)(IsiSensorHandle_t handle, IsiCaps_t *pCaps)</argsstring>
+        <name>IsiGetCapsIss_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" line="69" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" bodystart="69" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__isi__iss_1ga2e5f4edc1af5a0e2aa8b761302f7c325" prot="public" static="no">
+        <type>RESULT(*</type>
+        <definition>typedef RESULT(* IsiCheckConnectionIss_t)(IsiSensorHandle_t handle)</definition>
+        <argsstring>)(IsiSensorHandle_t handle)</argsstring>
+        <name>IsiCheckConnectionIss_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" line="70" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" bodystart="70" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__isi__iss_1gaffe91d275681a0a17391d40b163717bf" prot="public" static="no">
+        <type>RESULT(*</type>
+        <definition>typedef RESULT(* IsiGetRevisionIss_t)(IsiSensorHandle_t handle, uint32_t *pRevision)</definition>
+        <argsstring>)(IsiSensorHandle_t handle, uint32_t *pRevision)</argsstring>
+        <name>IsiGetRevisionIss_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" line="71" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" bodystart="71" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__isi__iss_1gad6adb4ffca0382a132f682a7a2cf9413" prot="public" static="no">
+        <type>RESULT(*</type>
+        <definition>typedef RESULT(* IsiSetStreamingIss_t)(IsiSensorHandle_t handle, bool_t on)</definition>
+        <argsstring>)(IsiSensorHandle_t handle, bool_t on)</argsstring>
+        <name>IsiSetStreamingIss_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" line="72" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" bodystart="72" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__isi__iss_1gaab6e5e177576edbf39e4fc50d9070b02" prot="public" static="no">
+        <type>RESULT(*</type>
+        <definition>typedef RESULT(* IsiGetAeBaseInfoIss_t)(IsiSensorHandle_t handle, IsiAeBaseInfo_t *pAeBaseInfo)</definition>
+        <argsstring>)(IsiSensorHandle_t handle, IsiAeBaseInfo_t *pAeBaseInfo)</argsstring>
+        <name>IsiGetAeBaseInfoIss_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" line="75" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" bodystart="75" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__isi__iss_1gabfc38f5b680c94150b13fb4a94e2be0b" prot="public" static="no">
+        <type>RESULT(*</type>
+        <definition>typedef RESULT(* IsiExcuteExpCtrlIss_t)(IsiSensorHandle_t handle, const IsiSensorExpParam_t *pExpParam, IsiSensorExpParam_t *pExpResult)</definition>
+        <argsstring>)(IsiSensorHandle_t handle, const IsiSensorExpParam_t *pExpParam, IsiSensorExpParam_t *pExpResult)</argsstring>
+        <name>IsiExcuteExpCtrlIss_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" line="76" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" bodystart="76" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__isi__iss_1ga55cd3813add833093263bea9887b7ef8" prot="public" static="no">
+        <type>RESULT(*</type>
+        <definition>typedef RESULT(* IsiExpDecomposeCtrlIss_t)(IsiSensorHandle_t handle, const IsiExpDecomposeParam_t *pDecParam, IsiExpDecomposeResult_t *pDecResult)</definition>
+        <argsstring>)(IsiSensorHandle_t handle, const IsiExpDecomposeParam_t *pDecParam, IsiExpDecomposeResult_t *pDecResult)</argsstring>
+        <name>IsiExpDecomposeCtrlIss_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" line="78" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" bodystart="78" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__isi__iss_1ga32ecad468e313dc1b793a192246104be" prot="public" static="no">
+        <type>RESULT(*</type>
+        <definition>typedef RESULT(* IsiGetAGainIss_t)(IsiSensorHandle_t handle, IsiSensorGain_t *pSensorAGain)</definition>
+        <argsstring>)(IsiSensorHandle_t handle, IsiSensorGain_t *pSensorAGain)</argsstring>
+        <name>IsiGetAGainIss_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" line="80" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" bodystart="80" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__isi__iss_1gaaa4dd51c28458336e2cbb4582f1d3c26" prot="public" static="no">
+        <type>RESULT(*</type>
+        <definition>typedef RESULT(* IsiSetAGainIss_t)(IsiSensorHandle_t handle, IsiSensorGain_t *pSensorAGain)</definition>
+        <argsstring>)(IsiSensorHandle_t handle, IsiSensorGain_t *pSensorAGain)</argsstring>
+        <name>IsiSetAGainIss_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" line="81" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" bodystart="81" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__isi__iss_1gaad582e7a9e860eaa86c055a8670deac8" prot="public" static="no">
+        <type>RESULT(*</type>
+        <definition>typedef RESULT(* IsiGetDGainIss_t)(IsiSensorHandle_t handle, IsiSensorGain_t *pSensorDGain)</definition>
+        <argsstring>)(IsiSensorHandle_t handle, IsiSensorGain_t *pSensorDGain)</argsstring>
+        <name>IsiGetDGainIss_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" line="82" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" bodystart="82" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__isi__iss_1gac0be3f82376ff98159d174bac59bd9e1" prot="public" static="no">
+        <type>RESULT(*</type>
+        <definition>typedef RESULT(* IsiSetDGainIss_t)(IsiSensorHandle_t handle, IsiSensorGain_t *pSensorDGain)</definition>
+        <argsstring>)(IsiSensorHandle_t handle, IsiSensorGain_t *pSensorDGain)</argsstring>
+        <name>IsiSetDGainIss_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" line="83" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" bodystart="83" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__isi__iss_1ga46647362ec85170d32e4a9504dad0a5e" prot="public" static="no">
+        <type>RESULT(*</type>
+        <definition>typedef RESULT(* IsiGetIntTimeIss_t)(IsiSensorHandle_t handle, IsiSensorIntTime_t *pSensorIntTime)</definition>
+        <argsstring>)(IsiSensorHandle_t handle, IsiSensorIntTime_t *pSensorIntTime)</argsstring>
+        <name>IsiGetIntTimeIss_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" line="84" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" bodystart="84" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__isi__iss_1ga36f83f5f5f1dfedcc6ff3c47dcec32f6" prot="public" static="no">
+        <type>RESULT(*</type>
+        <definition>typedef RESULT(* IsiSetIntTimeIss_t)(IsiSensorHandle_t handle, const IsiSensorIntTime_t *pSensorIntTime)</definition>
+        <argsstring>)(IsiSensorHandle_t handle, const IsiSensorIntTime_t *pSensorIntTime)</argsstring>
+        <name>IsiSetIntTimeIss_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" line="85" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" bodystart="85" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__isi__iss_1gacae38a080821aad0b05aa0fa10c111a4" prot="public" static="no">
+        <type>RESULT(*</type>
+        <definition>typedef RESULT(* IsiGetFpsIss_t)(IsiSensorHandle_t handle, uint32_t *pFps)</definition>
+        <argsstring>)(IsiSensorHandle_t handle, uint32_t *pFps)</argsstring>
+        <name>IsiGetFpsIss_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" line="87" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" bodystart="87" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__isi__iss_1ga7d71c7041bd6505f6dbd9f85c19840fb" prot="public" static="no">
+        <type>RESULT(*</type>
+        <definition>typedef RESULT(* IsiSetFpsIss_t)(IsiSensorHandle_t handle, uint32_t fps)</definition>
+        <argsstring>)(IsiSensorHandle_t handle, uint32_t fps)</argsstring>
+        <name>IsiSetFpsIss_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" line="88" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" bodystart="88" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__isi__iss_1ga7eb001b6e05619eb0daa936f05338544" prot="public" static="no">
+        <type>RESULT(*</type>
+        <definition>typedef RESULT(* IsiGetIspStatusIss_t)(IsiSensorHandle_t handle, IsiIspStatus_t *pIspStatus)</definition>
+        <argsstring>)(IsiSensorHandle_t handle, IsiIspStatus_t *pIspStatus)</argsstring>
+        <name>IsiGetIspStatusIss_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" line="91" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" bodystart="91" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__isi__iss_1ga02aadfe7a1dd225e0e3af8a251f56e57" prot="public" static="no">
+        <type>RESULT(*</type>
+        <definition>typedef RESULT(* IsiSetBlcIss_t)(IsiSensorHandle_t handle, const IsiSensorBlc_t *pBlc)</definition>
+        <argsstring>)(IsiSensorHandle_t handle, const IsiSensorBlc_t *pBlc)</argsstring>
+        <name>IsiSetBlcIss_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" line="92" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" bodystart="92" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__isi__iss_1gad7b9d8375170d5dc53e4c0f6a99be1b3" prot="public" static="no">
+        <type>RESULT(*</type>
+        <definition>typedef RESULT(* IsiGetBlcIss_t)(IsiSensorHandle_t handle, IsiSensorBlc_t *pBlc)</definition>
+        <argsstring>)(IsiSensorHandle_t handle, IsiSensorBlc_t *pBlc)</argsstring>
+        <name>IsiGetBlcIss_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" line="93" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" bodystart="93" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__isi__iss_1ga8cc5eefd993875e8411f0c016b119053" prot="public" static="no">
+        <type>RESULT(*</type>
+        <definition>typedef RESULT(* IsiSetWBIss_t)(IsiSensorHandle_t handle, const IsiSensorWb_t *pWb)</definition>
+        <argsstring>)(IsiSensorHandle_t handle, const IsiSensorWb_t *pWb)</argsstring>
+        <name>IsiSetWBIss_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" line="94" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" bodystart="94" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__isi__iss_1ga6487af73d9ef7bfe0db2b372fd54fef7" prot="public" static="no">
+        <type>RESULT(*</type>
+        <definition>typedef RESULT(* IsiGetWBIss_t)(IsiSensorHandle_t handle, IsiSensorWb_t *pWb)</definition>
+        <argsstring>)(IsiSensorHandle_t handle, IsiSensorWb_t *pWb)</argsstring>
+        <name>IsiGetWBIss_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" line="95" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" bodystart="95" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__isi__iss_1gaeeb9436c534ccded012012e83aa90a0b" prot="public" static="no">
+        <type>RESULT(*</type>
+        <definition>typedef RESULT(* IsiSetTpgIss_t)(IsiSensorHandle_t handle, IsiSensorTpg_t tpg)</definition>
+        <argsstring>)(IsiSensorHandle_t handle, IsiSensorTpg_t tpg)</argsstring>
+        <name>IsiSetTpgIss_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" line="98" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" bodystart="98" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__isi__iss_1gab09d1ab21db8098f7c9e140325d4f0b8" prot="public" static="no">
+        <type>RESULT(*</type>
+        <definition>typedef RESULT(* IsiGetTpgIss_t)(IsiSensorHandle_t handle, IsiSensorTpg_t *pTpg)</definition>
+        <argsstring>)(IsiSensorHandle_t handle, IsiSensorTpg_t *pTpg)</argsstring>
+        <name>IsiGetTpgIss_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" line="99" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" bodystart="99" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__isi__iss_1ga94c2ccdc64f619dfa432f60a22d33565" prot="public" static="no">
+        <type>RESULT(*</type>
+        <definition>typedef RESULT(* IsiGetExpandCurveIss_t)(IsiSensorHandle_t handle, IsiSensorCompandCurve_t *pCurve)</definition>
+        <argsstring>)(IsiSensorHandle_t handle, IsiSensorCompandCurve_t *pCurve)</argsstring>
+        <name>IsiGetExpandCurveIss_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" line="100" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" bodystart="100" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__isi__iss_1ga7f66a536c1fc4044813aae60496a228f" prot="public" static="no">
+        <type>RESULT(*</type>
+        <definition>typedef RESULT(* IsiGetCompressCurveIss_t)(IsiSensorHandle_t handle, IsiSensorCompandCurve_t *pCurve)</definition>
+        <argsstring>)(IsiSensorHandle_t handle, IsiSensorCompandCurve_t *pCurve)</argsstring>
+        <name>IsiGetCompressCurveIss_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" line="101" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" bodystart="101" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__isi__iss_1gaef464ecb46646a260fad8721dac2b907" prot="public" static="no">
+        <type>RESULT(*</type>
+        <definition>typedef RESULT(* IsiExtendFuncIss_t)(IsiSensorHandle_t handle, void *pUserData)</definition>
+        <argsstring>)(IsiSensorHandle_t handle, void *pUserData)</argsstring>
+        <name>IsiExtendFuncIss_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" line="103" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" bodystart="103" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__isi__iss_1ga562035047be0849525f2e3c1353f0497" prot="public" static="no">
+        <type>RESULT(*</type>
+        <definition>typedef RESULT(* IsiGetOtpDataIss_t)(IsiSensorHandle_t handle, IsiOTP_t *pOtpData)</definition>
+        <argsstring>)(IsiSensorHandle_t handle, IsiOTP_t *pOtpData)</argsstring>
+        <name>IsiGetOtpDataIss_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" line="104" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" bodystart="104" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__isi__iss_1ga2e6c2d2ea5e8e2828589c04f1562249c" prot="public" static="no">
+        <type>RESULT(*</type>
+        <definition>typedef RESULT(* IsiFocusCreateIss_t)(IsiSensorHandle_t handle)</definition>
+        <argsstring>)(IsiSensorHandle_t handle)</argsstring>
+        <name>IsiFocusCreateIss_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" line="107" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" bodystart="107" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__isi__iss_1ga5ed847fa7320d10583bf2c5e97559c81" prot="public" static="no">
+        <type>RESULT(*</type>
+        <definition>typedef RESULT(* IsiFocusReleaseIss_t)(IsiSensorHandle_t handle)</definition>
+        <argsstring>)(IsiSensorHandle_t handle)</argsstring>
+        <name>IsiFocusReleaseIss_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" line="108" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" bodystart="108" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__isi__iss_1ga9a694fdf1c1c84c8092292448a55b863" prot="public" static="no">
+        <type>RESULT(*</type>
+        <definition>typedef RESULT(* IsiFocusGetCalibrateIss_t)(IsiSensorHandle_t handle, IsiFocusCalibAttr_t *pFocusCalib)</definition>
+        <argsstring>)(IsiSensorHandle_t handle, IsiFocusCalibAttr_t *pFocusCalib)</argsstring>
+        <name>IsiFocusGetCalibrateIss_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" line="109" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" bodystart="109" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__isi__iss_1ga34c767d24647f4ec08a338b0b4d4b3dd" prot="public" static="no">
+        <type>RESULT(*</type>
+        <definition>typedef RESULT(* IsiFocusSetIss_t)(IsiSensorHandle_t handle, const IsiFocusPos_t *pPos)</definition>
+        <argsstring>)(IsiSensorHandle_t handle, const IsiFocusPos_t *pPos)</argsstring>
+        <name>IsiFocusSetIss_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" line="111" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" bodystart="111" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__isi__iss_1ga32af7091f7051e23569dcee918c3f564" prot="public" static="no">
+        <type>RESULT(*</type>
+        <definition>typedef RESULT(* IsiFocusGetIss_t)(IsiSensorHandle_t handle, IsiFocusPos_t *pPos)</definition>
+        <argsstring>)(IsiSensorHandle_t handle, IsiFocusPos_t *pPos)</argsstring>
+        <name>IsiFocusGetIss_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" line="112" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" bodystart="112" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__isi__iss_1ga13c6ffb43ac761eecce58fb4f4a22e29" prot="public" static="no">
+        <type>RESULT(*</type>
+        <definition>typedef RESULT(* IsiSetIRLightExpIss_t)(IsiSensorHandle_t handle, const IsiIrLightExp_t *pIrExpParam)</definition>
+        <argsstring>)(IsiSensorHandle_t handle, const IsiIrLightExp_t *pIrExpParam)</argsstring>
+        <name>IsiSetIRLightExpIss_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" line="115" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" bodystart="115" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__isi__iss_1ga30b717d17b3e4315f0d76050331bebff" prot="public" static="no">
+        <type>RESULT(*</type>
+        <definition>typedef RESULT(* IsiGetIRLightExpIss_t)(IsiSensorHandle_t handle, IsiIrLightExp_t *pIrExpParam)</definition>
+        <argsstring>)(IsiSensorHandle_t handle, IsiIrLightExp_t *pIrExpParam)</argsstring>
+        <name>IsiGetIRLightExpIss_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" line="117" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" bodystart="117" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__isi__iss_1ga4e57e3c013623fcf9aa4b8bf7c39424b" prot="public" static="no">
+        <type>RESULT(*</type>
+        <definition>typedef RESULT(* IsiQueryMetadataAttrIss_t)(IsiSensorHandle_t handle, IsiMetadataAttr_t *pAttr)</definition>
+        <argsstring>)(IsiSensorHandle_t handle, IsiMetadataAttr_t *pAttr)</argsstring>
+        <name>IsiQueryMetadataAttrIss_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" line="120" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" bodystart="120" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__isi__iss_1ga704cde67d4dd31970d8ab99e631197d3" prot="public" static="no">
+        <type>RESULT(*</type>
+        <definition>typedef RESULT(* IsiSetMetadataAttrEnableIss_t)(IsiSensorHandle_t handle, IsiMetadataAttr_t attr)</definition>
+        <argsstring>)(IsiSensorHandle_t handle, IsiMetadataAttr_t attr)</argsstring>
+        <name>IsiSetMetadataAttrEnableIss_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" line="121" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" bodystart="121" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__isi__iss_1ga95373a6804393d8ad609c155b20f2320" prot="public" static="no">
+        <type>RESULT(*</type>
+        <definition>typedef RESULT(* IsiGetMetadataAttrEnableIss_t)(IsiSensorHandle_t handle, IsiMetadataAttr_t *pAttr)</definition>
+        <argsstring>)(IsiSensorHandle_t handle, IsiMetadataAttr_t *pAttr)</argsstring>
+        <name>IsiGetMetadataAttrEnableIss_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" line="122" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" bodystart="122" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__isi__iss_1ga7dfc1e0a1df2840e110623b4560126a1" prot="public" static="no">
+        <type>RESULT(*</type>
+        <definition>typedef RESULT(* IsiGetMetadataWindowIss_t)(IsiSensorHandle_t handle, IsiMetadataWinInfo_t *pMetaWin)</definition>
+        <argsstring>)(IsiSensorHandle_t handle, IsiMetadataWinInfo_t *pMetaWin)</argsstring>
+        <name>IsiGetMetadataWindowIss_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" line="123" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" bodystart="123" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__isi__iss_1ga59da2707752c0d4e9b9ad1b81e187081" prot="public" static="no">
+        <type>RESULT(*</type>
+        <definition>typedef RESULT(* IsiParserMetadataIss_t)(IsiSensorHandle_t handle, const MetadataBufInfo_t *pMetaBuf, IsiSensorMetadata_t *pMetaInfo)</definition>
+        <argsstring>)(IsiSensorHandle_t handle, const MetadataBufInfo_t *pMetaBuf, IsiSensorMetadata_t *pMetaInfo)</argsstring>
+        <name>IsiParserMetadataIss_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" line="125" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" bodystart="126" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__isi__iss_1gaadc38763337a72ae52ca5a69f0a17f71" prot="public" static="no">
+        <type>RESULT(*</type>
+        <definition>typedef RESULT(* IsiGetSensorIss_t)(IsiSensor_t *pIsiSensor)</definition>
+        <argsstring>)(IsiSensor_t *pIsiSensor)</argsstring>
+        <name>IsiGetSensorIss_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" line="210" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" bodystart="210" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__isi__iss_1ga6fbde4b75c044b729d80908359a16e5b" prot="public" static="no">
+        <type>struct <ref refid="struct_isi_cam_drv_config__s" kindref="compound">IsiCamDrvConfig_s</ref></type>
+        <definition>typedef struct IsiCamDrvConfig_s  IsiCamDrvConfig_t</definition>
+        <argsstring></argsstring>
+        <name>IsiCamDrvConfig_t</name>
+        <briefdescription>
+<para>IsiCamDrvConfig_t. </para>        </briefdescription>
+        <detaileddescription>
+<para>Camera sensor driver specific data </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" line="226" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__isi__iss_1ga35decef260340314b9c6b898b81cc1a2" prot="public" static="no">
+        <type>struct IsiCamDrvConfigMbox_s</type>
+        <definition>typedef struct IsiCamDrvConfigMbox_s  IsiCamDrvConfigMbox_t</definition>
+        <argsstring></argsstring>
+        <name>IsiCamDrvConfigMbox_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" line="235" column="1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__isi__iss_1ga676ab6b654f91823c0ad46c4cb565c6b" prot="public" static="no" mutable="no">
+        <type>float32_t</type>
+        <definition>float32_t IsiGainInfo_s::min</definition>
+        <argsstring></argsstring>
+        <name>min</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_common.h" line="210" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_common.h" bodystart="210" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__isi__iss_1gae1329797b272ea6a09fc1b22a6408c30" prot="public" static="no" mutable="no">
+        <type>float32_t</type>
+        <definition>float32_t IsiGainInfo_s::max</definition>
+        <argsstring></argsstring>
+        <name>max</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_common.h" line="211" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_common.h" bodystart="211" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__isi__iss_1ga7f75c12247c98132b976f93c2f0f1ec4" prot="public" static="no" mutable="no">
+        <type>float32_t</type>
+        <definition>float32_t IsiGainInfo_s::step</definition>
+        <argsstring></argsstring>
+        <name>step</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_common.h" line="212" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_common.h" bodystart="212" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__isi__iss_1gafdf7fe7962eea2c603608f765a50f2a7" prot="public" static="no" mutable="no">
+        <type>float32_t</type>
+        <definition>float32_t IsiRange_s::min</definition>
+        <argsstring></argsstring>
+        <name>min</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_common.h" line="216" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_common.h" bodystart="216" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__isi__iss_1ga299d001edab5a4551ec3d3e2c93f1575" prot="public" static="no" mutable="no">
+        <type>float32_t</type>
+        <definition>float32_t IsiRange_s::max</definition>
+        <argsstring></argsstring>
+        <name>max</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_common.h" line="217" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_common.h" bodystart="217" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__isi__iss_1ga4a70a06d43dd8446e73775a11f91b617" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t IsiExpLineRange_s::max</definition>
+        <argsstring></argsstring>
+        <name>max</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_common.h" line="221" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_common.h" bodystart="221" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__isi__iss_1ga037b77be9b00e4dea3ef737bfa314f7f" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t IsiExpLineRange_s::min</definition>
+        <argsstring></argsstring>
+        <name>min</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_common.h" line="222" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_common.h" bodystart="222" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__isi__iss_1ga8524f0e70e7da54acb756f6ef41bf076" prot="public" static="no" mutable="no">
+        <type>float32_t</type>
+        <definition>float32_t IsiSensorGain_s::gain[4]</definition>
+        <argsstring>[4]</argsstring>
+        <name>gain</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_common.h" line="226" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_common.h" bodystart="226" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__isi__iss_1ga19db2bb5152ae6cf1651dee9f4366d01" prot="public" static="no" mutable="no">
+        <type>float32_t</type>
+        <definition>float32_t IsiSensorIntTime_s::intTime[4]</definition>
+        <argsstring>[4]</argsstring>
+        <name>intTime</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_common.h" line="230" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_common.h" bodystart="230" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__isi__iss_1ga9258b7bc2c2866b4614fd066cf49ed1c" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t IsiSensorWin_s::hStart</definition>
+        <argsstring></argsstring>
+        <name>hStart</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_common.h" line="234" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_common.h" bodystart="234" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__isi__iss_1ga3aacda8b8d2bc28162f681841a295c31" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t IsiSensorWin_s::vStart</definition>
+        <argsstring></argsstring>
+        <name>vStart</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_common.h" line="235" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_common.h" bodystart="235" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__isi__iss_1gabaef11b53586ea754f96cdaa82078c48" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t IsiSensorWin_s::hSize</definition>
+        <argsstring></argsstring>
+        <name>hSize</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_common.h" line="236" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_common.h" bodystart="236" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__isi__iss_1ga82bfb9e46b8a77aaa558f607729c7243" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t IsiSensorWin_s::vSize</definition>
+        <argsstring></argsstring>
+        <name>vSize</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_common.h" line="237" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_common.h" bodystart="237" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__isi__iss_1ga42c28f05bb3cac59e0428c84d9de951f" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t IsiSensorReg_s::regAddr</definition>
+        <argsstring></argsstring>
+        <name>regAddr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_common.h" line="241" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_common.h" bodystart="241" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__isi__iss_1gaeeb6467f6d62314da8ae2262d94fe236" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t IsiSensorReg_s::regVal</definition>
+        <argsstring></argsstring>
+        <name>regVal</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_common.h" line="242" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_common.h" bodystart="242" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__isi__iss_1ga535b91e5ec251a1d550d37679c63919c" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t IsiSensorBuffer_s::pdata</definition>
+        <argsstring></argsstring>
+        <name>pdata</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_common.h" line="246" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_common.h" bodystart="246" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__isi__iss_1ga161a8b280bce02cf92d80b37cfd48bff" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t IsiSensorBuffer_s::dataSize</definition>
+        <argsstring></argsstring>
+        <name>dataSize</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_common.h" line="247" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_common.h" bodystart="247" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__isi__iss_1gaf66f045a3b9790b7df2dedd345380c7d" prot="public" static="no" mutable="no">
+        <type>const char *</type>
+        <definition>const char* IsiSensor_s::pszName</definition>
+        <argsstring></argsstring>
+        <name>pszName</name>
+        <briefdescription>
+<para>name of the camera-sensor </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" line="143" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" bodystart="143" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__isi__iss_1ga5045cef94ce3fbd11f8aa12088e24b3c" prot="public" static="no" mutable="no">
+        <type>const <ref refid="group__isi_1ga8f5b11036e332d8d0ce011de3035834b" kindref="member">IsiCaps_t</ref> *</type>
+        <definition>const IsiCaps_t* IsiSensor_s::pIsiCaps</definition>
+        <argsstring></argsstring>
+        <name>pIsiCaps</name>
+        <briefdescription>
+<para>pointer to sensor capabilities </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" line="145" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" bodystart="145" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__isi__iss_1gae8c6f0a79bc15f29e8414f90fc491fb6" prot="public" static="no" mutable="no">
+        <type>IsiCreateIss_t</type>
+        <definition>IsiCreateIss_t IsiSensor_s::pIsiCreateIss</definition>
+        <argsstring></argsstring>
+        <name>pIsiCreateIss</name>
+        <briefdescription>
+<para>create a sensor handle </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" line="147" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" bodystart="147" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__isi__iss_1gaa9d6934772ff2d949f62ce4c3a5ab599" prot="public" static="no" mutable="no">
+        <type>IsiOpenIss_t</type>
+        <definition>IsiOpenIss_t IsiSensor_s::pIsiOpenIss</definition>
+        <argsstring></argsstring>
+        <name>pIsiOpenIss</name>
+        <briefdescription>
+<para>open sensor </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" line="148" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" bodystart="148" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__isi__iss_1ga594592e2ecc426d471e3b8a1720c856e" prot="public" static="no" mutable="no">
+        <type>IsiCloseIss_t</type>
+        <definition>IsiCloseIss_t IsiSensor_s::pIsiCloseIss</definition>
+        <argsstring></argsstring>
+        <name>pIsiCloseIss</name>
+        <briefdescription>
+<para>close sensor </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" line="149" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" bodystart="149" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__isi__iss_1ga4b53c7e50f481cc3fbbc4b5a273b0f38" prot="public" static="no" mutable="no">
+        <type>IsiReleaseIss_t</type>
+        <definition>IsiReleaseIss_t IsiSensor_s::pIsiReleaseIss</definition>
+        <argsstring></argsstring>
+        <name>pIsiReleaseIss</name>
+        <briefdescription>
+<para>release a sensor handle </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" line="150" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" bodystart="150" bodyend="-1"/>
+        <referencedby refid="group__isi__iss_1gae918129f6476a5274727c79e5badfbf6" compoundref="isi_8c" startline="111" endline="134">IsiSensorDrvHandleUnRegisterIss</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__isi__iss_1ga5dab7b538edc13cefbff5cb420091722" prot="public" static="no" mutable="no">
+        <type>IsiReadRegIss_t</type>
+        <definition>IsiReadRegIss_t IsiSensor_s::pIsiReadRegIss</definition>
+        <argsstring></argsstring>
+        <name>pIsiReadRegIss</name>
+        <briefdescription>
+<para>read sensor register </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" line="151" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" bodystart="151" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__isi__iss_1gad21547122e1727d40a203d2f12d0df7a" prot="public" static="no" mutable="no">
+        <type>IsiWriteRegIss_t</type>
+        <definition>IsiWriteRegIss_t IsiSensor_s::pIsiWriteRegIss</definition>
+        <argsstring></argsstring>
+        <name>pIsiWriteRegIss</name>
+        <briefdescription>
+<para>write sensor register </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" line="152" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" bodystart="152" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__isi__iss_1ga1b8500bda912e6817c3287b8f8454e8b" prot="public" static="no" mutable="no">
+        <type>IsiGetModeIss_t</type>
+        <definition>IsiGetModeIss_t IsiSensor_s::pIsiGetModeIss</definition>
+        <argsstring></argsstring>
+        <name>pIsiGetModeIss</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" line="153" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" bodystart="153" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__isi__iss_1ga7de7370fd6287521261623c40a0ba42a" prot="public" static="no" mutable="no">
+        <type>IsiEnumModeIss_t</type>
+        <definition>IsiEnumModeIss_t IsiSensor_s::pIsiEnumModeIss</definition>
+        <argsstring></argsstring>
+        <name>pIsiEnumModeIss</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" line="154" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" bodystart="154" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__isi__iss_1ga6b2ad14f4bcd6373bc254db115be4370" prot="public" static="no" mutable="no">
+        <type>IsiGetCapsIss_t</type>
+        <definition>IsiGetCapsIss_t IsiSensor_s::pIsiGetCapsIss</definition>
+        <argsstring></argsstring>
+        <name>pIsiGetCapsIss</name>
+        <briefdescription>
+<para>get sensor capabilities </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" line="155" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" bodystart="155" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__isi__iss_1ga9daaba8d685308ee3d50e52f5968ee28" prot="public" static="no" mutable="no">
+        <type>IsiCheckConnectionIss_t</type>
+        <definition>IsiCheckConnectionIss_t IsiSensor_s::pIsiCheckConnectionIss</definition>
+        <argsstring></argsstring>
+        <name>pIsiCheckConnectionIss</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" line="156" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" bodystart="156" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__isi__iss_1ga5e842297e3ec4a420fa1969e2c650338" prot="public" static="no" mutable="no">
+        <type>IsiGetRevisionIss_t</type>
+        <definition>IsiGetRevisionIss_t IsiSensor_s::pIsiGetRevisionIss</definition>
+        <argsstring></argsstring>
+        <name>pIsiGetRevisionIss</name>
+        <briefdescription>
+<para>read sensor revision register (if available) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" line="158" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" bodystart="158" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__isi__iss_1ga23277bc6bfc15f0f479a1cdf0d3e2e9d" prot="public" static="no" mutable="no">
+        <type>IsiSetStreamingIss_t</type>
+        <definition>IsiSetStreamingIss_t IsiSensor_s::pIsiSetStreamingIss</definition>
+        <argsstring></argsstring>
+        <name>pIsiSetStreamingIss</name>
+        <briefdescription>
+<para>enable/disable streaming of data once sensor is configured </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" line="160" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" bodystart="160" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__isi__iss_1ga0ece9f70ff63d9bc8bcab4fa7fcd5f69" prot="public" static="no" mutable="no">
+        <type>IsiGetAeBaseInfoIss_t</type>
+        <definition>IsiGetAeBaseInfoIss_t IsiSensor_s::pIsiGetAeBaseInfoIss</definition>
+        <argsstring></argsstring>
+        <name>pIsiGetAeBaseInfoIss</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" line="163" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" bodystart="163" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__isi__iss_1ga744537daee98d4205c057cbd0e729b3a" prot="public" static="no" mutable="no">
+        <type>IsiExcuteExpCtrlIss_t</type>
+        <definition>IsiExcuteExpCtrlIss_t IsiSensor_s::pIsiExcuteExpCtrlIss</definition>
+        <argsstring></argsstring>
+        <name>pIsiExcuteExpCtrlIss</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" line="164" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" bodystart="164" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__isi__iss_1gac6abe5dd60a46e3085b6032ad050c5ef" prot="public" static="no" mutable="no">
+        <type>IsiExpDecomposeCtrlIss_t</type>
+        <definition>IsiExpDecomposeCtrlIss_t IsiSensor_s::pIsiExpDecomposeCtrlIss</definition>
+        <argsstring></argsstring>
+        <name>pIsiExpDecomposeCtrlIss</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" line="165" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" bodystart="165" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__isi__iss_1ga24caf3eea3567d5ea2c624f04433a5ae" prot="public" static="no" mutable="no">
+        <type>IsiGetAGainIss_t</type>
+        <definition>IsiGetAGainIss_t IsiSensor_s::pIsiGetAGainIss</definition>
+        <argsstring></argsstring>
+        <name>pIsiGetAGainIss</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" line="166" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" bodystart="166" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__isi__iss_1gad6b19198f81cbb3d0f31a9c047f4bb98" prot="public" static="no" mutable="no">
+        <type>IsiSetAGainIss_t</type>
+        <definition>IsiSetAGainIss_t IsiSensor_s::pIsiSetAGainIss</definition>
+        <argsstring></argsstring>
+        <name>pIsiSetAGainIss</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" line="167" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" bodystart="167" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__isi__iss_1ga93b3580cccf498fa5c49491db702cc41" prot="public" static="no" mutable="no">
+        <type>IsiGetDGainIss_t</type>
+        <definition>IsiGetDGainIss_t IsiSensor_s::pIsiGetDGainIss</definition>
+        <argsstring></argsstring>
+        <name>pIsiGetDGainIss</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" line="168" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" bodystart="168" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__isi__iss_1ga81dc596b4b9b25ff379bbf8c70ffb994" prot="public" static="no" mutable="no">
+        <type>IsiSetDGainIss_t</type>
+        <definition>IsiSetDGainIss_t IsiSensor_s::pIsiSetDGainIss</definition>
+        <argsstring></argsstring>
+        <name>pIsiSetDGainIss</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" line="169" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" bodystart="169" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__isi__iss_1gaf3cbaa56ea581b8eb7c91f27eb73c807" prot="public" static="no" mutable="no">
+        <type>IsiGetIntTimeIss_t</type>
+        <definition>IsiGetIntTimeIss_t IsiSensor_s::pIsiGetIntTimeIss</definition>
+        <argsstring></argsstring>
+        <name>pIsiGetIntTimeIss</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" line="170" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" bodystart="170" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__isi__iss_1gac2db9e977f04634a6e55ab80fe94e408" prot="public" static="no" mutable="no">
+        <type>IsiSetIntTimeIss_t</type>
+        <definition>IsiSetIntTimeIss_t IsiSensor_s::pIsiSetIntTimeIss</definition>
+        <argsstring></argsstring>
+        <name>pIsiSetIntTimeIss</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" line="171" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" bodystart="171" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__isi__iss_1ga9e8b0914e5f097d8785e20bbe9eff189" prot="public" static="no" mutable="no">
+        <type>IsiGetFpsIss_t</type>
+        <definition>IsiGetFpsIss_t IsiSensor_s::pIsiGetFpsIss</definition>
+        <argsstring></argsstring>
+        <name>pIsiGetFpsIss</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" line="172" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" bodystart="172" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__isi__iss_1ga2e29e4eb3caa68319d71e2d6d2b0eef1" prot="public" static="no" mutable="no">
+        <type>IsiSetFpsIss_t</type>
+        <definition>IsiSetFpsIss_t IsiSensor_s::pIsiSetFpsIss</definition>
+        <argsstring></argsstring>
+        <name>pIsiSetFpsIss</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" line="173" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" bodystart="173" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__isi__iss_1ga59aef0462d1f77d4001f8f7b4e51738c" prot="public" static="no" mutable="no">
+        <type>IsiGetIspStatusIss_t</type>
+        <definition>IsiGetIspStatusIss_t IsiSensor_s::pIsiGetIspStatusIss</definition>
+        <argsstring></argsstring>
+        <name>pIsiGetIspStatusIss</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" line="176" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" bodystart="176" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__isi__iss_1ga0e93519f46b01a24d26c9bfb92e1c079" prot="public" static="no" mutable="no">
+        <type>IsiSetBlcIss_t</type>
+        <definition>IsiSetBlcIss_t IsiSensor_s::pIsiSetBlcIss</definition>
+        <argsstring></argsstring>
+        <name>pIsiSetBlcIss</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" line="177" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" bodystart="177" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__isi__iss_1ga8b083be2186648bf426e87092f900e02" prot="public" static="no" mutable="no">
+        <type>IsiGetBlcIss_t</type>
+        <definition>IsiGetBlcIss_t IsiSensor_s::pIsiGetBlcIss</definition>
+        <argsstring></argsstring>
+        <name>pIsiGetBlcIss</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" line="178" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" bodystart="178" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__isi__iss_1ga3192d805e81fd7cf8a8cfde51fbd10c5" prot="public" static="no" mutable="no">
+        <type>IsiSetWBIss_t</type>
+        <definition>IsiSetWBIss_t IsiSensor_s::pIsiSetWBIss</definition>
+        <argsstring></argsstring>
+        <name>pIsiSetWBIss</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" line="179" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" bodystart="179" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__isi__iss_1gafad05c4e90610ba5f99672402246db34" prot="public" static="no" mutable="no">
+        <type>IsiGetWBIss_t</type>
+        <definition>IsiGetWBIss_t IsiSensor_s::pIsiGetWBIss</definition>
+        <argsstring></argsstring>
+        <name>pIsiGetWBIss</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" line="180" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" bodystart="180" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__isi__iss_1ga09256fb3c831e6d416bae7990e98d406" prot="public" static="no" mutable="no">
+        <type>IsiSetTpgIss_t</type>
+        <definition>IsiSetTpgIss_t IsiSensor_s::pIsiSetTpgIss</definition>
+        <argsstring></argsstring>
+        <name>pIsiSetTpgIss</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" line="183" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" bodystart="183" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__isi__iss_1gab302845fa1bf6a8408a58466b25663c4" prot="public" static="no" mutable="no">
+        <type>IsiGetTpgIss_t</type>
+        <definition>IsiGetTpgIss_t IsiSensor_s::pIsiGetTpgIss</definition>
+        <argsstring></argsstring>
+        <name>pIsiGetTpgIss</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" line="184" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" bodystart="184" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__isi__iss_1ga10f44191e9ac470b7dde93f9f0fb8377" prot="public" static="no" mutable="no">
+        <type>IsiGetExpandCurveIss_t</type>
+        <definition>IsiGetExpandCurveIss_t IsiSensor_s::pIsiGetExpandCurveIss</definition>
+        <argsstring></argsstring>
+        <name>pIsiGetExpandCurveIss</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" line="185" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" bodystart="185" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__isi__iss_1gae3a68a649844f240290aa281ab242609" prot="public" static="no" mutable="no">
+        <type>IsiGetCompressCurveIss_t</type>
+        <definition>IsiGetCompressCurveIss_t IsiSensor_s::pIsiGetCompressCurveIss</definition>
+        <argsstring></argsstring>
+        <name>pIsiGetCompressCurveIss</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" line="186" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" bodystart="186" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__isi__iss_1ga74f98cceb15064692fa8e79c7aceff46" prot="public" static="no" mutable="no">
+        <type>IsiExtendFuncIss_t</type>
+        <definition>IsiExtendFuncIss_t IsiSensor_s::pIsiExtendFuncIss</definition>
+        <argsstring></argsstring>
+        <name>pIsiExtendFuncIss</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" line="187" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" bodystart="187" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__isi__iss_1ga9cf69a03a484d7562b4a79cba3372499" prot="public" static="no" mutable="no">
+        <type>IsiGetOtpDataIss_t</type>
+        <definition>IsiGetOtpDataIss_t IsiSensor_s::pIsiGetOtpDataIss</definition>
+        <argsstring></argsstring>
+        <name>pIsiGetOtpDataIss</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" line="188" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" bodystart="188" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__isi__iss_1ga11cd47734eb98c8bc6691658a0bdb162" prot="public" static="no" mutable="no">
+        <type>IsiFocusCreateIss_t</type>
+        <definition>IsiFocusCreateIss_t IsiSensor_s::pIsiFocusCreateIss</definition>
+        <argsstring></argsstring>
+        <name>pIsiFocusCreateIss</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" line="191" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" bodystart="191" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__isi__iss_1gaae8a2ebb33828f24d2bf977b2b5c0e70" prot="public" static="no" mutable="no">
+        <type>IsiFocusReleaseIss_t</type>
+        <definition>IsiFocusReleaseIss_t IsiSensor_s::pIsiFocusReleaseIss</definition>
+        <argsstring></argsstring>
+        <name>pIsiFocusReleaseIss</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" line="192" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" bodystart="192" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__isi__iss_1ga2ca663effc620c6b5bd53524519ddc28" prot="public" static="no" mutable="no">
+        <type>IsiFocusGetCalibrateIss_t</type>
+        <definition>IsiFocusGetCalibrateIss_t IsiSensor_s::pIsiFocusGetCalibrateIss</definition>
+        <argsstring></argsstring>
+        <name>pIsiFocusGetCalibrateIss</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" line="193" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" bodystart="193" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__isi__iss_1ga0f4452bf7a1ad354f98f76ccd09048d8" prot="public" static="no" mutable="no">
+        <type>IsiFocusSetIss_t</type>
+        <definition>IsiFocusSetIss_t IsiSensor_s::pIsiFocusSetIss</definition>
+        <argsstring></argsstring>
+        <name>pIsiFocusSetIss</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" line="194" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" bodystart="194" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__isi__iss_1gab8ed440cad111e5c9fa761bf0e1c56c2" prot="public" static="no" mutable="no">
+        <type>IsiFocusGetIss_t</type>
+        <definition>IsiFocusGetIss_t IsiSensor_s::pIsiFocusGetIss</definition>
+        <argsstring></argsstring>
+        <name>pIsiFocusGetIss</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" line="195" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" bodystart="195" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__isi__iss_1ga2353da13f7fc41013e7da9e950cb58f7" prot="public" static="no" mutable="no">
+        <type>IsiSetIRLightExpIss_t</type>
+        <definition>IsiSetIRLightExpIss_t IsiSensor_s::pIsiSetIRLightExpIss</definition>
+        <argsstring></argsstring>
+        <name>pIsiSetIRLightExpIss</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" line="198" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" bodystart="198" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__isi__iss_1ga2f6e6a64e6eef94f84b63e95b7659329" prot="public" static="no" mutable="no">
+        <type>IsiGetIRLightExpIss_t</type>
+        <definition>IsiGetIRLightExpIss_t IsiSensor_s::pIsiGetIRLightExpIss</definition>
+        <argsstring></argsstring>
+        <name>pIsiGetIRLightExpIss</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" line="199" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" bodystart="199" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__isi__iss_1gaf992d36f91941950c1021aa1cebb9187" prot="public" static="no" mutable="no">
+        <type>IsiQueryMetadataAttrIss_t</type>
+        <definition>IsiQueryMetadataAttrIss_t IsiSensor_s::pIsiQueryMetadataAttrIss</definition>
+        <argsstring></argsstring>
+        <name>pIsiQueryMetadataAttrIss</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" line="203" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" bodystart="203" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__isi__iss_1ga9baee284979966a51a148af68fae65c9" prot="public" static="no" mutable="no">
+        <type>IsiSetMetadataAttrEnableIss_t</type>
+        <definition>IsiSetMetadataAttrEnableIss_t IsiSensor_s::pIsiSetMetadataAttrEnableIss</definition>
+        <argsstring></argsstring>
+        <name>pIsiSetMetadataAttrEnableIss</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" line="204" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" bodystart="204" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__isi__iss_1gabd6d4c799203d2bb970e17050514d92d" prot="public" static="no" mutable="no">
+        <type>IsiGetMetadataAttrEnableIss_t</type>
+        <definition>IsiGetMetadataAttrEnableIss_t IsiSensor_s::pIsiGetMetadataAttrEnableIss</definition>
+        <argsstring></argsstring>
+        <name>pIsiGetMetadataAttrEnableIss</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" line="205" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" bodystart="205" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__isi__iss_1ga683f2de0fca06a5befd0b8f105ba3124" prot="public" static="no" mutable="no">
+        <type>IsiGetMetadataWindowIss_t</type>
+        <definition>IsiGetMetadataWindowIss_t IsiSensor_s::pIsiGetMetadataWinIss</definition>
+        <argsstring></argsstring>
+        <name>pIsiGetMetadataWinIss</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" line="206" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" bodystart="206" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__isi__iss_1ga2886548de6be9929a31daefe5c2b71e7" prot="public" static="no" mutable="no">
+        <type>IsiParserMetadataIss_t</type>
+        <definition>IsiParserMetadataIss_t IsiSensor_s::pIsiParserMetadataIss</definition>
+        <argsstring></argsstring>
+        <name>pIsiParserMetadataIss</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" line="207" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" bodystart="207" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__isi__iss_1ga87c0635bd5f9fb2e5bdc557aeb85b27a" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t IsiCamDrvConfig_s::cameraDriverID</definition>
+        <argsstring></argsstring>
+        <name>cameraDriverID</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" line="222" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" bodystart="222" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__isi__iss_1ga9cd02bb6874b6d98c982c9fd2a5514d9" prot="public" static="no" mutable="no">
+        <type>IsiGetSensorIss_t</type>
+        <definition>IsiGetSensorIss_t IsiCamDrvConfig_s::pIsiGetSensorIss</definition>
+        <argsstring></argsstring>
+        <name>pIsiGetSensorIss</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" line="223" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" bodystart="223" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__isi__iss_1ga0fab1c1cac11febee6f2a210b247454c" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t IsiCamDrvConfig_s::cameraDevId</definition>
+        <argsstring></argsstring>
+        <name>cameraDevId</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" line="224" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" bodystart="224" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__isi__iss_1ga1ee5acbd94dc1909f7499c54fd33573b" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t IsiCamDrvConfig_s::instanceId</definition>
+        <argsstring></argsstring>
+        <name>instanceId</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" line="225" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" bodystart="225" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__isi__iss_1gaaeb2950e5f43d99657b61e2213f07ae2" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t IsiCamDrvConfigMbox_s::cameraDriverID</definition>
+        <argsstring></argsstring>
+        <name>cameraDriverID</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" line="230" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" bodystart="230" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__isi__iss_1gad868d3ebf399fbbf52bc49c818c4e639" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t IsiCamDrvConfigMbox_s::pIsiGetSensorIss</definition>
+        <argsstring></argsstring>
+        <name>pIsiGetSensorIss</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" line="231" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" bodystart="231" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__isi__iss_1gaf9ac96f20d3f216754074a3a77123b9e" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t IsiCamDrvConfigMbox_s::i2cBusId</definition>
+        <argsstring></argsstring>
+        <name>i2cBusId</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" line="232" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" bodystart="232" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__isi__iss_1ga131f517bf57344d5eaaf400bf81120b7" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t IsiCamDrvConfigMbox_s::sensorDevId</definition>
+        <argsstring></argsstring>
+        <name>sensorDevId</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" line="233" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" bodystart="233" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__isi__iss_1ga22d5cad0445ca6c8afc6d7ef2e9abe03" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t IsiCamDrvConfigMbox_s::instanceID</definition>
+        <argsstring></argsstring>
+        <name>instanceID</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" line="234" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" bodystart="234" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="">
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__isi__iss_1ga9d5dad3fe0139e93edd3f589729e8a93" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT IsiSensorDrvHandleRegisterIss</definition>
+        <argsstring>(IsiCamDrvConfig_t *pCamDrvConfig, IsiSensorHandle_t *pSensorHandle)</argsstring>
+        <name>IsiSensorDrvHandleRegisterIss</name>
+        <param>
+          <type><ref refid="group__isi__iss_1ga6fbde4b75c044b729d80908359a16e5b" kindref="member">IsiCamDrvConfig_t</ref> *</type>
+          <declname>pCamDrvConfig</declname>
+        </param>
+        <param>
+          <type>IsiSensorHandle_t *</type>
+          <declname>pSensorHandle</declname>
+        </param>
+        <briefdescription>
+<para>IsiSensorDrvHandleRegisterIss. </para>        </briefdescription>
+        <detaileddescription>
+<para>Sensor deiver handle register.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>pCamDrvConfig</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>configuration of the isi camera drv </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>pSensorHandle</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>produced sensor handle</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Return the result of the function call. </para></simplesect>
+<parameterlist kind="retval"><parameteritem>
+<parameternamelist>
+<parametername>RET_SUCCESS</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RET_NULL_POINTER</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RET_OUTOFMEM</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" line="252" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" bodystart="51" bodyend="94"/>
+        <references refid="oslayer_8h_1a03f02aaf7ca437508bab5bd1fc8872e0" compoundref="oslayer___a_p_u_8c" startline="107" endline="134">osFree</references>
+        <references refid="oslayer_8h_1a2df73b76a371066dd2073c08bfef2e89" compoundref="oslayer___a_p_u_8c" startline="53" endline="105">osMalloc</references>
+        <references refid="return__codes_8h_1a98c7ef8d3f2437e62bce09dcb19a26fc" compoundref="return__codes_8h" startline="43">RET_FAILURE</references>
+        <references refid="return__codes_8h_1a6096836b5d49986baff0c5ec8cf37053" compoundref="return__codes_8h" startline="51">RET_NULL_POINTER</references>
+        <references refid="return__codes_8h_1aa5cb2d36c7e83d897dc356314da28356" compoundref="return__codes_8h" startline="47">RET_OUTOFMEM</references>
+        <references refid="return__codes_8h_1aa0dec624244ce7f5492ec5de65797fa6" compoundref="return__codes_8h" startline="42">RET_SUCCESS</references>
+        <references refid="return__codes_8h_1ac01db30295cc8ad4475f7e0a90b59c2a" compoundref="return__codes_8h" startline="57">RET_WRONG_CONFIG</references>
+        <references refid="return__codes_8h_1ac8116d97f8b584199d4ea4d843649a7d" compoundref="return__codes_8h" startline="54">RET_WRONG_STATE</references>
+      </memberdef>
+      <memberdef kind="function" id="group__isi__iss_1gae918129f6476a5274727c79e5badfbf6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT IsiSensorDrvHandleUnRegisterIss</definition>
+        <argsstring>(IsiSensorHandle_t handle)</argsstring>
+        <name>IsiSensorDrvHandleUnRegisterIss</name>
+        <param>
+          <type>IsiSensorHandle_t</type>
+          <declname>handle</declname>
+        </param>
+        <briefdescription>
+<para>IsiSensorDrvHandleUnRegisterIss. </para>        </briefdescription>
+        <detaileddescription>
+<para>Sensor deiver handle register.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>handle</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>isi sensor handle</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Return the result of the function call. </para></simplesect>
+<parameterlist kind="retval"><parameteritem>
+<parameternamelist>
+<parametername>RET_SUCCESS</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RET_NULL_POINTER</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RET_OUTOFMEM</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" line="272" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" bodystart="111" bodyend="134"/>
+        <references refid="oslayer_8h_1a03f02aaf7ca437508bab5bd1fc8872e0" compoundref="oslayer___a_p_u_8c" startline="107" endline="134">osFree</references>
+        <references refid="group__isi__iss_1ga4b53c7e50f481cc3fbbc4b5a273b0f38" compoundref="isi__iss_8h" startline="150">IsiSensor_s::pIsiReleaseIss</references>
+        <references refid="return__codes_8h_1ae1192044d3215967b192c7169c6f4cec" compoundref="return__codes_8h" startline="44">RET_NOTSUPP</references>
+        <references refid="return__codes_8h_1aa0dec624244ce7f5492ec5de65797fa6" compoundref="return__codes_8h" startline="42">RET_SUCCESS</references>
+        <references refid="return__codes_8h_1a8e89d97d979954d728353f8971928d35" compoundref="return__codes_8h" startline="50">RET_WRONG_HANDLE</references>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__isi__iss_1ga3ee5e638af5e61b9a2b8bc4e45626fd2" prot="public" static="no">
+        <name>ISI_INTERFACE_VERSION</name>
+        <initializer>6</initializer>
+        <briefdescription>
+<para><heading level="1">interface version </heading>
+</para><para>please increment the version if you add something new to the interface. </para>        </briefdescription>
+        <detaileddescription>
+<para>This helps upper layer software to deal with different interface versions. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_common.h" line="65" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_common.h" bodystart="65" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__isi__iss_1ga4be73751892f9277d3bb4fb84ea930d5" prot="public" static="no">
+        <name>ISI_BUSWIDTH_8BIT_ZZ</name>
+        <initializer>0x00000001</initializer>
+        <briefdescription>
+<para>&lt; BusWidth </para>        </briefdescription>
+        <detaileddescription>
+<para>to expand to a (possibly higher) resolution in marvin, the LSBs will be set to zero </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_common.h" line="73" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_common.h" bodystart="73" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__isi__iss_1ga4be011bf8f81632d631a0ffb54fb1f72" prot="public" static="no">
+        <name>ISI_BUSWIDTH_8BIT_EX</name>
+        <initializer>0x00000002</initializer>
+        <briefdescription>
+<para>to expand to a (possibly higher) resolution in marvin, the LSBs will be copied from the MSBs </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_common.h" line="74" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_common.h" bodystart="74" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__isi__iss_1gad1415b7fbb877ebc930266813c6e579a" prot="public" static="no">
+        <name>ISI_BUSWIDTH_10BIT_EX</name>
+        <initializer>0x00000004</initializer>
+        <briefdescription>
+<para>/formerly known as ISI_BUSWIDTH_10BIT (at times no marvin derivative was able to process more than 10 bit) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_common.h" line="75" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_common.h" bodystart="75" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__isi__iss_1ga8418dda7af81a752715c2d38fde0c751" prot="public" static="no">
+        <name>ISI_BUSWIDTH_10BIT_ZZ</name>
+        <initializer>0x00000008</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_common.h" line="76" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_common.h" bodystart="76" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__isi__iss_1gad470668edef96ea46d188a5e7fcb6767" prot="public" static="no">
+        <name>ISI_BUSWIDTH_12BIT</name>
+        <initializer>0x00000010</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_common.h" line="77" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_common.h" bodystart="77" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__isi__iss_1ga9b154676256bd07306363ec84cf62a97" prot="public" static="no">
+        <name>ISI_BUSWIDTH_10BIT</name>
+        <initializer>( <ref refid="group__isi__iss_1gad1415b7fbb877ebc930266813c6e579a" kindref="member">ISI_BUSWIDTH_10BIT_EX</ref> )</initializer>
+        <briefdescription>
+<para>Vin Interface Type. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_common.h" line="78" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_common.h" bodystart="78" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__isi__iss_1ga4e68487367ac971a404a6a6b3148b707" prot="public" static="no">
+        <name>ISI_ITF_TYPE_MIPI</name>
+        <initializer>0x00000001</initializer>
+        <briefdescription>
+<para>MIPI conform data stream. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_common.h" line="81" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_common.h" bodystart="81" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__isi__iss_1ga02606ef50b092989d9fe4706a038c52c" prot="public" static="no">
+        <name>ISI_ITF_TYPE_LVDS</name>
+        <initializer>0x00000002</initializer>
+        <briefdescription>
+<para>LVDS conform data stream. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_common.h" line="82" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_common.h" bodystart="82" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__isi__iss_1gae49fa5ff0ae32cf9adb44c6b8f8c8931" prot="public" static="no">
+        <name>ISI_ITF_TYPE_DVP</name>
+        <initializer>0x00000004</initializer>
+        <briefdescription>
+<para>DVP conform data stream. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_common.h" line="83" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_common.h" bodystart="83" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__isi__iss_1gafeb057b586c8d0e058ee5d8db792ac5a" prot="public" static="no">
+        <name>ISI_ITF_TYPE_BT601</name>
+        <initializer>0x00000008</initializer>
+        <briefdescription>
+<para>BT601 conform data stream. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_common.h" line="84" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_common.h" bodystart="84" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__isi__iss_1ga6d0261e9c28c297429dc9a24000e3b33" prot="public" static="no">
+        <name>ISI_ITF_TYPE_BT656</name>
+        <initializer>0x00000010</initializer>
+        <briefdescription>
+<para>BT656 conform data stream. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_common.h" line="85" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_common.h" bodystart="85" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__isi__iss_1ga57c86e705a4a205cd0518f21c8de26c5" prot="public" static="no">
+        <name>ISI_ITF_TYPE_BT1120</name>
+        <initializer>0x00000020</initializer>
+        <briefdescription>
+<para>BT1120 conform data stream. </para>        </briefdescription>
+        <detaileddescription>
+<para>Mode, operating mode of the image sensor in terms of output data format and timing data transmission </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_common.h" line="86" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_common.h" bodystart="86" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__isi__iss_1gabc646845dd9eece4e452969f5b210e0d" prot="public" static="no">
+        <name>ISI_MODE_YUV</name>
+        <initializer>0x00000001</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_common.h" line="90" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_common.h" bodystart="90" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__isi__iss_1ga1c3c4252109acf8067e89187e5d7d568" prot="public" static="no">
+        <name>ISI_MODE_MONO</name>
+        <initializer>0x00000002</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_common.h" line="91" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_common.h" bodystart="91" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__isi__iss_1ga691aacc927509fbd949d5be8738280b1" prot="public" static="no">
+        <name>ISI_MODE_BAYER</name>
+        <initializer>0x00000004</initializer>
+        <briefdescription>
+<para>Bayer data with separate h/v sync lines. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_common.h" line="92" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_common.h" bodystart="92" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__isi__iss_1ga7f4924d3ad266d23630906be294b3cf9" prot="public" static="no">
+        <name>ISI_MODE_DATA</name>
+        <initializer>0x00000008</initializer>
+        <briefdescription>
+<para>Any binary data without line/column-structure, (e.g. </para>        </briefdescription>
+        <detaileddescription>
+<para>already JPEG encoded) h/v sync lines act as data valid signals MIPI </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_common.h" line="93" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_common.h" bodystart="93" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__isi__iss_1ga5247adccdb88f14806461f78c68ec858" prot="public" static="no">
+        <name>ISI_MIPI_OFF</name>
+        <initializer>0x80000000</initializer>
+        <briefdescription>
+<para>MIPI is disabled. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_common.h" line="96" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_common.h" bodystart="96" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__isi__iss_1gae9a8189f1c0a430e8b28928db684ea19" prot="public" static="no">
+        <name>ISI_MIPI_1LANES</name>
+        <initializer>0x00000001</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_common.h" line="97" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_common.h" bodystart="97" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__isi__iss_1ga6b6cd388132d919114d92a7d43f10166" prot="public" static="no">
+        <name>ISI_MIPI_2LANES</name>
+        <initializer>0x00000002</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_common.h" line="98" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_common.h" bodystart="98" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__isi__iss_1gaf9fb05feca32a84bc67b8f6ab2d8f74e" prot="public" static="no">
+        <name>ISI_MIPI_4LANES</name>
+        <initializer>0x00000004</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_common.h" line="99" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_common.h" bodystart="99" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__isi__iss_1gae578f8f512f2bc37a2873387ad83c228" prot="public" static="no">
+        <name>ISI_MIPI_APHY</name>
+        <initializer>0x00000008</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_common.h" line="100" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_common.h" bodystart="100" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__isi__iss_1ga40d138c5530dfed7e9aad72e063d3105" prot="public" static="no">
+        <name>ISI_MIPI_CPHY</name>
+        <initializer>0x00000010</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_common.h" line="101" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_common.h" bodystart="101" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__isi__iss_1ga09d052f86004a94ae02dbf33dd0fbb6d" prot="public" static="no">
+        <name>ISI_MIPI_DPHY</name>
+        <initializer>0x00000020</initializer>
+        <briefdescription>
+<para>PDAF. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_common.h" line="102" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_common.h" bodystart="102" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__isi__iss_1ga1d7761a9c24c1a7a93bcb10cea54c607" prot="public" static="no">
+        <name>ISI_PDAF_TYPE3</name>
+        <initializer>0x00000001</initializer>
+        <briefdescription>
+<para>VCM. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_common.h" line="105" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_common.h" bodystart="105" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__isi__iss_1ga61fb9a158f78a077d48e846a00c87305" prot="public" static="no">
+        <name>ISI_MOTOR_VCM</name>
+        <initializer>0x00000001</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_common.h" line="108" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_common.h" bodystart="108" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__isi__iss_1ga6de0e3878bf00ad4b9e62ca3399770a3" prot="public" static="no">
+        <name>ISI_MOTOR_STEP</name>
+        <initializer>0x00000002</initializer>
+        <briefdescription>
+<para>frame rate </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_common.h" line="109" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_common.h" bodystart="109" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__isi__iss_1ga41cc47449cf1dc077069067cefbef311" prot="public" static="no">
+        <name>ISI_FPS_QUANTIZE</name>
+        <initializer>1000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_common.h" line="112" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_common.h" bodystart="112" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

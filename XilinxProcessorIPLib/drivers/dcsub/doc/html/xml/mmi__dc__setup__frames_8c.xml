@@ -1,0 +1,1493 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="mmi__dc__setup__frames_8c" kind="file">
+    <compoundname>mmi_dc_setup_frames.c</compoundname>
+    <includes local="no">xil_printf.h</includes>
+    <includes local="no">xil_types.h</includes>
+    <includes refid="mmi__dc__setup__frames_8h" local="yes">mmi_dc_setup_frames.h</includes>
+    <includes refid="mmi__dc__nonlive__test_8h" local="yes">mmi_dc_nonlive_test.h</includes>
+    <includes refid="mmi__dc__cursor_8h" local="yes">mmi_dc_cursor.h</includes>
+    <includes refid="mmi__dc__sdp_8h" local="yes">mmi_dc_sdp.h</includes>
+    <includes refid="mmi__dc__generate__frames_8h" local="yes">mmi_dc_generate_frames.h</includes>
+    <incdepgraph>
+      <node id="261">
+        <label>mmi_dc_generate_frames.h</label>
+        <link refid="mmi__dc__generate__frames_8h"/>
+        <childnode refid="247" relation="include">
+        </childnode>
+      </node>
+      <node id="249">
+        <label>xclk_wiz.h</label>
+      </node>
+      <node id="257">
+        <label>mmi_dpdc_example.h</label>
+        <link refid="mmi__dpdc__example_8h"/>
+        <childnode refid="251" relation="include">
+        </childnode>
+        <childnode refid="254" relation="include">
+        </childnode>
+        <childnode refid="250" relation="include">
+        </childnode>
+        <childnode refid="256" relation="include">
+        </childnode>
+        <childnode refid="258" relation="include">
+        </childnode>
+      </node>
+      <node id="253">
+        <label>xil_io.h</label>
+      </node>
+      <node id="247">
+        <label>mmi_dc_nonlive_test.h</label>
+        <link refid="mmi__dc__nonlive__test_8h"/>
+        <childnode refid="248" relation="include">
+        </childnode>
+        <childnode refid="249" relation="include">
+        </childnode>
+        <childnode refid="250" relation="include">
+        </childnode>
+        <childnode refid="256" relation="include">
+        </childnode>
+        <childnode refid="257" relation="include">
+        </childnode>
+      </node>
+      <node id="259">
+        <label>mmi_dc_cursor.h</label>
+        <link refid="mmi__dc__cursor_8h"/>
+        <childnode refid="247" relation="include">
+        </childnode>
+      </node>
+      <node id="250">
+        <label>xdcsub.h</label>
+        <link refid="xdcsub_8h"/>
+        <childnode refid="251" relation="include">
+        </childnode>
+        <childnode refid="254" relation="include">
+        </childnode>
+      </node>
+      <node id="251">
+        <label>xdc.h</label>
+        <link refid="xdc_8h"/>
+        <childnode refid="252" relation="include">
+        </childnode>
+      </node>
+      <node id="248">
+        <label>xinterrupt_wrap.h</label>
+      </node>
+      <node id="256">
+        <label>xmmidp.h</label>
+      </node>
+      <node id="252">
+        <label>xdc_hw.h</label>
+        <link refid="xdc__hw_8h"/>
+        <childnode refid="253" relation="include">
+        </childnode>
+      </node>
+      <node id="243">
+        <label>mmi_dc_setup_frames.c</label>
+        <link refid="mmi_dc_setup_frames.c"/>
+        <childnode refid="244" relation="include">
+        </childnode>
+        <childnode refid="245" relation="include">
+        </childnode>
+        <childnode refid="246" relation="include">
+        </childnode>
+        <childnode refid="247" relation="include">
+        </childnode>
+        <childnode refid="259" relation="include">
+        </childnode>
+        <childnode refid="260" relation="include">
+        </childnode>
+        <childnode refid="261" relation="include">
+        </childnode>
+      </node>
+      <node id="246">
+        <label>mmi_dc_setup_frames.h</label>
+        <link refid="mmi__dc__setup__frames_8h"/>
+        <childnode refid="247" relation="include">
+        </childnode>
+      </node>
+      <node id="245">
+        <label>xil_types.h</label>
+      </node>
+      <node id="258">
+        <label>xparameters.h</label>
+      </node>
+      <node id="244">
+        <label>xil_printf.h</label>
+      </node>
+      <node id="255">
+        <label>xdcdma_hw.h</label>
+        <link refid="xdcdma__hw_8h"/>
+        <childnode refid="253" relation="include">
+        </childnode>
+      </node>
+      <node id="260">
+        <label>mmi_dc_sdp.h</label>
+        <link refid="mmi__dc__sdp_8h"/>
+        <childnode refid="247" relation="include">
+        </childnode>
+      </node>
+      <node id="254">
+        <label>xdcdma.h</label>
+        <link refid="xdcdma_8h"/>
+        <childnode refid="255" relation="include">
+        </childnode>
+        <childnode refid="251" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="mmi__dc__setup__frames_8c_1af40f9358d37b18cbf2790100f8ce4f64" prot="public" static="no">
+        <name>UPDATE_ENABLE_SHIFT</name>
+        <initializer>8U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_setup_frames.c" line="25" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_setup_frames.c" bodystart="25" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="mmi__dc__setup__frames_8c_1ab6e198bcb52e217f06c5cd0a9528ccb0" prot="public" static="no">
+        <name>IGNORE_DONE_SHIFT</name>
+        <initializer>9U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_setup_frames.c" line="26" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_setup_frames.c" bodystart="26" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="mmi__dc__setup__frames_8c_1a17d0f046271bb8967c4c1f86cf0172df" prot="public" static="no">
+        <name>LAST_DESC_SHIFT</name>
+        <initializer>10U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_setup_frames.c" line="27" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_setup_frames.c" bodystart="27" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="mmi__dc__setup__frames_8c_1a93e9694ad62f5c7ddaf41456b675e979" prot="public" static="no">
+        <name>LAST_DESC_FRAME_SHIFT</name>
+        <initializer>11U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_setup_frames.c" line="28" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_setup_frames.c" bodystart="28" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="mmi__dc__setup__frames_8c_1a927fdf98169ecbec81e051b6faae5f88" prot="public" static="no" mutable="no">
+        <type>XDcDma_Descriptor *</type>
+        <definition>XDcDma_Descriptor* Desc1</definition>
+        <argsstring></argsstring>
+        <name>Desc1</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_setup_frames.c" line="32" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_nonlive_test.c" bodystart="56" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="mmi__dc__setup__frames_8c_1aac79b6cf1c2d3ef705b33be6e7de2539" prot="public" static="no" mutable="no">
+        <type>XDcDma_Descriptor *</type>
+        <definition>XDcDma_Descriptor* Desc2</definition>
+        <argsstring></argsstring>
+        <name>Desc2</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_setup_frames.c" line="33" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_nonlive_test.c" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="mmi__dc__setup__frames_8c_1a04d7dc4c6d2c7762058971f51e5aadac" prot="public" static="no" mutable="no">
+        <type>XDcDma_Descriptor *</type>
+        <definition>XDcDma_Descriptor* Desc3</definition>
+        <argsstring></argsstring>
+        <name>Desc3</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_setup_frames.c" line="34" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_nonlive_test.c" bodystart="58" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="mmi__dc__setup__frames_8c_1abe2cf5dd392ba3e90624d6d2ab6b8ad9" prot="public" static="no" mutable="no">
+        <type>XDcDma_Descriptor *</type>
+        <definition>XDcDma_Descriptor* Desc4</definition>
+        <argsstring></argsstring>
+        <name>Desc4</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_setup_frames.c" line="35" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_nonlive_test.c" bodystart="59" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="mmi__dc__setup__frames_8c_1a2e03a24a018982415a90a4e270df1864" prot="public" static="no" mutable="no">
+        <type>XDcDma_Descriptor *</type>
+        <definition>XDcDma_Descriptor* Desc5</definition>
+        <argsstring></argsstring>
+        <name>Desc5</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_setup_frames.c" line="36" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_nonlive_test.c" bodystart="60" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="mmi__dc__setup__frames_8c_1a8e51994d6c296bf28d7eb4761098c55c" prot="public" static="no" mutable="no">
+        <type>XDcDma_Descriptor *</type>
+        <definition>XDcDma_Descriptor* Desc6</definition>
+        <argsstring></argsstring>
+        <name>Desc6</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_setup_frames.c" line="37" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_nonlive_test.c" bodystart="61" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="mmi__dc__setup__frames_8c_1a56116e7bf8be4546b6bd424e5d70ebb3" prot="public" static="no" mutable="no">
+        <type>XDcDma_Descriptor *</type>
+        <definition>XDcDma_Descriptor* Desc7</definition>
+        <argsstring></argsstring>
+        <name>Desc7</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_setup_frames.c" line="38" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_nonlive_test.c" bodystart="62" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="mmi__dc__setup__frames_8c_1afb1082b4c36973e2b9b85babe0661147" prot="public" static="no" mutable="no">
+        <type>XDcDma_Descriptor *</type>
+        <definition>XDcDma_Descriptor* AudDesc0</definition>
+        <argsstring></argsstring>
+        <name>AudDesc0</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_setup_frames.c" line="40" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_nonlive_test.c" bodystart="64" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="mmi__dc__setup__frames_8c_1ad098bb6e84bab3da5ad0825fee71110d" prot="public" static="no" mutable="no">
+        <type>XDcDma_Descriptor *</type>
+        <definition>XDcDma_Descriptor* AudDesc1</definition>
+        <argsstring></argsstring>
+        <name>AudDesc1</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_setup_frames.c" line="41" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_nonlive_test.c" bodystart="65" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="mmi__dc__setup__frames_8c_1a7fc1e820526e20a31e15f2d7da9cb4b8" prot="public" static="no" mutable="no">
+        <type>XDcDma_Descriptor *</type>
+        <definition>XDcDma_Descriptor* AudDesc2</definition>
+        <argsstring></argsstring>
+        <name>AudDesc2</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_setup_frames.c" line="42" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_nonlive_test.c" bodystart="66" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="mmi__dc__setup__frames_8c_1ad5fe163b3e7389a1943a899151a6d132" prot="public" static="no" mutable="no">
+        <type>XDcDma_Descriptor *</type>
+        <definition>XDcDma_Descriptor* AudDesc3</definition>
+        <argsstring></argsstring>
+        <name>AudDesc3</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_setup_frames.c" line="43" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_nonlive_test.c" bodystart="67" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="mmi__dc__setup__frames_8c_1ad71ada656530660525ae80b52264f45b" prot="public" static="no" mutable="no">
+        <type>XDcDma_Descriptor *</type>
+        <definition>XDcDma_Descriptor* AudDesc4</definition>
+        <argsstring></argsstring>
+        <name>AudDesc4</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_setup_frames.c" line="44" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_nonlive_test.c" bodystart="68" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="mmi__dc__setup__frames_8c_1a44929556cd1018bfc3bcde801e6d7551" prot="public" static="no" mutable="no">
+        <type>XDcDma_Descriptor *</type>
+        <definition>XDcDma_Descriptor* AudDesc5</definition>
+        <argsstring></argsstring>
+        <name>AudDesc5</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_setup_frames.c" line="45" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_nonlive_test.c" bodystart="69" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="mmi__dc__setup__frames_8c_1acf65f4441fe61114fe05848ebab4974c" prot="public" static="no" mutable="no">
+        <type>XDcDma_Descriptor *</type>
+        <definition>XDcDma_Descriptor* AudDesc6</definition>
+        <argsstring></argsstring>
+        <name>AudDesc6</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_setup_frames.c" line="46" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_nonlive_test.c" bodystart="70" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="mmi__dc__setup__frames_8c_1a4a15d8f633d30d37cf4c63374561e344" prot="public" static="no" mutable="no">
+        <type>XDcDma_Descriptor *</type>
+        <definition>XDcDma_Descriptor* AudDesc7</definition>
+        <argsstring></argsstring>
+        <name>AudDesc7</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_setup_frames.c" line="47" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_nonlive_test.c" bodystart="71" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="mmi__dc__setup__frames_8c_1ac48daa10f0fc5476e1ee6f64bf1efb64" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_frame_info" kindref="compound">FrameInfo</ref></type>
+        <definition>FrameInfo Aud0_FbInfo</definition>
+        <argsstring></argsstring>
+        <name>Aud0_FbInfo</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_setup_frames.c" line="49" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_setup_frames.c" bodystart="49" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="mmi__dc__setup__frames_8c_1a342bc17add8ef206c6a88ca62a3e2d3f" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_frame_info" kindref="compound">FrameInfo</ref></type>
+        <definition>FrameInfo Aud1_FbInfo</definition>
+        <argsstring></argsstring>
+        <name>Aud1_FbInfo</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_setup_frames.c" line="50" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_setup_frames.c" bodystart="50" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="mmi__dc__setup__frames_8c_1a2cec8dcd77e8736753228c3996556c78" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_frame_info" kindref="compound">FrameInfo</ref></type>
+        <definition>FrameInfo Aud2_FbInfo</definition>
+        <argsstring></argsstring>
+        <name>Aud2_FbInfo</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_setup_frames.c" line="51" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_setup_frames.c" bodystart="51" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="mmi__dc__setup__frames_8c_1a160fda097f651850e3eeb5b74ddc7a86" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_frame_info" kindref="compound">FrameInfo</ref></type>
+        <definition>FrameInfo Aud3_FbInfo</definition>
+        <argsstring></argsstring>
+        <name>Aud3_FbInfo</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_setup_frames.c" line="52" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_setup_frames.c" bodystart="52" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="mmi__dc__setup__frames_8c_1ab821ad7e006311500d965f93c4705313" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_frame_info" kindref="compound">FrameInfo</ref></type>
+        <definition>FrameInfo Aud4_FbInfo</definition>
+        <argsstring></argsstring>
+        <name>Aud4_FbInfo</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_setup_frames.c" line="53" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_setup_frames.c" bodystart="53" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="mmi__dc__setup__frames_8c_1a3ae0063669e01c92ec10d5fd34af12bc" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_frame_info" kindref="compound">FrameInfo</ref></type>
+        <definition>FrameInfo Aud5_FbInfo</definition>
+        <argsstring></argsstring>
+        <name>Aud5_FbInfo</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_setup_frames.c" line="54" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_setup_frames.c" bodystart="54" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="mmi__dc__setup__frames_8c_1a2bc577d19e0cfb19ee2a00dd3fb0eaea" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_frame_info" kindref="compound">FrameInfo</ref></type>
+        <definition>FrameInfo Aud6_FbInfo</definition>
+        <argsstring></argsstring>
+        <name>Aud6_FbInfo</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_setup_frames.c" line="55" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_setup_frames.c" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="mmi__dc__setup__frames_8c_1a065a1a7392790d63262e371d2f298fef" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_frame_info" kindref="compound">FrameInfo</ref></type>
+        <definition>FrameInfo Aud7_FbInfo</definition>
+        <argsstring></argsstring>
+        <name>Aud7_FbInfo</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_setup_frames.c" line="56" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_setup_frames.c" bodystart="56" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="mmi__dc__setup__frames_8c_1a0f61c2d8fd8f012e6ca117b4088f5466" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>static u32 XDpDc_GetFormatBpc</definition>
+        <argsstring>(XDc_VideoFormat fmt)</argsstring>
+        <name>XDpDc_GetFormatBpc</name>
+        <param>
+          <type><ref refid="xdc_8h_1ad45e6a818b9bcacc05e58b69ac140895" kindref="member">XDc_VideoFormat</ref></type>
+          <declname>fmt</declname>
+        </param>
+        <briefdescription>
+<para>This function returns the per-plane bytes per component for a given video format. </para>        </briefdescription>
+        <detaileddescription>
+<para>The value represents how many bytes each pixel occupies in a single DMA plane buffer.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>fmt</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the video format enum.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Bytes per component for the format.</para></simplesect>
+<simplesect kind="note"><para>Values are derived from hardware-validated test configurations. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_setup_frames.c" line="71" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_setup_frames.c" bodystart="71" bodyend="167"/>
+      </memberdef>
+      <memberdef kind="function" id="mmi__dc__setup__frames_8c_1a6f9a34817bd7485ced17700ecd627716" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDpDc_GenerateFrameInfoAttribute</definition>
+        <argsstring>(FrameInfo *Frame)</argsstring>
+        <name>XDpDc_GenerateFrameInfoAttribute</name>
+        <param>
+          <type><ref refid="struct_frame_info" kindref="compound">FrameInfo</ref> *</type>
+          <declname>Frame</declname>
+        </param>
+        <briefdescription>
+<para>This function computes the frame buffer Size, LineSize, and Stride attributes from the Width, Height, and Bpc fields of a <ref refid="struct_frame_info" kindref="compound">FrameInfo</ref> structure. </para>        </briefdescription>
+        <detaileddescription>
+<para>Stride is aligned to a 256-byte boundary.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Frame</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_frame_info" kindref="compound">FrameInfo</ref> structure to populate.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_setup_frames.c" line="182" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_setup_frames.c" bodystart="182" bodyend="198"/>
+        <references refid="struct_frame_info_1aa86b846fe97a34c623b23f2a7c82a434" compoundref="mmi__dpdc__example_8h" startline="63">FrameInfo::Bpc</references>
+        <references refid="struct_frame_info_1afb59098b9e8c1b5828bec8875a920454" compoundref="mmi__dpdc__example_8h" startline="62">FrameInfo::Height</references>
+        <references refid="struct_frame_info_1a00cd8ff046596293a640cc0048b2f539" compoundref="mmi__dpdc__example_8h" startline="60">FrameInfo::LineSize</references>
+        <references refid="struct_frame_info_1a723d39f5c0e596544cf1c609606bb7ab" compoundref="mmi__dpdc__example_8h" startline="58">FrameInfo::Size</references>
+        <references refid="struct_frame_info_1a4d890ee45a9b9dd8d011da614d56549b" compoundref="mmi__dpdc__example_8h" startline="59">FrameInfo::Stride</references>
+        <references refid="struct_frame_info_1a5c828928824345c4fc46c69b4527bd6e" compoundref="mmi__dpdc__example_8h" startline="61">FrameInfo::Width</references>
+        <referencedby refid="mmi__dc__cursor_8h_1aeec8d3294a1eefe714a7990afdbd6b91" compoundref="mmi__dc__cursor_8c" startline="31" endline="46">XDpDc_InitCursorFrameBuffer</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="mmi__dc__setup__frames_8c_1acd2ed76d014f99adc3fcd14ca3b378b1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDpDc_CreateDescriptors</definition>
+        <argsstring>(RunConfig *RunCfgPtr, XDcDma_Descriptor *XDesc, FrameInfo *FBInfo, XDcDma_Descriptor *NextDesc)</argsstring>
+        <name>XDpDc_CreateDescriptors</name>
+        <param>
+          <type><ref refid="struct_run_config" kindref="compound">RunConfig</ref> *</type>
+          <declname>RunCfgPtr</declname>
+        </param>
+        <param>
+          <type>XDcDma_Descriptor *</type>
+          <declname>XDesc</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_frame_info" kindref="compound">FrameInfo</ref> *</type>
+          <declname>FBInfo</declname>
+        </param>
+        <param>
+          <type>XDcDma_Descriptor *</type>
+          <declname>NextDesc</declname>
+        </param>
+        <briefdescription>
+<para>This function initializes a DMA descriptor with source address, data size, line size, stride, and next descriptor linkage from the given <ref refid="struct_frame_info" kindref="compound">FrameInfo</ref>. </para>        </briefdescription>
+        <detaileddescription>
+<para>For cursor descriptors, Target_Addr is also set.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>RunCfgPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the application configuration structure. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>XDesc</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the DMA descriptor to initialize. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>FBInfo</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_frame_info" kindref="compound">FrameInfo</ref> containing buffer attributes. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>NextDesc</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the next descriptor in the chain, <verbatim>    or NULL for a self-linked (last) descriptor.
+</verbatim></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_setup_frames.c" line="218" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_setup_frames.c" bodystart="218" bodyend="269"/>
+        <references refid="struct_frame_info_1a07d6ccc7f65963ee62456d0574b27857" compoundref="mmi__dpdc__example_8h" startline="57">FrameInfo::Address</references>
+        <references refid="struct_run_config_1a7cc31114b2db6be8bdee621b0c49dce9" compoundref="mmi__dpdc__example_8h" startline="103">RunConfig::Cursor_FbInfo</references>
+        <references refid="struct_run_config_1a155539680243341a34acb114b0333b41" compoundref="mmi__dpdc__example_8h" startline="84">RunConfig::DcSubPtr</references>
+        <references refid="struct_run_config_1ad979d916c40ccd4fc49755851de358ca" compoundref="mmi__dpdc__example_8h" startline="95">RunConfig::Desc7</references>
+        <references refid="struct_frame_info_1a00cd8ff046596293a640cc0048b2f539" compoundref="mmi__dpdc__example_8h" startline="60">FrameInfo::LineSize</references>
+        <references refid="struct_run_config_1ad388d8e099bafebffe2988b8b680ced8" compoundref="mmi__dpdc__example_8h" startline="104">RunConfig::Sdp_FbInfo</references>
+        <references refid="struct_frame_info_1a723d39f5c0e596544cf1c609606bb7ab" compoundref="mmi__dpdc__example_8h" startline="58">FrameInfo::Size</references>
+        <references refid="struct_frame_info_1a4d890ee45a9b9dd8d011da614d56549b" compoundref="mmi__dpdc__example_8h" startline="59">FrameInfo::Stride</references>
+        <references refid="group__mmi__dcdma_1ga83715748f55fe649eefc6d6a7e091dfd" compoundref="xdcdma_8c" startline="1009" endline="1016">XDcDma_DescInit</references>
+        <references refid="group__mmi__dcdma_1gaba2c3b0d2480b34ccad95c9fdd7f5478" compoundref="xdcdma_8c" startline="1027" endline="1035">XDcDma_GetNewDescId</references>
+        <referencedby refid="mmi__dc__setup__frames_8h_1a9d92ee25c19827085c23250277009a49" compoundref="mmi__dc__setup__frames_8c" startline="679" endline="690">XDpDc_SetupAudioDescriptors</referencedby>
+        <referencedby refid="mmi__dc__setup__frames_8h_1adc1413b4d5cdc6a62f4cd6e75fd661ca" compoundref="mmi__dc__setup__frames_8c" startline="658" endline="663">XDpDc_SetupCursorDescriptor</referencedby>
+        <referencedby refid="mmi__dc__sdp_8h_1a28b48cdbc4ab2b26acfcd928d511b14a" compoundref="mmi__dc__sdp_8c" startline="128" endline="133">XDpDc_SetupSdpDescriptor</referencedby>
+        <referencedby refid="mmi__dc__setup__frames_8h_1aebd7ac73b079a58f72ecacdc1bfef5f1" compoundref="mmi__dc__setup__frames_8c" startline="569" endline="597">XDpDc_SetupStream1Descriptors</referencedby>
+        <referencedby refid="mmi__dc__setup__frames_8h_1a2638411c2ae587ebc77adc73d673439c" compoundref="mmi__dc__setup__frames_8c" startline="614" endline="642">XDpDc_SetupStream2Descriptors</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="mmi__dc__setup__frames_8c_1a20d27304147b99648ebd71e271dc954d" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int Is30BitPacked</definition>
+        <argsstring>(XDc_VideoFormat fmt)</argsstring>
+        <name>Is30BitPacked</name>
+        <param>
+          <type><ref refid="xdc_8h_1ad45e6a818b9bcacc05e58b69ac140895" kindref="member">XDc_VideoFormat</ref></type>
+          <declname>fmt</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_setup_frames.c" line="271" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_setup_frames.c" bodystart="271" bodyend="283"/>
+      </memberdef>
+      <memberdef kind="function" id="mmi__dc__setup__frames_8c_1a08f2420679e2764742909f8c1a3398e8" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void InitFrameBuffer</definition>
+        <argsstring>(FrameInfo *FbInfo, u64 Address, u32 Width, u32 Height, XDc_VideoFormat Format, u32 Bpc)</argsstring>
+        <name>InitFrameBuffer</name>
+        <param>
+          <type><ref refid="struct_frame_info" kindref="compound">FrameInfo</ref> *</type>
+          <declname>FbInfo</declname>
+        </param>
+        <param>
+          <type>u64</type>
+          <declname>Address</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Width</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Height</declname>
+        </param>
+        <param>
+          <type><ref refid="xdc_8h_1ad45e6a818b9bcacc05e58b69ac140895" kindref="member">XDc_VideoFormat</ref></type>
+          <declname>Format</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Bpc</declname>
+        </param>
+        <briefdescription>
+<para>This function initializes a single <ref refid="struct_frame_info" kindref="compound">FrameInfo</ref> structure with the given buffer address, dimensions, format, and BPC, then computes derived attributes (Size, LineSize, Stride). </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>FbInfo</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_frame_info" kindref="compound">FrameInfo</ref> to initialize. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Address</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the buffer base address. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Width</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the frame width in pixels. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Height</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the frame height in pixels. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Format</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the video format enum. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Bpc</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the bytes per component for this plane.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_setup_frames.c" line="303" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_setup_frames.c" bodystart="303" bodyend="325"/>
+      </memberdef>
+      <memberdef kind="function" id="mmi__dc__setup__frames_8c_1a1c44b11c26881ae879fba8e08b57f3da" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void InitStream1Buffers</definition>
+        <argsstring>(RunConfig *RunCfgPtr)</argsstring>
+        <name>InitStream1Buffers</name>
+        <param>
+          <type><ref refid="struct_run_config" kindref="compound">RunConfig</ref> *</type>
+          <declname>RunCfgPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function initializes Stream1 frame buffers (V1, V2, V3) based on the video format mode using switch fall-through: Planar -&gt; sets V3, falls through to SemiPlanar -&gt; sets V2, falls through to Interleaved -&gt; sets V1. </para>        </briefdescription>
+        <detaileddescription>
+<para>BPC is auto-derived from the format.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>RunCfgPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the application configuration structure.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>V1-V3 are Stream1 planes (Desc1-3, Video channels 0-2). </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_setup_frames.c" line="341" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_setup_frames.c" bodystart="341" bodyend="408"/>
+      </memberdef>
+      <memberdef kind="function" id="mmi__dc__setup__frames_8c_1ae5a6c9400868d20c1281318a038820c6" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void InitStream2Buffers</definition>
+        <argsstring>(RunConfig *RunCfgPtr)</argsstring>
+        <name>InitStream2Buffers</name>
+        <param>
+          <type><ref refid="struct_run_config" kindref="compound">RunConfig</ref> *</type>
+          <declname>RunCfgPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function initializes Stream2 frame buffers (V4, V5, V6) based on the video format mode using switch fall-through: Planar -&gt; sets V6, falls through to SemiPlanar -&gt; sets V5, falls through to Interleaved -&gt; sets V4. </para>        </briefdescription>
+        <detaileddescription>
+<para>BPC is auto-derived from the format.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>RunCfgPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the application configuration structure.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>V4-V6 are Stream2 planes (Desc4-6, Graphics channels 3-5). </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_setup_frames.c" line="424" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_setup_frames.c" bodystart="424" bodyend="491"/>
+      </memberdef>
+      <memberdef kind="function" id="mmi__dc__setup__frames_8c_1af01b016c00245f21541974c6dab538aa" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDpDc_InitFrames</definition>
+        <argsstring>(RunConfig *RunCfgPtr)</argsstring>
+        <name>XDpDc_InitFrames</name>
+        <param>
+          <type><ref refid="struct_run_config" kindref="compound">RunConfig</ref> *</type>
+          <declname>RunCfgPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function initializes video, cursor, and audio frame buffers. </para>        </briefdescription>
+        <detaileddescription>
+<para>Buffer initialization is format-aware: the number of planes per stream is</para><para>determined by the video format mode (Interleaved/SemiPlanar/Planar). V1-V3 are Stream1 planes, V4-V6 are Stream2 planes.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>RunCfgPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the application configuration structure.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>Descriptor creation is handled separately by XDpDc_SetupStream1Descriptors and XDpDc_SetupStream2Descriptors, which must be called after DMA hardware initialization. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_setup_frames.c" line="510" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_setup_frames.c" bodystart="510" bodyend="552"/>
+        <references refid="struct_frame_info_1a07d6ccc7f65963ee62456d0574b27857" compoundref="mmi__dpdc__example_8h" startline="57">FrameInfo::Address</references>
+        <references refid="struct_run_config_1a0919eff7fd55f675afb7235c6c9936c0" compoundref="mmi__dpdc__example_8h" startline="117">RunConfig::AudioEnable</references>
+        <references refid="struct_run_config_1a692d2f317f78449f14ef9d286430464c" compoundref="mmi__dpdc__example_8h" startline="116">RunConfig::CursorEnable</references>
+        <references refid="struct_run_config_1a032bc36376350b1ba5419e18d1f357ec" compoundref="mmi__dpdc__example_8h" startline="119">RunConfig::SdpEnable</references>
+        <references refid="struct_frame_info_1a723d39f5c0e596544cf1c609606bb7ab" compoundref="mmi__dpdc__example_8h" startline="58">FrameInfo::Size</references>
+        <references refid="mmi__dc__cursor_8c_1afc0e01ef8f0328aadb0723fb9a1e76d3" compoundref="mmi__dc__cursor_8c" startline="68" endline="134">XDpDc_FillCursorBuffer</references>
+        <references refid="mmi__dc__sdp_8c_1afb0504d4880dbd976198faca0d13154c" compoundref="mmi__dc__sdp_8c" startline="59" endline="90">XDpDc_FillSdpBuffer</references>
+        <references refid="mmi__dc__generate__frames_8c_1ab05cca9b31f824de34720ae09717ee3e" compoundref="mmi__dc__generate__frames_8c" startline="85" endline="1808">XDpDc_GenerateFrames</references>
+        <references refid="mmi__dc__cursor_8c_1aeec8d3294a1eefe714a7990afdbd6b91" compoundref="mmi__dc__cursor_8c" startline="31" endline="46">XDpDc_InitCursorFrameBuffer</references>
+        <references refid="mmi__dc__sdp_8c_1ac4d820ea95f52734bb803c61bc4ba6ba" compoundref="mmi__dc__sdp_8c" startline="36" endline="45">XDpDc_InitSdpFrameBuffer</references>
+        <references refid="mmi__dc__setup__frames_8c_1a9d92ee25c19827085c23250277009a49" compoundref="mmi__dc__setup__frames_8c" startline="679" endline="690">XDpDc_SetupAudioDescriptors</references>
+        <referencedby refid="mmi__dc__nonlive__test_8h_1a9350eba050dae42216947bd4cd8d36c8" compoundref="mmi__dc__nonlive__test_8c" startline="252" endline="285">XDpDc_InitializeRunConfig</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="mmi__dc__setup__frames_8c_1aebd7ac73b079a58f72ecacdc1bfef5f1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDpDc_SetupStream1Descriptors</definition>
+        <argsstring>(RunConfig *RunCfgPtr)</argsstring>
+        <name>XDpDc_SetupStream1Descriptors</name>
+        <param>
+          <type><ref refid="struct_run_config" kindref="compound">RunConfig</ref> *</type>
+          <declname>RunCfgPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function creates DMA descriptors for Stream1 and assigns them to Video DMA channels 0-2. </para>        </briefdescription>
+        <detaileddescription>
+<para>The number of descriptors depends on the video format mode: Interleaved=1, SemiPlanar=2, Planar=3. Uses switch fall-through from Planar -&gt; SemiPlanar -&gt; Interleaved.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>RunCfgPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the application configuration structure.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>Must be called after <ref refid="group__mmi__dcdma_1ga3416ce41bac7a473de1c1b9665019800" kindref="member">XDcDma_CfgInitialize()</ref>. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_setup_frames.c" line="569" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_setup_frames.c" bodystart="569" bodyend="597"/>
+        <references refid="struct_frame_info_1a07d6ccc7f65963ee62456d0574b27857" compoundref="mmi__dpdc__example_8h" startline="57">FrameInfo::Address</references>
+        <references refid="struct_run_config_1a155539680243341a34acb114b0333b41" compoundref="mmi__dpdc__example_8h" startline="84">RunConfig::DcSubPtr</references>
+        <references refid="struct_run_config_1a032e8dad8d2502e989379239eb569fec" compoundref="mmi__dpdc__example_8h" startline="89">RunConfig::Desc1</references>
+        <references refid="struct_run_config_1aa8105f5039b3f9ec5e219bfa42955f97" compoundref="mmi__dpdc__example_8h" startline="90">RunConfig::Desc2</references>
+        <references refid="struct_run_config_1ac706a1a31ffef301f97b18381271d170" compoundref="mmi__dpdc__example_8h" startline="91">RunConfig::Desc3</references>
+        <references refid="struct_run_config_1a9dcb790be7d6e267162fe3c907e25cec" compoundref="mmi__dpdc__example_8h" startline="113">RunConfig::Stream1Format</references>
+        <references refid="struct_run_config_1af8f85b8ad9fae20905df08983873e06f" compoundref="mmi__dpdc__example_8h" startline="97">RunConfig::V1_FbInfo</references>
+        <references refid="struct_run_config_1a85af807eb3a8581fdf35633c3ebbc562" compoundref="mmi__dpdc__example_8h" startline="98">RunConfig::V2_FbInfo</references>
+        <references refid="struct_run_config_1a89c4dfbc093c45dcba001a224c0254ba" compoundref="mmi__dpdc__example_8h" startline="99">RunConfig::V3_FbInfo</references>
+        <references refid="group__mmi__dc_1gae47a85e818e8ee672ba51f4963562ef5" compoundref="xdc_8c" startline="308" endline="320">XDc_GetNonLiveVideoAttribute</references>
+        <references refid="mmi__dc__setup__frames_8c_1acd2ed76d014f99adc3fcd14ca3b378b1" compoundref="mmi__dc__setup__frames_8c" startline="218" endline="269">XDpDc_CreateDescriptors</references>
+        <referencedby refid="mmi__dpdc__platform_8h_1a36260594d61926e44fbd3c2d0913ccd8" compoundref="mmi__dpdc__platform_8c" startline="213" endline="298">XDpDc_InitDcSubsystem</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="mmi__dc__setup__frames_8c_1a2638411c2ae587ebc77adc73d673439c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDpDc_SetupStream2Descriptors</definition>
+        <argsstring>(RunConfig *RunCfgPtr)</argsstring>
+        <name>XDpDc_SetupStream2Descriptors</name>
+        <param>
+          <type><ref refid="struct_run_config" kindref="compound">RunConfig</ref> *</type>
+          <declname>RunCfgPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function creates DMA descriptors for Stream2 and assigns them to Graphics DMA channels 3-5. </para>        </briefdescription>
+        <detaileddescription>
+<para>The number of descriptors depends on the video format mode: Interleaved=1, SemiPlanar=2, Planar=3. Uses switch fall-through from Planar -&gt; SemiPlanar -&gt; Interleaved.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>RunCfgPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the application configuration structure.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>Must be called after <ref refid="group__mmi__dcdma_1ga3416ce41bac7a473de1c1b9665019800" kindref="member">XDcDma_CfgInitialize()</ref>. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_setup_frames.c" line="614" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_setup_frames.c" bodystart="614" bodyend="642"/>
+        <references refid="struct_frame_info_1a07d6ccc7f65963ee62456d0574b27857" compoundref="mmi__dpdc__example_8h" startline="57">FrameInfo::Address</references>
+        <references refid="struct_run_config_1a155539680243341a34acb114b0333b41" compoundref="mmi__dpdc__example_8h" startline="84">RunConfig::DcSubPtr</references>
+        <references refid="struct_run_config_1abe6e71b53d284446b7f8011ada7b3579" compoundref="mmi__dpdc__example_8h" startline="92">RunConfig::Desc4</references>
+        <references refid="struct_run_config_1aa88ef860111459a6b832446ae5529743" compoundref="mmi__dpdc__example_8h" startline="93">RunConfig::Desc5</references>
+        <references refid="struct_run_config_1adc0f9a32830fdebfdbc3c279c70487a1" compoundref="mmi__dpdc__example_8h" startline="94">RunConfig::Desc6</references>
+        <references refid="struct_run_config_1a9684f9c86831c32d790b11e6aefe170f" compoundref="mmi__dpdc__example_8h" startline="114">RunConfig::Stream2Format</references>
+        <references refid="struct_run_config_1adbad41731e86124a761b769b9948346b" compoundref="mmi__dpdc__example_8h" startline="100">RunConfig::V4_FbInfo</references>
+        <references refid="struct_run_config_1a2c838a7b798d47c62f0eb24312e3a483" compoundref="mmi__dpdc__example_8h" startline="101">RunConfig::V5_FbInfo</references>
+        <references refid="struct_run_config_1af6d11992c010cc0a70c030e58560126c" compoundref="mmi__dpdc__example_8h" startline="102">RunConfig::V6_FbInfo</references>
+        <references refid="group__mmi__dc_1gae47a85e818e8ee672ba51f4963562ef5" compoundref="xdc_8c" startline="308" endline="320">XDc_GetNonLiveVideoAttribute</references>
+        <references refid="mmi__dc__setup__frames_8c_1acd2ed76d014f99adc3fcd14ca3b378b1" compoundref="mmi__dc__setup__frames_8c" startline="218" endline="269">XDpDc_CreateDescriptors</references>
+        <referencedby refid="mmi__dpdc__platform_8h_1a36260594d61926e44fbd3c2d0913ccd8" compoundref="mmi__dpdc__platform_8c" startline="213" endline="298">XDpDc_InitDcSubsystem</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="mmi__dc__setup__frames_8c_1adc1413b4d5cdc6a62f4cd6e75fd661ca" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDpDc_SetupCursorDescriptor</definition>
+        <argsstring>(RunConfig *RunCfgPtr)</argsstring>
+        <name>XDpDc_SetupCursorDescriptor</name>
+        <param>
+          <type><ref refid="struct_run_config" kindref="compound">RunConfig</ref> *</type>
+          <declname>RunCfgPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function creates the cursor DMA descriptor (Desc7) and links it to the cursor frame buffer. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>RunCfgPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the application configuration structure.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>Must be called after <ref refid="group__mmi__dcdma_1ga3416ce41bac7a473de1c1b9665019800" kindref="member">XDcDma_CfgInitialize()</ref> and only when cursor is enabled. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_setup_frames.c" line="658" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_setup_frames.c" bodystart="658" bodyend="663"/>
+        <references refid="struct_frame_info_1a07d6ccc7f65963ee62456d0574b27857" compoundref="mmi__dpdc__example_8h" startline="57">FrameInfo::Address</references>
+        <references refid="struct_run_config_1a7cc31114b2db6be8bdee621b0c49dce9" compoundref="mmi__dpdc__example_8h" startline="103">RunConfig::Cursor_FbInfo</references>
+        <references refid="struct_run_config_1ad979d916c40ccd4fc49755851de358ca" compoundref="mmi__dpdc__example_8h" startline="95">RunConfig::Desc7</references>
+        <references refid="mmi__dc__setup__frames_8c_1acd2ed76d014f99adc3fcd14ca3b378b1" compoundref="mmi__dc__setup__frames_8c" startline="218" endline="269">XDpDc_CreateDescriptors</references>
+        <referencedby refid="mmi__dpdc__platform_8h_1a36260594d61926e44fbd3c2d0913ccd8" compoundref="mmi__dpdc__platform_8c" startline="213" endline="298">XDpDc_InitDcSubsystem</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="mmi__dc__setup__frames_8c_1a9d92ee25c19827085c23250277009a49" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDpDc_SetupAudioDescriptors</definition>
+        <argsstring>(RunConfig *RunCfgPtr)</argsstring>
+        <name>XDpDc_SetupAudioDescriptors</name>
+        <param>
+          <type><ref refid="struct_run_config" kindref="compound">RunConfig</ref> *</type>
+          <declname>RunCfgPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function creates the audio DMA descriptors (AudDesc0-7) as a chained ring buffer for audio streaming. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>RunCfgPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the application configuration structure.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>Must be called after <ref refid="group__mmi__dcdma_1ga3416ce41bac7a473de1c1b9665019800" kindref="member">XDcDma_CfgInitialize()</ref> and only when audio is enabled. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_setup_frames.c" line="679" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_setup_frames.c" bodystart="679" bodyend="690"/>
+        <references refid="mmi__dc__setup__frames_8c_1acd2ed76d014f99adc3fcd14ca3b378b1" compoundref="mmi__dc__setup__frames_8c" startline="218" endline="269">XDpDc_CreateDescriptors</references>
+        <referencedby refid="mmi__dc__setup__frames_8h_1af01b016c00245f21541974c6dab538aa" compoundref="mmi__dc__setup__frames_8c" startline="510" endline="552">XDpDc_InitFrames</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Implements frame attribute generation and DMA descriptor setup. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="14"><highlight class="preprocessor">#include<sp/>&lt;xil_printf.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;xil_types.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="mmi__dc__setup__frames_8h" kindref="compound">mmi_dc_setup_frames.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="mmi__dc__nonlive__test_8h" kindref="compound">mmi_dc_nonlive_test.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="mmi__dc__cursor_8h" kindref="compound">mmi_dc_cursor.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="mmi__dc__sdp_8h" kindref="compound">mmi_dc_sdp.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="mmi__dc__generate__frames_8h" kindref="compound">mmi_dc_generate_frames.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>UPDATE_ENABLE_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>8U</highlight></codeline>
+<codeline lineno="26"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>IGNORE_DONE_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>9U</highlight></codeline>
+<codeline lineno="27"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>LAST_DESC_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>10U</highlight></codeline>
+<codeline lineno="28"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>LAST_DESC_FRAME_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>11U</highlight></codeline>
+<codeline lineno="29"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>XDcDma_Descriptor<sp/>*Desc1;</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>XDcDma_Descriptor<sp/>*Desc2;</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>XDcDma_Descriptor<sp/>*Desc3;</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>XDcDma_Descriptor<sp/>*Desc4;</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>XDcDma_Descriptor<sp/>*Desc5;</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>XDcDma_Descriptor<sp/>*Desc6;</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>XDcDma_Descriptor<sp/>*Desc7;</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>XDcDma_Descriptor<sp/>*AudDesc0;</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>XDcDma_Descriptor<sp/>*AudDesc1;</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>XDcDma_Descriptor<sp/>*AudDesc2;</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>XDcDma_Descriptor<sp/>*AudDesc3;</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>XDcDma_Descriptor<sp/>*AudDesc4;</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>XDcDma_Descriptor<sp/>*AudDesc5;</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>XDcDma_Descriptor<sp/>*AudDesc6;</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>XDcDma_Descriptor<sp/>*AudDesc7;</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><ref refid="struct_frame_info" kindref="compound">FrameInfo</ref><sp/>Aud0_FbInfo;</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><ref refid="struct_frame_info" kindref="compound">FrameInfo</ref><sp/>Aud1_FbInfo;</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><ref refid="struct_frame_info" kindref="compound">FrameInfo</ref><sp/>Aud2_FbInfo;</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><ref refid="struct_frame_info" kindref="compound">FrameInfo</ref><sp/>Aud3_FbInfo;</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><ref refid="struct_frame_info" kindref="compound">FrameInfo</ref><sp/>Aud4_FbInfo;</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><ref refid="struct_frame_info" kindref="compound">FrameInfo</ref><sp/>Aud5_FbInfo;</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><ref refid="struct_frame_info" kindref="compound">FrameInfo</ref><sp/>Aud6_FbInfo;</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><ref refid="struct_frame_info" kindref="compound">FrameInfo</ref><sp/>Aud7_FbInfo;</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="71"><highlight class="keyword">static</highlight><highlight class="normal"><sp/>u32<sp/>XDpDc_GetFormatBpc(<ref refid="xdc_8h_1ad45e6a818b9bcacc05e58b69ac140895" kindref="member">XDc_VideoFormat</ref><sp/>fmt)</highlight></codeline>
+<codeline lineno="72"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">switch</highlight><highlight class="normal"><sp/>(fmt)<sp/>{</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>MONOCHROME:</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>YV24:</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>YV16Ci:</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>YV16Ci2:</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>YV16:</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>YV16_420:</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>YV16Ci_420:</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>YV16Ci2_420:</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>1;</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"></highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>CbY0CrY1:</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>CrY0CbY1:</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>Y0CrY1Cb:</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>Y0CbY1Cr:</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>YV16CIdcl_10BPC:</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>YV16CI2dcl_10BPC:</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>YV16CIdcl_12BPC:</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>YV16CI2dcl_12BPC:</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>YV16CIdc:</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>YV16CI2dc:</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>YV16CIdc_420:</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>YV16CI2dc_420:</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>YV16CIdcl_420_10BPC:</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>YV16CI2dcl_420_10BPC:</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>YV16CIdcl_420_12BPC:</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>YV16CI2dcl_420_12BPC:</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>YV24dcl_12BPC:</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>YV24dcl_10BPC:</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>YV24dcm_12BPC:</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>YV24dcm_10BPC:</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>YV16_10BPC:</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>YV24_10BPC:</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>MONOCHROME_10BPC:</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>YV16Ci2_10BPC:</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>YV16Ci_10BPC:</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>YV16_420_10BPC:</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>YV16Ci_420_10BPC:</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>YV16Ci2_420_10BPC:</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>RGBA5551:</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>RGBA4444:</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>RGB565:</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>Ydc_ONLY:</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>Ydcm_ONLY_10BPC:</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>Ydcl_ONLY_10BPC:</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>Ydcm_ONLY_12BPC:</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>Ydcl_ONLY_12BPC:</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>2;</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"></highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>RGB888:</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>YUV444:</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>RGB888_GFX:</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>BGR888:</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>RGBA8880:</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>3;</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"></highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>RGBA8888:</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>ABGR8888:</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>RGB10A2g:</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>RGB888_10BPC:</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>YUV444_10BPC:</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>YUVA444g:</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>YUV444g:</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>YUV444dc:</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>YV24dc:</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>RGB888dc:</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>YV16CIdcm_10BPC:</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>YV16CI2dcm_10BPC:</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>YV16CIdcm_12BPC:</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>YV16CI2dcm_12BPC:</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>YV16CIdcm_420_10BPC:</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>YV16CI2dcm_420_10BPC:</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>YV16CIdcm_420_12BPC:</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>YV16CI2dcm_420_12BPC:</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>4;</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"></highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>RGBA8888dcl_12BPC:</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>RGBA8888dcm_12BPC:</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>RGBA8888dcl_10BPC:</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>RGBA8888dcm_10BPC:</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>RGB888dcl_12BPC:</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>RGB888dcm_12BPC:</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>RGB888dcl_10BPC:</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>RGB888dcm_10BPC:</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>YUV444dcl_10BPC:</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>YUV444dcm_10BPC:</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>YUV444dcl_12BPC:</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>YUV444dcm_12BPC:</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>YUV444g_10BPC:</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>8;</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"></highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>4;</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="167"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"></highlight></codeline>
+<codeline lineno="169"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="182" refid="mmi__dc__setup__frames_8h_1a6f9a34817bd7485ced17700ecd627716" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="mmi__dc__setup__frames_8c_1a6f9a34817bd7485ced17700ecd627716" kindref="member">XDpDc_GenerateFrameInfoAttribute</ref>(<ref refid="struct_frame_info" kindref="compound">FrameInfo</ref><sp/>*Frame)</highlight></codeline>
+<codeline lineno="183"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="184"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Width<sp/>=<sp/>Frame-&gt;<ref refid="struct_frame_info_1a5c828928824345c4fc46c69b4527bd6e" kindref="member">Width</ref>;</highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Height<sp/>=<sp/>Frame-&gt;<ref refid="struct_frame_info_1afb59098b9e8c1b5828bec8875a920454" kindref="member">Height</ref>;</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Bpc<sp/>=<sp/>Frame-&gt;<ref refid="struct_frame_info_1aa86b846fe97a34c623b23f2a7c82a434" kindref="member">Bpc</ref>;</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"></highlight></codeline>
+<codeline lineno="188"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Frame-&gt;<ref refid="struct_frame_info_1a723d39f5c0e596544cf1c609606bb7ab" kindref="member">Size</ref><sp/>=<sp/>Width<sp/>*<sp/>Height<sp/>*<sp/>Bpc;</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Frame-&gt;<ref refid="struct_frame_info_1a00cd8ff046596293a640cc0048b2f539" kindref="member">LineSize</ref><sp/>=<sp/>Width<sp/>*<sp/>Bpc;</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"></highlight></codeline>
+<codeline lineno="191"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>temp<sp/>=<sp/>Frame-&gt;<ref refid="struct_frame_info_1a00cd8ff046596293a640cc0048b2f539" kindref="member">LineSize</ref>;</highlight></codeline>
+<codeline lineno="192"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(temp<sp/>%<sp/>256<sp/>!=<sp/>0<sp/>)<sp/>{</highlight></codeline>
+<codeline lineno="193"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>temp<sp/>=<sp/>(temp<sp/>/<sp/>256<sp/>+<sp/>1<sp/>)<sp/>*<sp/>256;</highlight></codeline>
+<codeline lineno="194"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="195"><highlight class="normal"></highlight></codeline>
+<codeline lineno="196"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Frame-&gt;<ref refid="struct_frame_info_1a4d890ee45a9b9dd8d011da614d56549b" kindref="member">Stride</ref><sp/>=<sp/>temp<sp/>/<sp/>16;</highlight></codeline>
+<codeline lineno="197"><highlight class="normal"></highlight></codeline>
+<codeline lineno="198"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"></highlight></codeline>
+<codeline lineno="200"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="218" refid="mmi__dc__setup__frames_8h_1acd2ed76d014f99adc3fcd14ca3b378b1" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="mmi__dc__setup__frames_8c_1acd2ed76d014f99adc3fcd14ca3b378b1" kindref="member">XDpDc_CreateDescriptors</ref>(<ref refid="struct_run_config" kindref="compound">RunConfig</ref><sp/>*RunCfgPtr,<sp/>XDcDma_Descriptor<sp/>*XDesc,<sp/><ref refid="struct_frame_info" kindref="compound">FrameInfo</ref><sp/>*FBInfo,<sp/>XDcDma_Descriptor<sp/>*NextDesc)</highlight></codeline>
+<codeline lineno="219"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="220"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>DescAddr;</highlight></codeline>
+<codeline lineno="221"><highlight class="normal"></highlight></codeline>
+<codeline lineno="222"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Last_Desc_Frame<sp/>=<sp/>1;</highlight></codeline>
+<codeline lineno="223"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Last_Desc<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="224"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Update_Enable<sp/>=<sp/>1;</highlight></codeline>
+<codeline lineno="225"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Ignore_Done<sp/>=<sp/>1;</highlight></codeline>
+<codeline lineno="226"><highlight class="normal"></highlight></codeline>
+<codeline lineno="227"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_dc_dma" kindref="compound">XDcDma</ref><sp/>*DcDmaPtr<sp/>=<sp/>RunCfgPtr-&gt;<ref refid="struct_run_config_1a155539680243341a34acb114b0333b41" kindref="member">DcSubPtr</ref>-&gt;DmaPtr;</highlight></codeline>
+<codeline lineno="228"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__mmi__dcdma_1ga83715748f55fe649eefc6d6a7e091dfd" kindref="member">XDcDma_DescInit</ref>(XDesc);</highlight></codeline>
+<codeline lineno="229"><highlight class="normal"></highlight></codeline>
+<codeline lineno="230"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDesc-&gt;Id<sp/>=<sp/><ref refid="group__mmi__dcdma_1gaba2c3b0d2480b34ccad95c9fdd7f5478" kindref="member">XDcDma_GetNewDescId</ref>(DcDmaPtr);</highlight></codeline>
+<codeline lineno="231"><highlight class="normal"></highlight></codeline>
+<codeline lineno="232"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDesc-&gt;Control_Lo<sp/>|=<sp/>((Update_Enable)<sp/>&lt;&lt;<sp/>UPDATE_ENABLE_SHIFT<sp/>);</highlight></codeline>
+<codeline lineno="233"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDesc-&gt;Control_Lo<sp/>|=<sp/>((Ignore_Done)<sp/>&lt;&lt;<sp/>IGNORE_DONE_SHIFT<sp/>);</highlight></codeline>
+<codeline lineno="234"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDesc-&gt;Control_Lo<sp/>|=<sp/>((Last_Desc)<sp/>&lt;&lt;<sp/>LAST_DESC_SHIFT<sp/>);</highlight></codeline>
+<codeline lineno="235"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDesc-&gt;Control_Lo<sp/>|=<sp/>((Last_Desc_Frame)<sp/>&lt;&lt;<sp/>LAST_DESC_FRAME_SHIFT<sp/>);</highlight></codeline>
+<codeline lineno="236"><highlight class="normal"></highlight></codeline>
+<codeline lineno="237"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>DataSize<sp/>=<sp/>(u64)(FBInfo-&gt;<ref refid="struct_frame_info_1a723d39f5c0e596544cf1c609606bb7ab" kindref="member">Size</ref>);</highlight></codeline>
+<codeline lineno="238"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDesc-&gt;Data_Size_Lo<sp/>=<sp/>(DataSize<sp/>&amp;<sp/>0xFFFF);</highlight></codeline>
+<codeline lineno="239"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDesc-&gt;Data_Size_Hi<sp/>=<sp/>((DataSize<sp/>&amp;<sp/>0xFFFF0000)<sp/>&gt;&gt;<sp/>16);</highlight></codeline>
+<codeline lineno="240"><highlight class="normal"></highlight></codeline>
+<codeline lineno="241"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>FBAddr<sp/>=<sp/>(u64)FBInfo-&gt;<ref refid="struct_frame_info_1a07d6ccc7f65963ee62456d0574b27857" kindref="member">Address</ref>;</highlight></codeline>
+<codeline lineno="242"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDesc-&gt;Src_Addr_Lo<sp/>=<sp/>FBAddr<sp/>&amp;<sp/>0xFFFF;</highlight></codeline>
+<codeline lineno="243"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDesc-&gt;Src_Addr_Hi<sp/>=<sp/>(FBAddr<sp/>&gt;&gt;<sp/>16);</highlight></codeline>
+<codeline lineno="244"><highlight class="normal"></highlight></codeline>
+<codeline lineno="245"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(NextDesc<sp/>==<sp/>NULL)</highlight></codeline>
+<codeline lineno="246"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DescAddr<sp/>=<sp/>(u64)XDesc;</highlight></codeline>
+<codeline lineno="247"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="248"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DescAddr<sp/>=<sp/>(u64)NextDesc;</highlight></codeline>
+<codeline lineno="249"><highlight class="normal"></highlight></codeline>
+<codeline lineno="250"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDesc-&gt;Next_Desc_Addr_Lo<sp/>=<sp/>LOWER_32_BITS(DescAddr);</highlight></codeline>
+<codeline lineno="251"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDesc-&gt;Next_Desc_Addr_Hi<sp/>=<sp/>(DescAddr)<sp/>&gt;&gt;<sp/>32;</highlight></codeline>
+<codeline lineno="252"><highlight class="normal"></highlight></codeline>
+<codeline lineno="253"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>is_sdp_desc<sp/>=<sp/>(XDesc<sp/>==<sp/>RunCfgPtr-&gt;<ref refid="struct_run_config_1ad979d916c40ccd4fc49755851de358ca" kindref="member">Desc7</ref>)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="254"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(FBInfo<sp/>==<sp/>RunCfgPtr-&gt;<ref refid="struct_run_config_1ad388d8e099bafebffe2988b8b680ced8" kindref="member">Sdp_FbInfo</ref>);</highlight></codeline>
+<codeline lineno="255"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>is_cursor_desc<sp/>=<sp/>(XDesc<sp/>==<sp/>RunCfgPtr-&gt;<ref refid="struct_run_config_1ad979d916c40ccd4fc49755851de358ca" kindref="member">Desc7</ref>)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="256"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(FBInfo<sp/>==<sp/>RunCfgPtr-&gt;<ref refid="struct_run_config_1a7cc31114b2db6be8bdee621b0c49dce9" kindref="member">Cursor_FbInfo</ref>);</highlight></codeline>
+<codeline lineno="257"><highlight class="normal"></highlight></codeline>
+<codeline lineno="258"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(is_sdp_desc)<sp/>{</highlight></codeline>
+<codeline lineno="259"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDesc-&gt;Target_Addr<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="260"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(is_cursor_desc)<sp/>{</highlight></codeline>
+<codeline lineno="261"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDesc-&gt;Target_Addr<sp/>=<sp/>1;</highlight></codeline>
+<codeline lineno="262"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="263"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDesc-&gt;Line_Size<sp/>=<sp/>FBInfo-&gt;<ref refid="struct_frame_info_1a00cd8ff046596293a640cc0048b2f539" kindref="member">LineSize</ref>;</highlight></codeline>
+<codeline lineno="264"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDesc-&gt;Line_Stride<sp/>=<sp/>FBInfo-&gt;<ref refid="struct_frame_info_1a4d890ee45a9b9dd8d011da614d56549b" kindref="member">Stride</ref>;</highlight></codeline>
+<codeline lineno="265"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="266"><highlight class="normal"></highlight></codeline>
+<codeline lineno="267"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDesc-&gt;Intr_Enable<sp/>=<sp/>1;</highlight></codeline>
+<codeline lineno="268"><highlight class="normal"></highlight></codeline>
+<codeline lineno="269"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="270"><highlight class="normal"></highlight></codeline>
+<codeline lineno="271"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Is30BitPacked(<ref refid="xdc_8h_1ad45e6a818b9bcacc05e58b69ac140895" kindref="member">XDc_VideoFormat</ref><sp/>fmt)</highlight></codeline>
+<codeline lineno="272"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="273"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">switch</highlight><highlight class="normal"><sp/>(fmt)<sp/>{</highlight></codeline>
+<codeline lineno="274"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>YV16Ci2_10BPC:</highlight></codeline>
+<codeline lineno="275"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>YV16Ci_10BPC:</highlight></codeline>
+<codeline lineno="276"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>YV16_10BPC:</highlight></codeline>
+<codeline lineno="277"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>YV24_10BPC:</highlight></codeline>
+<codeline lineno="278"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>MONOCHROME_10BPC:</highlight></codeline>
+<codeline lineno="279"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>1;</highlight></codeline>
+<codeline lineno="280"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="281"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>0;</highlight></codeline>
+<codeline lineno="282"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="283"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="284"><highlight class="normal"></highlight></codeline>
+<codeline lineno="285"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="303"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>InitFrameBuffer(<ref refid="struct_frame_info" kindref="compound">FrameInfo</ref><sp/>*FbInfo,<sp/>u64<sp/>Address,<sp/>u32<sp/>Width,</highlight></codeline>
+<codeline lineno="304"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Height,<sp/><ref refid="xdc_8h_1ad45e6a818b9bcacc05e58b69ac140895" kindref="member">XDc_VideoFormat</ref><sp/>Format,<sp/>u32<sp/>Bpc)</highlight></codeline>
+<codeline lineno="305"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="306"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FbInfo-&gt;<ref refid="struct_frame_info_1a07d6ccc7f65963ee62456d0574b27857" kindref="member">Address</ref><sp/>=<sp/>Address;</highlight></codeline>
+<codeline lineno="307"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FbInfo-&gt;<ref refid="struct_frame_info_1a5c828928824345c4fc46c69b4527bd6e" kindref="member">Width</ref><sp/>=<sp/>Width;</highlight></codeline>
+<codeline lineno="308"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FbInfo-&gt;<ref refid="struct_frame_info_1afb59098b9e8c1b5828bec8875a920454" kindref="member">Height</ref><sp/>=<sp/>Height;</highlight></codeline>
+<codeline lineno="309"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FbInfo-&gt;<ref refid="struct_frame_info_1ad024a3bf1e432c445fdcf84e5fa1dcbb" kindref="member">VideoFormat</ref><sp/>=<sp/>Format;</highlight></codeline>
+<codeline lineno="310"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FbInfo-&gt;<ref refid="struct_frame_info_1aa86b846fe97a34c623b23f2a7c82a434" kindref="member">Bpc</ref><sp/>=<sp/>Bpc;</highlight></codeline>
+<codeline lineno="311"><highlight class="normal"></highlight></codeline>
+<codeline lineno="312"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Is30BitPacked(Format))<sp/>{</highlight></codeline>
+<codeline lineno="313"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>line_size<sp/>=<sp/>(Width<sp/>*<sp/>4)<sp/>/<sp/>3;</highlight></codeline>
+<codeline lineno="314"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(line_size<sp/>%<sp/>16<sp/>!=<sp/>0)</highlight></codeline>
+<codeline lineno="315"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>line_size<sp/>=<sp/>((line_size<sp/>/<sp/>16)<sp/>+<sp/>1)<sp/>*<sp/>16;</highlight></codeline>
+<codeline lineno="316"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FbInfo-&gt;<ref refid="struct_frame_info_1a00cd8ff046596293a640cc0048b2f539" kindref="member">LineSize</ref><sp/>=<sp/>line_size;</highlight></codeline>
+<codeline lineno="317"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>stride<sp/>=<sp/>line_size<sp/>/<sp/>16;</highlight></codeline>
+<codeline lineno="318"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(stride<sp/>%<sp/>16<sp/>!=<sp/>0)</highlight></codeline>
+<codeline lineno="319"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>stride<sp/>=<sp/>((stride<sp/>/<sp/>16)<sp/>+<sp/>1)<sp/>*<sp/>16;</highlight></codeline>
+<codeline lineno="320"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FbInfo-&gt;<ref refid="struct_frame_info_1a4d890ee45a9b9dd8d011da614d56549b" kindref="member">Stride</ref><sp/>=<sp/>stride;</highlight></codeline>
+<codeline lineno="321"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FbInfo-&gt;<ref refid="struct_frame_info_1a723d39f5c0e596544cf1c609606bb7ab" kindref="member">Size</ref><sp/>=<sp/>line_size<sp/>*<sp/>Height;</highlight></codeline>
+<codeline lineno="322"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="323"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="mmi__dc__setup__frames_8c_1a6f9a34817bd7485ced17700ecd627716" kindref="member">XDpDc_GenerateFrameInfoAttribute</ref>(FbInfo);</highlight></codeline>
+<codeline lineno="324"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="325"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="326"><highlight class="normal"></highlight></codeline>
+<codeline lineno="327"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="341"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>InitStream1Buffers(<ref refid="struct_run_config" kindref="compound">RunConfig</ref><sp/>*RunCfgPtr)</highlight></codeline>
+<codeline lineno="342"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="343"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XDc_VideoAttribute<sp/>*attr<sp/>=<sp/><ref refid="group__mmi__dc_1gae47a85e818e8ee672ba51f4963562ef5" kindref="member">XDc_GetNonLiveVideoAttribute</ref>(RunCfgPtr-&gt;<ref refid="struct_run_config_1a9dcb790be7d6e267162fe3c907e25cec" kindref="member">Stream1Format</ref>);</highlight></codeline>
+<codeline lineno="344"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>bpc<sp/>=<sp/>XDpDc_GetFormatBpc(RunCfgPtr-&gt;<ref refid="struct_run_config_1a9dcb790be7d6e267162fe3c907e25cec" kindref="member">Stream1Format</ref>);</highlight></codeline>
+<codeline lineno="345"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xdc_8h_1ad45e6a818b9bcacc05e58b69ac140895" kindref="member">XDc_VideoFormat</ref><sp/>fmt<sp/>=<sp/>RunCfgPtr-&gt;<ref refid="struct_run_config_1a9dcb790be7d6e267162fe3c907e25cec" kindref="member">Stream1Format</ref>;</highlight></codeline>
+<codeline lineno="346"><highlight class="normal"></highlight></codeline>
+<codeline lineno="347"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;[FRAME]<sp/>Stream1<sp/>buffers<sp/>(Mode=%d,<sp/>BPC=%d):\r\n&quot;</highlight><highlight class="normal">,<sp/>attr-&gt;Mode,<sp/>bpc);</highlight></codeline>
+<codeline lineno="348"><highlight class="normal"></highlight></codeline>
+<codeline lineno="349"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">switch</highlight><highlight class="normal"><sp/>(attr-&gt;Mode)<sp/>{</highlight></codeline>
+<codeline lineno="350"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>Tiled:</highlight></codeline>
+<codeline lineno="351"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>Planar:</highlight></codeline>
+<codeline lineno="352"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="353"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>cw<sp/>=<sp/>RunCfgPtr-&gt;<ref refid="struct_run_config_1a1e5f0a1088d8afeee086f4bcc163a2bb" kindref="member">Width</ref>;</highlight></codeline>
+<codeline lineno="354"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>ch<sp/>=<sp/>RunCfgPtr-&gt;<ref refid="struct_run_config_1a1de272367d1566536f14a14cc4b50a4f" kindref="member">Height</ref>;</highlight></codeline>
+<codeline lineno="355"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(attr-&gt;SubSample)</highlight></codeline>
+<codeline lineno="356"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cw<sp/>/=<sp/>2;</highlight></codeline>
+<codeline lineno="357"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(fmt<sp/>==<sp/>YV16_420<sp/>||<sp/>fmt<sp/>==<sp/>YV16_420_10BPC)</highlight></codeline>
+<codeline lineno="358"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ch<sp/>/=<sp/>2;</highlight></codeline>
+<codeline lineno="359"><highlight class="normal"></highlight></codeline>
+<codeline lineno="360"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InitFrameBuffer(RunCfgPtr-&gt;<ref refid="struct_run_config_1a89c4dfbc093c45dcba001a224c0254ba" kindref="member">V3_FbInfo</ref>,<sp/>IN_BUFFER_0_ADDR_V3,</highlight></codeline>
+<codeline lineno="361"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cw,<sp/>ch,<sp/>fmt,<sp/>bpc);</highlight></codeline>
+<codeline lineno="362"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;<sp/><sp/>V3:<sp/>addr=0x%08x<sp/>size=%d<sp/>linesize=%d<sp/>stride=%d\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="363"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)RunCfgPtr-&gt;<ref refid="struct_run_config_1a89c4dfbc093c45dcba001a224c0254ba" kindref="member">V3_FbInfo</ref>-&gt;<ref refid="struct_frame_info_1a07d6ccc7f65963ee62456d0574b27857" kindref="member">Address</ref>,</highlight></codeline>
+<codeline lineno="364"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RunCfgPtr-&gt;<ref refid="struct_run_config_1a89c4dfbc093c45dcba001a224c0254ba" kindref="member">V3_FbInfo</ref>-&gt;<ref refid="struct_frame_info_1a723d39f5c0e596544cf1c609606bb7ab" kindref="member">Size</ref>,</highlight></codeline>
+<codeline lineno="365"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RunCfgPtr-&gt;<ref refid="struct_run_config_1a89c4dfbc093c45dcba001a224c0254ba" kindref="member">V3_FbInfo</ref>-&gt;<ref refid="struct_frame_info_1a00cd8ff046596293a640cc0048b2f539" kindref="member">LineSize</ref>,</highlight></codeline>
+<codeline lineno="366"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RunCfgPtr-&gt;<ref refid="struct_run_config_1a89c4dfbc093c45dcba001a224c0254ba" kindref="member">V3_FbInfo</ref>-&gt;<ref refid="struct_frame_info_1a4d890ee45a9b9dd8d011da614d56549b" kindref="member">Stride</ref>);</highlight></codeline>
+<codeline lineno="367"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InitFrameBuffer(RunCfgPtr-&gt;<ref refid="struct_run_config_1a85af807eb3a8581fdf35633c3ebbc562" kindref="member">V2_FbInfo</ref>,<sp/>IN_BUFFER_0_ADDR_V2,</highlight></codeline>
+<codeline lineno="368"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cw,<sp/>ch,<sp/>fmt,<sp/>bpc);</highlight></codeline>
+<codeline lineno="369"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;<sp/><sp/>V2:<sp/>addr=0x%08x<sp/>size=%d<sp/>linesize=%d<sp/>stride=%d\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="370"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)RunCfgPtr-&gt;<ref refid="struct_run_config_1a85af807eb3a8581fdf35633c3ebbc562" kindref="member">V2_FbInfo</ref>-&gt;<ref refid="struct_frame_info_1a07d6ccc7f65963ee62456d0574b27857" kindref="member">Address</ref>,</highlight></codeline>
+<codeline lineno="371"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RunCfgPtr-&gt;<ref refid="struct_run_config_1a85af807eb3a8581fdf35633c3ebbc562" kindref="member">V2_FbInfo</ref>-&gt;<ref refid="struct_frame_info_1a723d39f5c0e596544cf1c609606bb7ab" kindref="member">Size</ref>,</highlight></codeline>
+<codeline lineno="372"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RunCfgPtr-&gt;<ref refid="struct_run_config_1a85af807eb3a8581fdf35633c3ebbc562" kindref="member">V2_FbInfo</ref>-&gt;<ref refid="struct_frame_info_1a00cd8ff046596293a640cc0048b2f539" kindref="member">LineSize</ref>,</highlight></codeline>
+<codeline lineno="373"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RunCfgPtr-&gt;<ref refid="struct_run_config_1a85af807eb3a8581fdf35633c3ebbc562" kindref="member">V2_FbInfo</ref>-&gt;<ref refid="struct_frame_info_1a4d890ee45a9b9dd8d011da614d56549b" kindref="member">Stride</ref>);</highlight></codeline>
+<codeline lineno="374"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InitFrameBuffer(RunCfgPtr-&gt;<ref refid="struct_run_config_1af8f85b8ad9fae20905df08983873e06f" kindref="member">V1_FbInfo</ref>,<sp/>IN_BUFFER_0_ADDR_V1,</highlight></codeline>
+<codeline lineno="375"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RunCfgPtr-&gt;<ref refid="struct_run_config_1a1e5f0a1088d8afeee086f4bcc163a2bb" kindref="member">Width</ref>,<sp/>RunCfgPtr-&gt;<ref refid="struct_run_config_1a1de272367d1566536f14a14cc4b50a4f" kindref="member">Height</ref>,<sp/>fmt,<sp/>bpc);</highlight></codeline>
+<codeline lineno="376"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;<sp/><sp/>V1:<sp/>addr=0x%08x<sp/>size=%d<sp/>linesize=%d<sp/>stride=%d\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="377"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)RunCfgPtr-&gt;<ref refid="struct_run_config_1af8f85b8ad9fae20905df08983873e06f" kindref="member">V1_FbInfo</ref>-&gt;<ref refid="struct_frame_info_1a07d6ccc7f65963ee62456d0574b27857" kindref="member">Address</ref>,</highlight></codeline>
+<codeline lineno="378"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RunCfgPtr-&gt;<ref refid="struct_run_config_1af8f85b8ad9fae20905df08983873e06f" kindref="member">V1_FbInfo</ref>-&gt;<ref refid="struct_frame_info_1a723d39f5c0e596544cf1c609606bb7ab" kindref="member">Size</ref>,</highlight></codeline>
+<codeline lineno="379"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RunCfgPtr-&gt;<ref refid="struct_run_config_1af8f85b8ad9fae20905df08983873e06f" kindref="member">V1_FbInfo</ref>-&gt;<ref refid="struct_frame_info_1a00cd8ff046596293a640cc0048b2f539" kindref="member">LineSize</ref>,</highlight></codeline>
+<codeline lineno="380"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RunCfgPtr-&gt;<ref refid="struct_run_config_1af8f85b8ad9fae20905df08983873e06f" kindref="member">V1_FbInfo</ref>-&gt;<ref refid="struct_frame_info_1a4d890ee45a9b9dd8d011da614d56549b" kindref="member">Stride</ref>);</highlight></codeline>
+<codeline lineno="381"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="382"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="383"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>SemiPlanar:</highlight></codeline>
+<codeline lineno="384"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="385"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>ch<sp/>=<sp/>RunCfgPtr-&gt;<ref refid="struct_run_config_1a1de272367d1566536f14a14cc4b50a4f" kindref="member">Height</ref>;</highlight></codeline>
+<codeline lineno="386"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(fmt<sp/>==<sp/>YV16Ci_420<sp/>||<sp/>fmt<sp/>==<sp/>YV16Ci2_420<sp/>||</highlight></codeline>
+<codeline lineno="387"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>fmt<sp/>==<sp/>YV16Ci_420_10BPC<sp/>||<sp/>fmt<sp/>==<sp/>YV16Ci2_420_10BPC)</highlight></codeline>
+<codeline lineno="388"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ch<sp/>/=<sp/>2;</highlight></codeline>
+<codeline lineno="389"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InitFrameBuffer(RunCfgPtr-&gt;<ref refid="struct_run_config_1a85af807eb3a8581fdf35633c3ebbc562" kindref="member">V2_FbInfo</ref>,<sp/>IN_BUFFER_0_ADDR_V2,</highlight></codeline>
+<codeline lineno="390"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RunCfgPtr-&gt;<ref refid="struct_run_config_1a1e5f0a1088d8afeee086f4bcc163a2bb" kindref="member">Width</ref>,<sp/>ch,<sp/>fmt,<sp/>bpc);</highlight></codeline>
+<codeline lineno="391"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;<sp/><sp/>V2:<sp/>addr=0x%08x<sp/>size=%d<sp/>linesize=%d<sp/>stride=%d\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="392"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)RunCfgPtr-&gt;<ref refid="struct_run_config_1a85af807eb3a8581fdf35633c3ebbc562" kindref="member">V2_FbInfo</ref>-&gt;<ref refid="struct_frame_info_1a07d6ccc7f65963ee62456d0574b27857" kindref="member">Address</ref>,</highlight></codeline>
+<codeline lineno="393"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RunCfgPtr-&gt;<ref refid="struct_run_config_1a85af807eb3a8581fdf35633c3ebbc562" kindref="member">V2_FbInfo</ref>-&gt;<ref refid="struct_frame_info_1a723d39f5c0e596544cf1c609606bb7ab" kindref="member">Size</ref>,</highlight></codeline>
+<codeline lineno="394"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RunCfgPtr-&gt;<ref refid="struct_run_config_1a85af807eb3a8581fdf35633c3ebbc562" kindref="member">V2_FbInfo</ref>-&gt;<ref refid="struct_frame_info_1a00cd8ff046596293a640cc0048b2f539" kindref="member">LineSize</ref>,</highlight></codeline>
+<codeline lineno="395"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RunCfgPtr-&gt;<ref refid="struct_run_config_1a85af807eb3a8581fdf35633c3ebbc562" kindref="member">V2_FbInfo</ref>-&gt;<ref refid="struct_frame_info_1a4d890ee45a9b9dd8d011da614d56549b" kindref="member">Stride</ref>);</highlight></codeline>
+<codeline lineno="396"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="397"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>fall<sp/>through<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="398"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>Interleaved:</highlight></codeline>
+<codeline lineno="399"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InitFrameBuffer(RunCfgPtr-&gt;<ref refid="struct_run_config_1af8f85b8ad9fae20905df08983873e06f" kindref="member">V1_FbInfo</ref>,<sp/>IN_BUFFER_0_ADDR_V1,</highlight></codeline>
+<codeline lineno="400"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RunCfgPtr-&gt;<ref refid="struct_run_config_1a1e5f0a1088d8afeee086f4bcc163a2bb" kindref="member">Width</ref>,<sp/>RunCfgPtr-&gt;<ref refid="struct_run_config_1a1de272367d1566536f14a14cc4b50a4f" kindref="member">Height</ref>,<sp/>fmt,<sp/>bpc);</highlight></codeline>
+<codeline lineno="401"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;<sp/><sp/>V1:<sp/>addr=0x%08x<sp/>size=%d<sp/>linesize=%d<sp/>stride=%d\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="402"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)RunCfgPtr-&gt;<ref refid="struct_run_config_1af8f85b8ad9fae20905df08983873e06f" kindref="member">V1_FbInfo</ref>-&gt;<ref refid="struct_frame_info_1a07d6ccc7f65963ee62456d0574b27857" kindref="member">Address</ref>,</highlight></codeline>
+<codeline lineno="403"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RunCfgPtr-&gt;<ref refid="struct_run_config_1af8f85b8ad9fae20905df08983873e06f" kindref="member">V1_FbInfo</ref>-&gt;<ref refid="struct_frame_info_1a723d39f5c0e596544cf1c609606bb7ab" kindref="member">Size</ref>,</highlight></codeline>
+<codeline lineno="404"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RunCfgPtr-&gt;<ref refid="struct_run_config_1af8f85b8ad9fae20905df08983873e06f" kindref="member">V1_FbInfo</ref>-&gt;<ref refid="struct_frame_info_1a00cd8ff046596293a640cc0048b2f539" kindref="member">LineSize</ref>,</highlight></codeline>
+<codeline lineno="405"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RunCfgPtr-&gt;<ref refid="struct_run_config_1af8f85b8ad9fae20905df08983873e06f" kindref="member">V1_FbInfo</ref>-&gt;<ref refid="struct_frame_info_1a4d890ee45a9b9dd8d011da614d56549b" kindref="member">Stride</ref>);</highlight></codeline>
+<codeline lineno="406"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="407"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="408"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="409"><highlight class="normal"></highlight></codeline>
+<codeline lineno="410"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="424"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>InitStream2Buffers(<ref refid="struct_run_config" kindref="compound">RunConfig</ref><sp/>*RunCfgPtr)</highlight></codeline>
+<codeline lineno="425"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="426"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XDc_VideoAttribute<sp/>*attr<sp/>=<sp/><ref refid="group__mmi__dc_1gae47a85e818e8ee672ba51f4963562ef5" kindref="member">XDc_GetNonLiveVideoAttribute</ref>(RunCfgPtr-&gt;<ref refid="struct_run_config_1a9684f9c86831c32d790b11e6aefe170f" kindref="member">Stream2Format</ref>);</highlight></codeline>
+<codeline lineno="427"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>bpc<sp/>=<sp/>XDpDc_GetFormatBpc(RunCfgPtr-&gt;<ref refid="struct_run_config_1a9684f9c86831c32d790b11e6aefe170f" kindref="member">Stream2Format</ref>);</highlight></codeline>
+<codeline lineno="428"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xdc_8h_1ad45e6a818b9bcacc05e58b69ac140895" kindref="member">XDc_VideoFormat</ref><sp/>fmt<sp/>=<sp/>RunCfgPtr-&gt;<ref refid="struct_run_config_1a9684f9c86831c32d790b11e6aefe170f" kindref="member">Stream2Format</ref>;</highlight></codeline>
+<codeline lineno="429"><highlight class="normal"></highlight></codeline>
+<codeline lineno="430"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;[FRAME]<sp/>Stream2<sp/>buffers<sp/>(Mode=%d,<sp/>BPC=%d):\r\n&quot;</highlight><highlight class="normal">,<sp/>attr-&gt;Mode,<sp/>bpc);</highlight></codeline>
+<codeline lineno="431"><highlight class="normal"></highlight></codeline>
+<codeline lineno="432"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">switch</highlight><highlight class="normal"><sp/>(attr-&gt;Mode)<sp/>{</highlight></codeline>
+<codeline lineno="433"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>Tiled:</highlight></codeline>
+<codeline lineno="434"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>Planar:</highlight></codeline>
+<codeline lineno="435"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="436"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>cw<sp/>=<sp/>RunCfgPtr-&gt;<ref refid="struct_run_config_1a1e5f0a1088d8afeee086f4bcc163a2bb" kindref="member">Width</ref>;</highlight></codeline>
+<codeline lineno="437"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>ch<sp/>=<sp/>RunCfgPtr-&gt;<ref refid="struct_run_config_1a1de272367d1566536f14a14cc4b50a4f" kindref="member">Height</ref>;</highlight></codeline>
+<codeline lineno="438"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(attr-&gt;SubSample)</highlight></codeline>
+<codeline lineno="439"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cw<sp/>/=<sp/>2;</highlight></codeline>
+<codeline lineno="440"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(fmt<sp/>==<sp/>YV16_420<sp/>||<sp/>fmt<sp/>==<sp/>YV16_420_10BPC)</highlight></codeline>
+<codeline lineno="441"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ch<sp/>/=<sp/>2;</highlight></codeline>
+<codeline lineno="442"><highlight class="normal"></highlight></codeline>
+<codeline lineno="443"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InitFrameBuffer(RunCfgPtr-&gt;<ref refid="struct_run_config_1af6d11992c010cc0a70c030e58560126c" kindref="member">V6_FbInfo</ref>,<sp/>IN_BUFFER_0_ADDR_V6,</highlight></codeline>
+<codeline lineno="444"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cw,<sp/>ch,<sp/>fmt,<sp/>bpc);</highlight></codeline>
+<codeline lineno="445"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;<sp/><sp/>V6:<sp/>addr=0x%08x<sp/>size=%d<sp/>linesize=%d<sp/>stride=%d\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="446"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)RunCfgPtr-&gt;<ref refid="struct_run_config_1af6d11992c010cc0a70c030e58560126c" kindref="member">V6_FbInfo</ref>-&gt;<ref refid="struct_frame_info_1a07d6ccc7f65963ee62456d0574b27857" kindref="member">Address</ref>,</highlight></codeline>
+<codeline lineno="447"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RunCfgPtr-&gt;<ref refid="struct_run_config_1af6d11992c010cc0a70c030e58560126c" kindref="member">V6_FbInfo</ref>-&gt;<ref refid="struct_frame_info_1a723d39f5c0e596544cf1c609606bb7ab" kindref="member">Size</ref>,</highlight></codeline>
+<codeline lineno="448"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RunCfgPtr-&gt;<ref refid="struct_run_config_1af6d11992c010cc0a70c030e58560126c" kindref="member">V6_FbInfo</ref>-&gt;<ref refid="struct_frame_info_1a00cd8ff046596293a640cc0048b2f539" kindref="member">LineSize</ref>,</highlight></codeline>
+<codeline lineno="449"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RunCfgPtr-&gt;<ref refid="struct_run_config_1af6d11992c010cc0a70c030e58560126c" kindref="member">V6_FbInfo</ref>-&gt;<ref refid="struct_frame_info_1a4d890ee45a9b9dd8d011da614d56549b" kindref="member">Stride</ref>);</highlight></codeline>
+<codeline lineno="450"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InitFrameBuffer(RunCfgPtr-&gt;<ref refid="struct_run_config_1a2c838a7b798d47c62f0eb24312e3a483" kindref="member">V5_FbInfo</ref>,<sp/>IN_BUFFER_0_ADDR_V5,</highlight></codeline>
+<codeline lineno="451"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cw,<sp/>ch,<sp/>fmt,<sp/>bpc);</highlight></codeline>
+<codeline lineno="452"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;<sp/><sp/>V5:<sp/>addr=0x%08x<sp/>size=%d<sp/>linesize=%d<sp/>stride=%d\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="453"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)RunCfgPtr-&gt;<ref refid="struct_run_config_1a2c838a7b798d47c62f0eb24312e3a483" kindref="member">V5_FbInfo</ref>-&gt;<ref refid="struct_frame_info_1a07d6ccc7f65963ee62456d0574b27857" kindref="member">Address</ref>,</highlight></codeline>
+<codeline lineno="454"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RunCfgPtr-&gt;<ref refid="struct_run_config_1a2c838a7b798d47c62f0eb24312e3a483" kindref="member">V5_FbInfo</ref>-&gt;<ref refid="struct_frame_info_1a723d39f5c0e596544cf1c609606bb7ab" kindref="member">Size</ref>,</highlight></codeline>
+<codeline lineno="455"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RunCfgPtr-&gt;<ref refid="struct_run_config_1a2c838a7b798d47c62f0eb24312e3a483" kindref="member">V5_FbInfo</ref>-&gt;<ref refid="struct_frame_info_1a00cd8ff046596293a640cc0048b2f539" kindref="member">LineSize</ref>,</highlight></codeline>
+<codeline lineno="456"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RunCfgPtr-&gt;<ref refid="struct_run_config_1a2c838a7b798d47c62f0eb24312e3a483" kindref="member">V5_FbInfo</ref>-&gt;<ref refid="struct_frame_info_1a4d890ee45a9b9dd8d011da614d56549b" kindref="member">Stride</ref>);</highlight></codeline>
+<codeline lineno="457"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InitFrameBuffer(RunCfgPtr-&gt;<ref refid="struct_run_config_1adbad41731e86124a761b769b9948346b" kindref="member">V4_FbInfo</ref>,<sp/>IN_BUFFER_0_ADDR_V4,</highlight></codeline>
+<codeline lineno="458"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RunCfgPtr-&gt;<ref refid="struct_run_config_1a1e5f0a1088d8afeee086f4bcc163a2bb" kindref="member">Width</ref>,<sp/>RunCfgPtr-&gt;<ref refid="struct_run_config_1a1de272367d1566536f14a14cc4b50a4f" kindref="member">Height</ref>,<sp/>fmt,<sp/>bpc);</highlight></codeline>
+<codeline lineno="459"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;<sp/><sp/>V4:<sp/>addr=0x%08x<sp/>size=%d<sp/>linesize=%d<sp/>stride=%d\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="460"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)RunCfgPtr-&gt;<ref refid="struct_run_config_1adbad41731e86124a761b769b9948346b" kindref="member">V4_FbInfo</ref>-&gt;<ref refid="struct_frame_info_1a07d6ccc7f65963ee62456d0574b27857" kindref="member">Address</ref>,</highlight></codeline>
+<codeline lineno="461"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RunCfgPtr-&gt;<ref refid="struct_run_config_1adbad41731e86124a761b769b9948346b" kindref="member">V4_FbInfo</ref>-&gt;<ref refid="struct_frame_info_1a723d39f5c0e596544cf1c609606bb7ab" kindref="member">Size</ref>,</highlight></codeline>
+<codeline lineno="462"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RunCfgPtr-&gt;<ref refid="struct_run_config_1adbad41731e86124a761b769b9948346b" kindref="member">V4_FbInfo</ref>-&gt;<ref refid="struct_frame_info_1a00cd8ff046596293a640cc0048b2f539" kindref="member">LineSize</ref>,</highlight></codeline>
+<codeline lineno="463"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RunCfgPtr-&gt;<ref refid="struct_run_config_1adbad41731e86124a761b769b9948346b" kindref="member">V4_FbInfo</ref>-&gt;<ref refid="struct_frame_info_1a4d890ee45a9b9dd8d011da614d56549b" kindref="member">Stride</ref>);</highlight></codeline>
+<codeline lineno="464"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="465"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="466"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>SemiPlanar:</highlight></codeline>
+<codeline lineno="467"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="468"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>ch<sp/>=<sp/>RunCfgPtr-&gt;<ref refid="struct_run_config_1a1de272367d1566536f14a14cc4b50a4f" kindref="member">Height</ref>;</highlight></codeline>
+<codeline lineno="469"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(fmt<sp/>==<sp/>YV16Ci_420<sp/>||<sp/>fmt<sp/>==<sp/>YV16Ci2_420<sp/>||</highlight></codeline>
+<codeline lineno="470"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>fmt<sp/>==<sp/>YV16Ci_420_10BPC<sp/>||<sp/>fmt<sp/>==<sp/>YV16Ci2_420_10BPC)</highlight></codeline>
+<codeline lineno="471"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ch<sp/>/=<sp/>2;</highlight></codeline>
+<codeline lineno="472"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InitFrameBuffer(RunCfgPtr-&gt;<ref refid="struct_run_config_1a2c838a7b798d47c62f0eb24312e3a483" kindref="member">V5_FbInfo</ref>,<sp/>IN_BUFFER_0_ADDR_V5,</highlight></codeline>
+<codeline lineno="473"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RunCfgPtr-&gt;<ref refid="struct_run_config_1a1e5f0a1088d8afeee086f4bcc163a2bb" kindref="member">Width</ref>,<sp/>ch,<sp/>fmt,<sp/>bpc);</highlight></codeline>
+<codeline lineno="474"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;<sp/><sp/>V5:<sp/>addr=0x%08x<sp/>size=%d<sp/>linesize=%d<sp/>stride=%d\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="475"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)RunCfgPtr-&gt;<ref refid="struct_run_config_1a2c838a7b798d47c62f0eb24312e3a483" kindref="member">V5_FbInfo</ref>-&gt;<ref refid="struct_frame_info_1a07d6ccc7f65963ee62456d0574b27857" kindref="member">Address</ref>,</highlight></codeline>
+<codeline lineno="476"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RunCfgPtr-&gt;<ref refid="struct_run_config_1a2c838a7b798d47c62f0eb24312e3a483" kindref="member">V5_FbInfo</ref>-&gt;<ref refid="struct_frame_info_1a723d39f5c0e596544cf1c609606bb7ab" kindref="member">Size</ref>,</highlight></codeline>
+<codeline lineno="477"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RunCfgPtr-&gt;<ref refid="struct_run_config_1a2c838a7b798d47c62f0eb24312e3a483" kindref="member">V5_FbInfo</ref>-&gt;<ref refid="struct_frame_info_1a00cd8ff046596293a640cc0048b2f539" kindref="member">LineSize</ref>,</highlight></codeline>
+<codeline lineno="478"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RunCfgPtr-&gt;<ref refid="struct_run_config_1a2c838a7b798d47c62f0eb24312e3a483" kindref="member">V5_FbInfo</ref>-&gt;<ref refid="struct_frame_info_1a4d890ee45a9b9dd8d011da614d56549b" kindref="member">Stride</ref>);</highlight></codeline>
+<codeline lineno="479"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="480"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>fall<sp/>through<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="481"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>Interleaved:</highlight></codeline>
+<codeline lineno="482"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InitFrameBuffer(RunCfgPtr-&gt;<ref refid="struct_run_config_1adbad41731e86124a761b769b9948346b" kindref="member">V4_FbInfo</ref>,<sp/>IN_BUFFER_0_ADDR_V4,</highlight></codeline>
+<codeline lineno="483"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RunCfgPtr-&gt;<ref refid="struct_run_config_1a1e5f0a1088d8afeee086f4bcc163a2bb" kindref="member">Width</ref>,<sp/>RunCfgPtr-&gt;<ref refid="struct_run_config_1a1de272367d1566536f14a14cc4b50a4f" kindref="member">Height</ref>,<sp/>fmt,<sp/>bpc);</highlight></codeline>
+<codeline lineno="484"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;<sp/><sp/>V4:<sp/>addr=0x%08x<sp/>size=%d<sp/>linesize=%d<sp/>stride=%d\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="485"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)RunCfgPtr-&gt;<ref refid="struct_run_config_1adbad41731e86124a761b769b9948346b" kindref="member">V4_FbInfo</ref>-&gt;<ref refid="struct_frame_info_1a07d6ccc7f65963ee62456d0574b27857" kindref="member">Address</ref>,</highlight></codeline>
+<codeline lineno="486"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RunCfgPtr-&gt;<ref refid="struct_run_config_1adbad41731e86124a761b769b9948346b" kindref="member">V4_FbInfo</ref>-&gt;<ref refid="struct_frame_info_1a723d39f5c0e596544cf1c609606bb7ab" kindref="member">Size</ref>,</highlight></codeline>
+<codeline lineno="487"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RunCfgPtr-&gt;<ref refid="struct_run_config_1adbad41731e86124a761b769b9948346b" kindref="member">V4_FbInfo</ref>-&gt;<ref refid="struct_frame_info_1a00cd8ff046596293a640cc0048b2f539" kindref="member">LineSize</ref>,</highlight></codeline>
+<codeline lineno="488"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RunCfgPtr-&gt;<ref refid="struct_run_config_1adbad41731e86124a761b769b9948346b" kindref="member">V4_FbInfo</ref>-&gt;<ref refid="struct_frame_info_1a4d890ee45a9b9dd8d011da614d56549b" kindref="member">Stride</ref>);</highlight></codeline>
+<codeline lineno="489"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="490"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="491"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="492"><highlight class="normal"></highlight></codeline>
+<codeline lineno="493"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="510" refid="mmi__dc__setup__frames_8h_1af01b016c00245f21541974c6dab538aa" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="mmi__dc__setup__frames_8c_1af01b016c00245f21541974c6dab538aa" kindref="member">XDpDc_InitFrames</ref>(<ref refid="struct_run_config" kindref="compound">RunConfig</ref><sp/>*RunCfgPtr)</highlight></codeline>
+<codeline lineno="511"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="512"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InitStream1Buffers(RunCfgPtr);</highlight></codeline>
+<codeline lineno="513"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InitStream2Buffers(RunCfgPtr);</highlight></codeline>
+<codeline lineno="514"><highlight class="normal"></highlight></codeline>
+<codeline lineno="515"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Initialize<sp/>cursor<sp/>frame<sp/>buffer<sp/>if<sp/>enabled<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="516"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(RunCfgPtr-&gt;<ref refid="struct_run_config_1a692d2f317f78449f14ef9d286430464c" kindref="member">CursorEnable</ref><sp/>==<sp/>CB_ENABLE)<sp/>{</highlight></codeline>
+<codeline lineno="517"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="mmi__dc__cursor_8c_1aeec8d3294a1eefe714a7990afdbd6b91" kindref="member">XDpDc_InitCursorFrameBuffer</ref>(RunCfgPtr);</highlight></codeline>
+<codeline lineno="518"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="519"><highlight class="normal"></highlight></codeline>
+<codeline lineno="520"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="mmi__dc__generate__frames_8c_1ab05cca9b31f824de34720ae09717ee3e" kindref="member">XDpDc_GenerateFrames</ref>(RunCfgPtr);</highlight></codeline>
+<codeline lineno="521"><highlight class="normal"></highlight></codeline>
+<codeline lineno="522"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Fill<sp/>cursor<sp/>buffer<sp/>if<sp/>enabled<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="523"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(RunCfgPtr-&gt;<ref refid="struct_run_config_1a692d2f317f78449f14ef9d286430464c" kindref="member">CursorEnable</ref><sp/>==<sp/>CB_ENABLE)<sp/>{</highlight></codeline>
+<codeline lineno="524"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="mmi__dc__cursor_8c_1afc0e01ef8f0328aadb0723fb9a1e76d3" kindref="member">XDpDc_FillCursorBuffer</ref>(RunCfgPtr);</highlight></codeline>
+<codeline lineno="525"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="526"><highlight class="normal"></highlight></codeline>
+<codeline lineno="527"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(RunCfgPtr-&gt;<ref refid="struct_run_config_1a032bc36376350b1ba5419e18d1f357ec" kindref="member">SdpEnable</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="528"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="mmi__dc__sdp_8c_1ac4d820ea95f52734bb803c61bc4ba6ba" kindref="member">XDpDc_InitSdpFrameBuffer</ref>(RunCfgPtr);</highlight></codeline>
+<codeline lineno="529"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="mmi__dc__sdp_8c_1afb0504d4880dbd976198faca0d13154c" kindref="member">XDpDc_FillSdpBuffer</ref>(RunCfgPtr);</highlight></codeline>
+<codeline lineno="530"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="531"><highlight class="normal"></highlight></codeline>
+<codeline lineno="532"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(RunCfgPtr-&gt;<ref refid="struct_run_config_1a0919eff7fd55f675afb7235c6c9936c0" kindref="member">AudioEnable</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="533"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Aud0_FbInfo.<ref refid="struct_frame_info_1a07d6ccc7f65963ee62456d0574b27857" kindref="member">Address</ref><sp/>=<sp/>CH6_BUFFER_ADDR_0;</highlight></codeline>
+<codeline lineno="534"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Aud0_FbInfo.<ref refid="struct_frame_info_1a723d39f5c0e596544cf1c609606bb7ab" kindref="member">Size</ref><sp/>=<sp/>0x30000;</highlight></codeline>
+<codeline lineno="535"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Aud1_FbInfo.<ref refid="struct_frame_info_1a07d6ccc7f65963ee62456d0574b27857" kindref="member">Address</ref><sp/>=<sp/>CH6_BUFFER_ADDR_1;</highlight></codeline>
+<codeline lineno="536"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Aud1_FbInfo.<ref refid="struct_frame_info_1a723d39f5c0e596544cf1c609606bb7ab" kindref="member">Size</ref><sp/>=<sp/>0x30000;</highlight></codeline>
+<codeline lineno="537"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Aud2_FbInfo.<ref refid="struct_frame_info_1a07d6ccc7f65963ee62456d0574b27857" kindref="member">Address</ref><sp/>=<sp/>CH6_BUFFER_ADDR_2;</highlight></codeline>
+<codeline lineno="538"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Aud2_FbInfo.<ref refid="struct_frame_info_1a723d39f5c0e596544cf1c609606bb7ab" kindref="member">Size</ref><sp/>=<sp/>0x30000;</highlight></codeline>
+<codeline lineno="539"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Aud3_FbInfo.<ref refid="struct_frame_info_1a07d6ccc7f65963ee62456d0574b27857" kindref="member">Address</ref><sp/>=<sp/>CH6_BUFFER_ADDR_3;</highlight></codeline>
+<codeline lineno="540"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Aud3_FbInfo.<ref refid="struct_frame_info_1a723d39f5c0e596544cf1c609606bb7ab" kindref="member">Size</ref><sp/>=<sp/>0x30000;</highlight></codeline>
+<codeline lineno="541"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Aud4_FbInfo.<ref refid="struct_frame_info_1a07d6ccc7f65963ee62456d0574b27857" kindref="member">Address</ref><sp/>=<sp/>CH6_BUFFER_ADDR_4;</highlight></codeline>
+<codeline lineno="542"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Aud4_FbInfo.<ref refid="struct_frame_info_1a723d39f5c0e596544cf1c609606bb7ab" kindref="member">Size</ref><sp/>=<sp/>0x30000;</highlight></codeline>
+<codeline lineno="543"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Aud5_FbInfo.<ref refid="struct_frame_info_1a07d6ccc7f65963ee62456d0574b27857" kindref="member">Address</ref><sp/>=<sp/>CH6_BUFFER_ADDR_5;</highlight></codeline>
+<codeline lineno="544"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Aud5_FbInfo.<ref refid="struct_frame_info_1a723d39f5c0e596544cf1c609606bb7ab" kindref="member">Size</ref><sp/>=<sp/>0x30000;</highlight></codeline>
+<codeline lineno="545"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Aud6_FbInfo.<ref refid="struct_frame_info_1a07d6ccc7f65963ee62456d0574b27857" kindref="member">Address</ref><sp/>=<sp/>CH6_BUFFER_ADDR_6;</highlight></codeline>
+<codeline lineno="546"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Aud6_FbInfo.<ref refid="struct_frame_info_1a723d39f5c0e596544cf1c609606bb7ab" kindref="member">Size</ref><sp/>=<sp/>0x30000;</highlight></codeline>
+<codeline lineno="547"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Aud7_FbInfo.<ref refid="struct_frame_info_1a07d6ccc7f65963ee62456d0574b27857" kindref="member">Address</ref><sp/>=<sp/>CH6_BUFFER_ADDR_7;</highlight></codeline>
+<codeline lineno="548"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Aud7_FbInfo.<ref refid="struct_frame_info_1a723d39f5c0e596544cf1c609606bb7ab" kindref="member">Size</ref><sp/>=<sp/>0x30000;</highlight></codeline>
+<codeline lineno="549"><highlight class="normal"></highlight></codeline>
+<codeline lineno="550"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="mmi__dc__setup__frames_8c_1a9d92ee25c19827085c23250277009a49" kindref="member">XDpDc_SetupAudioDescriptors</ref>(RunCfgPtr);</highlight></codeline>
+<codeline lineno="551"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="552"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="553"><highlight class="normal"></highlight></codeline>
+<codeline lineno="554"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="569" refid="mmi__dc__setup__frames_8h_1aebd7ac73b079a58f72ecacdc1bfef5f1" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="mmi__dc__setup__frames_8c_1aebd7ac73b079a58f72ecacdc1bfef5f1" kindref="member">XDpDc_SetupStream1Descriptors</ref>(<ref refid="struct_run_config" kindref="compound">RunConfig</ref><sp/>*RunCfgPtr)</highlight></codeline>
+<codeline lineno="570"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="571"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XDc_VideoAttribute<sp/>*attr<sp/>=<sp/><ref refid="group__mmi__dc_1gae47a85e818e8ee672ba51f4963562ef5" kindref="member">XDc_GetNonLiveVideoAttribute</ref>(RunCfgPtr-&gt;<ref refid="struct_run_config_1a9dcb790be7d6e267162fe3c907e25cec" kindref="member">Stream1Format</ref>);</highlight></codeline>
+<codeline lineno="572"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_dc_dma" kindref="compound">XDcDma</ref><sp/>*DmaPtr<sp/>=<sp/>RunCfgPtr-&gt;<ref refid="struct_run_config_1a155539680243341a34acb114b0333b41" kindref="member">DcSubPtr</ref>-&gt;DmaPtr;</highlight></codeline>
+<codeline lineno="573"><highlight class="normal"></highlight></codeline>
+<codeline lineno="574"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;[DESC]<sp/>Stream1<sp/>setup<sp/>(Mode=%d):\r\n&quot;</highlight><highlight class="normal">,<sp/>attr-&gt;Mode);</highlight></codeline>
+<codeline lineno="575"><highlight class="normal"></highlight></codeline>
+<codeline lineno="576"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">switch</highlight><highlight class="normal"><sp/>(attr-&gt;Mode)<sp/>{</highlight></codeline>
+<codeline lineno="577"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>Tiled:</highlight></codeline>
+<codeline lineno="578"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>Planar:</highlight></codeline>
+<codeline lineno="579"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="mmi__dc__setup__frames_8c_1acd2ed76d014f99adc3fcd14ca3b378b1" kindref="member">XDpDc_CreateDescriptors</ref>(RunCfgPtr,<sp/>RunCfgPtr-&gt;<ref refid="struct_run_config_1ac706a1a31ffef301f97b18381271d170" kindref="member">Desc3</ref>,<sp/>RunCfgPtr-&gt;<ref refid="struct_run_config_1a89c4dfbc093c45dcba001a224c0254ba" kindref="member">V3_FbInfo</ref>,<sp/>NULL);</highlight></codeline>
+<codeline lineno="580"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DmaPtr-&gt;Video.Channel[XDCDMA_VIDEO_CHANNEL2].Current<sp/>=<sp/>RunCfgPtr-&gt;<ref refid="struct_run_config_1ac706a1a31ffef301f97b18381271d170" kindref="member">Desc3</ref>;</highlight></codeline>
+<codeline lineno="581"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;<sp/><sp/>Desc3<sp/>@<sp/>0x%08x<sp/>-&gt;<sp/>V3<sp/>buf<sp/>0x%08x<sp/>(Video<sp/>Ch2)\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="582"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)(UINTPTR)RunCfgPtr-&gt;<ref refid="struct_run_config_1ac706a1a31ffef301f97b18381271d170" kindref="member">Desc3</ref>,<sp/>(u32)RunCfgPtr-&gt;<ref refid="struct_run_config_1a89c4dfbc093c45dcba001a224c0254ba" kindref="member">V3_FbInfo</ref>-&gt;<ref refid="struct_frame_info_1a07d6ccc7f65963ee62456d0574b27857" kindref="member">Address</ref>);</highlight></codeline>
+<codeline lineno="583"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>fall<sp/>through<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="584"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>SemiPlanar:</highlight></codeline>
+<codeline lineno="585"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="mmi__dc__setup__frames_8c_1acd2ed76d014f99adc3fcd14ca3b378b1" kindref="member">XDpDc_CreateDescriptors</ref>(RunCfgPtr,<sp/>RunCfgPtr-&gt;<ref refid="struct_run_config_1aa8105f5039b3f9ec5e219bfa42955f97" kindref="member">Desc2</ref>,<sp/>RunCfgPtr-&gt;<ref refid="struct_run_config_1a85af807eb3a8581fdf35633c3ebbc562" kindref="member">V2_FbInfo</ref>,<sp/>NULL);</highlight></codeline>
+<codeline lineno="586"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DmaPtr-&gt;Video.Channel[XDCDMA_VIDEO_CHANNEL1].Current<sp/>=<sp/>RunCfgPtr-&gt;<ref refid="struct_run_config_1aa8105f5039b3f9ec5e219bfa42955f97" kindref="member">Desc2</ref>;</highlight></codeline>
+<codeline lineno="587"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;<sp/><sp/>Desc2<sp/>@<sp/>0x%08x<sp/>-&gt;<sp/>V2<sp/>buf<sp/>0x%08x<sp/>(Video<sp/>Ch1)\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="588"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)(UINTPTR)RunCfgPtr-&gt;<ref refid="struct_run_config_1aa8105f5039b3f9ec5e219bfa42955f97" kindref="member">Desc2</ref>,<sp/>(u32)RunCfgPtr-&gt;<ref refid="struct_run_config_1a85af807eb3a8581fdf35633c3ebbc562" kindref="member">V2_FbInfo</ref>-&gt;<ref refid="struct_frame_info_1a07d6ccc7f65963ee62456d0574b27857" kindref="member">Address</ref>);</highlight></codeline>
+<codeline lineno="589"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>fall<sp/>through<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="590"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>Interleaved:</highlight></codeline>
+<codeline lineno="591"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="mmi__dc__setup__frames_8c_1acd2ed76d014f99adc3fcd14ca3b378b1" kindref="member">XDpDc_CreateDescriptors</ref>(RunCfgPtr,<sp/>RunCfgPtr-&gt;<ref refid="struct_run_config_1a032e8dad8d2502e989379239eb569fec" kindref="member">Desc1</ref>,<sp/>RunCfgPtr-&gt;<ref refid="struct_run_config_1af8f85b8ad9fae20905df08983873e06f" kindref="member">V1_FbInfo</ref>,<sp/>NULL);</highlight></codeline>
+<codeline lineno="592"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DmaPtr-&gt;Video.Channel[XDCDMA_VIDEO_CHANNEL0].Current<sp/>=<sp/>RunCfgPtr-&gt;<ref refid="struct_run_config_1a032e8dad8d2502e989379239eb569fec" kindref="member">Desc1</ref>;</highlight></codeline>
+<codeline lineno="593"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;<sp/><sp/>Desc1<sp/>@<sp/>0x%08x<sp/>-&gt;<sp/>V1<sp/>buf<sp/>0x%08x<sp/>(Video<sp/>Ch0)\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="594"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)(UINTPTR)RunCfgPtr-&gt;<ref refid="struct_run_config_1a032e8dad8d2502e989379239eb569fec" kindref="member">Desc1</ref>,<sp/>(u32)RunCfgPtr-&gt;<ref refid="struct_run_config_1af8f85b8ad9fae20905df08983873e06f" kindref="member">V1_FbInfo</ref>-&gt;<ref refid="struct_frame_info_1a07d6ccc7f65963ee62456d0574b27857" kindref="member">Address</ref>);</highlight></codeline>
+<codeline lineno="595"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="596"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="597"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="598"><highlight class="normal"></highlight></codeline>
+<codeline lineno="599"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="614" refid="mmi__dc__setup__frames_8h_1a2638411c2ae587ebc77adc73d673439c" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="mmi__dc__setup__frames_8c_1a2638411c2ae587ebc77adc73d673439c" kindref="member">XDpDc_SetupStream2Descriptors</ref>(<ref refid="struct_run_config" kindref="compound">RunConfig</ref><sp/>*RunCfgPtr)</highlight></codeline>
+<codeline lineno="615"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="616"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XDc_VideoAttribute<sp/>*attr<sp/>=<sp/><ref refid="group__mmi__dc_1gae47a85e818e8ee672ba51f4963562ef5" kindref="member">XDc_GetNonLiveVideoAttribute</ref>(RunCfgPtr-&gt;<ref refid="struct_run_config_1a9684f9c86831c32d790b11e6aefe170f" kindref="member">Stream2Format</ref>);</highlight></codeline>
+<codeline lineno="617"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_dc_dma" kindref="compound">XDcDma</ref><sp/>*DmaPtr<sp/>=<sp/>RunCfgPtr-&gt;<ref refid="struct_run_config_1a155539680243341a34acb114b0333b41" kindref="member">DcSubPtr</ref>-&gt;DmaPtr;</highlight></codeline>
+<codeline lineno="618"><highlight class="normal"></highlight></codeline>
+<codeline lineno="619"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;[DESC]<sp/>Stream2<sp/>setup<sp/>(Mode=%d):\r\n&quot;</highlight><highlight class="normal">,<sp/>attr-&gt;Mode);</highlight></codeline>
+<codeline lineno="620"><highlight class="normal"></highlight></codeline>
+<codeline lineno="621"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">switch</highlight><highlight class="normal"><sp/>(attr-&gt;Mode)<sp/>{</highlight></codeline>
+<codeline lineno="622"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>Tiled:</highlight></codeline>
+<codeline lineno="623"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>Planar:</highlight></codeline>
+<codeline lineno="624"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="mmi__dc__setup__frames_8c_1acd2ed76d014f99adc3fcd14ca3b378b1" kindref="member">XDpDc_CreateDescriptors</ref>(RunCfgPtr,<sp/>RunCfgPtr-&gt;<ref refid="struct_run_config_1adc0f9a32830fdebfdbc3c279c70487a1" kindref="member">Desc6</ref>,<sp/>RunCfgPtr-&gt;<ref refid="struct_run_config_1af6d11992c010cc0a70c030e58560126c" kindref="member">V6_FbInfo</ref>,<sp/>NULL);</highlight></codeline>
+<codeline lineno="625"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DmaPtr-&gt;Gfx.Channel[XDCDMA_GRAPHICS_CHANNEL5].Current<sp/>=<sp/>RunCfgPtr-&gt;<ref refid="struct_run_config_1adc0f9a32830fdebfdbc3c279c70487a1" kindref="member">Desc6</ref>;</highlight></codeline>
+<codeline lineno="626"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;<sp/><sp/>Desc6<sp/>@<sp/>0x%08x<sp/>-&gt;<sp/>V6<sp/>buf<sp/>0x%08x<sp/>(Gfx<sp/>Ch5)\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="627"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)(UINTPTR)RunCfgPtr-&gt;<ref refid="struct_run_config_1adc0f9a32830fdebfdbc3c279c70487a1" kindref="member">Desc6</ref>,<sp/>(u32)RunCfgPtr-&gt;<ref refid="struct_run_config_1af6d11992c010cc0a70c030e58560126c" kindref="member">V6_FbInfo</ref>-&gt;<ref refid="struct_frame_info_1a07d6ccc7f65963ee62456d0574b27857" kindref="member">Address</ref>);</highlight></codeline>
+<codeline lineno="628"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>fall<sp/>through<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="629"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>SemiPlanar:</highlight></codeline>
+<codeline lineno="630"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="mmi__dc__setup__frames_8c_1acd2ed76d014f99adc3fcd14ca3b378b1" kindref="member">XDpDc_CreateDescriptors</ref>(RunCfgPtr,<sp/>RunCfgPtr-&gt;<ref refid="struct_run_config_1aa88ef860111459a6b832446ae5529743" kindref="member">Desc5</ref>,<sp/>RunCfgPtr-&gt;<ref refid="struct_run_config_1a2c838a7b798d47c62f0eb24312e3a483" kindref="member">V5_FbInfo</ref>,<sp/>NULL);</highlight></codeline>
+<codeline lineno="631"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DmaPtr-&gt;Gfx.Channel[XDCDMA_GRAPHICS_CHANNEL4].Current<sp/>=<sp/>RunCfgPtr-&gt;<ref refid="struct_run_config_1aa88ef860111459a6b832446ae5529743" kindref="member">Desc5</ref>;</highlight></codeline>
+<codeline lineno="632"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;<sp/><sp/>Desc5<sp/>@<sp/>0x%08x<sp/>-&gt;<sp/>V5<sp/>buf<sp/>0x%08x<sp/>(Gfx<sp/>Ch4)\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="633"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)(UINTPTR)RunCfgPtr-&gt;<ref refid="struct_run_config_1aa88ef860111459a6b832446ae5529743" kindref="member">Desc5</ref>,<sp/>(u32)RunCfgPtr-&gt;<ref refid="struct_run_config_1a2c838a7b798d47c62f0eb24312e3a483" kindref="member">V5_FbInfo</ref>-&gt;<ref refid="struct_frame_info_1a07d6ccc7f65963ee62456d0574b27857" kindref="member">Address</ref>);</highlight></codeline>
+<codeline lineno="634"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>fall<sp/>through<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="635"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>Interleaved:</highlight></codeline>
+<codeline lineno="636"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="mmi__dc__setup__frames_8c_1acd2ed76d014f99adc3fcd14ca3b378b1" kindref="member">XDpDc_CreateDescriptors</ref>(RunCfgPtr,<sp/>RunCfgPtr-&gt;<ref refid="struct_run_config_1abe6e71b53d284446b7f8011ada7b3579" kindref="member">Desc4</ref>,<sp/>RunCfgPtr-&gt;<ref refid="struct_run_config_1adbad41731e86124a761b769b9948346b" kindref="member">V4_FbInfo</ref>,<sp/>NULL);</highlight></codeline>
+<codeline lineno="637"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DmaPtr-&gt;Gfx.Channel[XDCDMA_GRAPHICS_CHANNEL3].Current<sp/>=<sp/>RunCfgPtr-&gt;<ref refid="struct_run_config_1abe6e71b53d284446b7f8011ada7b3579" kindref="member">Desc4</ref>;</highlight></codeline>
+<codeline lineno="638"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;<sp/><sp/>Desc4<sp/>@<sp/>0x%08x<sp/>-&gt;<sp/>V4<sp/>buf<sp/>0x%08x<sp/>(Gfx<sp/>Ch3)\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="639"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)(UINTPTR)RunCfgPtr-&gt;<ref refid="struct_run_config_1abe6e71b53d284446b7f8011ada7b3579" kindref="member">Desc4</ref>,<sp/>(u32)RunCfgPtr-&gt;<ref refid="struct_run_config_1adbad41731e86124a761b769b9948346b" kindref="member">V4_FbInfo</ref>-&gt;<ref refid="struct_frame_info_1a07d6ccc7f65963ee62456d0574b27857" kindref="member">Address</ref>);</highlight></codeline>
+<codeline lineno="640"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="641"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="642"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="643"><highlight class="normal"></highlight></codeline>
+<codeline lineno="644"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="658" refid="mmi__dc__setup__frames_8h_1adc1413b4d5cdc6a62f4cd6e75fd661ca" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="mmi__dc__setup__frames_8c_1adc1413b4d5cdc6a62f4cd6e75fd661ca" kindref="member">XDpDc_SetupCursorDescriptor</ref>(<ref refid="struct_run_config" kindref="compound">RunConfig</ref><sp/>*RunCfgPtr)</highlight></codeline>
+<codeline lineno="659"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="660"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="mmi__dc__setup__frames_8c_1acd2ed76d014f99adc3fcd14ca3b378b1" kindref="member">XDpDc_CreateDescriptors</ref>(RunCfgPtr,<sp/>RunCfgPtr-&gt;<ref refid="struct_run_config_1ad979d916c40ccd4fc49755851de358ca" kindref="member">Desc7</ref>,<sp/>RunCfgPtr-&gt;<ref refid="struct_run_config_1a7cc31114b2db6be8bdee621b0c49dce9" kindref="member">Cursor_FbInfo</ref>,<sp/>NULL);</highlight></codeline>
+<codeline lineno="661"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;[DESC]<sp/>Cursor:<sp/>Desc7<sp/>@<sp/>0x%08x<sp/>-&gt;<sp/>Cursor<sp/>buf<sp/>0x%08x\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="662"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)(UINTPTR)RunCfgPtr-&gt;<ref refid="struct_run_config_1ad979d916c40ccd4fc49755851de358ca" kindref="member">Desc7</ref>,<sp/>(u32)RunCfgPtr-&gt;<ref refid="struct_run_config_1a7cc31114b2db6be8bdee621b0c49dce9" kindref="member">Cursor_FbInfo</ref>-&gt;<ref refid="struct_frame_info_1a07d6ccc7f65963ee62456d0574b27857" kindref="member">Address</ref>);</highlight></codeline>
+<codeline lineno="663"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="664"><highlight class="normal"></highlight></codeline>
+<codeline lineno="665"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="679" refid="mmi__dc__setup__frames_8h_1a9d92ee25c19827085c23250277009a49" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="mmi__dc__setup__frames_8c_1a9d92ee25c19827085c23250277009a49" kindref="member">XDpDc_SetupAudioDescriptors</ref>(<ref refid="struct_run_config" kindref="compound">RunConfig</ref><sp/>*RunCfgPtr)</highlight></codeline>
+<codeline lineno="680"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="681"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="mmi__dc__setup__frames_8c_1acd2ed76d014f99adc3fcd14ca3b378b1" kindref="member">XDpDc_CreateDescriptors</ref>(RunCfgPtr,<sp/>AudDesc0,<sp/>&amp;Aud0_FbInfo,<sp/>AudDesc1);</highlight></codeline>
+<codeline lineno="682"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="mmi__dc__setup__frames_8c_1acd2ed76d014f99adc3fcd14ca3b378b1" kindref="member">XDpDc_CreateDescriptors</ref>(RunCfgPtr,<sp/>AudDesc1,<sp/>&amp;Aud1_FbInfo,<sp/>AudDesc2);</highlight></codeline>
+<codeline lineno="683"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="mmi__dc__setup__frames_8c_1acd2ed76d014f99adc3fcd14ca3b378b1" kindref="member">XDpDc_CreateDescriptors</ref>(RunCfgPtr,<sp/>AudDesc2,<sp/>&amp;Aud2_FbInfo,<sp/>AudDesc3);</highlight></codeline>
+<codeline lineno="684"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="mmi__dc__setup__frames_8c_1acd2ed76d014f99adc3fcd14ca3b378b1" kindref="member">XDpDc_CreateDescriptors</ref>(RunCfgPtr,<sp/>AudDesc3,<sp/>&amp;Aud3_FbInfo,<sp/>AudDesc4);</highlight></codeline>
+<codeline lineno="685"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="mmi__dc__setup__frames_8c_1acd2ed76d014f99adc3fcd14ca3b378b1" kindref="member">XDpDc_CreateDescriptors</ref>(RunCfgPtr,<sp/>AudDesc4,<sp/>&amp;Aud4_FbInfo,<sp/>AudDesc5);</highlight></codeline>
+<codeline lineno="686"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="mmi__dc__setup__frames_8c_1acd2ed76d014f99adc3fcd14ca3b378b1" kindref="member">XDpDc_CreateDescriptors</ref>(RunCfgPtr,<sp/>AudDesc5,<sp/>&amp;Aud5_FbInfo,<sp/>AudDesc6);</highlight></codeline>
+<codeline lineno="687"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="mmi__dc__setup__frames_8c_1acd2ed76d014f99adc3fcd14ca3b378b1" kindref="member">XDpDc_CreateDescriptors</ref>(RunCfgPtr,<sp/>AudDesc6,<sp/>&amp;Aud6_FbInfo,<sp/>AudDesc7);</highlight></codeline>
+<codeline lineno="688"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="mmi__dc__setup__frames_8c_1acd2ed76d014f99adc3fcd14ca3b378b1" kindref="member">XDpDc_CreateDescriptors</ref>(RunCfgPtr,<sp/>AudDesc7,<sp/>&amp;Aud7_FbInfo,<sp/>AudDesc0);</highlight></codeline>
+<codeline lineno="689"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;[DESC]<sp/>Audio:<sp/>AudDesc0-7<sp/>configured<sp/>(chained<sp/>ring)\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="690"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_setup_frames.c"/>
+  </compounddef>
+</doxygen>

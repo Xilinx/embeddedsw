@@ -1,0 +1,203 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xloader__qspi_8h" kind="file">
+    <compoundname>xloader_qspi.h</compoundname>
+    <includes local="yes">xplmi_status.h</includes>
+    <includedby refid="xloader_8c" local="yes">xloader.c</includedby>
+    <includedby refid="xloader__qspi_8c" local="yes">xloader_qspi.c</includedby>
+    <incdepgraph>
+      <node id="1402">
+        <label>xloader_qspi.h</label>
+        <link refid="xloader_qspi.h"/>
+        <childnode refid="1403" relation="include">
+        </childnode>
+      </node>
+      <node id="1403">
+        <label>xplmi_status.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="1405">
+        <label>xloader.c</label>
+        <link refid="xloader_8c"/>
+      </node>
+      <node id="1406">
+        <label>xloader_qspi.c</label>
+        <link refid="xloader__qspi_8c"/>
+      </node>
+      <node id="1404">
+        <label>xloader_qspi.h</label>
+        <link refid="xloader_qspi.h"/>
+        <childnode refid="1405" relation="include">
+        </childnode>
+        <childnode refid="1406" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <briefdescription>
+<para>This is the header file which contains qspi declarations for XilLoader. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date        Changes
+----- ---- -------- -------------------------------------------------------
+1.00  kc   02/21/2018 Initial release
+1.01  sb   08/23/2019 Added QSPI buswidth detection logic
+      har  08/28/2019 Fixed MISRA C violations
+      bsv  08/30/2019 Added fallback and multiboot support in PLM
+      bsv  09/12/2019 Added support for Macronix 1.8V flash parts
+1.02  bsv  02/04/2020 Reset qspi instance in init functions for LPD off
+                                        suspend and resume to work
+      bsv  04/09/2020 Code clean up
+1.03  bsv  07/03/2020 Added support for macronix part P/N:MX25U12835F
+      skd  07/14/2020 XLoader_QspiCopy prototype changed
+      td   08/19/2020 Fixed MISRA C violations Rule 10.3
+      skd  08/21/2020 Removed flash size macros
+      bsv  10/13/2020 Code clean up
+1.04  bsv  07/22/2021 Added support for Winbond flash part
+      bsv  08/31/2021 Code clean up
+      ng   08/09/2023 Removed redundant windbond flash size macro
+        prt      04/02/2025 Added support for Infineon QSPI flash parts
+2.4   aa   04/14/2026 Added support for Infineon QSPI flash parts</preformatted></para><para><preformatted></preformatted></para><para><simplesect kind="note"><para></para></simplesect>
+</para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2018<sp/>-<sp/>2021<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2022<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="44"><highlight class="preprocessor">#ifndef<sp/>XLOADER_QSPI_H</highlight></codeline>
+<codeline lineno="45"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XLOADER_QSPI_H</highlight></codeline>
+<codeline lineno="46"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="48"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="50"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xplmi_status.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>XLOADER_QSPI</highlight></codeline>
+<codeline lineno="54"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="57"><highlight class="comment"><sp/>*<sp/>The<sp/>following<sp/>constants<sp/>define<sp/>the<sp/>commands<sp/>which<sp/>may<sp/>be<sp/>sent<sp/>to<sp/>the<sp/>FLASH</highlight></codeline>
+<codeline lineno="58"><highlight class="comment"><sp/>*<sp/>device.</highlight></codeline>
+<codeline lineno="59"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XLOADER_READ_ID_CMD<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x9FU)</highlight></codeline>
+<codeline lineno="61"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XLOADER_FAST_READ_CMD_24BIT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x0BU)</highlight></codeline>
+<codeline lineno="62"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XLOADER_DUAL_READ_CMD_24BIT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x3BU)</highlight></codeline>
+<codeline lineno="63"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XLOADER_QUAD_READ_CMD_24BIT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x6BU)</highlight></codeline>
+<codeline lineno="64"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XLOADER_FAST_READ_CMD_32BIT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x0CU)</highlight></codeline>
+<codeline lineno="65"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XLOADER_DUAL_READ_CMD_32BIT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x3CU)</highlight></codeline>
+<codeline lineno="66"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XLOADER_QUAD_READ_CMD_32BIT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x6CU)</highlight></codeline>
+<codeline lineno="67"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XLOADER_QUAD_READ_CMD_24BIT2<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xEBU)</highlight></codeline>
+<codeline lineno="68"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XLOADER_WRITE_ENABLE_CMD<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x06U)</highlight></codeline>
+<codeline lineno="70"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XLOADER_BANK_REG_RD_CMD<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x16U)</highlight></codeline>
+<codeline lineno="71"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XLOADER_BANK_REG_WR_CMD<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x17U)</highlight></codeline>
+<codeline lineno="72"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>Bank<sp/>register<sp/>is<sp/>called<sp/>Extended<sp/>Addr<sp/>Reg<sp/>in<sp/>Micron<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XLOADER_EXTADD_REG_RD_CMD<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xC8U)</highlight></codeline>
+<codeline lineno="74"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XLOADER_EXTADD_REG_WR_CMD<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xC5U)</highlight></codeline>
+<codeline lineno="75"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="76"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XLOADER_COMMAND_OFST<sp/><sp/><sp/><sp/>(0U)<sp/></highlight><highlight class="comment">/*<sp/>FLASH<sp/>instruction<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="77"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XLOADER_ADDR_1_OFST<sp/><sp/><sp/><sp/><sp/>(1U)<sp/></highlight><highlight class="comment">/*<sp/>MSB<sp/>byte<sp/>of<sp/>address<sp/>to<sp/>read<sp/>or<sp/>write<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="78"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XLOADER_ADDR_2_OFST<sp/><sp/><sp/><sp/><sp/>(2U)<sp/></highlight><highlight class="comment">/*<sp/>Middle<sp/>byte<sp/>of<sp/>address<sp/>to<sp/>read<sp/>or<sp/>write<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="79"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XLOADER_ADDR_3_OFST<sp/><sp/><sp/><sp/><sp/>(3U)<sp/></highlight><highlight class="comment">/*<sp/>Middle<sp/>byte<sp/>of<sp/>address<sp/>to<sp/>read<sp/>or<sp/>write<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="80"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XLOADER_ADDR_4_OFST<sp/><sp/><sp/><sp/><sp/>(4U)<sp/></highlight><highlight class="comment">/*<sp/>LSB<sp/>byte<sp/>of<sp/>address<sp/>to<sp/>read<sp/>or<sp/>write<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="81"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XLOADER_MODE_BITS_OFST<sp/><sp/>(5U)<sp/></highlight><highlight class="comment">/*<sp/>Mode<sp/>bits<sp/>(CYPRESS_ID<sp/>only)*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="82"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XLOADER_DUMMY_CLOCKS<sp/><sp/><sp/><sp/>(8U)<sp/></highlight><highlight class="comment">/*<sp/>Number<sp/>of<sp/>dummy<sp/>bytes<sp/>for<sp/>fast,<sp/>dual<sp/>and</highlight></codeline>
+<codeline lineno="83"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>quad<sp/>reads<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="84"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="85"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="86"><highlight class="comment"><sp/>*<sp/>Max<sp/>limit<sp/>of<sp/>single<sp/>DMA<sp/>transfer<sp/>is<sp/>512MB</highlight></codeline>
+<codeline lineno="87"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="88"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XLOADER_DMA_DATA_TRAN_SIZE<sp/><sp/><sp/><sp/><sp/><sp/>(0x20000000U)</highlight></codeline>
+<codeline lineno="89"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="91"><highlight class="comment"><sp/>*<sp/>Macros<sp/>related<sp/>to<sp/>Qspi<sp/>Bank<sp/>Size</highlight></codeline>
+<codeline lineno="92"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="93"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XLOADER_FLASH_SIZE_16MB<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x1000000U)</highlight></codeline>
+<codeline lineno="94"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XLOADER_BANKSIZE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XLOADER_FLASH_SIZE_16MB</highlight></codeline>
+<codeline lineno="95"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XLOADER_FLASH_SIZE_64MB<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x4000000U)</highlight></codeline>
+<codeline lineno="96"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XLOADER_WINBOND_BANKSIZE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XLOADER_FLASH_SIZE_64MB</highlight></codeline>
+<codeline lineno="97"><highlight class="preprocessor"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="98"><highlight class="comment"><sp/>*<sp/>Bank<sp/>mask</highlight></codeline>
+<codeline lineno="99"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="100"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XLOADER_BANKMASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(~(XLOADER_BANKSIZE<sp/>-<sp/>1U))</highlight></codeline>
+<codeline lineno="101"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XLOADER_WINBOND_BANKMASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(~(XLOADER_WINBOND_BANKSIZE<sp/>-<sp/>1U))</highlight></codeline>
+<codeline lineno="102"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="103"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="104"><highlight class="comment"><sp/>*<sp/>Identification<sp/>of<sp/>Flash</highlight></codeline>
+<codeline lineno="105"><highlight class="comment"><sp/>*<sp/>Micron:</highlight></codeline>
+<codeline lineno="106"><highlight class="comment"><sp/>*<sp/>Byte<sp/>0<sp/>is<sp/>Manufacturer<sp/>ID;</highlight></codeline>
+<codeline lineno="107"><highlight class="comment"><sp/>*<sp/>Byte<sp/>1<sp/>is<sp/>first<sp/>byte<sp/>of<sp/>Device<sp/>ID<sp/>-<sp/>0xBB<sp/>or<sp/>0xBA</highlight></codeline>
+<codeline lineno="108"><highlight class="comment"><sp/>*<sp/>Byte<sp/>2<sp/>is<sp/>second<sp/>byte<sp/>of<sp/>Device<sp/>ID<sp/>describes<sp/>flash<sp/>size:</highlight></codeline>
+<codeline lineno="109"><highlight class="comment"><sp/>*<sp/>128Mbit<sp/>:<sp/>0x18;<sp/>256Mbit<sp/>:<sp/>0x19;<sp/>512Mbit<sp/>:<sp/>0x20</highlight></codeline>
+<codeline lineno="110"><highlight class="comment"><sp/>*<sp/>Spansion:</highlight></codeline>
+<codeline lineno="111"><highlight class="comment"><sp/>*<sp/>Byte<sp/>0<sp/>is<sp/>Manufacturer<sp/>ID;</highlight></codeline>
+<codeline lineno="112"><highlight class="comment"><sp/>*<sp/>Byte<sp/>1<sp/>is<sp/>Device<sp/>ID<sp/>-<sp/>Memory<sp/>Interface<sp/>type<sp/>-<sp/>0x20<sp/>or<sp/>0x02</highlight></codeline>
+<codeline lineno="113"><highlight class="comment"><sp/>*<sp/>Byte<sp/>2<sp/>is<sp/>second<sp/>byte<sp/>of<sp/>Device<sp/>ID<sp/>describes<sp/>flash<sp/>size:</highlight></codeline>
+<codeline lineno="114"><highlight class="comment"><sp/>*<sp/>128Mbit<sp/>:<sp/>0x18;<sp/>256Mbit<sp/>:<sp/>0x19;<sp/>512Mbit<sp/>:<sp/>0x20</highlight></codeline>
+<codeline lineno="115"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="116"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XLOADER_MICRON_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x20U)</highlight></codeline>
+<codeline lineno="117"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XLOADER_SPANSION_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x01U)</highlight></codeline>
+<codeline lineno="118"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XLOADER_WINBOND_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xEFU)</highlight></codeline>
+<codeline lineno="119"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XLOADER_MACRONIX_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xC2U)</highlight></codeline>
+<codeline lineno="120"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XLOADER_ISSI_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x9DU)</highlight></codeline>
+<codeline lineno="121"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XLOADER_CYPRESS_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x34U)</highlight></codeline>
+<codeline lineno="122"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="123"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Macronix<sp/>size<sp/>constants<sp/>for<sp/>1.8V<sp/>and<sp/>3.3<sp/>parts.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="124"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XLOADER_MACRONIX_FLASH_SIZE_ID_512M<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x1AU)</highlight></codeline>
+<codeline lineno="125"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XLOADER_MACRONIX_FLASH_SIZE_ID_1G<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x1BU)</highlight></codeline>
+<codeline lineno="126"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XLOADER_MACRONIX_FLASH_SIZE_ID_2G<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x1CU)</highlight></codeline>
+<codeline lineno="127"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XLOADER_MACRONIX_FLASH_1_8_V_SIZE_ID_128M<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x38U)</highlight></codeline>
+<codeline lineno="128"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XLOADER_MACRONIX_FLASH_1_8_V_SIZE_ID_512M<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x3AU)</highlight></codeline>
+<codeline lineno="129"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XLOADER_MACRONIX_FLASH_1_8_V_SIZE_ID_1G<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x3BU)</highlight></codeline>
+<codeline lineno="130"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XLOADER_MACRONIX_FLASH_1_8_V_SIZE_ID_2G<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x3CU)</highlight></codeline>
+<codeline lineno="131"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="132"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Infineon<sp/>size<sp/>constants.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="133"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XLOADER_INFINEON_FLASH_SIZE_ID_512M<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x1AU)</highlight></codeline>
+<codeline lineno="134"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XLOADER_INFINEON_FLASH_SIZE_ID_1G<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x1BU)</highlight></codeline>
+<codeline lineno="135"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XLOADER_INFINEON_FLASH_SIZE_ID_2G<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x1CU)</highlight></codeline>
+<codeline lineno="136"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="137"><highlight class="normal"></highlight><highlight class="comment">/*Qspi<sp/>width<sp/>detection<sp/>macros*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="138"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XLOADER_QSPI_BUSWIDTH_DETECT_VALUE<sp/><sp/><sp/><sp/><sp/><sp/>(0xAA995566U)</highlight></codeline>
+<codeline lineno="139"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XLOADER_QSPI_BUSWIDTH_PDI_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x10U)</highlight></codeline>
+<codeline lineno="140"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XLOADER_QSPI_BUSWIDTH_LENGTH<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x10U)</highlight></codeline>
+<codeline lineno="141"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XLOADER_QSPI_BUSWIDTH_ONE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0U)</highlight></codeline>
+<codeline lineno="142"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XLOADER_QSPI_BUSWIDTH_TWO<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1U)</highlight></codeline>
+<codeline lineno="143"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XLOADER_QSPI_BUSWIDTH_FOUR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(2U)</highlight></codeline>
+<codeline lineno="144"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="145"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XLOADER_READ_ID_CMD_TX_BYTE_CNT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1U)</highlight></codeline>
+<codeline lineno="146"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XLOADER_READ_ID_CMD_RX_BYTE_CNT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(4U)</highlight></codeline>
+<codeline lineno="147"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XLOADER_QSPI24_COPY_DISCARD_BYTE_CNT<sp/><sp/><sp/><sp/>(4U)</highlight></codeline>
+<codeline lineno="148"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XLOADER_QSPI32_COPY_DISCARD_BYTE_CNT<sp/><sp/><sp/><sp/>(5U)</highlight></codeline>
+<codeline lineno="149"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XLOADER_QSPI_WRITE_ENABLE_CMD_BYTE_CNT<sp/><sp/>(1U)</highlight></codeline>
+<codeline lineno="150"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XLOADER_EXTADD_REG_WR_CMD_BYTE_CNT<sp/><sp/><sp/><sp/><sp/><sp/>(2U)</highlight></codeline>
+<codeline lineno="151"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XLOADER_EXTADD_REG_RD_CMD_BYTE_CNT<sp/><sp/><sp/><sp/><sp/><sp/>(1U)</highlight></codeline>
+<codeline lineno="152"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XLOADER_BANK_REG_WR_CMD_BYTE_CNT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(2U)</highlight></codeline>
+<codeline lineno="153"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XLOADER_BANK_REG_RD_CMD_BYTE_CNT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1U)</highlight></codeline>
+<codeline lineno="154"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="155"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="156"><highlight class="normal"></highlight></codeline>
+<codeline lineno="157"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="158"><highlight class="normal"></highlight></codeline>
+<codeline lineno="159"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="160"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XLoader_QspiInit(u32<sp/>DeviceFlags);</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XLoader_QspiCopy(u64<sp/>SrcAddr,<sp/>u64<sp/>DestAddr,<sp/>u32<sp/>Length,<sp/>u32<sp/>Flags);</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XLoader_QspiGetBusWidth(u64<sp/>ImageOffsetAddress);</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XLoader_QspiRelease(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"></highlight></codeline>
+<codeline lineno="165"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="166"><highlight class="normal"></highlight></codeline>
+<codeline lineno="167"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>end<sp/>of<sp/>XLOADER_QSPI<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="168"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="169"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="170"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="172"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="173"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/></highlight><highlight class="comment">/*<sp/>XLOADER_QSPI_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_qspi.h"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_a_v_buf___blender" kind="struct" prot="public">
+    <compoundname>XAVBuf_Blender</compoundname>
+    <includes local="no">xavbuf.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_a_v_buf___blender_1a0a1817c3c38de26f82e9ea195ec9bd3f" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAVBuf_Blender::GlobalAlphaEn</definition>
+        <argsstring></argsstring>
+        <name>GlobalAlphaEn</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.h" line="221" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.h" bodystart="221" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_a_v_buf___blender_1a0dc225ae13e3f7ae4e478c3ab88701a9" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAVBuf_Blender::Alpha</definition>
+        <argsstring></argsstring>
+        <name>Alpha</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.h" line="222" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.h" bodystart="222" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_a_v_buf___blender_1a35b9aa354a28904a3dc482fc16444c5e" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_a_v_buf___video_attribute" kindref="compound">XAVBuf_VideoAttribute</ref> *</type>
+        <definition>XAVBuf_VideoAttribute* XAVBuf_Blender::OutputVideo</definition>
+        <argsstring></argsstring>
+        <name>OutputVideo</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.h" line="223" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.h" bodystart="223" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef stores all the attributes associated to the Blender block of the DisplayPort Subsystem. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="17">
+        <label>XAVBuf_VideoAttribute</label>
+        <link refid="struct_x_a_v_buf___video_attribute"/>
+      </node>
+      <node id="16">
+        <label>XAVBuf_Blender</label>
+        <link refid="struct_x_a_v_buf___blender"/>
+        <childnode refid="17" relation="usage">
+          <edgelabel>OutputVideo</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.h" line="220" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.h" bodystart="220" bodyend="224"/>
+    <listofallmembers>
+      <member refid="struct_x_a_v_buf___blender_1a0dc225ae13e3f7ae4e478c3ab88701a9" prot="public" virt="non-virtual"><scope>XAVBuf_Blender</scope><name>Alpha</name></member>
+      <member refid="struct_x_a_v_buf___blender_1a0a1817c3c38de26f82e9ea195ec9bd3f" prot="public" virt="non-virtual"><scope>XAVBuf_Blender</scope><name>GlobalAlphaEn</name></member>
+      <member refid="struct_x_a_v_buf___blender_1a35b9aa354a28904a3dc482fc16444c5e" prot="public" virt="non-virtual"><scope>XAVBuf_Blender</scope><name>OutputVideo</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

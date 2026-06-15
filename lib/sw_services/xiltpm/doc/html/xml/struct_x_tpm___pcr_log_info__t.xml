@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_tpm___pcr_log_info__t" kind="struct" prot="public">
+    <compoundname>XTpm_PcrLogInfo_t</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_tpm___pcr_log_info__t_1a022aafe2c30016e990ce5bb7a6c8d851" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XTpm_PcrLogInfo_t::RemainingPcrEvents</definition>
+        <argsstring></argsstring>
+        <name>RemainingPcrEvents</name>
+        <briefdescription>
+<para>Number of PCR log events. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltpm/src/common/xtpm_defs.h" line="92" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltpm/src/common/xtpm_defs.h" bodystart="92" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_tpm___pcr_log_info__t_1a5a0de48591458d070ce5f6b1c897559a" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XTpm_PcrLogInfo_t::TotalPcrLogEvents</definition>
+        <argsstring></argsstring>
+        <name>TotalPcrLogEvents</name>
+        <briefdescription>
+<para>Total number of PCR log events. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltpm/src/common/xtpm_defs.h" line="93" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltpm/src/common/xtpm_defs.h" bodystart="93" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_tpm___pcr_log_info__t_1adcc428a51e933174237232aababa82d9" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XTpm_PcrLogInfo_t::OverflowCntSinceLastRd</definition>
+        <argsstring></argsstring>
+        <name>OverflowCntSinceLastRd</name>
+        <briefdescription>
+<para>Overflow count since last read. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltpm/src/common/xtpm_defs.h" line="94" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltpm/src/common/xtpm_defs.h" bodystart="94" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_tpm___pcr_log_info__t_1a887bf2b13c46927d5363140164668e78" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XTpm_PcrLogInfo_t::PcrEventsRead</definition>
+        <argsstring></argsstring>
+        <name>PcrEventsRead</name>
+        <briefdescription>
+<para>Number of events read in current request. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltpm/src/common/xtpm_defs.h" line="95" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltpm/src/common/xtpm_defs.h" bodystart="95" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltpm/src/common/xtpm_defs.h" line="91" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltpm/src/common/xtpm_defs.h" bodystart="91" bodyend="96"/>
+    <listofallmembers>
+      <member refid="struct_x_tpm___pcr_log_info__t_1adcc428a51e933174237232aababa82d9" prot="public" virt="non-virtual"><scope>XTpm_PcrLogInfo_t</scope><name>OverflowCntSinceLastRd</name></member>
+      <member refid="struct_x_tpm___pcr_log_info__t_1a887bf2b13c46927d5363140164668e78" prot="public" virt="non-virtual"><scope>XTpm_PcrLogInfo_t</scope><name>PcrEventsRead</name></member>
+      <member refid="struct_x_tpm___pcr_log_info__t_1a022aafe2c30016e990ce5bb7a6c8d851" prot="public" virt="non-virtual"><scope>XTpm_PcrLogInfo_t</scope><name>RemainingPcrEvents</name></member>
+      <member refid="struct_x_tpm___pcr_log_info__t_1a5a0de48591458d070ce5f6b1c897559a" prot="public" virt="non-virtual"><scope>XTpm_PcrLogInfo_t</scope><name>TotalPcrLogEvents</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

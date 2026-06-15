@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_dfe_mix___carrier_cfg" kind="struct" prot="public">
+    <compoundname>XDfeMix_CarrierCfg</compoundname>
+    <includes local="no">xdfemix.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_dfe_mix___carrier_cfg_1a51f0c310e1f598ab568f5b0c9980d330" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_dfe_mix___d_u_c_d_d_c_cfg" kindref="compound">XDfeMix_DUCDDCCfg</ref></type>
+        <definition>XDfeMix_DUCDDCCfg XDfeMix_CarrierCfg::DUCDDCCfg</definition>
+        <argsstring></argsstring>
+        <name>DUCDDCCfg</name>
+        <briefdescription>
+<para><verbatim>                      Defines settings for single CC&apos;s
+</verbatim> DUC/DDC </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" line="430" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" bodystart="430" bodyend="-1"/>
+        <referencedby refid="group__dfemix_1ga85f60b156f5de8fd8b2ef6b182966d70" compoundref="xdfemix_8c" startline="2816" endline="2880">XDfeMix_AddCC</referencedby>
+        <referencedby refid="group__dfemix_1ga1061d48f6c831d81557dff815fc7ff1f" compoundref="xdfemix__pass__through__example_8c" startline="66" endline="178">XDfeMix_AddCCExample</referencedby>
+        <referencedby refid="group__dfemix_1ga1aaa2f28256b404ea1626f18ba1f2552" compoundref="xdfemix_8c" startline="2444" endline="2485">XDfeMix_AddCCtoCCCfg</referencedby>
+        <referencedby refid="group__dfemix_1ga83fb621d29c58d22bb1078e1cb43f16a" compoundref="xdfemix_8c" startline="2362" endline="2388">XDfeMix_GetCarrierCfgAndNCO</referencedby>
+        <referencedby refid="group__dfemix_1gad11616c20803424abe6edac0f5f4a900" compoundref="xdfemix__multi_add_c_c__pass__through__example_8c" startline="68" endline="205">XDfeMix_MultiAddCCExample</referencedby>
+        <referencedby refid="group__dfemix_1ga5a3170046f6a8e1669f14053119569a2" compoundref="xdfemix_8c" startline="3066" endline="3111">XDfeMix_UpdateCC</referencedby>
+        <referencedby refid="group__dfemix_1ga4c97ea8a30954347b6e6b884c02c34ce" compoundref="xdfemix_8c" startline="2583" endline="2608">XDfeMix_UpdateCCinCCCfg</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Configuration for a single CC. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="8">
+        <label>XDfeMix_CarrierCfg</label>
+        <link refid="struct_x_dfe_mix___carrier_cfg"/>
+        <childnode refid="9" relation="usage">
+          <edgelabel>DUCDDCCfg</edgelabel>
+        </childnode>
+      </node>
+      <node id="9">
+        <label>XDfeMix_DUCDDCCfg</label>
+        <link refid="struct_x_dfe_mix___d_u_c_d_d_c_cfg"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" line="429" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" bodystart="429" bodyend="432"/>
+    <listofallmembers>
+      <member refid="struct_x_dfe_mix___carrier_cfg_1a51f0c310e1f598ab568f5b0c9980d330" prot="public" virt="non-virtual"><scope>XDfeMix_CarrierCfg</scope><name>DUCDDCCfg</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

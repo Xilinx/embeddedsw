@@ -1,0 +1,155 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_v_scd_layer_config" kind="struct" prot="public">
+    <compoundname>XVScdLayerConfig</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_v_scd_layer_config_1a244c96dcb8809e4f1aed1e3cf63dd209" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XVScdLayerConfig::BufferAddr</definition>
+        <argsstring></argsstring>
+        <name>BufferAddr</name>
+        <briefdescription>
+<para>Frame buffer address for scene change detection. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/src/xv_scenechange.h" line="152" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/src/xv_scenechange.h" bodystart="152" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v_scd_layer_config_1a28717b12363f6e289bd58ad7ba13b15a" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XVScdLayerConfig::SAD</definition>
+        <argsstring></argsstring>
+        <name>SAD</name>
+        <briefdescription>
+<para>Sum of Absolute Differences result. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/src/xv_scenechange.h" line="153" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/src/xv_scenechange.h" bodystart="153" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v_scd_layer_config_1a61c64aea8c990d87ed18e5d16f79bb1a" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XVScdLayerConfig::Threshold</definition>
+        <argsstring></argsstring>
+        <name>Threshold</name>
+        <briefdescription>
+<para>Scene change detection threshold value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/src/xv_scenechange.h" line="154" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/src/xv_scenechange.h" bodystart="154" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v_scd_layer_config_1abad29c86682765c2928170953ab0df0d" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XVScdLayerConfig::Width</definition>
+        <argsstring></argsstring>
+        <name>Width</name>
+        <briefdescription>
+<para>Frame width in pixels. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/src/xv_scenechange.h" line="155" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/src/xv_scenechange.h" bodystart="155" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v_scd_layer_config_1acb86113ce1cd22cf64e6ee0125fee888" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XVScdLayerConfig::Height</definition>
+        <argsstring></argsstring>
+        <name>Height</name>
+        <briefdescription>
+<para>Frame height in pixels. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/src/xv_scenechange.h" line="156" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/src/xv_scenechange.h" bodystart="156" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v_scd_layer_config_1ad4de9d0cfed79e87209c6e15ce3b7289" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XVScdLayerConfig::Stride</definition>
+        <argsstring></argsstring>
+        <name>Stride</name>
+        <briefdescription>
+<para>Frame stride/line width in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/src/xv_scenechange.h" line="157" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/src/xv_scenechange.h" bodystart="157" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v_scd_layer_config_1a6b7c7ecb1501bec2c50dab2599f30f8f" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XVScdLayerConfig::SubSample</definition>
+        <argsstring></argsstring>
+        <name>SubSample</name>
+        <briefdescription>
+<para>Subsampling factor for processing. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/src/xv_scenechange.h" line="158" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/src/xv_scenechange.h" bodystart="158" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v_scd_layer_config_1abedad44723ef6666a71035d8279f023a" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XVScdLayerConfig::LayerId</definition>
+        <argsstring></argsstring>
+        <name>LayerId</name>
+        <briefdescription>
+<para>Layer identifier (0-7) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/src/xv_scenechange.h" line="159" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/src/xv_scenechange.h" bodystart="159" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v_scd_layer_config_1a8beafe491f1eceac80090dfa2fbb981c" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XVScdLayerConfig::StreamEnable</definition>
+        <argsstring></argsstring>
+        <name>StreamEnable</name>
+        <briefdescription>
+<para>Stream enable flag. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/src/xv_scenechange.h" line="160" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/src/xv_scenechange.h" bodystart="160" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v_scd_layer_config_1aab652091014fa253b9d8cf46f94ff221" prot="public" static="no" mutable="no">
+        <type><ref refid="xv__scenechange_8h_1a39493a9312d5533b9801042b8509576b" kindref="member">XVScdClrFmt</ref></type>
+        <definition>XVScdClrFmt XVScdLayerConfig::VFormat</definition>
+        <argsstring></argsstring>
+        <name>VFormat</name>
+        <briefdescription>
+<para>Video format (Y8 or Y10) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/src/xv_scenechange.h" line="161" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/src/xv_scenechange.h" bodystart="161" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/src/xv_scenechange.h" line="151" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/src/xv_scenechange.h" bodystart="151" bodyend="162"/>
+    <listofallmembers>
+      <member refid="struct_x_v_scd_layer_config_1a244c96dcb8809e4f1aed1e3cf63dd209" prot="public" virt="non-virtual"><scope>XVScdLayerConfig</scope><name>BufferAddr</name></member>
+      <member refid="struct_x_v_scd_layer_config_1acb86113ce1cd22cf64e6ee0125fee888" prot="public" virt="non-virtual"><scope>XVScdLayerConfig</scope><name>Height</name></member>
+      <member refid="struct_x_v_scd_layer_config_1abedad44723ef6666a71035d8279f023a" prot="public" virt="non-virtual"><scope>XVScdLayerConfig</scope><name>LayerId</name></member>
+      <member refid="struct_x_v_scd_layer_config_1a28717b12363f6e289bd58ad7ba13b15a" prot="public" virt="non-virtual"><scope>XVScdLayerConfig</scope><name>SAD</name></member>
+      <member refid="struct_x_v_scd_layer_config_1a8beafe491f1eceac80090dfa2fbb981c" prot="public" virt="non-virtual"><scope>XVScdLayerConfig</scope><name>StreamEnable</name></member>
+      <member refid="struct_x_v_scd_layer_config_1ad4de9d0cfed79e87209c6e15ce3b7289" prot="public" virt="non-virtual"><scope>XVScdLayerConfig</scope><name>Stride</name></member>
+      <member refid="struct_x_v_scd_layer_config_1a6b7c7ecb1501bec2c50dab2599f30f8f" prot="public" virt="non-virtual"><scope>XVScdLayerConfig</scope><name>SubSample</name></member>
+      <member refid="struct_x_v_scd_layer_config_1a61c64aea8c990d87ed18e5d16f79bb1a" prot="public" virt="non-virtual"><scope>XVScdLayerConfig</scope><name>Threshold</name></member>
+      <member refid="struct_x_v_scd_layer_config_1aab652091014fa253b9d8cf46f94ff221" prot="public" virt="non-virtual"><scope>XVScdLayerConfig</scope><name>VFormat</name></member>
+      <member refid="struct_x_v_scd_layer_config_1abad29c86682765c2928170953ab0df0d" prot="public" virt="non-virtual"><scope>XVScdLayerConfig</scope><name>Width</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

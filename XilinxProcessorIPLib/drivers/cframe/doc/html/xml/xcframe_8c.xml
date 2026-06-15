@@ -1,0 +1,1148 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xcframe_8c" kind="file">
+    <compoundname>xcframe.c</compoundname>
+    <includes refid="xcframe_8h" local="yes">xcframe.h</includes>
+    <incdepgraph>
+      <node id="5">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="7">
+        <label>xil_io.h</label>
+      </node>
+      <node id="8">
+        <label>xcframe_hw.h</label>
+        <link refid="xcframe__hw_8h"/>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>xstatus.h</label>
+      </node>
+      <node id="2">
+        <label>xcframe.c</label>
+        <link refid="xcframe.c"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>xcframe.h</label>
+        <link refid="xcframe_8h"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>xil_types.h</label>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xcframe_8c_1a08e0df84bb34ee02dc1f8d25713e5d7c" prot="public" static="no">
+        <name>XCFRAME_LAST_FRAME_BOT_OFFSET</name>
+        <initializer>(0x220U)</initializer>
+        <briefdescription>
+<para>Offset of LAST_FRAME_BOT register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cframe/src/xcframe.c" line="57" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cframe/src/xcframe.c" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xcframe_8c_1a684807554df0e18f41e81872f7180687" prot="public" static="no">
+        <name>XCFRAME_MAX_BLKTYPE_IN_FAR_BOT</name>
+        <initializer>(4U)</initializer>
+        <briefdescription>
+<para>Maximum value of block type in FAR_BOT register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cframe/src/xcframe.c" line="59" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cframe/src/xcframe.c" bodystart="58" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xcframe_8c_1aecd8e255eaf53d918c78a7009243c7d0" prot="public" static="no">
+        <name>XCFRAME_FAR_TOP_OFFSET_WRT_BOT</name>
+        <initializer>(0x10U)</initializer>
+        <briefdescription>
+<para>Offset of CFRAME_FAR_TOP register w.r.t CFRAME_FAR_BOT. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cframe/src/xcframe.c" line="61" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cframe/src/xcframe.c" bodystart="61" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xcframe_8c_1ad1fdd6393797dfcbd0bbfabe55802303" prot="public" static="no">
+        <name>XCFRAME_128BIT_IN_WORDS</name>
+        <initializer>(4U)</initializer>
+        <briefdescription>
+<para>Size of 128bit in words. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cframe/src/xcframe.c" line="62" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cframe/src/xcframe.c" bodystart="64" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xcframe_8c_1a962d1f7ffb137a23346f85deb4efbf48" prot="public" static="no">
+        <name>XCFRAME_BLKTYPE0_MASK</name>
+        <initializer>(0xFFFFFU)</initializer>
+        <briefdescription>
+<para>Mask to read blocktype 0 values. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cframe/src/xcframe.c" line="63" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cframe/src/xcframe.c" bodystart="65" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xcframe_8c_1ad6d6dc845cabd9e7863a34cfc47edbb9" prot="public" static="no">
+        <name>XCFRAME_BLKTYPE1_WORD0_SHIFT</name>
+        <initializer>(20U)</initializer>
+        <briefdescription>
+<para>Shift value to read blocktype1 value from word0. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cframe/src/xcframe.c" line="65" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cframe/src/xcframe.c" bodystart="66" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xcframe_8c_1a3a27f612c31ac4080b28d5eef35e2750" prot="public" static="no">
+        <name>XCFRAME_BLKTYPE1_WORD0_MASK</name>
+        <initializer>(0xFFFU)</initializer>
+        <briefdescription>
+<para>Mask to read blocktype1 value from word0. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cframe/src/xcframe.c" line="67" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cframe/src/xcframe.c" bodystart="69" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xcframe_8c_1a4de03633d9e898b20678c8591cd71f2c" prot="public" static="no">
+        <name>XCFRAME_BLKTYPE1_WORD1_SHIFT</name>
+        <initializer>(12U)</initializer>
+        <briefdescription>
+<para>Shift value to read blocktype1 value from word1. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cframe/src/xcframe.c" line="69" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cframe/src/xcframe.c" bodystart="72" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xcframe_8c_1a5ae43dfd3abd9739a63bb47689c50841" prot="public" static="no">
+        <name>XCFRAME_BLKTYPE1_WORD1_MASK</name>
+        <initializer>(0xFFU)</initializer>
+        <briefdescription>
+<para>Mask to read blocktype1 value from word1. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cframe/src/xcframe.c" line="71" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cframe/src/xcframe.c" bodystart="75" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xcframe_8c_1a344923f83c4af5f2545efdb450c9a192" prot="public" static="no">
+        <name>XCFRAME_BLKTYPE2_WORD1_SHIFT</name>
+        <initializer>(8U)</initializer>
+        <briefdescription>
+<para>Shift value to read blocktype2 value from word1. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cframe/src/xcframe.c" line="73" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cframe/src/xcframe.c" bodystart="78" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xcframe_8c_1a342f9731d8c31f19b6e4eb89a1828a27" prot="public" static="no">
+        <name>XCFRAME_BLKTYPE2_WORD1_MASK</name>
+        <initializer>(0xFFFFFU)</initializer>
+        <briefdescription>
+<para>Mask to read blocktype1 value from word1. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cframe/src/xcframe.c" line="75" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cframe/src/xcframe.c" bodystart="81" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xcframe_8c_1a2c676053a8532090185e83f3ee7f9704" prot="public" static="no">
+        <name>XCFRAME_BLKTYPE3_WORD1_SHIFT</name>
+        <initializer>(28U)</initializer>
+        <briefdescription>
+<para>Shift value to read blocktype3 value from word1. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cframe/src/xcframe.c" line="77" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cframe/src/xcframe.c" bodystart="84" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xcframe_8c_1a7e387e6d5511985f0eeb821b50a6762d" prot="public" static="no">
+        <name>XCFRAME_BLKTYPE3_WORD1_MASK</name>
+        <initializer>(0xFU)</initializer>
+        <briefdescription>
+<para>Mask to read blocktype3 value from word1. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cframe/src/xcframe.c" line="78" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cframe/src/xcframe.c" bodystart="87" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xcframe_8c_1ab34b7725cea8bb0b4bda31ac69ba3372" prot="public" static="no">
+        <name>XCFRAME_BLKTYPE3_WORD2_SHIFT</name>
+        <initializer>(4U)</initializer>
+        <briefdescription>
+<para>Shift value to read blocktype3 value from word2. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cframe/src/xcframe.c" line="80" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cframe/src/xcframe.c" bodystart="88" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xcframe_8c_1afcf36902d5710e8b4bea63d4b7aebd4c" prot="public" static="no">
+        <name>XCFRAME_BLKTYPE3_WORD2_MASK</name>
+        <initializer>(0xFFFFU)</initializer>
+        <briefdescription>
+<para>Mask to read blocktype3 value from word2. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cframe/src/xcframe.c" line="82" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cframe/src/xcframe.c" bodystart="91" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xcframe_8c_1a0e26d7b7284e489d0b81337fbd012dc9" prot="public" static="no">
+        <name>XCFRAME_WORD0_OFFSET</name>
+        <initializer>(0U)</initializer>
+        <briefdescription>
+<para>Offset of word0. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cframe/src/xcframe.c" line="83" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cframe/src/xcframe.c" bodystart="94" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xcframe_8c_1a4d3f6c48973740329a52c418adcfd0d3" prot="public" static="no">
+        <name>XCFRAME_WORD1_OFFSET</name>
+        <initializer>(1U)</initializer>
+        <briefdescription>
+<para>Offset of word1. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cframe/src/xcframe.c" line="84" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cframe/src/xcframe.c" bodystart="95" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xcframe_8c_1a5fb588da2a7350c5b67e019ce031a747" prot="public" static="no">
+        <name>XCFRAME_WORD2_OFFSET</name>
+        <initializer>(2U)</initializer>
+        <briefdescription>
+<para>Offset of word2. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cframe/src/xcframe.c" line="85" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cframe/src/xcframe.c" bodystart="96" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="xcframe_8c_1a74a6d8fe2ee7821e41f3fe09b4ca0afd" prot="public" static="no">
+        <name>XCframe_Blktype</name>
+        <enumvalue id="xcframe_8c_1a74a6d8fe2ee7821e41f3fe09b4ca0afda8f4a603e6fd73e74602f03c5af4f736c" prot="public">
+          <name>BLOCKTYPE0</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+<para>Blocktype - 0. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xcframe_8c_1a74a6d8fe2ee7821e41f3fe09b4ca0afdab674d720fa6028039bceac435ac9c307" prot="public">
+          <name>BLOCKTYPE1</name>
+          <briefdescription>
+<para>Blocktype - 1. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xcframe_8c_1a74a6d8fe2ee7821e41f3fe09b4ca0afda68eb91e63c1d9ede3e46752cbdc842a4" prot="public">
+          <name>BLOCKTYPE2</name>
+          <briefdescription>
+<para>Blocktype - 2. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xcframe_8c_1a74a6d8fe2ee7821e41f3fe09b4ca0afda79ee8fbe78260f7d21d02de09c8b574f" prot="public">
+          <name>BLOCKTYPE3</name>
+          <briefdescription>
+<para>Blocktype - 3. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xcframe_8c_1a74a6d8fe2ee7821e41f3fe09b4ca0afda4bb9a93ff256b7527c30c4d6296f5b82" prot="public">
+          <name>BLOCKTYPE4</name>
+          <briefdescription>
+<para>Blocktype - 4. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xcframe_8c_1a74a6d8fe2ee7821e41f3fe09b4ca0afda551c8da0b87558ad6abdcccb6340cf6f" prot="public">
+          <name>BLOCKTYPE5</name>
+          <briefdescription>
+<para>Blocktype - 5. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xcframe_8c_1a74a6d8fe2ee7821e41f3fe09b4ca0afdaf8e4adf6931905069acfce078f8d07b2" prot="public">
+          <name>BLOCKTYPE6</name>
+          <briefdescription>
+<para>Blocktype - 6. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cframe/src/xcframe.c" line="46" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cframe/src/xcframe.c" bodystart="45" bodyend="54"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__cframe_1gab9951a1fa7e1ea6fbed8febcda865134" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XCframe_CfgInitialize</definition>
+        <argsstring>(XCframe *InstancePtr, const XCframe_Config *CfgPtr, u32 EffectiveAddr)</argsstring>
+        <name>XCframe_CfgInitialize</name>
+        <param>
+          <type><ref refid="struct_x_cframe" kindref="compound">XCframe</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>const <ref refid="struct_x_cframe___config" kindref="compound">XCframe_Config</ref> *</type>
+          <declname>CfgPtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>EffectiveAddr</declname>
+        </param>
+        <briefdescription>
+<para>This function initializes an CFRAME core. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function must be called prior to using an CFRAME driver.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_cframe" kindref="compound">XCframe</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CfgPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a reference to a structure containing information about a specific <ref refid="struct_x_cframe" kindref="compound">XCframe</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>EffectiveAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the device base address in the virtual memory address space. The caller is responsible for keeping the address mapping from EffectiveAddr to the device physical base address unchanged once this function is invoked. Unexpected errors may occur if the address mapping changes after this function is called. If address translation is not used, pass in the physical address instead.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if initialization was successful. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cframe/src/xcframe.c" line="125" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cframe/src/xcframe.c" bodystart="125" bodyend="141"/>
+      </memberdef>
+      <memberdef kind="function" id="group__cframe_1ga0fe587ad348d15faccd9fcefd765af44" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XCframe_WriteReg</definition>
+        <argsstring>(const XCframe *InstancePtr, u32 AddrOffset, XCframe_FrameNo FrameNo, const Xuint128 *Val)</argsstring>
+        <name>XCframe_WriteReg</name>
+        <param>
+          <type>const <ref refid="struct_x_cframe" kindref="compound">XCframe</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>AddrOffset</declname>
+        </param>
+        <param>
+          <type>XCframe_FrameNo</type>
+          <declname>FrameNo</declname>
+        </param>
+        <param>
+          <type>const Xuint128 *</type>
+          <declname>Val</declname>
+        </param>
+        <briefdescription>
+<para>This function writes to 128 bit CFRAME register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_cframe" kindref="compound">XCframe</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>AddrOffset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is offset of the Cframe register </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>FrameNo</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the index of frame </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Val</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is pointer to the value to be written </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cframe/src/xcframe.c" line="153" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cframe/src/xcframe.c" bodystart="153" bodyend="169"/>
+      </memberdef>
+      <memberdef kind="function" id="group__cframe_1ga91ddf5ccf6f3a8005683d2a56373145d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XCframe_ReadReg</definition>
+        <argsstring>(const XCframe *InstancePtr, u32 AddrOffset, XCframe_FrameNo FrameNo, u32 *ValPtr)</argsstring>
+        <name>XCframe_ReadReg</name>
+        <param>
+          <type>const <ref refid="struct_x_cframe" kindref="compound">XCframe</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>AddrOffset</declname>
+        </param>
+        <param>
+          <type>XCframe_FrameNo</type>
+          <declname>FrameNo</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>ValPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function reads the 128 bit CFRAME register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_cframe" kindref="compound">XCframe</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>AddrOffset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is offset of the Cframe register </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>FrameNo</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the index of frame </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ValPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>128 bit variable to store the read data </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cframe/src/xcframe.c" line="181" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cframe/src/xcframe.c" bodystart="181" bodyend="192"/>
+      </memberdef>
+      <memberdef kind="function" id="group__cframe_1gaf70a9f3c08ec391872f0a81e067d9bf4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XCframe_SafetyWriteReg</definition>
+        <argsstring>(const XCframe *InstancePtr, u32 AddrOffset, XCframe_FrameNo FrameNo, const Xuint128 *Val)</argsstring>
+        <name>XCframe_SafetyWriteReg</name>
+        <param>
+          <type>const <ref refid="struct_x_cframe" kindref="compound">XCframe</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>AddrOffset</declname>
+        </param>
+        <param>
+          <type>XCframe_FrameNo</type>
+          <declname>FrameNo</declname>
+        </param>
+        <param>
+          <type>const Xuint128 *</type>
+          <declname>Val</declname>
+        </param>
+        <briefdescription>
+<para>This function writes to 128 bit CFRAME register and reads it back to validate the write operation. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_cframe" kindref="compound">XCframe</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>AddrOffset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is offset of the Cframe register </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>FrameNo</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the index of frame </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Val</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is pointer to the value to be written</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Success or Failure </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cframe/src/xcframe.c" line="207" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cframe/src/xcframe.c" bodystart="207" bodyend="220"/>
+      </memberdef>
+      <memberdef kind="function" id="group__cframe_1ga61d26dca381aff614de588980622e127" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XCframe_WriteCmd</definition>
+        <argsstring>(const XCframe *InstancePtr, XCframe_FrameNo CframeNo, u32 Cmd)</argsstring>
+        <name>XCframe_WriteCmd</name>
+        <param>
+          <type>const <ref refid="struct_x_cframe" kindref="compound">XCframe</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>XCframe_FrameNo</type>
+          <declname>CframeNo</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Cmd</declname>
+        </param>
+        <briefdescription>
+<para>This function writes the value to CFRAME cmd register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_cframe" kindref="compound">XCframe</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CframeNo</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the index of frame </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Cmd</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>to be initiated by CFRAME block </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cframe/src/xcframe.c" line="231" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cframe/src/xcframe.c" bodystart="231" bodyend="239"/>
+      </memberdef>
+      <memberdef kind="function" id="group__cframe_1ga240996c8e6b20583088fd17d40058a6e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XCframe_VggTrim</definition>
+        <argsstring>(const XCframe *InstancePtr, const Xuint128 *TrimVal)</argsstring>
+        <name>XCframe_VggTrim</name>
+        <param>
+          <type>const <ref refid="struct_x_cframe" kindref="compound">XCframe</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>const Xuint128 *</type>
+          <declname>TrimVal</declname>
+        </param>
+        <briefdescription>
+<para>This function writes the VGG TRIM value. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_cframe" kindref="compound">XCframe</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>TrimVal</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is pointer to the TRIM value </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cframe/src/xcframe.c" line="249" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cframe/src/xcframe.c" bodystart="249" bodyend="261"/>
+      </memberdef>
+      <memberdef kind="function" id="group__cframe_1ga2718ef1f8cd748e9eb889297dc945a2f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XCframe_CramTrim</definition>
+        <argsstring>(const XCframe *InstancePtr, u32 TrimValue)</argsstring>
+        <name>XCframe_CramTrim</name>
+        <param>
+          <type>const <ref refid="struct_x_cframe" kindref="compound">XCframe</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>TrimValue</declname>
+        </param>
+        <briefdescription>
+<para>This function writes the CRAM TRIM value. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_cframe" kindref="compound">XCframe</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>TrimValue</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is to hold CRAM TRIM value </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cframe/src/xcframe.c" line="271" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cframe/src/xcframe.c" bodystart="271" bodyend="283"/>
+      </memberdef>
+      <memberdef kind="function" id="group__cframe_1ga65d6668bf9168f51452fd8e4fbbe70da" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XCframe_BramTrim</definition>
+        <argsstring>(const XCframe *InstancePtr, u32 TrimValue)</argsstring>
+        <name>XCframe_BramTrim</name>
+        <param>
+          <type>const <ref refid="struct_x_cframe" kindref="compound">XCframe</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>TrimValue</declname>
+        </param>
+        <briefdescription>
+<para>This function writes the BRAM TRIM value. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_cframe" kindref="compound">XCframe</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>TrimValue</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is to hold BRAM TRIM value </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cframe/src/xcframe.c" line="293" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cframe/src/xcframe.c" bodystart="293" bodyend="308"/>
+      </memberdef>
+      <memberdef kind="function" id="group__cframe_1ga15aec289f8e36b8c163da0026c16d7fd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XCframe_UramTrim</definition>
+        <argsstring>(const XCframe *InstancePtr, u32 TrimValue)</argsstring>
+        <name>XCframe_UramTrim</name>
+        <param>
+          <type>const <ref refid="struct_x_cframe" kindref="compound">XCframe</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>TrimValue</declname>
+        </param>
+        <briefdescription>
+<para>This function writes the BRAM TRIM value. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_cframe" kindref="compound">XCframe</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>TrimValue</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is to hold URAM TRIM value </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cframe/src/xcframe.c" line="318" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cframe/src/xcframe.c" bodystart="318" bodyend="333"/>
+      </memberdef>
+      <memberdef kind="function" id="group__cframe_1gae27e1bdd1d64c2aadabadfdc99e47b95" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XCframe_SetReadParam</definition>
+        <argsstring>(const XCframe *InstancePtr, XCframe_FrameNo CframeNo, u32 CframeLen, u32 FrameAddr)</argsstring>
+        <name>XCframe_SetReadParam</name>
+        <param>
+          <type>const <ref refid="struct_x_cframe" kindref="compound">XCframe</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>XCframe_FrameNo</type>
+          <declname>CframeNo</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>CframeLen</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>FrameAddr</declname>
+        </param>
+        <briefdescription>
+<para>This function sets the CFRAME read parameters with mentioned CFRAME length and frame number. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_cframe" kindref="compound">XCframe</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CframeNo</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the index of frame </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CframeLen</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is total length of Cframes </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>FrameAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is frame address </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cframe/src/xcframe.c" line="346" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cframe/src/xcframe.c" bodystart="346" bodyend="360"/>
+      </memberdef>
+      <memberdef kind="function" id="group__cframe_1gafe8587be9cc39c028b74977aab82906a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XCframe_ClearCframeErr</definition>
+        <argsstring>(const XCframe *InstancePtr)</argsstring>
+        <name>XCframe_ClearCframeErr</name>
+        <param>
+          <type>const <ref refid="struct_x_cframe" kindref="compound">XCframe</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function clears CFRAME ISRs and is called as part of CFRAME error recovery. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_cframe" kindref="compound">XCframe</ref> instance </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cframe/src/xcframe.c" line="369" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cframe/src/xcframe.c" bodystart="369" bodyend="381"/>
+      </memberdef>
+      <memberdef kind="function" id="group__cframe_1gad5245d5418200c023e4a39ea591374da" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XCframe_GetLastFrameAddr</definition>
+        <argsstring>(XCframe *InstancePtr, u32 BlockType, XCframe_FrameNo CframeNo)</argsstring>
+        <name>XCframe_GetLastFrameAddr</name>
+        <param>
+          <type><ref refid="struct_x_cframe" kindref="compound">XCframe</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>BlockType</declname>
+        </param>
+        <param>
+          <type>XCframe_FrameNo</type>
+          <declname>CframeNo</declname>
+        </param>
+        <briefdescription>
+<para>This function returns the last Cframe address of given cframeno and blocktype. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_cframe" kindref="compound">XCframe</ref> instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>BlockType</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is block type </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CframeNo</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the index of cframe</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Last Frame Address </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cframe/src/xcframe.c" line="394" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cframe/src/xcframe.c" bodystart="394" bodyend="430"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file which contains the code related to CFRAME block. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date        Changes
+<hruler/>
+
+1.00  kc   11/10/2017 Initial release
+1.01  bsv  05/29/2019 XCframe_ReadReg API added
+1.02  bsv  11/06/2019 XCframe_ClearCframeErr API added
+1.03  bsv  02/17/2020 XCframe_SafetyWriteReg API added
+1.04  bsv  07/15/2021 Fix doxygen warnings
+1.5   mss  09/04/2023 Fixed MISRA-C violation 10.1
+      mss  09/04/2023 Fixed MISRA-C violation 10.4
+      mss  09/04/2023 Fixed MISRA-C violation 7.2
+      mss  09/04/2023 Fixed MISRA-C violation 4.6
+      mss  09/04/2023 Fixed MISRA-C violation 8.13
+      pre  08/22/2024 Added XCframe_GetLastFrameAddr function and modified
+                      XCframe_SetReadParam function
+1.9   Nava 07/30/2025 Fixed GCC warnings about missing field initializers
+                      for Xuint128
+2.0   ng  03/26/2026  Fixed doxygen warnings</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2017<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="39"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xcframe_8h" kindref="compound">xcframe.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45" refid="xcframe_8c_1a74a6d8fe2ee7821e41f3fe09b4ca0afd" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="47" refid="xcframe_8c_1a74a6d8fe2ee7821e41f3fe09b4ca0afda8f4a603e6fd73e74602f03c5af4f736c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xcframe_8c_1a74a6d8fe2ee7821e41f3fe09b4ca0afda8f4a603e6fd73e74602f03c5af4f736c" kindref="member">BLOCKTYPE0</ref><sp/>=<sp/>0,<sp/></highlight></codeline>
+<codeline lineno="48" refid="xcframe_8c_1a74a6d8fe2ee7821e41f3fe09b4ca0afdab674d720fa6028039bceac435ac9c307" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xcframe_8c_1a74a6d8fe2ee7821e41f3fe09b4ca0afdab674d720fa6028039bceac435ac9c307" kindref="member">BLOCKTYPE1</ref>,<sp/><sp/></highlight></codeline>
+<codeline lineno="49" refid="xcframe_8c_1a74a6d8fe2ee7821e41f3fe09b4ca0afda68eb91e63c1d9ede3e46752cbdc842a4" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xcframe_8c_1a74a6d8fe2ee7821e41f3fe09b4ca0afda68eb91e63c1d9ede3e46752cbdc842a4" kindref="member">BLOCKTYPE2</ref>,<sp/><sp/></highlight></codeline>
+<codeline lineno="50" refid="xcframe_8c_1a74a6d8fe2ee7821e41f3fe09b4ca0afda79ee8fbe78260f7d21d02de09c8b574f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xcframe_8c_1a74a6d8fe2ee7821e41f3fe09b4ca0afda79ee8fbe78260f7d21d02de09c8b574f" kindref="member">BLOCKTYPE3</ref>,<sp/><sp/></highlight></codeline>
+<codeline lineno="51" refid="xcframe_8c_1a74a6d8fe2ee7821e41f3fe09b4ca0afda4bb9a93ff256b7527c30c4d6296f5b82" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xcframe_8c_1a74a6d8fe2ee7821e41f3fe09b4ca0afda4bb9a93ff256b7527c30c4d6296f5b82" kindref="member">BLOCKTYPE4</ref>,<sp/><sp/></highlight></codeline>
+<codeline lineno="52" refid="xcframe_8c_1a74a6d8fe2ee7821e41f3fe09b4ca0afda551c8da0b87558ad6abdcccb6340cf6f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xcframe_8c_1a74a6d8fe2ee7821e41f3fe09b4ca0afda551c8da0b87558ad6abdcccb6340cf6f" kindref="member">BLOCKTYPE5</ref>,<sp/><sp/></highlight></codeline>
+<codeline lineno="53" refid="xcframe_8c_1a74a6d8fe2ee7821e41f3fe09b4ca0afdaf8e4adf6931905069acfce078f8d07b2" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xcframe_8c_1a74a6d8fe2ee7821e41f3fe09b4ca0afdaf8e4adf6931905069acfce078f8d07b2" kindref="member">BLOCKTYPE6</ref>,<sp/><sp/></highlight></codeline>
+<codeline lineno="54"><highlight class="normal">}<sp/><ref refid="xcframe_8c_1a74a6d8fe2ee7821e41f3fe09b4ca0afd" kindref="member">XCframe_Blktype</ref>;</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="57" refid="xcframe_8c_1a08e0df84bb34ee02dc1f8d25713e5d7c" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XCFRAME_LAST_FRAME_BOT_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x220U)<sp/></highlight></codeline>
+<codeline lineno="58" refid="xcframe_8c_1a684807554df0e18f41e81872f7180687" refkind="member"><highlight class="preprocessor">#define<sp/>XCFRAME_MAX_BLKTYPE_IN_FAR_BOT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(4U)<sp/></highlight></codeline>
+<codeline lineno="60"><highlight class="preprocessor">#define<sp/>XCFRAME_FAR_TOP_OFFSET_WRT_BOT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x10U)<sp/></highlight></codeline>
+<codeline lineno="62"><highlight class="preprocessor">#define<sp/>XCFRAME_128BIT_IN_WORDS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(4U)<sp/></highlight></codeline>
+<codeline lineno="63"><highlight class="preprocessor">#define<sp/>XCFRAME_BLKTYPE0_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xFFFFFU)<sp/></highlight></codeline>
+<codeline lineno="64" refid="xcframe_8c_1ad1fdd6393797dfcbd0bbfabe55802303" refkind="member"><highlight class="preprocessor">#define<sp/>XCFRAME_BLKTYPE1_WORD0_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(20U)<sp/></highlight></codeline>
+<codeline lineno="66" refid="xcframe_8c_1ad6d6dc845cabd9e7863a34cfc47edbb9" refkind="member"><highlight class="preprocessor">#define<sp/>XCFRAME_BLKTYPE1_WORD0_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xFFFU)<sp/></highlight></codeline>
+<codeline lineno="68"><highlight class="preprocessor">#define<sp/>XCFRAME_BLKTYPE1_WORD1_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(12U)<sp/></highlight></codeline>
+<codeline lineno="70"><highlight class="preprocessor">#define<sp/>XCFRAME_BLKTYPE1_WORD1_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xFFU)<sp/></highlight></codeline>
+<codeline lineno="72" refid="xcframe_8c_1a4de03633d9e898b20678c8591cd71f2c" refkind="member"><highlight class="preprocessor">#define<sp/>XCFRAME_BLKTYPE2_WORD1_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(8U)<sp/></highlight></codeline>
+<codeline lineno="74"><highlight class="preprocessor">#define<sp/>XCFRAME_BLKTYPE2_WORD1_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xFFFFFU)<sp/></highlight></codeline>
+<codeline lineno="76"><highlight class="preprocessor">#define<sp/>XCFRAME_BLKTYPE3_WORD1_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(28U)<sp/></highlight></codeline>
+<codeline lineno="78" refid="xcframe_8c_1a344923f83c4af5f2545efdb450c9a192" refkind="member"><highlight class="preprocessor">#define<sp/>XCFRAME_BLKTYPE3_WORD1_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xFU)<sp/></highlight></codeline>
+<codeline lineno="79"><highlight class="preprocessor">#define<sp/>XCFRAME_BLKTYPE3_WORD2_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(4U)<sp/></highlight></codeline>
+<codeline lineno="81" refid="xcframe_8c_1a342f9731d8c31f19b6e4eb89a1828a27" refkind="member"><highlight class="preprocessor">#define<sp/>XCFRAME_BLKTYPE3_WORD2_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xFFFFU)<sp/></highlight></codeline>
+<codeline lineno="83"><highlight class="preprocessor">#define<sp/>XCFRAME_WORD0_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0U)<sp/></highlight></codeline>
+<codeline lineno="84" refid="xcframe_8c_1a2c676053a8532090185e83f3ee7f9704" refkind="member"><highlight class="preprocessor">#define<sp/>XCFRAME_WORD1_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1U)<sp/></highlight></codeline>
+<codeline lineno="85"><highlight class="preprocessor">#define<sp/>XCFRAME_WORD2_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(2U)<sp/></highlight></codeline>
+<codeline lineno="87" refid="xcframe_8c_1a7e387e6d5511985f0eeb821b50a6762d" refkind="member"><highlight class="preprocessor"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="88" refid="xcframe_8c_1ab34b7725cea8bb0b4bda31ac69ba3372" refkind="member"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="89"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight></codeline>
+<codeline lineno="91" refid="xcframe_8c_1afcf36902d5710e8b4bea63d4b7aebd4c" refkind="member"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="92"><highlight class="normal"></highlight></codeline>
+<codeline lineno="93"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="114"><highlight class="normal">s32<sp/><ref refid="group__cframe_1gab9951a1fa7e1ea6fbed8febcda865134" kindref="member">XCframe_CfgInitialize</ref>(<ref refid="struct_x_cframe" kindref="compound">XCframe</ref><sp/>*InstancePtr,</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_cframe___config" kindref="compound">XCframe_Config</ref><sp/>*CfgPtr,</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>EffectiveAddr)</highlight></codeline>
+<codeline lineno="116"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(CfgPtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(EffectiveAddr<sp/>!=<sp/>((u32)0x0));</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"></highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Setup<sp/>the<sp/>instance<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)memcpy((</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*)&amp;(InstancePtr-&gt;<ref refid="struct_x_cframe_1a486c412ee6a68a6ee6d78075d3236f32" kindref="member">Config</ref>),<sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*)CfgPtr,</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(<ref refid="struct_x_cframe___config" kindref="compound">XCframe_Config</ref>));</highlight></codeline>
+<codeline lineno="125" refid="group__cframe_1gab9951a1fa7e1ea6fbed8febcda865134" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_cframe_1a486c412ee6a68a6ee6d78075d3236f32" kindref="member">Config</ref>.<ref refid="struct_x_cframe___config_1a15a21d609bd9150e508d30e922c1e2ae" kindref="member">BaseAddress</ref><sp/>=<sp/>EffectiveAddr;</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"></highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_cframe_1a4255c03da2812c3c90357df63cd5f2dc" kindref="member">IsReady</ref><sp/>=<sp/>(u32)(XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"></highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(XST_SUCCESS);</highlight></codeline>
+<codeline lineno="130"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"></highlight></codeline>
+<codeline lineno="132"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="142"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__cframe_1ga0fe587ad348d15faccd9fcefd765af44" kindref="member">XCframe_WriteReg</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_cframe" kindref="compound">XCframe</ref><sp/>*InstancePtr,<sp/>u32<sp/>AddrOffset,</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XCframe_FrameNo<sp/>FrameNo,</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Xuint128<sp/>*Val)</highlight></codeline>
+<codeline lineno="144"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>TODO<sp/>check<sp/>if<sp/>we<sp/>need<sp/>to<sp/>disable<sp/>interrupts<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XCframe_WriteReg32(InstancePtr-&gt;<ref refid="struct_x_cframe_1a486c412ee6a68a6ee6d78075d3236f32" kindref="member">Config</ref>.<ref refid="struct_x_cframe___config_1a15a21d609bd9150e508d30e922c1e2ae" kindref="member">BaseAddress</ref><sp/>+</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u32)FrameNo*XCFRAME_FRAME_OFFSET),</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>AddrOffset,<sp/>Val-&gt;Word0);</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XCframe_WriteReg32(InstancePtr-&gt;<ref refid="struct_x_cframe_1a486c412ee6a68a6ee6d78075d3236f32" kindref="member">Config</ref>.<ref refid="struct_x_cframe___config_1a15a21d609bd9150e508d30e922c1e2ae" kindref="member">BaseAddress</ref><sp/>+</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u32)FrameNo*XCFRAME_FRAME_OFFSET)<sp/>,</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>AddrOffset+4U,<sp/>Val-&gt;Word1);</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XCframe_WriteReg32(InstancePtr-&gt;<ref refid="struct_x_cframe_1a486c412ee6a68a6ee6d78075d3236f32" kindref="member">Config</ref>.<ref refid="struct_x_cframe___config_1a15a21d609bd9150e508d30e922c1e2ae" kindref="member">BaseAddress</ref><sp/>+</highlight></codeline>
+<codeline lineno="153" refid="group__cframe_1ga0fe587ad348d15faccd9fcefd765af44" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u32)FrameNo*XCFRAME_FRAME_OFFSET),</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>AddrOffset+8U,<sp/>Val-&gt;Word2);</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XCframe_WriteReg32(InstancePtr-&gt;<ref refid="struct_x_cframe_1a486c412ee6a68a6ee6d78075d3236f32" kindref="member">Config</ref>.<ref refid="struct_x_cframe___config_1a15a21d609bd9150e508d30e922c1e2ae" kindref="member">BaseAddress</ref><sp/>+</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u32)FrameNo*XCFRAME_FRAME_OFFSET),</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>AddrOffset+12U,<sp/>Val-&gt;Word3);</highlight></codeline>
+<codeline lineno="158"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"></highlight></codeline>
+<codeline lineno="160"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="170"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__cframe_1ga91ddf5ccf6f3a8005683d2a56373145d" kindref="member">XCframe_ReadReg</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_cframe" kindref="compound">XCframe</ref><sp/>*InstancePtr,<sp/>u32<sp/>AddrOffset,</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XCframe_FrameNo<sp/>FrameNo,<sp/>u32*<sp/>ValPtr)</highlight></codeline>
+<codeline lineno="172"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ValPtr[0]<sp/>=<sp/>XCframe_ReadReg32(InstancePtr-&gt;<ref refid="struct_x_cframe_1a486c412ee6a68a6ee6d78075d3236f32" kindref="member">Config</ref>.<ref refid="struct_x_cframe___config_1a15a21d609bd9150e508d30e922c1e2ae" kindref="member">BaseAddress</ref><sp/>+</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u32)FrameNo*XCFRAME_FRAME_OFFSET),<sp/>AddrOffset);</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ValPtr[1]<sp/>=<sp/>XCframe_ReadReg32(InstancePtr-&gt;<ref refid="struct_x_cframe_1a486c412ee6a68a6ee6d78075d3236f32" kindref="member">Config</ref>.<ref refid="struct_x_cframe___config_1a15a21d609bd9150e508d30e922c1e2ae" kindref="member">BaseAddress</ref><sp/>+</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u32)FrameNo*XCFRAME_FRAME_OFFSET),<sp/>AddrOffset+4U);</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ValPtr[2]<sp/>=<sp/>XCframe_ReadReg32(InstancePtr-&gt;<ref refid="struct_x_cframe_1a486c412ee6a68a6ee6d78075d3236f32" kindref="member">Config</ref>.<ref refid="struct_x_cframe___config_1a15a21d609bd9150e508d30e922c1e2ae" kindref="member">BaseAddress</ref><sp/>+</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u32)FrameNo*XCFRAME_FRAME_OFFSET),<sp/>AddrOffset+8U);</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ValPtr[3]<sp/>=<sp/>XCframe_ReadReg32(InstancePtr-&gt;<ref refid="struct_x_cframe_1a486c412ee6a68a6ee6d78075d3236f32" kindref="member">Config</ref>.<ref refid="struct_x_cframe___config_1a15a21d609bd9150e508d30e922c1e2ae" kindref="member">BaseAddress</ref><sp/>+</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u32)FrameNo*XCFRAME_FRAME_OFFSET),<sp/>AddrOffset+12U);</highlight></codeline>
+<codeline lineno="181" refid="group__cframe_1ga91ddf5ccf6f3a8005683d2a56373145d" refkind="member"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="182"><highlight class="normal"></highlight></codeline>
+<codeline lineno="183"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="196"><highlight class="normal">s32<sp/><ref refid="group__cframe_1gaf70a9f3c08ec391872f0a81e067d9bf4" kindref="member">XCframe_SafetyWriteReg</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_cframe" kindref="compound">XCframe</ref><sp/>*InstancePtr,<sp/>u32<sp/>AddrOffset,</highlight></codeline>
+<codeline lineno="197"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XCframe_FrameNo<sp/>FrameNo,</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Xuint128<sp/>*Val)</highlight></codeline>
+<codeline lineno="198"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>s32<sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>ReadVal[4U];</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"></highlight></codeline>
+<codeline lineno="202"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__cframe_1ga0fe587ad348d15faccd9fcefd765af44" kindref="member">XCframe_WriteReg</ref>(InstancePtr,<sp/>AddrOffset,<sp/>FrameNo,<sp/>Val);</highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__cframe_1ga91ddf5ccf6f3a8005683d2a56373145d" kindref="member">XCframe_ReadReg</ref>(InstancePtr,<sp/>AddrOffset,<sp/>FrameNo,<sp/>ReadVal);</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((ReadVal[0U]<sp/>==<sp/>Val-&gt;Word0)<sp/>&amp;&amp;<sp/>(ReadVal[1U]<sp/>==<sp/>Val-&gt;Word1)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(ReadVal[2U]<sp/>==<sp/>Val-&gt;Word2)<sp/>&amp;&amp;<sp/>(ReadVal[3U]<sp/>==<sp/>Val-&gt;Word3))<sp/>{</highlight></codeline>
+<codeline lineno="206"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="207" refid="group__cframe_1gaf70a9f3c08ec391872f0a81e067d9bf4" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="208"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="209"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="210"><highlight class="normal"></highlight></codeline>
+<codeline lineno="211"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="220"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__cframe_1ga61d26dca381aff614de588980622e127" kindref="member">XCframe_WriteCmd</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_cframe" kindref="compound">XCframe</ref><sp/>*InstancePtr,<sp/>XCframe_FrameNo<sp/>CframeNo,<sp/>u32<sp/>Cmd)</highlight></codeline>
+<codeline lineno="221"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="222"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xuint128<sp/>CfrCmd={0U,<sp/>0U,<sp/>0U,<sp/>0U};</highlight></codeline>
+<codeline lineno="223"><highlight class="normal"></highlight></codeline>
+<codeline lineno="224"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XCframe_Printf(</highlight><highlight class="stringliteral">&quot;CFRAME<sp/>CMD:<sp/>%0x\n\r&quot;</highlight><highlight class="normal">,<sp/>Cmd);</highlight></codeline>
+<codeline lineno="225"><highlight class="normal"></highlight></codeline>
+<codeline lineno="226"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CfrCmd.Word0<sp/>=<sp/>Cmd;</highlight></codeline>
+<codeline lineno="227"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__cframe_1ga0fe587ad348d15faccd9fcefd765af44" kindref="member">XCframe_WriteReg</ref>(InstancePtr,<sp/>XCFRAME_CMD_OFFSET,<sp/>CframeNo,<sp/>&amp;CfrCmd);</highlight></codeline>
+<codeline lineno="228"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="229"><highlight class="normal"></highlight></codeline>
+<codeline lineno="230"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="238"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__cframe_1ga240996c8e6b20583088fd17d40058a6e" kindref="member">XCframe_VggTrim</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_cframe" kindref="compound">XCframe</ref><sp/>*InstancePtr,</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Xuint128<sp/>*TrimVal)</highlight></codeline>
+<codeline lineno="239"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="240"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xuint128<sp/>MaskVal={0U,<sp/>0U,<sp/>0U,<sp/>0U};</highlight></codeline>
+<codeline lineno="241"><highlight class="normal"></highlight></codeline>
+<codeline lineno="242"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MaskVal.Word0<sp/>=<sp/>XCFRAME_MASK_DEFVAL;</highlight></codeline>
+<codeline lineno="243"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MaskVal.Word1<sp/>=<sp/>XCFRAME_MASK_DEFVAL;</highlight></codeline>
+<codeline lineno="244"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MaskVal.Word2<sp/>=<sp/>XCFRAME_MASK_DEFVAL;</highlight></codeline>
+<codeline lineno="245"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__cframe_1ga0fe587ad348d15faccd9fcefd765af44" kindref="member">XCframe_WriteReg</ref>(InstancePtr,<sp/>XCFRAME_MASK_OFFSET,</highlight></codeline>
+<codeline lineno="246"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XCFRAME_FRAME_BCAST,<sp/>&amp;MaskVal);</highlight></codeline>
+<codeline lineno="247"><highlight class="normal"></highlight></codeline>
+<codeline lineno="248"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__cframe_1ga0fe587ad348d15faccd9fcefd765af44" kindref="member">XCframe_WriteReg</ref>(InstancePtr,<sp/>XCFRAME_VGG_TRIM_OFFSET,</highlight></codeline>
+<codeline lineno="249" refid="group__cframe_1ga240996c8e6b20583088fd17d40058a6e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XCFRAME_FRAME_BCAST,<sp/>TrimVal);</highlight></codeline>
+<codeline lineno="250"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="251"><highlight class="normal"></highlight></codeline>
+<codeline lineno="252"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="260"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__cframe_1ga2718ef1f8cd748e9eb889297dc945a2f" kindref="member">XCframe_CramTrim</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_cframe" kindref="compound">XCframe</ref><sp/>*InstancePtr,<sp/>u32<sp/>TrimValue)</highlight></codeline>
+<codeline lineno="261"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="262"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xuint128<sp/>TrimVal={0U,<sp/>0U,<sp/>0U,<sp/>0U};</highlight></codeline>
+<codeline lineno="263"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xuint128<sp/>MaskVal={0U,<sp/>0U,<sp/>0U,<sp/>0U};</highlight></codeline>
+<codeline lineno="264"><highlight class="normal"></highlight></codeline>
+<codeline lineno="265"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MaskVal.Word0<sp/>=<sp/>XCFRAME_MASK_DEFVAL;</highlight></codeline>
+<codeline lineno="266"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__cframe_1ga0fe587ad348d15faccd9fcefd765af44" kindref="member">XCframe_WriteReg</ref>(InstancePtr,<sp/>XCFRAME_MASK_OFFSET,</highlight></codeline>
+<codeline lineno="267"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XCFRAME_FRAME_BCAST,<sp/>&amp;MaskVal);</highlight></codeline>
+<codeline lineno="268"><highlight class="normal"></highlight></codeline>
+<codeline lineno="269"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TrimVal.Word0<sp/>=<sp/>TrimValue;</highlight></codeline>
+<codeline lineno="270"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__cframe_1ga0fe587ad348d15faccd9fcefd765af44" kindref="member">XCframe_WriteReg</ref>(InstancePtr,<sp/>XCFRAME_CRAM_TRIM_OFFSET,</highlight></codeline>
+<codeline lineno="271" refid="group__cframe_1ga2718ef1f8cd748e9eb889297dc945a2f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XCFRAME_FRAME_BCAST,<sp/>&amp;TrimVal);</highlight></codeline>
+<codeline lineno="272"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="273"><highlight class="normal"></highlight></codeline>
+<codeline lineno="274"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="282"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__cframe_1ga65d6668bf9168f51452fd8e4fbbe70da" kindref="member">XCframe_BramTrim</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_cframe" kindref="compound">XCframe</ref><sp/>*InstancePtr,<sp/>u32<sp/>TrimValue)</highlight></codeline>
+<codeline lineno="283"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="284"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xuint128<sp/>TrimVal={0U,<sp/>0U,<sp/>0U,<sp/>0U};</highlight></codeline>
+<codeline lineno="285"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xuint128<sp/>MaskVal={0U,<sp/>0U,<sp/>0U,<sp/>0U};</highlight></codeline>
+<codeline lineno="286"><highlight class="normal"></highlight></codeline>
+<codeline lineno="287"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MaskVal.Word0<sp/>=<sp/>XCFRAME_MASK_DEFVAL;</highlight></codeline>
+<codeline lineno="288"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MaskVal.Word1<sp/>=<sp/>XCFRAME_MASK_DEFVAL;</highlight></codeline>
+<codeline lineno="289"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__cframe_1ga0fe587ad348d15faccd9fcefd765af44" kindref="member">XCframe_WriteReg</ref>(InstancePtr,<sp/>XCFRAME_MASK_OFFSET,</highlight></codeline>
+<codeline lineno="290"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XCFRAME_FRAME_BCAST,<sp/>&amp;MaskVal);</highlight></codeline>
+<codeline lineno="291"><highlight class="normal"></highlight></codeline>
+<codeline lineno="292"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TrimVal.Word0<sp/>=<sp/>TrimValue;</highlight></codeline>
+<codeline lineno="293" refid="group__cframe_1ga65d6668bf9168f51452fd8e4fbbe70da" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__cframe_1ga0fe587ad348d15faccd9fcefd765af44" kindref="member">XCframe_WriteReg</ref>(InstancePtr,<sp/>XCFRAME_COE_TRIM_OFFSET,</highlight></codeline>
+<codeline lineno="294"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XCFRAME_FRAME_BCAST,<sp/>&amp;TrimVal);</highlight></codeline>
+<codeline lineno="295"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__cframe_1ga61d26dca381aff614de588980622e127" kindref="member">XCframe_WriteCmd</ref>(InstancePtr,<sp/>XCFRAME_FRAME_BCAST,</highlight></codeline>
+<codeline lineno="296"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XCFRAME_CMD_REG_TRIMB);</highlight></codeline>
+<codeline lineno="297"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="298"><highlight class="normal"></highlight></codeline>
+<codeline lineno="299"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="307"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__cframe_1ga15aec289f8e36b8c163da0026c16d7fd" kindref="member">XCframe_UramTrim</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_cframe" kindref="compound">XCframe</ref><sp/>*InstancePtr,<sp/>u32<sp/>TrimValue)</highlight></codeline>
+<codeline lineno="308"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="309"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xuint128<sp/>TrimVal={0U,<sp/>0U,<sp/>0U,<sp/>0U};</highlight></codeline>
+<codeline lineno="310"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xuint128<sp/>MaskVal={0U,<sp/>0U,<sp/>0U,<sp/>0U};</highlight></codeline>
+<codeline lineno="311"><highlight class="normal"></highlight></codeline>
+<codeline lineno="312"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MaskVal.Word0<sp/>=<sp/>XCFRAME_MASK_DEFVAL;</highlight></codeline>
+<codeline lineno="313"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MaskVal.Word1<sp/>=<sp/>XCFRAME_MASK_DEFVAL;</highlight></codeline>
+<codeline lineno="314"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__cframe_1ga0fe587ad348d15faccd9fcefd765af44" kindref="member">XCframe_WriteReg</ref>(InstancePtr,<sp/>XCFRAME_MASK_OFFSET,</highlight></codeline>
+<codeline lineno="315"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XCFRAME_FRAME_BCAST,<sp/>&amp;MaskVal);</highlight></codeline>
+<codeline lineno="316"><highlight class="normal"></highlight></codeline>
+<codeline lineno="317"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TrimVal.Word0<sp/>=<sp/>TrimValue;</highlight></codeline>
+<codeline lineno="318" refid="group__cframe_1ga15aec289f8e36b8c163da0026c16d7fd" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__cframe_1ga0fe587ad348d15faccd9fcefd765af44" kindref="member">XCframe_WriteReg</ref>(InstancePtr,<sp/>XCFRAME_COE_TRIM_OFFSET,</highlight></codeline>
+<codeline lineno="319"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XCFRAME_FRAME_BCAST,<sp/>&amp;TrimVal);</highlight></codeline>
+<codeline lineno="320"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__cframe_1ga61d26dca381aff614de588980622e127" kindref="member">XCframe_WriteCmd</ref>(InstancePtr,<sp/>XCFRAME_FRAME_BCAST,</highlight></codeline>
+<codeline lineno="321"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XCFRAME_CMD_REG_TRIMU);</highlight></codeline>
+<codeline lineno="322"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="323"><highlight class="normal"></highlight></codeline>
+<codeline lineno="324"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="335"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__cframe_1gae27e1bdd1d64c2aadabadfdc99e47b95" kindref="member">XCframe_SetReadParam</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_cframe" kindref="compound">XCframe</ref><sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="336"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XCframe_FrameNo<sp/>CframeNo,<sp/>u32<sp/>CframeLen,<sp/>u32<sp/>FrameAddr)</highlight></codeline>
+<codeline lineno="337"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="338"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xuint128<sp/>Value128={0U,<sp/>0U,<sp/>0U,<sp/>0U};</highlight></codeline>
+<codeline lineno="339"><highlight class="normal"></highlight></codeline>
+<codeline lineno="340"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Enable<sp/>ROWON,<sp/>READ_CFR,<sp/>CFRM_CNT<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="341"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__cframe_1ga61d26dca381aff614de588980622e127" kindref="member">XCframe_WriteCmd</ref>(InstancePtr,<sp/>CframeNo,<sp/>XCFRAME_CMD_REG_ROWON);</highlight></codeline>
+<codeline lineno="342"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__cframe_1ga61d26dca381aff614de588980622e127" kindref="member">XCframe_WriteCmd</ref>(InstancePtr,<sp/>CframeNo,<sp/>XCFRAME_CMD_REG_RCFG);</highlight></codeline>
+<codeline lineno="343"><highlight class="normal"></highlight></codeline>
+<codeline lineno="344"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Value128.Word0<sp/>=<sp/>FrameAddr;</highlight></codeline>
+<codeline lineno="345"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__cframe_1ga0fe587ad348d15faccd9fcefd765af44" kindref="member">XCframe_WriteReg</ref>(InstancePtr,<sp/>XCFRAME_FAR_OFFSET,<sp/>CframeNo,<sp/>&amp;Value128);</highlight></codeline>
+<codeline lineno="346" refid="group__cframe_1gae27e1bdd1d64c2aadabadfdc99e47b95" refkind="member"><highlight class="normal"></highlight></codeline>
+<codeline lineno="347"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Value128.Word0=CframeLen/4U;</highlight></codeline>
+<codeline lineno="348"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__cframe_1ga0fe587ad348d15faccd9fcefd765af44" kindref="member">XCframe_WriteReg</ref>(InstancePtr,<sp/>XCFRAME_FRCNT_OFFSET,<sp/>CframeNo,<sp/>&amp;Value128);</highlight></codeline>
+<codeline lineno="349"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="350"><highlight class="normal"></highlight></codeline>
+<codeline lineno="351"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="358"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__cframe_1gafe8587be9cc39c028b74977aab82906a" kindref="member">XCframe_ClearCframeErr</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_cframe" kindref="compound">XCframe</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="359"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="360"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xuint128<sp/>Value128={0xFFFFFFFFU,<sp/>0xFFFFFFFFU,<sp/>0xFFFFFFFFU,<sp/>0xFFFFFFFFU};</highlight></codeline>
+<codeline lineno="361"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="362"><highlight class="normal"></highlight></codeline>
+<codeline lineno="363"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XCframe_FrameNo<sp/>CframeNo<sp/>=<sp/>XCFRAME_FRAME_0;</highlight></codeline>
+<codeline lineno="364"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Clear<sp/>CFRAME<sp/>ISRs<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="365"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal">(CframeNo<sp/>&lt;=<sp/>XCFRAME_FRAME_BCAST)</highlight></codeline>
+<codeline lineno="366"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="367"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__cframe_1ga0fe587ad348d15faccd9fcefd765af44" kindref="member">XCframe_WriteReg</ref>(InstancePtr,<sp/>XCFRAME_CFRM_ISR_OFFSET,<sp/>CframeNo++,</highlight></codeline>
+<codeline lineno="368"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;Value128);</highlight></codeline>
+<codeline lineno="369" refid="group__cframe_1gafe8587be9cc39c028b74977aab82906a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="370"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="371"><highlight class="normal"></highlight></codeline>
+<codeline lineno="372"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="383"><highlight class="normal">u32<sp/><ref refid="group__cframe_1gad5245d5418200c023e4a39ea591374da" kindref="member">XCframe_GetLastFrameAddr</ref>(<ref refid="struct_x_cframe" kindref="compound">XCframe</ref><sp/>*InstancePtr,<sp/>u32<sp/>BlockType,<sp/>XCframe_FrameNo<sp/>CframeNo)</highlight></codeline>
+<codeline lineno="384"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="385"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>LastFrameData[<ref refid="xcframe_8c_1ad1fdd6393797dfcbd0bbfabe55802303" kindref="member">XCFRAME_128BIT_IN_WORDS</ref>]<sp/>=<sp/>{0};</highlight></codeline>
+<codeline lineno="386"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>LastFrameAddr<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="387"><highlight class="normal"></highlight></codeline>
+<codeline lineno="388"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__cframe_1ga91ddf5ccf6f3a8005683d2a56373145d" kindref="member">XCframe_ReadReg</ref>(InstancePtr,<sp/>(<ref refid="xcframe_8c_1a08e0df84bb34ee02dc1f8d25713e5d7c" kindref="member">XCFRAME_LAST_FRAME_BOT_OFFSET</ref><sp/>+</highlight></codeline>
+<codeline lineno="389"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(BlockType<sp/>/<sp/><ref refid="xcframe_8c_1a684807554df0e18f41e81872f7180687" kindref="member">XCFRAME_MAX_BLKTYPE_IN_FAR_BOT</ref>)<sp/>*</highlight></codeline>
+<codeline lineno="390"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xcframe_8c_1aecd8e255eaf53d918c78a7009243c7d0" kindref="member">XCFRAME_FAR_TOP_OFFSET_WRT_BOT</ref>),</highlight></codeline>
+<codeline lineno="391"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XCframe_FrameNo)CframeNo,<sp/>LastFrameData);</highlight></codeline>
+<codeline lineno="392"><highlight class="normal"></highlight></codeline>
+<codeline lineno="393"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">switch</highlight><highlight class="normal"><sp/>((<ref refid="xcframe_8c_1a74a6d8fe2ee7821e41f3fe09b4ca0afd" kindref="member">XCframe_Blktype</ref>)BlockType)<sp/>{</highlight></codeline>
+<codeline lineno="394" refid="group__cframe_1gad5245d5418200c023e4a39ea591374da" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="xcframe_8c_1a74a6d8fe2ee7821e41f3fe09b4ca0afda8f4a603e6fd73e74602f03c5af4f736c" kindref="member">BLOCKTYPE0</ref>:</highlight></codeline>
+<codeline lineno="395"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="xcframe_8c_1a74a6d8fe2ee7821e41f3fe09b4ca0afda4bb9a93ff256b7527c30c4d6296f5b82" kindref="member">BLOCKTYPE4</ref>:</highlight></codeline>
+<codeline lineno="396"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LastFrameAddr<sp/>=<sp/>LastFrameData[<ref refid="xcframe_8c_1a0e26d7b7284e489d0b81337fbd012dc9" kindref="member">XCFRAME_WORD0_OFFSET</ref>]<sp/>&amp;<sp/><ref refid="xcframe_8c_1a962d1f7ffb137a23346f85deb4efbf48" kindref="member">XCFRAME_BLKTYPE0_MASK</ref>;</highlight></codeline>
+<codeline lineno="397"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="398"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="xcframe_8c_1a74a6d8fe2ee7821e41f3fe09b4ca0afdab674d720fa6028039bceac435ac9c307" kindref="member">BLOCKTYPE1</ref>:</highlight></codeline>
+<codeline lineno="399"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="xcframe_8c_1a74a6d8fe2ee7821e41f3fe09b4ca0afda551c8da0b87558ad6abdcccb6340cf6f" kindref="member">BLOCKTYPE5</ref>:</highlight></codeline>
+<codeline lineno="400"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LastFrameAddr<sp/>=<sp/>((LastFrameData[<ref refid="xcframe_8c_1a0e26d7b7284e489d0b81337fbd012dc9" kindref="member">XCFRAME_WORD0_OFFSET</ref>]<sp/>&gt;&gt;<sp/><ref refid="xcframe_8c_1ad6d6dc845cabd9e7863a34cfc47edbb9" kindref="member">XCFRAME_BLKTYPE1_WORD0_SHIFT</ref>)<sp/>&amp;</highlight></codeline>
+<codeline lineno="401"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xcframe_8c_1a3a27f612c31ac4080b28d5eef35e2750" kindref="member">XCFRAME_BLKTYPE1_WORD0_MASK</ref>)<sp/>|<sp/>((LastFrameData[<ref refid="xcframe_8c_1a4d3f6c48973740329a52c418adcfd0d3" kindref="member">XCFRAME_WORD1_OFFSET</ref>]<sp/>&amp;</highlight></codeline>
+<codeline lineno="402"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xcframe_8c_1a5ae43dfd3abd9739a63bb47689c50841" kindref="member">XCFRAME_BLKTYPE1_WORD1_MASK</ref>)<sp/>&lt;&lt;<sp/><ref refid="xcframe_8c_1a4de03633d9e898b20678c8591cd71f2c" kindref="member">XCFRAME_BLKTYPE1_WORD1_SHIFT</ref>);</highlight></codeline>
+<codeline lineno="403"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="404"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="xcframe_8c_1a74a6d8fe2ee7821e41f3fe09b4ca0afda68eb91e63c1d9ede3e46752cbdc842a4" kindref="member">BLOCKTYPE2</ref>:</highlight></codeline>
+<codeline lineno="405"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="xcframe_8c_1a74a6d8fe2ee7821e41f3fe09b4ca0afdaf8e4adf6931905069acfce078f8d07b2" kindref="member">BLOCKTYPE6</ref>:</highlight></codeline>
+<codeline lineno="406"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LastFrameAddr<sp/>=<sp/>(LastFrameData[<ref refid="xcframe_8c_1a4d3f6c48973740329a52c418adcfd0d3" kindref="member">XCFRAME_WORD1_OFFSET</ref>]<sp/>&gt;&gt;<sp/><ref refid="xcframe_8c_1a344923f83c4af5f2545efdb450c9a192" kindref="member">XCFRAME_BLKTYPE2_WORD1_SHIFT</ref>)<sp/>&amp;</highlight></codeline>
+<codeline lineno="407"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xcframe_8c_1a342f9731d8c31f19b6e4eb89a1828a27" kindref="member">XCFRAME_BLKTYPE2_WORD1_MASK</ref>;</highlight></codeline>
+<codeline lineno="408"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="409"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="xcframe_8c_1a74a6d8fe2ee7821e41f3fe09b4ca0afda79ee8fbe78260f7d21d02de09c8b574f" kindref="member">BLOCKTYPE3</ref>:</highlight></codeline>
+<codeline lineno="410"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LastFrameAddr<sp/>=<sp/>((LastFrameData[<ref refid="xcframe_8c_1a4d3f6c48973740329a52c418adcfd0d3" kindref="member">XCFRAME_WORD1_OFFSET</ref>]<sp/>&gt;&gt;<sp/><ref refid="xcframe_8c_1a2c676053a8532090185e83f3ee7f9704" kindref="member">XCFRAME_BLKTYPE3_WORD1_SHIFT</ref>)<sp/>&amp;</highlight></codeline>
+<codeline lineno="411"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xcframe_8c_1a7e387e6d5511985f0eeb821b50a6762d" kindref="member">XCFRAME_BLKTYPE3_WORD1_MASK</ref>)<sp/>|<sp/>((LastFrameData[<ref refid="xcframe_8c_1a5fb588da2a7350c5b67e019ce031a747" kindref="member">XCFRAME_WORD2_OFFSET</ref>]<sp/>&amp;</highlight></codeline>
+<codeline lineno="412"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xcframe_8c_1afcf36902d5710e8b4bea63d4b7aebd4c" kindref="member">XCFRAME_BLKTYPE3_WORD2_MASK</ref>)<sp/>&lt;&lt;<sp/><ref refid="xcframe_8c_1ab34b7725cea8bb0b4bda31ac69ba3372" kindref="member">XCFRAME_BLKTYPE3_WORD2_SHIFT</ref>);</highlight></codeline>
+<codeline lineno="413"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="414"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="415"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="416"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="417"><highlight class="normal"></highlight></codeline>
+<codeline lineno="418"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>LastFrameAddr;</highlight></codeline>
+<codeline lineno="419"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cframe/src/xcframe.c"/>
+  </compounddef>
+</doxygen>

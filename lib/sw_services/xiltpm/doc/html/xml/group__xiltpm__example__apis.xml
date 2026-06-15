@@ -1,0 +1,214 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__xiltpm__example__apis" kind="group">
+    <compoundname>xiltpm_example_apis</compoundname>
+    <title>XilTPM API Example Usage</title>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__xiltpm__example__apis_1ga6206bc9e6f81785b96ba78ff31411c48" prot="public" static="yes" mutable="no">
+        <type>u8</type>
+        <definition>u8 PcrValue[PCR_VALUE_MAX_LEN]</definition>
+        <argsstring>[PCR_VALUE_MAX_LEN]</argsstring>
+        <name>PcrValue</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltpm/examples/xiltpm_example.c" line="80" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltpm/examples/xiltpm_example.c" bodystart="81" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xiltpm__example__apis_1ga4504f59ccc5ef4a5e25142fe6490dec2" prot="public" static="yes" mutable="no">
+        <type>XTpm_PcrEvent_t</type>
+        <definition>XTpm_PcrEvent_t PcrEvents[XTPM_READ_NUM_OF_LOG_ENTRIES]</definition>
+        <argsstring>[XTPM_READ_NUM_OF_LOG_ENTRIES]</argsstring>
+        <name>PcrEvents</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltpm/examples/xiltpm_example.c" line="82" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltpm/examples/xiltpm_example.c" bodystart="82" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xiltpm__example__apis_1ga56049d7be874d92aa6475a4a2bdb3aca" prot="public" static="yes" mutable="no">
+        <type>XTpm_PcrLogInfo_t</type>
+        <definition>XTpm_PcrLogInfo_t PcrLogInfo</definition>
+        <argsstring></argsstring>
+        <name>PcrLogInfo</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltpm/examples/xiltpm_example.c" line="83" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltpm/examples/xiltpm_example.c" bodystart="83" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xiltpm__example__apis_1ga422c293028f38a678715417471286aac" prot="public" static="yes" mutable="no">
+        <type>u8</type>
+        <definition>u8 Data[XTPM_SHA3_HASH_LEN_IN_BYTES]</definition>
+        <argsstring>[XTPM_SHA3_HASH_LEN_IN_BYTES]</argsstring>
+        <name>Data</name>
+        <initializer>=
+						{0x70,0x69,0x77,0x35,0x0b,0x93,
+						0x92,0xa0,0x48,0x2c,0xd8,0x23,
+						0x38,0x47,0xd2,0xd9,0x2d,0x1a,
+						0x95,0x0c,0xad,0xa8,0x60,0xc0,
+						0x9b,0x70,0xc6,0xad,0x6e,0xf1,
+						0x5d,0x49,0x68,0xa3,0x50,0x75,
+						0x06,0xbb,0x0b,0x9b,0x03,0x7d,
+						0xd5,0x93,0x76,0x50,0xdb,0xd4}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltpm/examples/xiltpm_example.c" line="85" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltpm/examples/xiltpm_example.c" bodystart="85" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xiltpm__example__apis_1ga6d79f68c3bd186b5003e84c949d6c178" prot="public" static="yes" mutable="no">
+        <type>u8</type>
+        <definition>u8 SharedMem[XTPM_SHARED_MEM_SIZE]</definition>
+        <argsstring>[XTPM_SHARED_MEM_SIZE]</argsstring>
+        <name>SharedMem</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltpm/examples/xiltpm_example.c" line="96" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltpm/examples/xiltpm_example.c" bodystart="97" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xiltpm__example__apis_1ga92ff457a85762c9eade4960806231f0f" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int TPMExample</definition>
+        <argsstring>(void)</argsstring>
+        <name>TPMExample</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function illustrates the usage of XilTPM APIs to extend data to PCR index specified in the input. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - TPM PCR event successfully completed.</para></listitem><listitem><para>XST_FAILURE - in case of any failure.//! [TPM example] </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltpm/examples/xiltpm_example.c" line="76" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltpm/examples/xiltpm_example.c" bodystart="136" bodyend="236"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xiltpm__example__apis_1ga44944692632426b188226427319bf023" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void XTpm_PrintData</definition>
+        <argsstring>(const u8 *Data, u32 Size)</argsstring>
+        <name>XTpm_PrintData</name>
+        <param>
+          <type>const u8 *</type>
+          <declname>Data</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Size</declname>
+        </param>
+        <briefdescription>
+<para>This function prints the given data on the console. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Pointer to any given data buffer</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Size</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Size of the given buffer </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltpm/examples/xiltpm_example.c" line="77" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltpm/examples/xiltpm_example.c" bodystart="247" bodyend="255"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xiltpm__example__apis_1ga840291bc02cba5474a4cb46a9b9566fe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int main</definition>
+        <argsstring>(void)</argsstring>
+        <name>main</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Main function to call the TPMExample. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltpm/examples/xiltpm_example.c" line="105" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltpm/examples/xiltpm_example.c" bodystart="105" bodyend="122"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__xiltpm__example__apis_1ga2c7901a4aebb26d61080e6e7f6af3928" prot="public" static="no">
+        <name>PCR_INDEX</name>
+        <initializer>2U</initializer>
+        <briefdescription>
+<para>PCR index to which data needs to be extended. </para>        </briefdescription>
+        <detaileddescription>
+<para>PCR0 and PCR1 are reserved. PCR17 to PCR22 are not extendable </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltpm/examples/xiltpm_example.c" line="71" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltpm/examples/xiltpm_example.c" bodystart="70" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xiltpm__example__apis_1gaafcb9039cee36c17c8a10df096fe385d" prot="public" static="no">
+        <name>XTPM_READ_NUM_OF_LOG_ENTRIES</name>
+        <initializer>(1U)</initializer>
+        <briefdescription>
+<para>Number of PCR log entries to read. </para>        </briefdescription>
+        <detaileddescription>
+<para>Maximum value is up to 24 </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltpm/examples/xiltpm_example.c" line="72" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltpm/examples/xiltpm_example.c" bodystart="73" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This example illustrates extension of user data to specified PCR. </para>    </briefdescription>
+    <detaileddescription>
+<para>To build this application, xilmailbox library must be included in BSP and xiltpm must be in client mode This example is supported for Versal and Versal_2VE_2VM devices.</para><para><simplesect kind="note"><para><heading level="2">Procedure to link and compile the example for the default ddr less designs </heading>
+</para></simplesect>
+The default linker settings places a software stack, heap and data in DDR memory. For this example to work, any data shared between client running on A72/R5/A78/R52 and server running on PMC, should be placed in area which is accessible to both client and server.</para><para>Following is the procedure to compile the example on OCM or any memory region which can be accessed by server <verbatim>    1. Open example linker script(lscript.ld) in Vitis project and section to memory mapping should
+            be updated to point all the required sections to shared memory(OCM or TCM)
+            using a memory region drop down selection
+
+                                    OR
+
+    1. In linker script(lscript.ld) user can add new memory section in source tab as shown below
+            .sharedmemory : {
+                    . = ALIGN(4);
+                    __sharedmemory_start = .;
+                    *(.sharedmemory)
+                    *(.sharedmemory.*)
+                    *(.gnu.linkonce.d.*)
+                    __sharedmemory_end = .;
+                    } &gt; versal_cips_0_pspmc_0_psv_ocm_ram_0_psv_ocm_ram_0
+
+            2. In this example &quot;.data&quot; section elements that are passed by reference to the server-side should
+               be stored in the above shared memory section. To make it happen in below example,
+       replace &quot;.data&quot; in attribute section with &quot;.sharedmemory&quot;. For example,
+               static u8 Data[XTPM_SHA3_HASH_LEN_IN_BYTES] __attribute__ ((section (&quot;.data.Data&quot;)));
+                                    should be changed to
+               static u8 Data[XTPM_SHA3_HASH_LEN_IN_BYTES] __attribute__ ((section (&quot;.sharedmemory.Data&quot;)));
+</verbatim></para><para>MODIFICATION HISTORY: <preformatted>
+Ver   Who    Date     Changes
+<hruler/>
+
+1.0     pre    03/13/26 Initial Release
+      pre    03/21/26 Added example usage of GetPcrLog API
+      pre    04/24/26 Updated print statement to print PCR number in decimal format.</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

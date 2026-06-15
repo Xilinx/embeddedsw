@@ -1,0 +1,177 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_nvm___efuse_boot_env_ctrl_bits" kind="struct" prot="public">
+    <compoundname>XNvm_EfuseBootEnvCtrlBits</compoundname>
+    <includes local="no">xnvm_common_defs.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_nvm___efuse_boot_env_ctrl_bits_1a7dddbe07cd0d8330758296a2c58cb862" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XNvm_EfuseBootEnvCtrlBits::PrgmSysmonTempHot</definition>
+        <argsstring></argsstring>
+        <name>PrgmSysmonTempHot</name>
+        <briefdescription>
+<para>Program system monitor temperature hot threshold. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" line="220" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" bodystart="220" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_boot_env_ctrl_bits_1a0417c6295caecd3504a47e66b4e5de00" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XNvm_EfuseBootEnvCtrlBits::PrgmSysmonVoltPmc</definition>
+        <argsstring></argsstring>
+        <name>PrgmSysmonVoltPmc</name>
+        <briefdescription>
+<para>Program system monitor voltage PMC threshold. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" line="221" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" bodystart="221" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_boot_env_ctrl_bits_1a64d668902ba47b6abec091377a75246b" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XNvm_EfuseBootEnvCtrlBits::PrgmSysmonVoltPslp</definition>
+        <argsstring></argsstring>
+        <name>PrgmSysmonVoltPslp</name>
+        <briefdescription>
+<para>Program system monitor voltage PSLP threshold. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" line="222" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" bodystart="222" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_boot_env_ctrl_bits_1aabf06c58772a48d987d1038749820378" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XNvm_EfuseBootEnvCtrlBits::PrgmSysmonTempCold</definition>
+        <argsstring></argsstring>
+        <name>PrgmSysmonTempCold</name>
+        <briefdescription>
+<para>Program system monitor temperature cold threshold. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" line="223" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" bodystart="223" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_boot_env_ctrl_bits_1a2e9c730e83eb7f611856d2cc5ad562ac" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XNvm_EfuseBootEnvCtrlBits::SysmonTempEn</definition>
+        <argsstring></argsstring>
+        <name>SysmonTempEn</name>
+        <briefdescription>
+<para>System monitor temperature enable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" line="224" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" bodystart="224" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga50174985a13b2facd6fd35fea6637f8c" compoundref="versal__gen_2versal_2server_2xnvm__efuse_8c" startline="778" endline="831">XNvm_EfuseReadBootEnvCtrlBits</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_boot_env_ctrl_bits_1a77e84b59b5ffd8bcbee5b1a988a7794f" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XNvm_EfuseBootEnvCtrlBits::SysmonVoltEn</definition>
+        <argsstring></argsstring>
+        <name>SysmonVoltEn</name>
+        <briefdescription>
+<para>System monitor voltage enable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" line="225" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" bodystart="225" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga50174985a13b2facd6fd35fea6637f8c" compoundref="versal__gen_2versal_2server_2xnvm__efuse_8c" startline="778" endline="831">XNvm_EfuseReadBootEnvCtrlBits</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_boot_env_ctrl_bits_1a7af89e7c8f931df0a34c33d6f4239eca" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XNvm_EfuseBootEnvCtrlBits::SysmonVoltSoc</definition>
+        <argsstring></argsstring>
+        <name>SysmonVoltSoc</name>
+        <briefdescription>
+<para>System monitor voltage SOC. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" line="226" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" bodystart="226" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga50174985a13b2facd6fd35fea6637f8c" compoundref="versal__gen_2versal_2server_2xnvm__efuse_8c" startline="778" endline="831">XNvm_EfuseReadBootEnvCtrlBits</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_boot_env_ctrl_bits_1a41b09c5af57928abcec9c5e0a2458f04" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XNvm_EfuseBootEnvCtrlBits::SysmonTempHot</definition>
+        <argsstring></argsstring>
+        <name>SysmonTempHot</name>
+        <briefdescription>
+<para>System monitor temperature hot. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" line="227" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" bodystart="227" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga50174985a13b2facd6fd35fea6637f8c" compoundref="versal__gen_2versal_2server_2xnvm__efuse_8c" startline="778" endline="831">XNvm_EfuseReadBootEnvCtrlBits</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_boot_env_ctrl_bits_1ab376b8d2c7dfb2c75589dc3ad6f9023f" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XNvm_EfuseBootEnvCtrlBits::SysmonVoltPmc</definition>
+        <argsstring></argsstring>
+        <name>SysmonVoltPmc</name>
+        <briefdescription>
+<para>System monitor voltage PMC. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" line="228" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" bodystart="228" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga50174985a13b2facd6fd35fea6637f8c" compoundref="versal__gen_2versal_2server_2xnvm__efuse_8c" startline="778" endline="831">XNvm_EfuseReadBootEnvCtrlBits</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_boot_env_ctrl_bits_1a68618804244f7962c3dbdfb10b8d5664" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XNvm_EfuseBootEnvCtrlBits::SysmonVoltPslp</definition>
+        <argsstring></argsstring>
+        <name>SysmonVoltPslp</name>
+        <briefdescription>
+<para>System monitor voltage PSLP. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" line="229" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" bodystart="229" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga50174985a13b2facd6fd35fea6637f8c" compoundref="versal__gen_2versal_2server_2xnvm__efuse_8c" startline="778" endline="831">XNvm_EfuseReadBootEnvCtrlBits</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_boot_env_ctrl_bits_1a3648619beffa13f089f8e58092bc9c5b" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XNvm_EfuseBootEnvCtrlBits::SysmonTempCold</definition>
+        <argsstring></argsstring>
+        <name>SysmonTempCold</name>
+        <briefdescription>
+<para>System monitor temperature cold. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" line="230" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" bodystart="230" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga50174985a13b2facd6fd35fea6637f8c" compoundref="versal__gen_2versal_2server_2xnvm__efuse_8c" startline="778" endline="831">XNvm_EfuseReadBootEnvCtrlBits</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Structure for BootEnvCtrl Bits. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" line="219" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" bodystart="219" bodyend="231"/>
+    <listofallmembers>
+      <member refid="struct_x_nvm___efuse_boot_env_ctrl_bits_1aabf06c58772a48d987d1038749820378" prot="public" virt="non-virtual"><scope>XNvm_EfuseBootEnvCtrlBits</scope><name>PrgmSysmonTempCold</name></member>
+      <member refid="struct_x_nvm___efuse_boot_env_ctrl_bits_1a7dddbe07cd0d8330758296a2c58cb862" prot="public" virt="non-virtual"><scope>XNvm_EfuseBootEnvCtrlBits</scope><name>PrgmSysmonTempHot</name></member>
+      <member refid="struct_x_nvm___efuse_boot_env_ctrl_bits_1a0417c6295caecd3504a47e66b4e5de00" prot="public" virt="non-virtual"><scope>XNvm_EfuseBootEnvCtrlBits</scope><name>PrgmSysmonVoltPmc</name></member>
+      <member refid="struct_x_nvm___efuse_boot_env_ctrl_bits_1a64d668902ba47b6abec091377a75246b" prot="public" virt="non-virtual"><scope>XNvm_EfuseBootEnvCtrlBits</scope><name>PrgmSysmonVoltPslp</name></member>
+      <member refid="struct_x_nvm___efuse_boot_env_ctrl_bits_1a3648619beffa13f089f8e58092bc9c5b" prot="public" virt="non-virtual"><scope>XNvm_EfuseBootEnvCtrlBits</scope><name>SysmonTempCold</name></member>
+      <member refid="struct_x_nvm___efuse_boot_env_ctrl_bits_1a2e9c730e83eb7f611856d2cc5ad562ac" prot="public" virt="non-virtual"><scope>XNvm_EfuseBootEnvCtrlBits</scope><name>SysmonTempEn</name></member>
+      <member refid="struct_x_nvm___efuse_boot_env_ctrl_bits_1a41b09c5af57928abcec9c5e0a2458f04" prot="public" virt="non-virtual"><scope>XNvm_EfuseBootEnvCtrlBits</scope><name>SysmonTempHot</name></member>
+      <member refid="struct_x_nvm___efuse_boot_env_ctrl_bits_1a77e84b59b5ffd8bcbee5b1a988a7794f" prot="public" virt="non-virtual"><scope>XNvm_EfuseBootEnvCtrlBits</scope><name>SysmonVoltEn</name></member>
+      <member refid="struct_x_nvm___efuse_boot_env_ctrl_bits_1ab376b8d2c7dfb2c75589dc3ad6f9023f" prot="public" virt="non-virtual"><scope>XNvm_EfuseBootEnvCtrlBits</scope><name>SysmonVoltPmc</name></member>
+      <member refid="struct_x_nvm___efuse_boot_env_ctrl_bits_1a68618804244f7962c3dbdfb10b8d5664" prot="public" virt="non-virtual"><scope>XNvm_EfuseBootEnvCtrlBits</scope><name>SysmonVoltPslp</name></member>
+      <member refid="struct_x_nvm___efuse_boot_env_ctrl_bits_1a7af89e7c8f931df0a34c33d6f4239eca" prot="public" virt="non-virtual"><scope>XNvm_EfuseBootEnvCtrlBits</scope><name>SysmonVoltSoc</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

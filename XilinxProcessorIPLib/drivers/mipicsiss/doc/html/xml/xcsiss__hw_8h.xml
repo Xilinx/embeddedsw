@@ -1,0 +1,706 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xcsiss__hw_8h" kind="file">
+    <compoundname>xcsiss_hw.h</compoundname>
+    <includes local="yes">xil_io.h</includes>
+    <includedby refid="xcsiss_8h" local="yes">xcsiss.h</includedby>
+    <incdepgraph>
+      <node id="1477">
+        <label>xil_io.h</label>
+      </node>
+      <node id="1476">
+        <label>xcsiss_hw.h</label>
+        <link refid="xcsiss_hw.h"/>
+        <childnode refid="1477" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="1493">
+        <label>xmipi_scu200_xp5io_example.c</label>
+      </node>
+      <node id="1478">
+        <label>xcsiss_hw.h</label>
+        <link refid="xcsiss_hw.h"/>
+        <childnode refid="1479" relation="include">
+        </childnode>
+      </node>
+      <node id="1492">
+        <label>mipi_cfg.c</label>
+      </node>
+      <node id="1497">
+        <label>mipi_cfg.c</label>
+      </node>
+      <node id="1494">
+        <label>mipi_cfg.c</label>
+      </node>
+      <node id="1491">
+        <label>xmipi_scu200_hpio_example.c</label>
+      </node>
+      <node id="1490">
+        <label>mipi_cfg.c</label>
+      </node>
+      <node id="1484">
+        <label>xcsiss_sinit.c</label>
+        <link refid="xcsiss__sinit_8c"/>
+      </node>
+      <node id="1483">
+        <label>xcsiss_selftest.c</label>
+        <link refid="xcsiss__selftest_8c"/>
+      </node>
+      <node id="1488">
+        <label>pipeline_program.c</label>
+        <link refid="pipeline__program_8c"/>
+      </node>
+      <node id="1495">
+        <label>mipi_cfg.c</label>
+      </node>
+      <node id="1480">
+        <label>xcsiss.c</label>
+        <link refid="xcsiss_8c"/>
+      </node>
+      <node id="1489">
+        <label>xmipi_example.c</label>
+        <link refid="xmipi__example_8c"/>
+      </node>
+      <node id="1479">
+        <label>xcsiss.h</label>
+        <link refid="xcsiss_8h"/>
+        <childnode refid="1480" relation="include">
+        </childnode>
+        <childnode refid="1481" relation="include">
+        </childnode>
+        <childnode refid="1482" relation="include">
+        </childnode>
+        <childnode refid="1483" relation="include">
+        </childnode>
+        <childnode refid="1484" relation="include">
+        </childnode>
+        <childnode refid="1485" relation="include">
+        </childnode>
+        <childnode refid="1486" relation="include">
+        </childnode>
+        <childnode refid="1487" relation="include">
+        </childnode>
+        <childnode refid="1488" relation="include">
+        </childnode>
+        <childnode refid="1489" relation="include">
+        </childnode>
+        <childnode refid="1490" relation="include">
+        </childnode>
+        <childnode refid="1491" relation="include">
+        </childnode>
+        <childnode refid="1492" relation="include">
+        </childnode>
+        <childnode refid="1493" relation="include">
+        </childnode>
+        <childnode refid="1494" relation="include">
+        </childnode>
+        <childnode refid="1495" relation="include">
+        </childnode>
+        <childnode refid="1496" relation="include">
+        </childnode>
+        <childnode refid="1497" relation="include">
+        </childnode>
+        <childnode refid="1498" relation="include">
+        </childnode>
+        <childnode refid="1499" relation="include">
+        </childnode>
+        <childnode refid="1500" relation="include">
+        </childnode>
+      </node>
+      <node id="1481">
+        <label>xcsiss_g.c</label>
+        <link refid="xcsiss__g_8c"/>
+      </node>
+      <node id="1496">
+        <label>xmipi_vek280_example.c</label>
+      </node>
+      <node id="1499">
+        <label>mipi_cfg.c</label>
+      </node>
+      <node id="1485">
+        <label>function_prototype.c</label>
+        <link refid="function__prototype_8c"/>
+      </node>
+      <node id="1482">
+        <label>xcsiss_intr.c</label>
+        <link refid="xcsiss__intr_8c"/>
+      </node>
+      <node id="1498">
+        <label>xmipi_vek385_cphy_example.c</label>
+      </node>
+      <node id="1486">
+        <label>xcsiss_intr_example.c</label>
+        <link refid="xcsiss__intr__example_8c"/>
+      </node>
+      <node id="1487">
+        <label>xcsiss_selftest_example.c</label>
+        <link refid="xcsiss__selftest__example_8c"/>
+      </node>
+      <node id="1500">
+        <label>xmipi_vek385_dphy_example.c</label>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="user-defined">
+      <header>Bitmasks for interrupt callbacks</header>
+      <description><para>Please refer to CSI driver for details of the bitmasks.</para><para>The application should use the XCSISS_ISR* masks in the call back functions to decode the exact cause of interrupt and handle it accordingly. </para></description>
+      <memberdef kind="define" id="group__csiss_1ga8f8237300beb47d58ede04d26117b4fd" prot="public" static="no">
+        <name>XCSISS_ISR_FR_MASK</name>
+        <initializer>XCSI_ISR_FR_MASK</initializer>
+        <briefdescription>
+<para>Frame received. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss_hw.h" line="54" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss_hw.h" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__csiss_1ga72fc514eb9ae47b28107058299a3f246" prot="public" static="no">
+        <name>XCSISS_ISR_VCXFE_MASK</name>
+        <initializer>XCSI_ISR_VCXFE_MASK</initializer>
+        <briefdescription>
+<para>VCX frame error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss_hw.h" line="55" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss_hw.h" bodystart="56" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__csiss_1ga0c955602c14cc077aff3707adf27b689" prot="public" static="no">
+        <name>XCSISS_ISR_SKEWCALCHS_MASK</name>
+        <initializer>XCSI_ISR_SKEWCALCHS_MASK</initializer>
+        <briefdescription>
+<para>Skew calc HS. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss_hw.h" line="56" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss_hw.h" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__csiss_1ga80dc5ff2c9b02b6f72fad638419a53d8" prot="public" static="no">
+        <name>XCSISS_ISR_YUV420_MASK</name>
+        <initializer>XCSI_ISR_YUV420_MASK</initializer>
+        <briefdescription>
+<para>YUV420 error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss_hw.h" line="57" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss_hw.h" bodystart="58" bodyend="-1"/>
+        <referencedby refid="xcsiss__intr__example_8c_1a76ecf43e07a31fe614b1ef75fc345eec" compoundref="xcsiss__intr__example_8c" startline="644" endline="666">CsiSs_ErrEventHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__csiss_1gad7e569e792ef8ac151c20a6e9e7a6467" prot="public" static="no">
+        <name>XCSISS_ISR_WC_MASK</name>
+        <initializer>XCSI_ISR_WC_MASK</initializer>
+        <briefdescription>
+<para>Word count error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss_hw.h" line="58" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss_hw.h" bodystart="59" bodyend="-1"/>
+        <referencedby refid="xcsiss__intr__example_8c_1a76ecf43e07a31fe614b1ef75fc345eec" compoundref="xcsiss__intr__example_8c" startline="644" endline="666">CsiSs_ErrEventHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__csiss_1gae72c8dcab9811b90f49d85665ecf50a0" prot="public" static="no">
+        <name>XCSISS_ISR_ILC_MASK</name>
+        <initializer>XCSI_ISR_ILC_MASK</initializer>
+        <briefdescription>
+<para>Incorrect lanes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss_hw.h" line="59" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss_hw.h" bodystart="60" bodyend="-1"/>
+        <referencedby refid="xcsiss__intr__example_8c_1a76ecf43e07a31fe614b1ef75fc345eec" compoundref="xcsiss__intr__example_8c" startline="644" endline="666">CsiSs_ErrEventHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__csiss_1gac0414faa7b9e95108e7b95f37527bb45" prot="public" static="no">
+        <name>XCSISS_ISR_SPFIFOF_MASK</name>
+        <initializer>XCSI_ISR_SPFIFOF_MASK</initializer>
+        <briefdescription>
+<para>SP FIFO full. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss_hw.h" line="60" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss_hw.h" bodystart="61" bodyend="-1"/>
+        <referencedby refid="xcsiss__intr__example_8c_1aa82de58a14571625b9b396dca82a5627" compoundref="xcsiss__intr__example_8c" startline="684" endline="705">CsiSs_SPktEventHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__csiss_1gac74fbede78af81e79e928c1bbc7de0df" prot="public" static="no">
+        <name>XCSISS_ISR_SPFIFONE_MASK</name>
+        <initializer>XCSI_ISR_SPFIFONE_MASK</initializer>
+        <briefdescription>
+<para>SP FIFO not empty. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss_hw.h" line="61" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss_hw.h" bodystart="62" bodyend="-1"/>
+        <referencedby refid="xcsiss__intr__example_8c_1aa82de58a14571625b9b396dca82a5627" compoundref="xcsiss__intr__example_8c" startline="684" endline="705">CsiSs_SPktEventHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__csiss_1gad41de3c57ccaed7151ed204bef0a1726" prot="public" static="no">
+        <name>XCSISS_ISR_SLBF_MASK</name>
+        <initializer>XCSI_ISR_SLBF_MASK</initializer>
+        <briefdescription>
+<para>Stream line buf full. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss_hw.h" line="62" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss_hw.h" bodystart="63" bodyend="-1"/>
+        <referencedby refid="xcsiss__intr__example_8c_1a76ecf43e07a31fe614b1ef75fc345eec" compoundref="xcsiss__intr__example_8c" startline="644" endline="666">CsiSs_ErrEventHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__csiss_1gaf5c93def3231395c87e3fa8db341c669" prot="public" static="no">
+        <name>XCSISS_ISR_STOP_MASK</name>
+        <initializer>XCSI_ISR_STOP_MASK</initializer>
+        <briefdescription>
+<para>Stop state detected. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss_hw.h" line="63" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss_hw.h" bodystart="64" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__csiss_1gad39acf7de75b04fdaa9103255b7ec1ae" prot="public" static="no">
+        <name>XCSISS_ISR_SOTERR_MASK</name>
+        <initializer>XCSI_ISR_SOTERR_MASK</initializer>
+        <briefdescription>
+<para>SoT error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss_hw.h" line="64" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss_hw.h" bodystart="65" bodyend="-1"/>
+        <referencedby refid="xcsiss__intr__example_8c_1aba92c48fbd79a81c915b28b6fb610b34" compoundref="xcsiss__intr__example_8c" startline="524" endline="537">CsiSs_DphyEventHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__csiss_1ga1046e13174db8874980137136561bd45" prot="public" static="no">
+        <name>XCSISS_ISR_SOTSYNCERR_MASK</name>
+        <initializer>XCSI_ISR_SOTSYNCERR_MASK</initializer>
+        <briefdescription>
+<para>SoT sync error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss_hw.h" line="65" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss_hw.h" bodystart="66" bodyend="-1"/>
+        <referencedby refid="xcsiss__intr__example_8c_1aba92c48fbd79a81c915b28b6fb610b34" compoundref="xcsiss__intr__example_8c" startline="524" endline="537">CsiSs_DphyEventHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__csiss_1ga39f76c82207b70d8a8329e033766bdd2" prot="public" static="no">
+        <name>XCSISS_ISR_ECC2BERR_MASK</name>
+        <initializer>XCSI_ISR_ECC2BERR_MASK</initializer>
+        <briefdescription>
+<para>ECC 2-bit error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss_hw.h" line="66" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss_hw.h" bodystart="67" bodyend="-1"/>
+        <referencedby refid="xcsiss__intr__example_8c_1a47f73352e5fdacd0a5781d75837711f1" compoundref="xcsiss__intr__example_8c" startline="554" endline="574">CsiSs_PktLvlEventHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__csiss_1ga249ea37757a025d0cd26b10df659b088" prot="public" static="no">
+        <name>XCSISS_ISR_ECC1BERR_MASK</name>
+        <initializer>XCSI_ISR_ECC1BERR_MASK</initializer>
+        <briefdescription>
+<para>ECC 1-bit error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss_hw.h" line="67" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss_hw.h" bodystart="68" bodyend="-1"/>
+        <referencedby refid="xcsiss__intr__example_8c_1a47f73352e5fdacd0a5781d75837711f1" compoundref="xcsiss__intr__example_8c" startline="554" endline="574">CsiSs_PktLvlEventHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__csiss_1ga08908e267a8b39b7978a2bd1634fef68" prot="public" static="no">
+        <name>XCSISS_ISR_CRCERR_MASK</name>
+        <initializer>XCSI_ISR_CRCERR_MASK</initializer>
+        <briefdescription>
+<para>CRC error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss_hw.h" line="68" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss_hw.h" bodystart="69" bodyend="-1"/>
+        <referencedby refid="xcsiss__intr__example_8c_1a47f73352e5fdacd0a5781d75837711f1" compoundref="xcsiss__intr__example_8c" startline="554" endline="574">CsiSs_PktLvlEventHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__csiss_1ga7bf107c3487a384ec138ab34338203f8" prot="public" static="no">
+        <name>XCSISS_ISR_DATAIDERR_MASK</name>
+        <initializer>XCSI_ISR_DATAIDERR_MASK</initializer>
+        <briefdescription>
+<para>Data ID error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss_hw.h" line="69" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss_hw.h" bodystart="70" bodyend="-1"/>
+        <referencedby refid="xcsiss__intr__example_8c_1a47f73352e5fdacd0a5781d75837711f1" compoundref="xcsiss__intr__example_8c" startline="554" endline="574">CsiSs_PktLvlEventHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__csiss_1ga061e0c17ae7c29c616ff6aded4d8d9de" prot="public" static="no">
+        <name>XCSISS_ISR_VC3FSYNCERR_MASK</name>
+        <initializer>XCSI_ISR_VC3FSYNCERR_MASK</initializer>
+        <briefdescription>
+<para>VC3 frame sync error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss_hw.h" line="70" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss_hw.h" bodystart="71" bodyend="-1"/>
+        <referencedby refid="xcsiss__intr__example_8c_1adb83f55711bd51c4c70dc552e1d080db" compoundref="xcsiss__intr__example_8c" startline="591" endline="627">CsiSs_ProtLvlEventHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__csiss_1gab29a749ff7426fc7eb2e8ae0597979f6" prot="public" static="no">
+        <name>XCSISS_ISR_VC3FLVLERR_MASK</name>
+        <initializer>XCSI_ISR_VC3FLVLERR_MASK</initializer>
+        <briefdescription>
+<para>VC3 frame level error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss_hw.h" line="71" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss_hw.h" bodystart="72" bodyend="-1"/>
+        <referencedby refid="xcsiss__intr__example_8c_1adb83f55711bd51c4c70dc552e1d080db" compoundref="xcsiss__intr__example_8c" startline="591" endline="627">CsiSs_ProtLvlEventHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__csiss_1ga3902a10c404c28b6ab7bfc452596e1dc" prot="public" static="no">
+        <name>XCSISS_ISR_VC2FSYNCERR_MASK</name>
+        <initializer>XCSI_ISR_VC2FSYNCERR_MASK</initializer>
+        <briefdescription>
+<para>VC2 frame sync error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss_hw.h" line="72" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss_hw.h" bodystart="73" bodyend="-1"/>
+        <referencedby refid="xcsiss__intr__example_8c_1adb83f55711bd51c4c70dc552e1d080db" compoundref="xcsiss__intr__example_8c" startline="591" endline="627">CsiSs_ProtLvlEventHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__csiss_1ga0cb29c6eabad52c347087394bf75f3c8" prot="public" static="no">
+        <name>XCSISS_ISR_VC2FLVLERR_MASK</name>
+        <initializer>XCSI_ISR_VC2FLVLERR_MASK</initializer>
+        <briefdescription>
+<para>VC2 frame level error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss_hw.h" line="73" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss_hw.h" bodystart="74" bodyend="-1"/>
+        <referencedby refid="xcsiss__intr__example_8c_1adb83f55711bd51c4c70dc552e1d080db" compoundref="xcsiss__intr__example_8c" startline="591" endline="627">CsiSs_ProtLvlEventHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__csiss_1gaec9dd5572edc73a7e8fd6cb08f053554" prot="public" static="no">
+        <name>XCSISS_ISR_VC1FSYNCERR_MASK</name>
+        <initializer>XCSI_ISR_VC1FSYNCERR_MASK</initializer>
+        <briefdescription>
+<para>VC1 frame sync error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss_hw.h" line="74" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss_hw.h" bodystart="75" bodyend="-1"/>
+        <referencedby refid="xcsiss__intr__example_8c_1adb83f55711bd51c4c70dc552e1d080db" compoundref="xcsiss__intr__example_8c" startline="591" endline="627">CsiSs_ProtLvlEventHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__csiss_1ga12cc913a553f23ba5b40e737793ea099" prot="public" static="no">
+        <name>XCSISS_ISR_VC1FLVLERR_MASK</name>
+        <initializer>XCSI_ISR_VC1FLVLERR_MASK</initializer>
+        <briefdescription>
+<para>VC1 frame level error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss_hw.h" line="75" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss_hw.h" bodystart="76" bodyend="-1"/>
+        <referencedby refid="xcsiss__intr__example_8c_1adb83f55711bd51c4c70dc552e1d080db" compoundref="xcsiss__intr__example_8c" startline="591" endline="627">CsiSs_ProtLvlEventHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__csiss_1gaf2fa0a473e84d593ac3645077eae5be6" prot="public" static="no">
+        <name>XCSISS_ISR_VC0FSYNCERR_MASK</name>
+        <initializer>XCSI_ISR_VC0FSYNCERR_MASK</initializer>
+        <briefdescription>
+<para>VC0 frame sync error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss_hw.h" line="76" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss_hw.h" bodystart="77" bodyend="-1"/>
+        <referencedby refid="xcsiss__intr__example_8c_1adb83f55711bd51c4c70dc552e1d080db" compoundref="xcsiss__intr__example_8c" startline="591" endline="627">CsiSs_ProtLvlEventHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__csiss_1gae114f693825604ec59512721a8e0070e" prot="public" static="no">
+        <name>XCSISS_ISR_VC0FLVLERR_MASK</name>
+        <initializer>XCSI_ISR_VC0FLVLERR_MASK</initializer>
+        <briefdescription>
+<para>VC0 frame level error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss_hw.h" line="77" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss_hw.h" bodystart="78" bodyend="-1"/>
+        <referencedby refid="xcsiss__intr__example_8c_1adb83f55711bd51c4c70dc552e1d080db" compoundref="xcsiss__intr__example_8c" startline="591" endline="627">CsiSs_ProtLvlEventHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__csiss_1gaf23dc8ba1af93a7c2ecccbe7c0ebe98e" prot="public" static="no">
+        <name>XCSISS_ISR_ALLINTR_MASK</name>
+        <initializer>XCSI_ISR_ALLINTR_MASK</initializer>
+        <briefdescription>
+<para>All interrupts mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss_hw.h" line="78" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss_hw.h" bodystart="79" bodyend="-1"/>
+        <referencedby refid="xcsiss__intr__example_8c_1a6fb058d3bf941cd9a817bb6ad7e0a819" compoundref="xcsiss__intr__example_8c" startline="219" endline="349">CsiSs_IntrExample</referencedby>
+        <referencedby refid="group__csiss_1gaac9801ecbee587a1672c26177a1613b7" compoundref="xcsiss__intr_8c" startline="147" endline="155">XCsiSs_IntrDisable</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>BitMasks for grouped interrupts</header>
+      <description><para>All interrupts are grouped into DPHY Level Errors, Protocol Decoding Errors, Packet Level Errors, Normal Errors, Frame Received interrupt and Short Packet related.</para><para>These are used by application to determine the exact event causing the interrupt </para></description>
+      <memberdef kind="define" id="group__csiss_1ga602cbdcb2f3d8b62da594fdedb34411c" prot="public" static="no">
+        <name>XCSISS_INTR_PROT_MASK</name>
+        <initializer>XCSI_INTR_PROT_MASK</initializer>
+        <briefdescription>
+<para>Protocol error mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss_hw.h" line="89" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss_hw.h" bodystart="90" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__csiss_1ga530b5b7d49f1c43a2f88b2f515221301" prot="public" static="no">
+        <name>XCSISS_INTR_PKTLVL_MASK</name>
+        <initializer>XCSI_INTR_PKTLVL_MASK</initializer>
+        <briefdescription>
+<para>Packet level error mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss_hw.h" line="90" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss_hw.h" bodystart="91" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__csiss_1gaced83959479128b9dd908faf3ef3e328" prot="public" static="no">
+        <name>XCSISS_INTR_DPHY_MASK</name>
+        <initializer>XCSI_INTR_DPHY_MASK</initializer>
+        <briefdescription>
+<para>D-PHY error mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss_hw.h" line="91" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss_hw.h" bodystart="92" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__csiss_1gab396de50760301e866c31cf92847038a" prot="public" static="no">
+        <name>XCSISS_INTR_SPKT_MASK</name>
+        <initializer>XCSI_INTR_SPKT_MASK</initializer>
+        <briefdescription>
+<para>Short packet mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss_hw.h" line="92" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss_hw.h" bodystart="93" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__csiss_1gab75d47ad5269320d2fcc911594f3c508" prot="public" static="no">
+        <name>XCSISS_INTR_FRAMERCVD_MASK</name>
+        <initializer>XCSI_INTR_FRAMERCVD_MASK</initializer>
+        <briefdescription>
+<para>Frame received mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss_hw.h" line="93" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss_hw.h" bodystart="94" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__csiss_1ga1927b2f36c1c90d2e019ad1bb9b69525" prot="public" static="no">
+        <name>XCSISS_INTR_ERR_MASK</name>
+        <initializer>XCSI_INTR_ERR_MASK</initializer>
+        <briefdescription>
+<para>Other error mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss_hw.h" line="94" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss_hw.h" bodystart="95" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__csiss_1ga49562e2263761ef244fa20e718e67655" prot="public" static="no">
+        <name>XCSISS_HW_H_</name>
+        <briefdescription>
+<para>Prevent circular inclusions by using protection macros. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss_hw.h" line="35" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss_hw.h" bodystart="34" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__csiss_1ga77ace34ff8059633c3655178f76bcadf" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>u32</type>
+        <definition>static u32 XCsiSs_ReadReg</definition>
+        <argsstring>(UINTPTR BaseAddress, u32 RegOffset)</argsstring>
+        <name>XCsiSs_ReadReg</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>RegOffset</declname>
+        </param>
+        <briefdescription>
+<para>This function reads a value from a MIPI CSI Rx Subsystem register. </para>        </briefdescription>
+        <detaileddescription>
+<para>A 32 bit read is performed. If the component is implemented in a smaller width, only the least significant data is read from the register. The most significant data will be read as 0.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the <ref refid="struct_x_csi_ss" kindref="compound">XCsiSs</ref> core instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegOffset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the register offset of the register (defined at the top of this file).</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The 32-bit value of the register.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss_hw.h" line="120" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss_hw.h" bodystart="120" bodyend="123"/>
+      </memberdef>
+      <memberdef kind="function" id="group__csiss_1gae1819c8712444f2d6af378dff1bc6340" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>static void XCsiSs_WriteReg</definition>
+        <argsstring>(UINTPTR BaseAddress, u32 RegOffset, u32 Data)</argsstring>
+        <name>XCsiSs_WriteReg</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>RegOffset</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Data</declname>
+        </param>
+        <briefdescription>
+<para>This function writes a value to a MIPI CSI Rx Subsystem register. </para>        </briefdescription>
+        <detaileddescription>
+<para>A 32 bit write is performed. If the component is implemented in a smaller width, only the least significant data is written.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the <ref refid="struct_x_csi_ss" kindref="compound">XCsiSs</ref> core instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegOffset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the register offset of the register (defined at the top of this file) to be written. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 32-bit value to write into the register.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss_hw.h" line="142" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss_hw.h" bodystart="142" bodyend="145"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2015<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>2022-2025<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="33"><highlight class="preprocessor">#ifndef<sp/>XCSISS_HW_H_</highlight></codeline>
+<codeline lineno="34" refid="group__csiss_1ga49562e2263761ef244fa20e718e67655" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XCSISS_HW_H_<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="37"><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="38"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="40"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_io.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="preprocessor">#define<sp/>XCSISS_ISR_FR_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XCSI_ISR_FR_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="55" refid="group__csiss_1ga8f8237300beb47d58ede04d26117b4fd" refkind="member"><highlight class="preprocessor">#define<sp/>XCSISS_ISR_VCXFE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XCSI_ISR_VCXFE_MASK<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="56" refid="group__csiss_1ga72fc514eb9ae47b28107058299a3f246" refkind="member"><highlight class="preprocessor">#define<sp/>XCSISS_ISR_SKEWCALCHS_MASK<sp/><sp/><sp/><sp/><sp/><sp/>XCSI_ISR_SKEWCALCHS_MASK<sp/></highlight></codeline>
+<codeline lineno="57" refid="group__csiss_1ga0c955602c14cc077aff3707adf27b689" refkind="member"><highlight class="preprocessor">#define<sp/>XCSISS_ISR_YUV420_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XCSI_ISR_YUV420_MASK<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="58" refid="group__csiss_1ga80dc5ff2c9b02b6f72fad638419a53d8" refkind="member"><highlight class="preprocessor">#define<sp/>XCSISS_ISR_WC_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XCSI_ISR_WC_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="59" refid="group__csiss_1gad7e569e792ef8ac151c20a6e9e7a6467" refkind="member"><highlight class="preprocessor">#define<sp/>XCSISS_ISR_ILC_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XCSI_ISR_ILC_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="60" refid="group__csiss_1gae72c8dcab9811b90f49d85665ecf50a0" refkind="member"><highlight class="preprocessor">#define<sp/>XCSISS_ISR_SPFIFOF_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XCSI_ISR_SPFIFOF_MASK<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="61" refid="group__csiss_1gac0414faa7b9e95108e7b95f37527bb45" refkind="member"><highlight class="preprocessor">#define<sp/>XCSISS_ISR_SPFIFONE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XCSI_ISR_SPFIFONE_MASK<sp/><sp/></highlight></codeline>
+<codeline lineno="62" refid="group__csiss_1gac74fbede78af81e79e928c1bbc7de0df" refkind="member"><highlight class="preprocessor">#define<sp/>XCSISS_ISR_SLBF_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XCSI_ISR_SLBF_MASK<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="63" refid="group__csiss_1gad41de3c57ccaed7151ed204bef0a1726" refkind="member"><highlight class="preprocessor">#define<sp/>XCSISS_ISR_STOP_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XCSI_ISR_STOP_MASK<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="64" refid="group__csiss_1gaf5c93def3231395c87e3fa8db341c669" refkind="member"><highlight class="preprocessor">#define<sp/>XCSISS_ISR_SOTERR_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XCSI_ISR_SOTERR_MASK<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="65" refid="group__csiss_1gad39acf7de75b04fdaa9103255b7ec1ae" refkind="member"><highlight class="preprocessor">#define<sp/>XCSISS_ISR_SOTSYNCERR_MASK<sp/><sp/><sp/><sp/><sp/><sp/>XCSI_ISR_SOTSYNCERR_MASK<sp/></highlight></codeline>
+<codeline lineno="66" refid="group__csiss_1ga1046e13174db8874980137136561bd45" refkind="member"><highlight class="preprocessor">#define<sp/>XCSISS_ISR_ECC2BERR_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XCSI_ISR_ECC2BERR_MASK<sp/><sp/></highlight></codeline>
+<codeline lineno="67" refid="group__csiss_1ga39f76c82207b70d8a8329e033766bdd2" refkind="member"><highlight class="preprocessor">#define<sp/>XCSISS_ISR_ECC1BERR_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XCSI_ISR_ECC1BERR_MASK<sp/><sp/></highlight></codeline>
+<codeline lineno="68" refid="group__csiss_1ga249ea37757a025d0cd26b10df659b088" refkind="member"><highlight class="preprocessor">#define<sp/>XCSISS_ISR_CRCERR_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XCSI_ISR_CRCERR_MASK<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="69" refid="group__csiss_1ga08908e267a8b39b7978a2bd1634fef68" refkind="member"><highlight class="preprocessor">#define<sp/>XCSISS_ISR_DATAIDERR_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>XCSI_ISR_DATAIDERR_MASK<sp/></highlight></codeline>
+<codeline lineno="70" refid="group__csiss_1ga7bf107c3487a384ec138ab34338203f8" refkind="member"><highlight class="preprocessor">#define<sp/>XCSISS_ISR_VC3FSYNCERR_MASK<sp/><sp/><sp/><sp/><sp/>XCSI_ISR_VC3FSYNCERR_MASK<sp/></highlight></codeline>
+<codeline lineno="71" refid="group__csiss_1ga061e0c17ae7c29c616ff6aded4d8d9de" refkind="member"><highlight class="preprocessor">#define<sp/>XCSISS_ISR_VC3FLVLERR_MASK<sp/><sp/><sp/><sp/><sp/><sp/>XCSI_ISR_VC3FLVLERR_MASK<sp/></highlight></codeline>
+<codeline lineno="72" refid="group__csiss_1gab29a749ff7426fc7eb2e8ae0597979f6" refkind="member"><highlight class="preprocessor">#define<sp/>XCSISS_ISR_VC2FSYNCERR_MASK<sp/><sp/><sp/><sp/><sp/>XCSI_ISR_VC2FSYNCERR_MASK<sp/></highlight></codeline>
+<codeline lineno="73" refid="group__csiss_1ga3902a10c404c28b6ab7bfc452596e1dc" refkind="member"><highlight class="preprocessor">#define<sp/>XCSISS_ISR_VC2FLVLERR_MASK<sp/><sp/><sp/><sp/><sp/><sp/>XCSI_ISR_VC2FLVLERR_MASK<sp/></highlight></codeline>
+<codeline lineno="74" refid="group__csiss_1ga0cb29c6eabad52c347087394bf75f3c8" refkind="member"><highlight class="preprocessor">#define<sp/>XCSISS_ISR_VC1FSYNCERR_MASK<sp/><sp/><sp/><sp/><sp/>XCSI_ISR_VC1FSYNCERR_MASK<sp/></highlight></codeline>
+<codeline lineno="75" refid="group__csiss_1gaec9dd5572edc73a7e8fd6cb08f053554" refkind="member"><highlight class="preprocessor">#define<sp/>XCSISS_ISR_VC1FLVLERR_MASK<sp/><sp/><sp/><sp/><sp/><sp/>XCSI_ISR_VC1FLVLERR_MASK<sp/></highlight></codeline>
+<codeline lineno="76" refid="group__csiss_1ga12cc913a553f23ba5b40e737793ea099" refkind="member"><highlight class="preprocessor">#define<sp/>XCSISS_ISR_VC0FSYNCERR_MASK<sp/><sp/><sp/><sp/><sp/>XCSI_ISR_VC0FSYNCERR_MASK<sp/></highlight></codeline>
+<codeline lineno="77" refid="group__csiss_1gaf2fa0a473e84d593ac3645077eae5be6" refkind="member"><highlight class="preprocessor">#define<sp/>XCSISS_ISR_VC0FLVLERR_MASK<sp/><sp/><sp/><sp/><sp/><sp/>XCSI_ISR_VC0FLVLERR_MASK<sp/></highlight></codeline>
+<codeline lineno="78" refid="group__csiss_1gae114f693825604ec59512721a8e0070e" refkind="member"><highlight class="preprocessor">#define<sp/>XCSISS_ISR_ALLINTR_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XCSI_ISR_ALLINTR_MASK<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="80"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="81"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="89"><highlight class="preprocessor">#define<sp/>XCSISS_INTR_PROT_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XCSI_INTR_PROT_MASK<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="90" refid="group__csiss_1ga602cbdcb2f3d8b62da594fdedb34411c" refkind="member"><highlight class="preprocessor">#define<sp/>XCSISS_INTR_PKTLVL_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XCSI_INTR_PKTLVL_MASK<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="91" refid="group__csiss_1ga530b5b7d49f1c43a2f88b2f515221301" refkind="member"><highlight class="preprocessor">#define<sp/>XCSISS_INTR_DPHY_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XCSI_INTR_DPHY_MASK<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="92" refid="group__csiss_1gaced83959479128b9dd908faf3ef3e328" refkind="member"><highlight class="preprocessor">#define<sp/>XCSISS_INTR_SPKT_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XCSI_INTR_SPKT_MASK<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="93" refid="group__csiss_1gab396de50760301e866c31cf92847038a" refkind="member"><highlight class="preprocessor">#define<sp/>XCSISS_INTR_FRAMERCVD_MASK<sp/><sp/><sp/><sp/><sp/><sp/>XCSI_INTR_FRAMERCVD_MASK<sp/></highlight></codeline>
+<codeline lineno="94" refid="group__csiss_1gab75d47ad5269320d2fcc911594f3c508" refkind="member"><highlight class="preprocessor">#define<sp/>XCSISS_INTR_ERR_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XCSI_INTR_ERR_MASK<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="96"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="97"><highlight class="preprocessor"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="98"><highlight class="normal"></highlight></codeline>
+<codeline lineno="99"><highlight class="normal"></highlight></codeline>
+<codeline lineno="100"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="101"><highlight class="normal"></highlight></codeline>
+<codeline lineno="102"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="119"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/>u32<sp/>XCsiSs_ReadReg(UINTPTR<sp/>BaseAddress,<sp/>u32<sp/>RegOffset)</highlight></codeline>
+<codeline lineno="120"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(Xil_In32(BaseAddress<sp/>+<sp/>(u32)RegOffset));</highlight></codeline>
+<codeline lineno="122"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"></highlight></codeline>
+<codeline lineno="124"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="141"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XCsiSs_WriteReg(UINTPTR<sp/>BaseAddress,<sp/>u32<sp/>RegOffset,<sp/>u32<sp/>Data)</highlight></codeline>
+<codeline lineno="142"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_Out32(BaseAddress<sp/>+<sp/>(u32)RegOffset,<sp/>(u32)Data);</highlight></codeline>
+<codeline lineno="144"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="146"><highlight class="normal"></highlight></codeline>
+<codeline lineno="147"><highlight class="normal"></highlight></codeline>
+<codeline lineno="148"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Declarations<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="149"><highlight class="normal"></highlight></codeline>
+<codeline lineno="150"><highlight class="normal"></highlight></codeline>
+<codeline lineno="151"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="152"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="154"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="155"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>end<sp/>of<sp/>protection<sp/>macro<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="156"><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss_hw.h"/>
+  </compounddef>
+</doxygen>

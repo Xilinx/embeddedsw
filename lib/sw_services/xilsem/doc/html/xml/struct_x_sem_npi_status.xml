@@ -1,0 +1,104 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_sem_npi_status" kind="struct" prot="public">
+    <compoundname>XSemNpiStatus</compoundname>
+    <includes local="no">xsem_client_api.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_sem_npi_status_1a00fb9e1d6176efdd76fa98fb28e68234" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSemNpiStatus::Status</definition>
+        <argsstring></argsstring>
+        <name>Status</name>
+        <briefdescription>
+<para>NPI scan status. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.h" line="318" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.h" bodystart="318" bodyend="-1"/>
+        <referencedby refid="xsem__npi__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xsem__npi__example_8c" startline="475" endline="685">main</referencedby>
+        <referencedby refid="group__xsem__client__apis_1ga81a2507bb54e6b6e8b28399c4196876a" compoundref="xsem__client__api_8c" startline="1221" endline="1254">XSem_CmdNpiGetStatus</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_sem_npi_status_1ad6bb1c2e66f4523d239e18ff685a9ca9" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSemNpiStatus::SlvSkipCnt[MAX_NPI_SLV_SKIP_CNT]</definition>
+        <argsstring>[MAX_NPI_SLV_SKIP_CNT]</argsstring>
+        <name>SlvSkipCnt</name>
+        <briefdescription>
+<para><verbatim>                 Slave Skip Count: Contains the
+</verbatim> number of times NPI scan failed to get arbitration for GT/DDRMC descriptor </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.h" line="319" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.h" bodystart="319" bodyend="-1"/>
+        <referencedby refid="xsem__npi__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xsem__npi__example_8c" startline="475" endline="685">main</referencedby>
+        <referencedby refid="group__xsem__client__apis_1ga81a2507bb54e6b6e8b28399c4196876a" compoundref="xsem__client__api_8c" startline="1221" endline="1254">XSem_CmdNpiGetStatus</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_sem_npi_status_1af86519a71bc534fd458933dd18fa46d4" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSemNpiStatus::ScanCnt</definition>
+        <argsstring></argsstring>
+        <name>ScanCnt</name>
+        <briefdescription>
+<para><verbatim>              NPI Scan Count: Increments each time  NPI scan
+</verbatim> successfully completes a full scan (Including the first scan) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.h" line="322" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.h" bodystart="322" bodyend="-1"/>
+        <referencedby refid="xsem__npi__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xsem__npi__example_8c" startline="475" endline="685">main</referencedby>
+        <referencedby refid="xsem__npi__example__pl__mb_8c_1a0d1727d5d5abe0b3a960bc035bc4d45e" compoundref="xsem__npi__example__pl__mb_8c" startline="155" endline="196">XSem_ApiCheckScanCount</referencedby>
+        <referencedby refid="group__xsem__client__apis_1ga81a2507bb54e6b6e8b28399c4196876a" compoundref="xsem__client__api_8c" startline="1221" endline="1254">XSem_CmdNpiGetStatus</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_sem_npi_status_1af831524318353b603e14fda32c75809f" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSemNpiStatus::HbCnt</definition>
+        <argsstring></argsstring>
+        <name>HbCnt</name>
+        <briefdescription>
+<para><verbatim>            Heart Beat Count: Increments for each slave group scanned
+</verbatim> in the descriptor and each time SHA is calculated </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.h" line="324" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.h" bodystart="324" bodyend="-1"/>
+        <referencedby refid="xsem__npi__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xsem__npi__example_8c" startline="475" endline="685">main</referencedby>
+        <referencedby refid="xsem__npi__example__pl__mb_8c_1a8eda281f7a0e850ffe2973a997cc8fbd" compoundref="xsem__npi__example__pl__mb_8c" startline="205" endline="245">XSem_ApiCheckHbtCount</referencedby>
+        <referencedby refid="group__xsem__client__apis_1ga81a2507bb54e6b6e8b28399c4196876a" compoundref="xsem__client__api_8c" startline="1221" endline="1254">XSem_CmdNpiGetStatus</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_sem_npi_status_1a0b7d87074b8e1445554c051089fb7228" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSemNpiStatus::ErrInfo[MAX_NPI_ERR_INFO_CNT]</definition>
+        <argsstring>[MAX_NPI_ERR_INFO_CNT]</argsstring>
+        <name>ErrInfo</name>
+        <briefdescription>
+<para><verbatim>              Error Information: Is updated with
+</verbatim> error details in case of SHA mismatch failure. </para>        </briefdescription>
+        <detaileddescription>
+<para>-ErrInfo[0]: Calculated SHA value of the descriptor for which mismatch is observed. -ErrInfo[1]: Bit[31:16] Reserved. Bit[15:8] The descriptor index number for which the SHA failure is observed. Bit[7:0] The skip count index of the descriptor where SHA failure is observed (This value is zero if arbitration is not applicable for the descriptor) </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.h" line="326" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.h" bodystart="326" bodyend="-1"/>
+        <referencedby refid="xsem__npi__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xsem__npi__example_8c" startline="475" endline="685">main</referencedby>
+        <referencedby refid="group__xsem__client__apis_1ga81a2507bb54e6b6e8b28399c4196876a" compoundref="xsem__client__api_8c" startline="1221" endline="1254">XSem_CmdNpiGetStatus</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para><ref refid="struct_x_sem_npi_status" kindref="compound">XSemNpiStatus</ref> - NPI Status structure to store the data read from PMC RAM registers. </para>    </briefdescription>
+    <detaileddescription>
+<para>This structure provides:<itemizedlist>
+<listitem><para>NPI scan status information (Refer XSem_CmdNpiGetStatus API)</para></listitem><listitem><para>NPI descriptor slave skip counter value if arbitration fails</para></listitem><listitem><para>NPI scan counter value</para></listitem><listitem><para>NPI heartbeat counter value</para></listitem><listitem><para>NPI scan error information if SHA mismatch is detected </para></listitem></itemizedlist>
+</para>    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.h" line="317" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.h" bodystart="317" bodyend="334"/>
+    <listofallmembers>
+      <member refid="struct_x_sem_npi_status_1a0b7d87074b8e1445554c051089fb7228" prot="public" virt="non-virtual"><scope>XSemNpiStatus</scope><name>ErrInfo</name></member>
+      <member refid="struct_x_sem_npi_status_1af831524318353b603e14fda32c75809f" prot="public" virt="non-virtual"><scope>XSemNpiStatus</scope><name>HbCnt</name></member>
+      <member refid="struct_x_sem_npi_status_1af86519a71bc534fd458933dd18fa46d4" prot="public" virt="non-virtual"><scope>XSemNpiStatus</scope><name>ScanCnt</name></member>
+      <member refid="struct_x_sem_npi_status_1ad6bb1c2e66f4523d239e18ff685a9ca9" prot="public" virt="non-virtual"><scope>XSemNpiStatus</scope><name>SlvSkipCnt</name></member>
+      <member refid="struct_x_sem_npi_status_1a00fb9e1d6176efdd76fa98fb28e68234" prot="public" virt="non-virtual"><scope>XSemNpiStatus</scope><name>Status</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

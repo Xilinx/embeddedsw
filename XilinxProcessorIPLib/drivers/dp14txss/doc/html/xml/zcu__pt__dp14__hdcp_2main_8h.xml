@@ -1,0 +1,2544 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="zcu__pt__dp14__hdcp_2main_8h" kind="file">
+    <compoundname>zcu_pt_dp14_hdcp/main.h</compoundname>
+    <includes local="no">stddef.h</includes>
+    <includes local="no">xdp.h</includes>
+    <includes local="no">xdp_hw.h</includes>
+    <includes local="no">xdprxss.h</includes>
+    <includes refid="xdptxss_8h" local="no">xdptxss.h</includes>
+    <includes local="no">xdprxss_mcdp6000.h</includes>
+    <includes local="no">xiic.h</includes>
+    <includes local="no">xiic_l.h</includes>
+    <includes local="no">xil_exception.h</includes>
+    <includes local="no">xil_printf.h</includes>
+    <includes local="no">xil_types.h</includes>
+    <includes local="no">xparameters.h</includes>
+    <includes local="no">xstatus.h</includes>
+    <includes local="no">xtmrctr.h</includes>
+    <includes local="no">xuartps_hw.h</includes>
+    <includes local="no">xvphy.h</includes>
+    <includes local="no">xvphy_dp.h</includes>
+    <includes local="no">xvphy_hw.h</includes>
+    <includes local="yes">sleep.h</includes>
+    <includes refid="zcu__pt__dp14__hdcp_2xvidframe__crc_8h" local="yes">xvidframe_crc.h</includes>
+    <includes local="yes">xiicps.h</includes>
+    <includes refid="zcu__pt__dp14__hdcp_2videofmc__defs_8h" local="yes">videofmc_defs.h</includes>
+    <includes refid="zcu__pt__dp14__hdcp_2idt__8t49n24x_8h" local="yes">idt_8t49n24x.h</includes>
+    <includes local="yes">xv_frmbufrd_l2.h</includes>
+    <includes local="yes">xv_frmbufwr_l2.h</includes>
+    <includes local="yes">xgpio.h</includes>
+    <includes refid="zcu__pt__dp14__hdcp_2xhdcp1x__debug_8h" local="yes">xhdcp1x_debug.h</includes>
+    <includes refid="zcu__pt__dp14__hdcp_2xhdcp1x__example_8h" local="yes">xhdcp1x_example.h</includes>
+    <includes refid="zcu__pt__dp14__hdcp_2keymgmt_8h" local="yes">keymgmt.h</includes>
+    <includes refid="xhdcp22__example_8h" local="yes">xhdcp22_example.h</includes>
+    <includedby refid="zcu__pt__dp14__hdcp_2keymgmt__keyfile_8c" local="yes">keymgmt_keyfile.c</includedby>
+    <includedby refid="zcu__pt__dp14__hdcp_2keymgmt__loader_8c" local="yes">keymgmt_loader.c</includedby>
+    <includedby refid="zcu__pt__dp14__hdcp_2keys_8c" local="yes">keys.c</includedby>
+    <includedby refid="zcu__pt__dp14__hdcp_2menus_8c" local="yes">menus.c</includedby>
+    <includedby refid="zcu__pt__dp14__hdcp_2passthrough_8c" local="yes">passthrough.c</includedby>
+    <includedby refid="zcu__pt__dp14__hdcp_2rx_8c" local="yes">rx.c</includedby>
+    <includedby refid="zcu__pt__dp14__hdcp_2tx_8c" local="yes">tx.c</includedby>
+    <includedby refid="xdptxss__zcu102__dp14__pt__hdcp_8c" local="yes">xdptxss_zcu102_dp14_pt_hdcp.c</includedby>
+    <includedby refid="xhdcp22__example_8c" local="yes">xhdcp22_example.c</includedby>
+    <incdepgraph>
+      <node id="879">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="895">
+        <label>xuartps_hw.h</label>
+      </node>
+      <node id="903">
+        <label>idt_8t49n24x.h</label>
+        <childnode refid="893" relation="include">
+        </childnode>
+      </node>
+      <node id="898">
+        <label>xvphy_hw.h</label>
+      </node>
+      <node id="897">
+        <label>xvphy_dp.h</label>
+      </node>
+      <node id="878">
+        <label>xil_io.h</label>
+      </node>
+      <node id="896">
+        <label>xvphy.h</label>
+      </node>
+      <node id="899">
+        <label>sleep.h</label>
+      </node>
+      <node id="886">
+        <label>xdptxss_vtc.h</label>
+        <link refid="xdptxss__vtc_8h"/>
+        <childnode refid="887" relation="include">
+        </childnode>
+        <childnode refid="873" relation="include">
+        </childnode>
+      </node>
+      <node id="910">
+        <label>stdint.h</label>
+      </node>
+      <node id="874">
+        <label>xdp_hw.h</label>
+      </node>
+      <node id="884">
+        <label>xdptxss_dualsplitter.h</label>
+        <link refid="xdptxss__dualsplitter_8h"/>
+        <childnode refid="885" relation="include">
+        </childnode>
+        <childnode refid="873" relation="include">
+        </childnode>
+      </node>
+      <node id="902">
+        <label>videofmc_defs.h</label>
+      </node>
+      <node id="906">
+        <label>xgpio.h</label>
+      </node>
+      <node id="875">
+        <label>xdprxss.h</label>
+      </node>
+      <node id="882">
+        <label>xdebug.h</label>
+      </node>
+      <node id="872">
+        <label>stddef.h</label>
+      </node>
+      <node id="873">
+        <label>xdp.h</label>
+      </node>
+      <node id="890">
+        <label>xiic_l.h</label>
+      </node>
+      <node id="900">
+        <label>xvidframe_crc.h</label>
+        <childnode refid="893" relation="include">
+        </childnode>
+        <childnode refid="879" relation="include">
+        </childnode>
+        <childnode refid="878" relation="include">
+        </childnode>
+        <childnode refid="885" relation="include">
+        </childnode>
+      </node>
+      <node id="883">
+        <label>xdptxss_dptx.h</label>
+        <link refid="xdptxss__dptx_8h"/>
+        <childnode refid="873" relation="include">
+        </childnode>
+      </node>
+      <node id="877">
+        <label>xdptxss_hw.h</label>
+        <link refid="xdptxss__hw_8h"/>
+        <childnode refid="878" relation="include">
+        </childnode>
+      </node>
+      <node id="894">
+        <label>xtmrctr.h</label>
+      </node>
+      <node id="907">
+        <label>xhdcp1x_debug.h</label>
+      </node>
+      <node id="871">
+        <label>main.h</label>
+        <link refid="zcu_pt_dp14_hdcp/main.h"/>
+        <childnode refid="872" relation="include">
+        </childnode>
+        <childnode refid="873" relation="include">
+        </childnode>
+        <childnode refid="874" relation="include">
+        </childnode>
+        <childnode refid="875" relation="include">
+        </childnode>
+        <childnode refid="876" relation="include">
+        </childnode>
+        <childnode refid="888" relation="include">
+        </childnode>
+        <childnode refid="889" relation="include">
+        </childnode>
+        <childnode refid="890" relation="include">
+        </childnode>
+        <childnode refid="891" relation="include">
+        </childnode>
+        <childnode refid="892" relation="include">
+        </childnode>
+        <childnode refid="893" relation="include">
+        </childnode>
+        <childnode refid="885" relation="include">
+        </childnode>
+        <childnode refid="880" relation="include">
+        </childnode>
+        <childnode refid="894" relation="include">
+        </childnode>
+        <childnode refid="895" relation="include">
+        </childnode>
+        <childnode refid="896" relation="include">
+        </childnode>
+        <childnode refid="897" relation="include">
+        </childnode>
+        <childnode refid="898" relation="include">
+        </childnode>
+        <childnode refid="899" relation="include">
+        </childnode>
+        <childnode refid="900" relation="include">
+        </childnode>
+        <childnode refid="901" relation="include">
+        </childnode>
+        <childnode refid="902" relation="include">
+        </childnode>
+        <childnode refid="903" relation="include">
+        </childnode>
+        <childnode refid="904" relation="include">
+        </childnode>
+        <childnode refid="905" relation="include">
+        </childnode>
+        <childnode refid="906" relation="include">
+        </childnode>
+        <childnode refid="907" relation="include">
+        </childnode>
+        <childnode refid="908" relation="include">
+        </childnode>
+        <childnode refid="909" relation="include">
+        </childnode>
+        <childnode refid="911" relation="include">
+        </childnode>
+      </node>
+      <node id="880">
+        <label>xstatus.h</label>
+      </node>
+      <node id="881">
+        <label>xvidc.h</label>
+      </node>
+      <node id="908">
+        <label>xhdcp1x_example.h</label>
+        <childnode refid="885" relation="include">
+        </childnode>
+      </node>
+      <node id="891">
+        <label>xil_exception.h</label>
+      </node>
+      <node id="888">
+        <label>xdprxss_mcdp6000.h</label>
+      </node>
+      <node id="901">
+        <label>xiicps.h</label>
+      </node>
+      <node id="893">
+        <label>xil_types.h</label>
+      </node>
+      <node id="905">
+        <label>xv_frmbufwr_l2.h</label>
+      </node>
+      <node id="876">
+        <label>xdptxss.h</label>
+        <link refid="xdptxss_8h"/>
+        <childnode refid="877" relation="include">
+        </childnode>
+        <childnode refid="879" relation="include">
+        </childnode>
+        <childnode refid="880" relation="include">
+        </childnode>
+        <childnode refid="881" relation="include">
+        </childnode>
+        <childnode refid="882" relation="include">
+        </childnode>
+        <childnode refid="883" relation="include">
+        </childnode>
+        <childnode refid="884" relation="include">
+        </childnode>
+        <childnode refid="886" relation="include">
+        </childnode>
+      </node>
+      <node id="904">
+        <label>xv_frmbufrd_l2.h</label>
+      </node>
+      <node id="885">
+        <label>xparameters.h</label>
+      </node>
+      <node id="892">
+        <label>xil_printf.h</label>
+      </node>
+      <node id="889">
+        <label>xiic.h</label>
+      </node>
+      <node id="909">
+        <label>keymgmt.h</label>
+        <childnode refid="910" relation="include">
+        </childnode>
+        <childnode refid="893" relation="include">
+        </childnode>
+        <childnode refid="880" relation="include">
+        </childnode>
+      </node>
+      <node id="887">
+        <label>xvtc.h</label>
+      </node>
+      <node id="911">
+        <label>xhdcp22_example.h</label>
+        <childnode refid="875" relation="include">
+        </childnode>
+        <childnode refid="876" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="918">
+        <label>rx.c</label>
+      </node>
+      <node id="920">
+        <label>xdptxss_zcu102_dp14_pt_hdcp.c</label>
+      </node>
+      <node id="912">
+        <label>main.h</label>
+        <link refid="zcu_pt_dp14_hdcp/main.h"/>
+        <childnode refid="913" relation="include">
+        </childnode>
+        <childnode refid="914" relation="include">
+        </childnode>
+        <childnode refid="915" relation="include">
+        </childnode>
+        <childnode refid="916" relation="include">
+        </childnode>
+        <childnode refid="917" relation="include">
+        </childnode>
+        <childnode refid="918" relation="include">
+        </childnode>
+        <childnode refid="919" relation="include">
+        </childnode>
+        <childnode refid="920" relation="include">
+        </childnode>
+        <childnode refid="921" relation="include">
+        </childnode>
+      </node>
+      <node id="916">
+        <label>menus.c</label>
+      </node>
+      <node id="919">
+        <label>tx.c</label>
+      </node>
+      <node id="917">
+        <label>passthrough.c</label>
+      </node>
+      <node id="915">
+        <label>keys.c</label>
+      </node>
+      <node id="914">
+        <label>keymgmt_loader.c</label>
+      </node>
+      <node id="913">
+        <label>keymgmt_keyfile.c</label>
+      </node>
+      <node id="921">
+        <label>xhdcp22_example.c</label>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_x_vphy___user___config" prot="public">XVphy_User_Config</innerclass>
+    <innerclass refid="structlane__link__rate__struct" prot="public">lane_link_rate_struct</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="zcu__pt__dp14__hdcp_2main_8h_1af2adea503b1b2ca8768cc582448f4719" prot="public" static="no">
+        <name>ENABLE_HDCP_IN_DESIGN</name>
+        <initializer>1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" line="77" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" bodystart="77" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="zcu__pt__dp14__hdcp_2main_8h_1ac4d284f48d533c1dd2917d8bbf51493d" prot="public" static="no">
+        <name>ENABLE_HDCP22_IN_RX</name>
+        <initializer>0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" line="82" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" bodystart="82" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="zcu__pt__dp14__hdcp_2main_8h_1a81158e95388e08319cef0147851f3eb3" prot="public" static="no">
+        <name>ENABLE_HDCP22_IN_TX</name>
+        <initializer>0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" line="88" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" bodystart="88" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="zcu__pt__dp14__hdcp_2main_8h_1aa6741910b402682cb3cd2f276c6578ea" prot="public" static="no">
+        <name>ENABLE_HDCP1x_IN_RX</name>
+        <initializer>0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" line="94" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" bodystart="94" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="zcu__pt__dp14__hdcp_2main_8h_1a0205aff28dec072d9513038080ed80c9" prot="public" static="no">
+        <name>ENABLE_HDCP1x_IN_TX</name>
+        <initializer>0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" line="100" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" bodystart="100" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="zcu__pt__dp14__hdcp_2main_8h_1a961bfb6615394eb4f4da48b747c2186b" prot="public" static="no">
+        <name>TxOnly</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" line="111" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" bodystart="111" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="zcu__pt__dp14__hdcp_2main_8h_1a317a27ebd29dbce574c3620768dfe90d" prot="public" static="no">
+        <name>RxOnly</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" line="112" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" bodystart="112" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="zcu__pt__dp14__hdcp_2main_8h_1a5f14c8f4b97e8fde635340fe44aafacd" prot="public" static="no">
+        <name>PT</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" line="113" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" bodystart="113" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="zcu__pt__dp14__hdcp_2main_8h_1acc55daa58d88a3612f2ef74a6abbe97f" prot="public" static="no">
+        <name>LB</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" line="114" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" bodystart="114" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="zcu__pt__dp14__hdcp_2main_8h_1a4f5376d98f333326cb99e90e5807d876" prot="public" static="no">
+        <name>USE_EEPROM_HDCP_KEYS</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" line="116" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" bodystart="116" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="zcu__pt__dp14__hdcp_2main_8h_1adfdd943d6436315a5b0d599c5fa36697" prot="public" static="no">
+        <name>VIDEO_CRC_BASEADDR</name>
+        <initializer>XPAR_DP_RX_HIER_0_VIDEO_FRAME_CRC_0_BASEADDR</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" line="170" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" bodystart="170" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="zcu__pt__dp14__hdcp_2main_8h_1a97f6ddc084aa89f3a79adad602117bbd" prot="public" static="no">
+        <name>UARTLITE_BASEADDR</name>
+        <initializer>XPAR_UART0_BASEADDR</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" line="171" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" bodystart="171" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="zcu__pt__dp14__hdcp_2main_8h_1ab039cc2be8c09ef599318411ca2beb1c" prot="public" static="no">
+        <name>VIDPHY_BASEADDR</name>
+        <initializer>XPAR_XVPHY_0_BASEADDR</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" line="172" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" bodystart="172" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="zcu__pt__dp14__hdcp_2main_8h_1a0f30cbed9ffa29ab9145996f59ce1f7a" prot="public" static="no">
+        <name>VID_EDID_BASEADDR</name>
+        <initializer>XPAR_DP_RX_HIER_0_VID_EDID_0_BASEADDR</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" line="173" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" bodystart="173" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="zcu__pt__dp14__hdcp_2main_8h_1a0e6e0ffd0c4cccde95481cdd329e887a" prot="public" static="no">
+        <name>IIC_DEVICE_ID</name>
+        <initializer>XPAR_XIIC_0_BASEADDR</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" line="174" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" bodystart="174" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="zcu__pt__dp14__hdcp_2main_8h_1a6eb991e2b86a73efc4c7f63b2de6b414" prot="public" static="no">
+        <name>AXI_SYSTEM_CLOCK_FREQ_HZ</name>
+        <initializer>XPAR_PROCESSOR_HIER_0_AXI_TIMER_0_CLOCK_FREQUENCY</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" line="193" column="13" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" bodystart="193" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="zcu__pt__dp14__hdcp_2main_8h_1aa22736573c6f820299099357153a5937" prot="public" static="no">
+        <name>DPRXSS_LINK_RATE</name>
+        <initializer>XDPRXSS_LINK_BW_SET_810GBPS</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" line="198" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" bodystart="198" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="zcu__pt__dp14__hdcp_2main_8h_1afcc39f849621b4497c2a71ca4cd127d9" prot="public" static="no">
+        <name>DPRXSS_LANE_COUNT</name>
+        <initializer>XDPRXSS_LANE_COUNT_SET_4</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" line="199" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" bodystart="199" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="zcu__pt__dp14__hdcp_2main_8h_1aa17ef23faed652fae7f1af00d8cfa57e" prot="public" static="no">
+        <name>SET_TX_TO_2BYTE</name>
+        <initializer>(XPAR_XDP_0_GT_DATA_WIDTH/2)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" line="207" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" bodystart="207" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="zcu__pt__dp14__hdcp_2main_8h_1a37c5eb9023dd49c29233360b2b4ffb44" prot="public" static="no">
+        <name>SET_RX_TO_2BYTE</name>
+        <initializer>(XPAR_XDP_0_GT_DATA_WIDTH/2)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" line="209" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" bodystart="209" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="zcu__pt__dp14__hdcp_2main_8h_1a165096ca132f333b2beb37989e37536d" prot="public" static="no">
+        <name>XDP_RX_CRC_CONFIG</name>
+        <initializer>0x074</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" line="213" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" bodystart="213" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="zcu__pt__dp14__hdcp_2main_8h_1ac263a4bdee7fe35012fefb42e66d7528" prot="public" static="no">
+        <name>XDP_RX_CRC_COMP0</name>
+        <initializer>0x078</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" line="214" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" bodystart="214" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="zcu__pt__dp14__hdcp_2main_8h_1a84648d65d7d8df7b6a12706279f2ead8" prot="public" static="no">
+        <name>XDP_RX_CRC_COMP1</name>
+        <initializer>0x07C</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" line="215" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" bodystart="215" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="zcu__pt__dp14__hdcp_2main_8h_1a1e242bb2569b0ca8ff3ca6bca43a6a7d" prot="public" static="no">
+        <name>XDP_RX_CRC_COMP2</name>
+        <initializer>0x080</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" line="216" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" bodystart="216" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="zcu__pt__dp14__hdcp_2main_8h_1af9c85e1f497702aa01b1c77ad75304ff" prot="public" static="no">
+        <name>XDP_RX_DPC_LINK_QUAL_CONFIG</name>
+        <initializer>0x454</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" line="217" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" bodystart="217" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="zcu__pt__dp14__hdcp_2main_8h_1ad7327d3c79135317805cf1824445d2a9" prot="public" static="no">
+        <name>XDP_RX_DPC_L01_PRBS_CNTR</name>
+        <initializer>0x45C</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" line="218" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" bodystart="218" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="zcu__pt__dp14__hdcp_2main_8h_1a28ea36eee620321414e317bfd7fc94e0" prot="public" static="no">
+        <name>XDP_RX_DPC_L23_PRBS_CNTR</name>
+        <initializer>0x460</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" line="219" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" bodystart="219" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="zcu__pt__dp14__hdcp_2main_8h_1a26f7710b94440b14499cf71bb90bb6a5" prot="public" static="no">
+        <name>XDP_RX_DPCD_LINK_QUAL_PRBS</name>
+        <initializer>0x3</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" line="220" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" bodystart="220" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="zcu__pt__dp14__hdcp_2main_8h_1ae500029baa9bad5e62d29b5fac38e95a" prot="public" static="no">
+        <name>TX_BUFFER_BYPASS</name>
+        <initializer>XPAR_VID_PHY_CONTROLLER_0_TX_BUFFER_BYPASS</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" line="222" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" bodystart="222" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="zcu__pt__dp14__hdcp_2main_8h_1a9998f7947933cd417903c3424bdd658c" prot="public" static="no">
+        <name>XVPHY_DRP_PROGDIV</name>
+        <initializer>0x3E</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" line="223" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" bodystart="223" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="zcu__pt__dp14__hdcp_2main_8h_1a7af95f3dcaf4c5b26224f3dc6f060e8e" prot="public" static="no">
+        <name>DIVIDER_162</name>
+        <initializer>57423</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" line="224" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" bodystart="224" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="zcu__pt__dp14__hdcp_2main_8h_1a382c96de162b499fcaa4b72281084372" prot="public" static="no">
+        <name>DIVIDER_270</name>
+        <initializer>57415</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" line="225" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" bodystart="225" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="zcu__pt__dp14__hdcp_2main_8h_1a4a63c31e6075b04146f6e9230855d69c" prot="public" static="no">
+        <name>DIVIDER_540</name>
+        <initializer>57442</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" line="226" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" bodystart="226" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="zcu__pt__dp14__hdcp_2main_8h_1a4db4873632d12074ce674c4c1093327d" prot="public" static="no">
+        <name>DIVIDER_810</name>
+        <initializer>57440</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" line="227" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" bodystart="227" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="zcu__pt__dp14__hdcp_2main_8h_1a265be201a011d0585ded656e4b1a636b" prot="public" static="no">
+        <name>XVPHY_GTHE4_PREEMP_DP_L0</name>
+        <initializer>0x3</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" line="228" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" bodystart="228" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="zcu__pt__dp14__hdcp_2main_8h_1aefe8ef7bbb49ee8b8f6f2fbb3dd2571b" prot="public" static="no">
+        <name>XVPHY_GTHE4_PREEMP_DP_L1</name>
+        <initializer>0xD</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" line="229" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" bodystart="229" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="zcu__pt__dp14__hdcp_2main_8h_1a4f8e5e893ab02768aad7052e9844f09f" prot="public" static="no">
+        <name>XVPHY_GTHE4_PREEMP_DP_L2</name>
+        <initializer>0x16</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" line="230" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" bodystart="230" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="zcu__pt__dp14__hdcp_2main_8h_1ad35b96a4839f9ab0c7999c0a4dc3330a" prot="public" static="no">
+        <name>XVPHY_GTHE4_PREEMP_DP_L3</name>
+        <initializer>0x1D</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" line="231" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" bodystart="231" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="zcu__pt__dp14__hdcp_2main_8h_1a0999250b1c8e78114792e89d5496d34f" prot="public" static="no">
+        <name>XVPHY_GTHE4_DIFF_SWING_DP_V0P0</name>
+        <initializer>0x1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" line="233" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" bodystart="233" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="zcu__pt__dp14__hdcp_2main_8h_1acdfb87625a0326080bd62d6145da7485" prot="public" static="no">
+        <name>XVPHY_GTHE4_DIFF_SWING_DP_V0P1</name>
+        <initializer>0x2</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" line="234" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" bodystart="234" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="zcu__pt__dp14__hdcp_2main_8h_1ae542c84a5e9a3845a59ac3140f4583f9" prot="public" static="no">
+        <name>XVPHY_GTHE4_DIFF_SWING_DP_V0P2</name>
+        <initializer>0x5</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" line="235" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" bodystart="235" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="zcu__pt__dp14__hdcp_2main_8h_1ae3ca0fca3b455f16bda8d0544c5cc869" prot="public" static="no">
+        <name>XVPHY_GTHE4_DIFF_SWING_DP_V0P3</name>
+        <initializer>0xB</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" line="236" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" bodystart="236" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="zcu__pt__dp14__hdcp_2main_8h_1af87ef09384d1b53c8f3da6e52cb93d81" prot="public" static="no">
+        <name>XVPHY_GTHE4_DIFF_SWING_DP_V1P0</name>
+        <initializer>0x2</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" line="238" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" bodystart="238" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="zcu__pt__dp14__hdcp_2main_8h_1a7c1363948fa2c14f8d24b1a5505fdf11" prot="public" static="no">
+        <name>XVPHY_GTHE4_DIFF_SWING_DP_V1P1</name>
+        <initializer>0x5</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" line="239" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" bodystart="239" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="zcu__pt__dp14__hdcp_2main_8h_1a75a1c7ff06522170d5db7d7f5306ef1a" prot="public" static="no">
+        <name>XVPHY_GTHE4_DIFF_SWING_DP_V1P2</name>
+        <initializer>0x7</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" line="240" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" bodystart="240" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="zcu__pt__dp14__hdcp_2main_8h_1a577a7f270a0b07e88b394297e922e0f7" prot="public" static="no">
+        <name>XVPHY_GTHE4_DIFF_SWING_DP_V2P0</name>
+        <initializer>0x4</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" line="242" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" bodystart="242" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="zcu__pt__dp14__hdcp_2main_8h_1a220bb05c504945b9034df573d4d91929" prot="public" static="no">
+        <name>XVPHY_GTHE4_DIFF_SWING_DP_V2P1</name>
+        <initializer>0x7</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" line="243" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" bodystart="243" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="zcu__pt__dp14__hdcp_2main_8h_1ada3e8f247a7d5b93ed60811a978b7da0" prot="public" static="no">
+        <name>XVPHY_GTHE4_DIFF_SWING_DP_V3P0</name>
+        <initializer>0x8</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" line="245" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" bodystart="245" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="zcu__pt__dp14__hdcp_2main_8h_1ab8f448ab682b09093e64a699cd02ec30" prot="public" static="no">
+        <name>PHY_COMP</name>
+        <initializer>0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" line="252" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" bodystart="252" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="zcu__pt__dp14__hdcp_2main_8h_1a8a07612f827cdb1685421bd892617028" prot="public" static="no">
+        <name>EDID_1_ENABLED</name>
+        <initializer>0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" line="253" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" bodystart="253" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="zcu__pt__dp14__hdcp_2main_8h_1acffeeb6e240259adfba82dbc5f8aa7dd" prot="public" static="no">
+        <name>DP_BS_IDLE_TIMEOUT</name>
+        <initializer>(0x047868C0*PHY_COMP)+(0x0091FFFF*!PHY_COMP)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" line="258" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" bodystart="258" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="zcu__pt__dp14__hdcp_2main_8h_1a4e32821f82b5c8f861be9549a5127a8a" prot="public" static="no">
+        <name>VBLANK_WAIT_COUNT</name>
+        <initializer>(200+(180*PHY_COMP))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" line="260" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" bodystart="260" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="zcu__pt__dp14__hdcp_2main_8h_1ad213a6b10143b16ae90ad8b2d4806af3" prot="public" static="no">
+        <name>AUX_DEFER_COUNT</name>
+        <initializer>(6+(2*PHY_COMP))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" line="266" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" bodystart="266" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="zcu__pt__dp14__hdcp_2main_8h_1aa78c597aca584e23e1406c5a64e974ad" prot="public" static="no">
+        <name>LINK_TRAINING_DEBUG</name>
+        <initializer>0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" line="270" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" bodystart="270" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="zcu__pt__dp14__hdcp_2main_8h_1aefedb67ef54dfe8e0ab7eadfc4549cc8" prot="public" static="no">
+        <name>DP12_EDID_ENABLED</name>
+        <initializer>0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" line="273" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" bodystart="273" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="zcu__pt__dp14__hdcp_2main_8h_1a303f4d9256c7b324430d001cc1f46f4a" prot="public" static="no">
+        <name>I2S_CLK_MULT</name>
+        <initializer>768</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" line="275" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" bodystart="275" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="zcu__pt__dp14__hdcp_2main_8h_1a00a63fe97d0eb44b69d5239049d2ef73" prot="public" static="no">
+        <name>XVPHY_RX_SYM_ERR_CNTR_CH1_2_REG</name>
+        <initializer>0x084</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" line="279" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" bodystart="279" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="zcu__pt__dp14__hdcp_2main_8h_1acd4d641cef603b77be59aa8715ec775c" prot="public" static="no">
+        <name>XVPHY_RX_SYM_ERR_CNTR_CH3_4_REG</name>
+        <initializer>0x088</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" line="280" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" bodystart="280" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="zcu__pt__dp14__hdcp_2main_8h_1a64af799273d407a42c2d25e47e793191" prot="public" static="no">
+        <name>XVPHY_DRP_CPLL_FBDIV</name>
+        <initializer>0x28</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" line="282" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" bodystart="282" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="zcu__pt__dp14__hdcp_2main_8h_1a2eee655d374af7effd726c02a62c93a1" prot="public" static="no">
+        <name>XVPHY_DRP_CPLL_REFCLK_DIV</name>
+        <initializer>0x2A</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" line="283" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" bodystart="283" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="zcu__pt__dp14__hdcp_2main_8h_1a54ed0cd23c952122fe7df6c3f0b6b658" prot="public" static="no">
+        <name>XVPHY_DRP_RXOUT_DIV</name>
+        <initializer>0x63</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" line="284" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" bodystart="284" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="zcu__pt__dp14__hdcp_2main_8h_1ad680d076ef98e5cfe1ff4939bfbcb7aa" prot="public" static="no">
+        <name>XVPHY_DRP_RXCLK25</name>
+        <initializer>0x6D</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" line="285" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" bodystart="285" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="zcu__pt__dp14__hdcp_2main_8h_1a0115bdfcbbc3c306be8b34b0f1edd35c" prot="public" static="no">
+        <name>XVPHY_DRP_TXCLK25</name>
+        <initializer>0x7A</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" line="286" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" bodystart="286" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="zcu__pt__dp14__hdcp_2main_8h_1a1f32b26f0720e763771bbe918ffd3751" prot="public" static="no">
+        <name>XVPHY_DRP_TXOUT_DIV</name>
+        <initializer>0x7C</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" line="287" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" bodystart="287" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="zcu__pt__dp14__hdcp_2main_8h_1a467d5f812e4d2db06f9d3c486eb78ab4" prot="public" static="no">
+        <name>XVPHY_DRP_RX_DATA_WIDTH</name>
+        <initializer>0x03</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" line="288" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" bodystart="288" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="zcu__pt__dp14__hdcp_2main_8h_1a13db53cc61308f26eb3e371f3bdde8e7" prot="public" static="no">
+        <name>XVPHY_DRP_RX_INT_DATA_WIDTH</name>
+        <initializer>0x66</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" line="289" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" bodystart="289" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="zcu__pt__dp14__hdcp_2main_8h_1a8050baa2c49ea8b1eeb4dc0abd1d31f6" prot="public" static="no">
+        <name>XVPHY_DRP_GTHE4_PRBS_ERR_CNTR_LOWER</name>
+        <initializer>0x25E</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" line="290" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" bodystart="290" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="zcu__pt__dp14__hdcp_2main_8h_1a5e89374927baefb06f458f21b93abd30" prot="public" static="no">
+        <name>XVPHY_DRP_GTHE4_PRBS_ERR_CNTR_UPPER</name>
+        <initializer>0x25F</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" line="291" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" bodystart="291" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="zcu__pt__dp14__hdcp_2main_8h_1a74af04ce7ad6f307943d1295a263e60d" prot="public" static="no">
+        <name>TX_DATA_WIDTH_REG</name>
+        <initializer>0x7A</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" line="293" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" bodystart="293" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="zcu__pt__dp14__hdcp_2main_8h_1a8004c9b1d236bc2b3aa8a50bbec62b5c" prot="public" static="no">
+        <name>TX_INT_DATAWIDTH_REG</name>
+        <initializer>0x85</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" line="294" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" bodystart="294" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="zcu__pt__dp14__hdcp_2main_8h_1a3cb13cd431d9241af9128b1bdd8a1f59" prot="public" static="no">
+        <name>TIMER_RESET_VALUE</name>
+        <initializer>1000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" line="297" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" bodystart="297" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="zcu__pt__dp14__hdcp_2main_8h_1a1b3c85bade40ae1bf907fd6c0cdcc70b" prot="public" static="no">
+        <name>ENABLE_AUDIO</name>
+        <initializer>XPAR_DP_RX_HIER_0_V_DP_RXSS1_0_AUDIO_ENABLE</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" line="299" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" bodystart="299" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="zcu__pt__dp14__hdcp_2main_8h_1ae310c172b0010492de9819a2c8297a88" prot="public" static="no">
+        <name>VSC_CAP_APB_REG_OFFSET</name>
+        <initializer>0X000C</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" line="302" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" bodystart="302" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="zcu__pt__dp14__hdcp_2main_8h_1af5a4f6618c5b17c22cce6f927c910837" prot="public" static="no">
+        <name>RX_VSC_CAP_ENABLE</name>
+        <initializer>0x4</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" line="305" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" bodystart="305" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="zcu__pt__dp14__hdcp_2main_8h_1a1aec6264b789ba5e7ef32eef61291f65" prot="public" static="no">
+        <name>RX_COLORIMETRY_INFO_SDP_REG</name>
+        <initializer>0x644</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" line="308" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" bodystart="308" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="zcu__pt__dp14__hdcp_2main_8h_1a74c4ec867e4264f68debec77b6308165" prot="public" static="no">
+        <name>VSC_EXT_PKT_VSYNC_ENABLE</name>
+        <initializer>0x1000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" line="311" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" bodystart="311" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="zcu__pt__dp14__hdcp_2main_8h_1a996a3b45b30ac4fff53c6f5087307cc3" prot="public" static="no">
+        <name>AUXFIFOSIZE</name>
+        <initializer>4</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" line="313" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" bodystart="313" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="zcu__pt__dp14__hdcp_2main_8h_1aa018c42e0ac932d44bc695c267eaf8bf" prot="public" static="no">
+        <name>XDP_DPCD_EXT_DPCD_FEATURE</name>
+        <initializer>0x2210</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" line="314" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" bodystart="314" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="zcu__pt__dp14__hdcp_2main_8h_1aabf59752370ff91dc84468c2f86977b4" prot="public" static="no">
+        <name>XVphy_User_GT_RefClk_Src</name>
+        <enumvalue id="xdptxss__zcu102__tx_8h_1aabf59752370ff91dc84468c2f86977b4aa76dc11ae1d347c368db45461c466d73" prot="public">
+          <name>ONBOARD_REF_CLK</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xdptxss__zcu102__tx_8h_1aabf59752370ff91dc84468c2f86977b4a3ff2af62975d31239c01cb063ff258d5" prot="public">
+          <name>DP159_FORWARDED_CLK</name>
+          <initializer>= 3</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="dppt__vid__phy__config_8h_1aabf59752370ff91dc84468c2f86977b4aa76dc11ae1d347c368db45461c466d73" prot="public">
+          <name>ONBOARD_REF_CLK</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="dppt__vid__phy__config_8h_1aabf59752370ff91dc84468c2f86977b4a3ff2af62975d31239c01cb063ff258d5" prot="public">
+          <name>DP159_FORWARDED_CLK</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="pt__only_2main_8h_1aabf59752370ff91dc84468c2f86977b4aa76dc11ae1d347c368db45461c466d73" prot="public">
+          <name>ONBOARD_REF_CLK</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="pt__only_2main_8h_1aabf59752370ff91dc84468c2f86977b4a3ff2af62975d31239c01cb063ff258d5" prot="public">
+          <name>DP159_FORWARDED_CLK</name>
+          <initializer>= 3</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xdptxss__dp14__tx_8h_1aabf59752370ff91dc84468c2f86977b4aa76dc11ae1d347c368db45461c466d73" prot="public">
+          <name>ONBOARD_REF_CLK</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xdptxss__dp14__tx_8h_1aabf59752370ff91dc84468c2f86977b4a3ff2af62975d31239c01cb063ff258d5" prot="public">
+          <name>DP159_FORWARDED_CLK</name>
+          <initializer>= 3</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="zcu__pt__dp14__hdcp_2main_8h_1aabf59752370ff91dc84468c2f86977b4aa76dc11ae1d347c368db45461c466d73" prot="public">
+          <name>ONBOARD_REF_CLK</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="zcu__pt__dp14__hdcp_2main_8h_1aabf59752370ff91dc84468c2f86977b4a3ff2af62975d31239c01cb063ff258d5" prot="public">
+          <name>DP159_FORWARDED_CLK</name>
+          <initializer>= 3</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xdptxss__zcu102__mst__pt_8h_1aabf59752370ff91dc84468c2f86977b4aa76dc11ae1d347c368db45461c466d73" prot="public">
+          <name>ONBOARD_REF_CLK</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xdptxss__zcu102__mst__pt_8h_1aabf59752370ff91dc84468c2f86977b4a3ff2af62975d31239c01cb063ff258d5" prot="public">
+          <name>DP159_FORWARDED_CLK</name>
+          <initializer>= 3</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" line="319" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" bodystart="319" bodyend="322"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="zcu__pt__dp14__hdcp_2main_8h_1a9d9e37f4e70487d8a3232df373479f1b" prot="public" static="no" mutable="no">
+        <type>XHdcp22_Repeater</type>
+        <definition>XHdcp22_Repeater Hdcp22Repeater</definition>
+        <argsstring></argsstring>
+        <name>Hdcp22Repeater</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" line="108" column="1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="zcu__pt__dp14__hdcp_2main_8h_1a54b6f444fb3e893889081338e0e6290e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Dprx_HdcpAuthCallback</definition>
+        <argsstring>(void *InstancePtr)</argsstring>
+        <name>Dprx_HdcpAuthCallback</name>
+        <param>
+          <type>void *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" line="345" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/rx.c" bodystart="1221" bodyend="1249"/>
+      </memberdef>
+      <memberdef kind="function" id="zcu__pt__dp14__hdcp_2main_8h_1ac27586bb2aeef3f13e0f9c17f96749c0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Dprx_HdcpUnAuthCallback</definition>
+        <argsstring>(void *InstancePtr)</argsstring>
+        <name>Dprx_HdcpUnAuthCallback</name>
+        <param>
+          <type>void *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" line="346" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="zcu__pt__dp14__hdcp_2main_8h_1a10ce0555f5176283ac4202e9b4dff29b" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void Dppt_TimeOutCallback</definition>
+        <argsstring>(void *InstancePtr, u8 TmrCtrNumber)</argsstring>
+        <name>Dppt_TimeOutCallback</name>
+        <param>
+          <type>void *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>TmrCtrNumber</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" line="348" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="zcu__pt__dp14__hdcp_2main_8h_1afb74c8f9790dc8e090f279e87bd4702c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 DpSs_Main</definition>
+        <argsstring>()</argsstring>
+        <name>DpSs_Main</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" line="350" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/pt_only/xdptxss_dp14_pt.c" bodystart="482" bodyend="806"/>
+      </memberdef>
+      <memberdef kind="function" id="zcu__pt__dp14__hdcp_2main_8h_1a684dff70ac4f2b2f371b5de6c8ed4c8c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 DpSs_PlatformInit</definition>
+        <argsstring>(void)</argsstring>
+        <name>DpSs_PlatformInit</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function initialize required platform specific peripherals. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>None.</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if required peripherals are initialized and configured successfully.</para></listitem><listitem><para>XST_FAILURE, otherwise.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" line="351" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/pt_only/xdptxss_dp14_pt.c" bodystart="1344" bodyend="1620"/>
+      </memberdef>
+      <memberdef kind="function" id="zcu__pt__dp14__hdcp_2main_8h_1a7a1d8bd7b1560f85570729e72d6e3aee" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 DpRxSs_VideoPhyInit</definition>
+        <argsstring>(u16 DeviceId)</argsstring>
+        <name>DpRxSs_VideoPhyInit</name>
+        <param>
+          <type>u16</type>
+          <declname>DeviceId</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" line="352" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="zcu__pt__dp14__hdcp_2main_8h_1a89f5dbcff53be3df4439b03f89883b88" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int I2cClk_Ps</definition>
+        <argsstring>(u32 InFreq, u32 OutFreq)</argsstring>
+        <name>I2cClk_Ps</name>
+        <param>
+          <type>u32</type>
+          <declname>InFreq</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>OutFreq</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" line="353" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/pt_only/xdptxss_dp14_pt.c" bodystart="430" bodyend="478"/>
+      </memberdef>
+      <memberdef kind="function" id="zcu__pt__dp14__hdcp_2main_8h_1a569d5a71b8d565bafeca9ed4a6cab236" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void PHY_Two_byte_set</definition>
+        <argsstring>(XVphy *InstancePtr, u8 Rx_to_two_byte, u8 Tx_to_two_byte)</argsstring>
+        <name>PHY_Two_byte_set</name>
+        <param>
+          <type>XVphy *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Rx_to_two_byte</declname>
+          <defname>Tx_to_two_byte</defname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Tx_to_two_byte</declname>
+          <defname>Rx_to_two_byte</defname>
+        </param>
+        <briefdescription>
+<para>This function sets GT in 16-bits (2-Byte) or 32-bits (4-Byte) mode. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the Video PHY instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" line="354" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/pt_only/xdptxss_dp14_pt.c" bodystart="821" bodyend="907"/>
+      </memberdef>
+      <memberdef kind="function" id="zcu__pt__dp14__hdcp_2main_8h_1af28ddbc5e6a1c3d29724a96599638ccc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void PLLRefClkSel</definition>
+        <argsstring>(XVphy *InstancePtr, u8 link_rate)</argsstring>
+        <name>PLLRefClkSel</name>
+        <param>
+          <type>XVphy *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>link_rate</declname>
+        </param>
+        <briefdescription>
+<para>This function sets proper ref clk frequency and line rate. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the Video PHY instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" line="356" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/dats_dp14/xdptxss_zcu102_tx.c" bodystart="441" bodyend="484"/>
+      </memberdef>
+      <memberdef kind="function" id="zcu__pt__dp14__hdcp_2main_8h_1a7a6f6a6380ae8ef298151014e6f18b38" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void AppHelp</definition>
+        <argsstring>()</argsstring>
+        <name>AppHelp</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" line="357" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="zcu__pt__dp14__hdcp_2main_8h_1a831ff4b2e94846a5b371aa22223b9ac0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void ReportVideoCRC</definition>
+        <argsstring>()</argsstring>
+        <name>ReportVideoCRC</name>
+        <briefdescription>
+<para>This function reports CRC values of Video components. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>None.</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" line="358" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/pt_only/rx.c" bodystart="1132" bodyend="1135"/>
+      </memberdef>
+      <memberdef kind="function" id="zcu__pt__dp14__hdcp_2main_8h_1a0ab062285606abd7aefe27bc5e4e783c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void CalculateCRC</definition>
+        <argsstring>(void)</argsstring>
+        <name>CalculateCRC</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function Calculates CRC values of Video components. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>None.</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" line="359" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/pt_only/xdptxss_dp14_pt.c" bodystart="1033" bodyend="1129"/>
+      </memberdef>
+      <memberdef kind="function" id="zcu__pt__dp14__hdcp_2main_8h_1af519e360528de5569a5bef6a05318bf3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void LoadEDID</definition>
+        <argsstring>(void)</argsstring>
+        <name>LoadEDID</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function load EDID content into EDID Memory. </para>        </briefdescription>
+        <detaileddescription>
+<para>User can change as per their requirement.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>None.</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" line="360" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/pt_only/rx.c" bodystart="1151" bodyend="1241"/>
+      </memberdef>
+      <memberdef kind="function" id="zcu__pt__dp14__hdcp_2main_8h_1a097b6c75356e4c55d05d671fd4227a29" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>char</type>
+        <definition>char XUartPs_RecvByte_NonBlocking</definition>
+        <argsstring>()</argsstring>
+        <name>XUartPs_RecvByte_NonBlocking</name>
+        <briefdescription>
+<para>This function is a non-blocking UART return byte. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>None.</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" line="361" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/pt_only/xdptxss_dp14_pt.c" bodystart="977" bodyend="990"/>
+      </memberdef>
+      <memberdef kind="function" id="zcu__pt__dp14__hdcp_2main_8h_1a46bebf8339e06275349f46d586349784" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void CustomWaitUs</definition>
+        <argsstring>(void *InstancePtr, u32 MicroSeconds)</argsstring>
+        <name>CustomWaitUs</name>
+        <param>
+          <type>void *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>MicroSeconds</declname>
+        </param>
+        <briefdescription>
+<para>This function is called when DisplayPort Subsystem core requires delay or sleep. </para>        </briefdescription>
+        <detaileddescription>
+<para>It provides timer with predefined amount of loop iterations.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the XDp instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" line="362" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/pt_only/xdptxss_dp14_pt.c" bodystart="1004" bodyend="1018"/>
+      </memberdef>
+      <memberdef kind="function" id="zcu__pt__dp14__hdcp_2main_8h_1a67d727b1ed7c92197430901fb85a0f3d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int i2c_write_dp141</definition>
+        <argsstring>(u32 I2CBaseAddress, u8 I2CSlaveAddress, u16 RegisterAddress, u8 Value)</argsstring>
+        <name>i2c_write_dp141</name>
+        <param>
+          <type>u32</type>
+          <declname>I2CBaseAddress</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>I2CSlaveAddress</declname>
+        </param>
+        <param>
+          <type>u16</type>
+          <declname>RegisterAddress</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" line="364" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/dats_dp14/xdptxss_zcu102_tx.c" bodystart="1880" bodyend="1907"/>
+      </memberdef>
+      <memberdef kind="function" id="zcu__pt__dp14__hdcp_2main_8h_1a83b1170da398be3c53b87955c0a5b6a3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int VideoFMC_Init</definition>
+        <argsstring>(void)</argsstring>
+        <name>VideoFMC_Init</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function will detect video resolution/frequency change Many GPUs won&apos;t re-train when only video res/freq change. </para>        </briefdescription>
+        <detaileddescription>
+<para>Application needs to know if it changed and need to detect new parameter. Based on the parameter, re-set and re-start VDAM and Tx</para><para><simplesect kind="return"><para>None</para></simplesect>
+This function will detect video resolution/frequency change Many GPUs won&apos;t re-train when only video res/freq change.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>None.</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None.</para></simplesect>
+Application needs to know if it changed and need to detect new parameter. Based on the parameter, re-set and re-start VDAM and Tx</para><para><simplesect kind="return"><para>None</para></simplesect>
+This function will detect video resolution/frequency change Many GPUs won&apos;t re-train when only video res/freq change.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>None.</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" line="366" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/dats_dp14/xdptxss_zcu102_tx.c" bodystart="1729" bodyend="1805"/>
+      </memberdef>
+      <memberdef kind="function" id="zcu__pt__dp14__hdcp_2main_8h_1a82296473fccecfdd24d3fc5fcddc714b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 DpSs_SetupIntrSystem</definition>
+        <argsstring>(void)</argsstring>
+        <name>DpSs_SetupIntrSystem</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function sets up the interrupt system so interrupts can occur for the DisplayPort TX Subsystem core. </para>        </briefdescription>
+        <detaileddescription>
+<para>The function is application-specific since the actual system may or may not have an interrupt controller. The DPTX Subsystem core could be directly connected to a processor without an interrupt controller. The user should modify this function to fit the application.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>None</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if interrupt setup was successful.</para></listitem><listitem><para>A specific error code defined in &quot;xstatus.h&quot; if an error occurs.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" line="367" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/pt_only/xdptxss_dp14_pt.c" bodystart="1760" bodyend="1818"/>
+      </memberdef>
+      <memberdef kind="function" id="zcu__pt__dp14__hdcp_2main_8h_1ab2ae52624bcb84cdc16824a1d0dcf911" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void bufferWr_callback</definition>
+        <argsstring>(void *InstancePtr)</argsstring>
+        <name>bufferWr_callback</name>
+        <param>
+          <type>void *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" line="368" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/xdptxss_zcu102_dp14_pt_hdcp.c" bodystart="2299" bodyend="2332"/>
+      </memberdef>
+      <memberdef kind="function" id="zcu__pt__dp14__hdcp_2main_8h_1a07e5480c6cf95a748dbf1f91ef91c1ce" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void bufferRd_callback</definition>
+        <argsstring>(void *InstancePtr)</argsstring>
+        <name>bufferRd_callback</name>
+        <param>
+          <type>void *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" line="369" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/xdptxss_zcu102_dp14_pt_hdcp.c" bodystart="2335" bodyend="2337"/>
+      </memberdef>
+      <memberdef kind="function" id="group___t_i___l_m_k03318_1gad23a875ad2640e133b3c60b9b2614854" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int TI_LMK03318_PowerDown</definition>
+        <argsstring>(u32 I2CBaseAddress, u8 I2CSlaveAddress)</argsstring>
+        <name>TI_LMK03318_PowerDown</name>
+        <param>
+          <type>u32</type>
+          <declname>I2CBaseAddress</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>I2CSlaveAddress</declname>
+        </param>
+        <briefdescription>
+<para>This function puts the TI LMK03318 into sleep. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>I2CBaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the baseaddress of the I2C core. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>I2CSlaveAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 7-bit I2C slave address.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS Initialization was successful.</para></listitem><listitem><para>XST_FAILURE I2C write error.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" line="370" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/dats_dp14/ti_lmk03318.c" bodystart="315" bodyend="355"/>
+      </memberdef>
+      <memberdef kind="function" id="zcu__pt__dp14__hdcp_2main_8h_1ad937e78df2d41b78c28fbaca437a77fe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int TI_LMK03318_SetRegister</definition>
+        <argsstring>(u32 I2CBaseAddress, u8 I2CSlaveAddress, u8 RegisterAddress, u8 Value)</argsstring>
+        <name>TI_LMK03318_SetRegister</name>
+        <param>
+          <type>u32</type>
+          <declname>I2CBaseAddress</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>I2CSlaveAddress</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>RegisterAddress</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Value</declname>
+        </param>
+        <briefdescription>
+<para>This function send a single byte to the TI LMK03318. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>I2CBaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the baseaddress of the I2C core. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>I2CSlaveAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 7-bit I2C slave address.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS Initialization was successful.</para></listitem><listitem><para>XST_FAILURE I2C write error.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" line="371" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/pt_only/xdptxss_dp14_pt.c" bodystart="1891" bodyend="1919"/>
+      </memberdef>
+      <memberdef kind="function" id="zcu__pt__dp14__hdcp_2main_8h_1a3b1be1dad82f530fb111e87ed34f5e60" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Dplb_Main</definition>
+        <argsstring>(void)</argsstring>
+        <name>Dplb_Main</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" line="373" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="zcu__pt__dp14__hdcp_2main_8h_1ad673f235f7cfedfa92f5e7b76e1dc6c8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>char</type>
+        <definition>char xil_getc</definition>
+        <argsstring>(u32 timeout_ms)</argsstring>
+        <name>xil_getc</name>
+        <param>
+          <type>u32</type>
+          <declname>timeout_ms</declname>
+        </param>
+        <briefdescription>
+<para>This function to get uart input from user. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>timeout_ms</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>received character</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None.</para></simplesect>
+This function to get uart input from user.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>None.</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None.</para></simplesect>
+This function to get uart input from user</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>timeout_ms</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>received character</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" line="374" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/dats_dp14/menus.c" bodystart="1532" bodyend="1562"/>
+      </memberdef>
+      <memberdef kind="function" id="zcu__pt__dp14__hdcp_2main_8h_1a5a2235ece44bc0966e2495712af7fe1d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void power_down_HLSIPs</definition>
+        <argsstring>(void)</argsstring>
+        <name>power_down_HLSIPs</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" line="375" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/kcu_dp14/xdptxss_kcu105_dp14.c" bodystart="4919" bodyend="4921"/>
+      </memberdef>
+      <memberdef kind="function" id="zcu__pt__dp14__hdcp_2main_8h_1a607648c23eb599aeb63dc1477b690494" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void power_up_HLSIPs</definition>
+        <argsstring>(void)</argsstring>
+        <name>power_up_HLSIPs</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" line="376" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/kcu_dp14/xdptxss_kcu105_dp14.c" bodystart="4923" bodyend="4925"/>
+      </memberdef>
+      <memberdef kind="function" id="zcu__pt__dp14__hdcp_2main_8h_1a371452f83917a33c0a1fea621dbbc234" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void remap_start_wr</definition>
+        <argsstring>(XDpTxSs_MainStreamAttributes Msa[4], u8 downshift4K)</argsstring>
+        <name>remap_start_wr</name>
+        <param>
+          <type><ref refid="group__dptxss_1gaa1430b8060c5df2fd8c8e664247143f8" kindref="member">XDpTxSs_MainStreamAttributes</ref></type>
+          <declname>Msa</declname>
+          <array>[4]</array>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>downshift4K</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" line="378" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="zcu__pt__dp14__hdcp_2main_8h_1aac993b34a248e04e8e42b982d887e89f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void remap_start_rd</definition>
+        <argsstring>(XDpTxSs_MainStreamAttributes Msa[4], u8 downshift4K)</argsstring>
+        <name>remap_start_rd</name>
+        <param>
+          <type><ref refid="group__dptxss_1gaa1430b8060c5df2fd8c8e664247143f8" kindref="member">XDpTxSs_MainStreamAttributes</ref></type>
+          <declname>Msa</declname>
+          <array>[4]</array>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>downshift4K</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" line="379" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="zcu__pt__dp14__hdcp_2main_8h_1a3d52f644e6cac0e7411ede79c1d45ac9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int IDT_8T49N24x_Configure</definition>
+        <argsstring>(u32 I2CBaseAddress, u8 I2CSlaveAddress)</argsstring>
+        <name>IDT_8T49N24x_Configure</name>
+        <param>
+          <type>u32</type>
+          <declname>I2CBaseAddress</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>I2CSlaveAddress</declname>
+        </param>
+        <briefdescription>
+<para>This function the IDT 8TN49N24x device with the data from the configuration table. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>I2CBaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the baseaddress of the I2C core. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>I2CSlaveAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 7-bit I2C slave address.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" line="380" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/pt_only/idt_8t49n24x.c" bodystart="1781" bodyend="1801"/>
+      </memberdef>
+      <memberdef kind="function" id="zcu__pt__dp14__hdcp_2main_8h_1aadb092d2b2a18c5bc7ac0ca37cd497c8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void operationMenu</definition>
+        <argsstring>(void)</argsstring>
+        <name>operationMenu</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" line="382" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/pt_only/menus.c" bodystart="47" bodyend="67"/>
+      </memberdef>
+      <memberdef kind="function" id="zcu__pt__dp14__hdcp_2main_8h_1ad34078de3620807bdc9da9eac1c87a41" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void frameBuffer_start_wr</definition>
+        <argsstring>(XVidC_VideoMode VmId, XDpTxSs_MainStreamAttributes Msa[4], u8 downshift4K)</argsstring>
+        <name>frameBuffer_start_wr</name>
+        <param>
+          <type>XVidC_VideoMode</type>
+          <declname>VmId</declname>
+        </param>
+        <param>
+          <type><ref refid="group__dptxss_1gaa1430b8060c5df2fd8c8e664247143f8" kindref="member">XDpTxSs_MainStreamAttributes</ref></type>
+          <declname>Msa</declname>
+          <array>[4]</array>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>downshift4K</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" line="383" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/xdptxss_zcu102_dp14_pt_hdcp.c" bodystart="2026" bodyend="2087"/>
+      </memberdef>
+      <memberdef kind="function" id="zcu__pt__dp14__hdcp_2main_8h_1a0f8149c75b2d4f2b6cb8dac880241ef9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void frameBuffer_start_rd</definition>
+        <argsstring>(XVidC_VideoMode VmId, XDpTxSs_MainStreamAttributes Msa[4], u8 downshift4K)</argsstring>
+        <name>frameBuffer_start_rd</name>
+        <param>
+          <type>XVidC_VideoMode</type>
+          <declname>VmId</declname>
+        </param>
+        <param>
+          <type><ref refid="group__dptxss_1gaa1430b8060c5df2fd8c8e664247143f8" kindref="member">XDpTxSs_MainStreamAttributes</ref></type>
+          <declname>Msa</declname>
+          <array>[4]</array>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>downshift4K</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" line="389" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/xdptxss_zcu102_dp14_pt_hdcp.c" bodystart="2090" bodyend="2170"/>
+      </memberdef>
+      <memberdef kind="function" id="zcu__pt__dp14__hdcp_2main_8h_1a1980e4a59b5e053f6caaf3d86e2e84c9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 xil_gethex</definition>
+        <argsstring>(u8 num_chars)</argsstring>
+        <name>xil_gethex</name>
+        <param>
+          <type>u8</type>
+          <declname>num_chars</declname>
+        </param>
+        <briefdescription>
+<para>This function to convert integer to hex. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>timeout_ms</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>received character</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h" line="393" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/kcu_dp14/xlib_string.c" bodystart="68" bodyend="91"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2018<sp/>–<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>2023-2025<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="25"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="27"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="29"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&lt;stddef.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;xdp.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;xdp_hw.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;xdprxss.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="xdptxss_8h" kindref="compound">xdptxss.h</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;xdprxss_mcdp6000.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;xiic.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;xiic_l.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;xil_exception.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;xil_printf.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;xil_types.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;xparameters.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;xstatus.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;xtmrctr.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;xuartps_hw.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;xvphy.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;xvphy_dp.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;xvphy_hw.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;sleep.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xvidframe_crc.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="52"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#ifdef<sp/>XPAR_INTC_0_DEVICE_ID</highlight></codeline>
+<codeline lineno="53"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>For<sp/>MicroBlaze<sp/>systems.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xintc.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="56"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>For<sp/>ARM/Zynq<sp/>SoC<sp/>systems.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xscugic.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XPAR_INTC_0_DEVICE_ID<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="59"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="60"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xiicps.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;videofmc_defs.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;idt_8t49n24x.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xv_frmbufrd_l2.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xv_frmbufwr_l2.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>XPAR_XV_AXI4S_REMAP_NUM_INSTANCES</highlight></codeline>
+<codeline lineno="69"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xv_axi4s_remap.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="71"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight><highlight class="comment">//#include<sp/>&quot;xi2stx.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight><highlight class="comment">//#include<sp/>&quot;xi2srx.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xgpio.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight><highlight class="comment">//#include<sp/>&quot;xaxis_switch.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="76"><highlight class="normal"></highlight></codeline>
+<codeline lineno="77"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>ENABLE_HDCP_IN_DESIGN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1</highlight></codeline>
+<codeline lineno="78"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="79"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>(ENABLE_HDCP_IN_DESIGN<sp/>&amp;&amp;<sp/>XPAR_DPRXSS_0_HDCP22_ENABLE)</highlight></codeline>
+<codeline lineno="80"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>ENABLE_HDCP22_IN_RX<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1</highlight></codeline>
+<codeline lineno="81"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="82"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>ENABLE_HDCP22_IN_RX<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0</highlight></codeline>
+<codeline lineno="83"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="84"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="85"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>(ENABLE_HDCP_IN_DESIGN<sp/>&amp;&amp;<sp/>XPAR_DPTXSS_0_HDCP22_ENABLE)</highlight></codeline>
+<codeline lineno="86"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>ENABLE_HDCP22_IN_TX<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1</highlight></codeline>
+<codeline lineno="87"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="88"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>ENABLE_HDCP22_IN_TX<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0</highlight></codeline>
+<codeline lineno="89"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="90"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="91"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>(ENABLE_HDCP_IN_DESIGN<sp/>&amp;&amp;<sp/>XPAR_DPRXSS_0_HDCP_ENABLE)</highlight></codeline>
+<codeline lineno="92"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>ENABLE_HDCP1x_IN_RX<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1</highlight></codeline>
+<codeline lineno="93"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="94"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>ENABLE_HDCP1x_IN_RX<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0</highlight></codeline>
+<codeline lineno="95"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="96"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="97"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>(ENABLE_HDCP_IN_DESIGN<sp/>&amp;&amp;<sp/>XPAR_DPTXSS_0_HDCP_ENABLE)</highlight></codeline>
+<codeline lineno="98"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>ENABLE_HDCP1x_IN_TX<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1</highlight></codeline>
+<codeline lineno="99"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="100"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>ENABLE_HDCP1x_IN_TX<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0</highlight></codeline>
+<codeline lineno="101"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="102"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="103"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xhdcp1x_debug.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="104"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xhdcp1x_example.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="105"><highlight class="normal"></highlight></codeline>
+<codeline lineno="106"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;keymgmt.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="107"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xhdcp22_example.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="108"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>XHdcp22_Repeater<sp/><sp/><sp/><sp/><sp/>Hdcp22Repeater;</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"></highlight></codeline>
+<codeline lineno="110"><highlight class="normal"></highlight></codeline>
+<codeline lineno="111"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>TxOnly</highlight></codeline>
+<codeline lineno="112"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>RxOnly</highlight></codeline>
+<codeline lineno="113"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PT</highlight></codeline>
+<codeline lineno="114"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>LB</highlight></codeline>
+<codeline lineno="115"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="116"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>USE_EEPROM_HDCP_KEYS</highlight></codeline>
+<codeline lineno="117"><highlight class="preprocessor"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="118"><highlight class="normal"></highlight></codeline>
+<codeline lineno="119"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="120"><highlight class="comment">*<sp/>The<sp/>following<sp/>constants<sp/>map<sp/>to<sp/>the<sp/>names<sp/>of<sp/>the<sp/>hardware<sp/>instances.</highlight></codeline>
+<codeline lineno="121"><highlight class="comment">*<sp/>They<sp/>are<sp/>only<sp/>defined<sp/>here<sp/>such<sp/>that<sp/>a<sp/>user<sp/>can<sp/>easily<sp/>change<sp/>all<sp/>the</highlight></codeline>
+<codeline lineno="122"><highlight class="comment">*<sp/>needed<sp/>device<sp/>IDs<sp/>in<sp/>one<sp/>place.</highlight></codeline>
+<codeline lineno="123"><highlight class="comment">*<sp/>There<sp/>is<sp/>only<sp/>one<sp/>interrupt<sp/>controlled<sp/>to<sp/>be<sp/>selected<sp/>from<sp/>SCUGIC<sp/>and<sp/>GPIO</highlight></codeline>
+<codeline lineno="124"><highlight class="comment">*<sp/>INTC.<sp/>INTC<sp/>selection<sp/>is<sp/>based<sp/>on<sp/>INTC<sp/>parameters<sp/>defined<sp/>xparameters.h<sp/>file.</highlight></codeline>
+<codeline lineno="125"><highlight class="comment">*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="126"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="127"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#if<sp/>(ENABLE_HDCP1x_IN_TX<sp/>||<sp/>ENABLE_HDCP22_IN_TX)</highlight></codeline>
+<codeline lineno="128"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XINTC_DPTXSS_DP_INTERRUPT_ID<sp/>\</highlight></codeline>
+<codeline lineno="129"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_FABRIC_DP14TXSS_0_DPTXSS_DP_IRQ_VEC_ID</highlight></codeline>
+<codeline lineno="130"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="131"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XINTC_DPTXSS_DP_INTERRUPT_ID<sp/>\</highlight></codeline>
+<codeline lineno="132"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_FABRIC_DP14TXSS_0_VEC_ID</highlight></codeline>
+<codeline lineno="133"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="134"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="135"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>(ENABLE_HDCP1x_IN_RX<sp/>||<sp/>ENABLE_HDCP22_IN_RX)</highlight></codeline>
+<codeline lineno="136"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XINTC_DPRXSS_DP_INTERRUPT_ID<sp/>\</highlight></codeline>
+<codeline lineno="137"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>XPAR_FABRIC_DP14RXSS_0_DPRXSS_DP_IRQ_VEC_ID</highlight></codeline>
+<codeline lineno="138"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="139"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XINTC_DPRXSS_DP_INTERRUPT_ID<sp/>\</highlight></codeline>
+<codeline lineno="140"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_FABRIC_DP14RXSS_0_VEC_ID</highlight></codeline>
+<codeline lineno="141"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="142"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="143"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XINTC_DEVICE_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_SCUGIC_SINGLE_DEVICE_ID</highlight></codeline>
+<codeline lineno="144"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XINTC<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XScuGic</highlight></codeline>
+<codeline lineno="145"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XINTC_HANDLER<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XScuGic_InterruptHandler</highlight></codeline>
+<codeline lineno="146"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="147"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>The<sp/>unique<sp/>device<sp/>ID<sp/>of<sp/>the<sp/>instances<sp/>used<sp/>in<sp/>example</highlight></codeline>
+<codeline lineno="148"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="149"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XDPRXSS_DEVICE_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_DPRXSS_0_DEVICE_ID</highlight></codeline>
+<codeline lineno="150"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XVPHY_DEVICE_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_VPHY_0_DEVICE_ID</highlight></codeline>
+<codeline lineno="151"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XTIMER0_DEVICE_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_TMRCTR_0_DEVICE_ID</highlight></codeline>
+<codeline lineno="152"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="153"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="154"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="155"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>VIDEO_CRC_BASEADDR<sp/><sp/><sp/><sp/><sp/><sp/>XPAR_DP_RX_HIER_0_VIDEO_FRAME_CRC_0_BASEADDR</highlight></codeline>
+<codeline lineno="156"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>UARTLITE_BASEADDR<sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_PSU_UART_0_BASEADDR</highlight></codeline>
+<codeline lineno="157"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>VIDPHY_BASEADDR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_VPHY_0_BASEADDR</highlight></codeline>
+<codeline lineno="158"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>VID_EDID_BASEADDR<sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_DP_RX_HIER_0_VID_EDID_0_BASEADDR</highlight></codeline>
+<codeline lineno="159"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>IIC_DEVICE_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_IIC_0_DEVICE_ID</highlight></codeline>
+<codeline lineno="160"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="161"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>FRMBUF_RD_DEVICE_ID<sp/><sp/>XPAR_XV_FRMBUFRD_0_DEVICE_ID</highlight></codeline>
+<codeline lineno="162"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>FRMBUF_WR_DEVICE_ID<sp/><sp/>XPAR_XV_FRMBUFWR_0_DEVICE_ID</highlight></codeline>
+<codeline lineno="163"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#ifdef<sp/>XPAR_DP_TX_HIER_0_AV_PAT_GEN_0_BASEADDR</highlight></codeline>
+<codeline lineno="164"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>VIDEO_FRAME_CRC_TX_BASEADDR<sp/>\</highlight></codeline>
+<codeline lineno="165"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_DP_TX_HIER_0_VIDEO_FRAME_CRC_TX_BASEADDR</highlight></codeline>
+<codeline lineno="166"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>VIDEO_FRAME_CRC_RX_BASEADDR<sp/>\</highlight></codeline>
+<codeline lineno="167"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_DP_RX_HIER_0_VIDEO_FRAME_CRC_0_BASEADDR</highlight></codeline>
+<codeline lineno="168"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="169"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="170"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>VIDEO_CRC_BASEADDR<sp/><sp/><sp/><sp/><sp/><sp/>XPAR_DP_RX_HIER_0_VIDEO_FRAME_CRC_0_BASEADDR</highlight></codeline>
+<codeline lineno="171"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>UARTLITE_BASEADDR<sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_UART0_BASEADDR</highlight></codeline>
+<codeline lineno="172"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>VIDPHY_BASEADDR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_XVPHY_0_BASEADDR</highlight></codeline>
+<codeline lineno="173"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>VID_EDID_BASEADDR<sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_DP_RX_HIER_0_VID_EDID_0_BASEADDR</highlight></codeline>
+<codeline lineno="174"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>IIC_DEVICE_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_XIIC_0_BASEADDR</highlight></codeline>
+<codeline lineno="175"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="176"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>XPAR_DP_TX_HIER_0_AV_PAT_GEN_0_BASEADDR</highlight></codeline>
+<codeline lineno="177"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>VIDEO_FRAME_CRC_TX_BASEADDR<sp/>\</highlight></codeline>
+<codeline lineno="178"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_DP_TX_HIER_0_VIDEO_FRAME_CRC_TX_BASEADDR</highlight></codeline>
+<codeline lineno="179"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>VIDEO_FRAME_CRC_RX_BASEADDR<sp/>\</highlight></codeline>
+<codeline lineno="180"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_DP_RX_HIER_0_VIDEO_FRAME_CRC_0_BASEADDR</highlight></codeline>
+<codeline lineno="181"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="182"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="183"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="184"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>REMAP_RX_BASEADDR<sp/><sp/>XPAR_DP_RX_HIER_0_REMAP_RX_S_AXI_CTRL_BASEADDR</highlight></codeline>
+<codeline lineno="185"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>REMAP_TX_BASEADDR<sp/><sp/>XPAR_DP_TX_HIER_0_REMAP_TX_S_AXI_CTRL_BASEADDR</highlight></codeline>
+<codeline lineno="186"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>REMAP_RX_DEVICE_ID<sp/><sp/>XPAR_DP_RX_HIER_0_REMAP_RX_DEVICE_ID</highlight></codeline>
+<codeline lineno="187"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>REMAP_TX_DEVICE_ID<sp/><sp/>XPAR_DP_TX_HIER_0_REMAP_TX_DEVICE_ID</highlight></codeline>
+<codeline lineno="188"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="189"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="190"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>AXI_SYSTEM_CLOCK_FREQ_HZ<sp/>\</highlight></codeline>
+<codeline lineno="191"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_PROCESSOR_HIER_0_AXI_TIMER_0_CLOCK_FREQ_HZ</highlight></codeline>
+<codeline lineno="192"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="193"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>AXI_SYSTEM_CLOCK_FREQ_HZ<sp/>\</highlight></codeline>
+<codeline lineno="194"><highlight class="preprocessor">XPAR_PROCESSOR_HIER_0_AXI_TIMER_0_CLOCK_FREQUENCY</highlight></codeline>
+<codeline lineno="195"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="196"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>DP<sp/>Specific<sp/>Defines</highlight></codeline>
+<codeline lineno="197"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="198"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>DPRXSS_LINK_RATE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDPRXSS_LINK_BW_SET_810GBPS</highlight></codeline>
+<codeline lineno="199"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>DPRXSS_LANE_COUNT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDPRXSS_LANE_COUNT_SET_4</highlight></codeline>
+<codeline lineno="200"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="201"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="202"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SET_TX_TO_2BYTE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="203"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>(XPAR_XDP_0_GT_DATAWIDTH/2)</highlight></codeline>
+<codeline lineno="204"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SET_RX_TO_2BYTE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="205"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>(XPAR_XDP_0_GT_DATAWIDTH/2)</highlight></codeline>
+<codeline lineno="206"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="207"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SET_TX_TO_2BYTE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="208"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XPAR_XDP_0_GT_DATA_WIDTH/2)</highlight></codeline>
+<codeline lineno="209"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SET_RX_TO_2BYTE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="210"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XPAR_XDP_0_GT_DATA_WIDTH/2)</highlight></codeline>
+<codeline lineno="211"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="212"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="213"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XDP_RX_CRC_CONFIG<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x074</highlight></codeline>
+<codeline lineno="214"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDP_RX_CRC_COMP0<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x078</highlight></codeline>
+<codeline lineno="215"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDP_RX_CRC_COMP1<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x07C</highlight></codeline>
+<codeline lineno="216"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDP_RX_CRC_COMP2<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x080</highlight></codeline>
+<codeline lineno="217"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDP_RX_DPC_LINK_QUAL_CONFIG<sp/>0x454</highlight></codeline>
+<codeline lineno="218"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDP_RX_DPC_L01_PRBS_CNTR<sp/><sp/><sp/><sp/>0x45C</highlight></codeline>
+<codeline lineno="219"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDP_RX_DPC_L23_PRBS_CNTR<sp/><sp/><sp/><sp/>0x460</highlight></codeline>
+<codeline lineno="220"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDP_RX_DPCD_LINK_QUAL_PRBS<sp/><sp/>0x3</highlight></codeline>
+<codeline lineno="221"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="222"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>TX_BUFFER_BYPASS<sp/>XPAR_VID_PHY_CONTROLLER_0_TX_BUFFER_BYPASS</highlight></codeline>
+<codeline lineno="223"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XVPHY_DRP_PROGDIV<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x3E</highlight></codeline>
+<codeline lineno="224"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>DIVIDER_162<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>57423</highlight></codeline>
+<codeline lineno="225"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>DIVIDER_270<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>57415</highlight></codeline>
+<codeline lineno="226"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>DIVIDER_540<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>57442</highlight></codeline>
+<codeline lineno="227"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>DIVIDER_810<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>57440</highlight></codeline>
+<codeline lineno="228"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XVPHY_GTHE4_PREEMP_DP_L0<sp/><sp/><sp/><sp/>0x3</highlight></codeline>
+<codeline lineno="229"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XVPHY_GTHE4_PREEMP_DP_L1<sp/><sp/><sp/><sp/>0xD</highlight></codeline>
+<codeline lineno="230"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XVPHY_GTHE4_PREEMP_DP_L2<sp/><sp/><sp/><sp/>0x16</highlight></codeline>
+<codeline lineno="231"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XVPHY_GTHE4_PREEMP_DP_L3<sp/><sp/><sp/><sp/>0x1D</highlight></codeline>
+<codeline lineno="232"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="233"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XVPHY_GTHE4_DIFF_SWING_DP_V0P0<sp/>0x1</highlight></codeline>
+<codeline lineno="234"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XVPHY_GTHE4_DIFF_SWING_DP_V0P1<sp/>0x2</highlight></codeline>
+<codeline lineno="235"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XVPHY_GTHE4_DIFF_SWING_DP_V0P2<sp/>0x5</highlight></codeline>
+<codeline lineno="236"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XVPHY_GTHE4_DIFF_SWING_DP_V0P3<sp/>0xB</highlight></codeline>
+<codeline lineno="237"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="238"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XVPHY_GTHE4_DIFF_SWING_DP_V1P0<sp/>0x2</highlight></codeline>
+<codeline lineno="239"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XVPHY_GTHE4_DIFF_SWING_DP_V1P1<sp/>0x5</highlight></codeline>
+<codeline lineno="240"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XVPHY_GTHE4_DIFF_SWING_DP_V1P2<sp/>0x7</highlight></codeline>
+<codeline lineno="241"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="242"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XVPHY_GTHE4_DIFF_SWING_DP_V2P0<sp/>0x4</highlight></codeline>
+<codeline lineno="243"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XVPHY_GTHE4_DIFF_SWING_DP_V2P1<sp/>0x7</highlight></codeline>
+<codeline lineno="244"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="245"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XVPHY_GTHE4_DIFF_SWING_DP_V3P0<sp/>0x8</highlight></codeline>
+<codeline lineno="246"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="247"><highlight class="normal"></highlight></codeline>
+<codeline lineno="248"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="249"><highlight class="comment"><sp/>*<sp/>User<sp/>can<sp/>tune<sp/>these<sp/>variables<sp/>as<sp/>per<sp/>their<sp/>system</highlight></codeline>
+<codeline lineno="250"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="251"><highlight class="normal"></highlight></codeline>
+<codeline lineno="252"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>PHY_COMP<sp/>0</highlight></codeline>
+<codeline lineno="253"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>EDID_1_ENABLED<sp/>0</highlight></codeline>
+<codeline lineno="254"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="255"><highlight class="normal"></highlight><highlight class="comment">/*Max<sp/>timeout<sp/>tuned<sp/>as<sp/>per<sp/>tester<sp/>-<sp/>AXI<sp/>Clock=100<sp/>MHz</highlight></codeline>
+<codeline lineno="256"><highlight class="comment"><sp/>*Some<sp/>GPUs<sp/>may<sp/>need<sp/>larger<sp/>value,<sp/>So<sp/>user<sp/>may<sp/>tune<sp/>if<sp/>needed</highlight></codeline>
+<codeline lineno="257"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="258"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>DP_BS_IDLE_TIMEOUT<sp/><sp/><sp/><sp/><sp/><sp/>(0x047868C0*PHY_COMP)+(0x0091FFFF*!PHY_COMP)</highlight></codeline>
+<codeline lineno="259"><highlight class="preprocessor"></highlight><highlight class="comment">//0xFFFFFFFF<sp/>//0x0091FFFF</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="260"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>VBLANK_WAIT_COUNT<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(200+(180*PHY_COMP))//changed</highlight></codeline>
+<codeline lineno="261"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="262"><highlight class="normal"></highlight><highlight class="comment">/*For<sp/>compliance,<sp/>please<sp/>set<sp/>AUX_DEFER_COUNT<sp/>to<sp/>be<sp/>8</highlight></codeline>
+<codeline lineno="263"><highlight class="comment"><sp/>*<sp/>(Only<sp/>for<sp/>ZCU102-ARM<sp/>R5<sp/>based<sp/>Rx<sp/>system).</highlight></codeline>
+<codeline lineno="264"><highlight class="comment"><sp/><sp/>For<sp/>Interop,<sp/>set<sp/>this<sp/>to<sp/>6.</highlight></codeline>
+<codeline lineno="265"><highlight class="comment">*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="266"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>AUX_DEFER_COUNT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(6+(2*PHY_COMP))</highlight></codeline>
+<codeline lineno="267"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>DEFAULT<sp/>VALUE=0.<sp/>Enabled<sp/>programming<sp/>of</highlight></codeline>
+<codeline lineno="268"><highlight class="comment"><sp/>*Rx<sp/>Training<sp/>Algo<sp/>Register<sp/>for<sp/>Debugging<sp/>Purpose</highlight></codeline>
+<codeline lineno="269"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="270"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>LINK_TRAINING_DEBUG<sp/><sp/><sp/><sp/><sp/>0</highlight></codeline>
+<codeline lineno="271"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="272"><highlight class="normal"></highlight><highlight class="comment">/*EDID<sp/>Selection*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="273"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>DP12_EDID_ENABLED<sp/>0</highlight></codeline>
+<codeline lineno="274"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="275"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>I2S_CLK_MULT<sp/>768</highlight></codeline>
+<codeline lineno="276"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="277"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>VPHY<sp/>Specific<sp/>Defines</highlight></codeline>
+<codeline lineno="278"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="279"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XVPHY_RX_SYM_ERR_CNTR_CH1_2_REG<sp/><sp/><sp/><sp/>0x084</highlight></codeline>
+<codeline lineno="280"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XVPHY_RX_SYM_ERR_CNTR_CH3_4_REG<sp/><sp/><sp/><sp/>0x088</highlight></codeline>
+<codeline lineno="281"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="282"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XVPHY_DRP_CPLL_FBDIV<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x28</highlight></codeline>
+<codeline lineno="283"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XVPHY_DRP_CPLL_REFCLK_DIV<sp/><sp/><sp/>0x2A</highlight></codeline>
+<codeline lineno="284"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XVPHY_DRP_RXOUT_DIV<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x63</highlight></codeline>
+<codeline lineno="285"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XVPHY_DRP_RXCLK25<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x6D</highlight></codeline>
+<codeline lineno="286"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XVPHY_DRP_TXCLK25<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x7A</highlight></codeline>
+<codeline lineno="287"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XVPHY_DRP_TXOUT_DIV<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x7C</highlight></codeline>
+<codeline lineno="288"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XVPHY_DRP_RX_DATA_WIDTH<sp/><sp/><sp/><sp/><sp/>0x03</highlight></codeline>
+<codeline lineno="289"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XVPHY_DRP_RX_INT_DATA_WIDTH<sp/>0x66</highlight></codeline>
+<codeline lineno="290"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XVPHY_DRP_GTHE4_PRBS_ERR_CNTR_LOWER<sp/>0x25E</highlight></codeline>
+<codeline lineno="291"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XVPHY_DRP_GTHE4_PRBS_ERR_CNTR_UPPER<sp/>0x25F</highlight></codeline>
+<codeline lineno="292"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="293"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>TX_DATA_WIDTH_REG<sp/>0x7A</highlight></codeline>
+<codeline lineno="294"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>TX_INT_DATAWIDTH_REG<sp/>0x85</highlight></codeline>
+<codeline lineno="295"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>Timer<sp/>Specific<sp/>Defines</highlight></codeline>
+<codeline lineno="296"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="297"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>TIMER_RESET_VALUE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1000</highlight></codeline>
+<codeline lineno="298"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="299"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>ENABLE_AUDIO<sp/>XPAR_DP_RX_HIER_0_V_DP_RXSS1_0_AUDIO_ENABLE</highlight></codeline>
+<codeline lineno="300"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="301"><highlight class="normal"></highlight><highlight class="comment">/*Offset<sp/>address<sp/>for<sp/>APB<sp/>register<sp/>to<sp/>enable<sp/>RX<sp/>VSC<sp/>Capability<sp/>in<sp/>DPCD*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="302"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>VSC_CAP_APB_REG_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0X000C</highlight></codeline>
+<codeline lineno="303"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="304"><highlight class="normal"></highlight><highlight class="comment">/*APB<sp/>register<sp/>bit[2]<sp/>enable*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="305"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>RX_VSC_CAP_ENABLE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x4</highlight></codeline>
+<codeline lineno="306"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="307"><highlight class="normal"></highlight><highlight class="comment">/*Register<sp/>for<sp/>Rx<sp/>colorimetery<sp/>info<sp/>from<sp/>VSC<sp/>SDP*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="308"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>RX_COLORIMETRY_INFO_SDP_REG<sp/><sp/><sp/><sp/><sp/>0x644</highlight></codeline>
+<codeline lineno="309"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="310"><highlight class="normal"></highlight><highlight class="comment">/*Enable<sp/>VSC<sp/>Extended<sp/>packet<sp/>on<sp/>every<sp/>VSYC*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="311"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>VSC_EXT_PKT_VSYNC_ENABLE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x1000</highlight></codeline>
+<codeline lineno="312"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="313"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>AUXFIFOSIZE<sp/>4</highlight></codeline>
+<codeline lineno="314"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDP_DPCD_EXT_DPCD_FEATURE<sp/>0x2210</highlight></codeline>
+<codeline lineno="315"><highlight class="preprocessor"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="316"><highlight class="normal"></highlight></codeline>
+<codeline lineno="317"><highlight class="normal"></highlight></codeline>
+<codeline lineno="318"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="319"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="320"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ONBOARD_REF_CLK<sp/>=<sp/>1,</highlight></codeline>
+<codeline lineno="321"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DP159_FORWARDED_CLK<sp/>=<sp/>3,</highlight></codeline>
+<codeline lineno="322"><highlight class="normal">}<sp/>XVphy_User_GT_RefClk_Src;</highlight></codeline>
+<codeline lineno="323"><highlight class="normal"></highlight></codeline>
+<codeline lineno="324"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="325"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Index;</highlight></codeline>
+<codeline lineno="326"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XVphy_PllType<sp/><sp/>TxPLL;</highlight></codeline>
+<codeline lineno="327"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XVphy_PllType<sp/><sp/>RxPLL;</highlight></codeline>
+<codeline lineno="328"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XVphy_ChannelId<sp/>TxChId;</highlight></codeline>
+<codeline lineno="329"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XVphy_ChannelId<sp/>RxChId;</highlight></codeline>
+<codeline lineno="330"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>LineRate;</highlight></codeline>
+<codeline lineno="331"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>LineRateHz;</highlight></codeline>
+<codeline lineno="332"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XVphy_User_GT_RefClk_Src<sp/>QPLLRefClkSrc;</highlight></codeline>
+<codeline lineno="333"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XVphy_User_GT_RefClk_Src<sp/>CPLLRefClkSrc;</highlight></codeline>
+<codeline lineno="334"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>QPLLRefClkFreqHz;</highlight></codeline>
+<codeline lineno="335"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>CPLLRefClkFreqHz;</highlight></codeline>
+<codeline lineno="336"><highlight class="normal">}<sp/>XVphy_User_Config;</highlight></codeline>
+<codeline lineno="337"><highlight class="normal"></highlight></codeline>
+<codeline lineno="338"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="339"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="340"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>lane_count;</highlight></codeline>
+<codeline lineno="341"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>link_rate;</highlight></codeline>
+<codeline lineno="342"><highlight class="normal">}<sp/>lane_link_rate_struct;</highlight></codeline>
+<codeline lineno="343"><highlight class="normal"></highlight></codeline>
+<codeline lineno="344"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="345"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>Dprx_HdcpAuthCallback(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="346"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>Dprx_HdcpUnAuthCallback(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="347"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>ENABLE_HDCP_IN_DESIGN</highlight></codeline>
+<codeline lineno="348"><highlight class="preprocessor"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>Dppt_TimeOutCallback(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*InstancePtr,<sp/>u8<sp/>TmrCtrNumber);</highlight></codeline>
+<codeline lineno="349"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="350"><highlight class="preprocessor"></highlight><highlight class="normal">u32<sp/>DpSs_Main();</highlight></codeline>
+<codeline lineno="351"><highlight class="normal">u32<sp/>DpSs_PlatformInit(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="352"><highlight class="normal">u32<sp/>DpRxSs_VideoPhyInit(u16<sp/>DeviceId);</highlight></codeline>
+<codeline lineno="353"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>I2cClk_Ps(u32<sp/>InFreq,<sp/>u32<sp/>OutFreq);</highlight></codeline>
+<codeline lineno="354"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>PHY_Two_byte_set(XVphy<sp/>*InstancePtr,<sp/>u8<sp/>Rx_to_two_byte,</highlight></codeline>
+<codeline lineno="355"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Tx_to_two_byte);</highlight></codeline>
+<codeline lineno="356"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="dppt__vid__phy__config_8c_1af28ddbc5e6a1c3d29724a96599638ccc" kindref="member">PLLRefClkSel</ref><sp/>(XVphy<sp/>*InstancePtr,<sp/>u8<sp/>link_rate);</highlight></codeline>
+<codeline lineno="357"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>AppHelp();</highlight></codeline>
+<codeline lineno="358"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>ReportVideoCRC();</highlight></codeline>
+<codeline lineno="359"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>CalculateCRC(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="360"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>LoadEDID(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="361"><highlight class="normal"></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>XUartPs_RecvByte_NonBlocking();</highlight></codeline>
+<codeline lineno="362"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>CustomWaitUs(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*InstancePtr,<sp/>u32<sp/>MicroSeconds);</highlight></codeline>
+<codeline lineno="363"><highlight class="normal"></highlight></codeline>
+<codeline lineno="364"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i2c_write_dp141(u32<sp/>I2CBaseAddress,<sp/>u8<sp/>I2CSlaveAddress,</highlight></codeline>
+<codeline lineno="365"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>RegisterAddress,<sp/>u8<sp/>Value);</highlight></codeline>
+<codeline lineno="366"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xdptxss__zcu102__tx_8h_1a83b1170da398be3c53b87955c0a5b6a3" kindref="member">VideoFMC_Init</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="367"><highlight class="normal">u32<sp/>DpSs_SetupIntrSystem(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="368"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>bufferWr_callback(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="369"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>bufferRd_callback(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="370"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group___t_i___l_m_k03318_1gad23a875ad2640e133b3c60b9b2614854" kindref="member">TI_LMK03318_PowerDown</ref>(u32<sp/>I2CBaseAddress,<sp/>u8<sp/>I2CSlaveAddress);</highlight></codeline>
+<codeline lineno="371"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>TI_LMK03318_SetRegister(u32<sp/>I2CBaseAddress,<sp/>u8<sp/>I2CSlaveAddress,</highlight></codeline>
+<codeline lineno="372"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>RegisterAddress,<sp/>u8<sp/>Value);</highlight></codeline>
+<codeline lineno="373"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>Dplb_Main(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="374"><highlight class="normal"></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><ref refid="xdptxss__zcu102__tx_8h_1ad673f235f7cfedfa92f5e7b76e1dc6c8" kindref="member">xil_getc</ref>(u32<sp/>timeout_ms);</highlight></codeline>
+<codeline lineno="375"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>power_down_HLSIPs(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="376"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>power_up_HLSIPs(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="377"><highlight class="normal"></highlight><highlight class="comment">//void<sp/>remap_start(XDpTxSs_MainStreamAttributes<sp/>Msa[4],<sp/>u8<sp/>downshift4K);</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="378"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>remap_start_wr(<ref refid="group__dptxss_1gaa1430b8060c5df2fd8c8e664247143f8" kindref="member">XDpTxSs_MainStreamAttributes</ref><sp/>Msa[4],<sp/>u8<sp/>downshift4K);</highlight></codeline>
+<codeline lineno="379"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>remap_start_rd(<ref refid="group__dptxss_1gaa1430b8060c5df2fd8c8e664247143f8" kindref="member">XDpTxSs_MainStreamAttributes</ref><sp/>Msa[4],<sp/>u8<sp/>downshift4K);</highlight></codeline>
+<codeline lineno="380"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>IDT_8T49N24x_Configure(u32<sp/>I2CBaseAddress,<sp/>u8<sp/>I2CSlaveAddress);</highlight></codeline>
+<codeline lineno="381"><highlight class="normal"></highlight></codeline>
+<codeline lineno="382"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>operationMenu(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="383"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>frameBuffer_start_wr(XVidC_VideoMode<sp/>VmId,</highlight></codeline>
+<codeline lineno="384"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dptxss_1gaa1430b8060c5df2fd8c8e664247143f8" kindref="member">XDpTxSs_MainStreamAttributes</ref><sp/>Msa[4],<sp/>u8<sp/>downshift4K);</highlight></codeline>
+<codeline lineno="385"><highlight class="normal"></highlight></codeline>
+<codeline lineno="386"><highlight class="normal"></highlight><highlight class="comment">//void<sp/>frameBuffer_start(XVidC_VideoMode<sp/>VmId,</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="387"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDpTxSs_MainStreamAttributes<sp/>Msa[4],<sp/>u8<sp/>downshift4K);</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="388"><highlight class="normal"></highlight></codeline>
+<codeline lineno="389"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>frameBuffer_start_rd(XVidC_VideoMode<sp/>VmId,</highlight></codeline>
+<codeline lineno="390"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dptxss_1gaa1430b8060c5df2fd8c8e664247143f8" kindref="member">XDpTxSs_MainStreamAttributes</ref><sp/>Msa[4],<sp/>u8<sp/>downshift4K);</highlight></codeline>
+<codeline lineno="391"><highlight class="normal"></highlight></codeline>
+<codeline lineno="392"><highlight class="normal"></highlight></codeline>
+<codeline lineno="393"><highlight class="normal">u32<sp/><ref refid="xlib__string_8c_1a1980e4a59b5e053f6caaf3d86e2e84c9" kindref="member">xil_gethex</ref>(u8<sp/>num_chars);</highlight></codeline>
+<codeline lineno="394"><highlight class="normal"></highlight></codeline>
+<codeline lineno="395"><highlight class="normal"></highlight><highlight class="comment">/*********************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="396"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="397"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="398"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/main.h"/>
+  </compounddef>
+</doxygen>

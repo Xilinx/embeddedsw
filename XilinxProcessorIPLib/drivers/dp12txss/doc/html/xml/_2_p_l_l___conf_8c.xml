@@ -1,0 +1,279 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="_2_p_l_l___conf_8c" kind="file">
+    <compoundname>/PLL_Conf.c</compoundname>
+    <includes refid="_p_l_l___conf_8h" local="yes">PLL_Conf.h</includes>
+    <incdepgraph>
+      <node id="567">
+        <label>stdlib.h</label>
+      </node>
+      <node id="568">
+        <label>xspi.h</label>
+      </node>
+      <node id="565">
+        <label>PLL_Conf.h</label>
+        <link refid="_p_l_l___conf_8h"/>
+        <childnode refid="566" relation="include">
+        </childnode>
+      </node>
+      <node id="564">
+        <label>PLL_Conf.c</label>
+        <link refid="/PLL_Conf.c"/>
+        <childnode refid="565" relation="include">
+        </childnode>
+      </node>
+      <node id="566">
+        <label>LMK04906.h</label>
+        <link refid="_l_m_k04906_8h"/>
+        <childnode refid="567" relation="include">
+        </childnode>
+        <childnode refid="568" relation="include">
+        </childnode>
+        <childnode refid="569" relation="include">
+        </childnode>
+      </node>
+      <node id="569">
+        <label>xparameters.h</label>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="_2_p_l_l___conf_8c_1a84db32ac6a86812aaca84d982a654f85" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int PLL_init_Seting</definition>
+        <argsstring>(XSpi *SPI_LMK04906)</argsstring>
+        <name>PLL_init_Seting</name>
+        <param>
+          <type>XSpi *</type>
+          <declname>SPI_LMK04906</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/examples/src/kcu/PLL_Conf.c" line="28" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/examples/src/kcu/PLL_Conf.c" bodystart="28" bodyend="91"/>
+      </memberdef>
+      <memberdef kind="function" id="_2_p_l_l___conf_8c_1a871a237458b1f43b32f9d694750d6572" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void CLK81MHz_Out</definition>
+        <argsstring>(XSpi *SPI_LMK04906, u32 CLKout_Num)</argsstring>
+        <name>CLK81MHz_Out</name>
+        <param>
+          <type>XSpi *</type>
+          <declname>SPI_LMK04906</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>CLKout_Num</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/examples/src/kcu/PLL_Conf.c" line="93" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/examples/src/kcu/PLL_Conf.c" bodystart="93" bodyend="97"/>
+      </memberdef>
+      <memberdef kind="function" id="_2_p_l_l___conf_8c_1aff44d140397bf999e9e5662c4cc8bcf2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void CLK135MHz_Out</definition>
+        <argsstring>(XSpi *SPI_LMK04906, u32 CLKout_Num)</argsstring>
+        <name>CLK135MHz_Out</name>
+        <param>
+          <type>XSpi *</type>
+          <declname>SPI_LMK04906</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>CLKout_Num</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/examples/src/kcu/PLL_Conf.c" line="99" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/examples/src/kcu/PLL_Conf.c" bodystart="99" bodyend="103"/>
+      </memberdef>
+      <memberdef kind="function" id="_2_p_l_l___conf_8c_1a2f6bc78c575c2e3940b94415b676575b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void CLK162MHz_Out</definition>
+        <argsstring>(XSpi *SPI_LMK04906, u32 CLKout_Num)</argsstring>
+        <name>CLK162MHz_Out</name>
+        <param>
+          <type>XSpi *</type>
+          <declname>SPI_LMK04906</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>CLKout_Num</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/examples/src/kcu/PLL_Conf.c" line="105" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/examples/src/kcu/PLL_Conf.c" bodystart="105" bodyend="109"/>
+      </memberdef>
+      <memberdef kind="function" id="_2_p_l_l___conf_8c_1ab71e36d0b77f94d09211a35cb169fe7b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void CLK270MHz_Out</definition>
+        <argsstring>(XSpi *SPI_LMK04906, u32 CLKout_Num)</argsstring>
+        <name>CLK270MHz_Out</name>
+        <param>
+          <type>XSpi *</type>
+          <declname>SPI_LMK04906</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>CLKout_Num</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/examples/src/kcu/PLL_Conf.c" line="110" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/examples/src/kcu/PLL_Conf.c" bodystart="110" bodyend="114"/>
+      </memberdef>
+      <memberdef kind="function" id="_2_p_l_l___conf_8c_1aa2b8df77fd2a79fc6faa299e47f491cf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void PLL_RegWrite</definition>
+        <argsstring>(XSpi *SPI_LMK04906, u32 RegData, u32 RegNum)</argsstring>
+        <name>PLL_RegWrite</name>
+        <param>
+          <type>XSpi *</type>
+          <declname>SPI_LMK04906</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>RegData</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>RegNum</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/examples/src/kcu/PLL_Conf.c" line="116" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/examples/src/kcu/PLL_Conf.c" bodystart="116" bodyend="120"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2020<sp/>-<sp/>2021<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>2022-2023<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="24"><highlight class="preprocessor">#include<sp/>&quot;<ref refid="_p_l_l___conf_8h" kindref="compound">PLL_Conf.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight><highlight class="comment">//void<sp/>PLL_RegWrite<sp/>(XSpi<sp/>*SPI_LMK04906<sp/>,<sp/>u32<sp/>RegData<sp/>,<sp/>u32<sp/>RegNum);</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>PLL_init_Seting(XSpi<sp/>*SPI_LMK04906)<sp/>{</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>init_Setting_num<sp/>[27][2]<sp/>=</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/>{<sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//{<sp/>Data<sp/><sp/><sp/><sp/><sp/><sp/>,<sp/>Addr<sp/>}</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>00<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>0x0000000,<sp/>31<sp/>},</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>0x0001000,<sp/><sp/>0<sp/>},<sp/></highlight><highlight class="comment">//<sp/>Reset</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>0x0000009,<sp/><sp/>0<sp/>},<sp/></highlight><highlight class="comment">//<sp/>CLKOut0_PD<sp/><sp/><sp/>=<sp/>0<sp/><sp/><sp/>,Divider<sp/>=<sp/>18<sp/>(2430/18=135)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>0x0000009,<sp/><sp/>1<sp/>},<sp/></highlight><highlight class="comment">//<sp/>CLKOut1_PD<sp/><sp/><sp/>=<sp/>0</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>0x4000012,<sp/><sp/>1<sp/>},<sp/>//<sp/>CLKOut1_PD<sp/><sp/><sp/>=<sp/>1</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>0x4000000,<sp/><sp/>2<sp/>},<sp/></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/>***</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>05<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>0x4000001,<sp/><sp/>3<sp/>},<sp/></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/>***</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>0x4000000,<sp/><sp/>4<sp/>},<sp/></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/>***</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>0x4000000,<sp/><sp/>5<sp/>},<sp/></highlight><highlight class="comment">//<sp/>CLKOut5_PD<sp/><sp/><sp/>=<sp/>1<sp/>(Disable)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>CLKOut0_TYPE<sp/>=<sp/>0x01<sp/>(LVDS)<sp/>,<sp/>CLKOut0_ADLY<sp/>=<sp/>0x00<sp/>(Analog<sp/>Dealy<sp/>0)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>0x0888000,<sp/><sp/>6<sp/>},</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>0x0888000,<sp/><sp/>7<sp/>},<sp/></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/>***</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>10<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>CLKOut5_TYPE<sp/>=<sp/>0x01<sp/>(LVDS)<sp/>,<sp/>CLKOut5_ADLY<sp/>=<sp/>0x00<sp/>(Analog<sp/>Dealy<sp/>0)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>0x0888000,<sp/><sp/>8<sp/>},</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>0x2AAAAAA,<sp/><sp/>9<sp/>},<sp/></highlight><highlight class="comment">//<sp/>===<sp/>Defaulte<sp/>===</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>0x08A0200,<sp/>10<sp/>},<sp/></highlight><highlight class="comment">//<sp/>EN_OSCout0<sp/>=<sp/>1<sp/>(Enable)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>0x0820200,<sp/>10<sp/>},<sp/>//<sp/>EN_OSCout0<sp/>=<sp/>0<sp/>(Disable)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>0x02C0881,<sp/>11<sp/>},<sp/></highlight><highlight class="comment">//<sp/>xxxx<sp/>MODE<sp/>=<sp/>5&apos;b00000<sp/>Dual<sp/>PLL,<sp/>Internal<sp/>VCO</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>LD_MUX<sp/>=<sp/>3(PLL1<sp/>&amp;<sp/>2<sp/>DLD)<sp/>,<sp/>LD_TYPE<sp/>=<sp/>3(Output<sp/>(Push-Pull))<sp/>,</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>SYNC_PLL2_DLD<sp/>=<sp/>0(Nomal),SYNC_PLL1_DLD<sp/>=<sp/>0(Nomal),EN_TRACK<sp/>=<sp/>1</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>(Enable)<sp/>HOLDOVER_MODE<sp/>=<sp/>2(Enable)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>0x0D8600B,<sp/>12<sp/>},</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>15<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>HOLDOVER_MUX<sp/>=<sp/>7(uWire<sp/>Readback)<sp/>,</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>HOLDOVER_TYPE<sp/>=<sp/>Output(Push-Pull)<sp/>,</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>CLKin_SELECT_MODE<sp/>=<sp/>0<sp/>(CLKin0<sp/>Manual)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>0x1D80003,<sp/>13<sp/>},</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>CLKin1_BUF_TYPE<sp/>=<sp/>1<sp/>(CMOS)<sp/>,<sp/>CLKin0_BUF_TYPE<sp/>=<sp/>1<sp/>(CMOS)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>0x0918000,<sp/>14<sp/>},</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>HOLDOVER_DLD_CNT<sp/>=<sp/>512<sp/>,<sp/>FORCE_HOLDOVER<sp/>=<sp/>0(Disable)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>0x0000000,<sp/>15<sp/>},</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>0x00AA820,<sp/>16<sp/>},<sp/></highlight><highlight class="comment">//<sp/>XTAL_LVL<sp/>=<sp/>0<sp/>(1.65<sp/>Vpp)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>0x0000006,<sp/>24<sp/>},<sp/></highlight><highlight class="comment">//<sp/>PLL1_WIND_SIZE<sp/>=<sp/>3</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>20<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>0x0080030,<sp/>25<sp/>},</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>0x07D4000,<sp/>26<sp/>},</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>0x0800002,<sp/>27<sp/>},<sp/></highlight><highlight class="comment">//<sp/>PLL1_R<sp/>=<sp/>1</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>0x0008002,<sp/>28<sp/>},<sp/></highlight><highlight class="comment">//<sp/>PLL2_R<sp/>=<sp/>1<sp/>,<sp/>PLL1_N<sp/>=<sp/>1</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>0x000002D,<sp/>29<sp/>},</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>25<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>0x010002D,<sp/>30<sp/>},<sp/></highlight><highlight class="comment">//<sp/>PLL2_N<sp/>=<sp/>45</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>0x0000001,<sp/>31<sp/>}</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"></highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/>};</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i;</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal">(i<sp/>=<sp/>0;i<sp/>&lt;<sp/>26<sp/></highlight><highlight class="comment">/*NIT_CMD_NUM*/</highlight><highlight class="normal">;i++){</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LMK04906_RegWrite(SPI_LMK04906,init_Setting_num[i][0],</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>init_Setting_num[i][1]);</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/>xil_printf(&quot;PLL<sp/>Init<sp/>End<sp/>\n\r&quot;);</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="91"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"></highlight></codeline>
+<codeline lineno="93"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>CLK81MHz_Out<sp/>(XSpi<sp/>*SPI_LMK04906<sp/>,<sp/>u32<sp/>CLKout_Num){</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(0<sp/>&lt;=<sp/>CLKout_Num<sp/>&amp;&amp;<sp/>CLKout_Num<sp/>&lt;=<sp/>5){</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PLL_RegWrite(SPI_LMK04906,0x000001E,<sp/>CLKout_Num);</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="97"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"></highlight></codeline>
+<codeline lineno="99"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>CLK135MHz_Out<sp/>(XSpi<sp/>*SPI_LMK04906<sp/>,<sp/>u32<sp/>CLKout_Num){</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(0<sp/>&lt;=<sp/>CLKout_Num<sp/>&amp;&amp;<sp/>CLKout_Num<sp/>&lt;=<sp/>5){</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PLL_RegWrite(SPI_LMK04906,0x0000012,CLKout_Num);</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="103"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"></highlight></codeline>
+<codeline lineno="105"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>CLK162MHz_Out<sp/>(XSpi<sp/>*SPI_LMK04906<sp/>,<sp/>u32<sp/>CLKout_Num){</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(0<sp/>&lt;=<sp/>CLKout_Num<sp/>&amp;&amp;<sp/>CLKout_Num<sp/>&lt;=<sp/>5){</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PLL_RegWrite(SPI_LMK04906,0x000000F,CLKout_Num);</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="109"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>CLK270MHz_Out<sp/>(XSpi<sp/>*SPI_LMK04906<sp/>,<sp/>u32<sp/>CLKout_Num){</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(0<sp/>&lt;=<sp/>CLKout_Num<sp/>&amp;&amp;<sp/>CLKout_Num<sp/>&lt;=<sp/>5){</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PLL_RegWrite(SPI_LMK04906,0x0000009,CLKout_Num);</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="114"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"></highlight></codeline>
+<codeline lineno="116"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>PLL_RegWrite<sp/>(XSpi<sp/>*SPI_LMK04906<sp/>,<sp/>u32<sp/>RegData<sp/>,<sp/>u32<sp/>RegNum){</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LMK04906_RegWrite(SPI_LMK04906,0x0000000,31);</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LMK04906_RegWrite(SPI_LMK04906,RegData,RegNum);</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LMK04906_RegWrite(SPI_LMK04906,0x0000001,31);</highlight></codeline>
+<codeline lineno="120"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/examples/src/kcu/PLL_Conf.c"/>
+  </compounddef>
+</doxygen>

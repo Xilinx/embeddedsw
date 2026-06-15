@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="example" kind="page">
+    <compoundname>example</compoundname>
+    <title>Examples</title>
+    <detaileddescription>
+<para>You can refer to the below stated example applications for more details on how to use xdmapcie driver.</para><sect1 id="example_1ex1">
+<title>xdmapcie_rc_enumerate_example.c</title>
+<para>Contains an example on how to use the XDmapcie driver directly. This example shows the usage of the driver when it is configured as a root port.</para><para>For details, see <ref refid="xdmapcie__rc__enumerate__example_8c" kindref="compound">xdmapcie_rc_enumerate_example.c</ref>.</para><para>Drivers support both R5 and a78 cortex processors in <ref refid="xdmapcie__rc__enumerate__example_8c" kindref="compound">xdmapcie_rc_enumerate_example.c</ref><itemizedlist>
+<listitem><para>QDMA PL PCIe4</para></listitem><listitem><para>QDMA PL PCIe5</para></listitem><listitem><para>XDMA</para></listitem></itemizedlist>
+</para><para>Drivers support only a78 cortex processor in <ref refid="xdmapcie__rc__enumerate__example_8c" kindref="compound">xdmapcie_rc_enumerate_example.c</ref><itemizedlist>
+<listitem><para>CPM5 controller 0</para></listitem><listitem><para>CPM5 controller 1</para></listitem><listitem><para>CPM4 </para></listitem></itemizedlist>
+</para></sect1>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

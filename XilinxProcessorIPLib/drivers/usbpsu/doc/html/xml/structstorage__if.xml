@@ -1,0 +1,155 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="structstorage__if" kind="struct" prot="public">
+    <compoundname>storage_if</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structstorage__if_1a0c459a3b7db74d6f8c37e38ce3428706" prot="public" static="no" mutable="no">
+        <type>u8 *</type>
+        <definition>u8 * storage_if::disk</definition>
+        <argsstring></argsstring>
+        <name>disk</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_composite.h" line="324" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_composite.h" bodystart="324" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structstorage__if_1a598f52b001a094e7ec717059f169cdac" prot="public" static="no" mutable="no">
+        <type>u8 *</type>
+        <definition>u8 * storage_if::diskptr</definition>
+        <argsstring></argsstring>
+        <name>diskptr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_composite.h" line="325" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_composite.h" bodystart="325" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structstorage__if_1a8a71b24e91d5892ef4cc7aef5bbe4013" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 storage_if::disksize</definition>
+        <argsstring></argsstring>
+        <name>disksize</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_composite.h" line="326" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_composite.h" bodystart="326" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structstorage__if_1a890cb7f2c9d0e04aa3cee462b1e8b0b9" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 storage_if::bytesleft</definition>
+        <argsstring></argsstring>
+        <name>bytesleft</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_composite.h" line="327" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_composite.h" bodystart="327" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structstorage__if_1af667f1b0012cf62c397ef106bc3f060c" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 storage_if::phase</definition>
+        <argsstring></argsstring>
+        <name>phase</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_composite.h" line="328" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_composite.h" bodystart="328" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structstorage__if_1a3ed8bcd3f09f125d78faff20d6b8cb89" prot="public" static="no" mutable="no">
+        <type>USB_CBW cbw</type>
+        <definition>USB_CSW csw storage_if::ALIGNMENT_CACHELINE</definition>
+        <argsstring></argsstring>
+        <name>ALIGNMENT_CACHELINE</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_composite.h" line="342" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_composite.h" bodystart="342" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structstorage__if_1a3ed8bcd3f09f125d78faff20d6b8cb89" prot="public" static="no" mutable="no">
+        <type>USB_CSW csw</type>
+        <definition>USB_CSW csw storage_if::ALIGNMENT_CACHELINE</definition>
+        <argsstring></argsstring>
+        <name>ALIGNMENT_CACHELINE</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_composite.h" line="343" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_composite.h" bodystart="343" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structstorage__if_1a40ec17463358aea5d6f4fad18407d311" prot="public" static="no" mutable="no">
+        <type>TaskHandle_t</type>
+        <definition>TaskHandle_t storage_if::xSCSITask</definition>
+        <argsstring></argsstring>
+        <name>xSCSITask</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_class_composite.h" line="358" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_class_composite.h" bodystart="358" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structstorage__if_1a2cadd733d1f0611da7d08d7aa5773341" prot="public" static="no" mutable="no">
+        <type>xSemaphoreHandle</type>
+        <definition>xSemaphoreHandle storage_if::xSemaphore</definition>
+        <argsstring></argsstring>
+        <name>xSemaphore</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_class_composite.h" line="359" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_class_composite.h" bodystart="359" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structstorage__if_1a396861a82f517626e1b676e3ffd242ef" prot="public" static="no" mutable="no">
+        <type>struct transfer</type>
+        <definition>struct transfer storage_if::currTrans</definition>
+        <argsstring></argsstring>
+        <name>currTrans</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_class_composite.h" line="359" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_class_composite.h" bodystart="360" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_composite.h" line="323" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_composite.h" bodystart="323" bodyend="345"/>
+    <listofallmembers>
+      <member refid="structstorage__if_1a3ed8bcd3f09f125d78faff20d6b8cb89" prot="public" virt="non-virtual"><scope>storage_if</scope><name>ALIGNMENT_CACHELINE</name></member>
+      <member refid="structstorage__if_1a3ed8bcd3f09f125d78faff20d6b8cb89" prot="public" virt="non-virtual"><scope>storage_if</scope><name>ALIGNMENT_CACHELINE</name></member>
+      <member refid="structstorage__if_1a890cb7f2c9d0e04aa3cee462b1e8b0b9" prot="public" virt="non-virtual"><scope>storage_if</scope><name>bytesleft</name></member>
+      <member refid="structstorage__if_1a396861a82f517626e1b676e3ffd242ef" prot="public" virt="non-virtual"><scope>storage_if</scope><name>currTrans</name></member>
+      <member refid="structstorage__if_1a0c459a3b7db74d6f8c37e38ce3428706" prot="public" virt="non-virtual"><scope>storage_if</scope><name>disk</name></member>
+      <member refid="structstorage__if_1a598f52b001a094e7ec717059f169cdac" prot="public" virt="non-virtual"><scope>storage_if</scope><name>diskptr</name></member>
+      <member refid="structstorage__if_1a8a71b24e91d5892ef4cc7aef5bbe4013" prot="public" virt="non-virtual"><scope>storage_if</scope><name>disksize</name></member>
+      <member refid="structstorage__if_1af667f1b0012cf62c397ef106bc3f060c" prot="public" virt="non-virtual"><scope>storage_if</scope><name>phase</name></member>
+      <member refid="structstorage__if_1a40ec17463358aea5d6f4fad18407d311" prot="public" virt="non-virtual"><scope>storage_if</scope><name>xSCSITask</name></member>
+      <member refid="structstorage__if_1a2cadd733d1f0611da7d08d7aa5773341" prot="public" virt="non-virtual"><scope>storage_if</scope><name>xSemaphore</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

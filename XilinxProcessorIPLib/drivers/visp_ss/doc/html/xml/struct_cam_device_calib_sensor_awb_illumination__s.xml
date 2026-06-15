@@ -1,0 +1,211 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_cam_device_calib_sensor_awb_illumination__s" kind="struct" prot="public">
+    <compoundname>CamDeviceCalibSensorAwbIllumination_s</compoundname>
+    <includes local="no">cam_device_calibration.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_cam_device_calib_sensor_awb_illumination__s_1a12d419d831361f8a63f58c4180dc451f" prot="public" static="no" mutable="no">
+        <type>char</type>
+        <definition>char CamDeviceCalibSensorAwbIllumination_s::name[CAMDEV_CALIB_LENGTH]</definition>
+        <argsstring>[CAMDEV_CALIB_LENGTH]</argsstring>
+        <name>name</name>
+        <briefdescription>
+<para>Name of the light source. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" line="242" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" bodystart="242" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_calib_sensor_awb_illumination__s_1a9d7e12f5b77a5a30f371d5441aa29b8c" prot="public" static="no" mutable="no">
+        <type>char</type>
+        <definition>char CamDeviceCalibSensorAwbIllumination_s::doorType[CAMDEV_CALIB_LENGTH]</definition>
+        <argsstring>[CAMDEV_CALIB_LENGTH]</argsstring>
+        <name>doorType</name>
+        <briefdescription>
+<para>Scene type, which includes indoor and outdoor. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" line="243" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" bodystart="243" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_calib_sensor_awb_illumination__s_1a39a2ab6006726888b1345c95ce996877" prot="public" static="no" mutable="no">
+        <type><ref refid="group____cam__device__general_1gabd70efa95ad468b90c3fc8417f31b8e1" kindref="member">CamDeviceCalibSensorAwbIlluminationGmm_t</ref></type>
+        <definition>CamDeviceCalibSensorAwbIlluminationGmm_t CamDeviceCalibSensorAwbIllumination_s::gmm</definition>
+        <argsstring></argsstring>
+        <name>gmm</name>
+        <briefdescription>
+<para>Illumination Gaussian-mixed-model. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" line="245" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" bodystart="245" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_calib_sensor_awb_illumination__s_1a104ad6b522b09e85eec300fb7099173b" prot="public" static="no" mutable="no">
+        <type><ref refid="group____cam__device__general_1ga0a2905574d244dd4baf7ae6e30e0c6b6" kindref="member">CamDeviceCalibSensorAwbIlluminationAlsc_t</ref></type>
+        <definition>CamDeviceCalibSensorAwbIlluminationAlsc_t CamDeviceCalibSensorAwbIllumination_s::alsc</definition>
+        <argsstring></argsstring>
+        <name>alsc</name>
+        <briefdescription>
+<para>Illumination auto LSC configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" line="246" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" bodystart="246" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_calib_sensor_awb_illumination__s_1ae755001e23f2ce38662f24232ee4f253" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float CamDeviceCalibSensorAwbIllumination_s::manualWb[4]</definition>
+        <argsstring>[4]</argsstring>
+        <name>manualWb</name>
+        <briefdescription>
+<para>WB gain value calibrated for the light source. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" line="248" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" bodystart="248" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_calib_sensor_awb_illumination__s_1a7102aea51757897dd989e0f11460df36" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float CamDeviceCalibSensorAwbIllumination_s::manualCcMatrix[9]</definition>
+        <argsstring>[9]</argsstring>
+        <name>manualCcMatrix</name>
+        <briefdescription>
+<para>CC matrix value calibrated for the light source. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" line="249" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" bodystart="249" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_calib_sensor_awb_illumination__s_1a135e2a12e68fce141148bd9e688a638f" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float CamDeviceCalibSensorAwbIllumination_s::manualCcOffset[3]</definition>
+        <argsstring>[3]</argsstring>
+        <name>manualCcOffset</name>
+        <briefdescription>
+<para>CC offset value calibrated for the light source. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" line="250" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" bodystart="250" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_calib_sensor_awb_illumination__s_1ac4f41c477f1a43ca4a6ba3674303a702" prot="public" static="no" mutable="no">
+        <type>char</type>
+        <definition>char CamDeviceCalibSensorAwbIllumination_s::awbType[CAMDEV_CALIB_LENGTH]</definition>
+        <argsstring>[CAMDEV_CALIB_LENGTH]</argsstring>
+        <name>awbType</name>
+        <briefdescription>
+<para>AWB type, including AUTO and MANUAL. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" line="252" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" bodystart="252" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_calib_sensor_awb_illumination__s_1a043a4173e92f5ca27b092f901cd84b4d" prot="public" static="no" mutable="no">
+        <type><ref refid="group____cam__device__general_1gaa11072855ce6e36d77dccd69c6a84062" kindref="member">CamDeviceCalibSensorAwbIlluminationSatCt_t</ref></type>
+        <definition>CamDeviceCalibSensorAwbIlluminationSatCt_t CamDeviceCalibSensorAwbIllumination_s::satCt</definition>
+        <argsstring></argsstring>
+        <name>satCt</name>
+        <briefdescription>
+<para>Illumination saturation configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" line="254" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" bodystart="254" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_calib_sensor_awb_illumination__s_1ad7f9da1723354e24936c823850dd21c6" prot="public" static="no" mutable="no">
+        <type><ref refid="group____cam__device__general_1gaa6a52042eb31550c1c80ee23c55a5986" kindref="member">CamDeviceCalibSensorAwbIlluminationVigCt_t</ref></type>
+        <definition>CamDeviceCalibSensorAwbIlluminationVigCt_t CamDeviceCalibSensorAwbIllumination_s::vigCt</definition>
+        <argsstring></argsstring>
+        <name>vigCt</name>
+        <briefdescription>
+<para>Illumination LSC compensation configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" line="255" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" bodystart="255" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_calib_sensor_awb_illumination__s_1a97dbe5eb8c4e298fd6db7c406caf2111" prot="public" static="no" mutable="no">
+        <type><ref refid="group____cam__device__general_1ga0f3fe8f1b638f72d6358ee7fa267a15a" kindref="member">CamDeviceCalibSensorAwbIlluminationAcc_t</ref></type>
+        <definition>CamDeviceCalibSensorAwbIlluminationAcc_t CamDeviceCalibSensorAwbIllumination_s::acc</definition>
+        <argsstring></argsstring>
+        <name>acc</name>
+        <briefdescription>
+<para>Illumination auto color-correction configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" line="256" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" bodystart="256" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>VsCamDevice Calibration sensor AWB Illumination configuration. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="190">
+        <label>CamDeviceCalibSensorAwbIlluminationAcc_s</label>
+        <link refid="struct_cam_device_calib_sensor_awb_illumination_acc__s"/>
+      </node>
+      <node id="187">
+        <label>CamDeviceCalibSensorAwbIlluminationVigCt_s</label>
+        <link refid="struct_cam_device_calib_sensor_awb_illumination_vig_ct__s"/>
+      </node>
+      <node id="191">
+        <label>CamDeviceCalibSensorAwbIlluminationAlsc_s</label>
+        <link refid="struct_cam_device_calib_sensor_awb_illumination_alsc__s"/>
+      </node>
+      <node id="188">
+        <label>CamDeviceCalibSensorAwbIlluminationGmm_s</label>
+        <link refid="struct_cam_device_calib_sensor_awb_illumination_gmm__s"/>
+      </node>
+      <node id="189">
+        <label>CamDeviceCalibSensorAwbIlluminationSatCt_s</label>
+        <link refid="struct_cam_device_calib_sensor_awb_illumination_sat_ct__s"/>
+      </node>
+      <node id="186">
+        <label>CamDeviceCalibSensorAwbIllumination_s</label>
+        <link refid="struct_cam_device_calib_sensor_awb_illumination__s"/>
+        <childnode refid="187" relation="usage">
+          <edgelabel>vigCt</edgelabel>
+        </childnode>
+        <childnode refid="188" relation="usage">
+          <edgelabel>gmm</edgelabel>
+        </childnode>
+        <childnode refid="189" relation="usage">
+          <edgelabel>satCt</edgelabel>
+        </childnode>
+        <childnode refid="190" relation="usage">
+          <edgelabel>acc</edgelabel>
+        </childnode>
+        <childnode refid="191" relation="usage">
+          <edgelabel>alsc</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" line="241" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" bodystart="241" bodyend="257"/>
+    <listofallmembers>
+      <member refid="struct_cam_device_calib_sensor_awb_illumination__s_1a97dbe5eb8c4e298fd6db7c406caf2111" prot="public" virt="non-virtual"><scope>CamDeviceCalibSensorAwbIllumination_s</scope><name>acc</name></member>
+      <member refid="struct_cam_device_calib_sensor_awb_illumination__s_1a104ad6b522b09e85eec300fb7099173b" prot="public" virt="non-virtual"><scope>CamDeviceCalibSensorAwbIllumination_s</scope><name>alsc</name></member>
+      <member refid="struct_cam_device_calib_sensor_awb_illumination__s_1ac4f41c477f1a43ca4a6ba3674303a702" prot="public" virt="non-virtual"><scope>CamDeviceCalibSensorAwbIllumination_s</scope><name>awbType</name></member>
+      <member refid="struct_cam_device_calib_sensor_awb_illumination__s_1a9d7e12f5b77a5a30f371d5441aa29b8c" prot="public" virt="non-virtual"><scope>CamDeviceCalibSensorAwbIllumination_s</scope><name>doorType</name></member>
+      <member refid="struct_cam_device_calib_sensor_awb_illumination__s_1a39a2ab6006726888b1345c95ce996877" prot="public" virt="non-virtual"><scope>CamDeviceCalibSensorAwbIllumination_s</scope><name>gmm</name></member>
+      <member refid="struct_cam_device_calib_sensor_awb_illumination__s_1a7102aea51757897dd989e0f11460df36" prot="public" virt="non-virtual"><scope>CamDeviceCalibSensorAwbIllumination_s</scope><name>manualCcMatrix</name></member>
+      <member refid="struct_cam_device_calib_sensor_awb_illumination__s_1a135e2a12e68fce141148bd9e688a638f" prot="public" virt="non-virtual"><scope>CamDeviceCalibSensorAwbIllumination_s</scope><name>manualCcOffset</name></member>
+      <member refid="struct_cam_device_calib_sensor_awb_illumination__s_1ae755001e23f2ce38662f24232ee4f253" prot="public" virt="non-virtual"><scope>CamDeviceCalibSensorAwbIllumination_s</scope><name>manualWb</name></member>
+      <member refid="struct_cam_device_calib_sensor_awb_illumination__s_1a12d419d831361f8a63f58c4180dc451f" prot="public" virt="non-virtual"><scope>CamDeviceCalibSensorAwbIllumination_s</scope><name>name</name></member>
+      <member refid="struct_cam_device_calib_sensor_awb_illumination__s_1a043a4173e92f5ca27b092f901cd84b4d" prot="public" virt="non-virtual"><scope>CamDeviceCalibSensorAwbIllumination_s</scope><name>satCt</name></member>
+      <member refid="struct_cam_device_calib_sensor_awb_illumination__s_1ad7f9da1723354e24936c823850dd21c6" prot="public" virt="non-virtual"><scope>CamDeviceCalibSensorAwbIllumination_s</scope><name>vigCt</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

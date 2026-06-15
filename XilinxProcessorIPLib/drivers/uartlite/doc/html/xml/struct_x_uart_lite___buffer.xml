@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_uart_lite___buffer" kind="struct" prot="public">
+    <compoundname>XUartLite_Buffer</compoundname>
+    <includes local="no">xuartlite.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_uart_lite___buffer_1a5b91bd91cf707bdc8f1ffdb9e82509fc" prot="public" static="no" mutable="no">
+        <type>u8 *</type>
+        <definition>u8* XUartLite_Buffer::NextBytePtr</definition>
+        <argsstring></argsstring>
+        <name>NextBytePtr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/src/xuartlite.h" line="183" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/src/xuartlite.h" bodystart="183" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_uart_lite___buffer_1ab27923a6614c5a60548b08c6d5bc469e" prot="public" static="no" mutable="no">
+        <type>unsigned int</type>
+        <definition>unsigned int XUartLite_Buffer::RequestedBytes</definition>
+        <argsstring></argsstring>
+        <name>RequestedBytes</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/src/xuartlite.h" line="184" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/src/xuartlite.h" bodystart="184" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_uart_lite___buffer_1a7317923470ca4dd5619123985b7f3b03" prot="public" static="no" mutable="no">
+        <type>unsigned int</type>
+        <definition>unsigned int XUartLite_Buffer::RemainingBytes</definition>
+        <argsstring></argsstring>
+        <name>RemainingBytes</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/src/xuartlite.h" line="185" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/src/xuartlite.h" bodystart="185" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>The following data type is used to manage the buffers that are handled when sending and receiving data in the interrupt mode. </para>    </briefdescription>
+    <detaileddescription>
+<para>It is intended for internal use only. </para>    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/src/xuartlite.h" line="182" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/src/xuartlite.h" bodystart="182" bodyend="186"/>
+    <listofallmembers>
+      <member refid="struct_x_uart_lite___buffer_1a5b91bd91cf707bdc8f1ffdb9e82509fc" prot="public" virt="non-virtual"><scope>XUartLite_Buffer</scope><name>NextBytePtr</name></member>
+      <member refid="struct_x_uart_lite___buffer_1a7317923470ca4dd5619123985b7f3b03" prot="public" virt="non-virtual"><scope>XUartLite_Buffer</scope><name>RemainingBytes</name></member>
+      <member refid="struct_x_uart_lite___buffer_1ab27923a6614c5a60548b08c6d5bc469e" prot="public" virt="non-virtual"><scope>XUartLite_Buffer</scope><name>RequestedBytes</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

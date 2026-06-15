@@ -1,0 +1,1144 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xpmonpsv_8c" kind="file">
+    <compoundname>xpmonpsv.c</compoundname>
+    <includes refid="xpmonpsv_8h" local="yes">xpmonpsv.h</includes>
+    <incdepgraph>
+      <node id="5">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="8">
+        <label>xil_io.h</label>
+      </node>
+      <node id="6">
+        <label>xstatus.h</label>
+      </node>
+      <node id="2">
+        <label>xpmonpsv.c</label>
+        <link refid="xpmonpsv.c"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>xpmonpsv.h</label>
+        <link refid="xpmonpsv_8h"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>xpmonpsv_hw.h</label>
+        <link refid="xpmonpsv__hw_8h"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>xil_types.h</label>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__pmonpsv_1gaa7d16fcb54dcbc93fddc2b4f64a9c5bf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XPmonPsv_CfgInitialize</definition>
+        <argsstring>(XPmonPsv *InstancePtr, const XPmonPsv_Config *ConfigPtr, UINTPTR EffectiveAddr)</argsstring>
+        <name>XPmonPsv_CfgInitialize</name>
+        <param>
+          <type><ref refid="struct_x_pmon_psv" kindref="compound">XPmonPsv</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>const <ref refid="struct_x_pmon_psv___config" kindref="compound">XPmonPsv_Config</ref> *</type>
+          <declname>ConfigPtr</declname>
+        </param>
+        <param>
+          <type>UINTPTR</type>
+          <declname>EffectiveAddr</declname>
+        </param>
+        <briefdescription>
+<para>This function initializes a specific <ref refid="struct_x_pmon_psv" kindref="compound">XPmonPsv</ref> device/instance. </para>        </briefdescription>
+        <detaileddescription>
+<para>Functions in <ref refid="xpmonpsv_8c" kindref="compound">xpmonpsv.c</ref>.</para><para>This function must be called prior to using the Performance Monitor device.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_pmon_psv" kindref="compound">XPmonPsv</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ConfigPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>points to the <ref refid="struct_x_pmon_psv" kindref="compound">XPmonPsv</ref> device configuration structure. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>EffectiveAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the device base address in the virtual memory address space. If the address translation is not used then the physical address is passed. Unexpected errors may occur if the address mapping is changed after this function is invoked.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if successful.</para></listitem><listitem><para>XST_DEVICE_IS_STARTED if the device is already started.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>The user needs to first call the <ref refid="group__pmonpsv_1gadf7106c6ca8857f9661ba1f7b9411dde" kindref="member">XPmonPsv_LookupConfig()</ref> API which returns the Configuration structure pointer which is passed as a parameter to the <ref refid="group__pmonpsv_1gaa7d16fcb54dcbc93fddc2b4f64a9c5bf" kindref="member">XPmonPsv_CfgInitialize()</ref> API. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv.c" line="70" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv.c" bodystart="70" bodyend="91"/>
+        <references refid="struct_x_pmon_psv___config_1aee8231396f1c20f55574db0bdbb2ed0b" compoundref="xpmonpsv_8h" startline="91">XPmonPsv_Config::BaseAddress</references>
+        <references refid="struct_x_pmon_psv_1ae534fae5285ed3b2a68b0c965f0bcb9a" compoundref="xpmonpsv_8h" startline="101">XPmonPsv::Config</references>
+        <references refid="struct_x_pmon_psv___config_1a2dc96cc2c6bced6d3f145221d7e0a369" compoundref="xpmonpsv_8h" startline="90">XPmonPsv_Config::DeviceId</references>
+        <references refid="struct_x_pmon_psv_1ac23eb8ba0289615366075b998a188f08" compoundref="xpmonpsv_8h" startline="102">XPmonPsv::IsReady</references>
+        <references refid="struct_x_pmon_psv_1af4fb27e4fe3b66198bbb27094d262b9b" compoundref="xpmonpsv_8h" startline="103">XPmonPsv::RequestedCounters</references>
+      </memberdef>
+      <memberdef kind="function" id="group__pmonpsv_1gaf9da08c69ce00c2dd67828196f443a51" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XPmonPsv_ResetCounter</definition>
+        <argsstring>(const XPmonPsv *InstancePtr, u32 Domain, u32 CounterNum)</argsstring>
+        <name>XPmonPsv_ResetCounter</name>
+        <param>
+          <type>const <ref refid="struct_x_pmon_psv" kindref="compound">XPmonPsv</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Domain</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>CounterNum</declname>
+        </param>
+        <briefdescription>
+<para>This function resets the specified counter. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_pmon_psv" kindref="compound">XPmonPsv</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Domain</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is one of the counter like lpd_main or r5_domain eg XPMONPSV_R5_DOMAIN, XPMONPSV_LPD_MAIN_DOMAIN </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CounterNum</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the Counter Number. The valid values are 0 to 9.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS on success XST_FAILURE on failure</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv.c" line="111" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv.c" bodystart="111" bodyend="150"/>
+        <references refid="struct_x_pmon_psv_1ac23eb8ba0289615366075b998a188f08" compoundref="xpmonpsv_8h" startline="102">XPmonPsv::IsReady</references>
+        <references refid="struct_x_pmon_psv_1af4fb27e4fe3b66198bbb27094d262b9b" compoundref="xpmonpsv_8h" startline="103">XPmonPsv::RequestedCounters</references>
+        <references refid="group__pmonpsv_1ga7df7c6c14c7434fbbfa5374e7cfcbe9b" compoundref="xpmonpsv__hw_8h" startline="124">XPmonPsv_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__pmonpsv_1gae01033d281536814a9a0578e6029ed4f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XPmonPsv_SetMetrics</definition>
+        <argsstring>(const XPmonPsv *InstancePtr, u32 StatPeriod, u32 Domain, u32 CounterNum)</argsstring>
+        <name>XPmonPsv_SetMetrics</name>
+        <param>
+          <type>const <ref refid="struct_x_pmon_psv" kindref="compound">XPmonPsv</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>StatPeriod</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Domain</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>CounterNum</declname>
+        </param>
+        <briefdescription>
+<para>This function sets Metrics for specified Counter in the corresponding Metric Selector Register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_pmon_psv" kindref="compound">XPmonPsv</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>StatPeriod</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the period for which specified counter has to be connected. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Domain</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is one of the counter like lpd_main or r5_domain </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CounterNum</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the Counter Number. The valid values are 0 to 9.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS on success XST_FAILURE on failure</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv.c" line="171" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv.c" bodystart="171" bodyend="202"/>
+        <references refid="struct_x_pmon_psv_1af4fb27e4fe3b66198bbb27094d262b9b" compoundref="xpmonpsv_8h" startline="103">XPmonPsv::RequestedCounters</references>
+        <references refid="group__pmonpsv_1ga7df7c6c14c7434fbbfa5374e7cfcbe9b" compoundref="xpmonpsv__hw_8h" startline="124">XPmonPsv_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__pmonpsv_1ga8969db0e19b31ea48690fb6f8e8c0208" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XPmonPsv_GetMetrics</definition>
+        <argsstring>(const XPmonPsv *InstancePtr, u32 CounterNum, u8 *MainCtl, u8 *StatPeriod, u32 Domain)</argsstring>
+        <name>XPmonPsv_GetMetrics</name>
+        <param>
+          <type>const <ref refid="struct_x_pmon_psv" kindref="compound">XPmonPsv</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>CounterNum</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>MainCtl</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>StatPeriod</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Domain</declname>
+        </param>
+        <briefdescription>
+<para>This function returns Metrics in the specified Counter from the corresponding Metric Selector Register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_pmon_psv" kindref="compound">XPmonPsv</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CounterNum</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the Counter Number. The valid values are 0 to 9. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>MainCtl</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a reference parameter from application where mainctrl of specified counter is filled. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>StatPeriod</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the reference parameter from application where the StatPeriod is filled. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Domain</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is one of the counter like lpd_main or r5_domain </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if Success </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv.c" line="221" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv.c" bodystart="221" bodyend="252"/>
+        <references refid="struct_x_pmon_psv_1ac23eb8ba0289615366075b998a188f08" compoundref="xpmonpsv_8h" startline="102">XPmonPsv::IsReady</references>
+        <references refid="struct_x_pmon_psv_1af4fb27e4fe3b66198bbb27094d262b9b" compoundref="xpmonpsv_8h" startline="103">XPmonPsv::RequestedCounters</references>
+        <references refid="group__pmonpsv_1gacc0ae31abca813a507dc900990c7f133" compoundref="xpmonpsv__hw_8h" startline="107">XPmonPsv_ReadReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__pmonpsv_1ga57d5aae6b20218e6fbca2ce9e90e3c12" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XPmonPsv_GetWriteCounter</definition>
+        <argsstring>(const XPmonPsv *InstancePtr, u32 *WriteRequestValue, u32 *WriteRespValue, u32 Domain, u32 CounterNum)</argsstring>
+        <name>XPmonPsv_GetWriteCounter</name>
+        <param>
+          <type>const <ref refid="struct_x_pmon_psv" kindref="compound">XPmonPsv</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>WriteRequestValue</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>WriteRespValue</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Domain</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>CounterNum</declname>
+        </param>
+        <briefdescription>
+<para>This function returns the contents of the Write response and request Counter Register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_pmon_psv" kindref="compound">XPmonPsv</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>WriteRequestValue</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the user space pointer with<itemizedlist>
+<listitem><para>which the value of Write Request Count has to be filled </para></listitem></itemizedlist>
+</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>WriteRespValue</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the user space pointer with<itemizedlist>
+<listitem><para>which the value of Write Response Count has to be filled </para></listitem></itemizedlist>
+</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Domain</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is one of the counter like lpd_main or r5_domain </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CounterNum</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the Counter Number. The valid values are 0 to 9.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS on success XST_FAILURE on failure</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv.c" line="275" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv.c" bodystart="275" bodyend="300"/>
+        <references refid="struct_x_pmon_psv_1ac23eb8ba0289615366075b998a188f08" compoundref="xpmonpsv_8h" startline="102">XPmonPsv::IsReady</references>
+        <references refid="struct_x_pmon_psv_1af4fb27e4fe3b66198bbb27094d262b9b" compoundref="xpmonpsv_8h" startline="103">XPmonPsv::RequestedCounters</references>
+        <references refid="group__pmonpsv_1gacc0ae31abca813a507dc900990c7f133" compoundref="xpmonpsv__hw_8h" startline="107">XPmonPsv_ReadReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__pmonpsv_1gac1987e1331e4725102fb21b7d813045b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XPmonPsv_RequestCounter</definition>
+        <argsstring>(XPmonPsv *InstancePtr, u32 Domain, u32 *CounterNum)</argsstring>
+        <name>XPmonPsv_RequestCounter</name>
+        <param>
+          <type><ref refid="struct_x_pmon_psv" kindref="compound">XPmonPsv</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Domain</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>CounterNum</declname>
+        </param>
+        <briefdescription>
+<para>This function returns success if a free counter was found and request was granted. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_pmon_psv" kindref="compound">XPmonPsv</ref> instance. which the value of Write Request Count has to be filled </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Domain</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is one of the counter like lpd_main or r5_domain </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CounterNum</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>pointer to get Counter Number.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Granted counter number. XST_FAILURE otherwise. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv.c" line="318" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv.c" bodystart="318" bodyend="336"/>
+        <references refid="struct_x_pmon_psv_1ac23eb8ba0289615366075b998a188f08" compoundref="xpmonpsv_8h" startline="102">XPmonPsv::IsReady</references>
+        <references refid="struct_x_pmon_psv_1af4fb27e4fe3b66198bbb27094d262b9b" compoundref="xpmonpsv_8h" startline="103">XPmonPsv::RequestedCounters</references>
+      </memberdef>
+      <memberdef kind="function" id="group__pmonpsv_1ga1ddd643de28219ab0c50aab729ddd058" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XPmonPsv_GetReadCounter</definition>
+        <argsstring>(const XPmonPsv *InstancePtr, u32 *ReadRequestValue, u32 *ReadRespValue, u32 Domain, u32 CounterNum)</argsstring>
+        <name>XPmonPsv_GetReadCounter</name>
+        <param>
+          <type>const <ref refid="struct_x_pmon_psv" kindref="compound">XPmonPsv</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>ReadRequestValue</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>ReadRespValue</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Domain</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>CounterNum</declname>
+        </param>
+        <briefdescription>
+<para>This function returns the contents of the Read response and request Counter Register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_pmon_psv" kindref="compound">XPmonPsv</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ReadRequestValue</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the user space pointer with which the value of Write Request Count has to be filled </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ReadRespValue</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the user space pointer with which the value of Write Response Count has to be filled </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Domain</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is one of the counter like lpd_main or r5_domain </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CounterNum</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the Counter Number. The valid values are 0 to 9.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS on success XST_FAILURE on failure </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv.c" line="356" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv.c" bodystart="356" bodyend="382"/>
+        <references refid="struct_x_pmon_psv_1ac23eb8ba0289615366075b998a188f08" compoundref="xpmonpsv_8h" startline="102">XPmonPsv::IsReady</references>
+        <references refid="struct_x_pmon_psv_1af4fb27e4fe3b66198bbb27094d262b9b" compoundref="xpmonpsv_8h" startline="103">XPmonPsv::RequestedCounters</references>
+        <references refid="group__pmonpsv_1gacc0ae31abca813a507dc900990c7f133" compoundref="xpmonpsv__hw_8h" startline="107">XPmonPsv_ReadReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__pmonpsv_1gadb59f26ba546912f1adb10aaa315148c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XPmonPsv_EnableCounters</definition>
+        <argsstring>(const XPmonPsv *InstancePtr, u32 Domain, u32 CounterNum)</argsstring>
+        <name>XPmonPsv_EnableCounters</name>
+        <param>
+          <type>const <ref refid="struct_x_pmon_psv" kindref="compound">XPmonPsv</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Domain</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>CounterNum</declname>
+        </param>
+        <briefdescription>
+<para>This function enables the following in the Performance Monitor: </para>        </briefdescription>
+        <detaileddescription>
+<para><itemizedlist>
+<listitem><para>Global clock counter</para></listitem></itemizedlist>
+</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_pmon_psv" kindref="compound">XPmonPsv</ref> instance. SampleInterval is the sample interval for the sampled metric counters </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Domain</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is one of the counter like lpd_main or r5_domain </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CounterNum</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the Counter Number to be enabled.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS on success XST_FAILURE on failure</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Setting register field GlobalEn to 1 enables the tracing and statistics collection subsystems of the packet probe.</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv.c" line="400" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv.c" bodystart="400" bodyend="431"/>
+        <references refid="struct_x_pmon_psv_1ac23eb8ba0289615366075b998a188f08" compoundref="xpmonpsv_8h" startline="102">XPmonPsv::IsReady</references>
+        <references refid="struct_x_pmon_psv_1af4fb27e4fe3b66198bbb27094d262b9b" compoundref="xpmonpsv_8h" startline="103">XPmonPsv::RequestedCounters</references>
+        <references refid="group__pmonpsv_1ga7df7c6c14c7434fbbfa5374e7cfcbe9b" compoundref="xpmonpsv__hw_8h" startline="124">XPmonPsv_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__pmonpsv_1ga10df3b03dcc3e64fb7b8b8bb98ff42d0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XPmonPsv_Unlock</definition>
+        <argsstring>(const XPmonPsv *InstancePtr)</argsstring>
+        <name>XPmonPsv_Unlock</name>
+        <param>
+          <type>const <ref refid="struct_x_pmon_psv" kindref="compound">XPmonPsv</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function unlocks the PmonPsv. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_pmon_psv" kindref="compound">XPmonPsv</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv.c" line="444" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv.c" bodystart="444" bodyend="450"/>
+        <references refid="struct_x_pmon_psv_1ac23eb8ba0289615366075b998a188f08" compoundref="xpmonpsv_8h" startline="102">XPmonPsv::IsReady</references>
+        <references refid="group__pmonpsv_1gaf75c12bc9c0d7c1edbbe3f9623243d07" compoundref="xpmonpsv__hw_8h" startline="50">PMONPSV_APM0_LAR</references>
+        <references refid="group__pmonpsv_1ga7df7c6c14c7434fbbfa5374e7cfcbe9b" compoundref="xpmonpsv__hw_8h" startline="124">XPmonPsv_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__pmonpsv_1ga84fcdf6169d586181aaea1223a82bce1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XPmonPsv_Lock</definition>
+        <argsstring>(const XPmonPsv *InstancePtr)</argsstring>
+        <name>XPmonPsv_Lock</name>
+        <param>
+          <type>const <ref refid="struct_x_pmon_psv" kindref="compound">XPmonPsv</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function locks the PmonPsv. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_pmon_psv" kindref="compound">XPmonPsv</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv.c" line="462" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv.c" bodystart="462" bodyend="468"/>
+        <references refid="struct_x_pmon_psv_1ac23eb8ba0289615366075b998a188f08" compoundref="xpmonpsv_8h" startline="102">XPmonPsv::IsReady</references>
+        <references refid="group__pmonpsv_1gaf75c12bc9c0d7c1edbbe3f9623243d07" compoundref="xpmonpsv__hw_8h" startline="50">PMONPSV_APM0_LAR</references>
+        <references refid="group__pmonpsv_1ga7df7c6c14c7434fbbfa5374e7cfcbe9b" compoundref="xpmonpsv__hw_8h" startline="124">XPmonPsv_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__pmonpsv_1gaea617c99cf28bd06a05856209b6e0ae1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XPmonPsv_StopCounter</definition>
+        <argsstring>(const XPmonPsv *InstancePtr, u32 Domain, u32 CounterNum)</argsstring>
+        <name>XPmonPsv_StopCounter</name>
+        <param>
+          <type>const <ref refid="struct_x_pmon_psv" kindref="compound">XPmonPsv</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Domain</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>CounterNum</declname>
+        </param>
+        <briefdescription>
+<para>This function disables the following in the Performance Monitor: </para>        </briefdescription>
+        <detaileddescription>
+<para><itemizedlist>
+<listitem><para>Global clock counter</para></listitem></itemizedlist>
+</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_pmon_psv" kindref="compound">XPmonPsv</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Domain</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is one of the counter like lpd_main or r5_domain </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CounterNum</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the Counter Number. The valid values are 0 to 9.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS on success XST_FAILURE on failure </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv.c" line="484" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv.c" bodystart="484" bodyend="511"/>
+        <references refid="struct_x_pmon_psv_1ac23eb8ba0289615366075b998a188f08" compoundref="xpmonpsv_8h" startline="102">XPmonPsv::IsReady</references>
+        <references refid="struct_x_pmon_psv_1af4fb27e4fe3b66198bbb27094d262b9b" compoundref="xpmonpsv_8h" startline="103">XPmonPsv::RequestedCounters</references>
+        <references refid="group__pmonpsv_1ga7df7c6c14c7434fbbfa5374e7cfcbe9b" compoundref="xpmonpsv__hw_8h" startline="124">XPmonPsv_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__pmonpsv_1ga7e7371e8483b02cd647f795976658040" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XPmonPsv_SetSrc</definition>
+        <argsstring>(const XPmonPsv *InstancePtr, u32 SrcSel, u32 Domain, u32 CounterNum)</argsstring>
+        <name>XPmonPsv_SetSrc</name>
+        <param>
+          <type>const <ref refid="struct_x_pmon_psv" kindref="compound">XPmonPsv</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>SrcSel</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Domain</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>CounterNum</declname>
+        </param>
+        <briefdescription>
+<para>This function selects the Source to be monitored. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_pmon_psv" kindref="compound">XPmonPsv</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>SrcSel</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the value of the sourceselect.</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Domain</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is one of the counter like lpd_main or r5_domain </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CounterNum</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the Counter Number. The valid values are 0 to 9.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS on success XST_FAILURE on failure </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Set the source 000 - OFF Counter disabled. 001 - CYCLE8 Probe clock cycles. 002 - IDLE Idle cycles during which no packet data is observed. 003 - XFER Transfer cycles during which packet data is transferred. 004 - BUSY Busy cycles during which the packet data is made available by the transmitting agent but the receiving agent is not ready to receive it. 005 - WAIT Wait cycles during a packet in which the transmitting agent suspends the transfer of packet data. 006 - PKT Packets. 007 - LUT1 Packets selected by the LUT. 008 - BYTE2 Total number of payload bytes.</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv.c" line="530" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv.c" bodystart="530" bodyend="566"/>
+        <references refid="struct_x_pmon_psv_1ac23eb8ba0289615366075b998a188f08" compoundref="xpmonpsv_8h" startline="102">XPmonPsv::IsReady</references>
+        <references refid="struct_x_pmon_psv_1af4fb27e4fe3b66198bbb27094d262b9b" compoundref="xpmonpsv_8h" startline="103">XPmonPsv::RequestedCounters</references>
+        <references refid="group__pmonpsv_1ga7df7c6c14c7434fbbfa5374e7cfcbe9b" compoundref="xpmonpsv__hw_8h" startline="124">XPmonPsv_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__pmonpsv_1gace779962fd5f79ca06427ec1340d553c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XPmonPsv_SetPort</definition>
+        <argsstring>(const XPmonPsv *InstancePtr, u32 PortSel, u32 Domain, u32 CounterNum)</argsstring>
+        <name>XPmonPsv_SetPort</name>
+        <param>
+          <type>const <ref refid="struct_x_pmon_psv" kindref="compound">XPmonPsv</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>PortSel</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Domain</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>CounterNum</declname>
+        </param>
+        <briefdescription>
+<para>This function selects the Port to be monitored. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_pmon_psv" kindref="compound">XPmonPsv</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>PortSel</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the value of the portselect. eg:for lpd_main 0: lpd_fpd_axi 1: prot_xppu for r5_domain 0 : lpd_afifs_axi 1 : lpd_ocm 2 : lpd_ocmext 3 : lpd_pmc_rpu_axi0</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Domain</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is one of the counter like lpd_main or r5_domain </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CounterNum</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the Counter Number. The valid values are 0 to 9.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS on success XST_FAILURE on failure </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv.c" line="592" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv.c" bodystart="592" bodyend="613"/>
+        <references refid="struct_x_pmon_psv_1ac23eb8ba0289615366075b998a188f08" compoundref="xpmonpsv_8h" startline="102">XPmonPsv::IsReady</references>
+        <references refid="struct_x_pmon_psv_1af4fb27e4fe3b66198bbb27094d262b9b" compoundref="xpmonpsv_8h" startline="103">XPmonPsv::RequestedCounters</references>
+        <references refid="group__pmonpsv_1ga7df7c6c14c7434fbbfa5374e7cfcbe9b" compoundref="xpmonpsv__hw_8h" startline="124">XPmonPsv_WriteReg</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2019<sp/>-<sp/>2020<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2023<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="34"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xpmonpsv_8h" kindref="compound">xpmonpsv.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="70" refid="group__pmonpsv_1gaa7d16fcb54dcbc93fddc2b4f64a9c5bf" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__pmonpsv_1gaa7d16fcb54dcbc93fddc2b4f64a9c5bf" kindref="member">XPmonPsv_CfgInitialize</ref>(<ref refid="struct_x_pmon_psv" kindref="compound">XPmonPsv</ref><sp/>*InstancePtr,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_pmon_psv___config" kindref="compound">XPmonPsv_Config</ref><sp/>*ConfigPtr,</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR<sp/>EffectiveAddr)</highlight></codeline>
+<codeline lineno="72"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Assert<sp/>the<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(ConfigPtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"></highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_pmon_psv_1ac23eb8ba0289615366075b998a188f08" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY)<sp/>{</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_DEVICE_IS_STARTED;</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"></highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Set<sp/>the<sp/>values<sp/>read<sp/>from<sp/>the<sp/>device<sp/>config<sp/>and<sp/>the<sp/>base<sp/>address.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_pmon_psv_1ae534fae5285ed3b2a68b0c965f0bcb9a" kindref="member">Config</ref>.<ref refid="struct_x_pmon_psv___config_1a2dc96cc2c6bced6d3f145221d7e0a369" kindref="member">DeviceId</ref><sp/>=<sp/>ConfigPtr-&gt;<ref refid="struct_x_pmon_psv___config_1a2dc96cc2c6bced6d3f145221d7e0a369" kindref="member">DeviceId</ref>;</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_pmon_psv_1ae534fae5285ed3b2a68b0c965f0bcb9a" kindref="member">Config</ref>.<ref refid="struct_x_pmon_psv___config_1aee8231396f1c20f55574db0bdbb2ed0b" kindref="member">BaseAddress</ref><sp/>=<sp/>EffectiveAddr;</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"></highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Indicate<sp/>the<sp/>instance<sp/>is<sp/>now<sp/>ready<sp/>to<sp/>use,<sp/>initialized<sp/>without<sp/>error<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_pmon_psv_1ac23eb8ba0289615366075b998a188f08" kindref="member">IsReady</ref><sp/>=<sp/>XIL_COMPONENT_IS_READY;</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_pmon_psv_1af4fb27e4fe3b66198bbb27094d262b9b" kindref="member">RequestedCounters</ref>[0]<sp/>=<sp/>0xFF;</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_pmon_psv_1af4fb27e4fe3b66198bbb27094d262b9b" kindref="member">RequestedCounters</ref>[1]<sp/>=<sp/>0XFF;</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"></highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="91"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"></highlight></codeline>
+<codeline lineno="93"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="111" refid="group__pmonpsv_1gaf9da08c69ce00c2dd67828196f443a51" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__pmonpsv_1gaf9da08c69ce00c2dd67828196f443a51" kindref="member">XPmonPsv_ResetCounter</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_pmon_psv" kindref="compound">XPmonPsv</ref><sp/>*InstancePtr,<sp/>u32<sp/>Domain,<sp/>u32<sp/>CounterNum)</highlight></codeline>
+<codeline lineno="112"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Offset=0;</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"></highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Assert<sp/>the<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_pmon_psv_1ac23eb8ba0289615366075b998a188f08" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"></highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Domain<sp/>==<sp/>XPMONPSV_LPD_MAIN_DOMAIN)<sp/>{</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Offset<sp/>=<sp/>LPD_MAIN_OFFSET;</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"></highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_pmon_psv_1af4fb27e4fe3b66198bbb27094d262b9b" kindref="member">RequestedCounters</ref>[Domain]<sp/>&gt;<sp/>XPMONPSV_MAX_COUNTERS)<sp/>{</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"></highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Offset<sp/>=<sp/>Offset<sp/>+<sp/><sp/>(CounterNum*<sp/>XPMONPSV_COUNTER_OFFSET);</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"></highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="130"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/><sp/>Reset<sp/>the<sp/>counters</highlight></codeline>
+<codeline lineno="131"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/><sp/><sp/>All<sp/>statistics<sp/>counters<sp/>are<sp/>cleared<sp/>when<sp/>the<sp/>StatEn</highlight></codeline>
+<codeline lineno="132"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/><sp/><sp/>bit<sp/>goes<sp/>from<sp/>0<sp/>to<sp/>1</highlight></codeline>
+<codeline lineno="133"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__pmonpsv_1ga7df7c6c14c7434fbbfa5374e7cfcbe9b" kindref="member">XPmonPsv_WriteReg</ref>(InstancePtr,<sp/>Offset<sp/>+<sp/>PMONPSV_PROBE1_MAINCTRL,<sp/>0x0U);</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__pmonpsv_1ga7df7c6c14c7434fbbfa5374e7cfcbe9b" kindref="member">XPmonPsv_WriteReg</ref>(InstancePtr,<sp/>Offset<sp/>+<sp/>PMONPSV_PROBE2_MAINCTRL,<sp/>0x0U);</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__pmonpsv_1ga7df7c6c14c7434fbbfa5374e7cfcbe9b" kindref="member">XPmonPsv_WriteReg</ref>(InstancePtr,<sp/>Offset<sp/>+<sp/>PMONPSV_PROBE3_MAINCTRL,<sp/>0x0U);</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__pmonpsv_1ga7df7c6c14c7434fbbfa5374e7cfcbe9b" kindref="member">XPmonPsv_WriteReg</ref>(InstancePtr,<sp/>Offset<sp/>+<sp/>PMONPSV_PROBE4_MAINCTRL,<sp/>0x0U);</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"></highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__pmonpsv_1ga7df7c6c14c7434fbbfa5374e7cfcbe9b" kindref="member">XPmonPsv_WriteReg</ref>(InstancePtr,<sp/>Offset<sp/>+<sp/>PMONPSV_PROBE1_MAINCTRL,</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MAINCTRL_STATEN_MASK);</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__pmonpsv_1ga7df7c6c14c7434fbbfa5374e7cfcbe9b" kindref="member">XPmonPsv_WriteReg</ref>(InstancePtr,<sp/>Offset<sp/>+<sp/>PMONPSV_PROBE2_MAINCTRL,</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MAINCTRL_STATEN_MASK);</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__pmonpsv_1ga7df7c6c14c7434fbbfa5374e7cfcbe9b" kindref="member">XPmonPsv_WriteReg</ref>(InstancePtr,<sp/>Offset<sp/>+<sp/>PMONPSV_PROBE3_MAINCTRL,</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MAINCTRL_STATEN_MASK);</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__pmonpsv_1ga7df7c6c14c7434fbbfa5374e7cfcbe9b" kindref="member">XPmonPsv_WriteReg</ref>(InstancePtr,<sp/>Offset<sp/>+<sp/>PMONPSV_PROBE4_MAINCTRL,</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MAINCTRL_STATEN_MASK);</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"></highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"></highlight></codeline>
+<codeline lineno="150"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"></highlight></codeline>
+<codeline lineno="152"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="171" refid="group__pmonpsv_1gae01033d281536814a9a0578e6029ed4f" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__pmonpsv_1gae01033d281536814a9a0578e6029ed4f" kindref="member">XPmonPsv_SetMetrics</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_pmon_psv" kindref="compound">XPmonPsv</ref><sp/>*InstancePtr,<sp/>u32<sp/>StatPeriod,<sp/>u32<sp/>Domain,<sp/>u32<sp/>CounterNum)</highlight></codeline>
+<codeline lineno="172"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Offset=0;</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"></highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Domain<sp/>==<sp/>XPMONPSV_LPD_MAIN_DOMAIN)<sp/>{</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Offset<sp/>=<sp/>LPD_MAIN_OFFSET;</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"></highlight></codeline>
+<codeline lineno="179"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_pmon_psv_1af4fb27e4fe3b66198bbb27094d262b9b" kindref="member">RequestedCounters</ref>[Domain]<sp/>&gt;<sp/>XPMONPSV_MAX_COUNTERS)<sp/>{</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="182"><highlight class="normal"></highlight></codeline>
+<codeline lineno="183"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Offset<sp/>=<sp/>Offset<sp/>+<sp/><sp/>(CounterNum*<sp/>XPMONPSV_COUNTER_OFFSET);</highlight></codeline>
+<codeline lineno="184"><highlight class="normal"></highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__pmonpsv_1ga7df7c6c14c7434fbbfa5374e7cfcbe9b" kindref="member">XPmonPsv_WriteReg</ref>(InstancePtr,<sp/>Offset<sp/>+<sp/>PMONPSV_PROBE1_MAINCTRL,</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MAINCTRL_STATEN_MASK<sp/>|<sp/>MAINCTRL_STATCONDDUMP_MASK);</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__pmonpsv_1ga7df7c6c14c7434fbbfa5374e7cfcbe9b" kindref="member">XPmonPsv_WriteReg</ref>(InstancePtr,<sp/>Offset<sp/>+<sp/>PMONPSV_PROBE1_STATPERIOD,<sp/>StatPeriod);</highlight></codeline>
+<codeline lineno="188"><highlight class="normal"></highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__pmonpsv_1ga7df7c6c14c7434fbbfa5374e7cfcbe9b" kindref="member">XPmonPsv_WriteReg</ref>(InstancePtr,<sp/>Offset<sp/>+<sp/>PMONPSV_PROBE2_MAINCTRL,</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MAINCTRL_STATEN_MASK<sp/>|<sp/>MAINCTRL_STATCONDDUMP_MASK);</highlight></codeline>
+<codeline lineno="191"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__pmonpsv_1ga7df7c6c14c7434fbbfa5374e7cfcbe9b" kindref="member">XPmonPsv_WriteReg</ref>(InstancePtr,<sp/>Offset<sp/>+<sp/>PMONPSV_PROBE2_STATPERIOD,<sp/>StatPeriod);</highlight></codeline>
+<codeline lineno="192"><highlight class="normal"></highlight></codeline>
+<codeline lineno="193"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__pmonpsv_1ga7df7c6c14c7434fbbfa5374e7cfcbe9b" kindref="member">XPmonPsv_WriteReg</ref>(InstancePtr,<sp/>Offset<sp/>+<sp/>PMONPSV_PROBE3_MAINCTRL,</highlight></codeline>
+<codeline lineno="194"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MAINCTRL_STATEN_MASK<sp/>|<sp/>MAINCTRL_STATCONDDUMP_MASK);</highlight></codeline>
+<codeline lineno="195"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__pmonpsv_1ga7df7c6c14c7434fbbfa5374e7cfcbe9b" kindref="member">XPmonPsv_WriteReg</ref>(InstancePtr,<sp/>Offset<sp/>+<sp/>PMONPSV_PROBE3_STATPERIOD,<sp/>StatPeriod);</highlight></codeline>
+<codeline lineno="196"><highlight class="normal"></highlight></codeline>
+<codeline lineno="197"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__pmonpsv_1ga7df7c6c14c7434fbbfa5374e7cfcbe9b" kindref="member">XPmonPsv_WriteReg</ref>(InstancePtr,<sp/>Offset<sp/>+<sp/>PMONPSV_PROBE4_MAINCTRL,</highlight></codeline>
+<codeline lineno="198"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MAINCTRL_STATEN_MASK<sp/>|<sp/>MAINCTRL_STATCONDDUMP_MASK);</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__pmonpsv_1ga7df7c6c14c7434fbbfa5374e7cfcbe9b" kindref="member">XPmonPsv_WriteReg</ref>(InstancePtr,<sp/>Offset<sp/>+<sp/>PMONPSV_PROBE4_STATPERIOD,<sp/>StatPeriod);</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"></highlight></codeline>
+<codeline lineno="201"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="202"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="203"><highlight class="normal"></highlight></codeline>
+<codeline lineno="204"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="221" refid="group__pmonpsv_1ga8969db0e19b31ea48690fb6f8e8c0208" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__pmonpsv_1ga8969db0e19b31ea48690fb6f8e8c0208" kindref="member">XPmonPsv_GetMetrics</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_pmon_psv" kindref="compound">XPmonPsv</ref><sp/>*InstancePtr,<sp/>u32<sp/>CounterNum,<sp/>u8<sp/>*MainCtl,</highlight></codeline>
+<codeline lineno="222"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>*StatPeriod<sp/>,u32<sp/>Domain)</highlight></codeline>
+<codeline lineno="223"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="224"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>RegValue;</highlight></codeline>
+<codeline lineno="225"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Offset=0;</highlight></codeline>
+<codeline lineno="226"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="227"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Assert<sp/>the<sp/>arguments.</highlight></codeline>
+<codeline lineno="228"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="229"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="230"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_pmon_psv_1ac23eb8ba0289615366075b998a188f08" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="231"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(MainCtl<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="232"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(StatPeriod<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="233"><highlight class="normal"></highlight></codeline>
+<codeline lineno="234"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Domain<sp/>==<sp/>XPMONPSV_LPD_MAIN_DOMAIN)<sp/>{</highlight></codeline>
+<codeline lineno="235"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Offset<sp/>=<sp/>LPD_MAIN_OFFSET;</highlight></codeline>
+<codeline lineno="236"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="237"><highlight class="normal"></highlight></codeline>
+<codeline lineno="238"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_pmon_psv_1af4fb27e4fe3b66198bbb27094d262b9b" kindref="member">RequestedCounters</ref>[Domain]<sp/>&lt;=<sp/>CounterNum)<sp/>{</highlight></codeline>
+<codeline lineno="239"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="240"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="241"><highlight class="normal"></highlight></codeline>
+<codeline lineno="242"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Offset<sp/>=<sp/>Offset<sp/>+<sp/><sp/>(CounterNum*<sp/>XPMONPSV_COUNTER_OFFSET);</highlight></codeline>
+<codeline lineno="243"><highlight class="normal"></highlight></codeline>
+<codeline lineno="244"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegValue<sp/>=<sp/><ref refid="group__pmonpsv_1gacc0ae31abca813a507dc900990c7f133" kindref="member">XPmonPsv_ReadReg</ref>(InstancePtr,</highlight></codeline>
+<codeline lineno="245"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Offset<sp/>+<sp/>PMONPSV_PROBE2_MAINCTRL);</highlight></codeline>
+<codeline lineno="246"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*MainCtl<sp/>=<sp/>(u8)(RegValue<sp/>&amp;<sp/>0xffU);</highlight></codeline>
+<codeline lineno="247"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegValue<sp/>=<sp/><ref refid="group__pmonpsv_1gacc0ae31abca813a507dc900990c7f133" kindref="member">XPmonPsv_ReadReg</ref>(InstancePtr,</highlight></codeline>
+<codeline lineno="248"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Offset<sp/>+<sp/>PMONPSV_PROBE2_STATPERIOD);</highlight></codeline>
+<codeline lineno="249"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*StatPeriod<sp/>=<sp/>(u8)(RegValue<sp/>&amp;<sp/>STATPERIOD_PERIOD_MASK);</highlight></codeline>
+<codeline lineno="250"><highlight class="normal"></highlight></codeline>
+<codeline lineno="251"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="252"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="253"><highlight class="normal"></highlight></codeline>
+<codeline lineno="254"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="275" refid="group__pmonpsv_1ga57d5aae6b20218e6fbca2ce9e90e3c12" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__pmonpsv_1ga57d5aae6b20218e6fbca2ce9e90e3c12" kindref="member">XPmonPsv_GetWriteCounter</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_pmon_psv" kindref="compound">XPmonPsv</ref><sp/>*InstancePtr,u32<sp/>*WriteRequestValue,</highlight></codeline>
+<codeline lineno="276"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>*WriteRespValue,<sp/>u32<sp/>Domain,<sp/>u32<sp/>CounterNum)</highlight></codeline>
+<codeline lineno="277"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="278"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Offset=0;</highlight></codeline>
+<codeline lineno="279"><highlight class="normal"></highlight></codeline>
+<codeline lineno="280"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="281"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_pmon_psv_1ac23eb8ba0289615366075b998a188f08" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="282"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(WriteRespValue<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="283"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(WriteRequestValue<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="284"><highlight class="normal"></highlight></codeline>
+<codeline lineno="285"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Domain<sp/>==<sp/>XPMONPSV_LPD_MAIN_DOMAIN)<sp/>{</highlight></codeline>
+<codeline lineno="286"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Offset<sp/>=<sp/>LPD_MAIN_OFFSET;</highlight></codeline>
+<codeline lineno="287"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="288"><highlight class="normal"></highlight></codeline>
+<codeline lineno="289"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_pmon_psv_1af4fb27e4fe3b66198bbb27094d262b9b" kindref="member">RequestedCounters</ref>[Domain]<sp/>&lt;=<sp/>CounterNum)<sp/>{</highlight></codeline>
+<codeline lineno="290"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="291"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="292"><highlight class="normal"></highlight></codeline>
+<codeline lineno="293"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Offset<sp/>=<sp/>Offset<sp/>+<sp/><sp/>(CounterNum*<sp/>XPMONPSV_COUNTER_OFFSET);</highlight></codeline>
+<codeline lineno="294"><highlight class="normal"></highlight></codeline>
+<codeline lineno="295"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*WriteRequestValue<sp/>=<sp/><ref refid="group__pmonpsv_1gacc0ae31abca813a507dc900990c7f133" kindref="member">XPmonPsv_ReadReg</ref>(InstancePtr,</highlight></codeline>
+<codeline lineno="296"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Offset<sp/>+<sp/>PMONPSV_WR_REQ_COUNTER0_VAL);</highlight></codeline>
+<codeline lineno="297"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*WriteRespValue<sp/>=<sp/><ref refid="group__pmonpsv_1gacc0ae31abca813a507dc900990c7f133" kindref="member">XPmonPsv_ReadReg</ref>(InstancePtr,</highlight></codeline>
+<codeline lineno="298"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Offset<sp/>+<sp/>PMONPSV_WR_RESP_COUNTER0_VAL);</highlight></codeline>
+<codeline lineno="299"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="300"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="301"><highlight class="normal"></highlight></codeline>
+<codeline lineno="302"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="318" refid="group__pmonpsv_1gac1987e1331e4725102fb21b7d813045b" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__pmonpsv_1gac1987e1331e4725102fb21b7d813045b" kindref="member">XPmonPsv_RequestCounter</ref>(<ref refid="struct_x_pmon_psv" kindref="compound">XPmonPsv</ref><sp/>*InstancePtr,u32<sp/>Domain,<sp/>u32<sp/>*CounterNum)</highlight></codeline>
+<codeline lineno="319"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="320"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="321"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_pmon_psv_1ac23eb8ba0289615366075b998a188f08" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="322"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(CounterNum<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="323"><highlight class="normal"></highlight></codeline>
+<codeline lineno="324"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Unrequested<sp/>give<sp/>the<sp/>0th<sp/>counter<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="325"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<sp/>InstancePtr-&gt;<ref refid="struct_x_pmon_psv_1af4fb27e4fe3b66198bbb27094d262b9b" kindref="member">RequestedCounters</ref>[Domain]<sp/>==<sp/>0xFF<sp/>)</highlight></codeline>
+<codeline lineno="326"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_pmon_psv_1af4fb27e4fe3b66198bbb27094d262b9b" kindref="member">RequestedCounters</ref>[Domain]<sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="327"><highlight class="normal"></highlight></codeline>
+<codeline lineno="328"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_pmon_psv_1af4fb27e4fe3b66198bbb27094d262b9b" kindref="member">RequestedCounters</ref>[Domain]<sp/>&gt;<sp/>XPMONPSV_MAX_COUNTERS)<sp/>{</highlight></codeline>
+<codeline lineno="329"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="330"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="331"><highlight class="normal"></highlight></codeline>
+<codeline lineno="332"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*CounterNum<sp/>=<sp/>InstancePtr-&gt;<ref refid="struct_x_pmon_psv_1af4fb27e4fe3b66198bbb27094d262b9b" kindref="member">RequestedCounters</ref>[Domain];</highlight></codeline>
+<codeline lineno="333"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_pmon_psv_1af4fb27e4fe3b66198bbb27094d262b9b" kindref="member">RequestedCounters</ref>[Domain]<sp/>+=<sp/>1U;</highlight></codeline>
+<codeline lineno="334"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="335"><highlight class="normal"></highlight></codeline>
+<codeline lineno="336"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="337"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="356" refid="group__pmonpsv_1ga1ddd643de28219ab0c50aab729ddd058" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__pmonpsv_1ga1ddd643de28219ab0c50aab729ddd058" kindref="member">XPmonPsv_GetReadCounter</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_pmon_psv" kindref="compound">XPmonPsv</ref><sp/>*InstancePtr,u32<sp/>*ReadRequestValue,</highlight></codeline>
+<codeline lineno="357"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>*ReadRespValue,<sp/>u32<sp/>Domain,<sp/>u32<sp/>CounterNum)</highlight></codeline>
+<codeline lineno="358"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="359"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Offset=0;</highlight></codeline>
+<codeline lineno="360"><highlight class="normal"></highlight></codeline>
+<codeline lineno="361"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Assert<sp/>the<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="362"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="363"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_pmon_psv_1ac23eb8ba0289615366075b998a188f08" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="364"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(ReadRequestValue<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="365"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(ReadRespValue<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="366"><highlight class="normal"></highlight></codeline>
+<codeline lineno="367"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_pmon_psv_1af4fb27e4fe3b66198bbb27094d262b9b" kindref="member">RequestedCounters</ref>[Domain]<sp/>&lt;<sp/>CounterNum)<sp/>{</highlight></codeline>
+<codeline lineno="368"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="369"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="370"><highlight class="normal"></highlight></codeline>
+<codeline lineno="371"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Domain<sp/>==<sp/>XPMONPSV_LPD_MAIN_DOMAIN)<sp/>{</highlight></codeline>
+<codeline lineno="372"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Offset<sp/>=<sp/>LPD_MAIN_OFFSET;</highlight></codeline>
+<codeline lineno="373"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="374"><highlight class="normal"></highlight></codeline>
+<codeline lineno="375"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Offset<sp/>=<sp/>Offset<sp/>+<sp/><sp/>(CounterNum*<sp/>XPMONPSV_COUNTER_OFFSET);</highlight></codeline>
+<codeline lineno="376"><highlight class="normal"></highlight></codeline>
+<codeline lineno="377"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*ReadRequestValue<sp/>=<sp/><ref refid="group__pmonpsv_1gacc0ae31abca813a507dc900990c7f133" kindref="member">XPmonPsv_ReadReg</ref>(InstancePtr,</highlight></codeline>
+<codeline lineno="378"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Offset<sp/>+<sp/>PMONPSV_RD_REQ_COUNTER0_VAL);</highlight></codeline>
+<codeline lineno="379"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*ReadRespValue<sp/>=<sp/><ref refid="group__pmonpsv_1gacc0ae31abca813a507dc900990c7f133" kindref="member">XPmonPsv_ReadReg</ref>(InstancePtr,</highlight></codeline>
+<codeline lineno="380"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Offset<sp/>+<sp/>PMONPSV_RD_RESP_COUNTER0_VAL);</highlight></codeline>
+<codeline lineno="381"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="382"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="383"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="400" refid="group__pmonpsv_1gadb59f26ba546912f1adb10aaa315148c" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__pmonpsv_1gadb59f26ba546912f1adb10aaa315148c" kindref="member">XPmonPsv_EnableCounters</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_pmon_psv" kindref="compound">XPmonPsv</ref><sp/>*InstancePtr,<sp/>u32<sp/>Domain,<sp/>u32<sp/>CounterNum)</highlight></codeline>
+<codeline lineno="401"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="402"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Offset=0;</highlight></codeline>
+<codeline lineno="403"><highlight class="normal"></highlight></codeline>
+<codeline lineno="404"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Assert<sp/>the<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="405"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="406"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_pmon_psv_1ac23eb8ba0289615366075b998a188f08" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="407"><highlight class="normal"></highlight></codeline>
+<codeline lineno="408"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_pmon_psv_1af4fb27e4fe3b66198bbb27094d262b9b" kindref="member">RequestedCounters</ref>[Domain]<sp/>&lt;<sp/>CounterNum)<sp/>{</highlight></codeline>
+<codeline lineno="409"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="410"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="411"><highlight class="normal"></highlight></codeline>
+<codeline lineno="412"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Domain<sp/>==<sp/>XPMONPSV_LPD_MAIN_DOMAIN)<sp/>{</highlight></codeline>
+<codeline lineno="413"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Offset<sp/>=<sp/>LPD_MAIN_OFFSET;</highlight></codeline>
+<codeline lineno="414"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="415"><highlight class="normal"></highlight></codeline>
+<codeline lineno="416"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Offset<sp/>=<sp/>Offset<sp/>+<sp/><sp/>(CounterNum*<sp/>XPMONPSV_COUNTER_OFFSET);</highlight></codeline>
+<codeline lineno="417"><highlight class="normal"></highlight></codeline>
+<codeline lineno="422"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__pmonpsv_1ga7df7c6c14c7434fbbfa5374e7cfcbe9b" kindref="member">XPmonPsv_WriteReg</ref>(InstancePtr,<sp/>Offset<sp/>+<sp/>PMONPSV_PROBE1_CFGCTRL,</highlight></codeline>
+<codeline lineno="423"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CFGCTRL_GLOBALEN_MASK);</highlight></codeline>
+<codeline lineno="424"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__pmonpsv_1ga7df7c6c14c7434fbbfa5374e7cfcbe9b" kindref="member">XPmonPsv_WriteReg</ref>(InstancePtr,<sp/>Offset<sp/>+<sp/>PMONPSV_PROBE2_CFGCTRL,</highlight></codeline>
+<codeline lineno="425"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CFGCTRL_GLOBALEN_MASK);</highlight></codeline>
+<codeline lineno="426"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__pmonpsv_1ga7df7c6c14c7434fbbfa5374e7cfcbe9b" kindref="member">XPmonPsv_WriteReg</ref>(InstancePtr,<sp/>Offset<sp/>+<sp/>PMONPSV_PROBE3_CFGCTRL,</highlight></codeline>
+<codeline lineno="427"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CFGCTRL_GLOBALEN_MASK);</highlight></codeline>
+<codeline lineno="428"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__pmonpsv_1ga7df7c6c14c7434fbbfa5374e7cfcbe9b" kindref="member">XPmonPsv_WriteReg</ref>(InstancePtr,<sp/>Offset<sp/>+<sp/>PMONPSV_PROBE4_CFGCTRL,</highlight></codeline>
+<codeline lineno="429"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CFGCTRL_GLOBALEN_MASK);</highlight></codeline>
+<codeline lineno="430"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="431"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="432"><highlight class="normal"></highlight></codeline>
+<codeline lineno="433"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="444" refid="group__pmonpsv_1ga10df3b03dcc3e64fb7b8b8bb98ff42d0" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__pmonpsv_1ga10df3b03dcc3e64fb7b8b8bb98ff42d0" kindref="member">XPmonPsv_Unlock</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_pmon_psv" kindref="compound">XPmonPsv</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="445"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="446"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Assert<sp/>the<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="447"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="448"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_pmon_psv_1ac23eb8ba0289615366075b998a188f08" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="449"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__pmonpsv_1ga7df7c6c14c7434fbbfa5374e7cfcbe9b" kindref="member">XPmonPsv_WriteReg</ref>(InstancePtr,<sp/>(u32)<ref refid="group__pmonpsv_1gaf75c12bc9c0d7c1edbbe3f9623243d07" kindref="member">PMONPSV_APM0_LAR</ref>,<sp/>0xC5ACCE55U);</highlight></codeline>
+<codeline lineno="450"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="451"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="462" refid="group__pmonpsv_1ga84fcdf6169d586181aaea1223a82bce1" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__pmonpsv_1ga84fcdf6169d586181aaea1223a82bce1" kindref="member">XPmonPsv_Lock</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_pmon_psv" kindref="compound">XPmonPsv</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="463"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="464"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Assert<sp/>the<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="465"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="466"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_pmon_psv_1ac23eb8ba0289615366075b998a188f08" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="467"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__pmonpsv_1ga7df7c6c14c7434fbbfa5374e7cfcbe9b" kindref="member">XPmonPsv_WriteReg</ref>(InstancePtr,<sp/>(u32)<ref refid="group__pmonpsv_1gaf75c12bc9c0d7c1edbbe3f9623243d07" kindref="member">PMONPSV_APM0_LAR</ref>,<sp/>0x0U);</highlight></codeline>
+<codeline lineno="468"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="469"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="484" refid="group__pmonpsv_1gaea617c99cf28bd06a05856209b6e0ae1" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__pmonpsv_1gaea617c99cf28bd06a05856209b6e0ae1" kindref="member">XPmonPsv_StopCounter</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_pmon_psv" kindref="compound">XPmonPsv</ref><sp/>*InstancePtr,<sp/>u32<sp/>Domain,<sp/>u32<sp/>CounterNum)</highlight></codeline>
+<codeline lineno="485"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="486"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Offset=0;</highlight></codeline>
+<codeline lineno="487"><highlight class="normal"></highlight></codeline>
+<codeline lineno="488"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Assert<sp/>the<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="489"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="490"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_pmon_psv_1ac23eb8ba0289615366075b998a188f08" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="491"><highlight class="normal"></highlight></codeline>
+<codeline lineno="492"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_pmon_psv_1af4fb27e4fe3b66198bbb27094d262b9b" kindref="member">RequestedCounters</ref>[Domain]<sp/>&lt;<sp/>CounterNum)<sp/>{</highlight></codeline>
+<codeline lineno="493"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(u32)XST_FAILURE;</highlight></codeline>
+<codeline lineno="494"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="495"><highlight class="normal"></highlight></codeline>
+<codeline lineno="496"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Domain<sp/>==<sp/>XPMONPSV_LPD_MAIN_DOMAIN)<sp/>{</highlight></codeline>
+<codeline lineno="497"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Offset<sp/>=<sp/>LPD_MAIN_OFFSET;</highlight></codeline>
+<codeline lineno="498"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="499"><highlight class="normal"></highlight></codeline>
+<codeline lineno="500"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Offset<sp/>=<sp/>Offset<sp/>+<sp/><sp/>(CounterNum*<sp/>XPMONPSV_COUNTER_OFFSET);</highlight></codeline>
+<codeline lineno="501"><highlight class="normal"></highlight></codeline>
+<codeline lineno="502"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__pmonpsv_1ga7df7c6c14c7434fbbfa5374e7cfcbe9b" kindref="member">XPmonPsv_WriteReg</ref>(InstancePtr,<sp/>Offset<sp/>+<sp/>PMONPSV_PROBE1_CFGCTRL,</highlight></codeline>
+<codeline lineno="503"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0U);</highlight></codeline>
+<codeline lineno="504"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__pmonpsv_1ga7df7c6c14c7434fbbfa5374e7cfcbe9b" kindref="member">XPmonPsv_WriteReg</ref>(InstancePtr,<sp/>Offset<sp/>+<sp/>PMONPSV_PROBE2_CFGCTRL,</highlight></codeline>
+<codeline lineno="505"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0U);</highlight></codeline>
+<codeline lineno="506"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__pmonpsv_1ga7df7c6c14c7434fbbfa5374e7cfcbe9b" kindref="member">XPmonPsv_WriteReg</ref>(InstancePtr,<sp/>Offset<sp/>+<sp/>PMONPSV_PROBE3_CFGCTRL,</highlight></codeline>
+<codeline lineno="507"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0U);</highlight></codeline>
+<codeline lineno="508"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__pmonpsv_1ga7df7c6c14c7434fbbfa5374e7cfcbe9b" kindref="member">XPmonPsv_WriteReg</ref>(InstancePtr,<sp/>Offset<sp/>+<sp/>PMONPSV_PROBE4_CFGCTRL,</highlight></codeline>
+<codeline lineno="509"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0U);</highlight></codeline>
+<codeline lineno="510"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="511"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="512"><highlight class="normal"></highlight></codeline>
+<codeline lineno="513"><highlight class="normal"></highlight></codeline>
+<codeline lineno="514"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="530" refid="group__pmonpsv_1ga7e7371e8483b02cd647f795976658040" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__pmonpsv_1ga7e7371e8483b02cd647f795976658040" kindref="member">XPmonPsv_SetSrc</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_pmon_psv" kindref="compound">XPmonPsv</ref><sp/>*InstancePtr,<sp/>u32<sp/>SrcSel<sp/>,<sp/>u32<sp/>Domain,<sp/>u32<sp/>CounterNum)</highlight></codeline>
+<codeline lineno="531"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="532"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Offset=0;</highlight></codeline>
+<codeline lineno="533"><highlight class="normal"></highlight></codeline>
+<codeline lineno="534"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Assert<sp/>the<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="535"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="536"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_pmon_psv_1ac23eb8ba0289615366075b998a188f08" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="537"><highlight class="normal"></highlight></codeline>
+<codeline lineno="538"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_pmon_psv_1af4fb27e4fe3b66198bbb27094d262b9b" kindref="member">RequestedCounters</ref>[Domain]<sp/>&lt;<sp/>CounterNum)<sp/>{</highlight></codeline>
+<codeline lineno="539"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="540"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="541"><highlight class="normal"></highlight></codeline>
+<codeline lineno="542"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Domain<sp/>==<sp/>XPMONPSV_LPD_MAIN_DOMAIN)<sp/>{</highlight></codeline>
+<codeline lineno="543"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Offset<sp/>=<sp/>LPD_MAIN_OFFSET;</highlight></codeline>
+<codeline lineno="544"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="545"><highlight class="normal"></highlight></codeline>
+<codeline lineno="546"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Offset<sp/>=<sp/>Offset<sp/>+<sp/><sp/>(CounterNum*<sp/>XPMONPSV_COUNTER_OFFSET);</highlight></codeline>
+<codeline lineno="561"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__pmonpsv_1ga7df7c6c14c7434fbbfa5374e7cfcbe9b" kindref="member">XPmonPsv_WriteReg</ref>(InstancePtr,<sp/>Offset<sp/>+<sp/>PMONPSV_WR_REQ_COUNTER0_SRC,<sp/>SrcSel);</highlight></codeline>
+<codeline lineno="562"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__pmonpsv_1ga7df7c6c14c7434fbbfa5374e7cfcbe9b" kindref="member">XPmonPsv_WriteReg</ref>(InstancePtr,<sp/>Offset<sp/>+<sp/>PMONPSV_WR_RESP_COUNTER0_SRC,<sp/>SrcSel);</highlight></codeline>
+<codeline lineno="563"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__pmonpsv_1ga7df7c6c14c7434fbbfa5374e7cfcbe9b" kindref="member">XPmonPsv_WriteReg</ref>(InstancePtr,<sp/>Offset<sp/>+<sp/>PMONPSV_RD_REQ_COUNTER0_SRC,<sp/>SrcSel);</highlight></codeline>
+<codeline lineno="564"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__pmonpsv_1ga7df7c6c14c7434fbbfa5374e7cfcbe9b" kindref="member">XPmonPsv_WriteReg</ref>(InstancePtr,<sp/>Offset<sp/>+<sp/>PMONPSV_RD_RESP_COUNTER0_SRC,<sp/>SrcSel);</highlight></codeline>
+<codeline lineno="565"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="566"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="567"><highlight class="normal"></highlight></codeline>
+<codeline lineno="568"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="592" refid="group__pmonpsv_1gace779962fd5f79ca06427ec1340d553c" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__pmonpsv_1gace779962fd5f79ca06427ec1340d553c" kindref="member">XPmonPsv_SetPort</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_pmon_psv" kindref="compound">XPmonPsv</ref><sp/>*InstancePtr,<sp/>u32<sp/>PortSel,<sp/>u32<sp/>Domain,<sp/>u32<sp/>CounterNum)</highlight></codeline>
+<codeline lineno="593"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="594"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Offset=0;</highlight></codeline>
+<codeline lineno="595"><highlight class="normal"></highlight></codeline>
+<codeline lineno="596"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Assert<sp/>the<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="597"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="598"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_pmon_psv_1ac23eb8ba0289615366075b998a188f08" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="599"><highlight class="normal"></highlight></codeline>
+<codeline lineno="600"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_pmon_psv_1af4fb27e4fe3b66198bbb27094d262b9b" kindref="member">RequestedCounters</ref>[Domain]<sp/>&lt;<sp/>CounterNum)<sp/>{</highlight></codeline>
+<codeline lineno="601"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="602"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="603"><highlight class="normal"></highlight></codeline>
+<codeline lineno="604"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Domain<sp/>==<sp/>XPMONPSV_LPD_MAIN_DOMAIN)<sp/>{</highlight></codeline>
+<codeline lineno="605"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Offset<sp/>=<sp/>LPD_MAIN_OFFSET;</highlight></codeline>
+<codeline lineno="606"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="607"><highlight class="normal"></highlight></codeline>
+<codeline lineno="608"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__pmonpsv_1ga7df7c6c14c7434fbbfa5374e7cfcbe9b" kindref="member">XPmonPsv_WriteReg</ref>(InstancePtr,<sp/>Offset<sp/>+<sp/>PMONPSV_WR_REQ_COUNTER0_PORTSEL,<sp/>PortSel);</highlight></codeline>
+<codeline lineno="609"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__pmonpsv_1ga7df7c6c14c7434fbbfa5374e7cfcbe9b" kindref="member">XPmonPsv_WriteReg</ref>(InstancePtr,<sp/>Offset<sp/>+<sp/>PMONPSV_WR_RESP_COUNTER0_PORTSEL,<sp/>PortSel);</highlight></codeline>
+<codeline lineno="610"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__pmonpsv_1ga7df7c6c14c7434fbbfa5374e7cfcbe9b" kindref="member">XPmonPsv_WriteReg</ref>(InstancePtr,<sp/>Offset<sp/>+<sp/>PMONPSV_RD_REQ_COUNTER0_PORTSEL,<sp/>PortSel);</highlight></codeline>
+<codeline lineno="611"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__pmonpsv_1ga7df7c6c14c7434fbbfa5374e7cfcbe9b" kindref="member">XPmonPsv_WriteReg</ref>(InstancePtr,<sp/>Offset<sp/>+<sp/>PMONPSV_RD_RESP_COUNTER0_PORTSEL,<sp/>PortSel);</highlight></codeline>
+<codeline lineno="612"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="613"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv.c"/>
+  </compounddef>
+</doxygen>

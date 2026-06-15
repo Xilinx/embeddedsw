@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_5e5a509d0b8a9b81f815a939668fe1ef" kind="dir">
+    <compoundname>intc</compoundname>
+    <innerdir refid="dir_20796bb29b38d685bd4fdfeb680811b3">examples</innerdir>
+    <innerdir refid="dir_103b9e7121ffb3cbefd395d5b8ad3704">src</innerdir>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/"/>
+  </compounddef>
+</doxygen>

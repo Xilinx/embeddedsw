@@ -1,0 +1,130 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_uart_lite___stats" kind="struct" prot="public">
+    <compoundname>XUartLite_Stats</compoundname>
+    <includes local="no">xuartlite.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_uart_lite___stats_1a046cc0881c445ef40f27140e19e2c174" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XUartLite_Stats::TransmitInterrupts</definition>
+        <argsstring></argsstring>
+        <name>TransmitInterrupts</name>
+        <briefdescription>
+<para>Number of transmit interrupts. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/src/xuartlite.h" line="168" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/src/xuartlite.h" bodystart="168" bodyend="-1"/>
+        <referencedby refid="group__uartlite_1ga33651bc4c0c36496d86038d95f39f0cd" compoundref="xuartlite__stats_8c" startline="101" endline="117">XUartLite_ClearStats</referencedby>
+        <referencedby refid="group__uartlite_1ga081d00a44aeebe19ed77e195a063b4e1" compoundref="xuartlite__stats_8c" startline="66" endline="87">XUartLite_GetStats</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_uart_lite___stats_1a5aa85c00c96797e499040c43f000b458" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XUartLite_Stats::ReceiveInterrupts</definition>
+        <argsstring></argsstring>
+        <name>ReceiveInterrupts</name>
+        <briefdescription>
+<para>Number of receive interrupts. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/src/xuartlite.h" line="169" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/src/xuartlite.h" bodystart="169" bodyend="-1"/>
+        <referencedby refid="group__uartlite_1ga33651bc4c0c36496d86038d95f39f0cd" compoundref="xuartlite__stats_8c" startline="101" endline="117">XUartLite_ClearStats</referencedby>
+        <referencedby refid="group__uartlite_1ga081d00a44aeebe19ed77e195a063b4e1" compoundref="xuartlite__stats_8c" startline="66" endline="87">XUartLite_GetStats</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_uart_lite___stats_1a2835184ffdbb9eb956f475f71460c699" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XUartLite_Stats::CharactersTransmitted</definition>
+        <argsstring></argsstring>
+        <name>CharactersTransmitted</name>
+        <briefdescription>
+<para>Number of characters transmitted. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/src/xuartlite.h" line="170" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/src/xuartlite.h" bodystart="170" bodyend="-1"/>
+        <referencedby refid="group__uartlite_1ga33651bc4c0c36496d86038d95f39f0cd" compoundref="xuartlite__stats_8c" startline="101" endline="117">XUartLite_ClearStats</referencedby>
+        <referencedby refid="group__uartlite_1ga081d00a44aeebe19ed77e195a063b4e1" compoundref="xuartlite__stats_8c" startline="66" endline="87">XUartLite_GetStats</referencedby>
+        <referencedby refid="group__uartlite_1ga155b5a1fba111533992e283445ad8f73" compoundref="xuartlite_8c" startline="458" endline="524">XUartLite_SendBuffer</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_uart_lite___stats_1a419c9a4c527458f4ca8e681fa300160f" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XUartLite_Stats::CharactersReceived</definition>
+        <argsstring></argsstring>
+        <name>CharactersReceived</name>
+        <briefdescription>
+<para>Number of characters received. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/src/xuartlite.h" line="171" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/src/xuartlite.h" bodystart="171" bodyend="-1"/>
+        <referencedby refid="group__uartlite_1ga33651bc4c0c36496d86038d95f39f0cd" compoundref="xuartlite__stats_8c" startline="101" endline="117">XUartLite_ClearStats</referencedby>
+        <referencedby refid="group__uartlite_1ga081d00a44aeebe19ed77e195a063b4e1" compoundref="xuartlite__stats_8c" startline="66" endline="87">XUartLite_GetStats</referencedby>
+        <referencedby refid="group__uartlite_1ga74efaecba1b6b1406c8c82abbb628cc8" compoundref="xuartlite_8c" startline="558" endline="625">XUartLite_ReceiveBuffer</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_uart_lite___stats_1af82d51917660948cd9fd5860ee1c9e00" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XUartLite_Stats::ReceiveOverrunErrors</definition>
+        <argsstring></argsstring>
+        <name>ReceiveOverrunErrors</name>
+        <briefdescription>
+<para>Number of receive overruns. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/src/xuartlite.h" line="172" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/src/xuartlite.h" bodystart="172" bodyend="-1"/>
+        <referencedby refid="group__uartlite_1ga33651bc4c0c36496d86038d95f39f0cd" compoundref="xuartlite__stats_8c" startline="101" endline="117">XUartLite_ClearStats</referencedby>
+        <referencedby refid="group__uartlite_1ga081d00a44aeebe19ed77e195a063b4e1" compoundref="xuartlite__stats_8c" startline="66" endline="87">XUartLite_GetStats</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_uart_lite___stats_1a54e9bfc44f29f17020ed86b0eba6da86" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XUartLite_Stats::ReceiveParityErrors</definition>
+        <argsstring></argsstring>
+        <name>ReceiveParityErrors</name>
+        <briefdescription>
+<para>Number of receive parity errors. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/src/xuartlite.h" line="173" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/src/xuartlite.h" bodystart="173" bodyend="-1"/>
+        <referencedby refid="group__uartlite_1ga33651bc4c0c36496d86038d95f39f0cd" compoundref="xuartlite__stats_8c" startline="101" endline="117">XUartLite_ClearStats</referencedby>
+        <referencedby refid="group__uartlite_1ga081d00a44aeebe19ed77e195a063b4e1" compoundref="xuartlite__stats_8c" startline="66" endline="87">XUartLite_GetStats</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_uart_lite___stats_1ad78aa2351dfb161a2651a4229137e5e9" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XUartLite_Stats::ReceiveFramingErrors</definition>
+        <argsstring></argsstring>
+        <name>ReceiveFramingErrors</name>
+        <briefdescription>
+<para>Number of receive framing errors. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/src/xuartlite.h" line="174" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/src/xuartlite.h" bodystart="174" bodyend="-1"/>
+        <referencedby refid="group__uartlite_1ga33651bc4c0c36496d86038d95f39f0cd" compoundref="xuartlite__stats_8c" startline="101" endline="117">XUartLite_ClearStats</referencedby>
+        <referencedby refid="group__uartlite_1ga081d00a44aeebe19ed77e195a063b4e1" compoundref="xuartlite__stats_8c" startline="66" endline="87">XUartLite_GetStats</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Statistics for the <ref refid="struct_x_uart_lite" kindref="compound">XUartLite</ref> driver. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/src/xuartlite.h" line="167" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/src/xuartlite.h" bodystart="167" bodyend="175"/>
+    <listofallmembers>
+      <member refid="struct_x_uart_lite___stats_1a419c9a4c527458f4ca8e681fa300160f" prot="public" virt="non-virtual"><scope>XUartLite_Stats</scope><name>CharactersReceived</name></member>
+      <member refid="struct_x_uart_lite___stats_1a2835184ffdbb9eb956f475f71460c699" prot="public" virt="non-virtual"><scope>XUartLite_Stats</scope><name>CharactersTransmitted</name></member>
+      <member refid="struct_x_uart_lite___stats_1ad78aa2351dfb161a2651a4229137e5e9" prot="public" virt="non-virtual"><scope>XUartLite_Stats</scope><name>ReceiveFramingErrors</name></member>
+      <member refid="struct_x_uart_lite___stats_1a5aa85c00c96797e499040c43f000b458" prot="public" virt="non-virtual"><scope>XUartLite_Stats</scope><name>ReceiveInterrupts</name></member>
+      <member refid="struct_x_uart_lite___stats_1af82d51917660948cd9fd5860ee1c9e00" prot="public" virt="non-virtual"><scope>XUartLite_Stats</scope><name>ReceiveOverrunErrors</name></member>
+      <member refid="struct_x_uart_lite___stats_1a54e9bfc44f29f17020ed86b0eba6da86" prot="public" virt="non-virtual"><scope>XUartLite_Stats</scope><name>ReceiveParityErrors</name></member>
+      <member refid="struct_x_uart_lite___stats_1a046cc0881c445ef40f27140e19e2c174" prot="public" virt="non-virtual"><scope>XUartLite_Stats</scope><name>TransmitInterrupts</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

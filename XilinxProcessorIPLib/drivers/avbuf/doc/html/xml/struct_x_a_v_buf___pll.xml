@@ -1,0 +1,226 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_a_v_buf___pll" kind="struct" prot="public">
+    <compoundname>XAVBuf_Pll</compoundname>
+    <includes local="no">xavbuf_clk.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_a_v_buf___pll_1a833a1389be7d611612fb7ddf62758e24" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XAVBuf_Pll::BaseAddress</definition>
+        <argsstring></argsstring>
+        <name>BaseAddress</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf_clk.h" line="55" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf_clk.h" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_a_v_buf___pll_1a06a406699127695b59457415246ce081" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XAVBuf_Pll::Fractional</definition>
+        <argsstring></argsstring>
+        <name>Fractional</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf_clk.h" line="56" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf_clk.h" bodystart="56" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_a_v_buf___pll_1a7ea0ecbc7ec6723c864becd9429dd171" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XAVBuf_Pll::RefClkFreqhz</definition>
+        <argsstring></argsstring>
+        <name>RefClkFreqhz</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf_clk.h" line="57" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf_clk.h" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_a_v_buf___pll_1a794e4c391895214ed576b6af53140056" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAVBuf_Pll::Divider</definition>
+        <argsstring></argsstring>
+        <name>Divider</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf_clk.h" line="58" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf_clk.h" bodystart="58" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_a_v_buf___pll_1a4e9a7f6dfe1a2e25a650536fdc3b6f8d" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAVBuf_Pll::Offset</definition>
+        <argsstring></argsstring>
+        <name>Offset</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf_clk.h" line="59" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf_clk.h" bodystart="59" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_a_v_buf___pll_1a4780a0433b5ea16b77ae7ea44b194410" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAVBuf_Pll::ClkDividBy2</definition>
+        <argsstring></argsstring>
+        <name>ClkDividBy2</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf_clk.h" line="60" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf_clk.h" bodystart="60" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_a_v_buf___pll_1a3f44edbf8dd02b7de25633b7b7d39dbf" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAVBuf_Pll::ExtDivider0</definition>
+        <argsstring></argsstring>
+        <name>ExtDivider0</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf_clk.h" line="61" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf_clk.h" bodystart="61" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_a_v_buf___pll_1a0ad31e46a47058b5023ed800d8b20b85" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAVBuf_Pll::ExtDivider1</definition>
+        <argsstring></argsstring>
+        <name>ExtDivider1</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf_clk.h" line="62" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf_clk.h" bodystart="62" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_a_v_buf___pll_1aa4f9e763fce1fd57547bafa21a5deea4" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAVBuf_Pll::ExtDividerCnt</definition>
+        <argsstring></argsstring>
+        <name>ExtDividerCnt</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf_clk.h" line="63" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf_clk.h" bodystart="63" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_a_v_buf___pll_1a2acffd93ea49025e00bd337064963383" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAVBuf_Pll::DomainSwitchDiv</definition>
+        <argsstring></argsstring>
+        <name>DomainSwitchDiv</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf_clk.h" line="64" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf_clk.h" bodystart="64" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_a_v_buf___pll_1a4e0d4e6ddba5a0310c91f7a3170e697b" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAVBuf_Pll::FracIntegerFBDIV</definition>
+        <argsstring></argsstring>
+        <name>FracIntegerFBDIV</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf_clk.h" line="65" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf_clk.h" bodystart="65" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_a_v_buf___pll_1acd6fd2f32015a17be1c91c6a639818b3" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAVBuf_Pll::IntegerFBDIV</definition>
+        <argsstring></argsstring>
+        <name>IntegerFBDIV</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf_clk.h" line="66" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf_clk.h" bodystart="66" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_a_v_buf___pll_1a2b58e8a0bcaac6ca61028e98fccaaad2" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAVBuf_Pll::InputRefClk</definition>
+        <argsstring></argsstring>
+        <name>InputRefClk</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf_clk.h" line="67" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf_clk.h" bodystart="67" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_a_v_buf___pll_1aba4082b41dd3ccf5bf577a3848bb42bf" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAVBuf_Pll::Fpd</definition>
+        <argsstring></argsstring>
+        <name>Fpd</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf_clk.h" line="68" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf_clk.h" bodystart="68" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_a_v_buf___pll_1a0b3bc07958a3a3419285f152b3d5f10e" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAVBuf_Pll::Pll</definition>
+        <argsstring></argsstring>
+        <name>Pll</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf_clk.h" line="69" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf_clk.h" bodystart="69" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef enumerates various variables used to configure Pll. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf_clk.h" line="54" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf_clk.h" bodystart="54" bodyend="70"/>
+    <listofallmembers>
+      <member refid="struct_x_a_v_buf___pll_1a833a1389be7d611612fb7ddf62758e24" prot="public" virt="non-virtual"><scope>XAVBuf_Pll</scope><name>BaseAddress</name></member>
+      <member refid="struct_x_a_v_buf___pll_1a4780a0433b5ea16b77ae7ea44b194410" prot="public" virt="non-virtual"><scope>XAVBuf_Pll</scope><name>ClkDividBy2</name></member>
+      <member refid="struct_x_a_v_buf___pll_1a794e4c391895214ed576b6af53140056" prot="public" virt="non-virtual"><scope>XAVBuf_Pll</scope><name>Divider</name></member>
+      <member refid="struct_x_a_v_buf___pll_1a2acffd93ea49025e00bd337064963383" prot="public" virt="non-virtual"><scope>XAVBuf_Pll</scope><name>DomainSwitchDiv</name></member>
+      <member refid="struct_x_a_v_buf___pll_1a3f44edbf8dd02b7de25633b7b7d39dbf" prot="public" virt="non-virtual"><scope>XAVBuf_Pll</scope><name>ExtDivider0</name></member>
+      <member refid="struct_x_a_v_buf___pll_1a0ad31e46a47058b5023ed800d8b20b85" prot="public" virt="non-virtual"><scope>XAVBuf_Pll</scope><name>ExtDivider1</name></member>
+      <member refid="struct_x_a_v_buf___pll_1aa4f9e763fce1fd57547bafa21a5deea4" prot="public" virt="non-virtual"><scope>XAVBuf_Pll</scope><name>ExtDividerCnt</name></member>
+      <member refid="struct_x_a_v_buf___pll_1aba4082b41dd3ccf5bf577a3848bb42bf" prot="public" virt="non-virtual"><scope>XAVBuf_Pll</scope><name>Fpd</name></member>
+      <member refid="struct_x_a_v_buf___pll_1a4e0d4e6ddba5a0310c91f7a3170e697b" prot="public" virt="non-virtual"><scope>XAVBuf_Pll</scope><name>FracIntegerFBDIV</name></member>
+      <member refid="struct_x_a_v_buf___pll_1a06a406699127695b59457415246ce081" prot="public" virt="non-virtual"><scope>XAVBuf_Pll</scope><name>Fractional</name></member>
+      <member refid="struct_x_a_v_buf___pll_1a2b58e8a0bcaac6ca61028e98fccaaad2" prot="public" virt="non-virtual"><scope>XAVBuf_Pll</scope><name>InputRefClk</name></member>
+      <member refid="struct_x_a_v_buf___pll_1acd6fd2f32015a17be1c91c6a639818b3" prot="public" virt="non-virtual"><scope>XAVBuf_Pll</scope><name>IntegerFBDIV</name></member>
+      <member refid="struct_x_a_v_buf___pll_1a4e9a7f6dfe1a2e25a650536fdc3b6f8d" prot="public" virt="non-virtual"><scope>XAVBuf_Pll</scope><name>Offset</name></member>
+      <member refid="struct_x_a_v_buf___pll_1a0b3bc07958a3a3419285f152b3d5f10e" prot="public" virt="non-virtual"><scope>XAVBuf_Pll</scope><name>Pll</name></member>
+      <member refid="struct_x_a_v_buf___pll_1a7ea0ecbc7ec6723c864becd9429dd171" prot="public" virt="non-virtual"><scope>XAVBuf_Pll</scope><name>RefClkFreqhz</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

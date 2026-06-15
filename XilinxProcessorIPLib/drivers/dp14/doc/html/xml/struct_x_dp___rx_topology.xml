@@ -1,0 +1,100 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_dp___rx_topology" kind="struct" prot="public">
+    <compoundname>XDp_RxTopology</compoundname>
+    <includes local="no">xdp.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_dp___rx_topology_1a3c1b6bcd9dfe32833dbe5b493bfabde2" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_dp___sb_msg_link_address_reply_device_info" kindref="compound">XDp_SbMsgLinkAddressReplyDeviceInfo</ref></type>
+        <definition>XDp_SbMsgLinkAddressReplyDeviceInfo XDp_RxTopology::LinkAddressInfo</definition>
+        <argsstring></argsstring>
+        <name>LinkAddressInfo</name>
+        <briefdescription>
+<para><verbatim>              Topology
+</verbatim> information used by the RX to form the LINK_ADDRESS reply. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14/src/xdp.h" line="894" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14/src/xdp.h" bodystart="894" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___rx_topology_1a0cc0524522907f9ed47a1722447dd9e6" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDp_RxTopology::PayloadTable[64]</definition>
+        <argsstring>[64]</argsstring>
+        <name>PayloadTable</name>
+        <briefdescription>
+<para>The payload table of the RX representing allocated bandwidth per stream. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14/src/xdp.h" line="897" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14/src/xdp.h" bodystart="897" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___rx_topology_1a87f37d6163e7e67fadb93abae79b1271" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_dp___rx_port" kindref="compound">XDp_RxPort</ref></type>
+        <definition>XDp_RxPort XDp_RxTopology::Ports[XDP_MAX_NPORTS]</definition>
+        <argsstring>[XDP_MAX_NPORTS]</argsstring>
+        <name>Ports</name>
+        <briefdescription>
+<para>Port information additional to that contained in LinkAddressInfo. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14/src/xdp.h" line="900" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14/src/xdp.h" bodystart="900" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef contains topology information on directly connected sinks and of the RX branch itself. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="47">
+        <label>XDp_RxPort</label>
+        <link refid="struct_x_dp___rx_port"/>
+        <childnode refid="48" relation="usage">
+          <edgelabel>IicMap</edgelabel>
+        </childnode>
+        <childnode refid="49" relation="usage">
+          <edgelabel>DpcdMap</edgelabel>
+        </childnode>
+      </node>
+      <node id="46">
+        <label>XDp_SbMsgLinkAddressReplyPortDetail</label>
+        <link refid="struct_x_dp___sb_msg_link_address_reply_port_detail"/>
+      </node>
+      <node id="45">
+        <label>XDp_SbMsgLinkAddressReplyDeviceInfo</label>
+        <link refid="struct_x_dp___sb_msg_link_address_reply_device_info"/>
+        <childnode refid="46" relation="usage">
+          <edgelabel>PortDetails</edgelabel>
+        </childnode>
+      </node>
+      <node id="49">
+        <label>XDp_RxDpcdMap</label>
+        <link refid="struct_x_dp___rx_dpcd_map"/>
+      </node>
+      <node id="48">
+        <label>XDp_RxIicMapEntry</label>
+        <link refid="struct_x_dp___rx_iic_map_entry"/>
+      </node>
+      <node id="44">
+        <label>XDp_RxTopology</label>
+        <link refid="struct_x_dp___rx_topology"/>
+        <childnode refid="45" relation="usage">
+          <edgelabel>LinkAddressInfo</edgelabel>
+        </childnode>
+        <childnode refid="47" relation="usage">
+          <edgelabel>Ports</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14/src/xdp.h" line="893" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14/src/xdp.h" bodystart="893" bodyend="903"/>
+    <listofallmembers>
+      <member refid="struct_x_dp___rx_topology_1a3c1b6bcd9dfe32833dbe5b493bfabde2" prot="public" virt="non-virtual"><scope>XDp_RxTopology</scope><name>LinkAddressInfo</name></member>
+      <member refid="struct_x_dp___rx_topology_1a0cc0524522907f9ed47a1722447dd9e6" prot="public" virt="non-virtual"><scope>XDp_RxTopology</scope><name>PayloadTable</name></member>
+      <member refid="struct_x_dp___rx_topology_1a87f37d6163e7e67fadb93abae79b1271" prot="public" virt="non-virtual"><scope>XDp_RxTopology</scope><name>Ports</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,107 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygenindex xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd" version="1.8.5">
+  <compound refid="struct_x_mutex" kind="struct"><name>XMutex</name>
+    <member refid="struct_x_mutex_1a7546022d3c935b840c762b763b94b460" kind="variable"><name>Config</name></member>
+    <member refid="struct_x_mutex_1aab67818beece616d3da30ef3944681e8" kind="variable"><name>IsReady</name></member>
+  </compound>
+  <compound refid="struct_x_mutex___config" kind="struct"><name>XMutex_Config</name>
+    <member refid="struct_x_mutex___config_1aadb73cbe51d07581ddf8d070fe28f40a" kind="variable"><name>Name</name></member>
+    <member refid="struct_x_mutex___config_1a702073a45ef5b790e5c16cee5bb3a051" kind="variable"><name>BaseAddress</name></member>
+    <member refid="struct_x_mutex___config_1a6a5e5f976fbe7c908f0595ee6d6ed0ee" kind="variable"><name>NumMutex</name></member>
+    <member refid="struct_x_mutex___config_1aee8b1e02a59b48c5b337d6701e3661ce" kind="variable"><name>UserReg</name></member>
+  </compound>
+  <compound refid="src_2_c_make_lists_8txt" kind="file"><name>src/CMakeLists.txt</name>
+  </compound>
+  <compound refid="examples_2_c_make_lists_8txt" kind="file"><name>examples/CMakeLists.txt</name>
+  </compound>
+  <compound refid="readme_8txt" kind="file"><name>readme.txt</name>
+  </compound>
+  <compound refid="xmutex_8c" kind="file"><name>xmutex.c</name>
+    <member refid="group__mutex_1gacb4152fb008849bcb87006d7bd0a97a8" kind="function"><name>XMutex_CfgInitialize</name></member>
+    <member refid="group__mutex_1ga1255fbeea64f519d8def63e542ce8703" kind="function"><name>XMutex_Lock</name></member>
+    <member refid="group__mutex_1gaf1857cffa94ba8b3bdf491f1a0096340" kind="function"><name>XMutex_Trylock</name></member>
+    <member refid="group__mutex_1ga82790dd21650e2b03e2c0a0f69a605d3" kind="function"><name>XMutex_Unlock</name></member>
+    <member refid="group__mutex_1ga37302270d3c1c86dc0bffdfc7043b902" kind="function"><name>XMutex_IsLocked</name></member>
+    <member refid="group__mutex_1ga0fcbb23b06dc9fb716e3812696321f66" kind="function"><name>XMutex_GetStatus</name></member>
+    <member refid="group__mutex_1gad7d5c5cd3b24ffee6dcc093b98c8546a" kind="function"><name>XMutex_GetUser</name></member>
+    <member refid="group__mutex_1ga941e13d2534884adf4926f05bae3966e" kind="function"><name>XMutex_SetUser</name></member>
+  </compound>
+  <compound refid="xmutex_8h" kind="file"><name>xmutex.h</name>
+    <member refid="group__mutex_1ga12f26d74626ae4179bad889dc5a3e6c9" kind="define"><name>XMUTEX_H</name></member>
+    <member refid="group__mutex_1gacb4152fb008849bcb87006d7bd0a97a8" kind="function"><name>XMutex_CfgInitialize</name></member>
+    <member refid="group__mutex_1ga1255fbeea64f519d8def63e542ce8703" kind="function"><name>XMutex_Lock</name></member>
+    <member refid="group__mutex_1gaf1857cffa94ba8b3bdf491f1a0096340" kind="function"><name>XMutex_Trylock</name></member>
+    <member refid="group__mutex_1ga82790dd21650e2b03e2c0a0f69a605d3" kind="function"><name>XMutex_Unlock</name></member>
+    <member refid="group__mutex_1ga37302270d3c1c86dc0bffdfc7043b902" kind="function"><name>XMutex_IsLocked</name></member>
+    <member refid="group__mutex_1ga0fcbb23b06dc9fb716e3812696321f66" kind="function"><name>XMutex_GetStatus</name></member>
+    <member refid="group__mutex_1gad7d5c5cd3b24ffee6dcc093b98c8546a" kind="function"><name>XMutex_GetUser</name></member>
+    <member refid="group__mutex_1ga941e13d2534884adf4926f05bae3966e" kind="function"><name>XMutex_SetUser</name></member>
+    <member refid="group__mutex_1ga08913f199dc5f5ce55779aea1c987ab0" kind="function"><name>XMutex_LookupConfig</name></member>
+    <member refid="group__mutex_1ga1599a86dd180f3bd789a2fc472e9aa29" kind="function"><name>XMutex_SelfTest</name></member>
+  </compound>
+  <compound refid="xmutex__g_8c" kind="file"><name>xmutex_g.c</name>
+    <member refid="group__mutex_1gaa6144336e4a9674cb9a3f2c5c0f0f79c" kind="variable"><name>XMutex_ConfigTable</name></member>
+  </compound>
+  <compound refid="xmutex__hw_8h" kind="file"><name>xmutex_hw.h</name>
+    <member refid="group__mutex_1gac717e990a2cbe85f19525c46aefc84b6" kind="define"><name>XMU_MUTEX_REG_OFFSET</name></member>
+    <member refid="group__mutex_1ga7317a6291745987d25c994702005fff2" kind="define"><name>XMU_USER_REG_OFFSET</name></member>
+    <member refid="group__mutex_1ga086991b467a934c97022a305bb957977" kind="define"><name>LOCKED_BIT</name></member>
+    <member refid="group__mutex_1ga97587665957065c60155f02edb2d195d" kind="define"><name>OWNER_MASK</name></member>
+    <member refid="group__mutex_1gad3725eb84e9d09431334eecbcf66bcd1" kind="define"><name>OWNER_SHIFT</name></member>
+    <member refid="group__mutex_1ga60f85a9b89886d33d2e255bcf8abb0f2" kind="define"><name>XMUTEX_HW_H</name></member>
+    <member refid="group__mutex_1gac14e6e73d44fa8510ea7016607af6824" kind="define"><name>XMU_MUTEX_OFFSET</name></member>
+    <member refid="group__mutex_1gac12aae3b150f35f5b214c329ed88b0d8" kind="define"><name>XMutex_Offset</name></member>
+    <member refid="group__mutex_1gac521c86ba5c4f2bad8f73e515897a766" kind="define"><name>XMutex_ReadReg</name></member>
+    <member refid="group__mutex_1ga33160589a1793006209e4e259ca7de35" kind="define"><name>XMutex_WriteReg</name></member>
+  </compound>
+  <compound refid="xmutex__selftest_8c" kind="file"><name>xmutex_selftest.c</name>
+    <member refid="group__mutex_1ga1599a86dd180f3bd789a2fc472e9aa29" kind="function"><name>XMutex_SelfTest</name></member>
+  </compound>
+  <compound refid="xmutex__sinit_8c" kind="file"><name>xmutex_sinit.c</name>
+    <member refid="group__mutex_1gaa6144336e4a9674cb9a3f2c5c0f0f79c" kind="variable"><name>XMutex_ConfigTable</name></member>
+    <member refid="group__mutex_1ga08913f199dc5f5ce55779aea1c987ab0" kind="function"><name>XMutex_LookupConfig</name></member>
+  </compound>
+  <compound refid="xmutex__tapp__example_8c" kind="file"><name>xmutex_tapp_example.c</name>
+    <member refid="xmutex__tapp__example_8c_1a38d80185764e6fa61854824523d74f14" kind="define"><name>MUTEX_NUM</name></member>
+    <member refid="xmutex__tapp__example_8c_1ab51d0a82c92884eb8dd5d058a91449af" kind="define"><name>LOCK_TIMEOUT</name></member>
+    <member refid="xmutex__tapp__example_8c_1a3cb9f0894fab1c8fbb0753c9c7c2a8d9" kind="define"><name>printf</name></member>
+    <member refid="xmutex__tapp__example_8c_1aaf8414829957243ac3c7a70c32ca40ae" kind="variable"><name>Mutex</name></member>
+    <member refid="xmutex__tapp__example_8c_1a0206be6b117469067609f14d5dc6d07c" kind="function"><name>MutexExample</name></member>
+    <member refid="xmutex__tapp__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" kind="function"><name>main</name></member>
+  </compound>
+  <compound refid="group__mutex" kind="group"><name>mutex</name>
+    <member refid="group__mutex_1gac717e990a2cbe85f19525c46aefc84b6" kind="define"><name>XMU_MUTEX_REG_OFFSET</name></member>
+    <member refid="group__mutex_1ga7317a6291745987d25c994702005fff2" kind="define"><name>XMU_USER_REG_OFFSET</name></member>
+    <member refid="group__mutex_1ga086991b467a934c97022a305bb957977" kind="define"><name>LOCKED_BIT</name></member>
+    <member refid="group__mutex_1ga97587665957065c60155f02edb2d195d" kind="define"><name>OWNER_MASK</name></member>
+    <member refid="group__mutex_1gad3725eb84e9d09431334eecbcf66bcd1" kind="define"><name>OWNER_SHIFT</name></member>
+    <member refid="group__mutex_1gaa6144336e4a9674cb9a3f2c5c0f0f79c" kind="variable"><name>XMutex_ConfigTable</name></member>
+    <member refid="group__mutex_1gaa6144336e4a9674cb9a3f2c5c0f0f79c" kind="variable"><name>XMutex_ConfigTable</name></member>
+    <member refid="group__mutex_1gacb4152fb008849bcb87006d7bd0a97a8" kind="function"><name>XMutex_CfgInitialize</name></member>
+    <member refid="group__mutex_1ga1255fbeea64f519d8def63e542ce8703" kind="function"><name>XMutex_Lock</name></member>
+    <member refid="group__mutex_1gaf1857cffa94ba8b3bdf491f1a0096340" kind="function"><name>XMutex_Trylock</name></member>
+    <member refid="group__mutex_1ga82790dd21650e2b03e2c0a0f69a605d3" kind="function"><name>XMutex_Unlock</name></member>
+    <member refid="group__mutex_1ga37302270d3c1c86dc0bffdfc7043b902" kind="function"><name>XMutex_IsLocked</name></member>
+    <member refid="group__mutex_1ga0fcbb23b06dc9fb716e3812696321f66" kind="function"><name>XMutex_GetStatus</name></member>
+    <member refid="group__mutex_1gad7d5c5cd3b24ffee6dcc093b98c8546a" kind="function"><name>XMutex_GetUser</name></member>
+    <member refid="group__mutex_1ga941e13d2534884adf4926f05bae3966e" kind="function"><name>XMutex_SetUser</name></member>
+    <member refid="group__mutex_1ga08913f199dc5f5ce55779aea1c987ab0" kind="function"><name>XMutex_LookupConfig</name></member>
+    <member refid="group__mutex_1ga1599a86dd180f3bd789a2fc472e9aa29" kind="function"><name>XMutex_SelfTest</name></member>
+    <member refid="group__mutex_1ga12f26d74626ae4179bad889dc5a3e6c9" kind="define"><name>XMUTEX_H</name></member>
+    <member refid="group__mutex_1ga60f85a9b89886d33d2e255bcf8abb0f2" kind="define"><name>XMUTEX_HW_H</name></member>
+    <member refid="group__mutex_1gac14e6e73d44fa8510ea7016607af6824" kind="define"><name>XMU_MUTEX_OFFSET</name></member>
+    <member refid="group__mutex_1gac12aae3b150f35f5b214c329ed88b0d8" kind="define"><name>XMutex_Offset</name></member>
+    <member refid="group__mutex_1gac521c86ba5c4f2bad8f73e515897a766" kind="define"><name>XMutex_ReadReg</name></member>
+    <member refid="group__mutex_1ga33160589a1793006209e4e259ca7de35" kind="define"><name>XMutex_WriteReg</name></member>
+  </compound>
+  <compound refid="example" kind="page"><name>example</name>
+  </compound>
+  <compound refid="dir_256059465240104a8f8647400b4b044c" kind="dir"><name>examples</name>
+  </compound>
+  <compound refid="dir_8bd33da1fdce94bbe9f6cd67665fda48" kind="dir"><name>mutex</name>
+  </compound>
+  <compound refid="dir_c3f63cc41fc2120d804690d9e7ccb6c2" kind="dir"><name>src</name>
+  </compound>
+  <compound refid="indexpage" kind="page"><name>index</name>
+  </compound>
+</doxygenindex>

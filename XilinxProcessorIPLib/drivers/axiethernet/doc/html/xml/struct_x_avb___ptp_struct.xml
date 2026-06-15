@@ -1,0 +1,227 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_avb___ptp_struct" kind="struct" prot="public">
+    <compoundname>XAvb_PtpStruct</compoundname>
+    <includes local="no">xavb.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_avb___ptp_struct_1a0fec4235a69761ed87eb29790cd8a7d2" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAvb_PtpStruct::Nanosec</definition>
+        <argsstring></argsstring>
+        <name>Nanosec</name>
+        <briefdescription>
+<para>ns value for sync frame tx request </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" line="336" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" bodystart="336" bodyend="-1"/>
+        <referencedby refid="xavb__ptp__packets_8c_1a989d44c98695fd6f286858f8b7976e3f" compoundref="xavb__ptp__packets_8c" startline="496" endline="553">XAvb_MasterSendFollowUp</referencedby>
+        <referencedby refid="xavb__ptp__packets_8c_1ae239544f086bc86572b8e2d7e408a028" compoundref="xavb__ptp__packets_8c" startline="385" endline="478">XAvb_MasterSendSync</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_avb___ptp_struct_1ad6c2a017ae8f7df3d77654ffbb8a9955" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAvb_PtpStruct::SlaveSyncTimestamp</definition>
+        <argsstring></argsstring>
+        <name>SlaveSyncTimestamp</name>
+        <briefdescription>
+<para>The timestamp taken of a rx&apos;d sync. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" line="337" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" bodystart="337" bodyend="-1"/>
+        <referencedby refid="xavb_8h_1a5ee8dd26b932ff82daa0dc87fd6d38d8" compoundref="xavb__rtc__sync_8c" startline="179" endline="364">XAvb_CalcRtcOffset</referencedby>
+        <referencedby refid="xavb__ptp__packets_8c_1a3ed6d94f92c94a88dce9444e8a27fe8a" compoundref="xavb__ptp__packets_8c" startline="1003" endline="1058">XAvb_DecodeRxSync</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_avb___ptp_struct_1a9ccce78c48aeb38e81ccfe20f4fcbf14" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAvb_PtpStruct::MasterCorrectionField</definition>
+        <argsstring></argsstring>
+        <name>MasterCorrectionField</name>
+        <briefdescription>
+<para>Correction Field from rx&apos;d follow-up. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" line="338" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" bodystart="338" bodyend="-1"/>
+        <referencedby refid="xavb_8h_1a5ee8dd26b932ff82daa0dc87fd6d38d8" compoundref="xavb__rtc__sync_8c" startline="179" endline="364">XAvb_CalcRtcOffset</referencedby>
+        <referencedby refid="xavb__ptp__packets_8c_1afb8650c4c94082dc746db9ec0259e1cb" compoundref="xavb__ptp__packets_8c" startline="1075" endline="1162">XAvb_DecodeRxFollowUp</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_avb___ptp_struct_1a3452c4beb43254ece9773c99e03e629f" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAvb_PtpStruct::PDelayTimestampT1</definition>
+        <argsstring></argsstring>
+        <name>PDelayTimestampT1</name>
+        <briefdescription>
+<para>T1 :PDelayReq Frame transmission. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" line="339" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" bodystart="339" bodyend="-1"/>
+        <referencedby refid="xavb_8h_1a6d7814f965d4141992654954f1243679" compoundref="xavb__rtc__sync_8c" startline="104" endline="161">XAvb_CalcDelay</referencedby>
+        <referencedby refid="xavb__ptp__packets_8c_1a2e3f462007beb73497bbded566d7f364" compoundref="xavb__ptp__packets_8c" startline="572" endline="611">XAvb_SendPDelayReq</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_avb___ptp_struct_1a031c19b7b7227814202cc7472fc0269a" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAvb_PtpStruct::PDelayTimestampT2</definition>
+        <argsstring></argsstring>
+        <name>PDelayTimestampT2</name>
+        <briefdescription>
+<para>T2 :PDelayReq rx&apos;d at link partner. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" line="340" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" bodystart="340" bodyend="-1"/>
+        <referencedby refid="xavb_8h_1a6d7814f965d4141992654954f1243679" compoundref="xavb__rtc__sync_8c" startline="104" endline="161">XAvb_CalcDelay</referencedby>
+        <referencedby refid="xavb__ptp__packets_8c_1acc5beb09f67f655b7eb8eb51b3cd2d8a" compoundref="xavb__ptp__packets_8c" startline="1179" endline="1252">XAvb_DecodeRxPDelayResp</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_avb___ptp_struct_1a3cbb26037696645f50c29addc3f6da46" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAvb_PtpStruct::PDelayTimestampT3</definition>
+        <argsstring></argsstring>
+        <name>PDelayTimestampT3</name>
+        <briefdescription>
+<para>T3 :PDelayResp Frame reception. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" line="341" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" bodystart="341" bodyend="-1"/>
+        <referencedby refid="xavb_8h_1a6d7814f965d4141992654954f1243679" compoundref="xavb__rtc__sync_8c" startline="104" endline="161">XAvb_CalcDelay</referencedby>
+        <referencedby refid="xavb__ptp__packets_8c_1afd53beaf90143fc360dc6276ba1c49f9" compoundref="xavb__ptp__packets_8c" startline="1269" endline="1334">XAvb_DecodeRxPDelayRespFollowUp</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_avb___ptp_struct_1ad4a5d5d897b354ab5bae245a08459c27" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAvb_PtpStruct::PDelayTimestampT4</definition>
+        <argsstring></argsstring>
+        <name>PDelayTimestampT4</name>
+        <briefdescription>
+<para>T4 :PDelayResp tx&apos;d by link partner. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" line="342" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" bodystart="342" bodyend="-1"/>
+        <referencedby refid="xavb_8h_1a6d7814f965d4141992654954f1243679" compoundref="xavb__rtc__sync_8c" startline="104" endline="161">XAvb_CalcDelay</referencedby>
+        <referencedby refid="xavb__ptp__packets_8c_1acc5beb09f67f655b7eb8eb51b3cd2d8a" compoundref="xavb__ptp__packets_8c" startline="1179" endline="1252">XAvb_DecodeRxPDelayResp</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_avb___ptp_struct_1ac88180ae256193d6ab58d964da0a15b8" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAvb_PtpStruct::LinkDelay</definition>
+        <argsstring></argsstring>
+        <name>LinkDelay</name>
+        <briefdescription>
+<para>Last calculated value of Link Delay. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" line="343" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" bodystart="343" bodyend="-1"/>
+        <referencedby refid="xavb_8h_1a6d7814f965d4141992654954f1243679" compoundref="xavb__rtc__sync_8c" startline="104" endline="161">XAvb_CalcDelay</referencedby>
+        <referencedby refid="xavb_8h_1a5ee8dd26b932ff82daa0dc87fd6d38d8" compoundref="xavb__rtc__sync_8c" startline="179" endline="364">XAvb_CalcRtcOffset</referencedby>
+        <referencedby refid="xavb_8h_1af24c248c31c6c45cdb8a46f82de175c5" compoundref="xavb_8c" startline="131" endline="199">XAvb_Reset</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_avb___ptp_struct_1aecd30621bf3e8988ea4bebf59ab4d031" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAvb_PtpStruct::NewSlaveTime</definition>
+        <argsstring></argsstring>
+        <name>NewSlaveTime</name>
+        <briefdescription>
+<para>RTC ns at slave for last rx&apos;d sync. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" line="344" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" bodystart="344" bodyend="-1"/>
+        <referencedby refid="xavb_8h_1a5ee8dd26b932ff82daa0dc87fd6d38d8" compoundref="xavb__rtc__sync_8c" startline="179" endline="364">XAvb_CalcRtcOffset</referencedby>
+        <referencedby refid="xavb__ptp__packets_8c_1afb8650c4c94082dc746db9ec0259e1cb" compoundref="xavb__ptp__packets_8c" startline="1075" endline="1162">XAvb_DecodeRxFollowUp</referencedby>
+        <referencedby refid="xavb_8h_1ada9dd75eb576b0e600686514fbea45e3" compoundref="xavb__rtc__sync_8c" startline="445" endline="615">XAvb_UpdateRtcIncrement</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_avb___ptp_struct_1a05590438022ee2dff39492654cfe3285" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAvb_PtpStruct::NewMasterTime</definition>
+        <argsstring></argsstring>
+        <name>NewMasterTime</name>
+        <briefdescription>
+<para>RTC ns at master for last tx&apos;d sync. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" line="345" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" bodystart="345" bodyend="-1"/>
+        <referencedby refid="xavb_8h_1a5ee8dd26b932ff82daa0dc87fd6d38d8" compoundref="xavb__rtc__sync_8c" startline="179" endline="364">XAvb_CalcRtcOffset</referencedby>
+        <referencedby refid="xavb__ptp__packets_8c_1afb8650c4c94082dc746db9ec0259e1cb" compoundref="xavb__ptp__packets_8c" startline="1075" endline="1162">XAvb_DecodeRxFollowUp</referencedby>
+        <referencedby refid="xavb_8h_1ada9dd75eb576b0e600686514fbea45e3" compoundref="xavb__rtc__sync_8c" startline="445" endline="615">XAvb_UpdateRtcIncrement</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_avb___ptp_struct_1a5f843941b210edca7edb0824ba342652" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAvb_PtpStruct::OldSlaveTime</definition>
+        <argsstring></argsstring>
+        <name>OldSlaveTime</name>
+        <briefdescription>
+<para>Stored RTC slave ns for past sync rx. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" line="346" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" bodystart="346" bodyend="-1"/>
+        <referencedby refid="xavb__ptp__packets_8c_1afb8650c4c94082dc746db9ec0259e1cb" compoundref="xavb__ptp__packets_8c" startline="1075" endline="1162">XAvb_DecodeRxFollowUp</referencedby>
+        <referencedby refid="xavb_8h_1ada9dd75eb576b0e600686514fbea45e3" compoundref="xavb__rtc__sync_8c" startline="445" endline="615">XAvb_UpdateRtcIncrement</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_avb___ptp_struct_1a92f212eedbc5375293d822d97a56b11a" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAvb_PtpStruct::OldMasterTime</definition>
+        <argsstring></argsstring>
+        <name>OldMasterTime</name>
+        <briefdescription>
+<para>Stored RTC master ns for past sync tx. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" line="347" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" bodystart="347" bodyend="-1"/>
+        <referencedby refid="xavb__ptp__packets_8c_1afb8650c4c94082dc746db9ec0259e1cb" compoundref="xavb__ptp__packets_8c" startline="1075" endline="1162">XAvb_DecodeRxFollowUp</referencedby>
+        <referencedby refid="xavb_8h_1ada9dd75eb576b0e600686514fbea45e3" compoundref="xavb__rtc__sync_8c" startline="445" endline="615">XAvb_UpdateRtcIncrement</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_avb___ptp_struct_1a810daa5475d7da25976222f9c9728337" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAvb_PtpStruct::NsOffsetForPDelayResp</definition>
+        <argsstring></argsstring>
+        <name>NsOffsetForPDelayResp</name>
+        <briefdescription>
+<para>RTC ns offset at PDelayResp tx time. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" line="348" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" bodystart="348" bodyend="-1"/>
+        <referencedby refid="xavb__ptp__packets_8c_1a63281acd385453959b333154bca2d9c7" compoundref="xavb__ptp__packets_8c" startline="631" endline="814">XAvb_SendPDelayResp</referencedby>
+        <referencedby refid="xavb__ptp__packets_8c_1a2c1081cde03d0c53bc508927111fe87c" compoundref="xavb__ptp__packets_8c" startline="832" endline="933">XAvb_SendPDelayRespFollowUp</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef defines the format for a data structure which stores information relating to the 1588 based PTP timing calculations. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" line="335" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" bodystart="334" bodyend="349"/>
+    <listofallmembers>
+      <member refid="struct_x_avb___ptp_struct_1ac88180ae256193d6ab58d964da0a15b8" prot="public" virt="non-virtual"><scope>XAvb_PtpStruct</scope><name>LinkDelay</name></member>
+      <member refid="struct_x_avb___ptp_struct_1a9ccce78c48aeb38e81ccfe20f4fcbf14" prot="public" virt="non-virtual"><scope>XAvb_PtpStruct</scope><name>MasterCorrectionField</name></member>
+      <member refid="struct_x_avb___ptp_struct_1a0fec4235a69761ed87eb29790cd8a7d2" prot="public" virt="non-virtual"><scope>XAvb_PtpStruct</scope><name>Nanosec</name></member>
+      <member refid="struct_x_avb___ptp_struct_1a05590438022ee2dff39492654cfe3285" prot="public" virt="non-virtual"><scope>XAvb_PtpStruct</scope><name>NewMasterTime</name></member>
+      <member refid="struct_x_avb___ptp_struct_1aecd30621bf3e8988ea4bebf59ab4d031" prot="public" virt="non-virtual"><scope>XAvb_PtpStruct</scope><name>NewSlaveTime</name></member>
+      <member refid="struct_x_avb___ptp_struct_1a810daa5475d7da25976222f9c9728337" prot="public" virt="non-virtual"><scope>XAvb_PtpStruct</scope><name>NsOffsetForPDelayResp</name></member>
+      <member refid="struct_x_avb___ptp_struct_1a92f212eedbc5375293d822d97a56b11a" prot="public" virt="non-virtual"><scope>XAvb_PtpStruct</scope><name>OldMasterTime</name></member>
+      <member refid="struct_x_avb___ptp_struct_1a5f843941b210edca7edb0824ba342652" prot="public" virt="non-virtual"><scope>XAvb_PtpStruct</scope><name>OldSlaveTime</name></member>
+      <member refid="struct_x_avb___ptp_struct_1a3452c4beb43254ece9773c99e03e629f" prot="public" virt="non-virtual"><scope>XAvb_PtpStruct</scope><name>PDelayTimestampT1</name></member>
+      <member refid="struct_x_avb___ptp_struct_1a031c19b7b7227814202cc7472fc0269a" prot="public" virt="non-virtual"><scope>XAvb_PtpStruct</scope><name>PDelayTimestampT2</name></member>
+      <member refid="struct_x_avb___ptp_struct_1a3cbb26037696645f50c29addc3f6da46" prot="public" virt="non-virtual"><scope>XAvb_PtpStruct</scope><name>PDelayTimestampT3</name></member>
+      <member refid="struct_x_avb___ptp_struct_1ad4a5d5d897b354ab5bae245a08459c27" prot="public" virt="non-virtual"><scope>XAvb_PtpStruct</scope><name>PDelayTimestampT4</name></member>
+      <member refid="struct_x_avb___ptp_struct_1ad6c2a017ae8f7df3d77654ffbb8a9955" prot="public" virt="non-virtual"><scope>XAvb_PtpStruct</scope><name>SlaveSyncTimestamp</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_590ec6f504f5b01f119c059d20a9d378" kind="dir">
+    <compoundname>xilpki</compoundname>
+    <innerdir refid="dir_b45d69551d44d84ef465cec194019952">examples</innerdir>
+    <innerdir refid="dir_2a65c7946a07e4cb6b5ea32b74e80dab">src</innerdir>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpki/"/>
+  </compounddef>
+</doxygen>

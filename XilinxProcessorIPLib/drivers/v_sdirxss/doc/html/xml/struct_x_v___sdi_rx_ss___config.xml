@@ -1,0 +1,144 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_v___sdi_rx_ss___config" kind="struct" prot="public">
+    <compoundname>XV_SdiRxSs_Config</compoundname>
+    <includes local="no">xv_sdirxss.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_v___sdi_rx_ss___config_1a626b18465443c7f68908541d87d18448" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* XV_SdiRxSs_Config::Name</definition>
+        <argsstring></argsstring>
+        <name>Name</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/src/xv_sdirxss.h" line="136" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/src/xv_sdirxss.h" bodystart="136" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___sdi_rx_ss___config_1a532428467186a468acb210613f45d5cf" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XV_SdiRxSs_Config::BaseAddress</definition>
+        <argsstring></argsstring>
+        <name>BaseAddress</name>
+        <briefdescription>
+<para>BaseAddress is the physical base address of the subsystem address range. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/src/xv_sdirxss.h" line="138" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/src/xv_sdirxss.h" bodystart="138" bodyend="-1"/>
+        <referencedby refid="group__v__sdirxss_1gaece5f16f00b58b19e490d16c3323afac" compoundref="xv__sdirxss__selftest__example_8c" startline="125" endline="153">SdiRxSs_SelfTestExample</referencedby>
+        <referencedby refid="xv__sdirxss_8h_1a43a9c2aa8bc176afeaa71534eb0e8304" compoundref="xv__sdirxss_8c" startline="200" endline="237">XV_SdiRxSs_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___sdi_rx_ss___config_1a603aa66c81af33c22db932f9adffae8f" prot="public" static="no" mutable="no">
+        <type>XVidC_PixelsPerClock</type>
+        <definition>XVidC_PixelsPerClock XV_SdiRxSs_Config::Ppc</definition>
+        <argsstring></argsstring>
+        <name>Ppc</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/src/xv_sdirxss.h" line="140" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/src/xv_sdirxss.h" bodystart="140" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___sdi_rx_ss___config_1a2ac6514c9fc497df5eb901e657e9cca8" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XV_SdiRxSs_Config::MaxRateSupported</definition>
+        <argsstring></argsstring>
+        <name>MaxRateSupported</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/src/xv_sdirxss.h" line="141" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/src/xv_sdirxss.h" bodystart="141" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___sdi_rx_ss___config_1a9be6391bc8f2370cafc3b99199987da6" prot="public" static="no" mutable="no">
+        <type>XVidC_ColorDepth</type>
+        <definition>XVidC_ColorDepth XV_SdiRxSs_Config::bitdepth</definition>
+        <argsstring></argsstring>
+        <name>bitdepth</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/src/xv_sdirxss.h" line="142" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/src/xv_sdirxss.h" bodystart="142" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___sdi_rx_ss___config_1a778de600283189203c525664695ca373" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_v___sdi_rx_ss___sub_core" kindref="compound">XV_SdiRxSs_SubCore</ref></type>
+        <definition>XV_SdiRxSs_SubCore XV_SdiRxSs_Config::SdiRx</definition>
+        <argsstring></argsstring>
+        <name>SdiRx</name>
+        <briefdescription>
+<para>Sub-core instance configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/src/xv_sdirxss.h" line="143" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/src/xv_sdirxss.h" bodystart="143" bodyend="-1"/>
+        <referencedby refid="group__v__sdirxss_1ga8acb662b4cdd74817ee6b48f166f3e25" compoundref="xv__sdirxss__coreinit_8c" startline="51" endline="87">XV_SdiRxSs_SubcoreInitSdiRx</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___sdi_rx_ss___config_1a235c72035216555b8769bf9027635143" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XV_SdiRxSs_Config::IntrId</definition>
+        <argsstring></argsstring>
+        <name>IntrId</name>
+        <briefdescription>
+<para>Interrupt ID. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/src/xv_sdirxss.h" line="145" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/src/xv_sdirxss.h" bodystart="145" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___sdi_rx_ss___config_1a4a7739a06cd24526c09a9014a077310f" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XV_SdiRxSs_Config::IntrParent</definition>
+        <argsstring></argsstring>
+        <name>IntrParent</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/src/xv_sdirxss.h" line="146" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/src/xv_sdirxss.h" bodystart="146" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef contains configuration information for the SDI RX core. </para>    </briefdescription>
+    <detaileddescription>
+<para>Each SDI RX device should have a configuration structure associated. </para>    </detaileddescription>
+    <collaborationgraph>
+      <node id="17">
+        <label>XV_SdiRxSs_SubCore</label>
+        <link refid="struct_x_v___sdi_rx_ss___sub_core"/>
+      </node>
+      <node id="16">
+        <label>XV_SdiRxSs_Config</label>
+        <link refid="struct_x_v___sdi_rx_ss___config"/>
+        <childnode refid="17" relation="usage">
+          <edgelabel>SdiRx</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/src/xv_sdirxss.h" line="132" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/src/xv_sdirxss.h" bodystart="132" bodyend="148"/>
+    <listofallmembers>
+      <member refid="struct_x_v___sdi_rx_ss___config_1a532428467186a468acb210613f45d5cf" prot="public" virt="non-virtual"><scope>XV_SdiRxSs_Config</scope><name>BaseAddress</name></member>
+      <member refid="struct_x_v___sdi_rx_ss___config_1a9be6391bc8f2370cafc3b99199987da6" prot="public" virt="non-virtual"><scope>XV_SdiRxSs_Config</scope><name>bitdepth</name></member>
+      <member refid="struct_x_v___sdi_rx_ss___config_1a235c72035216555b8769bf9027635143" prot="public" virt="non-virtual"><scope>XV_SdiRxSs_Config</scope><name>IntrId</name></member>
+      <member refid="struct_x_v___sdi_rx_ss___config_1a4a7739a06cd24526c09a9014a077310f" prot="public" virt="non-virtual"><scope>XV_SdiRxSs_Config</scope><name>IntrParent</name></member>
+      <member refid="struct_x_v___sdi_rx_ss___config_1a2ac6514c9fc497df5eb901e657e9cca8" prot="public" virt="non-virtual"><scope>XV_SdiRxSs_Config</scope><name>MaxRateSupported</name></member>
+      <member refid="struct_x_v___sdi_rx_ss___config_1a626b18465443c7f68908541d87d18448" prot="public" virt="non-virtual"><scope>XV_SdiRxSs_Config</scope><name>Name</name></member>
+      <member refid="struct_x_v___sdi_rx_ss___config_1a603aa66c81af33c22db932f9adffae8f" prot="public" virt="non-virtual"><scope>XV_SdiRxSs_Config</scope><name>Ppc</name></member>
+      <member refid="struct_x_v___sdi_rx_ss___config_1a778de600283189203c525664695ca373" prot="public" virt="non-virtual"><scope>XV_SdiRxSs_Config</scope><name>SdiRx</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

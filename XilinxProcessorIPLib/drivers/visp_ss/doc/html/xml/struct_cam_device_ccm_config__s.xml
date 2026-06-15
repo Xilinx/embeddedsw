@@ -1,0 +1,78 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_cam_device_ccm_config__s" kind="struct" prot="public">
+    <compoundname>CamDeviceCcmConfig_s</compoundname>
+    <includes local="no">cam_device_ccm_api.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_cam_device_ccm_config__s_1ae48f4209fd7358fc8bf5501b5dc76587" prot="public" static="no" mutable="no">
+        <type><ref refid="group____cam__device__ccm_1ga2eb3f6748141e80030d54b091f57ff94" kindref="member">CamDeviceCcmAutoConfig_t</ref></type>
+        <definition>CamDeviceCcmAutoConfig_t CamDeviceCcmConfig_s::autoCfg</definition>
+        <argsstring></argsstring>
+        <name>autoCfg</name>
+        <briefdescription>
+<para>CCM auto configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/ccm_v1_1/cam_device_ccm_api.h" line="78" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/ccm_v1_1/cam_device_ccm_api.h" bodystart="78" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_ccm_config__s_1af58031bd15bc88e81f4df3eba15d4b4b" prot="public" static="no" mutable="no">
+        <type><ref refid="group____cam__device__ccm_1ga89d77270f7a79e18d20fdec552df6d23" kindref="member">CamDeviceCcmManualConfig_t</ref></type>
+        <definition>CamDeviceCcmManualConfig_t CamDeviceCcmConfig_s::manualCfg</definition>
+        <argsstring></argsstring>
+        <name>manualCfg</name>
+        <briefdescription>
+<para>CCM manual configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/ccm_v1_1/cam_device_ccm_api.h" line="79" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/ccm_v1_1/cam_device_ccm_api.h" bodystart="79" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_ccm_config__s_1a440a6355ad8ce3ca5ec442e2e05b7995" prot="public" static="no" mutable="no">
+        <type><ref refid="group____cam__device__general_1ga7a54f95af23ab3af59d485ffaec2ae60" kindref="member">CamDeviceConfigMode_t</ref></type>
+        <definition>CamDeviceConfigMode_t CamDeviceCcmConfig_s::configMode</definition>
+        <argsstring></argsstring>
+        <name>configMode</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/ccm_v1_1/cam_device_ccm_api.h" line="80" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/ccm_v1_1/cam_device_ccm_api.h" bodystart="80" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>VsCamDevice CCM configuration. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="213">
+        <label>CamDeviceCcmConfig_s</label>
+        <link refid="struct_cam_device_ccm_config__s"/>
+        <childnode refid="214" relation="usage">
+          <edgelabel>manualCfg</edgelabel>
+        </childnode>
+        <childnode refid="215" relation="usage">
+          <edgelabel>autoCfg</edgelabel>
+        </childnode>
+      </node>
+      <node id="214">
+        <label>CamDeviceCcmManualConfig_s</label>
+        <link refid="struct_cam_device_ccm_manual_config__s"/>
+      </node>
+      <node id="215">
+        <label>CamDeviceCcmAutoConfig_s</label>
+        <link refid="struct_cam_device_ccm_auto_config__s"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/ccm_v1_1/cam_device_ccm_api.h" line="77" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/ccm_v1_1/cam_device_ccm_api.h" bodystart="77" bodyend="81"/>
+    <listofallmembers>
+      <member refid="struct_cam_device_ccm_config__s_1ae48f4209fd7358fc8bf5501b5dc76587" prot="public" virt="non-virtual"><scope>CamDeviceCcmConfig_s</scope><name>autoCfg</name></member>
+      <member refid="struct_cam_device_ccm_config__s_1a440a6355ad8ce3ca5ec442e2e05b7995" prot="public" virt="non-virtual"><scope>CamDeviceCcmConfig_s</scope><name>configMode</name></member>
+      <member refid="struct_cam_device_ccm_config__s_1af58031bd15bc88e81f4df3eba15d4b4b" prot="public" virt="non-virtual"><scope>CamDeviceCcmConfig_s</scope><name>manualCfg</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,767 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="aes256_8c" kind="file">
+    <compoundname>aes256.c</compoundname>
+    <includes refid="aes256_8h" local="yes">aes256.h</includes>
+    <incdepgraph>
+      <node id="0">
+        <label>aes256.c</label>
+        <link refid="aes256.c"/>
+        <childnode refid="1" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>aes256.h</label>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="aes256_8c_1a203d5b93e4077aa273c7013964a31f9e" prot="public" static="no">
+        <name>F</name>
+        <param><defname>x</defname></param>
+        <initializer>(((x)&lt;&lt;1) ^ ((((x)&gt;&gt;7) &amp; 1) * 0x1b))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/src/key/aes256.c" line="23" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/src/key/aes256.c" bodystart="23" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="aes256_8c_1a34a019814bbd4853e0850be57aa81f2a" prot="public" static="no">
+        <name>FD</name>
+        <param><defname>x</defname></param>
+        <initializer>(((x) &gt;&gt; 1) ^ (((x) &amp; 1) ? 0x8d : 0))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/src/key/aes256.c" line="24" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/src/key/aes256.c" bodystart="24" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="aes256_8c_1a2eadb1491c48daa247b398ebff723435" prot="public" static="no">
+        <name>BACK_TO_TABLES</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/src/key/aes256.c" line="26" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/src/key/aes256.c" bodystart="26" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="aes256_8c_1a2a20b780f42c5e4e126967efc6906f23" prot="public" static="no">
+        <name>rj_sbox</name>
+        <param><defname>x</defname></param>
+        <initializer>sbox[(x)]</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/src/key/aes256.c" line="98" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/src/key/aes256.c" bodystart="98" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="aes256_8c_1a9e948a67f3ad11bc374a063c1bded0aa" prot="public" static="no">
+        <name>rj_sbox_inv</name>
+        <param><defname>x</defname></param>
+        <initializer>sboxinv[(x)]</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/src/key/aes256.c" line="99" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/src/key/aes256.c" bodystart="99" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="aes256_8c_1adc15aeb43c81de1162045eedf437f407" prot="public" static="no" mutable="no">
+        <type>const uint8_t</type>
+        <definition>const uint8_t sbox[256]</definition>
+        <argsstring>[256]</argsstring>
+        <name>sbox</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/src/key/aes256.c" line="29" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/src/key/aes256.c" bodystart="29" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="aes256_8c_1a2f927a88f0d19c528465d2b652f5b30e" prot="public" static="no" mutable="no">
+        <type>const uint8_t</type>
+        <definition>const uint8_t sboxinv[256]</definition>
+        <argsstring>[256]</argsstring>
+        <name>sboxinv</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/src/key/aes256.c" line="63" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/src/key/aes256.c" bodystart="63" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="aes256_8c_1a994ff1651b24ac4315026bc8f5a8cd6b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint8_t</type>
+        <definition>uint8_t rj_xtime</definition>
+        <argsstring>(uint8_t x)</argsstring>
+        <name>rj_xtime</name>
+        <param>
+          <type>uint8_t</type>
+          <declname>x</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/src/key/aes256.c" line="160" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/src/key/aes256.c" bodystart="160" bodyend="163"/>
+      </memberdef>
+      <memberdef kind="function" id="aes256_8c_1a2dc947cd48513deb75c62a7be6e29498" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void aes_subBytes</definition>
+        <argsstring>(uint8_t *buf)</argsstring>
+        <name>aes_subBytes</name>
+        <param>
+          <type>uint8_t *</type>
+          <declname>buf</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/src/key/aes256.c" line="166" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/src/key/aes256.c" bodystart="166" bodyend="171"/>
+      </memberdef>
+      <memberdef kind="function" id="aes256_8c_1a0dbda1197b608c7ea3094d788ac93f09" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void aes_subBytes_inv</definition>
+        <argsstring>(uint8_t *buf)</argsstring>
+        <name>aes_subBytes_inv</name>
+        <param>
+          <type>uint8_t *</type>
+          <declname>buf</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/src/key/aes256.c" line="174" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/src/key/aes256.c" bodystart="174" bodyend="179"/>
+      </memberdef>
+      <memberdef kind="function" id="aes256_8c_1a45d33cbf0a3f01bc0738a0562b9e4d03" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void aes_addRoundKey</definition>
+        <argsstring>(uint8_t *buf, uint8_t *key)</argsstring>
+        <name>aes_addRoundKey</name>
+        <param>
+          <type>uint8_t *</type>
+          <declname>buf</declname>
+        </param>
+        <param>
+          <type>uint8_t *</type>
+          <declname>key</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/src/key/aes256.c" line="182" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/src/key/aes256.c" bodystart="182" bodyend="187"/>
+      </memberdef>
+      <memberdef kind="function" id="aes256_8c_1a7af344a7d22aee0a7a6e698716adb777" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void aes_addRoundKey_cpy</definition>
+        <argsstring>(uint8_t *buf, uint8_t *key, uint8_t *cpk)</argsstring>
+        <name>aes_addRoundKey_cpy</name>
+        <param>
+          <type>uint8_t *</type>
+          <declname>buf</declname>
+        </param>
+        <param>
+          <type>uint8_t *</type>
+          <declname>key</declname>
+        </param>
+        <param>
+          <type>uint8_t *</type>
+          <declname>cpk</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/src/key/aes256.c" line="190" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/src/key/aes256.c" bodystart="190" bodyend="195"/>
+      </memberdef>
+      <memberdef kind="function" id="aes256_8c_1a48ac0a9a95bdc1210ba88d46cfea37c2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void aes_shiftRows</definition>
+        <argsstring>(uint8_t *buf)</argsstring>
+        <name>aes_shiftRows</name>
+        <param>
+          <type>uint8_t *</type>
+          <declname>buf</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/src/key/aes256.c" line="199" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/src/key/aes256.c" bodystart="199" bodyend="210"/>
+      </memberdef>
+      <memberdef kind="function" id="aes256_8c_1a52dce9de75cf31b0cfea94bab4a9d064" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void aes_shiftRows_inv</definition>
+        <argsstring>(uint8_t *buf)</argsstring>
+        <name>aes_shiftRows_inv</name>
+        <param>
+          <type>uint8_t *</type>
+          <declname>buf</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/src/key/aes256.c" line="213" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/src/key/aes256.c" bodystart="213" bodyend="224"/>
+      </memberdef>
+      <memberdef kind="function" id="aes256_8c_1a34dada89092305b10c80ef8d2d180668" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void aes_mixColumns</definition>
+        <argsstring>(uint8_t *buf)</argsstring>
+        <name>aes_mixColumns</name>
+        <param>
+          <type>uint8_t *</type>
+          <declname>buf</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/src/key/aes256.c" line="227" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/src/key/aes256.c" bodystart="227" bodyend="238"/>
+      </memberdef>
+      <memberdef kind="function" id="aes256_8c_1ae28efead24b8a36eeb5cf806b365207c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void aes_mixColumns_inv</definition>
+        <argsstring>(uint8_t *buf)</argsstring>
+        <name>aes_mixColumns_inv</name>
+        <param>
+          <type>uint8_t *</type>
+          <declname>buf</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/src/key/aes256.c" line="241" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/src/key/aes256.c" bodystart="241" bodyend="254"/>
+      </memberdef>
+      <memberdef kind="function" id="aes256_8c_1a6563b67bdb5dfd732ccb66c7e4475472" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void aes_expandEncKey</definition>
+        <argsstring>(uint8_t *k, uint8_t *rc)</argsstring>
+        <name>aes_expandEncKey</name>
+        <param>
+          <type>uint8_t *</type>
+          <declname>k</declname>
+        </param>
+        <param>
+          <type>uint8_t *</type>
+          <declname>rc</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/src/key/aes256.c" line="257" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/src/key/aes256.c" bodystart="257" bodyend="277"/>
+      </memberdef>
+      <memberdef kind="function" id="aes256_8c_1a8b90972b5208791fd262be8ac5e8b8eb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void aes_expandDecKey</definition>
+        <argsstring>(uint8_t *k, uint8_t *rc)</argsstring>
+        <name>aes_expandDecKey</name>
+        <param>
+          <type>uint8_t *</type>
+          <declname>k</declname>
+        </param>
+        <param>
+          <type>uint8_t *</type>
+          <declname>rc</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/src/key/aes256.c" line="280" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/src/key/aes256.c" bodystart="280" bodyend="300"/>
+      </memberdef>
+      <memberdef kind="function" id="aes256_8c_1ad9ac1ee02718a892c0cecdf42480c2ad" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void aes256_init</definition>
+        <argsstring>(aes256_context *ctx, uint8_t *k)</argsstring>
+        <name>aes256_init</name>
+        <param>
+          <type>aes256_context *</type>
+          <declname>ctx</declname>
+        </param>
+        <param>
+          <type>uint8_t *</type>
+          <declname>k</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/src/key/aes256.c" line="304" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/src/key/aes256.c" bodystart="304" bodyend="312"/>
+      </memberdef>
+      <memberdef kind="function" id="aes256_8c_1a77cebd9e79ea3d0af109537f183ba3ef" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void aes256_done</definition>
+        <argsstring>(aes256_context *ctx)</argsstring>
+        <name>aes256_done</name>
+        <param>
+          <type>aes256_context *</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/src/key/aes256.c" line="315" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/src/key/aes256.c" bodystart="315" bodyend="321"/>
+      </memberdef>
+      <memberdef kind="function" id="aes256_8c_1ad54693279bacbd637e88bc4cc99ff8a9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void aes256_encrypt_ecb</definition>
+        <argsstring>(aes256_context *ctx, uint8_t *buf)</argsstring>
+        <name>aes256_encrypt_ecb</name>
+        <param>
+          <type>aes256_context *</type>
+          <declname>ctx</declname>
+        </param>
+        <param>
+          <type>uint8_t *</type>
+          <declname>buf</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/src/key/aes256.c" line="324" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/src/key/aes256.c" bodystart="324" bodyend="341"/>
+      </memberdef>
+      <memberdef kind="function" id="aes256_8c_1af1433276f5c3b9c023e185e26d067500" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void aes256_decrypt_ecb</definition>
+        <argsstring>(aes256_context *ctx, uint8_t *buf)</argsstring>
+        <name>aes256_decrypt_ecb</name>
+        <param>
+          <type>aes256_context *</type>
+          <declname>ctx</declname>
+        </param>
+        <param>
+          <type>uint8_t *</type>
+          <declname>buf</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/src/key/aes256.c" line="344" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/src/key/aes256.c" bodystart="344" bodyend="365"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="2"><highlight class="comment"></highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/><sp/><sp/>Byte-oriented<sp/>AES-256<sp/>implementation.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/><sp/><sp/>All<sp/>lookup<sp/>tables<sp/>replaced<sp/>with<sp/>&apos;on<sp/>the<sp/>fly&apos;<sp/>calculations.</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="6"><highlight class="comment">*<sp/><sp/><sp/>Copyright<sp/>(c)<sp/>2007-2009<sp/>Ilya<sp/>O.<sp/>Levin,<sp/>http://www.literatecode.com</highlight></codeline>
+<codeline lineno="7"><highlight class="comment">*<sp/><sp/><sp/>Other<sp/>contributors:<sp/>Hal<sp/>Finney</highlight></codeline>
+<codeline lineno="8"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="9"><highlight class="comment">*<sp/><sp/><sp/>Permission<sp/>to<sp/>use,<sp/>copy,<sp/>modify,<sp/>and<sp/>distribute<sp/>this<sp/>software<sp/>for<sp/>any</highlight></codeline>
+<codeline lineno="10"><highlight class="comment">*<sp/><sp/><sp/>purpose<sp/>with<sp/>or<sp/>without<sp/>fee<sp/>is<sp/>hereby<sp/>granted,<sp/>provided<sp/>that<sp/>the<sp/>above</highlight></codeline>
+<codeline lineno="11"><highlight class="comment">*<sp/><sp/><sp/>copyright<sp/>notice<sp/>and<sp/>this<sp/>permission<sp/>notice<sp/>appear<sp/>in<sp/>all<sp/>copies.</highlight></codeline>
+<codeline lineno="12"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="13"><highlight class="comment">*<sp/><sp/><sp/>THE<sp/>SOFTWARE<sp/>IS<sp/>PROVIDED<sp/>&quot;AS<sp/>IS&quot;<sp/>AND<sp/>THE<sp/>AUTHOR<sp/>DISCLAIMS<sp/>ALL<sp/>WARRANTIES</highlight></codeline>
+<codeline lineno="14"><highlight class="comment">*<sp/><sp/><sp/>WITH<sp/>REGARD<sp/>TO<sp/>THIS<sp/>SOFTWARE<sp/>INCLUDING<sp/>ALL<sp/>IMPLIED<sp/>WARRANTIES<sp/>OF</highlight></codeline>
+<codeline lineno="15"><highlight class="comment">*<sp/><sp/><sp/>MERCHANTABILITY<sp/>AND<sp/>FITNESS.<sp/>IN<sp/>NO<sp/>EVENT<sp/>SHALL<sp/>THE<sp/>AUTHOR<sp/>BE<sp/>LIABLE<sp/>FOR</highlight></codeline>
+<codeline lineno="16"><highlight class="comment">*<sp/><sp/><sp/>ANY<sp/>SPECIAL,<sp/>DIRECT,<sp/>INDIRECT,<sp/>OR<sp/>CONSEQUENTIAL<sp/>DAMAGES<sp/>OR<sp/>ANY<sp/>DAMAGES</highlight></codeline>
+<codeline lineno="17"><highlight class="comment">*<sp/><sp/><sp/>WHATSOEVER<sp/>RESULTING<sp/>FROM<sp/>LOSS<sp/>OF<sp/>USE,<sp/>DATA<sp/>OR<sp/>PROFITS,<sp/>WHETHER<sp/>IN<sp/>AN</highlight></codeline>
+<codeline lineno="18"><highlight class="comment">*<sp/><sp/><sp/>ACTION<sp/>OF<sp/>CONTRACT,<sp/>NEGLIGENCE<sp/>OR<sp/>OTHER<sp/>TORTIOUS<sp/>ACTION,<sp/>ARISING<sp/>OUT<sp/>OF</highlight></codeline>
+<codeline lineno="19"><highlight class="comment">*<sp/><sp/><sp/>OR<sp/>IN<sp/>CONNECTION<sp/>WITH<sp/>THE<sp/>USE<sp/>OR<sp/>PERFORMANCE<sp/>OF<sp/>THIS<sp/>SOFTWARE.</highlight></codeline>
+<codeline lineno="20"><highlight class="comment">*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;aes256.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>F(x)<sp/><sp/><sp/>(((x)&lt;&lt;1)<sp/>^<sp/>((((x)&gt;&gt;7)<sp/>&amp;<sp/>1)<sp/>*<sp/>0x1b))</highlight></codeline>
+<codeline lineno="24"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>FD(x)<sp/><sp/>(((x)<sp/>&gt;&gt;<sp/>1)<sp/>^<sp/>(((x)<sp/>&amp;<sp/>1)<sp/>?<sp/>0x8d<sp/>:<sp/>0))</highlight></codeline>
+<codeline lineno="25"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BACK_TO_TABLES</highlight></codeline>
+<codeline lineno="27"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#ifdef<sp/>BACK_TO_TABLES</highlight></codeline>
+<codeline lineno="28"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>uint8_t<sp/>sbox[256]<sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/>0x63,<sp/>0x7c,<sp/>0x77,<sp/>0x7b,<sp/>0xf2,<sp/>0x6b,<sp/>0x6f,<sp/>0xc5,</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/>0x30,<sp/>0x01,<sp/>0x67,<sp/>0x2b,<sp/>0xfe,<sp/>0xd7,<sp/>0xab,<sp/>0x76,</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/>0xca,<sp/>0x82,<sp/>0xc9,<sp/>0x7d,<sp/>0xfa,<sp/>0x59,<sp/>0x47,<sp/>0xf0,</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/>0xad,<sp/>0xd4,<sp/>0xa2,<sp/>0xaf,<sp/>0x9c,<sp/>0xa4,<sp/>0x72,<sp/>0xc0,</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/>0xb7,<sp/>0xfd,<sp/>0x93,<sp/>0x26,<sp/>0x36,<sp/>0x3f,<sp/>0xf7,<sp/>0xcc,</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/>0x34,<sp/>0xa5,<sp/>0xe5,<sp/>0xf1,<sp/>0x71,<sp/>0xd8,<sp/>0x31,<sp/>0x15,</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/>0x04,<sp/>0xc7,<sp/>0x23,<sp/>0xc3,<sp/>0x18,<sp/>0x96,<sp/>0x05,<sp/>0x9a,</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/>0x07,<sp/>0x12,<sp/>0x80,<sp/>0xe2,<sp/>0xeb,<sp/>0x27,<sp/>0xb2,<sp/>0x75,</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/>0x09,<sp/>0x83,<sp/>0x2c,<sp/>0x1a,<sp/>0x1b,<sp/>0x6e,<sp/>0x5a,<sp/>0xa0,</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/>0x52,<sp/>0x3b,<sp/>0xd6,<sp/>0xb3,<sp/>0x29,<sp/>0xe3,<sp/>0x2f,<sp/>0x84,</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/>0x53,<sp/>0xd1,<sp/>0x00,<sp/>0xed,<sp/>0x20,<sp/>0xfc,<sp/>0xb1,<sp/>0x5b,</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/>0x6a,<sp/>0xcb,<sp/>0xbe,<sp/>0x39,<sp/>0x4a,<sp/>0x4c,<sp/>0x58,<sp/>0xcf,</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/>0xd0,<sp/>0xef,<sp/>0xaa,<sp/>0xfb,<sp/>0x43,<sp/>0x4d,<sp/>0x33,<sp/>0x85,</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/>0x45,<sp/>0xf9,<sp/>0x02,<sp/>0x7f,<sp/>0x50,<sp/>0x3c,<sp/>0x9f,<sp/>0xa8,</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/>0x51,<sp/>0xa3,<sp/>0x40,<sp/>0x8f,<sp/>0x92,<sp/>0x9d,<sp/>0x38,<sp/>0xf5,</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/>0xbc,<sp/>0xb6,<sp/>0xda,<sp/>0x21,<sp/>0x10,<sp/>0xff,<sp/>0xf3,<sp/>0xd2,</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/>0xcd,<sp/>0x0c,<sp/>0x13,<sp/>0xec,<sp/>0x5f,<sp/>0x97,<sp/>0x44,<sp/>0x17,</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/>0xc4,<sp/>0xa7,<sp/>0x7e,<sp/>0x3d,<sp/>0x64,<sp/>0x5d,<sp/>0x19,<sp/>0x73,</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/>0x60,<sp/>0x81,<sp/>0x4f,<sp/>0xdc,<sp/>0x22,<sp/>0x2a,<sp/>0x90,<sp/>0x88,</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/>0x46,<sp/>0xee,<sp/>0xb8,<sp/>0x14,<sp/>0xde,<sp/>0x5e,<sp/>0x0b,<sp/>0xdb,</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/>0xe0,<sp/>0x32,<sp/>0x3a,<sp/>0x0a,<sp/>0x49,<sp/>0x06,<sp/>0x24,<sp/>0x5c,</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/>0xc2,<sp/>0xd3,<sp/>0xac,<sp/>0x62,<sp/>0x91,<sp/>0x95,<sp/>0xe4,<sp/>0x79,</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/>0xe7,<sp/>0xc8,<sp/>0x37,<sp/>0x6d,<sp/>0x8d,<sp/>0xd5,<sp/>0x4e,<sp/>0xa9,</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/>0x6c,<sp/>0x56,<sp/>0xf4,<sp/>0xea,<sp/>0x65,<sp/>0x7a,<sp/>0xae,<sp/>0x08,</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/>0xba,<sp/>0x78,<sp/>0x25,<sp/>0x2e,<sp/>0x1c,<sp/>0xa6,<sp/>0xb4,<sp/>0xc6,</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/>0xe8,<sp/>0xdd,<sp/>0x74,<sp/>0x1f,<sp/>0x4b,<sp/>0xbd,<sp/>0x8b,<sp/>0x8a,</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/>0x70,<sp/>0x3e,<sp/>0xb5,<sp/>0x66,<sp/>0x48,<sp/>0x03,<sp/>0xf6,<sp/>0x0e,</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/>0x61,<sp/>0x35,<sp/>0x57,<sp/>0xb9,<sp/>0x86,<sp/>0xc1,<sp/>0x1d,<sp/>0x9e,</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/>0xe1,<sp/>0xf8,<sp/>0x98,<sp/>0x11,<sp/>0x69,<sp/>0xd9,<sp/>0x8e,<sp/>0x94,</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/>0x9b,<sp/>0x1e,<sp/>0x87,<sp/>0xe9,<sp/>0xce,<sp/>0x55,<sp/>0x28,<sp/>0xdf,</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/>0x8c,<sp/>0xa1,<sp/>0x89,<sp/>0x0d,<sp/>0xbf,<sp/>0xe6,<sp/>0x42,<sp/>0x68,</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/>0x41,<sp/>0x99,<sp/>0x2d,<sp/>0x0f,<sp/>0xb0,<sp/>0x54,<sp/>0xbb,<sp/>0x16</highlight></codeline>
+<codeline lineno="62"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>uint8_t<sp/>sboxinv[256]<sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/>0x52,<sp/>0x09,<sp/>0x6a,<sp/>0xd5,<sp/>0x30,<sp/>0x36,<sp/>0xa5,<sp/>0x38,</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/>0xbf,<sp/>0x40,<sp/>0xa3,<sp/>0x9e,<sp/>0x81,<sp/>0xf3,<sp/>0xd7,<sp/>0xfb,</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/>0x7c,<sp/>0xe3,<sp/>0x39,<sp/>0x82,<sp/>0x9b,<sp/>0x2f,<sp/>0xff,<sp/>0x87,</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/>0x34,<sp/>0x8e,<sp/>0x43,<sp/>0x44,<sp/>0xc4,<sp/>0xde,<sp/>0xe9,<sp/>0xcb,</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/>0x54,<sp/>0x7b,<sp/>0x94,<sp/>0x32,<sp/>0xa6,<sp/>0xc2,<sp/>0x23,<sp/>0x3d,</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/>0xee,<sp/>0x4c,<sp/>0x95,<sp/>0x0b,<sp/>0x42,<sp/>0xfa,<sp/>0xc3,<sp/>0x4e,</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/>0x08,<sp/>0x2e,<sp/>0xa1,<sp/>0x66,<sp/>0x28,<sp/>0xd9,<sp/>0x24,<sp/>0xb2,</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/>0x76,<sp/>0x5b,<sp/>0xa2,<sp/>0x49,<sp/>0x6d,<sp/>0x8b,<sp/>0xd1,<sp/>0x25,</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/>0x72,<sp/>0xf8,<sp/>0xf6,<sp/>0x64,<sp/>0x86,<sp/>0x68,<sp/>0x98,<sp/>0x16,</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/>0xd4,<sp/>0xa4,<sp/>0x5c,<sp/>0xcc,<sp/>0x5d,<sp/>0x65,<sp/>0xb6,<sp/>0x92,</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/>0x6c,<sp/>0x70,<sp/>0x48,<sp/>0x50,<sp/>0xfd,<sp/>0xed,<sp/>0xb9,<sp/>0xda,</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/>0x5e,<sp/>0x15,<sp/>0x46,<sp/>0x57,<sp/>0xa7,<sp/>0x8d,<sp/>0x9d,<sp/>0x84,</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/>0x90,<sp/>0xd8,<sp/>0xab,<sp/>0x00,<sp/>0x8c,<sp/>0xbc,<sp/>0xd3,<sp/>0x0a,</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/>0xf7,<sp/>0xe4,<sp/>0x58,<sp/>0x05,<sp/>0xb8,<sp/>0xb3,<sp/>0x45,<sp/>0x06,</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/>0xd0,<sp/>0x2c,<sp/>0x1e,<sp/>0x8f,<sp/>0xca,<sp/>0x3f,<sp/>0x0f,<sp/>0x02,</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/>0xc1,<sp/>0xaf,<sp/>0xbd,<sp/>0x03,<sp/>0x01,<sp/>0x13,<sp/>0x8a,<sp/>0x6b,</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/>0x3a,<sp/>0x91,<sp/>0x11,<sp/>0x41,<sp/>0x4f,<sp/>0x67,<sp/>0xdc,<sp/>0xea,</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/>0x97,<sp/>0xf2,<sp/>0xcf,<sp/>0xce,<sp/>0xf0,<sp/>0xb4,<sp/>0xe6,<sp/>0x73,</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/>0x96,<sp/>0xac,<sp/>0x74,<sp/>0x22,<sp/>0xe7,<sp/>0xad,<sp/>0x35,<sp/>0x85,</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/>0xe2,<sp/>0xf9,<sp/>0x37,<sp/>0xe8,<sp/>0x1c,<sp/>0x75,<sp/>0xdf,<sp/>0x6e,</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/>0x47,<sp/>0xf1,<sp/>0x1a,<sp/>0x71,<sp/>0x1d,<sp/>0x29,<sp/>0xc5,<sp/>0x89,</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/>0x6f,<sp/>0xb7,<sp/>0x62,<sp/>0x0e,<sp/>0xaa,<sp/>0x18,<sp/>0xbe,<sp/>0x1b,</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/>0xfc,<sp/>0x56,<sp/>0x3e,<sp/>0x4b,<sp/>0xc6,<sp/>0xd2,<sp/>0x79,<sp/>0x20,</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/>0x9a,<sp/>0xdb,<sp/>0xc0,<sp/>0xfe,<sp/>0x78,<sp/>0xcd,<sp/>0x5a,<sp/>0xf4,</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/>0x1f,<sp/>0xdd,<sp/>0xa8,<sp/>0x33,<sp/>0x88,<sp/>0x07,<sp/>0xc7,<sp/>0x31,</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/>0xb1,<sp/>0x12,<sp/>0x10,<sp/>0x59,<sp/>0x27,<sp/>0x80,<sp/>0xec,<sp/>0x5f,</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/>0x60,<sp/>0x51,<sp/>0x7f,<sp/>0xa9,<sp/>0x19,<sp/>0xb5,<sp/>0x4a,<sp/>0x0d,</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/>0x2d,<sp/>0xe5,<sp/>0x7a,<sp/>0x9f,<sp/>0x93,<sp/>0xc9,<sp/>0x9c,<sp/>0xef,</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/>0xa0,<sp/>0xe0,<sp/>0x3b,<sp/>0x4d,<sp/>0xae,<sp/>0x2a,<sp/>0xf5,<sp/>0xb0,</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/>0xc8,<sp/>0xeb,<sp/>0xbb,<sp/>0x3c,<sp/>0x83,<sp/>0x53,<sp/>0x99,<sp/>0x61,</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/>0x17,<sp/>0x2b,<sp/>0x04,<sp/>0x7e,<sp/>0xba,<sp/>0x77,<sp/>0xd6,<sp/>0x26,</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/>0xe1,<sp/>0x69,<sp/>0x14,<sp/>0x63,<sp/>0x55,<sp/>0x21,<sp/>0x0c,<sp/>0x7d</highlight></codeline>
+<codeline lineno="96"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"></highlight></codeline>
+<codeline lineno="98"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>rj_sbox(x)<sp/><sp/><sp/><sp/><sp/>sbox[(x)]</highlight></codeline>
+<codeline lineno="99"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>rj_sbox_inv(x)<sp/>sboxinv[(x)]</highlight></codeline>
+<codeline lineno="100"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="101"><highlight class="normal"></highlight><highlight class="preprocessor">#else<sp/></highlight><highlight class="comment">/*<sp/>tableless<sp/>subroutines<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="102"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="103"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>--------------------------------------------------------------------------<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="104"><highlight class="normal">uint8_t<sp/>gf_alog(uint8_t<sp/>x)<sp/></highlight><highlight class="comment">//<sp/>calculate<sp/>anti-logarithm<sp/>gen<sp/>3</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="105"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/>uint8_t<sp/>atb<sp/>=<sp/>1,<sp/>z;</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"></highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(x--)<sp/>{z<sp/>=<sp/>atb;<sp/>atb<sp/>&lt;&lt;=<sp/>1;<sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(z<sp/>&amp;<sp/>0x80)<sp/>atb^=<sp/>0x1b;<sp/>atb<sp/>^=<sp/>z;}</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"></highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>atb;</highlight></codeline>
+<codeline lineno="111"><highlight class="normal">}<sp/></highlight><highlight class="comment">/*<sp/>gf_alog<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="112"><highlight class="normal"></highlight></codeline>
+<codeline lineno="113"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>--------------------------------------------------------------------------<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="114"><highlight class="normal">uint8_t<sp/>gf_log(uint8_t<sp/>x)<sp/></highlight><highlight class="comment">//<sp/>calculate<sp/>logarithm<sp/>gen<sp/>3</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="115"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/>uint8_t<sp/>atb<sp/>=<sp/>1,<sp/>i<sp/>=<sp/>0,<sp/>z;</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"></highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">do</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(atb<sp/>==<sp/>x)<sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>z<sp/>=<sp/>atb;<sp/>atb<sp/>&lt;&lt;=<sp/>1;<sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(z<sp/>&amp;<sp/>0x80)<sp/>atb^=<sp/>0x1b;<sp/>atb<sp/>^=<sp/>z;</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(++i<sp/>&gt;<sp/>0);</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"></highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>i;</highlight></codeline>
+<codeline lineno="124"><highlight class="normal">}<sp/></highlight><highlight class="comment">/*<sp/>gf_log<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="125"><highlight class="normal"></highlight></codeline>
+<codeline lineno="126"><highlight class="normal"></highlight></codeline>
+<codeline lineno="127"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>--------------------------------------------------------------------------<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="128"><highlight class="normal">uint8_t<sp/>gf_mulinv(uint8_t<sp/>x)<sp/></highlight><highlight class="comment">//<sp/>calculate<sp/>multiplicative<sp/>inverse</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="129"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(x)<sp/>?<sp/>gf_alog(255<sp/>-<sp/>gf_log(x))<sp/>:<sp/>0;</highlight></codeline>
+<codeline lineno="131"><highlight class="normal">}<sp/></highlight><highlight class="comment">/*<sp/>gf_mulinv<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="132"><highlight class="normal"></highlight></codeline>
+<codeline lineno="133"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>--------------------------------------------------------------------------<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="134"><highlight class="normal">uint8_t<sp/>rj_sbox(uint8_t<sp/>x)</highlight></codeline>
+<codeline lineno="135"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/>uint8_t<sp/>y,<sp/>sb;</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"></highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/>sb<sp/>=<sp/>y<sp/>=<sp/>gf_mulinv(x);</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/>y<sp/>=<sp/>(y&lt;&lt;1)|(y&gt;&gt;7);<sp/>sb<sp/>^=<sp/>y;<sp/><sp/>y<sp/>=<sp/>(y&lt;&lt;1)|(y&gt;&gt;7);<sp/>sb<sp/>^=<sp/>y;</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/>y<sp/>=<sp/>(y&lt;&lt;1)|(y&gt;&gt;7);<sp/>sb<sp/>^=<sp/>y;<sp/><sp/>y<sp/>=<sp/>(y&lt;&lt;1)|(y&gt;&gt;7);<sp/>sb<sp/>^=<sp/>y;</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"></highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(sb<sp/>^<sp/>0x63);</highlight></codeline>
+<codeline lineno="143"><highlight class="normal">}<sp/></highlight><highlight class="comment">/*<sp/>rj_sbox<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="144"><highlight class="normal"></highlight></codeline>
+<codeline lineno="145"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>--------------------------------------------------------------------------<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="146"><highlight class="normal">uint8_t<sp/>rj_sbox_inv(uint8_t<sp/>x)</highlight></codeline>
+<codeline lineno="147"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/>uint8_t<sp/>y,<sp/>sb;</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"></highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/>y<sp/>=<sp/>x<sp/>^<sp/>0x63;</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/>sb<sp/>=<sp/>y<sp/>=<sp/>(y&lt;&lt;1)|(y&gt;&gt;7);</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/>y<sp/>=<sp/>(y&lt;&lt;2)|(y&gt;&gt;6);<sp/>sb<sp/>^=<sp/>y;<sp/>y<sp/>=<sp/>(y&lt;&lt;3)|(y&gt;&gt;5);<sp/>sb<sp/>^=<sp/>y;</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"></highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>gf_mulinv(sb);</highlight></codeline>
+<codeline lineno="155"><highlight class="normal">}<sp/></highlight><highlight class="comment">/*<sp/>rj_sbox_inv<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="156"><highlight class="normal"></highlight></codeline>
+<codeline lineno="157"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="158"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="159"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>--------------------------------------------------------------------------<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="160"><highlight class="normal">uint8_t<sp/>rj_xtime(uint8_t<sp/>x)</highlight></codeline>
+<codeline lineno="161"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(x<sp/>&amp;<sp/>0x80)<sp/>?<sp/>((x<sp/>&lt;&lt;<sp/>1)<sp/>^<sp/>0x1b)<sp/>:<sp/>(x<sp/>&lt;&lt;<sp/>1);</highlight></codeline>
+<codeline lineno="163"><highlight class="normal">}<sp/></highlight><highlight class="comment">/*<sp/>rj_xtime<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="164"><highlight class="normal"></highlight></codeline>
+<codeline lineno="165"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>--------------------------------------------------------------------------<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="166"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>aes_subBytes(uint8_t<sp/>*buf)</highlight></codeline>
+<codeline lineno="167"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">register</highlight><highlight class="normal"><sp/>uint8_t<sp/>i<sp/>=<sp/>16;</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"></highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(i--)<sp/>buf[i]<sp/>=<sp/>rj_sbox(buf[i]);</highlight></codeline>
+<codeline lineno="171"><highlight class="normal">}<sp/></highlight><highlight class="comment">/*<sp/>aes_subBytes<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="172"><highlight class="normal"></highlight></codeline>
+<codeline lineno="173"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>--------------------------------------------------------------------------<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="174"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>aes_subBytes_inv(uint8_t<sp/>*buf)</highlight></codeline>
+<codeline lineno="175"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">register</highlight><highlight class="normal"><sp/>uint8_t<sp/>i<sp/>=<sp/>16;</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"></highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(i--)<sp/>buf[i]<sp/>=<sp/>rj_sbox_inv(buf[i]);</highlight></codeline>
+<codeline lineno="179"><highlight class="normal">}<sp/></highlight><highlight class="comment">/*<sp/>aes_subBytes_inv<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="180"><highlight class="normal"></highlight></codeline>
+<codeline lineno="181"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>--------------------------------------------------------------------------<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="182"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>aes_addRoundKey(uint8_t<sp/>*buf,<sp/>uint8_t<sp/>*key)</highlight></codeline>
+<codeline lineno="183"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="184"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">register</highlight><highlight class="normal"><sp/>uint8_t<sp/>i<sp/>=<sp/>16;</highlight></codeline>
+<codeline lineno="185"><highlight class="normal"></highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(i--)<sp/>buf[i]<sp/>^=<sp/>key[i];</highlight></codeline>
+<codeline lineno="187"><highlight class="normal">}<sp/></highlight><highlight class="comment">/*<sp/>aes_addRoundKey<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="188"><highlight class="normal"></highlight></codeline>
+<codeline lineno="189"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>--------------------------------------------------------------------------<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="190"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>aes_addRoundKey_cpy(uint8_t<sp/>*buf,<sp/>uint8_t<sp/>*key,<sp/>uint8_t<sp/>*cpk)</highlight></codeline>
+<codeline lineno="191"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="192"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">register</highlight><highlight class="normal"><sp/>uint8_t<sp/>i<sp/>=<sp/>16;</highlight></codeline>
+<codeline lineno="193"><highlight class="normal"></highlight></codeline>
+<codeline lineno="194"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(i--)<sp/><sp/>buf[i]<sp/>^=<sp/>(cpk[i]<sp/>=<sp/>key[i]),<sp/>cpk[16+i]<sp/>=<sp/>key[16<sp/>+<sp/>i];</highlight></codeline>
+<codeline lineno="195"><highlight class="normal">}<sp/></highlight><highlight class="comment">/*<sp/>aes_addRoundKey_cpy<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="196"><highlight class="normal"></highlight></codeline>
+<codeline lineno="197"><highlight class="normal"></highlight></codeline>
+<codeline lineno="198"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>--------------------------------------------------------------------------<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="199"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>aes_shiftRows(uint8_t<sp/>*buf)</highlight></codeline>
+<codeline lineno="200"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">register</highlight><highlight class="normal"><sp/>uint8_t<sp/>i,<sp/>j;<sp/></highlight><highlight class="comment">/*<sp/>to<sp/>make<sp/>it<sp/>potentially<sp/>parallelable<sp/>:)<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="202"><highlight class="normal"></highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/>i<sp/>=<sp/>buf[1];<sp/>buf[1]<sp/>=<sp/>buf[5];<sp/>buf[5]<sp/>=<sp/>buf[9];</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>buf[9]<sp/>=<sp/>buf[13];<sp/>buf[13]<sp/>=<sp/>i;</highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/><sp/><sp/>i<sp/>=<sp/>buf[10];<sp/>buf[10]<sp/>=<sp/>buf[2];<sp/>buf[2]<sp/>=<sp/>i;</highlight></codeline>
+<codeline lineno="206"><highlight class="normal"><sp/><sp/><sp/><sp/>j<sp/>=<sp/>buf[3];<sp/>buf[3]<sp/>=<sp/>buf[15];<sp/>buf[15]<sp/>=<sp/>buf[11];</highlight></codeline>
+<codeline lineno="207"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>buf[11]<sp/>=<sp/>buf[7];<sp/>buf[7]<sp/>=<sp/>j;</highlight></codeline>
+<codeline lineno="208"><highlight class="normal"><sp/><sp/><sp/><sp/>j<sp/>=<sp/>buf[14];<sp/>buf[14]<sp/>=<sp/>buf[6];<sp/>buf[6]<sp/><sp/>=<sp/>j;</highlight></codeline>
+<codeline lineno="209"><highlight class="normal"></highlight></codeline>
+<codeline lineno="210"><highlight class="normal">}<sp/></highlight><highlight class="comment">/*<sp/>aes_shiftRows<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="211"><highlight class="normal"></highlight></codeline>
+<codeline lineno="212"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>--------------------------------------------------------------------------<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="213"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>aes_shiftRows_inv(uint8_t<sp/>*buf)</highlight></codeline>
+<codeline lineno="214"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="215"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">register</highlight><highlight class="normal"><sp/>uint8_t<sp/>i,<sp/>j;<sp/></highlight><highlight class="comment">/*<sp/>same<sp/>as<sp/>above<sp/>:)<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="216"><highlight class="normal"></highlight></codeline>
+<codeline lineno="217"><highlight class="normal"><sp/><sp/><sp/><sp/>i<sp/>=<sp/>buf[1];<sp/>buf[1]<sp/>=<sp/>buf[13];<sp/>buf[13]<sp/>=<sp/>buf[9];</highlight></codeline>
+<codeline lineno="218"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>buf[9]<sp/>=<sp/>buf[5];<sp/>buf[5]<sp/>=<sp/>i;</highlight></codeline>
+<codeline lineno="219"><highlight class="normal"><sp/><sp/><sp/><sp/>i<sp/>=<sp/>buf[2];<sp/>buf[2]<sp/>=<sp/>buf[10];<sp/>buf[10]<sp/>=<sp/>i;</highlight></codeline>
+<codeline lineno="220"><highlight class="normal"><sp/><sp/><sp/><sp/>j<sp/>=<sp/>buf[3];<sp/>buf[3]<sp/>=<sp/>buf[7];<sp/>buf[7]<sp/>=<sp/>buf[11];</highlight></codeline>
+<codeline lineno="221"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>buf[11]<sp/>=<sp/>buf[15];<sp/>buf[15]<sp/>=<sp/>j;</highlight></codeline>
+<codeline lineno="222"><highlight class="normal"><sp/><sp/><sp/><sp/>j<sp/>=<sp/>buf[6];<sp/>buf[6]<sp/>=<sp/>buf[14];<sp/>buf[14]<sp/>=<sp/>j;</highlight></codeline>
+<codeline lineno="223"><highlight class="normal"></highlight></codeline>
+<codeline lineno="224"><highlight class="normal">}<sp/></highlight><highlight class="comment">/*<sp/>aes_shiftRows_inv<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="225"><highlight class="normal"></highlight></codeline>
+<codeline lineno="226"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>--------------------------------------------------------------------------<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="227"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>aes_mixColumns(uint8_t<sp/>*buf)</highlight></codeline>
+<codeline lineno="228"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="229"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">register</highlight><highlight class="normal"><sp/>uint8_t<sp/>i,<sp/>a,<sp/>b,<sp/>c,<sp/>d,<sp/>e;</highlight></codeline>
+<codeline lineno="230"><highlight class="normal"></highlight></codeline>
+<codeline lineno="231"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>16;<sp/>i<sp/>+=<sp/>4)</highlight></codeline>
+<codeline lineno="232"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="233"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>a<sp/>=<sp/>buf[i];<sp/>b<sp/>=<sp/>buf[i<sp/>+<sp/>1];<sp/>c<sp/>=<sp/>buf[i<sp/>+<sp/>2];<sp/>d<sp/>=<sp/>buf[i<sp/>+<sp/>3];</highlight></codeline>
+<codeline lineno="234"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>e<sp/>=<sp/>a<sp/>^<sp/>b<sp/>^<sp/>c<sp/>^<sp/>d;</highlight></codeline>
+<codeline lineno="235"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>buf[i]<sp/>^=<sp/>e<sp/>^<sp/>rj_xtime(a^b);<sp/><sp/><sp/>buf[i+1]<sp/>^=<sp/>e<sp/>^<sp/>rj_xtime(b^c);</highlight></codeline>
+<codeline lineno="236"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>buf[i+2]<sp/>^=<sp/>e<sp/>^<sp/>rj_xtime(c^d);<sp/>buf[i+3]<sp/>^=<sp/>e<sp/>^<sp/>rj_xtime(d^a);</highlight></codeline>
+<codeline lineno="237"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="238"><highlight class="normal">}<sp/></highlight><highlight class="comment">/*<sp/>aes_mixColumns<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="239"><highlight class="normal"></highlight></codeline>
+<codeline lineno="240"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>--------------------------------------------------------------------------<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="241"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>aes_mixColumns_inv(uint8_t<sp/>*buf)</highlight></codeline>
+<codeline lineno="242"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="243"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">register</highlight><highlight class="normal"><sp/>uint8_t<sp/>i,<sp/>a,<sp/>b,<sp/>c,<sp/>d,<sp/>e,<sp/>x,<sp/>y,<sp/>z;</highlight></codeline>
+<codeline lineno="244"><highlight class="normal"></highlight></codeline>
+<codeline lineno="245"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>16;<sp/>i<sp/>+=<sp/>4)</highlight></codeline>
+<codeline lineno="246"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="247"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>a<sp/>=<sp/>buf[i];<sp/>b<sp/>=<sp/>buf[i<sp/>+<sp/>1];<sp/>c<sp/>=<sp/>buf[i<sp/>+<sp/>2];<sp/>d<sp/>=<sp/>buf[i<sp/>+<sp/>3];</highlight></codeline>
+<codeline lineno="248"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>e<sp/>=<sp/>a<sp/>^<sp/>b<sp/>^<sp/>c<sp/>^<sp/>d;</highlight></codeline>
+<codeline lineno="249"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>z<sp/>=<sp/>rj_xtime(e);</highlight></codeline>
+<codeline lineno="250"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>x<sp/>=<sp/>e<sp/>^<sp/>rj_xtime(rj_xtime(z^a^c));<sp/><sp/>y<sp/>=<sp/>e<sp/>^<sp/>rj_xtime(rj_xtime(z^b^d));</highlight></codeline>
+<codeline lineno="251"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>buf[i]<sp/>^=<sp/>x<sp/>^<sp/>rj_xtime(a^b);<sp/><sp/><sp/>buf[i+1]<sp/>^=<sp/>y<sp/>^<sp/>rj_xtime(b^c);</highlight></codeline>
+<codeline lineno="252"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>buf[i+2]<sp/>^=<sp/>x<sp/>^<sp/>rj_xtime(c^d);<sp/>buf[i+3]<sp/>^=<sp/>y<sp/>^<sp/>rj_xtime(d^a);</highlight></codeline>
+<codeline lineno="253"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="254"><highlight class="normal">}<sp/></highlight><highlight class="comment">/*<sp/>aes_mixColumns_inv<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="255"><highlight class="normal"></highlight></codeline>
+<codeline lineno="256"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>--------------------------------------------------------------------------<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="257"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>aes_expandEncKey(uint8_t<sp/>*k,<sp/>uint8_t<sp/>*rc)</highlight></codeline>
+<codeline lineno="258"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="259"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">register</highlight><highlight class="normal"><sp/>uint8_t<sp/>i;</highlight></codeline>
+<codeline lineno="260"><highlight class="normal"></highlight></codeline>
+<codeline lineno="261"><highlight class="normal"><sp/><sp/><sp/><sp/>k[0]<sp/>^=<sp/>rj_sbox(k[29])<sp/>^<sp/>(*rc);</highlight></codeline>
+<codeline lineno="262"><highlight class="normal"><sp/><sp/><sp/><sp/>k[1]<sp/>^=<sp/>rj_sbox(k[30]);</highlight></codeline>
+<codeline lineno="263"><highlight class="normal"><sp/><sp/><sp/><sp/>k[2]<sp/>^=<sp/>rj_sbox(k[31]);</highlight></codeline>
+<codeline lineno="264"><highlight class="normal"><sp/><sp/><sp/><sp/>k[3]<sp/>^=<sp/>rj_sbox(k[28]);</highlight></codeline>
+<codeline lineno="265"><highlight class="normal"><sp/><sp/><sp/><sp/>*rc<sp/>=<sp/>F(<sp/>*rc);</highlight></codeline>
+<codeline lineno="266"><highlight class="normal"></highlight></codeline>
+<codeline lineno="267"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal">(i<sp/>=<sp/>4;<sp/>i<sp/>&lt;<sp/>16;<sp/>i<sp/>+=<sp/>4)<sp/><sp/>k[i]<sp/>^=<sp/>k[i-4],<sp/><sp/><sp/>k[i+1]<sp/>^=<sp/>k[i-3],</highlight></codeline>
+<codeline lineno="268"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>k[i+2]<sp/>^=<sp/>k[i-2],<sp/>k[i+3]<sp/>^=<sp/>k[i-1];</highlight></codeline>
+<codeline lineno="269"><highlight class="normal"><sp/><sp/><sp/><sp/>k[16]<sp/>^=<sp/>rj_sbox(k[12]);</highlight></codeline>
+<codeline lineno="270"><highlight class="normal"><sp/><sp/><sp/><sp/>k[17]<sp/>^=<sp/>rj_sbox(k[13]);</highlight></codeline>
+<codeline lineno="271"><highlight class="normal"><sp/><sp/><sp/><sp/>k[18]<sp/>^=<sp/>rj_sbox(k[14]);</highlight></codeline>
+<codeline lineno="272"><highlight class="normal"><sp/><sp/><sp/><sp/>k[19]<sp/>^=<sp/>rj_sbox(k[15]);</highlight></codeline>
+<codeline lineno="273"><highlight class="normal"></highlight></codeline>
+<codeline lineno="274"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal">(i<sp/>=<sp/>20;<sp/>i<sp/>&lt;<sp/>32;<sp/>i<sp/>+=<sp/>4)<sp/>k[i]<sp/>^=<sp/>k[i-4],<sp/><sp/><sp/>k[i+1]<sp/>^=<sp/>k[i-3],</highlight></codeline>
+<codeline lineno="275"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>k[i+2]<sp/>^=<sp/>k[i-2],<sp/>k[i+3]<sp/>^=<sp/>k[i-1];</highlight></codeline>
+<codeline lineno="276"><highlight class="normal"></highlight></codeline>
+<codeline lineno="277"><highlight class="normal">}<sp/></highlight><highlight class="comment">/*<sp/>aes_expandEncKey<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="278"><highlight class="normal"></highlight></codeline>
+<codeline lineno="279"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>--------------------------------------------------------------------------<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="280"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>aes_expandDecKey(uint8_t<sp/>*k,<sp/>uint8_t<sp/>*rc)</highlight></codeline>
+<codeline lineno="281"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="282"><highlight class="normal"><sp/><sp/><sp/><sp/>uint8_t<sp/>i;</highlight></codeline>
+<codeline lineno="283"><highlight class="normal"></highlight></codeline>
+<codeline lineno="284"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal">(i<sp/>=<sp/>28;<sp/>i<sp/>&gt;<sp/>16;<sp/>i<sp/>-=<sp/>4)<sp/>k[i+0]<sp/>^=<sp/>k[i-4],<sp/>k[i+1]<sp/>^=<sp/>k[i-3],</highlight></codeline>
+<codeline lineno="285"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>k[i+2]<sp/>^=<sp/>k[i-2],<sp/>k[i+3]<sp/>^=<sp/>k[i-1];</highlight></codeline>
+<codeline lineno="286"><highlight class="normal"></highlight></codeline>
+<codeline lineno="287"><highlight class="normal"><sp/><sp/><sp/><sp/>k[16]<sp/>^=<sp/>rj_sbox(k[12]);</highlight></codeline>
+<codeline lineno="288"><highlight class="normal"><sp/><sp/><sp/><sp/>k[17]<sp/>^=<sp/>rj_sbox(k[13]);</highlight></codeline>
+<codeline lineno="289"><highlight class="normal"><sp/><sp/><sp/><sp/>k[18]<sp/>^=<sp/>rj_sbox(k[14]);</highlight></codeline>
+<codeline lineno="290"><highlight class="normal"><sp/><sp/><sp/><sp/>k[19]<sp/>^=<sp/>rj_sbox(k[15]);</highlight></codeline>
+<codeline lineno="291"><highlight class="normal"></highlight></codeline>
+<codeline lineno="292"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal">(i<sp/>=<sp/>12;<sp/>i<sp/>&gt;<sp/>0;<sp/>i<sp/>-=<sp/>4)<sp/><sp/>k[i+0]<sp/>^=<sp/>k[i-4],<sp/>k[i+1]<sp/>^=<sp/>k[i-3],</highlight></codeline>
+<codeline lineno="293"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>k[i+2]<sp/>^=<sp/>k[i-2],<sp/>k[i+3]<sp/>^=<sp/>k[i-1];</highlight></codeline>
+<codeline lineno="294"><highlight class="normal"></highlight></codeline>
+<codeline lineno="295"><highlight class="normal"><sp/><sp/><sp/><sp/>*rc<sp/>=<sp/>FD(*rc);</highlight></codeline>
+<codeline lineno="296"><highlight class="normal"><sp/><sp/><sp/><sp/>k[0]<sp/>^=<sp/>rj_sbox(k[29])<sp/>^<sp/>(*rc);</highlight></codeline>
+<codeline lineno="297"><highlight class="normal"><sp/><sp/><sp/><sp/>k[1]<sp/>^=<sp/>rj_sbox(k[30]);</highlight></codeline>
+<codeline lineno="298"><highlight class="normal"><sp/><sp/><sp/><sp/>k[2]<sp/>^=<sp/>rj_sbox(k[31]);</highlight></codeline>
+<codeline lineno="299"><highlight class="normal"><sp/><sp/><sp/><sp/>k[3]<sp/>^=<sp/>rj_sbox(k[28]);</highlight></codeline>
+<codeline lineno="300"><highlight class="normal">}<sp/></highlight><highlight class="comment">/*<sp/>aes_expandDecKey<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="301"><highlight class="normal"></highlight></codeline>
+<codeline lineno="302"><highlight class="normal"></highlight></codeline>
+<codeline lineno="303"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>--------------------------------------------------------------------------<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="304"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>aes256_init(aes256_context<sp/>*ctx,<sp/>uint8_t<sp/>*k)</highlight></codeline>
+<codeline lineno="305"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="306"><highlight class="normal"><sp/><sp/><sp/><sp/>uint8_t<sp/>rcon<sp/>=<sp/>1;</highlight></codeline>
+<codeline lineno="307"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">register</highlight><highlight class="normal"><sp/>uint8_t<sp/>i;</highlight></codeline>
+<codeline lineno="308"><highlight class="normal"></highlight></codeline>
+<codeline lineno="309"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(ctx-&gt;key);<sp/>i++)</highlight></codeline>
+<codeline lineno="310"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ctx-&gt;enckey[i]<sp/>=<sp/>ctx-&gt;deckey[i]<sp/>=<sp/>k[i];</highlight></codeline>
+<codeline lineno="311"><highlight class="normal"><sp/><sp/><sp/><sp/>for<sp/>(i<sp/>=<sp/>8;--i;)<sp/>aes_expandEncKey(ctx-&gt;deckey,<sp/>&amp;rcon);</highlight></codeline>
+<codeline lineno="312"><highlight class="normal">}<sp/></highlight><highlight class="comment">/*<sp/>aes256_init<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="313"><highlight class="normal"></highlight></codeline>
+<codeline lineno="314"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>--------------------------------------------------------------------------<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="315"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>aes256_done(aes256_context<sp/>*ctx)</highlight></codeline>
+<codeline lineno="316"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="317"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">register</highlight><highlight class="normal"><sp/>uint8_t<sp/>i;</highlight></codeline>
+<codeline lineno="318"><highlight class="normal"></highlight></codeline>
+<codeline lineno="319"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(ctx-&gt;key);<sp/>i++)</highlight></codeline>
+<codeline lineno="320"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ctx-&gt;key[i]<sp/>=<sp/>ctx-&gt;enckey[i]<sp/>=<sp/>ctx-&gt;deckey[i]<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="321"><highlight class="normal">}<sp/></highlight><highlight class="comment">/*<sp/>aes256_done<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="322"><highlight class="normal"></highlight></codeline>
+<codeline lineno="323"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>--------------------------------------------------------------------------<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="324"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>aes256_encrypt_ecb(aes256_context<sp/>*ctx,<sp/>uint8_t<sp/>*buf)</highlight></codeline>
+<codeline lineno="325"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="326"><highlight class="normal"><sp/><sp/><sp/><sp/>uint8_t<sp/>i,<sp/>rcon;</highlight></codeline>
+<codeline lineno="327"><highlight class="normal"></highlight></codeline>
+<codeline lineno="328"><highlight class="normal"><sp/><sp/><sp/><sp/>aes_addRoundKey_cpy(buf,<sp/>ctx-&gt;enckey,<sp/>ctx-&gt;key);</highlight></codeline>
+<codeline lineno="329"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal">(i<sp/>=<sp/>1,<sp/>rcon<sp/>=<sp/>1;<sp/>i<sp/>&lt;<sp/>14;<sp/>++i)</highlight></codeline>
+<codeline lineno="330"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="331"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>aes_subBytes(buf);</highlight></codeline>
+<codeline lineno="332"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>aes_shiftRows(buf);</highlight></codeline>
+<codeline lineno="333"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>aes_mixColumns(buf);</highlight></codeline>
+<codeline lineno="334"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(<sp/>i<sp/>&amp;<sp/>1<sp/>)<sp/>aes_addRoundKey(<sp/>buf,<sp/>&amp;ctx-&gt;key[16]);</highlight></codeline>
+<codeline lineno="335"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>aes_expandEncKey(ctx-&gt;key,<sp/>&amp;rcon),<sp/>aes_addRoundKey(buf,<sp/>ctx-&gt;key);</highlight></codeline>
+<codeline lineno="336"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="337"><highlight class="normal"><sp/><sp/><sp/><sp/>aes_subBytes(buf);</highlight></codeline>
+<codeline lineno="338"><highlight class="normal"><sp/><sp/><sp/><sp/>aes_shiftRows(buf);</highlight></codeline>
+<codeline lineno="339"><highlight class="normal"><sp/><sp/><sp/><sp/>aes_expandEncKey(ctx-&gt;key,<sp/>&amp;rcon);</highlight></codeline>
+<codeline lineno="340"><highlight class="normal"><sp/><sp/><sp/><sp/>aes_addRoundKey(buf,<sp/>ctx-&gt;key);</highlight></codeline>
+<codeline lineno="341"><highlight class="normal">}<sp/></highlight><highlight class="comment">/*<sp/>aes256_encrypt<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="342"><highlight class="normal"></highlight></codeline>
+<codeline lineno="343"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>--------------------------------------------------------------------------<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="344"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>aes256_decrypt_ecb(aes256_context<sp/>*ctx,<sp/>uint8_t<sp/>*buf)</highlight></codeline>
+<codeline lineno="345"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="346"><highlight class="normal"><sp/><sp/><sp/><sp/>uint8_t<sp/>i,<sp/>rcon;</highlight></codeline>
+<codeline lineno="347"><highlight class="normal"></highlight></codeline>
+<codeline lineno="348"><highlight class="normal"><sp/><sp/><sp/><sp/>aes_addRoundKey_cpy(buf,<sp/>ctx-&gt;deckey,<sp/>ctx-&gt;key);</highlight></codeline>
+<codeline lineno="349"><highlight class="normal"><sp/><sp/><sp/><sp/>aes_shiftRows_inv(buf);</highlight></codeline>
+<codeline lineno="350"><highlight class="normal"><sp/><sp/><sp/><sp/>aes_subBytes_inv(buf);</highlight></codeline>
+<codeline lineno="351"><highlight class="normal"></highlight></codeline>
+<codeline lineno="352"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(i<sp/>=<sp/>14,<sp/>rcon<sp/>=<sp/>0x80;<sp/>--i;)</highlight></codeline>
+<codeline lineno="353"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="354"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(<sp/>(<sp/>i<sp/>&amp;<sp/>1<sp/>)<sp/>)</highlight></codeline>
+<codeline lineno="355"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="356"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>aes_expandDecKey(ctx-&gt;key,<sp/>&amp;rcon);</highlight></codeline>
+<codeline lineno="357"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>aes_addRoundKey(buf,<sp/>&amp;ctx-&gt;key[16]);</highlight></codeline>
+<codeline lineno="358"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="359"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>aes_addRoundKey(buf,<sp/>ctx-&gt;key);</highlight></codeline>
+<codeline lineno="360"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>aes_mixColumns_inv(buf);</highlight></codeline>
+<codeline lineno="361"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>aes_shiftRows_inv(buf);</highlight></codeline>
+<codeline lineno="362"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>aes_subBytes_inv(buf);</highlight></codeline>
+<codeline lineno="363"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="364"><highlight class="normal"><sp/><sp/><sp/><sp/>aes_addRoundKey(<sp/>buf,<sp/>ctx-&gt;key);</highlight></codeline>
+<codeline lineno="365"><highlight class="normal">}<sp/></highlight><highlight class="comment">/*<sp/>aes256_decrypt<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/src/key/aes256.c"/>
+  </compounddef>
+</doxygen>

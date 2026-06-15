@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_b515467962dca6691cfb57536accd145" kind="dir">
+    <compoundname>server</compoundname>
+    <innerfile refid="common_2server_2xpuf_8h">common/server/xpuf.h</innerfile>
+    <innerfile refid="xpuf__cmd_8c">xpuf_cmd.c</innerfile>
+    <innerfile refid="xpuf__cmd_8h">xpuf_cmd.h</innerfile>
+    <innerfile refid="common_2server_2xpuf__hw_8h">common/server/xpuf_hw.h</innerfile>
+    <innerfile refid="xpuf__init_8c">xpuf_init.c</innerfile>
+    <innerfile refid="xpuf__init_8h">xpuf_init.h</innerfile>
+    <innerfile refid="xpuf__ipihandler_8h">xpuf_ipihandler.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/common/server/"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,82 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_tft___config" kind="struct" prot="public">
+    <compoundname>XTft_Config</compoundname>
+    <includes local="no">xtft.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_tft___config_1a4a82ccc081184475776bf139beb99963" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* XTft_Config::Name</definition>
+        <argsstring></argsstring>
+        <name>Name</name>
+        <briefdescription>
+<para>Name of the device. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tft/src/xtft.h" line="160" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tft/src/xtft.h" bodystart="160" bodyend="-1"/>
+        <referencedby refid="group__tft_1ga6fbdb38685fd32b2c564a93b5fe70bf3" compoundref="xtft__sinit_8c" startline="89" endline="103">XTft_LookupConfig</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_tft___config_1af13b84d730fc82272b844c4f787a5142" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XTft_Config::BaseAddress</definition>
+        <argsstring></argsstring>
+        <name>BaseAddress</name>
+        <briefdescription>
+<para>Base address of device. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tft/src/xtft.h" line="162" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tft/src/xtft.h" bodystart="162" bodyend="-1"/>
+        <referencedby refid="xtft__example_8c_1aa567e9e2b698234bafb682123dfa239e" compoundref="xtft__example_8c" startline="191" endline="302">TftExample</referencedby>
+        <referencedby refid="group__tft_1ga7cb92a2667272b013b8fccb0df1307ad" compoundref="xtft_8c" startline="92" endline="134">XTft_CfgInitialize</referencedby>
+        <referencedby refid="group__tft_1ga254efd25fdc63b78691a33ed565ae759" compoundref="xtft_8c" startline="814" endline="829">XTft_ReadReg</referencedby>
+        <referencedby refid="group__tft_1ga6c43a240d09cc381fef702e397b2d24b" compoundref="xtft_8c" startline="788" endline="798">XTft_WriteReg</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_tft___config_1a81392a22d4ef495818378bef86b06427" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XTft_Config::VideoMemBaseAddr</definition>
+        <argsstring></argsstring>
+        <name>VideoMemBaseAddr</name>
+        <briefdescription>
+<para>Video Memory Base address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tft/src/xtft.h" line="163" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tft/src/xtft.h" bodystart="163" bodyend="-1"/>
+        <referencedby refid="group__tft_1ga7cb92a2667272b013b8fccb0df1307ad" compoundref="xtft_8c" startline="92" endline="134">XTft_CfgInitialize</referencedby>
+        <referencedby refid="group__tft_1ga577850dbb8a67f20b52c42a818074381" compoundref="xtft_8c" startline="332" endline="348">XTft_GetPixel</referencedby>
+        <referencedby refid="group__tft_1ga56ccbb6cd6478cd5bd330ef70f733b4a" compoundref="xtft_8c" startline="742" endline="771">XTft_SetFrameBaseAddr</referencedby>
+        <referencedby refid="group__tft_1ga4efcd245e6e68c56641138123e3f67cc" compoundref="xtft_8c" startline="292" endline="309">XTft_SetPixel</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_tft___config_1aaaf2c79008199a54c94cc69a9760a0e5" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XTft_Config::AddrWidth</definition>
+        <argsstring></argsstring>
+        <name>AddrWidth</name>
+        <briefdescription>
+<para>Address Width. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tft/src/xtft.h" line="164" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tft/src/xtft.h" bodystart="164" bodyend="-1"/>
+        <referencedby refid="group__tft_1ga56ccbb6cd6478cd5bd330ef70f733b4a" compoundref="xtft_8c" startline="742" endline="771">XTft_SetFrameBaseAddr</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This structure holds the Device base address, video memory base address and Unique identifier of the device. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tft/src/xtft.h" line="156" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tft/src/xtft.h" bodystart="156" bodyend="165"/>
+    <listofallmembers>
+      <member refid="struct_x_tft___config_1aaaf2c79008199a54c94cc69a9760a0e5" prot="public" virt="non-virtual"><scope>XTft_Config</scope><name>AddrWidth</name></member>
+      <member refid="struct_x_tft___config_1af13b84d730fc82272b844c4f787a5142" prot="public" virt="non-virtual"><scope>XTft_Config</scope><name>BaseAddress</name></member>
+      <member refid="struct_x_tft___config_1a4a82ccc081184475776bf139beb99963" prot="public" virt="non-virtual"><scope>XTft_Config</scope><name>Name</name></member>
+      <member refid="struct_x_tft___config_1a81392a22d4ef495818378bef86b06427" prot="public" virt="non-virtual"><scope>XTft_Config</scope><name>VideoMemBaseAddr</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

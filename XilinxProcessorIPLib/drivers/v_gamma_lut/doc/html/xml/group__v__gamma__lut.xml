@@ -1,0 +1,125 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__v__gamma__lut" kind="group">
+    <compoundname>v_gamma_lut</compoundname>
+    <title>Overview</title>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__v__gamma__lut_1ga1eee746789dd56e4aedece7baf166715" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XVGammaLut_SetCallback</definition>
+        <argsstring>(XV_gamma_lut *InstancePtr, u32 HandlerType, void *CallbackFunc, void *CallbackRef)</argsstring>
+        <name>XVGammaLut_SetCallback</name>
+        <param>
+          <type><ref refid="struct_x_v__gamma__lut" kindref="compound">XV_gamma_lut</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>HandlerType</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>CallbackFunc</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>CallbackRef</declname>
+        </param>
+        <briefdescription>
+<para>Installs an asynchronous callback function for the given handler type. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function installs an asynchronous callback function for the given HandlerType:</para><para><preformatted>
+HandlerType                     Callback Function Type
+-----------------------         --------------------------------------------------
+(XVGAMMA_LUT_HANDLER_DONE)       DoneCallback
+(XVGAMMA_LUT_HANDLER_READY)      ReadyCallback
+</preformatted></para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the GammaLut IP instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>HandlerType</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>specifies the type of handler (DONE or READY). </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CallbackFunc</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the address of the callback function. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CallbackRef</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a user data item that will be passed to the callback function when it is invoked.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>Invoking this function for a handler that already has been installed replaces it with the new handler. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_gamma_lut/src/xv_gamma_lut_intr.c" line="58" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_gamma_lut/src/xv_gamma_lut_intr.c" bodystart="58" bodyend="85"/>
+        <references refid="struct_x_v__gamma__lut_1a99f00f7240a0431a48672e15024b50b8" compoundref="xv__gamma__lut_8h" startline="102">XV_gamma_lut::CallbackDoneRef</references>
+        <references refid="struct_x_v__gamma__lut_1ac8f00b765668a356561988c2b440f763" compoundref="xv__gamma__lut_8h" startline="104">XV_gamma_lut::CallbackReadyRef</references>
+        <references refid="struct_x_v__gamma__lut_1a5b68749e2bdb765acae6ea6da98a342b" compoundref="xv__gamma__lut_8h" startline="101">XV_gamma_lut::FrameDoneCallback</references>
+        <references refid="struct_x_v__gamma__lut_1ab8a335dcb1fedbe9edea7467dd0a5c23" compoundref="xv__gamma__lut_8h" startline="103">XV_gamma_lut::FrameReadyCallback</references>
+        <references refid="xv__gamma__lut_8h_1a9349eb9fd215456ccc229c5a99d9fb3aab8cc3dd26fb66ea918d70c96f8c3d096" compoundref="xv__gamma__lut_8h" startline="69">XVGAMMA_LUT_HANDLER_DONE</references>
+        <references refid="xv__gamma__lut_8h_1a9349eb9fd215456ccc229c5a99d9fb3aab931fa533b2a615d3019628e1e3b8001" compoundref="xv__gamma__lut_8h" startline="70">XVGAMMA_LUT_HANDLER_READY</references>
+      </memberdef>
+      <memberdef kind="function" id="group__v__gamma__lut_1ga009d3cf75a477fc0d391e85b2be4992b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XVGammaLut_InterruptHandler</definition>
+        <argsstring>(XV_gamma_lut *InstancePtr)</argsstring>
+        <name>XVGammaLut_InterruptHandler</name>
+        <param>
+          <type><ref refid="struct_x_v__gamma__lut" kindref="compound">XV_gamma_lut</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Interrupt handler for the Gamma LUT core driver. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function is the interrupt handler for the Gamma Lut core driver. This handler clears the pending interrupt and determined if the source is frame done signal. If yes, starts the next frame processing and calls the registered callback function.</para><para>The application is responsible for connecting this function to the interrupt system. Application beyond this driver is also responsible for providing callbacks to handle interrupts and installing the callbacks using <ref refid="group__v__gamma__lut_1ga1eee746789dd56e4aedece7baf166715" kindref="member">XVGammaLut_SetCallback()</ref> during initialization phase.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the core instance that just interrupted.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_gamma_lut/src/xv_gamma_lut_intr.c" line="109" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_gamma_lut/src/xv_gamma_lut_intr.c" bodystart="109" bodyend="139"/>
+        <references refid="struct_x_v__gamma__lut_1a99f00f7240a0431a48672e15024b50b8" compoundref="xv__gamma__lut_8h" startline="102">XV_gamma_lut::CallbackDoneRef</references>
+        <references refid="struct_x_v__gamma__lut_1ac8f00b765668a356561988c2b440f763" compoundref="xv__gamma__lut_8h" startline="104">XV_gamma_lut::CallbackReadyRef</references>
+        <references refid="struct_x_v__gamma__lut_1a5b68749e2bdb765acae6ea6da98a342b" compoundref="xv__gamma__lut_8h" startline="101">XV_gamma_lut::FrameDoneCallback</references>
+        <references refid="struct_x_v__gamma__lut_1ab8a335dcb1fedbe9edea7467dd0a5c23" compoundref="xv__gamma__lut_8h" startline="103">XV_gamma_lut::FrameReadyCallback</references>
+        <references refid="struct_x_v__gamma__lut_1ad1109f4bcf245a6f77ae977604913234" compoundref="xv__gamma__lut_8h" startline="100">XV_gamma_lut::IsReady</references>
+        <references refid="xv__gamma__lut_8c_1a8f0e77edeb5c76e0fc6c11229bf01c37" compoundref="xv__gamma__lut_8c" startline="1114" endline="1119">XV_gamma_lut_InterruptClear</references>
+        <references refid="xv__gamma__lut_8c_1adef3bebf8837172be781276ae3cc2f3c" compoundref="xv__gamma__lut_8c" startline="1156" endline="1161">XV_gamma_lut_InterruptGetStatus</references>
+        <references refid="xv__gamma__lut_8h_1acdc6221944e134567420f29fbdc26643" compoundref="xv__gamma__lut_8h" startline="56">XVGAMMA_LUT_IRQ_DONE_MASK</references>
+        <references refid="xv__gamma__lut_8h_1a1cd655917f72020af5eb74cfe45e0f30" compoundref="xv__gamma__lut_8h" startline="61">XVGAMMA_LUT_IRQ_READY_MASK</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>The functions in this file provides interrupt handler and associated functions. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who    Date     Changes
+<hruler/>
+
+1.00  praveenv   13/09/18   Initial Release
+</preformatted> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

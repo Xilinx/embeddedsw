@@ -1,0 +1,252 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xilpuf__spartan__ultrascale__plus__example_8h" kind="file">
+    <compoundname>xilpuf_spartan_ultrascale_plus_example.h</compoundname>
+    <includes local="yes">xil_types.h</includes>
+    <includedby refid="xilpuf__spartan__ultrascale__plus__example_8c" local="yes">xilpuf_spartan_ultrascale_plus_example.c</includedby>
+    <incdepgraph>
+      <node id="99">
+        <label>xil_types.h</label>
+      </node>
+      <node id="98">
+        <label>xilpuf_spartan_ultrascale_plus_example.h</label>
+        <link refid="xilpuf_spartan_ultrascale_plus_example.h"/>
+        <childnode refid="99" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="101">
+        <label>xilpuf_spartan_ultrascale_plus_example.c</label>
+        <link refid="xilpuf__spartan__ultrascale__plus__example_8c"/>
+      </node>
+      <node id="100">
+        <label>xilpuf_spartan_ultrascale_plus_example.h</label>
+        <link refid="xilpuf_spartan_ultrascale_plus_example.h"/>
+        <childnode refid="101" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xilpuf__spartan__ultrascale__plus__example_8h_1a6f822848a1e2b64dc248cb92792e96c5" prot="public" static="no">
+        <name>XPUF_READ_HASH_PUF_OR_KEY</name>
+        <initializer>(FALSE)</initializer>
+        <briefdescription>
+<para>Flag to check PPK2 hash. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/examples/xilpuf_spartan_ultrascale_plus_example.h" line="98" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/examples/xilpuf_spartan_ultrascale_plus_example.h" bodystart="98" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilpuf__spartan__ultrascale__plus__example_8h_1a94d0604a0d7e4af7bd43aa25d69a6cda" prot="public" static="no">
+        <name>XPUF_RED_KEY</name>
+        <initializer>&quot;0000000000000000000000000000000000000000000000000000000000000000&quot;</initializer>
+        <briefdescription>
+<para>Red key that is encrypted using PUF KEK to form a black key. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/examples/xilpuf_spartan_ultrascale_plus_example.h" line="99" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/examples/xilpuf_spartan_ultrascale_plus_example.h" bodystart="99" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilpuf__spartan__ultrascale__plus__example_8h_1aed547acdacee538b3d5edb8effdabd33" prot="public" static="no">
+        <name>XPUF_REGISTRATION</name>
+        <initializer>0U</initializer>
+        <briefdescription>
+<para>Value to indicate PUF registration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/examples/xilpuf_spartan_ultrascale_plus_example.h" line="104" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/examples/xilpuf_spartan_ultrascale_plus_example.h" bodystart="104" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilpuf__spartan__ultrascale__plus__example_8h_1a368d441bbf6c18131c64f5a4f86a972e" prot="public" static="no">
+        <name>XPUF_RED_KEY_LEN_IN_BYTES</name>
+        <initializer>(32U)</initializer>
+        <briefdescription>
+<para>RED key length in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/examples/xilpuf_spartan_ultrascale_plus_example.h" line="106" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/examples/xilpuf_spartan_ultrascale_plus_example.h" bodystart="106" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilpuf__spartan__ultrascale__plus__example_8h_1afae1f5835f09ee774941b03605df9551" prot="public" static="no">
+        <name>XPUF_BLACK_KEY_IV</name>
+        <initializer>&quot;000000000000000000000000&quot;</initializer>
+        <briefdescription>
+<para>IV that is used during black key generation. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/examples/xilpuf_spartan_ultrascale_plus_example.h" line="108" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/examples/xilpuf_spartan_ultrascale_plus_example.h" bodystart="108" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilpuf__spartan__ultrascale__plus__example_8h_1aef30dbf3d32eb628b8a376803a792078" prot="public" static="no">
+        <name>XPUF_GENERATE_KEK_N_ID</name>
+        <initializer>(TRUE)</initializer>
+        <briefdescription>
+<para><verbatim>    This will enable/disable generating black key and
+</verbatim> it is only applicable during registration </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/examples/xilpuf_spartan_ultrascale_plus_example.h" line="111" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/examples/xilpuf_spartan_ultrascale_plus_example.h" bodystart="111" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilpuf__spartan__ultrascale__plus__example_8h_1ac3aef9f7b8f99f9fcf1b205eb244487e" prot="public" static="no">
+        <name>XPUF_KEY_GENERATE_OPTION</name>
+        <initializer>(<ref refid="xilpuf__spartan__ultrascale__plus__example_8h_1aed547acdacee538b3d5edb8effdabd33" kindref="member">XPUF_REGISTRATION</ref>)</initializer>
+        <briefdescription>
+<para>PUF KEK generate option it can be either XPUF_REGISTRATION or XPUF_REGEN_ON_DEMAND. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/examples/xilpuf_spartan_ultrascale_plus_example.h" line="115" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/examples/xilpuf_spartan_ultrascale_plus_example.h" bodystart="115" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilpuf__spartan__ultrascale__plus__example_8h_1aa7a813e775b6b24ef967fa5fa5fcc3d2" prot="public" static="no">
+        <name>XPUF_GLBL_VAR_FLTR_OPTION</name>
+        <initializer>(TRUE)</initializer>
+        <briefdescription>
+<para>Enables/disables global variation filter during PUF registration/regeneration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/examples/xilpuf_spartan_ultrascale_plus_example.h" line="120" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/examples/xilpuf_spartan_ultrascale_plus_example.h" bodystart="119" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilpuf__spartan__ultrascale__plus__example_8h_1a1231fe74e6359da745e18724f6f8e680" prot="public" static="no">
+        <name>XPUF_REGEN_CHASH</name>
+        <initializer>(0x00000000U)</initializer>
+        <briefdescription>
+<para>PUF CHASH value and it is applicable only for Regeneration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/examples/xilpuf_spartan_ultrascale_plus_example.h" line="122" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/examples/xilpuf_spartan_ultrascale_plus_example.h" bodystart="123" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilpuf__spartan__ultrascale__plus__example_8h_1ab8eccba34a37f4744a05450604ad0c90" prot="public" static="no">
+        <name>XPUF_REGEN_AUX</name>
+        <initializer>(0x00000000U)</initializer>
+        <briefdescription>
+<para>PUF AUX value and it is expected to provide as 0xFFFFFFF0U and it is applicable only for Regeneration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/examples/xilpuf_spartan_ultrascale_plus_example.h" line="124" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/examples/xilpuf_spartan_ultrascale_plus_example.h" bodystart="124" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilpuf__spartan__ultrascale__plus__example_8h_1a7515e992cca0f0f94fcb10a5e493b8d2" prot="public" static="no">
+        <name>XPUF_WRITE_PUF_HASH_IN_EFUSE</name>
+        <initializer>(FALSE)</initializer>
+        <briefdescription>
+<para>Write PUF hash in efuse. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/examples/xilpuf_spartan_ultrascale_plus_example.h" line="125" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/examples/xilpuf_spartan_ultrascale_plus_example.h" bodystart="127" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilpuf__spartan__ultrascale__plus__example_8h_1a2f1085a4fcb7298e38837184937131ad" prot="public" static="no">
+        <name>XPUF_WRITE_IN_MEM</name>
+        <initializer>(FALSE)</initializer>
+        <briefdescription>
+<para>This will enable writing PUFHD,CHASH, AUX and black key into the memory. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/examples/xilpuf_spartan_ultrascale_plus_example.h" line="127" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/examples/xilpuf_spartan_ultrascale_plus_example.h" bodystart="128" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilpuf__spartan__ultrascale__plus__example_8h_1a75c54e204c968cc9deda5f14d8f0b382" prot="public" static="no">
+        <name>XPUF_WRITE_BLACK_KEY_OPTION</name>
+        <initializer>(FALSE)</initializer>
+        <briefdescription>
+<para>For programming Secure control eFUSE bits of PUF. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/examples/xilpuf_spartan_ultrascale_plus_example.h" line="129" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/examples/xilpuf_spartan_ultrascale_plus_example.h" bodystart="132" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilpuf__spartan__ultrascale__plus__example_8h_1a4a29bff8b0aad0c58a42aede75c8c2da" prot="public" static="no">
+        <name>PUF_RO_SWAP</name>
+        <initializer>(0x00000000U)</initializer>
+        <briefdescription>
+<para>PUF RO swap value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/examples/xilpuf_spartan_ultrascale_plus_example.h" line="132" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/examples/xilpuf_spartan_ultrascale_plus_example.h" bodystart="135" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file contains macros which needs to configured by user for <ref refid="xilpuf__spartan__ultrascale__plus__example_8c" kindref="compound">xilpuf_spartan_ultrascale_plus_example.c</ref> and based on the options selected by user operations will be performed. </para>    </briefdescription>
+    <detaileddescription>
+<para>This example is supported for spartan ultrascale plus devices.</para><para><preformatted>
+ MODIFICATION HISTORY:</preformatted></para><para><preformatted> Ver   Who     Date     Changes
+ ----- ------  -------- ------------------------------------------------------
+ 1.0   kpt     08/23/24 First release
+ 2.6   mb      10/27/25 Update doxygen comment for PUF_IV
+ 2.7   bha     01/06/26 Fixed Doxygen warnings
+       bha     01/23/26 Fixed Compilation errors,Code clean-up and
+                        added PUF-ID only Regeneration support
+       tus     05/18/26 Remove 128 bit key support description from example as
+                        it is not supported during boot
+ </preformatted></para><para><heading level="2">User configurable parameters for PUF </heading>
+</para><para>#define XPUF_RED_KEY &quot;0000000000000000000000000000000000000000000000000000000000000000&quot; Red Key to be encrypted by PUF KEY should be provided in string format.It should be 64 characters long as only 256 bit key is supported.</para><para>#define XPUF_BLACK_KEY_IV &quot;000000000000000000000000&quot; IV should be provided in string format.It should be 24 characters long, valid characters are 0-9,a-f,A-F. Any other character is considered as invalid string.The value mentioned here will be converted to hex buffer.It is used with the AES-GCM cryptographic hardware in order to encrypt red key. NOTE: The lower 32 bits of the PUF IV must be zeros. Even if the user provides non-zero values in the lower 32 bits, they will be overridden and set to zero by the PUF example during black key generation.</para><para>#define XPUF_GENERATE_KEK_N_ID (TRUE) This macro must be configured as TRUE to generate both PUF KEK and PUF ID. In order to generate PUF ID only, it should be configured as FALSE. The default option is set as TRUE to enable encryption of Red Key.</para><para>#define XPUF_KEY_GENERATE_OPTION (XPUF_REGISTRATION) (or) (XPUF_REGEN_ON_DEMAND) PUF Key can be generated by PUF registration or PUF on-demand regeneration.The user can configure XPUF_KEY_GENERATE_OPTION as either XPUF_REGISTRATION or XPUF_REGEN_ON_DEMAND to select the mode of PUF operation to generate helper data. It should be configured only when XPUF_GENERATE_KEK_N_ID as TRUE.</para><para>#define XPUF_REGEN_CHASH (0x00000000) CHASH value should be supplied if XPUF_READ_HD_OPTION is configured as XPUF_READ_FROM_RAM.The length of CHASH should be 24 bits This can be obtained by performing PUF registration and writing the helper data on the UART.</para><para>#define XPUF_REGEN_AUX (0x00000000) AUX value should be supplied if XPUF_READ_HD_OPTION is configured as XPUF_READ_FROM_RAM.The length of AUX should be 32 bits This can be obtained by performing PUF registration and writing the helper data on the UART.</para><para>#define XPUF_WRITE_PUF_HASH_IN_EFUSE (FALSE) If this option is configured as TRUE then hash of PUF helper data is written into the eFuse.</para><para>#define XPUF_WRITE_BLACK_KEY_OPTION (FALSE) This option controls whether to program the encrypted black key and IV into eFUSE. Set to TRUE to write the black key and IV generated from red key encryption into non-volatile memory (eFUSE). Set to FALSE to only generate the black key without programming it to eFUSE. NOTE: This option is only effective when XPUF_GENERATE_KEK_N_ID is set to TRUE, as black key generation must be enabled for this option to have any effect.</para><para>#define XPUF_GLBL_VAR_FLTR_OPTION (TRUE) It is recommended to always enable this option to ensure entropy. It can be configured as FALSE to disable Global Variation Filter. </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2024<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment"><sp/>******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="87"><highlight class="preprocessor">#ifndef<sp/>XILPUF_SPARTAN_ULTRASCALE_PLUS_EXAMPLE_H_</highlight></codeline>
+<codeline lineno="88"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XILPUF_SPARTAN_ULTRASCALE_PLUS_EXAMPLE_H_</highlight></codeline>
+<codeline lineno="89"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="91"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="93"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="94"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="95"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="96"><highlight class="normal"></highlight></codeline>
+<codeline lineno="97"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="98" refid="xilpuf__spartan__ultrascale__plus__example_8h_1a6f822848a1e2b64dc248cb92792e96c5" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XPUF_READ_HASH_PUF_OR_KEY<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(FALSE)<sp/></highlight></codeline>
+<codeline lineno="99" refid="xilpuf__spartan__ultrascale__plus__example_8h_1a94d0604a0d7e4af7bd43aa25d69a6cda" refkind="member"><highlight class="preprocessor">#define<sp/>XPUF_RED_KEY<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="100"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;0000000000000000000000000000000000000000000000000000000000000000&quot;</highlight></codeline>
+<codeline lineno="101"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="104" refid="xilpuf__spartan__ultrascale__plus__example_8h_1aed547acdacee538b3d5edb8effdabd33" refkind="member"><highlight class="preprocessor">#define<sp/>XPUF_REGISTRATION<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0U<sp/></highlight></codeline>
+<codeline lineno="106" refid="xilpuf__spartan__ultrascale__plus__example_8h_1a368d441bbf6c18131c64f5a4f86a972e" refkind="member"><highlight class="preprocessor">#define<sp/>XPUF_RED_KEY_LEN_IN_BYTES<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(32U)<sp/></highlight></codeline>
+<codeline lineno="108" refid="xilpuf__spartan__ultrascale__plus__example_8h_1afae1f5835f09ee774941b03605df9551" refkind="member"><highlight class="preprocessor">#define<sp/>XPUF_BLACK_KEY_IV<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;000000000000000000000000&quot;</highlight></codeline>
+<codeline lineno="109"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="111" refid="xilpuf__spartan__ultrascale__plus__example_8h_1aef30dbf3d32eb628b8a376803a792078" refkind="member"><highlight class="preprocessor">#define<sp/>XPUF_GENERATE_KEK_N_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(TRUE)</highlight></codeline>
+<codeline lineno="112"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="115" refid="xilpuf__spartan__ultrascale__plus__example_8h_1ac3aef9f7b8f99f9fcf1b205eb244487e" refkind="member"><highlight class="preprocessor">#define<sp/>XPUF_KEY_GENERATE_OPTION<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XPUF_REGISTRATION)</highlight></codeline>
+<codeline lineno="116"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="119" refid="xilpuf__spartan__ultrascale__plus__example_8h_1aa7a813e775b6b24ef967fa5fa5fcc3d2" refkind="member"><highlight class="preprocessor">#define<sp/>XPUF_GLBL_VAR_FLTR_OPTION<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(TRUE)<sp/></highlight></codeline>
+<codeline lineno="122"><highlight class="preprocessor">#define<sp/>XPUF_REGEN_CHASH<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000000U)<sp/></highlight></codeline>
+<codeline lineno="123" refid="xilpuf__spartan__ultrascale__plus__example_8h_1a1231fe74e6359da745e18724f6f8e680" refkind="member"><highlight class="preprocessor">#define<sp/>XPUF_REGEN_AUX<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000000U)<sp/></highlight></codeline>
+<codeline lineno="125"><highlight class="preprocessor">#define<sp/>XPUF_WRITE_PUF_HASH_IN_EFUSE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(FALSE)<sp/></highlight></codeline>
+<codeline lineno="126"><highlight class="preprocessor">#define<sp/>XPUF_WRITE_IN_MEM<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(FALSE)<sp/></highlight></codeline>
+<codeline lineno="129"><highlight class="preprocessor">#define<sp/>XPUF_WRITE_BLACK_KEY_OPTION<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(FALSE)</highlight></codeline>
+<codeline lineno="130"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="132" refid="xilpuf__spartan__ultrascale__plus__example_8h_1a75c54e204c968cc9deda5f14d8f0b382" refkind="member"><highlight class="preprocessor">#define<sp/>PUF_RO_SWAP<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000000U)<sp/></highlight></codeline>
+<codeline lineno="134"><highlight class="preprocessor"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="135" refid="xilpuf__spartan__ultrascale__plus__example_8h_1a4a29bff8b0aad0c58a42aede75c8c2da" refkind="member"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="136"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="137"><highlight class="normal"></highlight></codeline>
+<codeline lineno="138"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="139"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="141"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="142"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XILPUF_SPARTAN_ULTRASCALE_PLUS_EXAMPLE_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/examples/xilpuf_spartan_ultrascale_plus_example.h"/>
+  </compounddef>
+</doxygen>

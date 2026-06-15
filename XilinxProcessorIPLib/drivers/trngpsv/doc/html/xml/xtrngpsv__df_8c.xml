@@ -1,0 +1,365 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xtrngpsv__df_8c" kind="file">
+    <compoundname>xtrngpsv_df.c</compoundname>
+    <includes refid="_compact_a_e_s_8h" local="yes">CompactAES.h</includes>
+    <includes refid="xtrngpsv_8h" local="yes">xtrngpsv.h</includes>
+    <incdepgraph>
+      <node id="68">
+        <label>xil_io.h</label>
+      </node>
+      <node id="65">
+        <label>xil_sutil.h</label>
+      </node>
+      <node id="66">
+        <label>sleep.h</label>
+      </node>
+      <node id="67">
+        <label>xtrngpsv_hw.h</label>
+        <link refid="xtrngpsv__hw_8h"/>
+        <childnode refid="68" relation="include">
+        </childnode>
+      </node>
+      <node id="62">
+        <label>xtrngpsv.h</label>
+        <link refid="xtrngpsv_8h"/>
+        <childnode refid="63" relation="include">
+        </childnode>
+        <childnode refid="64" relation="include">
+        </childnode>
+        <childnode refid="65" relation="include">
+        </childnode>
+        <childnode refid="66" relation="include">
+        </childnode>
+        <childnode refid="67" relation="include">
+        </childnode>
+        <childnode refid="69" relation="include">
+        </childnode>
+      </node>
+      <node id="60">
+        <label>xtrngpsv_df.c</label>
+        <link refid="xtrngpsv_df.c"/>
+        <childnode refid="61" relation="include">
+        </childnode>
+        <childnode refid="62" relation="include">
+        </childnode>
+      </node>
+      <node id="61">
+        <label>CompactAES.h</label>
+      </node>
+      <node id="70">
+        <label>xil_cryptoalginfo.h</label>
+      </node>
+      <node id="64">
+        <label>xstatus.h</label>
+      </node>
+      <node id="63">
+        <label>xil_types.h</label>
+      </node>
+      <node id="69">
+        <label>xtrngpsv_alginfo.h</label>
+        <link refid="xtrngpsv__alginfo_8h"/>
+        <childnode refid="70" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__trngpsv__api_1ga53973bc085d2b2b0a6d4d5ebf62dd217" prot="public" static="no">
+        <name>DF_PAD_VAL</name>
+        <initializer>0x80U</initializer>
+        <briefdescription>
+<para>Value to be written to first byte of Padding data. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsv/src/xtrngpsv_df.c" line="39" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsv/src/xtrngpsv_df.c" bodystart="39" bodyend="-1"/>
+        <referencedby refid="group__trngpsv__api_1ga385580225d449ba49c6425fc61836092" compoundref="xtrngpsv__df_8c" startline="76" endline="238">XTrngpsv_DF</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__trngpsv__api_1ga9b3c2671e5e1df1c4470f393fdc3c0bb" prot="public" static="no">
+        <name>DF_KEY_LEN</name>
+        <initializer>32U</initializer>
+        <briefdescription>
+<para>Length of key for DF. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsv/src/xtrngpsv_df.c" line="40" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsv/src/xtrngpsv_df.c" bodystart="40" bodyend="-1"/>
+        <referencedby refid="group__trngpsv__api_1ga385580225d449ba49c6425fc61836092" compoundref="xtrngpsv__df_8c" startline="76" endline="238">XTrngpsv_DF</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__trngpsv__api_1ga385580225d449ba49c6425fc61836092" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XTrngpsv_DF</definition>
+        <argsstring>(XTrngpsv *InstancePtr, u8 *DFOutput, u32 DF_Flag, const u8 *PersStrPtr)</argsstring>
+        <name>XTrngpsv_DF</name>
+        <param>
+          <type><ref refid="struct_x_trngpsv" kindref="compound">XTrngpsv</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>DFOutput</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>DF_Flag</declname>
+        </param>
+        <param>
+          <type>const u8 *</type>
+          <declname>PersStrPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function implements the Derivative Function (per NIST SP80090A) by distilling the entropy available in a lot of bits at its input (DFInput) into a smaller number of bits on the output (DFOutput), thus bringing entropy per bit to 1. </para>        </briefdescription>
+        <detaileddescription>
+<para>Actual length of input to DF need to be provided to the core (block cipher)algorithm for DF, based on if personalization string is present or not and based on actual length of input entropy, the buffer needs to adjusted by pushing all the unused bytes to the end. The Block Cipher algorithm invoked here is as per sections 10.3.2 and 10.3.3 of the NIST.SP.800-90Ar1 document.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_trngpsv" kindref="compound">XTrngpsv</ref> instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DFOutput</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>points to the buffer to which output of DF operation is stored. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DF_Flag</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the flag used to indicate if this function is used to generate seed or random number (used in the PTRNG mode) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>PersStrPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the pointer to Personalization string. If no personalization string is present, it should be NULL.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XTRNGPSV_SUCCESS if successful.</para></listitem><listitem><para>XTRNGPSV_ERROR_DF_CPY if MemCpy failure</para></listitem><listitem><para>XTRNGPSV_ERROR_GLITCH if error caused due to glitch conditions. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>EntropyData member of DFInputis already populated by calling functions, remaining members of this data structure to be filled here. Block cipher algorithm expects data to be present in a specific format which is the <ref refid="struct_x_trngpsv___d_f_input" kindref="compound">XTrngpsv_DFInput</ref> format</para></listitem><listitem><para>DF_RAND</para></listitem><listitem><para>Below is optional step just to make sure that remaining bytes (beyond what is given as input to DF) is cleared with 0s</para></listitem><listitem><para>Move the block up</para></listitem><listitem><para>Fill the remaining memory (after moving) with 0s</para></listitem><listitem><para>Perform first part of the DF algorithm</para></listitem><listitem><para>Perform second part of the DF algorithm (final update to DFOutput)</para></listitem><listitem><para>Clear the aes key schedule once DF operation is done </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsv/src/xtrngpsv.h" line="297" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsv/src/xtrngpsv_df.c" bodystart="76" bodyend="238"/>
+        <references refid="group__trngpsv__api_1ga9b3c2671e5e1df1c4470f393fdc3c0bb" compoundref="xtrngpsv__df_8c" startline="40">DF_KEY_LEN</references>
+        <references refid="group__trngpsv__api_1ga53973bc085d2b2b0a6d4d5ebf62dd217" compoundref="xtrngpsv__df_8c" startline="39">DF_PAD_VAL</references>
+        <references refid="group__trngpsv__api_1gaa2d2b2bf1930f47ff9fb7bc238dc08fe" compoundref="xtrngpsv_8h" startline="113">DF_SEED</references>
+        <references refid="struct_x_trngpsv_1af69ec3e87920ff6e7d8b8140666bedce" compoundref="xtrngpsv_8h" startline="269">XTrngpsv::DFInput</references>
+        <references refid="struct_x_trngpsv_1a118f7a90d025a4c5ccc554a5d56b1a13" compoundref="xtrngpsv_8h" startline="271">XTrngpsv::DFOutput</references>
+        <references refid="struct_x_trngpsv___d_f_input_1a22f1f448d93cf1ef5e0cc4b33ffce2b0" compoundref="xtrngpsv_8h" startline="252">XTrngpsv_DFInput::EntropyData</references>
+        <references refid="struct_x_trngpsv_1a5b23c8db1c1054d6092883111badf3dd" compoundref="xtrngpsv_8h" startline="268">XTrngpsv::EntropySize</references>
+        <references refid="struct_x_trngpsv___d_f_input_1a75de62d5fab5b6a535fde14804dd8ef4" compoundref="xtrngpsv_8h" startline="248">XTrngpsv_DFInput::InputLen</references>
+        <references refid="struct_x_trngpsv___d_f_input_1a070ffffac3fc8d54aa6c7a1de9e66b5d" compoundref="xtrngpsv_8h" startline="247">XTrngpsv_DFInput::IvCounter</references>
+        <references refid="struct_x_trngpsv___d_f_input_1a98a49240ef2e63dbcb8a230e08f3095e" compoundref="xtrngpsv_8h" startline="254">XTrngpsv_DFInput::PadData</references>
+        <references refid="struct_x_trngpsv___d_f_input_1ad08be7f583b931c672990b94ce572365" compoundref="xtrngpsv_8h" startline="253">XTrngpsv_DFInput::PersString</references>
+        <references refid="struct_x_trngpsv___d_f_input_1a4b2a6af78a2fa7b927d727e29731faf9" compoundref="xtrngpsv_8h" startline="250">XTrngpsv_DFInput::PostDfLen</references>
+        <references refid="group__trngpsv__api_1gga9f1b86469104145ec6c6065cf0259f56a48f765dbeb3b2cc22af9a4f60a86d341" compoundref="xtrngpsv_8h" startline="170">XTRNGPSV_ERROR_DF_CPY</references>
+        <references refid="group__trngpsv__api_1gga9f1b86469104145ec6c6065cf0259f56a9eaa03d12dac772945e20716206a573d" compoundref="xtrngpsv_8h" startline="173">XTRNGPSV_ERROR_DF_MEMMOVE</references>
+        <references refid="group__trngpsv__api_1gga9f1b86469104145ec6c6065cf0259f56a9d7ddd0ac9d32c8f849f4060cb38de51" compoundref="xtrngpsv_8h" startline="172">XTRNGPSV_ERROR_DF_MEMSET</references>
+        <references refid="group__trngpsv__api_1gga9f1b86469104145ec6c6065cf0259f56aab988ddcb8208fd7411ca353c3e47d6e" compoundref="xtrngpsv_8h" startline="171">XTRNGPSV_ERROR_DF_SETUP_KEY_FAILED</references>
+        <references refid="group__trngpsv__api_1gga9f1b86469104145ec6c6065cf0259f56abe7d61c544183870ff70755db3d919c8" compoundref="xtrngpsv_8h" startline="133">XTRNGPSV_ERROR_GLITCH</references>
+        <references refid="group__trngpsv__api_1ga52f43a92294af0b8fd785544e9b294f6" compoundref="xtrngpsv_8h" startline="121">XTRNGPSV_FAILURE</references>
+        <references refid="group__trngpsv__api_1ga06f7a1bacbc7c2e36bbc3fedcfe6a3bd" compoundref="xtrngpsv_8h" startline="107">XTRNGPSV_GEN_LEN_BYTES</references>
+        <references refid="group__trngpsv__api_1gaf6b15aac7d60522637fb0611001e947a" compoundref="xtrngpsv_8h" startline="103">XTRNGPSV_PERS_STR_LEN_BYTES</references>
+        <references refid="group__trngpsv__api_1gaea0612415ab8b736d7d97b4adc253221" compoundref="xtrngpsv_8h" startline="100">XTRNGPSV_SEC_STRENGTH_BYTES</references>
+        <references refid="group__trngpsv__api_1ga40bd9343969e36296c9aba88c3292d27" compoundref="xtrngpsv_8h" startline="105">XTRNGPSV_SEED_LEN_BYTES</references>
+        <references refid="group__trngpsv__api_1ga7ccdabd4af3a88410a98cdd43d9ad077" compoundref="xtrngpsv_8h" startline="120">XTRNGPSV_SUCCESS</references>
+        <references refid="group__trngpsv__api_1gadb934e85e393ce2b9c49a678ccd08e99" compoundref="xtrngpsv_8h" startline="126">XTRNGPSV_SWAP_ENDIAN</references>
+        <referencedby refid="group__trngpsv__api_1ga2d5b1c7182c8de3767e0345a3435ffe5" compoundref="xtrngpsv_8c" startline="450" endline="627">XTrngpsv_Generate</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/**************************************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2021<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">**************************************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*************************************************************************************************/</highlight></codeline>
+<codeline lineno="32"><highlight class="comment">/***************************************<sp/>Include<sp/>Files<sp/>*******************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;CompactAES.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xtrngpsv_8h" kindref="compound">xtrngpsv.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="comment">/************************************<sp/>Constant<sp/>Definitions<sp/>***************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39" refid="group__trngpsv__api_1ga53973bc085d2b2b0a6d4d5ebf62dd217" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>DF_PAD_VAL<sp/><sp/><sp/><sp/><sp/><sp/>0x80U<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="40" refid="group__trngpsv__api_1ga9b3c2671e5e1df1c4470f393fdc3c0bb" refkind="member"><highlight class="preprocessor">#define<sp/>DF_KEY_LEN<sp/><sp/><sp/><sp/><sp/><sp/>32U<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="42"><highlight class="preprocessor"></highlight><highlight class="comment">/**************************************<sp/>Type<sp/>Definitions<sp/>*****************************************/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="43"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="comment">/***************************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="comment">/*************************************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="comment">/************************************<sp/>Function<sp/>Prototypes<sp/>****************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="comment">/************************************<sp/>Variable<sp/>Definitions<sp/>***************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight><highlight class="comment">/*************************************************************************************************/</highlight></codeline>
+<codeline lineno="76" refid="group__trngpsv__api_1ga385580225d449ba49c6425fc61836092" refkind="member"><highlight class="normal">s32<sp/><ref refid="group__trngpsv__api_1ga385580225d449ba49c6425fc61836092" kindref="member">XTrngpsv_DF</ref>(<ref refid="struct_x_trngpsv" kindref="compound">XTrngpsv</ref><sp/>*InstancePtr,<sp/>u8<sp/>*DFOutput,<sp/>u32<sp/>DF_Flag,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>*PersStrPtr)</highlight></codeline>
+<codeline lineno="77"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/>s32<sp/>Status<sp/>=<sp/><ref refid="group__trngpsv__api_1ga52f43a92294af0b8fd785544e9b294f6" kindref="member">XTRNGPSV_FAILURE</ref>;</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/>s32<sp/>SStatus<sp/>=<sp/><ref refid="group__trngpsv__api_1ga52f43a92294af0b8fd785544e9b294f6" kindref="member">XTRNGPSV_FAILURE</ref>;</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/>s32<sp/>StatusTmp<sp/>=<sp/><ref refid="group__trngpsv__api_1ga52f43a92294af0b8fd785544e9b294f6" kindref="member">XTRNGPSV_FAILURE</ref>;</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/>s32<sp/>SStatusTmp<sp/>=<sp/><ref refid="group__trngpsv__api_1ga52f43a92294af0b8fd785544e9b294f6" kindref="member">XTRNGPSV_FAILURE</ref>;</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR<sp/>SrcAddr;</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR<sp/>DestAddr;</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR<sp/>RemDataAddr;</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>TransferSize;</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>DiffSize;</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>ActualDFInputLen;</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/>u32<sp/>Index;</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>*AesInBlkPtr;</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>*AesOutBlkPtr;</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"></highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>DFKey[<ref refid="group__trngpsv__api_1ga9b3c2671e5e1df1c4470f393fdc3c0bb" kindref="member">DF_KEY_LEN</ref>]<sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0U,<sp/>1U,<sp/>2U,<sp/>3U,<sp/>4U,<sp/>5U,<sp/>6U,<sp/>7U,</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>8U,<sp/>9U,<sp/>10U,<sp/>11U,<sp/>12U,<sp/>13U,<sp/>14U,<sp/>15U,</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>16U,<sp/>17U,<sp/>18U,<sp/>19U,<sp/>20U,<sp/>21U,<sp/>22U,<sp/>23U,</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>24U,<sp/>25U,<sp/>26U,<sp/>27U,<sp/>28U,<sp/>29U,<sp/>30U,<sp/>31U};</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"></highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(PersStrPtr<sp/>==<sp/>NULL)<sp/>{</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_trngpsv_1af69ec3e87920ff6e7d8b8140666bedce" kindref="member">DFInput</ref>.<ref refid="struct_x_trngpsv___d_f_input_1a75de62d5fab5b6a535fde14804dd8ef4" kindref="member">InputLen</ref><sp/>=</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__trngpsv__api_1gadb934e85e393ce2b9c49a678ccd08e99" kindref="member">XTRNGPSV_SWAP_ENDIAN</ref>(InstancePtr-&gt;<ref refid="struct_x_trngpsv_1a5b23c8db1c1054d6092883111badf3dd" kindref="member">EntropySize</ref>);</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"></highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ActualDFInputLen<sp/>=<sp/>((u32)</highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(<ref refid="struct_x_trngpsv___d_f_input" kindref="compound">XTrngpsv_DFInput</ref>)<sp/>+<sp/>InstancePtr-&gt;<ref refid="struct_x_trngpsv_1a5b23c8db1c1054d6092883111badf3dd" kindref="member">EntropySize</ref></highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>-<sp/>(u32)</highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(InstancePtr-&gt;<ref refid="struct_x_trngpsv_1af69ec3e87920ff6e7d8b8140666bedce" kindref="member">DFInput</ref>.<ref refid="struct_x_trngpsv___d_f_input_1a22f1f448d93cf1ef5e0cc4b33ffce2b0" kindref="member">EntropyData</ref>)</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>-<sp/>(u32)</highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(InstancePtr-&gt;<ref refid="struct_x_trngpsv_1af69ec3e87920ff6e7d8b8140666bedce" kindref="member">DFInput</ref>.<ref refid="struct_x_trngpsv___d_f_input_1ad08be7f583b931c672990b94ce572365" kindref="member">PersString</ref>))<sp/>/<sp/>AES_BLK_SIZE;</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_trngpsv_1af69ec3e87920ff6e7d8b8140666bedce" kindref="member">DFInput</ref>.<ref refid="struct_x_trngpsv___d_f_input_1a75de62d5fab5b6a535fde14804dd8ef4" kindref="member">InputLen</ref><sp/>=</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__trngpsv__api_1gadb934e85e393ce2b9c49a678ccd08e99" kindref="member">XTRNGPSV_SWAP_ENDIAN</ref>(</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_trngpsv_1a5b23c8db1c1054d6092883111badf3dd" kindref="member">EntropySize</ref><sp/>+<sp/>(u32)</highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(InstancePtr-&gt;<ref refid="struct_x_trngpsv_1af69ec3e87920ff6e7d8b8140666bedce" kindref="member">DFInput</ref>.<ref refid="struct_x_trngpsv___d_f_input_1ad08be7f583b931c672990b94ce572365" kindref="member">PersString</ref>));</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"></highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ActualDFInputLen<sp/>=<sp/>((u32)</highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(<ref refid="struct_x_trngpsv___d_f_input" kindref="compound">XTrngpsv_DFInput</ref>)<sp/>+<sp/>InstancePtr-&gt;<ref refid="struct_x_trngpsv_1a5b23c8db1c1054d6092883111badf3dd" kindref="member">EntropySize</ref></highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>-<sp/>(u32)</highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(InstancePtr-&gt;<ref refid="struct_x_trngpsv_1af69ec3e87920ff6e7d8b8140666bedce" kindref="member">DFInput</ref>.<ref refid="struct_x_trngpsv___d_f_input_1a22f1f448d93cf1ef5e0cc4b33ffce2b0" kindref="member">EntropyData</ref>))<sp/>/<sp/>AES_BLK_SIZE;</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"></highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSECURE_TEMPORAL_IMPL(Status,<sp/>StatusTmp,<sp/>Xil_SecureMemCpy,<sp/>InstancePtr-&gt;<ref refid="struct_x_trngpsv_1af69ec3e87920ff6e7d8b8140666bedce" kindref="member">DFInput</ref>.<ref refid="struct_x_trngpsv___d_f_input_1ad08be7f583b931c672990b94ce572365" kindref="member">PersString</ref>,</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__trngpsv__api_1gaf6b15aac7d60522637fb0611001e947a" kindref="member">XTRNGPSV_PERS_STR_LEN_BYTES</ref>,<sp/>PersStrPtr,<sp/><ref refid="group__trngpsv__api_1gaf6b15aac7d60522637fb0611001e947a" kindref="member">XTRNGPSV_PERS_STR_LEN_BYTES</ref>);</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((Status<sp/>!=<sp/><ref refid="group__trngpsv__api_1ga7ccdabd4af3a88410a98cdd43d9ad077" kindref="member">XTRNGPSV_SUCCESS</ref>)<sp/>||<sp/>(StatusTmp<sp/>!=<sp/><ref refid="group__trngpsv__api_1ga7ccdabd4af3a88410a98cdd43d9ad077" kindref="member">XTRNGPSV_SUCCESS</ref>))<sp/>{</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(s32)<ref refid="group__trngpsv__api_1gga9f1b86469104145ec6c6065cf0259f56a48f765dbeb3b2cc22af9a4f60a86d341" kindref="member">XTRNGPSV_ERROR_DF_CPY</ref>;</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>SET_ERR;</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"></highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(DF_Flag<sp/>==<sp/><ref refid="group__trngpsv__api_1gaa2d2b2bf1930f47ff9fb7bc238dc08fe" kindref="member">DF_SEED</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_trngpsv_1af69ec3e87920ff6e7d8b8140666bedce" kindref="member">DFInput</ref>.<ref refid="struct_x_trngpsv___d_f_input_1a4b2a6af78a2fa7b927d727e29731faf9" kindref="member">PostDfLen</ref><sp/>=<sp/><ref refid="group__trngpsv__api_1gadb934e85e393ce2b9c49a678ccd08e99" kindref="member">XTRNGPSV_SWAP_ENDIAN</ref>(<ref refid="group__trngpsv__api_1gaf6b15aac7d60522637fb0611001e947a" kindref="member">XTRNGPSV_PERS_STR_LEN_BYTES</ref>);</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{<sp/></highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_trngpsv_1af69ec3e87920ff6e7d8b8140666bedce" kindref="member">DFInput</ref>.<ref refid="struct_x_trngpsv___d_f_input_1a4b2a6af78a2fa7b927d727e29731faf9" kindref="member">PostDfLen</ref><sp/>=<sp/><ref refid="group__trngpsv__api_1gadb934e85e393ce2b9c49a678ccd08e99" kindref="member">XTRNGPSV_SWAP_ENDIAN</ref>(<ref refid="group__trngpsv__api_1ga06f7a1bacbc7c2e36bbc3fedcfe6a3bd" kindref="member">XTRNGPSV_GEN_LEN_BYTES</ref>);</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"></highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_trngpsv_1af69ec3e87920ff6e7d8b8140666bedce" kindref="member">DFInput</ref>.<ref refid="struct_x_trngpsv___d_f_input_1a98a49240ef2e63dbcb8a230e08f3095e" kindref="member">PadData</ref>[0]<sp/>=<sp/><ref refid="group__trngpsv__api_1ga53973bc085d2b2b0a6d4d5ebf62dd217" kindref="member">DF_PAD_VAL</ref>;</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"></highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(PersStrPtr<sp/>==<sp/>NULL)<sp/>{</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DestAddr<sp/>=<sp/>(UINTPTR)InstancePtr-&gt;<ref refid="struct_x_trngpsv_1af69ec3e87920ff6e7d8b8140666bedce" kindref="member">DFInput</ref>.<ref refid="struct_x_trngpsv___d_f_input_1a98a49240ef2e63dbcb8a230e08f3095e" kindref="member">PadData</ref><sp/>+<sp/>InstancePtr-&gt;<ref refid="struct_x_trngpsv_1a5b23c8db1c1054d6092883111badf3dd" kindref="member">EntropySize</ref></highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>-<sp/>(u32)</highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(InstancePtr-&gt;<ref refid="struct_x_trngpsv_1af69ec3e87920ff6e7d8b8140666bedce" kindref="member">DFInput</ref>.<ref refid="struct_x_trngpsv___d_f_input_1a22f1f448d93cf1ef5e0cc4b33ffce2b0" kindref="member">EntropyData</ref>)</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>-<sp/>(u32)</highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(InstancePtr-&gt;<ref refid="struct_x_trngpsv_1af69ec3e87920ff6e7d8b8140666bedce" kindref="member">DFInput</ref>.<ref refid="struct_x_trngpsv___d_f_input_1ad08be7f583b931c672990b94ce572365" kindref="member">PersString</ref>);</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SrcAddr<sp/>=<sp/>(UINTPTR)InstancePtr-&gt;<ref refid="struct_x_trngpsv_1af69ec3e87920ff6e7d8b8140666bedce" kindref="member">DFInput</ref>.<ref refid="struct_x_trngpsv___d_f_input_1a98a49240ef2e63dbcb8a230e08f3095e" kindref="member">PadData</ref>;</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TransferSize<sp/>=<sp/>(u32)</highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(InstancePtr-&gt;<ref refid="struct_x_trngpsv_1af69ec3e87920ff6e7d8b8140666bedce" kindref="member">DFInput</ref>.<ref refid="struct_x_trngpsv___d_f_input_1a98a49240ef2e63dbcb8a230e08f3095e" kindref="member">PadData</ref>);</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DestAddr<sp/>=<sp/>(UINTPTR)InstancePtr-&gt;<ref refid="struct_x_trngpsv_1af69ec3e87920ff6e7d8b8140666bedce" kindref="member">DFInput</ref>.<ref refid="struct_x_trngpsv___d_f_input_1ad08be7f583b931c672990b94ce572365" kindref="member">PersString</ref><sp/>+<sp/>InstancePtr-&gt;<ref refid="struct_x_trngpsv_1a5b23c8db1c1054d6092883111badf3dd" kindref="member">EntropySize</ref></highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>-<sp/>(u32)</highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(InstancePtr-&gt;<ref refid="struct_x_trngpsv_1af69ec3e87920ff6e7d8b8140666bedce" kindref="member">DFInput</ref>.<ref refid="struct_x_trngpsv___d_f_input_1a22f1f448d93cf1ef5e0cc4b33ffce2b0" kindref="member">EntropyData</ref>);</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SrcAddr<sp/>=<sp/>(UINTPTR)InstancePtr-&gt;<ref refid="struct_x_trngpsv_1af69ec3e87920ff6e7d8b8140666bedce" kindref="member">DFInput</ref>.<ref refid="struct_x_trngpsv___d_f_input_1ad08be7f583b931c672990b94ce572365" kindref="member">PersString</ref>;</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TransferSize<sp/>=<sp/>(u32)</highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(InstancePtr-&gt;<ref refid="struct_x_trngpsv_1af69ec3e87920ff6e7d8b8140666bedce" kindref="member">DFInput</ref>.<ref refid="struct_x_trngpsv___d_f_input_1ad08be7f583b931c672990b94ce572365" kindref="member">PersString</ref>)</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>+<sp/>(u32)</highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(InstancePtr-&gt;<ref refid="struct_x_trngpsv_1af69ec3e87920ff6e7d8b8140666bedce" kindref="member">DFInput</ref>.<ref refid="struct_x_trngpsv___d_f_input_1a98a49240ef2e63dbcb8a230e08f3095e" kindref="member">PadData</ref>);</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"></highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DiffSize<sp/>=<sp/>(u32)(SrcAddr<sp/>-<sp/>DestAddr);</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RemDataAddr<sp/>=<sp/>(UINTPTR)&amp;InstancePtr-&gt;<ref refid="struct_x_trngpsv_1af69ec3e87920ff6e7d8b8140666bedce" kindref="member">DFInput</ref><sp/>+<sp/>(u32)</highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(InstancePtr-&gt;<ref refid="struct_x_trngpsv_1af69ec3e87920ff6e7d8b8140666bedce" kindref="member">DFInput</ref>)<sp/>-<sp/>DiffSize;</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"></highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(DiffSize<sp/>&gt;<sp/>0U)<sp/>{</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSECURE_TEMPORAL_IMPL(Status,<sp/>StatusTmp,<sp/>Xil_SMemMove,<sp/>(u8*)DestAddr,<sp/>TransferSize,</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u8*)SrcAddr,<sp/>TransferSize,<sp/>TransferSize);</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((Status<sp/>!=<sp/><ref refid="group__trngpsv__api_1ga7ccdabd4af3a88410a98cdd43d9ad077" kindref="member">XTRNGPSV_SUCCESS</ref>)<sp/>||<sp/>(StatusTmp<sp/>!=<sp/><ref refid="group__trngpsv__api_1ga7ccdabd4af3a88410a98cdd43d9ad077" kindref="member">XTRNGPSV_SUCCESS</ref>))<sp/>{</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(s32)<ref refid="group__trngpsv__api_1gga9f1b86469104145ec6c6065cf0259f56a9eaa03d12dac772945e20716206a573d" kindref="member">XTRNGPSV_ERROR_DF_MEMMOVE</ref>;</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>SET_ERR;</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"></highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSECURE_TEMPORAL_IMPL(Status,<sp/>StatusTmp,<sp/>Xil_SMemSet,<sp/>(u8*)RemDataAddr,<sp/>DiffSize,</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0U,<sp/>DiffSize);</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((Status<sp/>!=<sp/><ref refid="group__trngpsv__api_1ga7ccdabd4af3a88410a98cdd43d9ad077" kindref="member">XTRNGPSV_SUCCESS</ref>)<sp/>||<sp/>(StatusTmp<sp/>!=<sp/><ref refid="group__trngpsv__api_1ga7ccdabd4af3a88410a98cdd43d9ad077" kindref="member">XTRNGPSV_SUCCESS</ref>))<sp/>{</highlight></codeline>
+<codeline lineno="172"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(s32)<ref refid="group__trngpsv__api_1gga9f1b86469104145ec6c6065cf0259f56a9d7ddd0ac9d32c8f849f4060cb38de51" kindref="member">XTRNGPSV_ERROR_DF_MEMSET</ref>;</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>SET_ERR;</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"></highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSECURE_TEMPORAL_IMPL(Status,<sp/>StatusTmp,<sp/>aesSetupKey,<sp/>DFKey,<sp/>(s32)</highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(DFKey));</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((Status<sp/>!=<sp/><ref refid="group__trngpsv__api_1ga7ccdabd4af3a88410a98cdd43d9ad077" kindref="member">XTRNGPSV_SUCCESS</ref>)<sp/>||<sp/>(StatusTmp<sp/>!=<sp/><ref refid="group__trngpsv__api_1ga7ccdabd4af3a88410a98cdd43d9ad077" kindref="member">XTRNGPSV_SUCCESS</ref>))<sp/>{</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(s32)<ref refid="group__trngpsv__api_1gga9f1b86469104145ec6c6065cf0259f56aab988ddcb8208fd7411ca353c3e47d6e" kindref="member">XTRNGPSV_ERROR_DF_SETUP_KEY_FAILED</ref>;</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>SET_ERR;</highlight></codeline>
+<codeline lineno="182"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="183"><highlight class="normal"></highlight></codeline>
+<codeline lineno="184"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(Index<sp/>=<sp/>0U;<sp/>Index<sp/>&lt;<sp/><ref refid="group__trngpsv__api_1ga40bd9343969e36296c9aba88c3292d27" kindref="member">XTRNGPSV_SEED_LEN_BYTES</ref>;<sp/>Index<sp/>+=<sp/>AES_BLK_SIZE)<sp/>{</highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSECURE_TEMPORAL_IMPL(Status,<sp/>StatusTmp,<sp/>Xil_SMemSet,<sp/>(u8*)InstancePtr-&gt;<ref refid="struct_x_trngpsv_1a118f7a90d025a4c5ccc554a5d56b1a13" kindref="member">DFOutput</ref><sp/>+</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Index,<sp/>AES_BLK_SIZE,<sp/>0U,<sp/>AES_BLK_SIZE);</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((Status<sp/>!=<sp/><ref refid="group__trngpsv__api_1ga7ccdabd4af3a88410a98cdd43d9ad077" kindref="member">XTRNGPSV_SUCCESS</ref>)<sp/>||<sp/>(StatusTmp<sp/>!=<sp/><ref refid="group__trngpsv__api_1ga7ccdabd4af3a88410a98cdd43d9ad077" kindref="member">XTRNGPSV_SUCCESS</ref>))<sp/>{</highlight></codeline>
+<codeline lineno="188"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(s32)<ref refid="group__trngpsv__api_1gga9f1b86469104145ec6c6065cf0259f56a9d7ddd0ac9d32c8f849f4060cb38de51" kindref="member">XTRNGPSV_ERROR_DF_MEMSET</ref>;</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>SET_ERR;</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="191"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_trngpsv_1af69ec3e87920ff6e7d8b8140666bedce" kindref="member">DFInput</ref>.<ref refid="struct_x_trngpsv___d_f_input_1a070ffffac3fc8d54aa6c7a1de9e66b5d" kindref="member">IvCounter</ref>[0]<sp/>=</highlight></codeline>
+<codeline lineno="192"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__trngpsv__api_1gadb934e85e393ce2b9c49a678ccd08e99" kindref="member">XTRNGPSV_SWAP_ENDIAN</ref>(Index<sp/>/<sp/>AES_BLK_SIZE);</highlight></codeline>
+<codeline lineno="193"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>aesCbcEncrypt((u8*)&amp;InstancePtr-&gt;<ref refid="struct_x_trngpsv_1af69ec3e87920ff6e7d8b8140666bedce" kindref="member">DFInput</ref>,<sp/>NULL,<sp/>InstancePtr-&gt;<ref refid="struct_x_trngpsv_1a118f7a90d025a4c5ccc554a5d56b1a13" kindref="member">DFOutput</ref><sp/>+<sp/>Index,</highlight></codeline>
+<codeline lineno="194"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(s32)ActualDFInputLen);</highlight></codeline>
+<codeline lineno="195"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="196"><highlight class="normal"></highlight></codeline>
+<codeline lineno="197"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Index<sp/>!=<sp/>XTRNGPSV_SEED_LEN_BYTES)<sp/>{</highlight></codeline>
+<codeline lineno="198"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(s32)<ref refid="group__trngpsv__api_1gga9f1b86469104145ec6c6065cf0259f56abe7d61c544183870ff70755db3d919c8" kindref="member">XTRNGPSV_ERROR_GLITCH</ref>;</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>SET_ERR;</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"></highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSECURE_TEMPORAL_IMPL(Status,<sp/>StatusTmp,<sp/>aesSetupKey,<sp/>(u8*)InstancePtr-&gt;<ref refid="struct_x_trngpsv_1a118f7a90d025a4c5ccc554a5d56b1a13" kindref="member">DFOutput</ref>,<sp/>(s32)</highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(DFKey));</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((Status<sp/>!=<sp/><ref refid="group__trngpsv__api_1ga7ccdabd4af3a88410a98cdd43d9ad077" kindref="member">XTRNGPSV_SUCCESS</ref>)<sp/>||<sp/>(StatusTmp<sp/>!=<sp/><ref refid="group__trngpsv__api_1ga7ccdabd4af3a88410a98cdd43d9ad077" kindref="member">XTRNGPSV_SUCCESS</ref>))<sp/>{</highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(s32)<ref refid="group__trngpsv__api_1gga9f1b86469104145ec6c6065cf0259f56aab988ddcb8208fd7411ca353c3e47d6e" kindref="member">XTRNGPSV_ERROR_DF_SETUP_KEY_FAILED</ref>;</highlight></codeline>
+<codeline lineno="206"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>SET_ERR1;</highlight></codeline>
+<codeline lineno="207"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="208"><highlight class="normal"></highlight></codeline>
+<codeline lineno="209"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(Index<sp/>=<sp/>0U;<sp/>Index<sp/>&lt;<sp/><ref refid="group__trngpsv__api_1ga40bd9343969e36296c9aba88c3292d27" kindref="member">XTRNGPSV_SEED_LEN_BYTES</ref>;<sp/>Index<sp/>+=<sp/>AES_BLK_SIZE)<sp/>{</highlight></codeline>
+<codeline lineno="210"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Index<sp/>==<sp/>0U)<sp/>{</highlight></codeline>
+<codeline lineno="211"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>AesInBlkPtr<sp/>=<sp/>&amp;DFOutput[<ref refid="group__trngpsv__api_1gaea0612415ab8b736d7d97b4adc253221" kindref="member">XTRNGPSV_SEC_STRENGTH_BYTES</ref>];</highlight></codeline>
+<codeline lineno="212"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="213"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="214"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>AesInBlkPtr<sp/>=<sp/>&amp;DFOutput[Index<sp/>-<sp/>AES_BLK_SIZE];</highlight></codeline>
+<codeline lineno="215"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="216"><highlight class="normal"></highlight></codeline>
+<codeline lineno="217"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>AesOutBlkPtr<sp/>=<sp/>&amp;DFOutput[Index];</highlight></codeline>
+<codeline lineno="218"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>aesEncrypt(AesInBlkPtr,<sp/>AesOutBlkPtr);</highlight></codeline>
+<codeline lineno="219"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="220"><highlight class="normal"></highlight></codeline>
+<codeline lineno="221"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Index<sp/>!=<sp/>XTRNGPSV_SEED_LEN_BYTES)<sp/>{</highlight></codeline>
+<codeline lineno="222"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(s32)<ref refid="group__trngpsv__api_1gga9f1b86469104145ec6c6065cf0259f56abe7d61c544183870ff70755db3d919c8" kindref="member">XTRNGPSV_ERROR_GLITCH</ref>;</highlight></codeline>
+<codeline lineno="223"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="224"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="225"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__trngpsv__api_1ga7ccdabd4af3a88410a98cdd43d9ad077" kindref="member">XTRNGPSV_SUCCESS</ref>;</highlight></codeline>
+<codeline lineno="226"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="227"><highlight class="normal"></highlight></codeline>
+<codeline lineno="228"><highlight class="normal">SET_ERR1:</highlight></codeline>
+<codeline lineno="230"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSECURE_TEMPORAL_IMPL(SStatus,<sp/>SStatusTmp,<sp/>aesSetupKey,<sp/>DFKey,<sp/>(s32)</highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(DFKey));</highlight></codeline>
+<codeline lineno="231"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((SStatus<sp/>!=<sp/><ref refid="group__trngpsv__api_1ga7ccdabd4af3a88410a98cdd43d9ad077" kindref="member">XTRNGPSV_SUCCESS</ref>)<sp/>||<sp/>(SStatusTmp<sp/>!=<sp/><ref refid="group__trngpsv__api_1ga7ccdabd4af3a88410a98cdd43d9ad077" kindref="member">XTRNGPSV_SUCCESS</ref>))<sp/>{</highlight></codeline>
+<codeline lineno="232"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((Status<sp/>==<sp/><ref refid="group__trngpsv__api_1ga7ccdabd4af3a88410a98cdd43d9ad077" kindref="member">XTRNGPSV_SUCCESS</ref>)<sp/>||<sp/>(StatusTmp<sp/>==<sp/><ref refid="group__trngpsv__api_1ga7ccdabd4af3a88410a98cdd43d9ad077" kindref="member">XTRNGPSV_SUCCESS</ref>))<sp/>{</highlight></codeline>
+<codeline lineno="233"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>SStatus<sp/>|<sp/>SStatusTmp;</highlight></codeline>
+<codeline lineno="234"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="235"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="236"><highlight class="normal">SET_ERR:</highlight></codeline>
+<codeline lineno="237"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="238"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsv/src/xtrngpsv_df.c"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_mipi___menu_config" kind="struct" prot="public">
+    <compoundname>XMipi_MenuConfig</compoundname>
+    <includes local="no">xmipi_menu.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_mipi___menu_config_1a5affbf0adfb0961c4b5ba9aed5fd3977" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XMipi_MenuConfig::HdcpIsSupported</definition>
+        <argsstring></argsstring>
+        <name>HdcpIsSupported</name>
+        <briefdescription>
+<para>Indicates if HDCP is supported. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/xmipi_menu.h" line="65" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/xmipi_menu.h" bodystart="65" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>The MIPI menu configuration. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/xmipi_menu.h" line="64" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/xmipi_menu.h" bodystart="63" bodyend="67"/>
+    <listofallmembers>
+      <member refid="struct_x_mipi___menu_config_1a5affbf0adfb0961c4b5ba9aed5fd3977" prot="public" virt="non-virtual"><scope>XMipi_MenuConfig</scope><name>HdcpIsSupported</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

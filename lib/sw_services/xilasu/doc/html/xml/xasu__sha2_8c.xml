@@ -1,0 +1,350 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xasu__sha2_8c" kind="file">
+    <compoundname>xasu_sha2.c</compoundname>
+    <includes refid="xasu__sha2_8h" local="yes">xasu_sha2.h</includes>
+    <includes refid="xasu__def_8h" local="yes">xasu_def.h</includes>
+    <incdepgraph>
+      <node id="1046">
+        <label>xasu_shainfo.h</label>
+        <link refid="xasu__shainfo_8h"/>
+        <childnode refid="1045" relation="include">
+        </childnode>
+        <childnode refid="1047" relation="include">
+        </childnode>
+      </node>
+      <node id="1054">
+        <label>xasu_def.h</label>
+        <link refid="xasu__def_8h"/>
+        <childnode refid="1045" relation="include">
+        </childnode>
+      </node>
+      <node id="1049">
+        <label>xasu_sharedmem.h</label>
+        <link refid="xasu__sharedmem_8h"/>
+        <childnode refid="1045" relation="include">
+        </childnode>
+      </node>
+      <node id="1048">
+        <label>xasu_client.h</label>
+        <link refid="xasu__client_8h"/>
+        <childnode refid="1049" relation="include">
+        </childnode>
+        <childnode refid="1050" relation="include">
+        </childnode>
+        <childnode refid="1051" relation="include">
+        </childnode>
+        <childnode refid="1053" relation="include">
+        </childnode>
+        <childnode refid="1054" relation="include">
+        </childnode>
+      </node>
+      <node id="1052">
+        <label>xasu_bsp_config.h</label>
+      </node>
+      <node id="1043">
+        <label>xasu_sha2.c</label>
+        <link refid="xasu_sha2.c"/>
+        <childnode refid="1044" relation="include">
+        </childnode>
+        <childnode refid="1054" relation="include">
+        </childnode>
+      </node>
+      <node id="1044">
+        <label>xasu_sha2.h</label>
+        <link refid="xasu__sha2_8h"/>
+        <childnode refid="1045" relation="include">
+        </childnode>
+        <childnode refid="1046" relation="include">
+        </childnode>
+        <childnode refid="1048" relation="include">
+        </childnode>
+      </node>
+      <node id="1050">
+        <label>xilmailbox.h</label>
+      </node>
+      <node id="1051">
+        <label>xasu_perf.h</label>
+        <link refid="xasu__perf_8h"/>
+        <childnode refid="1045" relation="include">
+        </childnode>
+        <childnode refid="1052" relation="include">
+        </childnode>
+      </node>
+      <node id="1047">
+        <label>xstatus.h</label>
+      </node>
+      <node id="1045">
+        <label>xil_types.h</label>
+      </node>
+      <node id="1053">
+        <label>xasu_status.h</label>
+        <link refid="xasu__status_8h"/>
+        <childnode refid="1045" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xasu__sha2__client__apis_1ga3495a73519c85badf4c6c2fa83216d7f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XAsu_Sha2Operation</definition>
+        <argsstring>(XAsu_ClientParams *ClientParamPtr, XAsu_ShaOperationCmd *ShaClientParamPtr)</argsstring>
+        <name>XAsu_Sha2Operation</name>
+        <param>
+          <type>XAsu_ClientParams *</type>
+          <declname>ClientParamPtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_asu___sha_operation_cmd" kindref="compound">XAsu_ShaOperationCmd</ref> *</type>
+          <declname>ShaClientParamPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function sends a command to ASUFW to generate the digest for the provided input message using the specified SHA algorithm. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ClientParamPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XAsu_ClientParams structure which holds client input arguments. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ShaClientParamPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_asu___sha_operation_cmd" kindref="compound">XAsu_ShaOperationCmd</ref> structure which holds parameters of SHA input arguments.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if IPI request to ASU is sent successfully.</para></listitem><listitem><para>XASU_INVALID_ARGUMENT, if any argument is invalid.</para></listitem><listitem><para>XST_FAILURE, if sending an IPI request to ASU fails.</para></listitem><listitem><para>XASU_REQUEST_INPROGRESS, if split request already in progress.</para></listitem><listitem><para>XASU_CLIENT_CTX_NOT_CREATED, if client context is not created.</para></listitem><listitem><para>XASU_INVALID_UNIQUE_ID, if received Queue ID is invalid.</para></listitem><listitem><para>XASU_FAIL_SAVE_CTX, if saving context fails.</para></listitem><listitem><para>XASU_FREE_CTX_FAIL, if freeing context fails. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Validate input parameters.</para><para>The maximum length of input data should be less than 0x1FFFFFFC bytes, which is the ASU DMA&apos;s maximum supported data transfer length.</para><para>Handle context operation.</para><para>Cleanup on FINISH operation.</para><para>Create command header.</para><para>Update request buffer and send an IPI request to ASU. </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_sha2.c" line="68" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_sha2.c" bodystart="68" bodyend="154"/>
+        <references refid="struct_x_asu___sha_operation_cmd_1a0c80fb45a77e0d8703c26624f7880384" compoundref="xasu__shainfo_8h" startline="70">XAsu_ShaOperationCmd::DataAddr</references>
+        <references refid="struct_x_asu___sha_operation_cmd_1a158287b66e45758c02fa6738afad4716" compoundref="xasu__shainfo_8h" startline="72">XAsu_ShaOperationCmd::DataSize</references>
+        <references refid="struct_x_asu___sha_operation_cmd_1a5a46d5d9f4cbfa657beb34d64989fb93" compoundref="xasu__shainfo_8h" startline="71">XAsu_ShaOperationCmd::HashAddr</references>
+        <references refid="struct_x_asu___sha_operation_cmd_1afc4e0234d282f65f5a863173f5003624" compoundref="xasu__shainfo_8h" startline="73">XAsu_ShaOperationCmd::HashBufSize</references>
+        <references refid="struct_x_asu___sha_operation_cmd_1afac49d6bc5df4eb5cfcc97cdfd808436" compoundref="xasu__shainfo_8h" startline="77">XAsu_ShaOperationCmd::IsLast</references>
+        <references refid="struct_x_asu___sha_operation_cmd_1a3e45916a5f844bc83a5607e5f836cd5a" compoundref="xasu__shainfo_8h" startline="80">XAsu_ShaOperationCmd::OperationFlags</references>
+        <references refid="struct_x_asu___sha_operation_cmd_1a156f2363c44178819cae2f58e1fdab5c" compoundref="xasu__shainfo_8h" startline="74">XAsu_ShaOperationCmd::ShaMode</references>
+        <references refid="group__xasu__common__defs_1ga76ecdcdf1b1ad4bda09eac3baa13282f" compoundref="xasu__def_8h" startline="66">XASU_ASU_DMA_MAX_TRANSFER_LENGTH</references>
+        <references refid="group__xasu__client__info_1ga4af0f185b2f94cd5a55c39bd9eede12e" compoundref="xasu__client_8c" startline="821" endline="845">XAsu_CleanupFinishOperation</references>
+        <references refid="group__xasu__common__defs_1ga4ed1b3c195cb21e5e43ab8926dbfe39e" compoundref="xasu__def_8h" startline="44">XASU_FALSE</references>
+        <references refid="group__xasu__common__defs_1gaa31a05872c26a658a8da800ee649dbe9" compoundref="xasu__def_8h" startline="72">XASU_FINISH</references>
+        <references refid="group__xasu__client__info_1ga9fc6bcf48e27561e61e8fd79931a363f" compoundref="xasu__client_8c" startline="736" endline="802">XAsu_HandleContextOperation</references>
+        <references refid="group__xasu__common__defs_1gae3a9e9118884ccc0feae9e4728394e3d" compoundref="xasu__def_8h" startline="70">XASU_INIT</references>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba21f6a079219ddf14b57959e9a40be8b9" compoundref="xasu__status_8h" startline="49">XASU_INVALID_ARGUMENT</references>
+        <references refid="group__xasu__common__defs_1gae40c42a0f6a545611695dc17f6c01965" compoundref="xasu__def_8h" startline="51">XASU_MODULE_SHA2_ID</references>
+        <references refid="group__xasu__client__info_1ga717d31c270f3965991fdd19a0b70c633" compoundref="xasu__client_8c" startline="244" endline="308">XAsu_SendCmdToAsu</references>
+        <references refid="group__xasu__common__defs_1gaa7423cf1e6eb12f6d307fcdfadde635e" compoundref="xasu__shainfo_8h" startline="57">XASU_SHA2_TYPE</references>
+        <references refid="group__xasu__common__defs_1ga219220a0d5563c2fc911864cd15a8d96" compoundref="xasu__shainfo_8h" startline="46">XASU_SHA_OPERATION_CMD_ID</references>
+        <references refid="group__xasu__common__defs_1ga6d1fd341a9f72c4f16e5632e790b9ab9" compoundref="xasu__def_8h" startline="43">XASU_TRUE</references>
+        <references refid="group__xasu__common__defs_1ga74c866f4c9240345e465c2c9e666d9a1" compoundref="xasu__def_8h" startline="71">XASU_UPDATE</references>
+        <references refid="group__xasu__client__info_1gae0f7072bf1eddf7ee11f1e5852570682" compoundref="xasu__client_8c" startline="193" endline="226">XAsu_ValidateClientParameters</references>
+        <references refid="group__xasu__client__info_1ga8e8593fc336981968a9288ff63c61f5b" compoundref="xasu__client_8h" startline="52">XASU_WORD_LEN_IN_BYTES</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__sha2__client__apis_1ga6a607ba08dd12b58054f04cc6e8c6dd3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XAsu_Sha2Kat</definition>
+        <argsstring>(XAsu_ClientParams *ClientParamPtr, u32 Sha2Mode)</argsstring>
+        <name>XAsu_Sha2Kat</name>
+        <param>
+          <type>XAsu_ClientParams *</type>
+          <declname>ClientParamPtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Sha2Mode</declname>
+        </param>
+        <briefdescription>
+<para>This function performs SHA2 Known Answer Tests (KAT&apos;s). </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ClientParamPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XAsu_ClientParams structure which holds the client input parameters. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Sha2Mode</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>SHA2 mode to test KAT (XASU_SHA_MODE_256 or XASU_SHA_MODE_512).</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if IPI request to ASU is sent successfully.</para></listitem><listitem><para>XASU_INVALID_ARGUMENT, if any argument is invalid.</para></listitem><listitem><para>XASU_QUEUE_FULL, if Queue buffer is full.</para></listitem><listitem><para>XST_FAILURE, if sending an IPI request to ASU fails.</para></listitem><listitem><para>XASU_INVALID_UNIQUE_ID, if received Queue ID is invalid. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Validate input parameters.</para><para>Generate unique ID and register the callback.</para><para>Create command header.</para><para>Update request buffer and send an IPI request to ASU. </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_sha2.c" line="172" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_sha2.c" bodystart="172" bodyend="206"/>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba21f6a079219ddf14b57959e9a40be8b9" compoundref="xasu__status_8h" startline="49">XASU_INVALID_ARGUMENT</references>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55bacf18aeeb8b7146572b4eadc9780ad4cb" compoundref="xasu__status_8h" startline="53">XASU_INVALID_UNIQUE_ID</references>
+        <references refid="group__xasu__common__defs_1gae40c42a0f6a545611695dc17f6c01965" compoundref="xasu__def_8h" startline="51">XASU_MODULE_SHA2_ID</references>
+        <references refid="group__xasu__client__info_1gabf24e9f135a85ff96d8acc23a5c83508" compoundref="xasu__client_8c" startline="327" endline="345">XAsu_RegCallBackNGetUniqueId</references>
+        <references refid="group__xasu__client__info_1ga717d31c270f3965991fdd19a0b70c633" compoundref="xasu__client_8c" startline="244" endline="308">XAsu_SendCmdToAsu</references>
+        <references refid="group__xasu__common__defs_1gaf93a04d434eb1a5f7cf9f5c4cd2f717a" compoundref="xasu__shainfo_8h" startline="47">XASU_SHA_KAT_CMD_ID</references>
+        <references refid="group__xasu__common__defs_1ga1b2246776bc9c632002768c9edd40340" compoundref="xasu__shainfo_8h" startline="51">XASU_SHA_MODE_256</references>
+        <references refid="group__xasu__common__defs_1ga4047c862b722198278f8856b50525be0" compoundref="xasu__shainfo_8h" startline="53">XASU_SHA_MODE_512</references>
+        <references refid="group__xasu__common__defs_1ga6d1fd341a9f72c4f16e5632e790b9ab9" compoundref="xasu__def_8h" startline="43">XASU_TRUE</references>
+        <references refid="group__xasu__common__defs_1ga0e29ca164aa8fa3ac30a7b9102b615d9" compoundref="xasu__sharedmem_8h" startline="67">XASU_UNIQUE_ID_MAX</references>
+        <references refid="group__xasu__client__info_1gae0f7072bf1eddf7ee11f1e5852570682" compoundref="xasu__client_8c" startline="193" endline="226">XAsu_ValidateClientParameters</references>
+        <references refid="group__xasu__client__info_1ga8e8593fc336981968a9288ff63c61f5b" compoundref="xasu__client_8h" startline="52">XASU_WORD_LEN_IN_BYTES</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file contains the implementation of the client interface functions for SHA 2 driver. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+1.0   vns  08/22/24 Initial release
+      yog  09/26/24 Added doxygen groupings and fixed doxygen comments.
+      am   10/22/24 Fixed validation of hash buffer size.
+1.1   ma   12/12/24 Updated hash buffer address to the response buffer of the callback function
+      lp   07/10/25 Added support for priority based multiple request and context verification
+      kd   07/23/25 Fixed gcc warnings</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/**************************************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2024<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">**************************************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/*************************************************************************************************/</highlight></codeline>
+<codeline lineno="33"><highlight class="comment">/***************************************<sp/>Include<sp/>Files<sp/>*******************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xasu__sha2_8h" kindref="compound">xasu_sha2.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xasu__def_8h" kindref="compound">xasu_def.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="comment">/************************************<sp/>Constant<sp/>Definitions<sp/>***************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="comment">/**************************************<sp/>Type<sp/>Definitions<sp/>*****************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="comment">/***************************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="comment">/************************************<sp/>Function<sp/>Prototypes<sp/>****************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="comment">/************************************<sp/>Variable<sp/>Definitions<sp/>***************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="comment">/*************************************************************************************************/</highlight></codeline>
+<codeline lineno="68" refid="group__xasu__sha2__client__apis_1ga3495a73519c85badf4c6c2fa83216d7f" refkind="member"><highlight class="normal">s32<sp/><ref refid="group__xasu__sha2__client__apis_1ga3495a73519c85badf4c6c2fa83216d7f" kindref="member">XAsu_Sha2Operation</ref>(XAsu_ClientParams<sp/>*ClientParamPtr,<sp/><ref refid="struct_x_asu___sha_operation_cmd" kindref="compound">XAsu_ShaOperationCmd</ref><sp/>*ShaClientParamPtr)</highlight></codeline>
+<codeline lineno="69"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>s32<sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Header;</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>UniqueId;</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*P0Sha2Ctx<sp/>=<sp/>NULL;</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*P1Sha2Ctx<sp/>=<sp/>NULL;</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xasu__client__info_1gae0f7072bf1eddf7ee11f1e5852570682" kindref="member">XAsu_ValidateClientParameters</ref>(ClientParamPtr);</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"></highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(ShaClientParamPtr<sp/>==<sp/>NULL)<sp/>{</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba21f6a079219ddf14b57959e9a40be8b9" kindref="member">XASU_INVALID_ARGUMENT</ref>;</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"></highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((ShaClientParamPtr-&gt;<ref refid="struct_x_asu___sha_operation_cmd_1a3e45916a5f844bc83a5607e5f836cd5a" kindref="member">OperationFlags</ref><sp/>&amp;</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<ref refid="group__xasu__common__defs_1gae3a9e9118884ccc0feae9e4728394e3d" kindref="member">XASU_INIT</ref><sp/>|<sp/><ref refid="group__xasu__common__defs_1ga74c866f4c9240345e465c2c9e666d9a1" kindref="member">XASU_UPDATE</ref><sp/>|<sp/><ref refid="group__xasu__common__defs_1gaa31a05872c26a658a8da800ee649dbe9" kindref="member">XASU_FINISH</ref>))<sp/>==<sp/>0x0U)<sp/>{</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba21f6a079219ddf14b57959e9a40be8b9" kindref="member">XASU_INVALID_ARGUMENT</ref>;</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"></highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((((ShaClientParamPtr-&gt;<ref refid="struct_x_asu___sha_operation_cmd_1a3e45916a5f844bc83a5607e5f836cd5a" kindref="member">OperationFlags</ref><sp/>&amp;<sp/><ref refid="group__xasu__common__defs_1ga74c866f4c9240345e465c2c9e666d9a1" kindref="member">XASU_UPDATE</ref>)<sp/>==<sp/><ref refid="group__xasu__common__defs_1ga74c866f4c9240345e465c2c9e666d9a1" kindref="member">XASU_UPDATE</ref>)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(ShaClientParamPtr-&gt;<ref refid="struct_x_asu___sha_operation_cmd_1a0c80fb45a77e0d8703c26624f7880384" kindref="member">DataAddr</ref><sp/>==<sp/>0U))<sp/>||</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(((ShaClientParamPtr-&gt;<ref refid="struct_x_asu___sha_operation_cmd_1a3e45916a5f844bc83a5607e5f836cd5a" kindref="member">OperationFlags</ref><sp/>&amp;<sp/><ref refid="group__xasu__common__defs_1gaa31a05872c26a658a8da800ee649dbe9" kindref="member">XASU_FINISH</ref>)<sp/>==<sp/><ref refid="group__xasu__common__defs_1gaa31a05872c26a658a8da800ee649dbe9" kindref="member">XASU_FINISH</ref>)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(ShaClientParamPtr-&gt;<ref refid="struct_x_asu___sha_operation_cmd_1a5a46d5d9f4cbfa657beb34d64989fb93" kindref="member">HashAddr</ref><sp/>==<sp/>0U)))<sp/>{</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba21f6a079219ddf14b57959e9a40be8b9" kindref="member">XASU_INVALID_ARGUMENT</ref>;</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"></highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(((ShaClientParamPtr-&gt;<ref refid="struct_x_asu___sha_operation_cmd_1a3e45916a5f844bc83a5607e5f836cd5a" kindref="member">OperationFlags</ref><sp/>&amp;<sp/><ref refid="group__xasu__common__defs_1ga74c866f4c9240345e465c2c9e666d9a1" kindref="member">XASU_UPDATE</ref>)<sp/>==<sp/><ref refid="group__xasu__common__defs_1ga74c866f4c9240345e465c2c9e666d9a1" kindref="member">XASU_UPDATE</ref>)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(ShaClientParamPtr-&gt;<ref refid="struct_x_asu___sha_operation_cmd_1a158287b66e45758c02fa6738afad4716" kindref="member">DataSize</ref><sp/>&gt;<sp/><ref refid="group__xasu__common__defs_1ga76ecdcdf1b1ad4bda09eac3baa13282f" kindref="member">XASU_ASU_DMA_MAX_TRANSFER_LENGTH</ref>))<sp/>{</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba21f6a079219ddf14b57959e9a40be8b9" kindref="member">XASU_INVALID_ARGUMENT</ref>;</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"></highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(XAsu_ShaValidateModeAndType(<ref refid="group__xasu__common__defs_1gaa7423cf1e6eb12f6d307fcdfadde635e" kindref="member">XASU_SHA2_TYPE</ref>,<sp/>ShaClientParamPtr-&gt;<ref refid="struct_x_asu___sha_operation_cmd_1a156f2363c44178819cae2f58e1fdab5c" kindref="member">ShaMode</ref>)<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba21f6a079219ddf14b57959e9a40be8b9" kindref="member">XASU_INVALID_ARGUMENT</ref>;</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"></highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(((ShaClientParamPtr-&gt;<ref refid="struct_x_asu___sha_operation_cmd_1a3e45916a5f844bc83a5607e5f836cd5a" kindref="member">OperationFlags</ref><sp/>&amp;<sp/><ref refid="group__xasu__common__defs_1gaa31a05872c26a658a8da800ee649dbe9" kindref="member">XASU_FINISH</ref>)<sp/>==<sp/><ref refid="group__xasu__common__defs_1gaa31a05872c26a658a8da800ee649dbe9" kindref="member">XASU_FINISH</ref>)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XAsu_ShaValidateHashLen(ShaClientParamPtr-&gt;<ref refid="struct_x_asu___sha_operation_cmd_1a156f2363c44178819cae2f58e1fdab5c" kindref="member">ShaMode</ref>,</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ShaClientParamPtr-&gt;<ref refid="struct_x_asu___sha_operation_cmd_1afc4e0234d282f65f5a863173f5003624" kindref="member">HashBufSize</ref>)<sp/>!=<sp/>XST_SUCCESS))<sp/>{</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba21f6a079219ddf14b57959e9a40be8b9" kindref="member">XASU_INVALID_ARGUMENT</ref>;</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"></highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((ShaClientParamPtr-&gt;<ref refid="struct_x_asu___sha_operation_cmd_1afac49d6bc5df4eb5cfcc97cdfd808436" kindref="member">IsLast</ref><sp/>!=<sp/><ref refid="group__xasu__common__defs_1ga6d1fd341a9f72c4f16e5632e790b9ab9" kindref="member">XASU_TRUE</ref>)<sp/>&amp;&amp;<sp/>(ShaClientParamPtr-&gt;<ref refid="struct_x_asu___sha_operation_cmd_1afac49d6bc5df4eb5cfcc97cdfd808436" kindref="member">IsLast</ref><sp/>!=<sp/><ref refid="group__xasu__common__defs_1ga4ed1b3c195cb21e5e43ab8926dbfe39e" kindref="member">XASU_FALSE</ref>))<sp/>{</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba21f6a079219ddf14b57959e9a40be8b9" kindref="member">XASU_INVALID_ARGUMENT</ref>;</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"></highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xasu__client__info_1ga9fc6bcf48e27561e61e8fd79931a363f" kindref="member">XAsu_HandleContextOperation</ref>(ClientParamPtr,<sp/>&amp;P0Sha2Ctx,<sp/>&amp;P1Sha2Ctx,</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ShaClientParamPtr-&gt;<ref refid="struct_x_asu___sha_operation_cmd_1a3e45916a5f844bc83a5607e5f836cd5a" kindref="member">OperationFlags</ref>,<sp/>&amp;UniqueId);</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"></highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((ShaClientParamPtr-&gt;<ref refid="struct_x_asu___sha_operation_cmd_1a3e45916a5f844bc83a5607e5f836cd5a" kindref="member">OperationFlags</ref><sp/>&amp;<sp/><ref refid="group__xasu__common__defs_1gaa31a05872c26a658a8da800ee649dbe9" kindref="member">XASU_FINISH</ref>)<sp/>==<sp/><ref refid="group__xasu__common__defs_1gaa31a05872c26a658a8da800ee649dbe9" kindref="member">XASU_FINISH</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xasu__client__info_1ga4af0f185b2f94cd5a55c39bd9eede12e" kindref="member">XAsu_CleanupFinishOperation</ref>(ClientParamPtr,<sp/>&amp;P0Sha2Ctx,<sp/>&amp;P1Sha2Ctx,</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UniqueId,<sp/>NULL,<sp/>0U);</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"></highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Header<sp/>=<sp/>XAsu_CreateHeader(<ref refid="group__xasu__common__defs_1ga219220a0d5563c2fc911864cd15a8d96" kindref="member">XASU_SHA_OPERATION_CMD_ID</ref>,<sp/>UniqueId,<sp/><ref refid="group__xasu__common__defs_1gae40c42a0f6a545611695dc17f6c01965" kindref="member">XASU_MODULE_SHA2_ID</ref>,</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u8)(</highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(<ref refid="struct_x_asu___sha_operation_cmd" kindref="compound">XAsu_ShaOperationCmd</ref>)<sp/>/<sp/><ref refid="group__xasu__client__info_1ga8e8593fc336981968a9288ff63c61f5b" kindref="member">XASU_WORD_LEN_IN_BYTES</ref>),</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ClientParamPtr-&gt;SecureFlag);</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xasu__client__info_1ga717d31c270f3965991fdd19a0b70c633" kindref="member">XAsu_SendCmdToAsu</ref>(ClientParamPtr,<sp/>ShaClientParamPtr,</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(<ref refid="struct_x_asu___sha_operation_cmd" kindref="compound">XAsu_ShaOperationCmd</ref>),<sp/>Header);</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"></highlight></codeline>
+<codeline lineno="152"><highlight class="normal">END:</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="154"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"></highlight></codeline>
+<codeline lineno="156"><highlight class="normal"></highlight><highlight class="comment">/*************************************************************************************************/</highlight></codeline>
+<codeline lineno="172" refid="group__xasu__sha2__client__apis_1ga6a607ba08dd12b58054f04cc6e8c6dd3" refkind="member"><highlight class="normal">s32<sp/><ref refid="group__xasu__sha2__client__apis_1ga6a607ba08dd12b58054f04cc6e8c6dd3" kindref="member">XAsu_Sha2Kat</ref>(XAsu_ClientParams<sp/>*ClientParamPtr,<sp/>u32<sp/>Sha2Mode)</highlight></codeline>
+<codeline lineno="173"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>s32<sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Header;</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>UniqueId;</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"></highlight></codeline>
+<codeline lineno="179"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xasu__client__info_1gae0f7072bf1eddf7ee11f1e5852570682" kindref="member">XAsu_ValidateClientParameters</ref>(ClientParamPtr);</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="182"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="183"><highlight class="normal"></highlight></codeline>
+<codeline lineno="184"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((Sha2Mode<sp/>!=<sp/><ref refid="group__xasu__common__defs_1ga1b2246776bc9c632002768c9edd40340" kindref="member">XASU_SHA_MODE_256</ref>)<sp/>&amp;&amp;<sp/>(Sha2Mode<sp/>!=<sp/><ref refid="group__xasu__common__defs_1ga4047c862b722198278f8856b50525be0" kindref="member">XASU_SHA_MODE_512</ref>))<sp/>{</highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba21f6a079219ddf14b57959e9a40be8b9" kindref="member">XASU_INVALID_ARGUMENT</ref>;</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="188"><highlight class="normal"></highlight></codeline>
+<codeline lineno="190"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UniqueId<sp/>=<sp/><ref refid="group__xasu__client__info_1gabf24e9f135a85ff96d8acc23a5c83508" kindref="member">XAsu_RegCallBackNGetUniqueId</ref>(ClientParamPtr,<sp/>NULL,<sp/>0U,<sp/><ref refid="group__xasu__common__defs_1ga6d1fd341a9f72c4f16e5632e790b9ab9" kindref="member">XASU_TRUE</ref>);</highlight></codeline>
+<codeline lineno="191"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(UniqueId<sp/>&gt;=<sp/><ref refid="group__xasu__common__defs_1ga0e29ca164aa8fa3ac30a7b9102b615d9" kindref="member">XASU_UNIQUE_ID_MAX</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="192"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55bacf18aeeb8b7146572b4eadc9780ad4cb" kindref="member">XASU_INVALID_UNIQUE_ID</ref>;</highlight></codeline>
+<codeline lineno="193"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="194"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="195"><highlight class="normal"></highlight></codeline>
+<codeline lineno="197"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Header<sp/>=<sp/>XAsu_CreateHeader(<ref refid="group__xasu__common__defs_1gaf93a04d434eb1a5f7cf9f5c4cd2f717a" kindref="member">XASU_SHA_KAT_CMD_ID</ref>,<sp/>UniqueId,<sp/><ref refid="group__xasu__common__defs_1gae40c42a0f6a545611695dc17f6c01965" kindref="member">XASU_MODULE_SHA2_ID</ref>,</highlight></codeline>
+<codeline lineno="198"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u8)(</highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(Sha2Mode)<sp/>/<sp/><ref refid="group__xasu__client__info_1ga8e8593fc336981968a9288ff63c61f5b" kindref="member">XASU_WORD_LEN_IN_BYTES</ref>),</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ClientParamPtr-&gt;SecureFlag);</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"></highlight></codeline>
+<codeline lineno="202"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xasu__client__info_1ga717d31c270f3965991fdd19a0b70c633" kindref="member">XAsu_SendCmdToAsu</ref>(ClientParamPtr,<sp/>&amp;Sha2Mode,<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(Sha2Mode),<sp/>Header);</highlight></codeline>
+<codeline lineno="203"><highlight class="normal"></highlight></codeline>
+<codeline lineno="204"><highlight class="normal">END:</highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="206"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_sha2.c"/>
+  </compounddef>
+</doxygen>

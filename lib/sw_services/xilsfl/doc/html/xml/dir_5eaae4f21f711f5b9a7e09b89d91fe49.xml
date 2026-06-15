@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_5eaae4f21f711f5b9a7e09b89d91fe49" kind="dir">
+    <compoundname>examples</compoundname>
+    <innerfile refid="xilsfl__ospi__flash__readwrite__example_8c">xilsfl_ospi_flash_readwrite_example.c</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsfl/examples/"/>
+  </compounddef>
+</doxygen>

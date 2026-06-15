@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_2eb3a7e9d0fccc697580061d8dbc7131" kind="dir">
+    <compoundname>src</compoundname>
+    <innerfile refid="xsdiaud_8c">xsdiaud.c</innerfile>
+    <innerfile refid="xsdiaud_8h">xsdiaud.h</innerfile>
+    <innerfile refid="xsdiaud__g_8c">xsdiaud_g.c</innerfile>
+    <innerfile refid="xsdiaud__hw_8h">xsdiaud_hw.h</innerfile>
+    <innerfile refid="xsdiaud__intr_8c">xsdiaud_intr.c</innerfile>
+    <innerfile refid="xsdiaud__selftest_8c">xsdiaud_selftest.c</innerfile>
+    <innerfile refid="xsdiaud__sinit_8c">xsdiaud_sinit.c</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/"/>
+  </compounddef>
+</doxygen>

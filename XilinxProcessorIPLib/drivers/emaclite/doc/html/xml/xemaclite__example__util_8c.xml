@@ -1,0 +1,461 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xemaclite__example__util_8c" kind="file">
+    <compoundname>xemaclite_example_util.c</compoundname>
+    <includes refid="xemaclite__example_8h" local="yes">xemaclite_example.h</includes>
+    <includes local="yes">stdio.h</includes>
+    <incdepgraph>
+      <node id="59">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="54">
+        <label>xemaclite_example.h</label>
+        <link refid="xemaclite__example_8h"/>
+        <childnode refid="55" relation="include">
+        </childnode>
+        <childnode refid="56" relation="include">
+        </childnode>
+      </node>
+      <node id="56">
+        <label>xemaclite.h</label>
+        <link refid="xemaclite_8h"/>
+        <childnode refid="57" relation="include">
+        </childnode>
+        <childnode refid="58" relation="include">
+        </childnode>
+        <childnode refid="59" relation="include">
+        </childnode>
+        <childnode refid="60" relation="include">
+        </childnode>
+        <childnode refid="61" relation="include">
+        </childnode>
+      </node>
+      <node id="62">
+        <label>xil_io.h</label>
+      </node>
+      <node id="57">
+        <label>xenv.h</label>
+      </node>
+      <node id="61">
+        <label>xemaclite_l.h</label>
+        <link refid="xemaclite__l_8h"/>
+        <childnode refid="58" relation="include">
+        </childnode>
+        <childnode refid="59" relation="include">
+        </childnode>
+        <childnode refid="62" relation="include">
+        </childnode>
+      </node>
+      <node id="60">
+        <label>xstatus.h</label>
+      </node>
+      <node id="53">
+        <label>xemaclite_example_util.c</label>
+        <link refid="xemaclite_example_util.c"/>
+        <childnode refid="54" relation="include">
+        </childnode>
+        <childnode refid="63" relation="include">
+        </childnode>
+      </node>
+      <node id="58">
+        <label>xil_types.h</label>
+      </node>
+      <node id="55">
+        <label>xparameters.h</label>
+      </node>
+      <node id="63">
+        <label>stdio.h</label>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="xemaclite__example__util_8c_1aef9539e23c5cfc3df31580c5240d987f" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_emac_lite" kindref="compound">XEmacLite</ref></type>
+        <definition>XEmacLite EmacLiteInstance</definition>
+        <argsstring></argsstring>
+        <name>EmacLiteInstance</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/examples/xemaclite_example_util.c" line="44" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/examples/xemaclite_example_util.c" bodystart="44" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xemaclite__example__util_8c_1a3212eecf5267a7c120a268966fb0044b" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 TxFrame[XEL_MAX_FRAME_SIZE]</definition>
+        <argsstring>[XEL_MAX_FRAME_SIZE]</argsstring>
+        <name>TxFrame</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/examples/xemaclite_example_util.c" line="50" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/examples/xemaclite_example_util.c" bodystart="50" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xemaclite__example__util_8c_1a82667f419707d60908808a72d32cf53d" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 RxFrame[XEL_MAX_FRAME_SIZE]</definition>
+        <argsstring>[XEL_MAX_FRAME_SIZE]</argsstring>
+        <name>RxFrame</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/examples/xemaclite_example_util.c" line="51" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/examples/xemaclite_example_util.c" bodystart="51" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xemaclite__example__util_8c_1a025d04e85a381f2bdb01fa1bc3987849" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>volatile u32 RecvFrameLength</definition>
+        <argsstring></argsstring>
+        <name>RecvFrameLength</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/examples/xemaclite_example_util.c" line="53" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/examples/xemaclite_example_util.c" bodystart="53" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xemaclite__example__util_8c_1ad5eb911f96824bcb1eb7e3eae251b796" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>volatile int TransmitComplete</definition>
+        <argsstring></argsstring>
+        <name>TransmitComplete</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/examples/xemaclite_example_util.c" line="55" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/examples/xemaclite_example_util.c" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xemaclite__example__util_8c_1a2799884dbcd4e24e3f7fda067d457567" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 EmacLitePhyDetect</definition>
+        <argsstring>(XEmacLite *InstancePtr)</argsstring>
+        <name>EmacLitePhyDetect</name>
+        <param>
+          <type><ref refid="struct_x_emac_lite" kindref="compound">XEmacLite</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function detects the PHY address by looking for successful MII status register contents (PHY register 1). </para>        </briefdescription>
+        <detaileddescription>
+<para>It looks for a PHY that supports auto-negotiation and 10Mbps full-duplex and half-duplex. So, this code won&apos;t work for PHYs that don&apos;t support those features, but it&apos;s a bit more general purpose than matching a specific PHY manufacturer ID.</para><para>Note also that on some (older) Xilinx ML4xx boards, PHY address 0 does not properly respond to this query. But, since the default is 0 and assuming no other address responds, then it seems to work OK.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the pointer to the instance of EmacLite driver.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The address of the PHY device detected (returns 0 if not detected).</para></simplesect>
+<simplesect kind="note"><para>The bit mask (0x1808) of the MII status register (PHY Register 1) used in this function are: 0x1000: 10Mbps full duplex support. 0x0800: 10Mbps half duplex support. 0x0008: Auto-negotiation support. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/examples/xemaclite_example_util.c" line="85" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/examples/xemaclite_example_util.c" bodystart="85" bodyend="108"/>
+        <references refid="group__emaclite_1ga444ab091bdc373bf2e1a266d5febecd0" compoundref="xemaclite_8c" startline="705" endline="772">XEmacLite_PhyRead</references>
+        <referencedby refid="xemaclite__intr__example_8c_1a518017ed22776c127596159fd5c86325" compoundref="xemaclite__intr__example_8c" startline="217" endline="409">EmacLiteIntrExample</referencedby>
+        <referencedby refid="xemaclite__phy__loopback__example_8c_1a402b5062f4c7679f905ec9d08ad40463" compoundref="xemaclite__phy__loopback__example_8c" startline="163" endline="340">EmacLitePhyLoopbackExample</referencedby>
+        <referencedby refid="xemaclite__polled__example_8c_1a7ed728b50a7f7b2f563a3726c85a6ebf" compoundref="xemaclite__polled__example_8c" startline="149" endline="264">EmacLitePolledExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xemaclite__example__util_8c_1ae929ecf7843aa6c7ca8a09b5cf6746c7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int EmacLiteEnablePhyLoopBack</definition>
+        <argsstring>(XEmacLite *InstancePtr, u32 PhyAddress)</argsstring>
+        <name>EmacLiteEnablePhyLoopBack</name>
+        <param>
+          <type><ref refid="struct_x_emac_lite" kindref="compound">XEmacLite</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>PhyAddress</declname>
+        </param>
+        <briefdescription>
+<para>This function enables the MAC loopback on the PHY. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the pointer to the instance of EmacLite driver. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>PhyAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the address of the Phy device.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if the loop back is enabled.</para></listitem><listitem><para>XST_FAILURE if the loop back was not enabled.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/examples/xemaclite_example_util.c" line="125" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/examples/xemaclite_example_util.c" bodystart="125" bodyend="160"/>
+        <references refid="xemaclite__example_8h_1ae9b61e9b176db206875b77fb002fff05" compoundref="xemaclite__example__util_8c" startline="214" endline="248">EmacLitePhyDelay</references>
+        <references refid="group__emaclite_1ga63ef92abf534fcf6f41601e93efa4cc7" compoundref="xemaclite_8c" startline="794" endline="861">XEmacLite_PhyWrite</references>
+        <referencedby refid="xemaclite__intr__example_8c_1a518017ed22776c127596159fd5c86325" compoundref="xemaclite__intr__example_8c" startline="217" endline="409">EmacLiteIntrExample</referencedby>
+        <referencedby refid="xemaclite__phy__loopback__example_8c_1a402b5062f4c7679f905ec9d08ad40463" compoundref="xemaclite__phy__loopback__example_8c" startline="163" endline="340">EmacLitePhyLoopbackExample</referencedby>
+        <referencedby refid="xemaclite__polled__example_8c_1a7ed728b50a7f7b2f563a3726c85a6ebf" compoundref="xemaclite__polled__example_8c" startline="149" endline="264">EmacLitePolledExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xemaclite__example__util_8c_1a1f1980c002b40ba720934300f6960124" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int EmacLiteDisablePhyLoopBack</definition>
+        <argsstring>(XEmacLite *InstancePtr, u32 PhyAddress)</argsstring>
+        <name>EmacLiteDisablePhyLoopBack</name>
+        <param>
+          <type><ref refid="struct_x_emac_lite" kindref="compound">XEmacLite</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>PhyAddress</declname>
+        </param>
+        <briefdescription>
+<para>This function disables the MAC loopback on the PHY. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the pointer to the instance of EmacLite driver. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>PhyAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the address of the Phy device.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if the loop back was disabled.</para></listitem><listitem><para>XST_FAILURE if the loop back was not disabled.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/examples/xemaclite_example_util.c" line="177" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/examples/xemaclite_example_util.c" bodystart="177" bodyend="199"/>
+        <references refid="group__emaclite_1ga444ab091bdc373bf2e1a266d5febecd0" compoundref="xemaclite_8c" startline="705" endline="772">XEmacLite_PhyRead</references>
+        <references refid="group__emaclite_1ga63ef92abf534fcf6f41601e93efa4cc7" compoundref="xemaclite_8c" startline="794" endline="861">XEmacLite_PhyWrite</references>
+        <referencedby refid="xemaclite__intr__example_8c_1a518017ed22776c127596159fd5c86325" compoundref="xemaclite__intr__example_8c" startline="217" endline="409">EmacLiteIntrExample</referencedby>
+        <referencedby refid="xemaclite__phy__loopback__example_8c_1a402b5062f4c7679f905ec9d08ad40463" compoundref="xemaclite__phy__loopback__example_8c" startline="163" endline="340">EmacLitePhyLoopbackExample</referencedby>
+        <referencedby refid="xemaclite__polled__example_8c_1a7ed728b50a7f7b2f563a3726c85a6ebf" compoundref="xemaclite__polled__example_8c" startline="149" endline="264">EmacLitePolledExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xemaclite__example__util_8c_1ae9b61e9b176db206875b77fb002fff05" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void EmacLitePhyDelay</definition>
+        <argsstring>(unsigned int Seconds)</argsstring>
+        <name>EmacLitePhyDelay</name>
+        <param>
+          <type>unsigned int</type>
+          <declname>Seconds</declname>
+        </param>
+        <briefdescription>
+<para>For PPC we use a usleep call, for Microblaze we use an assembly loop that is roughly the same regardless of optimization level, although caches and memory access time can make the delay vary. </para>        </briefdescription>
+        <detaileddescription>
+<para>Just keep in mind that after resetting or updating the PHY modes, the PHY typically needs time to recover.</para><para><simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/examples/xemaclite_example_util.c" line="214" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/examples/xemaclite_example_util.c" bodystart="214" bodyend="248"/>
+        <referencedby refid="xemaclite__example__util_8c_1ae929ecf7843aa6c7ca8a09b5cf6746c7" compoundref="xemaclite__example__util_8c" startline="125" endline="160">EmacLiteEnablePhyLoopBack</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file implements the utility functions for the EmacLite example code. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+ MODIFICATION HISTORY:</preformatted></para><para><preformatted> Ver   Who  Date     Changes
+<hruler/>
+
+ 2.00a  ktn 04/13/09 First release
+ 2.00a  ktn 06/13/09 Changed the EmacLitePhyDetect function so that
+                      the function is not in an infinite loop in case of a
+                      faulty Phy device.
+ 3.03a  bss 09/01/12 Moved the declarations of RecvFrameLength,
+                     TransmitComplete, EmacLiteInstance
+                      TxFrame[XEL_MAX_FRAME_SIZE], RxFrame[XEL_MAX_FRAME_SIZE]
+                      from the <ref refid="xemaclite__example_8h" kindref="compound">xemaclite_example.h</ref>
+                      to this file for fixing C++ compilation errors
+ 4.9    ml  11/15/23 Fix compilation errors reported with -std=c2x compiler flag
+</preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2009<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022<sp/>-<sp/>2024<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="32"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xemaclite__example_8h" kindref="compound">xemaclite_example.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;stdio.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="40"><highlight class="comment"><sp/>*<sp/>Set<sp/>up<sp/>valid<sp/>local<sp/>MAC<sp/>addresses.<sp/>This<sp/>loop<sp/>back<sp/>test<sp/>uses<sp/>the<sp/>LocalAddress</highlight></codeline>
+<codeline lineno="41"><highlight class="comment"><sp/>*<sp/>both<sp/>as<sp/>a<sp/>source<sp/>and<sp/>destination<sp/>MAC<sp/>address.</highlight></codeline>
+<codeline lineno="42"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><ref refid="struct_x_emac_lite" kindref="compound">XEmacLite</ref><sp/>EmacLiteInstance;<sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Instance<sp/>of<sp/>the<sp/>EmacLite<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="47"><highlight class="comment"><sp/>*<sp/>Buffers<sp/>used<sp/>for<sp/>Transmission<sp/>and<sp/>Reception<sp/>of<sp/>Packets.<sp/>These<sp/>are<sp/>declared</highlight></codeline>
+<codeline lineno="48"><highlight class="comment"><sp/>*<sp/>as<sp/>global<sp/>so<sp/>that<sp/>they<sp/>are<sp/>not<sp/>a<sp/>part<sp/>of<sp/>the<sp/>stack.</highlight></codeline>
+<codeline lineno="49"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal">u8<sp/>TxFrame[<ref refid="group__emaclite_1ga0efb69007c897a0f35a57c9e50fdb469" kindref="member">XEL_MAX_FRAME_SIZE</ref>];</highlight></codeline>
+<codeline lineno="51"><highlight class="normal">u8<sp/>RxFrame[<ref refid="group__emaclite_1ga0efb69007c897a0f35a57c9e50fdb469" kindref="member">XEL_MAX_FRAME_SIZE</ref>];</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/>u32<sp/>RecvFrameLength;<sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Indicates<sp/>the<sp/>length<sp/>of<sp/>the<sp/>Received<sp/>packet</highlight></codeline>
+<codeline lineno="54"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>TransmitComplete;<sp/><sp/></highlight><highlight class="comment">/*<sp/>Flag<sp/>to<sp/>indicate<sp/>that<sp/>the<sp/>Transmission</highlight></codeline>
+<codeline lineno="56"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>is<sp/>complete</highlight></codeline>
+<codeline lineno="57"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="85" refid="xemaclite__example__util_8c_1a2799884dbcd4e24e3f7fda067d457567" refkind="member"><highlight class="normal">u32<sp/><ref refid="xemaclite__example_8h_1a2799884dbcd4e24e3f7fda067d457567" kindref="member">EmacLitePhyDetect</ref>(<ref refid="struct_x_emac_lite" kindref="compound">XEmacLite</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="86"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>PhyData;</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>PhyAddr;</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"></highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="91"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Verify<sp/>all<sp/>32<sp/>MDIO<sp/>ports.</highlight></codeline>
+<codeline lineno="92"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(PhyAddr<sp/>=<sp/>31;<sp/>PhyAddr<sp/>&gt;=<sp/>0;<sp/>PhyAddr--)<sp/>{</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__emaclite_1ga444ab091bdc373bf2e1a266d5febecd0" kindref="member">XEmacLite_PhyRead</ref>(InstancePtr,<sp/>PhyAddr,<sp/>PHY_REG1_OFFSET,</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;PhyData);</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"></highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(PhyData<sp/>!=<sp/>0xFFFF)<sp/>{</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((PhyData<sp/>&amp;<sp/>PHY_REG1_DETECT_MASK)<sp/>==</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PHY_REG1_DETECT_MASK)<sp/>{</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>PhyAddr;<sp/></highlight><highlight class="comment">/*<sp/>Found<sp/>a<sp/>valid<sp/>PHY<sp/>device<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="105"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Unable<sp/>to<sp/>detect<sp/>PHY<sp/>device<sp/>returning<sp/>the<sp/>default<sp/>address<sp/>of<sp/>0.</highlight></codeline>
+<codeline lineno="106"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>0;</highlight></codeline>
+<codeline lineno="108"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"></highlight></codeline>
+<codeline lineno="110"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="125" refid="xemaclite__example__util_8c_1ae929ecf7843aa6c7ca8a09b5cf6746c7" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xemaclite__example_8h_1ae929ecf7843aa6c7ca8a09b5cf6746c7" kindref="member">EmacLiteEnablePhyLoopBack</ref>(<ref refid="struct_x_emac_lite" kindref="compound">XEmacLite</ref><sp/>*InstancePtr,<sp/>u32<sp/>PhyAddress)</highlight></codeline>
+<codeline lineno="126"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>PhyData<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"></highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="131"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Set<sp/>the<sp/>speed<sp/>and<sp/>put<sp/>the<sp/>PHY<sp/>in<sp/>reset.</highlight></codeline>
+<codeline lineno="132"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PhyData<sp/>|=<sp/>PHY_REG0_SPD_100_MASK;</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__emaclite_1ga63ef92abf534fcf6f41601e93efa4cc7" kindref="member">XEmacLite_PhyWrite</ref>(InstancePtr,<sp/>PhyAddress,<sp/>PHY_REG0_OFFSET,</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PhyData<sp/>|<sp/>PHY_REG0_RESET_MASK);</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"></highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="141"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Give<sp/>sufficient<sp/>delay<sp/>for<sp/>Phy<sp/>Reset.</highlight></codeline>
+<codeline lineno="142"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xemaclite__example_8h_1ae9b61e9b176db206875b77fb002fff05" kindref="member">EmacLitePhyDelay</ref>(EMACLITE_PHY_DELAY_SEC);</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"></highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="146"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Set<sp/>the<sp/>PHY<sp/>in<sp/>loop<sp/>back.</highlight></codeline>
+<codeline lineno="147"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__emaclite_1ga63ef92abf534fcf6f41601e93efa4cc7" kindref="member">XEmacLite_PhyWrite</ref>(InstancePtr,<sp/>PhyAddress,<sp/>PHY_REG0_OFFSET,</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PhyData<sp/>|<sp/>PHY_REG0_LOOPBACK_MASK);</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"></highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="155"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Give<sp/>sufficient<sp/>delay<sp/>for<sp/>Phy<sp/>Loopback<sp/>Enable.</highlight></codeline>
+<codeline lineno="156"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xemaclite__example_8h_1ae9b61e9b176db206875b77fb002fff05" kindref="member">EmacLitePhyDelay</ref>(1);</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"></highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="160"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"></highlight></codeline>
+<codeline lineno="162"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="177" refid="xemaclite__example__util_8c_1a1f1980c002b40ba720934300f6960124" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xemaclite__example_8h_1a1f1980c002b40ba720934300f6960124" kindref="member">EmacLiteDisablePhyLoopBack</ref>(<ref refid="struct_x_emac_lite" kindref="compound">XEmacLite</ref><sp/>*InstancePtr,<sp/>u32<sp/>PhyAddress)</highlight></codeline>
+<codeline lineno="178"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>PhyData;</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"></highlight></codeline>
+<codeline lineno="182"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="183"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Disable<sp/>loop<sp/>back<sp/>through<sp/>PHY<sp/>register<sp/>using<sp/>MDIO<sp/>support.</highlight></codeline>
+<codeline lineno="184"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__emaclite_1ga444ab091bdc373bf2e1a266d5febecd0" kindref="member">XEmacLite_PhyRead</ref>(InstancePtr,<sp/>PhyAddress,<sp/>PHY_REG0_OFFSET,</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;PhyData);</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="188"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"></highlight></codeline>
+<codeline lineno="191"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__emaclite_1ga63ef92abf534fcf6f41601e93efa4cc7" kindref="member">XEmacLite_PhyWrite</ref>(InstancePtr,<sp/>PhyAddress,<sp/>PHY_REG0_OFFSET,</highlight></codeline>
+<codeline lineno="192"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PhyData<sp/>&amp;<sp/>~(PHY_REG0_LOOPBACK_MASK));</highlight></codeline>
+<codeline lineno="193"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="194"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="195"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="196"><highlight class="normal"></highlight></codeline>
+<codeline lineno="197"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="198"><highlight class="normal"></highlight></codeline>
+<codeline lineno="199"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"></highlight></codeline>
+<codeline lineno="201"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="214" refid="xemaclite__example__util_8c_1ae9b61e9b176db206875b77fb002fff05" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xemaclite__example_8h_1ae9b61e9b176db206875b77fb002fff05" kindref="member">EmacLitePhyDelay</ref>(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Seconds)</highlight></codeline>
+<codeline lineno="215"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="216"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__MICROBLAZE__</highlight></codeline>
+<codeline lineno="217"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>WarningFlag<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="218"><highlight class="normal"></highlight></codeline>
+<codeline lineno="219"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>If<sp/>MB<sp/>caches<sp/>are<sp/>disabled<sp/>or<sp/>do<sp/>not<sp/>exist,<sp/>this<sp/>delay<sp/>loop<sp/>could</highlight></codeline>
+<codeline lineno="220"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>take<sp/>minutes<sp/>instead<sp/>of<sp/>seconds<sp/>(e.g.,<sp/>30x<sp/>longer).<sp/><sp/>Print<sp/>a<sp/>warning</highlight></codeline>
+<codeline lineno="221"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>message<sp/>for<sp/>the<sp/>user<sp/>(once).<sp/><sp/>If<sp/>only<sp/>MB<sp/>had<sp/>a<sp/>built-in<sp/>timer!</highlight></codeline>
+<codeline lineno="222"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="223"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(((mfmsr()<sp/>&amp;<sp/>0x20)<sp/>==<sp/>0)<sp/>&amp;&amp;<sp/>(!WarningFlag))<sp/>{</highlight></codeline>
+<codeline lineno="224"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>STDOUT_BASEADDRESS</highlight></codeline>
+<codeline lineno="225"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Warning:<sp/>This<sp/>example<sp/>will<sp/>take<sp/>&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="226"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;minutes<sp/>to<sp/>complete<sp/>without<sp/>I-cache<sp/>enabled<sp/>\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="227"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="228"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>WarningFlag<sp/>=<sp/>1;</highlight></codeline>
+<codeline lineno="229"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="230"><highlight class="normal"></highlight></codeline>
+<codeline lineno="231"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>ITERS_PER_SEC<sp/><sp/><sp/>(XPAR_CPU_CORE_CLOCK_FREQ_HZ<sp/>/<sp/>6)</highlight></codeline>
+<codeline lineno="232"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>__asm<sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/>(</highlight><highlight class="stringliteral">&quot;\n&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="233"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;1:<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\n\t&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="234"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;addik<sp/>r7,<sp/>r0,<sp/>%0<sp/>\n\t&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="235"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;2:<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\n\t&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="236"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;addik<sp/>r7,<sp/>r7,<sp/>-1<sp/>\n\t&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="237"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;bneid<sp/><sp/>r7,<sp/>2b<sp/><sp/><sp/><sp/>\n\t&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="238"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;or<sp/><sp/>r0,<sp/>r0,<sp/>r0<sp/><sp/><sp/>\n\t&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="239"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;bneid<sp/>%1,<sp/>1b<sp/><sp/><sp/><sp/><sp/>\n\t&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="240"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;addik<sp/>%1,<sp/>%1,<sp/>-1<sp/>\n\t&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="241"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>::<sp/></highlight><highlight class="stringliteral">&quot;i&quot;</highlight><highlight class="normal">(ITERS_PER_SEC),<sp/></highlight><highlight class="stringliteral">&quot;d&quot;</highlight><highlight class="normal"><sp/>(Seconds));</highlight></codeline>
+<codeline lineno="242"><highlight class="normal"></highlight></codeline>
+<codeline lineno="243"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="244"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="245"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>usleep(Seconds<sp/>*<sp/>1000000);</highlight></codeline>
+<codeline lineno="246"><highlight class="normal"></highlight></codeline>
+<codeline lineno="247"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="248"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/examples/xemaclite_example_util.c"/>
+  </compounddef>
+</doxygen>

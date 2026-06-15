@@ -1,0 +1,319 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_emac_ps___bd_ring" kind="struct" prot="public">
+    <compoundname>XEmacPs_BdRing</compoundname>
+    <includes local="no">xemacps_bdring.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_emac_ps___bd_ring_1a5d61d8da5b6aa45afc43cd7050d76851" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XEmacPs_BdRing::PhysBaseAddr</definition>
+        <argsstring></argsstring>
+        <name>PhysBaseAddr</name>
+        <briefdescription>
+<para>Physical address of 1st BD in list. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/src/xemacps_bdring.h" line="44" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/src/xemacps_bdring.h" bodystart="44" bodyend="-1"/>
+        <referencedby refid="group__emacps_1ga6e48d113604e65a01d5ef23b4d8186c7" compoundref="xemacps__bdring_8c" startline="929" endline="1014">XEmacPs_BdRingCheck</referencedby>
+        <referencedby refid="group__emacps_1ga8e84294f518be6f9089cbac00e924056" compoundref="xemacps__bdring_8c" startline="177" endline="255">XEmacPs_BdRingCreate</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_emac_ps___bd_ring_1afc610a19df5dcfeab1bbc1ed8d3d6b98" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XEmacPs_BdRing::BaseBdAddr</definition>
+        <argsstring></argsstring>
+        <name>BaseBdAddr</name>
+        <briefdescription>
+<para>Virtual address of 1st BD in list. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/src/xemacps_bdring.h" line="45" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/src/xemacps_bdring.h" bodystart="45" bodyend="-1"/>
+        <referencedby refid="xemacps__example__intr__dma_8c_1afa31ff7ff7de0863dde3919fa1602671" compoundref="xemacps__example__intr__dma_8c" startline="718" endline="1036">EmacPsDmaSingleFrameIntrExample</referencedby>
+        <referencedby refid="group__emacps_1ga6e48d113604e65a01d5ef23b4d8186c7" compoundref="xemacps__bdring_8c" startline="929" endline="1014">XEmacPs_BdRingCheck</referencedby>
+        <referencedby refid="group__emacps_1gac18e6a6caef3d31a7f8ff684657fc0df" compoundref="xemacps__bdring_8c" startline="282" endline="326">XEmacPs_BdRingClone</referencedby>
+        <referencedby refid="group__emacps_1ga8e84294f518be6f9089cbac00e924056" compoundref="xemacps__bdring_8c" startline="177" endline="255">XEmacPs_BdRingCreate</referencedby>
+        <referencedby refid="group__emacps_1gabe875d0d136e28a166363d66dd7b7f27" compoundref="xemacps_8c" startline="163" endline="237">XEmacPs_Start</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_emac_ps___bd_ring_1a1a847678a8445beb667f748e756850bc" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XEmacPs_BdRing::HighBdAddr</definition>
+        <argsstring></argsstring>
+        <name>HighBdAddr</name>
+        <briefdescription>
+<para>Virtual address of last BD in the list. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/src/xemacps_bdring.h" line="46" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/src/xemacps_bdring.h" bodystart="46" bodyend="-1"/>
+        <referencedby refid="group__emacps_1ga6e48d113604e65a01d5ef23b4d8186c7" compoundref="xemacps__bdring_8c" startline="929" endline="1014">XEmacPs_BdRingCheck</referencedby>
+        <referencedby refid="group__emacps_1ga8e84294f518be6f9089cbac00e924056" compoundref="xemacps__bdring_8c" startline="177" endline="255">XEmacPs_BdRingCreate</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_emac_ps___bd_ring_1af2fa25bbd258aa15039fa8f9c59d3536" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XEmacPs_BdRing::Length</definition>
+        <argsstring></argsstring>
+        <name>Length</name>
+        <briefdescription>
+<para>Total size of ring in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/src/xemacps_bdring.h" line="47" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/src/xemacps_bdring.h" bodystart="47" bodyend="-1"/>
+        <referencedby refid="group__emacps_1ga8e84294f518be6f9089cbac00e924056" compoundref="xemacps__bdring_8c" startline="177" endline="255">XEmacPs_BdRingCreate</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_emac_ps___bd_ring_1a3d8f8bec7b56f5acc05c2290e875156f" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XEmacPs_BdRing::RunState</definition>
+        <argsstring></argsstring>
+        <name>RunState</name>
+        <briefdescription>
+<para>Flag to indicate DMA is started. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/src/xemacps_bdring.h" line="48" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/src/xemacps_bdring.h" bodystart="48" bodyend="-1"/>
+        <referencedby refid="group__emacps_1ga6e48d113604e65a01d5ef23b4d8186c7" compoundref="xemacps__bdring_8c" startline="929" endline="1014">XEmacPs_BdRingCheck</referencedby>
+        <referencedby refid="group__emacps_1gac18e6a6caef3d31a7f8ff684657fc0df" compoundref="xemacps__bdring_8c" startline="282" endline="326">XEmacPs_BdRingClone</referencedby>
+        <referencedby refid="group__emacps_1ga8e84294f518be6f9089cbac00e924056" compoundref="xemacps__bdring_8c" startline="177" endline="255">XEmacPs_BdRingCreate</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_emac_ps___bd_ring_1ae520dbbd110fe4e5f407d6d78066b35e" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XEmacPs_BdRing::Separation</definition>
+        <argsstring></argsstring>
+        <name>Separation</name>
+        <briefdescription>
+<para>Number of bytes between the starting address of adjacent BDs. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/src/xemacps_bdring.h" line="49" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/src/xemacps_bdring.h" bodystart="49" bodyend="-1"/>
+        <referencedby refid="group__emacps_1ga6e48d113604e65a01d5ef23b4d8186c7" compoundref="xemacps__bdring_8c" startline="929" endline="1014">XEmacPs_BdRingCheck</referencedby>
+        <referencedby refid="group__emacps_1gac18e6a6caef3d31a7f8ff684657fc0df" compoundref="xemacps__bdring_8c" startline="282" endline="326">XEmacPs_BdRingClone</referencedby>
+        <referencedby refid="group__emacps_1ga8e84294f518be6f9089cbac00e924056" compoundref="xemacps__bdring_8c" startline="177" endline="255">XEmacPs_BdRingCreate</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_emac_ps___bd_ring_1aa849c1609830416b6cdf8bcb7a0556b7" prot="public" static="no" mutable="no">
+        <type><ref refid="group__emacps_1gabdac9aa9170655a763bf06bab3aa2a62" kindref="member">XEmacPs_Bd</ref> *</type>
+        <definition>XEmacPs_Bd* XEmacPs_BdRing::FreeHead</definition>
+        <argsstring></argsstring>
+        <name>FreeHead</name>
+        <briefdescription>
+<para>First BD in the free group. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/src/xemacps_bdring.h" line="51" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/src/xemacps_bdring.h" bodystart="51" bodyend="-1"/>
+        <referencedby refid="group__emacps_1gabadbd5215bb371a7f10f8bd1acc2db38" compoundref="xemacps__bdring_8c" startline="401" endline="417">XEmacPs_BdRingAlloc</referencedby>
+        <referencedby refid="group__emacps_1ga6e48d113604e65a01d5ef23b4d8186c7" compoundref="xemacps__bdring_8c" startline="929" endline="1014">XEmacPs_BdRingCheck</referencedby>
+        <referencedby refid="group__emacps_1ga8e84294f518be6f9089cbac00e924056" compoundref="xemacps__bdring_8c" startline="177" endline="255">XEmacPs_BdRingCreate</referencedby>
+        <referencedby refid="group__emacps_1ga08edb60b6e29e6e8ae56508a30b54eeb" compoundref="xemacps__bdring_8c" startline="1083" endline="1090">XEmacPs_BdRingPtrReset</referencedby>
+        <referencedby refid="group__emacps_1ga40dabe1abc80cd13b305f117c1b87faf" compoundref="xemacps__bdring_8c" startline="481" endline="500">XEmacPs_BdRingUnAlloc</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_emac_ps___bd_ring_1a2970a0b989dac974893a20fe64f2eee5" prot="public" static="no" mutable="no">
+        <type><ref refid="group__emacps_1gabdac9aa9170655a763bf06bab3aa2a62" kindref="member">XEmacPs_Bd</ref> *</type>
+        <definition>XEmacPs_Bd* XEmacPs_BdRing::PreHead</definition>
+        <argsstring></argsstring>
+        <name>PreHead</name>
+        <briefdescription>
+<para>First BD in the pre-work group. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/src/xemacps_bdring.h" line="53" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/src/xemacps_bdring.h" bodystart="53" bodyend="-1"/>
+        <referencedby refid="group__emacps_1ga6e48d113604e65a01d5ef23b4d8186c7" compoundref="xemacps__bdring_8c" startline="929" endline="1014">XEmacPs_BdRingCheck</referencedby>
+        <referencedby refid="group__emacps_1ga8e84294f518be6f9089cbac00e924056" compoundref="xemacps__bdring_8c" startline="177" endline="255">XEmacPs_BdRingCreate</referencedby>
+        <referencedby refid="group__emacps_1ga08edb60b6e29e6e8ae56508a30b54eeb" compoundref="xemacps__bdring_8c" startline="1083" endline="1090">XEmacPs_BdRingPtrReset</referencedby>
+        <referencedby refid="group__emacps_1gacbfaf8300ce76fa1853ee9b1a113fbd0" compoundref="xemacps__bdring_8c" startline="529" endline="557">XEmacPs_BdRingToHw</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_emac_ps___bd_ring_1a6ec82a9b24de2bce3e44aa0c75530277" prot="public" static="no" mutable="no">
+        <type><ref refid="group__emacps_1gabdac9aa9170655a763bf06bab3aa2a62" kindref="member">XEmacPs_Bd</ref> *</type>
+        <definition>XEmacPs_Bd* XEmacPs_BdRing::HwHead</definition>
+        <argsstring></argsstring>
+        <name>HwHead</name>
+        <briefdescription>
+<para>First BD in the work group. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/src/xemacps_bdring.h" line="54" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/src/xemacps_bdring.h" bodystart="54" bodyend="-1"/>
+        <referencedby refid="group__emacps_1ga6e48d113604e65a01d5ef23b4d8186c7" compoundref="xemacps__bdring_8c" startline="929" endline="1014">XEmacPs_BdRingCheck</referencedby>
+        <referencedby refid="group__emacps_1ga8e84294f518be6f9089cbac00e924056" compoundref="xemacps__bdring_8c" startline="177" endline="255">XEmacPs_BdRingCreate</referencedby>
+        <referencedby refid="group__emacps_1gae8a9b2d189549fd168b4a40c6967ac31" compoundref="xemacps__bdring_8c" startline="778" endline="855">XEmacPs_BdRingFromHwRx</referencedby>
+        <referencedby refid="group__emacps_1ga7deb944fa938960a3b45f0d8adf18108" compoundref="xemacps__bdring_8c" startline="626" endline="708">XEmacPs_BdRingFromHwTx</referencedby>
+        <referencedby refid="group__emacps_1ga08edb60b6e29e6e8ae56508a30b54eeb" compoundref="xemacps__bdring_8c" startline="1083" endline="1090">XEmacPs_BdRingPtrReset</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_emac_ps___bd_ring_1a0f43d0e8f576aab1628fe351530ec155" prot="public" static="no" mutable="no">
+        <type><ref refid="group__emacps_1gabdac9aa9170655a763bf06bab3aa2a62" kindref="member">XEmacPs_Bd</ref> *</type>
+        <definition>XEmacPs_Bd* XEmacPs_BdRing::HwTail</definition>
+        <argsstring></argsstring>
+        <name>HwTail</name>
+        <briefdescription>
+<para>Last BD in the work group. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/src/xemacps_bdring.h" line="55" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/src/xemacps_bdring.h" bodystart="55" bodyend="-1"/>
+        <referencedby refid="group__emacps_1ga6e48d113604e65a01d5ef23b4d8186c7" compoundref="xemacps__bdring_8c" startline="929" endline="1014">XEmacPs_BdRingCheck</referencedby>
+        <referencedby refid="group__emacps_1ga8e84294f518be6f9089cbac00e924056" compoundref="xemacps__bdring_8c" startline="177" endline="255">XEmacPs_BdRingCreate</referencedby>
+        <referencedby refid="group__emacps_1gae8a9b2d189549fd168b4a40c6967ac31" compoundref="xemacps__bdring_8c" startline="778" endline="855">XEmacPs_BdRingFromHwRx</referencedby>
+        <referencedby refid="group__emacps_1ga7deb944fa938960a3b45f0d8adf18108" compoundref="xemacps__bdring_8c" startline="626" endline="708">XEmacPs_BdRingFromHwTx</referencedby>
+        <referencedby refid="group__emacps_1ga08edb60b6e29e6e8ae56508a30b54eeb" compoundref="xemacps__bdring_8c" startline="1083" endline="1090">XEmacPs_BdRingPtrReset</referencedby>
+        <referencedby refid="group__emacps_1gacbfaf8300ce76fa1853ee9b1a113fbd0" compoundref="xemacps__bdring_8c" startline="529" endline="557">XEmacPs_BdRingToHw</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_emac_ps___bd_ring_1a4aeea3bd3273381c433a001c3b8d5a26" prot="public" static="no" mutable="no">
+        <type><ref refid="group__emacps_1gabdac9aa9170655a763bf06bab3aa2a62" kindref="member">XEmacPs_Bd</ref> *</type>
+        <definition>XEmacPs_Bd* XEmacPs_BdRing::PostHead</definition>
+        <argsstring></argsstring>
+        <name>PostHead</name>
+        <briefdescription>
+<para>First BD in the post-work group. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/src/xemacps_bdring.h" line="56" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/src/xemacps_bdring.h" bodystart="56" bodyend="-1"/>
+        <referencedby refid="group__emacps_1ga6e48d113604e65a01d5ef23b4d8186c7" compoundref="xemacps__bdring_8c" startline="929" endline="1014">XEmacPs_BdRingCheck</referencedby>
+        <referencedby refid="group__emacps_1ga8e84294f518be6f9089cbac00e924056" compoundref="xemacps__bdring_8c" startline="177" endline="255">XEmacPs_BdRingCreate</referencedby>
+        <referencedby refid="group__emacps_1gafef8904055a06754515319a708fc8361" compoundref="xemacps__bdring_8c" startline="878" endline="898">XEmacPs_BdRingFree</referencedby>
+        <referencedby refid="group__emacps_1ga08edb60b6e29e6e8ae56508a30b54eeb" compoundref="xemacps__bdring_8c" startline="1083" endline="1090">XEmacPs_BdRingPtrReset</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_emac_ps___bd_ring_1a73561392cb79ccebf64766f0b5a560ab" prot="public" static="no" mutable="no">
+        <type><ref refid="group__emacps_1gabdac9aa9170655a763bf06bab3aa2a62" kindref="member">XEmacPs_Bd</ref> *</type>
+        <definition>XEmacPs_Bd* XEmacPs_BdRing::BdaRestart</definition>
+        <argsstring></argsstring>
+        <name>BdaRestart</name>
+        <briefdescription>
+<para>BDA to load when channel is started. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/src/xemacps_bdring.h" line="58" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/src/xemacps_bdring.h" bodystart="58" bodyend="-1"/>
+        <referencedby refid="group__emacps_1ga8e84294f518be6f9089cbac00e924056" compoundref="xemacps__bdring_8c" startline="177" endline="255">XEmacPs_BdRingCreate</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_emac_ps___bd_ring_1afbc7af789975db0a64aac651170fc3f1" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>volatile u32 XEmacPs_BdRing::HwCnt</definition>
+        <argsstring></argsstring>
+        <name>HwCnt</name>
+        <briefdescription>
+<para>Number of BDs in work group. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/src/xemacps_bdring.h" line="61" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/src/xemacps_bdring.h" bodystart="61" bodyend="-1"/>
+        <referencedby refid="group__emacps_1ga6e48d113604e65a01d5ef23b4d8186c7" compoundref="xemacps__bdring_8c" startline="929" endline="1014">XEmacPs_BdRingCheck</referencedby>
+        <referencedby refid="group__emacps_1ga8e84294f518be6f9089cbac00e924056" compoundref="xemacps__bdring_8c" startline="177" endline="255">XEmacPs_BdRingCreate</referencedby>
+        <referencedby refid="group__emacps_1gae8a9b2d189549fd168b4a40c6967ac31" compoundref="xemacps__bdring_8c" startline="778" endline="855">XEmacPs_BdRingFromHwRx</referencedby>
+        <referencedby refid="group__emacps_1ga7deb944fa938960a3b45f0d8adf18108" compoundref="xemacps__bdring_8c" startline="626" endline="708">XEmacPs_BdRingFromHwTx</referencedby>
+        <referencedby refid="group__emacps_1gacbfaf8300ce76fa1853ee9b1a113fbd0" compoundref="xemacps__bdring_8c" startline="529" endline="557">XEmacPs_BdRingToHw</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_emac_ps___bd_ring_1aaef1c631e604a56983478d1a6ae474f5" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XEmacPs_BdRing::PreCnt</definition>
+        <argsstring></argsstring>
+        <name>PreCnt</name>
+        <briefdescription>
+<para>Number of BDs in pre-work group. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/src/xemacps_bdring.h" line="62" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/src/xemacps_bdring.h" bodystart="62" bodyend="-1"/>
+        <referencedby refid="group__emacps_1gabadbd5215bb371a7f10f8bd1acc2db38" compoundref="xemacps__bdring_8c" startline="401" endline="417">XEmacPs_BdRingAlloc</referencedby>
+        <referencedby refid="group__emacps_1ga6e48d113604e65a01d5ef23b4d8186c7" compoundref="xemacps__bdring_8c" startline="929" endline="1014">XEmacPs_BdRingCheck</referencedby>
+        <referencedby refid="group__emacps_1ga8e84294f518be6f9089cbac00e924056" compoundref="xemacps__bdring_8c" startline="177" endline="255">XEmacPs_BdRingCreate</referencedby>
+        <referencedby refid="group__emacps_1gacbfaf8300ce76fa1853ee9b1a113fbd0" compoundref="xemacps__bdring_8c" startline="529" endline="557">XEmacPs_BdRingToHw</referencedby>
+        <referencedby refid="group__emacps_1ga40dabe1abc80cd13b305f117c1b87faf" compoundref="xemacps__bdring_8c" startline="481" endline="500">XEmacPs_BdRingUnAlloc</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_emac_ps___bd_ring_1a132052ee6b9828a4d86b88d16ea03469" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XEmacPs_BdRing::FreeCnt</definition>
+        <argsstring></argsstring>
+        <name>FreeCnt</name>
+        <briefdescription>
+<para>Number of allocatable BDs in the free group. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/src/xemacps_bdring.h" line="63" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/src/xemacps_bdring.h" bodystart="63" bodyend="-1"/>
+        <referencedby refid="group__emacps_1gabadbd5215bb371a7f10f8bd1acc2db38" compoundref="xemacps__bdring_8c" startline="401" endline="417">XEmacPs_BdRingAlloc</referencedby>
+        <referencedby refid="group__emacps_1ga6e48d113604e65a01d5ef23b4d8186c7" compoundref="xemacps__bdring_8c" startline="929" endline="1014">XEmacPs_BdRingCheck</referencedby>
+        <referencedby refid="group__emacps_1gac18e6a6caef3d31a7f8ff684657fc0df" compoundref="xemacps__bdring_8c" startline="282" endline="326">XEmacPs_BdRingClone</referencedby>
+        <referencedby refid="group__emacps_1ga8e84294f518be6f9089cbac00e924056" compoundref="xemacps__bdring_8c" startline="177" endline="255">XEmacPs_BdRingCreate</referencedby>
+        <referencedby refid="group__emacps_1gafef8904055a06754515319a708fc8361" compoundref="xemacps__bdring_8c" startline="878" endline="898">XEmacPs_BdRingFree</referencedby>
+        <referencedby refid="group__emacps_1ga40dabe1abc80cd13b305f117c1b87faf" compoundref="xemacps__bdring_8c" startline="481" endline="500">XEmacPs_BdRingUnAlloc</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_emac_ps___bd_ring_1a74775ebb76241cdfb0db3e97e256c580" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XEmacPs_BdRing::PostCnt</definition>
+        <argsstring></argsstring>
+        <name>PostCnt</name>
+        <briefdescription>
+<para>Number of BDs in post-work group. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/src/xemacps_bdring.h" line="64" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/src/xemacps_bdring.h" bodystart="64" bodyend="-1"/>
+        <referencedby refid="group__emacps_1ga6e48d113604e65a01d5ef23b4d8186c7" compoundref="xemacps__bdring_8c" startline="929" endline="1014">XEmacPs_BdRingCheck</referencedby>
+        <referencedby refid="group__emacps_1ga8e84294f518be6f9089cbac00e924056" compoundref="xemacps__bdring_8c" startline="177" endline="255">XEmacPs_BdRingCreate</referencedby>
+        <referencedby refid="group__emacps_1gafef8904055a06754515319a708fc8361" compoundref="xemacps__bdring_8c" startline="878" endline="898">XEmacPs_BdRingFree</referencedby>
+        <referencedby refid="group__emacps_1gae8a9b2d189549fd168b4a40c6967ac31" compoundref="xemacps__bdring_8c" startline="778" endline="855">XEmacPs_BdRingFromHwRx</referencedby>
+        <referencedby refid="group__emacps_1ga7deb944fa938960a3b45f0d8adf18108" compoundref="xemacps__bdring_8c" startline="626" endline="708">XEmacPs_BdRingFromHwTx</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_emac_ps___bd_ring_1a5eb8915fc93885189c2799c69c2a9e45" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XEmacPs_BdRing::AllCnt</definition>
+        <argsstring></argsstring>
+        <name>AllCnt</name>
+        <briefdescription>
+<para>Total Number of BDs for channel. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/src/xemacps_bdring.h" line="65" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/src/xemacps_bdring.h" bodystart="65" bodyend="-1"/>
+        <referencedby refid="group__emacps_1ga6e48d113604e65a01d5ef23b4d8186c7" compoundref="xemacps__bdring_8c" startline="929" endline="1014">XEmacPs_BdRingCheck</referencedby>
+        <referencedby refid="group__emacps_1gac18e6a6caef3d31a7f8ff684657fc0df" compoundref="xemacps__bdring_8c" startline="282" endline="326">XEmacPs_BdRingClone</referencedby>
+        <referencedby refid="group__emacps_1ga8e84294f518be6f9089cbac00e924056" compoundref="xemacps__bdring_8c" startline="177" endline="255">XEmacPs_BdRingCreate</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This is an internal structure used to maintain the DMA list. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/src/xemacps_bdring.h" line="43" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/src/xemacps_bdring.h" bodystart="43" bodyend="66"/>
+    <listofallmembers>
+      <member refid="struct_x_emac_ps___bd_ring_1a5eb8915fc93885189c2799c69c2a9e45" prot="public" virt="non-virtual"><scope>XEmacPs_BdRing</scope><name>AllCnt</name></member>
+      <member refid="struct_x_emac_ps___bd_ring_1afc610a19df5dcfeab1bbc1ed8d3d6b98" prot="public" virt="non-virtual"><scope>XEmacPs_BdRing</scope><name>BaseBdAddr</name></member>
+      <member refid="struct_x_emac_ps___bd_ring_1a73561392cb79ccebf64766f0b5a560ab" prot="public" virt="non-virtual"><scope>XEmacPs_BdRing</scope><name>BdaRestart</name></member>
+      <member refid="struct_x_emac_ps___bd_ring_1a132052ee6b9828a4d86b88d16ea03469" prot="public" virt="non-virtual"><scope>XEmacPs_BdRing</scope><name>FreeCnt</name></member>
+      <member refid="struct_x_emac_ps___bd_ring_1aa849c1609830416b6cdf8bcb7a0556b7" prot="public" virt="non-virtual"><scope>XEmacPs_BdRing</scope><name>FreeHead</name></member>
+      <member refid="struct_x_emac_ps___bd_ring_1a1a847678a8445beb667f748e756850bc" prot="public" virt="non-virtual"><scope>XEmacPs_BdRing</scope><name>HighBdAddr</name></member>
+      <member refid="struct_x_emac_ps___bd_ring_1afbc7af789975db0a64aac651170fc3f1" prot="public" virt="non-virtual"><scope>XEmacPs_BdRing</scope><name>HwCnt</name></member>
+      <member refid="struct_x_emac_ps___bd_ring_1a6ec82a9b24de2bce3e44aa0c75530277" prot="public" virt="non-virtual"><scope>XEmacPs_BdRing</scope><name>HwHead</name></member>
+      <member refid="struct_x_emac_ps___bd_ring_1a0f43d0e8f576aab1628fe351530ec155" prot="public" virt="non-virtual"><scope>XEmacPs_BdRing</scope><name>HwTail</name></member>
+      <member refid="struct_x_emac_ps___bd_ring_1af2fa25bbd258aa15039fa8f9c59d3536" prot="public" virt="non-virtual"><scope>XEmacPs_BdRing</scope><name>Length</name></member>
+      <member refid="struct_x_emac_ps___bd_ring_1a5d61d8da5b6aa45afc43cd7050d76851" prot="public" virt="non-virtual"><scope>XEmacPs_BdRing</scope><name>PhysBaseAddr</name></member>
+      <member refid="struct_x_emac_ps___bd_ring_1a74775ebb76241cdfb0db3e97e256c580" prot="public" virt="non-virtual"><scope>XEmacPs_BdRing</scope><name>PostCnt</name></member>
+      <member refid="struct_x_emac_ps___bd_ring_1a4aeea3bd3273381c433a001c3b8d5a26" prot="public" virt="non-virtual"><scope>XEmacPs_BdRing</scope><name>PostHead</name></member>
+      <member refid="struct_x_emac_ps___bd_ring_1aaef1c631e604a56983478d1a6ae474f5" prot="public" virt="non-virtual"><scope>XEmacPs_BdRing</scope><name>PreCnt</name></member>
+      <member refid="struct_x_emac_ps___bd_ring_1a2970a0b989dac974893a20fe64f2eee5" prot="public" virt="non-virtual"><scope>XEmacPs_BdRing</scope><name>PreHead</name></member>
+      <member refid="struct_x_emac_ps___bd_ring_1a3d8f8bec7b56f5acc05c2290e875156f" prot="public" virt="non-virtual"><scope>XEmacPs_BdRing</scope><name>RunState</name></member>
+      <member refid="struct_x_emac_ps___bd_ring_1ae520dbbd110fe4e5f407d6d78066b35e" prot="public" virt="non-virtual"><scope>XEmacPs_BdRing</scope><name>Separation</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,438 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xplmi__tamper_8h" kind="file">
+    <compoundname>xplmi_tamper.h</compoundname>
+    <includes local="yes">xil_util.h</includes>
+    <includedby refid="xplmi__cdo_8c" local="yes">xplmi_cdo.c</includedby>
+    <includedby refid="xplmi__err__common_8c" local="yes">xplmi_err_common.c</includedby>
+    <includedby refid="xplmi__err__psm_8c" local="yes">xplmi_err_psm.c</includedby>
+    <includedby refid="server_2xplmi__generic_8c" local="yes">xplmi_generic.c</includedby>
+    <includedby refid="xplmi__tamper_8c" local="yes">xplmi_tamper.c</includedby>
+    <includedby refid="server_2xplmi__err_8c" local="yes">xplmi_err.c</includedby>
+    <includedby refid="xplmi__ssit_8c" local="yes">xplmi_ssit.c</includedby>
+    <includedby refid="2vp_2server_2xplmi__err_8c" local="yes">xplmi_err.c</includedby>
+    <includedby refid="2vp__p_2server_2xplmi__err_8c" local="yes">xplmi_err.c</includedby>
+    <incdepgraph>
+      <node id="2847">
+        <label>xplmi_tamper.h</label>
+        <link refid="xplmi_tamper.h"/>
+        <childnode refid="2848" relation="include">
+        </childnode>
+      </node>
+      <node id="2848">
+        <label>xil_util.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="2858">
+        <label>xplmi_err.c</label>
+        <link refid="2vp__p_2server_2xplmi__err_8c"/>
+      </node>
+      <node id="2854">
+        <label>xplmi_tamper.c</label>
+        <link refid="xplmi__tamper_8c"/>
+      </node>
+      <node id="2849">
+        <label>xplmi_tamper.h</label>
+        <link refid="xplmi_tamper.h"/>
+        <childnode refid="2850" relation="include">
+        </childnode>
+        <childnode refid="2851" relation="include">
+        </childnode>
+        <childnode refid="2852" relation="include">
+        </childnode>
+        <childnode refid="2853" relation="include">
+        </childnode>
+        <childnode refid="2854" relation="include">
+        </childnode>
+        <childnode refid="2855" relation="include">
+        </childnode>
+        <childnode refid="2856" relation="include">
+        </childnode>
+        <childnode refid="2857" relation="include">
+        </childnode>
+        <childnode refid="2858" relation="include">
+        </childnode>
+      </node>
+      <node id="2855">
+        <label>xplmi_err.c</label>
+      </node>
+      <node id="2851">
+        <label>xplmi_err_common.c</label>
+        <link refid="xplmi__err__common_8c"/>
+      </node>
+      <node id="2856">
+        <label>xplmi_ssit.c</label>
+      </node>
+      <node id="2853">
+        <label>xplmi_generic.c</label>
+      </node>
+      <node id="2852">
+        <label>xplmi_err_psm.c</label>
+        <link refid="xplmi__err__psm_8c"/>
+      </node>
+      <node id="2850">
+        <label>xplmi_cdo.c</label>
+        <link refid="xplmi__cdo_8c"/>
+      </node>
+      <node id="2857">
+        <label>xplmi_err.c</label>
+        <link refid="2vp_2server_2xplmi__err_8c"/>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xplmi__tamper_8h_1a55863a73d281a529c22552ebbc4ae866" prot="public" static="no">
+        <name>XPLMI_TRIGGER_TAMPER_TASK</name>
+        <initializer>(0U)</initializer>
+        <briefdescription>
+<para>Trigger tamper as a Task. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_tamper.h" line="44" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_tamper.h" bodystart="44" bodyend="-1"/>
+        <referencedby refid="group__xilplmi__server__apis_1ga409ca4e187fb02b456319b706ea01e1f" compoundref="xplmi__tamper_8c" startline="125" endline="154">XPlmi_TriggerTamperResponse</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xplmi__tamper_8h_1a7eaaa50d8255ab922d2584fa49d05a8d" prot="public" static="no">
+        <name>XPLMI_TRIGGER_TAMPER_IMMEDIATE</name>
+        <initializer>(1U)</initializer>
+        <briefdescription>
+<para>Trigger tamper immediately. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_tamper.h" line="45" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_tamper.h" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xplmi__tamper_8h_1a5515b9ffcdf25f1878ba2a18d6fada7f" prot="public" static="no">
+        <name>XPLMI_SLD_NOT_TRIGGERED</name>
+        <initializer>(0U)</initializer>
+        <briefdescription>
+<para>Secure lockdown not triggered. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_tamper.h" line="48" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_tamper.h" bodystart="48" bodyend="-1"/>
+        <referencedby refid="group__xilplmi__server__apis_1ga409ca4e187fb02b456319b706ea01e1f" compoundref="xplmi__tamper_8c" startline="125" endline="154">XPlmi_TriggerTamperResponse</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xplmi__tamper_8h_1a6dc820dc0ce358932426723d5d564831" prot="public" static="no">
+        <name>XPLMI_SLD_TRIGGERED</name>
+        <initializer>(1U)</initializer>
+        <briefdescription>
+<para>Secure lockdown triggered. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_tamper.h" line="49" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_tamper.h" bodystart="49" bodyend="-1"/>
+        <referencedby refid="group__xilplmi__server__apis_1ga409ca4e187fb02b456319b706ea01e1f" compoundref="xplmi__tamper_8c" startline="125" endline="154">XPlmi_TriggerTamperResponse</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xplmi__tamper_8h_1a73133be49a71a2c1defd387dff0600d4" prot="public" static="no">
+        <name>XPLMI_SLD_IN_PROGRESS</name>
+        <initializer>(2U)</initializer>
+        <briefdescription>
+<para>Secure lockdown is in progress. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_tamper.h" line="50" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_tamper.h" bodystart="50" bodyend="-1"/>
+        <referencedby refid="group__xilplmi__server__apis_1gaaa4e2fe96baa321cd17c045bffb049b5" compoundref="xplmi__cdo_8c" startline="440" endline="590">XPlmi_ProcessCdo</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xplmi__tamper_8h_1a8bb98ba40892a4903a132895b99740d8" prot="public" static="no">
+        <name>XPLMI_HALT_BOOT_SLD_TEMPORAL_CHECK</name>
+        <param><defname>MajorError</defname></param>
+        <param><defname>Status</defname></param>
+        <param><defname>StatusTmp</defname></param>
+        <param><defname>function</defname></param>
+        <param><defname>...</defname></param>
+        <initializer>{ \
+			XSECURE_TEMPORAL_IMPL(Status, StatusTmp, function, __VA_ARGS__); \
+			if (((Status) != XST_SUCCESS) || ((StatusTmp) != XST_SUCCESS)) { \
+				(Status) |= (StatusTmp); \
+				(Status) = XPlmi_UpdateStatus((<ref refid="2vp_2server_2xplmi__status_8h_1a2e39b3b0824b1911dafde398ea02b6d3" kindref="member">XPlmiStatus_t</ref>)MajorError, Status); \
+				<ref refid="group__xilplmi__server__apis_1gaa6f19eeebb4a42d17f8e2f62b01b0080" kindref="member">XPlmi_UtilRMW</ref>(PMC_GLOBAL_PMC_FW_ERR, PMC_GLOBAL_PMC_FW_ERR_DATA_MASK, \
+					(u32)Status); \
+				<ref refid="group__xilplmi__server__apis_1gad4eebf5b872ad3d85898142943f2b1b4" kindref="member">XPlmi_TriggerSLDOnHaltBoot</ref>(<ref refid="xplmi__tamper_8h_1a55863a73d281a529c22552ebbc4ae866" kindref="member">XPLMI_TRIGGER_TAMPER_TASK</ref>); \
+			} \
+		}</initializer>
+        <briefdescription>
+<para>Updates the return value of the called function into Status and StatusTmp variables for redundancy. </para>        </briefdescription>
+        <detaileddescription>
+<para>when called function returns a failure it triggers secure lockdown if haltboot efuses are programmed.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>MajorError</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains the major error code </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Status</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the variable which holds the return value of function executed </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>StatusTmp</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the variable which holds the value stored in Status </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>function</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the function to be executed </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Other</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>params are arguments to the called function</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_tamper.h" line="73" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_tamper.h" bodystart="73" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xplmi__tamper_8h_1a73fb3dbb9de859cde2b9cd15531a1657" prot="public" static="no">
+        <name>XPLMI_HALT_BOOT_SLD_TEMPORAL_CHECK_FOR_INPRGRESS_STS</name>
+        <param><defname>MajorError</defname></param>
+        <param><defname>Status</defname></param>
+        <param><defname>StatusTmp</defname></param>
+        <param><defname>function</defname></param>
+        <param><defname>...</defname></param>
+        <initializer>{ \
+			XSECURE_TEMPORAL_IMPL(Status, StatusTmp, function, __VA_ARGS__); \
+			if (((Status) != XST_SUCCESS) || ((StatusTmp) != XST_SUCCESS)) { \
+				if (((Status) != (int)<ref refid="2vp_2server_2xplmi__status_8h_1a2e39b3b0824b1911dafde398ea02b6d3abdaf8cad8046fed1991e8b4f5caf9205" kindref="member">XPLMI_CMD_IN_PROGRESS</ref>) || ((StatusTmp) != (int)<ref refid="2vp_2server_2xplmi__status_8h_1a2e39b3b0824b1911dafde398ea02b6d3abdaf8cad8046fed1991e8b4f5caf9205" kindref="member">XPLMI_CMD_IN_PROGRESS</ref>)) { \
+					(Status) |= (StatusTmp); \
+					(Status) = XPlmi_UpdateStatus((<ref refid="2vp_2server_2xplmi__status_8h_1a2e39b3b0824b1911dafde398ea02b6d3" kindref="member">XPlmiStatus_t</ref>)MajorError, Status); \
+					<ref refid="group__xilplmi__server__apis_1gaa6f19eeebb4a42d17f8e2f62b01b0080" kindref="member">XPlmi_UtilRMW</ref>(PMC_GLOBAL_PMC_FW_ERR, PMC_GLOBAL_PMC_FW_ERR_DATA_MASK, \
+						(u32)Status); \
+					<ref refid="group__xilplmi__server__apis_1gad4eebf5b872ad3d85898142943f2b1b4" kindref="member">XPlmi_TriggerSLDOnHaltBoot</ref>(<ref refid="xplmi__tamper_8h_1a55863a73d281a529c22552ebbc4ae866" kindref="member">XPLMI_TRIGGER_TAMPER_TASK</ref>); \
+				} \
+			} \
+		}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_tamper.h" line="85" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_tamper.h" bodystart="85" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xilplmi__server__apis_1ga2f22c870cebbe3123b9eb458336bc4ed" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XPlmi_RegisterTamperIntrHandler</definition>
+        <argsstring>(void)</argsstring>
+        <name>XPlmi_RegisterTamperIntrHandler</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function registers the handler for tamper interrupt. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - On success</para></listitem><listitem><para>XPLMI_INVALID_ERROR_ID - On invalid ID</para></listitem><listitem><para>XPLMI_INVALID_ERROR_HANDLER - On Null handler </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Register handler</para><para>Enable tamper interrupt in PMC GLOBAL</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_tamper.h" line="100" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_tamper.c" bodystart="256" bodyend="291"/>
+        <references refid="group__xilplmi__server__apis_1ga5c2739a1280c0963a4e71cf84aea5204" compoundref="xplmi__task_8c" startline="128" endline="154">XPlmi_GetTaskInstance</references>
+        <references refid="group__xilplmi__server__apis_1ga9a408541546aa1b8c599ce75c1f5c7d9" compoundref="xplmi__task_8c" startline="90" endline="114">XPlmi_TaskCreate</references>
+        <references refid="2vp_2server_2xplmi__status_8h_1a2e39b3b0824b1911dafde398ea02b6d3a043bfefaaa166dd9d337afb8b13c6b07" compoundref="2vp_2server_2xplmi__status_8h" startline="240">XPLM_ERR_TASK_CREATE</references>
+        <references refid="group__xilplmi__server__apis_1ga46e363e358a8e759968bd22d9d73748e" compoundref="xplmi__err__common_8c" startline="1133" endline="1211">XPlmi_EmSetAction</references>
+        <referencedby refid="group__xilplmi__server__apis_1gae83dd010247be2d703509c88895fa4f6" compoundref="xplmi__err__common_8c" startline="1273" endline="1369">XPlmi_EmInit</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xilplmi__server__apis_1ga409ca4e187fb02b456319b706ea01e1f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XPlmi_TriggerTamperResponse</definition>
+        <argsstring>(u32 Response, u32 Flag)</argsstring>
+        <name>XPlmi_TriggerTamperResponse</name>
+        <param>
+          <type>u32</type>
+          <declname>Response</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Flag</declname>
+        </param>
+        <briefdescription>
+<para>This functions Triggers Tamper Response processing immediately or as a task. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Response</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the Tamper Response that has to occur </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Flag</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>denotes whether processing has to occur immediately or as a task. The possible values are: XPLMI_TRIGGER_TAMPER_TASK, XPLMI_TRIGGER_TAMPER_IMMEDIATE. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>If Tamper Task is already triggered, Do nothing</para><para>For versal SSIT devices, Notify slave SLRs about SLD</para><para>Trigger tamper response task</para><para>Process tamper response immediately </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_tamper.h" line="101" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_tamper.c" bodystart="125" bodyend="154"/>
+        <references refid="group__xilplmi__server__apis_1gaa2236b1a5bcc98eba23dde0ad6939885" compoundref="xplmi__tamper_8c" startline="109" endline="112">XPlmi_SldState</references>
+        <references refid="xplmi__tamper_8h_1a5515b9ffcdf25f1878ba2a18d6fada7f" compoundref="xplmi__tamper_8h" startline="48">XPLMI_SLD_NOT_TRIGGERED</references>
+        <references refid="xplmi__tamper_8h_1a6dc820dc0ce358932426723d5d564831" compoundref="xplmi__tamper_8h" startline="49">XPLMI_SLD_TRIGGERED</references>
+        <references refid="group__xilplmi__server__apis_1ga6ad6a8b284e3662ef4e292ef4e0b30a3" compoundref="xplmi__ssit_8c" startline="2112" endline="2132">XPlmi_NotifySldSlaveSlrs</references>
+        <references refid="xplmi__tamper_8h_1a55863a73d281a529c22552ebbc4ae866" compoundref="xplmi__tamper_8h" startline="44">XPLMI_TRIGGER_TAMPER_TASK</references>
+        <references refid="group__xilplmi__server__apis_1gadbfc56f5e2b34a2bd07996a3231becb2" compoundref="xplmi__task_8c" startline="164" endline="171">XPlmi_TaskTriggerNow</references>
+        <referencedby refid="group__xilplmi__server__apis_1gad4eebf5b872ad3d85898142943f2b1b4" compoundref="xplmi__tamper_8c" startline="364" endline="374">XPlmi_TriggerSLDOnHaltBoot</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xilplmi__server__apis_1gad4eebf5b872ad3d85898142943f2b1b4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XPlmi_TriggerSLDOnHaltBoot</definition>
+        <argsstring>(u32 Flag)</argsstring>
+        <name>XPlmi_TriggerSLDOnHaltBoot</name>
+        <param>
+          <type>u32</type>
+          <declname>Flag</declname>
+        </param>
+        <briefdescription>
+<para>This function triggers secure lockdown if haltboot efuses are programmed. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Flag</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>denotes whether processing has to occur immediately or as a task. The possible values are:<itemizedlist>
+<listitem><para>XPLMI_TRIGGER_TAMPER_TASK,</para></listitem></itemizedlist>
+</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<itemizedlist>
+<listitem><para>XPLMI_TRIGGER_TAMPER_IMMEDIATE. </para></listitem></itemizedlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_tamper.h" line="102" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_tamper.c" bodystart="364" bodyend="374"/>
+        <references refid="group__xilplmi__server__apis_1ga409ca4e187fb02b456319b706ea01e1f" compoundref="xplmi__tamper_8c" startline="125" endline="154">XPlmi_TriggerTamperResponse</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xilplmi__server__apis_1gaa2236b1a5bcc98eba23dde0ad6939885" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XPlmi_SldState</definition>
+        <argsstring>(void)</argsstring>
+        <name>XPlmi_SldState</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function returns Secure Lockdown State. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>Secure Lockdown State </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_tamper.h" line="103" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_tamper.c" bodystart="109" bodyend="112"/>
+        <referencedby refid="group__xilplmi__server__apis_1gaaa4e2fe96baa321cd17c045bffb049b5" compoundref="xplmi__cdo_8c" startline="440" endline="590">XPlmi_ProcessCdo</referencedby>
+        <referencedby refid="group__xilplmi__server__apis_1ga409ca4e187fb02b456319b706ea01e1f" compoundref="xplmi__tamper_8c" startline="125" endline="154">XPlmi_TriggerTamperResponse</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file contains APIs for tamper processing routines. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date        Changes
+----- ---- ---------- -------------------------------------------------------
+1.0   ma   07/08/2022 Initial release
+      ma   07/19/2022 Change XPlmi_ProcessTamperResponse return type to void
+      kpt  07/19/2022 Added temporal macro to trigger secure lockdown
+                                         if haltboot efuses are programmed
+      ma   07/25/2022 Enhancements to secure lockdown code
+1.1   bm   01/03/2023 Create Secure Lockdown as a Critical Priority Task
+      dd   03/28/2023 Updated doxygen comments
+      pre  03/02/2025 Added XPLMI_HALT_BOOT_SLD_TEMPORAL_CHECK_FOR_INPRGRESS_STS macro
+2.4   abh  10/09/2025 Fixed MISRA-C violations
+</preformatted></para><para><simplesect kind="note"><para></para></simplesect>
+</para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2022<sp/>-<sp/>2026,<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="33"><highlight class="preprocessor">#ifndef<sp/>XPLMI_TAMPER_H</highlight></codeline>
+<codeline lineno="34"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_TAMPER_H</highlight></codeline>
+<codeline lineno="35"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="37"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="39"><highlight class="preprocessor"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_util.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Flags<sp/>for<sp/>Triggering<sp/>Tamper<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44" refid="xplmi__tamper_8h_1a55863a73d281a529c22552ebbc4ae866" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_TRIGGER_TAMPER_TASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0U)<sp/></highlight></codeline>
+<codeline lineno="45" refid="xplmi__tamper_8h_1a7eaaa50d8255ab922d2584fa49d05a8d" refkind="member"><highlight class="preprocessor">#define<sp/>XPLMI_TRIGGER_TAMPER_IMMEDIATE<sp/><sp/>(1U)<sp/></highlight></codeline>
+<codeline lineno="47"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>Secure<sp/>Lockdown<sp/>State<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="48" refid="xplmi__tamper_8h_1a5515b9ffcdf25f1878ba2a18d6fada7f" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_SLD_NOT_TRIGGERED<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0U)<sp/></highlight></codeline>
+<codeline lineno="49" refid="xplmi__tamper_8h_1a6dc820dc0ce358932426723d5d564831" refkind="member"><highlight class="preprocessor">#define<sp/>XPLMI_SLD_TRIGGERED<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1U)<sp/></highlight></codeline>
+<codeline lineno="50" refid="xplmi__tamper_8h_1a73133be49a71a2c1defd387dff0600d4" refkind="member"><highlight class="preprocessor">#define<sp/>XPLMI_SLD_IN_PROGRESS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(2U)<sp/></highlight></codeline>
+<codeline lineno="52"><highlight class="preprocessor"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="53"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="73" refid="xplmi__tamper_8h_1a8bb98ba40892a4903a132895b99740d8" refkind="member"><highlight class="preprocessor">#define<sp/>XPLMI_HALT_BOOT_SLD_TEMPORAL_CHECK(MajorError,<sp/>Status,<sp/>StatusTmp,<sp/>function,<sp/>...)<sp/>\</highlight></codeline>
+<codeline lineno="74"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>\</highlight></codeline>
+<codeline lineno="75"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSECURE_TEMPORAL_IMPL(Status,<sp/>StatusTmp,<sp/>function,<sp/>__VA_ARGS__);<sp/>\</highlight></codeline>
+<codeline lineno="76"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>if<sp/>(((Status)<sp/>!=<sp/>XST_SUCCESS)<sp/>||<sp/>((StatusTmp)<sp/>!=<sp/>XST_SUCCESS))<sp/>{<sp/>\</highlight></codeline>
+<codeline lineno="77"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(Status)<sp/>|=<sp/>(StatusTmp);<sp/>\</highlight></codeline>
+<codeline lineno="78"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(Status)<sp/>=<sp/>XPlmi_UpdateStatus((XPlmiStatus_t)MajorError,<sp/>Status);<sp/>\</highlight></codeline>
+<codeline lineno="79"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_UtilRMW(PMC_GLOBAL_PMC_FW_ERR,<sp/>PMC_GLOBAL_PMC_FW_ERR_DATA_MASK,<sp/>\</highlight></codeline>
+<codeline lineno="80"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)Status);<sp/>\</highlight></codeline>
+<codeline lineno="81"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_TriggerSLDOnHaltBoot(XPLMI_TRIGGER_TAMPER_TASK);<sp/>\</highlight></codeline>
+<codeline lineno="82"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/>\</highlight></codeline>
+<codeline lineno="83"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="84"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="85"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_HALT_BOOT_SLD_TEMPORAL_CHECK_FOR_INPRGRESS_STS(MajorError,<sp/>Status,<sp/>StatusTmp,<sp/>function,<sp/>...)<sp/>\</highlight></codeline>
+<codeline lineno="86"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>\</highlight></codeline>
+<codeline lineno="87"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSECURE_TEMPORAL_IMPL(Status,<sp/>StatusTmp,<sp/>function,<sp/>__VA_ARGS__);<sp/>\</highlight></codeline>
+<codeline lineno="88"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>if<sp/>(((Status)<sp/>!=<sp/>XST_SUCCESS)<sp/>||<sp/>((StatusTmp)<sp/>!=<sp/>XST_SUCCESS))<sp/>{<sp/>\</highlight></codeline>
+<codeline lineno="89"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>if<sp/>(((Status)<sp/>!=<sp/>(int)XPLMI_CMD_IN_PROGRESS)<sp/>||<sp/>((StatusTmp)<sp/>!=<sp/>(int)XPLMI_CMD_IN_PROGRESS))<sp/>{<sp/>\</highlight></codeline>
+<codeline lineno="90"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(Status)<sp/>|=<sp/>(StatusTmp);<sp/>\</highlight></codeline>
+<codeline lineno="91"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(Status)<sp/>=<sp/>XPlmi_UpdateStatus((XPlmiStatus_t)MajorError,<sp/>Status);<sp/>\</highlight></codeline>
+<codeline lineno="92"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_UtilRMW(PMC_GLOBAL_PMC_FW_ERR,<sp/>PMC_GLOBAL_PMC_FW_ERR_DATA_MASK,<sp/>\</highlight></codeline>
+<codeline lineno="93"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)Status);<sp/>\</highlight></codeline>
+<codeline lineno="94"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_TriggerSLDOnHaltBoot(XPLMI_TRIGGER_TAMPER_TASK);<sp/>\</highlight></codeline>
+<codeline lineno="95"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/>\</highlight></codeline>
+<codeline lineno="96"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/>\</highlight></codeline>
+<codeline lineno="97"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="98"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="99"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="100"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xilplmi__server__apis_1ga2f22c870cebbe3123b9eb458336bc4ed" kindref="member">XPlmi_RegisterTamperIntrHandler</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__xilplmi__server__apis_1ga409ca4e187fb02b456319b706ea01e1f" kindref="member">XPlmi_TriggerTamperResponse</ref>(u32<sp/>Response,<sp/>u32<sp/>Flag);</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__xilplmi__server__apis_1gad4eebf5b872ad3d85898142943f2b1b4" kindref="member">XPlmi_TriggerSLDOnHaltBoot</ref>(u32<sp/>Flag);</highlight></codeline>
+<codeline lineno="103"><highlight class="normal">u32<sp/><ref refid="group__xilplmi__server__apis_1gaa2236b1a5bcc98eba23dde0ad6939885" kindref="member">XPlmi_SldState</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"></highlight></codeline>
+<codeline lineno="105"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="106"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="108"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="109"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_tamper.h"/>
+  </compounddef>
+</doxygen>

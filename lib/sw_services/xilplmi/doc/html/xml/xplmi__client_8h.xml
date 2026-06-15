@@ -1,0 +1,735 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xplmi__client_8h" kind="file">
+    <compoundname>xplmi_client.h</compoundname>
+    <includes local="yes">xil_types.h</includes>
+    <includes refid="xplmi__mailbox_8h" local="yes">xplmi_mailbox.h</includes>
+    <includes refid="xplmi__defs_8h" local="yes">xplmi_defs.h</includes>
+    <includedby refid="xplmi__client_8c" local="yes">xplmi_client.c</includedby>
+    <includedby refid="xplmi__configure__secure__comm__example_8c" local="yes">xplmi_configure_secure_comm_example.c</includedby>
+    <includedby refid="xplmi__event__logging__client__example_8c" local="yes">xplmi_event_logging_client_example.c</includedby>
+    <includedby refid="xplmi__get__board__client__example_8c" local="yes">xplmi_get_board_client_example.c</includedby>
+    <includedby refid="xplmi__get__device__id__client__example_8c" local="yes">xplmi_get_device_id_client_example.c</includedby>
+    <includedby refid="xplmi__tamper__trigger__client__example_8c" local="yes">xplmi_tamper_trigger_client_example.c</includedby>
+    <incdepgraph>
+      <node id="354">
+        <label>xplmi_client.h</label>
+        <link refid="xplmi_client.h"/>
+        <childnode refid="355" relation="include">
+        </childnode>
+        <childnode refid="356" relation="include">
+        </childnode>
+        <childnode refid="359" relation="include">
+        </childnode>
+      </node>
+      <node id="357">
+        <label>xilmailbox.h</label>
+      </node>
+      <node id="356">
+        <label>xplmi_mailbox.h</label>
+        <link refid="xplmi__mailbox_8h"/>
+        <childnode refid="357" relation="include">
+        </childnode>
+        <childnode refid="358" relation="include">
+        </childnode>
+      </node>
+      <node id="355">
+        <label>xil_types.h</label>
+      </node>
+      <node id="358">
+        <label>xparameters.h</label>
+      </node>
+      <node id="360">
+        <label>xil_printf.h</label>
+      </node>
+      <node id="359">
+        <label>xplmi_defs.h</label>
+        <link refid="xplmi__defs_8h"/>
+        <childnode refid="360" relation="include">
+        </childnode>
+        <childnode refid="355" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="363">
+        <label>xplmi_configure_secure_comm_example.c</label>
+        <link refid="xplmi__configure__secure__comm__example_8c"/>
+      </node>
+      <node id="365">
+        <label>xplmi_get_board_client_example.c</label>
+        <link refid="xplmi__get__board__client__example_8c"/>
+      </node>
+      <node id="362">
+        <label>xplmi_client.c</label>
+        <link refid="xplmi__client_8c"/>
+      </node>
+      <node id="361">
+        <label>xplmi_client.h</label>
+        <link refid="xplmi_client.h"/>
+        <childnode refid="362" relation="include">
+        </childnode>
+        <childnode refid="363" relation="include">
+        </childnode>
+        <childnode refid="364" relation="include">
+        </childnode>
+        <childnode refid="365" relation="include">
+        </childnode>
+        <childnode refid="366" relation="include">
+        </childnode>
+        <childnode refid="367" relation="include">
+        </childnode>
+      </node>
+      <node id="367">
+        <label>xplmi_tamper_trigger_client_example.c</label>
+        <link refid="xplmi__tamper__trigger__client__example_8c"/>
+      </node>
+      <node id="364">
+        <label>xplmi_event_logging_client_example.c</label>
+        <link refid="xplmi__event__logging__client__example_8c"/>
+      </node>
+      <node id="366">
+        <label>xplmi_get_device_id_client_example.c</label>
+        <link refid="xplmi__get__device__id__client__example_8c"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_x_loader___device_id_code" prot="public">XLoader_DeviceIdCode</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xplmi__client_8h_1ab1f20993bdf14a739d6c75cc390d9c92" prot="public" static="no">
+        <name>XPLMI_SLR_INDEX_SHIFT</name>
+        <initializer>(6U)</initializer>
+        <briefdescription>
+<para>&lt; shift constant to place slr id </para>        </briefdescription>
+        <detaileddescription>
+<para>SlrIndexs constants </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_client.h" line="44" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_client.h" bodystart="44" bodyend="-1"/>
+        <referencedby refid="group__xilplmi__client__apis_1gab763892ce34e0750315c11168aafdc05" compoundref="xplmi__client_8c" startline="175" endline="245">XPlmi_EventLogging</referencedby>
+        <referencedby refid="group__xilplmi__server__apis_1ga09694a4b8467a90ed7afdda529d5f721" compoundref="xplmi__ssit_8c" startline="2070" endline="2105">XPlmi_SendIpiCmdToSlaveSlr</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xplmi__client_8h_1a33713333b1180a603f9a14fb4243125d" prot="public" static="no">
+        <name>XPLMI_SLR_INDEX_0</name>
+        <initializer>(0U)</initializer>
+        <briefdescription>
+<para>SLR Index 0. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_client.h" line="47" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_client.h" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xplmi__client_8h_1a6f65b07d28e9fa31f5179138e519e7e0" prot="public" static="no">
+        <name>XPLMI_SLR_INDEX_1</name>
+        <initializer>(1U)</initializer>
+        <briefdescription>
+<para>SLR Index 1. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_client.h" line="48" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_client.h" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xplmi__client_8h_1a29170505c98ef8134085f3b106341d9c" prot="public" static="no">
+        <name>XPLMI_SLR_INDEX_2</name>
+        <initializer>(2U)</initializer>
+        <briefdescription>
+<para>SLR Index 2. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_client.h" line="49" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_client.h" bodystart="49" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xplmi__client_8h_1ae1d85fe274333fdd2cfe49fab897df2d" prot="public" static="no">
+        <name>XPLMI_SLR_INDEX_3</name>
+        <initializer>(3U)</initializer>
+        <briefdescription>
+<para>SLR Index 3. </para>        </briefdescription>
+        <detaileddescription>
+<para>Event Logging sub command IDs </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_client.h" line="50" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_client.h" bodystart="50" bodyend="-1"/>
+        <referencedby refid="group__xilplmi__client__apis_1ga9aa8c572abe57e4552a86bdf06e5c8e8" compoundref="xplmi__client_8c" startline="357" endline="365">XPlmi_InputSlrIndex</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xplmi__client_8h_1a3fc79d148c20fd86058b2e64f3e8a8c9" prot="public" static="no">
+        <name>XPLMI_LOGGING_CMD_CONFIG_LOG_LEVEL</name>
+        <initializer>(0x1U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_client.h" line="53" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_client.h" bodystart="53" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xplmi__client_8h_1a8e65eea17cb4e0e44725a8efa04baefd" prot="public" static="no">
+        <name>XPLMI_LOGGING_CMD_CONFIG_LOG_MEM</name>
+        <initializer>(0x2U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_client.h" line="54" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_client.h" bodystart="54" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xplmi__client_8h_1a70fad28d0ceb14f100527d4d8796695d" prot="public" static="no">
+        <name>XPLMI_LOGGING_CMD_RETRIEVE_LOG_DATA</name>
+        <initializer>(0x3U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_client.h" line="55" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_client.h" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xplmi__client_8h_1a5c88bdf1f050282b58ed0c75c487afba" prot="public" static="no">
+        <name>XPLMI_LOGGING_CMD_RETRIEVE_LOG_BUFFER_INFO</name>
+        <initializer>(0x4U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_client.h" line="56" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_client.h" bodystart="56" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xplmi__client_8h_1a4ff5e6ee116806f6ec360f57896e3e45" prot="public" static="no">
+        <name>XPLMI_LOGGING_CMD_CONFIG_TRACE_MEM</name>
+        <initializer>(0x5U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_client.h" line="57" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_client.h" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xplmi__client_8h_1abec9f8b8381cf140cfa949618029fa2e" prot="public" static="no">
+        <name>XPLMI_LOGGING_CMD_RETRIEVE_TRACE_DATA</name>
+        <initializer>(0x6U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_client.h" line="58" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_client.h" bodystart="58" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xplmi__client_8h_1a035af42e3717a804158b766685c8ca7a" prot="public" static="no">
+        <name>XPLMI_LOGGING_CMD_RETRIEVE_TRACE_BUFFER_INFO</name>
+        <initializer>(0x7U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_client.h" line="59" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_client.h" bodystart="59" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xplmi__client_8h_1a07e7dc54607e56c5ff2d72b29ece41f5" prot="public" static="no">
+        <name>XPLMI_LOGGING_CMD_CONFIG_UART</name>
+        <initializer>(0x8U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_client.h" line="60" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_client.h" bodystart="60" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xilplmi__client__apis_1ga7e8e7117a32a2207abc17436a82cde25" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XPlmi_GetDeviceID</definition>
+        <argsstring>(XPlmi_ClientInstance *InstancePtr, XLoader_DeviceIdCode *DeviceIdCode)</argsstring>
+        <name>XPlmi_GetDeviceID</name>
+        <param>
+          <type><ref refid="struct_x_plmi___client_instance" kindref="compound">XPlmi_ClientInstance</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>XLoader_DeviceIdCode *</type>
+          <declname>DeviceIdCode</declname>
+        </param>
+        <briefdescription>
+<para>This function sends IPI request to provides Get device id. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the client instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DeviceIdCode</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>used to store the Id code register values.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS on success.</para></listitem><listitem><para>XST_FAILURE on failure. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Validate input parameters</para><para>Fill IPI Payload</para><para>Send request to PLM using generic API </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_client.h" line="71" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_client.c" bodystart="67" bodyend="91"/>
+        <references refid="group__xilplmi__mailbox__apis_1ga4b6c33d928a245e03965396fdde7ceea" compoundref="xplmi__mailbox_8h" startline="49">PAYLOAD_ARG_CNT</references>
+        <references refid="group__xilplmi__mailbox__apis_1gaff9dc4f696e94fbe988997c3a4ba60c3" compoundref="xplmi__mailbox_8h" startline="51">RESPONSE_ARG_CNT</references>
+        <references refid="xplmi__defs_8h_1a651b24db1c69490f069924b96d005c94" compoundref="xplmi__defs_8h" startline="63">XPLMI_GET_DEVICE_CMD_ID</references>
+        <references refid="group__xilplmi__client__apis_1ga062b72efe7931831fe213083a8da2e77" compoundref="client_2xplmi__generic_8c" startline="68" endline="116">XPlmi_SendRequest</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xilplmi__client__apis_1ga87c129257a8fabebacb9f764a4be628d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XPlmi_GetBoard</definition>
+        <argsstring>(XPlmi_ClientInstance *InstancePtr, u64 Addr, u32 Size, u32 *ResponseLength)</argsstring>
+        <name>XPlmi_GetBoard</name>
+        <param>
+          <type><ref refid="struct_x_plmi___client_instance" kindref="compound">XPlmi_ClientInstance</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u64</type>
+          <declname>Addr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Size</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>ResponseLength</declname>
+        </param>
+        <briefdescription>
+<para>This function sends IPI request to Get board. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the client instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Addr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Address where PLM has to copy the board details </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Size</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Max size available at destination for PLM to copy in words </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ResponseLength</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Length of board data that PLM copied</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS on success.</para></listitem><listitem><para>XST_FAILURE on failure. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Validate input parameters</para><para>Fill IPI Payload</para><para>Send request to PLM using generic API </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_client.h" line="72" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_client.c" bodystart="107" bodyend="130"/>
+        <references refid="group__xilplmi__mailbox__apis_1ga4b6c33d928a245e03965396fdde7ceea" compoundref="xplmi__mailbox_8h" startline="49">PAYLOAD_ARG_CNT</references>
+        <references refid="group__xilplmi__mailbox__apis_1gaff9dc4f696e94fbe988997c3a4ba60c3" compoundref="xplmi__mailbox_8h" startline="51">RESPONSE_ARG_CNT</references>
+        <references refid="xplmi__defs_8h_1aac351fba6246ff9f83fbf368f345e202" compoundref="xplmi__defs_8h" startline="66">XPLMI_GET_BOARD_CMD_ID</references>
+        <references refid="group__xilplmi__client__apis_1ga5af1f3c98663f54ed993cb81c545ae79" compoundref="xplmi__client_8c" startline="45">XPLMI_ADDR_HIGH_SHIFT</references>
+        <references refid="group__xilplmi__client__apis_1ga062b72efe7931831fe213083a8da2e77" compoundref="client_2xplmi__generic_8c" startline="68" endline="116">XPlmi_SendRequest</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xilplmi__client__apis_1gae746051336f43281004be2537db2c3d8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XPlmi_TamperTrigger</definition>
+        <argsstring>(XPlmi_ClientInstance *InstancePtr, u32 TamperResponse)</argsstring>
+        <name>XPlmi_TamperTrigger</name>
+        <param>
+          <type><ref refid="struct_x_plmi___client_instance" kindref="compound">XPlmi_ClientInstance</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>TamperResponse</declname>
+        </param>
+        <briefdescription>
+<para>This function sends IPI request to Tamper Trigger. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the client instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>TamperResponse</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>To select the valid tamper response</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>Handoff to the Rom on success.</para></listitem><listitem><para>XST_FAILURE on failure. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Fill IPI Payload</para><para>Send request to PLM using generic API </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_client.h" line="73" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_client.c" bodystart="144" bodyend="156"/>
+        <references refid="group__xilplmi__mailbox__apis_1ga4b6c33d928a245e03965396fdde7ceea" compoundref="xplmi__mailbox_8h" startline="49">PAYLOAD_ARG_CNT</references>
+        <references refid="xplmi__defs_8h_1a592ed4f8a2aba9571489d28755f7ba1a" compoundref="xplmi__defs_8h" startline="80">XPLMI_TAMPER_TRIGGER_CMD_ID</references>
+        <references refid="group__xilplmi__client__apis_1ga062b72efe7931831fe213083a8da2e77" compoundref="client_2xplmi__generic_8c" startline="68" endline="116">XPlmi_SendRequest</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xilplmi__client__apis_1gab763892ce34e0750315c11168aafdc05" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XPlmi_EventLogging</definition>
+        <argsstring>(XPlmi_ClientInstance *InstancePtr, u32 sub_cmd, u64 Addr, u32 Len)</argsstring>
+        <name>XPlmi_EventLogging</name>
+        <param>
+          <type><ref refid="struct_x_plmi___client_instance" kindref="compound">XPlmi_ClientInstance</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>sub_cmd</declname>
+        </param>
+        <param>
+          <type>u64</type>
+          <declname>Addr</declname>
+          <defname>Arg</defname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Len</declname>
+        </param>
+        <briefdescription>
+<para>This function sends IPI request to Event Logging. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the client instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>sub_cmd</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>To configure the debug information </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Arg</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Arguments to be passed for the sub command, for all sub commands Arg holds Address, whereas uart sub command Arg holds Arg1, Arg2 in upper and lower 32bit respectively </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Len</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Length of the buffer</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS on success.</para></listitem><listitem><para>XST_FAILURE on failure. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Performs input parameters validation. Return error code if input parameters are invalid</para><para>Fill IPI Payload based on sub command</para><para>Send request to PLM using generic API </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_client.h" line="74" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_client.c" bodystart="175" bodyend="245"/>
+        <references refid="group__xilplmi__mailbox__apis_1ga4b6c33d928a245e03965396fdde7ceea" compoundref="xplmi__mailbox_8h" startline="49">PAYLOAD_ARG_CNT</references>
+        <references refid="group__xilplmi__mailbox__apis_1gaff9dc4f696e94fbe988997c3a4ba60c3" compoundref="xplmi__mailbox_8h" startline="51">RESPONSE_ARG_CNT</references>
+        <references refid="struct_x_plmi___client_instance_1a6ec961c66eaa6d65b71a82b57f1d6288" compoundref="xplmi__mailbox_8h" startline="100">XPlmi_ClientInstance::SlrIndex</references>
+        <references refid="xplmi__client_8h_1ab1f20993bdf14a739d6c75cc390d9c92" compoundref="xplmi__client_8h" startline="44">XPLMI_SLR_INDEX_SHIFT</references>
+        <references refid="xplmi__defs_8h_1ae448e478d11a32abe990938860aa3be6" compoundref="xplmi__defs_8h" startline="64">XPLMI_EVENT_LOGGING_CMD_ID</references>
+        <references refid="group__xilplmi__client__apis_1ga5af1f3c98663f54ed993cb81c545ae79" compoundref="xplmi__client_8c" startline="45">XPLMI_ADDR_HIGH_SHIFT</references>
+        <references refid="group__xilplmi__client__apis_1ga062b72efe7931831fe213083a8da2e77" compoundref="client_2xplmi__generic_8c" startline="68" endline="116">XPlmi_SendRequest</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xilplmi__client__apis_1ga0055868baa98bae19b5d94d65b92189b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XPlmi_ConfigSecureComm</definition>
+        <argsstring>(XPlmi_ClientInstance *InstancePtr, XPlmi_SsitSecComm *SsitSecCommDataPtr)</argsstring>
+        <name>XPlmi_ConfigSecureComm</name>
+        <param>
+          <type><ref refid="struct_x_plmi___client_instance" kindref="compound">XPlmi_ClientInstance</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>XPlmi_SsitSecComm *</type>
+          <declname>SsitSecCommDataPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function sends IPI request to configure secure communication. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the client instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>SsitSecCommDataPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to structure which contains SLR index, IV1, IV2 and key</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS on success.</para></listitem><listitem><para>XST_FAILURE on failure. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Validate input parameters</para><para>Fill IPI Payload</para><para>Send request to PLM using generic API </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_client.h" line="75" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_client.c" bodystart="259" bodyend="279"/>
+        <references refid="group__xilplmi__mailbox__apis_1ga4b6c33d928a245e03965396fdde7ceea" compoundref="xplmi__mailbox_8h" startline="49">PAYLOAD_ARG_CNT</references>
+        <references refid="xplmi__defs_8h_1ac95cc36b490cf20f84746f656e3a7d83" compoundref="xplmi__defs_8h" startline="88">XPLMI_CONFIG_SECCOMM_CMD_ID</references>
+        <references refid="group__xilplmi__client__apis_1ga5af1f3c98663f54ed993cb81c545ae79" compoundref="xplmi__client_8c" startline="45">XPLMI_ADDR_HIGH_SHIFT</references>
+        <references refid="group__xilplmi__client__apis_1ga062b72efe7931831fe213083a8da2e77" compoundref="client_2xplmi__generic_8c" startline="68" endline="116">XPlmi_SendRequest</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xilplmi__client__apis_1gaf2f52002fc35d8a8b40cb6dbc5bfc7a3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XPlmi_GetSecureCommStatus</definition>
+        <argsstring>(XPlmi_ClientInstance *InstancePtr, u32 SlrIndex, u32 *SecCommStatus)</argsstring>
+        <name>XPlmi_GetSecureCommStatus</name>
+        <param>
+          <type><ref refid="struct_x_plmi___client_instance" kindref="compound">XPlmi_ClientInstance</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>SlrIndex</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>SecCommStatus</declname>
+        </param>
+        <briefdescription>
+<para>This function sends IPI request to get secure communication status. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the client instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>SlrIndex</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>SLR number for which secure communication establishment status is needed </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>SecCommStatus</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to variable to which secure communication status is to be written</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS on success.</para></listitem><listitem><para>XST_FAILURE on failure. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Validate input parameters</para><para>Fill IPI Payload</para><para>Send request to PLM using generic API </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_client.h" line="77" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_client.c" bodystart="294" bodyend="317"/>
+        <references refid="group__xilplmi__mailbox__apis_1ga4b6c33d928a245e03965396fdde7ceea" compoundref="xplmi__mailbox_8h" startline="49">PAYLOAD_ARG_CNT</references>
+        <references refid="group__xilplmi__mailbox__apis_1gaff9dc4f696e94fbe988997c3a4ba60c3" compoundref="xplmi__mailbox_8h" startline="51">RESPONSE_ARG_CNT</references>
+        <references refid="xplmi__defs_8h_1aac083acfe6fc852913aab86fb2ae5fcc" compoundref="xplmi__defs_8h" startline="89">XPLMI_GETSECCOMM_STATUS_CMD_ID</references>
+        <references refid="group__xilplmi__client__apis_1ga062b72efe7931831fe213083a8da2e77" compoundref="client_2xplmi__generic_8c" startline="68" endline="116">XPlmi_SendRequest</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xilplmi__client__apis_1ga73244b8606628c8941215ea3b3e5cc84" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XPlmi_SetDDRMCMainRegSts</definition>
+        <argsstring>(XPlmi_ClientInstance *InstancePtr, u32 DDRMCNum, u32 RegSts)</argsstring>
+        <name>XPlmi_SetDDRMCMainRegSts</name>
+        <param>
+          <type><ref refid="struct_x_plmi___client_instance" kindref="compound">XPlmi_ClientInstance</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>DDRMCNum</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>RegSts</declname>
+        </param>
+        <briefdescription>
+<para>This function sends IPI request to set DDRMC main registers status command. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the client instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DDRMCNum</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>DDRMC number </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegSts</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>To be set status</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS on success.</para></listitem><listitem><para>XST_FAILURE on failure. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Fill IPI Payload</para><para>Send request to PLM using generic API </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_client.h" line="78" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_client.c" bodystart="332" bodyend="344"/>
+        <references refid="group__xilplmi__mailbox__apis_1ga4b6c33d928a245e03965396fdde7ceea" compoundref="xplmi__mailbox_8h" startline="49">PAYLOAD_ARG_CNT</references>
+        <references refid="xplmi__defs_8h_1a4dd9e69cf7522e4aa5b1a56726ec5481" compoundref="xplmi__defs_8h" startline="90">XPLMI_DDRMC_MAINREG_STS_SET_CMD_ID</references>
+        <references refid="group__xilplmi__client__apis_1ga062b72efe7931831fe213083a8da2e77" compoundref="client_2xplmi__generic_8c" startline="68" endline="116">XPlmi_SendRequest</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xilplmi__client__apis_1ga9aa8c572abe57e4552a86bdf06e5c8e8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XPlmi_InputSlrIndex</definition>
+        <argsstring>(XPlmi_ClientInstance *InstancePtr, u32 SlrIndex)</argsstring>
+        <name>XPlmi_InputSlrIndex</name>
+        <param>
+          <type><ref refid="struct_x_plmi___client_instance" kindref="compound">XPlmi_ClientInstance</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>SlrIndex</declname>
+        </param>
+        <briefdescription>
+<para>Adds the SLR Index. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to instance <ref refid="struct_x_plmi___client_instance" kindref="compound">XPlmi_ClientInstance</ref> </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>SlrIndex</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- SLR index number</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>- XST_SUCCESS - On valid input SlrIndex.<itemizedlist>
+<listitem><para>XST_FAILURE - On non valid input SlrIndex </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_client.h" line="79" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_client.c" bodystart="357" bodyend="365"/>
+        <references refid="xplmi__client_8h_1ae1d85fe274333fdd2cfe49fab897df2d" compoundref="xplmi__client_8h" startline="50">XPLMI_SLR_INDEX_3</references>
+        <references refid="struct_x_plmi___client_instance_1a6ec961c66eaa6d65b71a82b57f1d6288" compoundref="xplmi__mailbox_8h" startline="100">XPlmi_ClientInstance::SlrIndex</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file Contains the client function prototypes, defines and macros. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+1.00  dd   01/09/24 Initial release
+      pre  07/10/24 Added support for configure secure communication command
+      pre  09/30/24 Added XPlmi_GetSecureCommStatus API
+      pre  01/13/25 Added client API for command to set access status of DDRMC main registers
+2.00  sk   01/23/26 Added defines for event logging sub command IDs</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/**************************************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2024<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">**************************************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/*************************************************************************************************/</highlight></codeline>
+<codeline lineno="28"><highlight class="preprocessor">#ifndef<sp/>XPLMI_CLIENT_H</highlight></codeline>
+<codeline lineno="29"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_CLIENT_H</highlight></codeline>
+<codeline lineno="30"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="32"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="34"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="comment">/***************************************<sp/>Include<sp/>Files<sp/>*******************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xplmi__mailbox_8h" kindref="compound">xplmi_mailbox.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xplmi__defs_8h" kindref="compound">xplmi_defs.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="comment">/************************************<sp/>Constant<sp/>Definitions<sp/>***************************************/</highlight></codeline>
+<codeline lineno="44" refid="xplmi__client_8h_1ab1f20993bdf14a739d6c75cc390d9c92" refkind="member"><highlight class="preprocessor">#define<sp/>XPLMI_SLR_INDEX_SHIFT<sp/>(6U)</highlight></codeline>
+<codeline lineno="45"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="47" refid="xplmi__client_8h_1a33713333b1180a603f9a14fb4243125d" refkind="member"><highlight class="preprocessor">#define<sp/>XPLMI_SLR_INDEX_0<sp/>(0U)<sp/></highlight></codeline>
+<codeline lineno="48" refid="xplmi__client_8h_1a6f65b07d28e9fa31f5179138e519e7e0" refkind="member"><highlight class="preprocessor">#define<sp/>XPLMI_SLR_INDEX_1<sp/>(1U)<sp/></highlight></codeline>
+<codeline lineno="49" refid="xplmi__client_8h_1a29170505c98ef8134085f3b106341d9c" refkind="member"><highlight class="preprocessor">#define<sp/>XPLMI_SLR_INDEX_2<sp/>(2U)<sp/></highlight></codeline>
+<codeline lineno="50" refid="xplmi__client_8h_1ae1d85fe274333fdd2cfe49fab897df2d" refkind="member"><highlight class="preprocessor">#define<sp/>XPLMI_SLR_INDEX_3<sp/>(3U)<sp/></highlight></codeline>
+<codeline lineno="53"><highlight class="preprocessor">#define<sp/>XPLMI_LOGGING_CMD_CONFIG_LOG_LEVEL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x1U)</highlight></codeline>
+<codeline lineno="54"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_LOGGING_CMD_CONFIG_LOG_MEM<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x2U)</highlight></codeline>
+<codeline lineno="55"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_LOGGING_CMD_RETRIEVE_LOG_DATA<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x3U)</highlight></codeline>
+<codeline lineno="56"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_LOGGING_CMD_RETRIEVE_LOG_BUFFER_INFO<sp/><sp/><sp/><sp/><sp/><sp/>(0x4U)</highlight></codeline>
+<codeline lineno="57"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_LOGGING_CMD_CONFIG_TRACE_MEM<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x5U)</highlight></codeline>
+<codeline lineno="58"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_LOGGING_CMD_RETRIEVE_TRACE_DATA<sp/><sp/><sp/>(0x6U)</highlight></codeline>
+<codeline lineno="59"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_LOGGING_CMD_RETRIEVE_TRACE_BUFFER_INFO<sp/><sp/><sp/><sp/>(0x7U)</highlight></codeline>
+<codeline lineno="60"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_LOGGING_CMD_CONFIG_UART<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x8U)</highlight></codeline>
+<codeline lineno="61"><highlight class="preprocessor"></highlight><highlight class="comment">/**************************************<sp/>Type<sp/>Definitions<sp/>*****************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>IdCode;<sp/></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>ExtIdCode;<sp/></highlight></codeline>
+<codeline lineno="65"><highlight class="normal">}<sp/>XLoader_DeviceIdCode;<sp/></highlight></codeline>
+<codeline lineno="67"><highlight class="comment">/***************************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight><highlight class="comment">/************************************<sp/>Function<sp/>Prototypes<sp/>****************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xilplmi__client__apis_1ga7e8e7117a32a2207abc17436a82cde25" kindref="member">XPlmi_GetDeviceID</ref>(<ref refid="struct_x_plmi___client_instance" kindref="compound">XPlmi_ClientInstance</ref><sp/>*InstancePtr,<sp/>XLoader_DeviceIdCode<sp/>*DeviceIdCode);</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xilplmi__client__apis_1ga87c129257a8fabebacb9f764a4be628d" kindref="member">XPlmi_GetBoard</ref>(<ref refid="struct_x_plmi___client_instance" kindref="compound">XPlmi_ClientInstance</ref><sp/>*InstancePtr,<sp/>u64<sp/>Addr,<sp/>u32<sp/>Size,<sp/>u32<sp/>*ResponseLength);</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xilplmi__client__apis_1gae746051336f43281004be2537db2c3d8" kindref="member">XPlmi_TamperTrigger</ref><sp/>(<ref refid="struct_x_plmi___client_instance" kindref="compound">XPlmi_ClientInstance</ref><sp/>*InstancePtr,<sp/>u32<sp/>TamperResponse);</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xilplmi__client__apis_1gab763892ce34e0750315c11168aafdc05" kindref="member">XPlmi_EventLogging</ref>(<ref refid="struct_x_plmi___client_instance" kindref="compound">XPlmi_ClientInstance</ref><sp/>*InstancePtr,<sp/>u32<sp/>sub_cmd,<sp/>u64<sp/>Addr,<sp/>u32<sp/>Len);</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xilplmi__client__apis_1ga0055868baa98bae19b5d94d65b92189b" kindref="member">XPlmi_ConfigSecureComm</ref>(<ref refid="struct_x_plmi___client_instance" kindref="compound">XPlmi_ClientInstance</ref><sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_SsitSecComm<sp/>*SsitSecCommDataPtr);</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xilplmi__client__apis_1gaf2f52002fc35d8a8b40cb6dbc5bfc7a3" kindref="member">XPlmi_GetSecureCommStatus</ref>(<ref refid="struct_x_plmi___client_instance" kindref="compound">XPlmi_ClientInstance</ref><sp/>*InstancePtr,<sp/>u32<sp/>SlrIndex,<sp/>u32<sp/>*SecCommStatus);</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xilplmi__client__apis_1ga73244b8606628c8941215ea3b3e5cc84" kindref="member">XPlmi_SetDDRMCMainRegSts</ref>(<ref refid="struct_x_plmi___client_instance" kindref="compound">XPlmi_ClientInstance</ref><sp/>*InstancePtr,<sp/>u32<sp/>DDRMCNum,<sp/>u32<sp/>RegSts);</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xilplmi__client__apis_1ga9aa8c572abe57e4552a86bdf06e5c8e8" kindref="member">XPlmi_InputSlrIndex</ref>(<ref refid="struct_x_plmi___client_instance" kindref="compound">XPlmi_ClientInstance</ref><sp/>*InstancePtr,<sp/>u32<sp/>SlrIndex);</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"></highlight></codeline>
+<codeline lineno="81"><highlight class="normal"></highlight><highlight class="comment">/************************************<sp/>Variable<sp/>Definitions<sp/>***************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="82"><highlight class="normal"></highlight></codeline>
+<codeline lineno="83"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="84"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="86"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="87"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/></highlight><highlight class="comment">/*<sp/>XPLMI_CLIENT_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_client.h"/>
+  </compounddef>
+</doxygen>

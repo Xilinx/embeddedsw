@@ -1,0 +1,88 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_dfe_ccf___version" kind="struct" prot="public">
+    <compoundname>XDfeCcf_Version</compoundname>
+    <includes local="no">xdfeccf.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_dfe_ccf___version_1a256d43186042de1081540877baf29022" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfeCcf_Version::Major</definition>
+        <argsstring></argsstring>
+        <name>Major</name>
+        <briefdescription>
+<para>Major version number. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" line="197" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" bodystart="197" bodyend="-1"/>
+        <referencedby refid="group__dfeccf_1ga59ba4de329a470946d9fc2a040d7a492" compoundref="xdfeccf_8c" startline="929" endline="979">XDfeCcf_Configure</referencedby>
+        <referencedby refid="group__dfeccf_1gaddc6102af25a271aedf00ec96b315f4e" compoundref="xdfeccf_8c" startline="2468" endline="2493">XDfeCcf_GetVersions</referencedby>
+        <referencedby refid="group__dfeccf_1ga9e35acd47a43b212159caf45bf8ae1fb" compoundref="xdfeccf__multi__instance__initialization__example_8c" startline="60" endline="110">XDfeCcf_MultiInstancesExample</referencedby>
+        <referencedby refid="xdfeccf__pass__through__example_8c_1a6e4a59a64bb3ee3a50a0ea8802942969" compoundref="xdfeccf__pass__through__example_8c" startline="61" endline="162">XDfeCcf_PassThroughExample</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_ccf___version_1a2b2d70cba4fc2f5ffab0da34c0038ee4" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfeCcf_Version::Minor</definition>
+        <argsstring></argsstring>
+        <name>Minor</name>
+        <briefdescription>
+<para>Minor version number. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" line="198" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" bodystart="198" bodyend="-1"/>
+        <referencedby refid="group__dfeccf_1ga59ba4de329a470946d9fc2a040d7a492" compoundref="xdfeccf_8c" startline="929" endline="979">XDfeCcf_Configure</referencedby>
+        <referencedby refid="group__dfeccf_1gaddc6102af25a271aedf00ec96b315f4e" compoundref="xdfeccf_8c" startline="2468" endline="2493">XDfeCcf_GetVersions</referencedby>
+        <referencedby refid="group__dfeccf_1ga9e35acd47a43b212159caf45bf8ae1fb" compoundref="xdfeccf__multi__instance__initialization__example_8c" startline="60" endline="110">XDfeCcf_MultiInstancesExample</referencedby>
+        <referencedby refid="xdfeccf__pass__through__example_8c_1a6e4a59a64bb3ee3a50a0ea8802942969" compoundref="xdfeccf__pass__through__example_8c" startline="61" endline="162">XDfeCcf_PassThroughExample</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_ccf___version_1a3296cc94083b4a0342053b2c26da5a77" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfeCcf_Version::Revision</definition>
+        <argsstring></argsstring>
+        <name>Revision</name>
+        <briefdescription>
+<para>Revision number. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" line="199" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" bodystart="199" bodyend="-1"/>
+        <referencedby refid="group__dfeccf_1ga59ba4de329a470946d9fc2a040d7a492" compoundref="xdfeccf_8c" startline="929" endline="979">XDfeCcf_Configure</referencedby>
+        <referencedby refid="group__dfeccf_1gaddc6102af25a271aedf00ec96b315f4e" compoundref="xdfeccf_8c" startline="2468" endline="2493">XDfeCcf_GetVersions</referencedby>
+        <referencedby refid="group__dfeccf_1ga9e35acd47a43b212159caf45bf8ae1fb" compoundref="xdfeccf__multi__instance__initialization__example_8c" startline="60" endline="110">XDfeCcf_MultiInstancesExample</referencedby>
+        <referencedby refid="xdfeccf__pass__through__example_8c_1a6e4a59a64bb3ee3a50a0ea8802942969" compoundref="xdfeccf__pass__through__example_8c" startline="61" endline="162">XDfeCcf_PassThroughExample</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_ccf___version_1a8e73945c3ac762a34b5af546a55d66f2" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfeCcf_Version::Patch</definition>
+        <argsstring></argsstring>
+        <name>Patch</name>
+        <briefdescription>
+<para>Patch number. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" line="200" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" bodystart="200" bodyend="-1"/>
+        <referencedby refid="group__dfeccf_1ga59ba4de329a470946d9fc2a040d7a492" compoundref="xdfeccf_8c" startline="929" endline="979">XDfeCcf_Configure</referencedby>
+        <referencedby refid="group__dfeccf_1gaddc6102af25a271aedf00ec96b315f4e" compoundref="xdfeccf_8c" startline="2468" endline="2493">XDfeCcf_GetVersions</referencedby>
+        <referencedby refid="group__dfeccf_1ga9e35acd47a43b212159caf45bf8ae1fb" compoundref="xdfeccf__multi__instance__initialization__example_8c" startline="60" endline="110">XDfeCcf_MultiInstancesExample</referencedby>
+        <referencedby refid="xdfeccf__pass__through__example_8c_1a6e4a59a64bb3ee3a50a0ea8802942969" compoundref="xdfeccf__pass__through__example_8c" startline="61" endline="162">XDfeCcf_PassThroughExample</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Logicore version. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" line="196" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" bodystart="196" bodyend="201"/>
+    <listofallmembers>
+      <member refid="struct_x_dfe_ccf___version_1a256d43186042de1081540877baf29022" prot="public" virt="non-virtual"><scope>XDfeCcf_Version</scope><name>Major</name></member>
+      <member refid="struct_x_dfe_ccf___version_1a2b2d70cba4fc2f5ffab0da34c0038ee4" prot="public" virt="non-virtual"><scope>XDfeCcf_Version</scope><name>Minor</name></member>
+      <member refid="struct_x_dfe_ccf___version_1a8e73945c3ac762a34b5af546a55d66f2" prot="public" virt="non-virtual"><scope>XDfeCcf_Version</scope><name>Patch</name></member>
+      <member refid="struct_x_dfe_ccf___version_1a3296cc94083b4a0342053b2c26da5a77" prot="public" virt="non-virtual"><scope>XDfeCcf_Version</scope><name>Revision</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

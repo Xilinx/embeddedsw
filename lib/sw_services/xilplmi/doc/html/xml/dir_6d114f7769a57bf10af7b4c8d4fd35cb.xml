@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_6d114f7769a57bf10af7b4c8d4fd35cb" kind="dir">
+    <compoundname>server</compoundname>
+    <innerfile refid="server_2xplmi__config_8h">server/xplmi_config.h</innerfile>
+    <innerfile refid="server_2xplmi__err_8c">server/xplmi_err.c</innerfile>
+    <innerfile refid="server_2xplmi__err_8h">server/xplmi_err.h</innerfile>
+    <innerfile refid="server_2xplmi__hw_8h">server/xplmi_hw.h</innerfile>
+    <innerfile refid="server_2xplmi__plat_8c">server/xplmi_plat.c</innerfile>
+    <innerfile refid="server_2xplmi__plat_8h">server/xplmi_plat.h</innerfile>
+    <innerfile refid="xplmi__ssit_8c">xplmi_ssit.c</innerfile>
+    <innerfile refid="server_2xplmi__ssit_8h">server/xplmi_ssit.h</innerfile>
+    <innerfile refid="server_2xplmi__status_8h">server/xplmi_status.h</innerfile>
+    <innerfile refid="server_2xplmi__wdt_8c">server/xplmi_wdt.c</innerfile>
+    <innerfile refid="server_2xplmi__wdt_8h">server/xplmi_wdt.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal/server/"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,205 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xaxivdma__selftest_8c" kind="file">
+    <compoundname>xaxivdma_selftest.c</compoundname>
+    <includes local="yes">xil_io.h</includes>
+    <includes refid="xaxivdma_8h" local="yes">xaxivdma.h</includes>
+    <incdepgraph>
+      <node id="170">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="162">
+        <label>xil_io.h</label>
+      </node>
+      <node id="166">
+        <label>xaxivdma_i.h</label>
+        <link refid="xaxivdma__i_8h"/>
+        <childnode refid="167" relation="include">
+        </childnode>
+        <childnode refid="165" relation="include">
+        </childnode>
+        <childnode refid="168" relation="include">
+        </childnode>
+      </node>
+      <node id="164">
+        <label>xaxivdma_hw.h</label>
+        <link refid="xaxivdma__hw_8h"/>
+        <childnode refid="165" relation="include">
+        </childnode>
+        <childnode refid="162" relation="include">
+        </childnode>
+      </node>
+      <node id="161">
+        <label>xaxivdma_selftest.c</label>
+        <link refid="xaxivdma_selftest.c"/>
+        <childnode refid="162" relation="include">
+        </childnode>
+        <childnode refid="163" relation="include">
+        </childnode>
+      </node>
+      <node id="168">
+        <label>xdebug.h</label>
+      </node>
+      <node id="167">
+        <label>string.h</label>
+      </node>
+      <node id="163">
+        <label>xaxivdma.h</label>
+        <link refid="xaxivdma_8h"/>
+        <childnode refid="164" relation="include">
+        </childnode>
+        <childnode refid="166" relation="include">
+        </childnode>
+        <childnode refid="169" relation="include">
+        </childnode>
+        <childnode refid="170" relation="include">
+        </childnode>
+      </node>
+      <node id="169">
+        <label>xstatus.h</label>
+      </node>
+      <node id="165">
+        <label>xil_types.h</label>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__axivdma_1ga9a08eb4a98e05c819763aee591bc41e4" prot="public" static="no">
+        <name>XAXIVDMA_RESET_TIMEOUT</name>
+        <initializer>500</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axivdma/src/xaxivdma_selftest.c" line="33" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axivdma/src/xaxivdma_selftest.c" bodystart="33" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__axivdma_1ga97041abec8a49ee091440012fec1f7ca" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XAxiVdma_Selftest</definition>
+        <argsstring>(XAxiVdma *InstancePtr)</argsstring>
+        <name>XAxiVdma_Selftest</name>
+        <param>
+          <type><ref refid="struct_x_axi_vdma" kindref="compound">XAxiVdma</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Runs a self-test on the driver/device. </para>        </briefdescription>
+        <detaileddescription>
+<para>This test perform a reset of the VDMA device and checks the device is coming out of reset or not</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_axi_vdma" kindref="compound">XAxiVdma</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if self-test was successful</para></listitem></itemizedlist>
+</para></simplesect>
+<itemizedlist>
+<listitem><para>XST_FAILURE if the device is not coming out of reset.</para></listitem></itemizedlist>
+</para><para><simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axivdma/src/xaxivdma.h" line="602" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axivdma/src/xaxivdma_selftest.c" bodystart="63" bodyend="108"/>
+        <references refid="group__axivdma_1ga593206ce099f13c6a62e8c1c95f65b0c" compoundref="xaxivdma_8h" startline="506">XAxiVdma::BaseAddr</references>
+        <references refid="group__axivdma_1gac5806353d2211d78f4c963dd7b018ac9" compoundref="xaxivdma_8h" startline="511">XAxiVdma::HasMm2S</references>
+        <references refid="group__axivdma_1ga22a700bda0eb14878a0c343fbac77456" compoundref="xaxivdma_8h" startline="513">XAxiVdma::HasS2Mm</references>
+        <references refid="group__axivdma_1ga96e2798de16d738f378458fa2b7b2f1c" compoundref="xaxivdma__channel_8c" startline="234" endline="240">XAxiVdma_ChannelReset</references>
+        <references refid="group__axivdma_1ga9b0a1008f3e30f3f031763f108f76405" compoundref="xaxivdma__channel_8c" startline="216" endline="220">XAxiVdma_ChannelResetNotDone</references>
+        <references refid="group__axivdma_1ga0eecc03385d10b80e8b17ff834033ac4" compoundref="xaxivdma_8c" startline="79" endline="93">XAxiVdma_GetChannel</references>
+        <references refid="group__axivdma_1ga5fa27b3ce66d947167262fe918fb5373" compoundref="xaxivdma_8h" startline="308">XAXIVDMA_READ</references>
+        <references refid="group__axivdma_1gab97c05cd73a22a627177554199efb526" compoundref="xaxivdma__hw_8h" startline="112">XAXIVDMA_RX_OFFSET</references>
+        <references refid="group__axivdma_1gae1497f30a25302cb0f4ec93a16a23100" compoundref="xaxivdma__hw_8h" startline="111">XAXIVDMA_TX_OFFSET</references>
+        <references refid="group__axivdma_1ga525d0fa8fc04a9dde871ab55cf6b227b" compoundref="xaxivdma_8h" startline="307">XAXIVDMA_WRITE</references>
+        <referencedby refid="xaxivdma__example__selftest_8c_1aba262ec7ce75d7f5c8a5e6dc90e28ddc" compoundref="xaxivdma__example__selftest_8c" startline="134" endline="161">AxiVDMASelfTestExample</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2015<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022<sp/>-<sp/>2023<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="26"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_io.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xaxivdma_8h" kindref="compound">xaxivdma.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XAXIVDMA_RESET_TIMEOUT<sp/><sp/><sp/>500</highlight></codeline>
+<codeline lineno="34"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="63" refid="group__axivdma_1ga97041abec8a49ee091440012fec1f7ca" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__axivdma_1ga97041abec8a49ee091440012fec1f7ca" kindref="member">XAxiVdma_Selftest</ref>(<ref refid="struct_x_axi_vdma" kindref="compound">XAxiVdma</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="64"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XAxiVdma_Channel<sp/>*RdChannel;</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XAxiVdma_Channel<sp/>*WrChannel;</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Polls;</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RdChannel<sp/>=<sp/><ref refid="group__axivdma_1ga0eecc03385d10b80e8b17ff834033ac4" kindref="member">XAxiVdma_GetChannel</ref>(InstancePtr,<sp/><ref refid="group__axivdma_1ga5fa27b3ce66d947167262fe918fb5373" kindref="member">XAXIVDMA_READ</ref>);</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>WrChannel<sp/>=<sp/><ref refid="group__axivdma_1ga0eecc03385d10b80e8b17ff834033ac4" kindref="member">XAxiVdma_GetChannel</ref>(InstancePtr,<sp/><ref refid="group__axivdma_1ga525d0fa8fc04a9dde871ab55cf6b227b" kindref="member">XAXIVDMA_WRITE</ref>);</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="group__axivdma_1gac5806353d2211d78f4c963dd7b018ac9" kindref="member">HasMm2S</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RdChannel-&gt;ChanBase<sp/>=<sp/>InstancePtr-&gt;<ref refid="group__axivdma_1ga593206ce099f13c6a62e8c1c95f65b0c" kindref="member">BaseAddr</ref><sp/>+<sp/><ref refid="group__axivdma_1gae1497f30a25302cb0f4ec93a16a23100" kindref="member">XAXIVDMA_TX_OFFSET</ref>;</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RdChannel-&gt;InstanceBase<sp/>=<sp/>InstancePtr-&gt;<ref refid="group__axivdma_1ga593206ce099f13c6a62e8c1c95f65b0c" kindref="member">BaseAddr</ref>;</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"></highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__axivdma_1ga96e2798de16d738f378458fa2b7b2f1c" kindref="member">XAxiVdma_ChannelReset</ref>(RdChannel);</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Polls<sp/>=<sp/>XAXIVDMA_RESET_TIMEOUT;</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"></highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(Polls<sp/>&amp;&amp;<sp/><ref refid="group__axivdma_1ga9b0a1008f3e30f3f031763f108f76405" kindref="member">XAxiVdma_ChannelResetNotDone</ref>(RdChannel))<sp/>{</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Polls<sp/>-=<sp/>1;</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"></highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!Polls)<sp/>{</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"></highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="group__axivdma_1ga22a700bda0eb14878a0c343fbac77456" kindref="member">HasS2Mm</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>WrChannel-&gt;ChanBase<sp/>=<sp/>InstancePtr-&gt;<ref refid="group__axivdma_1ga593206ce099f13c6a62e8c1c95f65b0c" kindref="member">BaseAddr</ref><sp/>+<sp/><ref refid="group__axivdma_1gab97c05cd73a22a627177554199efb526" kindref="member">XAXIVDMA_RX_OFFSET</ref>;</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>WrChannel-&gt;InstanceBase<sp/>=<sp/>InstancePtr-&gt;<ref refid="group__axivdma_1ga593206ce099f13c6a62e8c1c95f65b0c" kindref="member">BaseAddr</ref>;</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__axivdma_1ga96e2798de16d738f378458fa2b7b2f1c" kindref="member">XAxiVdma_ChannelReset</ref>(WrChannel);</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"></highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Polls<sp/>=<sp/>XAXIVDMA_RESET_TIMEOUT;</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"></highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(Polls<sp/>&amp;&amp;<sp/><ref refid="group__axivdma_1ga9b0a1008f3e30f3f031763f108f76405" kindref="member">XAxiVdma_ChannelResetNotDone</ref>(WrChannel))<sp/>{</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Polls<sp/>-=<sp/>1;</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"></highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!Polls)<sp/>{</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"></highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"></highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="108"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axivdma/src/xaxivdma_selftest.c"/>
+  </compounddef>
+</doxygen>

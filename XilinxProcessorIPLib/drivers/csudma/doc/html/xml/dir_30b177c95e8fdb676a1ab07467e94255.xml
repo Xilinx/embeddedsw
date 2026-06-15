@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_30b177c95e8fdb676a1ab07467e94255" kind="dir">
+    <compoundname>src</compoundname>
+    <innerfile refid="xasudma_8h">xasudma.h</innerfile>
+    <innerfile refid="xcsudma_8c">xcsudma.c</innerfile>
+    <innerfile refid="xcsudma_8h">xcsudma.h</innerfile>
+    <innerfile refid="xcsudma__g_8c">xcsudma_g.c</innerfile>
+    <innerfile refid="xcsudma__hw_8h">xcsudma_hw.h</innerfile>
+    <innerfile refid="xcsudma__intr_8c">xcsudma_intr.c</innerfile>
+    <innerfile refid="xcsudma__selftest_8c">xcsudma_selftest.c</innerfile>
+    <innerfile refid="xcsudma__sinit_8c">xcsudma_sinit.c</innerfile>
+    <innerfile refid="xpmcdma_8h">xpmcdma.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csudma/src/"/>
+  </compounddef>
+</doxygen>

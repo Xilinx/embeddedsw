@@ -1,0 +1,394 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xilplmi__in__place__asu__update__client__example_8c" kind="file">
+    <compoundname>xilplmi_in_place_asu_update_client_example.c</compoundname>
+    <includes local="yes">xplmi_bsp_config.h</includes>
+    <includes refid="xplmi__plat__client_8h" local="yes">xplmi_plat_client.h</includes>
+    <includes local="yes">xil_util.h</includes>
+    <includes local="yes">xil_cache.h</includes>
+    <includes refid="xplmi__defs_8h" local="yes">xplmi_defs.h</includes>
+    <incdepgraph>
+      <node id="106">
+        <label>xil_cache.h</label>
+      </node>
+      <node id="105">
+        <label>xil_util.h</label>
+      </node>
+      <node id="101">
+        <label>xilmailbox.h</label>
+      </node>
+      <node id="96">
+        <label>xilplmi_in_place_asu_update_client_example.c</label>
+        <link refid="xilplmi_in_place_asu_update_client_example.c"/>
+        <childnode refid="97" relation="include">
+        </childnode>
+        <childnode refid="98" relation="include">
+        </childnode>
+        <childnode refid="105" relation="include">
+        </childnode>
+        <childnode refid="106" relation="include">
+        </childnode>
+        <childnode refid="103" relation="include">
+        </childnode>
+      </node>
+      <node id="97">
+        <label>xplmi_bsp_config.h</label>
+      </node>
+      <node id="100">
+        <label>xplmi_mailbox.h</label>
+        <link refid="xplmi__mailbox_8h"/>
+        <childnode refid="101" relation="include">
+        </childnode>
+        <childnode refid="102" relation="include">
+        </childnode>
+      </node>
+      <node id="99">
+        <label>xil_types.h</label>
+      </node>
+      <node id="102">
+        <label>xparameters.h</label>
+      </node>
+      <node id="104">
+        <label>xil_printf.h</label>
+      </node>
+      <node id="103">
+        <label>xplmi_defs.h</label>
+        <link refid="xplmi__defs_8h"/>
+        <childnode refid="104" relation="include">
+        </childnode>
+        <childnode refid="99" relation="include">
+        </childnode>
+      </node>
+      <node id="98">
+        <label>xplmi_plat_client.h</label>
+        <link refid="xplmi__plat__client_8h"/>
+        <childnode refid="99" relation="include">
+        </childnode>
+        <childnode refid="100" relation="include">
+        </childnode>
+        <childnode refid="103" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__xplmi__client__example__apis_1gaea7146263ccd4ebba8e2f1ce94b3de42" prot="public" static="no">
+        <name>IMG_STORE_SRC</name>
+        <initializer>(0U)</initializer>
+        <briefdescription>
+<para>Source flag for Image Store. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xilplmi_in_place_asu_update_client_example.c" line="58" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xilplmi_in_place_asu_update_client_example.c" bodystart="58" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xplmi__client__example__apis_1gae7b812ba4543afb8805f75f8ba93ddb0" prot="public" static="no">
+        <name>DDR_SRC</name>
+        <initializer>(1U)</initializer>
+        <briefdescription>
+<para>Source flag for DDR. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xilplmi_in_place_asu_update_client_example.c" line="59" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xilplmi_in_place_asu_update_client_example.c" bodystart="59" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xplmi__client__example__apis_1gabe2cddd6244045676f27b23c0060c864" prot="public" static="no">
+        <name>UPDATE_SOURCE</name>
+        <initializer><ref refid="group__xplmi__client__example__apis_1gae7b812ba4543afb8805f75f8ba93ddb0" kindref="member">DDR_SRC</ref></initializer>
+        <briefdescription>
+<para>Select update source: IMG_STORE_SRC or DDR_SRC. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xilplmi_in_place_asu_update_client_example.c" line="88" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xilplmi_in_place_asu_update_client_example.c" bodystart="88" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xplmi__client__example__apis_1ga26c3bbc23f659d18e5ad594d43639efd" prot="public" static="no">
+        <name>PDI_ID</name>
+        <initializer>(0x6U)</initializer>
+        <briefdescription>
+<para>Image Store PDI ID containing ASU firmware. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xilplmi_in_place_asu_update_client_example.c" line="91" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xilplmi_in_place_asu_update_client_example.c" bodystart="91" bodyend="-1"/>
+        <referencedby refid="group__xplmi__client__example__apis_1ga692d91756ee3c4ab68f1aecccab79643" compoundref="xilplmi__in__place__asu__update__client__example_8c" startline="118" endline="170">main</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xplmi__client__example__apis_1ga4018ec3ba4d63ff7eaacf4e8697e5845" prot="public" static="no">
+        <name>DDR_ADDR</name>
+        <initializer>(0x2000000U)</initializer>
+        <briefdescription>
+<para>DDR address where update PDI is loaded. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xilplmi_in_place_asu_update_client_example.c" line="94" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xilplmi_in_place_asu_update_client_example.c" bodystart="94" bodyend="-1"/>
+        <referencedby refid="group__xplmi__client__example__apis_1ga692d91756ee3c4ab68f1aecccab79643" compoundref="xilplmi__in__place__asu__update__client__example_8c" startline="118" endline="170">main</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xplmi__client__example__apis_1gac407ff691c4f866fa21ac09939fae346" prot="public" static="no">
+        <name>XPLMI_CACHE_DISABLE</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xilplmi_in_place_asu_update_client_example.c" line="98" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xilplmi_in_place_asu_update_client_example.c" bodystart="98" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="group__xplmi__client__example__apis_1gafcbaaa8f0d6004614004c4332659d21b" prot="public" static="no">
+        <name>XLoader_AsuUpdate_Src</name>
+        <enumvalue id="group__xplmi__client__example__apis_1ggafcbaaa8f0d6004614004c4332659d21bac41c9287ad0f6f79b0c54b14c7de9bce" prot="public">
+          <name>XLOADER_DDR</name>
+          <briefdescription>
+<para>Update from DDR location. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xplmi__client__example__apis_1ggafcbaaa8f0d6004614004c4332659d21ba95095fc0943fd8b66e18eb0e7a0b85f9" prot="public">
+          <name>XLOADER_IMAGE_STORE</name>
+          <briefdescription>
+<para>Update from Image Store. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>Enumeration for ASU update source types. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xilplmi_in_place_asu_update_client_example.c" line="66" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xilplmi_in_place_asu_update_client_example.c" bodystart="66" bodyend="69"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xplmi__client__example__apis_1ga27f254d2915a1342677c5f3e9d562445" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int InPlaceAsuUpdate</definition>
+        <argsstring>(XPlmi_ClientInstance *InstancePtr, XLoader_AsuUpdate_Src PdiSrc)</argsstring>
+        <name>InPlaceAsuUpdate</name>
+        <param>
+          <type><ref refid="struct_x_plmi___client_instance" kindref="compound">XPlmi_ClientInstance</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="group__xplmi__client__example__apis_1gafcbaaa8f0d6004614004c4332659d21b" kindref="member">XLoader_AsuUpdate_Src</ref></type>
+          <declname>PdiSrc</declname>
+        </param>
+        <briefdescription>
+<para>This function sends request to PLM to perform In-Place ASU firmware update. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_plmi___client_instance" kindref="compound">XPlmi_ClientInstance</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>PdiSrc</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Source of the update PDI (DDR or Image Store).</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if update is successful.</para></listitem><listitem><para>XPLMI_ERR_INPLACE_UPDATE_IN_PROGRESS, if update is already in progress.</para></listitem><listitem><para>XPLMI_ERR_INVALID_RSVD_DDR_REGION_UPDATE, if DDR reserved region is invalid.</para></listitem><listitem><para>XPLMI_ERR_INSUFFICIENT_PLM_RSVD_DDR_REGION, if DDR size is insufficient.</para></listitem><listitem><para>XPLMI_ERR_INPLACE_UPDATE_FROM_IMAGE_STORE, if Image Store update fails.</para></listitem><listitem><para>XLOADER_ERR_ASU_FW_NOT_FOUND, if ASU firmware not found in update PDI.</para></listitem><listitem><para>XPLMI_ERR_ASU_COMPATIBILITY_CHECK, if version compatibility check fails.</para></listitem><listitem><para>XPLMI_ERR_ASU_FW_NOT_RUNNING, if ASU firmware is not running. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xilplmi_in_place_asu_update_client_example.c" line="102" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xilplmi_in_place_asu_update_client_example.c" bodystart="190" bodyend="212"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xplmi__client__example__apis_1ga692d91756ee3c4ab68f1aecccab79643" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>u32 main</definition>
+        <argsstring>(void)</argsstring>
+        <name>main</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This main function to call the In-Place ASU Update example function to perform ASU firmware update. </para>        </briefdescription>
+        <detaileddescription>
+<para>Main function to call the user module example functions.</para><para>Main function to call the Load DDR Copy Image example function.</para><para>Main function to call the config secure communication function.</para><para>Main function to call the ExtractMetaheader example function.</para><para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if example is run successfully.</para></listitem><listitem><para>XST_FAILURE, in case of failure.</para></listitem></itemizedlist>
+</para><simplesectsep/><para><itemizedlist>
+<listitem><para>XST_SUCCESS on success.</para></listitem><listitem><para>Error code on failure.</para></listitem></itemizedlist>
+</para><simplesectsep/><para><itemizedlist>
+<listitem><para>XST_SUCCESS on success.</para></listitem><listitem><para>XST_FAILURE on failure.</para></listitem></itemizedlist>
+</para><simplesectsep/><para><itemizedlist>
+<listitem><para>Handoff to the ROM on success.</para></listitem><listitem><para>Error code on failure. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Initialize mailbox instance.</para><para>Initialize the PLMI client instance.</para><para>Perform In-Place ASU Update based on configured source.</para><para>Invoke Generate for IV, SharedMem contains random data from this call. Only 12 bytes will be used for each IV</para><para>To generate glitch using test mode, configure glitch detectors with default values. To configure glitch detector to detect glitch of at least 5% depth, 1ns width with 0.7V reference voltage, provide Depth = 0x0E, Width = 0x01, RefVoltage = 0x04.To select the register values instead of efuse values, provide UserRegVal = 0x01</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xilplmi_in_place_asu_update_client_example.c" line="118" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xilplmi_in_place_asu_update_client_example.c" bodystart="118" bodyend="170"/>
+        <references refid="group__xplmi__client__example__apis_1ga4018ec3ba4d63ff7eaacf4e8697e5845" compoundref="xilplmi__in__place__asu__update__client__example_8c" startline="94">DDR_ADDR</references>
+        <references refid="group__xplmi__client__example__apis_1ga26c3bbc23f659d18e5ad594d43639efd" compoundref="xilplmi__in__place__asu__update__client__example_8c" startline="91">PDI_ID</references>
+        <references refid="group__xplmi__client__example__apis_1ggafcbaaa8f0d6004614004c4332659d21bac41c9287ad0f6f79b0c54b14c7de9bce" compoundref="xilplmi__in__place__asu__update__client__example_8c" startline="67">XLOADER_DDR</references>
+        <references refid="group__xplmi__client__example__apis_1ggafcbaaa8f0d6004614004c4332659d21ba95095fc0943fd8b66e18eb0e7a0b85f9" compoundref="xilplmi__in__place__asu__update__client__example_8c" startline="68">XLOADER_IMAGE_STORE</references>
+        <references refid="group__xilplmi__mailbox__apis_1gaea4605770a6e4090bac10578131ca925" compoundref="xplmi__mailbox_8c" startline="101" endline="116">XPlmi_ClientInit</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This example illustrates In-place ASU firmware update based on user data. </para>    </briefdescription>
+    <detaileddescription>
+<para>To build this application, xilmailbox library must be included in BSP and xilplmi library must be in client mode</para><para>This example is supported for Versal 2VE/2VM devices.</para><para><heading level="2">Procedure to run the example: </heading>
+</para><para><orderedlist>
+<listitem><para>Load the boot PDI with ASU firmware.</para></listitem><listitem><para>Download the update PDI with new ASU firmware into DDR (or use Image Store).</para></listitem><listitem><para>Configure DDR_ADDR or PDI_ID macros below based on your setup.</para></listitem><listitem><para>Select the target processor (typically A72/R52).</para></listitem><listitem><para>Download the example elf into the target.</para></listitem><listitem><para>Run the application - ASU firmware will be updated without affecting PLM.</para></listitem></orderedlist>
+</para><para><simplesect kind="note"><para><itemizedlist>
+<listitem><para>The update PDI must contain ASU firmware image (Image ID: 0x1C000002)</para></listitem><listitem><para>DDR reserved region must be configured in PLM (minimum 512KB for ASU state backup)</para></listitem><listitem><para>ASU firmware version compatibility will be checked (major version must match)</para></listitem></itemizedlist>
+</para></simplesect>
+<preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+1.00  vm   03/16/26 Initial release</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/**************************************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">**************************************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/*************************************************************************************************/</highlight></codeline>
+<codeline lineno="47"><highlight class="comment">/***************************************<sp/>Include<sp/>Files<sp/>*******************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>SDT</highlight></codeline>
+<codeline lineno="50"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xplmi_bsp_config.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="52"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xplmi__plat__client_8h" kindref="compound">xplmi_plat_client.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_util.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_cache.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xplmi__defs_8h" kindref="compound">xplmi_defs.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight><highlight class="comment">/************************************<sp/>Constant<sp/>Definitions<sp/>***************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="58" refid="group__xplmi__client__example__apis_1gaea7146263ccd4ebba8e2f1ce94b3de42" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>IMG_STORE_SRC<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0U)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="59" refid="group__xplmi__client__example__apis_1gae7b812ba4543afb8805f75f8ba93ddb0" refkind="member"><highlight class="preprocessor">#define<sp/>DDR_SRC<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1U)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="61"><highlight class="preprocessor"></highlight><highlight class="comment">/**************************************<sp/>Type<sp/>Definitions<sp/>*****************************************/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="62"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="66" refid="group__xplmi__client__example__apis_1gafcbaaa8f0d6004614004c4332659d21b" refkind="member"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="67" refid="group__xplmi__client__example__apis_1ggafcbaaa8f0d6004614004c4332659d21bac41c9287ad0f6f79b0c54b14c7de9bce" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xplmi__client__example__apis_1ggafcbaaa8f0d6004614004c4332659d21bac41c9287ad0f6f79b0c54b14c7de9bce" kindref="member">XLOADER_DDR</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="68" refid="group__xplmi__client__example__apis_1ggafcbaaa8f0d6004614004c4332659d21ba95095fc0943fd8b66e18eb0e7a0b85f9" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xplmi__client__example__apis_1ggafcbaaa8f0d6004614004c4332659d21ba95095fc0943fd8b66e18eb0e7a0b85f9" kindref="member">XLOADER_IMAGE_STORE</ref>,<sp/><sp/></highlight></codeline>
+<codeline lineno="69"><highlight class="normal">}<sp/><ref refid="group__xplmi__client__example__apis_1gafcbaaa8f0d6004614004c4332659d21b" kindref="member">XLoader_AsuUpdate_Src</ref>;</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight><highlight class="comment">/***************************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="74"><highlight class="comment"><sp/>*<sp/>User<sp/>Configuration<sp/>Section</highlight></codeline>
+<codeline lineno="75"><highlight class="comment"><sp/>*<sp/>------------------------------------------------------------------------------------------------</highlight></codeline>
+<codeline lineno="76"><highlight class="comment"><sp/>*<sp/>Configure<sp/>the<sp/>update<sp/>source<sp/>and<sp/>related<sp/>parameters<sp/>based<sp/>on<sp/>your<sp/>setup:</highlight></codeline>
+<codeline lineno="77"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="78"><highlight class="comment"><sp/>*<sp/>Option<sp/>1:<sp/>Update<sp/>from<sp/>Image<sp/>Store</highlight></codeline>
+<codeline lineno="79"><highlight class="comment"><sp/>*<sp/><sp/><sp/>-<sp/>Set<sp/>UPDATE_SOURCE<sp/>to<sp/>IMG_STORE_SRC</highlight></codeline>
+<codeline lineno="80"><highlight class="comment"><sp/>*<sp/><sp/><sp/>-<sp/>Configure<sp/>PDI_ID<sp/>with<sp/>the<sp/>Image<sp/>Store<sp/>PDI<sp/>ID<sp/>containing<sp/>ASU<sp/>firmware</highlight></codeline>
+<codeline lineno="81"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="82"><highlight class="comment"><sp/>*<sp/>Option<sp/>2:<sp/>Update<sp/>from<sp/>DDR</highlight></codeline>
+<codeline lineno="83"><highlight class="comment"><sp/>*<sp/><sp/><sp/>-<sp/>Set<sp/>UPDATE_SOURCE<sp/>to<sp/>DDR_SRC</highlight></codeline>
+<codeline lineno="84"><highlight class="comment"><sp/>*<sp/><sp/><sp/>-<sp/>Configure<sp/>DDR_ADDR<sp/>with<sp/>the<sp/>DDR<sp/>address<sp/>where<sp/>update<sp/>PDI<sp/>is<sp/>loaded</highlight></codeline>
+<codeline lineno="85"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="86"><highlight class="normal"></highlight></codeline>
+<codeline lineno="87"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Update<sp/>source<sp/>selection<sp/>-<sp/>Choose<sp/>one:<sp/>IMG_STORE_SRC<sp/>or<sp/>DDR_SRC<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="88" refid="group__xplmi__client__example__apis_1gabe2cddd6244045676f27b23c0060c864" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>UPDATE_SOURCE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DDR_SRC<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="90"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>Image<sp/>Store<sp/>configuration<sp/>(used<sp/>when<sp/>UPDATE_SOURCE<sp/>=<sp/>IMG_STORE_SRC)<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="91" refid="group__xplmi__client__example__apis_1ga26c3bbc23f659d18e5ad594d43639efd" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PDI_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x6U)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="93"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>DDR<sp/>configuration<sp/>(used<sp/>when<sp/>UPDATE_SOURCE<sp/>=<sp/>DDR_SRC)<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="94" refid="group__xplmi__client__example__apis_1ga4018ec3ba4d63ff7eaacf4e8697e5845" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>DDR_ADDR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x2000000U)<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="96"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>Update<sp/>source<sp/>options<sp/>-<sp/>Do<sp/>not<sp/>modify<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="97"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="98"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_CACHE_DISABLE</highlight></codeline>
+<codeline lineno="99"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="100"><highlight class="normal"></highlight><highlight class="comment">/************************************<sp/>Function<sp/>Prototypes<sp/>****************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="101"><highlight class="normal"></highlight></codeline>
+<codeline lineno="102"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>InPlaceAsuUpdate(<ref refid="struct_x_plmi___client_instance" kindref="compound">XPlmi_ClientInstance</ref><sp/>*InstancePtr,<sp/><ref refid="group__xplmi__client__example__apis_1gafcbaaa8f0d6004614004c4332659d21b" kindref="member">XLoader_AsuUpdate_Src</ref><sp/>PdiSrc);</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"></highlight></codeline>
+<codeline lineno="104"><highlight class="normal"></highlight><highlight class="comment">/************************************<sp/>Variable<sp/>Definitions<sp/>***************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="105"><highlight class="normal"></highlight></codeline>
+<codeline lineno="106"><highlight class="normal"></highlight><highlight class="comment">/************************************<sp/>Function<sp/>Definitions<sp/>***************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="107"><highlight class="normal"></highlight></codeline>
+<codeline lineno="108"><highlight class="normal"></highlight><highlight class="comment">/*************************************************************************************************/</highlight></codeline>
+<codeline lineno="118" refid="group__xplmi__client__example__apis_1ga692d91756ee3c4ab68f1aecccab79643" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xplmi__client__example__apis_1ga692d91756ee3c4ab68f1aecccab79643" kindref="member">main</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="119"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMailbox<sp/>MailboxInstance;</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_plmi___client_instance" kindref="compound">XPlmi_ClientInstance</ref><sp/>PlmiClientInstance;</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"></highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;\r\nIn-Place<sp/>ASU<sp/>Firmware<sp/>Update<sp/>Client<sp/>Example\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"></highlight></codeline>
+<codeline lineno="126"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>XPLMI_CACHE_DISABLE</highlight></codeline>
+<codeline lineno="127"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_DCacheDisable();</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="129"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="131"><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="132"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XMailbox_Initialize(&amp;MailboxInstance,<sp/>0U);</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="134"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XMailbox_Initialize(&amp;MailboxInstance,<sp/>XPAR_XIPIPSU_0_BASEADDR);</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="136"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Mailbox<sp/>initialization<sp/>failed<sp/>with<sp/>error:<sp/>0x%08x\r\n&quot;</highlight><highlight class="normal">,<sp/>Status);</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"></highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xilplmi__mailbox__apis_1gaea4605770a6e4090bac10578131ca925" kindref="member">XPlmi_ClientInit</ref>(&amp;PlmiClientInstance,<sp/>&amp;MailboxInstance);</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;PLMI<sp/>Client<sp/>initialization<sp/>failed<sp/>with<sp/>error:<sp/>0x%08x\r\n&quot;</highlight><highlight class="normal">,<sp/>Status);</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"></highlight></codeline>
+<codeline lineno="149"><highlight class="preprocessor">#if<sp/>(UPDATE_SOURCE<sp/>==<sp/>DDR_SRC)</highlight></codeline>
+<codeline lineno="150"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;\r\nTriggering<sp/>ASU<sp/>firmware<sp/>update<sp/>from<sp/>DDR...\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Update<sp/>PDI<sp/>Address:<sp/>0x%08x\r\n&quot;</highlight><highlight class="normal">,<sp/><ref refid="group__xplmi__client__example__apis_1ga4018ec3ba4d63ff7eaacf4e8697e5845" kindref="member">DDR_ADDR</ref>);</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>InPlaceAsuUpdate(&amp;PlmiClientInstance,<sp/><ref refid="group__xplmi__client__example__apis_1ggafcbaaa8f0d6004614004c4332659d21bac41c9287ad0f6f79b0c54b14c7de9bce" kindref="member">XLOADER_DDR</ref>);</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"></highlight><highlight class="preprocessor">#elif<sp/>(UPDATE_SOURCE<sp/>==<sp/>IMG_STORE_SRC)</highlight></codeline>
+<codeline lineno="154"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;\r\nTriggering<sp/>ASU<sp/>firmware<sp/>update<sp/>from<sp/>Image<sp/>Store...\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;PDI<sp/>ID:<sp/>0x%08x\r\n&quot;</highlight><highlight class="normal">,<sp/><ref refid="group__xplmi__client__example__apis_1ga26c3bbc23f659d18e5ad594d43639efd" kindref="member">PDI_ID</ref>);</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>InPlaceAsuUpdate(&amp;PlmiClientInstance,<sp/><ref refid="group__xplmi__client__example__apis_1ggafcbaaa8f0d6004614004c4332659d21ba95095fc0943fd8b66e18eb0e7a0b85f9" kindref="member">XLOADER_IMAGE_STORE</ref>);</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="158"><highlight class="preprocessor"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#error<sp/>&quot;Invalid<sp/>UPDATE_SOURCE<sp/>configuration.<sp/>Please<sp/>set<sp/>to<sp/>either<sp/>DDR_SRC<sp/>or<sp/>IMG_STORE_SRC&quot;</highlight></codeline>
+<codeline lineno="159"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="160"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="161"><highlight class="normal">END:</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>==<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;\r\nSuccessfully<sp/>ran<sp/>In_Place<sp/>ASUFW<sp/>Update<sp/>client<sp/>example....&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;\r\nIn_Place<sp/>ASUFW<sp/>Update<sp/>failed<sp/>with<sp/>error<sp/>code<sp/>=<sp/>%08x&quot;</highlight><highlight class="normal">,<sp/>Status);</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"></highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="170"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"></highlight></codeline>
+<codeline lineno="172"><highlight class="normal"></highlight><highlight class="comment">/*************************************************************************************************/</highlight></codeline>
+<codeline lineno="190"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>InPlaceAsuUpdate(<ref refid="struct_x_plmi___client_instance" kindref="compound">XPlmi_ClientInstance</ref><sp/>*InstancePtr,<sp/><ref refid="group__xplmi__client__example__apis_1gafcbaaa8f0d6004614004c4332659d21b" kindref="member">XLoader_AsuUpdate_Src</ref><sp/>PdiSrc)</highlight></codeline>
+<codeline lineno="191"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="192"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="193"><highlight class="normal"></highlight></codeline>
+<codeline lineno="194"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">switch</highlight><highlight class="normal"><sp/>(PdiSrc)<sp/>{</highlight></codeline>
+<codeline lineno="195"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="group__xplmi__client__example__apis_1ggafcbaaa8f0d6004614004c4332659d21bac41c9287ad0f6f79b0c54b14c7de9bce" kindref="member">XLOADER_DDR</ref>:</highlight></codeline>
+<codeline lineno="196"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Initiating<sp/>ASU<sp/>update<sp/>from<sp/>DDR<sp/>address:<sp/>0x%08x\r\n&quot;</highlight><highlight class="normal">,<sp/><ref refid="group__xplmi__client__example__apis_1ga4018ec3ba4d63ff7eaacf4e8697e5845" kindref="member">DDR_ADDR</ref>);</highlight></codeline>
+<codeline lineno="197"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xilplmi__client__apis_1ga4626d920c560e654f0b82b03048adfac" kindref="member">XPlmi_InPlaceAsuUpdate_DDR</ref>(InstancePtr,<sp/><ref refid="group__xplmi__client__example__apis_1gae7b812ba4543afb8805f75f8ba93ddb0" kindref="member">DDR_SRC</ref>,<sp/><ref refid="group__xplmi__client__example__apis_1ga4018ec3ba4d63ff7eaacf4e8697e5845" kindref="member">DDR_ADDR</ref>);</highlight></codeline>
+<codeline lineno="198"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"></highlight></codeline>
+<codeline lineno="200"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="group__xplmi__client__example__apis_1ggafcbaaa8f0d6004614004c4332659d21ba95095fc0943fd8b66e18eb0e7a0b85f9" kindref="member">XLOADER_IMAGE_STORE</ref>:</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Initiating<sp/>ASU<sp/>update<sp/>from<sp/>Image<sp/>Store<sp/>PDI<sp/>ID:<sp/>0x%08x\r\n&quot;</highlight><highlight class="normal">,<sp/><ref refid="group__xplmi__client__example__apis_1ga26c3bbc23f659d18e5ad594d43639efd" kindref="member">PDI_ID</ref>);</highlight></codeline>
+<codeline lineno="202"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xilplmi__client__apis_1ga40bae5d3fd442d68e557b2fb07047389" kindref="member">XPlmi_InPlaceAsuUpdate_ImageStore</ref>(InstancePtr,<sp/><ref refid="group__xplmi__client__example__apis_1gaea7146263ccd4ebba8e2f1ce94b3de42" kindref="member">IMG_STORE_SRC</ref>,<sp/><ref refid="group__xplmi__client__example__apis_1ga26c3bbc23f659d18e5ad594d43639efd" kindref="member">PDI_ID</ref>);</highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"></highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="206"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Invalid<sp/>PDI<sp/>source<sp/>specified\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="207"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="208"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="209"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="210"><highlight class="normal"></highlight></codeline>
+<codeline lineno="211"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="212"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="213"><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xilplmi_in_place_asu_update_client_example.c"/>
+  </compounddef>
+</doxygen>

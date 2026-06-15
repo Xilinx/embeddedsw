@@ -1,0 +1,292 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group____cam__device__3dnr" kind="group">
+    <compoundname>_cam_device_3dnr</compoundname>
+    <title>VsCamDevice E01C09_3DNR Definitions</title>
+    <innerclass refid="struct_cam_device3_dnr_temporal_manual_config__s" prot="public">CamDevice3DnrTemporalManualConfig_s</innerclass>
+    <innerclass refid="struct_cam_device3_dnr_temporal_auto_config__s" prot="public">CamDevice3DnrTemporalAutoConfig_s</innerclass>
+    <innerclass refid="struct_cam_device3_dnr_auto_config__s" prot="public">CamDevice3DnrAutoConfig_s</innerclass>
+    <innerclass refid="struct_cam_device3_dnr_manual_config__s" prot="public">CamDevice3DnrManualConfig_s</innerclass>
+    <innerclass refid="struct_cam_device3_dnr_config__s" prot="public">CamDevice3DnrConfig_s</innerclass>
+    <innerclass refid="struct_cam_device3_dnr_status__s" prot="public">CamDevice3DnrStatus_s</innerclass>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="group____cam__device__3dnr_1ga4648ab0d2faba1673c4e8d28164d8b1f" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device3_dnr_temporal_manual_config__s" kindref="compound">CamDevice3DnrTemporalManualConfig_s</ref></type>
+        <definition>typedef struct CamDevice3DnrTemporalManualConfig_s CamDevice3DnrTemporalManualConfig_t</definition>
+        <argsstring></argsstring>
+        <name>CamDevice3DnrTemporalManualConfig_t</name>
+        <briefdescription>
+<para>VsCamDevice 3DNR temporal manual configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_3dnr_api.h" line="58" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__3dnr_1gaae16cbf92f69c80c8625c21ecc00cb17" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device3_dnr_temporal_auto_config__s" kindref="compound">CamDevice3DnrTemporalAutoConfig_s</ref></type>
+        <definition>typedef struct CamDevice3DnrTemporalAutoConfig_s CamDevice3DnrTemporalAutoConfig_t</definition>
+        <argsstring></argsstring>
+        <name>CamDevice3DnrTemporalAutoConfig_t</name>
+        <briefdescription>
+<para>VsCamDevice 3DNR temporal auto configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_3dnr_api.h" line="72" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__3dnr_1ga188bd872ba29a917d8ce93ba9009ad53" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device3_dnr_auto_config__s" kindref="compound">CamDevice3DnrAutoConfig_s</ref></type>
+        <definition>typedef struct CamDevice3DnrAutoConfig_s CamDevice3DnrAutoConfig_t</definition>
+        <argsstring></argsstring>
+        <name>CamDevice3DnrAutoConfig_t</name>
+        <briefdescription>
+<para>VsCamDevice 3DNR V2.1 configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_3dnr_api.h" line="88" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__3dnr_1gaaf98d37312882e950cb93b4c7f0c2c35" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device3_dnr_manual_config__s" kindref="compound">CamDevice3DnrManualConfig_s</ref></type>
+        <definition>typedef struct CamDevice3DnrManualConfig_s CamDevice3DnrManualConfig_t</definition>
+        <argsstring></argsstring>
+        <name>CamDevice3DnrManualConfig_t</name>
+        <briefdescription>
+<para>VsCamDevice 3DNR V2.1 current configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_3dnr_api.h" line="102" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__3dnr_1ga001f5b7c26e4b86a818e261ec5bb11ce" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device3_dnr_config__s" kindref="compound">CamDevice3DnrConfig_s</ref></type>
+        <definition>typedef struct CamDevice3DnrConfig_s CamDevice3DnrConfig_t</definition>
+        <argsstring></argsstring>
+        <name>CamDevice3DnrConfig_t</name>
+        <briefdescription>
+<para>VsCamDevice 3DNR V2.1 configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_3dnr_api.h" line="113" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__3dnr_1gaa819cab05e7c9e9c219f490b250b0542" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device3_dnr_status__s" kindref="compound">CamDevice3DnrStatus_s</ref></type>
+        <definition>typedef struct CamDevice3DnrStatus_s CamDevice3DnrStatus_t</definition>
+        <argsstring></argsstring>
+        <name>CamDevice3DnrStatus_t</name>
+        <briefdescription>
+<para>VsCamDevice 3DNR status structure. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_3dnr_api.h" line="125" column="1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group____cam__device__3dnr_1gaf3fb25e7a161891d9309f1ba2ba62f79" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDevice3DnrSetConfig</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, CamDevice3DnrConfig_t *pConfig)</argsstring>
+        <name>VsiCamDevice3DnrSetConfig</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type><ref refid="group____cam__device__3dnr_1ga001f5b7c26e4b86a818e261ec5bb11ce" kindref="member">CamDevice3DnrConfig_t</ref> *</type>
+          <declname>pConfig</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_3dnr_api.h" line="150" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/dummy/cam_device_3dnr_api.c" bodystart="18" bodyend="24"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__3dnr_1gaeb414fe3888c8215766e9738988aef88" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDevice3DnrGetConfig</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, CamDevice3DnrConfig_t *pConfig)</argsstring>
+        <name>VsiCamDevice3DnrGetConfig</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type><ref refid="group____cam__device__3dnr_1ga001f5b7c26e4b86a818e261ec5bb11ce" kindref="member">CamDevice3DnrConfig_t</ref> *</type>
+          <declname>pConfig</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_3dnr_api.h" line="179" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/dummy/cam_device_3dnr_api.c" bodystart="28" bodyend="34"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__3dnr_1gac8d42057d03cc928e2dea154aa26b453" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDevice3DnrEnable</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice)</argsstring>
+        <name>VsiCamDevice3DnrEnable</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_3dnr_api.h" line="201" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/dummy/cam_device_3dnr_api.c" bodystart="38" bodyend="44"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__3dnr_1ga00abbc4256fa4e60004412802905069b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDevice3DnrDisable</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice)</argsstring>
+        <name>VsiCamDevice3DnrDisable</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_3dnr_api.h" line="222" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/dummy/cam_device_3dnr_api.c" bodystart="48" bodyend="54"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__3dnr_1ga2560651c9cb2f1011ac92effe90b8f3b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDevice3DnrMotionDilationEnable</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice)</argsstring>
+        <name>VsiCamDevice3DnrMotionDilationEnable</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_3dnr_api.h" line="243" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__3dnr_1ga2180ae6341df5e7a82be89d40873b123" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDevice3DnrMotionDilationDisable</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice)</argsstring>
+        <name>VsiCamDevice3DnrMotionDilationDisable</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_3dnr_api.h" line="264" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__3dnr_1ga78699b7da1ff18c80b405791c59593de" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDevice3DnrGetStatus</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, CamDevice3DnrStatus_t *pStatus)</argsstring>
+        <name>VsiCamDevice3DnrGetStatus</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type><ref refid="group____cam__device__3dnr_1gaa819cab05e7c9e9c219f490b250b0542" kindref="member">CamDevice3DnrStatus_t</ref> *</type>
+          <declname>pStatus</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_3dnr_api.h" line="291" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/dummy/cam_device_3dnr_api.c" bodystart="57" bodyend="64"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__3dnr_1ga919b4a356961bbf3b3af53397b801afe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDevice3DnrReset</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice)</argsstring>
+        <name>VsiCamDevice3DnrReset</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_3dnr_api.h" line="318" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/dummy/cam_device_3dnr_api.c" bodystart="76" bodyend="81"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__3dnr_1gafe283a49abc404588908b660ca6136bb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDevice3DnrGetVersion</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, uint32_t *pVersion)</argsstring>
+        <name>VsiCamDevice3DnrGetVersion</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type>uint32_t *</type>
+          <declname>pVersion</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_3dnr_api.h" line="339" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/dummy/cam_device_3dnr_api.c" bodystart="67" bodyend="73"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group____cam__device__3dnr_1ga55352580d299e4c2c4388fbec8bfa853" prot="public" static="no">
+        <name>CAMDEV_3DNR_TEMPORAL_CURVE_NUM</name>
+        <initializer>17</initializer>
+        <briefdescription>
+<para>The number of 3DNR temporal curves. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_3dnr_api.h" line="44" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_3dnr_api.h" bodystart="44" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group____cam__device__3dnr_1gabbcf400e6a168f83dabe488e808b39e2" prot="public" static="no">
+        <name>CAMDEV_3DNR_BLS_EXP_NUM</name>
+        <initializer>4</initializer>
+        <briefdescription>
+<para>The number of 3DNR gammaFeBe bls. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_3dnr_api.h" line="45" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_3dnr_api.h" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

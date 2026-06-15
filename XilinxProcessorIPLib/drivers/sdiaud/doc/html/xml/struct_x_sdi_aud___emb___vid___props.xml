@@ -1,0 +1,61 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_sdi_aud___emb___vid___props" kind="struct" prot="public">
+    <compoundname>XSdiAud_Emb_Vid_Props</compoundname>
+    <includes local="no">xsdiaud.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_sdi_aud___emb___vid___props_1ad0f8b43cbf25fd42bfaad2a4b4fc63dd" prot="public" static="no" mutable="no">
+        <type><ref refid="group__sdiaud_1gaa2d44b5a5f106b25efc2428ec92f4859" kindref="member">XSdiAud_VidFam</ref></type>
+        <definition>XSdiAud_VidFam XSdiAud_Emb_Vid_Props::XSdiAud_TFamily</definition>
+        <argsstring></argsstring>
+        <name>XSdiAud_TFamily</name>
+        <briefdescription>
+<para>Transport video family, it is enum XSdiAud_VidFam. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.h" line="376" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.h" bodystart="376" bodyend="-1"/>
+        <referencedby refid="group__sdiaud_1ga2e6fdf2a0ae109374f59cf3a3dea1ac8" compoundref="xsdiaud_8c" startline="318" endline="350">XSdiAud_Emb_SetVidProps</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_sdi_aud___emb___vid___props_1ade28d08d30145b99b3e329b0f66937d0" prot="public" static="no" mutable="no">
+        <type><ref refid="group__sdiaud_1ga1cde6390590b01c7b7cc6a495ab1674d" kindref="member">XSdiAud_VidRate</ref></type>
+        <definition>XSdiAud_VidRate XSdiAud_Emb_Vid_Props::XSdiAud_TRate</definition>
+        <argsstring></argsstring>
+        <name>XSdiAud_TRate</name>
+        <briefdescription>
+<para>Transport video rate, it is enum XSdiAud_VidRate. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.h" line="378" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.h" bodystart="378" bodyend="-1"/>
+        <referencedby refid="group__sdiaud_1ga2e6fdf2a0ae109374f59cf3a3dea1ac8" compoundref="xsdiaud_8c" startline="318" endline="350">XSdiAud_Emb_SetVidProps</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_sdi_aud___emb___vid___props_1aa82d5f2bfaa38f0624a61788804cea87" prot="public" static="no" mutable="no">
+        <type><ref refid="group__sdiaud_1ga81acb6c158d3f25c466ea9e7065fa7bd" kindref="member">XSdiAud_VidScan</ref></type>
+        <definition>XSdiAud_VidScan XSdiAud_Emb_Vid_Props::XSdiAud_TScan</definition>
+        <argsstring></argsstring>
+        <name>XSdiAud_TScan</name>
+        <briefdescription>
+<para>Transport video scan, it is enum XSdiAud_VidScan. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.h" line="380" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.h" bodystart="380" bodyend="-1"/>
+        <referencedby refid="group__sdiaud_1ga2e6fdf2a0ae109374f59cf3a3dea1ac8" compoundref="xsdiaud_8c" startline="318" endline="350">XSdiAud_Emb_SetVidProps</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This structure contains the video properties. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.h" line="375" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.h" bodystart="375" bodyend="382"/>
+    <listofallmembers>
+      <member refid="struct_x_sdi_aud___emb___vid___props_1ad0f8b43cbf25fd42bfaad2a4b4fc63dd" prot="public" virt="non-virtual"><scope>XSdiAud_Emb_Vid_Props</scope><name>XSdiAud_TFamily</name></member>
+      <member refid="struct_x_sdi_aud___emb___vid___props_1ade28d08d30145b99b3e329b0f66937d0" prot="public" virt="non-virtual"><scope>XSdiAud_Emb_Vid_Props</scope><name>XSdiAud_TRate</name></member>
+      <member refid="struct_x_sdi_aud___emb___vid___props_1aa82d5f2bfaa38f0624a61788804cea87" prot="public" virt="non-virtual"><scope>XSdiAud_Emb_Vid_Props</scope><name>XSdiAud_TScan</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,113 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_video___c_r_c___config" kind="struct" prot="public">
+    <compoundname>Video_CRC_Config</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_video___c_r_c___config_1a2d3e4eb28462799ff9115ed76261e4f0" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 Video_CRC_Config::TEST_CRC_CNT</definition>
+        <argsstring></argsstring>
+        <name>TEST_CRC_CNT</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/examples/src/zcu_pt/xvidframe_crc.h" line="63" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/examples/src/zcu_pt/xvidframe_crc.h" bodystart="63" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_video___c_r_c___config_1a61b10f930fd7356b69a7afa53365bb47" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 Video_CRC_Config::TEST_CRC_SUPPORTED</definition>
+        <argsstring></argsstring>
+        <name>TEST_CRC_SUPPORTED</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/examples/src/zcu_pt/xvidframe_crc.h" line="64" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/examples/src/zcu_pt/xvidframe_crc.h" bodystart="64" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_video___c_r_c___config_1add11f2b84774c96d3fe82ede74ed2cab" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 Video_CRC_Config::TEST_CRC_START_STOP</definition>
+        <argsstring></argsstring>
+        <name>TEST_CRC_START_STOP</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/examples/src/zcu_pt/xvidframe_crc.h" line="65" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/examples/src/zcu_pt/xvidframe_crc.h" bodystart="65" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_video___c_r_c___config_1a48d565c043c12539ec8f79389442cc36" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 Video_CRC_Config::Pixel_r</definition>
+        <argsstring></argsstring>
+        <name>Pixel_r</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/examples/src/zcu_pt/xvidframe_crc.h" line="66" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/examples/src/zcu_pt/xvidframe_crc.h" bodystart="66" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_video___c_r_c___config_1a439326dc25566524de20b196f8c7ef5a" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 Video_CRC_Config::Pixel_g</definition>
+        <argsstring></argsstring>
+        <name>Pixel_g</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/examples/src/zcu_pt/xvidframe_crc.h" line="67" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/examples/src/zcu_pt/xvidframe_crc.h" bodystart="67" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_video___c_r_c___config_1a3e09060ce62888a6cd397d15d691b658" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 Video_CRC_Config::Pixel_b</definition>
+        <argsstring></argsstring>
+        <name>Pixel_b</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/examples/src/zcu_pt/xvidframe_crc.h" line="68" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/examples/src/zcu_pt/xvidframe_crc.h" bodystart="68" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_video___c_r_c___config_1a0f45e4525febf55d651cd4dcbceeef4b" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 Video_CRC_Config::Mode_422</definition>
+        <argsstring></argsstring>
+        <name>Mode_422</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/examples/src/zcu_pt/xvidframe_crc.h" line="69" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/examples/src/zcu_pt/xvidframe_crc.h" bodystart="69" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/examples/src/zcu_pt/xvidframe_crc.h" line="62" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/examples/src/zcu_pt/xvidframe_crc.h" bodystart="62" bodyend="70"/>
+    <listofallmembers>
+      <member refid="struct_video___c_r_c___config_1a0f45e4525febf55d651cd4dcbceeef4b" prot="public" virt="non-virtual"><scope>Video_CRC_Config</scope><name>Mode_422</name></member>
+      <member refid="struct_video___c_r_c___config_1a3e09060ce62888a6cd397d15d691b658" prot="public" virt="non-virtual"><scope>Video_CRC_Config</scope><name>Pixel_b</name></member>
+      <member refid="struct_video___c_r_c___config_1a439326dc25566524de20b196f8c7ef5a" prot="public" virt="non-virtual"><scope>Video_CRC_Config</scope><name>Pixel_g</name></member>
+      <member refid="struct_video___c_r_c___config_1a48d565c043c12539ec8f79389442cc36" prot="public" virt="non-virtual"><scope>Video_CRC_Config</scope><name>Pixel_r</name></member>
+      <member refid="struct_video___c_r_c___config_1a2d3e4eb28462799ff9115ed76261e4f0" prot="public" virt="non-virtual"><scope>Video_CRC_Config</scope><name>TEST_CRC_CNT</name></member>
+      <member refid="struct_video___c_r_c___config_1add11f2b84774c96d3fe82ede74ed2cab" prot="public" virt="non-virtual"><scope>Video_CRC_Config</scope><name>TEST_CRC_START_STOP</name></member>
+      <member refid="struct_video___c_r_c___config_1a61b10f930fd7356b69a7afa53365bb47" prot="public" virt="non-virtual"><scope>Video_CRC_Config</scope><name>TEST_CRC_SUPPORTED</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

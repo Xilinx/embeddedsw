@@ -1,0 +1,128 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_cam_device_wdr_halo_color_fading_config__s" kind="struct" prot="public">
+    <compoundname>CamDeviceWdrHaloColorFadingConfig_s</compoundname>
+    <includes local="no">cam_device_wdr_api.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_cam_device_wdr_halo_color_fading_config__s_1af17665012d1bc0c99c48ae7751cf376e" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t CamDeviceWdrHaloColorFadingConfig_s::lightSatLothr</definition>
+        <argsstring></argsstring>
+        <name>lightSatLothr</name>
+        <briefdescription>
+<para>WDR light saturation low threshold. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="184" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" bodystart="184" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_wdr_halo_color_fading_config__s_1ac9bebbd72264c63cef25dfa26a05adfd" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t CamDeviceWdrHaloColorFadingConfig_s::lightSatHithr</definition>
+        <argsstring></argsstring>
+        <name>lightSatHithr</name>
+        <briefdescription>
+<para>WDR light saturation high threshold. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="185" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" bodystart="185" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_wdr_halo_color_fading_config__s_1af454c184e0600f905caa52d9a0e38fff" prot="public" static="no" mutable="no">
+        <type>float32_t</type>
+        <definition>float32_t CamDeviceWdrHaloColorFadingConfig_s::lightRedThrLog[CAMDEV_WDR_LIGHT_THR_LOG_SIZE]</definition>
+        <argsstring>[CAMDEV_WDR_LIGHT_THR_LOG_SIZE]</argsstring>
+        <name>lightRedThrLog</name>
+        <briefdescription>
+<para>WDR red light threshold log. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="186" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" bodystart="186" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_wdr_halo_color_fading_config__s_1a766b8b41919b1752c8654436abdf0801" prot="public" static="no" mutable="no">
+        <type>float32_t</type>
+        <definition>float32_t CamDeviceWdrHaloColorFadingConfig_s::lightGreenThrLog[CAMDEV_WDR_LIGHT_THR_LOG_SIZE]</definition>
+        <argsstring>[CAMDEV_WDR_LIGHT_THR_LOG_SIZE]</argsstring>
+        <name>lightGreenThrLog</name>
+        <briefdescription>
+<para>WDR green light threshold log. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="187" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" bodystart="187" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_wdr_halo_color_fading_config__s_1ad1bdf7df14f266af5ca5f34854ac8337" prot="public" static="no" mutable="no">
+        <type>float32_t</type>
+        <definition>float32_t CamDeviceWdrHaloColorFadingConfig_s::lightBlueThrLog[CAMDEV_WDR_LIGHT_THR_LOG_SIZE]</definition>
+        <argsstring>[CAMDEV_WDR_LIGHT_THR_LOG_SIZE]</argsstring>
+        <name>lightBlueThrLog</name>
+        <briefdescription>
+<para>WDR blue light threshold log. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="188" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" bodystart="188" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_wdr_halo_color_fading_config__s_1a25033e0632f8bc3848af5baccd8e9241" prot="public" static="no" mutable="no">
+        <type>float32_t</type>
+        <definition>float32_t CamDeviceWdrHaloColorFadingConfig_s::lightYellowThrLog[CAMDEV_WDR_LIGHT_THR_LOG_SIZE]</definition>
+        <argsstring>[CAMDEV_WDR_LIGHT_THR_LOG_SIZE]</argsstring>
+        <name>lightYellowThrLog</name>
+        <briefdescription>
+<para>WDR yellow light threshold log. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="189" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" bodystart="189" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_wdr_halo_color_fading_config__s_1a75ee9ec84128deb88d9cdc002eb9e997" prot="public" static="no" mutable="no">
+        <type>float32_t</type>
+        <definition>float32_t CamDeviceWdrHaloColorFadingConfig_s::lightCyanThrLog[CAMDEV_WDR_LIGHT_THR_LOG_SIZE]</definition>
+        <argsstring>[CAMDEV_WDR_LIGHT_THR_LOG_SIZE]</argsstring>
+        <name>lightCyanThrLog</name>
+        <briefdescription>
+<para>WDR cyan light threshold log. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="190" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" bodystart="190" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_wdr_halo_color_fading_config__s_1ad7e51bcdf13d43651901ffd2579d59ff" prot="public" static="no" mutable="no">
+        <type>float32_t</type>
+        <definition>float32_t CamDeviceWdrHaloColorFadingConfig_s::lightMagentaThrLog[CAMDEV_WDR_LIGHT_THR_LOG_SIZE]</definition>
+        <argsstring>[CAMDEV_WDR_LIGHT_THR_LOG_SIZE]</argsstring>
+        <name>lightMagentaThrLog</name>
+        <briefdescription>
+<para>WDR magenta light threshold log. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="191" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" bodystart="191" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>VsCamDevice WDR halo color fading configuration. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="183" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" bodystart="182" bodyend="192"/>
+    <listofallmembers>
+      <member refid="struct_cam_device_wdr_halo_color_fading_config__s_1ad1bdf7df14f266af5ca5f34854ac8337" prot="public" virt="non-virtual"><scope>CamDeviceWdrHaloColorFadingConfig_s</scope><name>lightBlueThrLog</name></member>
+      <member refid="struct_cam_device_wdr_halo_color_fading_config__s_1a75ee9ec84128deb88d9cdc002eb9e997" prot="public" virt="non-virtual"><scope>CamDeviceWdrHaloColorFadingConfig_s</scope><name>lightCyanThrLog</name></member>
+      <member refid="struct_cam_device_wdr_halo_color_fading_config__s_1a766b8b41919b1752c8654436abdf0801" prot="public" virt="non-virtual"><scope>CamDeviceWdrHaloColorFadingConfig_s</scope><name>lightGreenThrLog</name></member>
+      <member refid="struct_cam_device_wdr_halo_color_fading_config__s_1ad7e51bcdf13d43651901ffd2579d59ff" prot="public" virt="non-virtual"><scope>CamDeviceWdrHaloColorFadingConfig_s</scope><name>lightMagentaThrLog</name></member>
+      <member refid="struct_cam_device_wdr_halo_color_fading_config__s_1af454c184e0600f905caa52d9a0e38fff" prot="public" virt="non-virtual"><scope>CamDeviceWdrHaloColorFadingConfig_s</scope><name>lightRedThrLog</name></member>
+      <member refid="struct_cam_device_wdr_halo_color_fading_config__s_1ac9bebbd72264c63cef25dfa26a05adfd" prot="public" virt="non-virtual"><scope>CamDeviceWdrHaloColorFadingConfig_s</scope><name>lightSatHithr</name></member>
+      <member refid="struct_cam_device_wdr_halo_color_fading_config__s_1af17665012d1bc0c99c48ae7751cf376e" prot="public" virt="non-virtual"><scope>CamDeviceWdrHaloColorFadingConfig_s</scope><name>lightSatLothr</name></member>
+      <member refid="struct_cam_device_wdr_halo_color_fading_config__s_1a25033e0632f8bc3848af5baccd8e9241" prot="public" virt="non-virtual"><scope>CamDeviceWdrHaloColorFadingConfig_s</scope><name>lightYellowThrLog</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

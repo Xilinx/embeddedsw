@@ -1,0 +1,155 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_isi_metadata_parser_info__s" kind="struct" prot="public">
+    <compoundname>IsiMetadataParserInfo_s</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_isi_metadata_parser_info__s_1a453d43e4b0a5aa8c0b230addd333c3e6" prot="public" static="no" mutable="no">
+        <type>IsiMetadataAttr_t</type>
+        <definition>IsiMetadataAttr_t IsiMetadataParserInfo_s::validMask</definition>
+        <argsstring></argsstring>
+        <name>validMask</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_metadata.h" line="62" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_metadata.h" bodystart="62" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_isi_metadata_parser_info__s_1a4a3db0d0e2f09404419f506f2d23c728" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t IsiMetadataParserInfo_s::regNum</definition>
+        <argsstring></argsstring>
+        <name>regNum</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_metadata.h" line="64" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_metadata.h" bodystart="64" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_isi_metadata_parser_info__s_1a1535511dca192784d73c749583068f38" prot="public" static="no" mutable="no">
+        <type>IsiSensorReg_t *</type>
+        <definition>IsiSensorReg_t* IsiMetadataParserInfo_s::pReg</definition>
+        <argsstring></argsstring>
+        <name>pReg</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_metadata.h" line="65" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_metadata.h" bodystart="65" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_isi_metadata_parser_info__s_1a8d7c2a9f45aed8855669d78c1f090032" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t IsiMetadataParserInfo_s::expFrmNum</definition>
+        <argsstring></argsstring>
+        <name>expFrmNum</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_metadata.h" line="67" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_metadata.h" bodystart="67" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_isi_metadata_parser_info__s_1a056e682fd18136f05bffe6151f2d8e65" prot="public" static="no" mutable="no">
+        <type>IsiSensorIntTime_t</type>
+        <definition>IsiSensorIntTime_t IsiMetadataParserInfo_s::expTime</definition>
+        <argsstring></argsstring>
+        <name>expTime</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_metadata.h" line="68" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_metadata.h" bodystart="68" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_isi_metadata_parser_info__s_1a9e822b10af59471870333f3302cc4ad2" prot="public" static="no" mutable="no">
+        <type>IsiSensorGain_t</type>
+        <definition>IsiSensorGain_t IsiMetadataParserInfo_s::aGain</definition>
+        <argsstring></argsstring>
+        <name>aGain</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_metadata.h" line="69" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_metadata.h" bodystart="69" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_isi_metadata_parser_info__s_1a2aca06ad596921485d6fb2e4bd994108" prot="public" static="no" mutable="no">
+        <type>IsiSensorGain_t</type>
+        <definition>IsiSensorGain_t IsiMetadataParserInfo_s::dGain</definition>
+        <argsstring></argsstring>
+        <name>dGain</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_metadata.h" line="70" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_metadata.h" bodystart="70" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_isi_metadata_parser_info__s_1a0b9ccfd513b09790246f5381bd7138c4" prot="public" static="no" mutable="no">
+        <type>IsiSensorBlc_t</type>
+        <definition>IsiSensorBlc_t IsiMetadataParserInfo_s::blc</definition>
+        <argsstring></argsstring>
+        <name>blc</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_metadata.h" line="71" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_metadata.h" bodystart="71" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_isi_metadata_parser_info__s_1a42ba09afbaf4f9259ae17e3016521557" prot="public" static="no" mutable="no">
+        <type>IsiSensorHist_t</type>
+        <definition>IsiSensorHist_t IsiMetadataParserInfo_s::hist</definition>
+        <argsstring></argsstring>
+        <name>hist</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_metadata.h" line="72" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_metadata.h" bodystart="72" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_isi_metadata_parser_info__s_1ab00ad2dd53ac1eb92744c7114c4fad51" prot="public" static="no" mutable="no">
+        <type>IsiSensorMeanLuma_t</type>
+        <definition>IsiSensorMeanLuma_t IsiMetadataParserInfo_s::meanLuma</definition>
+        <argsstring></argsstring>
+        <name>meanLuma</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_metadata.h" line="73" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_metadata.h" bodystart="73" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_metadata.h" line="61" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_metadata.h" bodystart="61" bodyend="75"/>
+    <listofallmembers>
+      <member refid="struct_isi_metadata_parser_info__s_1a9e822b10af59471870333f3302cc4ad2" prot="public" virt="non-virtual"><scope>IsiMetadataParserInfo_s</scope><name>aGain</name></member>
+      <member refid="struct_isi_metadata_parser_info__s_1a0b9ccfd513b09790246f5381bd7138c4" prot="public" virt="non-virtual"><scope>IsiMetadataParserInfo_s</scope><name>blc</name></member>
+      <member refid="struct_isi_metadata_parser_info__s_1a2aca06ad596921485d6fb2e4bd994108" prot="public" virt="non-virtual"><scope>IsiMetadataParserInfo_s</scope><name>dGain</name></member>
+      <member refid="struct_isi_metadata_parser_info__s_1a8d7c2a9f45aed8855669d78c1f090032" prot="public" virt="non-virtual"><scope>IsiMetadataParserInfo_s</scope><name>expFrmNum</name></member>
+      <member refid="struct_isi_metadata_parser_info__s_1a056e682fd18136f05bffe6151f2d8e65" prot="public" virt="non-virtual"><scope>IsiMetadataParserInfo_s</scope><name>expTime</name></member>
+      <member refid="struct_isi_metadata_parser_info__s_1a42ba09afbaf4f9259ae17e3016521557" prot="public" virt="non-virtual"><scope>IsiMetadataParserInfo_s</scope><name>hist</name></member>
+      <member refid="struct_isi_metadata_parser_info__s_1ab00ad2dd53ac1eb92744c7114c4fad51" prot="public" virt="non-virtual"><scope>IsiMetadataParserInfo_s</scope><name>meanLuma</name></member>
+      <member refid="struct_isi_metadata_parser_info__s_1a1535511dca192784d73c749583068f38" prot="public" virt="non-virtual"><scope>IsiMetadataParserInfo_s</scope><name>pReg</name></member>
+      <member refid="struct_isi_metadata_parser_info__s_1a4a3db0d0e2f09404419f506f2d23c728" prot="public" virt="non-virtual"><scope>IsiMetadataParserInfo_s</scope><name>regNum</name></member>
+      <member refid="struct_isi_metadata_parser_info__s_1a453d43e4b0a5aa8c0b230addd333c3e6" prot="public" virt="non-virtual"><scope>IsiMetadataParserInfo_s</scope><name>validMask</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

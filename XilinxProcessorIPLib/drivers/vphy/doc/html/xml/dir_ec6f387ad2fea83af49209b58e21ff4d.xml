@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_ec6f387ad2fea83af49209b58e21ff4d" kind="dir">
+    <compoundname>src</compoundname>
+    <innerfile refid="xvphy_8c">xvphy.c</innerfile>
+    <innerfile refid="xvphy_8h">xvphy.h</innerfile>
+    <innerfile refid="xvphy__dp_8c">xvphy_dp.c</innerfile>
+    <innerfile refid="xvphy__dp_8h">xvphy_dp.h</innerfile>
+    <innerfile refid="xvphy__g_8c">xvphy_g.c</innerfile>
+    <innerfile refid="xvphy__gt_8h">xvphy_gt.h</innerfile>
+    <innerfile refid="xvphy__gthe2_8c">xvphy_gthe2.c</innerfile>
+    <innerfile refid="xvphy__gthe3_8c">xvphy_gthe3.c</innerfile>
+    <innerfile refid="xvphy__gthe4_8c">xvphy_gthe4.c</innerfile>
+    <innerfile refid="xvphy__gtpe2_8c">xvphy_gtpe2.c</innerfile>
+    <innerfile refid="xvphy__gtxe2_8c">xvphy_gtxe2.c</innerfile>
+    <innerfile refid="xvphy__gtye4_8c">xvphy_gtye4.c</innerfile>
+    <innerfile refid="xvphy__hdmi_8c">xvphy_hdmi.c</innerfile>
+    <innerfile refid="xvphy__hdmi_8h">xvphy_hdmi.h</innerfile>
+    <innerfile refid="xvphy__hdmi__intr_8c">xvphy_hdmi_intr.c</innerfile>
+    <innerfile refid="xvphy__hw_8h">xvphy_hw.h</innerfile>
+    <innerfile refid="xvphy__i_8c">xvphy_i.c</innerfile>
+    <innerfile refid="xvphy__i_8h">xvphy_i.h</innerfile>
+    <innerfile refid="xvphy__intr_8c">xvphy_intr.c</innerfile>
+    <innerfile refid="xvphy__log_8c">xvphy_log.c</innerfile>
+    <innerfile refid="xvphy__mmcme2_8c">xvphy_mmcme2.c</innerfile>
+    <innerfile refid="xvphy__mmcme3_8c">xvphy_mmcme3.c</innerfile>
+    <innerfile refid="xvphy__mmcme4_8c">xvphy_mmcme4.c</innerfile>
+    <innerfile refid="xvphy__selftest_8c">xvphy_selftest.c</innerfile>
+    <innerfile refid="xvphy__sinit_8c">xvphy_sinit.c</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/"/>
+  </compounddef>
+</doxygen>

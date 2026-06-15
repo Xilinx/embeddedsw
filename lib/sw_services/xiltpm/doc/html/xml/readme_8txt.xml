@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="readme_8txt" kind="file">
+    <compoundname>readme.txt</compoundname>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="readme_8txt_1a941f5dba36d259e7bdc6c2296bbd2b05" prot="public" static="no" mutable="no">
+        <type>XilTPM library provides services to extend hashes data to TPM PCRs XilTPM library is applicable only for Versal and Versal_2VE_2VM</type>
+        <definition>XilTPM library provides services to extend hashes data to TPM PCRs XilTPM library is applicable only for Versal and Versal_2VE_2VM platforms</definition>
+        <argsstring></argsstring>
+        <name>platforms</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltpm/src/readme.txt" line="1" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltpm/src/readme.txt" bodystart="1" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="normal">XilTPM<sp/>library<sp/>provides<sp/>services<sp/>to<sp/>extend<sp/>hashes/data<sp/>to<sp/>TPM<sp/>PCRs.<sp/>XilTPM<sp/>library<sp/>is<sp/>applicable<sp/>only<sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>Versal<sp/>and<sp/>Versal_2VE_2VM<sp/>platforms,<sp/>please<sp/>ignore<sp/></highlight><highlight class="keyword">this</highlight><highlight class="normal"><sp/>folder<sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>other<sp/>platforms.</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltpm/src/readme.txt"/>
+  </compounddef>
+</doxygen>

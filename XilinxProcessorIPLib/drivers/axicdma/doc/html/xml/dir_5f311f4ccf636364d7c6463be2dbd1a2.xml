@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_5f311f4ccf636364d7c6463be2dbd1a2" kind="dir">
+    <compoundname>examples</compoundname>
+    <innerfile refid="xaxicdma__example__hybrid__intr_8c">xaxicdma_example_hybrid_intr.c</innerfile>
+    <innerfile refid="xaxicdma__example__hybrid__poll_8c">xaxicdma_example_hybrid_poll.c</innerfile>
+    <innerfile refid="xaxicdma__example__sg__intr_8c">xaxicdma_example_sg_intr.c</innerfile>
+    <innerfile refid="xaxicdma__example__sg__poll_8c">xaxicdma_example_sg_poll.c</innerfile>
+    <innerfile refid="xaxicdma__example__simple__intr_8c">xaxicdma_example_simple_intr.c</innerfile>
+    <innerfile refid="xaxicdma__example__simple__poll_8c">xaxicdma_example_simple_poll.c</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/examples/"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,625 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xmipi__rx__phy__xpll_8c" kind="file">
+    <compoundname>xmipi_rx_phy_xpll.c</compoundname>
+    <includes local="yes">xdebug.h</includes>
+    <includes local="yes">xstatus.h</includes>
+    <includes refid="xmipi__rx__phy_8h" local="yes">xmipi_rx_phy.h</includes>
+    <incdepgraph>
+      <node id="77">
+        <label>xmipi_rx_phy_hw.h</label>
+        <link refid="xmipi__rx__phy__hw_8h"/>
+        <childnode refid="76" relation="include">
+        </childnode>
+        <childnode refid="78" relation="include">
+        </childnode>
+      </node>
+      <node id="72">
+        <label>xmipi_rx_phy_xpll.c</label>
+        <link refid="xmipi_rx_phy_xpll.c"/>
+        <childnode refid="73" relation="include">
+        </childnode>
+        <childnode refid="74" relation="include">
+        </childnode>
+        <childnode refid="75" relation="include">
+        </childnode>
+      </node>
+      <node id="78">
+        <label>xil_io.h</label>
+      </node>
+      <node id="73">
+        <label>xdebug.h</label>
+      </node>
+      <node id="74">
+        <label>xstatus.h</label>
+      </node>
+      <node id="76">
+        <label>xil_types.h</label>
+      </node>
+      <node id="75">
+        <label>xmipi_rx_phy.h</label>
+        <link refid="xmipi__rx__phy_8h"/>
+        <childnode refid="76" relation="include">
+        </childnode>
+        <childnode refid="77" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <innerclass refid="struct_x_mipi___rx___phy___dynamic___line_rate" prot="public">XMipi_Rx_Phy_Dynamic_LineRate</innerclass>
+      <sectiondef kind="user-defined">
+      <header>PLL Register Offsets for Dynamic Line Rate Configuration</header>
+      <memberdef kind="define" id="group__mipi__rx__phy_1ga4fc64fd0ca8c74a49dbf950a26312074" prot="public" static="no">
+        <name>XPLL_REG_PCSR_MASK_OFFSET</name>
+        <initializer>0x00000000</initializer>
+        <briefdescription>
+<para>PLL PCSR Mask Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_xpll.c" line="37" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_xpll.c" bodystart="37" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mipi__rx__phy_1gaa8399ea046b36a74c0b8e88ecd412ec3" prot="public" static="no">
+        <name>XPLL_REG_PCSR_CONTROL_OFFSET</name>
+        <initializer>0x00000004</initializer>
+        <briefdescription>
+<para>PLL PCSR Control Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_xpll.c" line="38" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_xpll.c" bodystart="38" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mipi__rx__phy_1ga963def7629c8b345499aa2081ef2f53c" prot="public" static="no">
+        <name>XPLL_REG_PCSR_LOCK_OFFSET</name>
+        <initializer>0x0000000C</initializer>
+        <briefdescription>
+<para>PLL PCSR Lock Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_xpll.c" line="39" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_xpll.c" bodystart="39" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mipi__rx__phy_1ga0d3eea386fc44ec21a263cde6fd7146b" prot="public" static="no">
+        <name>XPLL_REG_2_M_OFFSET</name>
+        <initializer>0x00000030</initializer>
+        <briefdescription>
+<para>PLL Config Register 2. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_xpll.c" line="40" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_xpll.c" bodystart="40" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mipi__rx__phy_1ga0cd3501d0203d1b78b72b8acf9c01e6a" prot="public" static="no">
+        <name>XPLL_REG_3_M_OFFSET</name>
+        <initializer>0x00000034</initializer>
+        <briefdescription>
+<para>PLL Config Register 3. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_xpll.c" line="41" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_xpll.c" bodystart="41" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mipi__rx__phy_1ga2c95b5085b30c5424c3feb0df90d1989" prot="public" static="no">
+        <name>XPLL_REG_4_O1_OFFSET</name>
+        <initializer>0x00000038</initializer>
+        <briefdescription>
+<para>PLL Output 1 Config Register 4. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_xpll.c" line="42" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_xpll.c" bodystart="42" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mipi__rx__phy_1ga5fbc15a8b64113c0f1b8aca4be361c03" prot="public" static="no">
+        <name>XPLL_REG_5_O1_OFFSET</name>
+        <initializer>0x0000003C</initializer>
+        <briefdescription>
+<para>PLL Output 1 Config Register 5. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_xpll.c" line="43" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_xpll.c" bodystart="43" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mipi__rx__phy_1ga95e2964158a7b7a84841a45338f37431" prot="public" static="no">
+        <name>XPLL_REG_6_O0_OFFSET</name>
+        <initializer>0x00000040</initializer>
+        <briefdescription>
+<para>PLL Output 0 Config Register 6. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_xpll.c" line="44" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_xpll.c" bodystart="44" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mipi__rx__phy_1ga1ca1a29980cdd24fbc33b4d24e4946a0" prot="public" static="no">
+        <name>XPLL_REG_7_O0_OFFSET</name>
+        <initializer>0x00000044</initializer>
+        <briefdescription>
+<para>PLL Output 0 Config Register 7. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_xpll.c" line="45" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_xpll.c" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mipi__rx__phy_1ga3197cfc2d67e17d439eee2d7d5cf4ad8" prot="public" static="no">
+        <name>XPLL_REG_22_D_OFFSET</name>
+        <initializer>0x00000080</initializer>
+        <briefdescription>
+<para>PLL Divider Config Register 22. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_xpll.c" line="46" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_xpll.c" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mipi__rx__phy_1ga28ba966ad821f6d1c02d75b71f460a41" prot="public" static="no">
+        <name>XPLL_REG_23_D_OFFSET</name>
+        <initializer>0x00000084</initializer>
+        <briefdescription>
+<para>PLL Divider Config Register 23. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_xpll.c" line="47" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_xpll.c" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>PLL Register Values</header>
+      <memberdef kind="define" id="group__mipi__rx__phy_1gac93f29913cacc555f86cf33de3c258c3" prot="public" static="no">
+        <name>XMIPI_RX_PHY_PLL_UNLOCK_VAL</name>
+        <initializer>0xF9E8D7C6</initializer>
+        <briefdescription>
+<para>PLL Unlock Value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_xpll.c" line="53" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_xpll.c" bodystart="53" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mipi__rx__phy_1gadcde694718f59aa08afd3217697d63d2" prot="public" static="no">
+        <name>XMIPI_RX_PHY_PLL_LOCK_VAL</name>
+        <initializer>0x00000000</initializer>
+        <briefdescription>
+<para>PLL Lock Value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_xpll.c" line="54" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_xpll.c" bodystart="54" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mipi__rx__phy_1ga781881695cf9a55907f983ea36695e4d" prot="public" static="no">
+        <name>XMIPI_RX_PHY_PLL_MASK_VAL</name>
+        <initializer>0x00001200</initializer>
+        <briefdescription>
+<para>PLL Mask Value (APB + FABRIC_EN) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_xpll.c" line="56" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_xpll.c" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mipi__rx__phy_1ga3cdd584e95c5b11f811b41ef01d8952c" prot="public" static="no">
+        <name>XMIPI_RX_PHY_PLL_CONTROL_CONFIG_VAL</name>
+        <initializer>0x00001000</initializer>
+        <briefdescription>
+<para>PLL Control Config Value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_xpll.c" line="58" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_xpll.c" bodystart="58" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mipi__rx__phy_1ga8bdfe44425486ef26d1d54ee62055bf9" prot="public" static="no">
+        <name>XMIPI_RX_PHY_PLL_CONTROL_LOCK_VAL</name>
+        <initializer>0x00000200</initializer>
+        <briefdescription>
+<para>PLL Control Lock Value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_xpll.c" line="60" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_xpll.c" bodystart="61" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mipi__rx__phy_1ga64b3e23755e3886fce4eb676b79e7242" prot="public" static="no">
+        <name>XMIPI_RX_PHY_PLL_EN_ODISABLE_VAL</name>
+        <initializer>0x0000003C</initializer>
+        <briefdescription>
+<para>PLL Enable Output Disable Value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_xpll.c" line="61" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_xpll.c" bodystart="64" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mipi__rx__phy_1gae9e875cdc3ca07f1d3fd36f4ef7d3d67" prot="public" static="no">
+        <name>XMIPI_RX_PHY_PLL_DIS_ODISABLE</name>
+        <initializer>0x00000000</initializer>
+        <briefdescription>
+<para>PLL Disable Output Disable Value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_xpll.c" line="62" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_xpll.c" bodystart="65" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mipi__rx__phy_1ga274e94f1494ae64f3d073005e176ddf7" prot="public" static="no">
+        <name>XMIPI_RX_PHY_PLL_EN_INITSTATE_VAL</name>
+        <initializer>0x00000040</initializer>
+        <briefdescription>
+<para>PLL Enable Init State Value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_xpll.c" line="63" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_xpll.c" bodystart="66" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mipi__rx__phy_1ga1ab4c46048e76129d39d3c6f7e6f125c" prot="public" static="no">
+        <name>XMIPI_RX_PHY_PLL_DIS_INITSTATE</name>
+        <initializer>0x00000000</initializer>
+        <briefdescription>
+<para>PLL Disable Init State Value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_xpll.c" line="64" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_xpll.c" bodystart="67" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Line Rate Bucket Definitions</header>
+      <memberdef kind="define" id="group__mipi__rx__phy_1gab3452211b3efdf8bf4b26a508de6174a" prot="public" static="no">
+        <name>XMIPI_RX_PHY_LINERATE_NUM_BUCKETS</name>
+        <initializer>6U</initializer>
+        <briefdescription>
+<para>Number of line rate buckets. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_xpll.c" line="74" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_xpll.c" bodystart="76" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__mipi__rx__phy_1gade152de2610de5e05fdf7237ae4d21b0" prot="public" static="no">
+        <name>XMIPI_RX_PHY_PLL_NUM_REGS</name>
+        <initializer>8U</initializer>
+        <briefdescription>
+<para>Number of PLL registers programmed per bucket. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_xpll.c" line="80" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_xpll.c" bodystart="83" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__mipi__rx__phy_1ga182382351622334b0174097a50726e0f" prot="public" static="yes" mutable="no">
+        <type>const u32</type>
+        <definition>const u32 XMipi_Rx_Phy_PllRegOffsets[XMIPI_RX_PHY_PLL_NUM_REGS]</definition>
+        <argsstring>[XMIPI_RX_PHY_PLL_NUM_REGS]</argsstring>
+        <name>XMipi_Rx_Phy_PllRegOffsets</name>
+        <initializer>= {
+	<ref refid="group__mipi__rx__phy_1ga0d3eea386fc44ec21a263cde6fd7146b" kindref="member">XPLL_REG_2_M_OFFSET</ref>,
+	<ref refid="group__mipi__rx__phy_1ga0cd3501d0203d1b78b72b8acf9c01e6a" kindref="member">XPLL_REG_3_M_OFFSET</ref>,
+	<ref refid="group__mipi__rx__phy_1ga2c95b5085b30c5424c3feb0df90d1989" kindref="member">XPLL_REG_4_O1_OFFSET</ref>,
+	<ref refid="group__mipi__rx__phy_1ga5fbc15a8b64113c0f1b8aca4be361c03" kindref="member">XPLL_REG_5_O1_OFFSET</ref>,
+	<ref refid="group__mipi__rx__phy_1ga95e2964158a7b7a84841a45338f37431" kindref="member">XPLL_REG_6_O0_OFFSET</ref>,
+	<ref refid="group__mipi__rx__phy_1ga1ca1a29980cdd24fbc33b4d24e4946a0" kindref="member">XPLL_REG_7_O0_OFFSET</ref>,
+	<ref refid="group__mipi__rx__phy_1ga3197cfc2d67e17d439eee2d7d5cf4ad8" kindref="member">XPLL_REG_22_D_OFFSET</ref>,
+	<ref refid="group__mipi__rx__phy_1ga28ba966ad821f6d1c02d75b71f460a41" kindref="member">XPLL_REG_23_D_OFFSET</ref>,
+}</initializer>
+        <briefdescription>
+<para>PLL register index to offset mapping (used in programming loop): </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_xpll.c" line="132" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_xpll.c" bodystart="132" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__mipi__rx__phy_1gad06a1175fe80d1af8dcb3149744eaf6d" prot="public" static="yes" mutable="no">
+        <type>const XMipi_Rx_Phy_Dynamic_LineRate</type>
+        <definition>const XMipi_Rx_Phy_Dynamic_LineRate XMipi_Rx_Phy_Dynamic_LineRateCfg[XMIPI_RX_PHY_LINERATE_NUM_BUCKETS]</definition>
+        <argsstring>[XMIPI_RX_PHY_LINERATE_NUM_BUCKETS]</argsstring>
+        <name>XMipi_Rx_Phy_Dynamic_LineRateCfg</name>
+        <initializer>= {
+	{  400,  540, { 0x9600, 0x1010, 0x1A00, 0x2020, 0x1A00, 0x0E0E, 0x0000, 0x0000 } },
+	{  541, 1080, { 0x7600, 0x0808, 0x1A00, 0x1010, 0x1A00, 0x0707, 0x0000, 0x0000 } },
+	{ 1081, 2160, { 0x5600, 0x0808, 0x1A00, 0x0808, 0x1B00, 0x0303, 0x0000, 0x0000 } },
+	{ 2161, 2250, { 0x3700, 0x0505, 0x1A00, 0x0404, 0xBB00, 0x0101, 0x0000, 0x0000 } },
+	{ 2251, 4320, { 0x3600, 0x0808, 0x1A00, 0x0404, 0x1B00, 0x0303, 0x0000, 0x0000 } },
+	{ 4321, 4500, { 0x1700, 0x0505, 0x1A00, 0x0202, 0xBB00, 0x0101, 0x0000, 0x0000 } },
+}</initializer>
+        <briefdescription>
+<para>Line rate bucket look-up table. </para>        </briefdescription>
+        <detaileddescription>
+<para>PllVals order: REG_2_M, REG_3_M, REG_4_O1, REG_5_O1, REG_6_O0, REG_7_O0, REG_22_D, REG_23_D </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_xpll.c" line="150" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_xpll.c" bodystart="150" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__mipi__rx__phy_1ga1573668b346ec490a904007eb4a6d6ec" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>static void XPll_WriteReg</definition>
+        <argsstring>(UINTPTR BaseAddress, u32 RegOffset, u32 Data)</argsstring>
+        <name>XPll_WriteReg</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>RegOffset</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Data</declname>
+        </param>
+        <briefdescription>
+<para>This function writes a value to a X5PLL register space. </para>        </briefdescription>
+        <detaileddescription>
+<para>A 32 bit write is performed. If the component is implemented in a smaller width, only the least significant data is written.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the X5PLL instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegOffset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the register offset of the register to be written. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 32-bit value to write into the register.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_xpll.c" line="119" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_xpll.c" bodystart="119" bodyend="122"/>
+      </memberdef>
+      <memberdef kind="function" id="group__mipi__rx__phy_1ga6358e4d124dca47948b509d3e3bb4226" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XMipi_Rx_Phy_XPllConfig</definition>
+        <argsstring>(UINTPTR PllBaseAddr, u32 LineRate)</argsstring>
+        <name>XMipi_Rx_Phy_XPllConfig</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>PllBaseAddr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>LineRate</declname>
+        </param>
+        <briefdescription>
+<para>This function programs the X5PLL registers for a given line rate. </para>        </briefdescription>
+        <detaileddescription>
+<para>It looks up the matching bucket from the line rate table, then performs the PLL unlock -&gt; configure -&gt; re-lock sequence.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>PllBaseAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the X5PLL register space. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>LineRate</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the desired line rate in Mbps (400-4500 Mbps).</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if PLL programming is successful.</para></listitem><listitem><para>XST_FAILURE if no matching line rate bucket is found.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.h" line="326" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_xpll.c" bodystart="175" bodyend="263"/>
+        <referencedby refid="group__mipi__rx__phy_1ga2e429c448748bd186ad8563e23df7e4f" compoundref="xmipi__rx__phy_8c" startline="624" endline="678">XMipi_Rx_Phy_DynamicLineRateConfig</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>2022-2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="26"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xdebug.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xstatus.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xmipi__rx__phy_8h" kindref="compound">xmipi_rx_phy.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight></codeline>
+<codeline lineno="37" refid="group__mipi__rx__phy_1ga4fc64fd0ca8c74a49dbf950a26312074" refkind="member"><highlight class="preprocessor">#define<sp/>XPLL_REG_PCSR_MASK_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000000<sp/><sp/></highlight></codeline>
+<codeline lineno="38" refid="group__mipi__rx__phy_1gaa8399ea046b36a74c0b8e88ecd412ec3" refkind="member"><highlight class="preprocessor">#define<sp/>XPLL_REG_PCSR_CONTROL_OFFSET<sp/><sp/><sp/><sp/>0x00000004<sp/><sp/></highlight></codeline>
+<codeline lineno="39" refid="group__mipi__rx__phy_1ga963def7629c8b345499aa2081ef2f53c" refkind="member"><highlight class="preprocessor">#define<sp/>XPLL_REG_PCSR_LOCK_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0000000C<sp/><sp/></highlight></codeline>
+<codeline lineno="40" refid="group__mipi__rx__phy_1ga0d3eea386fc44ec21a263cde6fd7146b" refkind="member"><highlight class="preprocessor">#define<sp/>XPLL_REG_2_M_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000030<sp/><sp/></highlight></codeline>
+<codeline lineno="41" refid="group__mipi__rx__phy_1ga0cd3501d0203d1b78b72b8acf9c01e6a" refkind="member"><highlight class="preprocessor">#define<sp/>XPLL_REG_3_M_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000034<sp/><sp/></highlight></codeline>
+<codeline lineno="42" refid="group__mipi__rx__phy_1ga2c95b5085b30c5424c3feb0df90d1989" refkind="member"><highlight class="preprocessor">#define<sp/>XPLL_REG_4_O1_OFFSET<sp/><sp/><sp/><sp/>0x00000038<sp/><sp/></highlight></codeline>
+<codeline lineno="43" refid="group__mipi__rx__phy_1ga5fbc15a8b64113c0f1b8aca4be361c03" refkind="member"><highlight class="preprocessor">#define<sp/>XPLL_REG_5_O1_OFFSET<sp/><sp/><sp/><sp/>0x0000003C<sp/><sp/></highlight></codeline>
+<codeline lineno="44" refid="group__mipi__rx__phy_1ga95e2964158a7b7a84841a45338f37431" refkind="member"><highlight class="preprocessor">#define<sp/>XPLL_REG_6_O0_OFFSET<sp/><sp/><sp/><sp/>0x00000040<sp/><sp/></highlight></codeline>
+<codeline lineno="45" refid="group__mipi__rx__phy_1ga1ca1a29980cdd24fbc33b4d24e4946a0" refkind="member"><highlight class="preprocessor">#define<sp/>XPLL_REG_7_O0_OFFSET<sp/><sp/><sp/><sp/>0x00000044<sp/><sp/></highlight></codeline>
+<codeline lineno="46" refid="group__mipi__rx__phy_1ga3197cfc2d67e17d439eee2d7d5cf4ad8" refkind="member"><highlight class="preprocessor">#define<sp/>XPLL_REG_22_D_OFFSET<sp/><sp/><sp/><sp/>0x00000080<sp/><sp/></highlight></codeline>
+<codeline lineno="47" refid="group__mipi__rx__phy_1ga28ba966ad821f6d1c02d75b71f460a41" refkind="member"><highlight class="preprocessor">#define<sp/>XPLL_REG_23_D_OFFSET<sp/><sp/><sp/><sp/>0x00000084<sp/><sp/></highlight></codeline>
+<codeline lineno="49"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="50"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="53" refid="group__mipi__rx__phy_1gac93f29913cacc555f86cf33de3c258c3" refkind="member"><highlight class="preprocessor">#define<sp/>XMIPI_RX_PHY_PLL_UNLOCK_VAL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xF9E8D7C6<sp/><sp/></highlight></codeline>
+<codeline lineno="54" refid="group__mipi__rx__phy_1gadcde694718f59aa08afd3217697d63d2" refkind="member"><highlight class="preprocessor">#define<sp/>XMIPI_RX_PHY_PLL_LOCK_VAL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000000<sp/><sp/></highlight></codeline>
+<codeline lineno="55" refid="group__mipi__rx__phy_1ga781881695cf9a55907f983ea36695e4d" refkind="member"><highlight class="preprocessor">#define<sp/>XMIPI_RX_PHY_PLL_MASK_VAL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00001200<sp/><sp/></highlight></codeline>
+<codeline lineno="57"><highlight class="preprocessor">#define<sp/>XMIPI_RX_PHY_PLL_CONTROL_CONFIG_VAL<sp/><sp/><sp/><sp/><sp/>0x00001000<sp/><sp/></highlight></codeline>
+<codeline lineno="59"><highlight class="preprocessor">#define<sp/>XMIPI_RX_PHY_PLL_CONTROL_LOCK_VAL<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000200<sp/><sp/></highlight></codeline>
+<codeline lineno="61" refid="group__mipi__rx__phy_1ga8bdfe44425486ef26d1d54ee62055bf9" refkind="member"><highlight class="preprocessor">#define<sp/>XMIPI_RX_PHY_PLL_EN_ODISABLE_VAL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0000003C<sp/><sp/></highlight></codeline>
+<codeline lineno="62"><highlight class="preprocessor">#define<sp/>XMIPI_RX_PHY_PLL_DIS_ODISABLE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000000<sp/><sp/></highlight></codeline>
+<codeline lineno="63"><highlight class="preprocessor">#define<sp/>XMIPI_RX_PHY_PLL_EN_INITSTATE_VAL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000040<sp/><sp/></highlight></codeline>
+<codeline lineno="64" refid="group__mipi__rx__phy_1ga64b3e23755e3886fce4eb676b79e7242" refkind="member"><highlight class="preprocessor">#define<sp/>XMIPI_RX_PHY_PLL_DIS_INITSTATE<sp/><sp/>0x00000000<sp/><sp/></highlight></codeline>
+<codeline lineno="66" refid="group__mipi__rx__phy_1ga274e94f1494ae64f3d073005e176ddf7" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="67" refid="group__mipi__rx__phy_1ga1ab4c46048e76129d39d3c6f7e6f125c" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="70"><highlight class="comment">/*<sp/>XMIPI_RX_PHY_LINERATE_MIN<sp/>and<sp/>XMIPI_RX_PHY_LINERATE_MAX<sp/>are</highlight></codeline>
+<codeline lineno="71"><highlight class="comment"><sp/>*<sp/>defined<sp/>in<sp/>xmipi_rx_phy.h</highlight></codeline>
+<codeline lineno="72"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XMIPI_RX_PHY_LINERATE_NUM_BUCKETS<sp/><sp/><sp/><sp/><sp/><sp/><sp/>6U<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="76" refid="group__mipi__rx__phy_1gab3452211b3efdf8bf4b26a508de6174a" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="77"><highlight class="preprocessor"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight></codeline>
+<codeline lineno="79"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XMIPI_RX_PHY_PLL_NUM_REGS<sp/><sp/><sp/><sp/><sp/><sp/><sp/>8U<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="90"><highlight class="preprocessor">typedef<sp/>struct<sp/>{</highlight></codeline>
+<codeline lineno="91"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>LineRateLb;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>LineRateUb;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>PllVals[<ref refid="group__mipi__rx__phy_1gade152de2610de5e05fdf7237ae4d21b0" kindref="member">XMIPI_RX_PHY_PLL_NUM_REGS</ref>];<sp/></highlight></codeline>
+<codeline lineno="94"><highlight class="normal">}<sp/>XMipi_Rx_Phy_Dynamic_LineRate;</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"></highlight></codeline>
+<codeline lineno="96"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Macros<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="97"><highlight class="normal"></highlight></codeline>
+<codeline lineno="98"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="114"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XPll_WriteReg(UINTPTR<sp/>BaseAddress,<sp/>u32<sp/>RegOffset,<sp/>u32<sp/>Data)</highlight></codeline>
+<codeline lineno="115"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_Out32(BaseAddress<sp/>+<sp/>(u32)RegOffset,<sp/>(u32)Data);</highlight></codeline>
+<codeline lineno="117"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"></highlight></codeline>
+<codeline lineno="119"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="120"><highlight class="normal"></highlight></codeline>
+<codeline lineno="121"><highlight class="normal"></highlight></codeline>
+<codeline lineno="122"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="123"><highlight class="normal"></highlight></codeline>
+<codeline lineno="127"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>XMipi_Rx_Phy_PllRegOffsets[<ref refid="group__mipi__rx__phy_1gade152de2610de5e05fdf7237ae4d21b0" kindref="member">XMIPI_RX_PHY_PLL_NUM_REGS</ref>]<sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__mipi__rx__phy_1ga0d3eea386fc44ec21a263cde6fd7146b" kindref="member">XPLL_REG_2_M_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__mipi__rx__phy_1ga0cd3501d0203d1b78b72b8acf9c01e6a" kindref="member">XPLL_REG_3_M_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__mipi__rx__phy_1ga2c95b5085b30c5424c3feb0df90d1989" kindref="member">XPLL_REG_4_O1_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__mipi__rx__phy_1ga5fbc15a8b64113c0f1b8aca4be361c03" kindref="member">XPLL_REG_5_O1_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__mipi__rx__phy_1ga95e2964158a7b7a84841a45338f37431" kindref="member">XPLL_REG_6_O0_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__mipi__rx__phy_1ga1ca1a29980cdd24fbc33b4d24e4946a0" kindref="member">XPLL_REG_7_O0_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__mipi__rx__phy_1ga3197cfc2d67e17d439eee2d7d5cf4ad8" kindref="member">XPLL_REG_22_D_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__mipi__rx__phy_1ga28ba966ad821f6d1c02d75b71f460a41" kindref="member">XPLL_REG_23_D_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="136"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"></highlight></codeline>
+<codeline lineno="144"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XMipi_Rx_Phy_Dynamic_LineRate</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMipi_Rx_Phy_Dynamic_LineRateCfg[<ref refid="group__mipi__rx__phy_1gab3452211b3efdf8bf4b26a508de6174a" kindref="member">XMIPI_RX_PHY_LINERATE_NUM_BUCKETS</ref>]<sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>400,<sp/><sp/>540,<sp/>{<sp/>0x9600,<sp/>0x1010,<sp/>0x1A00,<sp/>0x2020,<sp/>0x1A00,<sp/>0x0E0E,<sp/>0x0000,<sp/>0x0000<sp/>}<sp/>},<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/>541,<sp/>1080,<sp/>{<sp/>0x7600,<sp/>0x0808,<sp/>0x1A00,<sp/>0x1010,<sp/>0x1A00,<sp/>0x0707,<sp/>0x0000,<sp/>0x0000<sp/>}<sp/>},<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>1081,<sp/>2160,<sp/>{<sp/>0x5600,<sp/>0x0808,<sp/>0x1A00,<sp/>0x0808,<sp/>0x1B00,<sp/>0x0303,<sp/>0x0000,<sp/>0x0000<sp/>}<sp/>},<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>2161,<sp/>2250,<sp/>{<sp/>0x3700,<sp/>0x0505,<sp/>0x1A00,<sp/>0x0404,<sp/>0xBB00,<sp/>0x0101,<sp/>0x0000,<sp/>0x0000<sp/>}<sp/>},<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>2251,<sp/>4320,<sp/>{<sp/>0x3600,<sp/>0x0808,<sp/>0x1A00,<sp/>0x0404,<sp/>0x1B00,<sp/>0x0303,<sp/>0x0000,<sp/>0x0000<sp/>}<sp/>},<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>4321,<sp/>4500,<sp/>{<sp/>0x1700,<sp/>0x0505,<sp/>0x1A00,<sp/>0x0202,<sp/>0xBB00,<sp/>0x0101,<sp/>0x0000,<sp/>0x0000<sp/>}<sp/>},<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="152"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"></highlight></codeline>
+<codeline lineno="154"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="170"><highlight class="normal">u32<sp/><ref refid="group__mipi__rx__phy_1ga6358e4d124dca47948b509d3e3bb4226" kindref="member">XMipi_Rx_Phy_XPllConfig</ref>(UINTPTR<sp/>PllBaseAddr,<sp/>u32<sp/>LineRate)</highlight></codeline>
+<codeline lineno="171"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="172"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Index;</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XMipi_Rx_Phy_Dynamic_LineRate<sp/>*Bucket<sp/>=<sp/>NULL;</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"></highlight></codeline>
+<codeline lineno="175" refid="group__mipi__rx__phy_1ga6358e4d124dca47948b509d3e3bb4226" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(PllBaseAddr<sp/>!=<sp/>0U);</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"></highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Search<sp/>for<sp/>the<sp/>matching<sp/>bucket<sp/>based<sp/>on<sp/>the<sp/>requested<sp/>line<sp/>rate<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="179"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(Index<sp/>=<sp/>0U;<sp/>Index<sp/>&lt;<sp/><ref refid="group__mipi__rx__phy_1gab3452211b3efdf8bf4b26a508de6174a" kindref="member">XMIPI_RX_PHY_LINERATE_NUM_BUCKETS</ref>;<sp/>Index++)<sp/>{</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((LineRate<sp/>&gt;=<sp/>XMipi_Rx_Phy_Dynamic_LineRateCfg[Index].LineRateLb)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(LineRate<sp/>&lt;=<sp/>XMipi_Rx_Phy_Dynamic_LineRateCfg[Index].LineRateUb))<sp/>{</highlight></codeline>
+<codeline lineno="182"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Bucket<sp/>=<sp/>&amp;XMipi_Rx_Phy_Dynamic_LineRateCfg[Index];</highlight></codeline>
+<codeline lineno="183"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="184"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"></highlight></codeline>
+<codeline lineno="187"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Bucket<sp/>==<sp/>NULL)<sp/>{</highlight></codeline>
+<codeline lineno="188"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"></highlight></codeline>
+<codeline lineno="191"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Fabric<sp/>Access:<sp/>Unlock<sp/>PLL<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="192"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPll_WriteReg(PllBaseAddr,<sp/><ref refid="group__mipi__rx__phy_1ga963def7629c8b345499aa2081ef2f53c" kindref="member">XPLL_REG_PCSR_LOCK_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="193"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__mipi__rx__phy_1gac93f29913cacc555f86cf33de3c258c3" kindref="member">XMIPI_RX_PHY_PLL_UNLOCK_VAL</ref>);</highlight></codeline>
+<codeline lineno="194"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPll_WriteReg(PllBaseAddr,<sp/><ref refid="group__mipi__rx__phy_1ga4fc64fd0ca8c74a49dbf950a26312074" kindref="member">XPLL_REG_PCSR_MASK_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="195"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__mipi__rx__phy_1ga781881695cf9a55907f983ea36695e4d" kindref="member">XMIPI_RX_PHY_PLL_MASK_VAL</ref>);</highlight></codeline>
+<codeline lineno="196"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPll_WriteReg(PllBaseAddr,<sp/><ref refid="group__mipi__rx__phy_1gaa8399ea046b36a74c0b8e88ecd412ec3" kindref="member">XPLL_REG_PCSR_CONTROL_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="197"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__mipi__rx__phy_1ga8bdfe44425486ef26d1d54ee62055bf9" kindref="member">XMIPI_RX_PHY_PLL_CONTROL_LOCK_VAL</ref>);</highlight></codeline>
+<codeline lineno="198"><highlight class="normal"></highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>APB<sp/>Access:<sp/>Enter<sp/>configuration<sp/>mode<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="200"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPll_WriteReg(PllBaseAddr,<sp/><ref refid="group__mipi__rx__phy_1ga963def7629c8b345499aa2081ef2f53c" kindref="member">XPLL_REG_PCSR_LOCK_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__mipi__rx__phy_1gac93f29913cacc555f86cf33de3c258c3" kindref="member">XMIPI_RX_PHY_PLL_UNLOCK_VAL</ref>);</highlight></codeline>
+<codeline lineno="202"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPll_WriteReg(PllBaseAddr,<sp/><ref refid="group__mipi__rx__phy_1ga4fc64fd0ca8c74a49dbf950a26312074" kindref="member">XPLL_REG_PCSR_MASK_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__mipi__rx__phy_1ga781881695cf9a55907f983ea36695e4d" kindref="member">XMIPI_RX_PHY_PLL_MASK_VAL</ref>);</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPll_WriteReg(PllBaseAddr,<sp/><ref refid="group__mipi__rx__phy_1gaa8399ea046b36a74c0b8e88ecd412ec3" kindref="member">XPLL_REG_PCSR_CONTROL_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__mipi__rx__phy_1ga3cdd584e95c5b11f811b41ef01d8952c" kindref="member">XMIPI_RX_PHY_PLL_CONTROL_CONFIG_VAL</ref>);</highlight></codeline>
+<codeline lineno="206"><highlight class="normal"></highlight></codeline>
+<codeline lineno="207"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Enable<sp/>Output<sp/>Disable<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="208"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPll_WriteReg(PllBaseAddr,<sp/><ref refid="group__mipi__rx__phy_1ga963def7629c8b345499aa2081ef2f53c" kindref="member">XPLL_REG_PCSR_LOCK_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="209"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__mipi__rx__phy_1gac93f29913cacc555f86cf33de3c258c3" kindref="member">XMIPI_RX_PHY_PLL_UNLOCK_VAL</ref>);</highlight></codeline>
+<codeline lineno="210"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPll_WriteReg(PllBaseAddr,<sp/><ref refid="group__mipi__rx__phy_1ga4fc64fd0ca8c74a49dbf950a26312074" kindref="member">XPLL_REG_PCSR_MASK_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="211"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__mipi__rx__phy_1ga64b3e23755e3886fce4eb676b79e7242" kindref="member">XMIPI_RX_PHY_PLL_EN_ODISABLE_VAL</ref>);</highlight></codeline>
+<codeline lineno="212"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPll_WriteReg(PllBaseAddr,<sp/><ref refid="group__mipi__rx__phy_1gaa8399ea046b36a74c0b8e88ecd412ec3" kindref="member">XPLL_REG_PCSR_CONTROL_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="213"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__mipi__rx__phy_1ga64b3e23755e3886fce4eb676b79e7242" kindref="member">XMIPI_RX_PHY_PLL_EN_ODISABLE_VAL</ref>);</highlight></codeline>
+<codeline lineno="214"><highlight class="normal"></highlight></codeline>
+<codeline lineno="215"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Enable<sp/>Init<sp/>State<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="216"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPll_WriteReg(PllBaseAddr,<sp/><ref refid="group__mipi__rx__phy_1ga963def7629c8b345499aa2081ef2f53c" kindref="member">XPLL_REG_PCSR_LOCK_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="217"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__mipi__rx__phy_1gac93f29913cacc555f86cf33de3c258c3" kindref="member">XMIPI_RX_PHY_PLL_UNLOCK_VAL</ref>);</highlight></codeline>
+<codeline lineno="218"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPll_WriteReg(PllBaseAddr,<sp/><ref refid="group__mipi__rx__phy_1ga4fc64fd0ca8c74a49dbf950a26312074" kindref="member">XPLL_REG_PCSR_MASK_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="219"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__mipi__rx__phy_1ga274e94f1494ae64f3d073005e176ddf7" kindref="member">XMIPI_RX_PHY_PLL_EN_INITSTATE_VAL</ref>);</highlight></codeline>
+<codeline lineno="220"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPll_WriteReg(PllBaseAddr,<sp/><ref refid="group__mipi__rx__phy_1gaa8399ea046b36a74c0b8e88ecd412ec3" kindref="member">XPLL_REG_PCSR_CONTROL_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="221"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__mipi__rx__phy_1ga274e94f1494ae64f3d073005e176ddf7" kindref="member">XMIPI_RX_PHY_PLL_EN_INITSTATE_VAL</ref>);</highlight></codeline>
+<codeline lineno="222"><highlight class="normal"></highlight></codeline>
+<codeline lineno="223"><highlight class="normal"></highlight></codeline>
+<codeline lineno="224"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Program<sp/>all<sp/>PLL<sp/>registers<sp/>from<sp/>the<sp/>bucket<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="225"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(Index<sp/>=<sp/>0U;<sp/>Index<sp/>&lt;<sp/><ref refid="group__mipi__rx__phy_1gade152de2610de5e05fdf7237ae4d21b0" kindref="member">XMIPI_RX_PHY_PLL_NUM_REGS</ref>;<sp/>Index++)<sp/>{</highlight></codeline>
+<codeline lineno="226"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPll_WriteReg(PllBaseAddr,</highlight></codeline>
+<codeline lineno="227"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMipi_Rx_Phy_PllRegOffsets[Index],</highlight></codeline>
+<codeline lineno="228"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Bucket-&gt;PllVals[Index]);</highlight></codeline>
+<codeline lineno="229"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="230"><highlight class="normal"></highlight></codeline>
+<codeline lineno="231"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Disable<sp/>Init<sp/>State<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="232"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPll_WriteReg(PllBaseAddr,<sp/><ref refid="group__mipi__rx__phy_1ga963def7629c8b345499aa2081ef2f53c" kindref="member">XPLL_REG_PCSR_LOCK_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="233"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__mipi__rx__phy_1gac93f29913cacc555f86cf33de3c258c3" kindref="member">XMIPI_RX_PHY_PLL_UNLOCK_VAL</ref>);</highlight></codeline>
+<codeline lineno="234"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPll_WriteReg(PllBaseAddr,<sp/><ref refid="group__mipi__rx__phy_1ga4fc64fd0ca8c74a49dbf950a26312074" kindref="member">XPLL_REG_PCSR_MASK_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="235"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__mipi__rx__phy_1ga274e94f1494ae64f3d073005e176ddf7" kindref="member">XMIPI_RX_PHY_PLL_EN_INITSTATE_VAL</ref>);</highlight></codeline>
+<codeline lineno="236"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPll_WriteReg(PllBaseAddr,<sp/><ref refid="group__mipi__rx__phy_1gaa8399ea046b36a74c0b8e88ecd412ec3" kindref="member">XPLL_REG_PCSR_CONTROL_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="237"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__mipi__rx__phy_1ga1ab4c46048e76129d39d3c6f7e6f125c" kindref="member">XMIPI_RX_PHY_PLL_DIS_INITSTATE</ref>);</highlight></codeline>
+<codeline lineno="238"><highlight class="normal"></highlight></codeline>
+<codeline lineno="239"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Disable<sp/>Output<sp/>Disable<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="240"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPll_WriteReg(PllBaseAddr,<sp/><ref refid="group__mipi__rx__phy_1ga963def7629c8b345499aa2081ef2f53c" kindref="member">XPLL_REG_PCSR_LOCK_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="241"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__mipi__rx__phy_1gac93f29913cacc555f86cf33de3c258c3" kindref="member">XMIPI_RX_PHY_PLL_UNLOCK_VAL</ref>);</highlight></codeline>
+<codeline lineno="242"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPll_WriteReg(PllBaseAddr,<sp/><ref refid="group__mipi__rx__phy_1ga4fc64fd0ca8c74a49dbf950a26312074" kindref="member">XPLL_REG_PCSR_MASK_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="243"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__mipi__rx__phy_1ga64b3e23755e3886fce4eb676b79e7242" kindref="member">XMIPI_RX_PHY_PLL_EN_ODISABLE_VAL</ref>);</highlight></codeline>
+<codeline lineno="244"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPll_WriteReg(PllBaseAddr,<sp/><ref refid="group__mipi__rx__phy_1gaa8399ea046b36a74c0b8e88ecd412ec3" kindref="member">XPLL_REG_PCSR_CONTROL_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="245"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__mipi__rx__phy_1gae9e875cdc3ca07f1d3fd36f4ef7d3d67" kindref="member">XMIPI_RX_PHY_PLL_DIS_ODISABLE</ref>);</highlight></codeline>
+<codeline lineno="246"><highlight class="normal"></highlight></codeline>
+<codeline lineno="247"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Fabric<sp/>Access:<sp/>Re-lock<sp/>PLL<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="248"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPll_WriteReg(PllBaseAddr,<sp/><ref refid="group__mipi__rx__phy_1ga963def7629c8b345499aa2081ef2f53c" kindref="member">XPLL_REG_PCSR_LOCK_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="249"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__mipi__rx__phy_1gac93f29913cacc555f86cf33de3c258c3" kindref="member">XMIPI_RX_PHY_PLL_UNLOCK_VAL</ref>);</highlight></codeline>
+<codeline lineno="250"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPll_WriteReg(PllBaseAddr,<sp/><ref refid="group__mipi__rx__phy_1ga4fc64fd0ca8c74a49dbf950a26312074" kindref="member">XPLL_REG_PCSR_MASK_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="251"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__mipi__rx__phy_1ga781881695cf9a55907f983ea36695e4d" kindref="member">XMIPI_RX_PHY_PLL_MASK_VAL</ref>);</highlight></codeline>
+<codeline lineno="252"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPll_WriteReg(PllBaseAddr,<sp/><ref refid="group__mipi__rx__phy_1gaa8399ea046b36a74c0b8e88ecd412ec3" kindref="member">XPLL_REG_PCSR_CONTROL_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="253"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__mipi__rx__phy_1ga8bdfe44425486ef26d1d54ee62055bf9" kindref="member">XMIPI_RX_PHY_PLL_CONTROL_LOCK_VAL</ref>);</highlight></codeline>
+<codeline lineno="254"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPll_WriteReg(PllBaseAddr,<sp/><ref refid="group__mipi__rx__phy_1ga963def7629c8b345499aa2081ef2f53c" kindref="member">XPLL_REG_PCSR_LOCK_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="255"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__mipi__rx__phy_1gadcde694718f59aa08afd3217697d63d2" kindref="member">XMIPI_RX_PHY_PLL_LOCK_VAL</ref>);</highlight></codeline>
+<codeline lineno="256"><highlight class="normal"></highlight></codeline>
+<codeline lineno="257"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="258"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="259"><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_xpll.c"/>
+  </compounddef>
+</doxygen>

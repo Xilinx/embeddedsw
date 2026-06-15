@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_loader___prtn_params" kind="struct" prot="public">
+    <compoundname>XLoader_PrtnParams</compoundname>
+    <includes local="no">xloader.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_loader___prtn_params_1aa1a8cbeb58271aec95d124d58f8c200d" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_loader___device_copy" kindref="compound">XLoader_DeviceCopy</ref></type>
+        <definition>XLoader_DeviceCopy XLoader_PrtnParams::DeviceCopy</definition>
+        <argsstring></argsstring>
+        <name>DeviceCopy</name>
+        <briefdescription>
+<para>Device Copy instance. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader.h" line="415" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader.h" bodystart="415" bodyend="-1"/>
+        <referencedby refid="group__xloader__server__apis_1ga4ee480ef9152cd51e9aabb49fd0515fd" compoundref="server_2xloader__plat_8c" startline="1034" endline="1223">XLoader_ProcessElf</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_loader___prtn_params_1a290613475d38eadc8f514ecb4f8847eb" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XLoader_PrtnParams::DstnCpu</definition>
+        <argsstring></argsstring>
+        <name>DstnCpu</name>
+        <briefdescription>
+<para>Destination Cpu. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader.h" line="416" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader.h" bodystart="416" bodyend="-1"/>
+        <referencedby refid="group__xloader__server__apis_1ga4ee480ef9152cd51e9aabb49fd0515fd" compoundref="server_2xloader__plat_8c" startline="1034" endline="1223">XLoader_ProcessElf</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Structure to store various parameters for processing partitions. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="65">
+        <label>XLoader_PrtnParams</label>
+        <link refid="struct_x_loader___prtn_params"/>
+        <childnode refid="66" relation="usage">
+          <edgelabel>DeviceCopy</edgelabel>
+        </childnode>
+      </node>
+      <node id="66">
+        <label>XLoader_DeviceCopy</label>
+        <link refid="struct_x_loader___device_copy"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader.h" line="414" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader.h" bodystart="414" bodyend="417"/>
+    <listofallmembers>
+      <member refid="struct_x_loader___prtn_params_1aa1a8cbeb58271aec95d124d58f8c200d" prot="public" virt="non-virtual"><scope>XLoader_PrtnParams</scope><name>DeviceCopy</name></member>
+      <member refid="struct_x_loader___prtn_params_1a290613475d38eadc8f514ecb4f8847eb" prot="public" virt="non-virtual"><scope>XLoader_PrtnParams</scope><name>DstnCpu</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

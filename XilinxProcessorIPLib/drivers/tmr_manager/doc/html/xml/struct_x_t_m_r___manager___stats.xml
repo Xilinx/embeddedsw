@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_t_m_r___manager___stats" kind="struct" prot="public">
+    <compoundname>XTMR_Manager_Stats</compoundname>
+    <includes local="no">xtmr_manager.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_t_m_r___manager___stats_1ada777980dd034c3f1eef945e94570c93" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XTMR_Manager_Stats::InterruptCount</definition>
+        <argsstring></argsstring>
+        <name>InterruptCount</name>
+        <briefdescription>
+<para>Number of SEM interrupts. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.h" line="111" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.h" bodystart="111" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga6328ba6cbb2bab523942eb82a3515a8d" compoundref="xtmr__manager__stats_8c" startline="90" endline="100">XTMR_Manager_ClearStats</referencedby>
+        <referencedby refid="group___overview_1ga97c7f0c8ee8e35d6358f7e93aaacb6c2" compoundref="xtmr__manager__stats_8c" startline="63" endline="76">XTMR_Manager_GetStats</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_t_m_r___manager___stats_1a14ac6c281296762e87103e4193ac4cf3" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XTMR_Manager_Stats::RecoveryCount</definition>
+        <argsstring></argsstring>
+        <name>RecoveryCount</name>
+        <briefdescription>
+<para>Number of recoveries performed. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.h" line="112" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.h" bodystart="112" bodyend="-1"/>
+        <referencedby refid="xtmr__manager__recovery__example_8c_1a6870457be2d38ba96bf040dbe6a5307b" compoundref="xtmr__manager__recovery__example_8c" startline="154" endline="213">TMR_ManagerRecoveryExample</referencedby>
+        <referencedby refid="group___overview_1ga6328ba6cbb2bab523942eb82a3515a8d" compoundref="xtmr__manager__stats_8c" startline="90" endline="100">XTMR_Manager_ClearStats</referencedby>
+        <referencedby refid="group___overview_1ga97c7f0c8ee8e35d6358f7e93aaacb6c2" compoundref="xtmr__manager__stats_8c" startline="63" endline="76">XTMR_Manager_GetStats</referencedby>
+        <referencedby refid="group___overview_1ga35bf0628effa71127914a170724b7e74" compoundref="xtmr__manager__recover_8c" startline="107" endline="152">XTMR_Manager_ResetHandler</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Statistics for the <ref refid="struct_x_t_m_r___manager" kindref="compound">XTMR_Manager</ref> driver. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.h" line="110" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.h" bodystart="110" bodyend="113"/>
+    <listofallmembers>
+      <member refid="struct_x_t_m_r___manager___stats_1ada777980dd034c3f1eef945e94570c93" prot="public" virt="non-virtual"><scope>XTMR_Manager_Stats</scope><name>InterruptCount</name></member>
+      <member refid="struct_x_t_m_r___manager___stats_1a14ac6c281296762e87103e4193ac4cf3" prot="public" virt="non-virtual"><scope>XTMR_Manager_Stats</scope><name>RecoveryCount</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

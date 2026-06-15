@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_f7acb09db4f43598f8ac42f02e49de72" kind="dir">
+    <compoundname>dummy</compoundname>
+    <innerfile refid="cam__device__3dnr__api_8c">cam_device_3dnr_api.c</innerfile>
+    <innerfile refid="cam__device__af__api_8c">cam_device_af_api.c</innerfile>
+    <innerfile refid="cam__device__afm__api_8c">cam_device_afm_api.c</innerfile>
+    <innerfile refid="cam__device__cnr__api_8c">cam_device_cnr_api.c</innerfile>
+    <innerfile refid="cam__device__hdr__api_8c">cam_device_hdr_api.c</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/dummy/"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_hdmiphy1___gt_pll_divs" kind="struct" prot="public">
+    <compoundname>XHdmiphy1_GtPllDivs</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_hdmiphy1___gt_pll_divs_1afe11fa450cb2f5dc7d82693aa5ed1cc4" prot="public" static="no" mutable="no">
+        <type>const u8 *</type>
+        <definition>const u8* XHdmiphy1_GtPllDivs::M</definition>
+        <argsstring></argsstring>
+        <name>M</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1_gt.h" line="49" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1_gt.h" bodystart="49" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmiphy1___gt_pll_divs_1af5231635936d3d7af0985c9315760a17" prot="public" static="no" mutable="no">
+        <type>const u8 *</type>
+        <definition>const u8* XHdmiphy1_GtPllDivs::N1</definition>
+        <argsstring></argsstring>
+        <name>N1</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1_gt.h" line="50" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1_gt.h" bodystart="50" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmiphy1___gt_pll_divs_1a48faff2ee98b1eaab820bbaa72098ea6" prot="public" static="no" mutable="no">
+        <type>const u8 *</type>
+        <definition>const u8* XHdmiphy1_GtPllDivs::N2</definition>
+        <argsstring></argsstring>
+        <name>N2</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1_gt.h" line="51" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1_gt.h" bodystart="51" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmiphy1___gt_pll_divs_1a0597616be352af182175a680beada2c2" prot="public" static="no" mutable="no">
+        <type>const u8 *</type>
+        <definition>const u8* XHdmiphy1_GtPllDivs::D</definition>
+        <argsstring></argsstring>
+        <name>D</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1_gt.h" line="52" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1_gt.h" bodystart="52" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1_gt.h" line="48" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1_gt.h" bodystart="48" bodyend="53"/>
+    <listofallmembers>
+      <member refid="struct_x_hdmiphy1___gt_pll_divs_1a0597616be352af182175a680beada2c2" prot="public" virt="non-virtual"><scope>XHdmiphy1_GtPllDivs</scope><name>D</name></member>
+      <member refid="struct_x_hdmiphy1___gt_pll_divs_1afe11fa450cb2f5dc7d82693aa5ed1cc4" prot="public" virt="non-virtual"><scope>XHdmiphy1_GtPllDivs</scope><name>M</name></member>
+      <member refid="struct_x_hdmiphy1___gt_pll_divs_1af5231635936d3d7af0985c9315760a17" prot="public" virt="non-virtual"><scope>XHdmiphy1_GtPllDivs</scope><name>N1</name></member>
+      <member refid="struct_x_hdmiphy1___gt_pll_divs_1a48faff2ee98b1eaab820bbaa72098ea6" prot="public" virt="non-virtual"><scope>XHdmiphy1_GtPllDivs</scope><name>N2</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

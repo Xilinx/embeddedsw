@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_8e8c58acc7c564e4426d0abe2f70d410" kind="dir">
+    <compoundname>src</compoundname>
+    <innerfile refid="xdfemix_8c">xdfemix.c</innerfile>
+    <innerfile refid="xdfemix_8h">xdfemix.h</innerfile>
+    <innerfile refid="xdfemix__hw_8h">xdfemix_hw.h</innerfile>
+    <innerfile refid="xdfemix__intr_8c">xdfemix_intr.c</innerfile>
+    <innerfile refid="xdfemix__sinit_8c">xdfemix_sinit.c</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_nvm___efuse_dec_only" kind="struct" prot="public">
+    <compoundname>XNvm_EfuseDecOnly</compoundname>
+    <includes local="no">xnvm_common_defs.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_nvm___efuse_dec_only_1a36284862a6a52a177972b7e26bd92348" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XNvm_EfuseDecOnly::PrgmDecOnly</definition>
+        <argsstring></argsstring>
+        <name>PrgmDecOnly</name>
+        <briefdescription>
+<para>Flag to determine whether to program Decrypt only or not. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="268" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="268" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_dec_only_1a1bbd6c6079b719f9e74f1e25eafb0d9b" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XNvm_EfuseDecOnly::PrgmDecOnly</definition>
+        <argsstring></argsstring>
+        <name>PrgmDecOnly</name>
+        <briefdescription>
+<para>Program decrypt only. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" line="276" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" bodystart="276" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>eFuse Decrypt only </para>    </briefdescription>
+    <detaileddescription>
+<para>Structure for DecryptOnly data. </para>    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="267" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="267" bodyend="269"/>
+    <listofallmembers>
+      <member refid="struct_x_nvm___efuse_dec_only_1a36284862a6a52a177972b7e26bd92348" prot="public" virt="non-virtual"><scope>XNvm_EfuseDecOnly</scope><name>PrgmDecOnly</name></member>
+      <member refid="struct_x_nvm___efuse_dec_only_1a1bbd6c6079b719f9e74f1e25eafb0d9b" prot="public" virt="non-virtual"><scope>XNvm_EfuseDecOnly</scope><name>PrgmDecOnly</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

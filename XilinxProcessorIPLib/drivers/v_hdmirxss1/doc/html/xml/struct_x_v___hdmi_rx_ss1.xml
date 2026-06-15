@@ -1,0 +1,1346 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_v___hdmi_rx_ss1" kind="struct" prot="public">
+    <compoundname>XV_HdmiRxSs1</compoundname>
+    <includes local="no">xv_hdmirxss1.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_v___hdmi_rx_ss1_1ae498c708a39c0a72d9d0c56cac26b523" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_v___hdmi_rx_ss1___config" kindref="compound">XV_HdmiRxSs1_Config</ref></type>
+        <definition>XV_HdmiRxSs1_Config XV_HdmiRxSs1::Config</definition>
+        <argsstring></argsstring>
+        <name>Config</name>
+        <briefdescription>
+<para>Hardware configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" line="396" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" bodystart="396" bodyend="-1"/>
+        <referencedby refid="xv__hdmirxss1_8h_1ae7df2cc91e752d61253d9a86462d95ab" compoundref="xv__hdmirxss1_8c" startline="566" endline="711">XV_HdmiRxSs1_CfgInitialize</referencedby>
+        <referencedby refid="xv__hdmirxss1_8h_1a2391ad693895b50024731a951c6aa990" compoundref="xv__hdmirxss1_8c" startline="3205" endline="3214">XV_HdmiRxSs1_DSC_IsEnableStream</referencedby>
+        <referencedby refid="xv__hdmirxss1_8h_1aea595ce7b6a72c3ef581593dc634f693" compoundref="xv__hdmirxss1_8c" startline="3032" endline="3043">XV_HdmiRxSs1_DynHDR_DM_Disable</referencedby>
+        <referencedby refid="xv__hdmirxss1_8h_1ac7d12d5726eed2735460f2f7ae91ac68" compoundref="xv__hdmirxss1_8c" startline="3007" endline="3018">XV_HdmiRxSs1_DynHDR_DM_Enable</referencedby>
+        <referencedby refid="xv__hdmirxss1_8h_1a42ec2b4dba172edc37040ec1e9ad7590" compoundref="xv__hdmirxss1_8c" startline="3090" endline="3104">XV_HdmiRxSs1_DynHDR_GetInfo</referencedby>
+        <referencedby refid="xv__hdmirxss1_8h_1aa3c4292a7e63691e8d096746c61c79e5" compoundref="xv__hdmirxss1_8c" startline="3059" endline="3073">XV_HdmiRxSs1_DynHDR_SetAddr</referencedby>
+        <referencedby refid="xv__hdmirxss1_8h_1a4b1da9fb9e5b37bea30c629293a76772" compoundref="xv__hdmirxss1_8c" startline="2866" endline="2873">XV_HdmiRxSs1_SetDefaultPpc</referencedby>
+        <referencedby refid="xv__hdmirxss1_8h_1ac95834c8296864ddf9bd11cddee740da" compoundref="xv__hdmirxss1_8c" startline="2890" endline="2893">XV_HdmiRxSs1_SetPpc</referencedby>
+        <referencedby refid="xv__hdmirxss1_8h_1a33f9facfc1978f57febcf29682fed6c7" compoundref="xv__hdmirxss1_8c" startline="2180" endline="2211">XV_HdmiRxSs1_SetStream</referencedby>
+        <referencedby refid="group__v__hdmirxss1_1ga68409ded8710da27184abfed11fdddbf" compoundref="xv__hdmirxss1__coreinit_8c" startline="66" endline="115">XV_HdmiRxSs1_SubcoreInitHdmiRx1</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_rx_ss1_1ae8658656418f5b8d6f90fd04c72b2d84" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XV_HdmiRxSs1::IsReady</definition>
+        <argsstring></argsstring>
+        <name>IsReady</name>
+        <briefdescription>
+<para>Device and the driver instance are initialized. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" line="397" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" bodystart="397" bodyend="-1"/>
+        <referencedby refid="xv__hdmirxss1_8h_1ae7df2cc91e752d61253d9a86462d95ab" compoundref="xv__hdmirxss1_8c" startline="566" endline="711">XV_HdmiRxSs1_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_rx_ss1_1a72e105dd51975ca027d92afa8b3b6084" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XV_HdmiRxSs1::AppMajVer</definition>
+        <argsstring></argsstring>
+        <name>AppMajVer</name>
+        <briefdescription>
+<para>Major Version of application used by the driver. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" line="399" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" bodystart="399" bodyend="-1"/>
+        <referencedby refid="xv__hdmirxss1_8h_1ae7df2cc91e752d61253d9a86462d95ab" compoundref="xv__hdmirxss1_8c" startline="566" endline="711">XV_HdmiRxSs1_CfgInitialize</referencedby>
+        <referencedby refid="xv__hdmirxss1_8h_1af08eb2ca5b57dc5a19fead2a9901dce4" compoundref="xv__hdmirxss1_8c" startline="2911" endline="2915">XV_HdmiRxSS1_SetAppVersion</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_rx_ss1_1aeac7326d1d96aa0d8442bfb105cd30f0" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XV_HdmiRxSs1::AppMinVer</definition>
+        <argsstring></argsstring>
+        <name>AppMinVer</name>
+        <briefdescription>
+<para>Minor Version of application used by the driver. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" line="400" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" bodystart="400" bodyend="-1"/>
+        <referencedby refid="xv__hdmirxss1_8h_1ae7df2cc91e752d61253d9a86462d95ab" compoundref="xv__hdmirxss1_8c" startline="566" endline="711">XV_HdmiRxSs1_CfgInitialize</referencedby>
+        <referencedby refid="xv__hdmirxss1_8h_1af08eb2ca5b57dc5a19fead2a9901dce4" compoundref="xv__hdmirxss1_8c" startline="2911" endline="2915">XV_HdmiRxSS1_SetAppVersion</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_rx_ss1_1a57688618f77655e032f1b4ca5e6cec13" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_v___hdmi_rx_ss1___log" kindref="compound">XV_HdmiRxSs1_Log</ref></type>
+        <definition>XV_HdmiRxSs1_Log XV_HdmiRxSs1::Log</definition>
+        <argsstring></argsstring>
+        <name>Log</name>
+        <briefdescription>
+<para>A log of events. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" line="403" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" bodystart="403" bodyend="-1"/>
+        <referencedby refid="xv__hdmirxss1__log_8c_1af6242df0d1d1fdba0f1c6a863b6a4a5a" compoundref="xv__hdmirxss1__log_8c" startline="161" endline="343">XV_HdmiRxSs1_LogDisplay</referencedby>
+        <referencedby refid="xv__hdmirxss1__log_8c_1a5b368b4a5515ba0db2dbfdd3e1752437" compoundref="xv__hdmirxss1__log_8c" startline="121" endline="147">XV_HdmiRxSs1_LogRead</referencedby>
+        <referencedby refid="xv__hdmirxss1__log_8c_1a111419a5169790fae1199ecdcf39801d" compoundref="xv__hdmirxss1__log_8c" startline="44" endline="51">XV_HdmiRxSs1_LogReset</referencedby>
+        <referencedby refid="xv__hdmirxss1__log_8c_1a7d0b053f82c85248f45171523ef784e5" compoundref="xv__hdmirxss1__log_8c" startline="66" endline="108">XV_HdmiRxSs1_LogWrite</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_rx_ss1_1a51fe864b06a7b80a949a9c65d0f8ec54" prot="public" static="no" mutable="no">
+        <type>XV_HdmiRx1 *</type>
+        <definition>XV_HdmiRx1* XV_HdmiRxSs1::HdmiRx1Ptr</definition>
+        <argsstring></argsstring>
+        <name>HdmiRx1Ptr</name>
+        <briefdescription>
+<para>handle to sub-core driver instance </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" line="414" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" bodystart="414" bodyend="-1"/>
+        <referencedby refid="xhdmi__menu_8c_1a436465d83bcfb1d90e5983e25dddbfc4" compoundref="xhdmi__example_8c" startline="4059" endline="4270">DetailedInfo</referencedby>
+        <referencedby refid="xv__hdmirxss1_8h_1adc7b5eec7611fe852444d65aeaf7e3de" compoundref="xv__hdmirxss1_8c" startline="2931" endline="2940">XV_HdmiRxSs1_AudioMute</referencedby>
+        <referencedby refid="xv__hdmirxss1_8h_1ae7df2cc91e752d61253d9a86462d95ab" compoundref="xv__hdmirxss1_8c" startline="566" endline="711">XV_HdmiRxSs1_CfgInitialize</referencedby>
+        <referencedby refid="xv__hdmirxss1_8h_1a01bf7140ff16b767639771b8b46a91fe" compoundref="xv__hdmirxss1_8c" startline="2423" endline="2430">XV_HdmiRxSs1_DdcRegDump</referencedby>
+        <referencedby refid="xv__hdmirxss1_8h_1a34b196de94d11c60b63ab0c1516dc8d9" compoundref="xv__hdmirxss1_8c" startline="2405" endline="2408">XV_HdmiRxSs1_DebugInfo</referencedby>
+        <referencedby refid="xv__hdmirxss1_8h_1a2391ad693895b50024731a951c6aa990" compoundref="xv__hdmirxss1_8c" startline="3205" endline="3214">XV_HdmiRxSs1_DSC_IsEnableStream</referencedby>
+        <referencedby refid="xv__hdmirxss1_8h_1afc80b6ffa2792cfc10a82ac6c6c2cdff" compoundref="xv__hdmirxss1_8c" startline="3231" endline="3237">XV_HdmiRxSs1_DSC_SetDecodeFail</referencedby>
+        <referencedby refid="xv__hdmirxss1_8h_1aa3e07d90ad60ca194b571197ff5b2ef1" compoundref="xv__hdmirxss1_8c" startline="3256" endline="3262">XV_HdmiRxSs1_DSC_SetDscFrlMax</referencedby>
+        <referencedby refid="xv__hdmirxss1_8h_1aea595ce7b6a72c3ef581593dc634f693" compoundref="xv__hdmirxss1_8c" startline="3032" endline="3043">XV_HdmiRxSs1_DynHDR_DM_Disable</referencedby>
+        <referencedby refid="xv__hdmirxss1_8h_1ac7d12d5726eed2735460f2f7ae91ac68" compoundref="xv__hdmirxss1_8c" startline="3007" endline="3018">XV_HdmiRxSs1_DynHDR_DM_Enable</referencedby>
+        <referencedby refid="xv__hdmirxss1_8h_1a42ec2b4dba172edc37040ec1e9ad7590" compoundref="xv__hdmirxss1_8c" startline="3090" endline="3104">XV_HdmiRxSs1_DynHDR_GetInfo</referencedby>
+        <referencedby refid="xv__hdmirxss1_8h_1aa3c4292a7e63691e8d096746c61c79e5" compoundref="xv__hdmirxss1_8c" startline="3059" endline="3073">XV_HdmiRxSs1_DynHDR_SetAddr</referencedby>
+        <referencedby refid="xv__hdmirxss1_8h_1a34d3d561e20a95660d9904872c3135c4" compoundref="xv__hdmirxss1_8c" startline="2349" endline="2352">XV_HdmiRxSs1_GetAudioAcrCtsVal</referencedby>
+        <referencedby refid="xv__hdmirxss1_8h_1a108a16a146c08a506c9c1d359b8a4a08" compoundref="xv__hdmirxss1_8c" startline="2366" endline="2369">XV_HdmiRxSs1_GetAudioAcrNVal</referencedby>
+        <referencedby refid="xv__hdmirxss1_8h_1a8ca19441484799097c652e8e7ff93e3e" compoundref="xv__hdmirxss1_8c" startline="2332" endline="2335">XV_HdmiRxSs1_GetAudioFormat</referencedby>
+        <referencedby refid="xv__hdmirxss1_8h_1a8314656c11e6dccbbc6b535a649d4f9a" compoundref="xv__hdmirxss1_8c" startline="2071" endline="2074">XV_HdmiRxSs1_GetAuxiliary</referencedby>
+        <referencedby refid="xv__hdmirxss1_8h_1a543a4df49cb663bd114ee8dad4a4a93e" compoundref="xv__hdmirxss1_8c" startline="2990" endline="2993">XV_HdmiRxSs1_GetCorePpc</referencedby>
+        <referencedby refid="xv__hdmirxss1_8h_1ade87b424565646eb7d47784e6631d87c" compoundref="xv__hdmirxss1_8c" startline="2276" endline="2284">XV_HdmiRxSs1_GetTransportMode</referencedby>
+        <referencedby refid="xv__hdmirxss1_8h_1ace16f08f14a0c08fdbe1083f7b32d49f" compoundref="xv__hdmirxss1_8c" startline="2242" endline="2245">XV_HdmiRxSs1_GetVideoIDCode</referencedby>
+        <referencedby refid="xv__hdmirxss1_8h_1ae1602e2606cfc7d343dbdd547fec91d4" compoundref="xv__hdmirxss1_8c" startline="2225" endline="2228">XV_HdmiRxSs1_GetVideoStream</referencedby>
+        <referencedby refid="xv__hdmirxss1_8h_1ab127b866ec562e95f5a10a0005a1ede9" compoundref="xv__hdmirxss1_8c" startline="2298" endline="2301">XV_HdmiRxSs1_GetVideoStreamScramblingFlag</referencedby>
+        <referencedby refid="xv__hdmirxss1_8h_1a19373a23359978b6e5f2c0bc9da94e67" compoundref="xv__hdmirxss1_8c" startline="2259" endline="2262">XV_HdmiRxSs1_GetVideoStreamType</referencedby>
+        <referencedby refid="xv__hdmirxss1_8h_1ad255644b4621f85786c183cac9f5d129" compoundref="xv__hdmirxss1_8c" startline="2973" endline="2976">XV_HdmiRxSs1_GetVrrIf</referencedby>
+        <referencedby refid="xv__hdmirxss1_8h_1aff9b79fc18e608b1d3efc68516957b2f" compoundref="xv__hdmirxss1_8c" startline="302" endline="305">XV_HdmiRxSS1_HdmiRxIntrHandler</referencedby>
+        <referencedby refid="xv__hdmirxss1_8h_1ac87f95db7f2e496c3559b62c627a47ea" compoundref="xv__hdmirxss1_8c" startline="1957" endline="1970">XV_HdmiRxSs1_LoadDefaultEdid</referencedby>
+        <referencedby refid="xv__hdmirxss1_8h_1adf8a56095f1bddd73332699309288a9b" compoundref="xv__hdmirxss1_8c" startline="1988" endline="2003">XV_HdmiRxSs1_LoadEdid</referencedby>
+        <referencedby refid="xv__hdmirxss1_8h_1a5760ec261157309fe997ee7e424b7ca9" compoundref="xv__hdmirxss1_8c" startline="2383" endline="2391">XV_HdmiRxSs1_RefClockChangeInit</referencedby>
+        <referencedby refid="xv__hdmirxss1_8h_1a83d082ecd6ba525743e7af8269e2c14a" compoundref="xv__hdmirxss1_8c" startline="175" endline="179">XV_HdmiRxSs1_RegisterDebug</referencedby>
+        <referencedby refid="xv__hdmirxss1_8h_1a59fe7994fe271ece2db726f2ba3ce146" compoundref="xv__hdmirxss1_8c" startline="2668" endline="2692">XV_HdmiRxSs1_ReportAudio</referencedby>
+        <referencedby refid="xv__hdmirxss1_8h_1ad1be5f12554c551e46983d3c76a49628" compoundref="xv__hdmirxss1_8c" startline="192" endline="222">XV_HdmiRxSs1_ReportCoreInfo</referencedby>
+        <referencedby refid="xv__hdmirxss1_8h_1a53b3c25bffdf06fb415bcfc143789d91" compoundref="xv__hdmirxss1_8c" startline="2706" endline="2709">XV_HdmiRxSs1_ReportInfoFrame</referencedby>
+        <referencedby refid="xv__hdmirxss1_8h_1ac69293c91dde2e6c870efd3519a5e045" compoundref="xv__hdmirxss1_8c" startline="2491" endline="2605">XV_HdmiRxSs1_ReportLinkQuality</referencedby>
+        <referencedby refid="xv__hdmirxss1_8h_1ac768cfd3f84a876cf88f8571f56a142f" compoundref="xv__hdmirxss1_8c" startline="2723" endline="2742">XV_HdmiRxSs1_ReportSubcoreVersion</referencedby>
+        <referencedby refid="xv__hdmirxss1_8h_1af817b5a4f80a2fc4e5ac1b0e1cebf9da" compoundref="xv__hdmirxss1_8c" startline="2444" endline="2477">XV_HdmiRxSs1_ReportTiming</referencedby>
+        <referencedby refid="xv__hdmirxss1_8h_1a9c3db888a37a686212acd0022e1fe089" compoundref="xv__hdmirxss1_8c" startline="833" endline="838">XV_HdmiRxSs1_RXCore_LRST</referencedby>
+        <referencedby refid="xv__hdmirxss1_8h_1a51671fc7d52ae1450bf765f47231ab4f" compoundref="xv__hdmirxss1_8c" startline="815" endline="820">XV_HdmiRxSs1_RXCore_VRST</referencedby>
+        <referencedby refid="xv__hdmirxss1_8h_1ad9b07a967c60120eb05ae4f42a5ebc49" compoundref="xv__hdmirxss1_8c" startline="2021" endline="2025">XV_HdmiRxSs1_SetHpd</referencedby>
+        <referencedby refid="xv__hdmirxss1_8h_1a33f9facfc1978f57febcf29682fed6c7" compoundref="xv__hdmirxss1_8c" startline="2180" endline="2211">XV_HdmiRxSs1_SetStream</referencedby>
+        <referencedby refid="xv__hdmirxss1_8h_1aa385d7305e57a116d118fd8a94f2da7a" compoundref="xv__hdmirxss1_8c" startline="726" endline="735">XV_HdmiRxSs1_Start</referencedby>
+        <referencedby refid="xv__hdmirxss1_8h_1abd29117c5df26cf6e8e59b0c21f03789" compoundref="xv__hdmirxss1_8c" startline="747" endline="766">XV_HdmiRxSs1_Stop</referencedby>
+        <referencedby refid="group__v__hdmirxss1_1ga68409ded8710da27184abfed11fdddbf" compoundref="xv__hdmirxss1__coreinit_8c" startline="66" endline="115">XV_HdmiRxSs1_SubcoreInitHdmiRx1</referencedby>
+        <referencedby refid="xv__hdmirxss1_8h_1a42f8f2a563c37a9ed239c15120b2226d" compoundref="xv__hdmirxss1_8c" startline="870" endline="875">XV_HdmiRxSs1_SYSRST</referencedby>
+        <referencedby refid="xv__hdmirxss1_8h_1ae779f948cfd2958ef300834fda40a513" compoundref="xv__hdmirxss1_8c" startline="2039" endline="2057">XV_HdmiRxSs1_ToggleHpd</referencedby>
+        <referencedby refid="xv__hdmirxss1_8h_1aa62ddf7f0fcf113a14a948243196c9e4" compoundref="xv__hdmirxss1_8c" startline="2956" endline="2959">XV_HdmiRxSs1_VfpControl</referencedby>
+        <referencedby refid="xv__hdmirxss1_8h_1a3c9b009c2f1a32884f31b91fda02d93a" compoundref="xv__hdmirxss1_8c" startline="851" endline="856">XV_HdmiRxSs1_VRST</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_rx_ss1_1ab90ae1528187d384abc5ebb6d6bc9d0c" prot="public" static="no" mutable="no">
+        <type><ref refid="xv__hdmirxss1_8h_1a64be6c21126599922ecfb365e05a5153" kindref="member">XV_HdmiRxSs1_Callback</ref></type>
+        <definition>XV_HdmiRxSs1_Callback XV_HdmiRxSs1::ConnectCallback</definition>
+        <argsstring></argsstring>
+        <name>ConnectCallback</name>
+        <briefdescription>
+<para>Callback for connect event. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" line="417" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" bodystart="417" bodyend="-1"/>
+        <referencedby refid="xv__hdmirxss1_8h_1a3512f73294b1c1db0a9e717f43677e53" compoundref="xv__hdmirxss1_8c" startline="1559" endline="1888">XV_HdmiRxSs1_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_rx_ss1_1af114ee0b6df2477a8d4da35d7d9cfff6" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XV_HdmiRxSs1::ConnectRef</definition>
+        <argsstring></argsstring>
+        <name>ConnectRef</name>
+        <briefdescription>
+<para>To be passed to the connect callback. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" line="418" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" bodystart="418" bodyend="-1"/>
+        <referencedby refid="xv__hdmirxss1_8h_1a3512f73294b1c1db0a9e717f43677e53" compoundref="xv__hdmirxss1_8c" startline="1559" endline="1888">XV_HdmiRxSs1_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_rx_ss1_1a21ed79dcc9690fa2f1a3d50732e31540" prot="public" static="no" mutable="no">
+        <type><ref refid="xv__hdmirxss1_8h_1a64be6c21126599922ecfb365e05a5153" kindref="member">XV_HdmiRxSs1_Callback</ref></type>
+        <definition>XV_HdmiRxSs1_Callback XV_HdmiRxSs1::BrdgOverflowCallback</definition>
+        <argsstring></argsstring>
+        <name>BrdgOverflowCallback</name>
+        <briefdescription>
+<para><verbatim>     Callback for Bridge overflow
+</verbatim> event </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" line="420" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" bodystart="420" bodyend="-1"/>
+        <referencedby refid="xv__hdmirxss1_8h_1a3512f73294b1c1db0a9e717f43677e53" compoundref="xv__hdmirxss1_8c" startline="1559" endline="1888">XV_HdmiRxSs1_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_rx_ss1_1ac9f44361b651061797f284105a47a777" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XV_HdmiRxSs1::BrdgOverflowRef</definition>
+        <argsstring></argsstring>
+        <name>BrdgOverflowRef</name>
+        <briefdescription>
+<para>To be passed to the Bridge overflow callback. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" line="422" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" bodystart="422" bodyend="-1"/>
+        <referencedby refid="xv__hdmirxss1_8h_1a3512f73294b1c1db0a9e717f43677e53" compoundref="xv__hdmirxss1_8c" startline="1559" endline="1888">XV_HdmiRxSs1_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_rx_ss1_1a1a6b0fb6924ee322a37531039d444541" prot="public" static="no" mutable="no">
+        <type><ref refid="xv__hdmirxss1_8h_1a64be6c21126599922ecfb365e05a5153" kindref="member">XV_HdmiRxSs1_Callback</ref></type>
+        <definition>XV_HdmiRxSs1_Callback XV_HdmiRxSs1::AuxCallback</definition>
+        <argsstring></argsstring>
+        <name>AuxCallback</name>
+        <briefdescription>
+<para>Callback for AUX event. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" line="425" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" bodystart="425" bodyend="-1"/>
+        <referencedby refid="xv__hdmirxss1_8h_1a3512f73294b1c1db0a9e717f43677e53" compoundref="xv__hdmirxss1_8c" startline="1559" endline="1888">XV_HdmiRxSs1_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_rx_ss1_1a67e0dd90eac360d84b346c3fc5b6901b" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XV_HdmiRxSs1::AuxRef</definition>
+        <argsstring></argsstring>
+        <name>AuxRef</name>
+        <briefdescription>
+<para>To be passed to the AUX callback. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" line="426" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" bodystart="426" bodyend="-1"/>
+        <referencedby refid="xv__hdmirxss1_8h_1a3512f73294b1c1db0a9e717f43677e53" compoundref="xv__hdmirxss1_8c" startline="1559" endline="1888">XV_HdmiRxSs1_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_rx_ss1_1ae6938dc3628dd975b7fbf7d29e9598df" prot="public" static="no" mutable="no">
+        <type><ref refid="xv__hdmirxss1_8h_1a64be6c21126599922ecfb365e05a5153" kindref="member">XV_HdmiRxSs1_Callback</ref></type>
+        <definition>XV_HdmiRxSs1_Callback XV_HdmiRxSs1::AudCallback</definition>
+        <argsstring></argsstring>
+        <name>AudCallback</name>
+        <briefdescription>
+<para>Callback for AUD event. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" line="428" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" bodystart="428" bodyend="-1"/>
+        <referencedby refid="xv__hdmirxss1_8h_1a3512f73294b1c1db0a9e717f43677e53" compoundref="xv__hdmirxss1_8c" startline="1559" endline="1888">XV_HdmiRxSs1_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_rx_ss1_1a8d53f0d6c5a488435221455a3ce2915c" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XV_HdmiRxSs1::AudRef</definition>
+        <argsstring></argsstring>
+        <name>AudRef</name>
+        <briefdescription>
+<para>To be passed to the AUD callback. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" line="429" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" bodystart="429" bodyend="-1"/>
+        <referencedby refid="xv__hdmirxss1_8h_1a3512f73294b1c1db0a9e717f43677e53" compoundref="xv__hdmirxss1_8c" startline="1559" endline="1888">XV_HdmiRxSs1_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_rx_ss1_1a515e2919e44e279badf3b56f924775f0" prot="public" static="no" mutable="no">
+        <type><ref refid="xv__hdmirxss1_8h_1a64be6c21126599922ecfb365e05a5153" kindref="member">XV_HdmiRxSs1_Callback</ref></type>
+        <definition>XV_HdmiRxSs1_Callback XV_HdmiRxSs1::LnkStaCallback</definition>
+        <argsstring></argsstring>
+        <name>LnkStaCallback</name>
+        <briefdescription>
+<para>Callback for LNKSTA event. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" line="431" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" bodystart="431" bodyend="-1"/>
+        <referencedby refid="xv__hdmirxss1_8h_1a3512f73294b1c1db0a9e717f43677e53" compoundref="xv__hdmirxss1_8c" startline="1559" endline="1888">XV_HdmiRxSs1_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_rx_ss1_1afa9a4c14665eb70b550465209db07585" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XV_HdmiRxSs1::LnkStaRef</definition>
+        <argsstring></argsstring>
+        <name>LnkStaRef</name>
+        <briefdescription>
+<para>To be passed to the LNKSTA callback. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" line="432" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" bodystart="432" bodyend="-1"/>
+        <referencedby refid="xv__hdmirxss1_8h_1a3512f73294b1c1db0a9e717f43677e53" compoundref="xv__hdmirxss1_8c" startline="1559" endline="1888">XV_HdmiRxSs1_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_rx_ss1_1a90061efd501cb114f31f979c549675a6" prot="public" static="no" mutable="no">
+        <type><ref refid="xv__hdmirxss1_8h_1a64be6c21126599922ecfb365e05a5153" kindref="member">XV_HdmiRxSs1_Callback</ref></type>
+        <definition>XV_HdmiRxSs1_Callback XV_HdmiRxSs1::DdcCallback</definition>
+        <argsstring></argsstring>
+        <name>DdcCallback</name>
+        <briefdescription>
+<para>Callback for PDDC event. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" line="434" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" bodystart="434" bodyend="-1"/>
+        <referencedby refid="xv__hdmirxss1_8h_1a3512f73294b1c1db0a9e717f43677e53" compoundref="xv__hdmirxss1_8c" startline="1559" endline="1888">XV_HdmiRxSs1_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_rx_ss1_1abe4288be1f3e937cf4a6b252f823a790" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XV_HdmiRxSs1::DdcRef</definition>
+        <argsstring></argsstring>
+        <name>DdcRef</name>
+        <briefdescription>
+<para>To be passed to the DDC callback. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" line="435" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" bodystart="435" bodyend="-1"/>
+        <referencedby refid="xv__hdmirxss1_8h_1a3512f73294b1c1db0a9e717f43677e53" compoundref="xv__hdmirxss1_8c" startline="1559" endline="1888">XV_HdmiRxSs1_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_rx_ss1_1af60af53b7d4621bc9eb24d58cadc9737" prot="public" static="no" mutable="no">
+        <type><ref refid="xv__hdmirxss1_8h_1a64be6c21126599922ecfb365e05a5153" kindref="member">XV_HdmiRxSs1_Callback</ref></type>
+        <definition>XV_HdmiRxSs1_Callback XV_HdmiRxSs1::StreamDownCallback</definition>
+        <argsstring></argsstring>
+        <name>StreamDownCallback</name>
+        <briefdescription>
+<para>Callback for stream down event. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" line="437" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" bodystart="437" bodyend="-1"/>
+        <referencedby refid="xv__hdmirxss1_8h_1a3512f73294b1c1db0a9e717f43677e53" compoundref="xv__hdmirxss1_8c" startline="1559" endline="1888">XV_HdmiRxSs1_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_rx_ss1_1ae2ff5de8e1890fa138ccd1bf818ab913" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XV_HdmiRxSs1::StreamDownRef</definition>
+        <argsstring></argsstring>
+        <name>StreamDownRef</name>
+        <briefdescription>
+<para>To be passed to the stream down callback. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" line="438" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" bodystart="438" bodyend="-1"/>
+        <referencedby refid="xv__hdmirxss1_8h_1a3512f73294b1c1db0a9e717f43677e53" compoundref="xv__hdmirxss1_8c" startline="1559" endline="1888">XV_HdmiRxSs1_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_rx_ss1_1a502704278d4c40570ca313a0af5830cf" prot="public" static="no" mutable="no">
+        <type><ref refid="xv__hdmirxss1_8h_1a64be6c21126599922ecfb365e05a5153" kindref="member">XV_HdmiRxSs1_Callback</ref></type>
+        <definition>XV_HdmiRxSs1_Callback XV_HdmiRxSs1::StreamInitCallback</definition>
+        <argsstring></argsstring>
+        <name>StreamInitCallback</name>
+        <briefdescription>
+<para>Callback for stream init event. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" line="440" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" bodystart="440" bodyend="-1"/>
+        <referencedby refid="xv__hdmirxss1_8h_1a3512f73294b1c1db0a9e717f43677e53" compoundref="xv__hdmirxss1_8c" startline="1559" endline="1888">XV_HdmiRxSs1_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_rx_ss1_1a257220ef040fa2a7d651faf356c6e894" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XV_HdmiRxSs1::StreamInitRef</definition>
+        <argsstring></argsstring>
+        <name>StreamInitRef</name>
+        <briefdescription>
+<para>To be passed to the stream init callback. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" line="441" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" bodystart="441" bodyend="-1"/>
+        <referencedby refid="xv__hdmirxss1_8h_1a3512f73294b1c1db0a9e717f43677e53" compoundref="xv__hdmirxss1_8c" startline="1559" endline="1888">XV_HdmiRxSs1_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_rx_ss1_1a07493400e34cef66ce9570b9fcd609e4" prot="public" static="no" mutable="no">
+        <type><ref refid="xv__hdmirxss1_8h_1a64be6c21126599922ecfb365e05a5153" kindref="member">XV_HdmiRxSs1_Callback</ref></type>
+        <definition>XV_HdmiRxSs1_Callback XV_HdmiRxSs1::StreamUpCallback</definition>
+        <argsstring></argsstring>
+        <name>StreamUpCallback</name>
+        <briefdescription>
+<para>Callback for stream up event. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" line="443" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" bodystart="443" bodyend="-1"/>
+        <referencedby refid="xv__hdmirxss1_8h_1a3512f73294b1c1db0a9e717f43677e53" compoundref="xv__hdmirxss1_8c" startline="1559" endline="1888">XV_HdmiRxSs1_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_rx_ss1_1aaa8875e35273a0f4bf73ab6d50fa6f62" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XV_HdmiRxSs1::StreamUpRef</definition>
+        <argsstring></argsstring>
+        <name>StreamUpRef</name>
+        <briefdescription>
+<para>To be passed to the stream up callback. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" line="444" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" bodystart="444" bodyend="-1"/>
+        <referencedby refid="xv__hdmirxss1_8h_1a3512f73294b1c1db0a9e717f43677e53" compoundref="xv__hdmirxss1_8c" startline="1559" endline="1888">XV_HdmiRxSs1_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_rx_ss1_1ab1575a61fd7e82986a0ad1d5b50585dc" prot="public" static="no" mutable="no">
+        <type><ref refid="xv__hdmirxss1_8h_1a64be6c21126599922ecfb365e05a5153" kindref="member">XV_HdmiRxSs1_Callback</ref></type>
+        <definition>XV_HdmiRxSs1_Callback XV_HdmiRxSs1::HdcpCallback</definition>
+        <argsstring></argsstring>
+        <name>HdcpCallback</name>
+        <briefdescription>
+<para>Callback for HDCP 1.4 event. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" line="446" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" bodystart="446" bodyend="-1"/>
+        <referencedby refid="xv__hdmirxss1_8h_1a3512f73294b1c1db0a9e717f43677e53" compoundref="xv__hdmirxss1_8c" startline="1559" endline="1888">XV_HdmiRxSs1_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_rx_ss1_1a56ccc028ba068fea1efe46514a26ca41" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XV_HdmiRxSs1::HdcpRef</definition>
+        <argsstring></argsstring>
+        <name>HdcpRef</name>
+        <briefdescription>
+<para>To be passed to the hdcp callback. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" line="447" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" bodystart="447" bodyend="-1"/>
+        <referencedby refid="xv__hdmirxss1_8h_1a3512f73294b1c1db0a9e717f43677e53" compoundref="xv__hdmirxss1_8c" startline="1559" endline="1888">XV_HdmiRxSs1_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_rx_ss1_1a254b83e28803c1edac5f4fac9e60946d" prot="public" static="no" mutable="no">
+        <type><ref refid="xv__hdmirxss1_8h_1a64be6c21126599922ecfb365e05a5153" kindref="member">XV_HdmiRxSs1_Callback</ref></type>
+        <definition>XV_HdmiRxSs1_Callback XV_HdmiRxSs1::TmdsClkRatioCallback</definition>
+        <argsstring></argsstring>
+        <name>TmdsClkRatioCallback</name>
+        <briefdescription>
+<para>Callback for scdc TMDS clock ratio change callback. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" line="449" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" bodystart="449" bodyend="-1"/>
+        <referencedby refid="xv__hdmirxss1_8h_1a3512f73294b1c1db0a9e717f43677e53" compoundref="xv__hdmirxss1_8c" startline="1559" endline="1888">XV_HdmiRxSs1_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_rx_ss1_1a85465e7d36e3dd136ceba0664e3a0804" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XV_HdmiRxSs1::TmdsClkRatioRef</definition>
+        <argsstring></argsstring>
+        <name>TmdsClkRatioRef</name>
+        <briefdescription>
+<para>To be passed to the scdc tmds clock ratio change callback. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" line="451" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" bodystart="451" bodyend="-1"/>
+        <referencedby refid="xv__hdmirxss1_8h_1a3512f73294b1c1db0a9e717f43677e53" compoundref="xv__hdmirxss1_8c" startline="1559" endline="1888">XV_HdmiRxSs1_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_rx_ss1_1a3b53815611e7605f41e11525320d9d34" prot="public" static="no" mutable="no">
+        <type><ref refid="xv__hdmirxss1_8h_1a64be6c21126599922ecfb365e05a5153" kindref="member">XV_HdmiRxSs1_Callback</ref></type>
+        <definition>XV_HdmiRxSs1_Callback XV_HdmiRxSs1::VicErrorCallback</definition>
+        <argsstring></argsstring>
+        <name>VicErrorCallback</name>
+        <briefdescription>
+<para>Callback for VIC error detection. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" line="454" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" bodystart="454" bodyend="-1"/>
+        <referencedby refid="xv__hdmirxss1_8h_1a3512f73294b1c1db0a9e717f43677e53" compoundref="xv__hdmirxss1_8c" startline="1559" endline="1888">XV_HdmiRxSs1_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_rx_ss1_1a17e009b7f1aa0ae4351b9f9a9172fb59" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XV_HdmiRxSs1::VicErrorRef</definition>
+        <argsstring></argsstring>
+        <name>VicErrorRef</name>
+        <briefdescription>
+<para>To be passed to the VIC error callback. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" line="456" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" bodystart="456" bodyend="-1"/>
+        <referencedby refid="xv__hdmirxss1_8h_1a3512f73294b1c1db0a9e717f43677e53" compoundref="xv__hdmirxss1_8c" startline="1559" endline="1888">XV_HdmiRxSs1_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_rx_ss1_1a0e27f731769175b31a45aae8446d3f29" prot="public" static="no" mutable="no">
+        <type><ref refid="xv__hdmirxss1_8h_1a64be6c21126599922ecfb365e05a5153" kindref="member">XV_HdmiRxSs1_Callback</ref></type>
+        <definition>XV_HdmiRxSs1_Callback XV_HdmiRxSs1::VidRdyErrorCallback</definition>
+        <argsstring></argsstring>
+        <name>VidRdyErrorCallback</name>
+        <briefdescription>
+<para>Callback for Video Ready Error detection. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" line="458" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" bodystart="458" bodyend="-1"/>
+        <referencedby refid="xv__hdmirxss1_8h_1a3512f73294b1c1db0a9e717f43677e53" compoundref="xv__hdmirxss1_8c" startline="1559" endline="1888">XV_HdmiRxSs1_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_rx_ss1_1abe0423b0e453b98e0a0302d0bd975f2e" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XV_HdmiRxSs1::VidRdyErrorRef</definition>
+        <argsstring></argsstring>
+        <name>VidRdyErrorRef</name>
+        <briefdescription>
+<para>To be passed to the video ready error callback. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" line="459" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" bodystart="459" bodyend="-1"/>
+        <referencedby refid="xv__hdmirxss1_8h_1a3512f73294b1c1db0a9e717f43677e53" compoundref="xv__hdmirxss1_8c" startline="1559" endline="1888">XV_HdmiRxSs1_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_rx_ss1_1a26644f3c1c2f2dad564ec5e825aaecf6" prot="public" static="no" mutable="no">
+        <type><ref refid="xv__hdmirxss1_8h_1a41f9dc5a39d457fbf334927e2aaf379e" kindref="member">XV_HdmiRxSs1_LogCallback</ref></type>
+        <definition>XV_HdmiRxSs1_LogCallback XV_HdmiRxSs1::LogWriteCallback</definition>
+        <argsstring></argsstring>
+        <name>LogWriteCallback</name>
+        <briefdescription>
+<para>Callback for log write. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" line="461" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" bodystart="461" bodyend="-1"/>
+        <referencedby refid="xv__hdmirxss1__log_8c_1af6242df0d1d1fdba0f1c6a863b6a4a5a" compoundref="xv__hdmirxss1__log_8c" startline="161" endline="343">XV_HdmiRxSs1_LogDisplay</referencedby>
+        <referencedby refid="xv__hdmirxss1__log_8c_1a7d0b053f82c85248f45171523ef784e5" compoundref="xv__hdmirxss1__log_8c" startline="66" endline="108">XV_HdmiRxSs1_LogWrite</referencedby>
+        <referencedby refid="xv__hdmirxss1_8h_1a8948d5e7406aa01daa9f4626f6f9723b" compoundref="xv__hdmirxss1_8c" startline="1909" endline="1920">XV_HdmiRxSs1_SetLogCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_rx_ss1_1a31a7438dfb4ac67da799602693a606aa" prot="public" static="no" mutable="no">
+        <type>u8 *</type>
+        <definition>u8* XV_HdmiRxSs1::LogWriteRef</definition>
+        <argsstring></argsstring>
+        <name>LogWriteRef</name>
+        <briefdescription>
+<para>To be passed to the log write callback. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" line="462" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" bodystart="462" bodyend="-1"/>
+        <referencedby refid="xv__hdmirxss1__log_8c_1a7d0b053f82c85248f45171523ef784e5" compoundref="xv__hdmirxss1__log_8c" startline="66" endline="108">XV_HdmiRxSs1_LogWrite</referencedby>
+        <referencedby refid="xv__hdmirxss1_8h_1a8948d5e7406aa01daa9f4626f6f9723b" compoundref="xv__hdmirxss1_8c" startline="1909" endline="1920">XV_HdmiRxSs1_SetLogCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_rx_ss1_1a59788969a4717210bdda32fb50e0cf25" prot="public" static="no" mutable="no">
+        <type><ref refid="xv__hdmirxss1_8h_1a64be6c21126599922ecfb365e05a5153" kindref="member">XV_HdmiRxSs1_Callback</ref></type>
+        <definition>XV_HdmiRxSs1_Callback XV_HdmiRxSs1::PhyResetCallback</definition>
+        <argsstring></argsstring>
+        <name>PhyResetCallback</name>
+        <briefdescription>
+<para>Callback for config retry. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" line="464" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" bodystart="464" bodyend="-1"/>
+        <referencedby refid="xv__hdmirxss1_8h_1a3512f73294b1c1db0a9e717f43677e53" compoundref="xv__hdmirxss1_8c" startline="1559" endline="1888">XV_HdmiRxSs1_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_rx_ss1_1a5fcc7dc306d9b03d30247f4a308a649b" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XV_HdmiRxSs1::PhyResetRef</definition>
+        <argsstring></argsstring>
+        <name>PhyResetRef</name>
+        <briefdescription>
+<para>To be passed to the log write callback. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" line="465" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" bodystart="465" bodyend="-1"/>
+        <referencedby refid="xv__hdmirxss1_8h_1a3512f73294b1c1db0a9e717f43677e53" compoundref="xv__hdmirxss1_8c" startline="1559" endline="1888">XV_HdmiRxSs1_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_rx_ss1_1adde74c1981e154069d71b4fd1f36484c" prot="public" static="no" mutable="no">
+        <type><ref refid="xv__hdmirxss1_8h_1a64be6c21126599922ecfb365e05a5153" kindref="member">XV_HdmiRxSs1_Callback</ref></type>
+        <definition>XV_HdmiRxSs1_Callback XV_HdmiRxSs1::FrlConfigCallback</definition>
+        <argsstring></argsstring>
+        <name>FrlConfigCallback</name>
+        <briefdescription>
+<para>Callback for stream up. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" line="467" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" bodystart="467" bodyend="-1"/>
+        <referencedby refid="xv__hdmirxss1_8h_1a3512f73294b1c1db0a9e717f43677e53" compoundref="xv__hdmirxss1_8c" startline="1559" endline="1888">XV_HdmiRxSs1_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_rx_ss1_1a42eb4deed48ed2ba81855d3f5ffd2e5c" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XV_HdmiRxSs1::FrlConfigRef</definition>
+        <argsstring></argsstring>
+        <name>FrlConfigRef</name>
+        <briefdescription>
+<para>To be passed to the stream up callback. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" line="468" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" bodystart="468" bodyend="-1"/>
+        <referencedby refid="xv__hdmirxss1_8h_1a3512f73294b1c1db0a9e717f43677e53" compoundref="xv__hdmirxss1_8c" startline="1559" endline="1888">XV_HdmiRxSs1_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_rx_ss1_1a5ea46631510f443365665426e2b2bf70" prot="public" static="no" mutable="no">
+        <type><ref refid="xv__hdmirxss1_8h_1a64be6c21126599922ecfb365e05a5153" kindref="member">XV_HdmiRxSs1_Callback</ref></type>
+        <definition>XV_HdmiRxSs1_Callback XV_HdmiRxSs1::FrlStartCallback</definition>
+        <argsstring></argsstring>
+        <name>FrlStartCallback</name>
+        <briefdescription>
+<para>Callback for stream up. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" line="470" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" bodystart="470" bodyend="-1"/>
+        <referencedby refid="xv__hdmirxss1_8h_1a3512f73294b1c1db0a9e717f43677e53" compoundref="xv__hdmirxss1_8c" startline="1559" endline="1888">XV_HdmiRxSs1_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_rx_ss1_1ad0c54d632c1b244ddedfa1ea263d2a24" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XV_HdmiRxSs1::FrlStartRef</definition>
+        <argsstring></argsstring>
+        <name>FrlStartRef</name>
+        <briefdescription>
+<para>To be passed to the stream up callback. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" line="471" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" bodystart="471" bodyend="-1"/>
+        <referencedby refid="xv__hdmirxss1_8h_1a3512f73294b1c1db0a9e717f43677e53" compoundref="xv__hdmirxss1_8c" startline="1559" endline="1888">XV_HdmiRxSs1_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_rx_ss1_1acf69d50ff508fc32360005a369f4b691" prot="public" static="no" mutable="no">
+        <type><ref refid="xv__hdmirxss1_8h_1a64be6c21126599922ecfb365e05a5153" kindref="member">XV_HdmiRxSs1_Callback</ref></type>
+        <definition>XV_HdmiRxSs1_Callback XV_HdmiRxSs1::TmdsConfigCallback</definition>
+        <argsstring></argsstring>
+        <name>TmdsConfigCallback</name>
+        <briefdescription>
+<para>Callback for stream up. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" line="473" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" bodystart="473" bodyend="-1"/>
+        <referencedby refid="xv__hdmirxss1_8h_1a3512f73294b1c1db0a9e717f43677e53" compoundref="xv__hdmirxss1_8c" startline="1559" endline="1888">XV_HdmiRxSs1_SetCallback</referencedby>
+        <referencedby refid="xv__hdmirxss1__frl_8h_1add011f95edda7fe781095a43d89484c4" compoundref="xv__hdmirxss1__frl_8c" startline="206" endline="214">XV_HdmiRxSs1_TmdsConfigCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_rx_ss1_1acd7b5a4741af92eee50cafa7e55f86d3" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XV_HdmiRxSs1::TmdsConfigRef</definition>
+        <argsstring></argsstring>
+        <name>TmdsConfigRef</name>
+        <briefdescription>
+<para>To be passed to the stream up callback. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" line="474" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" bodystart="474" bodyend="-1"/>
+        <referencedby refid="xv__hdmirxss1_8h_1a3512f73294b1c1db0a9e717f43677e53" compoundref="xv__hdmirxss1_8c" startline="1559" endline="1888">XV_HdmiRxSs1_SetCallback</referencedby>
+        <referencedby refid="xv__hdmirxss1__frl_8h_1add011f95edda7fe781095a43d89484c4" compoundref="xv__hdmirxss1__frl_8c" startline="206" endline="214">XV_HdmiRxSs1_TmdsConfigCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_rx_ss1_1aaed6c80b8031be209563cfc9b38bc8b9" prot="public" static="no" mutable="no">
+        <type><ref refid="xv__hdmirxss1_8h_1a64be6c21126599922ecfb365e05a5153" kindref="member">XV_HdmiRxSs1_Callback</ref></type>
+        <definition>XV_HdmiRxSs1_Callback XV_HdmiRxSs1::FrlLtsLCallback</definition>
+        <argsstring></argsstring>
+        <name>FrlLtsLCallback</name>
+        <briefdescription>
+<para>Callback for FRL LTS:L. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" line="476" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" bodystart="476" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_rx_ss1_1a6de2adb65bcd4b4574641c91a18dc3fc" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XV_HdmiRxSs1::FrlLtsLRef</definition>
+        <argsstring></argsstring>
+        <name>FrlLtsLRef</name>
+        <briefdescription>
+<para>To be passed to FRL LTS:L callback. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" line="477" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" bodystart="477" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_rx_ss1_1a62d3a7cdce1e5792b52e99d8e1de0097" prot="public" static="no" mutable="no">
+        <type><ref refid="xv__hdmirxss1_8h_1a64be6c21126599922ecfb365e05a5153" kindref="member">XV_HdmiRxSs1_Callback</ref></type>
+        <definition>XV_HdmiRxSs1_Callback XV_HdmiRxSs1::FrlLts1Callback</definition>
+        <argsstring></argsstring>
+        <name>FrlLts1Callback</name>
+        <briefdescription>
+<para>Callback for FRL LTS:1. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" line="479" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" bodystart="479" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_rx_ss1_1a2152616e82b3faebe5d83d016fccfd61" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XV_HdmiRxSs1::FrlLts1Ref</definition>
+        <argsstring></argsstring>
+        <name>FrlLts1Ref</name>
+        <briefdescription>
+<para>To be passed to FRL LTS:1 callback. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" line="480" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" bodystart="480" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_rx_ss1_1af6e0a1d5b1a51058637adacf85c8802c" prot="public" static="no" mutable="no">
+        <type><ref refid="xv__hdmirxss1_8h_1a64be6c21126599922ecfb365e05a5153" kindref="member">XV_HdmiRxSs1_Callback</ref></type>
+        <definition>XV_HdmiRxSs1_Callback XV_HdmiRxSs1::FrlLts2Callback</definition>
+        <argsstring></argsstring>
+        <name>FrlLts2Callback</name>
+        <briefdescription>
+<para>Callback for FRL LTS:2. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" line="482" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" bodystart="482" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_rx_ss1_1a9e21342bf86d5086bac79afb4d47b2a2" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XV_HdmiRxSs1::FrlLts2Ref</definition>
+        <argsstring></argsstring>
+        <name>FrlLts2Ref</name>
+        <briefdescription>
+<para>To be passed to FRL LTS:2 callback. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" line="483" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" bodystart="483" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_rx_ss1_1a23d08d19d1a8fab914aa5b03c4558c74" prot="public" static="no" mutable="no">
+        <type><ref refid="xv__hdmirxss1_8h_1a64be6c21126599922ecfb365e05a5153" kindref="member">XV_HdmiRxSs1_Callback</ref></type>
+        <definition>XV_HdmiRxSs1_Callback XV_HdmiRxSs1::FrlLts3Callback</definition>
+        <argsstring></argsstring>
+        <name>FrlLts3Callback</name>
+        <briefdescription>
+<para>Callback for FRL LTS:3. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" line="485" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" bodystart="485" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_rx_ss1_1acf742b6de69ecd575a2ba7f80a415ad0" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XV_HdmiRxSs1::FrlLts3Ref</definition>
+        <argsstring></argsstring>
+        <name>FrlLts3Ref</name>
+        <briefdescription>
+<para>To be passed to FRL LTS:3 callback. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" line="486" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" bodystart="486" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_rx_ss1_1a3c8f7748a0417664e440e3edce84f634" prot="public" static="no" mutable="no">
+        <type><ref refid="xv__hdmirxss1_8h_1a64be6c21126599922ecfb365e05a5153" kindref="member">XV_HdmiRxSs1_Callback</ref></type>
+        <definition>XV_HdmiRxSs1_Callback XV_HdmiRxSs1::FrlLts4Callback</definition>
+        <argsstring></argsstring>
+        <name>FrlLts4Callback</name>
+        <briefdescription>
+<para>Callback for FRL LTS:4. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" line="488" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" bodystart="488" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_rx_ss1_1a89eda9556014f30568d954fedbef3536" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XV_HdmiRxSs1::FrlLts4Ref</definition>
+        <argsstring></argsstring>
+        <name>FrlLts4Ref</name>
+        <briefdescription>
+<para>To be passed to FRL LTS:4 callback. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" line="489" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" bodystart="489" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_rx_ss1_1a94c1b9c0762f83786245fad20a56977b" prot="public" static="no" mutable="no">
+        <type><ref refid="xv__hdmirxss1_8h_1a64be6c21126599922ecfb365e05a5153" kindref="member">XV_HdmiRxSs1_Callback</ref></type>
+        <definition>XV_HdmiRxSs1_Callback XV_HdmiRxSs1::FrlLtsPCallback</definition>
+        <argsstring></argsstring>
+        <name>FrlLtsPCallback</name>
+        <briefdescription>
+<para>Callback for FRL LTS:P. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" line="491" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" bodystart="491" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_rx_ss1_1a0685169a0e7716a593d0028cf87eace3" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XV_HdmiRxSs1::FrlLtsPRef</definition>
+        <argsstring></argsstring>
+        <name>FrlLtsPRef</name>
+        <briefdescription>
+<para>To be passed to FRL LTS:P callback. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" line="492" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" bodystart="492" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_rx_ss1_1a7000655d167b841b77a154892a0c5937" prot="public" static="no" mutable="no">
+        <type><ref refid="xv__hdmirxss1_8h_1a64be6c21126599922ecfb365e05a5153" kindref="member">XV_HdmiRxSs1_Callback</ref></type>
+        <definition>XV_HdmiRxSs1_Callback XV_HdmiRxSs1::VfpChangeCallback</definition>
+        <argsstring></argsstring>
+        <name>VfpChangeCallback</name>
+        <briefdescription>
+<para>Callback for vfp change event. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" line="494" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" bodystart="494" bodyend="-1"/>
+        <referencedby refid="xv__hdmirxss1_8h_1a3512f73294b1c1db0a9e717f43677e53" compoundref="xv__hdmirxss1_8c" startline="1559" endline="1888">XV_HdmiRxSs1_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_rx_ss1_1a137ba893eadea91c170e53d54dc22836" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XV_HdmiRxSs1::VfpChangeRef</definition>
+        <argsstring></argsstring>
+        <name>VfpChangeRef</name>
+        <briefdescription>
+<para>To be passed to vfp change event callback. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" line="495" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" bodystart="495" bodyend="-1"/>
+        <referencedby refid="xv__hdmirxss1_8h_1a3512f73294b1c1db0a9e717f43677e53" compoundref="xv__hdmirxss1_8c" startline="1559" endline="1888">XV_HdmiRxSs1_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_rx_ss1_1aece2d287174e682153394bf9ce75c099" prot="public" static="no" mutable="no">
+        <type><ref refid="xv__hdmirxss1_8h_1a64be6c21126599922ecfb365e05a5153" kindref="member">XV_HdmiRxSs1_Callback</ref></type>
+        <definition>XV_HdmiRxSs1_Callback XV_HdmiRxSs1::VrrRdyCallback</definition>
+        <argsstring></argsstring>
+        <name>VrrRdyCallback</name>
+        <briefdescription>
+<para>Callback for Vrr Ready event. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" line="497" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" bodystart="497" bodyend="-1"/>
+        <referencedby refid="xv__hdmirxss1_8h_1a3512f73294b1c1db0a9e717f43677e53" compoundref="xv__hdmirxss1_8c" startline="1559" endline="1888">XV_HdmiRxSs1_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_rx_ss1_1a08cc14ea5820c736057cef68252836e2" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XV_HdmiRxSs1::VrrRdyRef</definition>
+        <argsstring></argsstring>
+        <name>VrrRdyRef</name>
+        <briefdescription>
+<para>To be passed to Vrr Ready event callback. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" line="498" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" bodystart="498" bodyend="-1"/>
+        <referencedby refid="xv__hdmirxss1_8h_1a3512f73294b1c1db0a9e717f43677e53" compoundref="xv__hdmirxss1_8c" startline="1559" endline="1888">XV_HdmiRxSs1_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_rx_ss1_1a29df015ce0a1a79059fcf85d56d132b4" prot="public" static="no" mutable="no">
+        <type><ref refid="xv__hdmirxss1_8h_1a64be6c21126599922ecfb365e05a5153" kindref="member">XV_HdmiRxSs1_Callback</ref></type>
+        <definition>XV_HdmiRxSs1_Callback XV_HdmiRxSs1::DynHdrCallback</definition>
+        <argsstring></argsstring>
+        <name>DynHdrCallback</name>
+        <briefdescription>
+<para>Callback for Dynamic HDR event. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" line="500" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" bodystart="500" bodyend="-1"/>
+        <referencedby refid="xv__hdmirxss1_8h_1a3512f73294b1c1db0a9e717f43677e53" compoundref="xv__hdmirxss1_8c" startline="1559" endline="1888">XV_HdmiRxSs1_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_rx_ss1_1a0f5bf99add73132ef672eb54ab5ecc30" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XV_HdmiRxSs1::DynHdrRef</definition>
+        <argsstring></argsstring>
+        <name>DynHdrRef</name>
+        <briefdescription>
+<para>To be passed to Dynamic HDR event callback. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" line="501" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" bodystart="501" bodyend="-1"/>
+        <referencedby refid="xv__hdmirxss1_8h_1a3512f73294b1c1db0a9e717f43677e53" compoundref="xv__hdmirxss1_8c" startline="1559" endline="1888">XV_HdmiRxSs1_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_rx_ss1_1ad3c1f73e56f49e6a4683dfdb411cddaf" prot="public" static="no" mutable="no">
+        <type><ref refid="xv__hdmirxss1_8h_1a64be6c21126599922ecfb365e05a5153" kindref="member">XV_HdmiRxSs1_Callback</ref></type>
+        <definition>XV_HdmiRxSs1_Callback XV_HdmiRxSs1::DSCStreamChangeEventCallback</definition>
+        <argsstring></argsstring>
+        <name>DSCStreamChangeEventCallback</name>
+        <briefdescription>
+<para>Callback for DSC stream change event. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" line="503" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" bodystart="503" bodyend="-1"/>
+        <referencedby refid="xv__hdmirxss1_8h_1a3512f73294b1c1db0a9e717f43677e53" compoundref="xv__hdmirxss1_8c" startline="1559" endline="1888">XV_HdmiRxSs1_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_rx_ss1_1abad6e8ceb38b58716ade9a41ac5cae28" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XV_HdmiRxSs1::DSCStrmChgEvtRef</definition>
+        <argsstring></argsstring>
+        <name>DSCStrmChgEvtRef</name>
+        <briefdescription>
+<para>To be passed to DSC Stream change event callback. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" line="504" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" bodystart="504" bodyend="-1"/>
+        <referencedby refid="xv__hdmirxss1_8h_1a3512f73294b1c1db0a9e717f43677e53" compoundref="xv__hdmirxss1_8c" startline="1559" endline="1888">XV_HdmiRxSs1_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_rx_ss1_1a325cf15980cf9ad64b7d531e4e6c1224" prot="public" static="no" mutable="no">
+        <type><ref refid="xv__hdmirxss1_8h_1a64be6c21126599922ecfb365e05a5153" kindref="member">XV_HdmiRxSs1_Callback</ref></type>
+        <definition>XV_HdmiRxSs1_Callback XV_HdmiRxSs1::DSCPktErrCallback</definition>
+        <argsstring></argsstring>
+        <name>DSCPktErrCallback</name>
+        <briefdescription>
+<para>Callback for DSC PPS packet error event. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" line="506" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" bodystart="506" bodyend="-1"/>
+        <referencedby refid="xv__hdmirxss1_8h_1a3512f73294b1c1db0a9e717f43677e53" compoundref="xv__hdmirxss1_8c" startline="1559" endline="1888">XV_HdmiRxSs1_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_rx_ss1_1a029d849c0efacfe18cd35e8dfcf6e10d" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XV_HdmiRxSs1::DSCPktErrRef</definition>
+        <argsstring></argsstring>
+        <name>DSCPktErrRef</name>
+        <briefdescription>
+<para>To be passed to DSC PPS packet error event callback. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" line="507" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" bodystart="507" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_rx_ss1_1a27392a12382f28540e06505693a61879" prot="public" static="no" mutable="no">
+        <type><ref refid="xv__hdmirxss1_8h_1a64be6c21126599922ecfb365e05a5153" kindref="member">XV_HdmiRxSs1_Callback</ref></type>
+        <definition>XV_HdmiRxSs1_Callback XV_HdmiRxSs1::DSCStsUpdtEvtCallback</definition>
+        <argsstring></argsstring>
+        <name>DSCStsUpdtEvtCallback</name>
+        <briefdescription>
+<para>Callback for SCDC reg 0x10 bit 0 Status_Update bit set from Source event. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" line="509" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" bodystart="509" bodyend="-1"/>
+        <referencedby refid="xv__hdmirxss1_8h_1a3512f73294b1c1db0a9e717f43677e53" compoundref="xv__hdmirxss1_8c" startline="1559" endline="1888">XV_HdmiRxSs1_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_rx_ss1_1a51d3963a4c68479c94ce94c75bc1a662" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XV_HdmiRxSs1::DSCStsUpdtEvtRef</definition>
+        <argsstring></argsstring>
+        <name>DSCStsUpdtEvtRef</name>
+        <briefdescription>
+<para>To be passed to Status_Update bit set event callback. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" line="511" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" bodystart="511" bodyend="-1"/>
+        <referencedby refid="xv__hdmirxss1_8h_1a3512f73294b1c1db0a9e717f43677e53" compoundref="xv__hdmirxss1_8c" startline="1559" endline="1888">XV_HdmiRxSs1_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_rx_ss1_1ae2e59b873333460b829f0a71082d017a" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XV_HdmiRxSs1::IsStreamConnected</definition>
+        <argsstring></argsstring>
+        <name>IsStreamConnected</name>
+        <briefdescription>
+<para>HDMI RX Stream Connected. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" line="514" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" bodystart="514" bodyend="-1"/>
+        <referencedby refid="xhdmi__example_8c_1acd642332518889b8d0869e9f0ecec307" compoundref="xhdmi__example_8c" startline="3123" endline="3174">Exdes_CheckforResChange</referencedby>
+        <referencedby refid="xv__hdmirxss1_8h_1a5d4276edd1fe7b28bfd3ae1d5ee7b66f" compoundref="xv__hdmirxss1_8c" startline="2777" endline="2780">XV_HdmiRxSs1_IsStreamConnected</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_rx_ss1_1a850cd164f7647f8a2003e17059d308fa" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XV_HdmiRxSs1::IsStreamUp</definition>
+        <argsstring></argsstring>
+        <name>IsStreamUp</name>
+        <briefdescription>
+<para>HDMI RX Stream Up. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" line="515" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" bodystart="515" bodyend="-1"/>
+        <referencedby refid="xv__hdmirxss1_8h_1a6d05f4b4142fd95838e64949817e89c0" compoundref="xv__hdmirxss1_8c" startline="2758" endline="2761">XV_HdmiRxSs1_IsStreamUp</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_rx_ss1_1aa6872962ac30f5e314778d693580f0ca" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XV_HdmiRxSs1::AudioChannels</definition>
+        <argsstring></argsstring>
+        <name>AudioChannels</name>
+        <briefdescription>
+<para>Number of Audio Channels. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" line="516" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" bodystart="516" bodyend="-1"/>
+        <referencedby refid="xv__hdmirxss1_8h_1a20ece9a3489502af33408b4744108587" compoundref="xv__hdmirxss1_8c" startline="2315" endline="2318">XV_HdmiRxSs1_GetAudioChannels</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_rx_ss1_1a1b7d985de9565d4535259c79d67d0951" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int XV_HdmiRxSs1::IsLinkStatusErrMax</definition>
+        <argsstring></argsstring>
+        <name>IsLinkStatusErrMax</name>
+        <briefdescription>
+<para>Link Error Status Maxed. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" line="517" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" bodystart="517" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_rx_ss1_1aa79a686eb11f948daa2a85bd87266557" prot="public" static="no" mutable="no">
+        <type>u8 *</type>
+        <definition>u8* XV_HdmiRxSs1::EdidPtr</definition>
+        <argsstring></argsstring>
+        <name>EdidPtr</name>
+        <briefdescription>
+<para>Default Edid Pointer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" line="518" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" bodystart="518" bodyend="-1"/>
+        <referencedby refid="xv__hdmirxss1_8h_1ac87f95db7f2e496c3559b62c627a47ea" compoundref="xv__hdmirxss1_8c" startline="1957" endline="1970">XV_HdmiRxSs1_LoadDefaultEdid</referencedby>
+        <referencedby refid="xv__hdmirxss1_8h_1a7c30dc802d19c226693c2fa3effc948a" compoundref="xv__hdmirxss1_8c" startline="1938" endline="1943">XV_HdmiRxSs1_SetEdidParam</referencedby>
+        <referencedby refid="group__v__hdmirxss1_1ga68409ded8710da27184abfed11fdddbf" compoundref="xv__hdmirxss1__coreinit_8c" startline="66" endline="115">XV_HdmiRxSs1_SubcoreInitHdmiRx1</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_rx_ss1_1ac84dbbbfa102d974d1489765b8dd3d04" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XV_HdmiRxSs1::EdidLength</definition>
+        <argsstring></argsstring>
+        <name>EdidLength</name>
+        <briefdescription>
+<para>Default Edid Length. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" line="519" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" bodystart="519" bodyend="-1"/>
+        <referencedby refid="xv__hdmirxss1_8h_1ac87f95db7f2e496c3559b62c627a47ea" compoundref="xv__hdmirxss1_8c" startline="1957" endline="1970">XV_HdmiRxSs1_LoadDefaultEdid</referencedby>
+        <referencedby refid="xv__hdmirxss1_8h_1a7c30dc802d19c226693c2fa3effc948a" compoundref="xv__hdmirxss1_8c" startline="1938" endline="1943">XV_HdmiRxSs1_SetEdidParam</referencedby>
+        <referencedby refid="group__v__hdmirxss1_1ga68409ded8710da27184abfed11fdddbf" compoundref="xv__hdmirxss1__coreinit_8c" startline="66" endline="115">XV_HdmiRxSs1_SubcoreInitHdmiRx1</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_rx_ss1_1ada3f1f5a94050b666affd6b4bfd90f6c" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XV_HdmiRxSs1::TMDSClockRatio</definition>
+        <argsstring></argsstring>
+        <name>TMDSClockRatio</name>
+        <briefdescription>
+<para>HDMI RX TMDS clock ratio. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" line="520" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" bodystart="520" bodyend="-1"/>
+        <referencedby refid="xv__hdmirxss1_8h_1a5760ec261157309fe997ee7e424b7ca9" compoundref="xv__hdmirxss1_8c" startline="2383" endline="2391">XV_HdmiRxSs1_RefClockChangeInit</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_rx_ss1_1a0b53d035f6c5376776e541443bfe26f2" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XV_HdmiRxSs1::EnableHDCPLogging</definition>
+        <argsstring></argsstring>
+        <name>EnableHDCPLogging</name>
+        <briefdescription>
+<para>HDCP Logging Enabling. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" line="522" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" bodystart="522" bodyend="-1"/>
+        <referencedby refid="xhdmi__menu_8c_1a14b96491d9e48ad8fadbbb391d097ab6" compoundref="xhdmi__example_8c" startline="3964" endline="4045">Info</referencedby>
+        <referencedby refid="xv__hdmirxss1_8h_1ae7df2cc91e752d61253d9a86462d95ab" compoundref="xv__hdmirxss1_8c" startline="566" endline="711">XV_HdmiRxSs1_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_rx_ss1_1a8c3f224ddbcf1ca953a8dab5e653d408" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XV_HdmiRxSs1::EnableHDMILogging</definition>
+        <argsstring></argsstring>
+        <name>EnableHDMILogging</name>
+        <briefdescription>
+<para>HDMI Logging Enabling. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" line="523" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" bodystart="523" bodyend="-1"/>
+        <referencedby refid="xv__hdmirxss1_8h_1ae7df2cc91e752d61253d9a86462d95ab" compoundref="xv__hdmirxss1_8c" startline="566" endline="711">XV_HdmiRxSs1_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_rx_ss1_1a9ae8366770742fe558db10785f583524" prot="public" static="no" mutable="no">
+        <type>XHdmiC_AVI_InfoFrame</type>
+        <definition>XHdmiC_AVI_InfoFrame XV_HdmiRxSs1::AVIInfoframe</definition>
+        <argsstring></argsstring>
+        <name>AVIInfoframe</name>
+        <briefdescription>
+<para>AVI InfoFrame. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" line="525" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" bodystart="525" bodyend="-1"/>
+        <referencedby refid="xv__hdmirxss1_8h_1a10bd74d4a633a7ef6a2f0d99acca0de5" compoundref="xv__hdmirxss1_8c" startline="2088" endline="2091">XV_HdmiRxSs1_GetAviInfoframe</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_rx_ss1_1a8212a65a1e07fb915720872b68b24a14" prot="public" static="no" mutable="no">
+        <type>XHdmiC_GeneralControlPacket</type>
+        <definition>XHdmiC_GeneralControlPacket XV_HdmiRxSs1::GCP</definition>
+        <argsstring></argsstring>
+        <name>GCP</name>
+        <briefdescription>
+<para>General Control Packet. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" line="526" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" bodystart="526" bodyend="-1"/>
+        <referencedby refid="xv__hdmirxss1_8h_1aff37714d6a2a124c0436a1418ddc0287" compoundref="xv__hdmirxss1_8c" startline="2106" endline="2109">XV_HdmiRxSs1_GetGCP</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_rx_ss1_1aec171490e44c73b6f72eefed61be125d" prot="public" static="no" mutable="no">
+        <type>XHdmiC_AudioInfoFrame</type>
+        <definition>XHdmiC_AudioInfoFrame XV_HdmiRxSs1::AudioInfoframe</definition>
+        <argsstring></argsstring>
+        <name>AudioInfoframe</name>
+        <briefdescription>
+<para>Audio InfoFrame. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" line="527" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" bodystart="527" bodyend="-1"/>
+        <referencedby refid="xv__hdmirxss1_8h_1a2eaf7a86f80a396e1c2db913d8d116e8" compoundref="xv__hdmirxss1_8c" startline="2123" endline="2126">XV_HdmiRxSs1_GetAudioInfoframe</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_rx_ss1_1a9ed735b9800f35607d32cba82e0dab1b" prot="public" static="no" mutable="no">
+        <type>XHdmiC_VSIF</type>
+        <definition>XHdmiC_VSIF XV_HdmiRxSs1::VSIF</definition>
+        <argsstring></argsstring>
+        <name>VSIF</name>
+        <briefdescription>
+<para>Vendor Specific InfoFrame. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" line="528" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" bodystart="528" bodyend="-1"/>
+        <referencedby refid="xv__hdmirxss1_8h_1aeab77a39e55b7017bca60c7a457643c0" compoundref="xv__hdmirxss1_8c" startline="2159" endline="2162">XV_HdmiRxSs1_GetVSIF</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_rx_ss1_1a31a75552c26688952600614450f577fe" prot="public" static="no" mutable="no">
+        <type>XHdmiC_DRMInfoFrame</type>
+        <definition>XHdmiC_DRMInfoFrame XV_HdmiRxSs1::DrmInfoframe</definition>
+        <argsstring></argsstring>
+        <name>DrmInfoframe</name>
+        <briefdescription>
+<para>Static HDR infoframe. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" line="529" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" bodystart="529" bodyend="-1"/>
+        <referencedby refid="xv__hdmirxss1_8h_1a75ad45c066cc1abd9fa832e65d75c5c7" compoundref="xv__hdmirxss1_8c" startline="2141" endline="2144">XV_HdmiRxSs1_GetDrmInfoframe</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_rx_ss1_1a2ad88e297148d18a9d0891dc5d5ed7e8" prot="public" static="no" mutable="no">
+        <type>XVidC_DelayHandler</type>
+        <definition>XVidC_DelayHandler XV_HdmiRxSs1::UserTimerWaitUs</definition>
+        <argsstring></argsstring>
+        <name>UserTimerWaitUs</name>
+        <briefdescription>
+<para>Custom user function for delay/sleep. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" line="531" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" bodystart="531" bodyend="-1"/>
+        <referencedby refid="xv__hdmirxss1_8h_1a1ba7069501e51471adcc478b2ea7e724" compoundref="xv__hdmirxss1_8c" startline="239" endline="249">XV_HdmiRxSs1_SetUserTimerHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_rx_ss1_1a6f341788d0657d756bdecd5027e3f8c4" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XV_HdmiRxSs1::UserTimerPtr</definition>
+        <argsstring></argsstring>
+        <name>UserTimerPtr</name>
+        <briefdescription>
+<para>Pointer to a timer instance used by the custom user delay/sleep function. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" line="533" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" bodystart="533" bodyend="-1"/>
+        <referencedby refid="xv__hdmirxss1_8h_1a1ba7069501e51471adcc478b2ea7e724" compoundref="xv__hdmirxss1_8c" startline="239" endline="249">XV_HdmiRxSs1_SetUserTimerHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_rx_ss1_1ab8268455406b7a592e57dbc5f5f03ad2" prot="public" static="no" mutable="no">
+        <type><ref refid="xv__hdmirxss1_8h_1a0d85b6b4f68b5d50ba6dbebaa5245343" kindref="member">XV_HdmiRxSs1_HdcpProtocol</ref></type>
+        <definition>XV_HdmiRxSs1_HdcpProtocol XV_HdmiRxSs1::HdcpProtocol</definition>
+        <argsstring></argsstring>
+        <name>HdcpProtocol</name>
+        <briefdescription>
+<para>HDCP protocol selected. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" line="537" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" bodystart="537" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>The XVprocss driver instance data. </para>    </briefdescription>
+    <detaileddescription>
+<para>The user is required to allocate a variable of this type for every XVprocss device in the system. A pointer to a variable of this type is then passed to the driver API functions. </para>    </detaileddescription>
+    <collaborationgraph>
+      <node id="40">
+        <label>XV_HdmiRxSs1_Log</label>
+        <link refid="struct_x_v___hdmi_rx_ss1___log"/>
+      </node>
+      <node id="38">
+        <label>XV_HdmiRxSs1_Config</label>
+        <link refid="struct_x_v___hdmi_rx_ss1___config"/>
+        <childnode refid="39" relation="usage">
+          <edgelabel>HdmiRx1</edgelabel>
+          <edgelabel>Hdcp22</edgelabel>
+          <edgelabel>Hdcp14</edgelabel>
+          <edgelabel>HdcpTimer</edgelabel>
+        </childnode>
+      </node>
+      <node id="39">
+        <label>XV_HdmiRxSs1_SubCore</label>
+        <link refid="struct_x_v___hdmi_rx_ss1___sub_core"/>
+      </node>
+      <node id="37">
+        <label>XV_HdmiRxSs1</label>
+        <link refid="struct_x_v___hdmi_rx_ss1"/>
+        <childnode refid="38" relation="usage">
+          <edgelabel>Config</edgelabel>
+        </childnode>
+        <childnode refid="40" relation="usage">
+          <edgelabel>Log</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" line="395" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" bodystart="394" bodyend="553"/>
+    <listofallmembers>
+      <member refid="struct_x_v___hdmi_rx_ss1_1a72e105dd51975ca027d92afa8b3b6084" prot="public" virt="non-virtual"><scope>XV_HdmiRxSs1</scope><name>AppMajVer</name></member>
+      <member refid="struct_x_v___hdmi_rx_ss1_1aeac7326d1d96aa0d8442bfb105cd30f0" prot="public" virt="non-virtual"><scope>XV_HdmiRxSs1</scope><name>AppMinVer</name></member>
+      <member refid="struct_x_v___hdmi_rx_ss1_1ae6938dc3628dd975b7fbf7d29e9598df" prot="public" virt="non-virtual"><scope>XV_HdmiRxSs1</scope><name>AudCallback</name></member>
+      <member refid="struct_x_v___hdmi_rx_ss1_1aa6872962ac30f5e314778d693580f0ca" prot="public" virt="non-virtual"><scope>XV_HdmiRxSs1</scope><name>AudioChannels</name></member>
+      <member refid="struct_x_v___hdmi_rx_ss1_1aec171490e44c73b6f72eefed61be125d" prot="public" virt="non-virtual"><scope>XV_HdmiRxSs1</scope><name>AudioInfoframe</name></member>
+      <member refid="struct_x_v___hdmi_rx_ss1_1a8d53f0d6c5a488435221455a3ce2915c" prot="public" virt="non-virtual"><scope>XV_HdmiRxSs1</scope><name>AudRef</name></member>
+      <member refid="struct_x_v___hdmi_rx_ss1_1a1a6b0fb6924ee322a37531039d444541" prot="public" virt="non-virtual"><scope>XV_HdmiRxSs1</scope><name>AuxCallback</name></member>
+      <member refid="struct_x_v___hdmi_rx_ss1_1a67e0dd90eac360d84b346c3fc5b6901b" prot="public" virt="non-virtual"><scope>XV_HdmiRxSs1</scope><name>AuxRef</name></member>
+      <member refid="struct_x_v___hdmi_rx_ss1_1a9ae8366770742fe558db10785f583524" prot="public" virt="non-virtual"><scope>XV_HdmiRxSs1</scope><name>AVIInfoframe</name></member>
+      <member refid="struct_x_v___hdmi_rx_ss1_1a21ed79dcc9690fa2f1a3d50732e31540" prot="public" virt="non-virtual"><scope>XV_HdmiRxSs1</scope><name>BrdgOverflowCallback</name></member>
+      <member refid="struct_x_v___hdmi_rx_ss1_1ac9f44361b651061797f284105a47a777" prot="public" virt="non-virtual"><scope>XV_HdmiRxSs1</scope><name>BrdgOverflowRef</name></member>
+      <member refid="struct_x_v___hdmi_rx_ss1_1ae498c708a39c0a72d9d0c56cac26b523" prot="public" virt="non-virtual"><scope>XV_HdmiRxSs1</scope><name>Config</name></member>
+      <member refid="struct_x_v___hdmi_rx_ss1_1ab90ae1528187d384abc5ebb6d6bc9d0c" prot="public" virt="non-virtual"><scope>XV_HdmiRxSs1</scope><name>ConnectCallback</name></member>
+      <member refid="struct_x_v___hdmi_rx_ss1_1af114ee0b6df2477a8d4da35d7d9cfff6" prot="public" virt="non-virtual"><scope>XV_HdmiRxSs1</scope><name>ConnectRef</name></member>
+      <member refid="struct_x_v___hdmi_rx_ss1_1a90061efd501cb114f31f979c549675a6" prot="public" virt="non-virtual"><scope>XV_HdmiRxSs1</scope><name>DdcCallback</name></member>
+      <member refid="struct_x_v___hdmi_rx_ss1_1abe4288be1f3e937cf4a6b252f823a790" prot="public" virt="non-virtual"><scope>XV_HdmiRxSs1</scope><name>DdcRef</name></member>
+      <member refid="struct_x_v___hdmi_rx_ss1_1a31a75552c26688952600614450f577fe" prot="public" virt="non-virtual"><scope>XV_HdmiRxSs1</scope><name>DrmInfoframe</name></member>
+      <member refid="struct_x_v___hdmi_rx_ss1_1a325cf15980cf9ad64b7d531e4e6c1224" prot="public" virt="non-virtual"><scope>XV_HdmiRxSs1</scope><name>DSCPktErrCallback</name></member>
+      <member refid="struct_x_v___hdmi_rx_ss1_1a029d849c0efacfe18cd35e8dfcf6e10d" prot="public" virt="non-virtual"><scope>XV_HdmiRxSs1</scope><name>DSCPktErrRef</name></member>
+      <member refid="struct_x_v___hdmi_rx_ss1_1ad3c1f73e56f49e6a4683dfdb411cddaf" prot="public" virt="non-virtual"><scope>XV_HdmiRxSs1</scope><name>DSCStreamChangeEventCallback</name></member>
+      <member refid="struct_x_v___hdmi_rx_ss1_1abad6e8ceb38b58716ade9a41ac5cae28" prot="public" virt="non-virtual"><scope>XV_HdmiRxSs1</scope><name>DSCStrmChgEvtRef</name></member>
+      <member refid="struct_x_v___hdmi_rx_ss1_1a27392a12382f28540e06505693a61879" prot="public" virt="non-virtual"><scope>XV_HdmiRxSs1</scope><name>DSCStsUpdtEvtCallback</name></member>
+      <member refid="struct_x_v___hdmi_rx_ss1_1a51d3963a4c68479c94ce94c75bc1a662" prot="public" virt="non-virtual"><scope>XV_HdmiRxSs1</scope><name>DSCStsUpdtEvtRef</name></member>
+      <member refid="struct_x_v___hdmi_rx_ss1_1a29df015ce0a1a79059fcf85d56d132b4" prot="public" virt="non-virtual"><scope>XV_HdmiRxSs1</scope><name>DynHdrCallback</name></member>
+      <member refid="struct_x_v___hdmi_rx_ss1_1a0f5bf99add73132ef672eb54ab5ecc30" prot="public" virt="non-virtual"><scope>XV_HdmiRxSs1</scope><name>DynHdrRef</name></member>
+      <member refid="struct_x_v___hdmi_rx_ss1_1ac84dbbbfa102d974d1489765b8dd3d04" prot="public" virt="non-virtual"><scope>XV_HdmiRxSs1</scope><name>EdidLength</name></member>
+      <member refid="struct_x_v___hdmi_rx_ss1_1aa79a686eb11f948daa2a85bd87266557" prot="public" virt="non-virtual"><scope>XV_HdmiRxSs1</scope><name>EdidPtr</name></member>
+      <member refid="struct_x_v___hdmi_rx_ss1_1a0b53d035f6c5376776e541443bfe26f2" prot="public" virt="non-virtual"><scope>XV_HdmiRxSs1</scope><name>EnableHDCPLogging</name></member>
+      <member refid="struct_x_v___hdmi_rx_ss1_1a8c3f224ddbcf1ca953a8dab5e653d408" prot="public" virt="non-virtual"><scope>XV_HdmiRxSs1</scope><name>EnableHDMILogging</name></member>
+      <member refid="struct_x_v___hdmi_rx_ss1_1adde74c1981e154069d71b4fd1f36484c" prot="public" virt="non-virtual"><scope>XV_HdmiRxSs1</scope><name>FrlConfigCallback</name></member>
+      <member refid="struct_x_v___hdmi_rx_ss1_1a42eb4deed48ed2ba81855d3f5ffd2e5c" prot="public" virt="non-virtual"><scope>XV_HdmiRxSs1</scope><name>FrlConfigRef</name></member>
+      <member refid="struct_x_v___hdmi_rx_ss1_1a62d3a7cdce1e5792b52e99d8e1de0097" prot="public" virt="non-virtual"><scope>XV_HdmiRxSs1</scope><name>FrlLts1Callback</name></member>
+      <member refid="struct_x_v___hdmi_rx_ss1_1a2152616e82b3faebe5d83d016fccfd61" prot="public" virt="non-virtual"><scope>XV_HdmiRxSs1</scope><name>FrlLts1Ref</name></member>
+      <member refid="struct_x_v___hdmi_rx_ss1_1af6e0a1d5b1a51058637adacf85c8802c" prot="public" virt="non-virtual"><scope>XV_HdmiRxSs1</scope><name>FrlLts2Callback</name></member>
+      <member refid="struct_x_v___hdmi_rx_ss1_1a9e21342bf86d5086bac79afb4d47b2a2" prot="public" virt="non-virtual"><scope>XV_HdmiRxSs1</scope><name>FrlLts2Ref</name></member>
+      <member refid="struct_x_v___hdmi_rx_ss1_1a23d08d19d1a8fab914aa5b03c4558c74" prot="public" virt="non-virtual"><scope>XV_HdmiRxSs1</scope><name>FrlLts3Callback</name></member>
+      <member refid="struct_x_v___hdmi_rx_ss1_1acf742b6de69ecd575a2ba7f80a415ad0" prot="public" virt="non-virtual"><scope>XV_HdmiRxSs1</scope><name>FrlLts3Ref</name></member>
+      <member refid="struct_x_v___hdmi_rx_ss1_1a3c8f7748a0417664e440e3edce84f634" prot="public" virt="non-virtual"><scope>XV_HdmiRxSs1</scope><name>FrlLts4Callback</name></member>
+      <member refid="struct_x_v___hdmi_rx_ss1_1a89eda9556014f30568d954fedbef3536" prot="public" virt="non-virtual"><scope>XV_HdmiRxSs1</scope><name>FrlLts4Ref</name></member>
+      <member refid="struct_x_v___hdmi_rx_ss1_1aaed6c80b8031be209563cfc9b38bc8b9" prot="public" virt="non-virtual"><scope>XV_HdmiRxSs1</scope><name>FrlLtsLCallback</name></member>
+      <member refid="struct_x_v___hdmi_rx_ss1_1a6de2adb65bcd4b4574641c91a18dc3fc" prot="public" virt="non-virtual"><scope>XV_HdmiRxSs1</scope><name>FrlLtsLRef</name></member>
+      <member refid="struct_x_v___hdmi_rx_ss1_1a94c1b9c0762f83786245fad20a56977b" prot="public" virt="non-virtual"><scope>XV_HdmiRxSs1</scope><name>FrlLtsPCallback</name></member>
+      <member refid="struct_x_v___hdmi_rx_ss1_1a0685169a0e7716a593d0028cf87eace3" prot="public" virt="non-virtual"><scope>XV_HdmiRxSs1</scope><name>FrlLtsPRef</name></member>
+      <member refid="struct_x_v___hdmi_rx_ss1_1a5ea46631510f443365665426e2b2bf70" prot="public" virt="non-virtual"><scope>XV_HdmiRxSs1</scope><name>FrlStartCallback</name></member>
+      <member refid="struct_x_v___hdmi_rx_ss1_1ad0c54d632c1b244ddedfa1ea263d2a24" prot="public" virt="non-virtual"><scope>XV_HdmiRxSs1</scope><name>FrlStartRef</name></member>
+      <member refid="struct_x_v___hdmi_rx_ss1_1a8212a65a1e07fb915720872b68b24a14" prot="public" virt="non-virtual"><scope>XV_HdmiRxSs1</scope><name>GCP</name></member>
+      <member refid="struct_x_v___hdmi_rx_ss1_1ab1575a61fd7e82986a0ad1d5b50585dc" prot="public" virt="non-virtual"><scope>XV_HdmiRxSs1</scope><name>HdcpCallback</name></member>
+      <member refid="struct_x_v___hdmi_rx_ss1_1ab8268455406b7a592e57dbc5f5f03ad2" prot="public" virt="non-virtual"><scope>XV_HdmiRxSs1</scope><name>HdcpProtocol</name></member>
+      <member refid="struct_x_v___hdmi_rx_ss1_1a56ccc028ba068fea1efe46514a26ca41" prot="public" virt="non-virtual"><scope>XV_HdmiRxSs1</scope><name>HdcpRef</name></member>
+      <member refid="struct_x_v___hdmi_rx_ss1_1a51fe864b06a7b80a949a9c65d0f8ec54" prot="public" virt="non-virtual"><scope>XV_HdmiRxSs1</scope><name>HdmiRx1Ptr</name></member>
+      <member refid="struct_x_v___hdmi_rx_ss1_1a1b7d985de9565d4535259c79d67d0951" prot="public" virt="non-virtual"><scope>XV_HdmiRxSs1</scope><name>IsLinkStatusErrMax</name></member>
+      <member refid="struct_x_v___hdmi_rx_ss1_1ae8658656418f5b8d6f90fd04c72b2d84" prot="public" virt="non-virtual"><scope>XV_HdmiRxSs1</scope><name>IsReady</name></member>
+      <member refid="struct_x_v___hdmi_rx_ss1_1ae2e59b873333460b829f0a71082d017a" prot="public" virt="non-virtual"><scope>XV_HdmiRxSs1</scope><name>IsStreamConnected</name></member>
+      <member refid="struct_x_v___hdmi_rx_ss1_1a850cd164f7647f8a2003e17059d308fa" prot="public" virt="non-virtual"><scope>XV_HdmiRxSs1</scope><name>IsStreamUp</name></member>
+      <member refid="struct_x_v___hdmi_rx_ss1_1a515e2919e44e279badf3b56f924775f0" prot="public" virt="non-virtual"><scope>XV_HdmiRxSs1</scope><name>LnkStaCallback</name></member>
+      <member refid="struct_x_v___hdmi_rx_ss1_1afa9a4c14665eb70b550465209db07585" prot="public" virt="non-virtual"><scope>XV_HdmiRxSs1</scope><name>LnkStaRef</name></member>
+      <member refid="struct_x_v___hdmi_rx_ss1_1a57688618f77655e032f1b4ca5e6cec13" prot="public" virt="non-virtual"><scope>XV_HdmiRxSs1</scope><name>Log</name></member>
+      <member refid="struct_x_v___hdmi_rx_ss1_1a26644f3c1c2f2dad564ec5e825aaecf6" prot="public" virt="non-virtual"><scope>XV_HdmiRxSs1</scope><name>LogWriteCallback</name></member>
+      <member refid="struct_x_v___hdmi_rx_ss1_1a31a7438dfb4ac67da799602693a606aa" prot="public" virt="non-virtual"><scope>XV_HdmiRxSs1</scope><name>LogWriteRef</name></member>
+      <member refid="struct_x_v___hdmi_rx_ss1_1a59788969a4717210bdda32fb50e0cf25" prot="public" virt="non-virtual"><scope>XV_HdmiRxSs1</scope><name>PhyResetCallback</name></member>
+      <member refid="struct_x_v___hdmi_rx_ss1_1a5fcc7dc306d9b03d30247f4a308a649b" prot="public" virt="non-virtual"><scope>XV_HdmiRxSs1</scope><name>PhyResetRef</name></member>
+      <member refid="struct_x_v___hdmi_rx_ss1_1af60af53b7d4621bc9eb24d58cadc9737" prot="public" virt="non-virtual"><scope>XV_HdmiRxSs1</scope><name>StreamDownCallback</name></member>
+      <member refid="struct_x_v___hdmi_rx_ss1_1ae2ff5de8e1890fa138ccd1bf818ab913" prot="public" virt="non-virtual"><scope>XV_HdmiRxSs1</scope><name>StreamDownRef</name></member>
+      <member refid="struct_x_v___hdmi_rx_ss1_1a502704278d4c40570ca313a0af5830cf" prot="public" virt="non-virtual"><scope>XV_HdmiRxSs1</scope><name>StreamInitCallback</name></member>
+      <member refid="struct_x_v___hdmi_rx_ss1_1a257220ef040fa2a7d651faf356c6e894" prot="public" virt="non-virtual"><scope>XV_HdmiRxSs1</scope><name>StreamInitRef</name></member>
+      <member refid="struct_x_v___hdmi_rx_ss1_1a07493400e34cef66ce9570b9fcd609e4" prot="public" virt="non-virtual"><scope>XV_HdmiRxSs1</scope><name>StreamUpCallback</name></member>
+      <member refid="struct_x_v___hdmi_rx_ss1_1aaa8875e35273a0f4bf73ab6d50fa6f62" prot="public" virt="non-virtual"><scope>XV_HdmiRxSs1</scope><name>StreamUpRef</name></member>
+      <member refid="struct_x_v___hdmi_rx_ss1_1a254b83e28803c1edac5f4fac9e60946d" prot="public" virt="non-virtual"><scope>XV_HdmiRxSs1</scope><name>TmdsClkRatioCallback</name></member>
+      <member refid="struct_x_v___hdmi_rx_ss1_1a85465e7d36e3dd136ceba0664e3a0804" prot="public" virt="non-virtual"><scope>XV_HdmiRxSs1</scope><name>TmdsClkRatioRef</name></member>
+      <member refid="struct_x_v___hdmi_rx_ss1_1ada3f1f5a94050b666affd6b4bfd90f6c" prot="public" virt="non-virtual"><scope>XV_HdmiRxSs1</scope><name>TMDSClockRatio</name></member>
+      <member refid="struct_x_v___hdmi_rx_ss1_1acf69d50ff508fc32360005a369f4b691" prot="public" virt="non-virtual"><scope>XV_HdmiRxSs1</scope><name>TmdsConfigCallback</name></member>
+      <member refid="struct_x_v___hdmi_rx_ss1_1acd7b5a4741af92eee50cafa7e55f86d3" prot="public" virt="non-virtual"><scope>XV_HdmiRxSs1</scope><name>TmdsConfigRef</name></member>
+      <member refid="struct_x_v___hdmi_rx_ss1_1a6f341788d0657d756bdecd5027e3f8c4" prot="public" virt="non-virtual"><scope>XV_HdmiRxSs1</scope><name>UserTimerPtr</name></member>
+      <member refid="struct_x_v___hdmi_rx_ss1_1a2ad88e297148d18a9d0891dc5d5ed7e8" prot="public" virt="non-virtual"><scope>XV_HdmiRxSs1</scope><name>UserTimerWaitUs</name></member>
+      <member refid="struct_x_v___hdmi_rx_ss1_1a7000655d167b841b77a154892a0c5937" prot="public" virt="non-virtual"><scope>XV_HdmiRxSs1</scope><name>VfpChangeCallback</name></member>
+      <member refid="struct_x_v___hdmi_rx_ss1_1a137ba893eadea91c170e53d54dc22836" prot="public" virt="non-virtual"><scope>XV_HdmiRxSs1</scope><name>VfpChangeRef</name></member>
+      <member refid="struct_x_v___hdmi_rx_ss1_1a3b53815611e7605f41e11525320d9d34" prot="public" virt="non-virtual"><scope>XV_HdmiRxSs1</scope><name>VicErrorCallback</name></member>
+      <member refid="struct_x_v___hdmi_rx_ss1_1a17e009b7f1aa0ae4351b9f9a9172fb59" prot="public" virt="non-virtual"><scope>XV_HdmiRxSs1</scope><name>VicErrorRef</name></member>
+      <member refid="struct_x_v___hdmi_rx_ss1_1a0e27f731769175b31a45aae8446d3f29" prot="public" virt="non-virtual"><scope>XV_HdmiRxSs1</scope><name>VidRdyErrorCallback</name></member>
+      <member refid="struct_x_v___hdmi_rx_ss1_1abe0423b0e453b98e0a0302d0bd975f2e" prot="public" virt="non-virtual"><scope>XV_HdmiRxSs1</scope><name>VidRdyErrorRef</name></member>
+      <member refid="struct_x_v___hdmi_rx_ss1_1aece2d287174e682153394bf9ce75c099" prot="public" virt="non-virtual"><scope>XV_HdmiRxSs1</scope><name>VrrRdyCallback</name></member>
+      <member refid="struct_x_v___hdmi_rx_ss1_1a08cc14ea5820c736057cef68252836e2" prot="public" virt="non-virtual"><scope>XV_HdmiRxSs1</scope><name>VrrRdyRef</name></member>
+      <member refid="struct_x_v___hdmi_rx_ss1_1a9ed735b9800f35607d32cba82e0dab1b" prot="public" virt="non-virtual"><scope>XV_HdmiRxSs1</scope><name>VSIF</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

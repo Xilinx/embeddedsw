@@ -1,0 +1,507 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xsecure__init_8h" kind="file">
+    <compoundname>xsecure_init.h</compoundname>
+    <includes local="yes">xsecure_aes.h</includes>
+    <includes local="yes">xsecure_rsa_core.h</includes>
+    <includes local="yes">xsecure_sha.h</includes>
+    <includedby refid="xsecure__aes__ipihandler_8c" local="yes">xsecure_aes_ipihandler.c</includedby>
+    <includedby refid="xsecure__kat__ipihandler_8c" local="yes">xsecure_kat_ipihandler.c</includedby>
+    <includedby refid="xsecure__ellipticplat_8c" local="yes">xsecure_ellipticplat.c</includedby>
+    <includedby refid="xsecure__elliptic__ipihandler_8c" local="yes">xsecure_elliptic_ipihandler.c</includedby>
+    <includedby refid="xsecure__init_8c" local="yes">xsecure_init.c</includedby>
+    <includedby refid="xsecure__resourcehandling_8h" local="yes">xsecure_resourcehandling.h</includedby>
+    <includedby refid="xsecure__hmac__ipihandler_8c" local="yes">xsecure_hmac_ipihandler.c</includedby>
+    <includedby refid="xsecure__kdf_8c" local="yes">xsecure_kdf.c</includedby>
+    <includedby refid="xsecure__keyunwrap_8c" local="yes">xsecure_keyunwrap.c</includedby>
+    <includedby refid="xsecure__plat__aes__ipihandler_8c" local="yes">xsecure_plat_aes_ipihandler.c</includedby>
+    <includedby refid="xsecure__lms__ipihandler_8c" local="yes">xsecure_lms_ipihandler.c</includedby>
+    <includedby refid="xsecure__rsa__ipihandler_8c" local="yes">xsecure_rsa_ipihandler.c</includedby>
+    <includedby refid="xsecure__sha__ipihandler_8c" local="yes">xsecure_sha_ipihandler.c</includedby>
+    <includedby refid="_2xsecure__sha__ipihandler_8c" local="yes">xsecure_sha_ipihandler.c</includedby>
+    <includedby refid="xsecure__slhdsa__ipihandler_8c" local="yes">xsecure_slhdsa_ipihandler.c</includedby>
+    <includedby refid="trngpsv_2xsecure__trng__ipihandler_8c" local="yes">xsecure_trng_ipihandler.c</includedby>
+    <includedby refid="trngpsx_2xsecure__trng__ipihandler_8c" local="yes">xsecure_trng_ipihandler.c</includedby>
+    <includedby refid="xsecure__plat__ipihandler_8c" local="yes">xsecure_plat_ipihandler.c</includedby>
+    <includedby refid="versal__2ve__2vm_2xsecure__plat_8c" local="yes">xsecure_plat.c</includedby>
+    <includedby refid="versal__2ve__2vm_2xsecure__plat__kat__ipihandler_8c" local="yes">xsecure_plat_kat_ipihandler.c</includedby>
+    <includedby refid="versal__2vp_2xsecure__plat_8c" local="yes">xsecure_plat.c</includedby>
+    <includedby refid="2vp_2xsecure__plat__ipihandler_8c" local="yes">xsecure_plat_ipihandler.c</includedby>
+    <includedby refid="versal__2vp_2xsecure__plat__kat__ipihandler_8c" local="yes">xsecure_plat_kat_ipihandler.c</includedby>
+    <includedby refid="versal__2vp__p_2xsecure__plat_8c" local="yes">xsecure_plat.c</includedby>
+    <includedby refid="versal__2vp__p_2xsecure__plat__kat__ipihandler_8c" local="yes">xsecure_plat_kat_ipihandler.c</includedby>
+    <includedby refid="versal__net_2xsecure__plat__kat__ipihandler_8c" local="yes">xsecure_plat_kat_ipihandler.c</includedby>
+    <incdepgraph>
+      <node id="1710">
+        <label>xsecure_sha.h</label>
+      </node>
+      <node id="1707">
+        <label>xsecure_init.h</label>
+        <link refid="xsecure_init.h"/>
+        <childnode refid="1708" relation="include">
+        </childnode>
+        <childnode refid="1709" relation="include">
+        </childnode>
+        <childnode refid="1710" relation="include">
+        </childnode>
+      </node>
+      <node id="1708">
+        <label>xsecure_aes.h</label>
+      </node>
+      <node id="1709">
+        <label>xsecure_rsa_core.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="1713">
+        <label>xsecure_kat_ipihandler.c</label>
+        <link refid="xsecure__kat__ipihandler_8c"/>
+      </node>
+      <node id="1714">
+        <label>xsecure_ellipticplat.c</label>
+        <link refid="xsecure__ellipticplat_8c"/>
+      </node>
+      <node id="1723">
+        <label>xsecure_sha_ipihandler.c</label>
+        <link refid="_2xsecure__sha__ipihandler_8c"/>
+      </node>
+      <node id="1731">
+        <label>xsecure_trng_ipihandler.c</label>
+        <link refid="trngpsv_2xsecure__trng__ipihandler_8c"/>
+      </node>
+      <node id="1735">
+        <label>xsecure_plat.c</label>
+        <link refid="versal__2vp_2xsecure__plat_8c"/>
+      </node>
+      <node id="1720">
+        <label>xsecure_plat_aes_ipihandler.c</label>
+        <link refid="xsecure__plat__aes__ipihandler_8c"/>
+      </node>
+      <node id="1721">
+        <label>xsecure_lms_ipihandler.c</label>
+        <link refid="xsecure__lms__ipihandler_8c"/>
+      </node>
+      <node id="1729">
+        <label>xsecure_keyunwrap.c</label>
+        <link refid="xsecure__keyunwrap_8c"/>
+      </node>
+      <node id="1712">
+        <label>xsecure_aes_ipihandler.c</label>
+        <link refid="xsecure__aes__ipihandler_8c"/>
+      </node>
+      <node id="1726">
+        <label>xsecure_plat_kat_ipihandler.c</label>
+        <link refid="versal__2vp_2xsecure__plat__kat__ipihandler_8c"/>
+      </node>
+      <node id="1730">
+        <label>xsecure_rsa_ipihandler.c</label>
+        <link refid="xsecure__rsa__ipihandler_8c"/>
+      </node>
+      <node id="1733">
+        <label>xsecure_plat_ipihandler.c</label>
+        <link refid="xsecure__plat__ipihandler_8c"/>
+      </node>
+      <node id="1738">
+        <label>xsecure_plat_kat_ipihandler.c</label>
+        <link refid="versal__net_2xsecure__plat__kat__ipihandler_8c"/>
+      </node>
+      <node id="1716">
+        <label>xsecure_init.c</label>
+        <link refid="xsecure__init_8c"/>
+      </node>
+      <node id="1711">
+        <label>xsecure_init.h</label>
+        <link refid="xsecure_init.h"/>
+        <childnode refid="1712" relation="include">
+        </childnode>
+        <childnode refid="1713" relation="include">
+        </childnode>
+        <childnode refid="1714" relation="include">
+        </childnode>
+        <childnode refid="1715" relation="include">
+        </childnode>
+        <childnode refid="1716" relation="include">
+        </childnode>
+        <childnode refid="1717" relation="include">
+        </childnode>
+        <childnode refid="1719" relation="include">
+        </childnode>
+        <childnode refid="1728" relation="include">
+        </childnode>
+        <childnode refid="1729" relation="include">
+        </childnode>
+        <childnode refid="1720" relation="include">
+        </childnode>
+        <childnode refid="1721" relation="include">
+        </childnode>
+        <childnode refid="1730" relation="include">
+        </childnode>
+        <childnode refid="1722" relation="include">
+        </childnode>
+        <childnode refid="1723" relation="include">
+        </childnode>
+        <childnode refid="1724" relation="include">
+        </childnode>
+        <childnode refid="1731" relation="include">
+        </childnode>
+        <childnode refid="1732" relation="include">
+        </childnode>
+        <childnode refid="1733" relation="include">
+        </childnode>
+        <childnode refid="1734" relation="include">
+        </childnode>
+        <childnode refid="1725" relation="include">
+        </childnode>
+        <childnode refid="1735" relation="include">
+        </childnode>
+        <childnode refid="1736" relation="include">
+        </childnode>
+        <childnode refid="1726" relation="include">
+        </childnode>
+        <childnode refid="1737" relation="include">
+        </childnode>
+        <childnode refid="1727" relation="include">
+        </childnode>
+        <childnode refid="1738" relation="include">
+        </childnode>
+      </node>
+      <node id="1718">
+        <label>xsecure_resourcehandling.c</label>
+        <link refid="xsecure__resourcehandling_8c"/>
+      </node>
+      <node id="1717">
+        <label>xsecure_resourcehandling.h</label>
+        <link refid="xsecure__resourcehandling_8h"/>
+        <childnode refid="1712" relation="include">
+        </childnode>
+        <childnode refid="1713" relation="include">
+        </childnode>
+        <childnode refid="1718" relation="include">
+        </childnode>
+        <childnode refid="1719" relation="include">
+        </childnode>
+        <childnode refid="1720" relation="include">
+        </childnode>
+        <childnode refid="1721" relation="include">
+        </childnode>
+        <childnode refid="1722" relation="include">
+        </childnode>
+        <childnode refid="1723" relation="include">
+        </childnode>
+        <childnode refid="1724" relation="include">
+        </childnode>
+        <childnode refid="1725" relation="include">
+        </childnode>
+        <childnode refid="1726" relation="include">
+        </childnode>
+        <childnode refid="1727" relation="include">
+        </childnode>
+      </node>
+      <node id="1728">
+        <label>xsecure_kdf.c</label>
+        <link refid="xsecure__kdf_8c"/>
+      </node>
+      <node id="1737">
+        <label>xsecure_plat.c</label>
+        <link refid="versal__2vp__p_2xsecure__plat_8c"/>
+      </node>
+      <node id="1732">
+        <label>xsecure_trng_ipihandler.c</label>
+        <link refid="trngpsx_2xsecure__trng__ipihandler_8c"/>
+      </node>
+      <node id="1722">
+        <label>xsecure_sha_ipihandler.c</label>
+        <link refid="xsecure__sha__ipihandler_8c"/>
+      </node>
+      <node id="1724">
+        <label>xsecure_slhdsa_ipihandler.c</label>
+        <link refid="xsecure__slhdsa__ipihandler_8c"/>
+      </node>
+      <node id="1727">
+        <label>xsecure_plat_kat_ipihandler.c</label>
+        <link refid="versal__2vp__p_2xsecure__plat__kat__ipihandler_8c"/>
+      </node>
+      <node id="1725">
+        <label>xsecure_plat_kat_ipihandler.c</label>
+        <link refid="versal__2ve__2vm_2xsecure__plat__kat__ipihandler_8c"/>
+      </node>
+      <node id="1715">
+        <label>xsecure_elliptic_ipihandler.c</label>
+        <link refid="xsecure__elliptic__ipihandler_8c"/>
+      </node>
+      <node id="1734">
+        <label>xsecure_plat.c</label>
+        <link refid="versal__2ve__2vm_2xsecure__plat_8c"/>
+      </node>
+      <node id="1719">
+        <label>xsecure_hmac_ipihandler.c</label>
+        <link refid="xsecure__hmac__ipihandler_8c"/>
+      </node>
+      <node id="1736">
+        <label>xsecure_plat_ipihandler.c</label>
+        <link refid="2vp_2xsecure__plat__ipihandler_8c"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_x_secure___partial_pdi_event_params" prot="public">XSecure_PartialPdiEventParams</innerclass>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xsecure__generic__server__apis_1gae97f3300511e1fce60d35fac22781594" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XSecure_Init</definition>
+        <argsstring>(XSecure_PartialPdiEventParams *PpdiEventParamsPtr)</argsstring>
+        <name>XSecure_Init</name>
+        <param>
+          <type><ref refid="struct_x_secure___partial_pdi_event_params" kindref="compound">XSecure_PartialPdiEventParams</ref> *</type>
+          <declname>PpdiEventParamsPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function registers the handlers for XilSecure IPI commands. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>PpdiEventParamsPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the pointer to partial PDI event parameters</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - On success</para></listitem><listitem><para>XST_FAILURE - On failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/generic/xsecure_init.c" line="143" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/generic/xsecure_init.c" bodystart="143" bodyend="179"/>
+        <references refid="group__xsecure__rsa__server__apis_1ga164469228a4eea6357072fee975418de" compoundref="xsecure__plat__rsa_8c" startline="389" endline="405">XSecure_AddRsaKeyPairGenerationToScheduler</references>
+        <references refid="group__xsecure__generic__server__apis_1ga9aa6e139b83f8847145b76986672d29a" compoundref="xsecure__init_8c" startline="85" endline="130">XSecure_AesShaInit</references>
+        <references refid="group__xsecure__generic__server__apis_1gae7ad1b3e38daf23bae35666d7a9876d8" compoundref="2ve__2vm_2xsecure__cmd_8c" startline="358" endline="368">XSecure_CmdsInit</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__generic__server__apis_1ga9aa6e139b83f8847145b76986672d29a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XSecure_AesShaInit</definition>
+        <argsstring>(void)</argsstring>
+        <name>XSecure_AesShaInit</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function initializes AES and SHA hardware instances. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - On success</para></listitem><listitem><para>XST_FAILURE - On failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Initializes AES structure</para></listitem><listitem><para>Initializes SHA structure for operating the SHA3 engine </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/generic/xsecure_init.c" line="85" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/generic/xsecure_init.c" bodystart="85" bodyend="130"/>
+        <references refid="group__xsecure__aes__client__apis_1ga2768b0d967bc577d2721682881592bb7" compoundref="xsecure__aesclient_8c" startline="77" endline="88">XSecure_AesInitialize</references>
+        <references refid="group__xsecure__generic__server__apis_1ga11d8bbf7423a10f98cbcfd4796ea6d6a" compoundref="xsecure__init_8c" startline="216" endline="221">XSecure_GetAesInstance</references>
+        <references refid="group__xsecure__generic__server__apis_1gac9c421c34d99194009679bdb4cf888ca" compoundref="xsecure__init_8c" startline="202" endline="205">XSecure_GetSha2Instance</references>
+        <references refid="group__xsecure__generic__server__apis_1gaae2c6ce911d390c5176b5b4b7ff5a4fb" compoundref="xsecure__init_8c" startline="189" endline="192">XSecure_GetSha3Instance</references>
+        <references refid="versal_2xsecure__sha__hw_8h_1a809692bfb3b5d91eb2e4b3eb722d4f83" compoundref="versal_2xsecure__sha__hw_8h" startline="50">XSECURE_SHA_0_DEVICE_ID</references>
+        <references refid="versal__2ve__2vm_2xsecure__sha__hw_8h_1ae88a494ef68a7549d515d5afbc7727e5" compoundref="versal__2ve__2vm_2xsecure__sha__hw_8h" startline="50">XSECURE_SHA_1_DEVICE_ID</references>
+        <references refid="group__xsecure__sha__server__apis_1gafeb87542b7de2a6f5e62c5fa6c84ff8b" compoundref="core_2sha_2sha__pmx_2xsecure__sha_8c" startline="789" endline="792">XSecure_ShaInitialize</references>
+        <references refid="group__xsecure__sha__server__apis_1ga41a0772cfe31c9e14e437c83e41ecfc2" compoundref="core_2sha_2sha__pmx_2xsecure__sha_8c" startline="923" endline="926">XSecure_ShaLookupConfig</references>
+        <referencedby refid="group__xsecure__generic__server__apis_1gae97f3300511e1fce60d35fac22781594" compoundref="xsecure__init_8c" startline="143" endline="179">XSecure_Init</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__generic__server__apis_1gaae2c6ce911d390c5176b5b4b7ff5a4fb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XSecure_Sha *</type>
+        <definition>XSecure_Sha * XSecure_GetSha3Instance</definition>
+        <argsstring>(u32 DeviceId)</argsstring>
+        <name>XSecure_GetSha3Instance</name>
+        <param>
+          <type>u32</type>
+          <declname>DeviceId</declname>
+        </param>
+        <briefdescription>
+<para>This function provides the pointer to the sha3 instance. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>Pointer to the XSecure_Sha instance </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/generic/xsecure_init.c" line="189" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/generic/xsecure_init.c" bodystart="189" bodyend="192"/>
+        <references refid="group__xsecure__generic__server__apis_1gab0b44f0c1faad2a80c53984e83549267" compoundref="xsecure__init_8c" startline="250" endline="263">XSecure_GetShaInstance</references>
+        <referencedby refid="group__xsecure__generic__server__apis_1ga9aa6e139b83f8847145b76986672d29a" compoundref="xsecure__init_8c" startline="85" endline="130">XSecure_AesShaInit</referencedby>
+        <referencedby refid="group__xsecure__kdf__server__apis_1ga4ce6b83111541227a82cb8f566a02106" compoundref="xsecure__kdf_8c" startline="59" endline="161">XSecure_Hkdf</referencedby>
+        <referencedby refid="group__xsecure__hmac__server__apis_1gada22059d2f57912504ffc71677bb2718" compoundref="xsecure__hmac__ipihandler_8c" startline="63" endline="106">XSecure_HmacIpiHandler</referencedby>
+        <referencedby refid="group__xsecure__kat__server__apis_1ga693f088bbeaa2be1dd7a084c2bee6351" compoundref="xsecure__kat__ipihandler_8c" startline="80" endline="176">XSecure_KatIpiHandler</referencedby>
+        <referencedby refid="group__xsecure__generic__server__apis_1ga07ca644998ec3bcf61557b4510708101" compoundref="xsecure__resourcehandling_8c" startline="491" endline="533">XSecure_SetDataContextLost</referencedby>
+        <referencedby refid="group__xsecure__sha__server__apis_1ga7f7ea6efde319f58105d7ae453081235" compoundref="xsecure__sha__ipihandler_8c" startline="88" endline="123">XSecure_Sha3IpiHandler</referencedby>
+        <referencedby refid="group__xsecure__apis_1ga7004972638c2036271d309af8ae5c351" compoundref="_2xsecure__sha__ipihandler_8c" startline="72" endline="120">XSecure_ShaIpiHandler</referencedby>
+        <referencedby refid="group__xsecure__slhdsa__server__apis_1ga77d5289144f7e1df2a55881809ba8255" compoundref="xsecure__slhdsa__ipihandler_8c" startline="56" endline="97">XSecure_SlhdsaIpiHandler</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__generic__server__apis_1gac9c421c34d99194009679bdb4cf888ca" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XSecure_Sha *</type>
+        <definition>XSecure_Sha * XSecure_GetSha2Instance</definition>
+        <argsstring>(u32 DeviceId)</argsstring>
+        <name>XSecure_GetSha2Instance</name>
+        <param>
+          <type>u32</type>
+          <declname>DeviceId</declname>
+        </param>
+        <briefdescription>
+<para>This function provides the pointer to the sha2 instance. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>Pointer to the XSecure_Sha instance </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/generic/xsecure_init.c" line="202" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/generic/xsecure_init.c" bodystart="202" bodyend="205"/>
+        <references refid="group__xsecure__generic__server__apis_1gab0b44f0c1faad2a80c53984e83549267" compoundref="xsecure__init_8c" startline="250" endline="263">XSecure_GetShaInstance</references>
+        <referencedby refid="group__xsecure__generic__server__apis_1ga9aa6e139b83f8847145b76986672d29a" compoundref="xsecure__init_8c" startline="85" endline="130">XSecure_AesShaInit</referencedby>
+        <referencedby refid="group__xsecure__kat__server__apis_1gaf7cb17f01c5c5542c9c2b3d6f00699d3" compoundref="versal__2ve__2vm_2xsecure__plat__kat__ipihandler_8c" startline="61" endline="108">XSecure_KatPlatIpiHandler</referencedby>
+        <referencedby refid="group__xsecure__apis_1ga7004972638c2036271d309af8ae5c351" compoundref="_2xsecure__sha__ipihandler_8c" startline="72" endline="120">XSecure_ShaIpiHandler</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__generic__server__apis_1ga11d8bbf7423a10f98cbcfd4796ea6d6a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XSecure_Aes *</type>
+        <definition>XSecure_Aes * XSecure_GetAesInstance</definition>
+        <argsstring>(void)</argsstring>
+        <name>XSecure_GetAesInstance</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function provides the pointer to the common Aes instance which has to be used between PLM and xilsecure server. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>Pointer to the XSecure_Aes instance </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/generic/xsecure_init.c" line="216" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/generic/xsecure_init.c" bodystart="216" bodyend="221"/>
+        <referencedby refid="group__xsecure__aes__server__apis_1gaa58a05547f6ae883c23823bf0f3bed7d" compoundref="xsecure__aes__ipihandler_8c" startline="206" endline="221">XSecure_AesInit</referencedby>
+        <referencedby refid="group__xsecure__aes__server__apis_1ga3d0efd64b0f7ebbdc1b3be80aa10a840" compoundref="xsecure__aes__ipihandler_8c" startline="107" endline="195">XSecure_AesIpiHandler</referencedby>
+        <referencedby refid="group__xsecure__aes__server__apis_1ga91032738bf5e54ecd090f802dd30a23e" compoundref="xsecure__aes__ipihandler_8c" startline="511" endline="535">XSecure_AesKeyWrite</referencedby>
+        <referencedby refid="group__xsecure__aes__server__apis_1ga6b5414d0bffdebf14b418d2d05135faa" compoundref="xsecure__aes__ipihandler_8c" startline="474" endline="493">XSecure_AesKeyZeroize</referencedby>
+        <referencedby refid="group__xsecure__aes__server__apis_1ga4dac9d051ab1e5fa765badf3b682a642" compoundref="xsecure__aes__ipihandler_8c" startline="619" endline="683">XSecure_AesPerformOperation</referencedby>
+        <referencedby refid="group__xsecure__helper__server__apis_1gadc255b2085b85b148a6ab41d71fde8e2" compoundref="versal__2ve__2vm_2xsecure__plat_8c" startline="296" endline="360">XSecure_AesPlatPmcDmaCfgAndXfer</referencedby>
+        <referencedby refid="group__xsecure__generic__server__apis_1ga9aa6e139b83f8847145b76986672d29a" compoundref="xsecure__init_8c" startline="85" endline="130">XSecure_AesShaInit</referencedby>
+        <referencedby refid="group__xsecure__helper__server__apis_1ga557eeba8aca187788ae1d41a4e255f0d" compoundref="versal__2ve__2vm_2xsecure__plat_8c" startline="238" endline="243">XSecure_ConfigureDmaByteSwap</referencedby>
+        <referencedby refid="group__xsecure__kat__server__apis_1ga693f088bbeaa2be1dd7a084c2bee6351" compoundref="xsecure__kat__ipihandler_8c" startline="80" endline="176">XSecure_KatIpiHandler</referencedby>
+        <referencedby refid="group__xsecure__keyunwrap__server__apis_1gaf1df351e91ee42e7c281b2e676ffda7b" compoundref="xsecure__keyunwrap_8c" startline="185" endline="283">XSecure_KeyUnwrap</referencedby>
+        <referencedby refid="group__xsecure__aes__server__apis_1ga1471a9dc9965ae80577a09aadafeeb53" compoundref="xsecure__plat__aes__ipihandler_8c" startline="60" endline="100">XSecure_PlatAesIpiHandler</referencedby>
+        <referencedby refid="group__xsecure__generic__server__apis_1ga07ca644998ec3bcf61557b4510708101" compoundref="xsecure__resourcehandling_8c" startline="491" endline="533">XSecure_SetDataContextLost</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__generic__server__apis_1gab0b44f0c1faad2a80c53984e83549267" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XSecure_Sha *</type>
+        <definition>XSecure_Sha * XSecure_GetShaInstance</definition>
+        <argsstring>(u32 DeviceId)</argsstring>
+        <name>XSecure_GetShaInstance</name>
+        <param>
+          <type>u32</type>
+          <declname>DeviceId</declname>
+        </param>
+        <briefdescription>
+<para>This function provides the pointer to the sha instance based on the DevieId. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>Pointer to the XSecure_Sha instance </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/generic/xsecure_init.c" line="250" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/generic/xsecure_init.c" bodystart="250" bodyend="263"/>
+        <references refid="versal_2xsecure__sha__hw_8h_1a20b9a0d810aec45fb949b752d3540a1a" compoundref="versal_2xsecure__sha__hw_8h" startline="43">XSECURE_SHA_NUM_OF_INSTANCES</references>
+        <referencedby refid="group__xsecure__generic__server__apis_1gac9c421c34d99194009679bdb4cf888ca" compoundref="xsecure__init_8c" startline="202" endline="205">XSecure_GetSha2Instance</referencedby>
+        <referencedby refid="group__xsecure__generic__server__apis_1gaae2c6ce911d390c5176b5b4b7ff5a4fb" compoundref="xsecure__init_8c" startline="189" endline="192">XSecure_GetSha3Instance</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__generic__server__apis_1ga4d02aaca191ced35af31e6f80b76f2b8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="struct_x_secure___rsa" kindref="compound">XSecure_Rsa</ref> *</type>
+        <definition>XSecure_Rsa * XSecure_GetRsaInstance</definition>
+        <argsstring>(void)</argsstring>
+        <name>XSecure_GetRsaInstance</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function provides the pointer to the common Rsa instance which has to be used between PLM and xilsecure server. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>Pointer to the <ref refid="struct_x_secure___rsa" kindref="compound">XSecure_Rsa</ref> instance </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/generic/xsecure_init.c" line="233" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/generic/xsecure_init.c" bodystart="233" bodyend="238"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Header file for <ref refid="xsecure__init_8c" kindref="compound">xsecure_init.c</ref>. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date        Changes
+<hruler/>
+
+1.0   rpo  07/01/2020 Initial release
+4.3   rpo  07/01/2020 Updated file version to sync with library version
+      am   09/24/2020 Resolved MISRA C violations
+      har  10/12/2020 Addressed security review comments
+4.5   bm   05/13/2021 Add common crypto instances
+4.6   ma   07/08/2022 Added support for secure lockdown
+5.4   kal  07/24/2024 Code refactoring for versal_2ve_2vm
+      pre  03/02/2025 Modified prototype of XSecure_Init function
+      sd   04/30/2025 Make XSecure_AesShaInit as non static function</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2020<sp/>-<sp/>2023<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="37"><highlight class="preprocessor">#ifndef<sp/>XSECURE_INIT_H_</highlight></codeline>
+<codeline lineno="38"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_INIT_H_</highlight></codeline>
+<codeline lineno="39"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="41"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="43"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xsecure_aes.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>PLM_RSA_EXCLUDE</highlight></codeline>
+<codeline lineno="47"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xsecure_rsa_core.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="49"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xsecure_sha.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>VERSAL_PLM</highlight></codeline>
+<codeline lineno="51"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xplmi_config.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="53"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight></codeline>
+<codeline lineno="58" refid="struct_x_secure___partial_pdi_event_params" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="60" refid="struct_x_secure___partial_pdi_event_params_1a2af028efb7fde954df4f695057392453" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_secure___partial_pdi_event_params_1a2af028efb7fde954df4f695057392453" kindref="member">PartialPdiEventSts</ref>;<sp/></highlight></codeline>
+<codeline lineno="61" refid="struct_x_secure___partial_pdi_event_params_1a44843c9b66877c7ebc4782197c44b030" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>int<sp/>(*TriggerPartialPdiEvent)(void);</highlight></codeline>
+<codeline lineno="63" refid="struct_x_secure___partial_pdi_event_params_1a229f2e94e313f0201b0cb6a2f347e8e0" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_secure___partial_pdi_event_params_1a229f2e94e313f0201b0cb6a2f347e8e0" kindref="member">IpiMask</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="64" refid="struct_x_secure___partial_pdi_event_params_1a661d3485a079ec9430ef8420f07771cf" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_secure___partial_pdi_event_params_1a661d3485a079ec9430ef8420f07771cf" kindref="member">PdiSrc</ref>;<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="65" refid="struct_x_secure___partial_pdi_event_params_1a7fa8c455b6d6aa6edbced66e44128310" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/><ref refid="struct_x_secure___partial_pdi_event_params_1a7fa8c455b6d6aa6edbced66e44128310" kindref="member">PdiAddr</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="66"><highlight class="normal">}<sp/><ref refid="struct_x_secure___partial_pdi_event_params" kindref="compound">XSecure_PartialPdiEventParams</ref>;</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__generic__server__apis_1gae97f3300511e1fce60d35fac22781594" kindref="member">XSecure_Init</ref>(<ref refid="struct_x_secure___partial_pdi_event_params" kindref="compound">XSecure_PartialPdiEventParams</ref><sp/>*PpdiEventParamsPtr);</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__generic__server__apis_1ga9aa6e139b83f8847145b76986672d29a" kindref="member">XSecure_AesShaInit</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="71"><highlight class="normal">XSecure_Sha<sp/>*<ref refid="group__xsecure__generic__server__apis_1gaae2c6ce911d390c5176b5b4b7ff5a4fb" kindref="member">XSecure_GetSha3Instance</ref>(u32<sp/>DeviceId);</highlight></codeline>
+<codeline lineno="72"><highlight class="normal">XSecure_Sha<sp/>*<ref refid="group__xsecure__generic__server__apis_1gac9c421c34d99194009679bdb4cf888ca" kindref="member">XSecure_GetSha2Instance</ref>(u32<sp/>DeviceId);</highlight></codeline>
+<codeline lineno="73"><highlight class="normal">XSecure_Aes<sp/>*<ref refid="group__xsecure__generic__server__apis_1ga11d8bbf7423a10f98cbcfd4796ea6d6a" kindref="member">XSecure_GetAesInstance</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="74"><highlight class="normal">XSecure_Sha<sp/>*<ref refid="group__xsecure__generic__server__apis_1gab0b44f0c1faad2a80c53984e83549267" kindref="member">XSecure_GetShaInstance</ref>(u32<sp/>DeviceId);</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>PLM_RSA_EXCLUDE</highlight></codeline>
+<codeline lineno="76"><highlight class="preprocessor"></highlight><highlight class="normal"><ref refid="struct_x_secure___rsa" kindref="compound">XSecure_Rsa</ref><sp/>*<ref refid="group__xsecure__generic__server__apis_1ga4d02aaca191ced35af31e6f80b76f2b8" kindref="member">XSecure_GetRsaInstance</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="78"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="80"><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="81"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="83"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="84"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XSECURE_INIT_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/generic/xsecure_init.h"/>
+  </compounddef>
+</doxygen>

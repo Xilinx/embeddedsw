@@ -1,0 +1,49 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_ipi_psu___target" kind="struct" prot="public">
+    <compoundname>XIpiPsu_Target</compoundname>
+    <includes local="no">xipipsu.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_ipi_psu___target_1a4ac80767ed4dcfd90d9a02db6a2a8eb4" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XIpiPsu_Target::Mask</definition>
+        <argsstring></argsstring>
+        <name>Mask</name>
+        <briefdescription>
+<para>Bit Mask for the target. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ipipsu/src/xipipsu.h" line="133" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ipipsu/src/xipipsu.h" bodystart="133" bodyend="-1"/>
+        <referencedby refid="xipipsu__self__test__example_8c_1a2dc7058c8f10506fd4279462d399d33a" compoundref="xipipsu__self__test__example_8c" startline="116" endline="169">IpiIntrHandler</referencedby>
+        <referencedby refid="group__ipipsu_1ga9fb4494480ae0079422956f2af1da357" compoundref="xipipsu_8c" startline="69" endline="102">XIpiPsu_CfgInitialize</referencedby>
+        <referencedby refid="group__ipipsu__api_1ga7d429daed621ef6c33656d873e31d9b3" compoundref="xipipsu__helper_8c" startline="107" endline="125">XIpiPsu_GetBufferIndex</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_ipi_psu___target_1ad8cf0011981eb538784e520195585e74" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XIpiPsu_Target::BufferIndex</definition>
+        <argsstring></argsstring>
+        <name>BufferIndex</name>
+        <briefdescription>
+<para>Buffer Index used for calculating buffer address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ipipsu/src/xipipsu.h" line="134" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ipipsu/src/xipipsu.h" bodystart="134" bodyend="-1"/>
+        <referencedby refid="group__ipipsu_1ga9fb4494480ae0079422956f2af1da357" compoundref="xipipsu_8c" startline="69" endline="102">XIpiPsu_CfgInitialize</referencedby>
+        <referencedby refid="group__ipipsu__api_1ga7d429daed621ef6c33656d873e31d9b3" compoundref="xipipsu__helper_8c" startline="107" endline="125">XIpiPsu_GetBufferIndex</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Data structure used to refer IPI Targets. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ipipsu/src/xipipsu.h" line="132" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ipipsu/src/xipipsu.h" bodystart="132" bodyend="135"/>
+    <listofallmembers>
+      <member refid="struct_x_ipi_psu___target_1ad8cf0011981eb538784e520195585e74" prot="public" virt="non-virtual"><scope>XIpiPsu_Target</scope><name>BufferIndex</name></member>
+      <member refid="struct_x_ipi_psu___target_1a4ac80767ed4dcfd90d9a02db6a2a8eb4" prot="public" virt="non-virtual"><scope>XIpiPsu_Target</scope><name>Mask</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

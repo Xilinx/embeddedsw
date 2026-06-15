@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_b04db8575930cfc551ce076a1d0f443b" kind="dir">
+    <compoundname>sp701_ref_design</compoundname>
+    <innerfile refid="function__prototype_8c">function_prototype.c</innerfile>
+    <innerfile refid="function__prototype_8h">function_prototype.h</innerfile>
+    <innerfile refid="pcam__5_c__cfgs_8c">pcam_5C_cfgs.c</innerfile>
+    <innerfile refid="pcam__5_c__cfgs_8h">pcam_5C_cfgs.h</innerfile>
+    <innerfile refid="xmipi__sp701__example_8c">xmipi_sp701_example.c</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/sp701_ref_design/"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,96 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_avpg_run_config" kind="struct" prot="public">
+    <compoundname>AvpgRunConfig</compoundname>
+    <includes local="no">mmi_dpdc_example.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_avpg_run_config_1acaedb0caa17ed5c9a3a6b295d8b53d3b" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 AvpgRunConfig::bpc</definition>
+        <argsstring></argsstring>
+        <name>bpc</name>
+        <briefdescription>
+<para>Bits per component: 6, 8, 10, 12. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_example.h" line="71" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_example.h" bodystart="71" bodyend="-1"/>
+        <referencedby refid="mmi__dpdc__menus_8h_1a6ed49c1ca08ecf19af7bdd721bbaa33f" compoundref="mmi__dpdc__menus_8c" startline="443" endline="517">XDpDc_DisplayConfig</referencedby>
+        <referencedby refid="mmi__dpdc__menus_8h_1a23e0f7f5b66aae7b68eab9d3c904657d" compoundref="mmi__dpdc__menus_8c" startline="1723" endline="1879">XDpDc_InitConfigDefaults</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_avpg_run_config_1ac02c760c30561b2efd844c75862a9cd7" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 AvpgRunConfig::pattern</definition>
+        <argsstring></argsstring>
+        <name>pattern</name>
+        <briefdescription>
+<para>Test pattern selection. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_example.h" line="72" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_example.h" bodystart="72" bodyend="-1"/>
+        <referencedby refid="mmi__dpdc__menus_8h_1a6ed49c1ca08ecf19af7bdd721bbaa33f" compoundref="mmi__dpdc__menus_8c" startline="443" endline="517">XDpDc_DisplayConfig</referencedby>
+        <referencedby refid="mmi__dpdc__menus_8h_1a23e0f7f5b66aae7b68eab9d3c904657d" compoundref="mmi__dpdc__menus_8c" startline="1723" endline="1879">XDpDc_InitConfigDefaults</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_avpg_run_config_1a9a79d968a2a5907ea10ad7ae4befe65d" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 AvpgRunConfig::pix_fmt</definition>
+        <argsstring></argsstring>
+        <name>pix_fmt</name>
+        <briefdescription>
+<para>Pixel format: 0=RGB, 1=YUV422. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_example.h" line="73" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_example.h" bodystart="73" bodyend="-1"/>
+        <referencedby refid="mmi__dpdc__menus_8h_1a6ed49c1ca08ecf19af7bdd721bbaa33f" compoundref="mmi__dpdc__menus_8c" startline="443" endline="517">XDpDc_DisplayConfig</referencedby>
+        <referencedby refid="mmi__dpdc__menus_8h_1a23e0f7f5b66aae7b68eab9d3c904657d" compoundref="mmi__dpdc__menus_8c" startline="1723" endline="1879">XDpDc_InitConfigDefaults</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_avpg_run_config_1a9f05f549a896b4a4c9906122fae858bf" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 AvpgRunConfig::colorimetry</definition>
+        <argsstring></argsstring>
+        <name>colorimetry</name>
+        <briefdescription>
+<para>Colorimetry: 0=BT.601, 1=BT.709. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_example.h" line="74" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_example.h" bodystart="74" bodyend="-1"/>
+        <referencedby refid="mmi__dpdc__menus_8h_1a6ed49c1ca08ecf19af7bdd721bbaa33f" compoundref="mmi__dpdc__menus_8c" startline="443" endline="517">XDpDc_DisplayConfig</referencedby>
+        <referencedby refid="mmi__dpdc__menus_8h_1a23e0f7f5b66aae7b68eab9d3c904657d" compoundref="mmi__dpdc__menus_8c" startline="1723" endline="1879">XDpDc_InitConfigDefaults</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_avpg_run_config_1a7a66cbfbab8be0e62fbc9f8d881c5723" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 AvpgRunConfig::ppc</definition>
+        <argsstring></argsstring>
+        <name>ppc</name>
+        <briefdescription>
+<para>Pixels per clock: 0=dual, 1=quad. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_example.h" line="75" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_example.h" bodystart="75" bodyend="-1"/>
+        <referencedby refid="mmi__dpdc__menus_8h_1a6ed49c1ca08ecf19af7bdd721bbaa33f" compoundref="mmi__dpdc__menus_8c" startline="443" endline="517">XDpDc_DisplayConfig</referencedby>
+        <referencedby refid="mmi__dpdc__menus_8h_1a23e0f7f5b66aae7b68eab9d3c904657d" compoundref="mmi__dpdc__menus_8c" startline="1723" endline="1879">XDpDc_InitConfigDefaults</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef contains the AV Pattern Generator run configuration. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_example.h" line="70" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_example.h" bodystart="70" bodyend="76"/>
+    <listofallmembers>
+      <member refid="struct_avpg_run_config_1acaedb0caa17ed5c9a3a6b295d8b53d3b" prot="public" virt="non-virtual"><scope>AvpgRunConfig</scope><name>bpc</name></member>
+      <member refid="struct_avpg_run_config_1a9f05f549a896b4a4c9906122fae858bf" prot="public" virt="non-virtual"><scope>AvpgRunConfig</scope><name>colorimetry</name></member>
+      <member refid="struct_avpg_run_config_1ac02c760c30561b2efd844c75862a9cd7" prot="public" virt="non-virtual"><scope>AvpgRunConfig</scope><name>pattern</name></member>
+      <member refid="struct_avpg_run_config_1a9a79d968a2a5907ea10ad7ae4befe65d" prot="public" virt="non-virtual"><scope>AvpgRunConfig</scope><name>pix_fmt</name></member>
+      <member refid="struct_avpg_run_config_1a7a66cbfbab8be0e62fbc9f8d881c5723" prot="public" virt="non-virtual"><scope>AvpgRunConfig</scope><name>ppc</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

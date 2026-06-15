@@ -1,0 +1,117 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xv__deinterlacer__g_8c" kind="file">
+    <compoundname>xv_deinterlacer_g.c</compoundname>
+    <includes refid="xv__deinterlacer_8h" local="yes">xv_deinterlacer.h</includes>
+    <incdepgraph>
+      <node id="25">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="27">
+        <label>xil_io.h</label>
+      </node>
+      <node id="23">
+        <label>xv_deinterlacer.h</label>
+        <link refid="xv__deinterlacer_8h"/>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+      </node>
+      <node id="28">
+        <label>xv_deinterlacer_hw.h</label>
+        <link refid="xv__deinterlacer__hw_8h"/>
+      </node>
+      <node id="22">
+        <label>xv_deinterlacer_g.c</label>
+        <link refid="xv_deinterlacer_g.c"/>
+        <childnode refid="23" relation="include">
+        </childnode>
+      </node>
+      <node id="26">
+        <label>xstatus.h</label>
+      </node>
+      <node id="24">
+        <label>xil_types.h</label>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="xv__deinterlacer__g_8c_1a5001864c413db2493083fa8504120f6f" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_v__deinterlacer___config" kindref="compound">XV_deinterlacer_Config</ref></type>
+        <definition>XV_deinterlacer_Config XV_deinterlacer_ConfigTable[]</definition>
+        <argsstring>[]</argsstring>
+        <name>XV_deinterlacer_ConfigTable</name>
+        <initializer>= {
+	{
+		&quot;xlnx,v-deinterlacer-5.1&quot;,
+		0x0,
+		0x3,
+		0xa
+	},
+	 {
+		 NULL
+	}
+}</initializer>
+        <briefdescription>
+<para>XV_deinterlacer_ConfigTable - Configuration table for <ref refid="struct_x_v__deinterlacer" kindref="compound">XV_deinterlacer</ref> driver instances. </para>        </briefdescription>
+        <detaileddescription>
+<para>This table contains configuration structures for each instance of the <ref refid="struct_x_v__deinterlacer" kindref="compound">XV_deinterlacer</ref> hardware. Each entry provides the following information:<itemizedlist>
+<listitem><para>compatible: Device compatibility string (e.g., &quot;xlnx,v-deinterlacer-5.1&quot;).</para></listitem><listitem><para>reg: Base address of the hardware instance.</para></listitem><listitem><para>xlnx,num-video-components: Number of video components supported.</para></listitem><listitem><para>xlnx,max-data-width: Maximum data width supported.</para></listitem></itemizedlist>
+</para><para>The table is placed in the &quot;.drvcfg_sec&quot; section for driver configuration. The last entry is a sentinel with NULL to indicate the end of the table. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_deinterlacer/src/xv_deinterlacer_g.c" line="55" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_deinterlacer/src/xv_deinterlacer_g.c" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/*******************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2010-2020<sp/>Xilinx,<sp/>Inc.<sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>2022-2025<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">*******************************************************************************/</highlight></codeline>
+<codeline lineno="10"><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="11"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xparameters.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="13"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xv__deinterlacer_8h" kindref="compound">xv_deinterlacer.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="16"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><ref refid="struct_x_v__deinterlacer___config" kindref="compound">XV_deinterlacer_Config</ref><sp/><ref refid="xv__deinterlacer__g_8c_1a5001864c413db2493083fa8504120f6f" kindref="member">XV_deinterlacer_ConfigTable</ref>[]<sp/>=</highlight></codeline>
+<codeline lineno="29"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>XPAR_XV_DEINTERLACER_NUM_INSTANCES</highlight></codeline>
+<codeline lineno="32"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_V_PROC_SS_0_V_DEINTERLACER_DEVICE_ID,</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_V_PROC_SS_0_V_DEINTERLACER_S_AXI_CTRL_BASEADDR,</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_V_PROC_SS_0_V_DEINTERLACER_NUM_VIDEO_COMPONENTS,</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_V_PROC_SS_0_V_DEINTERLACER_MAX_DATA_WIDTH</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="37"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="38"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="40"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="55" refid="xv__deinterlacer__sinit_8c_1a5001864c413db2493083fa8504120f6f" refkind="member"><highlight class="normal"><ref refid="struct_x_v__deinterlacer___config" kindref="compound">XV_deinterlacer_Config</ref><sp/>XV_deinterlacer_ConfigTable[]<sp/>__attribute__<sp/>((section<sp/>(</highlight><highlight class="stringliteral">&quot;.drvcfg_sec&quot;</highlight><highlight class="normal">)))<sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;xlnx,v-deinterlacer-5.1&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="comment">/*<sp/>compatible<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0,<sp/></highlight><highlight class="comment">/*<sp/>reg<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x3,<sp/></highlight><highlight class="comment">/*<sp/>xlnx,num-video-components<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xa<sp/></highlight><highlight class="comment">/*<sp/>xlnx,max-data-width<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>},</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>NULL</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="65"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_deinterlacer/src/xv_deinterlacer_g.c"/>
+  </compounddef>
+</doxygen>

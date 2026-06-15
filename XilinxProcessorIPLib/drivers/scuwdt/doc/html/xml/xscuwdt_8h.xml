@@ -1,0 +1,717 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xscuwdt_8h" kind="file">
+    <compoundname>xscuwdt.h</compoundname>
+    <includes local="yes">xstatus.h</includes>
+    <includes refid="xscuwdt__hw_8h" local="yes">xscuwdt_hw.h</includes>
+    <includedby refid="xscuwdt_8c" local="yes">xscuwdt.c</includedby>
+    <includedby refid="xscuwdt__g_8c" local="yes">xscuwdt_g.c</includedby>
+    <includedby refid="xscuwdt__selftest_8c" local="yes">xscuwdt_selftest.c</includedby>
+    <includedby refid="xscuwdt__sinit_8c" local="yes">xscuwdt_sinit.c</includedby>
+    <includedby refid="xscuwdt__intr__example_8c" local="yes">xscuwdt_intr_example.c</includedby>
+    <includedby refid="xscuwdt__polled__example_8c" local="yes">xscuwdt_polled_example.c</includedby>
+    <incdepgraph>
+      <node id="17">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="12">
+        <label>xscuwdt.h</label>
+        <link refid="xscuwdt.h"/>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+      </node>
+      <node id="16">
+        <label>xil_io.h</label>
+      </node>
+      <node id="14">
+        <label>xscuwdt_hw.h</label>
+        <link refid="xscuwdt__hw_8h"/>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+      </node>
+      <node id="13">
+        <label>xstatus.h</label>
+      </node>
+      <node id="15">
+        <label>xil_types.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="19">
+        <label>xscuwdt.c</label>
+        <link refid="xscuwdt_8c"/>
+      </node>
+      <node id="18">
+        <label>xscuwdt.h</label>
+        <link refid="xscuwdt.h"/>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+      </node>
+      <node id="20">
+        <label>xscuwdt_g.c</label>
+        <link refid="xscuwdt__g_8c"/>
+      </node>
+      <node id="24">
+        <label>xscuwdt_polled_example.c</label>
+        <link refid="xscuwdt__polled__example_8c"/>
+      </node>
+      <node id="23">
+        <label>xscuwdt_intr_example.c</label>
+        <link refid="xscuwdt__intr__example_8c"/>
+      </node>
+      <node id="21">
+        <label>xscuwdt_selftest.c</label>
+        <link refid="xscuwdt__selftest_8c"/>
+      </node>
+      <node id="22">
+        <label>xscuwdt_sinit.c</label>
+        <link refid="xscuwdt__sinit_8c"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_x_scu_wdt___config" prot="public">XScuWdt_Config</innerclass>
+    <innerclass refid="struct_x_scu_wdt" prot="public">XScuWdt</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group___overview_1ga0bc0278a14721ac3733d4080e7a03ee3" prot="public" static="no">
+        <name>XSCUWDT_H</name>
+        <briefdescription>
+<para>&lt; prevent circular inclusions </para>        </briefdescription>
+        <detaileddescription>
+<para>by using protection macros </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scuwdt/src/xscuwdt.h" line="117" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scuwdt/src/xscuwdt.h" bodystart="117" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga9481fbc75254dd60304af3fd0254e3f6" prot="public" static="no">
+        <name>XScuWdt_IsWdtExpired</name>
+        <param><defname>InstancePtr</defname></param>
+        <initializer>((<ref refid="group___overview_1ga0c00c40fbb11db997a4650ae222ac29f" kindref="member">XScuWdt_ReadReg</ref>((InstancePtr)-&gt;Config.BaseAddr,		\
+			  <ref refid="group___overview_1ga265a4196811ab4b4ac12954d02461520" kindref="member">XSCUWDT_RST_STS_OFFSET</ref>) &amp;			\
+	  <ref refid="group___overview_1ga09ce6fd05a79f896111beab252e792f5" kindref="member">XSCUWDT_RST_STS_RESET_FLAG_MASK</ref>) == <ref refid="group___overview_1ga09ce6fd05a79f896111beab252e792f5" kindref="member">XSCUWDT_RST_STS_RESET_FLAG_MASK</ref>)</initializer>
+        <briefdescription>
+<para>This function is used to check if the watchdog has timed-out and the last reset was caused by the watchdog reset. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_scu_wdt" kindref="compound">XScuWdt</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>TRUE if the watchdog has expired.</para></listitem><listitem><para>FALSE if the watchdog has not expired.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>C-style signature: int <ref refid="group___overview_1ga9481fbc75254dd60304af3fd0254e3f6" kindref="member">XScuWdt_IsWdtExpired(XScuWdt *InstancePtr)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scuwdt/src/xscuwdt.h" line="182" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scuwdt/src/xscuwdt.h" bodystart="182" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga551b705d1ebbb530ac7a2a9752c8f5cb" prot="public" static="no">
+        <name>XScuWdt_IsTimerExpired</name>
+        <param><defname>InstancePtr</defname></param>
+        <initializer>((<ref refid="group___overview_1ga0c00c40fbb11db997a4650ae222ac29f" kindref="member">XScuWdt_ReadReg</ref>((InstancePtr)-&gt;Config.BaseAddr,		\
+			  <ref refid="group___overview_1ga51a62e1dedd6b0f5f45cd19305f09440" kindref="member">XSCUWDT_ISR_OFFSET</ref>) &amp;				\
+	  <ref refid="group___overview_1ga48a52ba61af3b86522de83206703b0cf" kindref="member">XSCUWDT_ISR_EVENT_FLAG_MASK</ref>) == <ref refid="group___overview_1ga48a52ba61af3b86522de83206703b0cf" kindref="member">XSCUWDT_ISR_EVENT_FLAG_MASK</ref>)</initializer>
+        <briefdescription>
+<para>This function is used to check if the watchdog counter has reached 0 in timer mode. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_scu_wdt" kindref="compound">XScuWdt</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>TRUE if the watchdog has expired.</para></listitem><listitem><para>FALSE if the watchdog has not expired.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>C-style signature: int <ref refid="group___overview_1ga551b705d1ebbb530ac7a2a9752c8f5cb" kindref="member">XScuWdt_IsTimerExpired(XScuWdt *InstancePtr)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scuwdt/src/xscuwdt.h" line="203" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scuwdt/src/xscuwdt.h" bodystart="203" bodyend="-1"/>
+        <referencedby refid="xscuwdt__intr__example_8c_1a0054ab1cdccc0040a5d9633b4c386d9a" compoundref="xscuwdt__intr__example_8c" startline="158" endline="336">ScuWdtIntrExample</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga9487e2c385d8dc9cf5f1f27539ca079f" prot="public" static="no">
+        <name>XScuWdt_RestartWdt</name>
+        <param><defname>InstancePtr</defname></param>
+        <initializer><ref refid="group___overview_1ga7dca99f7a6158d27399eb355f40e3367" kindref="member">XScuWdt_LoadWdt</ref>((InstancePtr),					 \
+			(<ref refid="group___overview_1ga0c00c40fbb11db997a4650ae222ac29f" kindref="member">XScuWdt_ReadReg</ref>((InstancePtr)-&gt;Config.BaseAddr, \
+					 <ref refid="group___overview_1ga0ed3512c06a5468c1a1e156485c89b05" kindref="member">XSCUWDT_LOAD_OFFSET</ref>)))</initializer>
+        <briefdescription>
+<para>Re-start the watchdog timer. </para>        </briefdescription>
+        <detaileddescription>
+<para>This macro will read the watchdog load register and write the same value to load register to update the counter register. An application needs to call this function periodically to keep the watchdog from asserting the WDRESETREQ reset request output pin.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_scu_wdt" kindref="compound">XScuWdt</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>C-style signature: void <ref refid="group___overview_1ga9487e2c385d8dc9cf5f1f27539ca079f" kindref="member">XScuWdt_RestartWdt(XScuWdt *InstancePtr)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scuwdt/src/xscuwdt.h" line="224" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scuwdt/src/xscuwdt.h" bodystart="224" bodyend="-1"/>
+        <referencedby refid="xscuwdt__intr__example_8c_1a0054ab1cdccc0040a5d9633b4c386d9a" compoundref="xscuwdt__intr__example_8c" startline="158" endline="336">ScuWdtIntrExample</referencedby>
+        <referencedby refid="xscuwdt__polled__example_8c_1a33e89f9e41ed0c166b878661da7f07f6" compoundref="xscuwdt__polled__example_8c" startline="128" endline="187">ScuWdtPolledExample</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga7dca99f7a6158d27399eb355f40e3367" prot="public" static="no">
+        <name>XScuWdt_LoadWdt</name>
+        <param><defname>InstancePtr</defname></param>
+        <param><defname>Value</defname></param>
+        <initializer><ref refid="group___overview_1ga396641b45a7213c8c18a19485759fee4" kindref="member">XScuWdt_WriteReg</ref>((InstancePtr)-&gt;Config.BaseAddr,		\
+			 <ref refid="group___overview_1ga0ed3512c06a5468c1a1e156485c89b05" kindref="member">XSCUWDT_LOAD_OFFSET</ref>, (Value))</initializer>
+        <briefdescription>
+<para>Write to the watchdog timer load register. </para>        </briefdescription>
+        <detaileddescription>
+<para>This will also update the watchdog counter register with the new value. This macro can be used to change the time-out value.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_scu_wdt" kindref="compound">XScuWdt</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Value</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the value to be written to the Watchdog Load register.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>C-style signature: void <ref refid="group___overview_1ga7dca99f7a6158d27399eb355f40e3367" kindref="member">XScuWdt_LoadWdt(XScuWdt *InstancePtr, u32 Value)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scuwdt/src/xscuwdt.h" line="245" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scuwdt/src/xscuwdt.h" bodystart="245" bodyend="-1"/>
+        <referencedby refid="xscuwdt__intr__example_8c_1a0054ab1cdccc0040a5d9633b4c386d9a" compoundref="xscuwdt__intr__example_8c" startline="158" endline="336">ScuWdtIntrExample</referencedby>
+        <referencedby refid="xscuwdt__polled__example_8c_1a33e89f9e41ed0c166b878661da7f07f6" compoundref="xscuwdt__polled__example_8c" startline="128" endline="187">ScuWdtPolledExample</referencedby>
+        <referencedby refid="group___overview_1ga2d6d32ff992704d9b78f93ab00ebdf78" compoundref="xscuwdt__selftest_8c" startline="60" endline="106">XScuWdt_SelfTest</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga8813e9f9df643de43359defc1a7a48bc" prot="public" static="no">
+        <name>XScuWdt_SetWdMode</name>
+        <param><defname>InstancePtr</defname></param>
+        <initializer><ref refid="group___overview_1ga396641b45a7213c8c18a19485759fee4" kindref="member">XScuWdt_WriteReg</ref>((InstancePtr)-&gt;Config.BaseAddr,		  \
+			 <ref refid="group___overview_1gabb582c48f399b333543c54e0563809d5" kindref="member">XSCUWDT_CONTROL_OFFSET</ref>,			  \
+			 (<ref refid="group___overview_1ga0c00c40fbb11db997a4650ae222ac29f" kindref="member">XScuWdt_ReadReg</ref>((InstancePtr)-&gt;Config.BaseAddr, \
+					  <ref refid="group___overview_1gabb582c48f399b333543c54e0563809d5" kindref="member">XSCUWDT_CONTROL_OFFSET</ref>) |			  \
+			  (<ref refid="group___overview_1ga7c5148db8727a2fdbab1c7dba9296f77" kindref="member">XSCUWDT_CONTROL_WD_MODE_MASK</ref>)))</initializer>
+        <briefdescription>
+<para>Put the watchdog timer in Watchdog mode by setting the WD mode bit of the Watchdog control register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_scu_wdt" kindref="compound">XScuWdt</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>C-style signature: void <ref refid="group___overview_1ga8813e9f9df643de43359defc1a7a48bc" kindref="member">XScuWdt_SetWdMode(XScuWdt *InstancePtr)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scuwdt/src/xscuwdt.h" line="263" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scuwdt/src/xscuwdt.h" bodystart="263" bodyend="-1"/>
+        <referencedby refid="xscuwdt__polled__example_8c_1a33e89f9e41ed0c166b878661da7f07f6" compoundref="xscuwdt__polled__example_8c" startline="128" endline="187">ScuWdtPolledExample</referencedby>
+        <referencedby refid="group___overview_1ga1fee56fc3ec3c8b003e6ae0528703b1c" compoundref="xscuwdt_8c" startline="62" endline="106">XScuWdt_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga816969d609034dc12371ca7bc8444bf3" prot="public" static="no">
+        <name>XScuWdt_SetTimerMode</name>
+        <param><defname>InstancePtr</defname></param>
+        <initializer>{									\
+		<ref refid="group___overview_1ga396641b45a7213c8c18a19485759fee4" kindref="member">XScuWdt_WriteReg</ref>((InstancePtr)-&gt;Config.BaseAddr,		\
+				 <ref refid="group___overview_1ga8322daafd0ea0ea44c59f69523b19f66" kindref="member">XSCUWDT_DISABLE_OFFSET</ref>,				\
+				 <ref refid="group___overview_1gaafdd114ae5e1835ff15037e617464de2" kindref="member">XSCUWDT_DISABLE_VALUE1</ref>);			\
+		<ref refid="group___overview_1ga396641b45a7213c8c18a19485759fee4" kindref="member">XScuWdt_WriteReg</ref>((InstancePtr)-&gt;Config.BaseAddr,		\
+				 <ref refid="group___overview_1ga8322daafd0ea0ea44c59f69523b19f66" kindref="member">XSCUWDT_DISABLE_OFFSET</ref>,				\
+				 <ref refid="group___overview_1ga3637e7d6bc621bbe36942a1bc9543f2f" kindref="member">XSCUWDT_DISABLE_VALUE2</ref>);			\
+	}</initializer>
+        <briefdescription>
+<para>Put the watchdog timer in Timer mode by writing 0x12345678 and 0x87654321 successively to the Watchdog Disable Register. </para>        </briefdescription>
+        <detaileddescription>
+<para>The software must write 0x12345678 and 0x87654321 successively to the Watchdog Disable Register so that the watchdog mode bit in the Watchdog Control Register is set to zero.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_scu_wdt" kindref="compound">XScuWdt</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>C-style signature: void <ref refid="group___overview_1ga816969d609034dc12371ca7bc8444bf3" kindref="member">XScuWdt_SetTimerMode(XScuWdt *InstancePtr)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scuwdt/src/xscuwdt.h" line="287" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scuwdt/src/xscuwdt.h" bodystart="287" bodyend="-1"/>
+        <referencedby refid="xscuwdt__intr__example_8c_1a0054ab1cdccc0040a5d9633b4c386d9a" compoundref="xscuwdt__intr__example_8c" startline="158" endline="336">ScuWdtIntrExample</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1gaf62532fc29f79a73a2a058d6e81586a6" prot="public" static="no">
+        <name>XScuWdt_GetControlReg</name>
+        <param><defname>InstancePtr</defname></param>
+        <initializer><ref refid="group___overview_1ga0c00c40fbb11db997a4650ae222ac29f" kindref="member">XScuWdt_ReadReg</ref>((InstancePtr)-&gt;Config.BaseAddr,			\
+			<ref refid="group___overview_1gabb582c48f399b333543c54e0563809d5" kindref="member">XSCUWDT_CONTROL_OFFSET</ref>)</initializer>
+        <briefdescription>
+<para>Get the contents of the watchdog control register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_scu_wdt" kindref="compound">XScuWdt</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Contents of the watchdog control register.</para></simplesect>
+<simplesect kind="note"><para>C-style signature: u32 <ref refid="group___overview_1gaf62532fc29f79a73a2a058d6e81586a6" kindref="member">XScuWdt_GetControlReg(XScuWdt *InstancePtr)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scuwdt/src/xscuwdt.h" line="310" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scuwdt/src/xscuwdt.h" bodystart="310" bodyend="-1"/>
+        <referencedby refid="xscuwdt__intr__example_8c_1a0054ab1cdccc0040a5d9633b4c386d9a" compoundref="xscuwdt__intr__example_8c" startline="158" endline="336">ScuWdtIntrExample</referencedby>
+        <referencedby refid="group___overview_1ga2d6d32ff992704d9b78f93ab00ebdf78" compoundref="xscuwdt__selftest_8c" startline="60" endline="106">XScuWdt_SelfTest</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1gaac6e3f570a91434e6e4066a7a6c5d333" prot="public" static="no">
+        <name>XScuWdt_SetControlReg</name>
+        <param><defname>InstancePtr</defname></param>
+        <param><defname>ControlReg</defname></param>
+        <initializer><ref refid="group___overview_1ga396641b45a7213c8c18a19485759fee4" kindref="member">XScuWdt_WriteReg</ref>((InstancePtr)-&gt;Config.BaseAddr,		\
+			 <ref refid="group___overview_1gabb582c48f399b333543c54e0563809d5" kindref="member">XSCUWDT_CONTROL_OFFSET</ref>, (ControlReg))</initializer>
+        <briefdescription>
+<para>Write to the watchdog control register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_scu_wdt" kindref="compound">XScuWdt</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ControlReg</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the value to be written to the watchdog control register.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>C-style signature: void <ref refid="group___overview_1gaac6e3f570a91434e6e4066a7a6c5d333" kindref="member">XScuWdt_SetControlReg(XScuWdt *InstancePtr, u32 ControlReg)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scuwdt/src/xscuwdt.h" line="329" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scuwdt/src/xscuwdt.h" bodystart="329" bodyend="-1"/>
+        <referencedby refid="xscuwdt__intr__example_8c_1a0054ab1cdccc0040a5d9633b4c386d9a" compoundref="xscuwdt__intr__example_8c" startline="158" endline="336">ScuWdtIntrExample</referencedby>
+        <referencedby refid="group___overview_1ga2d6d32ff992704d9b78f93ab00ebdf78" compoundref="xscuwdt__selftest_8c" startline="60" endline="106">XScuWdt_SelfTest</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga34698453a13b46c1e87f3a8ff3510f37" prot="public" static="no">
+        <name>XScuWdt_EnableAutoReload</name>
+        <param><defname>InstancePtr</defname></param>
+        <initializer><ref refid="group___overview_1gaac6e3f570a91434e6e4066a7a6c5d333" kindref="member">XScuWdt_SetControlReg</ref>((InstancePtr),				\
+			      (<ref refid="group___overview_1gaf62532fc29f79a73a2a058d6e81586a6" kindref="member">XScuWdt_GetControlReg</ref>(InstancePtr) |	\
+			       <ref refid="group___overview_1ga3432c3b19bc44d4283ec4520b6e347d2" kindref="member">XSCUWDT_CONTROL_AUTO_RELOAD_MASK</ref>))</initializer>
+        <briefdescription>
+<para>Enable auto-reload mode. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_scu_wdt" kindref="compound">XScuWdt</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>C-style signature: void <ref refid="group___overview_1ga34698453a13b46c1e87f3a8ff3510f37" kindref="member">XScuWdt_EnableAutoReload(XScuWdt *InstancePtr)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scuwdt/src/xscuwdt.h" line="346" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scuwdt/src/xscuwdt.h" bodystart="346" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group___overview_1ga5e6a2aae06d017ed240e5cbeffe190ff" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_scu_wdt___config" kindref="compound">XScuWdt_Config</ref></type>
+        <definition>XScuWdt_Config XScuWdt_ConfigTable[]</definition>
+        <argsstring>[]</argsstring>
+        <name>XScuWdt_ConfigTable</name>
+        <briefdescription>
+<para>This table contains configuration information for each watchdog timer device in the system. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scuwdt/src/xscuwdt.h" line="163" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scuwdt/src/xscuwdt_g.c" bodystart="48" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga24bed0bb643b657bbd3f26ab2921246e" compoundref="xscuwdt__sinit_8c" startline="87" endline="101">XScuWdt_LookupConfig</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group___overview_1ga24bed0bb643b657bbd3f26ab2921246e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="struct_x_scu_wdt___config" kindref="compound">XScuWdt_Config</ref> *</type>
+        <definition>XScuWdt_Config * XScuWdt_LookupConfig</definition>
+        <argsstring>(UINTPTR BaseAddress)</argsstring>
+        <name>XScuWdt_LookupConfig</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <briefdescription>
+<para>Looks up the device configuration based on the unique device ID/BaseAddress. </para>        </briefdescription>
+        <detaileddescription>
+<para>The XScuWdt_ConfigTable[] contains the configuration info for each device in the system.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains the base address of the device</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>A pointer to the configuration found or NULL if the specified device ID/BaseAddress was not found. See <ref refid="xscuwdt_8h" kindref="compound">xscuwdt.h</ref> for the definition of <ref refid="struct_x_scu_wdt___config" kindref="compound">XScuWdt_Config</ref>.</para></simplesect>
+<simplesect kind="note"><para>In XSCT/classic flow, DeviceId is used to look up the device configuration. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scuwdt/src/xscuwdt.h" line="359" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scuwdt/src/xscuwdt_sinit.c" bodystart="87" bodyend="101"/>
+        <references refid="struct_x_scu_wdt___config_1aa363ada39d95c6e446421d5a84e15944" compoundref="xscuwdt_8h" startline="139">XScuWdt_Config::Name</references>
+        <references refid="group___overview_1ga5e6a2aae06d017ed240e5cbeffe190ff" compoundref="xscuwdt__g_8c" startline="48">XScuWdt_ConfigTable</references>
+        <referencedby refid="xscuwdt__intr__example_8c_1a0054ab1cdccc0040a5d9633b4c386d9a" compoundref="xscuwdt__intr__example_8c" startline="158" endline="336">ScuWdtIntrExample</referencedby>
+        <referencedby refid="xscuwdt__polled__example_8c_1a33e89f9e41ed0c166b878661da7f07f6" compoundref="xscuwdt__polled__example_8c" startline="128" endline="187">ScuWdtPolledExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group___overview_1ga2d6d32ff992704d9b78f93ab00ebdf78" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XScuWdt_SelfTest</definition>
+        <argsstring>(XScuWdt *InstancePtr)</argsstring>
+        <name>XScuWdt_SelfTest</name>
+        <param>
+          <type><ref refid="struct_x_scu_wdt" kindref="compound">XScuWdt</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Run a self-test on the WDT. </para>        </briefdescription>
+        <detaileddescription>
+<para>This test stops the watchdog, writes a value to the watchdog load register, starts the watchdog and verifies that the value read from the counter register is less that the value written to the load register. It then restores the control register and the watchdog load register.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_scu_wdt" kindref="compound">XScuWdt</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if self-test was successful.</para></listitem><listitem><para>XST_FAILURE if the WDT is not decrementing.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scuwdt/src/xscuwdt.h" line="365" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scuwdt/src/xscuwdt_selftest.c" bodystart="60" bodyend="106"/>
+        <references refid="struct_x_scu_wdt_1aa0f6b50d4cc3682c07cb1f982e0d9ceb" compoundref="xscuwdt_8h" startline="158">XScuWdt::IsReady</references>
+        <references refid="group___overview_1gafd4c1f9ff31d9c47028759d68d945a8c" compoundref="xscuwdt__hw_8h" startline="77">XSCUWDT_CONTROL_WD_ENABLE_MASK</references>
+        <references refid="group___overview_1ga3baeac323b13ac9c8fb14b26ecb1080b" compoundref="xscuwdt__hw_8h" startline="55">XSCUWDT_COUNTER_OFFSET</references>
+        <references refid="group___overview_1gaf62532fc29f79a73a2a058d6e81586a6" compoundref="xscuwdt_8h" startline="310">XScuWdt_GetControlReg</references>
+        <references refid="group___overview_1ga0ed3512c06a5468c1a1e156485c89b05" compoundref="xscuwdt__hw_8h" startline="54">XSCUWDT_LOAD_OFFSET</references>
+        <references refid="group___overview_1ga7dca99f7a6158d27399eb355f40e3367" compoundref="xscuwdt_8h" startline="245">XScuWdt_LoadWdt</references>
+        <references refid="group___overview_1ga0c00c40fbb11db997a4650ae222ac29f" compoundref="xscuwdt__hw_8h" startline="131">XScuWdt_ReadReg</references>
+        <references refid="group___overview_1gaac6e3f570a91434e6e4066a7a6c5d333" compoundref="xscuwdt_8h" startline="329">XScuWdt_SetControlReg</references>
+        <referencedby refid="xscuwdt__intr__example_8c_1a0054ab1cdccc0040a5d9633b4c386d9a" compoundref="xscuwdt__intr__example_8c" startline="158" endline="336">ScuWdtIntrExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group___overview_1ga1fee56fc3ec3c8b003e6ae0528703b1c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XScuWdt_CfgInitialize</definition>
+        <argsstring>(XScuWdt *InstancePtr, XScuWdt_Config *ConfigPtr, u32 EffectiveAddress)</argsstring>
+        <name>XScuWdt_CfgInitialize</name>
+        <param>
+          <type><ref refid="struct_x_scu_wdt" kindref="compound">XScuWdt</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_scu_wdt___config" kindref="compound">XScuWdt_Config</ref> *</type>
+          <declname>ConfigPtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>EffectiveAddress</declname>
+        </param>
+        <briefdescription>
+<para>Initialize a specific watchdog timer instance/driver. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function must be called before other functions of the driver are called.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_scu_wdt" kindref="compound">XScuWdt</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ConfigPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the config structure. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>EffectiveAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address for the device. It could be a virtual address if address translation is supported in the system, otherwise it is the physical address.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if initialization was successful.</para></listitem><listitem><para>XST_DEVICE_IS_STARTED if the device has already been started.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>This function enables the watchdog mode. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scuwdt/src/xscuwdt.c" line="62" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scuwdt/src/xscuwdt.c" bodystart="62" bodyend="106"/>
+        <references refid="struct_x_scu_wdt___config_1ade7297db74ccde96bfc2e94f451b5a56" compoundref="xscuwdt_8h" startline="141">XScuWdt_Config::BaseAddr</references>
+        <references refid="struct_x_scu_wdt_1a6d670660d7b2dbb2cb2af9894f2d8562" compoundref="xscuwdt_8h" startline="157">XScuWdt::Config</references>
+        <references refid="struct_x_scu_wdt_1aa0f6b50d4cc3682c07cb1f982e0d9ceb" compoundref="xscuwdt_8h" startline="158">XScuWdt::IsReady</references>
+        <references refid="struct_x_scu_wdt_1ab9a2c001a81fa32ba6c78b94689dd611" compoundref="xscuwdt_8h" startline="159">XScuWdt::IsStarted</references>
+        <references refid="group___overview_1ga8813e9f9df643de43359defc1a7a48bc" compoundref="xscuwdt_8h" startline="263">XScuWdt_SetWdMode</references>
+        <referencedby refid="xscuwdt__intr__example_8c_1a0054ab1cdccc0040a5d9633b4c386d9a" compoundref="xscuwdt__intr__example_8c" startline="158" endline="336">ScuWdtIntrExample</referencedby>
+        <referencedby refid="xscuwdt__polled__example_8c_1a33e89f9e41ed0c166b878661da7f07f6" compoundref="xscuwdt__polled__example_8c" startline="128" endline="187">ScuWdtPolledExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group___overview_1ga87a7a8230fc5fa80f64cb66210e596b8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XScuWdt_Start</definition>
+        <argsstring>(XScuWdt *InstancePtr)</argsstring>
+        <name>XScuWdt_Start</name>
+        <param>
+          <type><ref refid="struct_x_scu_wdt" kindref="compound">XScuWdt</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Start the watchdog counter of the device. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_scu_wdt" kindref="compound">XScuWdt</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>User needs to select the appropriate mode (watchdog/timer) before using this API. See XScuWdt_SetWdMode/XScuWdt_SetTimerMode macros in <ref refid="xscuwdt_8h" kindref="compound">xscuwdt.h</ref>. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scuwdt/src/xscuwdt.c" line="123" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scuwdt/src/xscuwdt.c" bodystart="123" bodyend="151"/>
+        <references refid="struct_x_scu_wdt___config_1ade7297db74ccde96bfc2e94f451b5a56" compoundref="xscuwdt_8h" startline="141">XScuWdt_Config::BaseAddr</references>
+        <references refid="struct_x_scu_wdt_1a6d670660d7b2dbb2cb2af9894f2d8562" compoundref="xscuwdt_8h" startline="157">XScuWdt::Config</references>
+        <references refid="struct_x_scu_wdt_1aa0f6b50d4cc3682c07cb1f982e0d9ceb" compoundref="xscuwdt_8h" startline="158">XScuWdt::IsReady</references>
+        <references refid="struct_x_scu_wdt_1ab9a2c001a81fa32ba6c78b94689dd611" compoundref="xscuwdt_8h" startline="159">XScuWdt::IsStarted</references>
+        <references refid="group___overview_1gabb582c48f399b333543c54e0563809d5" compoundref="xscuwdt__hw_8h" startline="56">XSCUWDT_CONTROL_OFFSET</references>
+        <references refid="group___overview_1gafd4c1f9ff31d9c47028759d68d945a8c" compoundref="xscuwdt__hw_8h" startline="77">XSCUWDT_CONTROL_WD_ENABLE_MASK</references>
+        <references refid="group___overview_1ga0c00c40fbb11db997a4650ae222ac29f" compoundref="xscuwdt__hw_8h" startline="131">XScuWdt_ReadReg</references>
+        <references refid="group___overview_1ga396641b45a7213c8c18a19485759fee4" compoundref="xscuwdt__hw_8h" startline="149">XScuWdt_WriteReg</references>
+        <referencedby refid="xscuwdt__intr__example_8c_1a0054ab1cdccc0040a5d9633b4c386d9a" compoundref="xscuwdt__intr__example_8c" startline="158" endline="336">ScuWdtIntrExample</referencedby>
+        <referencedby refid="xscuwdt__polled__example_8c_1a33e89f9e41ed0c166b878661da7f07f6" compoundref="xscuwdt__polled__example_8c" startline="128" endline="187">ScuWdtPolledExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group___overview_1gae1493503cc6e52afa681f23329e9abef" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XScuWdt_Stop</definition>
+        <argsstring>(XScuWdt *InstancePtr)</argsstring>
+        <name>XScuWdt_Stop</name>
+        <param>
+          <type><ref refid="struct_x_scu_wdt" kindref="compound">XScuWdt</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Stop the watchdog timer. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_scu_wdt" kindref="compound">XScuWdt</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scuwdt/src/xscuwdt.c" line="165" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scuwdt/src/xscuwdt.c" bodystart="165" bodyend="193"/>
+        <references refid="struct_x_scu_wdt___config_1ade7297db74ccde96bfc2e94f451b5a56" compoundref="xscuwdt_8h" startline="141">XScuWdt_Config::BaseAddr</references>
+        <references refid="struct_x_scu_wdt_1a6d670660d7b2dbb2cb2af9894f2d8562" compoundref="xscuwdt_8h" startline="157">XScuWdt::Config</references>
+        <references refid="struct_x_scu_wdt_1aa0f6b50d4cc3682c07cb1f982e0d9ceb" compoundref="xscuwdt_8h" startline="158">XScuWdt::IsReady</references>
+        <references refid="struct_x_scu_wdt_1ab9a2c001a81fa32ba6c78b94689dd611" compoundref="xscuwdt_8h" startline="159">XScuWdt::IsStarted</references>
+        <references refid="group___overview_1gabb582c48f399b333543c54e0563809d5" compoundref="xscuwdt__hw_8h" startline="56">XSCUWDT_CONTROL_OFFSET</references>
+        <references refid="group___overview_1gafd4c1f9ff31d9c47028759d68d945a8c" compoundref="xscuwdt__hw_8h" startline="77">XSCUWDT_CONTROL_WD_ENABLE_MASK</references>
+        <references refid="group___overview_1ga0c00c40fbb11db997a4650ae222ac29f" compoundref="xscuwdt__hw_8h" startline="131">XScuWdt_ReadReg</references>
+        <references refid="group___overview_1ga396641b45a7213c8c18a19485759fee4" compoundref="xscuwdt__hw_8h" startline="149">XScuWdt_WriteReg</references>
+        <referencedby refid="xscuwdt__intr__example_8c_1a0054ab1cdccc0040a5d9633b4c386d9a" compoundref="xscuwdt__intr__example_8c" startline="158" endline="336">ScuWdtIntrExample</referencedby>
+        <referencedby refid="xscuwdt__polled__example_8c_1a33e89f9e41ed0c166b878661da7f07f6" compoundref="xscuwdt__polled__example_8c" startline="128" endline="187">ScuWdtPolledExample</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2010<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="116"><highlight class="preprocessor">#ifndef<sp/>XSCUWDT_H<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="117" refid="group___overview_1ga0bc0278a14721ac3733d4080e7a03ee3" refkind="member"><highlight class="preprocessor">#define<sp/>XSCUWDT_H<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="119"><highlight class="preprocessor"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="120"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="121"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xstatus.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="122"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xscuwdt__hw_8h" kindref="compound">xscuwdt_hw.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="123"><highlight class="normal"></highlight></codeline>
+<codeline lineno="124"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="125"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="127"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="128"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="129"><highlight class="normal"></highlight></codeline>
+<codeline lineno="130"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="131"><highlight class="normal"></highlight></codeline>
+<codeline lineno="135" refid="struct_x_scu_wdt___config" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="137"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>DeviceId;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="138"><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="139" refid="struct_x_scu_wdt___config_1aa363ada39d95c6e446421d5a84e15944" refkind="member"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*<ref refid="struct_x_scu_wdt___config_1aa363ada39d95c6e446421d5a84e15944" kindref="member">Name</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="140"><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="141" refid="struct_x_scu_wdt___config_1ade7297db74ccde96bfc2e94f451b5a56" refkind="member"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR<sp/><ref refid="struct_x_scu_wdt___config_1ade7297db74ccde96bfc2e94f451b5a56" kindref="member">BaseAddr</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="142"><highlight class="preprocessor">#ifdef<sp/>SDT</highlight></codeline>
+<codeline lineno="143" refid="struct_x_scu_wdt___config_1acfc5af3a6097d0308dec5b6eb993e1eb" refkind="member"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_scu_wdt___config_1acfc5af3a6097d0308dec5b6eb993e1eb" kindref="member">IntrId</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="145" refid="struct_x_scu_wdt___config_1aec19a827380ec9a90d0f109615e4870c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR<sp/><ref refid="struct_x_scu_wdt___config_1aec19a827380ec9a90d0f109615e4870c" kindref="member">IntrParent</ref>;<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="147"><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="148"><highlight class="preprocessor"></highlight><highlight class="normal">}<sp/><ref refid="struct_x_scu_wdt___config" kindref="compound">XScuWdt_Config</ref>;</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"></highlight></codeline>
+<codeline lineno="156" refid="struct_x_scu_wdt" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="157" refid="struct_x_scu_wdt_1a6d670660d7b2dbb2cb2af9894f2d8562" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_scu_wdt___config" kindref="compound">XScuWdt_Config</ref><sp/><ref refid="struct_x_scu_wdt_1a6d670660d7b2dbb2cb2af9894f2d8562" kindref="member">Config</ref>;</highlight></codeline>
+<codeline lineno="158" refid="struct_x_scu_wdt_1aa0f6b50d4cc3682c07cb1f982e0d9ceb" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_scu_wdt_1aa0f6b50d4cc3682c07cb1f982e0d9ceb" kindref="member">IsReady</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="159" refid="struct_x_scu_wdt_1ab9a2c001a81fa32ba6c78b94689dd611" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_scu_wdt_1ab9a2c001a81fa32ba6c78b94689dd611" kindref="member">IsStarted</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="160"><highlight class="normal">}<sp/><ref refid="struct_x_scu_wdt" kindref="compound">XScuWdt</ref>;</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"></highlight></codeline>
+<codeline lineno="162"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="163"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/><ref refid="struct_x_scu_wdt___config" kindref="compound">XScuWdt_Config</ref><sp/><ref refid="group___overview_1ga5e6a2aae06d017ed240e5cbeffe190ff" kindref="member">XScuWdt_ConfigTable</ref>[];</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"></highlight></codeline>
+<codeline lineno="165"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="166"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="182" refid="group___overview_1ga9481fbc75254dd60304af3fd0254e3f6" refkind="member"><highlight class="preprocessor">#define<sp/>XScuWdt_IsWdtExpired(InstancePtr)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="183"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((XScuWdt_ReadReg((InstancePtr)-&gt;Config.BaseAddr,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="184"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSCUWDT_RST_STS_OFFSET)<sp/>&amp;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="185"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSCUWDT_RST_STS_RESET_FLAG_MASK)<sp/>==<sp/>XSCUWDT_RST_STS_RESET_FLAG_MASK)</highlight></codeline>
+<codeline lineno="186"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="187"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="203" refid="group___overview_1ga551b705d1ebbb530ac7a2a9752c8f5cb" refkind="member"><highlight class="preprocessor">#define<sp/>XScuWdt_IsTimerExpired(InstancePtr)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="204"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((XScuWdt_ReadReg((InstancePtr)-&gt;Config.BaseAddr,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="205"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSCUWDT_ISR_OFFSET)<sp/>&amp;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="206"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSCUWDT_ISR_EVENT_FLAG_MASK)<sp/>==<sp/>XSCUWDT_ISR_EVENT_FLAG_MASK)</highlight></codeline>
+<codeline lineno="207"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="208"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="224" refid="group___overview_1ga9487e2c385d8dc9cf5f1f27539ca079f" refkind="member"><highlight class="preprocessor">#define<sp/>XScuWdt_RestartWdt(InstancePtr)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="225"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XScuWdt_LoadWdt((InstancePtr),<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="226"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XScuWdt_ReadReg((InstancePtr)-&gt;Config.BaseAddr,<sp/>\</highlight></codeline>
+<codeline lineno="227"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSCUWDT_LOAD_OFFSET)))</highlight></codeline>
+<codeline lineno="228"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="229"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="245" refid="group___overview_1ga7dca99f7a6158d27399eb355f40e3367" refkind="member"><highlight class="preprocessor">#define<sp/>XScuWdt_LoadWdt(InstancePtr,<sp/>Value)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="246"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XScuWdt_WriteReg((InstancePtr)-&gt;Config.BaseAddr,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="247"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSCUWDT_LOAD_OFFSET,<sp/>(Value))</highlight></codeline>
+<codeline lineno="248"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="249"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="263" refid="group___overview_1ga8813e9f9df643de43359defc1a7a48bc" refkind="member"><highlight class="preprocessor">#define<sp/>XScuWdt_SetWdMode(InstancePtr)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="264"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XScuWdt_WriteReg((InstancePtr)-&gt;Config.BaseAddr,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="265"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSCUWDT_CONTROL_OFFSET,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="266"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XScuWdt_ReadReg((InstancePtr)-&gt;Config.BaseAddr,<sp/>\</highlight></codeline>
+<codeline lineno="267"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSCUWDT_CONTROL_OFFSET)<sp/>|<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="268"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XSCUWDT_CONTROL_WD_MODE_MASK)))</highlight></codeline>
+<codeline lineno="269"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="270"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="287" refid="group___overview_1ga816969d609034dc12371ca7bc8444bf3" refkind="member"><highlight class="preprocessor">#define<sp/>XScuWdt_SetTimerMode(InstancePtr)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="288"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="289"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XScuWdt_WriteReg((InstancePtr)-&gt;Config.BaseAddr,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="290"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSCUWDT_DISABLE_OFFSET,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="291"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSCUWDT_DISABLE_VALUE1);<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="292"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XScuWdt_WriteReg((InstancePtr)-&gt;Config.BaseAddr,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="293"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSCUWDT_DISABLE_OFFSET,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="294"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSCUWDT_DISABLE_VALUE2);<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="295"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="296"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="297"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="310" refid="group___overview_1gaf62532fc29f79a73a2a058d6e81586a6" refkind="member"><highlight class="preprocessor">#define<sp/>XScuWdt_GetControlReg(InstancePtr)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="311"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XScuWdt_ReadReg((InstancePtr)-&gt;Config.BaseAddr,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="312"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSCUWDT_CONTROL_OFFSET)</highlight></codeline>
+<codeline lineno="313"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="314"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="329" refid="group___overview_1gaac6e3f570a91434e6e4066a7a6c5d333" refkind="member"><highlight class="preprocessor">#define<sp/>XScuWdt_SetControlReg(InstancePtr,<sp/>ControlReg)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="330"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XScuWdt_WriteReg((InstancePtr)-&gt;Config.BaseAddr,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="331"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSCUWDT_CONTROL_OFFSET,<sp/>(ControlReg))</highlight></codeline>
+<codeline lineno="332"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="333"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="346" refid="group___overview_1ga34698453a13b46c1e87f3a8ff3510f37" refkind="member"><highlight class="preprocessor">#define<sp/>XScuWdt_EnableAutoReload(InstancePtr)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="347"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XScuWdt_SetControlReg((InstancePtr),<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="348"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XScuWdt_GetControlReg(InstancePtr)<sp/>|<sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="349"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSCUWDT_CONTROL_AUTO_RELOAD_MASK))</highlight></codeline>
+<codeline lineno="350"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="351"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="352"><highlight class="normal"></highlight></codeline>
+<codeline lineno="353"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="354"><highlight class="comment"><sp/>*<sp/>Lookup<sp/>configuration<sp/>in<sp/>xscuwdt_sinit.c.</highlight></codeline>
+<codeline lineno="355"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="356"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="357"><highlight class="preprocessor"></highlight><highlight class="normal"><ref refid="struct_x_scu_wdt___config" kindref="compound">XScuWdt_Config</ref><sp/>*<ref refid="group___overview_1ga24bed0bb643b657bbd3f26ab2921246e" kindref="member">XScuWdt_LookupConfig</ref>(u16<sp/>DeviceId);</highlight></codeline>
+<codeline lineno="358"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="359"><highlight class="preprocessor"></highlight><highlight class="normal"><ref refid="struct_x_scu_wdt___config" kindref="compound">XScuWdt_Config</ref><sp/>*<ref refid="group___overview_1ga24bed0bb643b657bbd3f26ab2921246e" kindref="member">XScuWdt_LookupConfig</ref>(UINTPTR<sp/>BaseAddress);</highlight></codeline>
+<codeline lineno="360"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="361"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="362"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="363"><highlight class="comment"><sp/>*<sp/>Selftest<sp/>function<sp/>in<sp/>xscuwdt_selftest.c</highlight></codeline>
+<codeline lineno="364"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="365"><highlight class="normal">s32<sp/><ref refid="group___overview_1ga2d6d32ff992704d9b78f93ab00ebdf78" kindref="member">XScuWdt_SelfTest</ref>(<ref refid="struct_x_scu_wdt" kindref="compound">XScuWdt</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="366"><highlight class="normal"></highlight></codeline>
+<codeline lineno="367"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="368"><highlight class="comment"><sp/>*<sp/>Interface<sp/>functions<sp/>in<sp/>xscuwdt.c</highlight></codeline>
+<codeline lineno="369"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="370"><highlight class="normal">s32<sp/><ref refid="group___overview_1ga1fee56fc3ec3c8b003e6ae0528703b1c" kindref="member">XScuWdt_CfgInitialize</ref>(<ref refid="struct_x_scu_wdt" kindref="compound">XScuWdt</ref><sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="371"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_scu_wdt___config" kindref="compound">XScuWdt_Config</ref><sp/>*ConfigPtr,<sp/>u32<sp/>EffectiveAddress);</highlight></codeline>
+<codeline lineno="372"><highlight class="normal"></highlight></codeline>
+<codeline lineno="373"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group___overview_1ga87a7a8230fc5fa80f64cb66210e596b8" kindref="member">XScuWdt_Start</ref>(<ref refid="struct_x_scu_wdt" kindref="compound">XScuWdt</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="374"><highlight class="normal"></highlight></codeline>
+<codeline lineno="375"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group___overview_1gae1493503cc6e52afa681f23329e9abef" kindref="member">XScuWdt_Stop</ref>(<ref refid="struct_x_scu_wdt" kindref="compound">XScuWdt</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="376"><highlight class="normal"></highlight></codeline>
+<codeline lineno="377"><highlight class="normal"></highlight></codeline>
+<codeline lineno="378"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="379"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="380"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="381"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="382"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/></highlight><highlight class="comment">/*<sp/>end<sp/>of<sp/>protection<sp/>macro<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="383"><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scuwdt/src/xscuwdt.h"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,49 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_dfe_mix___auxiliary_cfg" kind="struct" prot="public">
+    <compoundname>XDfeMix_AuxiliaryCfg</compoundname>
+    <includes local="no">xdfemix.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_dfe_mix___auxiliary_cfg_1a520362c9974cbd2985e2a8adcefda2e3" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfeMix_AuxiliaryCfg::Enable</definition>
+        <argsstring></argsstring>
+        <name>Enable</name>
+        <briefdescription>
+<para>[0,1] Auxiliary NCO Enable: </para>        </briefdescription>
+        <detaileddescription>
+<para><itemizedlist>
+<listitem><para>0 = disabled</para></listitem><listitem><para>1 = enabled </para></listitem></itemizedlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" line="416" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" bodystart="416" bodyend="-1"/>
+        <referencedby refid="group__dfemix_1ga861ba105a9fb814f3da6ed415baa765e" compoundref="xdfemix_8c" startline="2553" endline="2562">XDfeMix_RemoveAuxNCOfromCCCfg</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_mix___auxiliary_cfg_1a0e75d62af6eaddb45adc7fc33312bb99" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfeMix_AuxiliaryCfg::AuxGain</definition>
+        <argsstring></argsstring>
+        <name>AuxGain</name>
+        <briefdescription>
+<para>[0-3] Auxiliary NCO gain. </para>        </briefdescription>
+        <detaileddescription>
+<para><itemizedlist>
+<listitem><para>0 = MINUS18DB: Apply -18dB gain.</para></listitem><listitem><para>1 = MINUS12DB: Apply -12dB gain.</para></listitem><listitem><para>2 = MINUS6DB: Apply -6dB gain.</para></listitem><listitem><para>3 = ZERODB: Apply -0dB gain. </para></listitem></itemizedlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" line="419" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" bodystart="419" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Defines settings for single auxiliary NCO. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" line="415" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" bodystart="415" bodyend="424"/>
+    <listofallmembers>
+      <member refid="struct_x_dfe_mix___auxiliary_cfg_1a0e75d62af6eaddb45adc7fc33312bb99" prot="public" virt="non-virtual"><scope>XDfeMix_AuxiliaryCfg</scope><name>AuxGain</name></member>
+      <member refid="struct_x_dfe_mix___auxiliary_cfg_1a520362c9974cbd2985e2a8adcefda2e3" prot="public" virt="non-virtual"><scope>XDfeMix_AuxiliaryCfg</scope><name>Enable</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

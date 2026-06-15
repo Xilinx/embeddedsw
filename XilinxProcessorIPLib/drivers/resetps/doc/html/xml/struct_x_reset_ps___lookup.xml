@@ -1,0 +1,85 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_reset_ps___lookup" kind="struct" prot="public">
+    <compoundname>XResetPs_Lookup</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_reset_ps___lookup_1aea6d42565970b6c23cf444c8c5979107" prot="public" static="no" mutable="no">
+        <type>const u32</type>
+        <definition>const u32 XResetPs_Lookup::SlcrregAddr</definition>
+        <argsstring></argsstring>
+        <name>SlcrregAddr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/resetps/src/xresetps.c" line="45" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/resetps/src/xresetps.c" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_reset_ps___lookup_1a3e777a2583cb1680623df831bccc7a06" prot="public" static="no" mutable="no">
+        <type>const u32</type>
+        <definition>const u32 XResetPs_Lookup::SlcrregBitmask</definition>
+        <argsstring></argsstring>
+        <name>SlcrregBitmask</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/resetps/src/xresetps.c" line="46" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/resetps/src/xresetps.c" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_reset_ps___lookup_1aed157542fff97cf70424d3bf0142a785" prot="public" static="no" mutable="no">
+        <type>const u32</type>
+        <definition>const u32 XResetPs_Lookup::PwrStateBitmask</definition>
+        <argsstring></argsstring>
+        <name>PwrStateBitmask</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/resetps/src/xresetps.c" line="47" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/resetps/src/xresetps.c" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_reset_ps___lookup_1ad3e26959cf2cd931c5b30e31930f0ea6" prot="public" static="no" mutable="no">
+        <type>const <ref refid="group__resetps_1ga5a52351208e345e52c54b29dffa0b8ee" kindref="member">XResetPs_PulseTypes</ref></type>
+        <definition>const XResetPs_PulseTypes XResetPs_Lookup::PulseType</definition>
+        <argsstring></argsstring>
+        <name>PulseType</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/resetps/src/xresetps.c" line="48" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/resetps/src/xresetps.c" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_reset_ps___lookup_1ad6c7b6668cb051b3e01a72c97c0fc9f1" prot="public" static="no" mutable="no">
+        <type>const u8</type>
+        <definition>const u8 XResetPs_Lookup::SupportedActions</definition>
+        <argsstring></argsstring>
+        <name>SupportedActions</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/resetps/src/xresetps.c" line="49" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/resetps/src/xresetps.c" bodystart="49" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/resetps/src/xresetps.c" line="44" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/resetps/src/xresetps.c" bodystart="44" bodyend="50"/>
+    <listofallmembers>
+      <member refid="struct_x_reset_ps___lookup_1ad3e26959cf2cd931c5b30e31930f0ea6" prot="public" virt="non-virtual"><scope>XResetPs_Lookup</scope><name>PulseType</name></member>
+      <member refid="struct_x_reset_ps___lookup_1aed157542fff97cf70424d3bf0142a785" prot="public" virt="non-virtual"><scope>XResetPs_Lookup</scope><name>PwrStateBitmask</name></member>
+      <member refid="struct_x_reset_ps___lookup_1aea6d42565970b6c23cf444c8c5979107" prot="public" virt="non-virtual"><scope>XResetPs_Lookup</scope><name>SlcrregAddr</name></member>
+      <member refid="struct_x_reset_ps___lookup_1a3e777a2583cb1680623df831bccc7a06" prot="public" virt="non-virtual"><scope>XResetPs_Lookup</scope><name>SlcrregBitmask</name></member>
+      <member refid="struct_x_reset_ps___lookup_1ad6c7b6668cb051b3e01a72c97c0fc9f1" prot="public" virt="non-virtual"><scope>XResetPs_Lookup</scope><name>SupportedActions</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

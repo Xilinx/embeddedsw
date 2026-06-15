@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_7f8b671e11d63f3aa4184557d5fa6cab" kind="dir">
+    <compoundname>src</compoundname>
+    <innerfile refid="xscugic_8c">xscugic.c</innerfile>
+    <innerfile refid="xscugic_8h">xscugic.h</innerfile>
+    <innerfile refid="xscugic__g_8c">xscugic_g.c</innerfile>
+    <innerfile refid="xscugic__hw_8c">xscugic_hw.c</innerfile>
+    <innerfile refid="xscugic__hw_8h">xscugic_hw.h</innerfile>
+    <innerfile refid="xscugic__intr_8c">xscugic_intr.c</innerfile>
+    <innerfile refid="xscugic__selftest_8c">xscugic_selftest.c</innerfile>
+    <innerfile refid="xscugic__sinit_8c">xscugic_sinit.c</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scugic/src/"/>
+  </compounddef>
+</doxygen>

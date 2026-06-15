@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_5dcaed6be6f6f90369745cce663ee431" kind="dir">
+    <compoundname>src</compoundname>
+    <innerfile refid="xspdif_8c">xspdif.c</innerfile>
+    <innerfile refid="xspdif_8h">xspdif.h</innerfile>
+    <innerfile refid="xspdif__chsts_8c">xspdif_chsts.c</innerfile>
+    <innerfile refid="xspdif__chsts_8h">xspdif_chsts.h</innerfile>
+    <innerfile refid="xspdif__g_8c">xspdif_g.c</innerfile>
+    <innerfile refid="xspdif__hw_8h">xspdif_hw.h</innerfile>
+    <innerfile refid="xspdif__intr_8c">xspdif_intr.c</innerfile>
+    <innerfile refid="xspdif__selftest_8c">xspdif_selftest.c</innerfile>
+    <innerfile refid="xspdif__sinit_8c">xspdif_sinit.c</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,95 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_i2s___rx___log" kind="struct" prot="public">
+    <compoundname>XI2s_Rx_Log</compoundname>
+    <includes local="no">xi2srx_debug.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_i2s___rx___log_1afce10615c31d774e63fe22e99bda4636" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_i2s___rx___log_item" kindref="compound">XI2s_Rx_LogItem</ref></type>
+        <definition>XI2s_Rx_LogItem XI2s_Rx_Log::Items[XI2S_RX_LOG_ITEM_BUFFER_SIZE]</definition>
+        <argsstring>[XI2S_RX_LOG_ITEM_BUFFER_SIZE]</argsstring>
+        <name>Items</name>
+        <briefdescription>
+<para>Log item buffer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx_debug.h" line="74" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx_debug.h" bodystart="74" bodyend="-1"/>
+        <referencedby refid="group__i2srx_1gace02e57eaf489fffb38e0f3d4f69c8d3" compoundref="xi2srx__debug_8c" startline="88" endline="110">XI2s_Rx_LogRead</referencedby>
+        <referencedby refid="group__i2srx_1gad797c77106bcc4da0a72e65e5620fa02" compoundref="xi2srx__debug_8c" startline="50" endline="78">XI2s_Rx_LogWrite</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_i2s___rx___log_1af4a0ae28aae0f9c715d1c31a86e8775c" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XI2s_Rx_Log::Head</definition>
+        <argsstring></argsstring>
+        <name>Head</name>
+        <briefdescription>
+<para>Head pointer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx_debug.h" line="76" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx_debug.h" bodystart="76" bodyend="-1"/>
+        <referencedby refid="group__i2srx_1gace02e57eaf489fffb38e0f3d4f69c8d3" compoundref="xi2srx__debug_8c" startline="88" endline="110">XI2s_Rx_LogRead</referencedby>
+        <referencedby refid="group__i2srx_1ga8525e3230b25c045bd85afa33346e624" compoundref="xi2srx__debug_8c" startline="119" endline="127">XI2s_Rx_LogReset</referencedby>
+        <referencedby refid="group__i2srx_1gad797c77106bcc4da0a72e65e5620fa02" compoundref="xi2srx__debug_8c" startline="50" endline="78">XI2s_Rx_LogWrite</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_i2s___rx___log_1ae4d081a816f800aa7c7032cedc1822bb" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XI2s_Rx_Log::Tail</definition>
+        <argsstring></argsstring>
+        <name>Tail</name>
+        <briefdescription>
+<para>Tail pointer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx_debug.h" line="77" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx_debug.h" bodystart="77" bodyend="-1"/>
+        <referencedby refid="group__i2srx_1gace02e57eaf489fffb38e0f3d4f69c8d3" compoundref="xi2srx__debug_8c" startline="88" endline="110">XI2s_Rx_LogRead</referencedby>
+        <referencedby refid="group__i2srx_1ga8525e3230b25c045bd85afa33346e624" compoundref="xi2srx__debug_8c" startline="119" endline="127">XI2s_Rx_LogReset</referencedby>
+        <referencedby refid="group__i2srx_1gad797c77106bcc4da0a72e65e5620fa02" compoundref="xi2srx__debug_8c" startline="50" endline="78">XI2s_Rx_LogWrite</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_i2s___rx___log_1a49948767f4b2b4240b4785f1b38f30c1" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XI2s_Rx_Log::IsEnabled</definition>
+        <argsstring></argsstring>
+        <name>IsEnabled</name>
+        <briefdescription>
+<para>Logging Enabled/Disabled. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx_debug.h" line="78" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx_debug.h" bodystart="78" bodyend="-1"/>
+        <referencedby refid="group__i2srx_1ga8525e3230b25c045bd85afa33346e624" compoundref="xi2srx__debug_8c" startline="119" endline="127">XI2s_Rx_LogReset</referencedby>
+        <referencedby refid="group__i2srx_1gad797c77106bcc4da0a72e65e5620fa02" compoundref="xi2srx__debug_8c" startline="50" endline="78">XI2s_Rx_LogWrite</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>The XI2s Receiver Log buffer. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="6">
+        <label>XI2s_Rx_Log</label>
+        <link refid="struct_x_i2s___rx___log"/>
+        <childnode refid="7" relation="usage">
+          <edgelabel>Items</edgelabel>
+        </childnode>
+      </node>
+      <node id="7">
+        <label>XI2s_Rx_LogItem</label>
+        <link refid="struct_x_i2s___rx___log_item"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx_debug.h" line="73" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx_debug.h" bodystart="73" bodyend="79"/>
+    <listofallmembers>
+      <member refid="struct_x_i2s___rx___log_1af4a0ae28aae0f9c715d1c31a86e8775c" prot="public" virt="non-virtual"><scope>XI2s_Rx_Log</scope><name>Head</name></member>
+      <member refid="struct_x_i2s___rx___log_1a49948767f4b2b4240b4785f1b38f30c1" prot="public" virt="non-virtual"><scope>XI2s_Rx_Log</scope><name>IsEnabled</name></member>
+      <member refid="struct_x_i2s___rx___log_1afce10615c31d774e63fe22e99bda4636" prot="public" virt="non-virtual"><scope>XI2s_Rx_Log</scope><name>Items</name></member>
+      <member refid="struct_x_i2s___rx___log_1ae4d081a816f800aa7c7032cedc1822bb" prot="public" virt="non-virtual"><scope>XI2s_Rx_Log</scope><name>Tail</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

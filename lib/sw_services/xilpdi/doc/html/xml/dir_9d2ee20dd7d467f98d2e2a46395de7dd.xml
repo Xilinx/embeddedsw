@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_9d2ee20dd7d467f98d2e2a46395de7dd" kind="dir">
+    <compoundname>versal_2vp_p</compoundname>
+    <innerfile refid="2vp__p_2xilpdi__plat_8h">2vp_p/xilpdi_plat.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2vp_p/"/>
+  </compounddef>
+</doxygen>

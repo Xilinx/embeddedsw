@@ -1,0 +1,19 @@
+var searchData=
+[
+  ['read',['READ',['../group__nandps.html#ggac876c6eb0d6c95869f0a68dccd44b975acb9be765f361bb7efb9073730aac92c6',1,'xnandps_onfi.h']]],
+  ['read_5fcache_5fend_5fseq',['READ_CACHE_END_SEQ',['../group__nandps.html#ggac876c6eb0d6c95869f0a68dccd44b975afb1d5bd781a173ff53cb79de689b1469',1,'xnandps_onfi.h']]],
+  ['read_5fcache_5frandom',['READ_CACHE_RANDOM',['../group__nandps.html#ggac876c6eb0d6c95869f0a68dccd44b975a8b269d64de6c130671c1413fd0f2bbb2',1,'xnandps_onfi.h']]],
+  ['read_5fid',['READ_ID',['../group__nandps.html#ggac876c6eb0d6c95869f0a68dccd44b975a08d1641fdf7c1a20c4f1563f57d958e8',1,'xnandps_onfi.h']]],
+  ['read_5fparam_5fpage',['READ_PARAM_PAGE',['../group__nandps.html#ggac876c6eb0d6c95869f0a68dccd44b975a1589226dbb8a8f0493a8a6df64943518',1,'xnandps_onfi.h']]],
+  ['read_5fstatus',['READ_STATUS',['../group__nandps.html#ggac876c6eb0d6c95869f0a68dccd44b975a451fb3a060f895e40024da81e03fe45a',1,'xnandps_onfi.h']]],
+  ['readbuffer',['ReadBuffer',['../xnandps__cache__example_8c.html#aaa747f224cb3f776fb6ecafded15e090',1,'ReadBuffer():&#160;xnandps_cache_example.c'],['../xnandps__example_8c.html#aaa747f224cb3f776fb6ecafded15e090',1,'ReadBuffer():&#160;xnandps_example.c']]],
+  ['readpage',['ReadPage',['../struct_x_nand_ps_tag.html#aa589f70667fa1b52e24e2384e421aa01',1,'XNandPsTag']]],
+  ['reserved0',['Reserved0',['../struct_onfi_nand___geometry.html#a91505445d9da43fa81e62ad8696d91a8',1,'OnfiNand_Geometry']]],
+  ['reserved1',['Reserved1',['../struct_onfi_nand___geometry.html#a9ac074b084cff640de77e0d00bf92e44',1,'OnfiNand_Geometry']]],
+  ['reserved2',['Reserved2',['../struct_onfi_nand___geometry.html#ac1882f23c2fb4aa67f2fa05247be2d17',1,'OnfiNand_Geometry']]],
+  ['reserved3',['Reserved3',['../struct_onfi_nand___geometry.html#a23bf32a4810b57fe7e2f00b262253dbc',1,'OnfiNand_Geometry']]],
+  ['reserved4',['Reserved4',['../struct_onfi_nand___geometry.html#a295de10cf9caf24878b5d002371da197',1,'OnfiNand_Geometry']]],
+  ['reset',['RESET',['../group__nandps.html#ggac876c6eb0d6c95869f0a68dccd44b975a589b7d94a3d91d145720e2fed0eb3a05',1,'xnandps_onfi.h']]],
+  ['revision',['Revision',['../struct_onfi_nand___geometry.html#a3498ecb4183fa4a20bfb3e74bbd6aa21',1,'OnfiNand_Geometry']]],
+  ['rowaddrcycles',['RowAddrCycles',['../struct_x_nand_ps___geometry.html#afd53531e448c5db979a145ba64214cee',1,'XNandPs_Geometry']]]
+];

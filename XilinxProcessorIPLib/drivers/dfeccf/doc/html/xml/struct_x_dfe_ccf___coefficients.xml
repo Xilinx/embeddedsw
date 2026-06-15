@@ -1,0 +1,64 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_dfe_ccf___coefficients" kind="struct" prot="public">
+    <compoundname>XDfeCcf_Coefficients</compoundname>
+    <includes local="no">xdfeccf.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_dfe_ccf___coefficients_1ad1fd3761a5756748f27999add2fa43a2" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfeCcf_Coefficients::Num</definition>
+        <argsstring></argsstring>
+        <name>Num</name>
+        <briefdescription>
+<para>[0-(128|256)]. </para>        </briefdescription>
+        <detaileddescription>
+<para>True number of coefficients, when non-symmetric max is 128. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" line="306" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" bodystart="306" bodyend="-1"/>
+        <referencedby refid="group__dfeccf_1gae4ded5b6e8aefa55eb911df631fdedd2" compoundref="xdfeccf_8c" startline="2180" endline="2273">XDfeCcf_LoadCoefficients</referencedby>
+        <referencedby refid="xdfeccf__pass__through__example_8c_1a6e4a59a64bb3ee3a50a0ea8802942969" compoundref="xdfeccf__pass__through__example_8c" startline="61" endline="162">XDfeCcf_PassThroughExample</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_ccf___coefficients_1abf7037bea46a3bea957c5c61bf769f85" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfeCcf_Coefficients::Symmetric</definition>
+        <argsstring></argsstring>
+        <name>Symmetric</name>
+        <briefdescription>
+<para>[0,1] Select the use of symmetric (1) or non-symmetric (0) filter </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" line="308" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" bodystart="308" bodyend="-1"/>
+        <referencedby refid="group__dfeccf_1gae4ded5b6e8aefa55eb911df631fdedd2" compoundref="xdfeccf_8c" startline="2180" endline="2273">XDfeCcf_LoadCoefficients</referencedby>
+        <referencedby refid="xdfeccf__pass__through__example_8c_1a6e4a59a64bb3ee3a50a0ea8802942969" compoundref="xdfeccf__pass__through__example_8c" startline="61" endline="162">XDfeCcf_PassThroughExample</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_ccf___coefficients_1a451f67197f8a1cc8b44708b08c409ca1" prot="public" static="no" mutable="no">
+        <type>s16</type>
+        <definition>s16 XDfeCcf_Coefficients::Value[XDFECCF_NUM_COEFF]</definition>
+        <argsstring>[XDFECCF_NUM_COEFF]</argsstring>
+        <name>Value</name>
+        <briefdescription>
+<para>[Signed real numbers]. </para>        </briefdescription>
+        <detaileddescription>
+<para>Array of coefficients, when symmetric only the first (Num+1)/2 coefficients are provided </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" line="310" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" bodystart="310" bodyend="-1"/>
+        <referencedby refid="group__dfeccf_1gae4ded5b6e8aefa55eb911df631fdedd2" compoundref="xdfeccf_8c" startline="2180" endline="2273">XDfeCcf_LoadCoefficients</referencedby>
+        <referencedby refid="xdfeccf__pass__through__example_8c_1a6e4a59a64bb3ee3a50a0ea8802942969" compoundref="xdfeccf__pass__through__example_8c" startline="61" endline="162">XDfeCcf_PassThroughExample</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Defines filter coefficients. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" line="305" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" bodystart="305" bodyend="313"/>
+    <listofallmembers>
+      <member refid="struct_x_dfe_ccf___coefficients_1ad1fd3761a5756748f27999add2fa43a2" prot="public" virt="non-virtual"><scope>XDfeCcf_Coefficients</scope><name>Num</name></member>
+      <member refid="struct_x_dfe_ccf___coefficients_1abf7037bea46a3bea957c5c61bf769f85" prot="public" virt="non-virtual"><scope>XDfeCcf_Coefficients</scope><name>Symmetric</name></member>
+      <member refid="struct_x_dfe_ccf___coefficients_1a451f67197f8a1cc8b44708b08c409ca1" prot="public" virt="non-virtual"><scope>XDfeCcf_Coefficients</scope><name>Value</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_vphy___gt_pll_divs" kind="struct" prot="public">
+    <compoundname>XVphy_GtPllDivs</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_vphy___gt_pll_divs_1afb77569235ed1a52f54813583855712f" prot="public" static="no" mutable="no">
+        <type>const u8 *</type>
+        <definition>const u8* XVphy_GtPllDivs::M</definition>
+        <argsstring></argsstring>
+        <name>M</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_gt.h" line="53" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_gt.h" bodystart="53" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vphy___gt_pll_divs_1a3b52aef45245ed37db56bf2f0832e042" prot="public" static="no" mutable="no">
+        <type>const u8 *</type>
+        <definition>const u8* XVphy_GtPllDivs::N1</definition>
+        <argsstring></argsstring>
+        <name>N1</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_gt.h" line="54" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_gt.h" bodystart="54" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vphy___gt_pll_divs_1afc1360f66c4e6b05ed7cb0678074c94c" prot="public" static="no" mutable="no">
+        <type>const u8 *</type>
+        <definition>const u8* XVphy_GtPllDivs::N2</definition>
+        <argsstring></argsstring>
+        <name>N2</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_gt.h" line="55" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_gt.h" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vphy___gt_pll_divs_1ae07123ad4b5c23916a8e431bd7006914" prot="public" static="no" mutable="no">
+        <type>const u8 *</type>
+        <definition>const u8* XVphy_GtPllDivs::D</definition>
+        <argsstring></argsstring>
+        <name>D</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_gt.h" line="56" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_gt.h" bodystart="56" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_gt.h" line="52" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_gt.h" bodystart="52" bodyend="57"/>
+    <listofallmembers>
+      <member refid="struct_x_vphy___gt_pll_divs_1ae07123ad4b5c23916a8e431bd7006914" prot="public" virt="non-virtual"><scope>XVphy_GtPllDivs</scope><name>D</name></member>
+      <member refid="struct_x_vphy___gt_pll_divs_1afb77569235ed1a52f54813583855712f" prot="public" virt="non-virtual"><scope>XVphy_GtPllDivs</scope><name>M</name></member>
+      <member refid="struct_x_vphy___gt_pll_divs_1a3b52aef45245ed37db56bf2f0832e042" prot="public" virt="non-virtual"><scope>XVphy_GtPllDivs</scope><name>N1</name></member>
+      <member refid="struct_x_vphy___gt_pll_divs_1afc1360f66c4e6b05ed7cb0678074c94c" prot="public" virt="non-virtual"><scope>XVphy_GtPllDivs</scope><name>N2</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

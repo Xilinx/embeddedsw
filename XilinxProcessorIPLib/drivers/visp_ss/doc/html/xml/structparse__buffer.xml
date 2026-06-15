@@ -1,0 +1,85 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="structparse__buffer" kind="struct" prot="public">
+    <compoundname>parse_buffer</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structparse__buffer_1a52ee1184576baa3d5171059ab0e942de" prot="public" static="no" mutable="no">
+        <type>const unsigned char *</type>
+        <definition>const unsigned char* parse_buffer::content</definition>
+        <argsstring></argsstring>
+        <name>content</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/cJSON.c" line="278" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/cJSON.c" bodystart="278" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structparse__buffer_1a036970e9335896d3cee8459eda9e2eb9" prot="public" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t parse_buffer::length</definition>
+        <argsstring></argsstring>
+        <name>length</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/cJSON.c" line="279" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/cJSON.c" bodystart="279" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structparse__buffer_1af727920073077579942a79de519bb31a" prot="public" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t parse_buffer::offset</definition>
+        <argsstring></argsstring>
+        <name>offset</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/cJSON.c" line="280" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/cJSON.c" bodystart="280" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structparse__buffer_1af613c4ed7d73f76c60c50d1bcf4c67a0" prot="public" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t parse_buffer::depth</definition>
+        <argsstring></argsstring>
+        <name>depth</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/cJSON.c" line="281" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/cJSON.c" bodystart="281" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structparse__buffer_1a2c3e99b15da2935fc5d58124ffb4a894" prot="public" static="no" mutable="no">
+        <type>internal_hooks</type>
+        <definition>internal_hooks parse_buffer::hooks</definition>
+        <argsstring></argsstring>
+        <name>hooks</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/cJSON.c" line="282" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/cJSON.c" bodystart="282" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/cJSON.c" line="277" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/cJSON.c" bodystart="277" bodyend="283"/>
+    <listofallmembers>
+      <member refid="structparse__buffer_1a52ee1184576baa3d5171059ab0e942de" prot="public" virt="non-virtual"><scope>parse_buffer</scope><name>content</name></member>
+      <member refid="structparse__buffer_1af613c4ed7d73f76c60c50d1bcf4c67a0" prot="public" virt="non-virtual"><scope>parse_buffer</scope><name>depth</name></member>
+      <member refid="structparse__buffer_1a2c3e99b15da2935fc5d58124ffb4a894" prot="public" virt="non-virtual"><scope>parse_buffer</scope><name>hooks</name></member>
+      <member refid="structparse__buffer_1a036970e9335896d3cee8459eda9e2eb9" prot="public" virt="non-virtual"><scope>parse_buffer</scope><name>length</name></member>
+      <member refid="structparse__buffer_1af727920073077579942a79de519bb31a" prot="public" virt="non-virtual"><scope>parse_buffer</scope><name>offset</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

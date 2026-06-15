@@ -1,0 +1,91 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_loader___cfi_sel_readback_params" kind="struct" prot="public">
+    <compoundname>XLoader_CfiSelReadbackParams</compoundname>
+    <includes local="no">xloader_client.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_loader___cfi_sel_readback_params_1a26014e4d4738f3ad7b07c81ee04160ad" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XLoader_CfiSelReadbackParams::DestAddr</definition>
+        <argsstring></argsstring>
+        <name>DestAddr</name>
+        <briefdescription>
+<para>Destination address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/client/xloader_client.h" line="92" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/client/xloader_client.h" bodystart="92" bodyend="-1"/>
+        <referencedby refid="group__xloader__client__apis_1gaabb2d5baeb7ebd06f2743edc48b28674" compoundref="xloader__client_8c" startline="387" endline="416">XLoader_CfiSelectiveReadback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_loader___cfi_sel_readback_params_1a4dd97a4905462c0ea899092a8d849c70" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XLoader_CfiSelReadbackParams::Row</definition>
+        <argsstring></argsstring>
+        <name>Row</name>
+        <briefdescription>
+<para>Row number. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/client/xloader_client.h" line="93" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/client/xloader_client.h" bodystart="93" bodyend="-1"/>
+        <referencedby refid="group__xloader__client__apis_1gaabb2d5baeb7ebd06f2743edc48b28674" compoundref="xloader__client_8c" startline="387" endline="416">XLoader_CfiSelectiveReadback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_loader___cfi_sel_readback_params_1af880338814342b61b9a73295a5c0e952" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XLoader_CfiSelReadbackParams::Blocktype</definition>
+        <argsstring></argsstring>
+        <name>Blocktype</name>
+        <briefdescription>
+<para>Block type. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/client/xloader_client.h" line="94" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/client/xloader_client.h" bodystart="94" bodyend="-1"/>
+        <referencedby refid="group__xloader__client__apis_1gaabb2d5baeb7ebd06f2743edc48b28674" compoundref="xloader__client_8c" startline="387" endline="416">XLoader_CfiSelectiveReadback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_loader___cfi_sel_readback_params_1a43e09d939eb10b296b0ade7ba72a1032" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XLoader_CfiSelReadbackParams::FrameAddr</definition>
+        <argsstring></argsstring>
+        <name>FrameAddr</name>
+        <briefdescription>
+<para>Frame address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/client/xloader_client.h" line="95" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/client/xloader_client.h" bodystart="95" bodyend="-1"/>
+        <referencedby refid="group__xloader__client__apis_1gaabb2d5baeb7ebd06f2743edc48b28674" compoundref="xloader__client_8c" startline="387" endline="416">XLoader_CfiSelectiveReadback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_loader___cfi_sel_readback_params_1ad3e54e16c731da894e13568026cdc2be" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XLoader_CfiSelReadbackParams::FrameCnt</definition>
+        <argsstring></argsstring>
+        <name>FrameCnt</name>
+        <briefdescription>
+<para>Frame count. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/client/xloader_client.h" line="96" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/client/xloader_client.h" bodystart="96" bodyend="-1"/>
+        <referencedby refid="group__xloader__client__apis_1gaabb2d5baeb7ebd06f2743edc48b28674" compoundref="xloader__client_8c" startline="387" endline="416">XLoader_CfiSelectiveReadback</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Structure to hold the CFI selective readback parameters. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/client/xloader_client.h" line="91" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/client/xloader_client.h" bodystart="91" bodyend="97"/>
+    <listofallmembers>
+      <member refid="struct_x_loader___cfi_sel_readback_params_1af880338814342b61b9a73295a5c0e952" prot="public" virt="non-virtual"><scope>XLoader_CfiSelReadbackParams</scope><name>Blocktype</name></member>
+      <member refid="struct_x_loader___cfi_sel_readback_params_1a26014e4d4738f3ad7b07c81ee04160ad" prot="public" virt="non-virtual"><scope>XLoader_CfiSelReadbackParams</scope><name>DestAddr</name></member>
+      <member refid="struct_x_loader___cfi_sel_readback_params_1a43e09d939eb10b296b0ade7ba72a1032" prot="public" virt="non-virtual"><scope>XLoader_CfiSelReadbackParams</scope><name>FrameAddr</name></member>
+      <member refid="struct_x_loader___cfi_sel_readback_params_1ad3e54e16c731da894e13568026cdc2be" prot="public" virt="non-virtual"><scope>XLoader_CfiSelReadbackParams</scope><name>FrameCnt</name></member>
+      <member refid="struct_x_loader___cfi_sel_readback_params_1a4dd97a4905462c0ea899092a8d849c70" prot="public" virt="non-virtual"><scope>XLoader_CfiSelReadbackParams</scope><name>Row</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

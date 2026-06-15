@@ -1,0 +1,52 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="indexpage" kind="page">
+    <compoundname>index</compoundname>
+    <title>rtcpsu</title>
+    <detaileddescription>
+<para>The Xilinx RTC driver component. This component supports the Xilinx RTC Controller. RTC Core and RTC controller are the two main important sub- components for this RTC module. RTC core can run even in the battery powered domain when the power from auxiliary source is down.Because of this, RTC core latches the calibration,programmed time.This core interfaces with the crystal oscillator and maintains current time in seconds.Calibration circuitry calculates a second with maximum 1 PPM inaccuracy using a crystal oscillator with arbitrary static inaccuracy. Core also responsible to maintain control value used by the oscillator and power switching circuitry.</para><para>RTC controller includes an APB interface responsible for register access with in controller and core.It contains alarm generation logic including the alarm register to hold alarm time in seconds.Interrupt management using Interrupt status, Interrupt mask, Interrupt enable, Interrupt disable registers are included to manage alarm and seconds interrupts.Address Slave error interrupts are not being handled by this driver component.</para><para>This driver supports the following features:<itemizedlist>
+<listitem><para>Setting the RTC time.</para></listitem><listitem><para>Setting the Alarm value that can be one-time alarm or a periodic alarm.</para></listitem><listitem><para>Modifying the calibration value.</para></listitem></itemizedlist>
+</para><para><bold>Initialization &amp; Configuration</bold></para><para>The <ref refid="struct_x_rtc_psu___config" kindref="compound">XRtcPsu_Config</ref> structure is used by the driver to configure itself. Fields inside this structure are properties of <ref refid="struct_x_rtc_psu" kindref="compound">XRtcPsu</ref> based on its hardware build.</para><para>To support multiple runtime loading and initialization strategies employed by various operating systems, the driver instance can be initialized in the following way: <verbatim> - XRtcPsu_CfgInitialize(InstancePtr, CfgPtr, EffectiveAddr) - Uses a
+ configuration structure provided by the caller. If running in a system
+ with address translation, the parameter EffectiveAddr should be the
+ virtual address.
+</verbatim></para><para><bold>Interrupts</bold></para><para>The driver defaults to no interrupts at initialization such that interrupts must be enabled if desired. An interrupt is generated for one of the following conditions.</para><para><itemizedlist>
+<listitem><para>Alarm is generated.</para></listitem><listitem><para>A new second is generated.</para></listitem></itemizedlist>
+</para><para>The application can control which interrupts are enabled using the <ref refid="group__rtcpsu_1ga645920d3519722e8dc815d07db527367" kindref="member">XRtcPsu_SetInterruptMask()</ref> function.</para><para>In order to use interrupts, it is necessary for the user to connect the driver interrupt handler, <ref refid="group__rtcpsu_1ga01ca03d23194687c8026dc2f38da6ff7" kindref="member">XRtcPsu_InterruptHandler()</ref>, to the interrupt system of the application. A separate handler should be provided by the application to communicate with the interrupt system, and conduct application specific interrupt handling. An application registers its own handler through the <ref refid="group__rtcpsu_1ga40b45bedf590e3e65eb525f1827768e4" kindref="member">XRtcPsu_SetHandler()</ref> function.</para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who    Date       Changes
+<hruler/>
+
+1.00  kvn    04/21/15 First release
+1.1   kvn    09/25/15 Modify control register to enable battery
+                      switching when vcc_psaux is not available.
+1.3      vak    04/25/16 Corrected the RTC read and write time logic(cr#948833).
+1.4      MNK    01/27/17 Corrected calibration and frequency macros based on
+                rtc input oscillator frequency ( 32.768Khz).
+      ms     03/17/17 Added readme.txt file in examples folder for doxygen
+                      generation.
+      ms     04/10/17 Modified filename tag in examples to include them in
+                      doxygen examples.
+1.5   ms     08/27/17 Fixed compilation warnings in <ref refid="xrtcpsu_8c" kindref="compound">xrtcpsu.c</ref> file.
+      ms     08/29/17 Updated the code as per source code style.
+1.6   aru    06/25/18 Modified logic to handle
+                 the last day of month cotrrecly.(CR#1004282)
+1.6   aru    06/25/18 Remove the checkpatch warnings.
+1.6   aru    07/11/18 Resolved cppcheck warnings.
+1.6   aru    07/11/18 Resolved doxygen warnings.
+1.6   aru    08/17/18 Resolved MISRA-C mandatory violations.(CR#1007752)
+1.6   tjs    09/17/18 Fixed compilation warnings.
+1.7   sne    03/01/19 Added Versal support.
+1.7   sne    03/01/19 Fixed violations according to MISRAC-2012 standards
+                      modified the code such as
+                      No brackets to loop body,Declared the pointer param
+                      as Pointer to const,No brackets to then/else,
+                      Literal value requires a U suffix,Casting operation to a pointer
+                      Array has no bounds specified,Logical conjunctions need brackets.
+1.10     sne    08/28/20 Modify Makefile to support parallel make execution.
+1.11     sne    04/23/21 Fixed doxygen warnings.
+1.13  ht        06/22/23 Added support for system device-tree flow.
+1.17  vlt    12/30/25 Update Doxygen comments to include SDT flow details.
+1.17  ht     01/19/26 Add 3 macros (EPOCH_YEAR, EPOCH_WDAY, IS_LEAP_YEAR).
+</preformatted> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

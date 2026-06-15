@@ -1,0 +1,169 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_dp___sideband_msg_header" kind="struct" prot="public">
+    <compoundname>XDp_SidebandMsgHeader</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_dp___sideband_msg_header_1a69dff115b47911d85de75e72c4d5afb7" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDp_SidebandMsgHeader::LinkCountTotal</definition>
+        <argsstring></argsstring>
+        <name>LinkCountTotal</name>
+        <briefdescription>
+<para>The total number of DisplayPort links connecting the device device that this sideband message is targeted from the DisplayPort TX. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14/src/xdp_mst.c" line="83" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14/src/xdp_mst.c" bodystart="83" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___sideband_msg_header_1ab7de77682c3c1184b7cef41a2c2cff57" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDp_SidebandMsgHeader::LinkCountRemaining</definition>
+        <argsstring></argsstring>
+        <name>LinkCountRemaining</name>
+        <briefdescription>
+<para>The remaining link count until the sideband message reaches the target device. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14/src/xdp_mst.c" line="88" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14/src/xdp_mst.c" bodystart="88" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___sideband_msg_header_1ac8065f175043d128f5038f769199d0b4" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDp_SidebandMsgHeader::RelativeAddress[15]</definition>
+        <argsstring>[15]</argsstring>
+        <name>RelativeAddress</name>
+        <briefdescription>
+<para>The relative address from the DisplayPort TX to the target device. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14/src/xdp_mst.c" line="91" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14/src/xdp_mst.c" bodystart="91" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___sideband_msg_header_1a5cc44598808d78932ef6f90eeb9ff586" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDp_SidebandMsgHeader::BroadcastMsg</definition>
+        <argsstring></argsstring>
+        <name>BroadcastMsg</name>
+        <briefdescription>
+<para>Specifies that this message is a broadcast message, to be handled by all downstream devices. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14/src/xdp_mst.c" line="94" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14/src/xdp_mst.c" bodystart="94" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___sideband_msg_header_1a20aaa1cd00e12819018fd66836280d3d" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDp_SidebandMsgHeader::PathMsg</definition>
+        <argsstring></argsstring>
+        <name>PathMsg</name>
+        <briefdescription>
+<para>Specifies that this message is a path message, to be handled by all the devices between the origin and the target device. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14/src/xdp_mst.c" line="98" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14/src/xdp_mst.c" bodystart="98" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___sideband_msg_header_1aa249219115924345916866054af63143" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDp_SidebandMsgHeader::MsgBodyLength</definition>
+        <argsstring></argsstring>
+        <name>MsgBodyLength</name>
+        <briefdescription>
+<para>The total number of data bytes that are stored in the sideband message body. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14/src/xdp_mst.c" line="102" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14/src/xdp_mst.c" bodystart="102" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___sideband_msg_header_1a2daca50801e59797e2fdd9961e0d0826" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDp_SidebandMsgHeader::StartOfMsgTransaction</definition>
+        <argsstring></argsstring>
+        <name>StartOfMsgTransaction</name>
+        <briefdescription>
+<para>This message is the first sideband message in the transaction. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14/src/xdp_mst.c" line="105" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14/src/xdp_mst.c" bodystart="105" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___sideband_msg_header_1ac489c18c73b55ceb7c5b37ffc8e12d10" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDp_SidebandMsgHeader::EndOfMsgTransaction</definition>
+        <argsstring></argsstring>
+        <name>EndOfMsgTransaction</name>
+        <briefdescription>
+<para>This message is the last sideband message in the transaction. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14/src/xdp_mst.c" line="107" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14/src/xdp_mst.c" bodystart="107" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___sideband_msg_header_1a6273bcc56e3f8f60eee11f1dd40ee556" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDp_SidebandMsgHeader::MsgSequenceNum</definition>
+        <argsstring></argsstring>
+        <name>MsgSequenceNum</name>
+        <briefdescription>
+<para>Identifies individual message transactions to a given DisplayPort device. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14/src/xdp_mst.c" line="109" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14/src/xdp_mst.c" bodystart="109" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___sideband_msg_header_1a23edd2fbd02ab37845fe9445e0b89d81" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDp_SidebandMsgHeader::Crc</definition>
+        <argsstring></argsstring>
+        <name>Crc</name>
+        <briefdescription>
+<para>The cyclic-redundancy check (CRC) value of the header data. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14/src/xdp_mst.c" line="112" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14/src/xdp_mst.c" bodystart="112" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___sideband_msg_header_1a089780dccbd6214b161c360ecb154740" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDp_SidebandMsgHeader::MsgHeaderLength</definition>
+        <argsstring></argsstring>
+        <name>MsgHeaderLength</name>
+        <briefdescription>
+<para>The number of data bytes stored as part of the sideband message header. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14/src/xdp_mst.c" line="115" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14/src/xdp_mst.c" bodystart="115" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef stores the sideband message header. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14/src/xdp_mst.c" line="82" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14/src/xdp_mst.c" bodystart="81" bodyend="118"/>
+    <listofallmembers>
+      <member refid="struct_x_dp___sideband_msg_header_1a5cc44598808d78932ef6f90eeb9ff586" prot="public" virt="non-virtual"><scope>XDp_SidebandMsgHeader</scope><name>BroadcastMsg</name></member>
+      <member refid="struct_x_dp___sideband_msg_header_1a23edd2fbd02ab37845fe9445e0b89d81" prot="public" virt="non-virtual"><scope>XDp_SidebandMsgHeader</scope><name>Crc</name></member>
+      <member refid="struct_x_dp___sideband_msg_header_1ac489c18c73b55ceb7c5b37ffc8e12d10" prot="public" virt="non-virtual"><scope>XDp_SidebandMsgHeader</scope><name>EndOfMsgTransaction</name></member>
+      <member refid="struct_x_dp___sideband_msg_header_1ab7de77682c3c1184b7cef41a2c2cff57" prot="public" virt="non-virtual"><scope>XDp_SidebandMsgHeader</scope><name>LinkCountRemaining</name></member>
+      <member refid="struct_x_dp___sideband_msg_header_1a69dff115b47911d85de75e72c4d5afb7" prot="public" virt="non-virtual"><scope>XDp_SidebandMsgHeader</scope><name>LinkCountTotal</name></member>
+      <member refid="struct_x_dp___sideband_msg_header_1aa249219115924345916866054af63143" prot="public" virt="non-virtual"><scope>XDp_SidebandMsgHeader</scope><name>MsgBodyLength</name></member>
+      <member refid="struct_x_dp___sideband_msg_header_1a089780dccbd6214b161c360ecb154740" prot="public" virt="non-virtual"><scope>XDp_SidebandMsgHeader</scope><name>MsgHeaderLength</name></member>
+      <member refid="struct_x_dp___sideband_msg_header_1a6273bcc56e3f8f60eee11f1dd40ee556" prot="public" virt="non-virtual"><scope>XDp_SidebandMsgHeader</scope><name>MsgSequenceNum</name></member>
+      <member refid="struct_x_dp___sideband_msg_header_1a20aaa1cd00e12819018fd66836280d3d" prot="public" virt="non-virtual"><scope>XDp_SidebandMsgHeader</scope><name>PathMsg</name></member>
+      <member refid="struct_x_dp___sideband_msg_header_1ac8065f175043d128f5038f769199d0b4" prot="public" virt="non-virtual"><scope>XDp_SidebandMsgHeader</scope><name>RelativeAddress</name></member>
+      <member refid="struct_x_dp___sideband_msg_header_1a2daca50801e59797e2fdd9961e0d0826" prot="public" virt="non-virtual"><scope>XDp_SidebandMsgHeader</scope><name>StartOfMsgTransaction</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

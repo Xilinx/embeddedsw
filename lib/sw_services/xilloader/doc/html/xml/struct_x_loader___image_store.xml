@@ -1,0 +1,92 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_loader___image_store" kind="struct" prot="public">
+    <compoundname>XLoader_ImageStore</compoundname>
+    <includes local="no">xloader.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_loader___image_store_1a91bdaf4a6d2d5b1572f3eb7ca7f856c3" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XLoader_ImageStore::PdiImgStrAddr</definition>
+        <argsstring></argsstring>
+        <name>PdiImgStrAddr</name>
+        <briefdescription>
+<para>Image Store address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader.h" line="439" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader.h" bodystart="439" bodyend="-1"/>
+        <referencedby refid="group__xloader__server__apis_1gafa91a58dad6f9d08c018cbf914f7202c" compoundref="xloader_8c" startline="2200" endline="2238">XLoader_ReadImageStoreCfg</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_loader___image_store_1a02206b8cbd8925954908af816bb220bc" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XLoader_ImageStore::PdiImgStrSize</definition>
+        <argsstring></argsstring>
+        <name>PdiImgStrSize</name>
+        <briefdescription>
+<para>Image Store Memory Size. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader.h" line="440" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader.h" bodystart="440" bodyend="-1"/>
+        <referencedby refid="group__xloader__server__apis_1gafa91a58dad6f9d08c018cbf914f7202c" compoundref="xloader_8c" startline="2200" endline="2238">XLoader_ReadImageStoreCfg</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_loader___image_store_1ae79e3cca4f7ff40a05d8dcc468e8b852" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_loader___pdi_info" kindref="compound">XLoader_PdiInfo</ref></type>
+        <definition>XLoader_PdiInfo XLoader_ImageStore::ImgList[XLOADER_MAX_PDI_LIST+1]</definition>
+        <argsstring>[XLOADER_MAX_PDI_LIST+1]</argsstring>
+        <name>ImgList</name>
+        <briefdescription>
+<para>List of Images in Image Store. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader.h" line="441" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader.h" bodystart="441" bodyend="-1"/>
+        <referencedby refid="group__xloader__server__apis_1ga8122f50322351d61e03c5dd33cf6f635" compoundref="xloader_8c" startline="2253" endline="2284">XLoader_IsPdiAddrLookup</referencedby>
+        <referencedby refid="group__xloader__server__apis_1gafa91a58dad6f9d08c018cbf914f7202c" compoundref="xloader_8c" startline="2200" endline="2238">XLoader_ReadImageStoreCfg</referencedby>
+        <referencedby refid="group__xloader__server__apis_1ga3dbbecc3b2545a3e076d421f086715e6" compoundref="xloader_8c" startline="1767" endline="1861">XLoader_RestartImage</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_loader___image_store_1a96fab359bab0abdb7a49422fe2a7a045" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XLoader_ImageStore::Count</definition>
+        <argsstring></argsstring>
+        <name>Count</name>
+        <briefdescription>
+<para>Number of images in Image Store. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader.h" line="442" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader.h" bodystart="442" bodyend="-1"/>
+        <referencedby refid="group__xloader__server__apis_1ga8122f50322351d61e03c5dd33cf6f635" compoundref="xloader_8c" startline="2253" endline="2284">XLoader_IsPdiAddrLookup</referencedby>
+        <referencedby refid="group__xloader__server__apis_1ga3dbbecc3b2545a3e076d421f086715e6" compoundref="xloader_8c" startline="1767" endline="1861">XLoader_RestartImage</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Structure to hold Image Store information. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="59">
+        <label>XLoader_PdiInfo</label>
+        <link refid="struct_x_loader___pdi_info"/>
+      </node>
+      <node id="58">
+        <label>XLoader_ImageStore</label>
+        <link refid="struct_x_loader___image_store"/>
+        <childnode refid="59" relation="usage">
+          <edgelabel>ImgList</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader.h" line="438" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader.h" bodystart="438" bodyend="443"/>
+    <listofallmembers>
+      <member refid="struct_x_loader___image_store_1a96fab359bab0abdb7a49422fe2a7a045" prot="public" virt="non-virtual"><scope>XLoader_ImageStore</scope><name>Count</name></member>
+      <member refid="struct_x_loader___image_store_1ae79e3cca4f7ff40a05d8dcc468e8b852" prot="public" virt="non-virtual"><scope>XLoader_ImageStore</scope><name>ImgList</name></member>
+      <member refid="struct_x_loader___image_store_1a91bdaf4a6d2d5b1572f3eb7ca7f856c3" prot="public" virt="non-virtual"><scope>XLoader_ImageStore</scope><name>PdiImgStrAddr</name></member>
+      <member refid="struct_x_loader___image_store_1a02206b8cbd8925954908af816bb220bc" prot="public" virt="non-virtual"><scope>XLoader_ImageStore</scope><name>PdiImgStrSize</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

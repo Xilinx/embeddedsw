@@ -1,0 +1,570 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xvphy__intr_8c" kind="file">
+    <compoundname>xvphy_intr.c</compoundname>
+    <includes refid="xvphy_8h" local="yes">xvphy.h</includes>
+    <includes refid="xvphy__i_8h" local="yes">xvphy_i.h</includes>
+    <incdepgraph>
+      <node id="245">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="243">
+        <label>xvphy_intr.c</label>
+        <link refid="xvphy_intr.c"/>
+        <childnode refid="244" relation="include">
+        </childnode>
+        <childnode refid="252" relation="include">
+        </childnode>
+      </node>
+      <node id="248">
+        <label>xil_io.h</label>
+      </node>
+      <node id="244">
+        <label>xvphy.h</label>
+        <childnode refid="245" relation="include">
+        </childnode>
+        <childnode refid="246" relation="include">
+        </childnode>
+        <childnode refid="247" relation="include">
+        </childnode>
+        <childnode refid="250" relation="include">
+        </childnode>
+        <childnode refid="251" relation="include">
+        </childnode>
+      </node>
+      <node id="247">
+        <label>xvphy_hw.h</label>
+        <link refid="xvphy__hw_8h"/>
+        <childnode refid="248" relation="include">
+        </childnode>
+        <childnode refid="249" relation="include">
+        </childnode>
+      </node>
+      <node id="251">
+        <label>xvphy_dp.h</label>
+      </node>
+      <node id="250">
+        <label>xvidc.h</label>
+      </node>
+      <node id="249">
+        <label>xil_types.h</label>
+      </node>
+      <node id="246">
+        <label>xparameters.h</label>
+      </node>
+      <node id="252">
+        <label>xvphy_i.h</label>
+        <link refid="xvphy__i_8h"/>
+        <childnode refid="245" relation="include">
+        </childnode>
+        <childnode refid="244" relation="include">
+        </childnode>
+        <childnode refid="247" relation="include">
+        </childnode>
+        <childnode refid="250" relation="include">
+        </childnode>
+        <childnode refid="251" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xvphy_1gab0c6c186dbb5142d23a6a3b76148c37b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XVphy_IntrEnable</definition>
+        <argsstring>(XVphy *InstancePtr, XVphy_IntrHandlerType Intr)</argsstring>
+        <name>XVphy_IntrEnable</name>
+        <param>
+          <type><ref refid="struct_x_vphy" kindref="compound">XVphy</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>XVphy_IntrHandlerType</type>
+          <declname>Intr</declname>
+        </param>
+        <briefdescription>
+<para>This function enables interrupts associated with the specified interrupt type. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_vphy" kindref="compound">XVphy</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Intr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the interrupt type/mask to enable.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_intr.c" line="47" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_intr.c" bodystart="47" bodyend="54"/>
+        <references refid="xvphy__hw_8h_1a4efa6fb68e702bd91a3fb099d7ba0188" compoundref="xvphy__hw_8h" startline="688">XVphy_ReadReg</references>
+        <references refid="struct_x_vphy_1a45ad21128fb62d2f120e92ae3488c32c" compoundref="xvphy_8h" startline="729">XVphy::Config</references>
+        <references refid="struct_x_vphy___config_1a37ebb950e78d0d9bedc29b27ad6619d3" compoundref="xvphy_8h" startline="682">XVphy_Config::BaseAddr</references>
+        <references refid="group__vphy_1ga692902b883571eda757b9b655c5c83fb" compoundref="xvphy__hw_8h" startline="121">XVPHY_INTR_EN_REG</references>
+        <references refid="xvphy__hw_8h_1a03d7c5c126a6c25d1ed193dfaa7f4a2c" compoundref="xvphy__hw_8h" startline="705">XVphy_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xvphy_1ga854725cac309c3302a25dbc29927c9f8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XVphy_IntrDisable</definition>
+        <argsstring>(XVphy *InstancePtr, XVphy_IntrHandlerType Intr)</argsstring>
+        <name>XVphy_IntrDisable</name>
+        <param>
+          <type><ref refid="struct_x_vphy" kindref="compound">XVphy</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>XVphy_IntrHandlerType</type>
+          <declname>Intr</declname>
+        </param>
+        <briefdescription>
+<para>This function disabled interrupts associated with the specified interrupt type. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_vphy" kindref="compound">XVphy</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Intr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the interrupt type/mask to disable.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_intr.c" line="69" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_intr.c" bodystart="69" bodyend="78"/>
+        <references refid="xvphy__hw_8h_1a4efa6fb68e702bd91a3fb099d7ba0188" compoundref="xvphy__hw_8h" startline="688">XVphy_ReadReg</references>
+        <references refid="struct_x_vphy_1a45ad21128fb62d2f120e92ae3488c32c" compoundref="xvphy_8h" startline="729">XVphy::Config</references>
+        <references refid="struct_x_vphy___config_1a37ebb950e78d0d9bedc29b27ad6619d3" compoundref="xvphy_8h" startline="682">XVphy_Config::BaseAddr</references>
+        <references refid="group__vphy_1ga0523c2fe675a15f92df8de41fc4cc8c7" compoundref="xvphy__hw_8h" startline="122">XVPHY_INTR_DIS_REG</references>
+        <references refid="xvphy__hw_8h_1a03d7c5c126a6c25d1ed193dfaa7f4a2c" compoundref="xvphy__hw_8h" startline="705">XVphy_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xvphy_1ga56237326dcb3ef7cb3b346f7bf561486" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XVphy_SetIntrHandler</definition>
+        <argsstring>(XVphy *InstancePtr, XVphy_IntrHandlerType HandlerType, XVphy_IntrHandler CallbackFunc, void *CallbackRef)</argsstring>
+        <name>XVphy_SetIntrHandler</name>
+        <param>
+          <type><ref refid="struct_x_vphy" kindref="compound">XVphy</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>XVphy_IntrHandlerType</type>
+          <declname>HandlerType</declname>
+        </param>
+        <param>
+          <type>XVphy_IntrHandler</type>
+          <declname>CallbackFunc</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>CallbackRef</declname>
+        </param>
+        <briefdescription>
+<para>This function installs a callback function for the specified handler type. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the XVPhy instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>HandlerType</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the interrupt handler type which specifies which interrupt event to attach the callback for. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CallbackFunc</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the address to the callback function. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CallbackRef</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the user data item that will be passed to the callback function when it is invoked.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_intr.c" line="96" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_intr.c" bodystart="96" bodyend="174"/>
+        <references refid="struct_x_vphy_1a21cbba76df25e8dfe4111d1222e14872" compoundref="xvphy_8h" startline="758">XVphy::IntrTxResetDoneHandler</references>
+        <references refid="struct_x_vphy_1ab6884b1d31e8d33370b88e74c8c0674d" compoundref="xvphy_8h" startline="761">XVphy::IntrTxResetDoneCallbackRef</references>
+        <references refid="struct_x_vphy_1a1d808488e0bf84f52d6eb206d54d829b" compoundref="xvphy_8h" startline="765">XVphy::IntrRxResetDoneHandler</references>
+        <references refid="struct_x_vphy_1abda4548141cf7abc027a15218e115353" compoundref="xvphy_8h" startline="768">XVphy::IntrRxResetDoneCallbackRef</references>
+        <references refid="struct_x_vphy_1aac25792acca694d5198b44057d468659" compoundref="xvphy_8h" startline="743">XVphy::IntrCpllLockHandler</references>
+        <references refid="struct_x_vphy_1a78f1447de2a15b155b4c37a4c48d18ef" compoundref="xvphy_8h" startline="745">XVphy::IntrCpllLockCallbackRef</references>
+        <references refid="struct_x_vphy_1a2a358f3a7cf0bbd672855ffb800e88a4" compoundref="xvphy_8h" startline="748">XVphy::IntrQpllLockHandler</references>
+        <references refid="struct_x_vphy_1a5d0d31870d751cc585d9a90c164f2d05" compoundref="xvphy_8h" startline="750">XVphy::IntrQpllLockCallbackRef</references>
+        <references refid="struct_x_vphy_1a0592d2a7a5360d294727c54491fa059d" compoundref="xvphy_8h" startline="772">XVphy::IntrTxAlignDoneHandler</references>
+        <references refid="struct_x_vphy_1a7998e37ae7d71fdb5d398550a6211305" compoundref="xvphy_8h" startline="775">XVphy::IntrTxAlignDoneCallbackRef</references>
+        <references refid="struct_x_vphy_1a43d707dcd37c99e8f4a13779809edee5" compoundref="xvphy_8h" startline="753">XVphy::IntrQpll1LockHandler</references>
+        <references refid="struct_x_vphy_1ae35b9b8e21753a733fc6a64de937fab9" compoundref="xvphy_8h" startline="755">XVphy::IntrQpll1LockCallbackRef</references>
+        <references refid="struct_x_vphy_1a44b541b34c508c723906b26f8fbb4719" compoundref="xvphy_8h" startline="779">XVphy::IntrTxClkDetFreqChangeHandler</references>
+        <references refid="struct_x_vphy_1aeef6168da79e23e5fca31e71cb9ae879" compoundref="xvphy_8h" startline="783">XVphy::IntrTxClkDetFreqChangeCallbackRef</references>
+        <references refid="struct_x_vphy_1a69217170e845bb0d704c8759f8688ab5" compoundref="xvphy_8h" startline="788">XVphy::IntrRxClkDetFreqChangeHandler</references>
+        <references refid="struct_x_vphy_1a91765301698027208a5e14a289a19bd8" compoundref="xvphy_8h" startline="792">XVphy::IntrRxClkDetFreqChangeCallbackRef</references>
+        <references refid="struct_x_vphy_1ae6312372d74d8da089b0f55e69b6bbdb" compoundref="xvphy_8h" startline="797">XVphy::IntrTxMmcmLockHandler</references>
+        <references refid="struct_x_vphy_1a32a951eab2545cb24fa6cb392574291e" compoundref="xvphy_8h" startline="800">XVphy::IntrTxMmcmLockCallbackRef</references>
+        <references refid="struct_x_vphy_1a912c03c778f2b9378afc1bb4e29f51e6" compoundref="xvphy_8h" startline="803">XVphy::IntrRxMmcmLockHandler</references>
+        <references refid="struct_x_vphy_1a2101dc107cfbd5355a3036d6f66e9941" compoundref="xvphy_8h" startline="806">XVphy::IntrRxMmcmLockCallbackRef</references>
+        <references refid="struct_x_vphy_1a2c2b7c102aa0e9b5fe81b31a77174dbf" compoundref="xvphy_8h" startline="809">XVphy::IntrTxTmrTimeoutHandler</references>
+        <references refid="struct_x_vphy_1a3018ebe77f98e3feb4535bf837571564" compoundref="xvphy_8h" startline="812">XVphy::IntrTxTmrTimeoutCallbackRef</references>
+        <references refid="struct_x_vphy_1a61a97adc3d836e2f20afb8e64f249b11" compoundref="xvphy_8h" startline="816">XVphy::IntrRxTmrTimeoutHandler</references>
+        <references refid="struct_x_vphy_1a4f3c598dab04ba6e7d6755455c3b7903" compoundref="xvphy_8h" startline="819">XVphy::IntrRxTmrTimeoutCallbackRef</references>
+      </memberdef>
+      <memberdef kind="function" id="xvphy__intr_8c_1a75e14bbc2dcc8eeeaaed26371ae1b34c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XVphy_InterruptHandler</definition>
+        <argsstring>(XVphy *InstancePtr)</argsstring>
+        <name>XVphy_InterruptHandler</name>
+        <param>
+          <type><ref refid="struct_x_vphy" kindref="compound">XVphy</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function is the interrupt handler for the <ref refid="struct_x_vphy" kindref="compound">XVphy</ref> driver. </para>        </briefdescription>
+        <detaileddescription>
+<para>It will detect what kind of interrupt has happened, and will invoke the appropriate callback function.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_vphy" kindref="compound">XVphy</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_intr.c" line="189" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_intr.c" bodystart="189" bodyend="249"/>
+        <references refid="struct_x_vphy___config_1a37ebb950e78d0d9bedc29b27ad6619d3" compoundref="xvphy_8h" startline="682">XVphy_Config::BaseAddr</references>
+        <references refid="struct_x_vphy_1a45ad21128fb62d2f120e92ae3488c32c" compoundref="xvphy_8h" startline="729">XVphy::Config</references>
+        <references refid="struct_x_vphy_1a78f1447de2a15b155b4c37a4c48d18ef" compoundref="xvphy_8h" startline="745">XVphy::IntrCpllLockCallbackRef</references>
+        <references refid="struct_x_vphy_1aac25792acca694d5198b44057d468659" compoundref="xvphy_8h" startline="743">XVphy::IntrCpllLockHandler</references>
+        <references refid="struct_x_vphy_1ae35b9b8e21753a733fc6a64de937fab9" compoundref="xvphy_8h" startline="755">XVphy::IntrQpll1LockCallbackRef</references>
+        <references refid="struct_x_vphy_1a43d707dcd37c99e8f4a13779809edee5" compoundref="xvphy_8h" startline="753">XVphy::IntrQpll1LockHandler</references>
+        <references refid="struct_x_vphy_1a5d0d31870d751cc585d9a90c164f2d05" compoundref="xvphy_8h" startline="750">XVphy::IntrQpllLockCallbackRef</references>
+        <references refid="struct_x_vphy_1a2a358f3a7cf0bbd672855ffb800e88a4" compoundref="xvphy_8h" startline="748">XVphy::IntrQpllLockHandler</references>
+        <references refid="struct_x_vphy_1a91765301698027208a5e14a289a19bd8" compoundref="xvphy_8h" startline="792">XVphy::IntrRxClkDetFreqChangeCallbackRef</references>
+        <references refid="struct_x_vphy_1a69217170e845bb0d704c8759f8688ab5" compoundref="xvphy_8h" startline="788">XVphy::IntrRxClkDetFreqChangeHandler</references>
+        <references refid="struct_x_vphy_1a2101dc107cfbd5355a3036d6f66e9941" compoundref="xvphy_8h" startline="806">XVphy::IntrRxMmcmLockCallbackRef</references>
+        <references refid="struct_x_vphy_1a912c03c778f2b9378afc1bb4e29f51e6" compoundref="xvphy_8h" startline="803">XVphy::IntrRxMmcmLockHandler</references>
+        <references refid="struct_x_vphy_1abda4548141cf7abc027a15218e115353" compoundref="xvphy_8h" startline="768">XVphy::IntrRxResetDoneCallbackRef</references>
+        <references refid="struct_x_vphy_1a1d808488e0bf84f52d6eb206d54d829b" compoundref="xvphy_8h" startline="765">XVphy::IntrRxResetDoneHandler</references>
+        <references refid="struct_x_vphy_1a4f3c598dab04ba6e7d6755455c3b7903" compoundref="xvphy_8h" startline="819">XVphy::IntrRxTmrTimeoutCallbackRef</references>
+        <references refid="struct_x_vphy_1a61a97adc3d836e2f20afb8e64f249b11" compoundref="xvphy_8h" startline="816">XVphy::IntrRxTmrTimeoutHandler</references>
+        <references refid="struct_x_vphy_1a7998e37ae7d71fdb5d398550a6211305" compoundref="xvphy_8h" startline="775">XVphy::IntrTxAlignDoneCallbackRef</references>
+        <references refid="struct_x_vphy_1a0592d2a7a5360d294727c54491fa059d" compoundref="xvphy_8h" startline="772">XVphy::IntrTxAlignDoneHandler</references>
+        <references refid="struct_x_vphy_1aeef6168da79e23e5fca31e71cb9ae879" compoundref="xvphy_8h" startline="783">XVphy::IntrTxClkDetFreqChangeCallbackRef</references>
+        <references refid="struct_x_vphy_1a44b541b34c508c723906b26f8fbb4719" compoundref="xvphy_8h" startline="779">XVphy::IntrTxClkDetFreqChangeHandler</references>
+        <references refid="struct_x_vphy_1a32a951eab2545cb24fa6cb392574291e" compoundref="xvphy_8h" startline="800">XVphy::IntrTxMmcmLockCallbackRef</references>
+        <references refid="struct_x_vphy_1ae6312372d74d8da089b0f55e69b6bbdb" compoundref="xvphy_8h" startline="797">XVphy::IntrTxMmcmLockHandler</references>
+        <references refid="struct_x_vphy_1ab6884b1d31e8d33370b88e74c8c0674d" compoundref="xvphy_8h" startline="761">XVphy::IntrTxResetDoneCallbackRef</references>
+        <references refid="struct_x_vphy_1a21cbba76df25e8dfe4111d1222e14872" compoundref="xvphy_8h" startline="758">XVphy::IntrTxResetDoneHandler</references>
+        <references refid="struct_x_vphy_1a3018ebe77f98e3feb4535bf837571564" compoundref="xvphy_8h" startline="812">XVphy::IntrTxTmrTimeoutCallbackRef</references>
+        <references refid="struct_x_vphy_1a2c2b7c102aa0e9b5fe81b31a77174dbf" compoundref="xvphy_8h" startline="809">XVphy::IntrTxTmrTimeoutHandler</references>
+        <references refid="struct_x_vphy_1a350b0f93bf83f2b3178e46e11936aa7f" compoundref="xvphy_8h" startline="727">XVphy::IsReady</references>
+        <references refid="group__vphy_1ga8fd50c79a67b9ed852fbd70c7e3dde03" compoundref="xvphy__hw_8h" startline="124">XVPHY_INTR_STS_REG</references>
+        <references refid="xvphy__hw_8h_1a4efa6fb68e702bd91a3fb099d7ba0188" compoundref="xvphy__hw_8h" startline="688">XVphy_ReadReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xvphy_1ga6955153625236c5779240d2aab90678e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XVphy_CfgErrIntr</definition>
+        <argsstring>(XVphy *InstancePtr, XVphy_ErrType ErrIrq, u8 Set)</argsstring>
+        <name>XVphy_CfgErrIntr</name>
+        <param>
+          <type><ref refid="struct_x_vphy" kindref="compound">XVphy</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="group__vphy_1ga0c4928c07c1953d959717f3b336ceca4" kindref="member">XVphy_ErrType</ref></type>
+          <declname>ErrIrq</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Set</declname>
+        </param>
+        <briefdescription>
+<para>This function configures the error IRQ register based on the condition to generate an ERR_IRQ event. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_vphy" kindref="compound">XVphy</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ErrIrq</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the IRQ type as defined in XVphy_ErrType. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Set</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the flag to set or clear the ErrIrq param.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_intr.c" line="265" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_intr.c" bodystart="265" bodyend="284"/>
+        <references refid="xvphy__hw_8h_1a4efa6fb68e702bd91a3fb099d7ba0188" compoundref="xvphy__hw_8h" startline="688">XVphy_ReadReg</references>
+        <references refid="struct_x_vphy_1a45ad21128fb62d2f120e92ae3488c32c" compoundref="xvphy_8h" startline="729">XVphy::Config</references>
+        <references refid="struct_x_vphy___config_1a37ebb950e78d0d9bedc29b27ad6619d3" compoundref="xvphy_8h" startline="682">XVphy_Config::BaseAddr</references>
+        <references refid="group__vphy_1ga16359077e0affbabc842d5a06f9c9cf6" compoundref="xvphy__hw_8h" startline="120">XVPHY_ERR_IRQ</references>
+        <references refid="xvphy__hw_8h_1a03d7c5c126a6c25d1ed193dfaa7f4a2c" compoundref="xvphy__hw_8h" startline="705">XVphy_WriteReg</references>
+        <referencedby refid="group__xvphy_1gae2450ff392b3bdafa0b65b549af231a1" compoundref="xvphy__i_8c" startline="893" endline="939">XVphy_ClkReconfig</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file contains functions related to <ref refid="struct_x_vphy" kindref="compound">XVphy</ref> interrupt handling. </para>    </briefdescription>
+    <detaileddescription>
+<para><simplesect kind="note"><para>None.</para></simplesect>
+<preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+1.0   als  10/19/15 Initial release.
+1.4   gm   29/11/16 Added XVphy_CfgErrIntr for ERR_IRQ impl
+1.6   gm   06/08/17 Added TX and RX MMCM locked handlers
+</preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/*******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2015<sp/>-<sp/>2020<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2026<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">*******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="28"><highlight class="comment">/*******************************<sp/>Include<sp/>Files<sp/>********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xvphy.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xvphy__i_8h" kindref="compound">xvphy_i.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Function<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="47" refid="group__xvphy_1gab0c6c186dbb5142d23a6a3b76148c37b" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__xvphy_1gab0c6c186dbb5142d23a6a3b76148c37b" kindref="member">XVphy_IntrEnable</ref>(<ref refid="struct_x_vphy" kindref="compound">XVphy</ref><sp/>*InstancePtr,<sp/>XVphy_IntrHandlerType<sp/>Intr)</highlight></codeline>
+<codeline lineno="48"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>RegVal;</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegVal<sp/>=<sp/><ref refid="xvphy__hw_8h_1a4efa6fb68e702bd91a3fb099d7ba0188" kindref="member">XVphy_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_vphy_1a45ad21128fb62d2f120e92ae3488c32c" kindref="member">Config</ref>.<ref refid="struct_x_vphy___config_1a37ebb950e78d0d9bedc29b27ad6619d3" kindref="member">BaseAddr</ref>,<sp/><ref refid="group__vphy_1ga692902b883571eda757b9b655c5c83fb" kindref="member">XVPHY_INTR_EN_REG</ref>);</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegVal<sp/>|=<sp/>Intr;</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xvphy__hw_8h_1a03d7c5c126a6c25d1ed193dfaa7f4a2c" kindref="member">XVphy_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_vphy_1a45ad21128fb62d2f120e92ae3488c32c" kindref="member">Config</ref>.<ref refid="struct_x_vphy___config_1a37ebb950e78d0d9bedc29b27ad6619d3" kindref="member">BaseAddr</ref>,<sp/><ref refid="group__vphy_1ga692902b883571eda757b9b655c5c83fb" kindref="member">XVPHY_INTR_EN_REG</ref>,<sp/>RegVal);</highlight></codeline>
+<codeline lineno="54"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="69" refid="group__xvphy_1ga854725cac309c3302a25dbc29927c9f8" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__xvphy_1ga854725cac309c3302a25dbc29927c9f8" kindref="member">XVphy_IntrDisable</ref>(<ref refid="struct_x_vphy" kindref="compound">XVphy</ref><sp/>*InstancePtr,<sp/>XVphy_IntrHandlerType<sp/>Intr)</highlight></codeline>
+<codeline lineno="70"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>RegVal;</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegVal<sp/>=<sp/><ref refid="xvphy__hw_8h_1a4efa6fb68e702bd91a3fb099d7ba0188" kindref="member">XVphy_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_vphy_1a45ad21128fb62d2f120e92ae3488c32c" kindref="member">Config</ref>.<ref refid="struct_x_vphy___config_1a37ebb950e78d0d9bedc29b27ad6619d3" kindref="member">BaseAddr</ref>,</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__vphy_1ga0523c2fe675a15f92df8de41fc4cc8c7" kindref="member">XVPHY_INTR_DIS_REG</ref>);</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegVal<sp/>|=<sp/>Intr;</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xvphy__hw_8h_1a03d7c5c126a6c25d1ed193dfaa7f4a2c" kindref="member">XVphy_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_vphy_1a45ad21128fb62d2f120e92ae3488c32c" kindref="member">Config</ref>.<ref refid="struct_x_vphy___config_1a37ebb950e78d0d9bedc29b27ad6619d3" kindref="member">BaseAddr</ref>,<sp/><ref refid="group__vphy_1ga0523c2fe675a15f92df8de41fc4cc8c7" kindref="member">XVPHY_INTR_DIS_REG</ref>,</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegVal);</highlight></codeline>
+<codeline lineno="78"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"></highlight></codeline>
+<codeline lineno="80"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="96" refid="group__xvphy_1ga56237326dcb3ef7cb3b346f7bf561486" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__xvphy_1ga56237326dcb3ef7cb3b346f7bf561486" kindref="member">XVphy_SetIntrHandler</ref>(<ref refid="struct_x_vphy" kindref="compound">XVphy</ref><sp/>*InstancePtr,<sp/>XVphy_IntrHandlerType<sp/>HandlerType,</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XVphy_IntrHandler<sp/>CallbackFunc,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallbackRef)</highlight></codeline>
+<codeline lineno="98"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid((HandlerType<sp/>==<sp/>XVPHY_INTR_HANDLER_TYPE_TXRESET_DONE)<sp/>||</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(HandlerType<sp/>==<sp/>XVPHY_INTR_HANDLER_TYPE_RXRESET_DONE)<sp/>||</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(HandlerType<sp/>==<sp/>XVPHY_INTR_HANDLER_TYPE_CPLL_LOCK)<sp/>||</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(HandlerType<sp/>==<sp/>XVPHY_INTR_HANDLER_TYPE_QPLL_LOCK)<sp/>||</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(HandlerType<sp/>==<sp/>XVPHY_INTR_HANDLER_TYPE_TXALIGN_DONE)<sp/>||</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(HandlerType<sp/>==<sp/>XVPHY_INTR_HANDLER_TYPE_QPLL1_LOCK)<sp/>||</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(HandlerType<sp/>==</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XVPHY_INTR_HANDLER_TYPE_TX_CLKDET_FREQ_CHANGE)<sp/>||</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(HandlerType<sp/>==</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XVPHY_INTR_HANDLER_TYPE_RX_CLKDET_FREQ_CHANGE)<sp/>||</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(HandlerType<sp/>==<sp/>XVPHY_INTR_HANDLER_TYPE_TX_MMCM_LOCK_CHANGE)<sp/>||</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(HandlerType<sp/>==<sp/>XVPHY_INTR_HANDLER_TYPE_RX_MMCM_LOCK_CHANGE)<sp/>||</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(HandlerType<sp/>==<sp/>XVPHY_INTR_HANDLER_TYPE_TX_TMR_TIMEOUT)<sp/>||</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(HandlerType<sp/>==<sp/>XVPHY_INTR_HANDLER_TYPE_RX_TMR_TIMEOUT));</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(CallbackFunc<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(CallbackRef<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"></highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">switch</highlight><highlight class="normal"><sp/>(HandlerType)<sp/>{</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>XVPHY_INTR_HANDLER_TYPE_TXRESET_DONE:</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_vphy_1a21cbba76df25e8dfe4111d1222e14872" kindref="member">IntrTxResetDoneHandler</ref><sp/>=<sp/>CallbackFunc;</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_vphy_1ab6884b1d31e8d33370b88e74c8c0674d" kindref="member">IntrTxResetDoneCallbackRef</ref><sp/>=<sp/>CallbackRef;</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>XVPHY_INTR_HANDLER_TYPE_RXRESET_DONE:</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_vphy_1a1d808488e0bf84f52d6eb206d54d829b" kindref="member">IntrRxResetDoneHandler</ref><sp/>=<sp/>CallbackFunc;</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_vphy_1abda4548141cf7abc027a15218e115353" kindref="member">IntrRxResetDoneCallbackRef</ref><sp/>=<sp/>CallbackRef;</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>XVPHY_INTR_HANDLER_TYPE_CPLL_LOCK:</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_vphy_1aac25792acca694d5198b44057d468659" kindref="member">IntrCpllLockHandler</ref><sp/>=<sp/>CallbackFunc;</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_vphy_1a78f1447de2a15b155b4c37a4c48d18ef" kindref="member">IntrCpllLockCallbackRef</ref><sp/>=<sp/>CallbackRef;</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>XVPHY_INTR_HANDLER_TYPE_QPLL_LOCK:</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_vphy_1a2a358f3a7cf0bbd672855ffb800e88a4" kindref="member">IntrQpllLockHandler</ref><sp/>=<sp/>CallbackFunc;</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_vphy_1a5d0d31870d751cc585d9a90c164f2d05" kindref="member">IntrQpllLockCallbackRef</ref><sp/>=<sp/>CallbackRef;</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>XVPHY_INTR_HANDLER_TYPE_TXALIGN_DONE:</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_vphy_1a0592d2a7a5360d294727c54491fa059d" kindref="member">IntrTxAlignDoneHandler</ref><sp/>=<sp/>CallbackFunc;</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_vphy_1a7998e37ae7d71fdb5d398550a6211305" kindref="member">IntrTxAlignDoneCallbackRef</ref><sp/>=<sp/>CallbackRef;</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>XVPHY_INTR_HANDLER_TYPE_QPLL1_LOCK:</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_vphy_1a43d707dcd37c99e8f4a13779809edee5" kindref="member">IntrQpll1LockHandler</ref><sp/>=<sp/>CallbackFunc;</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_vphy_1ae35b9b8e21753a733fc6a64de937fab9" kindref="member">IntrQpll1LockCallbackRef</ref><sp/>=<sp/>CallbackRef;</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>XVPHY_INTR_HANDLER_TYPE_TX_CLKDET_FREQ_CHANGE:</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_vphy_1a44b541b34c508c723906b26f8fbb4719" kindref="member">IntrTxClkDetFreqChangeHandler</ref><sp/>=</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CallbackFunc;</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_vphy_1aeef6168da79e23e5fca31e71cb9ae879" kindref="member">IntrTxClkDetFreqChangeCallbackRef</ref><sp/>=</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CallbackRef;</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>XVPHY_INTR_HANDLER_TYPE_RX_CLKDET_FREQ_CHANGE:</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_vphy_1a69217170e845bb0d704c8759f8688ab5" kindref="member">IntrRxClkDetFreqChangeHandler</ref><sp/>=</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CallbackFunc;</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_vphy_1a91765301698027208a5e14a289a19bd8" kindref="member">IntrRxClkDetFreqChangeCallbackRef</ref><sp/>=</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CallbackRef;</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>XVPHY_INTR_HANDLER_TYPE_TX_MMCM_LOCK_CHANGE:</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_vphy_1ae6312372d74d8da089b0f55e69b6bbdb" kindref="member">IntrTxMmcmLockHandler</ref><sp/>=<sp/>CallbackFunc;</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_vphy_1a32a951eab2545cb24fa6cb392574291e" kindref="member">IntrTxMmcmLockCallbackRef</ref><sp/>=<sp/>CallbackRef;</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>XVPHY_INTR_HANDLER_TYPE_RX_MMCM_LOCK_CHANGE:</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_vphy_1a912c03c778f2b9378afc1bb4e29f51e6" kindref="member">IntrRxMmcmLockHandler</ref><sp/>=<sp/>CallbackFunc;</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_vphy_1a2101dc107cfbd5355a3036d6f66e9941" kindref="member">IntrRxMmcmLockCallbackRef</ref><sp/>=<sp/>CallbackRef;</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>XVPHY_INTR_HANDLER_TYPE_TX_TMR_TIMEOUT:</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_vphy_1a2c2b7c102aa0e9b5fe81b31a77174dbf" kindref="member">IntrTxTmrTimeoutHandler</ref><sp/>=<sp/>CallbackFunc;</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_vphy_1a3018ebe77f98e3feb4535bf837571564" kindref="member">IntrTxTmrTimeoutCallbackRef</ref><sp/>=<sp/>CallbackRef;</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>XVPHY_INTR_HANDLER_TYPE_RX_TMR_TIMEOUT:</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_vphy_1a61a97adc3d836e2f20afb8e64f249b11" kindref="member">IntrRxTmrTimeoutHandler</ref><sp/>=<sp/>CallbackFunc;</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_vphy_1a4f3c598dab04ba6e7d6755455c3b7903" kindref="member">IntrRxTmrTimeoutCallbackRef</ref><sp/>=<sp/>CallbackRef;</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="172"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="174"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"></highlight></codeline>
+<codeline lineno="176"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="189" refid="xvphy__intr_8c_1a75e14bbc2dcc8eeeaaed26371ae1b34c" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xvphy__intr_8c_1a75e14bbc2dcc8eeeaaed26371ae1b34c" kindref="member">XVphy_InterruptHandler</ref>(<ref refid="struct_x_vphy" kindref="compound">XVphy</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="190"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="191"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>IntrStatus;</highlight></codeline>
+<codeline lineno="192"><highlight class="normal"></highlight></codeline>
+<codeline lineno="193"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="194"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="195"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_vphy_1a350b0f93bf83f2b3178e46e11936aa7f" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="196"><highlight class="normal"></highlight></codeline>
+<codeline lineno="197"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Determine<sp/>what<sp/>kind<sp/>of<sp/>interrupts<sp/>have<sp/>occurred.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="198"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IntrStatus<sp/>=<sp/><ref refid="xvphy__hw_8h_1a4efa6fb68e702bd91a3fb099d7ba0188" kindref="member">XVphy_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_vphy_1a45ad21128fb62d2f120e92ae3488c32c" kindref="member">Config</ref>.<ref refid="struct_x_vphy___config_1a37ebb950e78d0d9bedc29b27ad6619d3" kindref="member">BaseAddr</ref>,</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__vphy_1ga8fd50c79a67b9ed852fbd70c7e3dde03" kindref="member">XVPHY_INTR_STS_REG</ref>);</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"></highlight></codeline>
+<codeline lineno="201"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(IntrStatus<sp/>&amp;<sp/>XVPHY_INTR_CPLL_LOCK_MASK)<sp/>{</highlight></codeline>
+<codeline lineno="202"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_vphy_1aac25792acca694d5198b44057d468659" kindref="member">IntrCpllLockHandler</ref>(</highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_vphy_1a78f1447de2a15b155b4c37a4c48d18ef" kindref="member">IntrCpllLockCallbackRef</ref>);</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(IntrStatus<sp/>&amp;<sp/>XVPHY_INTR_QPLL_LOCK_MASK)<sp/>{</highlight></codeline>
+<codeline lineno="206"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_vphy_1a2a358f3a7cf0bbd672855ffb800e88a4" kindref="member">IntrQpllLockHandler</ref>(</highlight></codeline>
+<codeline lineno="207"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_vphy_1a5d0d31870d751cc585d9a90c164f2d05" kindref="member">IntrQpllLockCallbackRef</ref>);</highlight></codeline>
+<codeline lineno="208"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="209"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(IntrStatus<sp/>&amp;<sp/>XVPHY_INTR_QPLL1_LOCK_MASK)<sp/>{</highlight></codeline>
+<codeline lineno="210"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_vphy_1a43d707dcd37c99e8f4a13779809edee5" kindref="member">IntrQpll1LockHandler</ref>(</highlight></codeline>
+<codeline lineno="211"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_vphy_1ae35b9b8e21753a733fc6a64de937fab9" kindref="member">IntrQpll1LockCallbackRef</ref>);</highlight></codeline>
+<codeline lineno="212"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="213"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(IntrStatus<sp/>&amp;<sp/>XVPHY_INTR_TXRESETDONE_MASK)<sp/>{</highlight></codeline>
+<codeline lineno="214"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_vphy_1a21cbba76df25e8dfe4111d1222e14872" kindref="member">IntrTxResetDoneHandler</ref>(</highlight></codeline>
+<codeline lineno="215"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_vphy_1ab6884b1d31e8d33370b88e74c8c0674d" kindref="member">IntrTxResetDoneCallbackRef</ref>);</highlight></codeline>
+<codeline lineno="216"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="217"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(IntrStatus<sp/>&amp;<sp/>XVPHY_INTR_TXALIGNDONE_MASK)<sp/>{</highlight></codeline>
+<codeline lineno="218"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_vphy_1a0592d2a7a5360d294727c54491fa059d" kindref="member">IntrTxAlignDoneHandler</ref>(</highlight></codeline>
+<codeline lineno="219"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_vphy_1a7998e37ae7d71fdb5d398550a6211305" kindref="member">IntrTxAlignDoneCallbackRef</ref>);</highlight></codeline>
+<codeline lineno="220"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="221"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(IntrStatus<sp/>&amp;<sp/>XVPHY_INTR_RXRESETDONE_MASK)<sp/>{</highlight></codeline>
+<codeline lineno="222"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_vphy_1a1d808488e0bf84f52d6eb206d54d829b" kindref="member">IntrRxResetDoneHandler</ref>(</highlight></codeline>
+<codeline lineno="223"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_vphy_1abda4548141cf7abc027a15218e115353" kindref="member">IntrRxResetDoneCallbackRef</ref>);</highlight></codeline>
+<codeline lineno="224"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="225"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(IntrStatus<sp/>&amp;<sp/>XVPHY_INTR_TXCLKDETFREQCHANGE_MASK)<sp/>{</highlight></codeline>
+<codeline lineno="226"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_vphy_1a44b541b34c508c723906b26f8fbb4719" kindref="member">IntrTxClkDetFreqChangeHandler</ref>(</highlight></codeline>
+<codeline lineno="227"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_vphy_1aeef6168da79e23e5fca31e71cb9ae879" kindref="member">IntrTxClkDetFreqChangeCallbackRef</ref>);</highlight></codeline>
+<codeline lineno="228"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="229"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(IntrStatus<sp/>&amp;<sp/>XVPHY_INTR_RXCLKDETFREQCHANGE_MASK)<sp/>{</highlight></codeline>
+<codeline lineno="230"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_vphy_1a69217170e845bb0d704c8759f8688ab5" kindref="member">IntrRxClkDetFreqChangeHandler</ref>(</highlight></codeline>
+<codeline lineno="231"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_vphy_1a91765301698027208a5e14a289a19bd8" kindref="member">IntrRxClkDetFreqChangeCallbackRef</ref>);</highlight></codeline>
+<codeline lineno="232"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="233"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(IntrStatus<sp/>&amp;<sp/>XVPHY_INTR_TXMMCMUSRCLK_LOCK_MASK)<sp/>{</highlight></codeline>
+<codeline lineno="234"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_vphy_1ae6312372d74d8da089b0f55e69b6bbdb" kindref="member">IntrTxMmcmLockHandler</ref>(</highlight></codeline>
+<codeline lineno="235"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_vphy_1a32a951eab2545cb24fa6cb392574291e" kindref="member">IntrTxMmcmLockCallbackRef</ref>);</highlight></codeline>
+<codeline lineno="236"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="237"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(IntrStatus<sp/>&amp;<sp/>XVPHY_INTR_RXMMCMUSRCLK_LOCK_MASK)<sp/>{</highlight></codeline>
+<codeline lineno="238"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_vphy_1a912c03c778f2b9378afc1bb4e29f51e6" kindref="member">IntrRxMmcmLockHandler</ref>(</highlight></codeline>
+<codeline lineno="239"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_vphy_1a2101dc107cfbd5355a3036d6f66e9941" kindref="member">IntrRxMmcmLockCallbackRef</ref>);</highlight></codeline>
+<codeline lineno="240"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="241"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(IntrStatus<sp/>&amp;<sp/>XVPHY_INTR_TXTMRTIMEOUT_MASK)<sp/>{</highlight></codeline>
+<codeline lineno="242"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_vphy_1a2c2b7c102aa0e9b5fe81b31a77174dbf" kindref="member">IntrTxTmrTimeoutHandler</ref>(</highlight></codeline>
+<codeline lineno="243"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_vphy_1a3018ebe77f98e3feb4535bf837571564" kindref="member">IntrTxTmrTimeoutCallbackRef</ref>);</highlight></codeline>
+<codeline lineno="244"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="245"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(IntrStatus<sp/>&amp;<sp/>XVPHY_INTR_RXTMRTIMEOUT_MASK)<sp/>{</highlight></codeline>
+<codeline lineno="246"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_vphy_1a61a97adc3d836e2f20afb8e64f249b11" kindref="member">IntrRxTmrTimeoutHandler</ref>(</highlight></codeline>
+<codeline lineno="247"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_vphy_1a4f3c598dab04ba6e7d6755455c3b7903" kindref="member">IntrRxTmrTimeoutCallbackRef</ref>);</highlight></codeline>
+<codeline lineno="248"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="249"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="250"><highlight class="normal"></highlight></codeline>
+<codeline lineno="251"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="265" refid="group__xvphy_1ga6955153625236c5779240d2aab90678e" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__xvphy_1ga6955153625236c5779240d2aab90678e" kindref="member">XVphy_CfgErrIntr</ref>(<ref refid="struct_x_vphy" kindref="compound">XVphy</ref><sp/>*InstancePtr,<sp/><ref refid="group__vphy_1ga0c4928c07c1953d959717f3b336ceca4" kindref="member">XVphy_ErrType</ref><sp/>ErrIrq,<sp/>u8<sp/>Set)</highlight></codeline>
+<codeline lineno="266"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="267"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>ErrIrqVal;</highlight></codeline>
+<codeline lineno="268"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>WriteVal;</highlight></codeline>
+<codeline lineno="269"><highlight class="normal"></highlight></codeline>
+<codeline lineno="270"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ErrIrqVal<sp/>=<sp/><ref refid="xvphy__hw_8h_1a4efa6fb68e702bd91a3fb099d7ba0188" kindref="member">XVphy_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_vphy_1a45ad21128fb62d2f120e92ae3488c32c" kindref="member">Config</ref>.<ref refid="struct_x_vphy___config_1a37ebb950e78d0d9bedc29b27ad6619d3" kindref="member">BaseAddr</ref>,</highlight></codeline>
+<codeline lineno="271"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__vphy_1ga16359077e0affbabc842d5a06f9c9cf6" kindref="member">XVPHY_ERR_IRQ</ref>);</highlight></codeline>
+<codeline lineno="272"><highlight class="normal"></highlight></codeline>
+<codeline lineno="273"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>WriteVal<sp/>=<sp/>(u32)ErrIrq;</highlight></codeline>
+<codeline lineno="274"><highlight class="normal"></highlight></codeline>
+<codeline lineno="275"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Set)<sp/>{</highlight></codeline>
+<codeline lineno="276"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ErrIrqVal<sp/>|=<sp/>WriteVal;</highlight></codeline>
+<codeline lineno="277"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="278"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="279"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ErrIrqVal<sp/>&amp;=<sp/>~WriteVal;</highlight></codeline>
+<codeline lineno="280"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="281"><highlight class="normal"></highlight></codeline>
+<codeline lineno="282"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xvphy__hw_8h_1a03d7c5c126a6c25d1ed193dfaa7f4a2c" kindref="member">XVphy_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_vphy_1a45ad21128fb62d2f120e92ae3488c32c" kindref="member">Config</ref>.<ref refid="struct_x_vphy___config_1a37ebb950e78d0d9bedc29b27ad6619d3" kindref="member">BaseAddr</ref>,</highlight></codeline>
+<codeline lineno="283"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__vphy_1ga16359077e0affbabc842d5a06f9c9cf6" kindref="member">XVPHY_ERR_IRQ</ref>,<sp/>ErrIrqVal);</highlight></codeline>
+<codeline lineno="284"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_intr.c"/>
+  </compounddef>
+</doxygen>

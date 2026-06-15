@@ -1,0 +1,629 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_hdmiphy1___channel" kind="struct" prot="public">
+    <compoundname>XHdmiphy1_Channel</compoundname>
+    <includes local="no">xhdmiphy1.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_hdmiphy1___channel_1ab40f4cd71a6a17e5fadfb0e51c96f310" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XHdmiphy1_Channel::LineRateHz</definition>
+        <argsstring></argsstring>
+        <name>LineRateHz</name>
+        <briefdescription>
+<para><verbatim>     The line rate for the
+</verbatim> channel. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="501" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" bodystart="501" bodyend="-1"/>
+        <referencedby refid="group__xhdmiphy1_1ga71a574c5aedf401c9b7c59a173822f8f" compoundref="xhdmiphy1_8c" startline="303" endline="317">XHdmiphy1_CfgLineRate</referencedby>
+        <referencedby refid="group__xhdmiphy1_1ga31263f99c22623f852ea864fba080232" compoundref="xhdmiphy1_8c" startline="397" endline="413">XHdmiphy1_GetLineRateHz</referencedby>
+        <referencedby refid="group__xhdmiphy1_1gafa361514e8315c25876867a1ded2c99b" compoundref="xhdmiphy1__hdmi_8c" startline="1191" endline="1822">XHdmiphy1_HdmiCfgCalcMmcmParam</referencedby>
+        <referencedby refid="group__xhdmiphy1_1ga87f9523a81f1b648cfae0172bdd96f0b" compoundref="xhdmiphy1__i_8c" startline="1450" endline="1530">XHdmiphy1_PllCalculator</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmiphy1___channel_1a1e07fe1fe017450791ae9e1fba52106b" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_hdmiphy1___pll_param" kindref="compound">XHdmiphy1_PllParam</ref></type>
+        <definition>XHdmiphy1_PllParam XHdmiphy1_Channel::QpllParams</definition>
+        <argsstring></argsstring>
+        <name>QpllParams</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="504" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" bodystart="504" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmiphy1___channel_1ad2984727befa769d94409d039f2b9ff4" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_hdmiphy1___pll_param" kindref="compound">XHdmiphy1_PllParam</ref></type>
+        <definition>XHdmiphy1_PllParam XHdmiphy1_Channel::CpllParams</definition>
+        <argsstring></argsstring>
+        <name>CpllParams</name>
+        <briefdescription>
+<para>Parameters for a CPLL. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="505" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" bodystart="505" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmiphy1___channel_1a8a7e80c171ab9947f0b75222c037582d" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_hdmiphy1___pll_param" kindref="compound">XHdmiphy1_PllParam</ref></type>
+        <definition>XHdmiphy1_PllParam XHdmiphy1_Channel::PllParams</definition>
+        <argsstring></argsstring>
+        <name>PllParams</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="506" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" bodystart="506" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmiphy1___channel_1aeec8623e1bbfdc507b22237dbeafc32c" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XHdmiphy1_Channel::LineRateCfg</definition>
+        <argsstring></argsstring>
+        <name>LineRateCfg</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="507" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" bodystart="507" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmiphy1___channel_1ae53f1283c30a429bbffda5fbb525c5ee" prot="public" static="no" mutable="no">
+        <type>union XHdmiphy1_Channel::@4</type>
+        <definition>union XHdmiphy1_Channel::@4 XHdmiphy1_Channel::@5</definition>
+        <argsstring></argsstring>
+        <name>@5</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="508" column="1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmiphy1___channel_1a4f48b4acc5459494a985eb01d5ab6a62" prot="public" static="no" mutable="no">
+        <type><ref refid="group__xhdmiphy1_1gaec55cf3dfcfa0c7cf9749c63690dd019" kindref="member">XHdmiphy1_PllRefClkSelType</ref></type>
+        <definition>XHdmiphy1_PllRefClkSelType XHdmiphy1_Channel::CpllRefClkSel</definition>
+        <argsstring></argsstring>
+        <name>CpllRefClkSel</name>
+        <briefdescription>
+<para>Multiplexer selection for the reference clock of the CPLL. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="510" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" bodystart="510" bodyend="-1"/>
+        <referencedby refid="group__xhdmiphy1_1ga0fa2836b8aac17e187bf1e01a462001a" compoundref="xhdmiphy1__i_8c" startline="179" endline="229">XHdmiphy1_WriteCfgRefClkSelReg</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmiphy1___channel_1a27363a6ae6711d2bbf7f282e28435b73" prot="public" static="no" mutable="no">
+        <type><ref refid="group__xhdmiphy1_1gaec55cf3dfcfa0c7cf9749c63690dd019" kindref="member">XHdmiphy1_PllRefClkSelType</ref></type>
+        <definition>XHdmiphy1_PllRefClkSelType XHdmiphy1_Channel::PllRefClkSel</definition>
+        <argsstring></argsstring>
+        <name>PllRefClkSel</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="514" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" bodystart="514" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmiphy1___channel_1a9e0174f07f47d8c49215e0eea084fded" prot="public" static="no" mutable="no">
+        <type>union XHdmiphy1_Channel::@6</type>
+        <definition>union XHdmiphy1_Channel::@6 XHdmiphy1_Channel::@7</definition>
+        <argsstring></argsstring>
+        <name>@7</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="515" column="1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmiphy1___channel_1a67bd659e6e97f698cdca013741601d2a" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHdmiphy1_Channel::RxOutDiv</definition>
+        <argsstring></argsstring>
+        <name>RxOutDiv</name>
+        <briefdescription>
+<para><verbatim>     Output clock divider D for
+</verbatim> the RX datapath. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="519" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" bodystart="519" bodyend="-1"/>
+        <referencedby refid="group__xhdmiphy1_1ga4c7a948926fede8a6548c6cffe5fc830" compoundref="xhdmiphy1__hdmi_8c" startline="1075" endline="1123">XHdmiphy1_DruCalcCenterFreqHz</referencedby>
+        <referencedby refid="group__xhdmiphy1_1ga16dfea31e43d9da2c4c00cd0785b6248" compoundref="xhdmiphy1__hdmi_8c" startline="2956" endline="3275">XHdmiphy1_HdmiDebugInfo</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmiphy1___channel_1a6791024e367774619bbfeaedb022b6c1" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHdmiphy1_Channel::TxOutDiv</definition>
+        <argsstring></argsstring>
+        <name>TxOutDiv</name>
+        <briefdescription>
+<para><verbatim>     Output clock divider D for
+</verbatim> the TX datapath. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="521" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" bodystart="521" bodyend="-1"/>
+        <referencedby refid="group__xhdmiphy1_1ga16dfea31e43d9da2c4c00cd0785b6248" compoundref="xhdmiphy1__hdmi_8c" startline="2956" endline="3275">XHdmiphy1_HdmiDebugInfo</referencedby>
+        <referencedby refid="group__xhdmiphy1_1gada0844e8a6a828bb7d512259aca11498" compoundref="xhdmiphy1__hdmi__intr_8c" startline="887" endline="976">XHdmiphy1_HdmiTxTimerTimeoutHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmiphy1___channel_1ad996bddb2e3dc10333c42bbdd0ff36e4" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHdmiphy1_Channel::OutDiv[2]</definition>
+        <argsstring>[2]</argsstring>
+        <name>OutDiv</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="524" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" bodystart="524" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmiphy1___channel_1a543b62fea78e2153d9936d7a753afb10" prot="public" static="no" mutable="no">
+        <type>union XHdmiphy1_Channel::@8</type>
+        <definition>union XHdmiphy1_Channel::@8 XHdmiphy1_Channel::@9</definition>
+        <argsstring></argsstring>
+        <name>@9</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="525" column="1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmiphy1___channel_1a42ccb139aa8c5a38d1b1446f57b9cb5c" prot="public" static="no" mutable="no">
+        <type><ref refid="group__xhdmiphy1_1ga19e4c793abee3457123797eca4f61cd0" kindref="member">XHdmiphy1_GtState</ref></type>
+        <definition>XHdmiphy1_GtState XHdmiphy1_Channel::RxState</definition>
+        <argsstring></argsstring>
+        <name>RxState</name>
+        <briefdescription>
+<para>Current state of RX GT. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="528" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" bodystart="528" bodyend="-1"/>
+        <referencedby refid="group__xhdmiphy1_1gaa15dd35a9b1670aab091738d3ecca9df" compoundref="xhdmiphy1__hdmi_8c" startline="83" endline="293">XHdmiphy1_Hdmi_CfgInitialize</referencedby>
+        <referencedby refid="xhdmiphy1__hdmi__intr_8c_1a0c603299dc1bafabcf0ecfe920bd412b" compoundref="xhdmiphy1__hdmi__intr_8c" startline="660" endline="686">XHdmiphy1_HdmiGtRxResetDoneLockHandler</referencedby>
+        <referencedby refid="xhdmiphy1__hdmi__intr_8c_1a80cae1429b5d37ffec8de9763de00f56" compoundref="xhdmiphy1__hdmi__intr_8c" startline="785" endline="874">XHdmiphy1_HdmiRxClkDetFreqChangeHandler</referencedby>
+        <referencedby refid="group__xhdmiphy1_1ga5a0a82f90d7a0f1c4c8180cfb465de0a" compoundref="xhdmiphy1__hdmi__intr_8c" startline="989" endline="1107">XHdmiphy1_HdmiRxTimerTimeoutHandler</referencedby>
+        <referencedby refid="group__xhdmiphy1_1ga1d8702f582054727e5bafc4e6cf32739" compoundref="xhdmiphy1__hdmi_8c" startline="369" endline="394">XHdmiphy1_HdmiUpdateClockSelection</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmiphy1___channel_1a779d9cc95fb049278ff2c9249022f800" prot="public" static="no" mutable="no">
+        <type><ref refid="group__xhdmiphy1_1ga19e4c793abee3457123797eca4f61cd0" kindref="member">XHdmiphy1_GtState</ref></type>
+        <definition>XHdmiphy1_GtState XHdmiphy1_Channel::TxState</definition>
+        <argsstring></argsstring>
+        <name>TxState</name>
+        <briefdescription>
+<para>Current state of TX GT. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="529" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" bodystart="529" bodyend="-1"/>
+        <referencedby refid="group__xhdmiphy1_1gaa15dd35a9b1670aab091738d3ecca9df" compoundref="xhdmiphy1__hdmi_8c" startline="83" endline="293">XHdmiphy1_Hdmi_CfgInitialize</referencedby>
+        <referencedby refid="xhdmiphy1__hdmi__intr_8c_1aa2c97194ee284139b2959025092cc122" compoundref="xhdmiphy1__hdmi__intr_8c" startline="556" endline="572">XHdmiphy1_HdmiGtTxAlignDoneLockHandler</referencedby>
+        <referencedby refid="xhdmiphy1__hdmi__intr_8c_1ad65db64a87467172db631b182c2ddd2d" compoundref="xhdmiphy1__hdmi__intr_8c" startline="586" endline="647">XHdmiphy1_HdmiGtTxResetDoneLockHandler</referencedby>
+        <referencedby refid="xhdmiphy1__hdmi__intr_8c_1afc3e2c76a28022e9d12a96990cc2fc83" compoundref="xhdmiphy1__hdmi__intr_8c" startline="700" endline="771">XHdmiphy1_HdmiTxClkDetFreqChangeHandler</referencedby>
+        <referencedby refid="group__xhdmiphy1_1gada0844e8a6a828bb7d512259aca11498" compoundref="xhdmiphy1__hdmi__intr_8c" startline="887" endline="976">XHdmiphy1_HdmiTxTimerTimeoutHandler</referencedby>
+        <referencedby refid="group__xhdmiphy1_1ga1d8702f582054727e5bafc4e6cf32739" compoundref="xhdmiphy1__hdmi_8c" startline="369" endline="394">XHdmiphy1_HdmiUpdateClockSelection</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmiphy1___channel_1ad4240b7b6f5c706fb859a165db1377e6" prot="public" static="no" mutable="no">
+        <type><ref refid="group__xhdmiphy1_1ga19e4c793abee3457123797eca4f61cd0" kindref="member">XHdmiphy1_GtState</ref></type>
+        <definition>XHdmiphy1_GtState XHdmiphy1_Channel::GtState[2]</definition>
+        <argsstring>[2]</argsstring>
+        <name>GtState</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="531" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" bodystart="531" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmiphy1___channel_1a8cc57642123a0579ec2a148948c12708" prot="public" static="no" mutable="no">
+        <type>union XHdmiphy1_Channel::@10</type>
+        <definition>union XHdmiphy1_Channel::@10 XHdmiphy1_Channel::@11</definition>
+        <argsstring></argsstring>
+        <name>@11</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="532" column="1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmiphy1___channel_1af59b2132cb3e66b5f63a388feccac1d6" prot="public" static="no" mutable="no">
+        <type><ref refid="group__xhdmiphy1_1ga3f9002a6b4bc8e47f9c1fa68f8d0fb15" kindref="member">XHdmiphy1_ProtocolType</ref></type>
+        <definition>XHdmiphy1_ProtocolType XHdmiphy1_Channel::RxProtocol</definition>
+        <argsstring></argsstring>
+        <name>RxProtocol</name>
+        <briefdescription>
+<para>The protocol which the RX path is used for. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="535" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" bodystart="535" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmiphy1___channel_1a878cc570db337b4cf90acb555fcec00f" prot="public" static="no" mutable="no">
+        <type><ref refid="group__xhdmiphy1_1ga3f9002a6b4bc8e47f9c1fa68f8d0fb15" kindref="member">XHdmiphy1_ProtocolType</ref></type>
+        <definition>XHdmiphy1_ProtocolType XHdmiphy1_Channel::TxProtocol</definition>
+        <argsstring></argsstring>
+        <name>TxProtocol</name>
+        <briefdescription>
+<para>The protocol which the TX path is used for. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="538" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" bodystart="538" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmiphy1___channel_1ad3f2fe1ec65289f872373280ff1a7066" prot="public" static="no" mutable="no">
+        <type><ref refid="group__xhdmiphy1_1ga3f9002a6b4bc8e47f9c1fa68f8d0fb15" kindref="member">XHdmiphy1_ProtocolType</ref></type>
+        <definition>XHdmiphy1_ProtocolType XHdmiphy1_Channel::Protocol[2]</definition>
+        <argsstring>[2]</argsstring>
+        <name>Protocol</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="542" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" bodystart="542" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmiphy1___channel_1a6cd749f0842c1b9bae1c46b215be96ef" prot="public" static="no" mutable="no">
+        <type>union XHdmiphy1_Channel::@12</type>
+        <definition>union XHdmiphy1_Channel::@12 XHdmiphy1_Channel::@13</definition>
+        <argsstring></argsstring>
+        <name>@13</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="543" column="1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmiphy1___channel_1a0f72133d80e15fefd3c0a396370d263e" prot="public" static="no" mutable="no">
+        <type><ref refid="group__xhdmiphy1_1ga4d998790546ec3dde5119376868686e6" kindref="member">XHdmiphy1_SysClkDataSelType</ref></type>
+        <definition>XHdmiphy1_SysClkDataSelType XHdmiphy1_Channel::RxDataRefClkSel</definition>
+        <argsstring></argsstring>
+        <name>RxDataRefClkSel</name>
+        <briefdescription>
+<para>Multiplexer selection for the reference clock of the RX datapath. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="546" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" bodystart="546" bodyend="-1"/>
+        <referencedby refid="group__xhdmiphy1_1ga16dfea31e43d9da2c4c00cd0785b6248" compoundref="xhdmiphy1__hdmi_8c" startline="2956" endline="3275">XHdmiphy1_HdmiDebugInfo</referencedby>
+        <referencedby refid="group__xhdmiphy1_1ga0fa2836b8aac17e187bf1e01a462001a" compoundref="xhdmiphy1__i_8c" startline="179" endline="229">XHdmiphy1_WriteCfgRefClkSelReg</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmiphy1___channel_1ab47437f00b7226d61098050f2e222f2e" prot="public" static="no" mutable="no">
+        <type><ref refid="group__xhdmiphy1_1ga4d998790546ec3dde5119376868686e6" kindref="member">XHdmiphy1_SysClkDataSelType</ref></type>
+        <definition>XHdmiphy1_SysClkDataSelType XHdmiphy1_Channel::TxDataRefClkSel</definition>
+        <argsstring></argsstring>
+        <name>TxDataRefClkSel</name>
+        <briefdescription>
+<para>Multiplexer selection for the reference clock of the TX datapath. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="550" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" bodystart="550" bodyend="-1"/>
+        <referencedby refid="group__xhdmiphy1_1ga16dfea31e43d9da2c4c00cd0785b6248" compoundref="xhdmiphy1__hdmi_8c" startline="2956" endline="3275">XHdmiphy1_HdmiDebugInfo</referencedby>
+        <referencedby refid="group__xhdmiphy1_1ga0fa2836b8aac17e187bf1e01a462001a" compoundref="xhdmiphy1__i_8c" startline="179" endline="229">XHdmiphy1_WriteCfgRefClkSelReg</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmiphy1___channel_1ac60791eece52c8795217692f2d4abbf0" prot="public" static="no" mutable="no">
+        <type><ref refid="group__xhdmiphy1_1ga4d998790546ec3dde5119376868686e6" kindref="member">XHdmiphy1_SysClkDataSelType</ref></type>
+        <definition>XHdmiphy1_SysClkDataSelType XHdmiphy1_Channel::DataRefClkSel[2]</definition>
+        <argsstring>[2]</argsstring>
+        <name>DataRefClkSel</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="555" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" bodystart="555" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmiphy1___channel_1a3f8b0b19be19838202526e27d628f45c" prot="public" static="no" mutable="no">
+        <type>union XHdmiphy1_Channel::@14</type>
+        <definition>union XHdmiphy1_Channel::@14 XHdmiphy1_Channel::@15</definition>
+        <argsstring></argsstring>
+        <name>@15</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="556" column="1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmiphy1___channel_1a7a285af4772a54f4c3f691dd1b7af66c" prot="public" static="no" mutable="no">
+        <type><ref refid="group__xhdmiphy1_1gac87909fabb3f765c0be156e7082aea8e" kindref="member">XHdmiphy1_SysClkOutSelType</ref></type>
+        <definition>XHdmiphy1_SysClkOutSelType XHdmiphy1_Channel::RxOutRefClkSel</definition>
+        <argsstring></argsstring>
+        <name>RxOutRefClkSel</name>
+        <briefdescription>
+<para>Multiplexer selection for the reference clock of the RX output clock. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="559" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" bodystart="559" bodyend="-1"/>
+        <referencedby refid="group__xhdmiphy1_1ga0fa2836b8aac17e187bf1e01a462001a" compoundref="xhdmiphy1__i_8c" startline="179" endline="229">XHdmiphy1_WriteCfgRefClkSelReg</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmiphy1___channel_1afa0b12ee18fbb74ca031341a33f79bbb" prot="public" static="no" mutable="no">
+        <type><ref refid="group__xhdmiphy1_1gac87909fabb3f765c0be156e7082aea8e" kindref="member">XHdmiphy1_SysClkOutSelType</ref></type>
+        <definition>XHdmiphy1_SysClkOutSelType XHdmiphy1_Channel::TxOutRefClkSel</definition>
+        <argsstring></argsstring>
+        <name>TxOutRefClkSel</name>
+        <briefdescription>
+<para>Multiplexer selection for the reference clock of the TX output clock. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="563" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" bodystart="563" bodyend="-1"/>
+        <referencedby refid="group__xhdmiphy1_1ga0fa2836b8aac17e187bf1e01a462001a" compoundref="xhdmiphy1__i_8c" startline="179" endline="229">XHdmiphy1_WriteCfgRefClkSelReg</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmiphy1___channel_1a9dca4b39a26637221cfb2e0caf93ca4a" prot="public" static="no" mutable="no">
+        <type><ref refid="group__xhdmiphy1_1gac87909fabb3f765c0be156e7082aea8e" kindref="member">XHdmiphy1_SysClkOutSelType</ref></type>
+        <definition>XHdmiphy1_SysClkOutSelType XHdmiphy1_Channel::OutRefClkSel[2]</definition>
+        <argsstring>[2]</argsstring>
+        <name>OutRefClkSel</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="568" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" bodystart="568" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmiphy1___channel_1a21a526e0803f8f251af1b556d0d6c78f" prot="public" static="no" mutable="no">
+        <type>union XHdmiphy1_Channel::@16</type>
+        <definition>union XHdmiphy1_Channel::@16 XHdmiphy1_Channel::@17</definition>
+        <argsstring></argsstring>
+        <name>@17</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="569" column="1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmiphy1___channel_1a59d9458edebc9248342e26fc0e17983b" prot="public" static="no" mutable="no">
+        <type><ref refid="group__xhdmiphy1_1ga1b751875671500e5b0173be954368177" kindref="member">XHdmiphy1_OutClkSelType</ref></type>
+        <definition>XHdmiphy1_OutClkSelType XHdmiphy1_Channel::RxOutClkSel</definition>
+        <argsstring></argsstring>
+        <name>RxOutClkSel</name>
+        <briefdescription>
+<para>Multiplexer selection for which clock to use as the RX output clock. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="572" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" bodystart="572" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmiphy1___channel_1a193c1f3cd5fea5f09ce915f4d8281386" prot="public" static="no" mutable="no">
+        <type><ref refid="group__xhdmiphy1_1ga1b751875671500e5b0173be954368177" kindref="member">XHdmiphy1_OutClkSelType</ref></type>
+        <definition>XHdmiphy1_OutClkSelType XHdmiphy1_Channel::TxOutClkSel</definition>
+        <argsstring></argsstring>
+        <name>TxOutClkSel</name>
+        <briefdescription>
+<para>Multiplexer selection for which clock to use as the TX output clock. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="576" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" bodystart="576" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmiphy1___channel_1ac0deed1af8493fffccd0d57dc8f3a746" prot="public" static="no" mutable="no">
+        <type><ref refid="group__xhdmiphy1_1ga1b751875671500e5b0173be954368177" kindref="member">XHdmiphy1_OutClkSelType</ref></type>
+        <definition>XHdmiphy1_OutClkSelType XHdmiphy1_Channel::OutClkSel[2]</definition>
+        <argsstring>[2]</argsstring>
+        <name>OutClkSel</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="581" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" bodystart="581" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmiphy1___channel_1a52ee9cf6ba319265f0231f2333f56c07" prot="public" static="no" mutable="no">
+        <type>union XHdmiphy1_Channel::@18</type>
+        <definition>union XHdmiphy1_Channel::@18 XHdmiphy1_Channel::@19</definition>
+        <argsstring></argsstring>
+        <name>@19</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="582" column="1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmiphy1___channel_1ac5d231c616ff8990611e9fa7a54fba87" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHdmiphy1_Channel::RxDelayBypass</definition>
+        <argsstring></argsstring>
+        <name>RxDelayBypass</name>
+        <briefdescription>
+<para><verbatim>     Bypasses the delay
+</verbatim> alignment block for the RX output clock. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="585" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" bodystart="585" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmiphy1___channel_1a68edb50b3ab1a77bc3f86dee4893e30f" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHdmiphy1_Channel::TxDelayBypass</definition>
+        <argsstring></argsstring>
+        <name>TxDelayBypass</name>
+        <briefdescription>
+<para><verbatim>     Bypasses the delay
+</verbatim> alignment block for the TX output clock. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="588" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" bodystart="588" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmiphy1___channel_1a20184b953a57dba2ef2231d63737b24f" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHdmiphy1_Channel::DelayBypass</definition>
+        <argsstring></argsstring>
+        <name>DelayBypass</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="592" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" bodystart="592" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmiphy1___channel_1abbebc94b1648137dc91688b1ff27842c" prot="public" static="no" mutable="no">
+        <type>union XHdmiphy1_Channel::@20</type>
+        <definition>union XHdmiphy1_Channel::@20 XHdmiphy1_Channel::@21</definition>
+        <argsstring></argsstring>
+        <name>@21</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="593" column="1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmiphy1___channel_1ab051d1c6482506f1b3469f4f7310be01" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHdmiphy1_Channel::RxDataWidth</definition>
+        <argsstring></argsstring>
+        <name>RxDataWidth</name>
+        <briefdescription>
+<para>In bits. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="594" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" bodystart="594" bodyend="-1"/>
+        <referencedby refid="xhdmiphy1__hdmi_8c_1a026bd874ba52e36d8f0e770b962543f9" compoundref="xhdmiphy1__hdmi_8c" startline="1842" endline="2118">XHdmiphy1_HdmiQpllParam</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmiphy1___channel_1abdf0d23bac376e9bab185c7625cc74e3" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHdmiphy1_Channel::RxIntDataWidth</definition>
+        <argsstring></argsstring>
+        <name>RxIntDataWidth</name>
+        <briefdescription>
+<para>In bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="595" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" bodystart="595" bodyend="-1"/>
+        <referencedby refid="xhdmiphy1__hdmi_8c_1a026bd874ba52e36d8f0e770b962543f9" compoundref="xhdmiphy1__hdmi_8c" startline="1842" endline="2118">XHdmiphy1_HdmiQpllParam</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmiphy1___channel_1aa25962f290f288e283801dd1b753bf2d" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHdmiphy1_Channel::TxDataWidth</definition>
+        <argsstring></argsstring>
+        <name>TxDataWidth</name>
+        <briefdescription>
+<para>In bits. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="596" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" bodystart="596" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmiphy1___channel_1a372c3ce24268dbda097c8413b1954a2a" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHdmiphy1_Channel::TxIntDataWidth</definition>
+        <argsstring></argsstring>
+        <name>TxIntDataWidth</name>
+        <briefdescription>
+<para>In bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="597" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" bodystart="597" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef contains configuration information for PLL type and its reference clock. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="11">
+        <label>XHdmiphy1_PllParam</label>
+        <link refid="struct_x_hdmiphy1___pll_param"/>
+      </node>
+      <node id="10">
+        <label>XHdmiphy1_Channel</label>
+        <link refid="struct_x_hdmiphy1___channel"/>
+        <childnode refid="11" relation="usage">
+          <edgelabel>CpllParams</edgelabel>
+          <edgelabel>PllParams</edgelabel>
+          <edgelabel>QpllParams</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="499" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" bodystart="499" bodyend="598"/>
+    <listofallmembers>
+      <member refid="struct_x_hdmiphy1___channel_1ad2984727befa769d94409d039f2b9ff4" prot="public" virt="non-virtual"><scope>XHdmiphy1_Channel</scope><name>CpllParams</name></member>
+      <member refid="struct_x_hdmiphy1___channel_1a4f48b4acc5459494a985eb01d5ab6a62" prot="public" virt="non-virtual"><scope>XHdmiphy1_Channel</scope><name>CpllRefClkSel</name></member>
+      <member refid="struct_x_hdmiphy1___channel_1ac60791eece52c8795217692f2d4abbf0" prot="public" virt="non-virtual"><scope>XHdmiphy1_Channel</scope><name>DataRefClkSel</name></member>
+      <member refid="struct_x_hdmiphy1___channel_1a20184b953a57dba2ef2231d63737b24f" prot="public" virt="non-virtual"><scope>XHdmiphy1_Channel</scope><name>DelayBypass</name></member>
+      <member refid="struct_x_hdmiphy1___channel_1ad4240b7b6f5c706fb859a165db1377e6" prot="public" virt="non-virtual"><scope>XHdmiphy1_Channel</scope><name>GtState</name></member>
+      <member refid="struct_x_hdmiphy1___channel_1aeec8623e1bbfdc507b22237dbeafc32c" prot="public" virt="non-virtual"><scope>XHdmiphy1_Channel</scope><name>LineRateCfg</name></member>
+      <member refid="struct_x_hdmiphy1___channel_1ab40f4cd71a6a17e5fadfb0e51c96f310" prot="public" virt="non-virtual"><scope>XHdmiphy1_Channel</scope><name>LineRateHz</name></member>
+      <member refid="struct_x_hdmiphy1___channel_1ac0deed1af8493fffccd0d57dc8f3a746" prot="public" virt="non-virtual"><scope>XHdmiphy1_Channel</scope><name>OutClkSel</name></member>
+      <member refid="struct_x_hdmiphy1___channel_1ad996bddb2e3dc10333c42bbdd0ff36e4" prot="public" virt="non-virtual"><scope>XHdmiphy1_Channel</scope><name>OutDiv</name></member>
+      <member refid="struct_x_hdmiphy1___channel_1a9dca4b39a26637221cfb2e0caf93ca4a" prot="public" virt="non-virtual"><scope>XHdmiphy1_Channel</scope><name>OutRefClkSel</name></member>
+      <member refid="struct_x_hdmiphy1___channel_1a8a7e80c171ab9947f0b75222c037582d" prot="public" virt="non-virtual"><scope>XHdmiphy1_Channel</scope><name>PllParams</name></member>
+      <member refid="struct_x_hdmiphy1___channel_1a27363a6ae6711d2bbf7f282e28435b73" prot="public" virt="non-virtual"><scope>XHdmiphy1_Channel</scope><name>PllRefClkSel</name></member>
+      <member refid="struct_x_hdmiphy1___channel_1ad3f2fe1ec65289f872373280ff1a7066" prot="public" virt="non-virtual"><scope>XHdmiphy1_Channel</scope><name>Protocol</name></member>
+      <member refid="struct_x_hdmiphy1___channel_1a1e07fe1fe017450791ae9e1fba52106b" prot="public" virt="non-virtual"><scope>XHdmiphy1_Channel</scope><name>QpllParams</name></member>
+      <member refid="struct_x_hdmiphy1___channel_1a0f72133d80e15fefd3c0a396370d263e" prot="public" virt="non-virtual"><scope>XHdmiphy1_Channel</scope><name>RxDataRefClkSel</name></member>
+      <member refid="struct_x_hdmiphy1___channel_1ab051d1c6482506f1b3469f4f7310be01" prot="public" virt="non-virtual"><scope>XHdmiphy1_Channel</scope><name>RxDataWidth</name></member>
+      <member refid="struct_x_hdmiphy1___channel_1ac5d231c616ff8990611e9fa7a54fba87" prot="public" virt="non-virtual"><scope>XHdmiphy1_Channel</scope><name>RxDelayBypass</name></member>
+      <member refid="struct_x_hdmiphy1___channel_1abdf0d23bac376e9bab185c7625cc74e3" prot="public" virt="non-virtual"><scope>XHdmiphy1_Channel</scope><name>RxIntDataWidth</name></member>
+      <member refid="struct_x_hdmiphy1___channel_1a59d9458edebc9248342e26fc0e17983b" prot="public" virt="non-virtual"><scope>XHdmiphy1_Channel</scope><name>RxOutClkSel</name></member>
+      <member refid="struct_x_hdmiphy1___channel_1a67bd659e6e97f698cdca013741601d2a" prot="public" virt="non-virtual"><scope>XHdmiphy1_Channel</scope><name>RxOutDiv</name></member>
+      <member refid="struct_x_hdmiphy1___channel_1a7a285af4772a54f4c3f691dd1b7af66c" prot="public" virt="non-virtual"><scope>XHdmiphy1_Channel</scope><name>RxOutRefClkSel</name></member>
+      <member refid="struct_x_hdmiphy1___channel_1af59b2132cb3e66b5f63a388feccac1d6" prot="public" virt="non-virtual"><scope>XHdmiphy1_Channel</scope><name>RxProtocol</name></member>
+      <member refid="struct_x_hdmiphy1___channel_1a42ccb139aa8c5a38d1b1446f57b9cb5c" prot="public" virt="non-virtual"><scope>XHdmiphy1_Channel</scope><name>RxState</name></member>
+      <member refid="struct_x_hdmiphy1___channel_1ab47437f00b7226d61098050f2e222f2e" prot="public" virt="non-virtual"><scope>XHdmiphy1_Channel</scope><name>TxDataRefClkSel</name></member>
+      <member refid="struct_x_hdmiphy1___channel_1aa25962f290f288e283801dd1b753bf2d" prot="public" virt="non-virtual"><scope>XHdmiphy1_Channel</scope><name>TxDataWidth</name></member>
+      <member refid="struct_x_hdmiphy1___channel_1a68edb50b3ab1a77bc3f86dee4893e30f" prot="public" virt="non-virtual"><scope>XHdmiphy1_Channel</scope><name>TxDelayBypass</name></member>
+      <member refid="struct_x_hdmiphy1___channel_1a372c3ce24268dbda097c8413b1954a2a" prot="public" virt="non-virtual"><scope>XHdmiphy1_Channel</scope><name>TxIntDataWidth</name></member>
+      <member refid="struct_x_hdmiphy1___channel_1a193c1f3cd5fea5f09ce915f4d8281386" prot="public" virt="non-virtual"><scope>XHdmiphy1_Channel</scope><name>TxOutClkSel</name></member>
+      <member refid="struct_x_hdmiphy1___channel_1a6791024e367774619bbfeaedb022b6c1" prot="public" virt="non-virtual"><scope>XHdmiphy1_Channel</scope><name>TxOutDiv</name></member>
+      <member refid="struct_x_hdmiphy1___channel_1afa0b12ee18fbb74ca031341a33f79bbb" prot="public" virt="non-virtual"><scope>XHdmiphy1_Channel</scope><name>TxOutRefClkSel</name></member>
+      <member refid="struct_x_hdmiphy1___channel_1a878cc570db337b4cf90acb555fcec00f" prot="public" virt="non-virtual"><scope>XHdmiphy1_Channel</scope><name>TxProtocol</name></member>
+      <member refid="struct_x_hdmiphy1___channel_1a779d9cc95fb049278ff2c9249022f800" prot="public" virt="non-virtual"><scope>XHdmiphy1_Channel</scope><name>TxState</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

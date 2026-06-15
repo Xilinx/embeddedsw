@@ -1,0 +1,258 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xiic__sinit_8c" kind="file">
+    <compoundname>xiic_sinit.c</compoundname>
+    <includes local="yes">xstatus.h</includes>
+    <includes local="yes">xparameters.h</includes>
+    <includes refid="xiic__i_8h" local="yes">xiic_i.h</includes>
+    <incdepgraph>
+      <node id="284">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="287">
+        <label>xil_io.h</label>
+      </node>
+      <node id="286">
+        <label>xiic_l.h</label>
+        <link refid="xiic__l_8h"/>
+        <childnode refid="283" relation="include">
+        </childnode>
+        <childnode refid="284" relation="include">
+        </childnode>
+        <childnode refid="280" relation="include">
+        </childnode>
+        <childnode refid="287" relation="include">
+        </childnode>
+      </node>
+      <node id="282">
+        <label>xiic_i.h</label>
+        <link refid="xiic__i_8h"/>
+        <childnode refid="283" relation="include">
+        </childnode>
+        <childnode refid="284" relation="include">
+        </childnode>
+        <childnode refid="280" relation="include">
+        </childnode>
+        <childnode refid="285" relation="include">
+        </childnode>
+      </node>
+      <node id="280">
+        <label>xstatus.h</label>
+      </node>
+      <node id="283">
+        <label>xil_types.h</label>
+      </node>
+      <node id="281">
+        <label>xparameters.h</label>
+      </node>
+      <node id="279">
+        <label>xiic_sinit.c</label>
+        <link refid="xiic_sinit.c"/>
+        <childnode refid="280" relation="include">
+        </childnode>
+        <childnode refid="281" relation="include">
+        </childnode>
+        <childnode refid="282" relation="include">
+        </childnode>
+      </node>
+      <node id="285">
+        <label>xiic.h</label>
+        <link refid="xiic_8h"/>
+        <childnode refid="283" relation="include">
+        </childnode>
+        <childnode refid="284" relation="include">
+        </childnode>
+        <childnode refid="280" relation="include">
+        </childnode>
+        <childnode refid="286" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group___overview_1ga7e448669953bf36074837f174726814d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="struct_x_iic___config" kindref="compound">XIic_Config</ref> *</type>
+        <definition>XIic_Config * XIic_LookupConfig</definition>
+        <argsstring>(UINTPTR BaseAddress)</argsstring>
+        <name>XIic_LookupConfig</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <briefdescription>
+<para>Looks up the device configuration based on the unique device ID/BaseAddress. </para>        </briefdescription>
+        <detaileddescription>
+<para>The XIic_ConfigTable[] contains the configuration info for each device in the system.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains the base address of the device</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>A pointer to the configuration found or NULL if the specified device ID/BaseAddress was not found. See <ref refid="xiic_8h" kindref="compound">xiic.h</ref> for the definition of <ref refid="struct_x_iic___config" kindref="compound">XIic_Config</ref>.</para></simplesect>
+<simplesect kind="note"><para>In XSCT/classic flow, DeviceId is used to look up the device configuration. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" line="528" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic_sinit.c" bodystart="93" bodyend="107"/>
+        <references refid="struct_x_iic___config_1a031ffc079eab713ef80fc3b6ac05c1a5" compoundref="xiic_8h" startline="391">XIic_Config::Name</references>
+        <references refid="group___overview_1gabf1a99c517996564a1bfa7ccecd1e6f5" compoundref="xiic__g_8c" startline="51">XIic_ConfigTable</references>
+        <referencedby refid="xiic__dynamic__eeprom__example_8c_1acf73440d825599aa965a161279937fdb" compoundref="xiic__dynamic__eeprom__example_8c" startline="261" endline="413">IicDynEepromExample</referencedby>
+        <referencedby refid="xiic__eeprom__example_8c_1aa0f15e4ae2ab31c19f1268a81acdfe23" compoundref="xiic__eeprom__example_8c" startline="311" endline="470">IicEepromExample</referencedby>
+        <referencedby refid="xiic__multi__master__example_8c_1a1910a4a03c18e6dcc001ad0880af0782" compoundref="xiic__multi__master__example_8c" startline="237" endline="405">IicMultiMasterExample</referencedby>
+        <referencedby refid="xiic__pmbus__intr__example_8c_1a8db8cb1247e56449840cd1be84b786b2" compoundref="xiic__pmbus__intr__example_8c" startline="198" endline="306">IicPmbusInterruptSdtExample</referencedby>
+        <referencedby refid="xiic__pmbus__polled__example_8c_1a1cbeb6a6d6f83cb76edb5febefb39caf" compoundref="xiic__pmbus__polled__example_8c" startline="179" endline="252">IicPmbusPolledExample</referencedby>
+        <referencedby refid="xiic__repeated__start__example_8c_1ad711cc13c49a8ea279600d27dd1148c1" compoundref="xiic__repeated__start__example_8c" startline="187" endline="269">IicRepeatedStartExample</referencedby>
+        <referencedby refid="xiic__selftest__example_8c_1a3c732a0c3f0c51e73fae3f189232bd0b" compoundref="xiic__selftest__example_8c" startline="136" endline="170">IicSelfTestExample</referencedby>
+        <referencedby refid="xiic__slave__example_8c_1a7f5dc26ef1947d1825780346d26d5f70" compoundref="xiic__slave__example_8c" startline="185" endline="265">IicSlaveExample</referencedby>
+        <referencedby refid="xiic__tenbitaddr__example_8c_1ab4e612135486e268a4db49b75f625f52" compoundref="xiic__tenbitaddr__example_8c" startline="186" endline="270">IicTenBitAddrExample</referencedby>
+        <referencedby refid="xiic__tempsensor__example_8c_1a49c0c465f1a78be31e03a2c1a78e6f43" compoundref="xiic__tempsensor__example_8c" startline="209" endline="319">TempSensorExample</referencedby>
+        <referencedby refid="group___overview_1ga96f409bb662ff9aaf349002ced83aaac" compoundref="xiic__sinit_8c" startline="155" endline="180">XIic_Initialize</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group___overview_1ga96f409bb662ff9aaf349002ced83aaac" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XIic_Initialize</definition>
+        <argsstring>(XIic *InstancePtr, UINTPTR BaseAddress)</argsstring>
+        <name>XIic_Initialize</name>
+        <param>
+          <type><ref refid="struct_x_iic" kindref="compound">XIic</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <briefdescription>
+<para>Initializes a specific <ref refid="struct_x_iic" kindref="compound">XIic</ref> instance. </para>        </briefdescription>
+        <detaileddescription>
+<para>The initialization entails:</para><para><itemizedlist>
+<listitem><para>Check the device has an entry in the configuration table.</para></listitem><listitem><para>Initialize the driver to allow access to the device registers and initialize other subcomponents necessary for the operation of the device.</para></listitem><listitem><para>Default options to:<itemizedlist>
+<listitem><para>7-bit slave addressing</para></listitem><listitem><para>Send messages as a slave device</para></listitem><listitem><para>Repeated start off</para></listitem><listitem><para>General call recognition disabled</para></listitem></itemizedlist>
+</para></listitem><listitem><para>Clear messageing and error statistics</para></listitem></itemizedlist>
+</para><para>The <ref refid="group___overview_1ga5f4e497710a9c3719f27d40faa74a10f" kindref="member">XIic_Start()</ref> function must be called after this function before the device is ready to send and receive data on the IIC bus.</para><para>Before <ref refid="group___overview_1ga5f4e497710a9c3719f27d40faa74a10f" kindref="member">XIic_Start()</ref> is called, the interrupt control must connect the ISR routine to the interrupt handler. This is done by the user, and not <ref refid="group___overview_1ga5f4e497710a9c3719f27d40faa74a10f" kindref="member">XIic_Start()</ref> to allow the user to use an interrupt controller of their choice.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_iic" kindref="compound">XIic</ref> instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains the base address of the device</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS when successful</para></listitem><listitem><para>XST_DEVICE_NOT_FOUND indicates the given device id/BaseAddress isn&apos;t found</para></listitem><listitem><para>XST_DEVICE_IS_STARTED indicates the device is started (i.e. interrupts enabled and messaging is possible). Must stop before re-initialization is allowed.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>In XSCT/classic flow, DeviceId is used to look up the device configuration. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" line="527" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic_sinit.c" bodystart="155" bodyend="180"/>
+        <references refid="struct_x_iic___config_1ae783f76b6713be6d9b77060d77328102" compoundref="xiic_8h" startline="393">XIic_Config::BaseAddress</references>
+        <references refid="group___overview_1ga301f08e1fa6e74bf4c2885702bf0ff70" compoundref="xiic_8c" startline="134" endline="186">XIic_CfgInitialize</references>
+        <references refid="group___overview_1ga7e448669953bf36074837f174726814d" compoundref="xiic__sinit_8c" startline="93" endline="107">XIic_LookupConfig</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2005<sp/>-<sp/>2021<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2022<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="36"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xstatus.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xparameters.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xiic__i_8h" kindref="compound">xiic_i.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>***************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*******************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>**************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="77"><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="78"><highlight class="preprocessor"></highlight><highlight class="normal"><ref refid="struct_x_iic___config" kindref="compound">XIic_Config</ref><sp/>*<ref refid="group___overview_1ga7e448669953bf36074837f174726814d" kindref="member">XIic_LookupConfig</ref>(u16<sp/>DeviceId)</highlight></codeline>
+<codeline lineno="79"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_iic___config" kindref="compound">XIic_Config</ref><sp/>*CfgPtr<sp/>=<sp/>NULL;</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Index;</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"></highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(Index<sp/>=<sp/>0;<sp/>Index<sp/>&lt;<sp/>XPAR_XIIC_NUM_INSTANCES;<sp/>Index++)<sp/>{</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="group___overview_1gabf1a99c517996564a1bfa7ccecd1e6f5" kindref="member">XIic_ConfigTable</ref>[Index].DeviceId<sp/>==<sp/>DeviceId)<sp/>{</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CfgPtr<sp/>=<sp/>&amp;<ref refid="group___overview_1gabf1a99c517996564a1bfa7ccecd1e6f5" kindref="member">XIic_ConfigTable</ref>[Index];</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"></highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>CfgPtr;</highlight></codeline>
+<codeline lineno="91"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="93" refid="group___overview_1ga7e448669953bf36074837f174726814d" refkind="member"><highlight class="preprocessor"></highlight><highlight class="normal"><ref refid="struct_x_iic___config" kindref="compound">XIic_Config</ref><sp/>*<ref refid="group___overview_1ga7e448669953bf36074837f174726814d" kindref="member">XIic_LookupConfig</ref>(UINTPTR<sp/>BaseAddress)</highlight></codeline>
+<codeline lineno="94"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_iic___config" kindref="compound">XIic_Config</ref><sp/>*CfgPtr<sp/>=<sp/>NULL;</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Index;</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"></highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(Index<sp/>=<sp/>0;<sp/><ref refid="group___overview_1gabf1a99c517996564a1bfa7ccecd1e6f5" kindref="member">XIic_ConfigTable</ref>[Index].<ref refid="struct_x_iic___config_1a031ffc079eab713ef80fc3b6ac05c1a5" kindref="member">Name</ref><sp/>!=<sp/>NULL;<sp/>Index++)<sp/>{</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="group___overview_1gabf1a99c517996564a1bfa7ccecd1e6f5" kindref="member">XIic_ConfigTable</ref>[Index].BaseAddress<sp/>==<sp/>BaseAddress<sp/>||</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>!BaseAddress)<sp/>{</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CfgPtr<sp/>=<sp/>&amp;<ref refid="group___overview_1gabf1a99c517996564a1bfa7ccecd1e6f5" kindref="member">XIic_ConfigTable</ref>[Index];</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"></highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>CfgPtr;</highlight></codeline>
+<codeline lineno="107"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="109"><highlight class="preprocessor"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="152"><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="153"><highlight class="preprocessor"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group___overview_1ga96f409bb662ff9aaf349002ced83aaac" kindref="member">XIic_Initialize</ref>(<ref refid="struct_x_iic" kindref="compound">XIic</ref><sp/>*InstancePtr,<sp/>u16<sp/>DeviceId)</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="155" refid="group___overview_1ga96f409bb662ff9aaf349002ced83aaac" refkind="member"><highlight class="preprocessor"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group___overview_1ga96f409bb662ff9aaf349002ced83aaac" kindref="member">XIic_Initialize</ref>(<ref refid="struct_x_iic" kindref="compound">XIic</ref><sp/>*InstancePtr,<sp/>UINTPTR<sp/>BaseAddress)</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="157"><highlight class="preprocessor"></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_iic___config" kindref="compound">XIic_Config</ref><sp/>*ConfigPtr;<sp/></highlight><highlight class="comment">/*<sp/>Pointer<sp/>to<sp/>configuration<sp/>data<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="159"><highlight class="normal"></highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="161"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Asserts<sp/>test<sp/>the<sp/>validity<sp/>of<sp/>selected<sp/>input<sp/>arguments.</highlight></codeline>
+<codeline lineno="162"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"></highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="166"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Lookup<sp/>the<sp/>device<sp/>configuration<sp/>in<sp/>the<sp/>temporary<sp/>CROM<sp/>table.<sp/>Use<sp/>this</highlight></codeline>
+<codeline lineno="167"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>configuration<sp/>info<sp/>down<sp/>below<sp/>when<sp/>initializing<sp/>this<sp/>component.</highlight></codeline>
+<codeline lineno="168"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="169"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="170"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ConfigPtr<sp/>=<sp/><ref refid="group___overview_1ga7e448669953bf36074837f174726814d" kindref="member">XIic_LookupConfig</ref>(DeviceId);</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="172"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ConfigPtr<sp/>=<sp/><ref refid="group___overview_1ga7e448669953bf36074837f174726814d" kindref="member">XIic_LookupConfig</ref>(BaseAddress);</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="174"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(ConfigPtr<sp/>==<sp/>NULL)<sp/>{</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_DEVICE_NOT_FOUND;</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"></highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="group___overview_1ga301f08e1fa6e74bf4c2885702bf0ff70" kindref="member">XIic_CfgInitialize</ref>(InstancePtr,<sp/>ConfigPtr,</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ConfigPtr-&gt;<ref refid="struct_x_iic___config_1ae783f76b6713be6d9b77060d77328102" kindref="member">BaseAddress</ref>);</highlight></codeline>
+<codeline lineno="180"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic_sinit.c"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,438 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="versal__net_2xsecure__plat__katclient_8h" kind="file">
+    <compoundname>versal_net/xsecure_plat_katclient.h</compoundname>
+    <includes local="yes">xil_types.h</includes>
+    <includes refid="xsecure__mailbox_8h" local="yes">xsecure_mailbox.h</includes>
+    <includes refid="xsecure__defs_8h" local="yes">xsecure_defs.h</includes>
+    <includedby refid="versal__net_2xsecure__plat__katclient_8c" local="yes">xsecure_plat_katclient.c</includedby>
+    <includedby refid="xilsecure__versal__net__trng__client__example_8c" local="yes">xilsecure_versal_net_trng_client_example.c</includedby>
+    <incdepgraph>
+      <node id="3315">
+        <label>xil_cache.h</label>
+      </node>
+      <node id="3308">
+        <label>xsecure_plat_katclient.h</label>
+        <link refid="versal_net/xsecure_plat_katclient.h"/>
+        <childnode refid="3309" relation="include">
+        </childnode>
+        <childnode refid="3310" relation="include">
+        </childnode>
+        <childnode refid="3313" relation="include">
+        </childnode>
+      </node>
+      <node id="3316">
+        <label>xsecure_plat_defs.h</label>
+      </node>
+      <node id="3311">
+        <label>xilmailbox.h</label>
+      </node>
+      <node id="3313">
+        <label>xsecure_defs.h</label>
+        <link refid="xsecure__defs_8h"/>
+        <childnode refid="3314" relation="include">
+        </childnode>
+        <childnode refid="3309" relation="include">
+        </childnode>
+        <childnode refid="3315" relation="include">
+        </childnode>
+        <childnode refid="3316" relation="include">
+        </childnode>
+        <childnode refid="3317" relation="include">
+        </childnode>
+      </node>
+      <node id="3317">
+        <label>xsecure_config.h</label>
+      </node>
+      <node id="3309">
+        <label>xil_types.h</label>
+      </node>
+      <node id="3312">
+        <label>xparameters.h</label>
+      </node>
+      <node id="3314">
+        <label>xil_printf.h</label>
+      </node>
+      <node id="3310">
+        <label>xsecure_mailbox.h</label>
+        <link refid="xsecure__mailbox_8h"/>
+        <childnode refid="3311" relation="include">
+        </childnode>
+        <childnode refid="3312" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="3319">
+        <label>xsecure_plat_katclient.c</label>
+        <link refid="versal__net_2xsecure__plat__katclient_8c"/>
+      </node>
+      <node id="3318">
+        <label>xsecure_plat_katclient.h</label>
+        <link refid="versal_net/xsecure_plat_katclient.h"/>
+        <childnode refid="3319" relation="include">
+        </childnode>
+        <childnode refid="3320" relation="include">
+        </childnode>
+      </node>
+      <node id="3320">
+        <label>xilsecure_versal_net_trng_client_example.c</label>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xsecure__kat__client__apis_1ga7b74e15ff3cab4a891179ef46efe576f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XSecure_TrngKat</definition>
+        <argsstring>(XSecure_ClientInstance *InstancePtr)</argsstring>
+        <name>XSecure_TrngKat</name>
+        <param>
+          <type>XSecure_ClientInstance *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function sends IPI request to PLM to perform TRNG KAT and health tests. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the client instance</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS When KAT Pass</para></listitem><listitem><para>XST_INVALID_PARAM If any input parameter is invalid.</para></listitem><listitem><para>XST_FAILURE If there is a failure</para></listitem></itemizedlist>
+</para></simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the client instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS If KAT passes.</para></listitem><listitem><para>XST_INVALID_PARAM If any input parameter is invalid.</para></listitem><listitem><para>XST_FAILURE If there is a failure. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Fill IPI Payload</para></listitem><listitem><para>Send an IPI request to the PLM by using the CDO command to call XSecure_TrngKat API and returns the status of the IPI response.</para></listitem><listitem><para>Fill IPI Payload</para></listitem><listitem><para>Send an IPI request to the PLM by using the CDO command to call XSecure_TrngKat API and returns the status of the IPI response.</para></listitem><listitem><para>Fill IPI Payload</para></listitem><listitem><para>Send an IPI request to the PLM by using the CDO command to call XSecure_TrngKat API and returns the status of the IPI response.</para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/versal_2ve_2vm/xsecure_plat_katclient.c" line="57" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/versal_2ve_2vm/xsecure_plat_katclient.c" bodystart="57" bodyend="78"/>
+        <references refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acafcb78231ca805fdd53c34ddc9688000a" compoundref="xsecure__plat__defs_8h" startline="75">XSECURE_API_KAT</references>
+        <references refid="group__xsecure__common__apis_1gga37319402ed20263002a96ca04d74394eab2a35ee2e4ab05e7234c2bdc76fc37f6" compoundref="2ve__2vm_2xsecure__plat__defs_8h" startline="177">XSECURE_API_TRNG_KAT</references>
+        <references refid="group__xsecure__mailbox__apis_1ga6ac5f0da32dd8fb5fcd15a7e65b492bb" compoundref="xsecure__mailbox_8c" startline="76" endline="104">XSecure_ProcessMailbox</references>
+        <referencedby refid="group__xsecure__trng__example__apis_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xilsecure__versal__net__trng__client__example_8c" startline="96" endline="143">main</referencedby>
+        <referencedby refid="group__xsecure__kat__server__apis_1gaf7cb17f01c5c5542c9c2b3d6f00699d3" compoundref="versal__2ve__2vm_2xsecure__plat__kat__ipihandler_8c" startline="61" endline="108">XSecure_KatPlatIpiHandler</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__kat__client__apis_1ga5c6cfe1443dd4993a5f16b871c9b47ff" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XSecure_UpdateHnicKatStatus</definition>
+        <argsstring>(XSecure_ClientInstance *InstancePtr, XSecure_KatOp KatOp, u32 KatMaskLen, u32 *KatMask)</argsstring>
+        <name>XSecure_UpdateHnicKatStatus</name>
+        <param>
+          <type>XSecure_ClientInstance *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="group__xsecure__common__apis_1gae9abbc75ac66f341f029869aac24c716" kindref="member">XSecure_KatOp</ref></type>
+          <declname>KatOp</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>KatMaskLen</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>KatMask</declname>
+        </param>
+        <briefdescription>
+<para>This function sends IPI request to PLM to set or clear kat mask of HNIC. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the client instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>KatOp</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Operation to set or clear KAT mask </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>KatMaskLen</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Length of the KAT mask </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>KatMask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>KAT mask</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS On Success</para></listitem><listitem><para>XST_FAILURE On failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/versal_net/xsecure_plat_katclient.c" line="99" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/versal_net/xsecure_plat_katclient.c" bodystart="99" bodyend="114"/>
+        <references refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca44f09d5b48a831480a1cf114ccb1454c" compoundref="net_2xsecure__plat__defs_8h" startline="120">XSECURE_API_UPDATE_HNIC_KAT_STATUS</references>
+        <references refid="group__xsecure__common__apis_1gad6a083e727cafa4218c95e2341f62d8a" compoundref="2ve__2vm_2xsecure__plat__defs_8h" startline="53">XSECURE_MIN_KAT_MASK_LEN</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__kat__client__apis_1gab7e90b1b5c26da72eee23a3bf837e71e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XSecure_UpdateCpm5NKatStatus</definition>
+        <argsstring>(XSecure_ClientInstance *InstancePtr, XSecure_KatOp KatOp, u32 KatMaskLen, u32 *KatMask)</argsstring>
+        <name>XSecure_UpdateCpm5NKatStatus</name>
+        <param>
+          <type>XSecure_ClientInstance *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="group__xsecure__common__apis_1gae9abbc75ac66f341f029869aac24c716" kindref="member">XSecure_KatOp</ref></type>
+          <declname>KatOp</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>KatMaskLen</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>KatMask</declname>
+        </param>
+        <briefdescription>
+<para>This function sends IPI request to PLM to set or clear kat mask of CPM5N. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the client instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>KatOp</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Operation to set or clear KAT mask </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>KatMaskLen</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Length of the KAT mask </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>KatMask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>KAT mask</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS On Success</para></listitem><listitem><para>XST_FAILURE On failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/versal_net/xsecure_plat_katclient.c" line="131" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/versal_net/xsecure_plat_katclient.c" bodystart="131" bodyend="145"/>
+        <references refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acac08da78d39f6d01df82e295363a7dc51" compoundref="net_2xsecure__plat__defs_8h" startline="121">XSECURE_API_UPDATE_CPM5N_KAT_STATUS</references>
+        <references refid="group__xsecure__common__apis_1gad6a083e727cafa4218c95e2341f62d8a" compoundref="2ve__2vm_2xsecure__plat__defs_8h" startline="53">XSECURE_MIN_KAT_MASK_LEN</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__kat__client__apis_1ga0c28d3d328d58ef5008d2c4304643e6c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XSecure_UpdatePcideKatStatus</definition>
+        <argsstring>(XSecure_ClientInstance *InstancePtr, XSecure_KatOp KatOp, u32 KatMaskLen, u32 *KatMask)</argsstring>
+        <name>XSecure_UpdatePcideKatStatus</name>
+        <param>
+          <type>XSecure_ClientInstance *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="group__xsecure__common__apis_1gae9abbc75ac66f341f029869aac24c716" kindref="member">XSecure_KatOp</ref></type>
+          <declname>KatOp</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>KatMaskLen</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>KatMask</declname>
+        </param>
+        <briefdescription>
+<para>This function sends IPI request to PLM to set or clear kat mask of PCIDE. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the client instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>KatOp</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Operation to set or clear KAT mask </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>KatMaskLen</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Length of the KAT mask </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>KatMask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>KAT mask</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS On Success</para></listitem><listitem><para>XST_FAILURE On failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/versal_net/xsecure_plat_katclient.c" line="162" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/versal_net/xsecure_plat_katclient.c" bodystart="162" bodyend="176"/>
+        <references refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca9e649e1f6951aa5a6dd65c119eedf6ba" compoundref="net_2xsecure__plat__defs_8h" startline="122">XSECURE_API_UPDATE_PCIDE_KAT_STATUS</references>
+        <references refid="group__xsecure__common__apis_1gad6a083e727cafa4218c95e2341f62d8a" compoundref="2ve__2vm_2xsecure__plat__defs_8h" startline="53">XSECURE_MIN_KAT_MASK_LEN</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__kat__client__apis_1ga2181a9227c88d3b6379f5213d3037625" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XSecure_UpdatePkiKatStatus</definition>
+        <argsstring>(XSecure_ClientInstance *InstancePtr, XSecure_KatOp KatOp, u32 KatMaskLen, u32 *KatMask)</argsstring>
+        <name>XSecure_UpdatePkiKatStatus</name>
+        <param>
+          <type>XSecure_ClientInstance *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="group__xsecure__common__apis_1gae9abbc75ac66f341f029869aac24c716" kindref="member">XSecure_KatOp</ref></type>
+          <declname>KatOp</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>KatMaskLen</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>KatMask</declname>
+        </param>
+        <briefdescription>
+<para>This function sets or clears KAT mask of PKI. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the client instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>KatOp</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Operation to set or clear KAT mask </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>KatMaskLen</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Length of the KAT mask </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>KatMask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the KAT mask</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS If set or clear is successful</para></listitem><listitem><para>XST_FAILURE On failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/versal_net/xsecure_plat_katclient.c" line="192" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/versal_net/xsecure_plat_katclient.c" bodystart="192" bodyend="206"/>
+        <references refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca2c3a03734f8768efe3c23fd7585e332d" compoundref="net_2xsecure__plat__defs_8h" startline="123">XSECURE_API_UPDATE_PKI_KAT_STATUS</references>
+        <references refid="group__xsecure__common__apis_1ga0a43d350be21f46c201cbfbf96e31b81" compoundref="2ve__2vm_2xsecure__plat__defs_8h" startline="52">XSECURE_MAX_KAT_MASK_LEN</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file Contains the client function prototypes, defines and macros for the KAT APIs. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+5.0   kpt  07/19/22 Initial release
+5.2   vns  07/07/23 Added separate IPI commands for KAT status updates
+5.4   yog  04/29/24 Fixed doxygen grouping.</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2022<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">*******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="30"><highlight class="preprocessor">#ifndef<sp/>XSECURE_PLAT_KATCLIENT_H</highlight></codeline>
+<codeline lineno="31"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_PLAT_KATCLIENT_H</highlight></codeline>
+<codeline lineno="32"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="34"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="36"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xsecure__mailbox_8h" kindref="compound">xsecure_mailbox.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xsecure__defs_8h" kindref="compound">xsecure_defs.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__kat__client__apis_1ga7b74e15ff3cab4a891179ef46efe576f" kindref="member">XSecure_TrngKat</ref>(XSecure_ClientInstance<sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__kat__client__apis_1ga5c6cfe1443dd4993a5f16b871c9b47ff" kindref="member">XSecure_UpdateHnicKatStatus</ref>(XSecure_ClientInstance<sp/>*InstancePtr,<sp/><ref refid="group__xsecure__common__apis_1gae9abbc75ac66f341f029869aac24c716" kindref="member">XSecure_KatOp</ref><sp/>KatOp,</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>KatMaskLen,<sp/>u32<sp/>*KatMask);</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__kat__client__apis_1gab7e90b1b5c26da72eee23a3bf837e71e" kindref="member">XSecure_UpdateCpm5NKatStatus</ref>(XSecure_ClientInstance<sp/>*InstancePtr,<sp/><ref refid="group__xsecure__common__apis_1gae9abbc75ac66f341f029869aac24c716" kindref="member">XSecure_KatOp</ref><sp/>KatOp,</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>KatMaskLen,<sp/>u32<sp/>*KatMask);</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__kat__client__apis_1ga0c28d3d328d58ef5008d2c4304643e6c" kindref="member">XSecure_UpdatePcideKatStatus</ref>(XSecure_ClientInstance<sp/>*InstancePtr,<sp/><ref refid="group__xsecure__common__apis_1gae9abbc75ac66f341f029869aac24c716" kindref="member">XSecure_KatOp</ref><sp/>KatOp,</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>KatMaskLen,<sp/>u32<sp/>*KatMask);</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__kat__client__apis_1ga2181a9227c88d3b6379f5213d3037625" kindref="member">XSecure_UpdatePkiKatStatus</ref>(XSecure_ClientInstance<sp/>*InstancePtr,<sp/><ref refid="group__xsecure__common__apis_1gae9abbc75ac66f341f029869aac24c716" kindref="member">XSecure_KatOp</ref><sp/>KatOp,</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>KatMaskLen,<sp/>u32<sp/>*KatMask);</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="62"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="64"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/></highlight><highlight class="comment">/*<sp/>XSECURE_PLAT_KATCLIENT_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/versal_net/xsecure_plat_katclient.h"/>
+  </compounddef>
+</doxygen>

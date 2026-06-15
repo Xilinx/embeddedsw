@@ -1,0 +1,52 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_dfe_ofdm___c_c_sequence" kind="struct" prot="public">
+    <compoundname>XDfeOfdm_CCSequence</compoundname>
+    <includes local="no">xdfeofdm.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_dfe_ofdm___c_c_sequence_1ad10a1708e5beb766fa2407c3758b1a42" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfeOfdm_CCSequence::Length</definition>
+        <argsstring></argsstring>
+        <name>Length</name>
+        <briefdescription>
+<para>[1-16] Sequence length. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeofdm/src/xdfeofdm.h" line="249" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeofdm/src/xdfeofdm.h" bodystart="249" bodyend="-1"/>
+        <referencedby refid="group__dfeofdm_1gaa9f6889b400fc2fcd705f0760c6fa696" compoundref="xdfeofdm_8c" startline="1465" endline="1515">XDfeOfdm_GetCarrierCfg</referencedby>
+        <referencedby refid="group__dfeofdm_1ga895d37558bb4351d118f1970d79a2d7b" compoundref="xdfeofdm_8c" startline="1270" endline="1309">XDfeOfdm_GetCurrentCCCfg</referencedby>
+        <referencedby refid="group__dfeofdm_1ga0f253b33e1be8d4b37bbddf681669a13" compoundref="xdfeofdm_8c" startline="1322" endline="1338">XDfeOfdm_GetEmptyCCCfg</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_ofdm___c_c_sequence_1aaab78fa8bb86d61092ca378481dabe8b" prot="public" static="no" mutable="no">
+        <type>s32</type>
+        <definition>s32 XDfeOfdm_CCSequence::CCID[XDFEOFDM_CC_SEQ_LENGTH_MAX]</definition>
+        <argsstring>[XDFEOFDM_CC_SEQ_LENGTH_MAX]</argsstring>
+        <name>CCID</name>
+        <briefdescription>
+<para><verbatim>   Array of CCIDs arranged in
+</verbatim> the order the CC samples are output on CC interfaces </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeofdm/src/xdfeofdm.h" line="250" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeofdm/src/xdfeofdm.h" bodystart="250" bodyend="-1"/>
+        <referencedby refid="group__dfeofdm_1gaa9f6889b400fc2fcd705f0760c6fa696" compoundref="xdfeofdm_8c" startline="1465" endline="1515">XDfeOfdm_GetCarrierCfg</referencedby>
+        <referencedby refid="group__dfeofdm_1ga895d37558bb4351d118f1970d79a2d7b" compoundref="xdfeofdm_8c" startline="1270" endline="1309">XDfeOfdm_GetCurrentCCCfg</referencedby>
+        <referencedby refid="group__dfeofdm_1ga0f253b33e1be8d4b37bbddf681669a13" compoundref="xdfeofdm_8c" startline="1322" endline="1338">XDfeOfdm_GetEmptyCCCfg</referencedby>
+        <referencedby refid="group__dfeofdm_1gaef40749e07cdc3a4a00a2e8228d5d8b8" compoundref="xdfeofdm_8c" startline="1648" endline="1750">XDfeOfdm_SetNextCCCfg</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Defines a CCID sequence. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeofdm/src/xdfeofdm.h" line="248" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeofdm/src/xdfeofdm.h" bodystart="248" bodyend="252"/>
+    <listofallmembers>
+      <member refid="struct_x_dfe_ofdm___c_c_sequence_1aaab78fa8bb86d61092ca378481dabe8b" prot="public" virt="non-virtual"><scope>XDfeOfdm_CCSequence</scope><name>CCID</name></member>
+      <member refid="struct_x_dfe_ofdm___c_c_sequence_1ad10a1708e5beb766fa2407c3758b1a42" prot="public" virt="non-virtual"><scope>XDfeOfdm_CCSequence</scope><name>Length</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

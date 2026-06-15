@@ -1,0 +1,303 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_emac_ps___instance" kind="struct" prot="public">
+    <compoundname>XEmacPs_Instance</compoundname>
+    <includes local="no">xemacps.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_emac_ps___instance_1ad9b939b9b6b2d4be3745c58f1bd8af86" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_emac_ps___config" kindref="compound">XEmacPs_Config</ref></type>
+        <definition>XEmacPs_Config XEmacPs_Instance::Config</definition>
+        <argsstring></argsstring>
+        <name>Config</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/src/xemacps.h" line="555" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/src/xemacps.h" bodystart="555" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_emac_ps___instance_1af5cd7e331c3f607d5a2baa69a65e9a09" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XEmacPs_Instance::IsHighSpeed</definition>
+        <argsstring></argsstring>
+        <name>IsHighSpeed</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/src/xemacps.h" line="556" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/src/xemacps.h" bodystart="556" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_emac_ps___instance_1ac0e1cd6d04db1cf58eeb1cec7eac57a6" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XEmacPs_Instance::IsStarted</definition>
+        <argsstring></argsstring>
+        <name>IsStarted</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/src/xemacps.h" line="557" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/src/xemacps.h" bodystart="557" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_emac_ps___instance_1a9015c6259f9720c9651ea5ed4d871b44" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XEmacPs_Instance::IsReady</definition>
+        <argsstring></argsstring>
+        <name>IsReady</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/src/xemacps.h" line="558" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/src/xemacps.h" bodystart="558" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_emac_ps___instance_1a86add0ad65f6f06e477902cafce62dae" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XEmacPs_Instance::Options</definition>
+        <argsstring></argsstring>
+        <name>Options</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/src/xemacps.h" line="559" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/src/xemacps.h" bodystart="559" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_emac_ps___instance_1a788f27a4e6076c3f9aba67925bbcced3" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_emac_ps___bd_ring" kindref="compound">XEmacPs_BdRing</ref></type>
+        <definition>XEmacPs_BdRing XEmacPs_Instance::TxBdRing</definition>
+        <argsstring></argsstring>
+        <name>TxBdRing</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/src/xemacps.h" line="561" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/src/xemacps.h" bodystart="561" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_emac_ps___instance_1ad043ab30217f29e1ec72f4979fb0fd53" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_emac_ps___bd_ring" kindref="compound">XEmacPs_BdRing</ref></type>
+        <definition>XEmacPs_BdRing XEmacPs_Instance::RxBdRing</definition>
+        <argsstring></argsstring>
+        <name>RxBdRing</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/src/xemacps.h" line="562" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/src/xemacps.h" bodystart="562" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_emac_ps___instance_1a8235d3a0d7283f91e943a453f062b3be" prot="public" static="no" mutable="no">
+        <type><ref refid="group__emacps_1ga51ed97693d607dd5d9e69884f61ec7d0" kindref="member">XEmacPs_Handler</ref></type>
+        <definition>XEmacPs_Handler XEmacPs_Instance::SendHandler</definition>
+        <argsstring></argsstring>
+        <name>SendHandler</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/src/xemacps.h" line="564" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/src/xemacps.h" bodystart="564" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_emac_ps___instance_1ac8ffc470e5baaee9f8358b2f427ce87e" prot="public" static="no" mutable="no">
+        <type><ref refid="group__emacps_1ga51ed97693d607dd5d9e69884f61ec7d0" kindref="member">XEmacPs_Handler</ref></type>
+        <definition>XEmacPs_Handler XEmacPs_Instance::RecvHandler</definition>
+        <argsstring></argsstring>
+        <name>RecvHandler</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/src/xemacps.h" line="565" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/src/xemacps.h" bodystart="565" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_emac_ps___instance_1aa9b83ca4f01e53285ba8fc361b938492" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XEmacPs_Instance::SendRef</definition>
+        <argsstring></argsstring>
+        <name>SendRef</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/src/xemacps.h" line="566" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/src/xemacps.h" bodystart="566" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_emac_ps___instance_1a6cd8e0b3cdc5befc7f375a78bbcf7fb1" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XEmacPs_Instance::RecvRef</definition>
+        <argsstring></argsstring>
+        <name>RecvRef</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/src/xemacps.h" line="567" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/src/xemacps.h" bodystart="567" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_emac_ps___instance_1ad0690222df42ae6b5e52d5367fe4578f" prot="public" static="no" mutable="no">
+        <type><ref refid="group__emacps_1ga389eeec67ead68d2abf5b05c244a6add" kindref="member">XEmacPs_ErrHandler</ref></type>
+        <definition>XEmacPs_ErrHandler XEmacPs_Instance::ErrorHandler</definition>
+        <argsstring></argsstring>
+        <name>ErrorHandler</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/src/xemacps.h" line="569" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/src/xemacps.h" bodystart="569" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_emac_ps___instance_1acbfe6d687c552def4f7368fb002921d2" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XEmacPs_Instance::ErrorRef</definition>
+        <argsstring></argsstring>
+        <name>ErrorRef</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/src/xemacps.h" line="570" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/src/xemacps.h" bodystart="570" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_emac_ps___instance_1a997fd938de3d747b2115ae7bb5fb13dd" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XEmacPs_Instance::Version</definition>
+        <argsstring></argsstring>
+        <name>Version</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/src/xemacps.h" line="571" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/src/xemacps.h" bodystart="571" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_emac_ps___instance_1ac3e2f90333f75aba9f7b6d9220f68a5c" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XEmacPs_Instance::RxBufMask</definition>
+        <argsstring></argsstring>
+        <name>RxBufMask</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/src/xemacps.h" line="572" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/src/xemacps.h" bodystart="572" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_emac_ps___instance_1a7a537c3515dec7903bd377f244f318e6" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XEmacPs_Instance::MaxMtuSize</definition>
+        <argsstring></argsstring>
+        <name>MaxMtuSize</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/src/xemacps.h" line="573" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/src/xemacps.h" bodystart="573" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_emac_ps___instance_1a6ca48f26413941d7b811804b622277b6" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XEmacPs_Instance::MaxFrameSize</definition>
+        <argsstring></argsstring>
+        <name>MaxFrameSize</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/src/xemacps.h" line="574" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/src/xemacps.h" bodystart="574" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_emac_ps___instance_1aff2e5f3d1043e21e376c6b8b670cd93b" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XEmacPs_Instance::MaxVlanFrameSize</definition>
+        <argsstring></argsstring>
+        <name>MaxVlanFrameSize</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/src/xemacps.h" line="575" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/src/xemacps.h" bodystart="575" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_emac_ps___instance_1a7a166879fc3e2195df9862aed8b1a320" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XEmacPs_Instance::MaxQueues</definition>
+        <argsstring></argsstring>
+        <name>MaxQueues</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/src/xemacps.h" line="576" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/src/xemacps.h" bodystart="576" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>The XEmacPs driver instance data. </para>    </briefdescription>
+    <detaileddescription>
+<para>The user is required to allocate a structure of this type for every XEmacPs device in the system. A pointer to a structure of this type is then passed to the driver API functions. </para>    </detaileddescription>
+    <collaborationgraph>
+      <node id="5">
+        <label>XEmacPs_Instance</label>
+        <link refid="struct_x_emac_ps___instance"/>
+        <childnode refid="6" relation="usage">
+          <edgelabel>TxBdRing</edgelabel>
+          <edgelabel>RxBdRing</edgelabel>
+        </childnode>
+        <childnode refid="7" relation="usage">
+          <edgelabel>Config</edgelabel>
+        </childnode>
+      </node>
+      <node id="7">
+        <label>XEmacPs_Config</label>
+        <link refid="struct_x_emac_ps___config"/>
+      </node>
+      <node id="6">
+        <label>XEmacPs_BdRing</label>
+        <link refid="struct_x_emac_ps___bd_ring"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/src/xemacps.h" line="554" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/src/xemacps.h" bodystart="554" bodyend="578"/>
+    <listofallmembers>
+      <member refid="struct_x_emac_ps___instance_1ad9b939b9b6b2d4be3745c58f1bd8af86" prot="public" virt="non-virtual"><scope>XEmacPs_Instance</scope><name>Config</name></member>
+      <member refid="struct_x_emac_ps___instance_1ad0690222df42ae6b5e52d5367fe4578f" prot="public" virt="non-virtual"><scope>XEmacPs_Instance</scope><name>ErrorHandler</name></member>
+      <member refid="struct_x_emac_ps___instance_1acbfe6d687c552def4f7368fb002921d2" prot="public" virt="non-virtual"><scope>XEmacPs_Instance</scope><name>ErrorRef</name></member>
+      <member refid="struct_x_emac_ps___instance_1af5cd7e331c3f607d5a2baa69a65e9a09" prot="public" virt="non-virtual"><scope>XEmacPs_Instance</scope><name>IsHighSpeed</name></member>
+      <member refid="struct_x_emac_ps___instance_1a9015c6259f9720c9651ea5ed4d871b44" prot="public" virt="non-virtual"><scope>XEmacPs_Instance</scope><name>IsReady</name></member>
+      <member refid="struct_x_emac_ps___instance_1ac0e1cd6d04db1cf58eeb1cec7eac57a6" prot="public" virt="non-virtual"><scope>XEmacPs_Instance</scope><name>IsStarted</name></member>
+      <member refid="struct_x_emac_ps___instance_1a6ca48f26413941d7b811804b622277b6" prot="public" virt="non-virtual"><scope>XEmacPs_Instance</scope><name>MaxFrameSize</name></member>
+      <member refid="struct_x_emac_ps___instance_1a7a537c3515dec7903bd377f244f318e6" prot="public" virt="non-virtual"><scope>XEmacPs_Instance</scope><name>MaxMtuSize</name></member>
+      <member refid="struct_x_emac_ps___instance_1a7a166879fc3e2195df9862aed8b1a320" prot="public" virt="non-virtual"><scope>XEmacPs_Instance</scope><name>MaxQueues</name></member>
+      <member refid="struct_x_emac_ps___instance_1aff2e5f3d1043e21e376c6b8b670cd93b" prot="public" virt="non-virtual"><scope>XEmacPs_Instance</scope><name>MaxVlanFrameSize</name></member>
+      <member refid="struct_x_emac_ps___instance_1a86add0ad65f6f06e477902cafce62dae" prot="public" virt="non-virtual"><scope>XEmacPs_Instance</scope><name>Options</name></member>
+      <member refid="struct_x_emac_ps___instance_1ac8ffc470e5baaee9f8358b2f427ce87e" prot="public" virt="non-virtual"><scope>XEmacPs_Instance</scope><name>RecvHandler</name></member>
+      <member refid="struct_x_emac_ps___instance_1a6cd8e0b3cdc5befc7f375a78bbcf7fb1" prot="public" virt="non-virtual"><scope>XEmacPs_Instance</scope><name>RecvRef</name></member>
+      <member refid="struct_x_emac_ps___instance_1ad043ab30217f29e1ec72f4979fb0fd53" prot="public" virt="non-virtual"><scope>XEmacPs_Instance</scope><name>RxBdRing</name></member>
+      <member refid="struct_x_emac_ps___instance_1ac3e2f90333f75aba9f7b6d9220f68a5c" prot="public" virt="non-virtual"><scope>XEmacPs_Instance</scope><name>RxBufMask</name></member>
+      <member refid="struct_x_emac_ps___instance_1a8235d3a0d7283f91e943a453f062b3be" prot="public" virt="non-virtual"><scope>XEmacPs_Instance</scope><name>SendHandler</name></member>
+      <member refid="struct_x_emac_ps___instance_1aa9b83ca4f01e53285ba8fc361b938492" prot="public" virt="non-virtual"><scope>XEmacPs_Instance</scope><name>SendRef</name></member>
+      <member refid="struct_x_emac_ps___instance_1a788f27a4e6076c3f9aba67925bbcced3" prot="public" virt="non-virtual"><scope>XEmacPs_Instance</scope><name>TxBdRing</name></member>
+      <member refid="struct_x_emac_ps___instance_1a997fd938de3d747b2115ae7bb5fb13dd" prot="public" virt="non-virtual"><scope>XEmacPs_Instance</scope><name>Version</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

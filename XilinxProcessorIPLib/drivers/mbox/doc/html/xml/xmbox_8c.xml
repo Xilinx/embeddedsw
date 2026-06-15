@@ -1,0 +1,1167 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xmbox_8c" kind="file">
+    <compoundname>xmbox.c</compoundname>
+    <includes local="no">string.h</includes>
+    <includes refid="xmbox_8h" local="yes">xmbox.h</includes>
+    <includes local="yes">xil_assert.h</includes>
+    <incdepgraph>
+      <node id="14">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="8">
+        <label>xmbox.c</label>
+        <link refid="xmbox.c"/>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+      </node>
+      <node id="10">
+        <label>xmbox.h</label>
+        <link refid="xmbox_8h"/>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+      </node>
+      <node id="13">
+        <label>xil_io.h</label>
+      </node>
+      <node id="9">
+        <label>string.h</label>
+      </node>
+      <node id="11">
+        <label>xstatus.h</label>
+      </node>
+      <node id="12">
+        <label>xmbox_hw.h</label>
+        <link refid="xmbox__hw_8h"/>
+        <childnode refid="13" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__mbox_1ga34fbeaf8de9092cb4d5b00dfbf054426" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XMbox_CfgInitialize</definition>
+        <argsstring>(XMbox *InstancePtr, XMbox_Config *ConfigPtr, UINTPTR EffectiveAddress)</argsstring>
+        <name>XMbox_CfgInitialize</name>
+        <param>
+          <type><ref refid="struct_x_mbox" kindref="compound">XMbox</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_mbox___config" kindref="compound">XMbox_Config</ref> *</type>
+          <declname>ConfigPtr</declname>
+        </param>
+        <param>
+          <type>UINTPTR</type>
+          <declname>EffectiveAddress</declname>
+        </param>
+        <briefdescription>
+<para>Initializes a specific mailbox. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_mbox" kindref="compound">XMbox</ref> instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ConfigPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the device configuration structure containing required HW build data. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>EffectiveAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the Physical address of the hardware in a Virtual Memory operating system environment. It is the Base Address in a stand alone environment.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if initialization was successful</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mbox/src/xmbox.c" line="80" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mbox/src/xmbox.c" bodystart="80" bodyend="97"/>
+        <references refid="struct_x_mbox___config_1a7a357a3188be88d9aaba7e8cc60960a8" compoundref="xmbox_8h" startline="175">XMbox_Config::BaseAddress</references>
+        <references refid="struct_x_mbox_1ada3e15b402bdd502048b69a87dfd70a8" compoundref="xmbox_8h" startline="195">XMbox::Config</references>
+        <references refid="struct_x_mbox_1ac30a078abf5bafc3b3ff0559894f333f" compoundref="xmbox_8h" startline="197">XMbox::IsReady</references>
+        <referencedby refid="xmbox__intr__example_8c_1aa3546c3248b04f6aeb362c1b55e13391" compoundref="xmbox__intr__example_8c" startline="224" endline="305">MailboxExample</referencedby>
+        <referencedby refid="xmbox__example_8c_1a29bcf620083d6150359747d6ffcb5562" compoundref="xmbox__example_8c" startline="138" endline="241">ProdCon</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__mbox_1gaa1f68405027d147c68aa53bcb49fbd5a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XMbox_Read</definition>
+        <argsstring>(XMbox *InstancePtr, u32 *BufferPtr, u32 RequestedBytes, u32 *BytesRecvdPtr)</argsstring>
+        <name>XMbox_Read</name>
+        <param>
+          <type><ref refid="struct_x_mbox" kindref="compound">XMbox</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>BufferPtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>RequestedBytes</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>BytesRecvdPtr</declname>
+        </param>
+        <briefdescription>
+<para>Reads requested bytes from the mailbox referenced by InstancePtr,into the buffer pointed to by the provided pointer. </para>        </briefdescription>
+        <detaileddescription>
+<para>The number of bytes must be a multiple of 4 (bytes). If not, the call will fail in an assert.</para><para>This function is non blocking.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_mbox" kindref="compound">XMbox</ref> instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>BufferPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the buffer to read the mailbox contents into, aligned to a word boundary. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RequestedBytes</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the number of bytes of data requested. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>BytesRecvdPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the memory that is updated with the number of bytes of data actually read.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS on success.</para></listitem><listitem><para>XST_NO_DATA ifthere was no data in the mailbox.</para></listitem></itemizedlist>
+</para></simplesect>
+On success, the number of bytes read is returned through the pointer. The call may return with fewer bytes placed in the buffer than requested (not including zero). This is not necessarily an error condition and indicates the amount of data that was currently available in the mailbox.</para><para><simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mbox/src/xmbox.c" line="127" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mbox/src/xmbox.c" bodystart="127" bodyend="178"/>
+        <references refid="struct_x_mbox___config_1a7a357a3188be88d9aaba7e8cc60960a8" compoundref="xmbox_8h" startline="175">XMbox_Config::BaseAddress</references>
+        <references refid="struct_x_mbox_1ada3e15b402bdd502048b69a87dfd70a8" compoundref="xmbox_8h" startline="195">XMbox::Config</references>
+        <references refid="struct_x_mbox___config_1a609445dac27b19ef129dd295fc252453" compoundref="xmbox_8h" startline="178">XMbox_Config::RecvID</references>
+        <references refid="struct_x_mbox___config_1ae59a7f14795bc768c36b105863e2efc8" compoundref="xmbox_8h" startline="176">XMbox_Config::UseFSL</references>
+        <references refid="group__mbox_1gaa74c9f619d2ee4f3b668743954223ea6" compoundref="xmbox__hw_8h" startline="377">XMbox_FSLIsEmpty</references>
+        <references refid="group__mbox_1ga597515ed7cbc30c2bcb4409f4a463dcf" compoundref="xmbox__hw_8h" startline="348">XMbox_FSLReadMBox</references>
+        <references refid="group__mbox_1gaa533a34a21931e86fe66cbd144659b87" compoundref="xmbox__hw_8h" startline="229">XMbox_IsEmptyHw</references>
+        <references refid="group__mbox_1ga20e3d2cc2c9ecc47fc1ce4420a8b69f8" compoundref="xmbox__hw_8h" startline="212">XMbox_ReadMBox</references>
+        <referencedby refid="xmbox__intr__example_8c_1a82d99e5d2c3904a519d03a588ba9e1d8" compoundref="xmbox__intr__example_8c" startline="404" endline="441">MailboxExample_Receive</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__mbox_1gab14511b623c1d3c191cdc441b8909006" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XMbox_ReadBlocking</definition>
+        <argsstring>(XMbox *InstancePtr, u32 *BufferPtr, u32 RequestedBytes)</argsstring>
+        <name>XMbox_ReadBlocking</name>
+        <param>
+          <type><ref refid="struct_x_mbox" kindref="compound">XMbox</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>BufferPtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>RequestedBytes</declname>
+        </param>
+        <briefdescription>
+<para>Reads requested bytes from the mailbox referenced by InstancePtr,into the buffer pointed to by the provided pointer. </para>        </briefdescription>
+        <detaileddescription>
+<para>The number of bytes must be a multiple of 4 (bytes). If not, the call will fail in an assert.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_mbox" kindref="compound">XMbox</ref> instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>BufferPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the buffer to read the mailbox contents into, aligned to a word boundary. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RequestedBytes</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the number of bytes of data requested.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>The call blocks until the number of bytes requested are available. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mbox/src/xmbox.c" line="196" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mbox/src/xmbox.c" bodystart="196" bodyend="241"/>
+        <references refid="struct_x_mbox___config_1a7a357a3188be88d9aaba7e8cc60960a8" compoundref="xmbox_8h" startline="175">XMbox_Config::BaseAddress</references>
+        <references refid="struct_x_mbox_1ada3e15b402bdd502048b69a87dfd70a8" compoundref="xmbox_8h" startline="195">XMbox::Config</references>
+        <references refid="struct_x_mbox___config_1a609445dac27b19ef129dd295fc252453" compoundref="xmbox_8h" startline="178">XMbox_Config::RecvID</references>
+        <references refid="struct_x_mbox___config_1ae59a7f14795bc768c36b105863e2efc8" compoundref="xmbox_8h" startline="176">XMbox_Config::UseFSL</references>
+        <references refid="group__mbox_1gaa74c9f619d2ee4f3b668743954223ea6" compoundref="xmbox__hw_8h" startline="377">XMbox_FSLIsEmpty</references>
+        <references refid="group__mbox_1ga597515ed7cbc30c2bcb4409f4a463dcf" compoundref="xmbox__hw_8h" startline="348">XMbox_FSLReadMBox</references>
+        <references refid="group__mbox_1gaa533a34a21931e86fe66cbd144659b87" compoundref="xmbox__hw_8h" startline="229">XMbox_IsEmptyHw</references>
+        <references refid="group__mbox_1ga20e3d2cc2c9ecc47fc1ce4420a8b69f8" compoundref="xmbox__hw_8h" startline="212">XMbox_ReadMBox</references>
+        <referencedby refid="xmbox__intr__example_8c_1a82d99e5d2c3904a519d03a588ba9e1d8" compoundref="xmbox__intr__example_8c" startline="404" endline="441">MailboxExample_Receive</referencedby>
+        <referencedby refid="xmbox__example_8c_1a29bcf620083d6150359747d6ffcb5562" compoundref="xmbox__example_8c" startline="138" endline="241">ProdCon</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__mbox_1ga254c4e5a042e34520c3669fbf9651bc2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XMbox_Write</definition>
+        <argsstring>(XMbox *InstancePtr, u32 *BufferPtr, u32 RequestedBytes, u32 *BytesSentPtr)</argsstring>
+        <name>XMbox_Write</name>
+        <param>
+          <type><ref refid="struct_x_mbox" kindref="compound">XMbox</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>BufferPtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>RequestedBytes</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>BytesSentPtr</declname>
+        </param>
+        <briefdescription>
+<para>Writes the requested bytes from the buffer pointed to by the provided pointer into the mailbox referenced by InstancePtr.The number of bytes must be a multiple of 4 (bytes). </para>        </briefdescription>
+        <detaileddescription>
+<para>If not, the call will fail in an assert.</para><para>This function is non blocking.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_mbox" kindref="compound">XMbox</ref> instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>BufferPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the source data buffer, aligned to a word boundary. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RequestedBytes</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the number of bytes requested to be written. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>BytesSentPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>points to memory which is updated with the actual number of bytes written, return value. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><verbatim>    - XST_SUCCESS on success.
+    - XST_FIFO_NO_ROOM if the fifo was full.
+</verbatim></para></simplesect>
+On success, the number of bytes successfully written into the destination mailbox is returned in the provided pointer. The call may return with zero. This is not necessarily an error condition and indicates that the mailbox is currently full.</para><para><simplesect kind="note"><para>The provided buffer pointed to by BufferPtr must be aligned to a word boundary. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mbox/src/xmbox.c" line="271" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mbox/src/xmbox.c" bodystart="271" bodyend="326"/>
+        <references refid="struct_x_mbox___config_1a7a357a3188be88d9aaba7e8cc60960a8" compoundref="xmbox_8h" startline="175">XMbox_Config::BaseAddress</references>
+        <references refid="struct_x_mbox_1ada3e15b402bdd502048b69a87dfd70a8" compoundref="xmbox_8h" startline="195">XMbox::Config</references>
+        <references refid="struct_x_mbox___config_1a9e08e69be2c504f49b76b7b992701e5f" compoundref="xmbox_8h" startline="177">XMbox_Config::SendID</references>
+        <references refid="struct_x_mbox___config_1ae59a7f14795bc768c36b105863e2efc8" compoundref="xmbox_8h" startline="176">XMbox_Config::UseFSL</references>
+        <references refid="group__mbox_1ga59470c703fb9332335643ba020898e59" compoundref="xmbox__hw_8h" startline="391">XMbox_FSLIsFull</references>
+        <references refid="group__mbox_1ga575df2eee6d404775c6b2e2843421a53" compoundref="xmbox__hw_8h" startline="363">XMbox_FSLWriteMBox</references>
+        <references refid="group__mbox_1ga686ca5f4834e7e613350a2166cd49398" compoundref="xmbox__hw_8h" startline="246">XMbox_IsFullHw</references>
+        <references refid="group__mbox_1ga267447e4cde5a2e0320ebba438c22a47" compoundref="xmbox__hw_8h" startline="197">XMbox_WriteMBox</references>
+        <referencedby refid="xmbox__intr__example_8c_1a8906eefcbf88897e5608bc257daeec6f" compoundref="xmbox__intr__example_8c" startline="356" endline="384">MailboxExample_Send</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__mbox_1ga23ee00f97807790770f2dab9b2ea3b0e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XMbox_WriteBlocking</definition>
+        <argsstring>(XMbox *InstancePtr, u32 *BufferPtr, u32 RequestedBytes)</argsstring>
+        <name>XMbox_WriteBlocking</name>
+        <param>
+          <type><ref refid="struct_x_mbox" kindref="compound">XMbox</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>BufferPtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>RequestedBytes</declname>
+        </param>
+        <briefdescription>
+<para>Writes the requested bytes from the buffer pointed to by the provided pointer into the mailbox referenced by InstancePtr. </para>        </briefdescription>
+        <detaileddescription>
+<para>The number of bytes must be a multiple of 4 (bytes). If not, the call will fail in an assert.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_mbox" kindref="compound">XMbox</ref> instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>BufferPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the source data buffer, aligned to a word boundary. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RequestedBytes</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the number of bytes requested to be written.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>The call blocks until the number of bytes requested are written. The provided buffer pointed to by BufferPtr must be aligned to a word boundary. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mbox/src/xmbox.c" line="343" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mbox/src/xmbox.c" bodystart="343" bodyend="380"/>
+        <references refid="struct_x_mbox___config_1a7a357a3188be88d9aaba7e8cc60960a8" compoundref="xmbox_8h" startline="175">XMbox_Config::BaseAddress</references>
+        <references refid="struct_x_mbox_1ada3e15b402bdd502048b69a87dfd70a8" compoundref="xmbox_8h" startline="195">XMbox::Config</references>
+        <references refid="struct_x_mbox___config_1a9e08e69be2c504f49b76b7b992701e5f" compoundref="xmbox_8h" startline="177">XMbox_Config::SendID</references>
+        <references refid="struct_x_mbox___config_1ae59a7f14795bc768c36b105863e2efc8" compoundref="xmbox_8h" startline="176">XMbox_Config::UseFSL</references>
+        <references refid="group__mbox_1ga59470c703fb9332335643ba020898e59" compoundref="xmbox__hw_8h" startline="391">XMbox_FSLIsFull</references>
+        <references refid="group__mbox_1ga575df2eee6d404775c6b2e2843421a53" compoundref="xmbox__hw_8h" startline="363">XMbox_FSLWriteMBox</references>
+        <references refid="group__mbox_1ga686ca5f4834e7e613350a2166cd49398" compoundref="xmbox__hw_8h" startline="246">XMbox_IsFullHw</references>
+        <references refid="group__mbox_1ga267447e4cde5a2e0320ebba438c22a47" compoundref="xmbox__hw_8h" startline="197">XMbox_WriteMBox</references>
+        <referencedby refid="xmbox__intr__example_8c_1a8906eefcbf88897e5608bc257daeec6f" compoundref="xmbox__intr__example_8c" startline="356" endline="384">MailboxExample_Send</referencedby>
+        <referencedby refid="xmbox__example_8c_1a29bcf620083d6150359747d6ffcb5562" compoundref="xmbox__example_8c" startline="138" endline="241">ProdCon</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__mbox_1gabb01fe466ffcd0da315ffee115f4cd60" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XMbox_IsEmpty</definition>
+        <argsstring>(XMbox *InstancePtr)</argsstring>
+        <name>XMbox_IsEmpty</name>
+        <param>
+          <type><ref refid="struct_x_mbox" kindref="compound">XMbox</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Checks to see if there is data available to be read. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_mbox" kindref="compound">XMbox</ref> instance to be worked on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>FALSE if there is data to be read.</para></listitem><listitem><para>TRUE is there no data to be read.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mbox/src/xmbox.c" line="396" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mbox/src/xmbox.c" bodystart="396" bodyend="407"/>
+        <references refid="struct_x_mbox___config_1a7a357a3188be88d9aaba7e8cc60960a8" compoundref="xmbox_8h" startline="175">XMbox_Config::BaseAddress</references>
+        <references refid="struct_x_mbox_1ada3e15b402bdd502048b69a87dfd70a8" compoundref="xmbox_8h" startline="195">XMbox::Config</references>
+        <references refid="struct_x_mbox___config_1a609445dac27b19ef129dd295fc252453" compoundref="xmbox_8h" startline="178">XMbox_Config::RecvID</references>
+        <references refid="struct_x_mbox___config_1ae59a7f14795bc768c36b105863e2efc8" compoundref="xmbox_8h" startline="176">XMbox_Config::UseFSL</references>
+        <references refid="group__mbox_1gaa74c9f619d2ee4f3b668743954223ea6" compoundref="xmbox__hw_8h" startline="377">XMbox_FSLIsEmpty</references>
+        <references refid="group__mbox_1gaa533a34a21931e86fe66cbd144659b87" compoundref="xmbox__hw_8h" startline="229">XMbox_IsEmptyHw</references>
+      </memberdef>
+      <memberdef kind="function" id="group__mbox_1gaa9db05bc2935bcc2230ff023b5c9cbcc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XMbox_IsFull</definition>
+        <argsstring>(XMbox *InstancePtr)</argsstring>
+        <name>XMbox_IsFull</name>
+        <param>
+          <type><ref refid="struct_x_mbox" kindref="compound">XMbox</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Checks to see if there is room in the write FIFO. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_mbox" kindref="compound">XMbox</ref> instance to be worked on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>FALSE if there is room in write FIFO.</para></listitem><listitem><para>TRUE if there is room in write FIFO.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mbox/src/xmbox.c" line="423" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mbox/src/xmbox.c" bodystart="423" bodyend="434"/>
+        <references refid="struct_x_mbox___config_1a7a357a3188be88d9aaba7e8cc60960a8" compoundref="xmbox_8h" startline="175">XMbox_Config::BaseAddress</references>
+        <references refid="struct_x_mbox_1ada3e15b402bdd502048b69a87dfd70a8" compoundref="xmbox_8h" startline="195">XMbox::Config</references>
+        <references refid="struct_x_mbox___config_1a9e08e69be2c504f49b76b7b992701e5f" compoundref="xmbox_8h" startline="177">XMbox_Config::SendID</references>
+        <references refid="struct_x_mbox___config_1ae59a7f14795bc768c36b105863e2efc8" compoundref="xmbox_8h" startline="176">XMbox_Config::UseFSL</references>
+        <references refid="group__mbox_1ga59470c703fb9332335643ba020898e59" compoundref="xmbox__hw_8h" startline="391">XMbox_FSLIsFull</references>
+        <references refid="group__mbox_1ga686ca5f4834e7e613350a2166cd49398" compoundref="xmbox__hw_8h" startline="246">XMbox_IsFullHw</references>
+      </memberdef>
+      <memberdef kind="function" id="group__mbox_1ga10691489238a2a1b8515468b416d773e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XMbox_Flush</definition>
+        <argsstring>(XMbox *InstancePtr)</argsstring>
+        <name>XMbox_Flush</name>
+        <param>
+          <type><ref refid="struct_x_mbox" kindref="compound">XMbox</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Resets the mailbox FIFOs by emptying the READ FIFO and making sure the Error Status is zero. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_mbox" kindref="compound">XMbox</ref> instance to be worked on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS on success.</para></listitem><listitem><para>XST_FAILURE if there are any outstanding errors.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>Data from read FIFO is thrown away. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mbox/src/xmbox.c" line="451" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mbox/src/xmbox.c" bodystart="451" bodyend="469"/>
+        <references refid="struct_x_mbox___config_1a7a357a3188be88d9aaba7e8cc60960a8" compoundref="xmbox_8h" startline="175">XMbox_Config::BaseAddress</references>
+        <references refid="struct_x_mbox_1ada3e15b402bdd502048b69a87dfd70a8" compoundref="xmbox_8h" startline="195">XMbox::Config</references>
+        <references refid="struct_x_mbox___config_1a609445dac27b19ef129dd295fc252453" compoundref="xmbox_8h" startline="178">XMbox_Config::RecvID</references>
+        <references refid="struct_x_mbox___config_1ae59a7f14795bc768c36b105863e2efc8" compoundref="xmbox_8h" startline="176">XMbox_Config::UseFSL</references>
+        <references refid="group__mbox_1gaa74c9f619d2ee4f3b668743954223ea6" compoundref="xmbox__hw_8h" startline="377">XMbox_FSLIsEmpty</references>
+        <references refid="group__mbox_1ga597515ed7cbc30c2bcb4409f4a463dcf" compoundref="xmbox__hw_8h" startline="348">XMbox_FSLReadMBox</references>
+        <references refid="group__mbox_1gaa533a34a21931e86fe66cbd144659b87" compoundref="xmbox__hw_8h" startline="229">XMbox_IsEmptyHw</references>
+        <references refid="group__mbox_1ga20e3d2cc2c9ecc47fc1ce4420a8b69f8" compoundref="xmbox__hw_8h" startline="212">XMbox_ReadMBox</references>
+      </memberdef>
+      <memberdef kind="function" id="group__mbox_1gacf8d6e720149452270eac0493537a233" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XMbox_ResetFifos</definition>
+        <argsstring>(XMbox *InstancePtr)</argsstring>
+        <name>XMbox_ResetFifos</name>
+        <param>
+          <type><ref refid="struct_x_mbox" kindref="compound">XMbox</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Resets the mailbox FIFOs by clearing the READ and WRITE FIFOs using the hardware control register for memory mapped IO. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_mbox" kindref="compound">XMbox</ref> instance to be worked on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>Use XMbox_Flush instead for FSL based access. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mbox/src/xmbox.c" line="482" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mbox/src/xmbox.c" bodystart="482" bodyend="497"/>
+        <references refid="struct_x_mbox___config_1a7a357a3188be88d9aaba7e8cc60960a8" compoundref="xmbox_8h" startline="175">XMbox_Config::BaseAddress</references>
+        <references refid="struct_x_mbox_1ada3e15b402bdd502048b69a87dfd70a8" compoundref="xmbox_8h" startline="195">XMbox::Config</references>
+        <references refid="struct_x_mbox___config_1ae59a7f14795bc768c36b105863e2efc8" compoundref="xmbox_8h" startline="176">XMbox_Config::UseFSL</references>
+        <references refid="group__mbox_1ga12aab471e30140e408a6e9c396b44257" compoundref="xmbox__hw_8h" startline="79">XMB_CTRL_REG_OFFSET</references>
+        <references refid="group__mbox_1gaf8e2e5c1013346efd30bf5ea7314ebd7" compoundref="xmbox__hw_8h" startline="138">XMB_CTRL_RESET_RECV_FIFO</references>
+        <references refid="group__mbox_1ga9d015e11c5da1e44ab58be839cdf33d3" compoundref="xmbox__hw_8h" startline="137">XMB_CTRL_RESET_SEND_FIFO</references>
+        <references refid="group__mbox_1ga299c2eb6c04531a5da2202b9968531c7" compoundref="xmbox__hw_8h" startline="180">XMbox_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__mbox_1ga8e56860ea2cf7f4f1df0f1862d8c4c61" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XMbox_SetInterruptEnable</definition>
+        <argsstring>(XMbox *InstancePtr, u32 Mask)</argsstring>
+        <name>XMbox_SetInterruptEnable</name>
+        <param>
+          <type><ref refid="struct_x_mbox" kindref="compound">XMbox</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Mask</declname>
+        </param>
+        <briefdescription>
+<para>Sets the interrupt enable register for this mailbox. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function can only be used for Non-FSL interface. If not, the function will fail in an assert.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a logical OR of XMB_IX_* constants found in <ref refid="xmbox__hw_8h" kindref="compound">xmbox_hw.h</ref>.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mbox/src/xmbox.c" line="510" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mbox/src/xmbox.c" bodystart="510" bodyend="519"/>
+        <references refid="struct_x_mbox___config_1a7a357a3188be88d9aaba7e8cc60960a8" compoundref="xmbox_8h" startline="175">XMbox_Config::BaseAddress</references>
+        <references refid="struct_x_mbox_1ada3e15b402bdd502048b69a87dfd70a8" compoundref="xmbox_8h" startline="195">XMbox::Config</references>
+        <references refid="struct_x_mbox___config_1ae59a7f14795bc768c36b105863e2efc8" compoundref="xmbox_8h" startline="176">XMbox_Config::UseFSL</references>
+        <references refid="group__mbox_1ga992a83c0e5454de142ae0110531e6116" compoundref="xmbox__hw_8h" startline="77">XMB_IE_REG_OFFSET</references>
+        <references refid="group__mbox_1ga299c2eb6c04531a5da2202b9968531c7" compoundref="xmbox__hw_8h" startline="180">XMbox_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__mbox_1gacb96b1964aa476b4d60df4fd2440022c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XMbox_GetInterruptEnable</definition>
+        <argsstring>(XMbox *InstancePtr)</argsstring>
+        <name>XMbox_GetInterruptEnable</name>
+        <param>
+          <type><ref refid="struct_x_mbox" kindref="compound">XMbox</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Retrieves the interrupt enable for the mailbox. </para>        </briefdescription>
+        <detaileddescription>
+<para>AND the result of this function with XMB_IX_* to determine which interrupts of this mailbox are enabled. This function can only be used for Non-FSL interface. If not, the function will fail in an assert.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the instance to be worked on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Mask of interrupt bits made up of XMB_IX_* constants found in <ref refid="xmbox__hw_8h" kindref="compound">xmbox_hw.h</ref>.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mbox/src/xmbox.c" line="537" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mbox/src/xmbox.c" bodystart="537" bodyend="544"/>
+        <references refid="struct_x_mbox___config_1a7a357a3188be88d9aaba7e8cc60960a8" compoundref="xmbox_8h" startline="175">XMbox_Config::BaseAddress</references>
+        <references refid="struct_x_mbox_1ada3e15b402bdd502048b69a87dfd70a8" compoundref="xmbox_8h" startline="195">XMbox::Config</references>
+        <references refid="struct_x_mbox___config_1ae59a7f14795bc768c36b105863e2efc8" compoundref="xmbox_8h" startline="176">XMbox_Config::UseFSL</references>
+        <references refid="group__mbox_1ga992a83c0e5454de142ae0110531e6116" compoundref="xmbox__hw_8h" startline="77">XMB_IE_REG_OFFSET</references>
+        <references refid="group__mbox_1ga4f0eb6f00b1c4baf91576f2e6a32af87" compoundref="xmbox__hw_8h" startline="162">XMbox_ReadReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__mbox_1gaf73757d06d4cc60466e563ab185a6c07" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XMbox_GetInterruptStatus</definition>
+        <argsstring>(XMbox *InstancePtr)</argsstring>
+        <name>XMbox_GetInterruptStatus</name>
+        <param>
+          <type><ref refid="struct_x_mbox" kindref="compound">XMbox</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Retrieve the interrupt status for the mailbox. </para>        </briefdescription>
+        <detaileddescription>
+<para>AND the results of this function with XMB_IX_* to determine which interrupts are currently pending to the processor. This function can only be used for Non-FSL interface. If not, the function will fail in an assert.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the instance to be worked on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Mask of interrupt bits made up of XMB_IX_* constants found in <ref refid="xmbox__hw_8h" kindref="compound">xmbox_hw.h</ref>. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mbox/src/xmbox.c" line="559" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mbox/src/xmbox.c" bodystart="559" bodyend="566"/>
+        <references refid="struct_x_mbox___config_1a7a357a3188be88d9aaba7e8cc60960a8" compoundref="xmbox_8h" startline="175">XMbox_Config::BaseAddress</references>
+        <references refid="struct_x_mbox_1ada3e15b402bdd502048b69a87dfd70a8" compoundref="xmbox_8h" startline="195">XMbox::Config</references>
+        <references refid="struct_x_mbox___config_1ae59a7f14795bc768c36b105863e2efc8" compoundref="xmbox_8h" startline="176">XMbox_Config::UseFSL</references>
+        <references refid="group__mbox_1ga24776289ecaec70de8722b0d4e34db6f" compoundref="xmbox__hw_8h" startline="76">XMB_IS_REG_OFFSET</references>
+        <references refid="group__mbox_1ga4f0eb6f00b1c4baf91576f2e6a32af87" compoundref="xmbox__hw_8h" startline="162">XMbox_ReadReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__mbox_1gab93a50b0032e4b6202c23c4201e0591e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XMbox_ClearInterrupt</definition>
+        <argsstring>(XMbox *InstancePtr, u32 Mask)</argsstring>
+        <name>XMbox_ClearInterrupt</name>
+        <param>
+          <type><ref refid="struct_x_mbox" kindref="compound">XMbox</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Mask</declname>
+        </param>
+        <briefdescription>
+<para>Clears pending interrupts with the provided mask. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function should be called after the software has serviced the interrupts that are pending. This function clears the corresponding bits of the Interrupt Status Register. This function can only be used for Non-FSL interface. If not, the function will fail in an assert.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a logical OR of XMB_IX_* constants found in <ref refid="xmbox__hw_8h" kindref="compound">xmbox_hw.h</ref>.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mbox/src/xmbox.c" line="583" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mbox/src/xmbox.c" bodystart="583" bodyend="593"/>
+        <references refid="struct_x_mbox___config_1a7a357a3188be88d9aaba7e8cc60960a8" compoundref="xmbox_8h" startline="175">XMbox_Config::BaseAddress</references>
+        <references refid="struct_x_mbox_1ada3e15b402bdd502048b69a87dfd70a8" compoundref="xmbox_8h" startline="195">XMbox::Config</references>
+        <references refid="struct_x_mbox___config_1ae59a7f14795bc768c36b105863e2efc8" compoundref="xmbox_8h" startline="176">XMbox_Config::UseFSL</references>
+        <references refid="group__mbox_1ga24776289ecaec70de8722b0d4e34db6f" compoundref="xmbox__hw_8h" startline="76">XMB_IS_REG_OFFSET</references>
+        <references refid="group__mbox_1ga299c2eb6c04531a5da2202b9968531c7" compoundref="xmbox__hw_8h" startline="180">XMbox_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__mbox_1ga4fb918498d8adc676f4ea554585609d2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XMbox_SetSendThreshold</definition>
+        <argsstring>(XMbox *InstancePtr, u32 Value)</argsstring>
+        <name>XMbox_SetSendThreshold</name>
+        <param>
+          <type><ref refid="struct_x_mbox" kindref="compound">XMbox</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Value</declname>
+        </param>
+        <briefdescription>
+<para>Sets the Send Interrupt Threshold. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function can only be used for Non-FSL interface. If not, the function will fail in an assert.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Value</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a value to set for the SIT. Only lower Log2(FIFO Depth) bits are used.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mbox/src/xmbox.c" line="607" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mbox/src/xmbox.c" bodystart="607" bodyend="617"/>
+        <references refid="struct_x_mbox___config_1a7a357a3188be88d9aaba7e8cc60960a8" compoundref="xmbox_8h" startline="175">XMbox_Config::BaseAddress</references>
+        <references refid="struct_x_mbox_1ada3e15b402bdd502048b69a87dfd70a8" compoundref="xmbox_8h" startline="195">XMbox::Config</references>
+        <references refid="struct_x_mbox___config_1ae59a7f14795bc768c36b105863e2efc8" compoundref="xmbox_8h" startline="176">XMbox_Config::UseFSL</references>
+        <references refid="group__mbox_1gabf6dc425ab72da28a9f30d37f803ec25" compoundref="xmbox__hw_8h" startline="70">XMB_SIT_REG_OFFSET</references>
+        <references refid="group__mbox_1ga299c2eb6c04531a5da2202b9968531c7" compoundref="xmbox__hw_8h" startline="180">XMbox_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__mbox_1ga8c05b007d0f92ca32702db58573302a9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XMbox_SetReceiveThreshold</definition>
+        <argsstring>(XMbox *InstancePtr, u32 Value)</argsstring>
+        <name>XMbox_SetReceiveThreshold</name>
+        <param>
+          <type><ref refid="struct_x_mbox" kindref="compound">XMbox</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Value</declname>
+        </param>
+        <briefdescription>
+<para>Set the Receive Interrupt Threshold. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function can only be used for Non-FSL interface. If not, the function will fail in an assert. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Value</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a value to set for the RIT. Only lower Log2(FIFO Depth) bits are used.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mbox/src/xmbox.c" line="630" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mbox/src/xmbox.c" bodystart="630" bodyend="640"/>
+        <references refid="struct_x_mbox___config_1a7a357a3188be88d9aaba7e8cc60960a8" compoundref="xmbox_8h" startline="175">XMbox_Config::BaseAddress</references>
+        <references refid="struct_x_mbox_1ada3e15b402bdd502048b69a87dfd70a8" compoundref="xmbox_8h" startline="195">XMbox::Config</references>
+        <references refid="struct_x_mbox___config_1ae59a7f14795bc768c36b105863e2efc8" compoundref="xmbox_8h" startline="176">XMbox_Config::UseFSL</references>
+        <references refid="group__mbox_1gac1a7132725b8bd47cf0ddfa5e219a63a" compoundref="xmbox__hw_8h" startline="73">XMB_RIT_REG_OFFSET</references>
+        <references refid="group__mbox_1ga299c2eb6c04531a5da2202b9968531c7" compoundref="xmbox__hw_8h" startline="180">XMbox_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__mbox_1ga8620711a04da0032b216e3f57a80570d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XMbox_GetStatus</definition>
+        <argsstring>(XMbox *InstancePtr)</argsstring>
+        <name>XMbox_GetStatus</name>
+        <param>
+          <type><ref refid="struct_x_mbox" kindref="compound">XMbox</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Returns Status register contents. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function can only be used for Non-FSL interface. If not, the function will fail in an assert. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the instance to be worked on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Value returns Status Register contents.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mbox/src/xmbox.c" line="653" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mbox/src/xmbox.c" bodystart="653" bodyend="664"/>
+        <references refid="struct_x_mbox___config_1a7a357a3188be88d9aaba7e8cc60960a8" compoundref="xmbox_8h" startline="175">XMbox_Config::BaseAddress</references>
+        <references refid="struct_x_mbox_1ada3e15b402bdd502048b69a87dfd70a8" compoundref="xmbox_8h" startline="195">XMbox::Config</references>
+        <references refid="struct_x_mbox___config_1ae59a7f14795bc768c36b105863e2efc8" compoundref="xmbox_8h" startline="176">XMbox_Config::UseFSL</references>
+        <references refid="group__mbox_1ga939d1f0b71e575a31a3689ca28cbc749" compoundref="xmbox__hw_8h" startline="68">XMB_STATUS_REG_OFFSET</references>
+        <references refid="group__mbox_1ga4f0eb6f00b1c4baf91576f2e6a32af87" compoundref="xmbox__hw_8h" startline="162">XMbox_ReadReg</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2007<sp/>-<sp/>2020<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2023<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="46"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;string.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xmbox_8h" kindref="compound">xmbox.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_assert.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="80" refid="group__mbox_1ga34fbeaf8de9092cb4d5b00dfbf054426" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__mbox_1ga34fbeaf8de9092cb4d5b00dfbf054426" kindref="member">XMbox_CfgInitialize</ref>(<ref refid="struct_x_mbox" kindref="compound">XMbox</ref><sp/>*InstancePtr,<sp/><ref refid="struct_x_mbox___config" kindref="compound">XMbox_Config</ref><sp/>*ConfigPtr,</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR<sp/>EffectiveAddress)</highlight></codeline>
+<codeline lineno="82"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"></highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(ConfigPtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"></highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="88"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Clear<sp/>instance<sp/>memory<sp/>and<sp/>make<sp/>copy<sp/>of<sp/>configuration</highlight></codeline>
+<codeline lineno="89"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>memset(InstancePtr,<sp/>0,<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(<ref refid="struct_x_mbox" kindref="compound">XMbox</ref>));</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>memcpy(&amp;InstancePtr-&gt;<ref refid="struct_x_mbox_1ada3e15b402bdd502048b69a87dfd70a8" kindref="member">Config</ref>,<sp/>ConfigPtr,<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(<ref refid="struct_x_mbox___config" kindref="compound">XMbox_Config</ref>));</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"></highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_mbox_1ada3e15b402bdd502048b69a87dfd70a8" kindref="member">Config</ref>.<ref refid="struct_x_mbox___config_1a7a357a3188be88d9aaba7e8cc60960a8" kindref="member">BaseAddress</ref><sp/>=<sp/>EffectiveAddress;</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_mbox_1ac30a078abf5bafc3b3ff0559894f333f" kindref="member">IsReady</ref><sp/>=<sp/>XIL_COMPONENT_IS_READY;</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"></highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="97"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"></highlight></codeline>
+<codeline lineno="99"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="127" refid="group__mbox_1gaa1f68405027d147c68aa53bcb49fbd5a" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__mbox_1gaa1f68405027d147c68aa53bcb49fbd5a" kindref="member">XMbox_Read</ref>(<ref refid="struct_x_mbox" kindref="compound">XMbox</ref><sp/>*InstancePtr,<sp/>u32<sp/>*BufferPtr,<sp/>u32<sp/>RequestedBytes,</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>*BytesRecvdPtr)</highlight></codeline>
+<codeline lineno="129"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>NumBytes;</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"></highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(!((u32)<sp/>BufferPtr<sp/>&amp;<sp/>0x3));</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(RequestedBytes<sp/>!=<sp/>0);</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid((RequestedBytes<sp/>%4)<sp/>==<sp/>0);</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(BytesRecvdPtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"></highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>NumBytes<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"></highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_mbox_1ada3e15b402bdd502048b69a87dfd70a8" kindref="member">Config</ref>.<ref refid="struct_x_mbox___config_1ae59a7f14795bc768c36b105863e2efc8" kindref="member">UseFSL</ref><sp/>==<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>For<sp/>memory<sp/>mapped<sp/>IO<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="group__mbox_1gaa533a34a21931e86fe66cbd144659b87" kindref="member">XMbox_IsEmptyHw</ref>(InstancePtr-&gt;<ref refid="struct_x_mbox_1ada3e15b402bdd502048b69a87dfd70a8" kindref="member">Config</ref>.<ref refid="struct_x_mbox___config_1a7a357a3188be88d9aaba7e8cc60960a8" kindref="member">BaseAddress</ref>))</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_NO_DATA;</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"></highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="146"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Read<sp/>the<sp/>Mailbox<sp/>until<sp/>empty<sp/>or<sp/>the<sp/>length<sp/>requested<sp/>is</highlight></codeline>
+<codeline lineno="147"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>satisfied</highlight></codeline>
+<codeline lineno="148"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">do</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*BufferPtr++<sp/>=</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__mbox_1ga20e3d2cc2c9ecc47fc1ce4420a8b69f8" kindref="member">XMbox_ReadMBox</ref>(InstancePtr-&gt;<ref refid="struct_x_mbox_1ada3e15b402bdd502048b69a87dfd70a8" kindref="member">Config</ref>.<ref refid="struct_x_mbox___config_1a7a357a3188be88d9aaba7e8cc60960a8" kindref="member">BaseAddress</ref>);</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>NumBytes<sp/>+=<sp/>4;</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>((NumBytes<sp/>!=<sp/>RequestedBytes)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>!(<ref refid="group__mbox_1gaa533a34a21931e86fe66cbd144659b87" kindref="member">XMbox_IsEmptyHw</ref>(InstancePtr-&gt;<ref refid="struct_x_mbox_1ada3e15b402bdd502048b69a87dfd70a8" kindref="member">Config</ref>.<ref refid="struct_x_mbox___config_1a7a357a3188be88d9aaba7e8cc60960a8" kindref="member">BaseAddress</ref>)));</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"></highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*BytesRecvdPtr<sp/>=<sp/>NumBytes;</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"></highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>FSL<sp/>based<sp/>Access<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="group__mbox_1gaa74c9f619d2ee4f3b668743954223ea6" kindref="member">XMbox_FSLIsEmpty</ref>(InstancePtr-&gt;<ref refid="struct_x_mbox_1ada3e15b402bdd502048b69a87dfd70a8" kindref="member">Config</ref>.<ref refid="struct_x_mbox___config_1a609445dac27b19ef129dd295fc252453" kindref="member">RecvID</ref>))</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_NO_DATA;</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"></highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="164"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Read<sp/>the<sp/>Mailbox<sp/>until<sp/>empty<sp/>or<sp/>the<sp/>length<sp/>requested<sp/>is</highlight></codeline>
+<codeline lineno="165"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>satisfied</highlight></codeline>
+<codeline lineno="166"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="167"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">do</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*BufferPtr++<sp/>=</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__mbox_1ga597515ed7cbc30c2bcb4409f4a463dcf" kindref="member">XMbox_FSLReadMBox</ref>(InstancePtr-&gt;<ref refid="struct_x_mbox_1ada3e15b402bdd502048b69a87dfd70a8" kindref="member">Config</ref>.<ref refid="struct_x_mbox___config_1a609445dac27b19ef129dd295fc252453" kindref="member">RecvID</ref>);</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>NumBytes<sp/>+=<sp/>4;</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>((NumBytes<sp/>!=<sp/>RequestedBytes)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="172"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>!(<ref refid="group__mbox_1gaa74c9f619d2ee4f3b668743954223ea6" kindref="member">XMbox_FSLIsEmpty</ref>(InstancePtr-&gt;<ref refid="struct_x_mbox_1ada3e15b402bdd502048b69a87dfd70a8" kindref="member">Config</ref>.<ref refid="struct_x_mbox___config_1a609445dac27b19ef129dd295fc252453" kindref="member">RecvID</ref>)));</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"></highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*BytesRecvdPtr<sp/>=<sp/>NumBytes;</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"></highlight></codeline>
+<codeline lineno="177"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="178"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"></highlight></codeline>
+<codeline lineno="180"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="196" refid="group__mbox_1gab14511b623c1d3c191cdc441b8909006" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__mbox_1gab14511b623c1d3c191cdc441b8909006" kindref="member">XMbox_ReadBlocking</ref>(<ref refid="struct_x_mbox" kindref="compound">XMbox</ref><sp/>*InstancePtr,<sp/>u32<sp/>*BufferPtr,</highlight></codeline>
+<codeline lineno="197"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>RequestedBytes)</highlight></codeline>
+<codeline lineno="198"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>NumBytes;</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"></highlight></codeline>
+<codeline lineno="201"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="202"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(!((u32)<sp/>BufferPtr<sp/>&amp;<sp/>0x3));</highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(RequestedBytes<sp/>!=<sp/>0);</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid((RequestedBytes<sp/>%<sp/>4)<sp/>==<sp/>0);</highlight></codeline>
+<codeline lineno="205"><highlight class="normal"></highlight></codeline>
+<codeline lineno="206"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>NumBytes<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="207"><highlight class="normal"></highlight></codeline>
+<codeline lineno="208"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_mbox_1ada3e15b402bdd502048b69a87dfd70a8" kindref="member">Config</ref>.<ref refid="struct_x_mbox___config_1ae59a7f14795bc768c36b105863e2efc8" kindref="member">UseFSL</ref><sp/>==<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="209"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>For<sp/>memory<sp/>mapped<sp/>IO<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="210"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Block<sp/>while<sp/>the<sp/>mailbox<sp/>FIFO<sp/>has<sp/>at-least<sp/>some<sp/>data<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="211"><highlight class="normal"></highlight></codeline>
+<codeline lineno="212"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">do</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="213"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal">(<ref refid="group__mbox_1gaa533a34a21931e86fe66cbd144659b87" kindref="member">XMbox_IsEmptyHw</ref>(InstancePtr-&gt;<ref refid="struct_x_mbox_1ada3e15b402bdd502048b69a87dfd70a8" kindref="member">Config</ref>.<ref refid="struct_x_mbox___config_1a7a357a3188be88d9aaba7e8cc60960a8" kindref="member">BaseAddress</ref>));</highlight></codeline>
+<codeline lineno="214"><highlight class="normal"></highlight></codeline>
+<codeline lineno="215"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="216"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Read<sp/>the<sp/>Mailbox<sp/>until<sp/>empty<sp/>or<sp/>the<sp/>length</highlight></codeline>
+<codeline lineno="217"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>requested<sp/>is<sp/>satisfied</highlight></codeline>
+<codeline lineno="218"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="219"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*BufferPtr++<sp/>=</highlight></codeline>
+<codeline lineno="220"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__mbox_1ga20e3d2cc2c9ecc47fc1ce4420a8b69f8" kindref="member">XMbox_ReadMBox</ref>(InstancePtr-&gt;<ref refid="struct_x_mbox_1ada3e15b402bdd502048b69a87dfd70a8" kindref="member">Config</ref>.<ref refid="struct_x_mbox___config_1a7a357a3188be88d9aaba7e8cc60960a8" kindref="member">BaseAddress</ref>);</highlight></codeline>
+<codeline lineno="221"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>NumBytes<sp/>+=<sp/>4;</highlight></codeline>
+<codeline lineno="222"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(NumBytes<sp/>!=<sp/>RequestedBytes);</highlight></codeline>
+<codeline lineno="223"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="224"><highlight class="normal"></highlight></codeline>
+<codeline lineno="225"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>FSL<sp/>based<sp/>Access<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="226"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Block<sp/>while<sp/>the<sp/>mailbox<sp/>FIFO<sp/>has<sp/>at-least<sp/>some<sp/>data<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="227"><highlight class="normal"></highlight></codeline>
+<codeline lineno="228"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">do</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="229"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(<ref refid="group__mbox_1gaa74c9f619d2ee4f3b668743954223ea6" kindref="member">XMbox_FSLIsEmpty</ref>(InstancePtr-&gt;<ref refid="struct_x_mbox_1ada3e15b402bdd502048b69a87dfd70a8" kindref="member">Config</ref>.<ref refid="struct_x_mbox___config_1a609445dac27b19ef129dd295fc252453" kindref="member">RecvID</ref>));</highlight></codeline>
+<codeline lineno="230"><highlight class="normal"></highlight></codeline>
+<codeline lineno="231"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="232"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Read<sp/>the<sp/>Mailbox<sp/>until<sp/>empty<sp/>or<sp/>the<sp/>length<sp/>requested</highlight></codeline>
+<codeline lineno="233"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>is<sp/>satisfied</highlight></codeline>
+<codeline lineno="234"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="235"><highlight class="normal"></highlight></codeline>
+<codeline lineno="236"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*BufferPtr++<sp/>=</highlight></codeline>
+<codeline lineno="237"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__mbox_1ga597515ed7cbc30c2bcb4409f4a463dcf" kindref="member">XMbox_FSLReadMBox</ref>(InstancePtr-&gt;<ref refid="struct_x_mbox_1ada3e15b402bdd502048b69a87dfd70a8" kindref="member">Config</ref>.<ref refid="struct_x_mbox___config_1a609445dac27b19ef129dd295fc252453" kindref="member">RecvID</ref>);</highlight></codeline>
+<codeline lineno="238"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>NumBytes<sp/>+=<sp/>4;</highlight></codeline>
+<codeline lineno="239"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(NumBytes<sp/>!=<sp/>RequestedBytes);</highlight></codeline>
+<codeline lineno="240"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="241"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="242"><highlight class="normal"></highlight></codeline>
+<codeline lineno="243"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="271" refid="group__mbox_1ga254c4e5a042e34520c3669fbf9651bc2" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__mbox_1ga254c4e5a042e34520c3669fbf9651bc2" kindref="member">XMbox_Write</ref>(<ref refid="struct_x_mbox" kindref="compound">XMbox</ref><sp/>*InstancePtr,<sp/>u32<sp/>*BufferPtr,<sp/>u32<sp/>RequestedBytes,</highlight></codeline>
+<codeline lineno="272"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>*BytesSentPtr)</highlight></codeline>
+<codeline lineno="273"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="274"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>NumBytes;</highlight></codeline>
+<codeline lineno="275"><highlight class="normal"></highlight></codeline>
+<codeline lineno="276"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="277"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(!((u32)<sp/>BufferPtr<sp/>&amp;<sp/>0x3));</highlight></codeline>
+<codeline lineno="278"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(RequestedBytes<sp/>!=<sp/>0);</highlight></codeline>
+<codeline lineno="279"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid((RequestedBytes<sp/>%4)<sp/>==<sp/>0);</highlight></codeline>
+<codeline lineno="280"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(BytesSentPtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="281"><highlight class="normal"></highlight></codeline>
+<codeline lineno="282"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>NumBytes<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="283"><highlight class="normal"></highlight></codeline>
+<codeline lineno="284"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_mbox_1ada3e15b402bdd502048b69a87dfd70a8" kindref="member">Config</ref>.<ref refid="struct_x_mbox___config_1ae59a7f14795bc768c36b105863e2efc8" kindref="member">UseFSL</ref><sp/>==<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="285"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>For<sp/>memory<sp/>mapped<sp/>IO<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="286"><highlight class="normal"></highlight></codeline>
+<codeline lineno="287"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="group__mbox_1ga686ca5f4834e7e613350a2166cd49398" kindref="member">XMbox_IsFullHw</ref>(InstancePtr-&gt;<ref refid="struct_x_mbox_1ada3e15b402bdd502048b69a87dfd70a8" kindref="member">Config</ref>.<ref refid="struct_x_mbox___config_1a7a357a3188be88d9aaba7e8cc60960a8" kindref="member">BaseAddress</ref>))<sp/>{</highlight></codeline>
+<codeline lineno="288"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FIFO_NO_ROOM;</highlight></codeline>
+<codeline lineno="289"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="290"><highlight class="normal"></highlight></codeline>
+<codeline lineno="291"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="292"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Write<sp/>to<sp/>the<sp/>Mailbox<sp/>until<sp/>full<sp/>or<sp/>the<sp/>length<sp/>requested<sp/>is</highlight></codeline>
+<codeline lineno="293"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>satisfied.</highlight></codeline>
+<codeline lineno="294"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="295"><highlight class="normal"></highlight></codeline>
+<codeline lineno="296"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">do</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="297"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__mbox_1ga267447e4cde5a2e0320ebba438c22a47" kindref="member">XMbox_WriteMBox</ref>(InstancePtr-&gt;<ref refid="struct_x_mbox_1ada3e15b402bdd502048b69a87dfd70a8" kindref="member">Config</ref>.<ref refid="struct_x_mbox___config_1a7a357a3188be88d9aaba7e8cc60960a8" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="298"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*BufferPtr++);</highlight></codeline>
+<codeline lineno="299"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>NumBytes<sp/>+=<sp/>4;</highlight></codeline>
+<codeline lineno="300"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>((NumBytes<sp/>!=<sp/>RequestedBytes)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="301"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>!(<ref refid="group__mbox_1ga686ca5f4834e7e613350a2166cd49398" kindref="member">XMbox_IsFullHw</ref>(InstancePtr-&gt;<ref refid="struct_x_mbox_1ada3e15b402bdd502048b69a87dfd70a8" kindref="member">Config</ref>.<ref refid="struct_x_mbox___config_1a7a357a3188be88d9aaba7e8cc60960a8" kindref="member">BaseAddress</ref>)));</highlight></codeline>
+<codeline lineno="302"><highlight class="normal"></highlight></codeline>
+<codeline lineno="303"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*BytesSentPtr<sp/>=<sp/>NumBytes;</highlight></codeline>
+<codeline lineno="304"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="305"><highlight class="normal"></highlight></codeline>
+<codeline lineno="306"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>FSL<sp/>based<sp/>Access<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="307"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="group__mbox_1ga59470c703fb9332335643ba020898e59" kindref="member">XMbox_FSLIsFull</ref>(InstancePtr-&gt;<ref refid="struct_x_mbox_1ada3e15b402bdd502048b69a87dfd70a8" kindref="member">Config</ref>.<ref refid="struct_x_mbox___config_1a9e08e69be2c504f49b76b7b992701e5f" kindref="member">SendID</ref>))<sp/>{</highlight></codeline>
+<codeline lineno="308"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FIFO_NO_ROOM;</highlight></codeline>
+<codeline lineno="309"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="310"><highlight class="normal"></highlight></codeline>
+<codeline lineno="311"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="312"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Write<sp/>to<sp/>the<sp/>Mailbox<sp/>until<sp/>full<sp/>or<sp/>the<sp/>length<sp/>requested<sp/>is</highlight></codeline>
+<codeline lineno="313"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>satisfied.</highlight></codeline>
+<codeline lineno="314"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="315"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">do</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="316"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__mbox_1ga575df2eee6d404775c6b2e2843421a53" kindref="member">XMbox_FSLWriteMBox</ref>(InstancePtr-&gt;<ref refid="struct_x_mbox_1ada3e15b402bdd502048b69a87dfd70a8" kindref="member">Config</ref>.<ref refid="struct_x_mbox___config_1a9e08e69be2c504f49b76b7b992701e5f" kindref="member">SendID</ref>,</highlight></codeline>
+<codeline lineno="317"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*BufferPtr++);</highlight></codeline>
+<codeline lineno="318"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>NumBytes<sp/>+=<sp/>4;</highlight></codeline>
+<codeline lineno="319"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>((NumBytes<sp/>!=<sp/>RequestedBytes)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="320"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>!(<ref refid="group__mbox_1ga59470c703fb9332335643ba020898e59" kindref="member">XMbox_FSLIsFull</ref>(InstancePtr-&gt;<ref refid="struct_x_mbox_1ada3e15b402bdd502048b69a87dfd70a8" kindref="member">Config</ref>.<ref refid="struct_x_mbox___config_1a9e08e69be2c504f49b76b7b992701e5f" kindref="member">SendID</ref>)));</highlight></codeline>
+<codeline lineno="321"><highlight class="normal"></highlight></codeline>
+<codeline lineno="322"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*BytesSentPtr<sp/>=<sp/>NumBytes;</highlight></codeline>
+<codeline lineno="323"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="324"><highlight class="normal"></highlight></codeline>
+<codeline lineno="325"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="326"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="327"><highlight class="normal"></highlight></codeline>
+<codeline lineno="328"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="343" refid="group__mbox_1ga23ee00f97807790770f2dab9b2ea3b0e" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__mbox_1ga23ee00f97807790770f2dab9b2ea3b0e" kindref="member">XMbox_WriteBlocking</ref>(<ref refid="struct_x_mbox" kindref="compound">XMbox</ref><sp/>*InstancePtr,<sp/>u32<sp/>*BufferPtr,<sp/>u32<sp/>RequestedBytes)</highlight></codeline>
+<codeline lineno="344"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="345"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>NumBytes;</highlight></codeline>
+<codeline lineno="346"><highlight class="normal"></highlight></codeline>
+<codeline lineno="347"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="348"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(!((u32)<sp/>BufferPtr<sp/>&amp;<sp/>0x3));</highlight></codeline>
+<codeline lineno="349"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(RequestedBytes<sp/>!=<sp/>0);</highlight></codeline>
+<codeline lineno="350"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid((RequestedBytes<sp/>%4)<sp/>==<sp/>0);</highlight></codeline>
+<codeline lineno="351"><highlight class="normal"></highlight></codeline>
+<codeline lineno="352"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>NumBytes<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="353"><highlight class="normal"></highlight></codeline>
+<codeline lineno="354"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_mbox_1ada3e15b402bdd502048b69a87dfd70a8" kindref="member">Config</ref>.<ref refid="struct_x_mbox___config_1ae59a7f14795bc768c36b105863e2efc8" kindref="member">UseFSL</ref><sp/>==<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="355"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>For<sp/>memory<sp/>mapped<sp/>IO<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="356"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Block<sp/>while<sp/>the<sp/>mailbox<sp/>FIFO<sp/>becomes<sp/>free<sp/>to<sp/>transfer</highlight></codeline>
+<codeline lineno="357"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>at-least<sp/>one<sp/>word</highlight></codeline>
+<codeline lineno="358"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="359"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">do</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="360"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(<ref refid="group__mbox_1ga686ca5f4834e7e613350a2166cd49398" kindref="member">XMbox_IsFullHw</ref>(InstancePtr-&gt;<ref refid="struct_x_mbox_1ada3e15b402bdd502048b69a87dfd70a8" kindref="member">Config</ref>.<ref refid="struct_x_mbox___config_1a7a357a3188be88d9aaba7e8cc60960a8" kindref="member">BaseAddress</ref>));</highlight></codeline>
+<codeline lineno="361"><highlight class="normal"></highlight></codeline>
+<codeline lineno="362"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__mbox_1ga267447e4cde5a2e0320ebba438c22a47" kindref="member">XMbox_WriteMBox</ref>(InstancePtr-&gt;<ref refid="struct_x_mbox_1ada3e15b402bdd502048b69a87dfd70a8" kindref="member">Config</ref>.<ref refid="struct_x_mbox___config_1a7a357a3188be88d9aaba7e8cc60960a8" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="363"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*BufferPtr++);</highlight></codeline>
+<codeline lineno="364"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>NumBytes<sp/>+=<sp/>4;</highlight></codeline>
+<codeline lineno="365"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(NumBytes<sp/>!=<sp/>RequestedBytes);</highlight></codeline>
+<codeline lineno="366"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="367"><highlight class="normal"></highlight></codeline>
+<codeline lineno="368"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>FSL<sp/>based<sp/>Access<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="369"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Block<sp/>while<sp/>the<sp/>mailbox<sp/>FIFO<sp/>becomes<sp/>free<sp/>to<sp/>transfer</highlight></codeline>
+<codeline lineno="370"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>at-least<sp/>one<sp/>word</highlight></codeline>
+<codeline lineno="371"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="372"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">do</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="373"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(<ref refid="group__mbox_1ga59470c703fb9332335643ba020898e59" kindref="member">XMbox_FSLIsFull</ref>(InstancePtr-&gt;<ref refid="struct_x_mbox_1ada3e15b402bdd502048b69a87dfd70a8" kindref="member">Config</ref>.<ref refid="struct_x_mbox___config_1a9e08e69be2c504f49b76b7b992701e5f" kindref="member">SendID</ref>));</highlight></codeline>
+<codeline lineno="374"><highlight class="normal"></highlight></codeline>
+<codeline lineno="375"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__mbox_1ga575df2eee6d404775c6b2e2843421a53" kindref="member">XMbox_FSLWriteMBox</ref>(InstancePtr-&gt;<ref refid="struct_x_mbox_1ada3e15b402bdd502048b69a87dfd70a8" kindref="member">Config</ref>.<ref refid="struct_x_mbox___config_1a9e08e69be2c504f49b76b7b992701e5f" kindref="member">SendID</ref>,</highlight></codeline>
+<codeline lineno="376"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*BufferPtr++);</highlight></codeline>
+<codeline lineno="377"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>NumBytes<sp/>+=<sp/>4;</highlight></codeline>
+<codeline lineno="378"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(NumBytes<sp/>!=<sp/>RequestedBytes);</highlight></codeline>
+<codeline lineno="379"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="380"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="381"><highlight class="normal"></highlight></codeline>
+<codeline lineno="382"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="396" refid="group__mbox_1gabb01fe466ffcd0da315ffee115f4cd60" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__mbox_1gabb01fe466ffcd0da315ffee115f4cd60" kindref="member">XMbox_IsEmpty</ref>(<ref refid="struct_x_mbox" kindref="compound">XMbox</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="397"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="398"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="399"><highlight class="normal"></highlight></codeline>
+<codeline lineno="400"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_mbox_1ada3e15b402bdd502048b69a87dfd70a8" kindref="member">Config</ref>.<ref refid="struct_x_mbox___config_1ae59a7f14795bc768c36b105863e2efc8" kindref="member">UseFSL</ref><sp/>==<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="401"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>For<sp/>memory<sp/>mapped<sp/>IO<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="402"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(<ref refid="group__mbox_1gaa533a34a21931e86fe66cbd144659b87" kindref="member">XMbox_IsEmptyHw</ref>(InstancePtr-&gt;<ref refid="struct_x_mbox_1ada3e15b402bdd502048b69a87dfd70a8" kindref="member">Config</ref>.<ref refid="struct_x_mbox___config_1a7a357a3188be88d9aaba7e8cc60960a8" kindref="member">BaseAddress</ref>));</highlight></codeline>
+<codeline lineno="403"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="404"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>FSL<sp/>based<sp/>Access<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="405"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(<ref refid="group__mbox_1gaa74c9f619d2ee4f3b668743954223ea6" kindref="member">XMbox_FSLIsEmpty</ref>(InstancePtr-&gt;<ref refid="struct_x_mbox_1ada3e15b402bdd502048b69a87dfd70a8" kindref="member">Config</ref>.<ref refid="struct_x_mbox___config_1a609445dac27b19ef129dd295fc252453" kindref="member">RecvID</ref>));</highlight></codeline>
+<codeline lineno="406"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="407"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="408"><highlight class="normal"></highlight></codeline>
+<codeline lineno="409"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="423" refid="group__mbox_1gaa9db05bc2935bcc2230ff023b5c9cbcc" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__mbox_1gaa9db05bc2935bcc2230ff023b5c9cbcc" kindref="member">XMbox_IsFull</ref>(<ref refid="struct_x_mbox" kindref="compound">XMbox</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="424"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="425"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="426"><highlight class="normal"></highlight></codeline>
+<codeline lineno="427"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_mbox_1ada3e15b402bdd502048b69a87dfd70a8" kindref="member">Config</ref>.<ref refid="struct_x_mbox___config_1ae59a7f14795bc768c36b105863e2efc8" kindref="member">UseFSL</ref><sp/>==<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="428"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>For<sp/>memory<sp/>mapped<sp/>IO<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="429"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(<ref refid="group__mbox_1ga686ca5f4834e7e613350a2166cd49398" kindref="member">XMbox_IsFullHw</ref>(InstancePtr-&gt;<ref refid="struct_x_mbox_1ada3e15b402bdd502048b69a87dfd70a8" kindref="member">Config</ref>.<ref refid="struct_x_mbox___config_1a7a357a3188be88d9aaba7e8cc60960a8" kindref="member">BaseAddress</ref>));</highlight></codeline>
+<codeline lineno="430"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="431"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>FSL<sp/>based<sp/>Access<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="432"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(<ref refid="group__mbox_1ga59470c703fb9332335643ba020898e59" kindref="member">XMbox_FSLIsFull</ref>(InstancePtr-&gt;<ref refid="struct_x_mbox_1ada3e15b402bdd502048b69a87dfd70a8" kindref="member">Config</ref>.<ref refid="struct_x_mbox___config_1a9e08e69be2c504f49b76b7b992701e5f" kindref="member">SendID</ref>));</highlight></codeline>
+<codeline lineno="433"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="434"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="435"><highlight class="normal"></highlight></codeline>
+<codeline lineno="436"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="451" refid="group__mbox_1ga10691489238a2a1b8515468b416d773e" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__mbox_1ga10691489238a2a1b8515468b416d773e" kindref="member">XMbox_Flush</ref>(<ref refid="struct_x_mbox" kindref="compound">XMbox</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="452"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="453"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="454"><highlight class="normal"></highlight></codeline>
+<codeline lineno="455"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_mbox_1ada3e15b402bdd502048b69a87dfd70a8" kindref="member">Config</ref>.<ref refid="struct_x_mbox___config_1ae59a7f14795bc768c36b105863e2efc8" kindref="member">UseFSL</ref><sp/>==<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="456"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>For<sp/>memory<sp/>mapped<sp/>IO<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="457"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">do</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="458"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)<ref refid="group__mbox_1ga20e3d2cc2c9ecc47fc1ce4420a8b69f8" kindref="member">XMbox_ReadMBox</ref>(InstancePtr-&gt;<ref refid="struct_x_mbox_1ada3e15b402bdd502048b69a87dfd70a8" kindref="member">Config</ref>.<ref refid="struct_x_mbox___config_1a7a357a3188be88d9aaba7e8cc60960a8" kindref="member">BaseAddress</ref>);</highlight></codeline>
+<codeline lineno="459"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(!(<ref refid="group__mbox_1gaa533a34a21931e86fe66cbd144659b87" kindref="member">XMbox_IsEmptyHw</ref>(InstancePtr-&gt;<ref refid="struct_x_mbox_1ada3e15b402bdd502048b69a87dfd70a8" kindref="member">Config</ref>.<ref refid="struct_x_mbox___config_1a7a357a3188be88d9aaba7e8cc60960a8" kindref="member">BaseAddress</ref>)));</highlight></codeline>
+<codeline lineno="460"><highlight class="normal"></highlight></codeline>
+<codeline lineno="461"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="462"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>FSL<sp/>based<sp/>Access<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="463"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">do</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="464"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)<sp/><ref refid="group__mbox_1ga597515ed7cbc30c2bcb4409f4a463dcf" kindref="member">XMbox_FSLReadMBox</ref>(InstancePtr-&gt;<ref refid="struct_x_mbox_1ada3e15b402bdd502048b69a87dfd70a8" kindref="member">Config</ref>.<ref refid="struct_x_mbox___config_1a609445dac27b19ef129dd295fc252453" kindref="member">RecvID</ref>);</highlight></codeline>
+<codeline lineno="465"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(!(<ref refid="group__mbox_1gaa74c9f619d2ee4f3b668743954223ea6" kindref="member">XMbox_FSLIsEmpty</ref>(InstancePtr-&gt;<ref refid="struct_x_mbox_1ada3e15b402bdd502048b69a87dfd70a8" kindref="member">Config</ref>.<ref refid="struct_x_mbox___config_1a609445dac27b19ef129dd295fc252453" kindref="member">RecvID</ref>)));</highlight></codeline>
+<codeline lineno="466"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="467"><highlight class="normal"></highlight></codeline>
+<codeline lineno="468"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="469"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="470"><highlight class="normal"></highlight></codeline>
+<codeline lineno="471"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="482" refid="group__mbox_1gacf8d6e720149452270eac0493537a233" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__mbox_1gacf8d6e720149452270eac0493537a233" kindref="member">XMbox_ResetFifos</ref>(<ref refid="struct_x_mbox" kindref="compound">XMbox</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="483"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="484"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="485"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_mbox_1ada3e15b402bdd502048b69a87dfd70a8" kindref="member">Config</ref>.<ref refid="struct_x_mbox___config_1ae59a7f14795bc768c36b105863e2efc8" kindref="member">UseFSL</ref><sp/>==<sp/>0);</highlight></codeline>
+<codeline lineno="486"><highlight class="normal"></highlight></codeline>
+<codeline lineno="487"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>For<sp/>memory<sp/>mapped<sp/>IO:</highlight></codeline>
+<codeline lineno="488"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*</highlight></codeline>
+<codeline lineno="489"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Write<sp/>to<sp/>the<sp/>control<sp/>register<sp/>to<sp/>reset<sp/>both<sp/>send<sp/>and</highlight></codeline>
+<codeline lineno="490"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>receive<sp/>FIFOs,<sp/>these<sp/>bits<sp/>are<sp/>self-clearing<sp/>such<sp/>that</highlight></codeline>
+<codeline lineno="491"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>there&apos;s<sp/>no<sp/>need<sp/>to<sp/>clear<sp/>them.</highlight></codeline>
+<codeline lineno="492"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="493"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__mbox_1ga299c2eb6c04531a5da2202b9968531c7" kindref="member">XMbox_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_mbox_1ada3e15b402bdd502048b69a87dfd70a8" kindref="member">Config</ref>.<ref refid="struct_x_mbox___config_1a7a357a3188be88d9aaba7e8cc60960a8" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="494"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__mbox_1ga12aab471e30140e408a6e9c396b44257" kindref="member">XMB_CTRL_REG_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="495"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__mbox_1ga9d015e11c5da1e44ab58be839cdf33d3" kindref="member">XMB_CTRL_RESET_SEND_FIFO</ref><sp/>|</highlight></codeline>
+<codeline lineno="496"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__mbox_1gaf8e2e5c1013346efd30bf5ea7314ebd7" kindref="member">XMB_CTRL_RESET_RECV_FIFO</ref>);</highlight></codeline>
+<codeline lineno="497"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="498"><highlight class="normal"></highlight></codeline>
+<codeline lineno="499"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="510" refid="group__mbox_1ga8e56860ea2cf7f4f1df0f1862d8c4c61" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__mbox_1ga8e56860ea2cf7f4f1df0f1862d8c4c61" kindref="member">XMbox_SetInterruptEnable</ref>(<ref refid="struct_x_mbox" kindref="compound">XMbox</ref><sp/>*InstancePtr,<sp/>u32<sp/>Mask)</highlight></codeline>
+<codeline lineno="511"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="512"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="513"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_mbox_1ada3e15b402bdd502048b69a87dfd70a8" kindref="member">Config</ref>.<ref refid="struct_x_mbox___config_1ae59a7f14795bc768c36b105863e2efc8" kindref="member">UseFSL</ref><sp/>==<sp/>0);</highlight></codeline>
+<codeline lineno="514"><highlight class="normal"></highlight></codeline>
+<codeline lineno="515"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_mbox_1ada3e15b402bdd502048b69a87dfd70a8" kindref="member">Config</ref>.<ref refid="struct_x_mbox___config_1ae59a7f14795bc768c36b105863e2efc8" kindref="member">UseFSL</ref><sp/>==<sp/>0)</highlight></codeline>
+<codeline lineno="516"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__mbox_1ga299c2eb6c04531a5da2202b9968531c7" kindref="member">XMbox_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_mbox_1ada3e15b402bdd502048b69a87dfd70a8" kindref="member">Config</ref>.<ref refid="struct_x_mbox___config_1a7a357a3188be88d9aaba7e8cc60960a8" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="517"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__mbox_1ga992a83c0e5454de142ae0110531e6116" kindref="member">XMB_IE_REG_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="518"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Mask);</highlight></codeline>
+<codeline lineno="519"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="520"><highlight class="normal"></highlight></codeline>
+<codeline lineno="521"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="537" refid="group__mbox_1gacb96b1964aa476b4d60df4fd2440022c" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__mbox_1gacb96b1964aa476b4d60df4fd2440022c" kindref="member">XMbox_GetInterruptEnable</ref>(<ref refid="struct_x_mbox" kindref="compound">XMbox</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="538"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="539"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="540"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_mbox_1ada3e15b402bdd502048b69a87dfd70a8" kindref="member">Config</ref>.<ref refid="struct_x_mbox___config_1ae59a7f14795bc768c36b105863e2efc8" kindref="member">UseFSL</ref><sp/>==<sp/>0);</highlight></codeline>
+<codeline lineno="541"><highlight class="normal"></highlight></codeline>
+<codeline lineno="542"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="group__mbox_1ga4f0eb6f00b1c4baf91576f2e6a32af87" kindref="member">XMbox_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_mbox_1ada3e15b402bdd502048b69a87dfd70a8" kindref="member">Config</ref>.<ref refid="struct_x_mbox___config_1a7a357a3188be88d9aaba7e8cc60960a8" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="543"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__mbox_1ga992a83c0e5454de142ae0110531e6116" kindref="member">XMB_IE_REG_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="544"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="545"><highlight class="normal"></highlight></codeline>
+<codeline lineno="546"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="559" refid="group__mbox_1gaf73757d06d4cc60466e563ab185a6c07" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__mbox_1gaf73757d06d4cc60466e563ab185a6c07" kindref="member">XMbox_GetInterruptStatus</ref>(<ref refid="struct_x_mbox" kindref="compound">XMbox</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="560"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="561"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="562"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_mbox_1ada3e15b402bdd502048b69a87dfd70a8" kindref="member">Config</ref>.<ref refid="struct_x_mbox___config_1ae59a7f14795bc768c36b105863e2efc8" kindref="member">UseFSL</ref><sp/>==<sp/>0);</highlight></codeline>
+<codeline lineno="563"><highlight class="normal"></highlight></codeline>
+<codeline lineno="564"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="group__mbox_1ga4f0eb6f00b1c4baf91576f2e6a32af87" kindref="member">XMbox_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_mbox_1ada3e15b402bdd502048b69a87dfd70a8" kindref="member">Config</ref>.<ref refid="struct_x_mbox___config_1a7a357a3188be88d9aaba7e8cc60960a8" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="565"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__mbox_1ga24776289ecaec70de8722b0d4e34db6f" kindref="member">XMB_IS_REG_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="566"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="567"><highlight class="normal"></highlight></codeline>
+<codeline lineno="568"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="583" refid="group__mbox_1gab93a50b0032e4b6202c23c4201e0591e" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__mbox_1gab93a50b0032e4b6202c23c4201e0591e" kindref="member">XMbox_ClearInterrupt</ref>(<ref refid="struct_x_mbox" kindref="compound">XMbox</ref><sp/>*InstancePtr,<sp/>u32<sp/>Mask)</highlight></codeline>
+<codeline lineno="584"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="585"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="586"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_mbox_1ada3e15b402bdd502048b69a87dfd70a8" kindref="member">Config</ref>.<ref refid="struct_x_mbox___config_1ae59a7f14795bc768c36b105863e2efc8" kindref="member">UseFSL</ref><sp/>==<sp/>0);</highlight></codeline>
+<codeline lineno="587"><highlight class="normal"></highlight></codeline>
+<codeline lineno="588"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_mbox_1ada3e15b402bdd502048b69a87dfd70a8" kindref="member">Config</ref>.<ref refid="struct_x_mbox___config_1ae59a7f14795bc768c36b105863e2efc8" kindref="member">UseFSL</ref><sp/>==<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="589"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__mbox_1ga299c2eb6c04531a5da2202b9968531c7" kindref="member">XMbox_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_mbox_1ada3e15b402bdd502048b69a87dfd70a8" kindref="member">Config</ref>.<ref refid="struct_x_mbox___config_1a7a357a3188be88d9aaba7e8cc60960a8" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="590"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__mbox_1ga24776289ecaec70de8722b0d4e34db6f" kindref="member">XMB_IS_REG_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="591"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Mask);</highlight></codeline>
+<codeline lineno="592"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="593"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="594"><highlight class="normal"></highlight></codeline>
+<codeline lineno="595"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="607" refid="group__mbox_1ga4fb918498d8adc676f4ea554585609d2" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__mbox_1ga4fb918498d8adc676f4ea554585609d2" kindref="member">XMbox_SetSendThreshold</ref>(<ref refid="struct_x_mbox" kindref="compound">XMbox</ref><sp/>*InstancePtr,<sp/>u32<sp/>Value)</highlight></codeline>
+<codeline lineno="608"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="609"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="610"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_mbox_1ada3e15b402bdd502048b69a87dfd70a8" kindref="member">Config</ref>.<ref refid="struct_x_mbox___config_1ae59a7f14795bc768c36b105863e2efc8" kindref="member">UseFSL</ref><sp/>==<sp/>0);</highlight></codeline>
+<codeline lineno="611"><highlight class="normal"></highlight></codeline>
+<codeline lineno="612"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_mbox_1ada3e15b402bdd502048b69a87dfd70a8" kindref="member">Config</ref>.<ref refid="struct_x_mbox___config_1ae59a7f14795bc768c36b105863e2efc8" kindref="member">UseFSL</ref><sp/>==<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="613"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__mbox_1ga299c2eb6c04531a5da2202b9968531c7" kindref="member">XMbox_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_mbox_1ada3e15b402bdd502048b69a87dfd70a8" kindref="member">Config</ref>.<ref refid="struct_x_mbox___config_1a7a357a3188be88d9aaba7e8cc60960a8" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="614"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__mbox_1gabf6dc425ab72da28a9f30d37f803ec25" kindref="member">XMB_SIT_REG_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="615"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Value);</highlight></codeline>
+<codeline lineno="616"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="617"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="618"><highlight class="normal"></highlight></codeline>
+<codeline lineno="619"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="630" refid="group__mbox_1ga8c05b007d0f92ca32702db58573302a9" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__mbox_1ga8c05b007d0f92ca32702db58573302a9" kindref="member">XMbox_SetReceiveThreshold</ref>(<ref refid="struct_x_mbox" kindref="compound">XMbox</ref><sp/>*InstancePtr,<sp/>u32<sp/>Value)</highlight></codeline>
+<codeline lineno="631"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="632"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="633"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_mbox_1ada3e15b402bdd502048b69a87dfd70a8" kindref="member">Config</ref>.<ref refid="struct_x_mbox___config_1ae59a7f14795bc768c36b105863e2efc8" kindref="member">UseFSL</ref><sp/>==<sp/>0);</highlight></codeline>
+<codeline lineno="634"><highlight class="normal"></highlight></codeline>
+<codeline lineno="635"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_mbox_1ada3e15b402bdd502048b69a87dfd70a8" kindref="member">Config</ref>.<ref refid="struct_x_mbox___config_1ae59a7f14795bc768c36b105863e2efc8" kindref="member">UseFSL</ref><sp/>==<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="636"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__mbox_1ga299c2eb6c04531a5da2202b9968531c7" kindref="member">XMbox_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_mbox_1ada3e15b402bdd502048b69a87dfd70a8" kindref="member">Config</ref>.<ref refid="struct_x_mbox___config_1a7a357a3188be88d9aaba7e8cc60960a8" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="637"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__mbox_1gac1a7132725b8bd47cf0ddfa5e219a63a" kindref="member">XMB_RIT_REG_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="638"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Value);</highlight></codeline>
+<codeline lineno="639"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="640"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="641"><highlight class="normal"></highlight></codeline>
+<codeline lineno="642"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="653" refid="group__mbox_1ga8620711a04da0032b216e3f57a80570d" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__mbox_1ga8620711a04da0032b216e3f57a80570d" kindref="member">XMbox_GetStatus</ref>(<ref refid="struct_x_mbox" kindref="compound">XMbox</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="654"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="655"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Value;</highlight></codeline>
+<codeline lineno="656"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="657"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_mbox_1ada3e15b402bdd502048b69a87dfd70a8" kindref="member">Config</ref>.<ref refid="struct_x_mbox___config_1ae59a7f14795bc768c36b105863e2efc8" kindref="member">UseFSL</ref><sp/>==<sp/>0);</highlight></codeline>
+<codeline lineno="658"><highlight class="normal"></highlight></codeline>
+<codeline lineno="659"><highlight class="normal"></highlight></codeline>
+<codeline lineno="660"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Value<sp/>=<sp/><ref refid="group__mbox_1ga4f0eb6f00b1c4baf91576f2e6a32af87" kindref="member">XMbox_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_mbox_1ada3e15b402bdd502048b69a87dfd70a8" kindref="member">Config</ref>.<ref refid="struct_x_mbox___config_1a7a357a3188be88d9aaba7e8cc60960a8" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="661"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__mbox_1ga939d1f0b71e575a31a3689ca28cbc749" kindref="member">XMB_STATUS_REG_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="662"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Value;</highlight></codeline>
+<codeline lineno="663"><highlight class="normal"></highlight></codeline>
+<codeline lineno="664"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mbox/src/xmbox.c"/>
+  </compounddef>
+</doxygen>

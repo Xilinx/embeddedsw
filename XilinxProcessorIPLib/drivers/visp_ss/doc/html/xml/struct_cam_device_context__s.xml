@@ -1,0 +1,85 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_cam_device_context__s" kind="struct" prot="public">
+    <compoundname>CamDeviceContext_s</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_cam_device_context__s_1a6c5a67e4a6f56e832762e777f125ee12" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t CamDeviceContext_s::ispHwId</definition>
+        <argsstring></argsstring>
+        <name>ispHwId</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include_priv/cam_device_app.h" line="73" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include_priv/cam_device_app.h" bodystart="73" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_context__s_1a444535cb8bf4170fbbd6ca53ffde1876" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t CamDeviceContext_s::ispVtId</definition>
+        <argsstring></argsstring>
+        <name>ispVtId</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include_priv/cam_device_app.h" line="74" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include_priv/cam_device_app.h" bodystart="74" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_context__s_1a4b3d40463bc7601185ea8b7a99966b97" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t CamDeviceContext_s::instanceId</definition>
+        <argsstring></argsstring>
+        <name>instanceId</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include_priv/cam_device_app.h" line="75" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include_priv/cam_device_app.h" bodystart="75" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_context__s_1a8e1832ae6302511f47d6c5f6e0dfe157" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t CamDeviceContext_s::cookie</definition>
+        <argsstring></argsstring>
+        <name>cookie</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include_priv/cam_device_app.h" line="76" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include_priv/cam_device_app.h" bodystart="76" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_context__s_1a6a2e603552f922045ed79b18ed7baad0" prot="public" static="no" mutable="no">
+        <type>CamDeviceEventCb_t</type>
+        <definition>CamDeviceEventCb_t CamDeviceContext_s::camDeviceFusaEventCb</definition>
+        <argsstring></argsstring>
+        <name>camDeviceFusaEventCb</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include_priv/cam_device_app.h" line="77" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include_priv/cam_device_app.h" bodystart="77" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include_priv/cam_device_app.h" line="71" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include_priv/cam_device_app.h" bodystart="71" bodyend="78"/>
+    <listofallmembers>
+      <member refid="struct_cam_device_context__s_1a6a2e603552f922045ed79b18ed7baad0" prot="public" virt="non-virtual"><scope>CamDeviceContext_s</scope><name>camDeviceFusaEventCb</name></member>
+      <member refid="struct_cam_device_context__s_1a8e1832ae6302511f47d6c5f6e0dfe157" prot="public" virt="non-virtual"><scope>CamDeviceContext_s</scope><name>cookie</name></member>
+      <member refid="struct_cam_device_context__s_1a4b3d40463bc7601185ea8b7a99966b97" prot="public" virt="non-virtual"><scope>CamDeviceContext_s</scope><name>instanceId</name></member>
+      <member refid="struct_cam_device_context__s_1a6c5a67e4a6f56e832762e777f125ee12" prot="public" virt="non-virtual"><scope>CamDeviceContext_s</scope><name>ispHwId</name></member>
+      <member refid="struct_cam_device_context__s_1a444535cb8bf4170fbbd6ca53ffde1876" prot="public" virt="non-virtual"><scope>CamDeviceContext_s</scope><name>ispVtId</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

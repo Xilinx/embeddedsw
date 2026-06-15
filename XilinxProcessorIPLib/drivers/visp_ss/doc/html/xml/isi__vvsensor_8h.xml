@@ -1,0 +1,871 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="isi__vvsensor_8h" kind="file">
+    <compoundname>isi_vvsensor.h</compoundname>
+    <includes refid="isi__common_8h" local="no">isi_common.h</includes>
+    <includedby refid="ox03f10__priv_8h" local="no">ox03f10_priv.h</includedby>
+    <includedby refid="ox05b1s__priv_8h" local="no">ox05b1s_priv.h</includedby>
+    <includedby refid="ox08b40__priv_8h" local="no">ox08b40_priv.h</includedby>
+    <includedby refid="isi_8h" local="no">isi.h</includedby>
+    <includedby refid="isi__metadata_8h" local="no">isi_metadata.h</includedby>
+    <incdepgraph>
+      <node id="5846">
+        <label>isi_vvsensor.h</label>
+        <link refid="isi_vvsensor.h"/>
+        <childnode refid="5847" relation="include">
+        </childnode>
+      </node>
+      <node id="5847">
+        <label>isi_common.h</label>
+        <link refid="isi__common_8h"/>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="5858">
+        <label>isi_iss.h</label>
+        <link refid="isi__iss_8h"/>
+        <childnode refid="5859" relation="include">
+        </childnode>
+        <childnode refid="5851" relation="include">
+        </childnode>
+        <childnode refid="5853" relation="include">
+        </childnode>
+        <childnode refid="5855" relation="include">
+        </childnode>
+        <childnode refid="5862" relation="include">
+        </childnode>
+        <childnode refid="5863" relation="include">
+        </childnode>
+        <childnode refid="5861" relation="include">
+        </childnode>
+      </node>
+      <node id="5853">
+        <label>ox05b1s.c</label>
+      </node>
+      <node id="5849">
+        <label>ox03f10_priv.h</label>
+        <childnode refid="5850" relation="include">
+        </childnode>
+        <childnode refid="5851" relation="include">
+        </childnode>
+      </node>
+      <node id="5852">
+        <label>ox05b1s_priv.h</label>
+        <link refid="ox05b1s__priv_8h"/>
+        <childnode refid="5853" relation="include">
+        </childnode>
+      </node>
+      <node id="5861">
+        <label>vvdevice.c</label>
+      </node>
+      <node id="5854">
+        <label>ox08b40_priv.h</label>
+        <childnode refid="5855" relation="include">
+        </childnode>
+      </node>
+      <node id="5862">
+        <label>cam_device_sensor_api.c</label>
+      </node>
+      <node id="5864">
+        <label>isi_priv.h</label>
+        <link refid="isi__priv_8h"/>
+        <childnode refid="5849" relation="include">
+        </childnode>
+        <childnode refid="5852" relation="include">
+        </childnode>
+        <childnode refid="5854" relation="include">
+        </childnode>
+        <childnode refid="5851" relation="include">
+        </childnode>
+        <childnode refid="5853" relation="include">
+        </childnode>
+        <childnode refid="5855" relation="include">
+        </childnode>
+        <childnode refid="5863" relation="include">
+        </childnode>
+      </node>
+      <node id="5855">
+        <label>ox08b40.c</label>
+      </node>
+      <node id="5860">
+        <label>sensor_drv.c</label>
+        <link refid="sensor__drv_8c"/>
+      </node>
+      <node id="5848">
+        <label>isi_vvsensor.h</label>
+        <link refid="isi_vvsensor.h"/>
+        <childnode refid="5849" relation="include">
+        </childnode>
+        <childnode refid="5852" relation="include">
+        </childnode>
+        <childnode refid="5854" relation="include">
+        </childnode>
+        <childnode refid="5856" relation="include">
+        </childnode>
+        <childnode refid="5865" relation="include">
+        </childnode>
+      </node>
+      <node id="5856">
+        <label>isi.h</label>
+        <link refid="isi_8h"/>
+        <childnode refid="5857" relation="include">
+        </childnode>
+        <childnode refid="5850" relation="include">
+        </childnode>
+        <childnode refid="5851" relation="include">
+        </childnode>
+        <childnode refid="5853" relation="include">
+        </childnode>
+        <childnode refid="5855" relation="include">
+        </childnode>
+        <childnode refid="5858" relation="include">
+        </childnode>
+        <childnode refid="5864" relation="include">
+        </childnode>
+        <childnode refid="5863" relation="include">
+        </childnode>
+      </node>
+      <node id="5865">
+        <label>isi_metadata.h</label>
+        <childnode refid="5856" relation="include">
+        </childnode>
+      </node>
+      <node id="5857">
+        <label>isi_control.c</label>
+        <link refid="isi__control_8c"/>
+      </node>
+      <node id="5851">
+        <label>ox03f10.c</label>
+      </node>
+      <node id="5863">
+        <label>isi.c</label>
+        <link refid="isi_8c"/>
+      </node>
+      <node id="5859">
+        <label>sensor_drv.h</label>
+        <childnode refid="5857" relation="include">
+        </childnode>
+        <childnode refid="5860" relation="include">
+        </childnode>
+        <childnode refid="5861" relation="include">
+        </childnode>
+      </node>
+      <node id="5850">
+        <label>ms_fw.c</label>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_isi_sensor_sccb_cfg__s" prot="public">IsiSensorSccbCfg_s</innerclass>
+    <innerclass refid="struct_isi_sensor_tpg__s" prot="public">IsiSensorTpg_s</innerclass>
+    <innerclass refid="struct_isi_sensor_compand_curve__s" prot="public">IsiSensorCompandCurve_s</innerclass>
+    <innerclass refid="struct_isi_sensor_compress__s" prot="public">IsiSensorCompress_s</innerclass>
+    <innerclass refid="struct_isi_sensor_size__s" prot="public">IsiSensorSize_s</innerclass>
+    <innerclass refid="struct_isi_sensor_blc__s" prot="public">IsiSensorBlc_s</innerclass>
+    <innerclass refid="struct_isi_sensor_wb__s" prot="public">IsiSensorWb_s</innerclass>
+    <innerclass refid="struct_isi_sensor_range__s" prot="public">IsiSensorRange_s</innerclass>
+    <innerclass refid="struct_isi_sensor_auto_fps__s" prot="public">IsiSensorAutoFps_s</innerclass>
+    <innerclass refid="struct_isi_sensor_hist__s" prot="public">IsiSensorHist_s</innerclass>
+    <innerclass refid="struct_isi_sensor_mean_luma__s" prot="public">IsiSensorMeanLuma_s</innerclass>
+    <innerclass refid="struct_isi_sensor_ae_info__s" prot="public">IsiSensorAeInfo_s</innerclass>
+    <innerclass refid="struct_isi_sensor_mode__s" prot="public">IsiSensorMode_s</innerclass>
+    <innerclass refid="struct_isi_sensor_enum_mode__s" prot="public">IsiSensorEnumMode_s</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__isi__vvsensor_1ga08e71cfff10240e3e0ec73d1eb44abb2" prot="public" static="no">
+        <name>ISI_SENSOR_HIST_BIN_NUM_MAX</name>
+        <initializer>256</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_vvsensor.h" line="57" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_vvsensor.h" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__isi__vvsensor_1gac1af1317e25a54fb6b223079f6fadb81" prot="public" static="no">
+        <name>ISI_SENSOR_EXP_ROI_NUM_MAX</name>
+        <initializer>64</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_vvsensor.h" line="58" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_vvsensor.h" bodystart="58" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="group__isi__vvsensor_1ga6dc8f86abee11e1e9b505b8b6a2ea12a" prot="public" static="no">
+        <name>IsiSensorHdrMode_e</name>
+        <enumvalue id="group__isi__vvsensor_1gga6dc8f86abee11e1e9b505b8b6a2ea12aa46758cae1c61aaddbb671837b820c6ee" prot="public">
+          <name>ISI_SENSOR_MODE_LINEAR</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__isi__vvsensor_1gga6dc8f86abee11e1e9b505b8b6a2ea12aa2c7baca7de0c58ecb79ecf88be0d2918" prot="public">
+          <name>ISI_SENSOR_MODE_HDR_STITCH</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__isi__vvsensor_1gga6dc8f86abee11e1e9b505b8b6a2ea12aafec7573fd456e72f878a5786622065f5" prot="public">
+          <name>ISI_SENSOR_MODE_HDR_NATIVE</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__isi__vvsensor_1gga6dc8f86abee11e1e9b505b8b6a2ea12aa700ae8fe26d8762245c96867ccda5786" prot="public">
+          <name>DUMMY_ISI_010</name>
+          <initializer>= 0xdeadfeed</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_vvsensor.h" line="60" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_vvsensor.h" bodystart="60" bodyend="65"/>
+      </memberdef>
+      <memberdef kind="enum" id="group__isi__vvsensor_1gafc4f9cb3eedc82ae811183f3bd29979b" prot="public" static="no">
+        <name>IsiSensorAfMode_e</name>
+        <enumvalue id="group__isi__vvsensor_1ggafc4f9cb3eedc82ae811183f3bd29979ba0e6cd08d20f8d59acf5b904105d13a7e" prot="public">
+          <name>ISI_SENSOR_AF_MODE_NOTSUPP</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__isi__vvsensor_1ggafc4f9cb3eedc82ae811183f3bd29979ba628d0984d476c76f6dda637028155d82" prot="public">
+          <name>ISI_SENSOR_AF_MODE_CDAF</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__isi__vvsensor_1ggafc4f9cb3eedc82ae811183f3bd29979bab5fdbab15ef8ee7abd99a2bb5a0789a9" prot="public">
+          <name>ISI_SENSOR_AF_MODE_PDAF</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__isi__vvsensor_1ggafc4f9cb3eedc82ae811183f3bd29979baf06f7d48ececcda6d13831076864d214" prot="public">
+          <name>DUMMY_ISI_011</name>
+          <initializer>= 0xdeadfeed</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_vvsensor.h" line="67" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_vvsensor.h" bodystart="67" bodyend="72"/>
+      </memberdef>
+      <memberdef kind="enum" id="group__isi__vvsensor_1ga01eb1127b2c68d6137ed912db457836c" prot="public" static="no">
+        <name>IsiSensorStitchingMode_e</name>
+        <enumvalue id="group__isi__vvsensor_1gga01eb1127b2c68d6137ed912db457836ca14336c894abdeed875f81a4a18bc973f" prot="public">
+          <name>ISI_SENSOR_STITCHING_DUAL_DCG</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+<para>dual DCG mode 3x12-bit </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__isi__vvsensor_1gga01eb1127b2c68d6137ed912db457836ca5e9d78ccc59bcf136fb59d098f708751" prot="public">
+          <name>ISI_SENSOR_STITCHING_3DOL</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+<para>dol3 frame 3x12-bit </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__isi__vvsensor_1gga01eb1127b2c68d6137ed912db457836cadd3be873c7dae310bca22bc5223d3d87" prot="public">
+          <name>ISI_SENSOR_STITCHING_LINEBYLINE</name>
+          <initializer>= 2</initializer>
+          <briefdescription>
+<para>3x12-bit line by line without waiting </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__isi__vvsensor_1gga01eb1127b2c68d6137ed912db457836caa56f121e63efa4375976832c6dc05213" prot="public">
+          <name>ISI_SENSOR_STITCHING_16BIT_COMPRESS</name>
+          <initializer>= 3</initializer>
+          <briefdescription>
+<para>16-bit compressed data + 12-bit RAW </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__isi__vvsensor_1gga01eb1127b2c68d6137ed912db457836ca294ebbfb9a140c37de16c0b570104b0b" prot="public">
+          <name>ISI_SENSOR_STITCHING_DUAL_DCG_NOWAIT</name>
+          <initializer>= 4</initializer>
+          <briefdescription>
+<para>2x12-bit dual DCG without waiting </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__isi__vvsensor_1gga01eb1127b2c68d6137ed912db457836ca1c76139ad1eb001812edb41e15c669d3" prot="public">
+          <name>ISI_SENSOR_STITCHING_2DOL</name>
+          <initializer>= 5</initializer>
+          <briefdescription>
+<para>dol2 frame or 1 CG+VS sx12-bit RAW </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__isi__vvsensor_1gga01eb1127b2c68d6137ed912db457836ca582436d3f9f9a8b80a17684c67f6f8ff" prot="public">
+          <name>ISI_SENSOR_STITCHING_L_AND_S</name>
+          <initializer>= 6</initializer>
+          <briefdescription>
+<para>L+S 2x12-bit RAW. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__isi__vvsensor_1gga01eb1127b2c68d6137ed912db457836ca9e7121a6063ab853e7069fdab398cafe" prot="public">
+          <name>ISI_SENSOR_STITCHING_4DOL</name>
+          <initializer>= 7</initializer>
+          <briefdescription>
+<para>dol4 frame 3x12-bit </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__isi__vvsensor_1gga01eb1127b2c68d6137ed912db457836ca077d0ab77240c211cacdd7e93e20553b" prot="public">
+          <name>ISI_SENSOR_STITCHING_MAX</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__isi__vvsensor_1gga01eb1127b2c68d6137ed912db457836caef5c7e8a0d809a13d483fd602673f02b" prot="public">
+          <name>DUMMY_ISI_012</name>
+          <initializer>= 0xdeadfeed</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_vvsensor.h" line="74" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_vvsensor.h" bodystart="74" bodyend="85"/>
+      </memberdef>
+      <memberdef kind="enum" id="group__isi__vvsensor_1gae1486a25f091da26eb4c52a48f8f3bcc" prot="public" static="no">
+        <name>IsiSensorNativeMode_e</name>
+        <enumvalue id="group__isi__vvsensor_1ggae1486a25f091da26eb4c52a48f8f3bccadaa9b4b7a99d371bdd831b38101f0eb0" prot="public">
+          <name>ISI_SENSOR_NATIVE_DCG</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+<para>hcg and lcg combine in sensor </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__isi__vvsensor_1ggae1486a25f091da26eb4c52a48f8f3bccac9accf2a4413e661f284f64fdd96637a" prot="public">
+          <name>ISI_SENSOR_NATIVE_L_AND_S</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+<para>L+S combine in sensor. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__isi__vvsensor_1ggae1486a25f091da26eb4c52a48f8f3bcca3a3abd046b9d2508198b11d4e9c25048" prot="public">
+          <name>ISI_SENSOR_NATIVE_3DOL</name>
+          <initializer>= 2</initializer>
+          <briefdescription>
+<para>3dol combine in sensor </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__isi__vvsensor_1ggae1486a25f091da26eb4c52a48f8f3bccaa9049f05d98a14e01099d10ad032f1d3" prot="public">
+          <name>ISI_SENSOR_NATIVE_4DOL</name>
+          <initializer>= 3</initializer>
+          <briefdescription>
+<para>4dol combine in sensor </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__isi__vvsensor_1ggae1486a25f091da26eb4c52a48f8f3bcca5a3d4988ec399bfe0eb0d48221ef273e" prot="public">
+          <name>ISI_SENSOR_NATIVE_DCG_SPD_VS</name>
+          <initializer>= 4</initializer>
+          <briefdescription>
+<para>4dol combine in sensor </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__isi__vvsensor_1ggae1486a25f091da26eb4c52a48f8f3bccaea0f2ee584c90a937ae02ebaa50ed9f0" prot="public">
+          <name>ISI_SENSOR_NATIVE_MAX</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__isi__vvsensor_1ggae1486a25f091da26eb4c52a48f8f3bcca06b019ce8a2a5623fadd31a86600ae53" prot="public">
+          <name>DUMMY_ISI_0013</name>
+          <initializer>= 0xdeadfeed</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_vvsensor.h" line="87" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_vvsensor.h" bodystart="87" bodyend="95"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="group__isi__vvsensor_1ga6721467ee9b9ccd59cd90e2c87a60fa9" prot="public" static="no">
+        <type>enum IsiSensorHdrMode_e</type>
+        <definition>typedef enum IsiSensorHdrMode_e  IsiSensorHdrMode_t</definition>
+        <argsstring></argsstring>
+        <name>IsiSensorHdrMode_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_vvsensor.h" line="65" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__isi__vvsensor_1gab4c32b4d63f88f5fb756113a362f055e" prot="public" static="no">
+        <type>enum IsiSensorAfMode_e</type>
+        <definition>typedef enum IsiSensorAfMode_e  IsiSensorAfMode_t</definition>
+        <argsstring></argsstring>
+        <name>IsiSensorAfMode_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_vvsensor.h" line="72" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__isi__vvsensor_1ga0d9d74f54e6c88bbd83831f6a4e471a9" prot="public" static="no">
+        <type>enum <ref refid="group__isi__vvsensor_1ga01eb1127b2c68d6137ed912db457836c" kindref="member">IsiSensorStitchingMode_e</ref></type>
+        <definition>typedef enum IsiSensorStitchingMode_e  IsiSensorStitchingMode_t</definition>
+        <argsstring></argsstring>
+        <name>IsiSensorStitchingMode_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_vvsensor.h" line="85" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__isi__vvsensor_1ga58c7df18f75026e62a4f26a854872ce7" prot="public" static="no">
+        <type>enum <ref refid="group__isi__vvsensor_1gae1486a25f091da26eb4c52a48f8f3bcc" kindref="member">IsiSensorNativeMode_e</ref></type>
+        <definition>typedef enum IsiSensorNativeMode_e  IsiSensorNativeMode_t</definition>
+        <argsstring></argsstring>
+        <name>IsiSensorNativeMode_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_vvsensor.h" line="95" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__isi__vvsensor_1gaa4e2a1eec444172d7ba2ecb95d49bbcc" prot="public" static="no">
+        <type>struct IsiSensorSccbCfg_s</type>
+        <definition>typedef struct IsiSensorSccbCfg_s  IsiSensorSccbCfg_t</definition>
+        <argsstring></argsstring>
+        <name>IsiSensorSccbCfg_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_vvsensor.h" line="101" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__isi__vvsensor_1gaaa7fb4f325817b319c8895b880889bbb" prot="public" static="no">
+        <type>struct IsiSensorTpg_s</type>
+        <definition>typedef struct IsiSensorTpg_s  IsiSensorTpg_t</definition>
+        <argsstring></argsstring>
+        <name>IsiSensorTpg_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_vvsensor.h" line="106" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__isi__vvsensor_1ga7e46543d369a80a3931cb97f86260bb2" prot="public" static="no">
+        <type>struct IsiSensorCompandCurve_s</type>
+        <definition>typedef struct IsiSensorCompandCurve_s  IsiSensorCompandCurve_t</definition>
+        <argsstring></argsstring>
+        <name>IsiSensorCompandCurve_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_vvsensor.h" line="114" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__isi__vvsensor_1gad090513743604b3b67d2858a7e5dccd2" prot="public" static="no">
+        <type>struct IsiSensorCompress_s</type>
+        <definition>typedef struct IsiSensorCompress_s  IsiSensorCompress_t</definition>
+        <argsstring></argsstring>
+        <name>IsiSensorCompress_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_vvsensor.h" line="120" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__isi__vvsensor_1ga7e87ea64b08344966a914ddce86992bd" prot="public" static="no">
+        <type>struct IsiSensorSize_s</type>
+        <definition>typedef struct IsiSensorSize_s  IsiSensorSize_t</definition>
+        <argsstring></argsstring>
+        <name>IsiSensorSize_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_vvsensor.h" line="129" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__isi__vvsensor_1gab51351c4c9813407a1b872580c0e2929" prot="public" static="no">
+        <type>struct IsiSensorBlc_s</type>
+        <definition>typedef struct IsiSensorBlc_s  IsiSensorBlc_t</definition>
+        <argsstring></argsstring>
+        <name>IsiSensorBlc_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_vvsensor.h" line="136" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__isi__vvsensor_1ga153bb1ae2d68709d4fb35ffd2ba25280" prot="public" static="no">
+        <type>struct IsiSensorWb_s</type>
+        <definition>typedef struct IsiSensorWb_s  IsiSensorWb_t</definition>
+        <argsstring></argsstring>
+        <name>IsiSensorWb_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_vvsensor.h" line="143" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__isi__vvsensor_1ga99bebafa210d1b48ed5af0624784535c" prot="public" static="no">
+        <type>struct IsiSensorRange_s</type>
+        <definition>typedef struct IsiSensorRange_s  IsiSensorRange_t</definition>
+        <argsstring></argsstring>
+        <name>IsiSensorRange_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_vvsensor.h" line="148" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__isi__vvsensor_1gab8d126cc2c6ce31b074469911562492e" prot="public" static="no">
+        <type>struct IsiSensorAutoFps_s</type>
+        <definition>typedef struct IsiSensorAutoFps_s  IsiSensorAutoFps_t</definition>
+        <argsstring></argsstring>
+        <name>IsiSensorAutoFps_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_vvsensor.h" line="153" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__isi__vvsensor_1ga1cc8b9258e6c5adde2dfe22616ed9ddc" prot="public" static="no">
+        <type>struct IsiSensorHist_s</type>
+        <definition>typedef struct IsiSensorHist_s  IsiSensorHist_t</definition>
+        <argsstring></argsstring>
+        <name>IsiSensorHist_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_vvsensor.h" line="159" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__isi__vvsensor_1ga7e534ea538ffd50bfebc311efc61b3d8" prot="public" static="no">
+        <type>struct IsiSensorMeanLuma_s</type>
+        <definition>typedef struct IsiSensorMeanLuma_s  IsiSensorMeanLuma_t</definition>
+        <argsstring></argsstring>
+        <name>IsiSensorMeanLuma_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_vvsensor.h" line="165" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__isi__vvsensor_1gad9be957823b8d20c50bc32f37b723ee6" prot="public" static="no">
+        <type>struct IsiSensorAeInfo_s</type>
+        <definition>typedef struct IsiSensorAeInfo_s  IsiSensorAeInfo_t</definition>
+        <argsstring></argsstring>
+        <name>IsiSensorAeInfo_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_vvsensor.h" line="185" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__isi__vvsensor_1gacf7f3c136620d50ebfcc6aa00595b861" prot="public" static="no">
+        <type>struct IsiSensorMode_s</type>
+        <definition>typedef struct IsiSensorMode_s  IsiSensorMode_t</definition>
+        <argsstring></argsstring>
+        <name>IsiSensorMode_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_vvsensor.h" line="203" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__isi__vvsensor_1gaf2cdcfe2010128346725f6644a22412c" prot="public" static="no">
+        <type>struct IsiSensorEnumMode_s</type>
+        <definition>typedef struct IsiSensorEnumMode_s  IsiSensorEnumMode_t</definition>
+        <argsstring></argsstring>
+        <name>IsiSensorEnumMode_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_vvsensor.h" line="208" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/****************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="3"><highlight class="comment"><sp/>*<sp/>The<sp/>MIT<sp/>License<sp/>(MIT)</highlight></codeline>
+<codeline lineno="4"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="5"><highlight class="comment"><sp/>*<sp/>Copyright<sp/>(C)<sp/>2024<sp/>-<sp/>2025<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="6"><highlight class="comment"><sp/>*<sp/>Copyright<sp/>(c)<sp/>2014-2022<sp/>Vivante<sp/>Corporation</highlight></codeline>
+<codeline lineno="7"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="8"><highlight class="comment"><sp/>*<sp/>Permission<sp/>is<sp/>hereby<sp/>granted,<sp/>free<sp/>of<sp/>charge,<sp/>to<sp/>any<sp/>person<sp/>obtaining<sp/>a</highlight></codeline>
+<codeline lineno="9"><highlight class="comment"><sp/>*<sp/>copy<sp/>of<sp/>this<sp/>software<sp/>and<sp/>associated<sp/>documentation<sp/>files<sp/>(the<sp/>&quot;Software&quot;),</highlight></codeline>
+<codeline lineno="10"><highlight class="comment"><sp/>*<sp/>to<sp/>deal<sp/>in<sp/>the<sp/>Software<sp/>without<sp/>restriction,<sp/>including<sp/>without<sp/>limitation</highlight></codeline>
+<codeline lineno="11"><highlight class="comment"><sp/>*<sp/>the<sp/>rights<sp/>to<sp/>use,<sp/>copy,<sp/>modify,<sp/>merge,<sp/>publish,<sp/>distribute,<sp/>sublicense,</highlight></codeline>
+<codeline lineno="12"><highlight class="comment"><sp/>*<sp/>and/or<sp/>sell<sp/>copies<sp/>of<sp/>the<sp/>Software,<sp/>and<sp/>to<sp/>permit<sp/>persons<sp/>to<sp/>whom<sp/>the</highlight></codeline>
+<codeline lineno="13"><highlight class="comment"><sp/>*<sp/>Software<sp/>is<sp/>furnished<sp/>to<sp/>do<sp/>so,<sp/>subject<sp/>to<sp/>the<sp/>following<sp/>conditions:</highlight></codeline>
+<codeline lineno="14"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="15"><highlight class="comment"><sp/>*<sp/>The<sp/>above<sp/>copyright<sp/>notice<sp/>and<sp/>this<sp/>permission<sp/>notice<sp/>shall<sp/>be<sp/>included<sp/>in</highlight></codeline>
+<codeline lineno="16"><highlight class="comment"><sp/>*<sp/>all<sp/>copies<sp/>or<sp/>substantial<sp/>portions<sp/>of<sp/>the<sp/>Software.</highlight></codeline>
+<codeline lineno="17"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="18"><highlight class="comment"><sp/>*<sp/>THE<sp/>SOFTWARE<sp/>IS<sp/>PROVIDED<sp/>&quot;AS<sp/>IS&quot;,<sp/>WITHOUT<sp/>WARRANTY<sp/>OF<sp/>ANY<sp/>KIND,<sp/>EXPRESS<sp/>OR</highlight></codeline>
+<codeline lineno="19"><highlight class="comment"><sp/>*<sp/>IMPLIED,<sp/>INCLUDING<sp/>BUT<sp/>NOT<sp/>LIMITED<sp/>TO<sp/>THE<sp/>WARRANTIES<sp/>OF<sp/>MERCHANTABILITY,</highlight></codeline>
+<codeline lineno="20"><highlight class="comment"><sp/>*<sp/>FITNESS<sp/>FOR<sp/>A<sp/>PARTICULAR<sp/>PURPOSE<sp/>AND<sp/>NONINFRINGEMENT.<sp/>IN<sp/>NO<sp/>EVENT<sp/>SHALL<sp/>THE</highlight></codeline>
+<codeline lineno="21"><highlight class="comment"><sp/>*<sp/>AUTHORS<sp/>OR<sp/>COPYRIGHT<sp/>HOLDERS<sp/>BE<sp/>LIABLE<sp/>FOR<sp/>ANY<sp/>CLAIM,<sp/>DAMAGES<sp/>OR<sp/>OTHER</highlight></codeline>
+<codeline lineno="22"><highlight class="comment"><sp/>*<sp/>LIABILITY,<sp/>WHETHER<sp/>IN<sp/>AN<sp/>ACTION<sp/>OF<sp/>CONTRACT,<sp/>TORT<sp/>OR<sp/>OTHERWISE,<sp/>ARISING</highlight></codeline>
+<codeline lineno="23"><highlight class="comment"><sp/>*<sp/>FROM,<sp/>OUT<sp/>OF<sp/>OR<sp/>IN<sp/>CONNECTION<sp/>WITH<sp/>THE<sp/>SOFTWARE<sp/>OR<sp/>THE<sp/>USE<sp/>OR<sp/>OTHER</highlight></codeline>
+<codeline lineno="24"><highlight class="comment"><sp/>*<sp/>DEALINGS<sp/>IN<sp/>THE<sp/>SOFTWARE.</highlight></codeline>
+<codeline lineno="25"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="26"><highlight class="comment"><sp/>****************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>VeriSilicon<sp/>2022<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="preprocessor">#ifndef<sp/>__ISI_VVSENSOR_H__</highlight></codeline>
+<codeline lineno="48"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>__ISI_VVSENSOR_H__</highlight></codeline>
+<codeline lineno="49"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="isi__common_8h" kindref="compound">isi_common.h</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="53"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="56"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>ISI_SENSOR_HIST_BIN_NUM_MAX<sp/>256</highlight></codeline>
+<codeline lineno="58"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>ISI_SENSOR_EXP_ROI_NUM_MAX<sp/><sp/>64</highlight></codeline>
+<codeline lineno="59"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>IsiSensorHdrMode_e<sp/>{</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ISI_SENSOR_MODE_LINEAR,</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ISI_SENSOR_MODE_HDR_STITCH,</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ISI_SENSOR_MODE_HDR_NATIVE,</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DUMMY_ISI_010<sp/>=<sp/>0xdeadfeed</highlight></codeline>
+<codeline lineno="65"><highlight class="normal">}<sp/>IsiSensorHdrMode_t;</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>IsiSensorAfMode_e<sp/>{</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ISI_SENSOR_AF_MODE_NOTSUPP,</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ISI_SENSOR_AF_MODE_CDAF,</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ISI_SENSOR_AF_MODE_PDAF,</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DUMMY_ISI_011<sp/>=<sp/>0xdeadfeed</highlight></codeline>
+<codeline lineno="72"><highlight class="normal">}<sp/>IsiSensorAfMode_t;</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight></codeline>
+<codeline lineno="74" refid="group__isi__vvsensor_1ga01eb1127b2c68d6137ed912db457836c" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/><ref refid="group__isi__vvsensor_1ga01eb1127b2c68d6137ed912db457836c" kindref="member">IsiSensorStitchingMode_e</ref><sp/>{</highlight></codeline>
+<codeline lineno="75" refid="group__isi__vvsensor_1gga01eb1127b2c68d6137ed912db457836ca14336c894abdeed875f81a4a18bc973f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__isi__vvsensor_1gga01eb1127b2c68d6137ed912db457836ca14336c894abdeed875f81a4a18bc973f" kindref="member">ISI_SENSOR_STITCHING_DUAL_DCG</ref><sp/>=<sp/>0,<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="76" refid="group__isi__vvsensor_1gga01eb1127b2c68d6137ed912db457836ca5e9d78ccc59bcf136fb59d098f708751" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__isi__vvsensor_1gga01eb1127b2c68d6137ed912db457836ca5e9d78ccc59bcf136fb59d098f708751" kindref="member">ISI_SENSOR_STITCHING_3DOL</ref><sp/>=<sp/>1,<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="77" refid="group__isi__vvsensor_1gga01eb1127b2c68d6137ed912db457836cadd3be873c7dae310bca22bc5223d3d87" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__isi__vvsensor_1gga01eb1127b2c68d6137ed912db457836cadd3be873c7dae310bca22bc5223d3d87" kindref="member">ISI_SENSOR_STITCHING_LINEBYLINE</ref><sp/>=<sp/>2,<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="78" refid="group__isi__vvsensor_1gga01eb1127b2c68d6137ed912db457836caa56f121e63efa4375976832c6dc05213" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__isi__vvsensor_1gga01eb1127b2c68d6137ed912db457836caa56f121e63efa4375976832c6dc05213" kindref="member">ISI_SENSOR_STITCHING_16BIT_COMPRESS</ref><sp/>=<sp/>3,<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="79" refid="group__isi__vvsensor_1gga01eb1127b2c68d6137ed912db457836ca294ebbfb9a140c37de16c0b570104b0b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__isi__vvsensor_1gga01eb1127b2c68d6137ed912db457836ca294ebbfb9a140c37de16c0b570104b0b" kindref="member">ISI_SENSOR_STITCHING_DUAL_DCG_NOWAIT</ref><sp/>=<sp/>4,<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="80" refid="group__isi__vvsensor_1gga01eb1127b2c68d6137ed912db457836ca1c76139ad1eb001812edb41e15c669d3" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__isi__vvsensor_1gga01eb1127b2c68d6137ed912db457836ca1c76139ad1eb001812edb41e15c669d3" kindref="member">ISI_SENSOR_STITCHING_2DOL</ref><sp/>=<sp/>5,<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="81" refid="group__isi__vvsensor_1gga01eb1127b2c68d6137ed912db457836ca582436d3f9f9a8b80a17684c67f6f8ff" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__isi__vvsensor_1gga01eb1127b2c68d6137ed912db457836ca582436d3f9f9a8b80a17684c67f6f8ff" kindref="member">ISI_SENSOR_STITCHING_L_AND_S</ref><sp/>=<sp/>6,<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="82" refid="group__isi__vvsensor_1gga01eb1127b2c68d6137ed912db457836ca9e7121a6063ab853e7069fdab398cafe" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__isi__vvsensor_1gga01eb1127b2c68d6137ed912db457836ca9e7121a6063ab853e7069fdab398cafe" kindref="member">ISI_SENSOR_STITCHING_4DOL</ref><sp/>=<sp/>7,<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ISI_SENSOR_STITCHING_MAX,</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DUMMY_ISI_012<sp/>=<sp/>0xdeadfeed</highlight></codeline>
+<codeline lineno="85"><highlight class="normal">}<sp/>IsiSensorStitchingMode_t;</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"></highlight></codeline>
+<codeline lineno="87" refid="group__isi__vvsensor_1gae1486a25f091da26eb4c52a48f8f3bcc" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/><ref refid="group__isi__vvsensor_1gae1486a25f091da26eb4c52a48f8f3bcc" kindref="member">IsiSensorNativeMode_e</ref><sp/>{</highlight></codeline>
+<codeline lineno="88" refid="group__isi__vvsensor_1ggae1486a25f091da26eb4c52a48f8f3bccadaa9b4b7a99d371bdd831b38101f0eb0" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__isi__vvsensor_1ggae1486a25f091da26eb4c52a48f8f3bccadaa9b4b7a99d371bdd831b38101f0eb0" kindref="member">ISI_SENSOR_NATIVE_DCG</ref><sp/>=<sp/>0,<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="89" refid="group__isi__vvsensor_1ggae1486a25f091da26eb4c52a48f8f3bccac9accf2a4413e661f284f64fdd96637a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__isi__vvsensor_1ggae1486a25f091da26eb4c52a48f8f3bccac9accf2a4413e661f284f64fdd96637a" kindref="member">ISI_SENSOR_NATIVE_L_AND_S</ref><sp/>=<sp/>1,<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="90" refid="group__isi__vvsensor_1ggae1486a25f091da26eb4c52a48f8f3bcca3a3abd046b9d2508198b11d4e9c25048" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__isi__vvsensor_1ggae1486a25f091da26eb4c52a48f8f3bcca3a3abd046b9d2508198b11d4e9c25048" kindref="member">ISI_SENSOR_NATIVE_3DOL</ref><sp/>=<sp/>2,<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="91" refid="group__isi__vvsensor_1ggae1486a25f091da26eb4c52a48f8f3bccaa9049f05d98a14e01099d10ad032f1d3" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__isi__vvsensor_1ggae1486a25f091da26eb4c52a48f8f3bccaa9049f05d98a14e01099d10ad032f1d3" kindref="member">ISI_SENSOR_NATIVE_4DOL</ref><sp/>=<sp/>3,<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="92" refid="group__isi__vvsensor_1ggae1486a25f091da26eb4c52a48f8f3bcca5a3d4988ec399bfe0eb0d48221ef273e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__isi__vvsensor_1ggae1486a25f091da26eb4c52a48f8f3bcca5a3d4988ec399bfe0eb0d48221ef273e" kindref="member">ISI_SENSOR_NATIVE_DCG_SPD_VS</ref><sp/>=<sp/>4,<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ISI_SENSOR_NATIVE_MAX,</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DUMMY_ISI_0013<sp/>=<sp/>0xdeadfeed</highlight></codeline>
+<codeline lineno="95"><highlight class="normal">}<sp/>IsiSensorNativeMode_t;</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"></highlight></codeline>
+<codeline lineno="97"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">IsiSensorSccbCfg_s<sp/>{</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint8_t<sp/>slaveAddr;</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint8_t<sp/>addrByte;</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint8_t<sp/>dataByte;</highlight></codeline>
+<codeline lineno="101"><highlight class="normal">}<sp/>IsiSensorSccbCfg_t;</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"></highlight></codeline>
+<codeline lineno="103"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">IsiSensorTpg_s<sp/>{</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint32_t<sp/>enable;</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint32_t<sp/>pattern;</highlight></codeline>
+<codeline lineno="106"><highlight class="normal">}<sp/>IsiSensorTpg_t;</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"></highlight></codeline>
+<codeline lineno="108"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">IsiSensorCompandCurve_s<sp/>{</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint32_t<sp/>xBit;</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint32_t<sp/>yBit;</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint8_t<sp/>compandPx[64];</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint32_t<sp/>compandXData[65];</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint32_t<sp/>compandYData[65];</highlight></codeline>
+<codeline lineno="114"><highlight class="normal">}<sp/>IsiSensorCompandCurve_t;</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"></highlight></codeline>
+<codeline lineno="116"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">IsiSensorCompress_s<sp/>{</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint32_t<sp/>enable;</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint32_t<sp/>xBit;</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint32_t<sp/>yBit;</highlight></codeline>
+<codeline lineno="120"><highlight class="normal">}<sp/>IsiSensorCompress_t;</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"></highlight></codeline>
+<codeline lineno="122"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">IsiSensorSize_s<sp/>{</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint32_t<sp/>boundsWidth;</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint32_t<sp/>boundsHeight;</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint32_t<sp/>top;</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint32_t<sp/>left;</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint32_t<sp/>width;</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint32_t<sp/>height;</highlight></codeline>
+<codeline lineno="129"><highlight class="normal">}<sp/>IsiSensorSize_t;</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"></highlight></codeline>
+<codeline lineno="131"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">IsiSensorBlc_s<sp/>{</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint32_t<sp/>red;</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint32_t<sp/>gr;</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint32_t<sp/>gb;</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint32_t<sp/>blue;</highlight></codeline>
+<codeline lineno="136"><highlight class="normal">}<sp/>IsiSensorBlc_t;</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"></highlight></codeline>
+<codeline lineno="138"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">IsiSensorWb_s<sp/>{</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>float32_t<sp/>rGain;</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>float32_t<sp/>grGain;</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>float32_t<sp/>gbGain;</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>float32_t<sp/>bGain;</highlight></codeline>
+<codeline lineno="143"><highlight class="normal">}<sp/>IsiSensorWb_t;</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"></highlight></codeline>
+<codeline lineno="145"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">IsiSensorRange_s<sp/>{</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint32_t<sp/>min;</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint32_t<sp/>max;</highlight></codeline>
+<codeline lineno="148"><highlight class="normal">}<sp/>IsiSensorRange_t;</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"></highlight></codeline>
+<codeline lineno="150"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">IsiSensorAutoFps_s<sp/>{</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IsiSensorRange_t<sp/>afpsRange;<sp/></highlight><highlight class="comment">//fps<sp/>*<sp/>1000(30000<sp/>=<sp/>30fps)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint32_t<sp/>maxGain;<sp/></highlight><highlight class="comment">//Q10</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="153"><highlight class="normal">}<sp/>IsiSensorAutoFps_t;</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"></highlight></codeline>
+<codeline lineno="155"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">IsiSensorHist_s<sp/>{</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint8_t<sp/>num;</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IsiSensorWin_t<sp/>roi;</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint32_t<sp/>bins[ISI_SENSOR_HIST_BIN_NUM_MAX];</highlight></codeline>
+<codeline lineno="159"><highlight class="normal">}<sp/>IsiSensorHist_t;</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"></highlight></codeline>
+<codeline lineno="161"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">IsiSensorMeanLuma_s<sp/>{</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint8_t<sp/>roiNum;</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint32_t<sp/>meanLuma[ISI_SENSOR_EXP_ROI_NUM_MAX];</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IsiSensorWin_t<sp/>roiWin[ISI_SENSOR_EXP_ROI_NUM_MAX];</highlight></codeline>
+<codeline lineno="165"><highlight class="normal">}<sp/>IsiSensorMeanLuma_t;</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"></highlight></codeline>
+<codeline lineno="167"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">IsiSensorAeInfo_s<sp/>{</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint32_t<sp/>defaultVts;</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint32_t<sp/>currentVts;</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint32_t<sp/>oneLineExpTimeNs;</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint32_t<sp/>maxIntegrationTime;</highlight></codeline>
+<codeline lineno="172"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint32_t<sp/>minIntegrationTime;</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint32_t<sp/>integrationAccuracy;</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint32_t<sp/>maxGain;</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint32_t<sp/>minGain;</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint32_t<sp/>gainAccuracy;</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint32_t<sp/>startExpValue;</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint32_t<sp/>gainStep;</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint32_t<sp/>maxFps;<sp/><sp/><sp/></highlight><highlight class="comment">//fps<sp/>*<sp/>1000(30000<sp/>=<sp/>30fps)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint32_t<sp/>minFps;<sp/><sp/><sp/></highlight><highlight class="comment">//fps<sp/>*<sp/>1000(30000<sp/>=<sp/>30fps)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="181"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint32_t<sp/>curFps;</highlight></codeline>
+<codeline lineno="182"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IsiSensorAutoFps_t<sp/>afpsInfo;</highlight></codeline>
+<codeline lineno="183"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint32_t<sp/>intTimeDelayFrame;</highlight></codeline>
+<codeline lineno="184"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint32_t<sp/>gainDelayFrame;</highlight></codeline>
+<codeline lineno="185"><highlight class="normal">}<sp/>IsiSensorAeInfo_t;</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"></highlight></codeline>
+<codeline lineno="187"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">IsiSensorMode_s<sp/>{</highlight></codeline>
+<codeline lineno="188"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint32_t<sp/>index;</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IsiSensorSize_t<sp/>size;</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IsiSensorHdrMode_t<sp/>hdrMode;</highlight></codeline>
+<codeline lineno="191"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IsiSensorStitchingMode_t<sp/>stitchingMode;</highlight></codeline>
+<codeline lineno="192"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IsiSensorNativeMode_t<sp/>nativeMode;</highlight></codeline>
+<codeline lineno="193"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IsiSensorCompress_t<sp/>compress;</highlight></codeline>
+<codeline lineno="194"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__isi__iss_1ga42f89b8dfb3e7dcd9b143b5c4fd2bd99" kindref="member">IsiBayerPattern_t</ref><sp/>bayerPattern;</highlight></codeline>
+<codeline lineno="195"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IsiSensorAeInfo_t<sp/>aeInfo;</highlight></codeline>
+<codeline lineno="196"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IsiSensorAfMode_t<sp/>afMode;</highlight></codeline>
+<codeline lineno="197"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint32_t<sp/>dataType;</highlight></codeline>
+<codeline lineno="198"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint32_t<sp/>mipiLane;</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint32_t<sp/>fps;</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint32_t<sp/>bitWidth;</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint32_t<sp/>pregData;</highlight></codeline>
+<codeline lineno="202"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint32_t<sp/>regCount;</highlight></codeline>
+<codeline lineno="203"><highlight class="normal">}<sp/>IsiSensorMode_t;</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"></highlight></codeline>
+<codeline lineno="205"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">IsiSensorEnumMode_s<sp/>{</highlight></codeline>
+<codeline lineno="206"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint32_t<sp/>index;</highlight></codeline>
+<codeline lineno="207"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IsiSensorMode_t<sp/>mode;</highlight></codeline>
+<codeline lineno="208"><highlight class="normal">}<sp/>IsiSensorEnumMode_t;</highlight></codeline>
+<codeline lineno="209"><highlight class="normal"></highlight></codeline>
+<codeline lineno="210"><highlight class="normal"></highlight></codeline>
+<codeline lineno="211"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="212"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="213"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="214"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="215"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>__ISI_VVSENSOR_H__<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_vvsensor.h"/>
+  </compounddef>
+</doxygen>

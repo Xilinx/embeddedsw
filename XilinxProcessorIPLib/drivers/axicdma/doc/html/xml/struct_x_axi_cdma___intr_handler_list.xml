@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_axi_cdma___intr_handler_list" kind="struct" prot="public">
+    <compoundname>XAxiCdma_IntrHandlerList</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_axi_cdma___intr_handler_list_1a5f48c85970074dcca4a252cf0b4c72cd" prot="public" static="no" mutable="no">
+        <type>XAxiCdma_CallBackFn</type>
+        <definition>XAxiCdma_CallBackFn XAxiCdma_IntrHandlerList::CallBackFn</definition>
+        <argsstring></argsstring>
+        <name>CallBackFn</name>
+        <briefdescription>
+<para>Callback function. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" line="393" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" bodystart="393" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_axi_cdma___intr_handler_list_1a512695718e4840284843ea5336dd27e9" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XAxiCdma_IntrHandlerList::CallBackRef</definition>
+        <argsstring></argsstring>
+        <name>CallBackRef</name>
+        <briefdescription>
+<para>Callback reference pointer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" line="394" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" bodystart="394" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_axi_cdma___intr_handler_list_1af38a3ca0bf9ea1ba49909f21fb6b261c" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>volatile int XAxiCdma_IntrHandlerList::NumBds</definition>
+        <argsstring></argsstring>
+        <name>NumBds</name>
+        <briefdescription>
+<para>Number of BDs this handler cares. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" line="395" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" bodystart="395" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" line="392" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" bodystart="392" bodyend="396"/>
+    <listofallmembers>
+      <member refid="struct_x_axi_cdma___intr_handler_list_1a5f48c85970074dcca4a252cf0b4c72cd" prot="public" virt="non-virtual"><scope>XAxiCdma_IntrHandlerList</scope><name>CallBackFn</name></member>
+      <member refid="struct_x_axi_cdma___intr_handler_list_1a512695718e4840284843ea5336dd27e9" prot="public" virt="non-virtual"><scope>XAxiCdma_IntrHandlerList</scope><name>CallBackRef</name></member>
+      <member refid="struct_x_axi_cdma___intr_handler_list_1af38a3ca0bf9ea1ba49909f21fb6b261c" prot="public" virt="non-virtual"><scope>XAxiCdma_IntrHandlerList</scope><name>NumBds</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

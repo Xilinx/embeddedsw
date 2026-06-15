@@ -1,0 +1,73 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_plmi___circular_buffer" kind="struct" prot="public">
+    <compoundname>XPlmi_CircularBuffer</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_plmi___circular_buffer_1a58a4cb1b9ebee1299d373b5158377185" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XPlmi_CircularBuffer::StartAddr</definition>
+        <argsstring></argsstring>
+        <name>StartAddr</name>
+        <briefdescription>
+<para>Start address of log buffer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_event_logging.h" line="58" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_event_logging.h" bodystart="58" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_plmi___circular_buffer_1a85d69df93a55caa304ed361f554047da" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPlmi_CircularBuffer::Len</definition>
+        <argsstring></argsstring>
+        <name>Len</name>
+        <briefdescription>
+<para>Length of log in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_event_logging.h" line="59" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_event_logging.h" bodystart="59" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_plmi___circular_buffer_1a5ed494efac3549374b45f463e5e0c157" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPlmi_CircularBuffer::Offset</definition>
+        <argsstring></argsstring>
+        <name>Offset</name>
+        <bitfield>31</bitfield>
+        <briefdescription>
+<para>Variable that holds the offset of current log from Start Address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_event_logging.h" line="60" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_event_logging.h" bodystart="60" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_plmi___circular_buffer_1ab2316a312cdea91a2864b043dbd5b784" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPlmi_CircularBuffer::IsBufferFull</definition>
+        <argsstring></argsstring>
+        <name>IsBufferFull</name>
+        <bitfield>1</bitfield>
+        <briefdescription>
+<para>If set, Log buffer is full and Offset gets reset to 0. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_event_logging.h" line="62" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_event_logging.h" bodystart="62" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_event_logging.h" line="57" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_event_logging.h" bodystart="57" bodyend="64"/>
+    <listofallmembers>
+      <member refid="struct_x_plmi___circular_buffer_1ab2316a312cdea91a2864b043dbd5b784" prot="public" virt="non-virtual"><scope>XPlmi_CircularBuffer</scope><name>IsBufferFull</name></member>
+      <member refid="struct_x_plmi___circular_buffer_1a85d69df93a55caa304ed361f554047da" prot="public" virt="non-virtual"><scope>XPlmi_CircularBuffer</scope><name>Len</name></member>
+      <member refid="struct_x_plmi___circular_buffer_1a5ed494efac3549374b45f463e5e0c157" prot="public" virt="non-virtual"><scope>XPlmi_CircularBuffer</scope><name>Offset</name></member>
+      <member refid="struct_x_plmi___circular_buffer_1a58a4cb1b9ebee1299d373b5158377185" prot="public" virt="non-virtual"><scope>XPlmi_CircularBuffer</scope><name>StartAddr</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

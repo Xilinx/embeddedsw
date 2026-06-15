@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_sem___descriptor_info" kind="struct" prot="public">
+    <compoundname>XSem_DescriptorInfo</compoundname>
+    <includes local="no">xsem_client_api.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_sem___descriptor_info_1acb0fa0aeda906d4b6fa3ddbaf74da1a3" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSem_DescriptorInfo::DescriptorAttrib</definition>
+        <argsstring></argsstring>
+        <name>DescriptorAttrib</name>
+        <briefdescription>
+<para>Descriptor attributes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.h" line="354" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.h" bodystart="354" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_sem___descriptor_info_1a54418f1fe60a3c9a1c385b1aa56a2de8" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSem_DescriptorInfo::DescriptorGldnSha</definition>
+        <argsstring></argsstring>
+        <name>DescriptorGldnSha</name>
+        <briefdescription>
+<para>Descriptor Golden SHA value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.h" line="355" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.h" bodystart="355" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Structure to hold each descriptor information. </para>    </briefdescription>
+    <detaileddescription>
+<para>Descriptor Attribute: Contains detailed information related to descriptor<itemizedlist>
+<listitem><para>Bit[31:16]: Base Address - Slave Base address in the descriptor for which attributes are present. Base address is only applicable for DDRMC_MAIN and GT slave address, for other descriptors, this value should be ignored.</para></listitem><listitem><para>Bit[15:8]: Exclusive Lock Type - Bit[8] if set, signifies that descriptor contains GT slaves. Bit[9] if set, signifies that descriptor contains DDRMC slave registers. Bit[10:15] are reserved for future use</para></listitem><listitem><para>Bit[7:0]: Slave skip count index - Points the corresponding byte in SEM NPI slave skip count registers that need to be updated on arbitration failure(Value is zero if arbitration is not required).</para></listitem></itemizedlist>
+</para><para>Descriptor Golden SHA: This word contains the Golden SHA value that is used to compare with hardware calculated SHA value. </para>    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.h" line="353" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.h" bodystart="353" bodyend="356"/>
+    <listofallmembers>
+      <member refid="struct_x_sem___descriptor_info_1acb0fa0aeda906d4b6fa3ddbaf74da1a3" prot="public" virt="non-virtual"><scope>XSem_DescriptorInfo</scope><name>DescriptorAttrib</name></member>
+      <member refid="struct_x_sem___descriptor_info_1a54418f1fe60a3c9a1c385b1aa56a2de8" prot="public" virt="non-virtual"><scope>XSem_DescriptorInfo</scope><name>DescriptorGldnSha</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,86 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_hdmi_c___g_c_p___packet" kind="struct" prot="public">
+    <compoundname>XHdmiC_GCP_Packet</compoundname>
+    <includes local="no">xv_hdmic.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_hdmi_c___g_c_p___packet_1aea9edb1f8dcd367fc1948275cfbbd2fb" prot="public" static="no" mutable="no">
+        <type>unsigned char</type>
+        <definition>unsigned char XHdmiC_GCP_Packet::Set_AVMUTE</definition>
+        <argsstring></argsstring>
+        <name>Set_AVMUTE</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="504" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" bodystart="504" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmi_c___g_c_p___packet_1a654d1e01511b8d38389504c9f0035e33" prot="public" static="no" mutable="no">
+        <type>unsigned char</type>
+        <definition>unsigned char XHdmiC_GCP_Packet::Clear_AVMUTE</definition>
+        <argsstring></argsstring>
+        <name>Clear_AVMUTE</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="505" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" bodystart="505" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmi_c___g_c_p___packet_1a0077d1967614a0f3b03bf7a7d680b017" prot="public" static="no" mutable="no">
+        <type>XHdmiC_ColorDepth</type>
+        <definition>XHdmiC_ColorDepth XHdmiC_GCP_Packet::ColorDepth</definition>
+        <argsstring></argsstring>
+        <name>ColorDepth</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="506" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" bodystart="506" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmi_c___g_c_p___packet_1ad947e535dc941a6e045a7250b6c5672a" prot="public" static="no" mutable="no">
+        <type>XHdmiC_PixelPackingPhase</type>
+        <definition>XHdmiC_PixelPackingPhase XHdmiC_GCP_Packet::PixelPackingPhase</definition>
+        <argsstring></argsstring>
+        <name>PixelPackingPhase</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="507" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" bodystart="507" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmi_c___g_c_p___packet_1a6c8911dca67a16a53eefb9b422a31e2f" prot="public" static="no" mutable="no">
+        <type>unsigned char</type>
+        <definition>unsigned char XHdmiC_GCP_Packet::Default_Phase</definition>
+        <argsstring></argsstring>
+        <name>Default_Phase</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="508" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" bodystart="508" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef contains the data structure for General Control Packet. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="503" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" bodystart="503" bodyend="509"/>
+    <listofallmembers>
+      <member refid="struct_x_hdmi_c___g_c_p___packet_1a654d1e01511b8d38389504c9f0035e33" prot="public" virt="non-virtual"><scope>XHdmiC_GCP_Packet</scope><name>Clear_AVMUTE</name></member>
+      <member refid="struct_x_hdmi_c___g_c_p___packet_1a0077d1967614a0f3b03bf7a7d680b017" prot="public" virt="non-virtual"><scope>XHdmiC_GCP_Packet</scope><name>ColorDepth</name></member>
+      <member refid="struct_x_hdmi_c___g_c_p___packet_1a6c8911dca67a16a53eefb9b422a31e2f" prot="public" virt="non-virtual"><scope>XHdmiC_GCP_Packet</scope><name>Default_Phase</name></member>
+      <member refid="struct_x_hdmi_c___g_c_p___packet_1ad947e535dc941a6e045a7250b6c5672a" prot="public" virt="non-virtual"><scope>XHdmiC_GCP_Packet</scope><name>PixelPackingPhase</name></member>
+      <member refid="struct_x_hdmi_c___g_c_p___packet_1aea9edb1f8dcd367fc1948275cfbbd2fb" prot="public" virt="non-virtual"><scope>XHdmiC_GCP_Packet</scope><name>Set_AVMUTE</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

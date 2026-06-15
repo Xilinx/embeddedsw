@@ -1,0 +1,86 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_secure___elliptic_sign_verify_params" kind="struct" prot="public">
+    <compoundname>XSecure_EllipticSignVerifyParams</compoundname>
+    <includes local="no">xsecure_defs.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_secure___elliptic_sign_verify_params_1a38c2742da362c36ad7adec7418d685ad" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XSecure_EllipticSignVerifyParams::HashAddr</definition>
+        <argsstring></argsstring>
+        <name>HashAddr</name>
+        <briefdescription>
+<para>Hash address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_defs.h" line="160" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_defs.h" bodystart="160" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___elliptic_sign_verify_params_1ae516f17269271d9eac8083c36e9577a9" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XSecure_EllipticSignVerifyParams::PubKeyAddr</definition>
+        <argsstring></argsstring>
+        <name>PubKeyAddr</name>
+        <briefdescription>
+<para>Public key Address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_defs.h" line="161" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_defs.h" bodystart="161" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___elliptic_sign_verify_params_1ab49077e07de7ab250ab8e709c884b018" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XSecure_EllipticSignVerifyParams::SignAddr</definition>
+        <argsstring></argsstring>
+        <name>SignAddr</name>
+        <briefdescription>
+<para>Signature Address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_defs.h" line="162" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_defs.h" bodystart="162" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___elliptic_sign_verify_params_1a727d011ea6cf5c7a05a72e3c389b17a5" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSecure_EllipticSignVerifyParams::CurveType</definition>
+        <argsstring></argsstring>
+        <name>CurveType</name>
+        <briefdescription>
+<para>ECC curve type. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_defs.h" line="163" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_defs.h" bodystart="163" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___elliptic_sign_verify_params_1a6d41db7e8b10e90294c73f3826676ae9" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSecure_EllipticSignVerifyParams::Size</definition>
+        <argsstring></argsstring>
+        <name>Size</name>
+        <briefdescription>
+<para>Length of hash. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_defs.h" line="164" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_defs.h" bodystart="164" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Structure for input parameters for Ellitic Sign Verification. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_defs.h" line="159" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_defs.h" bodystart="159" bodyend="165"/>
+    <listofallmembers>
+      <member refid="struct_x_secure___elliptic_sign_verify_params_1a727d011ea6cf5c7a05a72e3c389b17a5" prot="public" virt="non-virtual"><scope>XSecure_EllipticSignVerifyParams</scope><name>CurveType</name></member>
+      <member refid="struct_x_secure___elliptic_sign_verify_params_1a38c2742da362c36ad7adec7418d685ad" prot="public" virt="non-virtual"><scope>XSecure_EllipticSignVerifyParams</scope><name>HashAddr</name></member>
+      <member refid="struct_x_secure___elliptic_sign_verify_params_1ae516f17269271d9eac8083c36e9577a9" prot="public" virt="non-virtual"><scope>XSecure_EllipticSignVerifyParams</scope><name>PubKeyAddr</name></member>
+      <member refid="struct_x_secure___elliptic_sign_verify_params_1ab49077e07de7ab250ab8e709c884b018" prot="public" virt="non-virtual"><scope>XSecure_EllipticSignVerifyParams</scope><name>SignAddr</name></member>
+      <member refid="struct_x_secure___elliptic_sign_verify_params_1a6d41db7e8b10e90294c73f3826676ae9" prot="public" virt="non-virtual"><scope>XSecure_EllipticSignVerifyParams</scope><name>Size</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

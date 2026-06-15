@@ -1,0 +1,196 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_v__gamma__lut" kind="struct" prot="public">
+    <compoundname>XV_gamma_lut</compoundname>
+    <includes local="no">xv_gamma_lut.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_v__gamma__lut_1af687bb1b717fc788b78d485113f147a5" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_v__gamma__lut___config" kindref="compound">XV_gamma_lut_Config</ref></type>
+        <definition>XV_gamma_lut_Config XV_gamma_lut::Config</definition>
+        <argsstring></argsstring>
+        <name>Config</name>
+        <briefdescription>
+<para>Hardware Configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_gamma_lut/src/xv_gamma_lut.h" line="99" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_gamma_lut/src/xv_gamma_lut.h" bodystart="99" bodyend="-1"/>
+        <referencedby refid="xv__gamma__lut_8h_1a164a423eb45d21fc5b1b248a252ce87d" compoundref="xv__gamma__lut_8c" startline="34" endline="49">XV_gamma_lut_CfgInitialize</referencedby>
+        <referencedby refid="xv__gamma__lut_8h_1a2726379ae52a28d785d63ad03888ca86" compoundref="xv__gamma__lut_8c" startline="184" endline="189">XV_gamma_lut_DisableAutoRestart</referencedby>
+        <referencedby refid="xv__gamma__lut_8h_1af9d354156571f095ce9ee4b3a9b5d635" compoundref="xv__gamma__lut_8c" startline="163" endline="168">XV_gamma_lut_EnableAutoRestart</referencedby>
+        <referencedby refid="xv__gamma__lut_8h_1a2eb9b2ebe12a5ca8c64e4d4d514ac6ad" compoundref="xv__gamma__lut_8c" startline="336" endline="341">XV_gamma_lut_Get_HwReg_gamma_lut_0_BaseAddress</referencedby>
+        <referencedby refid="xv__gamma__lut_8h_1a4d69867260cd0eae4da1686aa18efa4a" compoundref="xv__gamma__lut_8c" startline="356" endline="361">XV_gamma_lut_Get_HwReg_gamma_lut_0_HighAddress</referencedby>
+        <referencedby refid="xv__gamma__lut_8h_1afd451f6cf961583ff14e8a9a41e6aafe" compoundref="xv__gamma__lut_8c" startline="564" endline="569">XV_gamma_lut_Get_HwReg_gamma_lut_1_BaseAddress</referencedby>
+        <referencedby refid="xv__gamma__lut_8h_1aba1b7e96c6d891c3251c25ff86051323" compoundref="xv__gamma__lut_8c" startline="584" endline="589">XV_gamma_lut_Get_HwReg_gamma_lut_1_HighAddress</referencedby>
+        <referencedby refid="xv__gamma__lut_8h_1a4ce16daf750141d2f775224169320dc2" compoundref="xv__gamma__lut_8c" startline="792" endline="797">XV_gamma_lut_Get_HwReg_gamma_lut_2_BaseAddress</referencedby>
+        <referencedby refid="xv__gamma__lut_8h_1a21bca0c11221800a291cd8069bacf9f9" compoundref="xv__gamma__lut_8c" startline="812" endline="817">XV_gamma_lut_Get_HwReg_gamma_lut_2_HighAddress</referencedby>
+        <referencedby refid="xv__gamma__lut_8h_1ae996e7c956baaab7fe9098bee29b0bbf" compoundref="xv__gamma__lut_8c" startline="269" endline="277">XV_gamma_lut_Get_HwReg_height</referencedby>
+        <referencedby refid="xv__gamma__lut_8h_1a37b9f9621c4fa5f685a447cd9df6ac25" compoundref="xv__gamma__lut_8c" startline="313" endline="321">XV_gamma_lut_Get_HwReg_video_format</referencedby>
+        <referencedby refid="xv__gamma__lut_8h_1a3ef5ea680899bdd9eccaddd900217630" compoundref="xv__gamma__lut_8c" startline="225" endline="233">XV_gamma_lut_Get_HwReg_width</referencedby>
+        <referencedby refid="xv__gamma__lut_8h_1a8f0e77edeb5c76e0fc6c11229bf01c37" compoundref="xv__gamma__lut_8c" startline="1114" endline="1119">XV_gamma_lut_InterruptClear</referencedby>
+        <referencedby refid="xv__gamma__lut_8h_1a24a1b9e45c5dfee0d0be454cfd4d3889" compoundref="xv__gamma__lut_8c" startline="1089" endline="1097">XV_gamma_lut_InterruptDisable</referencedby>
+        <referencedby refid="xv__gamma__lut_8h_1adcfd346f8d93324de3fd3de13fcacb35" compoundref="xv__gamma__lut_8c" startline="1064" endline="1072">XV_gamma_lut_InterruptEnable</referencedby>
+        <referencedby refid="xv__gamma__lut_8h_1ac4567ab095b1ad518950902178df1a20" compoundref="xv__gamma__lut_8c" startline="1135" endline="1140">XV_gamma_lut_InterruptGetEnabled</referencedby>
+        <referencedby refid="xv__gamma__lut_8h_1adef3bebf8837172be781276ae3cc2f3c" compoundref="xv__gamma__lut_8c" startline="1156" endline="1161">XV_gamma_lut_InterruptGetStatus</referencedby>
+        <referencedby refid="xv__gamma__lut_8h_1a91801c03efa81b2735df746f78af304b" compoundref="xv__gamma__lut_8c" startline="1042" endline="1047">XV_gamma_lut_InterruptGlobalDisable</referencedby>
+        <referencedby refid="xv__gamma__lut_8h_1a852d3416d88d0c3ee8549fab7a858874" compoundref="xv__gamma__lut_8c" startline="1021" endline="1026">XV_gamma_lut_InterruptGlobalEnable</referencedby>
+        <referencedby refid="xv__gamma__lut_8h_1a52915a27b7eac019117945f2d810a053" compoundref="xv__gamma__lut_8c" startline="90" endline="98">XV_gamma_lut_IsDone</referencedby>
+        <referencedby refid="xv__gamma__lut_8h_1a4c5427f99d99e0976e9e37a005c08e9d" compoundref="xv__gamma__lut_8c" startline="114" endline="122">XV_gamma_lut_IsIdle</referencedby>
+        <referencedby refid="xv__gamma__lut_8h_1a9b36bd64f8c0453f467f3447df6096d6" compoundref="xv__gamma__lut_8c" startline="138" endline="147">XV_gamma_lut_IsReady</referencedby>
+        <referencedby refid="xv__gamma__lut_8h_1a4159c7b30c6cbb75a5665a5bcb4057f3" compoundref="xv__gamma__lut_8c" startline="536" endline="549">XV_gamma_lut_Read_HwReg_gamma_lut_0_Bytes</referencedby>
+        <referencedby refid="xv__gamma__lut_8h_1a5a1499d9419d21a34ed895bc4a6eb47f" compoundref="xv__gamma__lut_8c" startline="472" endline="485">XV_gamma_lut_Read_HwReg_gamma_lut_0_Words</referencedby>
+        <referencedby refid="xv__gamma__lut_8h_1a9d76de6cb0b75c7233c5326d5ae99429" compoundref="xv__gamma__lut_8c" startline="764" endline="777">XV_gamma_lut_Read_HwReg_gamma_lut_1_Bytes</referencedby>
+        <referencedby refid="xv__gamma__lut_8h_1a8e0117c2bea8920555b4599b5018fc82" compoundref="xv__gamma__lut_8c" startline="700" endline="713">XV_gamma_lut_Read_HwReg_gamma_lut_1_Words</referencedby>
+        <referencedby refid="xv__gamma__lut_8h_1a62770a2f54caf64c6b72c0f0484258dc" compoundref="xv__gamma__lut_8c" startline="992" endline="1005">XV_gamma_lut_Read_HwReg_gamma_lut_2_Bytes</referencedby>
+        <referencedby refid="xv__gamma__lut_8h_1a20fb8d0329cd56f1616050bc44f6bd59" compoundref="xv__gamma__lut_8c" startline="928" endline="941">XV_gamma_lut_Read_HwReg_gamma_lut_2_Words</referencedby>
+        <referencedby refid="xv__gamma__lut_8h_1ab68e6dc2105db15892a302f72bddff7d" compoundref="xv__gamma__lut_8c" startline="249" endline="254">XV_gamma_lut_Set_HwReg_height</referencedby>
+        <referencedby refid="xv__gamma__lut_8h_1a09c698fc18c2242ebeca7df9bea9772d" compoundref="xv__gamma__lut_8c" startline="293" endline="298">XV_gamma_lut_Set_HwReg_video_format</referencedby>
+        <referencedby refid="xv__gamma__lut_8h_1acc4c0596f2ca39395fcfbd74372bc684" compoundref="xv__gamma__lut_8c" startline="205" endline="210">XV_gamma_lut_Set_HwReg_width</referencedby>
+        <referencedby refid="xv__gamma__lut_8h_1a3435176f56514a6d31d37b96280eede1" compoundref="xv__gamma__lut_8c" startline="66" endline="74">XV_gamma_lut_Start</referencedby>
+        <referencedby refid="xv__gamma__lut_8h_1ade451aeecc028b05d1993aca3f404d29" compoundref="xv__gamma__lut_8c" startline="504" endline="517">XV_gamma_lut_Write_HwReg_gamma_lut_0_Bytes</referencedby>
+        <referencedby refid="xv__gamma__lut_8h_1ae59b641d2ee3ea018c4236c448b4451f" compoundref="xv__gamma__lut_8c" startline="440" endline="453">XV_gamma_lut_Write_HwReg_gamma_lut_0_Words</referencedby>
+        <referencedby refid="xv__gamma__lut_8h_1a8c32c2137d41ca4ef6691aa4e3a6b93b" compoundref="xv__gamma__lut_8c" startline="732" endline="745">XV_gamma_lut_Write_HwReg_gamma_lut_1_Bytes</referencedby>
+        <referencedby refid="xv__gamma__lut_8h_1abc94054a3bc15dd3f88ef9f633725a8c" compoundref="xv__gamma__lut_8c" startline="668" endline="681">XV_gamma_lut_Write_HwReg_gamma_lut_1_Words</referencedby>
+        <referencedby refid="xv__gamma__lut_8h_1a79f4ef13e9b8e610de156b742e753c07" compoundref="xv__gamma__lut_8c" startline="960" endline="973">XV_gamma_lut_Write_HwReg_gamma_lut_2_Bytes</referencedby>
+        <referencedby refid="xv__gamma__lut_8h_1a4d0d36eb81f07e1f276ad5290e00d3da" compoundref="xv__gamma__lut_8c" startline="896" endline="909">XV_gamma_lut_Write_HwReg_gamma_lut_2_Words</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v__gamma__lut_1ad1109f4bcf245a6f77ae977604913234" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XV_gamma_lut::IsReady</definition>
+        <argsstring></argsstring>
+        <name>IsReady</name>
+        <briefdescription>
+<para>Device is initialized and ready. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_gamma_lut/src/xv_gamma_lut.h" line="100" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_gamma_lut/src/xv_gamma_lut.h" bodystart="100" bodyend="-1"/>
+        <referencedby refid="xv__gamma__lut_8h_1a164a423eb45d21fc5b1b248a252ce87d" compoundref="xv__gamma__lut_8c" startline="34" endline="49">XV_gamma_lut_CfgInitialize</referencedby>
+        <referencedby refid="xv__gamma__lut_8h_1a2726379ae52a28d785d63ad03888ca86" compoundref="xv__gamma__lut_8c" startline="184" endline="189">XV_gamma_lut_DisableAutoRestart</referencedby>
+        <referencedby refid="xv__gamma__lut_8h_1af9d354156571f095ce9ee4b3a9b5d635" compoundref="xv__gamma__lut_8c" startline="163" endline="168">XV_gamma_lut_EnableAutoRestart</referencedby>
+        <referencedby refid="xv__gamma__lut_8h_1a2eb9b2ebe12a5ca8c64e4d4d514ac6ad" compoundref="xv__gamma__lut_8c" startline="336" endline="341">XV_gamma_lut_Get_HwReg_gamma_lut_0_BaseAddress</referencedby>
+        <referencedby refid="xv__gamma__lut_8h_1a8128a0b4e1aee6eced8f9c904bca95a6" compoundref="xv__gamma__lut_8c" startline="396" endline="401">XV_gamma_lut_Get_HwReg_gamma_lut_0_BitWidth</referencedby>
+        <referencedby refid="xv__gamma__lut_8h_1a2c4aea67a4ef9a9893e19562a18eaa68" compoundref="xv__gamma__lut_8c" startline="416" endline="421">XV_gamma_lut_Get_HwReg_gamma_lut_0_Depth</referencedby>
+        <referencedby refid="xv__gamma__lut_8h_1a4d69867260cd0eae4da1686aa18efa4a" compoundref="xv__gamma__lut_8c" startline="356" endline="361">XV_gamma_lut_Get_HwReg_gamma_lut_0_HighAddress</referencedby>
+        <referencedby refid="xv__gamma__lut_8h_1acefad788aa14c5e5917af9ebd7358edf" compoundref="xv__gamma__lut_8c" startline="376" endline="381">XV_gamma_lut_Get_HwReg_gamma_lut_0_TotalBytes</referencedby>
+        <referencedby refid="xv__gamma__lut_8h_1afd451f6cf961583ff14e8a9a41e6aafe" compoundref="xv__gamma__lut_8c" startline="564" endline="569">XV_gamma_lut_Get_HwReg_gamma_lut_1_BaseAddress</referencedby>
+        <referencedby refid="xv__gamma__lut_8h_1a156374700654a7ce1903ab83886101d6" compoundref="xv__gamma__lut_8c" startline="624" endline="629">XV_gamma_lut_Get_HwReg_gamma_lut_1_BitWidth</referencedby>
+        <referencedby refid="xv__gamma__lut_8h_1a2cda24c7f97c977c785ddc03c8a20923" compoundref="xv__gamma__lut_8c" startline="644" endline="649">XV_gamma_lut_Get_HwReg_gamma_lut_1_Depth</referencedby>
+        <referencedby refid="xv__gamma__lut_8h_1aba1b7e96c6d891c3251c25ff86051323" compoundref="xv__gamma__lut_8c" startline="584" endline="589">XV_gamma_lut_Get_HwReg_gamma_lut_1_HighAddress</referencedby>
+        <referencedby refid="xv__gamma__lut_8h_1a2b446e8b042c2d4bb08177e2741c3349" compoundref="xv__gamma__lut_8c" startline="604" endline="609">XV_gamma_lut_Get_HwReg_gamma_lut_1_TotalBytes</referencedby>
+        <referencedby refid="xv__gamma__lut_8h_1a4ce16daf750141d2f775224169320dc2" compoundref="xv__gamma__lut_8c" startline="792" endline="797">XV_gamma_lut_Get_HwReg_gamma_lut_2_BaseAddress</referencedby>
+        <referencedby refid="xv__gamma__lut_8h_1aa9ce0359e4ef1b8248d57280bb132933" compoundref="xv__gamma__lut_8c" startline="852" endline="857">XV_gamma_lut_Get_HwReg_gamma_lut_2_BitWidth</referencedby>
+        <referencedby refid="xv__gamma__lut_8h_1a05cee7d0c940bd2e3c990c3f1923dadb" compoundref="xv__gamma__lut_8c" startline="872" endline="877">XV_gamma_lut_Get_HwReg_gamma_lut_2_Depth</referencedby>
+        <referencedby refid="xv__gamma__lut_8h_1a21bca0c11221800a291cd8069bacf9f9" compoundref="xv__gamma__lut_8c" startline="812" endline="817">XV_gamma_lut_Get_HwReg_gamma_lut_2_HighAddress</referencedby>
+        <referencedby refid="xv__gamma__lut_8h_1a044dda9cd83e78b529d87d27e396255a" compoundref="xv__gamma__lut_8c" startline="832" endline="837">XV_gamma_lut_Get_HwReg_gamma_lut_2_TotalBytes</referencedby>
+        <referencedby refid="xv__gamma__lut_8h_1ae996e7c956baaab7fe9098bee29b0bbf" compoundref="xv__gamma__lut_8c" startline="269" endline="277">XV_gamma_lut_Get_HwReg_height</referencedby>
+        <referencedby refid="xv__gamma__lut_8h_1a37b9f9621c4fa5f685a447cd9df6ac25" compoundref="xv__gamma__lut_8c" startline="313" endline="321">XV_gamma_lut_Get_HwReg_video_format</referencedby>
+        <referencedby refid="xv__gamma__lut_8h_1a3ef5ea680899bdd9eccaddd900217630" compoundref="xv__gamma__lut_8c" startline="225" endline="233">XV_gamma_lut_Get_HwReg_width</referencedby>
+        <referencedby refid="xv__gamma__lut__sinit_8c_1acb100c811b3a1c4b53556b97f16a9873" compoundref="xv__gamma__lut__sinit_8c" startline="141" endline="154">XV_gamma_lut_Initialize</referencedby>
+        <referencedby refid="xv__gamma__lut_8h_1a8f0e77edeb5c76e0fc6c11229bf01c37" compoundref="xv__gamma__lut_8c" startline="1114" endline="1119">XV_gamma_lut_InterruptClear</referencedby>
+        <referencedby refid="xv__gamma__lut_8h_1a24a1b9e45c5dfee0d0be454cfd4d3889" compoundref="xv__gamma__lut_8c" startline="1089" endline="1097">XV_gamma_lut_InterruptDisable</referencedby>
+        <referencedby refid="xv__gamma__lut_8h_1adcfd346f8d93324de3fd3de13fcacb35" compoundref="xv__gamma__lut_8c" startline="1064" endline="1072">XV_gamma_lut_InterruptEnable</referencedby>
+        <referencedby refid="xv__gamma__lut_8h_1ac4567ab095b1ad518950902178df1a20" compoundref="xv__gamma__lut_8c" startline="1135" endline="1140">XV_gamma_lut_InterruptGetEnabled</referencedby>
+        <referencedby refid="xv__gamma__lut_8h_1adef3bebf8837172be781276ae3cc2f3c" compoundref="xv__gamma__lut_8c" startline="1156" endline="1161">XV_gamma_lut_InterruptGetStatus</referencedby>
+        <referencedby refid="xv__gamma__lut_8h_1a91801c03efa81b2735df746f78af304b" compoundref="xv__gamma__lut_8c" startline="1042" endline="1047">XV_gamma_lut_InterruptGlobalDisable</referencedby>
+        <referencedby refid="xv__gamma__lut_8h_1a852d3416d88d0c3ee8549fab7a858874" compoundref="xv__gamma__lut_8c" startline="1021" endline="1026">XV_gamma_lut_InterruptGlobalEnable</referencedby>
+        <referencedby refid="xv__gamma__lut_8h_1a52915a27b7eac019117945f2d810a053" compoundref="xv__gamma__lut_8c" startline="90" endline="98">XV_gamma_lut_IsDone</referencedby>
+        <referencedby refid="xv__gamma__lut_8h_1a4c5427f99d99e0976e9e37a005c08e9d" compoundref="xv__gamma__lut_8c" startline="114" endline="122">XV_gamma_lut_IsIdle</referencedby>
+        <referencedby refid="xv__gamma__lut_8h_1a9b36bd64f8c0453f467f3447df6096d6" compoundref="xv__gamma__lut_8c" startline="138" endline="147">XV_gamma_lut_IsReady</referencedby>
+        <referencedby refid="xv__gamma__lut_8h_1ab68e6dc2105db15892a302f72bddff7d" compoundref="xv__gamma__lut_8c" startline="249" endline="254">XV_gamma_lut_Set_HwReg_height</referencedby>
+        <referencedby refid="xv__gamma__lut_8h_1a09c698fc18c2242ebeca7df9bea9772d" compoundref="xv__gamma__lut_8c" startline="293" endline="298">XV_gamma_lut_Set_HwReg_video_format</referencedby>
+        <referencedby refid="xv__gamma__lut_8h_1acc4c0596f2ca39395fcfbd74372bc684" compoundref="xv__gamma__lut_8c" startline="205" endline="210">XV_gamma_lut_Set_HwReg_width</referencedby>
+        <referencedby refid="xv__gamma__lut_8h_1a3435176f56514a6d31d37b96280eede1" compoundref="xv__gamma__lut_8c" startline="66" endline="74">XV_gamma_lut_Start</referencedby>
+        <referencedby refid="group__v__gamma__lut_1ga009d3cf75a477fc0d391e85b2be4992b" compoundref="xv__gamma__lut__intr_8c" startline="109" endline="139">XVGammaLut_InterruptHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v__gamma__lut_1a5b68749e2bdb765acae6ea6da98a342b" prot="public" static="no" mutable="no">
+        <type>XVGamma_Lut_Callback</type>
+        <definition>XVGamma_Lut_Callback XV_gamma_lut::FrameDoneCallback</definition>
+        <argsstring></argsstring>
+        <name>FrameDoneCallback</name>
+        <briefdescription>
+<para>Callback function for frame done interrupt. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_gamma_lut/src/xv_gamma_lut.h" line="101" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_gamma_lut/src/xv_gamma_lut.h" bodystart="101" bodyend="-1"/>
+        <referencedby refid="group__v__gamma__lut_1ga009d3cf75a477fc0d391e85b2be4992b" compoundref="xv__gamma__lut__intr_8c" startline="109" endline="139">XVGammaLut_InterruptHandler</referencedby>
+        <referencedby refid="group__v__gamma__lut_1ga1eee746789dd56e4aedece7baf166715" compoundref="xv__gamma__lut__intr_8c" startline="58" endline="85">XVGammaLut_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v__gamma__lut_1a99f00f7240a0431a48672e15024b50b8" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XV_gamma_lut::CallbackDoneRef</definition>
+        <argsstring></argsstring>
+        <name>CallbackDoneRef</name>
+        <briefdescription>
+<para>Reference pointer passed to frame done callback. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_gamma_lut/src/xv_gamma_lut.h" line="102" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_gamma_lut/src/xv_gamma_lut.h" bodystart="102" bodyend="-1"/>
+        <referencedby refid="group__v__gamma__lut_1ga009d3cf75a477fc0d391e85b2be4992b" compoundref="xv__gamma__lut__intr_8c" startline="109" endline="139">XVGammaLut_InterruptHandler</referencedby>
+        <referencedby refid="group__v__gamma__lut_1ga1eee746789dd56e4aedece7baf166715" compoundref="xv__gamma__lut__intr_8c" startline="58" endline="85">XVGammaLut_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v__gamma__lut_1ab8a335dcb1fedbe9edea7467dd0a5c23" prot="public" static="no" mutable="no">
+        <type>XVGamma_Lut_Callback</type>
+        <definition>XVGamma_Lut_Callback XV_gamma_lut::FrameReadyCallback</definition>
+        <argsstring></argsstring>
+        <name>FrameReadyCallback</name>
+        <briefdescription>
+<para>Callback function for frame ready interrupt. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_gamma_lut/src/xv_gamma_lut.h" line="103" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_gamma_lut/src/xv_gamma_lut.h" bodystart="103" bodyend="-1"/>
+        <referencedby refid="group__v__gamma__lut_1ga009d3cf75a477fc0d391e85b2be4992b" compoundref="xv__gamma__lut__intr_8c" startline="109" endline="139">XVGammaLut_InterruptHandler</referencedby>
+        <referencedby refid="group__v__gamma__lut_1ga1eee746789dd56e4aedece7baf166715" compoundref="xv__gamma__lut__intr_8c" startline="58" endline="85">XVGammaLut_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v__gamma__lut_1ac8f00b765668a356561988c2b440f763" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XV_gamma_lut::CallbackReadyRef</definition>
+        <argsstring></argsstring>
+        <name>CallbackReadyRef</name>
+        <briefdescription>
+<para>Reference pointer passed to frame ready callback. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_gamma_lut/src/xv_gamma_lut.h" line="104" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_gamma_lut/src/xv_gamma_lut.h" bodystart="104" bodyend="-1"/>
+        <referencedby refid="group__v__gamma__lut_1ga009d3cf75a477fc0d391e85b2be4992b" compoundref="xv__gamma__lut__intr_8c" startline="109" endline="139">XVGammaLut_InterruptHandler</referencedby>
+        <referencedby refid="group__v__gamma__lut_1ga1eee746789dd56e4aedece7baf166715" compoundref="xv__gamma__lut__intr_8c" startline="58" endline="85">XVGammaLut_SetCallback</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Driver instance data. </para>    </briefdescription>
+    <detaileddescription>
+<para>An instance must be allocated for each core in use. </para>    </detaileddescription>
+    <collaborationgraph>
+      <node id="1">
+        <label>XV_gamma_lut</label>
+        <link refid="struct_x_v__gamma__lut"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>Config</edgelabel>
+        </childnode>
+      </node>
+      <node id="2">
+        <label>XV_gamma_lut_Config</label>
+        <link refid="struct_x_v__gamma__lut___config"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_gamma_lut/src/xv_gamma_lut.h" line="98" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_gamma_lut/src/xv_gamma_lut.h" bodystart="98" bodyend="105"/>
+    <listofallmembers>
+      <member refid="struct_x_v__gamma__lut_1a99f00f7240a0431a48672e15024b50b8" prot="public" virt="non-virtual"><scope>XV_gamma_lut</scope><name>CallbackDoneRef</name></member>
+      <member refid="struct_x_v__gamma__lut_1ac8f00b765668a356561988c2b440f763" prot="public" virt="non-virtual"><scope>XV_gamma_lut</scope><name>CallbackReadyRef</name></member>
+      <member refid="struct_x_v__gamma__lut_1af687bb1b717fc788b78d485113f147a5" prot="public" virt="non-virtual"><scope>XV_gamma_lut</scope><name>Config</name></member>
+      <member refid="struct_x_v__gamma__lut_1a5b68749e2bdb765acae6ea6da98a342b" prot="public" virt="non-virtual"><scope>XV_gamma_lut</scope><name>FrameDoneCallback</name></member>
+      <member refid="struct_x_v__gamma__lut_1ab8a335dcb1fedbe9edea7467dd0a5c23" prot="public" virt="non-virtual"><scope>XV_gamma_lut</scope><name>FrameReadyCallback</name></member>
+      <member refid="struct_x_v__gamma__lut_1ad1109f4bcf245a6f77ae977604913234" prot="public" virt="non-virtual"><scope>XV_gamma_lut</scope><name>IsReady</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

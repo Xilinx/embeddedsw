@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_cam_device_fusa_crc_roi_config__s" kind="struct" prot="public">
+    <compoundname>CamDeviceFusaCrcRoiConfig_s</compoundname>
+    <includes local="no">cam_device_fusa_api.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_cam_device_fusa_crc_roi_config__s_1a4bc5a5550b084c7f25478397c48bc4f9" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t CamDeviceFusaCrcRoiConfig_s::crcRoiH</definition>
+        <argsstring></argsstring>
+        <name>crcRoiH</name>
+        <briefdescription>
+<para>Horizontal CRC ROI. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="130" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" bodystart="130" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_fusa_crc_roi_config__s_1abd369c37e107518e9c969d7833a5843a" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t CamDeviceFusaCrcRoiConfig_s::crcRoiV</definition>
+        <argsstring></argsstring>
+        <name>crcRoiV</name>
+        <briefdescription>
+<para>Vertical CRC ROI. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="131" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" bodystart="131" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_fusa_crc_roi_config__s_1a55dd6897c6030f630ba98df85e9c67fc" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t CamDeviceFusaCrcRoiConfig_s::crcRoiOffH</definition>
+        <argsstring></argsstring>
+        <name>crcRoiOffH</name>
+        <briefdescription>
+<para>Horizontal CRC ROI Offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="132" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" bodystart="132" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_fusa_crc_roi_config__s_1aee870ea8e7f804e8cfac89fb95ddf3ca" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t CamDeviceFusaCrcRoiConfig_s::crcRoiOffV</definition>
+        <argsstring></argsstring>
+        <name>crcRoiOffV</name>
+        <briefdescription>
+<para>Vertical CRC ROI Offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="133" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" bodystart="133" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>VsCamDevice FuSa CRC ROI configuration. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="129" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" bodystart="129" bodyend="134"/>
+    <listofallmembers>
+      <member refid="struct_cam_device_fusa_crc_roi_config__s_1a4bc5a5550b084c7f25478397c48bc4f9" prot="public" virt="non-virtual"><scope>CamDeviceFusaCrcRoiConfig_s</scope><name>crcRoiH</name></member>
+      <member refid="struct_cam_device_fusa_crc_roi_config__s_1a55dd6897c6030f630ba98df85e9c67fc" prot="public" virt="non-virtual"><scope>CamDeviceFusaCrcRoiConfig_s</scope><name>crcRoiOffH</name></member>
+      <member refid="struct_cam_device_fusa_crc_roi_config__s_1aee870ea8e7f804e8cfac89fb95ddf3ca" prot="public" virt="non-virtual"><scope>CamDeviceFusaCrcRoiConfig_s</scope><name>crcRoiOffV</name></member>
+      <member refid="struct_cam_device_fusa_crc_roi_config__s_1abd369c37e107518e9c969d7833a5843a" prot="public" virt="non-virtual"><scope>CamDeviceFusaCrcRoiConfig_s</scope><name>crcRoiV</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

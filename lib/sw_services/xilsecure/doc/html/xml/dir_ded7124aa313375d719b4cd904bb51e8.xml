@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_ded7124aa313375d719b4cd904bb51e8" kind="dir">
+    <compoundname>sha_pmxc</compoundname>
+    <innerfile refid="xsecure__shaalginfo_8c">xsecure_shaalginfo.c</innerfile>
+    <innerfile refid="client_2core_2sha_2sha__pmxc_2xsecure__shaalginfo_8h">client/core/sha/sha_pmxc/xsecure_shaalginfo.h</innerfile>
+    <innerfile refid="_2xsecure__shaclient_8c">/xsecure_shaclient.c</innerfile>
+    <innerfile refid="_2xsecure__shaclient_8h">/xsecure_shaclient.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/core/sha/sha_pmxc/"/>
+  </compounddef>
+</doxygen>

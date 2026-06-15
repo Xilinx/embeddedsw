@@ -1,0 +1,631 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_v___hdmi_tx_ss" kind="struct" prot="public">
+    <compoundname>XV_HdmiTxSs</compoundname>
+    <includes local="no">xv_hdmitxss.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_v___hdmi_tx_ss_1a85f740373921c8cd92ced34d1c84b08a" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_v___hdmi_tx_ss___config" kindref="compound">XV_HdmiTxSs_Config</ref></type>
+        <definition>XV_HdmiTxSs_Config XV_HdmiTxSs::Config</definition>
+        <argsstring></argsstring>
+        <name>Config</name>
+        <briefdescription>
+<para>Hardware configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/src/xv_hdmitxss.h" line="372" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/src/xv_hdmitxss.h" bodystart="372" bodyend="-1"/>
+        <referencedby refid="xv__hdmitxss_8h_1ad8bb4a3d734b44a7618529c52a433cc5" compoundref="xv__hdmitxss_8c" startline="488" endline="614">XV_HdmiTxSs_CfgInitialize</referencedby>
+        <referencedby refid="xv__hdmitxss_8h_1ac6a551d06d519bdc50552ac8a3479bd5" compoundref="xv__hdmitxss_8c" startline="2905" endline="2913">XV_HdmiTxSs_SetDefaultPpc</referencedby>
+        <referencedby refid="xv__hdmitxss_8h_1a674063f73906951bbd7558f6643b8ea3" compoundref="xv__hdmitxss_8c" startline="3171" endline="3194">XV_HdmiTxSS_SetHpdTolerance</referencedby>
+        <referencedby refid="xv__hdmitxss_8h_1a21e9e6ec102c13e90db7c1681031eb37" compoundref="xv__hdmitxss_8c" startline="2928" endline="2931">XV_HdmiTxSs_SetPpc</referencedby>
+        <referencedby refid="xv__hdmitxss_8h_1a893af41ef8123dbcc6c697e211656d6e" compoundref="xv__hdmitxss_8c" startline="2328" endline="2350">XV_HdmiTxSs_SetStream</referencedby>
+        <referencedby refid="group__v__hdmitxss_1ga23588544c59439321e952b7b4a2c6445" compoundref="xv__hdmitxss__coreinit_8c" startline="72" endline="108">XV_HdmiTxSs_SubcoreInitHdmiTx</referencedby>
+        <referencedby refid="group__v__hdmitxss_1ga2c1e0df6df7d8d7618d3bdde8eb86923" compoundref="xv__hdmitxss__coreinit_8c" startline="119" endline="152">XV_HdmiTxSs_SubcoreInitVtc</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_tx_ss_1ad62ad2dbc295e57b36a4117b58c22ae3" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XV_HdmiTxSs::IsReady</definition>
+        <argsstring></argsstring>
+        <name>IsReady</name>
+        <briefdescription>
+<para>Device and the driver instance are initialized. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/src/xv_hdmitxss.h" line="373" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/src/xv_hdmitxss.h" bodystart="373" bodyend="-1"/>
+        <referencedby refid="xv__hdmitxss_8h_1ad8bb4a3d734b44a7618529c52a433cc5" compoundref="xv__hdmitxss_8c" startline="488" endline="614">XV_HdmiTxSs_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_tx_ss_1acc291a3aeb71a6ce8ab9e3f62189a053" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XV_HdmiTxSs::AppMajVer</definition>
+        <argsstring></argsstring>
+        <name>AppMajVer</name>
+        <briefdescription>
+<para>Major Version of application used by the driver. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/src/xv_hdmitxss.h" line="374" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/src/xv_hdmitxss.h" bodystart="374" bodyend="-1"/>
+        <referencedby refid="xv__hdmitxss_8h_1ad8bb4a3d734b44a7618529c52a433cc5" compoundref="xv__hdmitxss_8c" startline="488" endline="614">XV_HdmiTxSs_CfgInitialize</referencedby>
+        <referencedby refid="xv__hdmitxss_8h_1a5d3a31956266819ec884d8cda17c981b" compoundref="xv__hdmitxss_8c" startline="3151" endline="3155">XV_HdmiTxSS_SetAppVersion</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_tx_ss_1a5edd49d0aea12261f9e487d1c3cbf055" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XV_HdmiTxSs::AppMinVer</definition>
+        <argsstring></argsstring>
+        <name>AppMinVer</name>
+        <briefdescription>
+<para>Minor Version of application used by the driver. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/src/xv_hdmitxss.h" line="375" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/src/xv_hdmitxss.h" bodystart="375" bodyend="-1"/>
+        <referencedby refid="xv__hdmitxss_8h_1ad8bb4a3d734b44a7618529c52a433cc5" compoundref="xv__hdmitxss_8c" startline="488" endline="614">XV_HdmiTxSs_CfgInitialize</referencedby>
+        <referencedby refid="xv__hdmitxss_8h_1a5d3a31956266819ec884d8cda17c981b" compoundref="xv__hdmitxss_8c" startline="3151" endline="3155">XV_HdmiTxSS_SetAppVersion</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_tx_ss_1a17215ebaf9a0c87b8fa10c72ae86eb6b" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_v___hdmi_tx_ss___log" kindref="compound">XV_HdmiTxSs_Log</ref></type>
+        <definition>XV_HdmiTxSs_Log XV_HdmiTxSs::Log</definition>
+        <argsstring></argsstring>
+        <name>Log</name>
+        <briefdescription>
+<para>A log of events. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/src/xv_hdmitxss.h" line="378" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/src/xv_hdmitxss.h" bodystart="378" bodyend="-1"/>
+        <referencedby refid="xv__hdmitxss__log_8c_1ae6ed5157a8dbfe946f4a762d6c23ab4d" compoundref="xv__hdmitxss__log_8c" startline="116" endline="141">XV_HdmiTxSs_LogRead</referencedby>
+        <referencedby refid="xv__hdmitxss__log_8c_1af956a862c4edf0e7a47b832875337a7c" compoundref="xv__hdmitxss__log_8c" startline="47" endline="54">XV_HdmiTxSs_LogReset</referencedby>
+        <referencedby refid="xv__hdmitxss__log_8c_1ad0c1b30d849344a197178cf8316fa9b3" compoundref="xv__hdmitxss__log_8c" startline="69" endline="103">XV_HdmiTxSs_LogWrite</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_tx_ss_1a87042f029000cbb41f93ca4d5cc9df89" prot="public" static="no" mutable="no">
+        <type>XV_HdmiTx *</type>
+        <definition>XV_HdmiTx* XV_HdmiTxSs::HdmiTxPtr</definition>
+        <argsstring></argsstring>
+        <name>HdmiTxPtr</name>
+        <briefdescription>
+<para>handle to sub-core driver instance </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/src/xv_hdmitxss.h" line="387" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/src/xv_hdmitxss.h" bodystart="387" bodyend="-1"/>
+        <referencedby refid="xv__hdmitxss_8h_1a7236081f867771f94ce80eb933e013be" compoundref="xv__hdmitxss_8c" startline="2167" endline="2182">XV_HdmiTxSs_AudioMute</referencedby>
+        <referencedby refid="xv__hdmitxss_8h_1ad8bb4a3d734b44a7618529c52a433cc5" compoundref="xv__hdmitxss_8c" startline="488" endline="614">XV_HdmiTxSs_CfgInitialize</referencedby>
+        <referencedby refid="xv__hdmitxss_8h_1a3c6df75403c9f052a4de43b7f0a63b41" compoundref="xv__hdmitxss_8c" startline="791" endline="796">XV_HdmiTxSs_ClearGcpAvmuteBit</referencedby>
+        <referencedby refid="xv__hdmitxss_8h_1a7baaebdb210c31b426fabc55fd2cb182" compoundref="xv__hdmitxss_8c" startline="823" endline="828">XV_HdmiTxSs_ClearGcpClearAvmuteBit</referencedby>
+        <referencedby refid="xv__hdmitxss_8h_1a5859b58e746c23252cb9d76113868c3f" compoundref="xv__hdmitxss_8c" startline="2544" endline="2547">XV_HdmiTxSs_DetectHdmi20</referencedby>
+        <referencedby refid="xv__hdmitxss_8h_1a6a7d6276758aa3f6a299ef7338ae25d2" compoundref="xv__hdmitxss_8c" startline="2215" endline="2222">XV_HdmiTxSs_GetAudioFormat</referencedby>
+        <referencedby refid="xv__hdmitxss_8h_1a75e0c4c16875b294389b12e2dd1910d8" compoundref="xv__hdmitxss_8c" startline="2236" endline="2239">XV_HdmiTxSs_GetAuxiliary</referencedby>
+        <referencedby refid="xv__hdmitxss_8h_1ad3f21f86b6abc00a736416e435067085" compoundref="xv__hdmitxss_8c" startline="2525" endline="2528">XV_HdmiTxSs_GetTmdsClockFreqHz</referencedby>
+        <referencedby refid="xv__hdmitxss_8h_1ae0188b2e6efd4b22b2c0c8203a180f52" compoundref="xv__hdmitxss_8c" startline="2364" endline="2367">XV_HdmiTxSs_GetVideoStream</referencedby>
+        <referencedby refid="xv__hdmitxss_8h_1a8ff76051586c2d5efff8d7b74f72b4db" compoundref="xv__hdmitxss_8c" startline="347" endline="350">XV_HdmiTxSS_HdmiTxIntrHandler</referencedby>
+        <referencedby refid="xv__hdmitxss_8h_1a90093f13e5fdcaaea46c47fe66a3b602" compoundref="xv__hdmitxss_8c" startline="3133" endline="3136">XV_HdmiTxSS_IsMasked</referencedby>
+        <referencedby refid="xv__hdmitxss_8h_1a6a2655edd57c2f26437458caaaf0e850" compoundref="xv__hdmitxss_8c" startline="2960" endline="2963">XV_HdmiTxSS_MaskDisable</referencedby>
+        <referencedby refid="xv__hdmitxss_8h_1a8222704653be72e1babef7a4bce0f26f" compoundref="xv__hdmitxss_8c" startline="2944" endline="2947">XV_HdmiTxSS_MaskEnable</referencedby>
+        <referencedby refid="xv__hdmitxss_8h_1a98e7c828f9533ef0fba06f6a5d847042" compoundref="xv__hdmitxss_8c" startline="2978" endline="2981">XV_HdmiTxSS_MaskNoise</referencedby>
+        <referencedby refid="xv__hdmitxss_8h_1a76bd74633342dbed32109b9a7b1586ab" compoundref="xv__hdmitxss_8c" startline="3051" endline="3058">XV_HdmiTxSS_MaskSetBlue</referencedby>
+        <referencedby refid="xv__hdmitxss_8h_1a307a169df642cd4875e2b58c772fa772" compoundref="xv__hdmitxss_8c" startline="3030" endline="3037">XV_HdmiTxSS_MaskSetGreen</referencedby>
+        <referencedby refid="xv__hdmitxss_8h_1ae24535e3c48c0a873b3a31b47273e568" compoundref="xv__hdmitxss_8c" startline="3008" endline="3015">XV_HdmiTxSS_MaskSetRed</referencedby>
+        <referencedby refid="xv__hdmitxss_8h_1a0fba99b963ed0f3e1c54177d8813e75c" compoundref="xv__hdmitxss_8c" startline="1750" endline="1772">XV_HdmiTxSs_ReadEdid</referencedby>
+        <referencedby refid="xv__hdmitxss_8h_1a0ef62fb92a37407f4f84a517ec57a29c" compoundref="xv__hdmitxss_8c" startline="1790" endline="1850">XV_HdmiTxSs_ReadEdidSegment</referencedby>
+        <referencedby refid="xv__hdmitxss_8h_1a9310ffcd6b9104fcfe7c7cb79fac75fc" compoundref="xv__hdmitxss_8c" startline="2561" endline="2574">XV_HdmiTxSs_RefClockChangeInit</referencedby>
+        <referencedby refid="xv__hdmitxss_8h_1a6b434a44223cc600e6ecf1bba79f1caf" compoundref="xv__hdmitxss_8c" startline="2031" endline="2093">XV_HdmiTxSs_SendAuxInfoframe</referencedby>
+        <referencedby refid="xv__hdmitxss_8h_1afae51cd5f28349fd9d41e481075adfbb" compoundref="xv__hdmitxss_8c" startline="2110" endline="2126">XV_HdmiTxSs_SendGenericAuxInfoframe</referencedby>
+        <referencedby refid="xv__hdmitxss_8h_1af1a2f31b3f929a0ca3c5fc40fc9c2844" compoundref="xv__hdmitxss_8c" startline="2141" endline="2152">XV_HdmiTxSs_SetAudioChannels</referencedby>
+        <referencedby refid="xv__hdmitxss_8h_1a66df1a5d1aff12d133912779276457e0" compoundref="xv__hdmitxss_8c" startline="2197" endline="2201">XV_HdmiTxSs_SetAudioFormat</referencedby>
+        <referencedby refid="xv__hdmitxss_8h_1aeed58274fea95f8dac4fa3b655c842b4" compoundref="xv__hdmitxss_8c" startline="3070" endline="3116">XV_HdmiTxSS_SetBackgroundColor</referencedby>
+        <referencedby refid="xv__hdmitxss_8h_1a00fc89ef2f87a615c17c7f7af3646d3d" compoundref="xv__hdmitxss_8c" startline="288" endline="297">XV_HdmiTxSS_SetDviMode</referencedby>
+        <referencedby refid="xv__hdmitxss_8h_1a653c5fe3cd48185c34dc676a4a62ca0a" compoundref="xv__hdmitxss_8c" startline="775" endline="780">XV_HdmiTxSs_SetGcpAvmuteBit</referencedby>
+        <referencedby refid="xv__hdmitxss_8h_1a09772b94c132cd6b06abf65591bd7053" compoundref="xv__hdmitxss_8c" startline="807" endline="812">XV_HdmiTxSs_SetGcpClearAvmuteBit</referencedby>
+        <referencedby refid="xv__hdmitxss_8h_1a6d43689952c526047584791103c68fda" compoundref="xv__hdmitxss_8c" startline="270" endline="279">XV_HdmiTxSS_SetHdmiMode</referencedby>
+        <referencedby refid="xv__hdmitxss_8h_1ade460140d573e0cbe938337bd4a544a9" compoundref="xv__hdmitxss_8c" startline="1994" endline="2016">XV_HdmiTxSs_SetScrambler</referencedby>
+        <referencedby refid="xv__hdmitxss_8h_1a893af41ef8123dbcc6c697e211656d6e" compoundref="xv__hdmitxss_8c" startline="2328" endline="2350">XV_HdmiTxSs_SetStream</referencedby>
+        <referencedby refid="xv__hdmitxss_8h_1afa0dfbdf683ed9e54aa2da4f151a4fa7" compoundref="xv__hdmitxss_8c" startline="2508" endline="2511">XV_HdmiTxSs_SetTmdsClockRatio</referencedby>
+        <referencedby refid="xv__hdmitxss_8h_1a680f738bcf7dd09b7890daf60a79adae" compoundref="xv__hdmitxss_8c" startline="2420" endline="2423">XV_HdmiTxSs_SetVideoIDCode</referencedby>
+        <referencedby refid="xv__hdmitxss_8h_1a0fd1659a668fcb0c4c005733d7562cbe" compoundref="xv__hdmitxss_8c" startline="2382" endline="2387">XV_HdmiTxSs_SetVideoStream</referencedby>
+        <referencedby refid="xv__hdmitxss_8h_1afaa00fb1515b3092877b321063345c28" compoundref="xv__hdmitxss_8c" startline="2463" endline="2467">XV_HdmiTxSs_SetVideoStreamScramblingFlag</referencedby>
+        <referencedby refid="xv__hdmitxss_8h_1ac94769b587e90eeacda37ae14e1bfadb" compoundref="xv__hdmitxss_8c" startline="2489" endline="2493">XV_HdmiTxSs_SetVideoStreamScramblingOverrideFlag</referencedby>
+        <referencedby refid="xv__hdmitxss_8h_1ad337fa609416bcc5d642d9801885b1e5" compoundref="xv__hdmitxss_8c" startline="1941" endline="1977">XV_HdmiTxSs_StreamStart</referencedby>
+        <referencedby refid="group__v__hdmitxss_1ga23588544c59439321e952b7b4a2c6445" compoundref="xv__hdmitxss__coreinit_8c" startline="72" endline="108">XV_HdmiTxSs_SubcoreInitHdmiTx</referencedby>
+        <referencedby refid="xv__hdmitxss_8h_1a77923fdc63d61ac02682f01761e22f41" compoundref="xv__hdmitxss_8c" startline="759" endline="764">XV_HdmiTxSs_SYSRST</referencedby>
+        <referencedby refid="xv__hdmitxss_8h_1ab460326ed658ca9f78fd4693082bb4a5" compoundref="xv__hdmitxss_8c" startline="723" endline="728">XV_HdmiTxSs_TXCore_LRST</referencedby>
+        <referencedby refid="xv__hdmitxss_8h_1a30878ea5353d52555a6afc7a4dacc4d6" compoundref="xv__hdmitxss_8c" startline="705" endline="710">XV_HdmiTxSs_TXCore_VRST</referencedby>
+        <referencedby refid="xv__hdmitxss_8h_1afc2950cff189fcfb6d92adc93f3ed807" compoundref="xv__hdmitxss_8c" startline="741" endline="746">XV_HdmiTxSs_VRST</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_tx_ss_1a02f7acf90cb43cab31025ae6193dc046" prot="public" static="no" mutable="no">
+        <type>XVtc *</type>
+        <definition>XVtc* XV_HdmiTxSs::VtcPtr</definition>
+        <argsstring></argsstring>
+        <name>VtcPtr</name>
+        <briefdescription>
+<para>handle to sub-core driver instance </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/src/xv_hdmitxss.h" line="388" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/src/xv_hdmitxss.h" bodystart="388" bodyend="-1"/>
+        <referencedby refid="xv__hdmitxss_8h_1ad8bb4a3d734b44a7618529c52a433cc5" compoundref="xv__hdmitxss_8c" startline="488" endline="614">XV_HdmiTxSs_CfgInitialize</referencedby>
+        <referencedby refid="xv__hdmitxss_8h_1a592e3853bad0e5476e08909a492606d5" compoundref="xv__hdmitxss_8c" startline="647" endline="657">XV_HdmiTxSs_Stop</referencedby>
+        <referencedby refid="group__v__hdmitxss_1ga2c1e0df6df7d8d7618d3bdde8eb86923" compoundref="xv__hdmitxss__coreinit_8c" startline="119" endline="152">XV_HdmiTxSs_SubcoreInitVtc</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_tx_ss_1a39b5e05a75519d2a5ea95843a73d5b3d" prot="public" static="no" mutable="no">
+        <type><ref refid="xv__hdmitxss_8h_1a1205ca5563406047c94172d9394632cd" kindref="member">XV_HdmiTxSs_Callback</ref></type>
+        <definition>XV_HdmiTxSs_Callback XV_HdmiTxSs::ConnectCallback</definition>
+        <argsstring></argsstring>
+        <name>ConnectCallback</name>
+        <briefdescription>
+<para>Callback for connect event. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/src/xv_hdmitxss.h" line="391" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/src/xv_hdmitxss.h" bodystart="391" bodyend="-1"/>
+        <referencedby refid="xv__hdmitxss_8h_1a605b21563bb907e4dea33a58006fd46c" compoundref="xv__hdmitxss_8c" startline="1580" endline="1733">XV_HdmiTxSs_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_tx_ss_1af2d693256a7ab9bd3b4bbee0a1f52a94" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XV_HdmiTxSs::ConnectRef</definition>
+        <argsstring></argsstring>
+        <name>ConnectRef</name>
+        <briefdescription>
+<para>To be passed to the connect callback. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/src/xv_hdmitxss.h" line="392" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/src/xv_hdmitxss.h" bodystart="392" bodyend="-1"/>
+        <referencedby refid="xv__hdmitxss_8h_1a605b21563bb907e4dea33a58006fd46c" compoundref="xv__hdmitxss_8c" startline="1580" endline="1733">XV_HdmiTxSs_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_tx_ss_1a82e0e82c8fc5f19bc91f6d70b8593223" prot="public" static="no" mutable="no">
+        <type><ref refid="xv__hdmitxss_8h_1a1205ca5563406047c94172d9394632cd" kindref="member">XV_HdmiTxSs_Callback</ref></type>
+        <definition>XV_HdmiTxSs_Callback XV_HdmiTxSs::ToggleCallback</definition>
+        <argsstring></argsstring>
+        <name>ToggleCallback</name>
+        <briefdescription>
+<para>Callback for toggle event. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/src/xv_hdmitxss.h" line="395" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/src/xv_hdmitxss.h" bodystart="395" bodyend="-1"/>
+        <referencedby refid="xv__hdmitxss_8h_1a605b21563bb907e4dea33a58006fd46c" compoundref="xv__hdmitxss_8c" startline="1580" endline="1733">XV_HdmiTxSs_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_tx_ss_1af8f91ad07477ab64bba29392617b48e4" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XV_HdmiTxSs::ToggleRef</definition>
+        <argsstring></argsstring>
+        <name>ToggleRef</name>
+        <briefdescription>
+<para>To be passed to the toggle callback. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/src/xv_hdmitxss.h" line="396" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/src/xv_hdmitxss.h" bodystart="396" bodyend="-1"/>
+        <referencedby refid="xv__hdmitxss_8h_1a605b21563bb907e4dea33a58006fd46c" compoundref="xv__hdmitxss_8c" startline="1580" endline="1733">XV_HdmiTxSs_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_tx_ss_1a9a0a5b6dcda4a018ab7afb525e92af90" prot="public" static="no" mutable="no">
+        <type><ref refid="xv__hdmitxss_8h_1a1205ca5563406047c94172d9394632cd" kindref="member">XV_HdmiTxSs_Callback</ref></type>
+        <definition>XV_HdmiTxSs_Callback XV_HdmiTxSs::BrdgUnlockedCallback</definition>
+        <argsstring></argsstring>
+        <name>BrdgUnlockedCallback</name>
+        <briefdescription>
+<para>Callback for Bridge UnLocked event interrupt. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/src/xv_hdmitxss.h" line="399" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/src/xv_hdmitxss.h" bodystart="399" bodyend="-1"/>
+        <referencedby refid="xv__hdmitxss_8h_1a605b21563bb907e4dea33a58006fd46c" compoundref="xv__hdmitxss_8c" startline="1580" endline="1733">XV_HdmiTxSs_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_tx_ss_1a63b0ccbe1730df1f410633768c18f3f8" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XV_HdmiTxSs::BrdgUnlockedRef</definition>
+        <argsstring></argsstring>
+        <name>BrdgUnlockedRef</name>
+        <briefdescription>
+<para>To be passed to the Bridge Unlocked interrupt callback. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/src/xv_hdmitxss.h" line="401" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/src/xv_hdmitxss.h" bodystart="401" bodyend="-1"/>
+        <referencedby refid="xv__hdmitxss_8h_1a605b21563bb907e4dea33a58006fd46c" compoundref="xv__hdmitxss_8c" startline="1580" endline="1733">XV_HdmiTxSs_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_tx_ss_1a50062c59d6b992dfb8e3b5bcf019c390" prot="public" static="no" mutable="no">
+        <type><ref refid="xv__hdmitxss_8h_1a1205ca5563406047c94172d9394632cd" kindref="member">XV_HdmiTxSs_Callback</ref></type>
+        <definition>XV_HdmiTxSs_Callback XV_HdmiTxSs::BrdgOverflowCallback</definition>
+        <argsstring></argsstring>
+        <name>BrdgOverflowCallback</name>
+        <briefdescription>
+<para>Callback for Bridge Overflow event interrupt. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/src/xv_hdmitxss.h" line="404" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/src/xv_hdmitxss.h" bodystart="404" bodyend="-1"/>
+        <referencedby refid="xv__hdmitxss_8h_1a605b21563bb907e4dea33a58006fd46c" compoundref="xv__hdmitxss_8c" startline="1580" endline="1733">XV_HdmiTxSs_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_tx_ss_1af48f4099705037e963b940f6b8ff3088" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XV_HdmiTxSs::BrdgOverflowRef</definition>
+        <argsstring></argsstring>
+        <name>BrdgOverflowRef</name>
+        <briefdescription>
+<para>To be passed to the Bridge Overflow interrupt callback. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/src/xv_hdmitxss.h" line="406" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/src/xv_hdmitxss.h" bodystart="406" bodyend="-1"/>
+        <referencedby refid="xv__hdmitxss_8h_1a605b21563bb907e4dea33a58006fd46c" compoundref="xv__hdmitxss_8c" startline="1580" endline="1733">XV_HdmiTxSs_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_tx_ss_1a7f3649165f32243cd4ec90d5d6932c6a" prot="public" static="no" mutable="no">
+        <type><ref refid="xv__hdmitxss_8h_1a1205ca5563406047c94172d9394632cd" kindref="member">XV_HdmiTxSs_Callback</ref></type>
+        <definition>XV_HdmiTxSs_Callback XV_HdmiTxSs::BrdgUnderflowCallback</definition>
+        <argsstring></argsstring>
+        <name>BrdgUnderflowCallback</name>
+        <briefdescription>
+<para>Callback for Bridge Underflow event interrupt. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/src/xv_hdmitxss.h" line="409" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/src/xv_hdmitxss.h" bodystart="409" bodyend="-1"/>
+        <referencedby refid="xv__hdmitxss_8h_1a605b21563bb907e4dea33a58006fd46c" compoundref="xv__hdmitxss_8c" startline="1580" endline="1733">XV_HdmiTxSs_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_tx_ss_1a25c93b472276666d887e20bc3dda4991" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XV_HdmiTxSs::BrdgUnderflowRef</definition>
+        <argsstring></argsstring>
+        <name>BrdgUnderflowRef</name>
+        <briefdescription>
+<para>To be passed to the Bridge Underflow interrupt callback. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/src/xv_hdmitxss.h" line="411" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/src/xv_hdmitxss.h" bodystart="411" bodyend="-1"/>
+        <referencedby refid="xv__hdmitxss_8h_1a605b21563bb907e4dea33a58006fd46c" compoundref="xv__hdmitxss_8c" startline="1580" endline="1733">XV_HdmiTxSs_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_tx_ss_1ad06778e85cc7cb789875687ff8c0a50f" prot="public" static="no" mutable="no">
+        <type><ref refid="xv__hdmitxss_8h_1a1205ca5563406047c94172d9394632cd" kindref="member">XV_HdmiTxSs_Callback</ref></type>
+        <definition>XV_HdmiTxSs_Callback XV_HdmiTxSs::VsCallback</definition>
+        <argsstring></argsstring>
+        <name>VsCallback</name>
+        <briefdescription>
+<para>Callback for Vsync event. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/src/xv_hdmitxss.h" line="414" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/src/xv_hdmitxss.h" bodystart="414" bodyend="-1"/>
+        <referencedby refid="xv__hdmitxss_8h_1a605b21563bb907e4dea33a58006fd46c" compoundref="xv__hdmitxss_8c" startline="1580" endline="1733">XV_HdmiTxSs_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_tx_ss_1a91d38a22ee614ca20bc20bd50a4a15cd" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XV_HdmiTxSs::VsRef</definition>
+        <argsstring></argsstring>
+        <name>VsRef</name>
+        <briefdescription>
+<para>To be passed to the Vsync callback. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/src/xv_hdmitxss.h" line="415" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/src/xv_hdmitxss.h" bodystart="415" bodyend="-1"/>
+        <referencedby refid="xv__hdmitxss_8h_1a605b21563bb907e4dea33a58006fd46c" compoundref="xv__hdmitxss_8c" startline="1580" endline="1733">XV_HdmiTxSs_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_tx_ss_1a4ff347124bdb910394b00d725243be78" prot="public" static="no" mutable="no">
+        <type><ref refid="xv__hdmitxss_8h_1a1205ca5563406047c94172d9394632cd" kindref="member">XV_HdmiTxSs_Callback</ref></type>
+        <definition>XV_HdmiTxSs_Callback XV_HdmiTxSs::StreamDownCallback</definition>
+        <argsstring></argsstring>
+        <name>StreamDownCallback</name>
+        <briefdescription>
+<para>Callback for stream down. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/src/xv_hdmitxss.h" line="417" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/src/xv_hdmitxss.h" bodystart="417" bodyend="-1"/>
+        <referencedby refid="xv__hdmitxss_8h_1a605b21563bb907e4dea33a58006fd46c" compoundref="xv__hdmitxss_8c" startline="1580" endline="1733">XV_HdmiTxSs_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_tx_ss_1ab62bab6450fcc9831cd79663de159dd1" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XV_HdmiTxSs::StreamDownRef</definition>
+        <argsstring></argsstring>
+        <name>StreamDownRef</name>
+        <briefdescription>
+<para>To be passed to the stream down callback. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/src/xv_hdmitxss.h" line="418" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/src/xv_hdmitxss.h" bodystart="418" bodyend="-1"/>
+        <referencedby refid="xv__hdmitxss_8h_1a605b21563bb907e4dea33a58006fd46c" compoundref="xv__hdmitxss_8c" startline="1580" endline="1733">XV_HdmiTxSs_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_tx_ss_1aef99e4d9cd474bb2e4cc5357eef0f106" prot="public" static="no" mutable="no">
+        <type><ref refid="xv__hdmitxss_8h_1a1205ca5563406047c94172d9394632cd" kindref="member">XV_HdmiTxSs_Callback</ref></type>
+        <definition>XV_HdmiTxSs_Callback XV_HdmiTxSs::StreamUpCallback</definition>
+        <argsstring></argsstring>
+        <name>StreamUpCallback</name>
+        <briefdescription>
+<para>Callback for stream up. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/src/xv_hdmitxss.h" line="420" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/src/xv_hdmitxss.h" bodystart="420" bodyend="-1"/>
+        <referencedby refid="xv__hdmitxss_8h_1a605b21563bb907e4dea33a58006fd46c" compoundref="xv__hdmitxss_8c" startline="1580" endline="1733">XV_HdmiTxSs_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_tx_ss_1accd28d7f2aa53abb2acbd9230242781a" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XV_HdmiTxSs::StreamUpRef</definition>
+        <argsstring></argsstring>
+        <name>StreamUpRef</name>
+        <briefdescription>
+<para>To be passed to the stream up callback. </para>        </briefdescription>
+        <detaileddescription>
+<para>Scratch pad </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/src/xv_hdmitxss.h" line="421" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/src/xv_hdmitxss.h" bodystart="421" bodyend="-1"/>
+        <referencedby refid="xv__hdmitxss_8h_1a605b21563bb907e4dea33a58006fd46c" compoundref="xv__hdmitxss_8c" startline="1580" endline="1733">XV_HdmiTxSs_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_tx_ss_1ab9285618e6b09726f0db7f9549bbe56e" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XV_HdmiTxSs::SamplingRate</definition>
+        <argsstring></argsstring>
+        <name>SamplingRate</name>
+        <briefdescription>
+<para>HDMI TX Sampling rate. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/src/xv_hdmitxss.h" line="424" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/src/xv_hdmitxss.h" bodystart="424" bodyend="-1"/>
+        <referencedby refid="xv__hdmitxss_8h_1ae44331b090b0076f95759848b0de5a58" compoundref="xv__hdmitxss_8c" startline="2402" endline="2405">XV_HdmiTxSs_SetSamplingRate</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_tx_ss_1a7e4a08890f747e75647f2f0a03130b9a" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XV_HdmiTxSs::IsStreamConnected</definition>
+        <argsstring></argsstring>
+        <name>IsStreamConnected</name>
+        <briefdescription>
+<para>HDMI TX Stream Connected. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/src/xv_hdmitxss.h" line="425" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/src/xv_hdmitxss.h" bodystart="425" bodyend="-1"/>
+        <referencedby refid="xv__hdmitxss_8h_1a79b52e663821dfc84361488305e5cc07" compoundref="xv__hdmitxss_8c" startline="2807" endline="2813">XV_HdmiTxSs_IsStreamConnected</referencedby>
+        <referencedby refid="xv__hdmitxss_8h_1a0fba99b963ed0f3e1c54177d8813e75c" compoundref="xv__hdmitxss_8c" startline="1750" endline="1772">XV_HdmiTxSs_ReadEdid</referencedby>
+        <referencedby refid="xv__hdmitxss_8h_1a0ef62fb92a37407f4f84a517ec57a29c" compoundref="xv__hdmitxss_8c" startline="1790" endline="1850">XV_HdmiTxSs_ReadEdidSegment</referencedby>
+        <referencedby refid="xv__hdmitxss_8h_1adc4b30aba929e2a7c5c61028bbe31379" compoundref="xv__hdmitxss_8c" startline="1864" endline="1927">XV_HdmiTxSs_ShowEdid</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_tx_ss_1aa38c472a90141a54a3c95ebc710283fe" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XV_HdmiTxSs::IsStreamUp</definition>
+        <argsstring></argsstring>
+        <name>IsStreamUp</name>
+        <briefdescription>
+<para>HDMI TX Stream Up. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/src/xv_hdmitxss.h" line="426" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/src/xv_hdmitxss.h" bodystart="426" bodyend="-1"/>
+        <referencedby refid="xv__hdmitxss_8h_1ad9af77d55dcb5f4aa9979325c9c78734" compoundref="xv__hdmitxss_8c" startline="2785" endline="2791">XV_HdmiTxSs_IsStreamUp</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_tx_ss_1a06b1ebb9c9cbc77f6850427a5609df49" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XV_HdmiTxSs::IsStreamToggled</definition>
+        <argsstring></argsstring>
+        <name>IsStreamToggled</name>
+        <briefdescription>
+<para>HDMI TX Stream Toggled. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/src/xv_hdmitxss.h" line="427" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/src/xv_hdmitxss.h" bodystart="427" bodyend="-1"/>
+        <referencedby refid="xv__hdmitxss_8h_1a2c3f44e0cb505a187b39fd42d5397c00" compoundref="xv__hdmitxss_8c" startline="2829" endline="2835">XV_HdmiTxSs_IsStreamToggled</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_tx_ss_1a15ca5fd9cf516e8df880da81139a3fbc" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XV_HdmiTxSs::AudioEnabled</definition>
+        <argsstring></argsstring>
+        <name>AudioEnabled</name>
+        <briefdescription>
+<para>HDMI TX Audio Enabled. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/src/xv_hdmitxss.h" line="428" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/src/xv_hdmitxss.h" bodystart="428" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_tx_ss_1aa9f73db51971c9e4345196d4d1cf7e2b" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XV_HdmiTxSs::AudioMute</definition>
+        <argsstring></argsstring>
+        <name>AudioMute</name>
+        <briefdescription>
+<para>HDMI TX Audio Mute. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/src/xv_hdmitxss.h" line="429" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/src/xv_hdmitxss.h" bodystart="429" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_tx_ss_1a0517d08057746ed07c1185f49be806a0" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XV_HdmiTxSs::AudioChannels</definition>
+        <argsstring></argsstring>
+        <name>AudioChannels</name>
+        <briefdescription>
+<para>Number of Audio Channels. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/src/xv_hdmitxss.h" line="430" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/src/xv_hdmitxss.h" bodystart="430" bodyend="-1"/>
+        <referencedby refid="xv__hdmitxss_8h_1af1a2f31b3f929a0ca3c5fc40fc9c2844" compoundref="xv__hdmitxss_8c" startline="2141" endline="2152">XV_HdmiTxSs_SetAudioChannels</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_tx_ss_1ab75c71b05733f042bc3484094f7d2c61" prot="public" static="no" mutable="no">
+        <type>XHdmiC_AVI_InfoFrame</type>
+        <definition>XHdmiC_AVI_InfoFrame XV_HdmiTxSs::AVIInfoframe</definition>
+        <argsstring></argsstring>
+        <name>AVIInfoframe</name>
+        <briefdescription>
+<para>AVI InfoFrame. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/src/xv_hdmitxss.h" line="432" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/src/xv_hdmitxss.h" bodystart="432" bodyend="-1"/>
+        <referencedby refid="xv__hdmitxss_8h_1ad8bb4a3d734b44a7618529c52a433cc5" compoundref="xv__hdmitxss_8c" startline="488" endline="614">XV_HdmiTxSs_CfgInitialize</referencedby>
+        <referencedby refid="xv__hdmitxss_8h_1a64baf7a67735b16f23b3ae4aa3db6a18" compoundref="xv__hdmitxss_8c" startline="2253" endline="2256">XV_HdmiTxSs_GetAviInfoframe</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_tx_ss_1a9df7abc4dec75ff7f641fbbfc8b527b7" prot="public" static="no" mutable="no">
+        <type>XHdmiC_AudioInfoFrame</type>
+        <definition>XHdmiC_AudioInfoFrame XV_HdmiTxSs::AudioInfoframe</definition>
+        <argsstring></argsstring>
+        <name>AudioInfoframe</name>
+        <briefdescription>
+<para>Audio InfoFrame. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/src/xv_hdmitxss.h" line="433" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/src/xv_hdmitxss.h" bodystart="433" bodyend="-1"/>
+        <referencedby refid="xv__hdmitxss_8h_1ad8bb4a3d734b44a7618529c52a433cc5" compoundref="xv__hdmitxss_8c" startline="488" endline="614">XV_HdmiTxSs_CfgInitialize</referencedby>
+        <referencedby refid="xv__hdmitxss_8h_1a25d70c52e0192568f9baa27951ea2e7a" compoundref="xv__hdmitxss_8c" startline="2270" endline="2273">XV_HdmiTxSs_GetAudioInfoframe</referencedby>
+        <referencedby refid="xv__hdmitxss_8h_1af1a2f31b3f929a0ca3c5fc40fc9c2844" compoundref="xv__hdmitxss_8c" startline="2141" endline="2152">XV_HdmiTxSs_SetAudioChannels</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_tx_ss_1aed7334db801d041c27f8eacee8a75894" prot="public" static="no" mutable="no">
+        <type>XHdmiC_VSIF</type>
+        <definition>XHdmiC_VSIF XV_HdmiTxSs::VSIF</definition>
+        <argsstring></argsstring>
+        <name>VSIF</name>
+        <briefdescription>
+<para>Vendor Specific InfoFrame. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/src/xv_hdmitxss.h" line="434" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/src/xv_hdmitxss.h" bodystart="434" bodyend="-1"/>
+        <referencedby refid="xv__hdmitxss_8h_1ad8bb4a3d734b44a7618529c52a433cc5" compoundref="xv__hdmitxss_8c" startline="488" endline="614">XV_HdmiTxSs_CfgInitialize</referencedby>
+        <referencedby refid="xv__hdmitxss_8h_1a5d7b94dcf090118a688144c74cbd9442" compoundref="xv__hdmitxss_8c" startline="2288" endline="2291">XV_HdmiTxSs_GetVSIF</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_tx_ss_1ab4402bb295156f676dc7f4ce449aa4e9" prot="public" static="no" mutable="no">
+        <type>XHdmiC_DRMInfoFrame</type>
+        <definition>XHdmiC_DRMInfoFrame XV_HdmiTxSs::DrmInfoframe</definition>
+        <argsstring></argsstring>
+        <name>DrmInfoframe</name>
+        <briefdescription>
+<para>DRM Infoframe. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/src/xv_hdmitxss.h" line="435" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/src/xv_hdmitxss.h" bodystart="435" bodyend="-1"/>
+        <referencedby refid="xv__hdmitxss_8h_1ad8bb4a3d734b44a7618529c52a433cc5" compoundref="xv__hdmitxss_8c" startline="488" endline="614">XV_HdmiTxSs_CfgInitialize</referencedby>
+        <referencedby refid="xv__hdmitxss_8c_1ab5b252d413f8804cc5eddf894a2ddcc4" compoundref="xv__hdmitxss_8c" startline="2306" endline="2309">XV_HdmiTxSs_GetDrmInfoframe</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_tx_ss_1ab003c64bbf63c1cc119c0a074f442967" prot="public" static="no" mutable="no">
+        <type><ref refid="xv__hdmitxss_8h_1ae5b01347d8bef95b2b6696a9df03715d" kindref="member">XV_HdmiTxSs_HdcpProtocol</ref></type>
+        <definition>XV_HdmiTxSs_HdcpProtocol XV_HdmiTxSs::HdcpProtocol</definition>
+        <argsstring></argsstring>
+        <name>HdcpProtocol</name>
+        <briefdescription>
+<para>HDCP protocol selected. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/src/xv_hdmitxss.h" line="437" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/src/xv_hdmitxss.h" bodystart="437" bodyend="-1"/>
+        <referencedby refid="xv__hdmitxss_8h_1ad8bb4a3d734b44a7618529c52a433cc5" compoundref="xv__hdmitxss_8c" startline="488" endline="614">XV_HdmiTxSs_CfgInitialize</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>The XVprocss driver instance data. </para>    </briefdescription>
+    <detaileddescription>
+<para>The user is required to allocate a variable of this type for every XVprocss device in the system. A pointer to a variable of this type is then passed to the driver API functions. </para>    </detaileddescription>
+    <collaborationgraph>
+      <node id="30">
+        <label>XV_HdmiTxSs</label>
+        <link refid="struct_x_v___hdmi_tx_ss"/>
+        <childnode refid="31" relation="usage">
+          <edgelabel>Config</edgelabel>
+        </childnode>
+        <childnode refid="33" relation="usage">
+          <edgelabel>Log</edgelabel>
+        </childnode>
+      </node>
+      <node id="33">
+        <label>XV_HdmiTxSs_Log</label>
+        <link refid="struct_x_v___hdmi_tx_ss___log"/>
+      </node>
+      <node id="32">
+        <label>XV_HdmiTxSs_SubCore</label>
+        <link refid="struct_x_v___hdmi_tx_ss___sub_core"/>
+      </node>
+      <node id="31">
+        <label>XV_HdmiTxSs_Config</label>
+        <link refid="struct_x_v___hdmi_tx_ss___config"/>
+        <childnode refid="32" relation="usage">
+          <edgelabel>Vtc</edgelabel>
+          <edgelabel>Hdcp22</edgelabel>
+          <edgelabel>HdmiTx</edgelabel>
+          <edgelabel>Hdcp14</edgelabel>
+          <edgelabel>HdcpTimer</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/src/xv_hdmitxss.h" line="371" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/src/xv_hdmitxss.h" bodystart="370" bodyend="453"/>
+    <listofallmembers>
+      <member refid="struct_x_v___hdmi_tx_ss_1acc291a3aeb71a6ce8ab9e3f62189a053" prot="public" virt="non-virtual"><scope>XV_HdmiTxSs</scope><name>AppMajVer</name></member>
+      <member refid="struct_x_v___hdmi_tx_ss_1a5edd49d0aea12261f9e487d1c3cbf055" prot="public" virt="non-virtual"><scope>XV_HdmiTxSs</scope><name>AppMinVer</name></member>
+      <member refid="struct_x_v___hdmi_tx_ss_1a0517d08057746ed07c1185f49be806a0" prot="public" virt="non-virtual"><scope>XV_HdmiTxSs</scope><name>AudioChannels</name></member>
+      <member refid="struct_x_v___hdmi_tx_ss_1a15ca5fd9cf516e8df880da81139a3fbc" prot="public" virt="non-virtual"><scope>XV_HdmiTxSs</scope><name>AudioEnabled</name></member>
+      <member refid="struct_x_v___hdmi_tx_ss_1a9df7abc4dec75ff7f641fbbfc8b527b7" prot="public" virt="non-virtual"><scope>XV_HdmiTxSs</scope><name>AudioInfoframe</name></member>
+      <member refid="struct_x_v___hdmi_tx_ss_1aa9f73db51971c9e4345196d4d1cf7e2b" prot="public" virt="non-virtual"><scope>XV_HdmiTxSs</scope><name>AudioMute</name></member>
+      <member refid="struct_x_v___hdmi_tx_ss_1ab75c71b05733f042bc3484094f7d2c61" prot="public" virt="non-virtual"><scope>XV_HdmiTxSs</scope><name>AVIInfoframe</name></member>
+      <member refid="struct_x_v___hdmi_tx_ss_1a50062c59d6b992dfb8e3b5bcf019c390" prot="public" virt="non-virtual"><scope>XV_HdmiTxSs</scope><name>BrdgOverflowCallback</name></member>
+      <member refid="struct_x_v___hdmi_tx_ss_1af48f4099705037e963b940f6b8ff3088" prot="public" virt="non-virtual"><scope>XV_HdmiTxSs</scope><name>BrdgOverflowRef</name></member>
+      <member refid="struct_x_v___hdmi_tx_ss_1a7f3649165f32243cd4ec90d5d6932c6a" prot="public" virt="non-virtual"><scope>XV_HdmiTxSs</scope><name>BrdgUnderflowCallback</name></member>
+      <member refid="struct_x_v___hdmi_tx_ss_1a25c93b472276666d887e20bc3dda4991" prot="public" virt="non-virtual"><scope>XV_HdmiTxSs</scope><name>BrdgUnderflowRef</name></member>
+      <member refid="struct_x_v___hdmi_tx_ss_1a9a0a5b6dcda4a018ab7afb525e92af90" prot="public" virt="non-virtual"><scope>XV_HdmiTxSs</scope><name>BrdgUnlockedCallback</name></member>
+      <member refid="struct_x_v___hdmi_tx_ss_1a63b0ccbe1730df1f410633768c18f3f8" prot="public" virt="non-virtual"><scope>XV_HdmiTxSs</scope><name>BrdgUnlockedRef</name></member>
+      <member refid="struct_x_v___hdmi_tx_ss_1a85f740373921c8cd92ced34d1c84b08a" prot="public" virt="non-virtual"><scope>XV_HdmiTxSs</scope><name>Config</name></member>
+      <member refid="struct_x_v___hdmi_tx_ss_1a39b5e05a75519d2a5ea95843a73d5b3d" prot="public" virt="non-virtual"><scope>XV_HdmiTxSs</scope><name>ConnectCallback</name></member>
+      <member refid="struct_x_v___hdmi_tx_ss_1af2d693256a7ab9bd3b4bbee0a1f52a94" prot="public" virt="non-virtual"><scope>XV_HdmiTxSs</scope><name>ConnectRef</name></member>
+      <member refid="struct_x_v___hdmi_tx_ss_1ab4402bb295156f676dc7f4ce449aa4e9" prot="public" virt="non-virtual"><scope>XV_HdmiTxSs</scope><name>DrmInfoframe</name></member>
+      <member refid="struct_x_v___hdmi_tx_ss_1ab003c64bbf63c1cc119c0a074f442967" prot="public" virt="non-virtual"><scope>XV_HdmiTxSs</scope><name>HdcpProtocol</name></member>
+      <member refid="struct_x_v___hdmi_tx_ss_1a87042f029000cbb41f93ca4d5cc9df89" prot="public" virt="non-virtual"><scope>XV_HdmiTxSs</scope><name>HdmiTxPtr</name></member>
+      <member refid="struct_x_v___hdmi_tx_ss_1ad62ad2dbc295e57b36a4117b58c22ae3" prot="public" virt="non-virtual"><scope>XV_HdmiTxSs</scope><name>IsReady</name></member>
+      <member refid="struct_x_v___hdmi_tx_ss_1a7e4a08890f747e75647f2f0a03130b9a" prot="public" virt="non-virtual"><scope>XV_HdmiTxSs</scope><name>IsStreamConnected</name></member>
+      <member refid="struct_x_v___hdmi_tx_ss_1a06b1ebb9c9cbc77f6850427a5609df49" prot="public" virt="non-virtual"><scope>XV_HdmiTxSs</scope><name>IsStreamToggled</name></member>
+      <member refid="struct_x_v___hdmi_tx_ss_1aa38c472a90141a54a3c95ebc710283fe" prot="public" virt="non-virtual"><scope>XV_HdmiTxSs</scope><name>IsStreamUp</name></member>
+      <member refid="struct_x_v___hdmi_tx_ss_1a17215ebaf9a0c87b8fa10c72ae86eb6b" prot="public" virt="non-virtual"><scope>XV_HdmiTxSs</scope><name>Log</name></member>
+      <member refid="struct_x_v___hdmi_tx_ss_1ab9285618e6b09726f0db7f9549bbe56e" prot="public" virt="non-virtual"><scope>XV_HdmiTxSs</scope><name>SamplingRate</name></member>
+      <member refid="struct_x_v___hdmi_tx_ss_1a4ff347124bdb910394b00d725243be78" prot="public" virt="non-virtual"><scope>XV_HdmiTxSs</scope><name>StreamDownCallback</name></member>
+      <member refid="struct_x_v___hdmi_tx_ss_1ab62bab6450fcc9831cd79663de159dd1" prot="public" virt="non-virtual"><scope>XV_HdmiTxSs</scope><name>StreamDownRef</name></member>
+      <member refid="struct_x_v___hdmi_tx_ss_1aef99e4d9cd474bb2e4cc5357eef0f106" prot="public" virt="non-virtual"><scope>XV_HdmiTxSs</scope><name>StreamUpCallback</name></member>
+      <member refid="struct_x_v___hdmi_tx_ss_1accd28d7f2aa53abb2acbd9230242781a" prot="public" virt="non-virtual"><scope>XV_HdmiTxSs</scope><name>StreamUpRef</name></member>
+      <member refid="struct_x_v___hdmi_tx_ss_1a82e0e82c8fc5f19bc91f6d70b8593223" prot="public" virt="non-virtual"><scope>XV_HdmiTxSs</scope><name>ToggleCallback</name></member>
+      <member refid="struct_x_v___hdmi_tx_ss_1af8f91ad07477ab64bba29392617b48e4" prot="public" virt="non-virtual"><scope>XV_HdmiTxSs</scope><name>ToggleRef</name></member>
+      <member refid="struct_x_v___hdmi_tx_ss_1ad06778e85cc7cb789875687ff8c0a50f" prot="public" virt="non-virtual"><scope>XV_HdmiTxSs</scope><name>VsCallback</name></member>
+      <member refid="struct_x_v___hdmi_tx_ss_1aed7334db801d041c27f8eacee8a75894" prot="public" virt="non-virtual"><scope>XV_HdmiTxSs</scope><name>VSIF</name></member>
+      <member refid="struct_x_v___hdmi_tx_ss_1a91d38a22ee614ca20bc20bd50a4a15cd" prot="public" virt="non-virtual"><scope>XV_HdmiTxSs</scope><name>VsRef</name></member>
+      <member refid="struct_x_v___hdmi_tx_ss_1a02f7acf90cb43cab31025ae6193dc046" prot="public" virt="non-virtual"><scope>XV_HdmiTxSs</scope><name>VtcPtr</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

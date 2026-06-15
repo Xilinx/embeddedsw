@@ -1,0 +1,73 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_dp_psu___sink_config" kind="struct" prot="public">
+    <compoundname>XDpPsu_SinkConfig</compoundname>
+    <includes local="no">xdppsu.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_dp_psu___sink_config_1a47d48196d88bc36406eb730f4666fceb" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDpPsu_SinkConfig::DpcdRxCapsField[16]</definition>
+        <argsstring>[16]</argsstring>
+        <name>DpcdRxCapsField</name>
+        <briefdescription>
+<para>The first 16 bytes of the raw capabilities field of the RX device&apos;s DisplayPort Configuration Data (DPCD). </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.h" line="75" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.h" bodystart="75" bodyend="-1"/>
+        <referencedby refid="xdppsu_8h_1a0a935cce246619f8f43ea0794ed9fa8e" compoundref="xdppsu_8c" startline="1383" endline="1421">XDpPsu_GetRxCapabilities</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp_psu___sink_config_1aaebc0d797ef48bcfc8b4ec37f17e9aba" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDpPsu_SinkConfig::LaneStatusAdjReqs[6]</definition>
+        <argsstring>[6]</argsstring>
+        <name>LaneStatusAdjReqs</name>
+        <briefdescription>
+<para>This is a raw read of the RX device&apos;s status registers. </para>        </briefdescription>
+        <detaileddescription>
+<para>The first 4 bytes correspond to the lane status associated with clock recovery, channel equalization, symbol lock, and interlane alignment. The remaining 2 bytes represent the pre-emphasis and voltage swing level adjustments requested by the RX device. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.h" line="78" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.h" bodystart="78" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp_psu___sink_config_1a2394f285ed36d2c1b4fa7501718a8962" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDpPsu_SinkConfig::SinkCount</definition>
+        <argsstring></argsstring>
+        <name>SinkCount</name>
+        <briefdescription>
+<para>The total number of downstream sink devices inside of the RX and downstream all devices. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.h" line="87" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.h" bodystart="87" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp_psu___sink_config_1a0850f9bd0fb63726db3455913a3beca1" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDpPsu_SinkConfig::DevServiceIrqVec</definition>
+        <argsstring></argsstring>
+        <name>DevServiceIrqVec</name>
+        <briefdescription>
+<para>Holds the value of the device service IRQ vector register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.h" line="90" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.h" bodystart="90" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef contains configuration information about the RX device. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.h" line="74" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.h" bodystart="74" bodyend="92"/>
+    <listofallmembers>
+      <member refid="struct_x_dp_psu___sink_config_1a0850f9bd0fb63726db3455913a3beca1" prot="public" virt="non-virtual"><scope>XDpPsu_SinkConfig</scope><name>DevServiceIrqVec</name></member>
+      <member refid="struct_x_dp_psu___sink_config_1a47d48196d88bc36406eb730f4666fceb" prot="public" virt="non-virtual"><scope>XDpPsu_SinkConfig</scope><name>DpcdRxCapsField</name></member>
+      <member refid="struct_x_dp_psu___sink_config_1aaebc0d797ef48bcfc8b4ec37f17e9aba" prot="public" virt="non-virtual"><scope>XDpPsu_SinkConfig</scope><name>LaneStatusAdjReqs</name></member>
+      <member refid="struct_x_dp_psu___sink_config_1a2394f285ed36d2c1b4fa7501718a8962" prot="public" virt="non-virtual"><scope>XDpPsu_SinkConfig</scope><name>SinkCount</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

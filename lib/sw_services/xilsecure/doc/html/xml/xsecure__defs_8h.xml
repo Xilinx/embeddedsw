@@ -1,0 +1,1593 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xsecure__defs_8h" kind="file">
+    <compoundname>xsecure_defs.h</compoundname>
+    <includes local="yes">xil_printf.h</includes>
+    <includes local="yes">xil_types.h</includes>
+    <includes local="yes">xil_cache.h</includes>
+    <includes local="yes">xsecure_plat_defs.h</includes>
+    <includes local="yes">xsecure_config.h</includes>
+    <includedby refid="xsecure__aesclient_8h" local="yes">xsecure_aesclient.h</includedby>
+    <includedby refid="xsecure__katclient_8h" local="yes">xsecure_katclient.h</includedby>
+    <includedby refid="xsecure__plat__elliptic__client_8h" local="yes">xsecure_plat_elliptic_client.h</includedby>
+    <includedby refid="xsecure__plat__elliptic__client_8c" local="yes">xsecure_plat_elliptic_client.c</includedby>
+    <includedby refid="xsecure__ellipticclient_8h" local="yes">xsecure_ellipticclient.h</includedby>
+    <includedby refid="xsecure__hmacclient_8h" local="yes">xsecure_hmacclient.h</includedby>
+    <includedby refid="xsecure__plat__aes__client_8h" local="yes">xsecure_plat_aes_client.h</includedby>
+    <includedby refid="xsecure__plat__aes__client_8c" local="yes">xsecure_plat_aes_client.c</includedby>
+    <includedby refid="xsecure__lmsclient_8h" local="yes">xsecure_lmsclient.h</includedby>
+    <includedby refid="xsecure__mldsaclient_8h" local="yes">xsecure_mldsaclient.h</includedby>
+    <includedby refid="xsecure__rsaclient_8h" local="yes">xsecure_rsaclient.h</includedby>
+    <includedby refid="xsecure__shaclient_8h" local="yes">xsecure_shaclient.h</includedby>
+    <includedby refid="xsecure__slhdsaclient_8h" local="yes">xsecure_slhdsaclient.h</includedby>
+    <includedby refid="xsecure__trngclient_8h" local="yes">xsecure_trngclient.h</includedby>
+    <includedby refid="versal__2ve__2vm_2xsecure__plat__katclient_8h" local="yes">xsecure_plat_katclient.h</includedby>
+    <includedby refid="xsecure__plat__client_8h" local="yes">xsecure_plat_client.h</includedby>
+    <includedby refid="versal__net_2xsecure__plat__katclient_8h" local="yes">xsecure_plat_katclient.h</includedby>
+    <includedby refid="xsecure__core_8h" local="yes">xsecure_core.h</includedby>
+    <includedby refid="xsecure__aes__ipihandler_8c" local="yes">xsecure_aes_ipihandler.c</includedby>
+    <includedby refid="xsecure__kat__ipihandler_8h" local="yes">xsecure_kat_ipihandler.h</includedby>
+    <includedby refid="xsecure__plat__elliptic__ipihandler_8c" local="yes">xsecure_plat_elliptic_ipihandler.c</includedby>
+    <includedby refid="xsecure__ellipticcrvs_8h" local="yes">xsecure_ellipticcrvs.h</includedby>
+    <includedby refid="xsecure__elliptic__ipihandler_8c" local="yes">xsecure_elliptic_ipihandler.c</includedby>
+    <includedby refid="xsecure__hmac__ipihandler_8c" local="yes">xsecure_hmac_ipihandler.c</includedby>
+    <includedby refid="xsecure__plat__rsa_8c" local="yes">xsecure_plat_rsa.c</includedby>
+    <includedby refid="xsecure__plat__aes__ipihandler_8c" local="yes">xsecure_plat_aes_ipihandler.c</includedby>
+    <includedby refid="xsecure__lms__ipihandler_8c" local="yes">xsecure_lms_ipihandler.c</includedby>
+    <includedby refid="xsecure__mldsa_8h" local="yes">xsecure_mldsa.h</includedby>
+    <includedby refid="xsecure__mldsa_8c" local="yes">xsecure_mldsa.c</includedby>
+    <includedby refid="xsecure__mldsa__ipihandler_8c" local="yes">xsecure_mldsa_ipihandler.c</includedby>
+    <includedby refid="xsecure__rsa__q_8c" local="yes">xsecure_rsa_q.c</includedby>
+    <includedby refid="xsecure__rsa__ipihandler_8c" local="yes">xsecure_rsa_ipihandler.c</includedby>
+    <includedby refid="xsecure__sha__ipihandler_8c" local="yes">xsecure_sha_ipihandler.c</includedby>
+    <includedby refid="_2xsecure__sha__ipihandler_8c" local="yes">xsecure_sha_ipihandler.c</includedby>
+    <includedby refid="xsecure__slhdsa_8h" local="yes">xsecure_slhdsa.h</includedby>
+    <includedby refid="xsecure__slhdsa__ht_8c" local="yes">xsecure_slhdsa_ht.c</includedby>
+    <includedby refid="xsecure__slhdsa__ipihandler_8c" local="yes">xsecure_slhdsa_ipihandler.c</includedby>
+    <includedby refid="trngpsv_2xsecure__trng__ipihandler_8c" local="yes">xsecure_trng_ipihandler.c</includedby>
+    <includedby refid="trngpsx_2xsecure__trng__ipihandler_8c" local="yes">xsecure_trng_ipihandler.c</includedby>
+    <includedby refid="versal_2xsecure__plat_8c" local="yes">xsecure_plat.c</includedby>
+    <includedby refid="xsecure__plat__ipihandler_8c" local="yes">xsecure_plat_ipihandler.c</includedby>
+    <includedby refid="2ve__2vm_2xsecure__cmd_8c" local="yes">xsecure_cmd.c</includedby>
+    <includedby refid="versal__2ve__2vm_2xsecure__plat_8c" local="yes">xsecure_plat.c</includedby>
+    <includedby refid="2ve__2vm_2xsecure__plat__ipihandler_8c" local="yes">xsecure_plat_ipihandler.c</includedby>
+    <includedby refid="versal__2ve__2vm_2xsecure__plat__kat__ipihandler_8c" local="yes">xsecure_plat_kat_ipihandler.c</includedby>
+    <includedby refid="versal__2vp_2xsecure__plat_8c" local="yes">xsecure_plat.c</includedby>
+    <includedby refid="2vp_2xsecure__plat__ipihandler_8c" local="yes">xsecure_plat_ipihandler.c</includedby>
+    <includedby refid="versal__2vp_2xsecure__plat__kat__ipihandler_8c" local="yes">xsecure_plat_kat_ipihandler.c</includedby>
+    <includedby refid="2vp__p_2xsecure__cmd_8c" local="yes">xsecure_cmd.c</includedby>
+    <includedby refid="versal__2vp__p_2xsecure__plat_8c" local="yes">xsecure_plat.c</includedby>
+    <includedby refid="2vp__p_2xsecure__plat__ipihandler_8c" local="yes">xsecure_plat_ipihandler.c</includedby>
+    <includedby refid="versal__2vp__p_2xsecure__plat__kat__ipihandler_8c" local="yes">xsecure_plat_kat_ipihandler.c</includedby>
+    <includedby refid="net_2xsecure__cmd_8c" local="yes">xsecure_cmd.c</includedby>
+    <includedby refid="net_2xsecure__plat__ipihandler_8c" local="yes">xsecure_plat_ipihandler.c</includedby>
+    <includedby refid="versal__net_2xsecure__plat__kat__ipihandler_8c" local="yes">xsecure_plat_kat_ipihandler.c</includedby>
+    <incdepgraph>
+      <node id="1140">
+        <label>xil_cache.h</label>
+      </node>
+      <node id="1141">
+        <label>xsecure_plat_defs.h</label>
+      </node>
+      <node id="1137">
+        <label>xsecure_defs.h</label>
+        <link refid="xsecure_defs.h"/>
+        <childnode refid="1138" relation="include">
+        </childnode>
+        <childnode refid="1139" relation="include">
+        </childnode>
+        <childnode refid="1140" relation="include">
+        </childnode>
+        <childnode refid="1141" relation="include">
+        </childnode>
+        <childnode refid="1142" relation="include">
+        </childnode>
+      </node>
+      <node id="1142">
+        <label>xsecure_config.h</label>
+      </node>
+      <node id="1139">
+        <label>xil_types.h</label>
+      </node>
+      <node id="1138">
+        <label>xil_printf.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="1153">
+        <label>xilsecure_versal_rsa_client_example.c</label>
+      </node>
+      <node id="1195">
+        <label>xsecure_plat_rsa.c</label>
+        <link refid="xsecure__plat__rsa_8c"/>
+      </node>
+      <node id="1210">
+        <label>xsecure_kat_ipihandler.c</label>
+        <link refid="xsecure__kat__ipihandler_8c"/>
+      </node>
+      <node id="1209">
+        <label>xsecure_kat_ipihandler.h</label>
+        <link refid="xsecure__kat__ipihandler_8h"/>
+        <childnode refid="1210" relation="include">
+        </childnode>
+        <childnode refid="1211" relation="include">
+        </childnode>
+        <childnode refid="1212" relation="include">
+        </childnode>
+        <childnode refid="1213" relation="include">
+        </childnode>
+        <childnode refid="1214" relation="include">
+        </childnode>
+        <childnode refid="1215" relation="include">
+        </childnode>
+      </node>
+      <node id="1150">
+        <label>xilsecure_versal_ecdsa_client_example.c</label>
+        <link refid="xilsecure__versal__ecdsa__client__example_8c"/>
+      </node>
+      <node id="1219">
+        <label>xsecure_ellipticplat.c</label>
+        <link refid="xsecure__ellipticplat_8c"/>
+      </node>
+      <node id="1246">
+        <label>xsecure_sha_ipihandler.c</label>
+        <link refid="_2xsecure__sha__ipihandler_8c"/>
+      </node>
+      <node id="1218">
+        <label>xsecure_ellipticplat.h</label>
+        <link refid="xsecure__ellipticplat_8h"/>
+        <childnode refid="1219" relation="include">
+        </childnode>
+        <childnode refid="1216" relation="include">
+        </childnode>
+      </node>
+      <node id="1206">
+        <label>xilsecure_spartanup_lms_hss_server_example.c</label>
+        <link refid="xilsecure__spartanup__lms__hss__server__example_8c"/>
+      </node>
+      <node id="1189">
+        <label>xsecure_plat_ipihandler.c</label>
+        <link refid="2ve__2vm_2xsecure__plat__ipihandler_8c"/>
+      </node>
+      <node id="1251">
+        <label>xsecure_trng_ipihandler.c</label>
+        <link refid="trngpsv_2xsecure__trng__ipihandler_8c"/>
+      </node>
+      <node id="1222">
+        <label>xsecure_kat.c</label>
+        <link refid="xsecure__kat_8c"/>
+      </node>
+      <node id="1256">
+        <label>xsecure_plat.c</label>
+        <link refid="versal__2vp_2xsecure__plat_8c"/>
+      </node>
+      <node id="1221">
+        <label>xsecure_kat.h</label>
+        <link refid="xsecure__kat_8h"/>
+        <childnode refid="1222" relation="include">
+        </childnode>
+        <childnode refid="1210" relation="include">
+        </childnode>
+        <childnode refid="1223" relation="include">
+        </childnode>
+        <childnode refid="1224" relation="include">
+        </childnode>
+        <childnode refid="1225" relation="include">
+        </childnode>
+        <childnode refid="1229" relation="include">
+        </childnode>
+        <childnode refid="1230" relation="include">
+        </childnode>
+        <childnode refid="1234" relation="include">
+        </childnode>
+      </node>
+      <node id="1190">
+        <label>xsecure_plat.h</label>
+        <link refid="versal__2vp_2xsecure__plat_8h"/>
+      </node>
+      <node id="1240">
+        <label>xsecure_plat_aes_ipihandler.c</label>
+        <link refid="xsecure__plat__aes__ipihandler_8c"/>
+      </node>
+      <node id="1241">
+        <label>xsecure_lms_ipihandler.c</label>
+        <link refid="xsecure__lms__ipihandler_8c"/>
+      </node>
+      <node id="1198">
+        <label>xsecure_rsa_core.c</label>
+        <link refid="core_2rsa_2xsecure__rsa__core_8c"/>
+      </node>
+      <node id="1161">
+        <label>xsecure_hmacclient.c</label>
+        <link refid="xsecure__hmacclient_8c"/>
+      </node>
+      <node id="1248">
+        <label>xsecure_slhdsa.c</label>
+        <link refid="xsecure__slhdsa_8c"/>
+      </node>
+      <node id="1160">
+        <label>xsecure_hmacclient.h</label>
+        <link refid="xsecure__hmacclient_8h"/>
+        <childnode refid="1161" relation="include">
+        </childnode>
+      </node>
+      <node id="1237">
+        <label>xilsecure_versal_ecdsa_server_example.c</label>
+        <link refid="xilsecure__versal__ecdsa__server__example_8c"/>
+      </node>
+      <node id="1247">
+        <label>xsecure_slhdsa.h</label>
+        <link refid="xsecure__slhdsa_8h"/>
+        <childnode refid="1248" relation="include">
+        </childnode>
+        <childnode refid="1249" relation="include">
+        </childnode>
+      </node>
+      <node id="1186">
+        <label>xsecure_core.c</label>
+        <link refid="xsecure__core_8c"/>
+      </node>
+      <node id="1185">
+        <label>xsecure_core.h</label>
+        <link refid="xsecure__core_8h"/>
+        <childnode refid="1186" relation="include">
+        </childnode>
+        <childnode refid="1187" relation="include">
+        </childnode>
+        <childnode refid="1188" relation="include">
+        </childnode>
+        <childnode refid="1190" relation="include">
+        </childnode>
+        <childnode refid="1191" relation="include">
+        </childnode>
+        <childnode refid="1193" relation="include">
+        </childnode>
+      </node>
+      <node id="1177">
+        <label>xsecure_trngclient.c</label>
+        <link refid="xsecure__trngclient_8c"/>
+      </node>
+      <node id="1176">
+        <label>xsecure_trngclient.h</label>
+        <link refid="xsecure__trngclient_8h"/>
+        <childnode refid="1177" relation="include">
+        </childnode>
+        <childnode refid="1178" relation="include">
+        </childnode>
+      </node>
+      <node id="1194">
+        <label>xsecure_elliptic.c</label>
+        <link refid="xsecure__elliptic_8c"/>
+      </node>
+      <node id="1220">
+        <label>xsecure_elliptic.h</label>
+        <link refid="xsecure__elliptic_8h"/>
+        <childnode refid="1221" relation="include">
+        </childnode>
+        <childnode refid="1219" relation="include">
+        </childnode>
+        <childnode refid="1216" relation="include">
+        </childnode>
+        <childnode refid="1194" relation="include">
+        </childnode>
+        <childnode refid="1223" relation="include">
+        </childnode>
+        <childnode refid="1237" relation="include">
+        </childnode>
+      </node>
+      <node id="1233">
+        <label>xsecure_plat_kat.c</label>
+        <link refid="2vp__p_2xsecure__plat__kat_8c"/>
+      </node>
+      <node id="1230">
+        <label>xsecure_plat_kat.h</label>
+        <link refid="2vp__p_2xsecure__plat__kat_8h"/>
+        <childnode refid="1231" relation="include">
+        </childnode>
+        <childnode refid="1233" relation="include">
+        </childnode>
+        <childnode refid="1214" relation="include">
+        </childnode>
+      </node>
+      <node id="1208">
+        <label>xsecure_aes_ipihandler.c</label>
+        <link refid="xsecure__aes__ipihandler_8c"/>
+      </node>
+      <node id="1197">
+        <label>xsecure_rsa_q.c</label>
+        <link refid="xsecure__rsa__q_8c"/>
+      </node>
+      <node id="1184">
+        <label>xsecure_plat_katclient.c</label>
+        <link refid="versal__net_2xsecure__plat__katclient_8c"/>
+      </node>
+      <node id="1183">
+        <label>xsecure_plat_katclient.h</label>
+        <link refid="versal__net_2xsecure__plat__katclient_8h"/>
+        <childnode refid="1184" relation="include">
+        </childnode>
+        <childnode refid="1178" relation="include">
+        </childnode>
+      </node>
+      <node id="1172">
+        <label>xsecure_shaclient.c</label>
+        <link refid="xsecure__shaclient_8c"/>
+      </node>
+      <node id="1204">
+        <label>xsecure_utils.c</label>
+        <link refid="core_2util_2xsecure__utils_8c"/>
+      </node>
+      <node id="1171">
+        <label>xsecure_shaclient.h</label>
+        <link refid="xsecure__shaclient_8h"/>
+        <childnode refid="1172" relation="include">
+        </childnode>
+      </node>
+      <node id="1182">
+        <label>xsecure_plat_client.c</label>
+        <link refid="xsecure__plat__client_8c"/>
+      </node>
+      <node id="1181">
+        <label>xsecure_plat_client.h</label>
+        <link refid="xsecure__plat__client_8h"/>
+        <childnode refid="1182" relation="include">
+        </childnode>
+        <childnode refid="1151" relation="include">
+        </childnode>
+        <childnode refid="1152" relation="include">
+        </childnode>
+      </node>
+      <node id="1235">
+        <label>xsecure_plat.c</label>
+        <link refid="versal__net_2xsecure__plat_8c"/>
+      </node>
+      <node id="1193">
+        <label>xsecure_plat.h</label>
+        <link refid="versal__net_2xsecure__plat_8h"/>
+        <childnode refid="1194" relation="include">
+        </childnode>
+        <childnode refid="1195" relation="include">
+        </childnode>
+        <childnode refid="1196" relation="include">
+        </childnode>
+        <childnode refid="1197" relation="include">
+        </childnode>
+        <childnode refid="1198" relation="include">
+        </childnode>
+        <childnode refid="1199" relation="include">
+        </childnode>
+        <childnode refid="1200" relation="include">
+        </childnode>
+        <childnode refid="1201" relation="include">
+        </childnode>
+        <childnode refid="1202" relation="include">
+        </childnode>
+        <childnode refid="1204" relation="include">
+        </childnode>
+        <childnode refid="1205" relation="include">
+        </childnode>
+        <childnode refid="1206" relation="include">
+        </childnode>
+        <childnode refid="1207" relation="include">
+        </childnode>
+      </node>
+      <node id="1156">
+        <label>xsecure_plat_elliptic_client.c</label>
+        <link refid="xsecure__plat__elliptic__client_8c"/>
+      </node>
+      <node id="1155">
+        <label>xsecure_plat_elliptic_client.h</label>
+        <link refid="xsecure__plat__elliptic__client_8h"/>
+        <childnode refid="1156" relation="include">
+        </childnode>
+        <childnode refid="1157" relation="include">
+        </childnode>
+      </node>
+      <node id="1213">
+        <label>xsecure_plat_kat_ipihandler.c</label>
+        <link refid="versal__2vp_2xsecure__plat__kat__ipihandler_8c"/>
+      </node>
+      <node id="1163">
+        <label>xsecure_plat_aes_client.c</label>
+        <link refid="xsecure__plat__aes__client_8c"/>
+      </node>
+      <node id="1162">
+        <label>xsecure_plat_aes_client.h</label>
+        <link refid="xsecure__plat__aes__client_8h"/>
+        <childnode refid="1163" relation="include">
+        </childnode>
+      </node>
+      <node id="1178">
+        <label>xilsecure_versal_net_trng_client_example.c</label>
+      </node>
+      <node id="1244">
+        <label>xsecure_rsa_ipihandler.c</label>
+        <link refid="xsecure__rsa__ipihandler_8c"/>
+      </node>
+      <node id="1254">
+        <label>xsecure_plat_ipihandler.c</label>
+        <link refid="xsecure__plat__ipihandler_8c"/>
+      </node>
+      <node id="1196">
+        <label>xsecure_mldsa.c</label>
+        <link refid="xsecure__mldsa_8c"/>
+      </node>
+      <node id="1242">
+        <label>xsecure_mldsa.h</label>
+        <link refid="xsecure__mldsa_8h"/>
+        <childnode refid="1196" relation="include">
+        </childnode>
+        <childnode refid="1243" relation="include">
+        </childnode>
+      </node>
+      <node id="1215">
+        <label>xsecure_plat_kat_ipihandler.c</label>
+        <link refid="versal__net_2xsecure__plat__kat__ipihandler_8c"/>
+      </node>
+      <node id="1192">
+        <label>xsecure_plat_ipihandler.c</label>
+        <link refid="2vp__p_2xsecure__plat__ipihandler_8c"/>
+      </node>
+      <node id="1201">
+        <label>xsecure_trng.c</label>
+        <link refid="trngpsx_2xsecure__trng_8c"/>
+      </node>
+      <node id="1236">
+        <label>xsecure_plat_kat.c</label>
+        <link refid="net_2xsecure__plat__kat_8c"/>
+      </node>
+      <node id="1234">
+        <label>xsecure_plat_kat.h</label>
+        <link refid="net_2xsecure__plat__kat_8h"/>
+        <childnode refid="1210" relation="include">
+        </childnode>
+        <childnode refid="1219" relation="include">
+        </childnode>
+        <childnode refid="1195" relation="include">
+        </childnode>
+        <childnode refid="1235" relation="include">
+        </childnode>
+        <childnode refid="1236" relation="include">
+        </childnode>
+        <childnode refid="1215" relation="include">
+        </childnode>
+      </node>
+      <node id="1146">
+        <label>xilsecure_versal_aes_client_example.c</label>
+        <link refid="xilsecure__versal__aes__client__example_8c"/>
+      </node>
+      <node id="1243">
+        <label>xsecure_mldsa_ipihandler.c</label>
+        <link refid="xsecure__mldsa__ipihandler_8c"/>
+      </node>
+      <node id="1159">
+        <label>xsecure_ellipticclient.c</label>
+        <link refid="xsecure__ellipticclient_8c"/>
+      </node>
+      <node id="1158">
+        <label>xsecure_ellipticclient.h</label>
+        <link refid="xsecure__ellipticclient_8h"/>
+        <childnode refid="1159" relation="include">
+        </childnode>
+        <childnode refid="1150" relation="include">
+        </childnode>
+        <childnode refid="1157" relation="include">
+        </childnode>
+      </node>
+      <node id="1228">
+        <label>xsecure_plat_kat.c</label>
+        <link refid="2ve__2vm_2xsecure__plat__kat_8c"/>
+      </node>
+      <node id="1225">
+        <label>xsecure_plat_kat.h</label>
+        <link refid="2ve__2vm_2xsecure__plat__kat_8h"/>
+        <childnode refid="1226" relation="include">
+        </childnode>
+        <childnode refid="1228" relation="include">
+        </childnode>
+        <childnode refid="1212" relation="include">
+        </childnode>
+      </node>
+      <node id="1167">
+        <label>xsecure_mldsaclient.c</label>
+        <link refid="xsecure__mldsaclient_8c"/>
+      </node>
+      <node id="1166">
+        <label>xsecure_mldsaclient.h</label>
+        <link refid="xsecure__mldsaclient_8h"/>
+        <childnode refid="1167" relation="include">
+        </childnode>
+        <childnode refid="1168" relation="include">
+        </childnode>
+      </node>
+      <node id="1174">
+        <label>xsecure_slhdsaclient.c</label>
+        <link refid="xsecure__slhdsaclient_8c"/>
+      </node>
+      <node id="1173">
+        <label>xsecure_slhdsaclient.h</label>
+        <link refid="xsecure__slhdsaclient_8h"/>
+        <childnode refid="1174" relation="include">
+        </childnode>
+        <childnode refid="1175" relation="include">
+        </childnode>
+      </node>
+      <node id="1143">
+        <label>xsecure_defs.h</label>
+        <link refid="xsecure_defs.h"/>
+        <childnode refid="1144" relation="include">
+        </childnode>
+        <childnode refid="1147" relation="include">
+        </childnode>
+        <childnode refid="1155" relation="include">
+        </childnode>
+        <childnode refid="1156" relation="include">
+        </childnode>
+        <childnode refid="1158" relation="include">
+        </childnode>
+        <childnode refid="1160" relation="include">
+        </childnode>
+        <childnode refid="1162" relation="include">
+        </childnode>
+        <childnode refid="1163" relation="include">
+        </childnode>
+        <childnode refid="1164" relation="include">
+        </childnode>
+        <childnode refid="1166" relation="include">
+        </childnode>
+        <childnode refid="1169" relation="include">
+        </childnode>
+        <childnode refid="1171" relation="include">
+        </childnode>
+        <childnode refid="1173" relation="include">
+        </childnode>
+        <childnode refid="1176" relation="include">
+        </childnode>
+        <childnode refid="1179" relation="include">
+        </childnode>
+        <childnode refid="1181" relation="include">
+        </childnode>
+        <childnode refid="1183" relation="include">
+        </childnode>
+        <childnode refid="1185" relation="include">
+        </childnode>
+        <childnode refid="1208" relation="include">
+        </childnode>
+        <childnode refid="1209" relation="include">
+        </childnode>
+        <childnode refid="1216" relation="include">
+        </childnode>
+        <childnode refid="1217" relation="include">
+        </childnode>
+        <childnode refid="1223" relation="include">
+        </childnode>
+        <childnode refid="1239" relation="include">
+        </childnode>
+        <childnode refid="1195" relation="include">
+        </childnode>
+        <childnode refid="1240" relation="include">
+        </childnode>
+        <childnode refid="1241" relation="include">
+        </childnode>
+        <childnode refid="1242" relation="include">
+        </childnode>
+        <childnode refid="1196" relation="include">
+        </childnode>
+        <childnode refid="1243" relation="include">
+        </childnode>
+        <childnode refid="1197" relation="include">
+        </childnode>
+        <childnode refid="1244" relation="include">
+        </childnode>
+        <childnode refid="1245" relation="include">
+        </childnode>
+        <childnode refid="1246" relation="include">
+        </childnode>
+        <childnode refid="1247" relation="include">
+        </childnode>
+        <childnode refid="1250" relation="include">
+        </childnode>
+        <childnode refid="1249" relation="include">
+        </childnode>
+        <childnode refid="1251" relation="include">
+        </childnode>
+        <childnode refid="1252" relation="include">
+        </childnode>
+        <childnode refid="1253" relation="include">
+        </childnode>
+        <childnode refid="1254" relation="include">
+        </childnode>
+        <childnode refid="1227" relation="include">
+        </childnode>
+        <childnode refid="1255" relation="include">
+        </childnode>
+        <childnode refid="1189" relation="include">
+        </childnode>
+        <childnode refid="1212" relation="include">
+        </childnode>
+        <childnode refid="1256" relation="include">
+        </childnode>
+        <childnode refid="1257" relation="include">
+        </childnode>
+        <childnode refid="1213" relation="include">
+        </childnode>
+        <childnode refid="1232" relation="include">
+        </childnode>
+        <childnode refid="1258" relation="include">
+        </childnode>
+        <childnode refid="1192" relation="include">
+        </childnode>
+        <childnode refid="1214" relation="include">
+        </childnode>
+        <childnode refid="1259" relation="include">
+        </childnode>
+        <childnode refid="1205" relation="include">
+        </childnode>
+        <childnode refid="1215" relation="include">
+        </childnode>
+      </node>
+      <node id="1238">
+        <label>xsecure_ellipticcrvs.c</label>
+        <link refid="xsecure__ellipticcrvs_8c"/>
+      </node>
+      <node id="1258">
+        <label>xsecure_plat.c</label>
+        <link refid="versal__2vp__p_2xsecure__plat_8c"/>
+      </node>
+      <node id="1217">
+        <label>xsecure_ellipticcrvs.h</label>
+        <link refid="xsecure__ellipticcrvs_8h"/>
+        <childnode refid="1218" relation="include">
+        </childnode>
+        <childnode refid="1220" relation="include">
+        </childnode>
+        <childnode refid="1238" relation="include">
+        </childnode>
+      </node>
+      <node id="1191">
+        <label>xsecure_plat.h</label>
+        <link refid="versal__2vp__p_2xsecure__plat_8h"/>
+        <childnode refid="1192" relation="include">
+        </childnode>
+      </node>
+      <node id="1232">
+        <label>xsecure_cmd.c</label>
+        <link refid="2vp__p_2xsecure__cmd_8c"/>
+      </node>
+      <node id="1199">
+        <label>xsecure_sha.c</label>
+        <link refid="core_2sha_2sha__pmx_2xsecure__sha_8c"/>
+      </node>
+      <node id="1252">
+        <label>xsecure_trng_ipihandler.c</label>
+        <link refid="trngpsx_2xsecure__trng__ipihandler_8c"/>
+      </node>
+      <node id="1200">
+        <label>xsecure_trng.c</label>
+        <link refid="trngpsv_2xsecure__trng_8c"/>
+      </node>
+      <node id="1152">
+        <label>xilsecure_versal_net_rsa_client_example.c</label>
+        <link refid="xilsecure__versal__net__rsa__client__example_8c"/>
+      </node>
+      <node id="1203">
+        <label>xsecure_sss.c</label>
+        <link refid="core_2util_2xsecure__sss_8c"/>
+      </node>
+      <node id="1202">
+        <label>xsecure_sss.h</label>
+        <link refid="core_2util_2xsecure__sss_8h"/>
+        <childnode refid="1203" relation="include">
+        </childnode>
+      </node>
+      <node id="1245">
+        <label>xsecure_sha_ipihandler.c</label>
+        <link refid="xsecure__sha__ipihandler_8c"/>
+      </node>
+      <node id="1175">
+        <label>xilsecure_slhdsa_client_example.c</label>
+        <link refid="xilsecure__slhdsa__client__example_8c"/>
+      </node>
+      <node id="1249">
+        <label>xsecure_slhdsa_ipihandler.c</label>
+        <link refid="xsecure__slhdsa__ipihandler_8c"/>
+      </node>
+      <node id="1165">
+        <label>xsecure_lmsclient.c</label>
+        <link refid="xsecure__lmsclient_8c"/>
+      </node>
+      <node id="1164">
+        <label>xsecure_lmsclient.h</label>
+        <link refid="xsecure__lmsclient_8h"/>
+        <childnode refid="1165" relation="include">
+        </childnode>
+      </node>
+      <node id="1214">
+        <label>xsecure_plat_kat_ipihandler.c</label>
+        <link refid="versal__2vp__p_2xsecure__plat__kat__ipihandler_8c"/>
+      </node>
+      <node id="1231">
+        <label>xsecure_plat_kat_ipihandler.h</label>
+        <link refid="versal__2vp__p_2xsecure__plat__kat__ipihandler_8h"/>
+        <childnode refid="1232" relation="include">
+        </childnode>
+        <childnode refid="1214" relation="include">
+        </childnode>
+      </node>
+      <node id="1149">
+        <label>xilsecure_versal_2ve_2vm_sha_client_example.c</label>
+        <link refid="xilsecure__versal__2ve__2vm__sha__client__example_8c"/>
+      </node>
+      <node id="1154">
+        <label>xilsecure_versal_sha_client_example.c</label>
+        <link refid="xilsecure__versal__sha__client__example_8c"/>
+      </node>
+      <node id="1157">
+        <label>xilsecure_versal_net_ecdh_client_example.c</label>
+        <link refid="xilsecure__versal__net__ecdh__client__example_8c"/>
+      </node>
+      <node id="1259">
+        <label>xsecure_cmd.c</label>
+        <link refid="net_2xsecure__cmd_8c"/>
+      </node>
+      <node id="1250">
+        <label>xsecure_slhdsa_ht.c</label>
+        <link refid="xsecure__slhdsa__ht_8c"/>
+      </node>
+      <node id="1151">
+        <label>xilsecure_versal_net_keyunwrap_client_example.c</label>
+        <link refid="xilsecure__versal__net__keyunwrap__client__example_8c"/>
+      </node>
+      <node id="1205">
+        <label>xsecure_plat_ipihandler.c</label>
+        <link refid="net_2xsecure__plat__ipihandler_8c"/>
+      </node>
+      <node id="1212">
+        <label>xsecure_plat_kat_ipihandler.c</label>
+        <link refid="versal__2ve__2vm_2xsecure__plat__kat__ipihandler_8c"/>
+      </node>
+      <node id="1226">
+        <label>xsecure_plat_kat_ipihandler.h</label>
+        <link refid="versal__2ve__2vm_2xsecure__plat__kat__ipihandler_8h"/>
+        <childnode refid="1227" relation="include">
+        </childnode>
+        <childnode refid="1212" relation="include">
+        </childnode>
+      </node>
+      <node id="1180">
+        <label>xsecure_plat_katclient.c</label>
+        <link refid="versal__2ve__2vm_2xsecure__plat__katclient_8c"/>
+      </node>
+      <node id="1179">
+        <label>xsecure_plat_katclient.h</label>
+        <link refid="versal__2ve__2vm_2xsecure__plat__katclient_8h"/>
+        <childnode refid="1180" relation="include">
+        </childnode>
+      </node>
+      <node id="1229">
+        <label>xsecure_plat_kat.c</label>
+        <link refid="2vp_2xsecure__plat__kat_8c"/>
+      </node>
+      <node id="1223">
+        <label>xsecure_elliptic_ipihandler.c</label>
+        <link refid="xsecure__elliptic__ipihandler_8c"/>
+      </node>
+      <node id="1148">
+        <label>xsecure_katclient.c</label>
+        <link refid="xsecure__katclient_8c"/>
+      </node>
+      <node id="1147">
+        <label>xsecure_katclient.h</label>
+        <link refid="xsecure__katclient_8h"/>
+        <childnode refid="1148" relation="include">
+        </childnode>
+        <childnode refid="1149" relation="include">
+        </childnode>
+        <childnode refid="1146" relation="include">
+        </childnode>
+        <childnode refid="1150" relation="include">
+        </childnode>
+        <childnode refid="1151" relation="include">
+        </childnode>
+        <childnode refid="1152" relation="include">
+        </childnode>
+        <childnode refid="1153" relation="include">
+        </childnode>
+        <childnode refid="1154" relation="include">
+        </childnode>
+      </node>
+      <node id="1224">
+        <label>xsecure_plat_kat.c</label>
+        <link refid="xsecure__plat__kat_8c"/>
+      </node>
+      <node id="1211">
+        <label>xsecure_cmd.c</label>
+        <link refid="xsecure__cmd_8c"/>
+      </node>
+      <node id="1255">
+        <label>xsecure_plat.c</label>
+        <link refid="versal__2ve__2vm_2xsecure__plat_8c"/>
+      </node>
+      <node id="1145">
+        <label>xsecure_aesclient.c</label>
+        <link refid="xsecure__aesclient_8c"/>
+      </node>
+      <node id="1188">
+        <label>xsecure_plat.h</label>
+        <link refid="versal__2ve__2vm_2xsecure__plat_8h"/>
+        <childnode refid="1189" relation="include">
+        </childnode>
+      </node>
+      <node id="1144">
+        <label>xsecure_aesclient.h</label>
+        <link refid="xsecure__aesclient_8h"/>
+        <childnode refid="1145" relation="include">
+        </childnode>
+        <childnode refid="1146" relation="include">
+        </childnode>
+      </node>
+      <node id="1170">
+        <label>xsecure_rsaclient.c</label>
+        <link refid="xsecure__rsaclient_8c"/>
+      </node>
+      <node id="1216">
+        <label>xsecure_plat_elliptic_ipihandler.c</label>
+        <link refid="xsecure__plat__elliptic__ipihandler_8c"/>
+      </node>
+      <node id="1169">
+        <label>xsecure_rsaclient.h</label>
+        <link refid="xsecure__rsaclient_8h"/>
+        <childnode refid="1170" relation="include">
+        </childnode>
+        <childnode refid="1151" relation="include">
+        </childnode>
+        <childnode refid="1152" relation="include">
+        </childnode>
+        <childnode refid="1153" relation="include">
+        </childnode>
+      </node>
+      <node id="1227">
+        <label>xsecure_cmd.c</label>
+        <link refid="2ve__2vm_2xsecure__cmd_8c"/>
+      </node>
+      <node id="1253">
+        <label>xsecure_plat.c</label>
+        <link refid="versal_2xsecure__plat_8c"/>
+      </node>
+      <node id="1187">
+        <label>xsecure_plat.h</label>
+        <link refid="versal_2xsecure__plat_8h"/>
+      </node>
+      <node id="1168">
+        <label>xilsecure_mldsa_client_example.c</label>
+        <link refid="xilsecure__mldsa__client__example_8c"/>
+      </node>
+      <node id="1207">
+        <label>xilsecure_spartanup_sha_server_example.c</label>
+        <link refid="xilsecure__spartanup__sha__server__example_8c"/>
+      </node>
+      <node id="1239">
+        <label>xsecure_hmac_ipihandler.c</label>
+        <link refid="xsecure__hmac__ipihandler_8c"/>
+      </node>
+      <node id="1257">
+        <label>xsecure_plat_ipihandler.c</label>
+        <link refid="2vp_2xsecure__plat__ipihandler_8c"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_x_secure___rsa_in_param" prot="public">XSecure_RsaInParam</innerclass>
+    <innerclass refid="struct_x_secure___rsa_sign_params" prot="public">XSecure_RsaSignParams</innerclass>
+    <innerclass refid="struct_x_secure___elliptic_sign_gen_params" prot="public">XSecure_EllipticSignGenParams</innerclass>
+    <innerclass refid="struct_x_secure___elliptic_sign_verify_params" prot="public">XSecure_EllipticSignVerifyParams</innerclass>
+    <innerclass refid="struct_x_secure___aes_init_ops" prot="public">XSecure_AesInitOps</innerclass>
+    <innerclass refid="struct_x_secure___aes_in_params" prot="public">XSecure_AesInParams</innerclass>
+    <innerclass refid="struct_x_secure___ecdh_params" prot="public">XSecure_EcdhParams</innerclass>
+    <innerclass refid="struct_x_secure___ecc_private_key_params" prot="public">XSecure_EccPrivateKeyParams</innerclass>
+    <innerclass refid="struct_x_secure___aes_data_block_params" prot="public">XSecure_AesDataBlockParams</innerclass>
+    <innerclass refid="struct_x_secure___mldsa_sign_verify_params" prot="public">XSecure_MldsaSignVerifyParams</innerclass>
+    <innerclass refid="struct_x_secure___mldsa_sign_gen_params" prot="public">XSecure_MldsaSignGenParams</innerclass>
+    <innerclass refid="struct_x_secure___slhdsa_input_params" prot="public">XSecure_SlhdsaInputParams</innerclass>
+      <sectiondef kind="user-defined">
+      <header>Debug related macros</header>
+      <memberdef kind="define" id="group__xsecure__common__apis_1gadab2e360fc5b40845c9d4f1128075ea6" prot="public" static="no">
+        <name>XSECURE_DEBUG</name>
+        <initializer>(0U)</initializer>
+        <briefdescription>
+<para>&lt; Enable client printfs by setting XSECURE_DEBUG to 1 </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_defs.h" line="76" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_defs.h" bodystart="76" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__common__apis_1gad317bd5f7cf522c602b9f00246d34d97" prot="public" static="no">
+        <name>XSECURE_DEBUG_GENERAL</name>
+        <initializer>(0U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_defs.h" line="81" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_defs.h" bodystart="81" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__xsecure__common__apis_1ga693c54d224d1fa8ca68b215023b2b359" prot="public" static="no">
+        <name>XSecure_Printf</name>
+        <param><defname>DebugType</defname></param>
+        <param><defname>...</defname></param>
+        <initializer>if ((DebugType) == 1U) {xil_printf (__VA_ARGS__);}</initializer>
+        <briefdescription>
+<para>For prints in XilSecure library. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_defs.h" line="85" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_defs.h" bodystart="85" bodyend="-1"/>
+        <referencedby refid="group__xsecure__rsa__server__apis_1ga164469228a4eea6357072fee975418de" compoundref="xsecure__plat__rsa_8c" startline="389" endline="405">XSecure_AddRsaKeyPairGenerationToScheduler</referencedby>
+        <referencedby refid="group__xsecure__aes__server__apis_1ga3d0efd64b0f7ebbdc1b3be80aa10a840" compoundref="xsecure__aes__ipihandler_8c" startline="107" endline="195">XSecure_AesIpiHandler</referencedby>
+        <referencedby refid="group__xsecure__ecdsa__server__apis_1ga898afa7a2d84540bb675ddeaeb33442f" compoundref="xsecure__elliptic__ipihandler_8c" startline="83" endline="124">XSecure_EllipticIpiHandler</referencedby>
+        <referencedby refid="group__xsecure__lms__server__apis_1ga4fe7fa250fbd0908fb92b6f65becf08e" compoundref="xsecure__lms__core_8c" startline="1517" endline="1553">XSecure_GetLmsHashAlgo</referencedby>
+        <referencedby refid="group__xsecure__hmac__server__apis_1gada22059d2f57912504ffc71677bb2718" compoundref="xsecure__hmac__ipihandler_8c" startline="63" endline="106">XSecure_HmacIpiHandler</referencedby>
+        <referencedby refid="group__xsecure__lms__server__apis_1ga112da8c38a140d02852bd8f93ab78e2f" compoundref="xsecure__lms__core_8c" startline="1308" endline="1403">XSecure_HssFinish</referencedby>
+        <referencedby refid="group__xsecure__lms__server__apis_1ga981b22fbc50d9cd6f91c16604754f078" compoundref="xsecure__lms__core_8c" startline="884" endline="1215">XSecure_HssInit</referencedby>
+        <referencedby refid="group__xsecure__helper__server__apis_1ga6966629c7ceb7a8ff7bbb8438c8b0771" compoundref="versal__2ve__2vm_2xsecure__plat_8c" startline="521" endline="544">XSecure_InitiateASUKeyTransfer</referencedby>
+        <referencedby refid="group__xsecure__kat__server__apis_1ga693f088bbeaa2be1dd7a084c2bee6351" compoundref="xsecure__kat__ipihandler_8c" startline="80" endline="176">XSecure_KatIpiHandler</referencedby>
+        <referencedby refid="group__xsecure__lms__server__apis_1ga6b50f9fb052dd231c50ea15138f17ff7" compoundref="xsecure__lms__core_8c" startline="421" endline="856">XSecure_LmsSignatureVerification</referencedby>
+        <referencedby refid="group__xsecure__mldsa__server__apis_1ga46920ff3a1a857a905036689c2bfc115" compoundref="xsecure__mldsa_8c" startline="295" endline="458">XSecure_MldsaSignGenerate</referencedby>
+        <referencedby refid="group__xsecure__mldsa__server__apis_1ga3291e37182d3193146f622c0477b15be" compoundref="xsecure__mldsa_8c" startline="124" endline="281">XSecure_MldsaSignVerify</referencedby>
+        <referencedby refid="group__xsecure__aes__server__apis_1ga1471a9dc9965ae80577a09aadafeeb53" compoundref="xsecure__plat__aes__ipihandler_8c" startline="60" endline="100">XSecure_PlatAesIpiHandler</referencedby>
+        <referencedby refid="group__xsecure__helper__server__apis_1ga7d0e634c95aed6e2adc7673b85920146" compoundref="xsecure__plat__ipihandler_8c" startline="63" endline="89">XSecure_PlatIpiHandler</referencedby>
+        <referencedby refid="group__xsecure__rsa__server__apis_1ga987514bb3cfd057697b78f0d7b17321d" compoundref="xsecure__rsa__ipihandler_8c" startline="71" endline="102">XSecure_RsaIpiHandler</referencedby>
+        <referencedby refid="group__xsecure__sha3__client__apis_1ga4f3fa0364445f98cc564a33052b75c12" compoundref="_2xsecure__shaclient_8c" startline="106" endline="137">XSecure_Sha2Operation</referencedby>
+        <referencedby refid="group__xsecure__sha__client__apis_1ga08e726488222ad0ba91e822d90e97e1e" compoundref="xsecure__shaclient_8c" startline="219" endline="266">XSecure_Sha3Digest</referencedby>
+        <referencedby refid="group__xsecure__sha__client__apis_1gad9611876471310e83eae5fc2ac640576" compoundref="xsecure__shaclient_8c" startline="157" endline="200">XSecure_Sha3Finish</referencedby>
+        <referencedby refid="group__xsecure__sha3__client__apis_1ga523a4a6aa49673a3f261194b8d47bfad" compoundref="_2xsecure__shaclient_8c" startline="58" endline="90">XSecure_Sha3Operation</referencedby>
+        <referencedby refid="group__xsecure__sha__client__apis_1ga66d0db1bbf860bc2247297ce63f398a2" compoundref="xsecure__shaclient_8c" startline="94" endline="141">XSecure_Sha3Update</referencedby>
+        <referencedby refid="group__xsecure__apis_1ga7004972638c2036271d309af8ae5c351" compoundref="_2xsecure__sha__ipihandler_8c" startline="72" endline="120">XSecure_ShaIpiHandler</referencedby>
+        <referencedby refid="group__xsecure__slhdsa__server__apis_1ga63a83a36cf727551fc0e1f69fef4e9b6" compoundref="xsecure__slhdsa__ht_8c" startline="194" endline="290">XSecure_SlhdsaHtVerify</referencedby>
+        <referencedby refid="group__xsecure__kat__server__apis_1ga88d62049d752ebdaecef899fdf2dfa16" compoundref="versal__net_2xsecure__plat__kat__ipihandler_8c" startline="140" endline="239">XSecure_UpdateKatStatusIpiHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__common__apis_1ga4dc28d692c8e56b1837e73a956ddec26" prot="public" static="no">
+        <name>XSecure_DCacheFlushRange</name>
+        <param><defname>SrcAddr</defname></param>
+        <param><defname>Len</defname></param>
+        <initializer>Xil_DCacheFlushRange((INTPTR)SrcAddr, Len)</initializer>
+        <briefdescription>
+<para>Cache Invalidate function. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_defs.h" line="92" column="13" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_defs.h" bodystart="94" bodyend="-1"/>
+        <referencedby refid="group__xsecure__aes__client__apis_1ga074dbaf57b453f094f14c6b6c7aca964" compoundref="xsecure__aesclient_8c" startline="795" endline="850">XSecure_AesDecryptData</referencedby>
+        <referencedby refid="group__xsecure__aes__client__apis_1gacea2fc49243f66d0b440a95d1bd6170f" compoundref="xsecure__aesclient_8c" startline="166" endline="211">XSecure_AesDecryptInit</referencedby>
+        <referencedby refid="group__xsecure__aes__client__apis_1ga3150fb8656509ac0217c44c9609776cc" compoundref="xsecure__aesclient_8c" startline="419" endline="468">XSecure_AesDecryptUpdate</referencedby>
+        <referencedby refid="group__xsecure__aes__client__apis_1gaa65c921632e25a29b33b883d85cf9058" compoundref="xsecure__aesclient_8c" startline="717" endline="772">XSecure_AesEncryptData</referencedby>
+        <referencedby refid="group__xsecure__aes__client__apis_1ga23f9b2bfaf978518d82c19d8331c9cb8" compoundref="xsecure__aesclient_8c" startline="104" endline="150">XSecure_AesEncryptInit</referencedby>
+        <referencedby refid="group__xsecure__aes__client__apis_1ga162a8009f9d4983d841b517fe53d14c4" compoundref="xsecure__aesclient_8c" startline="306" endline="355">XSecure_AesEncryptUpdate</referencedby>
+        <referencedby refid="group__xsecure__aes__client__apis_1ga1be5abccbec8cce45963a979c72828e1" compoundref="xsecure__aesclient_8c" startline="867" endline="934">XSecure_AesPerformOperation</referencedby>
+        <referencedby refid="group__xsecure__aes__client__apis_1ga92901f6856f8e7ea38caac86fb44e10b" compoundref="xsecure__plat__aes__client_8c" startline="62" endline="120">XSecure_AesPerformOperationAndZeroizeKey</referencedby>
+        <referencedby refid="group__xsecure__ecdsa__client__apis_1ga640d4ab0cd1edb783d2d0a8c2af44ef5" compoundref="xsecure__ellipticclient_8c" startline="66" endline="117">XSecure_EllipticGenerateSign</referencedby>
+        <referencedby refid="group__xsecure__ecdsa__client__apis_1ga88eea76778dab99a54821e2117a3034e" compoundref="xsecure__ellipticclient_8c" startline="228" endline="277">XSecure_EllipticVerifySign</referencedby>
+        <referencedby refid="group__xsecure__ecdsa__client__apis_1ga0e90d7253656c56458e39541009e4954" compoundref="xsecure__plat__elliptic__client_8c" startline="69" endline="119">XSecure_GenSharedSecret</referencedby>
+        <referencedby refid="group__xsecure__rsa__client__apis_1gaad026ed28e47be9b59e0444deb3af85a" compoundref="xsecure__rsaclient_8c" startline="65" endline="114">XSecure_RsaPrivateDecrypt</referencedby>
+        <referencedby refid="group__xsecure__rsa__client__apis_1gaf2a6250efae11b0bdbfe22e6642dedf4" compoundref="xsecure__rsaclient_8c" startline="136" endline="185">XSecure_RsaPublicEncrypt</referencedby>
+        <referencedby refid="group__xsecure__rsa__client__apis_1ga8bdc7108615c89806dae54dd56f428d7" compoundref="xsecure__rsaclient_8c" startline="204" endline="251">XSecure_RsaSignVerification</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__common__apis_1ga2f4a1a99096821d10b0719a4ded431d5" prot="public" static="no">
+        <name>XSECURE_API</name>
+        <param><defname>ApiId</defname></param>
+        <initializer>((u32)ApiId)</initializer>
+        <briefdescription>
+<para>Macro to typecast XILSECURE API ID. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_defs.h" line="98" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_defs.h" bodystart="104" bodyend="-1"/>
+        <referencedby refid="group__xsecure__aes__server__apis_1ga3d0efd64b0f7ebbdc1b3be80aa10a840" compoundref="xsecure__aes__ipihandler_8c" startline="107" endline="195">XSecure_AesIpiHandler</referencedby>
+        <referencedby refid="group__xsecure__ecdsa__server__apis_1ga898afa7a2d84540bb675ddeaeb33442f" compoundref="xsecure__elliptic__ipihandler_8c" startline="83" endline="124">XSecure_EllipticIpiHandler</referencedby>
+        <referencedby refid="group__xsecure__hmac__server__apis_1gada22059d2f57912504ffc71677bb2718" compoundref="xsecure__hmac__ipihandler_8c" startline="63" endline="106">XSecure_HmacIpiHandler</referencedby>
+        <referencedby refid="group__xsecure__kat__server__apis_1ga693f088bbeaa2be1dd7a084c2bee6351" compoundref="xsecure__kat__ipihandler_8c" startline="80" endline="176">XSecure_KatIpiHandler</referencedby>
+        <referencedby refid="group__xsecure__kat__server__apis_1gaf7cb17f01c5c5542c9c2b3d6f00699d3" compoundref="versal__2ve__2vm_2xsecure__plat__kat__ipihandler_8c" startline="61" endline="108">XSecure_KatPlatIpiHandler</referencedby>
+        <referencedby refid="group__xsecure__lms__server__apis_1gaa7a77ac17187ce85d6c0c094c1d63a56" compoundref="xsecure__lms__ipihandler_8c" startline="56" endline="74">XSecure_LmsIpiHandler</referencedby>
+        <referencedby refid="group__xsecure__mldsa__server__apis_1ga3199355dccb414846289dc2ebcc1f34b" compoundref="xsecure__mldsa__ipihandler_8c" startline="55" endline="81">XSecure_MldsaIpiHandler</referencedby>
+        <referencedby refid="group__xsecure__aes__server__apis_1ga1471a9dc9965ae80577a09aadafeeb53" compoundref="xsecure__plat__aes__ipihandler_8c" startline="60" endline="100">XSecure_PlatAesIpiHandler</referencedby>
+        <referencedby refid="group__xsecure__helper__server__apis_1ga7d0e634c95aed6e2adc7673b85920146" compoundref="xsecure__plat__ipihandler_8c" startline="63" endline="89">XSecure_PlatIpiHandler</referencedby>
+        <referencedby refid="group__xsecure__rsa__server__apis_1ga987514bb3cfd057697b78f0d7b17321d" compoundref="xsecure__rsa__ipihandler_8c" startline="71" endline="102">XSecure_RsaIpiHandler</referencedby>
+        <referencedby refid="group__xsecure__sha__server__apis_1ga7f7ea6efde319f58105d7ae453081235" compoundref="xsecure__sha__ipihandler_8c" startline="88" endline="123">XSecure_Sha3IpiHandler</referencedby>
+        <referencedby refid="group__xsecure__apis_1ga7004972638c2036271d309af8ae5c351" compoundref="_2xsecure__sha__ipihandler_8c" startline="72" endline="120">XSecure_ShaIpiHandler</referencedby>
+        <referencedby refid="group__xsecure__slhdsa__server__apis_1ga77d5289144f7e1df2a55881809ba8255" compoundref="xsecure__slhdsa__ipihandler_8c" startline="56" endline="97">XSecure_SlhdsaIpiHandler</referencedby>
+        <referencedby refid="group__xsecure__trng__server__apis_1ga1b389dc6ee1adeeff437018602b66742" compoundref="trngpsv_2xsecure__trng__ipihandler_8c" startline="53" endline="76">XSecure_TrngIpiHandler</referencedby>
+        <referencedby refid="group__xsecure__kat__server__apis_1ga88d62049d752ebdaecef899fdf2dfa16" compoundref="versal__net_2xsecure__plat__kat__ipihandler_8c" startline="140" endline="239">XSecure_UpdateKatStatusIpiHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__common__apis_1gaa2f27ea2d621bbdeda76bad8109eb77b" prot="public" static="no">
+        <name>XSECURE_API_ID_MASK</name>
+        <initializer>(0xFFU)</initializer>
+        <briefdescription>
+<para>Mask for API ID in Secure IPI command. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_defs.h" line="101" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_defs.h" bodystart="108" bodyend="-1"/>
+        <referencedby refid="group__xsecure__aes__server__apis_1ga3d0efd64b0f7ebbdc1b3be80aa10a840" compoundref="xsecure__aes__ipihandler_8c" startline="107" endline="195">XSecure_AesIpiHandler</referencedby>
+        <referencedby refid="group__xsecure__ecdsa__server__apis_1ga898afa7a2d84540bb675ddeaeb33442f" compoundref="xsecure__elliptic__ipihandler_8c" startline="83" endline="124">XSecure_EllipticIpiHandler</referencedby>
+        <referencedby refid="group__xsecure__hmac__server__apis_1gada22059d2f57912504ffc71677bb2718" compoundref="xsecure__hmac__ipihandler_8c" startline="63" endline="106">XSecure_HmacIpiHandler</referencedby>
+        <referencedby refid="group__xsecure__kat__server__apis_1ga693f088bbeaa2be1dd7a084c2bee6351" compoundref="xsecure__kat__ipihandler_8c" startline="80" endline="176">XSecure_KatIpiHandler</referencedby>
+        <referencedby refid="group__xsecure__kat__server__apis_1gaf7cb17f01c5c5542c9c2b3d6f00699d3" compoundref="versal__2ve__2vm_2xsecure__plat__kat__ipihandler_8c" startline="61" endline="108">XSecure_KatPlatIpiHandler</referencedby>
+        <referencedby refid="group__xsecure__lms__server__apis_1gaa7a77ac17187ce85d6c0c094c1d63a56" compoundref="xsecure__lms__ipihandler_8c" startline="56" endline="74">XSecure_LmsIpiHandler</referencedby>
+        <referencedby refid="group__xsecure__mldsa__server__apis_1ga3199355dccb414846289dc2ebcc1f34b" compoundref="xsecure__mldsa__ipihandler_8c" startline="55" endline="81">XSecure_MldsaIpiHandler</referencedby>
+        <referencedby refid="group__xsecure__aes__server__apis_1ga1471a9dc9965ae80577a09aadafeeb53" compoundref="xsecure__plat__aes__ipihandler_8c" startline="60" endline="100">XSecure_PlatAesIpiHandler</referencedby>
+        <referencedby refid="group__xsecure__helper__server__apis_1ga7d0e634c95aed6e2adc7673b85920146" compoundref="xsecure__plat__ipihandler_8c" startline="63" endline="89">XSecure_PlatIpiHandler</referencedby>
+        <referencedby refid="group__xsecure__rsa__server__apis_1ga987514bb3cfd057697b78f0d7b17321d" compoundref="xsecure__rsa__ipihandler_8c" startline="71" endline="102">XSecure_RsaIpiHandler</referencedby>
+        <referencedby refid="group__xsecure__sha__server__apis_1ga7f7ea6efde319f58105d7ae453081235" compoundref="xsecure__sha__ipihandler_8c" startline="88" endline="123">XSecure_Sha3IpiHandler</referencedby>
+        <referencedby refid="group__xsecure__apis_1ga7004972638c2036271d309af8ae5c351" compoundref="_2xsecure__sha__ipihandler_8c" startline="72" endline="120">XSecure_ShaIpiHandler</referencedby>
+        <referencedby refid="group__xsecure__slhdsa__server__apis_1ga77d5289144f7e1df2a55881809ba8255" compoundref="xsecure__slhdsa__ipihandler_8c" startline="56" endline="97">XSecure_SlhdsaIpiHandler</referencedby>
+        <referencedby refid="group__xsecure__trng__server__apis_1ga1b389dc6ee1adeeff437018602b66742" compoundref="trngpsv_2xsecure__trng__ipihandler_8c" startline="53" endline="76">XSecure_TrngIpiHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__common__apis_1ga04382c27a44bd10c1cea701f06a3c332" prot="public" static="no">
+        <name>XILSECURE_MODULE_ID</name>
+        <initializer>(0x05U)</initializer>
+        <briefdescription>
+<para>XilSecure Module Id. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_defs.h" line="104" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_defs.h" bodystart="111" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__common__apis_1gae85ae29d9aced2cb41611f20723b0d1b" prot="public" static="no">
+        <name>XSECURE_KAT_API_ERR_ID</name>
+        <initializer>(((u32)<ref refid="group__xsecure__common__apis_1ga04382c27a44bd10c1cea701f06a3c332" kindref="member">XILSECURE_MODULE_ID</ref> &lt;&lt; 8U) | ((u32)XSECURE_API_KAT))</initializer>
+        <briefdescription>
+<para>XilSecure KAT API error id. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_defs.h" line="106" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_defs.h" bodystart="113" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__common__apis_1ga3f6824338155930886ff46163669700c" prot="public" static="no">
+        <name>XSECURE_KAT_MAJOR_ERROR</name>
+        <initializer>(((u32)XPLMI_ERR_CDO_CMD + (<ref refid="group__xsecure__common__apis_1gae85ae29d9aced2cb41611f20723b0d1b" kindref="member">XSECURE_KAT_API_ERR_ID</ref> &amp; \
+										XPLMI_ERR_CDO_CMD_MASK)))</initializer>
+        <briefdescription>
+<para>Xilsecure KAT major error for client APIs. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_defs.h" line="108" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_defs.h" bodystart="115" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__common__apis_1ga49179f0283044223009c733e01b79d5a" prot="public" static="no">
+        <name>XSECURE_ADDR_HIGH_SHIFT</name>
+        <initializer>(32U)</initializer>
+        <briefdescription>
+<para>Shift to get higher address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_defs.h" line="111" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_defs.h" bodystart="118" bodyend="-1"/>
+        <referencedby refid="group__xsecure__aes__client__apis_1ga074dbaf57b453f094f14c6b6c7aca964" compoundref="xsecure__aesclient_8c" startline="795" endline="850">XSecure_AesDecryptData</referencedby>
+        <referencedby refid="group__xsecure__aes__client__apis_1ga49114523757f3b39daf51876ba899e51" compoundref="xsecure__aesclient_8c" startline="483" endline="509">XSecure_AesDecryptFinal</referencedby>
+        <referencedby refid="group__xsecure__aes__client__apis_1gacea2fc49243f66d0b440a95d1bd6170f" compoundref="xsecure__aesclient_8c" startline="166" endline="211">XSecure_AesDecryptInit</referencedby>
+        <referencedby refid="group__xsecure__aes__client__apis_1ga3150fb8656509ac0217c44c9609776cc" compoundref="xsecure__aesclient_8c" startline="419" endline="468">XSecure_AesDecryptUpdate</referencedby>
+        <referencedby refid="group__xsecure__aes__client__apis_1gaa65c921632e25a29b33b883d85cf9058" compoundref="xsecure__aesclient_8c" startline="717" endline="772">XSecure_AesEncryptData</referencedby>
+        <referencedby refid="group__xsecure__aes__client__apis_1ga982cb284b765c652355d9f942798211b" compoundref="xsecure__aesclient_8c" startline="371" endline="397">XSecure_AesEncryptFinal</referencedby>
+        <referencedby refid="group__xsecure__aes__client__apis_1ga23f9b2bfaf978518d82c19d8331c9cb8" compoundref="xsecure__aesclient_8c" startline="104" endline="150">XSecure_AesEncryptInit</referencedby>
+        <referencedby refid="group__xsecure__aes__client__apis_1ga162a8009f9d4983d841b517fe53d14c4" compoundref="xsecure__aesclient_8c" startline="306" endline="355">XSecure_AesEncryptUpdate</referencedby>
+        <referencedby refid="group__xsecure__aes__client__apis_1ga2c662c76ab7afdb97977628d81604ec1" compoundref="xsecure__aesclient_8c" startline="256" endline="284">XSecure_AesGmacUpdateAad</referencedby>
+        <referencedby refid="group__xsecure__aes__client__apis_1ga5336eb4fdbdbd4c48776776c4524653e" compoundref="xsecure__aesclient_8c" startline="619" endline="655">XSecure_AesKekDecrypt</referencedby>
+        <referencedby refid="group__xsecure__aes__client__apis_1ga1be5abccbec8cce45963a979c72828e1" compoundref="xsecure__aesclient_8c" startline="867" endline="934">XSecure_AesPerformOperation</referencedby>
+        <referencedby refid="group__xsecure__aes__client__apis_1ga92901f6856f8e7ea38caac86fb44e10b" compoundref="xsecure__plat__aes__client_8c" startline="62" endline="120">XSecure_AesPerformOperationAndZeroizeKey</referencedby>
+        <referencedby refid="group__xsecure__aes__client__apis_1ga056f80ac76299a3ed41102b9f21237e7" compoundref="xsecure__aesclient_8c" startline="568" endline="597">XSecure_AesWriteKey</referencedby>
+        <referencedby refid="group__xsecure__ecdsa__client__apis_1ga623ff4e3a9216677e7b5abe2767790a8" compoundref="xsecure__ellipticclient_8c" startline="135" endline="165">XSecure_EllipticGenerateKey</referencedby>
+        <referencedby refid="group__xsecure__ecdsa__client__apis_1ga640d4ab0cd1edb783d2d0a8c2af44ef5" compoundref="xsecure__ellipticclient_8c" startline="66" endline="117">XSecure_EllipticGenerateSign</referencedby>
+        <referencedby refid="group__xsecure__ecdsa__client__apis_1gae0cc9893171617fe1a2d07501a84ecb3" compoundref="xsecure__plat__elliptic__client_8c" startline="136" endline="158">XSecure_EllipticPrivateKeyGenerate</referencedby>
+        <referencedby refid="group__xsecure__ecdsa__client__apis_1ga4e7f8b3452f7f23b4591cc21f1806b54" compoundref="xsecure__ellipticclient_8c" startline="181" endline="208">XSecure_EllipticValidateKey</referencedby>
+        <referencedby refid="group__xsecure__ecdsa__client__apis_1ga88eea76778dab99a54821e2117a3034e" compoundref="xsecure__ellipticclient_8c" startline="228" endline="277">XSecure_EllipticVerifySign</referencedby>
+        <referencedby refid="group__xsecure__ecdsa__client__apis_1ga0e90d7253656c56458e39541009e4954" compoundref="xsecure__plat__elliptic__client_8c" startline="69" endline="119">XSecure_GenSharedSecret</referencedby>
+        <referencedby refid="group__xsecure__hmac__client__apis_1gae944a398b1458933f32f55017f192b0a" compoundref="xsecure__hmacclient_8c" startline="55" endline="74">XSecure_HmacOperation</referencedby>
+        <referencedby refid="group__xsecure__helper__client__apis_1ga34fb190dff4e61e8f39544f732a94edf" compoundref="xsecure__plat__client_8c" startline="193" endline="218">XSecure_KeyUnwrap</referencedby>
+        <referencedby refid="group__xsecure__lms__client__apis_1ga018eb7459ba7c57482b7721a3026f4ef" compoundref="xsecure__lmsclient_8c" startline="67" endline="87">XSecure_LmsSignVerify</referencedby>
+        <referencedby refid="group__xsecure__mldsa__client__apis_1ga6459e0032debbbfe8536196083c5748e" compoundref="xsecure__mldsaclient_8c" startline="83" endline="110">XSecure_MldsaSignGenerateClient</referencedby>
+        <referencedby refid="group__xsecure__mldsa__client__apis_1gafbec3393033ad7b82ae44b8b8f31aab7" compoundref="xsecure__mldsaclient_8c" startline="42" endline="69">XSecure_MldsaSignVerifyClient</referencedby>
+        <referencedby refid="group__xsecure__rsa__client__apis_1gaad026ed28e47be9b59e0444deb3af85a" compoundref="xsecure__rsaclient_8c" startline="65" endline="114">XSecure_RsaPrivateDecrypt</referencedby>
+        <referencedby refid="group__xsecure__rsa__client__apis_1gaf2a6250efae11b0bdbfe22e6642dedf4" compoundref="xsecure__rsaclient_8c" startline="136" endline="185">XSecure_RsaPublicEncrypt</referencedby>
+        <referencedby refid="group__xsecure__rsa__client__apis_1ga8bdc7108615c89806dae54dd56f428d7" compoundref="xsecure__rsaclient_8c" startline="204" endline="251">XSecure_RsaSignVerification</referencedby>
+        <referencedby refid="group__xsecure__sha3__client__apis_1ga4f3fa0364445f98cc564a33052b75c12" compoundref="_2xsecure__shaclient_8c" startline="106" endline="137">XSecure_Sha2Operation</referencedby>
+        <referencedby refid="group__xsecure__sha__client__apis_1ga08e726488222ad0ba91e822d90e97e1e" compoundref="xsecure__shaclient_8c" startline="219" endline="266">XSecure_Sha3Digest</referencedby>
+        <referencedby refid="group__xsecure__sha__client__apis_1gad9611876471310e83eae5fc2ac640576" compoundref="xsecure__shaclient_8c" startline="157" endline="200">XSecure_Sha3Finish</referencedby>
+        <referencedby refid="group__xsecure__sha3__client__apis_1ga523a4a6aa49673a3f261194b8d47bfad" compoundref="_2xsecure__shaclient_8c" startline="58" endline="90">XSecure_Sha3Operation</referencedby>
+        <referencedby refid="group__xsecure__sha__client__apis_1ga66d0db1bbf860bc2247297ce63f398a2" compoundref="xsecure__shaclient_8c" startline="94" endline="141">XSecure_Sha3Update</referencedby>
+        <referencedby refid="group__xsecure__slhdsa__client__apis_1ga971403d14ffa4f9b062864a62895b2b8" compoundref="xsecure__slhdsaclient_8c" startline="42" endline="69">XSecure_SlhdsaSignVerifyClient</referencedby>
+        <referencedby refid="group__xsecure__trng__client__apis_1ga7d6de56d442c1199e990cfa01d45411c" compoundref="xsecure__trngclient_8c" startline="53" endline="82">XSecure_TrngGenerateRandNum</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__common__apis_1ga26a8c3f0530839c2ab5625db27cc5081" prot="public" static="no">
+        <name>XSECURE_SIZE_DOUBLE</name>
+        <initializer>(2U)</initializer>
+        <briefdescription>
+<para>Multiplier to double size. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_defs.h" line="113" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_defs.h" bodystart="120" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__common__apis_1ga5e150159815d9ae9fbde4fa12c48ab00" prot="public" static="no">
+        <name>XSECURE_IPI_MASK_DEF_VAL</name>
+        <initializer>(0U)</initializer>
+        <briefdescription>
+<para>Default IPI mask value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_defs.h" line="115" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_defs.h" bodystart="122" bodyend="-1"/>
+        <referencedby refid="group__xsecure__generic__server__apis_1ga888b5fb720349f4766f1a6b45f318520" compoundref="xsecure__resourcehandling_8c" startline="443" endline="478">XSecure_IpiEventHandling</referencedby>
+        <referencedby refid="group__xsecure__generic__server__apis_1gace2c73e5d80dd85a226551b02e396cc0" compoundref="xsecure__resourcehandling_8c" startline="421" endline="427">XSecure_MakeResFree</referencedby>
+        <referencedby refid="group__xsecure__generic__server__apis_1ga07ca644998ec3bcf61557b4510708101" compoundref="xsecure__resourcehandling_8c" startline="491" endline="533">XSecure_SetDataContextLost</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__common__apis_1ga0067c6b248d59cb727a8db692effe5fa" prot="public" static="no">
+        <name>XSECURE_IPI_PARAMS_SIZE_ALIGN_MASK</name>
+        <initializer>(0x7U)</initializer>
+        <briefdescription>
+<para>Mask used to validate that IPI parameter structure size is 8-byte aligned. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_defs.h" line="117" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_defs.h" bodystart="124" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__common__apis_1gab6ed5940007e9e540194a96151767137" prot="public" static="no">
+        <name>XSECURE_ECDSA_PRIME</name>
+        <initializer>(<ref refid="group__xsecure__common__apis_1gga678d756780f5569d245a8fe5fe7606c7adf2a9a341dbbedc713c8b4a9241c0259" kindref="member">XSECURE_ECC_PRIME</ref>)</initializer>
+        <briefdescription>
+<para>This macro is for backward compatibility. </para>        </briefdescription>
+        <detaileddescription>
+<para>For ECC Prime curves, use XSECURE_ECC_PRIME </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_defs.h" line="120" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_defs.h" bodystart="127" bodyend="-1"/>
+        <referencedby refid="xilsecure__versal__ecdsa__client__example_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4" compoundref="xilsecure__versal__ecdsa__client__example_8c" startline="418" endline="553">main</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__common__apis_1gaec6e0642a5377d68c66bc54fb39ad161" prot="public" static="no">
+        <name>XSecure_EllipticCrvClass</name>
+        <initializer><ref refid="group__xsecure__common__apis_1ga678d756780f5569d245a8fe5fe7606c7" kindref="member">XSecure_EccCrvClass</ref></initializer>
+        <briefdescription>
+<para>Alias for XSecure_EccCrvClass enum for backward compatibility. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_defs.h" line="122" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_defs.h" bodystart="129" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="group__xsecure__common__apis_1gadcb99879df57dfcbb96293bd161933be" prot="public" static="no">
+        <name>XSecure_AesOp</name>
+        <enumvalue id="group__xsecure__helper__server__apis_1ggadcb99879df57dfcbb96293bd161933beae6aac4a684081de8c6c970ef364fd091" prot="public">
+          <name>XSECURE_ENCRYPT</name>
+          <briefdescription>
+<para>Encrypt operation. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__helper__server__apis_1ggadcb99879df57dfcbb96293bd161933bea542b57e4f70f61000b962a8a0da83fae" prot="public">
+          <name>XSECURE_DECRYPT</name>
+          <briefdescription>
+<para>Decrypt operation. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__helper__server__apis_1ggadcb99879df57dfcbb96293bd161933beae6aac4a684081de8c6c970ef364fd091" prot="public">
+          <name>XSECURE_ENCRYPT</name>
+          <briefdescription>
+<para>Encrypt operation. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__helper__server__apis_1ggadcb99879df57dfcbb96293bd161933bea542b57e4f70f61000b962a8a0da83fae" prot="public">
+          <name>XSECURE_DECRYPT</name>
+          <briefdescription>
+<para>Decrypt operation. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>XilSecure AES operation types. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_defs.h" line="224" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_defs.h" bodystart="224" bodyend="227"/>
+      </memberdef>
+      <memberdef kind="enum" id="group__xsecure__common__apis_1ga7aecdb57be4a4242f11ad3e3bebb42e6" prot="public" static="no">
+        <name>XSecure_EllipticCrvTyp</name>
+        <enumvalue id="group__xsecure__helper__server__apis_1gga7aecdb57be4a4242f11ad3e3bebb42e6a56563085e91b2916d8b2597aa5b0518c" prot="public">
+          <name>XSECURE_ECC_NIST_P192</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+<para>NIST P-192 curve value in Ecdsa.h. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__helper__server__apis_1gga7aecdb57be4a4242f11ad3e3bebb42e6ada7c82dece1225d698e071b37a709a7b" prot="public">
+          <name>XSECURE_ECC_NIST_P224</name>
+          <initializer>= 2</initializer>
+          <briefdescription>
+<para>NIST P-256 curve value in Ecdsa.h. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__helper__server__apis_1gga7aecdb57be4a4242f11ad3e3bebb42e6a4887100b873751c7ab11f3c25971da31" prot="public">
+          <name>XSECURE_ECC_NIST_P256</name>
+          <initializer>= 3</initializer>
+          <briefdescription>
+<para>NIST P-256 curve value in Ecdsa.h. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__helper__server__apis_1gga7aecdb57be4a4242f11ad3e3bebb42e6a96b467bb47305585cbcb31f93d527407" prot="public">
+          <name>XSECURE_ECC_NIST_P384</name>
+          <initializer>= 4</initializer>
+          <briefdescription>
+<para>NIST P-384 curve value in Ecdsa.h. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__helper__server__apis_1gga7aecdb57be4a4242f11ad3e3bebb42e6a1ac6872da48c5879c457fb9e0590c36b" prot="public">
+          <name>XSECURE_ECC_NIST_P521</name>
+          <initializer>= 5</initializer>
+          <briefdescription>
+<para>NIST P-521 curve value in Ecdsa.h. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__helper__server__apis_1gga7aecdb57be4a4242f11ad3e3bebb42e6a56563085e91b2916d8b2597aa5b0518c" prot="public">
+          <name>XSECURE_ECC_NIST_P192</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+<para>NIST P-192 curve value in Ecdsa.h. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__helper__server__apis_1gga7aecdb57be4a4242f11ad3e3bebb42e6ada7c82dece1225d698e071b37a709a7b" prot="public">
+          <name>XSECURE_ECC_NIST_P224</name>
+          <initializer>= 2</initializer>
+          <briefdescription>
+<para>NIST P-224 curve value in Ecdsa.h. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__helper__server__apis_1gga7aecdb57be4a4242f11ad3e3bebb42e6a4887100b873751c7ab11f3c25971da31" prot="public">
+          <name>XSECURE_ECC_NIST_P256</name>
+          <initializer>= 3</initializer>
+          <briefdescription>
+<para>NIST P-256 curve value in Ecdsa.h. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__helper__server__apis_1gga7aecdb57be4a4242f11ad3e3bebb42e6a96b467bb47305585cbcb31f93d527407" prot="public">
+          <name>XSECURE_ECC_NIST_P384</name>
+          <initializer>= 4</initializer>
+          <briefdescription>
+<para>NIST P-384 curve value in Ecdsa.h. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__helper__server__apis_1gga7aecdb57be4a4242f11ad3e3bebb42e6a1ac6872da48c5879c457fb9e0590c36b" prot="public">
+          <name>XSECURE_ECC_NIST_P521</name>
+          <initializer>= 5</initializer>
+          <briefdescription>
+<para>NIST P-521 curve value in Ecdsa.h. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>XilSecure ECC curve types. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_defs.h" line="230" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_defs.h" bodystart="230" bodyend="236"/>
+      </memberdef>
+      <memberdef kind="enum" id="group__xsecure__common__apis_1ga678d756780f5569d245a8fe5fe7606c7" prot="public" static="no">
+        <name>XSecure_EccCrvClass</name>
+        <enumvalue id="group__xsecure__common__apis_1gga678d756780f5569d245a8fe5fe7606c7adf2a9a341dbbedc713c8b4a9241c0259" prot="public">
+          <name>XSECURE_ECC_PRIME</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+<para>Prime curve. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga678d756780f5569d245a8fe5fe7606c7a931cc339c5a65a19776920b8384caaac" prot="public">
+          <name>XSECURE_ECC_BINARY</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+<para>Binary curve. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>XilSecure ECC curve class. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_defs.h" line="239" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_defs.h" bodystart="239" bodyend="242"/>
+      </memberdef>
+      <memberdef kind="enum" id="group__xsecure__common__apis_1gae9abbc75ac66f341f029869aac24c716" prot="public" static="no">
+        <name>XSecure_KatOp</name>
+        <enumvalue id="group__xsecure__common__apis_1ggae9abbc75ac66f341f029869aac24c716a09e955afa67abbd5ea150fc156ff442f" prot="public">
+          <name>XSECURE_API_KAT_SET</name>
+          <initializer>= 0U</initializer>
+          <briefdescription>
+<para>0U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1ggae9abbc75ac66f341f029869aac24c716a37dcb0a535752ca6093d594011f526a2" prot="public">
+          <name>XSECURE_API_KAT_CLEAR</name>
+          <briefdescription>
+<para>1U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>XilSecure API KAT operations. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_defs.h" line="245" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_defs.h" bodystart="245" bodyend="248"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file contains the xsecure API IDs. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+1.0   kal  03/23/20 Initial release
+4.5   kal  03/23/20 Updated file version to sync with library version
+4.6   har  07/14/21 Fixed doxygen warnings
+4.7   kpt  11/29/21 Added macro XSecure_DCacheFlushRange
+5.0   bm   07/06/22 Refactor versal and versal_net code
+      kpt  07/24/22 Added XSecure_EccCrvClass
+5.1   skg  12/16/22 Added XSecure_AesAllParams
+      yog  05/03/23 Fixed MISRA C violation of Rule 12.2
+5.2   yog  06/07/23 Added support for P-256 Curve
+      vss  07/14/23 Added enum for resource availability and also ipi mask macro
+      ng   07/15/23 Added support for system device tree flow
+      har  07/26/23 Renamed members of XSecure_EccCrvClass and added macros for
+                    backward compatibility
+      vss  09/11/23 Fixed Coverity warning EXPRESSION_WITH_MAGIC_NUMBERS
+5.3   ng   01/28/24 Added SDT support
+      ng   03/26/24 Fixed header include in SDT flow
+5.4   yog  04/29/24 Fixed doxygen warnings.
+      mb   05/23/24 Added support for P-192 Curve
+      mb   05/23/24 Added support for P-224 Curve
+      Pre  03/02/25 Removed macros and structures related to data context setting
+      yog  03/18/25 Added <ref refid="struct_x_secure___ecdh_params" kindref="compound">XSecure_EcdhParams</ref>
+5.6   obs  09/17/25 Added XSECURE_SIZE_DOUBLE macro
+5.7   tvp  02/19/26 Added <ref refid="struct_x_secure___mldsa_sign_verify_params" kindref="compound">XSecure_MldsaSignVerifyParams</ref>
+      tvp  02/19/26 Added <ref refid="struct_x_secure___slhdsa_input_params" kindref="compound">XSecure_SlhdsaInputParams</ref>
+      tvp  03/09/26 Added <ref refid="struct_x_secure___mldsa_sign_gen_params" kindref="compound">XSecure_MldsaSignGenParams</ref>
+      tvp  03/17/26 Re-arrange Mldsa and Slhdsa Sign verify params</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2022<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">*******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="53"><highlight class="preprocessor">#ifndef<sp/>XSECURE_DEFS_H</highlight></codeline>
+<codeline lineno="54"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_DEFS_H</highlight></codeline>
+<codeline lineno="55"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="57"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="59"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_printf.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_cache.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xsecure_plat_defs.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>SDT</highlight></codeline>
+<codeline lineno="67"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xsecure_config.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="69"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>****************************/</highlight></codeline>
+<codeline lineno="76" refid="group__xsecure__common__apis_1gadab2e360fc5b40845c9d4f1128075ea6" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_DEBUG<sp/><sp/><sp/>(0U)</highlight></codeline>
+<codeline lineno="77"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>(XSECURE_DEBUG)</highlight></codeline>
+<codeline lineno="79"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_DEBUG_GENERAL<sp/>(1U)</highlight></codeline>
+<codeline lineno="80"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="81"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_DEBUG_GENERAL<sp/>(0U)</highlight></codeline>
+<codeline lineno="82"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="83"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="84"><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="85" refid="group__xsecure__common__apis_1ga693c54d224d1fa8ca68b215023b2b359" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSecure_Printf(DebugType,<sp/>...)<sp/><sp/>\</highlight></codeline>
+<codeline lineno="86"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>if<sp/>((DebugType)<sp/>==<sp/>1U)<sp/>{xil_printf<sp/>(__VA_ARGS__);}</highlight></codeline>
+<codeline lineno="87"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="88"><highlight class="preprocessor">#ifndef<sp/>XSECURE_CACHE_DISABLE</highlight></codeline>
+<codeline lineno="89"><highlight class="preprocessor"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#if<sp/>defined(__microblaze__)</highlight></codeline>
+<codeline lineno="90"><highlight class="preprocessor"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#define<sp/>XSecure_DCacheFlushRange(SrcAddr,<sp/>Len)<sp/>Xil_DCacheFlushRange((UINTPTR)SrcAddr,<sp/>Len)</highlight></codeline>
+<codeline lineno="91"><highlight class="preprocessor"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#else</highlight></codeline>
+<codeline lineno="92"><highlight class="preprocessor"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#define<sp/>XSecure_DCacheFlushRange(SrcAddr,<sp/>Len)<sp/>Xil_DCacheFlushRange((INTPTR)SrcAddr,<sp/>Len)</highlight></codeline>
+<codeline lineno="93"><highlight class="preprocessor"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#endif</highlight></codeline>
+<codeline lineno="94" refid="group__xsecure__common__apis_1ga4dc28d692c8e56b1837e73a956ddec26" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="95"><highlight class="preprocessor"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#define<sp/>XSecure_DCacheFlushRange(SrcAddr,<sp/>Len)<sp/>{}</highlight></codeline>
+<codeline lineno="96"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif<sp/></highlight></codeline>
+<codeline lineno="98"><highlight class="preprocessor">#define<sp/>XSECURE_API(ApiId)<sp/><sp/><sp/><sp/><sp/><sp/>((u32)ApiId)</highlight></codeline>
+<codeline lineno="99"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="101"><highlight class="preprocessor">#define<sp/>XSECURE_API_ID_MASK<sp/><sp/><sp/><sp/><sp/>(0xFFU)</highlight></codeline>
+<codeline lineno="102"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="104" refid="group__xsecure__common__apis_1ga2f4a1a99096821d10b0719a4ded431d5" refkind="member"><highlight class="preprocessor">#define<sp/>XILSECURE_MODULE_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x05U)</highlight></codeline>
+<codeline lineno="105"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="106"><highlight class="preprocessor">#define<sp/>XSECURE_KAT_API_ERR_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(((u32)XILSECURE_MODULE_ID<sp/>&lt;&lt;<sp/>8U)<sp/>|<sp/>((u32)XSECURE_API_KAT))</highlight></codeline>
+<codeline lineno="107"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="108" refid="group__xsecure__common__apis_1gaa2f27ea2d621bbdeda76bad8109eb77b" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_KAT_MAJOR_ERROR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(((u32)XPLMI_ERR_CDO_CMD<sp/>+<sp/>(XSECURE_KAT_API_ERR_ID<sp/>&amp;<sp/>\</highlight></codeline>
+<codeline lineno="109"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPLMI_ERR_CDO_CMD_MASK)))</highlight></codeline>
+<codeline lineno="110"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="111" refid="group__xsecure__common__apis_1ga04382c27a44bd10c1cea701f06a3c332" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_ADDR_HIGH_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(32U)</highlight></codeline>
+<codeline lineno="112"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="113" refid="group__xsecure__common__apis_1gae85ae29d9aced2cb41611f20723b0d1b" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_SIZE_DOUBLE<sp/><sp/><sp/><sp/><sp/>(2U)</highlight></codeline>
+<codeline lineno="114"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="115" refid="group__xsecure__common__apis_1ga3f6824338155930886ff46163669700c" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_IPI_MASK_DEF_VAL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0U)</highlight></codeline>
+<codeline lineno="116"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="117"><highlight class="preprocessor">#define<sp/>XSECURE_IPI_PARAMS_SIZE_ALIGN_MASK<sp/><sp/><sp/><sp/><sp/><sp/>(0x7U)</highlight></codeline>
+<codeline lineno="118" refid="group__xsecure__common__apis_1ga49179f0283044223009c733e01b79d5a" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="120" refid="group__xsecure__common__apis_1ga26a8c3f0530839c2ab5625db27cc5081" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_ECDSA_PRIME<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XSECURE_ECC_PRIME)</highlight></codeline>
+<codeline lineno="121"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="122" refid="group__xsecure__common__apis_1ga5e150159815d9ae9fbde4fa12c48ab00" refkind="member"><highlight class="preprocessor">#define<sp/>XSecure_EllipticCrvClass<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSecure_EccCrvClass</highlight></codeline>
+<codeline lineno="123"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="125"><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="126"><highlight class="normal"></highlight></codeline>
+<codeline lineno="127" refid="group__xsecure__common__apis_1gab6ed5940007e9e540194a96151767137" refkind="member"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight></codeline>
+<codeline lineno="129" refid="group__xsecure__common__apis_1gaec6e0642a5377d68c66bc54fb39ad161" refkind="member"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>KeyAddr;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>DataAddr;<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Size;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="133"><highlight class="normal">}<sp/><ref refid="struct_x_secure___rsa_in_param" kindref="compound">XSecure_RsaInParam</ref>;</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"></highlight></codeline>
+<codeline lineno="136" refid="struct_x_secure___rsa_in_param" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="137" refid="struct_x_secure___rsa_in_param_1a83936333d957be7cf2309a2e4c975d87" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>SignAddr;<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="138" refid="struct_x_secure___rsa_in_param_1a5adc9387a7c2cb14a03fed29138fc332" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>HashAddr;<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="139" refid="struct_x_secure___rsa_in_param_1a49d9bd0fa32e8a9581f00574bea2c284" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_secure___rsa_in_param_1a49d9bd0fa32e8a9581f00574bea2c284" kindref="member">Size</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="140"><highlight class="normal">}<sp/><ref refid="struct_x_secure___rsa_sign_params" kindref="compound">XSecure_RsaSignParams</ref>;</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"></highlight></codeline>
+<codeline lineno="143" refid="struct_x_secure___rsa_sign_params" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="144" refid="struct_x_secure___rsa_sign_params_1a60e38a94be55f76856cae5d209beb430" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>HashAddr;<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="145" refid="struct_x_secure___rsa_sign_params_1a6a001b4dd594f1f9b1502ba6cd88e4da" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>PrivKeyAddr;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="146" refid="struct_x_secure___rsa_sign_params_1a89ef4123c3d05eeb2e8c61a22d5918ea" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>EPrivKeyAddr;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>CurveType;<sp/><sp/></highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Size;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="149"><highlight class="normal">}<sp/><ref refid="struct_x_secure___elliptic_sign_gen_params" kindref="compound">XSecure_EllipticSignGenParams</ref>;</highlight></codeline>
+<codeline lineno="150" refid="struct_x_secure___elliptic_sign_gen_params" refkind="compound"><highlight class="normal"></highlight></codeline>
+<codeline lineno="152" refid="struct_x_secure___elliptic_sign_gen_params_1a1a1fae1ad93c8cd8a40c783114eefa33" refkind="member"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="153" refid="struct_x_secure___elliptic_sign_gen_params_1ab777ee4a84e229c9e85b2cd320bbba4a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>HashAddr;<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="154" refid="struct_x_secure___elliptic_sign_gen_params_1af2449c671319efe444892288ea62f3ed" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>PubKeyAddr;<sp/></highlight></codeline>
+<codeline lineno="155" refid="struct_x_secure___elliptic_sign_gen_params_1a1a68d7fb833c20941def62ae2c9f5d84" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>SignAddr;<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>CurveType;<sp/><sp/></highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Size;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="158"><highlight class="normal">}<sp/><ref refid="struct_x_secure___elliptic_sign_verify_params" kindref="compound">XSecure_EllipticSignVerifyParams</ref>;</highlight></codeline>
+<codeline lineno="159" refid="struct_x_secure___elliptic_sign_verify_params" refkind="compound"><highlight class="normal"></highlight></codeline>
+<codeline lineno="164" refid="struct_x_secure___elliptic_sign_verify_params_1a6d41db7e8b10e90294c73f3826676ae9" refkind="member"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>IvAddr;<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>OperationId;</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>KeySrc;<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>KeySize;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="169"><highlight class="normal">}<sp/><ref refid="struct_x_secure___aes_init_ops" kindref="compound">XSecure_AesInitOps</ref>;</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"></highlight></codeline>
+<codeline lineno="172" refid="struct_x_secure___aes_init_ops_1a601c93bf12d62fa21c69509eaf5c886b" refkind="member"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="173" refid="struct_x_secure___aes_init_ops_1ab5bbcccd49561a9c352329a7f60f4646" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>InDataAddr;<sp/></highlight></codeline>
+<codeline lineno="174" refid="struct_x_secure___aes_init_ops_1a935f46f79e073e4f43c779d6fadd77a7" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Size;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="175" refid="struct_x_secure___aes_init_ops_1a1e9f80314c80c92abcf050a9811b3357" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>IsLast;<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="176"><highlight class="normal">}<sp/><ref refid="struct_x_secure___aes_in_params" kindref="compound">XSecure_AesInParams</ref>;</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"></highlight></codeline>
+<codeline lineno="179" refid="struct_x_secure___aes_in_params" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="180" refid="struct_x_secure___aes_in_params_1ad7f217564f0c58bc33831f875e046ff6" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>CurveType;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="181" refid="struct_x_secure___aes_in_params_1a9fe6ec2d063d59eeb2d02fdfc2d6aeea" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>PubKeyAddrHigh;<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="182" refid="struct_x_secure___aes_in_params_1a476ed373ff6b6dcc8138d38faa23c1ef" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>PubKeyAddrLow;<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="183"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>PrivKeyAddrHigh;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="184"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>PrivKeyAddrLow;<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>SharedSecretAddrHigh;</highlight></codeline>
+<codeline lineno="186" refid="struct_x_secure___ecdh_params" refkind="compound"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>SharedSecretAddrLow;</highlight></codeline>
+<codeline lineno="187" refid="struct_x_secure___ecdh_params_1a2bc717f679e9bca28e4a8632577d093b" refkind="member"><highlight class="normal">}<sp/><ref refid="struct_x_secure___ecdh_params" kindref="compound">XSecure_EcdhParams</ref>;</highlight></codeline>
+<codeline lineno="188" refid="struct_x_secure___ecdh_params_1acbb67a069297a08fe37c0d619793ba77" refkind="member"><highlight class="normal"></highlight></codeline>
+<codeline lineno="190" refid="struct_x_secure___ecdh_params_1a003387faf4c427fe24ed18d0eb45c799" refkind="member"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="191" refid="struct_x_secure___ecdh_params_1a1774b6c2a6bc2a7cb4eabb8eb14797df" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>PrivKeyAddr;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="192" refid="struct_x_secure___ecdh_params_1aff4635248bf5255789345c3fa2323f59" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>PrivKeyLen;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="193" refid="struct_x_secure___ecdh_params_1a0de62e0406c9a7cda1bd9f0e41dbb8c5" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Reserved[4U];<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="194"><highlight class="normal">}<sp/><ref refid="struct_x_secure___ecc_private_key_params" kindref="compound">XSecure_EccPrivateKeyParams</ref>;</highlight></codeline>
+<codeline lineno="195"><highlight class="normal"></highlight></codeline>
+<codeline lineno="200" refid="struct_x_secure___ecc_private_key_params_1a65750ef5788b20e5da3f6e893a937e53" refkind="member"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>IvAddr;<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="202"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>InDataAddr;<sp/><sp/></highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>OutDataAddr;<sp/></highlight></codeline>
+<codeline lineno="204"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>GcmTagAddr;<sp/></highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>AadAddr;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="206"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>OperationId;</highlight></codeline>
+<codeline lineno="207" refid="struct_x_secure___aes_data_block_params" refkind="compound"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>KeySrc;<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="208" refid="struct_x_secure___aes_data_block_params_1a32a405aa0b3b7347ea011c06e82112bb" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>KeySize;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="209" refid="struct_x_secure___aes_data_block_params_1ab305c36cde6d062cb2d9ec684eb884f3" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Size;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="210" refid="struct_x_secure___aes_data_block_params_1a0a399c993534db75688840d98da985ff" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>IsLast;<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="211" refid="struct_x_secure___aes_data_block_params_1abba392dfef2cf097328fa01ebdcf4a0b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>AadSize;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="212" refid="struct_x_secure___aes_data_block_params_1a9ef0690b92cb373e4edba5f737c4e8ec" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>IsGmacEnable;<sp/></highlight></codeline>
+<codeline lineno="213" refid="struct_x_secure___aes_data_block_params_1a01bac95e3068af0ce8456da0be15ee99" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>IsUpdateAadEn;<sp/></highlight></codeline>
+<codeline lineno="214" refid="struct_x_secure___aes_data_block_params_1a9feccfc797d95c76df391388198737a7" refkind="member"><highlight class="normal">}<sp/><ref refid="struct_x_secure___aes_data_block_params" kindref="compound">XSecure_AesDataBlockParams</ref>;</highlight></codeline>
+<codeline lineno="215" refid="struct_x_secure___aes_data_block_params_1a5cb25284ffcb35d77f835feba3c80cca" refkind="member"><highlight class="normal"></highlight></codeline>
+<codeline lineno="217" refid="struct_x_secure___aes_data_block_params_1ac1ebf1943406ef6c58967a22f316f411" refkind="member"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="218" refid="struct_x_secure___aes_data_block_params_1a89359753467bd723766dd276a129fb8a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__helper__server__apis_1ggadcb99879df57dfcbb96293bd161933beae6aac4a684081de8c6c970ef364fd091" kindref="member">XSECURE_ENCRYPT</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="219" refid="struct_x_secure___aes_data_block_params_1a70006cade009be77a4bfd46988dffd07" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__helper__server__apis_1ggadcb99879df57dfcbb96293bd161933bea542b57e4f70f61000b962a8a0da83fae" kindref="member">XSECURE_DECRYPT</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="220" refid="struct_x_secure___aes_data_block_params_1a5de1a144f2ca49b828bfd35dfca31098" refkind="member"><highlight class="normal">}<sp/><ref refid="group__xsecure__common__apis_1gadcb99879df57dfcbb96293bd161933be" kindref="member">XSecure_AesOp</ref>;</highlight></codeline>
+<codeline lineno="221"><highlight class="normal"></highlight></codeline>
+<codeline lineno="223"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="224" refid="group__xsecure__common__apis_1gadcb99879df57dfcbb96293bd161933be" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__helper__server__apis_1gga7aecdb57be4a4242f11ad3e3bebb42e6a56563085e91b2916d8b2597aa5b0518c" kindref="member">XSECURE_ECC_NIST_P192</ref><sp/>=<sp/>1,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="225" refid="group__xsecure__helper__server__apis_1ggadcb99879df57dfcbb96293bd161933beae6aac4a684081de8c6c970ef364fd091" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__helper__server__apis_1gga7aecdb57be4a4242f11ad3e3bebb42e6ada7c82dece1225d698e071b37a709a7b" kindref="member">XSECURE_ECC_NIST_P224</ref><sp/>=<sp/>2,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="226" refid="group__xsecure__helper__server__apis_1ggadcb99879df57dfcbb96293bd161933bea542b57e4f70f61000b962a8a0da83fae" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__helper__server__apis_1gga7aecdb57be4a4242f11ad3e3bebb42e6a4887100b873751c7ab11f3c25971da31" kindref="member">XSECURE_ECC_NIST_P256</ref><sp/>=<sp/>3,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="227"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__helper__server__apis_1gga7aecdb57be4a4242f11ad3e3bebb42e6a96b467bb47305585cbcb31f93d527407" kindref="member">XSECURE_ECC_NIST_P384</ref><sp/>=<sp/>4,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="228"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__helper__server__apis_1gga7aecdb57be4a4242f11ad3e3bebb42e6a1ac6872da48c5879c457fb9e0590c36b" kindref="member">XSECURE_ECC_NIST_P521</ref><sp/>=<sp/>5<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="229"><highlight class="normal">}<sp/><ref refid="group__xsecure__common__apis_1ga7aecdb57be4a4242f11ad3e3bebb42e6" kindref="member">XSecure_EllipticCrvTyp</ref>;</highlight></codeline>
+<codeline lineno="230" refid="group__xsecure__common__apis_1ga7aecdb57be4a4242f11ad3e3bebb42e6" refkind="member"><highlight class="normal"></highlight></codeline>
+<codeline lineno="232" refid="group__xsecure__helper__server__apis_1gga7aecdb57be4a4242f11ad3e3bebb42e6ada7c82dece1225d698e071b37a709a7b" refkind="member"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="233" refid="group__xsecure__helper__server__apis_1gga7aecdb57be4a4242f11ad3e3bebb42e6a4887100b873751c7ab11f3c25971da31" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__common__apis_1gga678d756780f5569d245a8fe5fe7606c7adf2a9a341dbbedc713c8b4a9241c0259" kindref="member">XSECURE_ECC_PRIME</ref><sp/>=<sp/>0,<sp/><sp/></highlight></codeline>
+<codeline lineno="234" refid="group__xsecure__helper__server__apis_1gga7aecdb57be4a4242f11ad3e3bebb42e6a96b467bb47305585cbcb31f93d527407" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__common__apis_1gga678d756780f5569d245a8fe5fe7606c7a931cc339c5a65a19776920b8384caaac" kindref="member">XSECURE_ECC_BINARY</ref><sp/>=<sp/>1,<sp/></highlight></codeline>
+<codeline lineno="235" refid="group__xsecure__helper__server__apis_1gga7aecdb57be4a4242f11ad3e3bebb42e6a1ac6872da48c5879c457fb9e0590c36b" refkind="member"><highlight class="normal">}<sp/><ref refid="group__xsecure__common__apis_1ga678d756780f5569d245a8fe5fe7606c7" kindref="member">XSecure_EccCrvClass</ref>;</highlight></codeline>
+<codeline lineno="236"><highlight class="normal"></highlight></codeline>
+<codeline lineno="238"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="239" refid="group__xsecure__common__apis_1ga678d756780f5569d245a8fe5fe7606c7" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__common__apis_1ggae9abbc75ac66f341f029869aac24c716a09e955afa67abbd5ea150fc156ff442f" kindref="member">XSECURE_API_KAT_SET</ref><sp/>=<sp/>0U,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="240" refid="group__xsecure__common__apis_1gga678d756780f5569d245a8fe5fe7606c7adf2a9a341dbbedc713c8b4a9241c0259" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__common__apis_1ggae9abbc75ac66f341f029869aac24c716a37dcb0a535752ca6093d594011f526a2" kindref="member">XSECURE_API_KAT_CLEAR</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="241" refid="group__xsecure__common__apis_1gga678d756780f5569d245a8fe5fe7606c7a931cc339c5a65a19776920b8384caaac" refkind="member"><highlight class="normal">}<sp/><ref refid="group__xsecure__common__apis_1gae9abbc75ac66f341f029869aac24c716" kindref="member">XSecure_KatOp</ref>;</highlight></codeline>
+<codeline lineno="242"><highlight class="normal"></highlight></codeline>
+<codeline lineno="244"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="245" refid="group__xsecure__common__apis_1gae9abbc75ac66f341f029869aac24c716" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>DataAddr;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="246" refid="group__xsecure__common__apis_1ggae9abbc75ac66f341f029869aac24c716a09e955afa67abbd5ea150fc156ff442f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>PubKeyAddr;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="247" refid="group__xsecure__common__apis_1ggae9abbc75ac66f341f029869aac24c716a37dcb0a535752ca6093d594011f526a2" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>SignAddr;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="248"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>ContextAddr;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="249"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>DataLen;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="250"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>PubKeyLen;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="251" refid="struct_x_secure___mldsa_sign_verify_params" refkind="compound"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>SignLen;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="252" refid="struct_x_secure___mldsa_sign_verify_params_1a8c68a93212ea9f8ea932decff0b328e6" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>ContextLen;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="253" refid="struct_x_secure___mldsa_sign_verify_params_1af84a2e53a05c3d4d6cf33895a042101e" refkind="member"><highlight class="normal">}<sp/><ref refid="struct_x_secure___mldsa_sign_verify_params" kindref="compound">XSecure_MldsaSignVerifyParams</ref>;</highlight></codeline>
+<codeline lineno="254" refid="struct_x_secure___mldsa_sign_verify_params_1a78a37ebd4e2a62652f33adeae7de27b0" refkind="member"><highlight class="normal"></highlight></codeline>
+<codeline lineno="256" refid="struct_x_secure___mldsa_sign_verify_params_1aca06c6ec2d7bb4d1bd018216a36a07d8" refkind="member"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="257" refid="struct_x_secure___mldsa_sign_verify_params_1add2a1619bd26ed6feb7d267db62c1f9b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>DataAddr;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="258" refid="struct_x_secure___mldsa_sign_verify_params_1ad44cab6481d1250b6637c277fb99af55" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>SecretKeyAddr;<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="259" refid="struct_x_secure___mldsa_sign_verify_params_1aca6581739940b911c01b307802284c1b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>SignatureAddr;<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="260"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>DataLen;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="261"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>SecretKeyLen;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="262"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>SignatureLen;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="263" refid="struct_x_secure___mldsa_sign_gen_params" refkind="compound"><highlight class="normal">}<sp/><ref refid="struct_x_secure___mldsa_sign_gen_params" kindref="compound">XSecure_MldsaSignGenParams</ref>;</highlight></codeline>
+<codeline lineno="264" refid="struct_x_secure___mldsa_sign_gen_params_1ad2c736e257fd52ee487b21f33f907da1" refkind="member"><highlight class="normal"></highlight></codeline>
+<codeline lineno="266" refid="struct_x_secure___mldsa_sign_gen_params_1a93220bba87c44328a06a2f438afee4d1" refkind="member"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="267" refid="struct_x_secure___mldsa_sign_gen_params_1a4712244a01c479fdc358a6e3e64352ca" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>DataAddr;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="268" refid="struct_x_secure___mldsa_sign_gen_params_1abb6682ae950d4d17425badcbe6e2e7be" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>SignatureAddr;<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="269" refid="struct_x_secure___mldsa_sign_gen_params_1a2bb8bf8e681c4e0ae24cf8774470d89f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>ContextAddr;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="270"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>PublicKeyAddr;<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="271"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>DataLen;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="272"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>SignatureLen;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="273" refid="struct_x_secure___slhdsa_input_params" refkind="compound"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>PublicKeyLen;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="274" refid="struct_x_secure___slhdsa_input_params_1a2e2c7f27b31f66a93190aba3c703ef8c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>ContextLen;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="275" refid="struct_x_secure___slhdsa_input_params_1a00bd10ffa362cb92ad88faf259d78e51" refkind="member"><highlight class="normal">}<sp/><ref refid="struct_x_secure___slhdsa_input_params" kindref="compound">XSecure_SlhdsaInputParams</ref>;</highlight></codeline>
+<codeline lineno="276" refid="struct_x_secure___slhdsa_input_params_1ae8a51b1e40a0c78413605e095823f04b" refkind="member"><highlight class="normal"></highlight></codeline>
+<codeline lineno="277" refid="struct_x_secure___slhdsa_input_params_1a060cca9d05f0c32d876967aa5d1918e6" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="278" refid="struct_x_secure___slhdsa_input_params_1ab4d122d457d715a6ed35b089989ccafe" refkind="member"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="279" refid="struct_x_secure___slhdsa_input_params_1adf6708fff83be8aa2c009a22b454bf21" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="280" refid="struct_x_secure___slhdsa_input_params_1a2a1f1257299e40adaecba573284c53cb" refkind="member"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="281" refid="struct_x_secure___slhdsa_input_params_1ab17b5f2290c32bb3ee8f833b5bec261b" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/></highlight><highlight class="comment">/*<sp/>XSECURE_DEFS_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="282"><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_defs.h"/>
+  </compounddef>
+</doxygen>

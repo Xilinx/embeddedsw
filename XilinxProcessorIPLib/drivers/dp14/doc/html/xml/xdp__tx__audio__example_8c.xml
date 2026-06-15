@@ -1,0 +1,381 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xdp__tx__audio__example_8c" kind="file">
+    <compoundname>xdp_tx_audio_example.c</compoundname>
+    <includes refid="xdp__tx__example__common_8h" local="yes">xdp_tx_example_common.h</includes>
+    <includes local="yes">xil_printf.h</includes>
+    <incdepgraph>
+      <node id="168">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="171">
+        <label>xil_io.h</label>
+      </node>
+      <node id="170">
+        <label>xdp_hw.h</label>
+        <link refid="xdp__hw_8h"/>
+        <childnode refid="171" relation="include">
+        </childnode>
+        <childnode refid="167" relation="include">
+        </childnode>
+      </node>
+      <node id="164">
+        <label>xdp_tx_audio_example.c</label>
+        <link refid="xdp_tx_audio_example.c"/>
+        <childnode refid="165" relation="include">
+        </childnode>
+        <childnode refid="174" relation="include">
+        </childnode>
+      </node>
+      <node id="172">
+        <label>xstatus.h</label>
+      </node>
+      <node id="173">
+        <label>xvidc.h</label>
+      </node>
+      <node id="169">
+        <label>xil_types.h</label>
+      </node>
+      <node id="165">
+        <label>xdp_tx_example_common.h</label>
+        <link refid="xdp__tx__example__common_8h"/>
+        <childnode refid="166" relation="include">
+        </childnode>
+        <childnode refid="174" relation="include">
+        </childnode>
+        <childnode refid="167" relation="include">
+        </childnode>
+      </node>
+      <node id="167">
+        <label>xparameters.h</label>
+      </node>
+      <node id="166">
+        <label>xdp.h</label>
+        <link refid="xdp_8h"/>
+        <childnode refid="167" relation="include">
+        </childnode>
+        <childnode refid="168" relation="include">
+        </childnode>
+        <childnode refid="169" relation="include">
+        </childnode>
+        <childnode refid="170" relation="include">
+        </childnode>
+        <childnode refid="172" relation="include">
+        </childnode>
+        <childnode refid="173" relation="include">
+        </childnode>
+      </node>
+      <node id="174">
+        <label>xil_printf.h</label>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xdp__tx__audio__example_8c_1aed37a94e3e46be308096977d47387cd9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 Dptx_AudioExample</definition>
+        <argsstring>(XDp *InstancePtr, u16 DeviceId)</argsstring>
+        <name>Dptx_AudioExample</name>
+        <param>
+          <type><ref refid="struct_x_dp" kindref="compound">XDp</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u16</type>
+          <declname>DeviceId</declname>
+        </param>
+        <briefdescription>
+<para>The main entry point for the audio example using the <ref refid="struct_x_dp" kindref="compound">XDp</ref> driver. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function will set up audio, initiate link training, and a video stream will start being sent over the main link.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dp" kindref="compound">XDp</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DeviceId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the unique device ID of the DisplayPort TX core instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if the system was set up correctly and link training was successful.</para></listitem><listitem><para>XST_FAILURE otherwise.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14/examples/xdp_tx_audio_example.c" line="58" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14/examples/xdp_tx_audio_example.c" bodystart="111" bodyend="143"/>
+        <references refid="xdp__tx__example__common_8c_1aa048b03b5dc7408a4dd444f631eb6f30" compoundref="xdp__tx__example__common_8c" startline="65" endline="81">Dptx_Run</references>
+        <references refid="xdp__tx__example__common_8c_1a7890171f707168d57a1ee86a34eede68" compoundref="xdp__tx__example__common_8c" startline="101" endline="122">Dptx_SetupExample</references>
+        <referencedby refid="xdp__tx__audio__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xdp__tx__audio__example_8c" startline="78" endline="91">main</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xdp__tx__audio__example_8c_1aa3f6d2720895842621f3ee4cfe5092d8" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void Dptx_AudioInit</definition>
+        <argsstring>(XDp *InstancePtr)</argsstring>
+        <name>Dptx_AudioInit</name>
+        <param>
+          <type><ref refid="struct_x_dp" kindref="compound">XDp</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function will set up audio in the DisplayPort TX. </para>        </briefdescription>
+        <detaileddescription>
+<para>The user will need to implement configuration of the audio stream and, if needed, sending of the info frame.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dp" kindref="compound">XDp</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>The user needs to implement the Dptx_ConfigureAudioSrc and the Dptx_AudioSendInfoFrame functions to fulfill audio initialization. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14/examples/xdp_tx_audio_example.c" line="59" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14/examples/xdp_tx_audio_example.c" bodystart="160" bodyend="211"/>
+      </memberdef>
+      <memberdef kind="function" id="xdp__tx__audio__example_8c_1afa7dc5e0d3a1284516bafa770cd21bde" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void Dptx_ConfigureAudioSrc</definition>
+        <argsstring>(XDp *InstancePtr)</argsstring>
+        <name>Dptx_ConfigureAudioSrc</name>
+        <param>
+          <type><ref refid="struct_x_dp" kindref="compound">XDp</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function needs to configure the audio source. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dp" kindref="compound">XDp</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>The user needs to implement this. See XAPP1178 and the IP documentation for reference. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14/examples/xdp_tx_audio_example.c" line="60" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14/examples/xdp_tx_audio_example.c" bodystart="225" bodyend="228"/>
+      </memberdef>
+      <memberdef kind="function" id="xdp__tx__audio__example_8c_1aaa3564fefd13b2d6276f32a905b8f4a5" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void Dptx_AudioSendInfoFrame</definition>
+        <argsstring>(XDp *InstancePtr)</argsstring>
+        <name>Dptx_AudioSendInfoFrame</name>
+        <param>
+          <type><ref refid="struct_x_dp" kindref="compound">XDp</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function needs to send an info frame as per user requirements. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dp" kindref="compound">XDp</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>The user needs to implement this. See XAPP1178 and the IP documentation for reference. </para><simplesectsep/><para>This may be optional for some systems. </para><simplesectsep/><para>A sequence of 8 writes are required to register XDP_TX_AUDIO_INFO_DATA. See XAPP1178 and the IP documentation for reference. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14/examples/xdp_tx_audio_example.c" line="61" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14/examples/xdp_tx_audio_example.c" bodystart="246" bodyend="249"/>
+      </memberdef>
+      <memberdef kind="function" id="xdp__tx__audio__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int main</definition>
+        <argsstring>(void)</argsstring>
+        <name>main</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function is the main function of the <ref refid="struct_x_dp" kindref="compound">XDp</ref> audio example. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>None.</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if the audio example finished successfully.</para></listitem><listitem><para>XST_FAILURE otherwise.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14/examples/xdp_tx_audio_example.c" line="78" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14/examples/xdp_tx_audio_example.c" bodystart="78" bodyend="91"/>
+        <references refid="xdp__tx__audio__example_8c_1aed37a94e3e46be308096977d47387cd9" compoundref="xdp__tx__audio__example_8c" startline="111" endline="143">Dptx_AudioExample</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Contains a design example using the <ref refid="struct_x_dp" kindref="compound">XDp</ref> driver (operating in TX mode) to train the main link and to display video. </para>    </briefdescription>
+    <detaileddescription>
+<para>In this example application, the sequence to enable audio is illustrated.</para><para><simplesect kind="note"><para>This example requires an audio source such as an S/PDIF instance to be part of the hardware system. See XAPP1178 for reference. </para><simplesectsep/><para>This example requires that the audio enable configuration parameter for DisplayPort be turned on when creating the hardware design. </para><simplesectsep/><para>For this example to output audio, the user will need to implement initialization of the system (Dptx_PlatformInit), configuration of the audio source (Dptx_ConfigureAudioSrc) and, depending on the hardware system, will need to implement sending of an info frame (Dptx_AudioSendInfoFrame). See XAPP1178 and the IP documentation for reference. </para><simplesectsep/><para>For this example to display output, after training is complete, the user will need to implement configuration of the video stream source in order to provide the DisplayPort core with input (Dptx_StreamSrc* - called in <ref refid="xdp__tx__example__common_8c" kindref="compound">xdp_tx_example_common.c</ref>). See XAPP1178 for reference. </para><simplesectsep/><para>The functions Dptx_PlatformInit and Dptx_StreamSrc* are declared extern in <ref refid="xdp__tx__example__common_8h" kindref="compound">xdp_tx_example_common.h</ref> and are left up to the user to implement. The functions Dptx_ConfigureAudioSrc and Dptx_AudioSendInfoFrame are present in this file and are also left for the user to implement.</para></simplesect>
+<preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+1.0   als  01/20/15 Initial creation.
+5.1   ms   01/23/17 Added xil_printf statement in main function to
+                    ensure that &quot;Successfully ran&quot; and &quot;Failed&quot; strings
+                    are available in all examples. This is a fix for
+                    CR-965028.
+</preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/*******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2014<sp/>-<sp/>2020<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="51"><highlight class="comment">/*******************************<sp/>Include<sp/>Files<sp/>********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xdp__tx__example__common_8h" kindref="compound">xdp_tx_example_common.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_printf.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Function<sp/>Prototypes<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal">u32<sp/><ref refid="xdp__tx__audio__example_8c_1aed37a94e3e46be308096977d47387cd9" kindref="member">Dptx_AudioExample</ref>(<ref refid="struct_x_dp" kindref="compound">XDp</ref><sp/>*InstancePtr,<sp/>u16<sp/>DeviceId);</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>Dptx_AudioInit(<ref refid="struct_x_dp" kindref="compound">XDp</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>Dptx_ConfigureAudioSrc(<ref refid="struct_x_dp" kindref="compound">XDp</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>Dptx_AudioSendInfoFrame(<ref refid="struct_x_dp" kindref="compound">XDp</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Function<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="78" refid="xdp__tx__audio__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xdp__rx__mst__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" kindref="member">main</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="79"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Status;</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"></highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Run<sp/>the<sp/>XDp<sp/>audio<sp/>example.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="xdp__tx__audio__example_8c_1aed37a94e3e46be308096977d47387cd9" kindref="member">Dptx_AudioExample</ref>(&amp;DpInstance,<sp/>DPTX_DEVICE_ID);</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;dp_tx_audio<sp/>Example<sp/>Failed\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"></highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Successfully<sp/>ran<sp/>dp_tx_audio<sp/>Example\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="91"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"></highlight></codeline>
+<codeline lineno="93"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="111" refid="xdp__tx__audio__example_8c_1aed37a94e3e46be308096977d47387cd9" refkind="member"><highlight class="normal">u32<sp/><ref refid="xdp__tx__audio__example_8c_1aed37a94e3e46be308096977d47387cd9" kindref="member">Dptx_AudioExample</ref>(<ref refid="struct_x_dp" kindref="compound">XDp</ref><sp/>*InstancePtr,<sp/>u16<sp/>DeviceId)</highlight></codeline>
+<codeline lineno="112"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Status;</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"></highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Use<sp/>single-stream<sp/>transport<sp/>(SST)<sp/>mode<sp/>for<sp/>this<sp/>example.<sp/>Audio<sp/>is</highlight></codeline>
+<codeline lineno="116"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>not<sp/>supported<sp/>in<sp/>multi-stream<sp/>transport<sp/>(MST)<sp/>mode.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDp_TxMstCfgModeDisable(InstancePtr);</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"></highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Do<sp/>platform<sp/>initialization<sp/>here.<sp/>This<sp/>is<sp/>hardware<sp/>system<sp/>specific<sp/>-</highlight></codeline>
+<codeline lineno="120"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>it<sp/>is<sp/>up<sp/>to<sp/>the<sp/>user<sp/>to<sp/>implement<sp/>this<sp/>function.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Dptx_PlatformInit();</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*******************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="123"><highlight class="normal"></highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="xdp__tx__example__common_8c_1a7890171f707168d57a1ee86a34eede68" kindref="member">Dptx_SetupExample</ref>(InstancePtr,<sp/>DeviceId);</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"></highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Initialize<sp/>DisplayPort<sp/>audio.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Dptx_AudioInit(InstancePtr);</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"></highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDp_TxEnableTrainAdaptive(InstancePtr,<sp/>TRAIN_ADAPTIVE);</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDp_TxSetHasRedriverInPath(InstancePtr,<sp/>TRAIN_HAS_REDRIVER);</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"></highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>A<sp/>sink<sp/>monitor<sp/>must<sp/>be<sp/>connected<sp/>at<sp/>this<sp/>point.<sp/>See<sp/>the<sp/>polling<sp/>or</highlight></codeline>
+<codeline lineno="136"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>interrupt<sp/>examples<sp/>for<sp/>how<sp/>to<sp/>wait<sp/>for<sp/>a<sp/>connection<sp/>event.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="xdp__tx__example__common_8c_1aa048b03b5dc7408a4dd444f631eb6f30" kindref="member">Dptx_Run</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"></highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="143"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"></highlight></codeline>
+<codeline lineno="145"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="160"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>Dptx_AudioInit(<ref refid="struct_x_dp" kindref="compound">XDp</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="161"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Fs;</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>MAud;</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>NAud;</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>NumChs;</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"></highlight></codeline>
+<codeline lineno="167"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Disable<sp/>audio<sp/>in<sp/>the<sp/>DisplayPort<sp/>TX.<sp/>This<sp/>will<sp/>also<sp/>flush<sp/>the<sp/>buffers</highlight></codeline>
+<codeline lineno="168"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>in<sp/>the<sp/>DisplayPort<sp/>TX<sp/>and<sp/>set<sp/>MUTE<sp/>bit<sp/>in<sp/>VB-ID.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dp_1ga37923d04a0f4bff0d0e3a392d226b83e" kindref="member">XDp_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_dp_1aa45ebd510e1e83bc9ebdcd1178b33290" kindref="member">Config</ref>.<ref refid="struct_x_dp___config_1a26db9b137de6560d3b2690f0d4acaed0" kindref="member">BaseAddr</ref>,<sp/>XDP_TX_AUDIO_CONTROL,<sp/>0x0);</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"></highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Configure<sp/>the<sp/>audio<sp/>source<sp/>(the<sp/>S/PDIF<sp/>controller).<sp/>It<sp/>is<sp/>up<sp/>to<sp/>the</highlight></codeline>
+<codeline lineno="172"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>user<sp/>to<sp/>implement<sp/>this<sp/>function.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Dptx_ConfigureAudioSrc(InstancePtr);</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*******************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="175"><highlight class="normal"></highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Write<sp/>audio<sp/>info<sp/>frame<sp/>as<sp/>per<sp/>user<sp/>requirements.<sp/>This<sp/>may<sp/>be<sp/>optional</highlight></codeline>
+<codeline lineno="177"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>for<sp/>some<sp/>systems.<sp/>8<sp/>writes<sp/>are<sp/>required<sp/>to<sp/>register</highlight></codeline>
+<codeline lineno="178"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>XDP_TX_AUDIO_INFO_DATA.<sp/>It<sp/>is<sp/>up<sp/>to<sp/>the<sp/>user<sp/>to<sp/>implement<sp/>this</highlight></codeline>
+<codeline lineno="179"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>function.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Dptx_AudioSendInfoFrame(InstancePtr);</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*******************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="182"><highlight class="normal"></highlight></codeline>
+<codeline lineno="183"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Fs<sp/>=<sp/>48;<sp/></highlight><highlight class="comment">/*<sp/>KHz<sp/>(32<sp/>|<sp/>44.1<sp/>|<sp/>48)<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="184"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;TxInstance.<ref refid="struct_x_dp___tx_1ae63e057dfdae91215b4361fe98e0600d" kindref="member">LinkConfig</ref>.<ref refid="struct_x_dp___tx_link_config_1ad18e2c135b9a5e26d39d7322d5a0d575" kindref="member">LinkRate</ref><sp/>==</highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDP_TX_LINK_BW_SET_540GBPS)<sp/>{</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MAud<sp/>=<sp/>512<sp/>*<sp/>Fs;</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="188"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;TxInstance.<ref refid="struct_x_dp___tx_1ae63e057dfdae91215b4361fe98e0600d" kindref="member">LinkConfig</ref>.<ref refid="struct_x_dp___tx_link_config_1ad18e2c135b9a5e26d39d7322d5a0d575" kindref="member">LinkRate</ref><sp/>==</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDP_TX_LINK_BW_SET_270GBPS)<sp/>{</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MAud<sp/>=<sp/>512<sp/>*<sp/>Fs;</highlight></codeline>
+<codeline lineno="191"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="192"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;TxInstance.<ref refid="struct_x_dp___tx_1ae63e057dfdae91215b4361fe98e0600d" kindref="member">LinkConfig</ref>.<ref refid="struct_x_dp___tx_link_config_1ad18e2c135b9a5e26d39d7322d5a0d575" kindref="member">LinkRate</ref><sp/>==</highlight></codeline>
+<codeline lineno="193"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDP_TX_LINK_BW_SET_162GBPS)<sp/>{</highlight></codeline>
+<codeline lineno="194"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MAud<sp/>=<sp/>512<sp/>*<sp/>Fs;</highlight></codeline>
+<codeline lineno="195"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="196"><highlight class="normal"></highlight></codeline>
+<codeline lineno="197"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Write<sp/>the<sp/>channel<sp/>count.<sp/>The<sp/>value<sp/>is<sp/>(actual<sp/>count<sp/>-<sp/>1).<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="198"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>NumChs<sp/>=<sp/>2;</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dp_1ga37923d04a0f4bff0d0e3a392d226b83e" kindref="member">XDp_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_dp_1aa45ebd510e1e83bc9ebdcd1178b33290" kindref="member">Config</ref>.<ref refid="struct_x_dp___config_1a26db9b137de6560d3b2690f0d4acaed0" kindref="member">BaseAddr</ref>,<sp/>XDP_TX_AUDIO_CHANNELS,</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>NumChs<sp/>-<sp/>1);</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"></highlight></codeline>
+<codeline lineno="202"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>NAud<sp/>=<sp/>540000<sp/>|<sp/>270000<sp/>|<sp/>162000<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>NAud<sp/>=<sp/>27<sp/>*<sp/>InstancePtr-&gt;TxInstance.<ref refid="struct_x_dp___tx_1ae63e057dfdae91215b4361fe98e0600d" kindref="member">LinkConfig</ref>.<ref refid="struct_x_dp___tx_link_config_1ad18e2c135b9a5e26d39d7322d5a0d575" kindref="member">LinkRate</ref><sp/>*<sp/>1000;</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"></highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dp_1ga37923d04a0f4bff0d0e3a392d226b83e" kindref="member">XDp_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_dp_1aa45ebd510e1e83bc9ebdcd1178b33290" kindref="member">Config</ref>.<ref refid="struct_x_dp___config_1a26db9b137de6560d3b2690f0d4acaed0" kindref="member">BaseAddr</ref>,<sp/>XDP_TX_AUDIO_MAUD,<sp/>MAud);</highlight></codeline>
+<codeline lineno="206"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dp_1ga37923d04a0f4bff0d0e3a392d226b83e" kindref="member">XDp_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_dp_1aa45ebd510e1e83bc9ebdcd1178b33290" kindref="member">Config</ref>.<ref refid="struct_x_dp___config_1a26db9b137de6560d3b2690f0d4acaed0" kindref="member">BaseAddr</ref>,<sp/>XDP_TX_AUDIO_NAUD,<sp/>NAud);</highlight></codeline>
+<codeline lineno="207"><highlight class="normal"></highlight></codeline>
+<codeline lineno="208"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Enable<sp/>audio<sp/>in<sp/>the<sp/>DisplayPort<sp/>TX.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="209"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dp_1ga37923d04a0f4bff0d0e3a392d226b83e" kindref="member">XDp_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_dp_1aa45ebd510e1e83bc9ebdcd1178b33290" kindref="member">Config</ref>.<ref refid="struct_x_dp___config_1a26db9b137de6560d3b2690f0d4acaed0" kindref="member">BaseAddr</ref>,<sp/>XDP_TX_AUDIO_CONTROL,</highlight></codeline>
+<codeline lineno="210"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x1);</highlight></codeline>
+<codeline lineno="211"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="212"><highlight class="normal"></highlight></codeline>
+<codeline lineno="213"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="225"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>Dptx_ConfigureAudioSrc(<ref refid="struct_x_dp" kindref="compound">XDp</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="226"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="227"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Dptx_ConfigureAudioSrc:<sp/>User<sp/>defined<sp/>function<sp/>here.\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="228"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="229"><highlight class="normal"></highlight></codeline>
+<codeline lineno="230"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="246"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>Dptx_AudioSendInfoFrame(<ref refid="struct_x_dp" kindref="compound">XDp</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="247"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="248"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Dptx_AudioSendInfoFrame:<sp/>User<sp/>defined<sp/>function<sp/>here.\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="249"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14/examples/xdp_tx_audio_example.c"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="example" kind="page">
+    <compoundname>example</compoundname>
+    <title>Examples</title>
+    <detaileddescription>
+<para>You can refer to the below stated example applications for more details on how to use zdma driver.</para><sect1 id="example_1ex1">
+<title>xzdma_selftest_example.c</title>
+<para>Contains an example on how to use the XZdma driver directly. This example performs the basic selftest using the driver on the device.</para><para>For details, see <ref refid="xzdma__selftest__example_8c" kindref="compound">xzdma_selftest_example.c</ref>.</para></sect1>
+<sect1 id="example_1ex2">
+<title>xzdma_linear_example.c</title>
+<para>Contains an example on how to use the XZdma driver directly. This example shows the usage of the driver to do data transfer in linear mode on the device.</para><para>For details, see <ref refid="xzdma__linear__example_8c" kindref="compound">xzdma_linear_example.c</ref>.</para></sect1>
+<sect1 id="example_1ex3">
+<title>xzdma_linkedlist_example.c</title>
+<para>Contains an example on how to use the XZdma driver directly. This example shows the usage of the driver to do data transfer in linked mode on the device.</para><para>For details, see <ref refid="xzdma__linkedlist__example_8c" kindref="compound">xzdma_linkedlist_example.c</ref>.</para></sect1>
+<sect1 id="example_1ex4">
+<title>xzdma_readonlymode_example.c</title>
+<para>Contains an example on how to use the XZdma driver directly. This example shows the usage of the driver to do simple data read on the device.</para><para>For details, see <ref refid="xzdma__readonlymode__example_8c" kindref="compound">xzdma_readonlymode_example.c</ref>.</para></sect1>
+<sect1 id="example_1ex5">
+<title>xzdma_simple_example.c</title>
+<para>Contains an example on how to use the XZdma driver directly. This example shows the usage of the driver to do simple data transfer in normal mode on device for 1MB data transfer.</para><para>For details, see <ref refid="xzdma__simple__example_8c" kindref="compound">xzdma_simple_example.c</ref>.</para></sect1>
+<sect1 id="example_1ex6">
+<title>xzdma_writeonlymode_example.c</title>
+<para>Contains an example on how to use the XZdma driver directly. This example shows the usage of the driver to do simple data transfer in Write only mode on the device. In this mode data will be predefined and will be repetitively written into the given address and for given size. For ADMA only 2 words are repeated and for GDMA 4 words are repeated.</para><para>For details, see <ref refid="xzdma__writeonlymode__example_8c" kindref="compound">xzdma_writeonlymode_example.c</ref>. </para></sect1>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

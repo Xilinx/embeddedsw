@@ -1,0 +1,121 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_hdcp22___rx___topology" kind="struct" prot="public">
+    <compoundname>XHdcp22_Rx_Topology</compoundname>
+    <includes local="no">xhdcp22_rx.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_hdcp22___rx___topology_1a2c823e37751cbbcb87fa83859e9a7919" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHdcp22_Rx_Topology::ReceiverIdList[31][5]</definition>
+        <argsstring>[31][5]</argsstring>
+        <name>ReceiverIdList</name>
+        <briefdescription>
+<para>Receiver ID list of all downstream devices. </para>        </briefdescription>
+        <detaileddescription>
+<para>The list consists of a contiguous set of bytes stored in big-endian order, with each Receiver ID occuping five bytes and a total of 31 Receiver IDs. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" line="502" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" bodystart="502" bodyend="-1"/>
+        <referencedby refid="group__hdcp22__rx_1ga7df1401bd1badc409de8f2bd17ffb7e5" compoundref="xhdcp22__rx_8c" startline="1069" endline="1077">XHdcp22Rx_SetTopologyReceiverIdList</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___rx___topology_1a5d28cabd9a3b07bf16eeaf79d7a3c159" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHdcp22_Rx_Topology::Depth</definition>
+        <argsstring></argsstring>
+        <name>Depth</name>
+        <briefdescription>
+<para>Repeater cascade depth. </para>        </briefdescription>
+        <detaileddescription>
+<para>This value gives the number of attached levels through the connection topology with maximum depth of 4. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" line="505" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" bodystart="505" bodyend="-1"/>
+        <referencedby refid="group__hdcp22__rx_1gabb056cbd10d25e0847745836c7c5922c" compoundref="xhdcp22__rx_8c" startline="4151" endline="4208">XHdcp22Rx_Info</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___rx___topology_1a80642d0d3b59b8c6ce5b78a45f6294c6" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHdcp22_Rx_Topology::DeviceCnt</definition>
+        <argsstring></argsstring>
+        <name>DeviceCnt</name>
+        <briefdescription>
+<para>Total number of connected downstream devices. </para>        </briefdescription>
+        <detaileddescription>
+<para>Always zero for HDCP Receivers. This count does not include the HDCP Repeater itself, but only devices downstream from the HDCP Repeater. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" line="509" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" bodystart="509" bodyend="-1"/>
+        <referencedby refid="group__hdcp22__rx_1gabb056cbd10d25e0847745836c7c5922c" compoundref="xhdcp22__rx_8c" startline="4151" endline="4208">XHdcp22Rx_Info</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___rx___topology_1a1bed9f99b22ff9eb398ee87b4fcde0a0" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHdcp22_Rx_Topology::MaxDevsExceeded</definition>
+        <argsstring></argsstring>
+        <name>MaxDevsExceeded</name>
+        <briefdescription>
+<para>Flag used to indicate topology error. </para>        </briefdescription>
+        <detaileddescription>
+<para>When set to one, more than 31 downstream devices are attached. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" line="512" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" bodystart="512" bodyend="-1"/>
+        <referencedby refid="group__hdcp22__rx_1gabb056cbd10d25e0847745836c7c5922c" compoundref="xhdcp22__rx_8c" startline="4151" endline="4208">XHdcp22Rx_Info</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___rx___topology_1a3eb444c758c2fcd1cad1694ef4f2f9b3" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHdcp22_Rx_Topology::MaxCascadeExceeded</definition>
+        <argsstring></argsstring>
+        <name>MaxCascadeExceeded</name>
+        <briefdescription>
+<para>Flag used to indicate topology error. </para>        </briefdescription>
+        <detaileddescription>
+<para>When set to one, more than four levels of repeaters have been casaded together. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" line="515" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" bodystart="515" bodyend="-1"/>
+        <referencedby refid="group__hdcp22__rx_1gabb056cbd10d25e0847745836c7c5922c" compoundref="xhdcp22__rx_8c" startline="4151" endline="4208">XHdcp22Rx_Info</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___rx___topology_1a026059e678ab61f84387822e9a46444d" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHdcp22_Rx_Topology::Hdcp2LegacyDeviceDownstream</definition>
+        <argsstring></argsstring>
+        <name>Hdcp2LegacyDeviceDownstream</name>
+        <briefdescription>
+<para>Flag used to indicate topology information. </para>        </briefdescription>
+        <detaileddescription>
+<para>When set to one, indicates presence of an HDCP2.1-compliant Device in the topology. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" line="518" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" bodystart="518" bodyend="-1"/>
+        <referencedby refid="group__hdcp22__rx_1gabb056cbd10d25e0847745836c7c5922c" compoundref="xhdcp22__rx_8c" startline="4151" endline="4208">XHdcp22Rx_Info</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___rx___topology_1afc3f7dd753363cfe23a0635e27cbaf6a" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHdcp22_Rx_Topology::Hdcp1DeviceDownstream</definition>
+        <argsstring></argsstring>
+        <name>Hdcp1DeviceDownstream</name>
+        <briefdescription>
+<para>Flag used to indicate topology information. </para>        </briefdescription>
+        <detaileddescription>
+<para>When set to one, indicates presence of an HDCP1.x-compliant device in the topology. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" line="521" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" bodystart="521" bodyend="-1"/>
+        <referencedby refid="group__hdcp22__rx_1gabb056cbd10d25e0847745836c7c5922c" compoundref="xhdcp22__rx_8c" startline="4151" endline="4208">XHdcp22Rx_Info</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef is the repeater topology table used to communicate topology information to the receiver upstream interface. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" line="498" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" bodystart="497" bodyend="522"/>
+    <listofallmembers>
+      <member refid="struct_x_hdcp22___rx___topology_1a5d28cabd9a3b07bf16eeaf79d7a3c159" prot="public" virt="non-virtual"><scope>XHdcp22_Rx_Topology</scope><name>Depth</name></member>
+      <member refid="struct_x_hdcp22___rx___topology_1a80642d0d3b59b8c6ce5b78a45f6294c6" prot="public" virt="non-virtual"><scope>XHdcp22_Rx_Topology</scope><name>DeviceCnt</name></member>
+      <member refid="struct_x_hdcp22___rx___topology_1afc3f7dd753363cfe23a0635e27cbaf6a" prot="public" virt="non-virtual"><scope>XHdcp22_Rx_Topology</scope><name>Hdcp1DeviceDownstream</name></member>
+      <member refid="struct_x_hdcp22___rx___topology_1a026059e678ab61f84387822e9a46444d" prot="public" virt="non-virtual"><scope>XHdcp22_Rx_Topology</scope><name>Hdcp2LegacyDeviceDownstream</name></member>
+      <member refid="struct_x_hdcp22___rx___topology_1a3eb444c758c2fcd1cad1694ef4f2f9b3" prot="public" virt="non-virtual"><scope>XHdcp22_Rx_Topology</scope><name>MaxCascadeExceeded</name></member>
+      <member refid="struct_x_hdcp22___rx___topology_1a1bed9f99b22ff9eb398ee87b4fcde0a0" prot="public" virt="non-virtual"><scope>XHdcp22_Rx_Topology</scope><name>MaxDevsExceeded</name></member>
+      <member refid="struct_x_hdcp22___rx___topology_1a2c823e37751cbbcb87fa83859e9a7919" prot="public" virt="non-virtual"><scope>XHdcp22_Rx_Topology</scope><name>ReceiverIdList</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,431 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_hdcp22___rx___dp___info" kind="struct" prot="public">
+    <compoundname>XHdcp22_Rx_Dp_Info</compoundname>
+    <includes local="no">xhdcp22_rx_dp.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_hdcp22___rx___dp___info_1a00cc035f62a63241185eadfa9a876716" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHdcp22_Rx_Dp_Info::IsEnabled</definition>
+        <argsstring></argsstring>
+        <name>IsEnabled</name>
+        <briefdescription>
+<para>Flag indicates that device is enabled. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" line="542" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" bodystart="542" bodyend="-1"/>
+        <referencedby refid="group__hdcp22__rx__dp_1gade583ecee68e32b3cab9268b9c2af4b8" compoundref="xhdcp22__rx__dp_8c" startline="144" endline="290">XHdcp22Rx_Dp_CfgInitialize</referencedby>
+        <referencedby refid="group__hdcp22__rx__dp_1gabf66a78585a61c03bcd366052aed7835" compoundref="xhdcp22__rx__dp_8c" startline="431" endline="452">XHdcp22Rx_Dp_Disable</referencedby>
+        <referencedby refid="group__hdcp22__rx__dp_1ga6281e6d2c45c5ea258f8e09aad6aecaf" compoundref="xhdcp22__rx__dp_8c" startline="384" endline="414">XHdcp22Rx_Dp_Enable</referencedby>
+        <referencedby refid="group__hdcp22__rx__dp_1gadc1fa1d393957761d06ae9a85d6aa81f" compoundref="xhdcp22__rx__dp_8c" startline="732" endline="738">XHdcp22Rx_Dp_IsEnabled</referencedby>
+        <referencedby refid="group__hdcp22__rx__dp_1ga41c0e98253aa0ee2208fb0c14454d607" compoundref="xhdcp22__rx__dp_8c" startline="706" endline="720">XHdcp22Rx_Dp_Poll</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___rx___dp___info_1a0ff601bb44611870f8cb0877dd3e6e4b" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHdcp22_Rx_Dp_Info::IsNoStoredKm</definition>
+        <argsstring></argsstring>
+        <name>IsNoStoredKm</name>
+        <briefdescription>
+<para>Flag indicates that AKE_No_Stored_Km message was received. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" line="544" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" bodystart="544" bodyend="-1"/>
+        <referencedby refid="group__hdcp22__rx__dp_1gade583ecee68e32b3cab9268b9c2af4b8" compoundref="xhdcp22__rx__dp_8c" startline="144" endline="290">XHdcp22Rx_Dp_CfgInitialize</referencedby>
+        <referencedby refid="group__hdcp22__rx__dp_1ga341246c3ed3de24390cc4ac4f748944d" compoundref="xhdcp22__rx__dp_8c" startline="306" endline="369">XHdcp22Rx_Dp_Reset</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___rx___dp___info_1ab8eab82759b1289f3fcfae992fb1832b" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XHdcp22_Rx_Dp_Info::LCInitAttempts</definition>
+        <argsstring></argsstring>
+        <name>LCInitAttempts</name>
+        <briefdescription>
+<para>Number of LC_Init attempts. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" line="546" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" bodystart="546" bodyend="-1"/>
+        <referencedby refid="group__hdcp22__rx__dp_1gade583ecee68e32b3cab9268b9c2af4b8" compoundref="xhdcp22__rx__dp_8c" startline="144" endline="290">XHdcp22Rx_Dp_CfgInitialize</referencedby>
+        <referencedby refid="group__hdcp22__rx__dp_1ga341246c3ed3de24390cc4ac4f748944d" compoundref="xhdcp22__rx__dp_8c" startline="306" endline="369">XHdcp22Rx_Dp_Reset</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___rx___dp___info_1a5e9412e9c00f84713f1e4ffec247488f" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHdcp22_Rx_Dp_Info::ReauthReq</definition>
+        <argsstring></argsstring>
+        <name>ReauthReq</name>
+        <briefdescription>
+<para>Reauthentication request flag. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" line="548" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" bodystart="548" bodyend="-1"/>
+        <referencedby refid="group__hdcp22__rx__dp_1gade583ecee68e32b3cab9268b9c2af4b8" compoundref="xhdcp22__rx__dp_8c" startline="144" endline="290">XHdcp22Rx_Dp_CfgInitialize</referencedby>
+        <referencedby refid="group__hdcp22__rx__dp_1ga341246c3ed3de24390cc4ac4f748944d" compoundref="xhdcp22__rx__dp_8c" startline="306" endline="369">XHdcp22Rx_Dp_Reset</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___rx___dp___info_1adfcd90c041cdecac29d3705113ef5644" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHdcp22_Rx_Dp_Info::TopologyReady</definition>
+        <argsstring></argsstring>
+        <name>TopologyReady</name>
+        <briefdescription>
+<para>Topology ready flag. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" line="550" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" bodystart="550" bodyend="-1"/>
+        <referencedby refid="group__hdcp22__rx__dp_1gade583ecee68e32b3cab9268b9c2af4b8" compoundref="xhdcp22__rx__dp_8c" startline="144" endline="290">XHdcp22Rx_Dp_CfgInitialize</referencedby>
+        <referencedby refid="group__hdcp22__rx__dp_1ga341246c3ed3de24390cc4ac4f748944d" compoundref="xhdcp22__rx__dp_8c" startline="306" endline="369">XHdcp22Rx_Dp_Reset</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___rx___dp___info_1af748b9ac20ae522fc96fe67d2b08c8c2" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XHdcp22_Rx_Dp_Info::ErrorFlag</definition>
+        <argsstring></argsstring>
+        <name>ErrorFlag</name>
+        <briefdescription>
+<para>Flag to capture error events that require service. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" line="552" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" bodystart="552" bodyend="-1"/>
+        <referencedby refid="group__hdcp22__rx__dp_1gade583ecee68e32b3cab9268b9c2af4b8" compoundref="xhdcp22__rx__dp_8c" startline="144" endline="290">XHdcp22Rx_Dp_CfgInitialize</referencedby>
+        <referencedby refid="group__hdcp22__rx__dp_1ga341246c3ed3de24390cc4ac4f748944d" compoundref="xhdcp22__rx__dp_8c" startline="306" endline="369">XHdcp22Rx_Dp_Reset</referencedby>
+        <referencedby refid="group__hdcp22__rx__dp_1gaa2accd8e4aa0947ae31ec3b382a3a9b8" compoundref="xhdcp22__rx__dp_8c" startline="900" endline="913">XHdcp22Rx_Dp_SetDdcError</referencedby>
+        <referencedby refid="group__hdcp22__rx__dp_1gab6853f67f87ebf354e25cab9e3b365f6" compoundref="xhdcp22__rx__dp_8c" startline="874" endline="887">XHdcp22Rx_Dp_SetLinkError</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___rx___dp___info_1a704b81af9e4166dbd47558d717e3b770" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XHdcp22_Rx_Dp_Info::ErrorFlagSticky</definition>
+        <argsstring></argsstring>
+        <name>ErrorFlagSticky</name>
+        <briefdescription>
+<para>Flag to capture all error conditions persistently. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" line="554" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" bodystart="554" bodyend="-1"/>
+        <referencedby refid="group__hdcp22__rx__dp_1gade583ecee68e32b3cab9268b9c2af4b8" compoundref="xhdcp22__rx__dp_8c" startline="144" endline="290">XHdcp22Rx_Dp_CfgInitialize</referencedby>
+        <referencedby refid="group__hdcp22__rx__dp_1ga7b5da6a3907b1b3dbc50499930625074" compoundref="xhdcp22__rx__dp_8c" startline="810" endline="815">XHdcp22Rx_Dp_IsError</referencedby>
+        <referencedby refid="group__hdcp22__rx__dp_1gad969258e9486422f8021d31d51b3cc96" compoundref="xhdcp22__rx__dp_8c" startline="3982" endline="4027">XHdcp22Rx_Dp_LogWr</referencedby>
+        <referencedby refid="group__hdcp22__rx__dp_1ga341246c3ed3de24390cc4ac4f748944d" compoundref="xhdcp22__rx__dp_8c" startline="306" endline="369">XHdcp22Rx_Dp_Reset</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___rx___dp___info_1a3ce2666dafc54fb170ab6cfa35b7363f" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XHdcp22_Rx_Dp_Info::DdcFlag</definition>
+        <argsstring></argsstring>
+        <name>DdcFlag</name>
+        <briefdescription>
+<para>Flag to capture DDC events. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" line="556" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" bodystart="556" bodyend="-1"/>
+        <referencedby refid="group__hdcp22__rx__dp_1ga7efa2f7ea9385423cc6fe744209caa02" compoundref="xhdcp22__rx__dp_8c" startline="946" endline="956">XHdcp22Rx_Dp_SetReadMessageComplete</referencedby>
+        <referencedby refid="group__hdcp22__rx__dp_1gaeee2a3168ed27bf6899ed209bd9bf4b5" compoundref="xhdcp22__rx__dp_8c" startline="924" endline="934">XHdcp22Rx_Dp_SetWriteMessageAvailable</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___rx___dp___info_1a4903cd6f663c8b240ecd4eb9fced5150" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XHdcp22_Rx_Dp_Info::DpcdFlag</definition>
+        <argsstring></argsstring>
+        <name>DpcdFlag</name>
+        <briefdescription>
+<para>Flag to capture DPCD events. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" line="558" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" bodystart="558" bodyend="-1"/>
+        <referencedby refid="group__hdcp22__rx__dp_1gaa89b9df4c6100842c24712383668a0b3" compoundref="xhdcp22__rx__dp_8c" startline="4722" endline="4736">XHdcp22Rx_Dp_SetDpcdMsgRdWrtAvailable</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___rx___dp___info_1a62fdb4dc15f6e0cd0b885efe1aea01da" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHdcp22_Rx_Dp_Info::TimerExpired</definition>
+        <argsstring></argsstring>
+        <name>TimerExpired</name>
+        <briefdescription>
+<para>Expiration flag set when the hardware timer has interrupted. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" line="560" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" bodystart="560" bodyend="-1"/>
+        <referencedby refid="group__hdcp22__rx__dp_1ga3061cdb91ae0ec8d56ba58bcaaa3d5cf" compoundref="xhdcp22__rx__dp_8c" startline="1331" endline="1348">XHdcp22Rx_Dp_TimerHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___rx___dp___info_1a6acda9a1357a3909d481eabc53415d92" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHdcp22_Rx_Dp_Info::TimerReasonId</definition>
+        <argsstring></argsstring>
+        <name>TimerReasonId</name>
+        <briefdescription>
+<para>Keep track of why the timer was started (message or status checking). </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" line="562" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" bodystart="562" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___rx___dp___info_1af038123494eae5104f2e1b229f0d3f64" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XHdcp22_Rx_Dp_Info::TimerInitialTicks</definition>
+        <argsstring></argsstring>
+        <name>TimerInitialTicks</name>
+        <briefdescription>
+<para>Keep track of the start value of the timer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" line="564" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" bodystart="564" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___rx___dp___info_1a6a8762c07bb532b151b86ec77c210ef3" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XHdcp22_Rx_Dp_Info::SeqNumV</definition>
+        <argsstring></argsstring>
+        <name>SeqNumV</name>
+        <briefdescription>
+<para>Counter for repeater topology upstream propagation. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" line="566" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" bodystart="566" bodyend="-1"/>
+        <referencedby refid="group__hdcp22__rx__dp_1gade583ecee68e32b3cab9268b9c2af4b8" compoundref="xhdcp22__rx__dp_8c" startline="144" endline="290">XHdcp22Rx_Dp_CfgInitialize</referencedby>
+        <referencedby refid="group__hdcp22__rx__dp_1ga341246c3ed3de24390cc4ac4f748944d" compoundref="xhdcp22__rx__dp_8c" startline="306" endline="369">XHdcp22Rx_Dp_Reset</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___rx___dp___info_1a370ff396f703ac1cda94b50c33be38df" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHdcp22_Rx_Dp_Info::HasStreamManagementInfo</definition>
+        <argsstring></argsstring>
+        <name>HasStreamManagementInfo</name>
+        <briefdescription>
+<para>Flag indicated that content stream management info message has been processed. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" line="568" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" bodystart="568" bodyend="-1"/>
+        <referencedby refid="group__hdcp22__rx__dp_1gade583ecee68e32b3cab9268b9c2af4b8" compoundref="xhdcp22__rx__dp_8c" startline="144" endline="290">XHdcp22Rx_Dp_CfgInitialize</referencedby>
+        <referencedby refid="group__hdcp22__rx__dp_1ga341246c3ed3de24390cc4ac4f748944d" compoundref="xhdcp22__rx__dp_8c" startline="306" endline="369">XHdcp22Rx_Dp_Reset</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___rx___dp___info_1ade9a4134eeec0fc5bdd2df4d19650475" prot="public" static="no" mutable="no">
+        <type><ref refid="group__hdcp22__rx__dp_1ga7565470cc480f822f08c760ace215c9a" kindref="member">XHdcp22_Rx_Dp_StateType</ref></type>
+        <definition>XHdcp22_Rx_Dp_StateType XHdcp22_Rx_Dp_Info::CurrentState</definition>
+        <argsstring></argsstring>
+        <name>CurrentState</name>
+        <briefdescription>
+<para>State machine current state. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" line="570" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" bodystart="570" bodyend="-1"/>
+        <referencedby refid="group__hdcp22__rx__dp_1gade583ecee68e32b3cab9268b9c2af4b8" compoundref="xhdcp22__rx__dp_8c" startline="144" endline="290">XHdcp22Rx_Dp_CfgInitialize</referencedby>
+        <referencedby refid="group__hdcp22__rx__dp_1ga41c0e98253aa0ee2208fb0c14454d607" compoundref="xhdcp22__rx__dp_8c" startline="706" endline="720">XHdcp22Rx_Dp_Poll</referencedby>
+        <referencedby refid="group__hdcp22__rx__dp_1ga341246c3ed3de24390cc4ac4f748944d" compoundref="xhdcp22__rx__dp_8c" startline="306" endline="369">XHdcp22Rx_Dp_Reset</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___rx___dp___info_1a5167e576a2d4eee5ab5a5c7761bdecf2" prot="public" static="no" mutable="no">
+        <type><ref refid="group__hdcp22__rx__dp_1ga7565470cc480f822f08c760ace215c9a" kindref="member">XHdcp22_Rx_Dp_StateType</ref></type>
+        <definition>XHdcp22_Rx_Dp_StateType XHdcp22_Rx_Dp_Info::NextState</definition>
+        <argsstring></argsstring>
+        <name>NextState</name>
+        <briefdescription>
+<para>State machine next state. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" line="572" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" bodystart="572" bodyend="-1"/>
+        <referencedby refid="group__hdcp22__rx__dp_1gade583ecee68e32b3cab9268b9c2af4b8" compoundref="xhdcp22__rx__dp_8c" startline="144" endline="290">XHdcp22Rx_Dp_CfgInitialize</referencedby>
+        <referencedby refid="group__hdcp22__rx__dp_1ga41c0e98253aa0ee2208fb0c14454d607" compoundref="xhdcp22__rx__dp_8c" startline="706" endline="720">XHdcp22Rx_Dp_Poll</referencedby>
+        <referencedby refid="group__hdcp22__rx__dp_1ga341246c3ed3de24390cc4ac4f748944d" compoundref="xhdcp22__rx__dp_8c" startline="306" endline="369">XHdcp22Rx_Dp_Reset</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___rx___dp___info_1aa50a1462774526eb2e3ab05eb94ca3d8" prot="public" static="no" mutable="no">
+        <type><ref refid="group__hdcp22__rx__dp_1ga7565470cc480f822f08c760ace215c9a" kindref="member">XHdcp22_Rx_Dp_StateType</ref></type>
+        <definition>XHdcp22_Rx_Dp_StateType XHdcp22_Rx_Dp_Info::ReturnState</definition>
+        <argsstring></argsstring>
+        <name>ReturnState</name>
+        <briefdescription>
+<para>State machine return state. </para>        </briefdescription>
+        <detaileddescription>
+<para>Used for parallel execution of content stream management and topology information propagation </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" line="575" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" bodystart="575" bodyend="-1"/>
+        <referencedby refid="group__hdcp22__rx__dp_1gade583ecee68e32b3cab9268b9c2af4b8" compoundref="xhdcp22__rx__dp_8c" startline="144" endline="290">XHdcp22Rx_Dp_CfgInitialize</referencedby>
+        <referencedby refid="group__hdcp22__rx__dp_1ga341246c3ed3de24390cc4ac4f748944d" compoundref="xhdcp22__rx__dp_8c" startline="306" endline="369">XHdcp22Rx_Dp_Reset</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___rx___dp___info_1a7b9fbcf4bf56d808d689a27bb986b57f" prot="public" static="no" mutable="no">
+        <type><ref refid="group__hdcp22__rx__dp_1ga56cad7fa81be252421b0df298a0e1be4" kindref="member">XHdcp22_Rx_Dp_AuthenticationType</ref></type>
+        <definition>XHdcp22_Rx_Dp_AuthenticationType XHdcp22_Rx_Dp_Info::AuthenticationStatus</definition>
+        <argsstring></argsstring>
+        <name>AuthenticationStatus</name>
+        <briefdescription>
+<para>Authentication status. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" line="577" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" bodystart="577" bodyend="-1"/>
+        <referencedby refid="group__hdcp22__rx__dp_1gade583ecee68e32b3cab9268b9c2af4b8" compoundref="xhdcp22__rx__dp_8c" startline="144" endline="290">XHdcp22Rx_Dp_CfgInitialize</referencedby>
+        <referencedby refid="group__hdcp22__rx__dp_1gabf66a78585a61c03bcd366052aed7835" compoundref="xhdcp22__rx__dp_8c" startline="431" endline="452">XHdcp22Rx_Dp_Disable</referencedby>
+        <referencedby refid="group__hdcp22__rx__dp_1gaa0e969f3b2426b6224b3557286a6e245" compoundref="xhdcp22__rx__dp_8c" startline="4321" endline="4378">XHdcp22Rx_Dp_Info</referencedby>
+        <referencedby refid="group__hdcp22__rx__dp_1ga72e3f8577b632f8a7486863cc478e429" compoundref="xhdcp22__rx__dp_8c" startline="792" endline="797">XHdcp22Rx_Dp_IsAuthenticated</referencedby>
+        <referencedby refid="group__hdcp22__rx__dp_1gaa1d8811586b4c8f145625cb4315d827c" compoundref="xhdcp22__rx__dp_8c" startline="773" endline="779">XHdcp22Rx_Dp_IsInProgress</referencedby>
+        <referencedby refid="group__hdcp22__rx__dp_1ga41c0e98253aa0ee2208fb0c14454d607" compoundref="xhdcp22__rx__dp_8c" startline="706" endline="720">XHdcp22Rx_Dp_Poll</referencedby>
+        <referencedby refid="group__hdcp22__rx__dp_1ga341246c3ed3de24390cc4ac4f748944d" compoundref="xhdcp22__rx__dp_8c" startline="306" endline="369">XHdcp22Rx_Dp_Reset</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___rx___dp___info_1afb8e3ce388454d25e553cb632b6b52cb" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHdcp22_Rx_Dp_Info::SkipRead</definition>
+        <argsstring></argsstring>
+        <name>SkipRead</name>
+        <briefdescription>
+<para>Skip read, indicates that message has been read but not yet processed. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" line="579" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" bodystart="579" bodyend="-1"/>
+        <referencedby refid="group__hdcp22__rx__dp_1gade583ecee68e32b3cab9268b9c2af4b8" compoundref="xhdcp22__rx__dp_8c" startline="144" endline="290">XHdcp22Rx_Dp_CfgInitialize</referencedby>
+        <referencedby refid="group__hdcp22__rx__dp_1ga341246c3ed3de24390cc4ac4f748944d" compoundref="xhdcp22__rx__dp_8c" startline="306" endline="369">XHdcp22Rx_Dp_Reset</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___rx___dp___info_1af78bd40c686af8f229d1d271a43651b1" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHdcp22_Rx_Dp_Info::IsTopologyValid</definition>
+        <argsstring></argsstring>
+        <name>IsTopologyValid</name>
+        <briefdescription>
+<para>Flag used to indicate topology change. </para>        </briefdescription>
+        <detaileddescription>
+<para>When set to one, indicates that the topology table has been updated and is available for upstream propagation. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" line="583" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" bodystart="583" bodyend="-1"/>
+        <referencedby refid="group__hdcp22__rx__dp_1gade583ecee68e32b3cab9268b9c2af4b8" compoundref="xhdcp22__rx__dp_8c" startline="144" endline="290">XHdcp22Rx_Dp_CfgInitialize</referencedby>
+        <referencedby refid="group__hdcp22__rx__dp_1ga341246c3ed3de24390cc4ac4f748944d" compoundref="xhdcp22__rx__dp_8c" startline="306" endline="369">XHdcp22Rx_Dp_Reset</referencedby>
+        <referencedby refid="group__hdcp22__rx__dp_1ga97f392420ffbddc21bd14150b7c277ef" compoundref="xhdcp22__rx__dp_8c" startline="1172" endline="1180">XHdcp22Rx_Dp_SetTopologyUpdate</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___rx___dp___info_1aa35eb7cabd82ff1cdfb4a62784aa94a1" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHdcp22_Rx_Dp_Info::IsEncrypted</definition>
+        <argsstring></argsstring>
+        <name>IsEncrypted</name>
+        <briefdescription>
+<para>Flag indicates encryption is enabled. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" line="585" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" bodystart="585" bodyend="-1"/>
+        <referencedby refid="group__hdcp22__rx__dp_1gade583ecee68e32b3cab9268b9c2af4b8" compoundref="xhdcp22__rx__dp_8c" startline="144" endline="290">XHdcp22Rx_Dp_CfgInitialize</referencedby>
+        <referencedby refid="group__hdcp22__rx__dp_1ga341246c3ed3de24390cc4ac4f748944d" compoundref="xhdcp22__rx__dp_8c" startline="306" endline="369">XHdcp22Rx_Dp_Reset</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___rx___dp___info_1a5daa6ae19cc5416354048e4605b3a2a5" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XHdcp22_Rx_Dp_Info::AuthRequestCnt</definition>
+        <argsstring></argsstring>
+        <name>AuthRequestCnt</name>
+        <briefdescription>
+<para>Authentication request count. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" line="587" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" bodystart="587" bodyend="-1"/>
+        <referencedby refid="group__hdcp22__rx__dp_1gade583ecee68e32b3cab9268b9c2af4b8" compoundref="xhdcp22__rx__dp_8c" startline="144" endline="290">XHdcp22Rx_Dp_CfgInitialize</referencedby>
+        <referencedby refid="group__hdcp22__rx__dp_1gaa0e969f3b2426b6224b3557286a6e245" compoundref="xhdcp22__rx__dp_8c" startline="4321" endline="4378">XHdcp22Rx_Dp_Info</referencedby>
+        <referencedby refid="group__hdcp22__rx__dp_1ga341246c3ed3de24390cc4ac4f748944d" compoundref="xhdcp22__rx__dp_8c" startline="306" endline="369">XHdcp22Rx_Dp_Reset</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___rx___dp___info_1a281c66f709e0cc2295a3e423e3953369" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XHdcp22_Rx_Dp_Info::ReauthRequestCnt</definition>
+        <argsstring></argsstring>
+        <name>ReauthRequestCnt</name>
+        <briefdescription>
+<para>Re-authentication request count. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" line="589" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" bodystart="589" bodyend="-1"/>
+        <referencedby refid="group__hdcp22__rx__dp_1gade583ecee68e32b3cab9268b9c2af4b8" compoundref="xhdcp22__rx__dp_8c" startline="144" endline="290">XHdcp22Rx_Dp_CfgInitialize</referencedby>
+        <referencedby refid="group__hdcp22__rx__dp_1gaa0e969f3b2426b6224b3557286a6e245" compoundref="xhdcp22__rx__dp_8c" startline="4321" endline="4378">XHdcp22Rx_Dp_Info</referencedby>
+        <referencedby refid="group__hdcp22__rx__dp_1ga341246c3ed3de24390cc4ac4f748944d" compoundref="xhdcp22__rx__dp_8c" startline="306" endline="369">XHdcp22Rx_Dp_Reset</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___rx___dp___info_1a7824ccfa6eca46acc64e8d7c7d58a48d" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XHdcp22_Rx_Dp_Info::LinkErrorCnt</definition>
+        <argsstring></argsstring>
+        <name>LinkErrorCnt</name>
+        <briefdescription>
+<para>Link error count. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" line="591" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" bodystart="591" bodyend="-1"/>
+        <referencedby refid="group__hdcp22__rx__dp_1gade583ecee68e32b3cab9268b9c2af4b8" compoundref="xhdcp22__rx__dp_8c" startline="144" endline="290">XHdcp22Rx_Dp_CfgInitialize</referencedby>
+        <referencedby refid="group__hdcp22__rx__dp_1gaa0e969f3b2426b6224b3557286a6e245" compoundref="xhdcp22__rx__dp_8c" startline="4321" endline="4378">XHdcp22Rx_Dp_Info</referencedby>
+        <referencedby refid="group__hdcp22__rx__dp_1ga341246c3ed3de24390cc4ac4f748944d" compoundref="xhdcp22__rx__dp_8c" startline="306" endline="369">XHdcp22Rx_Dp_Reset</referencedby>
+        <referencedby refid="group__hdcp22__rx__dp_1gab6853f67f87ebf354e25cab9e3b365f6" compoundref="xhdcp22__rx__dp_8c" startline="874" endline="887">XHdcp22Rx_Dp_SetLinkError</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___rx___dp___info_1a23a694bb990fda4155993ef107bfd2a0" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XHdcp22_Rx_Dp_Info::DdcErrorCnt</definition>
+        <argsstring></argsstring>
+        <name>DdcErrorCnt</name>
+        <briefdescription>
+<para>Ddc error count. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" line="593" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" bodystart="593" bodyend="-1"/>
+        <referencedby refid="group__hdcp22__rx__dp_1gade583ecee68e32b3cab9268b9c2af4b8" compoundref="xhdcp22__rx__dp_8c" startline="144" endline="290">XHdcp22Rx_Dp_CfgInitialize</referencedby>
+        <referencedby refid="group__hdcp22__rx__dp_1gaa0e969f3b2426b6224b3557286a6e245" compoundref="xhdcp22__rx__dp_8c" startline="4321" endline="4378">XHdcp22Rx_Dp_Info</referencedby>
+        <referencedby refid="group__hdcp22__rx__dp_1ga341246c3ed3de24390cc4ac4f748944d" compoundref="xhdcp22__rx__dp_8c" startline="306" endline="369">XHdcp22Rx_Dp_Reset</referencedby>
+        <referencedby refid="group__hdcp22__rx__dp_1gaa2accd8e4aa0947ae31ec3b382a3a9b8" compoundref="xhdcp22__rx__dp_8c" startline="900" endline="913">XHdcp22Rx_Dp_SetDdcError</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef provides information about status of HDCP-RX authentication. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" line="540" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" bodystart="539" bodyend="594"/>
+    <listofallmembers>
+      <member refid="struct_x_hdcp22___rx___dp___info_1a7b9fbcf4bf56d808d689a27bb986b57f" prot="public" virt="non-virtual"><scope>XHdcp22_Rx_Dp_Info</scope><name>AuthenticationStatus</name></member>
+      <member refid="struct_x_hdcp22___rx___dp___info_1a5daa6ae19cc5416354048e4605b3a2a5" prot="public" virt="non-virtual"><scope>XHdcp22_Rx_Dp_Info</scope><name>AuthRequestCnt</name></member>
+      <member refid="struct_x_hdcp22___rx___dp___info_1ade9a4134eeec0fc5bdd2df4d19650475" prot="public" virt="non-virtual"><scope>XHdcp22_Rx_Dp_Info</scope><name>CurrentState</name></member>
+      <member refid="struct_x_hdcp22___rx___dp___info_1a23a694bb990fda4155993ef107bfd2a0" prot="public" virt="non-virtual"><scope>XHdcp22_Rx_Dp_Info</scope><name>DdcErrorCnt</name></member>
+      <member refid="struct_x_hdcp22___rx___dp___info_1a3ce2666dafc54fb170ab6cfa35b7363f" prot="public" virt="non-virtual"><scope>XHdcp22_Rx_Dp_Info</scope><name>DdcFlag</name></member>
+      <member refid="struct_x_hdcp22___rx___dp___info_1a4903cd6f663c8b240ecd4eb9fced5150" prot="public" virt="non-virtual"><scope>XHdcp22_Rx_Dp_Info</scope><name>DpcdFlag</name></member>
+      <member refid="struct_x_hdcp22___rx___dp___info_1af748b9ac20ae522fc96fe67d2b08c8c2" prot="public" virt="non-virtual"><scope>XHdcp22_Rx_Dp_Info</scope><name>ErrorFlag</name></member>
+      <member refid="struct_x_hdcp22___rx___dp___info_1a704b81af9e4166dbd47558d717e3b770" prot="public" virt="non-virtual"><scope>XHdcp22_Rx_Dp_Info</scope><name>ErrorFlagSticky</name></member>
+      <member refid="struct_x_hdcp22___rx___dp___info_1a370ff396f703ac1cda94b50c33be38df" prot="public" virt="non-virtual"><scope>XHdcp22_Rx_Dp_Info</scope><name>HasStreamManagementInfo</name></member>
+      <member refid="struct_x_hdcp22___rx___dp___info_1a00cc035f62a63241185eadfa9a876716" prot="public" virt="non-virtual"><scope>XHdcp22_Rx_Dp_Info</scope><name>IsEnabled</name></member>
+      <member refid="struct_x_hdcp22___rx___dp___info_1aa35eb7cabd82ff1cdfb4a62784aa94a1" prot="public" virt="non-virtual"><scope>XHdcp22_Rx_Dp_Info</scope><name>IsEncrypted</name></member>
+      <member refid="struct_x_hdcp22___rx___dp___info_1a0ff601bb44611870f8cb0877dd3e6e4b" prot="public" virt="non-virtual"><scope>XHdcp22_Rx_Dp_Info</scope><name>IsNoStoredKm</name></member>
+      <member refid="struct_x_hdcp22___rx___dp___info_1af78bd40c686af8f229d1d271a43651b1" prot="public" virt="non-virtual"><scope>XHdcp22_Rx_Dp_Info</scope><name>IsTopologyValid</name></member>
+      <member refid="struct_x_hdcp22___rx___dp___info_1ab8eab82759b1289f3fcfae992fb1832b" prot="public" virt="non-virtual"><scope>XHdcp22_Rx_Dp_Info</scope><name>LCInitAttempts</name></member>
+      <member refid="struct_x_hdcp22___rx___dp___info_1a7824ccfa6eca46acc64e8d7c7d58a48d" prot="public" virt="non-virtual"><scope>XHdcp22_Rx_Dp_Info</scope><name>LinkErrorCnt</name></member>
+      <member refid="struct_x_hdcp22___rx___dp___info_1a5167e576a2d4eee5ab5a5c7761bdecf2" prot="public" virt="non-virtual"><scope>XHdcp22_Rx_Dp_Info</scope><name>NextState</name></member>
+      <member refid="struct_x_hdcp22___rx___dp___info_1a5e9412e9c00f84713f1e4ffec247488f" prot="public" virt="non-virtual"><scope>XHdcp22_Rx_Dp_Info</scope><name>ReauthReq</name></member>
+      <member refid="struct_x_hdcp22___rx___dp___info_1a281c66f709e0cc2295a3e423e3953369" prot="public" virt="non-virtual"><scope>XHdcp22_Rx_Dp_Info</scope><name>ReauthRequestCnt</name></member>
+      <member refid="struct_x_hdcp22___rx___dp___info_1aa50a1462774526eb2e3ab05eb94ca3d8" prot="public" virt="non-virtual"><scope>XHdcp22_Rx_Dp_Info</scope><name>ReturnState</name></member>
+      <member refid="struct_x_hdcp22___rx___dp___info_1a6a8762c07bb532b151b86ec77c210ef3" prot="public" virt="non-virtual"><scope>XHdcp22_Rx_Dp_Info</scope><name>SeqNumV</name></member>
+      <member refid="struct_x_hdcp22___rx___dp___info_1afb8e3ce388454d25e553cb632b6b52cb" prot="public" virt="non-virtual"><scope>XHdcp22_Rx_Dp_Info</scope><name>SkipRead</name></member>
+      <member refid="struct_x_hdcp22___rx___dp___info_1a62fdb4dc15f6e0cd0b885efe1aea01da" prot="public" virt="non-virtual"><scope>XHdcp22_Rx_Dp_Info</scope><name>TimerExpired</name></member>
+      <member refid="struct_x_hdcp22___rx___dp___info_1af038123494eae5104f2e1b229f0d3f64" prot="public" virt="non-virtual"><scope>XHdcp22_Rx_Dp_Info</scope><name>TimerInitialTicks</name></member>
+      <member refid="struct_x_hdcp22___rx___dp___info_1a6acda9a1357a3909d481eabc53415d92" prot="public" virt="non-virtual"><scope>XHdcp22_Rx_Dp_Info</scope><name>TimerReasonId</name></member>
+      <member refid="struct_x_hdcp22___rx___dp___info_1adfcd90c041cdecac29d3705113ef5644" prot="public" virt="non-virtual"><scope>XHdcp22_Rx_Dp_Info</scope><name>TopologyReady</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_2a8ee9b16aeb0edee49ce81f73996d81" kind="dir">
+    <compoundname>isi</compoundname>
+    <innerdir refid="dir_82348be0a6a53dd12c9805721303c56d">include</innerdir>
+    <innerdir refid="dir_fc4c50c01ddfdfd3e13effc6333f9b07">include_priv</innerdir>
+    <innerdir refid="dir_8901136ba518d81df8635fe92acc9b22">source</innerdir>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/"/>
+  </compounddef>
+</doxygen>

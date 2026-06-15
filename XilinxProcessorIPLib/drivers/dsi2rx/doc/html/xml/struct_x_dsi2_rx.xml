@@ -1,0 +1,592 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_dsi2_rx" kind="struct" prot="public">
+    <compoundname>XDsi2Rx</compoundname>
+    <includes local="no">xdsi2rx.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_dsi2_rx_1ad839d6712558a4ba874bdbd23a277b07" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_dsi2_rx___config" kindref="compound">XDsi2Rx_Config</ref></type>
+        <definition>XDsi2Rx_Config XDsi2Rx::Config</definition>
+        <argsstring></argsstring>
+        <name>Config</name>
+        <briefdescription>
+<para>GUI Configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" line="116" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" bodystart="116" bodyend="-1"/>
+        <referencedby refid="group__dsi_1gad952dd5db0493731abdc7745487c129c" compoundref="xdsi2rx_8c" startline="73" endline="110">XDsi2Rx_CfgInitialize</referencedby>
+        <referencedby refid="group__dsi_1ga732edd1bd3354efe3715f684a341f873" compoundref="xdsi2rx_8c" startline="214" endline="228">XDsi2Rx_GetConfigParams</referencedby>
+        <referencedby refid="group__dsi2rx_1ga9633779add7d621518de100c3361bb41" compoundref="xdsi2rx__selftest_8c" startline="62" endline="80">XDsi2Rx_SelfTest</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dsi2_rx_1a1f65ac6290f33a82b8d943158c570aa6" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDsi2Rx::PixelMode</definition>
+        <argsstring></argsstring>
+        <name>PixelMode</name>
+        <briefdescription>
+<para>Specifies VideoMode NoNBurst/Burst. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" line="118" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" bodystart="118" bodyend="-1"/>
+        <referencedby refid="group__dsi_1gad2aafbf53090a3e04a8c1fcac80c54e2" compoundref="xdsi2rx_8c" startline="151" endline="164">XDsi2Rx_DefaultConfigure</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dsi2_rx_1a2b6cd6b63c8fe1358aea1340a9b49029" prot="public" static="no" mutable="no">
+        <type><ref refid="group__dsi_1ga682db3444587540df26e7d626afcca98" kindref="member">XDsi2Rx_Callback</ref></type>
+        <definition>XDsi2Rx_Callback XDsi2Rx::UnSupportedDataTypeCallback</definition>
+        <argsstring></argsstring>
+        <name>UnSupportedDataTypeCallback</name>
+        <briefdescription>
+<para><verbatim> Callback for
+</verbatim> UnSupportedDataType </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" line="121" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" bodystart="121" bodyend="-1"/>
+        <referencedby refid="group__dsi_1gad952dd5db0493731abdc7745487c129c" compoundref="xdsi2rx_8c" startline="73" endline="110">XDsi2Rx_CfgInitialize</referencedby>
+        <referencedby refid="group__dsi_1ga54b30c41e3c917badd1eba84e3644fa9" compoundref="xdsi2rx__intr_8c" startline="348" endline="501">XDsi2Rx_IntrHandler</referencedby>
+        <referencedby refid="group__dsi_1ga7572f62d7760d6b34e5711cff0e52c0d" compoundref="xdsi2rx__intr_8c" startline="219" endline="324">XDsi2Rx_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dsi2_rx_1aed3bbcc1f3132eaec0fbfd8b696b3b7c" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XDsi2Rx::UnsupportDataTypeRef</definition>
+        <argsstring></argsstring>
+        <name>UnsupportDataTypeRef</name>
+        <briefdescription>
+<para><verbatim> To be passed to the
+</verbatim> UnSupportedDataType call back </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" line="123" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" bodystart="123" bodyend="-1"/>
+        <referencedby refid="group__dsi_1ga54b30c41e3c917badd1eba84e3644fa9" compoundref="xdsi2rx__intr_8c" startline="348" endline="501">XDsi2Rx_IntrHandler</referencedby>
+        <referencedby refid="group__dsi_1ga7572f62d7760d6b34e5711cff0e52c0d" compoundref="xdsi2rx__intr_8c" startline="219" endline="324">XDsi2Rx_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dsi2_rx_1a65bd43aa163205cbc1c0ee0848062341" prot="public" static="no" mutable="no">
+        <type><ref refid="group__dsi_1ga682db3444587540df26e7d626afcca98" kindref="member">XDsi2Rx_Callback</ref></type>
+        <definition>XDsi2Rx_Callback XDsi2Rx::CRCCallback</definition>
+        <argsstring></argsstring>
+        <name>CRCCallback</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" line="126" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" bodystart="126" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dsi2_rx_1ac929950e6e7fd5d6e7e504a9ff101871" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XDsi2Rx::CRCRef</definition>
+        <argsstring></argsstring>
+        <name>CRCRef</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" line="127" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" bodystart="127" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dsi2_rx_1a2c9e6ef3d9295729796fafae59bc892e" prot="public" static="no" mutable="no">
+        <type><ref refid="group__dsi_1ga682db3444587540df26e7d626afcca98" kindref="member">XDsi2Rx_Callback</ref></type>
+        <definition>XDsi2Rx_Callback XDsi2Rx::ECC1Callback</definition>
+        <argsstring></argsstring>
+        <name>ECC1Callback</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" line="128" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" bodystart="128" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dsi2_rx_1a5af7ccfa5a7c54f0c6f066b21227e27a" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XDsi2Rx::ECC1Ref</definition>
+        <argsstring></argsstring>
+        <name>ECC1Ref</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" line="129" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" bodystart="129" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dsi2_rx_1a02ef00f5a6273e92ba8a3faff8f7824e" prot="public" static="no" mutable="no">
+        <type><ref refid="group__dsi_1ga682db3444587540df26e7d626afcca98" kindref="member">XDsi2Rx_Callback</ref></type>
+        <definition>XDsi2Rx_Callback XDsi2Rx::ECC2Callback</definition>
+        <argsstring></argsstring>
+        <name>ECC2Callback</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" line="130" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" bodystart="130" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dsi2_rx_1a1390ff5b3ca24e9d0284a21d2c61c0b5" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XDsi2Rx::ECC2Ref</definition>
+        <argsstring></argsstring>
+        <name>ECC2Ref</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" line="131" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" bodystart="131" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dsi2_rx_1a6cf2f7169d904fc604c2f20aa32b5b09" prot="public" static="no" mutable="no">
+        <type><ref refid="group__dsi_1ga682db3444587540df26e7d626afcca98" kindref="member">XDsi2Rx_Callback</ref></type>
+        <definition>XDsi2Rx_Callback XDsi2Rx::SOTSyncErrLane1Callback</definition>
+        <argsstring></argsstring>
+        <name>SOTSyncErrLane1Callback</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" line="132" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" bodystart="132" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dsi2_rx_1a14c9d660871ffbfce5877cb840c1fd7c" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XDsi2Rx::SOTSyncErrLane1Ref</definition>
+        <argsstring></argsstring>
+        <name>SOTSyncErrLane1Ref</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" line="134" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" bodystart="134" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dsi2_rx_1aab1447c0ef6a339d8ba1fe9f8dd8d47c" prot="public" static="no" mutable="no">
+        <type><ref refid="group__dsi_1ga682db3444587540df26e7d626afcca98" kindref="member">XDsi2Rx_Callback</ref></type>
+        <definition>XDsi2Rx_Callback XDsi2Rx::SOTErrLane1Callback</definition>
+        <argsstring></argsstring>
+        <name>SOTErrLane1Callback</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" line="135" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" bodystart="135" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dsi2_rx_1ae8744dd45bf3400470d524d1acf1df9c" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XDsi2Rx::SOTErrLane1Ref</definition>
+        <argsstring></argsstring>
+        <name>SOTErrLane1Ref</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" line="136" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" bodystart="136" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dsi2_rx_1a8d0de919f14997d3272e698c39b11704" prot="public" static="no" mutable="no">
+        <type><ref refid="group__dsi_1ga682db3444587540df26e7d626afcca98" kindref="member">XDsi2Rx_Callback</ref></type>
+        <definition>XDsi2Rx_Callback XDsi2Rx::SOTSyncErrLane2Callback</definition>
+        <argsstring></argsstring>
+        <name>SOTSyncErrLane2Callback</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" line="137" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" bodystart="137" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dsi2_rx_1a0a493cd1c57a29e33ecf70b210da2671" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XDsi2Rx::SOTSyncErrLane2Ref</definition>
+        <argsstring></argsstring>
+        <name>SOTSyncErrLane2Ref</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" line="139" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" bodystart="139" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dsi2_rx_1ad8b90ad7bf836ab1d665a2ce54c0b599" prot="public" static="no" mutable="no">
+        <type><ref refid="group__dsi_1ga682db3444587540df26e7d626afcca98" kindref="member">XDsi2Rx_Callback</ref></type>
+        <definition>XDsi2Rx_Callback XDsi2Rx::SOTErrLane2Callback</definition>
+        <argsstring></argsstring>
+        <name>SOTErrLane2Callback</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" line="140" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" bodystart="140" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dsi2_rx_1a5a0b6a04fd79209aebb622c82bb8531c" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XDsi2Rx::SOTErrLane2Ref</definition>
+        <argsstring></argsstring>
+        <name>SOTErrLane2Ref</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" line="142" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" bodystart="142" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dsi2_rx_1a3cc09e8c8fdbc5bdf9915a4343e7bfa6" prot="public" static="no" mutable="no">
+        <type><ref refid="group__dsi_1ga682db3444587540df26e7d626afcca98" kindref="member">XDsi2Rx_Callback</ref></type>
+        <definition>XDsi2Rx_Callback XDsi2Rx::SOTSyncErrLane3Callback</definition>
+        <argsstring></argsstring>
+        <name>SOTSyncErrLane3Callback</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" line="143" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" bodystart="143" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dsi2_rx_1aafc74a60c1dbb87334d77cc99b85641c" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XDsi2Rx::SOTSyncErrLane3Ref</definition>
+        <argsstring></argsstring>
+        <name>SOTSyncErrLane3Ref</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" line="145" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" bodystart="145" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dsi2_rx_1a8b64075b43afd0df5fe7b2273e609ea6" prot="public" static="no" mutable="no">
+        <type><ref refid="group__dsi_1ga682db3444587540df26e7d626afcca98" kindref="member">XDsi2Rx_Callback</ref></type>
+        <definition>XDsi2Rx_Callback XDsi2Rx::SOTErrLane3Callback</definition>
+        <argsstring></argsstring>
+        <name>SOTErrLane3Callback</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" line="146" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" bodystart="146" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dsi2_rx_1a2d45dc90fbd5d7b127997f612eda2746" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XDsi2Rx::SOTErrLane3Ref</definition>
+        <argsstring></argsstring>
+        <name>SOTErrLane3Ref</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" line="147" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" bodystart="147" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dsi2_rx_1a633e3955dfd26eaa1031cacf0ad08d36" prot="public" static="no" mutable="no">
+        <type><ref refid="group__dsi_1ga682db3444587540df26e7d626afcca98" kindref="member">XDsi2Rx_Callback</ref></type>
+        <definition>XDsi2Rx_Callback XDsi2Rx::SOTSyncErrLane4Callback</definition>
+        <argsstring></argsstring>
+        <name>SOTSyncErrLane4Callback</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" line="148" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" bodystart="148" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dsi2_rx_1ad74ae45084a1690b7b7bdf44fd2fbf14" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XDsi2Rx::SOTSyncErrLane4Ref</definition>
+        <argsstring></argsstring>
+        <name>SOTSyncErrLane4Ref</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" line="150" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" bodystart="150" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dsi2_rx_1a59f4bc3314970e102c728e5cbd6f48fd" prot="public" static="no" mutable="no">
+        <type><ref refid="group__dsi_1ga682db3444587540df26e7d626afcca98" kindref="member">XDsi2Rx_Callback</ref></type>
+        <definition>XDsi2Rx_Callback XDsi2Rx::SOTErrLane4Callback</definition>
+        <argsstring></argsstring>
+        <name>SOTErrLane4Callback</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" line="151" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" bodystart="151" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dsi2_rx_1abdbc1892a05c73ee650eb79ec0c0d250" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XDsi2Rx::SOTErrLane4Ref</definition>
+        <argsstring></argsstring>
+        <name>SOTErrLane4Ref</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" line="152" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" bodystart="152" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dsi2_rx_1a74d98c2910f5438b508c8d0d9b439d1b" prot="public" static="no" mutable="no">
+        <type><ref refid="group__dsi_1ga682db3444587540df26e7d626afcca98" kindref="member">XDsi2Rx_Callback</ref></type>
+        <definition>XDsi2Rx_Callback XDsi2Rx::StopStateCallback</definition>
+        <argsstring></argsstring>
+        <name>StopStateCallback</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" line="153" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" bodystart="153" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dsi2_rx_1afd929a28a17f5d70a326ffe686a0c0b9" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XDsi2Rx::StopStateRef</definition>
+        <argsstring></argsstring>
+        <name>StopStateRef</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" line="154" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" bodystart="154" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dsi2_rx_1a6c07221c3c05bffc125aef898c9769fe" prot="public" static="no" mutable="no">
+        <type><ref refid="group__dsi_1ga682db3444587540df26e7d626afcca98" kindref="member">XDsi2Rx_Callback</ref></type>
+        <definition>XDsi2Rx_Callback XDsi2Rx::LmAsyncFifoFullCallback</definition>
+        <argsstring></argsstring>
+        <name>LmAsyncFifoFullCallback</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" line="155" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" bodystart="155" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dsi2_rx_1ac9fb42e9446a40a93b651ebbe3a2a389" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XDsi2Rx::LmAsyncFifoFullRef</definition>
+        <argsstring></argsstring>
+        <name>LmAsyncFifoFullRef</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" line="156" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" bodystart="156" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dsi2_rx_1afd2d61260d996981f5f40b4bc4b4d18f" prot="public" static="no" mutable="no">
+        <type><ref refid="group__dsi_1ga682db3444587540df26e7d626afcca98" kindref="member">XDsi2Rx_Callback</ref></type>
+        <definition>XDsi2Rx_Callback XDsi2Rx::StreamAsyncFifoFullCallback</definition>
+        <argsstring></argsstring>
+        <name>StreamAsyncFifoFullCallback</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" line="157" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" bodystart="157" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dsi2_rx_1a2f371a7bece9d3256c9fc6e476af586b" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XDsi2Rx::StreamAsyncFifoFullRef</definition>
+        <argsstring></argsstring>
+        <name>StreamAsyncFifoFullRef</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" line="159" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" bodystart="159" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dsi2_rx_1a52682c0bf600715f4d5bd97e50eb88c7" prot="public" static="no" mutable="no">
+        <type><ref refid="group__dsi_1ga682db3444587540df26e7d626afcca98" kindref="member">XDsi2Rx_Callback</ref></type>
+        <definition>XDsi2Rx_Callback XDsi2Rx::GSPFifoNECallback</definition>
+        <argsstring></argsstring>
+        <name>GSPFifoNECallback</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" line="160" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" bodystart="160" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dsi2_rx_1a8f1e3dd6a5a67274ee0c72330af058ef" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XDsi2Rx::GSPFFifoNERef</definition>
+        <argsstring></argsstring>
+        <name>GSPFFifoNERef</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" line="161" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" bodystart="161" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dsi2_rx_1a7dbf62820117acc5295c3d72f16ab344" prot="public" static="no" mutable="no">
+        <type><ref refid="group__dsi_1ga682db3444587540df26e7d626afcca98" kindref="member">XDsi2Rx_Callback</ref></type>
+        <definition>XDsi2Rx_Callback XDsi2Rx::GSPFifoFullCallback</definition>
+        <argsstring></argsstring>
+        <name>GSPFifoFullCallback</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" line="162" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" bodystart="162" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dsi2_rx_1a0ea6f56f3c4c41363786768b478a9ff3" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XDsi2Rx::GSPFifoFullRef</definition>
+        <argsstring></argsstring>
+        <name>GSPFifoFullRef</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" line="164" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" bodystart="164" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dsi2_rx_1a5fd4c3a22b9f9c8728fce93fb757cde3" prot="public" static="no" mutable="no">
+        <type><ref refid="group__dsi_1ga682db3444587540df26e7d626afcca98" kindref="member">XDsi2Rx_Callback</ref></type>
+        <definition>XDsi2Rx_Callback XDsi2Rx::FrmStartDetCallback</definition>
+        <argsstring></argsstring>
+        <name>FrmStartDetCallback</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" line="165" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" bodystart="165" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dsi2_rx_1a9ba7dcfeadea5e2721215e92c2cd9e0e" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XDsi2Rx::FrmStartDetRef</definition>
+        <argsstring></argsstring>
+        <name>FrmStartDetRef</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" line="166" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" bodystart="166" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dsi2_rx_1a57889229cf2847a9a249edb2f05213fd" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDsi2Rx::IsReady</definition>
+        <argsstring></argsstring>
+        <name>IsReady</name>
+        <briefdescription>
+<para>Driver is ready. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" line="168" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" bodystart="168" bodyend="-1"/>
+        <referencedby refid="group__dsi_1ga19af397133295c990ad132a86b515819" compoundref="xdsi2rx_8c" startline="181" endline="198">XDsi2Rx_Activate</referencedby>
+        <referencedby refid="group__dsi_1gad952dd5db0493731abdc7745487c129c" compoundref="xdsi2rx_8c" startline="73" endline="110">XDsi2Rx_CfgInitialize</referencedby>
+        <referencedby refid="group__dsi_1gad2aafbf53090a3e04a8c1fcac80c54e2" compoundref="xdsi2rx_8c" startline="151" endline="164">XDsi2Rx_DefaultConfigure</referencedby>
+        <referencedby refid="group__dsi_1ga54b30c41e3c917badd1eba84e3644fa9" compoundref="xdsi2rx__intr_8c" startline="348" endline="501">XDsi2Rx_IntrHandler</referencedby>
+        <referencedby refid="group__dsi2rx_1ga9633779add7d621518de100c3361bb41" compoundref="xdsi2rx__selftest_8c" startline="62" endline="80">XDsi2Rx_SelfTest</referencedby>
+        <referencedby refid="group__dsi_1ga7572f62d7760d6b34e5711cff0e52c0d" compoundref="xdsi2rx__intr_8c" startline="219" endline="324">XDsi2Rx_SetCallback</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>The <ref refid="struct_x_dsi2_rx" kindref="compound">XDsi2Rx</ref> driver instance data. </para>    </briefdescription>
+    <detaileddescription>
+<para>An instance must be allocated for each DSI in use. </para>    </detaileddescription>
+    <collaborationgraph>
+      <node id="1">
+        <label>XDsi2Rx</label>
+        <link refid="struct_x_dsi2_rx"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>Config</edgelabel>
+        </childnode>
+      </node>
+      <node id="2">
+        <label>XDsi2Rx_Config</label>
+        <link refid="struct_x_dsi2_rx___config"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" line="115" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" bodystart="115" bodyend="169"/>
+    <listofallmembers>
+      <member refid="struct_x_dsi2_rx_1ad839d6712558a4ba874bdbd23a277b07" prot="public" virt="non-virtual"><scope>XDsi2Rx</scope><name>Config</name></member>
+      <member refid="struct_x_dsi2_rx_1a65bd43aa163205cbc1c0ee0848062341" prot="public" virt="non-virtual"><scope>XDsi2Rx</scope><name>CRCCallback</name></member>
+      <member refid="struct_x_dsi2_rx_1ac929950e6e7fd5d6e7e504a9ff101871" prot="public" virt="non-virtual"><scope>XDsi2Rx</scope><name>CRCRef</name></member>
+      <member refid="struct_x_dsi2_rx_1a2c9e6ef3d9295729796fafae59bc892e" prot="public" virt="non-virtual"><scope>XDsi2Rx</scope><name>ECC1Callback</name></member>
+      <member refid="struct_x_dsi2_rx_1a5af7ccfa5a7c54f0c6f066b21227e27a" prot="public" virt="non-virtual"><scope>XDsi2Rx</scope><name>ECC1Ref</name></member>
+      <member refid="struct_x_dsi2_rx_1a02ef00f5a6273e92ba8a3faff8f7824e" prot="public" virt="non-virtual"><scope>XDsi2Rx</scope><name>ECC2Callback</name></member>
+      <member refid="struct_x_dsi2_rx_1a1390ff5b3ca24e9d0284a21d2c61c0b5" prot="public" virt="non-virtual"><scope>XDsi2Rx</scope><name>ECC2Ref</name></member>
+      <member refid="struct_x_dsi2_rx_1a5fd4c3a22b9f9c8728fce93fb757cde3" prot="public" virt="non-virtual"><scope>XDsi2Rx</scope><name>FrmStartDetCallback</name></member>
+      <member refid="struct_x_dsi2_rx_1a9ba7dcfeadea5e2721215e92c2cd9e0e" prot="public" virt="non-virtual"><scope>XDsi2Rx</scope><name>FrmStartDetRef</name></member>
+      <member refid="struct_x_dsi2_rx_1a8f1e3dd6a5a67274ee0c72330af058ef" prot="public" virt="non-virtual"><scope>XDsi2Rx</scope><name>GSPFFifoNERef</name></member>
+      <member refid="struct_x_dsi2_rx_1a7dbf62820117acc5295c3d72f16ab344" prot="public" virt="non-virtual"><scope>XDsi2Rx</scope><name>GSPFifoFullCallback</name></member>
+      <member refid="struct_x_dsi2_rx_1a0ea6f56f3c4c41363786768b478a9ff3" prot="public" virt="non-virtual"><scope>XDsi2Rx</scope><name>GSPFifoFullRef</name></member>
+      <member refid="struct_x_dsi2_rx_1a52682c0bf600715f4d5bd97e50eb88c7" prot="public" virt="non-virtual"><scope>XDsi2Rx</scope><name>GSPFifoNECallback</name></member>
+      <member refid="struct_x_dsi2_rx_1a57889229cf2847a9a249edb2f05213fd" prot="public" virt="non-virtual"><scope>XDsi2Rx</scope><name>IsReady</name></member>
+      <member refid="struct_x_dsi2_rx_1a6c07221c3c05bffc125aef898c9769fe" prot="public" virt="non-virtual"><scope>XDsi2Rx</scope><name>LmAsyncFifoFullCallback</name></member>
+      <member refid="struct_x_dsi2_rx_1ac9fb42e9446a40a93b651ebbe3a2a389" prot="public" virt="non-virtual"><scope>XDsi2Rx</scope><name>LmAsyncFifoFullRef</name></member>
+      <member refid="struct_x_dsi2_rx_1a1f65ac6290f33a82b8d943158c570aa6" prot="public" virt="non-virtual"><scope>XDsi2Rx</scope><name>PixelMode</name></member>
+      <member refid="struct_x_dsi2_rx_1aab1447c0ef6a339d8ba1fe9f8dd8d47c" prot="public" virt="non-virtual"><scope>XDsi2Rx</scope><name>SOTErrLane1Callback</name></member>
+      <member refid="struct_x_dsi2_rx_1ae8744dd45bf3400470d524d1acf1df9c" prot="public" virt="non-virtual"><scope>XDsi2Rx</scope><name>SOTErrLane1Ref</name></member>
+      <member refid="struct_x_dsi2_rx_1ad8b90ad7bf836ab1d665a2ce54c0b599" prot="public" virt="non-virtual"><scope>XDsi2Rx</scope><name>SOTErrLane2Callback</name></member>
+      <member refid="struct_x_dsi2_rx_1a5a0b6a04fd79209aebb622c82bb8531c" prot="public" virt="non-virtual"><scope>XDsi2Rx</scope><name>SOTErrLane2Ref</name></member>
+      <member refid="struct_x_dsi2_rx_1a8b64075b43afd0df5fe7b2273e609ea6" prot="public" virt="non-virtual"><scope>XDsi2Rx</scope><name>SOTErrLane3Callback</name></member>
+      <member refid="struct_x_dsi2_rx_1a2d45dc90fbd5d7b127997f612eda2746" prot="public" virt="non-virtual"><scope>XDsi2Rx</scope><name>SOTErrLane3Ref</name></member>
+      <member refid="struct_x_dsi2_rx_1a59f4bc3314970e102c728e5cbd6f48fd" prot="public" virt="non-virtual"><scope>XDsi2Rx</scope><name>SOTErrLane4Callback</name></member>
+      <member refid="struct_x_dsi2_rx_1abdbc1892a05c73ee650eb79ec0c0d250" prot="public" virt="non-virtual"><scope>XDsi2Rx</scope><name>SOTErrLane4Ref</name></member>
+      <member refid="struct_x_dsi2_rx_1a6cf2f7169d904fc604c2f20aa32b5b09" prot="public" virt="non-virtual"><scope>XDsi2Rx</scope><name>SOTSyncErrLane1Callback</name></member>
+      <member refid="struct_x_dsi2_rx_1a14c9d660871ffbfce5877cb840c1fd7c" prot="public" virt="non-virtual"><scope>XDsi2Rx</scope><name>SOTSyncErrLane1Ref</name></member>
+      <member refid="struct_x_dsi2_rx_1a8d0de919f14997d3272e698c39b11704" prot="public" virt="non-virtual"><scope>XDsi2Rx</scope><name>SOTSyncErrLane2Callback</name></member>
+      <member refid="struct_x_dsi2_rx_1a0a493cd1c57a29e33ecf70b210da2671" prot="public" virt="non-virtual"><scope>XDsi2Rx</scope><name>SOTSyncErrLane2Ref</name></member>
+      <member refid="struct_x_dsi2_rx_1a3cc09e8c8fdbc5bdf9915a4343e7bfa6" prot="public" virt="non-virtual"><scope>XDsi2Rx</scope><name>SOTSyncErrLane3Callback</name></member>
+      <member refid="struct_x_dsi2_rx_1aafc74a60c1dbb87334d77cc99b85641c" prot="public" virt="non-virtual"><scope>XDsi2Rx</scope><name>SOTSyncErrLane3Ref</name></member>
+      <member refid="struct_x_dsi2_rx_1a633e3955dfd26eaa1031cacf0ad08d36" prot="public" virt="non-virtual"><scope>XDsi2Rx</scope><name>SOTSyncErrLane4Callback</name></member>
+      <member refid="struct_x_dsi2_rx_1ad74ae45084a1690b7b7bdf44fd2fbf14" prot="public" virt="non-virtual"><scope>XDsi2Rx</scope><name>SOTSyncErrLane4Ref</name></member>
+      <member refid="struct_x_dsi2_rx_1a74d98c2910f5438b508c8d0d9b439d1b" prot="public" virt="non-virtual"><scope>XDsi2Rx</scope><name>StopStateCallback</name></member>
+      <member refid="struct_x_dsi2_rx_1afd929a28a17f5d70a326ffe686a0c0b9" prot="public" virt="non-virtual"><scope>XDsi2Rx</scope><name>StopStateRef</name></member>
+      <member refid="struct_x_dsi2_rx_1afd2d61260d996981f5f40b4bc4b4d18f" prot="public" virt="non-virtual"><scope>XDsi2Rx</scope><name>StreamAsyncFifoFullCallback</name></member>
+      <member refid="struct_x_dsi2_rx_1a2f371a7bece9d3256c9fc6e476af586b" prot="public" virt="non-virtual"><scope>XDsi2Rx</scope><name>StreamAsyncFifoFullRef</name></member>
+      <member refid="struct_x_dsi2_rx_1aed3bbcc1f3132eaec0fbfd8b696b3b7c" prot="public" virt="non-virtual"><scope>XDsi2Rx</scope><name>UnsupportDataTypeRef</name></member>
+      <member refid="struct_x_dsi2_rx_1a2b6cd6b63c8fe1358aea1340a9b49029" prot="public" virt="non-virtual"><scope>XDsi2Rx</scope><name>UnSupportedDataTypeCallback</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

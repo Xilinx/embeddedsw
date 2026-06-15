@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_srio___config" kind="struct" prot="public">
+    <compoundname>XSrio_Config</compoundname>
+    <includes local="no">xsrio.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_srio___config_1ac3d29542a6361e52f2167870f275ae1e" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* XSrio_Config::Name</definition>
+        <argsstring></argsstring>
+        <name>Name</name>
+        <briefdescription>
+<para>Unique name of the device. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/srio/src/xsrio.h" line="175" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/srio/src/xsrio.h" bodystart="175" bodyend="-1"/>
+        <referencedby refid="group__srio_1gaf6549db3fb4b21a7715f57041e71f730" compoundref="xsrio__sinit_8c" startline="71" endline="89">XSrio_LookupConfig</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_srio___config_1a79e384b5dc276c5479f6c17852b5886f" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XSrio_Config::BaseAddress</definition>
+        <argsstring></argsstring>
+        <name>BaseAddress</name>
+        <briefdescription>
+<para>Base Address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/srio/src/xsrio.h" line="177" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/srio/src/xsrio.h" bodystart="177" bodyend="-1"/>
+        <referencedby refid="group__srio_1gae4e21d1e48b45bc2694bb9a62845d01a" compoundref="xsrio_8c" startline="56" endline="82">XSrio_CfgInitialize</referencedby>
+        <referencedby refid="group__srio_1ga753aded6db30e1c042e7c7ee43b2a483" compoundref="xsrio_8c" startline="134" endline="151">XSrio_GetPEType</referencedby>
+        <referencedby refid="group__srio_1gacbd49fb630e7f2d7c8533d12607ef105" compoundref="xsrio_8c" startline="100" endline="117">XSrio_GetPortStatus</referencedby>
+        <referencedby refid="group__srio_1ga9eb82f808fa01a1679ed60a026a2a2c7" compoundref="xsrio_8c" startline="297" endline="312">XSrio_GetWaterMark</referencedby>
+        <referencedby refid="group__srio_1ga9cb7fbc368f16113382c2a9b4556b601" compoundref="xsrio_8c" startline="244" endline="278">XSrio_SetWaterMark</referencedby>
+        <referencedby refid="xsrio__dma__loopback__example_8c_1ad5a0716eca6398c19a481d1d58e45bdc" compoundref="xsrio__dma__loopback__example_8c" startline="154" endline="315">XSrioDmaLoopbackExample</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef contains the configuration information for the device. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/srio/src/xsrio.h" line="171" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/srio/src/xsrio.h" bodystart="171" bodyend="178"/>
+    <listofallmembers>
+      <member refid="struct_x_srio___config_1a79e384b5dc276c5479f6c17852b5886f" prot="public" virt="non-virtual"><scope>XSrio_Config</scope><name>BaseAddress</name></member>
+      <member refid="struct_x_srio___config_1ac3d29542a6361e52f2167870f275ae1e" prot="public" virt="non-virtual"><scope>XSrio_Config</scope><name>Name</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

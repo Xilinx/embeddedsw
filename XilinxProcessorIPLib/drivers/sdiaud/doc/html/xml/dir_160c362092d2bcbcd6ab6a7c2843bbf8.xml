@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_160c362092d2bcbcd6ab6a7c2843bbf8" kind="dir">
+    <compoundname>sdiaud</compoundname>
+    <innerdir refid="dir_fb386f47a5b64a1dd61c32f25f929dfe">examples</innerdir>
+    <innerdir refid="dir_2eb3a7e9d0fccc697580061d8dbc7131">src</innerdir>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/"/>
+  </compounddef>
+</doxygen>

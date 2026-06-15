@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="example" kind="page">
+    <compoundname>example</compoundname>
+    <title>Examples</title>
+    <detaileddescription>
+<para>You can refer to the below stated example applications for more details on how to use devcfg driver.</para><sect1 id="example_1ex1">
+<title>xdevcfg_selftest_example.c</title>
+<para>Contains an example on how to use the XDevcfg driver directly. This example performs the basic selftest using the devcfg driver.</para><para>For details, see <ref refid="xdevcfg__selftest__example_8c" kindref="compound">xdevcfg_selftest_example.c</ref>.</para></sect1>
+<sect1 id="example_1ex2">
+<title>xdevcfg_interrupt_example.c</title>
+<para>Contains an example on how to use the XDevcfg driver directly. This example shows the usage of the driver in interrupt mode and downloads bitstream to the FPGA fabric.</para><para>For details, see <ref refid="xdevcfg__interrupt__example_8c" kindref="compound">xdevcfg_interrupt_example.c</ref>.</para></sect1>
+<sect1 id="example_1ex3">
+<title>xdevcfg_polled_example.c</title>
+<para>Contains an example on how to use the XDevcfg driver directly. This example shows the usage of the driver in polled mode and downloads bitstream to the FPGA fabric.</para><para>For details, see <ref refid="xdevcfg__polled__example_8c" kindref="compound">xdevcfg_polled_example.c</ref>.</para></sect1>
+<sect1 id="example_1ex4">
+<title>xdevcfg_reg_readback_example.c</title>
+<para>Contains an example on how to use the XDevcfg driver directly. This example prints out the values of all the configuration registers in the FPGA.</para><para>For details, see <ref refid="xdevcfg__reg__readback__example_8c" kindref="compound">xdevcfg_reg_readback_example.c</ref>. </para></sect1>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

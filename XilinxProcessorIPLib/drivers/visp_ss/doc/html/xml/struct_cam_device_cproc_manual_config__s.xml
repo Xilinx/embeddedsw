@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_cam_device_cproc_manual_config__s" kind="struct" prot="public">
+    <compoundname>CamDeviceCprocManualConfig_s</compoundname>
+    <includes local="no">cam_device_cproc_api.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_cam_device_cproc_manual_config__s_1a5d71756c5b2b659f0f707bd619f20ede" prot="public" static="no" mutable="no">
+        <type>float32_t</type>
+        <definition>float32_t CamDeviceCprocManualConfig_s::contrast</definition>
+        <argsstring></argsstring>
+        <name>contrast</name>
+        <briefdescription>
+<para>CPROC contrast adjust value [0, 1.999]. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/cproc/cam_device_cproc_api.h" line="108" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/cproc/cam_device_cproc_api.h" bodystart="108" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_cproc_manual_config__s_1a8a13bfbbd82fbae1b06a2adbd66b89a2" prot="public" static="no" mutable="no">
+        <type>float32_t</type>
+        <definition>float32_t CamDeviceCprocManualConfig_s::bright</definition>
+        <argsstring></argsstring>
+        <name>bright</name>
+        <briefdescription>
+<para>CPROC brightness adjust value [-127, 127]. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/cproc/cam_device_cproc_api.h" line="109" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/cproc/cam_device_cproc_api.h" bodystart="109" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_cproc_manual_config__s_1af13610efabb5104ef29ffda7d38838a4" prot="public" static="no" mutable="no">
+        <type>float32_t</type>
+        <definition>float32_t CamDeviceCprocManualConfig_s::saturation</definition>
+        <argsstring></argsstring>
+        <name>saturation</name>
+        <briefdescription>
+<para>CPROC saturation adjust value [0, 1.999]. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/cproc/cam_device_cproc_api.h" line="110" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/cproc/cam_device_cproc_api.h" bodystart="110" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_cproc_manual_config__s_1a17c1344a42f6c9afabc97e8342fc8758" prot="public" static="no" mutable="no">
+        <type>float32_t</type>
+        <definition>float32_t CamDeviceCprocManualConfig_s::hue</definition>
+        <argsstring></argsstring>
+        <name>hue</name>
+        <briefdescription>
+<para>CPROC rotation in HSV domain [-90, 90]. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/cproc/cam_device_cproc_api.h" line="111" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/cproc/cam_device_cproc_api.h" bodystart="111" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>VsCamDevice CPROC current configuration. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/cproc/cam_device_cproc_api.h" line="107" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/cproc/cam_device_cproc_api.h" bodystart="107" bodyend="112"/>
+    <listofallmembers>
+      <member refid="struct_cam_device_cproc_manual_config__s_1a8a13bfbbd82fbae1b06a2adbd66b89a2" prot="public" virt="non-virtual"><scope>CamDeviceCprocManualConfig_s</scope><name>bright</name></member>
+      <member refid="struct_cam_device_cproc_manual_config__s_1a5d71756c5b2b659f0f707bd619f20ede" prot="public" virt="non-virtual"><scope>CamDeviceCprocManualConfig_s</scope><name>contrast</name></member>
+      <member refid="struct_cam_device_cproc_manual_config__s_1a17c1344a42f6c9afabc97e8342fc8758" prot="public" virt="non-virtual"><scope>CamDeviceCprocManualConfig_s</scope><name>hue</name></member>
+      <member refid="struct_cam_device_cproc_manual_config__s_1af13610efabb5104ef29ffda7d38838a4" prot="public" virt="non-virtual"><scope>CamDeviceCprocManualConfig_s</scope><name>saturation</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

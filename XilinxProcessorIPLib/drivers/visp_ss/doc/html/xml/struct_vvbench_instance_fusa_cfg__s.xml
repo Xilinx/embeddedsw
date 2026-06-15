@@ -1,0 +1,407 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_vvbench_instance_fusa_cfg__s" kind="struct" prot="public">
+    <compoundname>VvbenchInstanceFusaCfg_s</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_vvbench_instance_fusa_cfg__s_1a181b6e9ed26782337d2e77b8244ec255" prot="public" static="no" mutable="no">
+        <type>bool_t</type>
+        <definition>bool_t VvbenchInstanceFusaCfg_s::useCfg</definition>
+        <argsstring></argsstring>
+        <name>useCfg</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" line="182" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" bodystart="182" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vvbench_instance_fusa_cfg__s_1a23977873766d765892981e62d24aa5d7" prot="public" static="no" mutable="no">
+        <type>bool_t</type>
+        <definition>bool_t VvbenchInstanceFusaCfg_s::enable</definition>
+        <argsstring></argsstring>
+        <name>enable</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" line="183" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" bodystart="183" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vvbench_instance_fusa_cfg__s_1a2437302729f9711dbca59bafd62e2b4f" prot="public" static="no" mutable="no">
+        <type>bool_t</type>
+        <definition>bool_t VvbenchInstanceFusaCfg_s::eccEn</definition>
+        <argsstring></argsstring>
+        <name>eccEn</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" line="184" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" bodystart="184" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vvbench_instance_fusa_cfg__s_1a91bb82eec8862281b88e4a88f995a967" prot="public" static="no" mutable="no">
+        <type>bool_t</type>
+        <definition>bool_t VvbenchInstanceFusaCfg_s::pixCountEn</definition>
+        <argsstring></argsstring>
+        <name>pixCountEn</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" line="185" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" bodystart="185" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vvbench_instance_fusa_cfg__s_1abf3f889efd2f892ff3072fee3f6a4110" prot="public" static="no" mutable="no">
+        <type>bool_t</type>
+        <definition>bool_t VvbenchInstanceFusaCfg_s::timeOutEn</definition>
+        <argsstring></argsstring>
+        <name>timeOutEn</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" line="186" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" bodystart="186" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vvbench_instance_fusa_cfg__s_1a101dc1bffa9805eb9fcf1917ee84f281" prot="public" static="no" mutable="no">
+        <type>bool_t</type>
+        <definition>bool_t VvbenchInstanceFusaCfg_s::bistEn</definition>
+        <argsstring></argsstring>
+        <name>bistEn</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" line="187" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" bodystart="187" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vvbench_instance_fusa_cfg__s_1a786428a50e5b2dea95986afb7b348bda" prot="public" static="no" mutable="no">
+        <type>bool_t</type>
+        <definition>bool_t VvbenchInstanceFusaCfg_s::bistPowerUpEn</definition>
+        <argsstring></argsstring>
+        <name>bistPowerUpEn</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" line="188" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" bodystart="188" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vvbench_instance_fusa_cfg__s_1a6cf33671c1fbeeee150f371d3995881f" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t VvbenchInstanceFusaCfg_s::crcInRevEn</definition>
+        <argsstring></argsstring>
+        <name>crcInRevEn</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" line="189" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" bodystart="189" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vvbench_instance_fusa_cfg__s_1a4a0eb7a803beb7910f8f762bec3ff744" prot="public" static="no" mutable="no">
+        <type>bool_t</type>
+        <definition>bool_t VvbenchInstanceFusaCfg_s::crcOutRevEn</definition>
+        <argsstring></argsstring>
+        <name>crcOutRevEn</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" line="190" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" bodystart="190" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vvbench_instance_fusa_cfg__s_1a20bfadbc67e19cf38964f9588113e715" prot="public" static="no" mutable="no">
+        <type>bool_t</type>
+        <definition>bool_t VvbenchInstanceFusaCfg_s::crcXorEn</definition>
+        <argsstring></argsstring>
+        <name>crcXorEn</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" line="191" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" bodystart="191" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vvbench_instance_fusa_cfg__s_1a5e2ce89f07965fc133568064970cdb04" prot="public" static="no" mutable="no">
+        <type>bool_t</type>
+        <definition>bool_t VvbenchInstanceFusaCfg_s::crcEn</definition>
+        <argsstring></argsstring>
+        <name>crcEn</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" line="192" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" bodystart="192" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vvbench_instance_fusa_cfg__s_1a5ae6aaaa087e9420f1013bfed0eab7df" prot="public" static="no" mutable="no">
+        <type>bool_t</type>
+        <definition>bool_t VvbenchInstanceFusaCfg_s::faultInjectionAhbTimeOutEn</definition>
+        <argsstring></argsstring>
+        <name>faultInjectionAhbTimeOutEn</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" line="193" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" bodystart="193" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vvbench_instance_fusa_cfg__s_1af95618de18eebb1a4de0c08acb60c14b" prot="public" static="no" mutable="no">
+        <type>bool_t</type>
+        <definition>bool_t VvbenchInstanceFusaCfg_s::faultInjectionDupEn</definition>
+        <argsstring></argsstring>
+        <name>faultInjectionDupEn</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" line="194" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" bodystart="194" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vvbench_instance_fusa_cfg__s_1a6a9d61ca5834e8b9c3f30a0cf65ab961" prot="public" static="no" mutable="no">
+        <type>bool_t</type>
+        <definition>bool_t VvbenchInstanceFusaCfg_s::faultInjectionEcc2bitEn</definition>
+        <argsstring></argsstring>
+        <name>faultInjectionEcc2bitEn</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" line="195" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" bodystart="195" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vvbench_instance_fusa_cfg__s_1a6037945391ae0f4f31f4ae76e61c9cdb" prot="public" static="no" mutable="no">
+        <type>bool_t</type>
+        <definition>bool_t VvbenchInstanceFusaCfg_s::faultInjectionEcc1bitEn</definition>
+        <argsstring></argsstring>
+        <name>faultInjectionEcc1bitEn</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" line="196" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" bodystart="196" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vvbench_instance_fusa_cfg__s_1a7973c1f4fd5626b563558b51bc6dd6e1" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t VvbenchInstanceFusaCfg_s::crcLevel</definition>
+        <argsstring></argsstring>
+        <name>crcLevel</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" line="197" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" bodystart="197" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vvbench_instance_fusa_cfg__s_1a58d4898d5b79831250e1bd4297256f79" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t VvbenchInstanceFusaCfg_s::crcMpRoiH</definition>
+        <argsstring></argsstring>
+        <name>crcMpRoiH</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" line="198" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" bodystart="198" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vvbench_instance_fusa_cfg__s_1aacace06565bdef7c6eed20a06e1df9d4" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t VvbenchInstanceFusaCfg_s::crcMpRoiV</definition>
+        <argsstring></argsstring>
+        <name>crcMpRoiV</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" line="199" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" bodystart="199" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vvbench_instance_fusa_cfg__s_1a145db623e8151538a6aa32eb9cba7957" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t VvbenchInstanceFusaCfg_s::crcSp1RoiH</definition>
+        <argsstring></argsstring>
+        <name>crcSp1RoiH</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" line="200" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" bodystart="200" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vvbench_instance_fusa_cfg__s_1a67ccf0653067206b4af126d5f358e726" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t VvbenchInstanceFusaCfg_s::crcSp1RoiV</definition>
+        <argsstring></argsstring>
+        <name>crcSp1RoiV</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" line="201" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" bodystart="201" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vvbench_instance_fusa_cfg__s_1ae71ef192e41823cd8ffb10336a3be21c" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t VvbenchInstanceFusaCfg_s::crcSp2RoiH</definition>
+        <argsstring></argsstring>
+        <name>crcSp2RoiH</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" line="202" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" bodystart="202" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vvbench_instance_fusa_cfg__s_1a2e5535343303cb1e37d5719ee901aa94" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t VvbenchInstanceFusaCfg_s::crcSp2RoiV</definition>
+        <argsstring></argsstring>
+        <name>crcSp2RoiV</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" line="203" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" bodystart="203" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vvbench_instance_fusa_cfg__s_1aca824c1c1a9715854b286b2d7e02e7bb" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t VvbenchInstanceFusaCfg_s::crcMpRoiOffH</definition>
+        <argsstring></argsstring>
+        <name>crcMpRoiOffH</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" line="204" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" bodystart="204" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vvbench_instance_fusa_cfg__s_1ab6707cf7b9ae17a68e202486a9e88352" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t VvbenchInstanceFusaCfg_s::crcMpRoiOffV</definition>
+        <argsstring></argsstring>
+        <name>crcMpRoiOffV</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" line="205" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" bodystart="205" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vvbench_instance_fusa_cfg__s_1aec17c0a5976215700689c8d33291a8f1" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t VvbenchInstanceFusaCfg_s::crcSp1RoiOffH</definition>
+        <argsstring></argsstring>
+        <name>crcSp1RoiOffH</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" line="206" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" bodystart="206" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vvbench_instance_fusa_cfg__s_1a25d31e558e24682b56d5b31e5c103568" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t VvbenchInstanceFusaCfg_s::crcSp1RoiOffV</definition>
+        <argsstring></argsstring>
+        <name>crcSp1RoiOffV</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" line="207" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" bodystart="207" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vvbench_instance_fusa_cfg__s_1ab7c991ad89f3518233db6b2b9aa9609b" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t VvbenchInstanceFusaCfg_s::crcSp2RoiOffH</definition>
+        <argsstring></argsstring>
+        <name>crcSp2RoiOffH</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" line="208" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" bodystart="208" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vvbench_instance_fusa_cfg__s_1aa70b7ae9910f9455b9bd09e263c6237c" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t VvbenchInstanceFusaCfg_s::crcSp2RoiOffV</definition>
+        <argsstring></argsstring>
+        <name>crcSp2RoiOffV</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" line="209" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" bodystart="209" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" line="181" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" bodystart="181" bodyend="223"/>
+    <listofallmembers>
+      <member refid="struct_vvbench_instance_fusa_cfg__s_1a101dc1bffa9805eb9fcf1917ee84f281" prot="public" virt="non-virtual"><scope>VvbenchInstanceFusaCfg_s</scope><name>bistEn</name></member>
+      <member refid="struct_vvbench_instance_fusa_cfg__s_1a786428a50e5b2dea95986afb7b348bda" prot="public" virt="non-virtual"><scope>VvbenchInstanceFusaCfg_s</scope><name>bistPowerUpEn</name></member>
+      <member refid="struct_vvbench_instance_fusa_cfg__s_1a5e2ce89f07965fc133568064970cdb04" prot="public" virt="non-virtual"><scope>VvbenchInstanceFusaCfg_s</scope><name>crcEn</name></member>
+      <member refid="struct_vvbench_instance_fusa_cfg__s_1a6cf33671c1fbeeee150f371d3995881f" prot="public" virt="non-virtual"><scope>VvbenchInstanceFusaCfg_s</scope><name>crcInRevEn</name></member>
+      <member refid="struct_vvbench_instance_fusa_cfg__s_1a7973c1f4fd5626b563558b51bc6dd6e1" prot="public" virt="non-virtual"><scope>VvbenchInstanceFusaCfg_s</scope><name>crcLevel</name></member>
+      <member refid="struct_vvbench_instance_fusa_cfg__s_1a58d4898d5b79831250e1bd4297256f79" prot="public" virt="non-virtual"><scope>VvbenchInstanceFusaCfg_s</scope><name>crcMpRoiH</name></member>
+      <member refid="struct_vvbench_instance_fusa_cfg__s_1aca824c1c1a9715854b286b2d7e02e7bb" prot="public" virt="non-virtual"><scope>VvbenchInstanceFusaCfg_s</scope><name>crcMpRoiOffH</name></member>
+      <member refid="struct_vvbench_instance_fusa_cfg__s_1ab6707cf7b9ae17a68e202486a9e88352" prot="public" virt="non-virtual"><scope>VvbenchInstanceFusaCfg_s</scope><name>crcMpRoiOffV</name></member>
+      <member refid="struct_vvbench_instance_fusa_cfg__s_1aacace06565bdef7c6eed20a06e1df9d4" prot="public" virt="non-virtual"><scope>VvbenchInstanceFusaCfg_s</scope><name>crcMpRoiV</name></member>
+      <member refid="struct_vvbench_instance_fusa_cfg__s_1a4a0eb7a803beb7910f8f762bec3ff744" prot="public" virt="non-virtual"><scope>VvbenchInstanceFusaCfg_s</scope><name>crcOutRevEn</name></member>
+      <member refid="struct_vvbench_instance_fusa_cfg__s_1a145db623e8151538a6aa32eb9cba7957" prot="public" virt="non-virtual"><scope>VvbenchInstanceFusaCfg_s</scope><name>crcSp1RoiH</name></member>
+      <member refid="struct_vvbench_instance_fusa_cfg__s_1aec17c0a5976215700689c8d33291a8f1" prot="public" virt="non-virtual"><scope>VvbenchInstanceFusaCfg_s</scope><name>crcSp1RoiOffH</name></member>
+      <member refid="struct_vvbench_instance_fusa_cfg__s_1a25d31e558e24682b56d5b31e5c103568" prot="public" virt="non-virtual"><scope>VvbenchInstanceFusaCfg_s</scope><name>crcSp1RoiOffV</name></member>
+      <member refid="struct_vvbench_instance_fusa_cfg__s_1a67ccf0653067206b4af126d5f358e726" prot="public" virt="non-virtual"><scope>VvbenchInstanceFusaCfg_s</scope><name>crcSp1RoiV</name></member>
+      <member refid="struct_vvbench_instance_fusa_cfg__s_1ae71ef192e41823cd8ffb10336a3be21c" prot="public" virt="non-virtual"><scope>VvbenchInstanceFusaCfg_s</scope><name>crcSp2RoiH</name></member>
+      <member refid="struct_vvbench_instance_fusa_cfg__s_1ab7c991ad89f3518233db6b2b9aa9609b" prot="public" virt="non-virtual"><scope>VvbenchInstanceFusaCfg_s</scope><name>crcSp2RoiOffH</name></member>
+      <member refid="struct_vvbench_instance_fusa_cfg__s_1aa70b7ae9910f9455b9bd09e263c6237c" prot="public" virt="non-virtual"><scope>VvbenchInstanceFusaCfg_s</scope><name>crcSp2RoiOffV</name></member>
+      <member refid="struct_vvbench_instance_fusa_cfg__s_1a2e5535343303cb1e37d5719ee901aa94" prot="public" virt="non-virtual"><scope>VvbenchInstanceFusaCfg_s</scope><name>crcSp2RoiV</name></member>
+      <member refid="struct_vvbench_instance_fusa_cfg__s_1a20bfadbc67e19cf38964f9588113e715" prot="public" virt="non-virtual"><scope>VvbenchInstanceFusaCfg_s</scope><name>crcXorEn</name></member>
+      <member refid="struct_vvbench_instance_fusa_cfg__s_1a2437302729f9711dbca59bafd62e2b4f" prot="public" virt="non-virtual"><scope>VvbenchInstanceFusaCfg_s</scope><name>eccEn</name></member>
+      <member refid="struct_vvbench_instance_fusa_cfg__s_1a23977873766d765892981e62d24aa5d7" prot="public" virt="non-virtual"><scope>VvbenchInstanceFusaCfg_s</scope><name>enable</name></member>
+      <member refid="struct_vvbench_instance_fusa_cfg__s_1a5ae6aaaa087e9420f1013bfed0eab7df" prot="public" virt="non-virtual"><scope>VvbenchInstanceFusaCfg_s</scope><name>faultInjectionAhbTimeOutEn</name></member>
+      <member refid="struct_vvbench_instance_fusa_cfg__s_1af95618de18eebb1a4de0c08acb60c14b" prot="public" virt="non-virtual"><scope>VvbenchInstanceFusaCfg_s</scope><name>faultInjectionDupEn</name></member>
+      <member refid="struct_vvbench_instance_fusa_cfg__s_1a6037945391ae0f4f31f4ae76e61c9cdb" prot="public" virt="non-virtual"><scope>VvbenchInstanceFusaCfg_s</scope><name>faultInjectionEcc1bitEn</name></member>
+      <member refid="struct_vvbench_instance_fusa_cfg__s_1a6a9d61ca5834e8b9c3f30a0cf65ab961" prot="public" virt="non-virtual"><scope>VvbenchInstanceFusaCfg_s</scope><name>faultInjectionEcc2bitEn</name></member>
+      <member refid="struct_vvbench_instance_fusa_cfg__s_1a91bb82eec8862281b88e4a88f995a967" prot="public" virt="non-virtual"><scope>VvbenchInstanceFusaCfg_s</scope><name>pixCountEn</name></member>
+      <member refid="struct_vvbench_instance_fusa_cfg__s_1abf3f889efd2f892ff3072fee3f6a4110" prot="public" virt="non-virtual"><scope>VvbenchInstanceFusaCfg_s</scope><name>timeOutEn</name></member>
+      <member refid="struct_vvbench_instance_fusa_cfg__s_1a181b6e9ed26782337d2e77b8244ec255" prot="public" virt="non-virtual"><scope>VvbenchInstanceFusaCfg_s</scope><name>useCfg</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

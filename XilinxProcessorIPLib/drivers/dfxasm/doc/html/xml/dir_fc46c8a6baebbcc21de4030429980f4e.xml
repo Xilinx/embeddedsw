@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_fc46c8a6baebbcc21de4030429980f4e" kind="dir">
+    <compoundname>dfxasm</compoundname>
+    <innerdir refid="dir_2680ef0c0550eb98de2b36bbb7dede4e">examples</innerdir>
+    <innerdir refid="dir_f78087039d575c9309a7c621775ed579">src</innerdir>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfxasm/"/>
+  </compounddef>
+</doxygen>

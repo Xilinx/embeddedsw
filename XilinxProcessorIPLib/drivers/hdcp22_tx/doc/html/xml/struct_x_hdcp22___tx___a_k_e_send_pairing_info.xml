@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_hdcp22___tx___a_k_e_send_pairing_info" kind="struct" prot="public">
+    <compoundname>XHdcp22_Tx_AKESendPairingInfo</compoundname>
+    <includes local="no">xhdcp22_tx_i.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_hdcp22___tx___a_k_e_send_pairing_info_1ad80ca667c268f09be6cbcfce84f3ec35" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHdcp22_Tx_AKESendPairingInfo::MsgId</definition>
+        <argsstring></argsstring>
+        <name>MsgId</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx_i.h" line="318" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx_i.h" bodystart="318" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___tx___a_k_e_send_pairing_info_1a5f1c9dfad5f08a623e6997e779f35101" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHdcp22_Tx_AKESendPairingInfo::EKhKm[XHDCP22_TX_EKH_KM_SIZE]</definition>
+        <argsstring>[XHDCP22_TX_EKH_KM_SIZE]</argsstring>
+        <name>EKhKm</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx_i.h" line="320" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx_i.h" bodystart="320" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef contains the received AKE_Send_Pairing_Info message definition. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx_i.h" line="317" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx_i.h" bodystart="316" bodyend="321"/>
+    <listofallmembers>
+      <member refid="struct_x_hdcp22___tx___a_k_e_send_pairing_info_1a5f1c9dfad5f08a623e6997e779f35101" prot="public" virt="non-virtual"><scope>XHdcp22_Tx_AKESendPairingInfo</scope><name>EKhKm</name></member>
+      <member refid="struct_x_hdcp22___tx___a_k_e_send_pairing_info_1ad80ca667c268f09be6cbcfce84f3ec35" prot="public" virt="non-virtual"><scope>XHdcp22_Tx_AKESendPairingInfo</scope><name>MsgId</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

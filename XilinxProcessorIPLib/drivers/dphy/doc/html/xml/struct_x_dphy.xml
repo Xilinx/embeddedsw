@@ -1,0 +1,73 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_dphy" kind="struct" prot="public">
+    <compoundname>XDphy</compoundname>
+    <includes local="no">xdphy.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_dphy_1af74d9d469cc4c07e98bd47f77885dd87" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_dphy___config" kindref="compound">XDphy_Config</ref></type>
+        <definition>XDphy_Config XDphy::Config</definition>
+        <argsstring></argsstring>
+        <name>Config</name>
+        <briefdescription>
+<para>Hardware Configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.h" line="316" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.h" bodystart="316" bodyend="-1"/>
+        <referencedby refid="group__dphy_1gab83aed5a09f62e3a68e5d6cc06bad18d" compoundref="xdphy_8c" startline="694" endline="716">XDphy_Activate</referencedby>
+        <referencedby refid="group__dphy_1gaea0afc70f0f04baddd321ed49eff751a" compoundref="xdphy_8c" startline="64" endline="80">XDphy_CfgInitialize</referencedby>
+        <referencedby refid="group__dphy_1ga202a4113c0ace62f6858b7f37dfd0f75" compoundref="xdphy_8c" startline="505" endline="520">XDphy_ClearDataLane</referencedby>
+        <referencedby refid="group__dphy_1ga0d72a217f030e5c452ce1e61c92f1a29" compoundref="xdphy_8c" startline="98" endline="261">XDphy_Configure</referencedby>
+        <referencedby refid="group__dphy_1gad2110f5c852b9ef0b78a892625051646" compoundref="xdphy_8c" startline="554" endline="565">XDphy_GetClkLaneMode</referencedby>
+        <referencedby refid="group__dphy_1ga455915ec07f1de9a2c68bae01e7bc6f8" compoundref="xdphy_8c" startline="533" endline="542">XDphy_GetClkLaneStatus</referencedby>
+        <referencedby refid="group__dphy_1ga0a8e793032f9c635bcbf2abf6a1d9832" compoundref="xdphy_8c" startline="641" endline="653">XDphy_GetDataLaneMode</referencedby>
+        <referencedby refid="group__dphy_1ga006589112115f10a2dc19853bae893ce" compoundref="xdphy_8c" startline="579" endline="588">XDphy_GetDataLaneStatus</referencedby>
+        <referencedby refid="group__dphy_1gaa18b76f92d1ac7c35e0b72d191952273" compoundref="xdphy_8c" startline="603" endline="628">XDphy_GetDLCalibStatus</referencedby>
+        <referencedby refid="group__dphy_1ga08901fa94d34b59883610d1590165919" compoundref="xdphy_8c" startline="295" endline="446">XDphy_GetInfo</referencedby>
+        <referencedby refid="group__dphy_1ga0da2a930bce29d8c6a2b74d020aa3561" compoundref="xdphy_8c" startline="667" endline="682">XDphy_GetPacketCount</referencedby>
+        <referencedby refid="group__dphy_1ga4e15b3ffd6c4cfca5eedda2a7c1e9d4d" compoundref="xdphy_8c" startline="276" endline="282">XDphy_GetRegIntfcPresent</referencedby>
+        <referencedby refid="group__dphy_1gaef0df18f2a9cdc07df62ba6d63347900" compoundref="xdphy_8c" startline="458" endline="491">XDphy_Reset</referencedby>
+        <referencedby refid="group__dphy_1ga0e170cc371483fc64fd515d1cc301ee4" compoundref="xdphy__selftest_8c" startline="62" endline="74">XDphy_SelfTest</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dphy_1a5632460e67abd76b814bf07408462762" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDphy::IsReady</definition>
+        <argsstring></argsstring>
+        <name>IsReady</name>
+        <briefdescription>
+<para>Driver is ready. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.h" line="317" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.h" bodystart="317" bodyend="-1"/>
+        <referencedby refid="group__dphy_1gaea0afc70f0f04baddd321ed49eff751a" compoundref="xdphy_8c" startline="64" endline="80">XDphy_CfgInitialize</referencedby>
+        <referencedby refid="group__dphy_1gaef0df18f2a9cdc07df62ba6d63347900" compoundref="xdphy_8c" startline="458" endline="491">XDphy_Reset</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>The <ref refid="struct_x_dphy" kindref="compound">XDphy</ref> Controller driver instance data. </para>    </briefdescription>
+    <detaileddescription>
+<para>The user is required to allocate a variable of this type for every <ref refid="struct_x_dphy" kindref="compound">XDphy</ref> device in the system. A pointer to a variable of this type is then passed to the driver API functions. </para>    </detaileddescription>
+    <collaborationgraph>
+      <node id="2">
+        <label>XDphy_Config</label>
+        <link refid="struct_x_dphy___config"/>
+      </node>
+      <node id="1">
+        <label>XDphy</label>
+        <link refid="struct_x_dphy"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>Config</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.h" line="315" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.h" bodystart="315" bodyend="318"/>
+    <listofallmembers>
+      <member refid="struct_x_dphy_1af74d9d469cc4c07e98bd47f77885dd87" prot="public" virt="non-virtual"><scope>XDphy</scope><name>Config</name></member>
+      <member refid="struct_x_dphy_1a5632460e67abd76b814bf07408462762" prot="public" virt="non-virtual"><scope>XDphy</scope><name>IsReady</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

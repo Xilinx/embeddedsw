@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_a8503c0f616f4c4841db9f4b2e63234e" kind="dir">
+    <compoundname>src</compoundname>
+    <innerfile refid="xclk__wiz_8c">xclk_wiz.c</innerfile>
+    <innerfile refid="xclk__wiz_8h">xclk_wiz.h</innerfile>
+    <innerfile refid="xclk__wiz__g_8c">xclk_wiz_g.c</innerfile>
+    <innerfile refid="xclk__wiz__hw_8h">xclk_wiz_hw.h</innerfile>
+    <innerfile refid="xclk__wiz__intr_8c">xclk_wiz_intr.c</innerfile>
+    <innerfile refid="xclk__wiz__sinit_8c">xclk_wiz_sinit.c</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/"/>
+  </compounddef>
+</doxygen>

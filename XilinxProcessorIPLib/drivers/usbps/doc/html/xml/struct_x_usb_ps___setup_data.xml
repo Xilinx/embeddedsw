@@ -1,0 +1,101 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_usb_ps___setup_data" kind="struct" prot="public">
+    <compoundname>XUsbPs_SetupData</compoundname>
+    <includes local="no">xusbps.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_usb_ps___setup_data_1afda08a011932bde143139829a61c37c0" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XUsbPs_SetupData::bmRequestType</definition>
+        <argsstring></argsstring>
+        <name>bmRequestType</name>
+        <briefdescription>
+<para>bmRequestType in setup data </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps.h" line="454" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps.h" bodystart="454" bodyend="-1"/>
+        <referencedby refid="xusbps__ch9_8h_1a254a6aac5f51679919255c4602aa04d2" compoundref="xusbps__ch9_8c" startline="97" endline="134">XUsbPs_Ch9HandleSetupPacket</referencedby>
+        <referencedby refid="xusbps__class__storage_8h_1a8665f21d5cd56ddd1983b110d15f7d25" compoundref="xusbps__class__audio_8c" startline="49" endline="409">XUsbPs_ClassReq</referencedby>
+        <referencedby refid="group__usbps_1ga91c44ff9dcae2e47ed8112c8a0779fa1" compoundref="xusbps__endpoint_8c" startline="812" endline="892">XUsbPs_EpGetSetupData</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_usb_ps___setup_data_1a00cd3d9748a6d8fe54af651126becd50" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XUsbPs_SetupData::bRequest</definition>
+        <argsstring></argsstring>
+        <name>bRequest</name>
+        <briefdescription>
+<para>bRequest in setup data </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps.h" line="455" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps.h" bodystart="455" bodyend="-1"/>
+        <referencedby refid="xusbps__ch9_8h_1a254a6aac5f51679919255c4602aa04d2" compoundref="xusbps__ch9_8c" startline="97" endline="134">XUsbPs_Ch9HandleSetupPacket</referencedby>
+        <referencedby refid="xusbps__class__storage_8h_1a8665f21d5cd56ddd1983b110d15f7d25" compoundref="xusbps__class__audio_8c" startline="49" endline="409">XUsbPs_ClassReq</referencedby>
+        <referencedby refid="group__usbps_1ga91c44ff9dcae2e47ed8112c8a0779fa1" compoundref="xusbps__endpoint_8c" startline="812" endline="892">XUsbPs_EpGetSetupData</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_usb_ps___setup_data_1a78686691b1ec4cc04a89d25383e71a9e" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XUsbPs_SetupData::wValue</definition>
+        <argsstring></argsstring>
+        <name>wValue</name>
+        <briefdescription>
+<para>wValue in setup data </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps.h" line="456" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps.h" bodystart="456" bodyend="-1"/>
+        <referencedby refid="xusbps__class__storage_8h_1a8665f21d5cd56ddd1983b110d15f7d25" compoundref="xusbps__class__audio_8c" startline="49" endline="409">XUsbPs_ClassReq</referencedby>
+        <referencedby refid="group__usbps_1ga91c44ff9dcae2e47ed8112c8a0779fa1" compoundref="xusbps__endpoint_8c" startline="812" endline="892">XUsbPs_EpGetSetupData</referencedby>
+        <referencedby refid="xusbps__ch9__storage_8h_1a6f3de0049101ffbf7d6c92a55442e226" compoundref="xusbps__ch9__audio_8c" startline="856" endline="872">XUsbPs_SetConfigurationApp</referencedby>
+        <referencedby refid="xusbps__ch9__storage_8h_1a4942a94ee10ae5832b33125aa184f9ab" compoundref="xusbps__ch9__audio_8c" startline="888" endline="1011">XUsbPs_SetInterfaceHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_usb_ps___setup_data_1ad085f8a84571f2df12ce9e5bc90facae" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XUsbPs_SetupData::wIndex</definition>
+        <argsstring></argsstring>
+        <name>wIndex</name>
+        <briefdescription>
+<para>wIndex in setup data </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps.h" line="457" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps.h" bodystart="457" bodyend="-1"/>
+        <referencedby refid="xusbps__class__storage_8h_1a8665f21d5cd56ddd1983b110d15f7d25" compoundref="xusbps__class__audio_8c" startline="49" endline="409">XUsbPs_ClassReq</referencedby>
+        <referencedby refid="group__usbps_1ga91c44ff9dcae2e47ed8112c8a0779fa1" compoundref="xusbps__endpoint_8c" startline="812" endline="892">XUsbPs_EpGetSetupData</referencedby>
+        <referencedby refid="xusbps__ch9__storage_8h_1a4942a94ee10ae5832b33125aa184f9ab" compoundref="xusbps__ch9__audio_8c" startline="888" endline="1011">XUsbPs_SetInterfaceHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_usb_ps___setup_data_1a6c927388ae044126bc1e546bce8b1243" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XUsbPs_SetupData::wLength</definition>
+        <argsstring></argsstring>
+        <name>wLength</name>
+        <briefdescription>
+<para>wLength in setup data </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps.h" line="458" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps.h" bodystart="458" bodyend="-1"/>
+        <referencedby refid="xusbps__class__storage_8h_1a8665f21d5cd56ddd1983b110d15f7d25" compoundref="xusbps__class__audio_8c" startline="49" endline="409">XUsbPs_ClassReq</referencedby>
+        <referencedby refid="group__usbps_1ga91c44ff9dcae2e47ed8112c8a0779fa1" compoundref="xusbps__endpoint_8c" startline="812" endline="892">XUsbPs_EpGetSetupData</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>The following structure is used by the user to receive Setup Data from an endpoint. </para>    </briefdescription>
+    <detaileddescription>
+<para>Using this structure simplifies the process of interpreting the setup data in the core&apos;s data fields.</para><para>The naming scheme for the members of this structure is different from the naming scheme found elsewhere in the code. The members of this structure are defined in the Chapter 9 USB reference guide. Using this naming scheme makes it easier for people familiar with the standard to read the code. </para>    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps.h" line="453" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps.h" bodystart="453" bodyend="459"/>
+    <listofallmembers>
+      <member refid="struct_x_usb_ps___setup_data_1afda08a011932bde143139829a61c37c0" prot="public" virt="non-virtual"><scope>XUsbPs_SetupData</scope><name>bmRequestType</name></member>
+      <member refid="struct_x_usb_ps___setup_data_1a00cd3d9748a6d8fe54af651126becd50" prot="public" virt="non-virtual"><scope>XUsbPs_SetupData</scope><name>bRequest</name></member>
+      <member refid="struct_x_usb_ps___setup_data_1ad085f8a84571f2df12ce9e5bc90facae" prot="public" virt="non-virtual"><scope>XUsbPs_SetupData</scope><name>wIndex</name></member>
+      <member refid="struct_x_usb_ps___setup_data_1a6c927388ae044126bc1e546bce8b1243" prot="public" virt="non-virtual"><scope>XUsbPs_SetupData</scope><name>wLength</name></member>
+      <member refid="struct_x_usb_ps___setup_data_1a78686691b1ec4cc04a89d25383e71a9e" prot="public" virt="non-virtual"><scope>XUsbPs_SetupData</scope><name>wValue</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

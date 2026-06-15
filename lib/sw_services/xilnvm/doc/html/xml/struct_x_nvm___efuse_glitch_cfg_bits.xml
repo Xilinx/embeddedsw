@@ -1,0 +1,89 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_nvm___efuse_glitch_cfg_bits" kind="struct" prot="public">
+    <compoundname>XNvm_EfuseGlitchCfgBits</compoundname>
+    <includes local="no">xnvm_common_defs.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_nvm___efuse_glitch_cfg_bits_1a154bc883c6109a78644736bd5d4eef14" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XNvm_EfuseGlitchCfgBits::PrgmGlitch</definition>
+        <argsstring></argsstring>
+        <name>PrgmGlitch</name>
+        <briefdescription>
+<para>Program glitch configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" line="235" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" bodystart="235" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_glitch_cfg_bits_1aa92dc0fb9111b602dbd6b8d2e9271ba5" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XNvm_EfuseGlitchCfgBits::GlitchDetWrLk</definition>
+        <argsstring></argsstring>
+        <name>GlitchDetWrLk</name>
+        <briefdescription>
+<para>Glitch detection write lock. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" line="236" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" bodystart="236" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__server__apis_1gace7f68b8a561aa12aed7ca066b9e28b2" compoundref="versal__gen_2versal_2server_2xnvm__efuse_8c" startline="244" endline="590">XNvm_EfuseWrite</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_glitch_cfg_bits_1a30ff6a0b0c816126775125b2a55e731f" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XNvm_EfuseGlitchCfgBits::GlitchDetTrim</definition>
+        <argsstring></argsstring>
+        <name>GlitchDetTrim</name>
+        <briefdescription>
+<para>Glitch detection trim. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" line="237" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" bodystart="237" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_glitch_cfg_bits_1a4dd80a98748b5a014022c7c6f9f4cc18" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XNvm_EfuseGlitchCfgBits::GdRomMonitorEn</definition>
+        <argsstring></argsstring>
+        <name>GdRomMonitorEn</name>
+        <briefdescription>
+<para>Glitch detection ROM monitor enable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" line="238" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" bodystart="238" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__server__apis_1gace7f68b8a561aa12aed7ca066b9e28b2" compoundref="versal__gen_2versal_2server_2xnvm__efuse_8c" startline="244" endline="590">XNvm_EfuseWrite</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_glitch_cfg_bits_1a84a6400e61f095bb4aea91b2add0dce3" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XNvm_EfuseGlitchCfgBits::GdHaltBootEn</definition>
+        <argsstring></argsstring>
+        <name>GdHaltBootEn</name>
+        <briefdescription>
+<para>Glitch detection halt boot enable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" line="239" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" bodystart="239" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__server__apis_1gace7f68b8a561aa12aed7ca066b9e28b2" compoundref="versal__gen_2versal_2server_2xnvm__efuse_8c" startline="244" endline="590">XNvm_EfuseWrite</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Structure for Glitch Config Bits. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" line="234" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" bodystart="234" bodyend="240"/>
+    <listofallmembers>
+      <member refid="struct_x_nvm___efuse_glitch_cfg_bits_1a84a6400e61f095bb4aea91b2add0dce3" prot="public" virt="non-virtual"><scope>XNvm_EfuseGlitchCfgBits</scope><name>GdHaltBootEn</name></member>
+      <member refid="struct_x_nvm___efuse_glitch_cfg_bits_1a4dd80a98748b5a014022c7c6f9f4cc18" prot="public" virt="non-virtual"><scope>XNvm_EfuseGlitchCfgBits</scope><name>GdRomMonitorEn</name></member>
+      <member refid="struct_x_nvm___efuse_glitch_cfg_bits_1a30ff6a0b0c816126775125b2a55e731f" prot="public" virt="non-virtual"><scope>XNvm_EfuseGlitchCfgBits</scope><name>GlitchDetTrim</name></member>
+      <member refid="struct_x_nvm___efuse_glitch_cfg_bits_1aa92dc0fb9111b602dbd6b8d2e9271ba5" prot="public" virt="non-virtual"><scope>XNvm_EfuseGlitchCfgBits</scope><name>GlitchDetWrLk</name></member>
+      <member refid="struct_x_nvm___efuse_glitch_cfg_bits_1a154bc883c6109a78644736bd5d4eef14" prot="public" virt="non-virtual"><scope>XNvm_EfuseGlitchCfgBits</scope><name>PrgmGlitch</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

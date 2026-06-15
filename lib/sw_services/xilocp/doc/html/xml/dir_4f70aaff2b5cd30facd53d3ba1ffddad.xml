@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_4f70aaff2b5cd30facd53d3ba1ffddad" kind="dir">
+    <compoundname>server</compoundname>
+    <innerdir refid="dir_beef951c24db56a849b13b52ed4c04c2">versal_2ve_2vm</innerdir>
+    <innerdir refid="dir_8fda72420a24783a8b03ddbb21c5a71d">versal_2vp</innerdir>
+    <innerdir refid="dir_3d40b51f361b9d764a074fb4b1745f37">versal_net</innerdir>
+    <innerfile refid="xocp_8h">xocp.h</innerfile>
+    <innerfile refid="xocp__asufw_8c">xocp_asufw.c</innerfile>
+    <innerfile refid="xocp__asufw_8h">xocp_asufw.h</innerfile>
+    <innerfile refid="xocp__cmd_8c">xocp_cmd.c</innerfile>
+    <innerfile refid="xocp__cmd_8h">xocp_cmd.h</innerfile>
+    <innerfile refid="server_2xocp__dme_8c">server/xocp_dme.c</innerfile>
+    <innerfile refid="server_2xocp__dme_8h">server/xocp_dme.h</innerfile>
+    <innerfile refid="xocp__generic_8c">xocp_generic.c</innerfile>
+    <innerfile refid="xocp__generic_8h">xocp_generic.h</innerfile>
+    <innerfile refid="xocp__init_8c">xocp_init.c</innerfile>
+    <innerfile refid="xocp__init_8h">xocp_init.h</innerfile>
+    <innerfile refid="xocp__ipihandler_8c">xocp_ipihandler.c</innerfile>
+    <innerfile refid="xocp__ipihandler_8h">xocp_ipihandler.h</innerfile>
+    <innerfile refid="xocp__keymgmt__common_8c">xocp_keymgmt_common.c</innerfile>
+    <innerfile refid="xocp__keymgmt__common_8h">xocp_keymgmt_common.h</innerfile>
+    <innerfile refid="xocp__keymgmt__native_8c">xocp_keymgmt_native.c</innerfile>
+    <innerfile refid="xocp__keymgmt__native_8h">xocp_keymgmt_native.h</innerfile>
+    <innerfile refid="xocp__pcr_8c">xocp_pcr.c</innerfile>
+    <innerfile refid="xocp__pcr_8h">xocp_pcr.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/server/"/>
+  </compounddef>
+</doxygen>

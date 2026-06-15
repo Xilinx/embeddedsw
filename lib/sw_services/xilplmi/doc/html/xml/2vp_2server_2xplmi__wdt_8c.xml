@@ -1,0 +1,570 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="2vp_2server_2xplmi__wdt_8c" kind="file">
+    <compoundname>2vp/server/xplmi_wdt.c</compoundname>
+    <includes refid="2vp_2server_2xplmi__wdt_8h" local="yes">xplmi_wdt.h</includes>
+    <includes refid="2vp_2server_2xplmi__hw_8h" local="yes">xplmi_hw.h</includes>
+    <includes refid="2vp_2server_2xplmi__status_8h" local="yes">xplmi_status.h</includes>
+    <includes refid="xplmi__debug_8h" local="yes">xplmi_debug.h</includes>
+    <includes refid="xplmi_8h" local="yes">xplmi.h</includes>
+    <incdepgraph>
+      <node id="3232">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="3225">
+        <label>xplmi_proc.h</label>
+        <link refid="xplmi__proc_8h"/>
+        <childnode refid="3226" relation="include">
+        </childnode>
+        <childnode refid="3227" relation="include">
+        </childnode>
+        <childnode refid="3228" relation="include">
+        </childnode>
+        <childnode refid="3216" relation="include">
+        </childnode>
+        <childnode refid="3224" relation="include">
+        </childnode>
+      </node>
+      <node id="3215">
+        <label>xil_hw.h</label>
+      </node>
+      <node id="3214">
+        <label>xil_io.h</label>
+      </node>
+      <node id="3211">
+        <label>xplmi_config.h</label>
+        <link refid="2vp_2server_2xplmi__config_8h"/>
+        <childnode refid="3212" relation="include">
+        </childnode>
+        <childnode refid="3213" relation="include">
+        </childnode>
+      </node>
+      <node id="3236">
+        <label>stdlib.h</label>
+      </node>
+      <node id="3222">
+        <label>xplmi_event_logging.h</label>
+        <link refid="xplmi__event__logging_8h"/>
+        <childnode refid="3223" relation="include">
+        </childnode>
+        <childnode refid="3216" relation="include">
+        </childnode>
+      </node>
+      <node id="3229">
+        <label>xplmi_ipi.h</label>
+        <link refid="xplmi__ipi_8h"/>
+        <childnode refid="3212" relation="include">
+        </childnode>
+        <childnode refid="3230" relation="include">
+        </childnode>
+        <childnode refid="3223" relation="include">
+        </childnode>
+        <childnode refid="3232" relation="include">
+        </childnode>
+        <childnode refid="3215" relation="include">
+        </childnode>
+      </node>
+      <node id="3233">
+        <label>xplmi_task.h</label>
+        <link refid="xplmi__task_8h"/>
+        <childnode refid="3232" relation="include">
+        </childnode>
+        <childnode refid="3234" relation="include">
+        </childnode>
+        <childnode refid="3209" relation="include">
+        </childnode>
+        <childnode refid="3218" relation="include">
+        </childnode>
+        <childnode refid="3235" relation="include">
+        </childnode>
+      </node>
+      <node id="3219">
+        <label>xplmi_debug.h</label>
+        <link refid="xplmi__debug_8h"/>
+        <childnode refid="3220" relation="include">
+        </childnode>
+        <childnode refid="3221" relation="include">
+        </childnode>
+        <childnode refid="3222" relation="include">
+        </childnode>
+        <childnode refid="3225" relation="include">
+        </childnode>
+      </node>
+      <node id="3216">
+        <label>xplmi_util.h</label>
+        <link refid="xplmi__util_8h"/>
+        <childnode refid="3209" relation="include">
+        </childnode>
+      </node>
+      <node id="3237">
+        <label>xplmi.h</label>
+        <link refid="xplmi_8h"/>
+        <childnode refid="3238" relation="include">
+        </childnode>
+        <childnode refid="3231" relation="include">
+        </childnode>
+      </node>
+      <node id="3239">
+        <label>xplmi_dma.h</label>
+        <link refid="xplmi__dma_8h"/>
+        <childnode refid="3240" relation="include">
+        </childnode>
+      </node>
+      <node id="3213">
+        <label>xplmi_bsp_config.h</label>
+      </node>
+      <node id="3238">
+        <label>xplmi_generic.h</label>
+        <childnode refid="3219" relation="include">
+        </childnode>
+        <childnode refid="3239" relation="include">
+        </childnode>
+        <childnode refid="3223" relation="include">
+        </childnode>
+      </node>
+      <node id="3234">
+        <label>mb_interface.h</label>
+      </node>
+      <node id="3230">
+        <label>xplmi_modules.h</label>
+        <link refid="xplmi__modules_8h"/>
+        <childnode refid="3223" relation="include">
+        </childnode>
+        <childnode refid="3231" relation="include">
+        </childnode>
+        <childnode refid="3212" relation="include">
+        </childnode>
+        <childnode refid="3209" relation="include">
+        </childnode>
+      </node>
+      <node id="3218">
+        <label>xstatus.h</label>
+      </node>
+      <node id="3221">
+        <label>xplmi_config.h</label>
+      </node>
+      <node id="3227">
+        <label>xil_exception.h</label>
+      </node>
+      <node id="3209">
+        <label>xil_types.h</label>
+      </node>
+      <node id="3207">
+        <label>xplmi_wdt.c</label>
+        <link refid="2vp/server/xplmi_wdt.c"/>
+        <childnode refid="3208" relation="include">
+        </childnode>
+        <childnode refid="3210" relation="include">
+        </childnode>
+        <childnode refid="3217" relation="include">
+        </childnode>
+        <childnode refid="3219" relation="include">
+        </childnode>
+        <childnode refid="3237" relation="include">
+        </childnode>
+      </node>
+      <node id="3208">
+        <label>xplmi_wdt.h</label>
+        <link refid="2vp_2server_2xplmi__wdt_8h"/>
+        <childnode refid="3209" relation="include">
+        </childnode>
+      </node>
+      <node id="3240">
+        <label>xpmcdma.h</label>
+      </node>
+      <node id="3210">
+        <label>xplmi_hw.h</label>
+        <link refid="2vp_2server_2xplmi__hw_8h"/>
+        <childnode refid="3211" relation="include">
+        </childnode>
+        <childnode refid="3212" relation="include">
+        </childnode>
+        <childnode refid="3214" relation="include">
+        </childnode>
+        <childnode refid="3215" relation="include">
+        </childnode>
+        <childnode refid="3216" relation="include">
+        </childnode>
+      </node>
+      <node id="3217">
+        <label>xplmi_status.h</label>
+        <link refid="2vp_2server_2xplmi__status_8h"/>
+        <childnode refid="3218" relation="include">
+        </childnode>
+      </node>
+      <node id="3223">
+        <label>xplmi_cmd.h</label>
+        <link refid="xplmi__cmd_8h"/>
+        <childnode refid="3224" relation="include">
+        </childnode>
+        <childnode refid="3221" relation="include">
+        </childnode>
+      </node>
+      <node id="3212">
+        <label>xparameters.h</label>
+      </node>
+      <node id="3220">
+        <label>xil_printf.h</label>
+      </node>
+      <node id="3235">
+        <label>list.h</label>
+        <childnode refid="3236" relation="include">
+        </childnode>
+      </node>
+      <node id="3228">
+        <label>xplmi_gic_interrupts.h</label>
+        <link refid="xplmi__gic__interrupts_8h"/>
+        <childnode refid="3229" relation="include">
+        </childnode>
+        <childnode refid="3233" relation="include">
+        </childnode>
+      </node>
+      <node id="3226">
+        <label>xiomodule.h</label>
+      </node>
+      <node id="3231">
+        <label>xplmi_plat.h</label>
+      </node>
+      <node id="3224">
+        <label>xplmi_status.h</label>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xilplmi__server__apis_1gaf37f68542fdb6d4c42b74ab8862be551" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XPlmi_EnableWdt</definition>
+        <argsstring>(u32 NodeId, u32 Periodicity)</argsstring>
+        <name>XPlmi_EnableWdt</name>
+        <param>
+          <type>u32</type>
+          <declname>NodeId</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Periodicity</declname>
+        </param>
+        <briefdescription>
+<para>This function enables the WDT and sets NodeId and periodicity. </para>        </briefdescription>
+        <detaileddescription>
+<para><verbatim>            It also verifies the parameters.
+</verbatim></para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>NodeId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>NodeId is the MIO node to be used by PLM for toggling. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Periodicity</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>at which MIO value should be toggled.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if success.</para></listitem><listitem><para>XPLMI_ERR_WDT_PERIODICITY on invalid Periodicity.</para></listitem><listitem><para>XPLMI_ERR_WDT_LPD_NOT_INITIALIZED if LPD is not initialized.</para></listitem><listitem><para>XPLMI_ERR_WDT_NODE_ID on invalid node ID.</para></listitem></itemizedlist>
+</para></simplesect>
+It also verifies the parameters.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>NodeId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>NodeId is the MIO node to be used by PLM for toggling. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Periodicity</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>at which MIO value should be toggled.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if success.</para></listitem><listitem><para>XPLMI_ERR_WDT_PERIODICITY on invalid Periodicity.</para></listitem><listitem><para>XPLMI_ERR_WDT_LPD_NOT_INITIALIZED if LPD is not initialized.</para></listitem><listitem><para>XPLMI_ERR_WDT_NODE_ID on invalid node ID.</para></listitem></itemizedlist>
+</para></simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>NodeId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>NodeId is the MIO node to be used by PLM for toggling. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Periodicity</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>at which MIO value should be toggled.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if success.</para></listitem><listitem><para>XPLMI_ERR_WDT_PERIODICITY on invalid Periodicity.</para></listitem><listitem><para>XPLMI_ERR_PMC_WDT_NOT_ENABLED if PMC WDT is tried use and it is not enabled in design.</para></listitem><listitem><para>XPLMI_ERR_PMC_WDT_DRV_INIT if PMC WDT driver initialization fails.</para></listitem><listitem><para>XPLMI_ERR_WDT_LPD_NOT_INITIALIZED if LPD is not initialized.</para></listitem><listitem><para>XPLMI_ERR_WDT_NODE_ID on invalid node ID. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Check for Valid Node ID</para></listitem><listitem><para>Check for Valid Node ID</para></listitem></itemizedlist>
+</para><para>Check for Valid Node ID </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal/server/xplmi_wdt.c" line="106" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal/server/xplmi_wdt.c" bodystart="106" bodyend="154"/>
+        <references refid="xplmi_8h_1a2da9f028be145a4f17852a4d3eb7898f" compoundref="xplmi_8h" startline="132">LPD_WDT_INITIALIZED</references>
+        <references refid="2vp_2server_2xplmi__plat_8h_1a99fb83031ce9923c84392b4e92f956b5a7639e8ca8278bee32b86c32e3eb0701d" compoundref="2vp_2server_2xplmi__plat_8h" startline="379">XPLMI_ERR_WDT_LPD_NOT_INITIALIZED</references>
+        <references refid="2vp_2server_2xplmi__plat_8h_1a99fb83031ce9923c84392b4e92f956b5a85adec0c1a68eac5059e7a636db81edc" compoundref="2vp_2server_2xplmi__plat_8h" startline="376">XPLMI_ERR_WDT_NODE_ID</references>
+        <references refid="2vp_2server_2xplmi__plat_8h_1a99fb83031ce9923c84392b4e92f956b5aa930119634e74a1b7da35a5126eafaaf" compoundref="2vp_2server_2xplmi__plat_8h" startline="373">XPLMI_ERR_WDT_PERIODICITY</references>
+        <references refid="group__xilplmi__server__apis_1ga4fe46ba3dac6e3b6193ce517e61c55bd" compoundref="net_2server_2xplmi__wdt_8c" startline="57">XPLMI_MIO_NUM_PER_BANK</references>
+        <references refid="group__xilplmi__server__apis_1ga4362c318cfc21cb8bd9954d3544698e5" compoundref="net_2server_2xplmi__wdt_8c" startline="59">XPLMI_PM_STMIC_LMIO_0</references>
+        <references refid="group__xilplmi__server__apis_1gad3b2c3a348035801e77d0fcc4f5251ff" compoundref="net_2server_2xplmi__wdt_8c" startline="60">XPLMI_PM_STMIC_LMIO_25</references>
+        <references refid="group__xilplmi__server__apis_1gaf57d921006ec568207d4a173e061a85e" compoundref="net_2server_2xplmi__wdt_8c" startline="61">XPLMI_PM_STMIC_PMIO_0</references>
+        <references refid="group__xilplmi__server__apis_1ga1b99c20342284aa02741921212f3fb4f" compoundref="net_2server_2xplmi__wdt_8c" startline="62">XPLMI_PM_STMIC_PMIO_51</references>
+        <references refid="group__xilplmi__server__apis_1ga4eb444b49ce4a70d9cda587bddafada9" compoundref="xplmi_8c" startline="393" endline="398">XPlmi_SetLpdInitialized</references>
+        <references refid="group__xilplmi__server__apis_1ga5d8cbcc3b768b671d9d962e23b290c79" compoundref="net_2server_2xplmi__wdt_8c" startline="54">XPLMI_WDT_PERIODICITY_MAX</references>
+        <references refid="group__xilplmi__server__apis_1ga93dca420dde8557945784982956d7547" compoundref="net_2server_2xplmi__wdt_8c" startline="53">XPLMI_WDT_PERIODICITY_MIN</references>
+        <referencedby refid="group__xilplmi__server__apis_1gaa80acce34d3a6858f42b05b8a52df7bd" compoundref="net_2server_2xplmi__wdt_8c" startline="281" endline="297">XPlmi_DefaultSWdtConfig</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xilplmi__server__apis_1gab3c474d81cc4dd3d2fdafd04e6ce4d19" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XPlmi_DisableWdt</definition>
+        <argsstring>(u32 NodeId)</argsstring>
+        <name>XPlmi_DisableWdt</name>
+        <param>
+          <type>u32</type>
+          <declname>NodeId</declname>
+        </param>
+        <briefdescription>
+<para>This function disables the WDT. </para>        </briefdescription>
+        <detaileddescription>
+<para>This is required when LPD is powered down and if LPD MIO is used. Also required when debugging.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>NodeId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is not applicable for versal platform.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+This is required when LPD is powered down and if LPD MIO is used. Also required when debugging.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>NodeId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the Node ID of external WDT or internal PMC WDT </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal/server/xplmi_wdt.c" line="164" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal/server/xplmi_wdt.c" bodystart="164" bodyend="168"/>
+        <referencedby refid="group__xilplmi__server__apis_1ga6787ab6388dd1d5d6d188fb4f2292bef" compoundref="xplmi_8c" startline="375" endline="384">XPlmi_ResetLpdInitialized</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xilplmi__server__apis_1gaa4a47c5570d5ee0c85d80d71d4b66b28" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XPlmi_SetPlmLiveStatus</definition>
+        <argsstring>(void)</argsstring>
+        <name>XPlmi_SetPlmLiveStatus</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function Sets the PLM Status. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal/server/xplmi_wdt.c" line="175" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal/server/xplmi_wdt.c" bodystart="175" bodyend="178"/>
+        <referencedby refid="group__xilplmi__server__apis_1ga0782e72375c56801fca2c8baa9469901" compoundref="xplmi__err__common_8c" startline="240" endline="336">XPlmi_ErrMgr</referencedby>
+        <referencedby refid="group__xilplmi__server__apis_1ga87aef31fe1a4af9ef9dbb6f9a06a3c34" compoundref="xplmi_8c" startline="126" endline="152">XPlmi_Init</referencedby>
+        <referencedby refid="group__xilplmi__server__apis_1gaaa4e2fe96baa321cd17c045bffb049b5" compoundref="xplmi__cdo_8c" startline="440" endline="590">XPlmi_ProcessCdo</referencedby>
+        <referencedby refid="group__xilplmi__server__apis_1gad6d0e16deb820f98b18689dc9966f3ff" compoundref="xplmi__ssit_8c" startline="1903" endline="1986">XPlmi_SsitSyncSlaves</referencedby>
+        <referencedby refid="group__xilplmi__server__apis_1ga5cb88dc15cd3354f65b346c3e92c2d88" compoundref="xplmi__ssit_8c" startline="2002" endline="2055">XPlmi_SsitWaitSlaves</referencedby>
+        <referencedby refid="group__xilplmi__server__apis_1ga2381d59a5154e7ef73fa658045a3c825" compoundref="xplmi__sysmon_8c" startline="178" endline="226">XPlmi_SysMonOTDetect</referencedby>
+        <referencedby refid="group__xilplmi__server__apis_1gac417102cdb74ac7c522ce119729870ff" compoundref="xplmi__task_8c" startline="196" endline="274">XPlmi_TaskDispatchLoop</referencedby>
+        <referencedby refid="group__xilplmi__server__apis_1gabcc76ee00f04f9e7586c5e0ab6c5a9c8" compoundref="xplmi__util_8c" startline="128" endline="168">XPlmi_UtilPoll</referencedby>
+        <referencedby refid="group__xilplmi__server__apis_1ga4ce17d2d9dd4664486f0507a0554baa7" compoundref="xplmi__util_8c" startline="184" endline="220">XPlmi_UtilPoll64</referencedby>
+        <referencedby refid="group__xilplmi__server__apis_1ga37b89dae983863fe5532461884763916" compoundref="xplmi__util_8c" startline="235" endline="259">XPlmi_UtilPollForMask</referencedby>
+        <referencedby refid="group__xilplmi__server__apis_1gaf4d0e99ec9cbb522cf183a747468c595" compoundref="xplmi__util_8c" startline="275" endline="299">XPlmi_UtilPollForMask64</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xilplmi__server__apis_1ga52cec0dce77cee0da41100e4792aa2ca" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XPlmi_ClearPlmLiveStatus</definition>
+        <argsstring>(void)</argsstring>
+        <name>XPlmi_ClearPlmLiveStatus</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function clears the PLM status. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal/server/xplmi_wdt.c" line="185" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal/server/xplmi_wdt.c" bodystart="185" bodyend="188"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xilplmi__server__apis_1gaff7e70a010f506f46adf0622434f4b14" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XPlmi_WdtHandler</definition>
+        <argsstring>(void)</argsstring>
+        <name>XPlmi_WdtHandler</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function is handler for WDT. </para>        </briefdescription>
+        <detaileddescription>
+<para>Scheduler calls this function periodically to check the PLM Live status and to toggle the MIO. </para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>if WDT is not enabled, just return</para></listitem><listitem><para>Toggle MIO only when last reset period exceeds periodicity</para></listitem><listitem><para>if WDT is not enabled, just return</para></listitem><listitem><para>Toggle MIO only when last reset period exceeds periodicity </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal/server/xplmi_wdt.c" line="196" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal/server/xplmi_wdt.c" bodystart="196" bodyend="220"/>
+        <references refid="group__xilplmi__server__apis_1ga719e6bef7904db4977d7da58823b101f" compoundref="net_2server_2xplmi__wdt_8c" startline="51">XPLMI_SCHEDULER_PERIOD</references>
+        <references refid="group__xilplmi__server__apis_1ga93dca420dde8557945784982956d7547" compoundref="net_2server_2xplmi__wdt_8c" startline="53">XPLMI_WDT_PERIODICITY_MIN</references>
+        <referencedby refid="group__xilplmi__server__apis_1ga2b8f088fb0494d901a6016348fb33f41" compoundref="xplmi__scheduler_8c" startline="220" endline="277">XPlmi_SchedulerHandler</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file contains the PLMI WDT functionality related code for versal_2vp. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+2.3   tvp  07/07/25 Initial release</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/***************************************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2025<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">***************************************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/**************************************************************************************************/</highlight></codeline>
+<codeline lineno="29"><highlight class="comment">/***************************************<sp/>Include<sp/>Files<sp/>********************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xplmi_wdt.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xplmi_hw.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xplmi_status.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xplmi__debug_8h" kindref="compound">xplmi_debug.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xplmi_8h" kindref="compound">xplmi.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="comment">/************************************<sp/>Constant<sp/>Definitions<sp/>****************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_WDT_PERIODICITY<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(100U)</highlight></codeline>
+<codeline lineno="41"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_SCHEDULER_PERIOD<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(10U)</highlight></codeline>
+<codeline lineno="42"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_WDT_PERIODICITY_MIN<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(15U)</highlight></codeline>
+<codeline lineno="44"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_WDT_PERIODICITY_MAX<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1000U)</highlight></codeline>
+<codeline lineno="45"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_MIO_NUM_PER_BANK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(26U)</highlight></codeline>
+<codeline lineno="47"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_PM_STMIC_LMIO_0<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x14104001U)</highlight></codeline>
+<codeline lineno="49"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_PM_STMIC_LMIO_25<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x1410401aU)</highlight></codeline>
+<codeline lineno="50"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_PM_STMIC_PMIO_0<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x1410801bU)</highlight></codeline>
+<codeline lineno="51"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_PM_STMIC_PMIO_51<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x1410804eU)</highlight></codeline>
+<codeline lineno="52"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight><highlight class="comment">/**************************************<sp/>Type<sp/>Definitions<sp/>******************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>PlmLiveStatus;<sp/></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>IsEnabled;<sp/></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Periodicity;<sp/></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>GpioAddr;<sp/></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>GpioMask;<sp/></highlight></codeline>
+<codeline lineno="61"><highlight class="normal">}<sp/>XPlmi_Wdt;</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight><highlight class="comment">/***************************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight><highlight class="comment">/************************************<sp/>Function<sp/>Prototypes<sp/>*****************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight><highlight class="comment">/************************************<sp/>Variable<sp/>Definitions<sp/>****************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>XPlmi_Wdt<sp/>WdtInstance<sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.PlmLiveStatus<sp/>=<sp/>(u8)FALSE,</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.IsEnabled<sp/>=<sp/>(u8)FALSE,</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.Periodicity<sp/>=<sp/><ref refid="group__xilplmi__server__apis_1gab8bede363e6ef16509fb638c29e85b6f" kindref="member">XPLMI_WDT_PERIODICITY</ref>,</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.GpioAddr<sp/>=<sp/>0U,</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.GpioMask<sp/>=<sp/>0U</highlight></codeline>
+<codeline lineno="74"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight></codeline>
+<codeline lineno="81"><highlight class="comment">/**************************************************************************************************/</highlight></codeline>
+<codeline lineno="96"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xilplmi__server__apis_1gaf37f68542fdb6d4c42b74ab8862be551" kindref="member">XPlmi_EnableWdt</ref>(u32<sp/>NodeId,<sp/>u32<sp/>Periodicity)</highlight></codeline>
+<codeline lineno="97"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>MioNum;</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"></highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((Periodicity<sp/>&lt;<sp/><ref refid="group__xilplmi__server__apis_1ga93dca420dde8557945784982956d7547" kindref="member">XPLMI_WDT_PERIODICITY_MIN</ref>)<sp/>||</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(Periodicity<sp/>&gt;<sp/><ref refid="group__xilplmi__server__apis_1ga5d8cbcc3b768b671d9d962e23b290c79" kindref="member">XPLMI_WDT_PERIODICITY_MAX</ref>))<sp/>{</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="2vp_2server_2xplmi__plat_8h_1a99fb83031ce9923c84392b4e92f956b5aa930119634e74a1b7da35a5126eafaaf" kindref="member">XPLMI_ERR_WDT_PERIODICITY</ref>;</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"></highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((NodeId<sp/>&gt;=<sp/><ref refid="group__xilplmi__server__apis_1ga4362c318cfc21cb8bd9954d3544698e5" kindref="member">XPLMI_PM_STMIC_LMIO_0</ref>)<sp/>&amp;&amp;<sp/>(NodeId<sp/>&lt;=<sp/><ref refid="group__xilplmi__server__apis_1gad3b2c3a348035801e77d0fcc4f5251ff" kindref="member">XPLMI_PM_STMIC_LMIO_25</ref>))<sp/>{</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>LPD<sp/>MIO<sp/>is<sp/>used<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(XPlmi_IsLpdInitialized()<sp/>!=<sp/>(u8)TRUE)<sp/>{</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="2vp_2server_2xplmi__plat_8h_1a99fb83031ce9923c84392b4e92f956b5a7639e8ca8278bee32b86c32e3eb0701d" kindref="member">XPLMI_ERR_WDT_LPD_NOT_INITIALIZED</ref>;</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilplmi__server__apis_1ga4eb444b49ce4a70d9cda587bddafada9" kindref="member">XPlmi_SetLpdInitialized</ref>(<ref refid="xplmi_8h_1a2da9f028be145a4f17852a4d3eb7898f" kindref="member">LPD_WDT_INITIALIZED</ref>);</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MioNum<sp/>=<sp/>NodeId<sp/>-<sp/><ref refid="group__xilplmi__server__apis_1ga4362c318cfc21cb8bd9954d3544698e5" kindref="member">XPLMI_PM_STMIC_LMIO_0</ref>;</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>WdtInstance.GpioAddr<sp/>=<sp/>PS_GPIO_DATA_0_OFFSET;</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>WdtInstance.GpioMask<sp/>=<sp/>(u32)(1U)<sp/>&lt;&lt;<sp/>MioNum;</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((NodeId<sp/>&gt;=<sp/><ref refid="group__xilplmi__server__apis_1gaf57d921006ec568207d4a173e061a85e" kindref="member">XPLMI_PM_STMIC_PMIO_0</ref>)<sp/>&amp;&amp;<sp/>(NodeId<sp/>&lt;=<sp/><ref refid="group__xilplmi__server__apis_1ga1b99c20342284aa02741921212f3fb4f" kindref="member">XPLMI_PM_STMIC_PMIO_51</ref>))<sp/>{</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>PMC<sp/>MIO<sp/>used<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MioNum<sp/>=<sp/>NodeId<sp/>-<sp/><ref refid="group__xilplmi__server__apis_1gaf57d921006ec568207d4a173e061a85e" kindref="member">XPLMI_PM_STMIC_PMIO_0</ref>;</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(MioNum<sp/>&lt;<sp/><ref refid="group__xilplmi__server__apis_1ga4fe46ba3dac6e3b6193ce517e61c55bd" kindref="member">XPLMI_MIO_NUM_PER_BANK</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>WdtInstance.GpioAddr<sp/>=<sp/>PMC_GPIO_DATA_0_OFFSET;</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>WdtInstance.GpioAddr<sp/>=<sp/>PMC_GPIO_DATA_1_OFFSET;</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>WdtInstance.GpioMask<sp/>=<sp/>(u32)(1U)<sp/>&lt;&lt;<sp/>(MioNum<sp/>%<sp/><ref refid="group__xilplmi__server__apis_1ga4fe46ba3dac6e3b6193ce517e61c55bd" kindref="member">XPLMI_MIO_NUM_PER_BANK</ref>);</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="2vp_2server_2xplmi__plat_8h_1a99fb83031ce9923c84392b4e92f956b5a85adec0c1a68eac5059e7a636db81edc" kindref="member">XPLMI_ERR_WDT_NODE_ID</ref>;</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"></highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>WdtInstance.Periodicity<sp/>=<sp/>Periodicity;</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>WdtInstance.IsEnabled<sp/>=<sp/>(u8)TRUE;</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"></highlight></codeline>
+<codeline lineno="136"><highlight class="normal">END:</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="138"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"></highlight></codeline>
+<codeline lineno="140"><highlight class="normal"></highlight><highlight class="comment">/**************************************************************************************************/</highlight></codeline>
+<codeline lineno="148"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__xilplmi__server__apis_1gab3c474d81cc4dd3d2fdafd04e6ce4d19" kindref="member">XPlmi_DisableWdt</ref>(u32<sp/>NodeId)</highlight></codeline>
+<codeline lineno="149"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)NodeId;</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>WdtInstance.IsEnabled<sp/>=<sp/>(u8)FALSE;</highlight></codeline>
+<codeline lineno="152"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"></highlight></codeline>
+<codeline lineno="154"><highlight class="normal"></highlight><highlight class="comment">/**************************************************************************************************/</highlight></codeline>
+<codeline lineno="159"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__xilplmi__server__apis_1gaa4a47c5570d5ee0c85d80d71d4b66b28" kindref="member">XPlmi_SetPlmLiveStatus</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="160"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>WdtInstance.PlmLiveStatus<sp/>=<sp/>(u8)TRUE;</highlight></codeline>
+<codeline lineno="162"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"></highlight></codeline>
+<codeline lineno="164"><highlight class="normal"></highlight><highlight class="comment">/**************************************************************************************************/</highlight></codeline>
+<codeline lineno="169"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__xilplmi__server__apis_1ga52cec0dce77cee0da41100e4792aa2ca" kindref="member">XPlmi_ClearPlmLiveStatus</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="170"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>WdtInstance.PlmLiveStatus<sp/>=<sp/>(u8)FALSE;</highlight></codeline>
+<codeline lineno="172"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"></highlight></codeline>
+<codeline lineno="174"><highlight class="normal"></highlight><highlight class="comment">/**************************************************************************************************/</highlight></codeline>
+<codeline lineno="180"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__xilplmi__server__apis_1gaff7e70a010f506f46adf0622434f4b14" kindref="member">XPlmi_WdtHandler</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="181"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="182"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>u32<sp/>WdtLastResetPeriod<sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="183"><highlight class="normal"></highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(WdtInstance.IsEnabled<sp/>==<sp/>(u8)FALSE)<sp/>{</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="188"><highlight class="normal"></highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>WdtLastResetPeriod<sp/>+=<sp/><ref refid="group__xilplmi__server__apis_1ga719e6bef7904db4977d7da58823b101f" kindref="member">XPLMI_SCHEDULER_PERIOD</ref>;</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"></highlight></codeline>
+<codeline lineno="192"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(WdtLastResetPeriod<sp/>&gt;<sp/>(u32)(WdtInstance.Periodicity<sp/>-<sp/><ref refid="group__xilplmi__server__apis_1ga93dca420dde8557945784982956d7547" kindref="member">XPLMI_WDT_PERIODICITY_MIN</ref>))<sp/>{</highlight></codeline>
+<codeline lineno="193"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(WdtInstance.PlmLiveStatus<sp/>==<sp/>(u8)TRUE)<sp/>{</highlight></codeline>
+<codeline lineno="194"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_Out32(WdtInstance.GpioAddr,</highlight></codeline>
+<codeline lineno="195"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_In32(WdtInstance.GpioAddr)<sp/>^<sp/>WdtInstance.GpioMask);</highlight></codeline>
+<codeline lineno="196"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>WdtInstance.PlmLiveStatus<sp/>=<sp/>(u8)FALSE;</highlight></codeline>
+<codeline lineno="197"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="198"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>WdtLastResetPeriod<sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"></highlight></codeline>
+<codeline lineno="201"><highlight class="normal">END:</highlight></codeline>
+<codeline lineno="202"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="203"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_2vp/server/xplmi_wdt.c"/>
+  </compounddef>
+</doxygen>

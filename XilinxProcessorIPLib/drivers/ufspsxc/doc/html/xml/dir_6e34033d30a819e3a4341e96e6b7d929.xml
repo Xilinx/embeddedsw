@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_6e34033d30a819e3a4341e96e6b7d929" kind="dir">
+    <compoundname>src</compoundname>
+    <innerfile refid="xufspsxc_8c">xufspsxc.c</innerfile>
+    <innerfile refid="xufspsxc_8h">xufspsxc.h</innerfile>
+    <innerfile refid="xufspsxc__control_8h">xufspsxc_control.h</innerfile>
+    <innerfile refid="xufspsxc__g_8c">xufspsxc_g.c</innerfile>
+    <innerfile refid="xufspsxc__hw_8c">xufspsxc_hw.c</innerfile>
+    <innerfile refid="xufspsxc__hw_8h">xufspsxc_hw.h</innerfile>
+    <innerfile refid="xufspsxc__init_8c">xufspsxc_init.c</innerfile>
+    <innerfile refid="xufspsxc__sinit_8c">xufspsxc_sinit.c</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/"/>
+  </compounddef>
+</doxygen>

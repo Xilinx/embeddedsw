@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="example" kind="page">
+    <compoundname>example</compoundname>
+    <title>Examples</title>
+    <detaileddescription>
+<para>You can refer to the below stated example applications for more details on how to use axicdma driver.</para><sect1 id="example_1ex1">
+<title>xaxicdma_example_hybrid_intr.c</title>
+<para>Contains an example on how to use the XAxicdma driver directly. This example shows the usage of the driver to transfer packets in hybrid transfer mode through interrupt.</para><para>For details, see <ref refid="xaxicdma__example__hybrid__intr_8c" kindref="compound">xaxicdma_example_hybrid_intr.c</ref>.</para></sect1>
+<sect1 id="example_1ex2">
+<title>xaxicdma_example_hybrid_poll.c</title>
+<para>Contains an example on how to use the XAxicdma driver directly. This example shows the usage of the driver to transfer packets in hybrid transfer mode without interrupt.</para><para>For details, see <ref refid="xaxicdma__example__hybrid__poll_8c" kindref="compound">xaxicdma_example_hybrid_poll.c</ref>.</para></sect1>
+<sect1 id="example_1ex3">
+<title>xaxicdma_example_sg_intr.c</title>
+<para>Contains an example on how to use the XAxicdma driver directly. This example shows the usage of the driver to transfer packets in scatter gather transfer mode through interrupt.</para><para>For details, see <ref refid="xaxicdma__example__sg__intr_8c" kindref="compound">xaxicdma_example_sg_intr.c</ref>.</para></sect1>
+<sect1 id="example_1ex4">
+<title>xaxicdma_example_sg_poll.c</title>
+<para>Contains an example on how to use the XAxicdma driver directly. This example shows the usage of the driver to transfer packets in scatter gather transfer mode without interrupt.</para><para>For details, see <ref refid="xaxicdma__example__sg__poll_8c" kindref="compound">xaxicdma_example_sg_poll.c</ref>.</para></sect1>
+<sect1 id="example_1ex5">
+<title>xaxicdma_example_simple_intr.c</title>
+<para>Contains an example on how to use the XAxicdma driver directly. This example shows the usage of the driver to transfer packets in simple transfer mode through interrupt.</para><para>For details, see <ref refid="xaxicdma__example__simple__intr_8c" kindref="compound">xaxicdma_example_simple_intr.c</ref>.</para></sect1>
+<sect1 id="example_1ex6">
+<title>xaxicdma_example_simple_poll.c</title>
+<para>Contains an example on how to use the XAxicdma driver directly. This example shows the usage of the driver to transfer packets in simple transfer mode without interrupt.</para><para>For details, see <ref refid="xaxicdma__example__simple__poll_8c" kindref="compound">xaxicdma_example_simple_poll.c</ref>. </para></sect1>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

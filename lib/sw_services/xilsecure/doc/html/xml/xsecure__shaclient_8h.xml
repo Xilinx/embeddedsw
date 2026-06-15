@@ -1,0 +1,409 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xsecure__shaclient_8h" kind="file">
+    <compoundname>xsecure_shaclient.h</compoundname>
+    <includes local="yes">xil_types.h</includes>
+    <includes refid="xsecure__mailbox_8h" local="yes">xsecure_mailbox.h</includes>
+    <includes refid="xsecure__defs_8h" local="yes">xsecure_defs.h</includes>
+    <includes refid="client_2core_2sha_2sha__pmx_2xsecure__sha3alginfo_8h" local="yes">xsecure_sha3alginfo.h</includes>
+    <includedby refid="xsecure__shaclient_8c" local="yes">xsecure_shaclient.c</includedby>
+    <incdepgraph>
+      <node id="4337">
+        <label>xil_sutil.h</label>
+      </node>
+      <node id="4332">
+        <label>xil_cache.h</label>
+      </node>
+      <node id="4335">
+        <label>xsecure_sha3alginfo.h</label>
+        <link refid="client_2core_2sha_2sha__pmx_2xsecure__sha3alginfo_8h"/>
+        <childnode refid="4336" relation="include">
+        </childnode>
+        <childnode refid="4337" relation="include">
+        </childnode>
+      </node>
+      <node id="4325">
+        <label>xsecure_shaclient.h</label>
+        <link refid="xsecure_shaclient.h"/>
+        <childnode refid="4326" relation="include">
+        </childnode>
+        <childnode refid="4327" relation="include">
+        </childnode>
+        <childnode refid="4330" relation="include">
+        </childnode>
+        <childnode refid="4335" relation="include">
+        </childnode>
+      </node>
+      <node id="4333">
+        <label>xsecure_plat_defs.h</label>
+      </node>
+      <node id="4328">
+        <label>xilmailbox.h</label>
+      </node>
+      <node id="4336">
+        <label>xil_cryptoalginfo.h</label>
+      </node>
+      <node id="4330">
+        <label>xsecure_defs.h</label>
+        <link refid="xsecure__defs_8h"/>
+        <childnode refid="4331" relation="include">
+        </childnode>
+        <childnode refid="4326" relation="include">
+        </childnode>
+        <childnode refid="4332" relation="include">
+        </childnode>
+        <childnode refid="4333" relation="include">
+        </childnode>
+        <childnode refid="4334" relation="include">
+        </childnode>
+      </node>
+      <node id="4334">
+        <label>xsecure_config.h</label>
+      </node>
+      <node id="4326">
+        <label>xil_types.h</label>
+      </node>
+      <node id="4329">
+        <label>xparameters.h</label>
+      </node>
+      <node id="4331">
+        <label>xil_printf.h</label>
+      </node>
+      <node id="4327">
+        <label>xsecure_mailbox.h</label>
+        <link refid="xsecure__mailbox_8h"/>
+        <childnode refid="4328" relation="include">
+        </childnode>
+        <childnode refid="4329" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="4339">
+        <label>xsecure_shaclient.c</label>
+        <link refid="xsecure__shaclient_8c"/>
+      </node>
+      <node id="4338">
+        <label>xsecure_shaclient.h</label>
+        <link refid="xsecure_shaclient.h"/>
+        <childnode refid="4339" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="group__xsecure__sha__client__apis_1gad25387a8cba5004407abe70e310752c1" prot="public" static="no">
+        <name>XSecure_ShaState</name>
+        <enumvalue id="group__xsecure__sha__client__apis_1ggad25387a8cba5004407abe70e310752c1a40386d74147a901cee80b9ccf82c4f5b" prot="public">
+          <name>XSECURE_SHA_UNINITIALIZED</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+<para>SHA uninitialized state. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__sha__client__apis_1ggad25387a8cba5004407abe70e310752c1ae0d4e37cd66a043951bad56ec54251d1" prot="public">
+          <name>XSECURE_SHA_INITIALIZED</name>
+          <briefdescription>
+<para>SHA initialized state. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__sha__client__apis_1ggad25387a8cba5004407abe70e310752c1aec35de2db7c5287ad3fb6f6c6d18a7d4" prot="public">
+          <name>XSECURE_SHA_UPDATE</name>
+          <briefdescription>
+<para>SHA update state. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>Enum of SHA states. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/core/sha/sha_pmx/xsecure_shaclient.h" line="54" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/core/sha/sha_pmx/xsecure_shaclient.h" bodystart="54" bodyend="58"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xsecure__sha__client__apis_1gabf91e298c2be913258c6a4b23660a528" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XSecure_Sha3Initialize</definition>
+        <argsstring>(void)</argsstring>
+        <name>XSecure_Sha3Initialize</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function stores the Sha3 initialize state as initialized if the current state is uninitialized. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS If the Sha3 state is changed to initialized state</para></listitem><listitem><para>XST_FAILURE If the Sha3 is not in uninitialized state </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/core/sha/sha_pmx/xsecure_shaclient.c" line="72" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/core/sha/sha_pmx/xsecure_shaclient.c" bodystart="72" bodyend="77"/>
+        <references refid="group__xsecure__sha__client__apis_1ggad25387a8cba5004407abe70e310752c1ae0d4e37cd66a043951bad56ec54251d1" compoundref="xsecure__shaclient_8h" startline="56">XSECURE_SHA_INITIALIZED</references>
+        <referencedby refid="group__xsecure__apis_1ga6c51d7aa8a0db0c40a00a641d7aa4055" compoundref="xsecure_8c" startline="1201" endline="1268">XSecure_PpkVerify</referencedby>
+        <referencedby refid="group__xsecure__sha__client__apis_1ga08e726488222ad0ba91e822d90e97e1e" compoundref="xsecure__shaclient_8c" startline="219" endline="266">XSecure_Sha3Digest</referencedby>
+        <referencedby refid="group__xsecure__apis_1gadfb02b0d0129acbfe8a8d6a293a7285f" compoundref="xsecure_8c" startline="225" endline="263">XSecure_Sha3Hash</referencedby>
+        <referencedby refid="group__xsecure__sha__server__apis_1gafeb87542b7de2a6f5e62c5fa6c84ff8b" compoundref="core_2sha_2sha__pmx_2xsecure__sha_8c" startline="789" endline="792">XSecure_ShaInitialize</referencedby>
+        <referencedby refid="group__xsecure__apis_1gae9ccb5dc051bf792ce88b8f3fe376122" compoundref="xsecure_8c" startline="1285" endline="1386">XSecure_SpkAuthentication</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__sha__client__apis_1ga66d0db1bbf860bc2247297ce63f398a2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XSecure_Sha3Update</definition>
+        <argsstring>(XSecure_ClientInstance *InstancePtr, const u64 InDataAddr, u32 Size)</argsstring>
+        <name>XSecure_Sha3Update</name>
+        <param>
+          <type>XSecure_ClientInstance *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>const u64</type>
+          <declname>InDataAddr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Size</declname>
+        </param>
+        <briefdescription>
+<para>This function sends IPI request to update the SHA3 engine with the input data. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the client instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>InDataAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Address of the output buffer to store the output hash </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Size</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Size of the data to be updated to SHA3 engine</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS If the update is successful</para></listitem><listitem><para>XST_FAILURE If there is a failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Perform input parameter validation on InstancePtr. Return XST_FAILURE if input parameters are invalid</para></listitem><listitem><para>Validate Sha3state. Return XST_FAILURE if the state is not XSECURE_SHA_UNINITIALIZED</para></listitem><listitem><para>Fill Payload</para></listitem><listitem><para>Send request to PLM through generic request API. This internally handles SMC or IPI mailbox based on build configuration.</para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/core/sha/sha_pmx/xsecure_shaclient.c" line="94" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/core/sha/sha_pmx/xsecure_shaclient.c" bodystart="94" bodyend="141"/>
+        <references refid="group__xsecure__common__apis_1ga49179f0283044223009c733e01b79d5a" compoundref="xsecure__defs_8h" startline="118">XSECURE_ADDR_HIGH_SHIFT</references>
+        <references refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acad0cd2989c68726f30ffe2fbdc41c778f" compoundref="xsecure__plat__defs_8h" startline="58">XSECURE_API_SHA3_UPDATE</references>
+        <references refid="group__xsecure__utils__apis_1gad317bd5f7cf522c602b9f00246d34d97" compoundref="spartanup_2xsecure__utils_8h" startline="70">XSECURE_DEBUG_GENERAL</references>
+        <references refid="group__xsecure__common__apis_1ga693c54d224d1fa8ca68b215023b2b359" compoundref="xsecure__defs_8h" startline="85">XSecure_Printf</references>
+        <references refid="group__xsecure__client__apis_1ga05fa5011bc86e79725370a660a7172a1" compoundref="xsecure__generic_8c" startline="67" endline="104">XSecure_SendRequest</references>
+        <references refid="group__xsecure__sha__client__apis_1gac9bee0b8c91bd473c44af604523c68d3" compoundref="xsecure__shaclient_8c" startline="55">XSECURE_SHA_FIRST_PACKET_SHIFT</references>
+        <references refid="group__xsecure__sha__client__apis_1ggad25387a8cba5004407abe70e310752c1ae0d4e37cd66a043951bad56ec54251d1" compoundref="xsecure__shaclient_8h" startline="56">XSECURE_SHA_INITIALIZED</references>
+        <references refid="group__xsecure__sha__client__apis_1ggad25387a8cba5004407abe70e310752c1aec35de2db7c5287ad3fb6f6c6d18a7d4" compoundref="xsecure__shaclient_8h" startline="57">XSECURE_SHA_UPDATE</references>
+        <references refid="group__xsecure__sha__client__apis_1ga915e1f4bbd0281a9944ca07d137564d2" compoundref="xsecure__shaclient_8c" startline="56">XSECURE_SHA_UPDATE_CONTINUE_SHIFT</references>
+        <references refid="group__xsecure__aes__client__apis_1ga1ec86d85edf7d28d7581a348f0ec7866" compoundref="xsecure__aesclient_8c" startline="54">XSECURE_SLR_INDEX_SHIFT</references>
+        <referencedby refid="group__xsecure__sha__server__apis_1ga2b9c2f6b6aba580fb23fe0a5c8c8747c" compoundref="core_2sha_2sha__pmx_2xsecure__sha_8c" startline="523" endline="555">XSecure_Sha3Digest</referencedby>
+        <referencedby refid="group__xsecure__apis_1gadfb02b0d0129acbfe8a8d6a293a7285f" compoundref="xsecure_8c" startline="225" endline="263">XSecure_Sha3Hash</referencedby>
+        <referencedby refid="group__xsecure__apis_1gae9ccb5dc051bf792ce88b8f3fe376122" compoundref="xsecure_8c" startline="1285" endline="1386">XSecure_SpkAuthentication</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__sha__client__apis_1gad9611876471310e83eae5fc2ac640576" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XSecure_Sha3Finish</definition>
+        <argsstring>(XSecure_ClientInstance *InstancePtr, const u64 OutDataAddr)</argsstring>
+        <name>XSecure_Sha3Finish</name>
+        <param>
+          <type>XSecure_ClientInstance *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>const u64</type>
+          <declname>OutDataAddr</declname>
+        </param>
+        <briefdescription>
+<para>This function sends IPI request final data to SHA3 engine which includes SHA3 padding and reads final hash. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the client instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>OutDataAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Address of the output buffer to store the output hash</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS If finished without any errors</para></listitem><listitem><para>XST_FAILURE If there is a failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Perform input parameter validation on InstancePtr. Return XST_FAILURE if input parameters are invalid</para></listitem><listitem><para>Validate Sha3state. Return XST_FAILURE if the state is XSECURE_SHA_UNINITIALIZED</para></listitem><listitem><para>Fill Payload</para></listitem><listitem><para>Send request to PLM through generic request API. This internally handles SMC or IPI mailbox based on build configuration.</para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/core/sha/sha_pmx/xsecure_shaclient.c" line="157" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/core/sha/sha_pmx/xsecure_shaclient.c" bodystart="157" bodyend="200"/>
+        <references refid="group__xsecure__common__apis_1ga49179f0283044223009c733e01b79d5a" compoundref="xsecure__defs_8h" startline="118">XSECURE_ADDR_HIGH_SHIFT</references>
+        <references refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acad0cd2989c68726f30ffe2fbdc41c778f" compoundref="xsecure__plat__defs_8h" startline="58">XSECURE_API_SHA3_UPDATE</references>
+        <references refid="group__xsecure__utils__apis_1gad317bd5f7cf522c602b9f00246d34d97" compoundref="spartanup_2xsecure__utils_8h" startline="70">XSECURE_DEBUG_GENERAL</references>
+        <references refid="group__xsecure__common__apis_1ga693c54d224d1fa8ca68b215023b2b359" compoundref="xsecure__defs_8h" startline="85">XSecure_Printf</references>
+        <references refid="group__xsecure__client__apis_1ga05fa5011bc86e79725370a660a7172a1" compoundref="xsecure__generic_8c" startline="67" endline="104">XSecure_SendRequest</references>
+        <references refid="group__xsecure__sha__client__apis_1ggad25387a8cba5004407abe70e310752c1ae0d4e37cd66a043951bad56ec54251d1" compoundref="xsecure__shaclient_8h" startline="56">XSECURE_SHA_INITIALIZED</references>
+        <references refid="group__xsecure__sha__client__apis_1ggad25387a8cba5004407abe70e310752c1a40386d74147a901cee80b9ccf82c4f5b" compoundref="xsecure__shaclient_8h" startline="55">XSECURE_SHA_UNINITIALIZED</references>
+        <references refid="group__xsecure__sha__client__apis_1ggad25387a8cba5004407abe70e310752c1aec35de2db7c5287ad3fb6f6c6d18a7d4" compoundref="xsecure__shaclient_8h" startline="57">XSECURE_SHA_UPDATE</references>
+        <references refid="group__xsecure__aes__client__apis_1ga1ec86d85edf7d28d7581a348f0ec7866" compoundref="xsecure__aesclient_8c" startline="54">XSECURE_SLR_INDEX_SHIFT</references>
+        <referencedby refid="group__xsecure__sha__server__apis_1ga2b9c2f6b6aba580fb23fe0a5c8c8747c" compoundref="core_2sha_2sha__pmx_2xsecure__sha_8c" startline="523" endline="555">XSecure_Sha3Digest</referencedby>
+        <referencedby refid="group__xsecure__apis_1gadfb02b0d0129acbfe8a8d6a293a7285f" compoundref="xsecure_8c" startline="225" endline="263">XSecure_Sha3Hash</referencedby>
+        <referencedby refid="group__xsecure__sha__server__apis_1ga681f3c347149b5d4254611f833ab93cf" compoundref="core_2sha_2sha__pmx_2xsecure__sha_8c" startline="874" endline="879">XSecure_ShaFinish</referencedby>
+        <referencedby refid="group__xsecure__apis_1gae9ccb5dc051bf792ce88b8f3fe376122" compoundref="xsecure_8c" startline="1285" endline="1386">XSecure_SpkAuthentication</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__sha__client__apis_1ga08e726488222ad0ba91e822d90e97e1e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XSecure_Sha3Digest</definition>
+        <argsstring>(XSecure_ClientInstance *InstancePtr, const u64 InDataAddr, const u64 OutDataAddr, u32 Size)</argsstring>
+        <name>XSecure_Sha3Digest</name>
+        <param>
+          <type>XSecure_ClientInstance *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>const u64</type>
+          <declname>InDataAddr</declname>
+        </param>
+        <param>
+          <type>const u64</type>
+          <declname>OutDataAddr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Size</declname>
+        </param>
+        <briefdescription>
+<para>This function sends IPI request to calculate hash on single block of data. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the client instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>InDataAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Address of the input buffer where the input data is stored </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>OutDataAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Address of the output buffer to store the output hash </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Size</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Size of the data to be updated to SHA3 engine</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS If the sha3 hash calculation is successful</para></listitem><listitem><para>XST_FAILURE If there is a failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Perform input parameter validation on InstancePtr. Return XST_FAILURE if input parameters are invalid</para></listitem><listitem><para>Initialize SHA3</para></listitem><listitem><para>Fill Payload</para></listitem><listitem><para>Send request to PLM through generic request API. This internally handles SMC or IPI mailbox based on build configuration.</para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/core/sha/sha_pmx/xsecure_shaclient.c" line="219" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/core/sha/sha_pmx/xsecure_shaclient.c" bodystart="219" bodyend="266"/>
+        <references refid="group__xsecure__common__apis_1ga49179f0283044223009c733e01b79d5a" compoundref="xsecure__defs_8h" startline="118">XSECURE_ADDR_HIGH_SHIFT</references>
+        <references refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acad0cd2989c68726f30ffe2fbdc41c778f" compoundref="xsecure__plat__defs_8h" startline="58">XSECURE_API_SHA3_UPDATE</references>
+        <references refid="group__xsecure__utils__apis_1gad317bd5f7cf522c602b9f00246d34d97" compoundref="spartanup_2xsecure__utils_8h" startline="70">XSECURE_DEBUG_GENERAL</references>
+        <references refid="group__xsecure__common__apis_1ga693c54d224d1fa8ca68b215023b2b359" compoundref="xsecure__defs_8h" startline="85">XSecure_Printf</references>
+        <references refid="group__xsecure__client__apis_1ga05fa5011bc86e79725370a660a7172a1" compoundref="xsecure__generic_8c" startline="67" endline="104">XSecure_SendRequest</references>
+        <references refid="group__xsecure__sha__client__apis_1gabf91e298c2be913258c6a4b23660a528" compoundref="xsecure__shaclient_8c" startline="72" endline="77">XSecure_Sha3Initialize</references>
+        <references refid="group__xsecure__sha__client__apis_1gac9bee0b8c91bd473c44af604523c68d3" compoundref="xsecure__shaclient_8c" startline="55">XSECURE_SHA_FIRST_PACKET_SHIFT</references>
+        <references refid="group__xsecure__sha__client__apis_1ggad25387a8cba5004407abe70e310752c1a40386d74147a901cee80b9ccf82c4f5b" compoundref="xsecure__shaclient_8h" startline="55">XSECURE_SHA_UNINITIALIZED</references>
+        <references refid="group__xsecure__aes__client__apis_1ga1ec86d85edf7d28d7581a348f0ec7866" compoundref="xsecure__aesclient_8c" startline="54">XSECURE_SLR_INDEX_SHIFT</references>
+        <referencedby refid="group__xsecure__apis_1ga6c51d7aa8a0db0c40a00a641d7aa4055" compoundref="xsecure_8c" startline="1201" endline="1268">XSecure_PpkVerify</referencedby>
+        <referencedby refid="group__xsecure__sha__server__apis_1gacbd073de84e1cdf375ea6d140db14c6e" compoundref="core_2sha_2sha__pmx_2xsecure__sha_8c" startline="900" endline="909">XSecure_ShaDigest</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file Contains the client function prototypes, defines and macros for the SHA-384 hardware module. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+1.0   kal  03/17/21 Initial release
+4.5   kal  03/23/20 Updated file version to sync with library version
+      kpt  04/28/21 Added enum XSecure_ShaState to update sha driver states
+      kpt  03/16/22 Removed IPI related code and added mailbox support
+5.0   kpt  07/24/22 Moved XSecure_Sha3Kat into <ref refid="xsecure__katclient_8c" kindref="compound">xsecure_katclient.c</ref>
+5.2     mmd  07/09/23 Included header file for crypto algorithm information
+5.4   yog  04/29/24 Fixed doxygen grouping.</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2021<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2023<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">*******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="35"><highlight class="preprocessor">#ifndef<sp/>XSECURE_SHACLIENT_H</highlight></codeline>
+<codeline lineno="36"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_SHACLIENT_H</highlight></codeline>
+<codeline lineno="37"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="39"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="41"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xsecure__mailbox_8h" kindref="compound">xsecure_mailbox.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xsecure__defs_8h" kindref="compound">xsecure_defs.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="client_2core_2sha_2sha__pmx_2xsecure__sha3alginfo_8h" kindref="compound">xsecure_sha3alginfo.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight></codeline>
+<codeline lineno="54" refid="group__xsecure__sha__client__apis_1gad25387a8cba5004407abe70e310752c1" refkind="member"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="55" refid="group__xsecure__sha__client__apis_1ggad25387a8cba5004407abe70e310752c1a40386d74147a901cee80b9ccf82c4f5b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__sha__client__apis_1ggad25387a8cba5004407abe70e310752c1a40386d74147a901cee80b9ccf82c4f5b" kindref="member">XSECURE_SHA_UNINITIALIZED</ref><sp/>=<sp/>0,<sp/><sp/></highlight></codeline>
+<codeline lineno="56" refid="group__xsecure__sha__client__apis_1ggad25387a8cba5004407abe70e310752c1ae0d4e37cd66a043951bad56ec54251d1" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__sha__client__apis_1ggad25387a8cba5004407abe70e310752c1ae0d4e37cd66a043951bad56ec54251d1" kindref="member">XSECURE_SHA_INITIALIZED</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="57" refid="group__xsecure__sha__client__apis_1ggad25387a8cba5004407abe70e310752c1aec35de2db7c5287ad3fb6f6c6d18a7d4" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__sha__client__apis_1ggad25387a8cba5004407abe70e310752c1aec35de2db7c5287ad3fb6f6c6d18a7d4" kindref="member">XSECURE_SHA_UPDATE</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="58"><highlight class="normal">}<ref refid="group__xsecure__sha__client__apis_1gad25387a8cba5004407abe70e310752c1" kindref="member">XSecure_ShaState</ref>;</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__sha__client__apis_1gabf91e298c2be913258c6a4b23660a528" kindref="member">XSecure_Sha3Initialize</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__sha__client__apis_1ga66d0db1bbf860bc2247297ce63f398a2" kindref="member">XSecure_Sha3Update</ref>(XSecure_ClientInstance<sp/>*InstancePtr,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u64<sp/>InDataAddr,<sp/>u32<sp/>Size);</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__sha__client__apis_1gad9611876471310e83eae5fc2ac640576" kindref="member">XSecure_Sha3Finish</ref>(XSecure_ClientInstance<sp/>*InstancePtr,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u64<sp/>OutDataAddr);</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__sha__client__apis_1ga08e726488222ad0ba91e822d90e97e1e" kindref="member">XSecure_Sha3Digest</ref>(XSecure_ClientInstance<sp/>*InstancePtr,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u64<sp/>InDataAddr,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u64<sp/>OutDataAddr,<sp/>u32<sp/>Size);</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="70"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="72"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/></highlight><highlight class="comment">/*<sp/>XSECURE_SHACLIENT_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="74"><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/core/sha/sha_pmx/xsecure_shaclient.h"/>
+  </compounddef>
+</doxygen>

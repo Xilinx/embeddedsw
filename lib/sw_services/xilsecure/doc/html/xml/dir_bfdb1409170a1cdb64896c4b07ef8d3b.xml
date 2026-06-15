@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_bfdb1409170a1cdb64896c4b07ef8d3b" kind="dir">
+    <compoundname>client</compoundname>
+    <innerdir refid="dir_eb14f11fd032d8e2c257ced84e4ed588">core</innerdir>
+    <innerdir refid="dir_6f254d74777972058e27d3741663acb3">versal_2ve_2vm</innerdir>
+    <innerdir refid="dir_4e8b5880519be6fd82fb397d1f12b3a5">versal_2vp</innerdir>
+    <innerdir refid="dir_0868d6d3647f56c719be769a4e090ff9">versal_net</innerdir>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/"/>
+  </compounddef>
+</doxygen>

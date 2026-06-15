@@ -1,0 +1,85 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_pll_config" kind="struct" prot="public">
+    <compoundname>PllConfig</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_pll_config_1a086b4de5735ca429b50868497efe91a7" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 PllConfig::cp</definition>
+        <argsstring></argsstring>
+        <name>cp</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf_clk.c" line="68" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf_clk.c" bodystart="68" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_pll_config_1ae479e47d1f6e597de01bf577d3f3854b" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 PllConfig::res</definition>
+        <argsstring></argsstring>
+        <name>res</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf_clk.c" line="69" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf_clk.c" bodystart="69" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_pll_config_1adb6fc1fa8dfe99f97e633dd593e4ab13" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 PllConfig::lfhf</definition>
+        <argsstring></argsstring>
+        <name>lfhf</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf_clk.c" line="70" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf_clk.c" bodystart="70" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_pll_config_1a5233d54730c99155241aa539ba7a4c9a" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 PllConfig::lock_dly</definition>
+        <argsstring></argsstring>
+        <name>lock_dly</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf_clk.c" line="71" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf_clk.c" bodystart="71" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_pll_config_1ab7e895507d2b230ad02d298493557b68" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 PllConfig::lock_cnt</definition>
+        <argsstring></argsstring>
+        <name>lock_cnt</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf_clk.c" line="72" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf_clk.c" bodystart="72" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef enumerates capacitor resistor and lock values to be programmed. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf_clk.c" line="67" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf_clk.c" bodystart="67" bodyend="73"/>
+    <listofallmembers>
+      <member refid="struct_pll_config_1a086b4de5735ca429b50868497efe91a7" prot="public" virt="non-virtual"><scope>PllConfig</scope><name>cp</name></member>
+      <member refid="struct_pll_config_1adb6fc1fa8dfe99f97e633dd593e4ab13" prot="public" virt="non-virtual"><scope>PllConfig</scope><name>lfhf</name></member>
+      <member refid="struct_pll_config_1ab7e895507d2b230ad02d298493557b68" prot="public" virt="non-virtual"><scope>PllConfig</scope><name>lock_cnt</name></member>
+      <member refid="struct_pll_config_1a5233d54730c99155241aa539ba7a4c9a" prot="public" virt="non-virtual"><scope>PllConfig</scope><name>lock_dly</name></member>
+      <member refid="struct_pll_config_1ae479e47d1f6e597de01bf577d3f3854b" prot="public" virt="non-virtual"><scope>PllConfig</scope><name>res</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

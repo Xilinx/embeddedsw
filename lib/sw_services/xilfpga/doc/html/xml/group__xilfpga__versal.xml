@@ -1,0 +1,117 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__xilfpga__versal" kind="group">
+    <compoundname>xilfpga_versal</compoundname>
+    <title>XilFPGA APIs for Versal Adaptive SoCs</title>
+    <innerclass refid="struct_x_fpga___write" prot="public">XFpga_Write</innerclass>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xilfpga__versal_1gaef5fb78d2b7e74b3a4f3b18ebf0a3599" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XFpga_Initialize</definition>
+        <argsstring>(XFpga *InstancePtr)</argsstring>
+        <name>XFpga_Initialize</name>
+        <param>
+          <type><ref refid="xilfpga_8h_1a2e73b67f19f7d94e00988c853ff4599b" kindref="member">XFpga</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This API, when called, initializes the XFPGA interface with default settings. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XFpga structure.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Returns Status<itemizedlist>
+<listitem><para>XFPGA_SUCCESS on success</para></listitem><listitem><para>Error code on failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilfpga/src/interface/versal/xilfpga_versal.c" line="108" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilfpga/src/interface/versal/xilfpga_versal.c" bodystart="108" bodyend="130"/>
+        <referencedby refid="xfpga__load__bitstream__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xfpga__load__bitstream__example_8c" startline="93" endline="128">main</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file contains the definitions of bitstream loading functions. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date        Changes
+---- ----- --------  -------------------------------------------------------
+5.2  Nava  12/05/19  Added Versal platform support.
+5.2  Nava  02/27/20  Updated the write path to read the pdi/bin image ipi
+                     load response to handle the pdi/bin image load
+                     errors properly.
+5.3  Nava  06/16/20  Modified the date format from dd/mm to mm/dd.
+5.3  Nava  06/29/20  Added asserts to validate input params.
+5.3  Nava  09/09/20  Replaced the asserts with input validations for non void
+                     API&apos;s.
+5.3  Nava  12/15/20  Fixed doxygen issues.
+6.0  Nava  01/20/21  Reset the status variable to fail to avoid safety
+                     violations.
+6.0  Nava  01/21/21  Make Status variable volatile to avoid compiler
+                     optimizations.
+6.0  Nava  01/21/21  The usage of XMboxInstance variable is limited only
+                     to this file. So making this variable as static.
+6.0  Nava  02/11/21  Avoid reuse of request buffer.
+6.0  Nava  02/22/21  Fixed doxygen issues.
+6.0  Nava  02/23/21  To avoid the security glitch with IPI request buffer
+                     contents added proper validation logic to fill the
+                     IPI request buffer.
+6.0  Nava  03/09/21  Added function pointer validation check.
+6.0  Nava  05/17/21  Fixed misra-c violations.
+6.2  Nava  12/13/21  Replaced library specific utility functions and standard
+                lib functions with Xilinx maintained functions.
+6.3  Nava  08/05/22  Added doxygen tags.
+6.5  Nava  07/17/23  Fixed compiler optimization issues relevant to the function
+                     pointer validation checks.
+6.5  Nava  08/18/23  Resolved the doxygen issues.
+6.6  Nava  10/20/23  Removed unwanted branching statements.
+6.10 Arvd  02/11/26  Fixed Doxygen warnings.
+6.10 Arvd  03/03/26  Added SMC support for EL1 non-secure PDI load via ATF
+</preformatted></para><para><simplesect kind="note"><para></para></simplesect>
+<preformatted>
+The XILFPGA library for AMD Versal Adaptive SoCs provides the interface to the application to
+configure the programmable logic (PL) though the PS.</preformatted></para><para><preformatted><itemizedlist>
+<listitem><para>Supported Features:<itemizedlist>
+<listitem><para>Partial Bitstream loading.</para></listitem></itemizedlist>
+</para></listitem></itemizedlist>
+</preformatted></para><para><preformatted></preformatted></para><sect1 id="group__xilfpga__zynq_1xilfpgapllib">
+<title>Xilfpga_PL library Interface modules</title>
+<para><preformatted>     Xilfpga_PL library uses the below major components to configure the PL
+     through PS.<itemizedlist>
+<listitem><para>xilmailbox library is used to transfer the actual Bit stream file from
+    the PS to PL.</para></listitem></itemizedlist>
+</preformatted></para><para><preformatted><simplesect kind="note"><para>XilFPGA library is capable of loading only .pdi format files into PL.
+The library does not support other file formats.</para></simplesect>
+</preformatted></para><sect2 id="group__xilfpga__zynq_1xilinit">
+<title>Initialization &amp; Writing Bitstream</title>
+<para><preformatted>
+Use the u32 XFpga_PL_BitSream_Load(); function to initialize the driver
+and load the Bitstream.</preformatted></para><para><preformatted>MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date        Changes
+<hruler/>
+
+5.2  Nava 12/05/19  Added Versal platform support.
+5.2  Nava 02/14/20  Removed unwanted header file inclusion.
+5.3  Nava 06/16/20  Modified the date format from dd/mm to mm/dd.
+6.0  Nava 12/14/20  In XFpga_PL_BitStream_Load() API the argument
+                    AddrPtr_Size is being used for multiple purposes.
+                    Use of the same variable for multiple purposes can
+                    make it more difficult for a person to read (or)
+                    understand the code and also it leads to a safety
+                    violation. fixes this  issue by adding a separate
+                    function arguments to read KeyAddr and
+                    Size(Bitstream size).
+6.0  Nava 05/17/21  Removed unused structure definition.
+6.3  Nava 08/05/22  Added doxygen tags.
+6.5  Nava 08/18/23  Resolved the doxygen issues.
+6.6  AC  04/04/24  Resolved the doxygen issues.
+6.10 Arvd 02/11/26  Fixed Doxygen warnings.
+</preformatted> </para></sect2>
+</sect1>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

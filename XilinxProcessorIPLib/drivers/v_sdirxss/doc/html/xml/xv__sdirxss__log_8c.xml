@@ -1,0 +1,362 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xv__sdirxss__log_8c" kind="file">
+    <compoundname>xv_sdirxss_log.c</compoundname>
+    <includes refid="xv__sdirxss_8h" local="yes">xv_sdirxss.h</includes>
+    <incdepgraph>
+      <node id="820">
+        <label>xv_sdivid.h</label>
+      </node>
+      <node id="818">
+        <label>xv_sdirxss.h</label>
+        <link refid="xv__sdirxss_8h"/>
+        <childnode refid="819" relation="include">
+        </childnode>
+        <childnode refid="820" relation="include">
+        </childnode>
+        <childnode refid="821" relation="include">
+        </childnode>
+        <childnode refid="822" relation="include">
+        </childnode>
+      </node>
+      <node id="822">
+        <label>xv_sdirx.h</label>
+      </node>
+      <node id="819">
+        <label>xstatus.h</label>
+      </node>
+      <node id="821">
+        <label>xvidc.h</label>
+      </node>
+      <node id="817">
+        <label>xv_sdirxss_log.c</label>
+        <link refid="xv_sdirxss_log.c"/>
+        <childnode refid="818" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xv__sdirxss__log_8c_1a4deea5c587f6a732de2f6b127fc12b4d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_SdiRxSs_LogReset</definition>
+        <argsstring>(XV_SdiRxSs *InstancePtr)</argsstring>
+        <name>XV_SdiRxSs_LogReset</name>
+        <param>
+          <type><ref refid="struct_x_v___sdi_rx_ss" kindref="compound">XV_SdiRxSs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function will reset the driver&apos;s logging mechanism. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the xv_sdirxss core instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/src/xv_sdirxss_log.c" line="42" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/src/xv_sdirxss_log.c" bodystart="42" bodyend="49"/>
+        <references refid="struct_x_v___sdi_rx_ss___log_1abcbcd469377f7579be30243c760b3709" compoundref="xv__sdirxss_8h" startline="95">XV_SdiRxSs_Log::HeadIndex</references>
+        <references refid="struct_x_v___sdi_rx_ss_1aa8bead632dc99af35c9ab20fdd034741" compoundref="xv__sdirxss_8h" startline="171">XV_SdiRxSs::Log</references>
+        <references refid="struct_x_v___sdi_rx_ss___log_1a993b179ac73b296c64a86ed0a9633c80" compoundref="xv__sdirxss_8h" startline="97">XV_SdiRxSs_Log::TailIndex</references>
+      </memberdef>
+      <memberdef kind="function" id="xv__sdirxss__log_8c_1a4ec835467423d601222535543e1ffedf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_SdiRxSs_LogWrite</definition>
+        <argsstring>(XV_SdiRxSs *InstancePtr, XV_SdiRxSs_LogEvent Evt, u8 Data)</argsstring>
+        <name>XV_SdiRxSs_LogWrite</name>
+        <param>
+          <type><ref refid="struct_x_v___sdi_rx_ss" kindref="compound">XV_SdiRxSs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="xv__sdirxss_8h_1ade9ffd7c4cd3343a53668c77788e00ba" kindref="member">XV_SdiRxSs_LogEvent</ref></type>
+          <declname>Evt</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Data</declname>
+        </param>
+        <briefdescription>
+<para>This function will insert an event in the driver&apos;s logging mechanism. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_v___sdi_rx_ss" kindref="compound">XV_SdiRxSs</ref> core instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Evt</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the event type to log. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the associated data for the event.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/src/xv_sdirxss_log.c" line="61" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/src/xv_sdirxss_log.c" bodystart="61" bodyend="93"/>
+        <references refid="struct_x_v___sdi_rx_ss___log_1a23c2cddf5a657c4e288e0866596c70de" compoundref="xv__sdirxss_8h" startline="94">XV_SdiRxSs_Log::DataBuffer</references>
+        <references refid="struct_x_v___sdi_rx_ss___log_1abcbcd469377f7579be30243c760b3709" compoundref="xv__sdirxss_8h" startline="95">XV_SdiRxSs_Log::HeadIndex</references>
+        <references refid="struct_x_v___sdi_rx_ss_1aa8bead632dc99af35c9ab20fdd034741" compoundref="xv__sdirxss_8h" startline="171">XV_SdiRxSs::Log</references>
+        <references refid="struct_x_v___sdi_rx_ss___log_1a993b179ac73b296c64a86ed0a9633c80" compoundref="xv__sdirxss_8h" startline="97">XV_SdiRxSs_Log::TailIndex</references>
+        <references refid="xv__sdirxss_8h_1ade9ffd7c4cd3343a53668c77788e00baa51fc4231632e2b7294e582fe600c6ef9" compoundref="xv__sdirxss_8h" startline="87">XV_SDIRXSS_LOG_EVT_DUMMY</references>
+        <referencedby refid="xv__sdirxss_8h_1a691319ac2baf302e4f0b833c0aafc963" compoundref="xv__sdirxss_8c" startline="412" endline="421">XV_SdiRxSs_Start</referencedby>
+        <referencedby refid="xv__sdirxss_8h_1ac4e45bc8ac7c85d1ad5958be34844543" compoundref="xv__sdirxss_8c" startline="432" endline="439">XV_SdiRxSs_Stop</referencedby>
+        <referencedby refid="group__v__sdirxss_1ga8acb662b4cdd74817ee6b48f166f3e25" compoundref="xv__sdirxss__coreinit_8c" startline="51" endline="87">XV_SdiRxSs_SubcoreInitSdiRx</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xv__sdirxss__log_8c_1a79f6c8e124a9308ac14b02673b69d3bc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u16</type>
+        <definition>u16 XV_SdiRxSs_LogRead</definition>
+        <argsstring>(XV_SdiRxSs *InstancePtr)</argsstring>
+        <name>XV_SdiRxSs_LogRead</name>
+        <param>
+          <type><ref refid="struct_x_v___sdi_rx_ss" kindref="compound">XV_SdiRxSs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function will read the last event from the log. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_v___sdi_rx_ss" kindref="compound">XV_SdiRxSs</ref> core instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The log data.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/src/xv_sdirxss_log.c" line="106" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/src/xv_sdirxss_log.c" bodystart="106" bodyend="129"/>
+        <references refid="struct_x_v___sdi_rx_ss___log_1a23c2cddf5a657c4e288e0866596c70de" compoundref="xv__sdirxss_8h" startline="94">XV_SdiRxSs_Log::DataBuffer</references>
+        <references refid="struct_x_v___sdi_rx_ss___log_1abcbcd469377f7579be30243c760b3709" compoundref="xv__sdirxss_8h" startline="95">XV_SdiRxSs_Log::HeadIndex</references>
+        <references refid="struct_x_v___sdi_rx_ss_1aa8bead632dc99af35c9ab20fdd034741" compoundref="xv__sdirxss_8h" startline="171">XV_SdiRxSs::Log</references>
+        <references refid="struct_x_v___sdi_rx_ss___log_1a993b179ac73b296c64a86ed0a9633c80" compoundref="xv__sdirxss_8h" startline="97">XV_SdiRxSs_Log::TailIndex</references>
+        <referencedby refid="xv__sdirxss__log_8c_1a3b2d7ef1aa9533cbc6661da353417cbc" compoundref="xv__sdirxss__log_8c" startline="139" endline="204">XV_SdiRxSs_LogDisplay</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xv__sdirxss__log_8c_1a3b2d7ef1aa9533cbc6661da353417cbc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_SdiRxSs_LogDisplay</definition>
+        <argsstring>(XV_SdiRxSs *InstancePtr)</argsstring>
+        <name>XV_SdiRxSs_LogDisplay</name>
+        <param>
+          <type><ref refid="struct_x_v___sdi_rx_ss" kindref="compound">XV_SdiRxSs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function will print the entire log. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_v___sdi_rx_ss" kindref="compound">XV_SdiRxSs</ref> core instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/src/xv_sdirxss_log.c" line="139" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/src/xv_sdirxss_log.c" bodystart="139" bodyend="204"/>
+        <references refid="xv__sdirxss_8h_1ade9ffd7c4cd3343a53668c77788e00baac87b23eb6dafee43b46fa934dbe65383" compoundref="xv__sdirxss_8h" startline="75">XV_SDIRXSS_LOG_EVT_NONE</references>
+        <references refid="xv__sdirxss_8h_1ade9ffd7c4cd3343a53668c77788e00baa6cbf56745454fffbcc6154ef9ac79225" compoundref="xv__sdirxss_8h" startline="82">XV_SDIRXSS_LOG_EVT_OVERFLOW</references>
+        <references refid="xv__sdirxss_8h_1ade9ffd7c4cd3343a53668c77788e00baa827f33ac2529c5f4cf3945835dcb1ce6" compoundref="xv__sdirxss_8h" startline="79">XV_SDIRXSS_LOG_EVT_RESET</references>
+        <references refid="xv__sdirxss_8h_1ade9ffd7c4cd3343a53668c77788e00baab255967dc5490db2cd7f57f778aec61e" compoundref="xv__sdirxss_8h" startline="76">XV_SDIRXSS_LOG_EVT_SDIRX_INIT</references>
+        <references refid="xv__sdirxss_8h_1ade9ffd7c4cd3343a53668c77788e00baa0080e57f6d625f1dd01a1c0e2f54bc8a" compoundref="xv__sdirxss_8h" startline="85">XV_SDIRXSS_LOG_EVT_SETSTREAM</references>
+        <references refid="xv__sdirxss_8h_1ade9ffd7c4cd3343a53668c77788e00baa97ea48bfa51c0ef66411f6ed68ab812c" compoundref="xv__sdirxss_8h" startline="77">XV_SDIRXSS_LOG_EVT_START</references>
+        <references refid="xv__sdirxss_8h_1ade9ffd7c4cd3343a53668c77788e00baa4da3f2426afca1983efd63a9214b6bfe" compoundref="xv__sdirxss_8h" startline="78">XV_SDIRXSS_LOG_EVT_STOP</references>
+        <references refid="xv__sdirxss_8h_1ade9ffd7c4cd3343a53668c77788e00baa1209a2edefec80b648ea7ce60d862ea9" compoundref="xv__sdirxss_8h" startline="81">XV_SDIRXSS_LOG_EVT_STREAMDOWN</references>
+        <references refid="xv__sdirxss_8h_1ade9ffd7c4cd3343a53668c77788e00baa3b50bef7159196dcf349504a79797a01" compoundref="xv__sdirxss_8h" startline="84">XV_SDIRXSS_LOG_EVT_STREAMSTART</references>
+        <references refid="xv__sdirxss_8h_1ade9ffd7c4cd3343a53668c77788e00baa9fcf3692334b29076b633a9eb7db3fbc" compoundref="xv__sdirxss_8h" startline="80">XV_SDIRXSS_LOG_EVT_STREAMUP</references>
+        <references refid="xv__sdirxss_8h_1ade9ffd7c4cd3343a53668c77788e00baa4dd4d4fa56c1ee97d5ace1b7c3543eb1" compoundref="xv__sdirxss_8h" startline="83">XV_SDIRXSS_LOG_EVT_UNDERFLOW</references>
+        <references refid="xv__sdirxss_8h_1a79f6c8e124a9308ac14b02673b69d3bc" compoundref="xv__sdirxss__log_8c" startline="106" endline="129">XV_SdiRxSs_LogRead</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><simplesect kind="note"><para>None.</para></simplesect>
+<preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+1.0   jsr  07/17/17 Initial release.
+</preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/*******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2017<sp/>-<sp/>2020<sp/>Xilinx,<sp/>Inc.<sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>2022-2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">*******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="25"><highlight class="comment">/*******************************<sp/>Include<sp/>Files<sp/>********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xv__sdirxss_8h" kindref="compound">xv_sdirxss.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Function<sp/>Prototypes<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Function<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="42" refid="xv__sdirxss__log_8c_1a4deea5c587f6a732de2f6b127fc12b4d" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__sdirxss_8h_1a4deea5c587f6a732de2f6b127fc12b4d" kindref="member">XV_SdiRxSs_LogReset</ref>(<ref refid="struct_x_v___sdi_rx_ss" kindref="compound">XV_SdiRxSs</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="43"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_v___sdi_rx_ss_1aa8bead632dc99af35c9ab20fdd034741" kindref="member">Log</ref>.<ref refid="struct_x_v___sdi_rx_ss___log_1abcbcd469377f7579be30243c760b3709" kindref="member">HeadIndex</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_v___sdi_rx_ss_1aa8bead632dc99af35c9ab20fdd034741" kindref="member">Log</ref>.<ref refid="struct_x_v___sdi_rx_ss___log_1a993b179ac73b296c64a86ed0a9633c80" kindref="member">TailIndex</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="49"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="61" refid="xv__sdirxss__log_8c_1a4ec835467423d601222535543e1ffedf" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__sdirxss_8h_1a4ec835467423d601222535543e1ffedf" kindref="member">XV_SdiRxSs_LogWrite</ref>(<ref refid="struct_x_v___sdi_rx_ss" kindref="compound">XV_SdiRxSs</ref><sp/>*InstancePtr,<sp/><ref refid="xv__sdirxss_8h_1ade9ffd7c4cd3343a53668c77788e00ba" kindref="member">XV_SdiRxSs_LogEvent</ref><sp/>Evt,<sp/>u8<sp/>Data)</highlight></codeline>
+<codeline lineno="62"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(Evt<sp/>&lt;=<sp/>(<ref refid="xv__sdirxss_8h_1ade9ffd7c4cd3343a53668c77788e00baa51fc4231632e2b7294e582fe600c6ef9" kindref="member">XV_SDIRXSS_LOG_EVT_DUMMY</ref>));</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(Data<sp/>&lt;<sp/>0xFF);</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Write<sp/>data<sp/>and<sp/>event<sp/>into<sp/>log<sp/>buffer<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_v___sdi_rx_ss_1aa8bead632dc99af35c9ab20fdd034741" kindref="member">Log</ref>.<ref refid="struct_x_v___sdi_rx_ss___log_1a23c2cddf5a657c4e288e0866596c70de" kindref="member">DataBuffer</ref>[InstancePtr-&gt;<ref refid="struct_x_v___sdi_rx_ss_1aa8bead632dc99af35c9ab20fdd034741" kindref="member">Log</ref>.<ref refid="struct_x_v___sdi_rx_ss___log_1abcbcd469377f7579be30243c760b3709" kindref="member">HeadIndex</ref>]<sp/>=</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(Data<sp/>&lt;&lt;<sp/>8)<sp/>|<sp/>Evt;</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Update<sp/>head<sp/>pointer<sp/>if<sp/>reached<sp/>to<sp/>end<sp/>of<sp/>the<sp/>buffer<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_v___sdi_rx_ss_1aa8bead632dc99af35c9ab20fdd034741" kindref="member">Log</ref>.<ref refid="struct_x_v___sdi_rx_ss___log_1abcbcd469377f7579be30243c760b3709" kindref="member">HeadIndex</ref><sp/>==</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u8)((</highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(InstancePtr-&gt;<ref refid="struct_x_v___sdi_rx_ss_1aa8bead632dc99af35c9ab20fdd034741" kindref="member">Log</ref>.<ref refid="struct_x_v___sdi_rx_ss___log_1a23c2cddf5a657c4e288e0866596c70de" kindref="member">DataBuffer</ref>)<sp/>/<sp/>2)<sp/>-<sp/>1))<sp/>{</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Clear<sp/>pointer<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_v___sdi_rx_ss_1aa8bead632dc99af35c9ab20fdd034741" kindref="member">Log</ref>.<ref refid="struct_x_v___sdi_rx_ss___log_1abcbcd469377f7579be30243c760b3709" kindref="member">HeadIndex</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Increment<sp/>pointer<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_v___sdi_rx_ss_1aa8bead632dc99af35c9ab20fdd034741" kindref="member">Log</ref>.<ref refid="struct_x_v___sdi_rx_ss___log_1abcbcd469377f7579be30243c760b3709" kindref="member">HeadIndex</ref>++;</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"></highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Check<sp/>tail<sp/>pointer.<sp/>When<sp/>the<sp/>two<sp/>pointer<sp/>are<sp/>equal,<sp/>then<sp/>the<sp/>buffer</highlight></codeline>
+<codeline lineno="83"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>is<sp/>full.<sp/>In<sp/>this<sp/>case<sp/>then<sp/>increment<sp/>the<sp/>tail<sp/>pointer<sp/>as<sp/>well<sp/>to</highlight></codeline>
+<codeline lineno="84"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>remove<sp/>the<sp/>oldest<sp/>entry<sp/>from<sp/>the<sp/>buffer.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_v___sdi_rx_ss_1aa8bead632dc99af35c9ab20fdd034741" kindref="member">Log</ref>.<ref refid="struct_x_v___sdi_rx_ss___log_1a993b179ac73b296c64a86ed0a9633c80" kindref="member">TailIndex</ref><sp/>==<sp/>InstancePtr-&gt;<ref refid="struct_x_v___sdi_rx_ss_1aa8bead632dc99af35c9ab20fdd034741" kindref="member">Log</ref>.<ref refid="struct_x_v___sdi_rx_ss___log_1abcbcd469377f7579be30243c760b3709" kindref="member">HeadIndex</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_v___sdi_rx_ss_1aa8bead632dc99af35c9ab20fdd034741" kindref="member">Log</ref>.<ref refid="struct_x_v___sdi_rx_ss___log_1a993b179ac73b296c64a86ed0a9633c80" kindref="member">TailIndex</ref><sp/>==</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u8)((</highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(InstancePtr-&gt;<ref refid="struct_x_v___sdi_rx_ss_1aa8bead632dc99af35c9ab20fdd034741" kindref="member">Log</ref>.<ref refid="struct_x_v___sdi_rx_ss___log_1a23c2cddf5a657c4e288e0866596c70de" kindref="member">DataBuffer</ref>)<sp/>/<sp/>2)<sp/>-<sp/>1))<sp/>{</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_v___sdi_rx_ss_1aa8bead632dc99af35c9ab20fdd034741" kindref="member">Log</ref>.<ref refid="struct_x_v___sdi_rx_ss___log_1a993b179ac73b296c64a86ed0a9633c80" kindref="member">TailIndex</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_v___sdi_rx_ss_1aa8bead632dc99af35c9ab20fdd034741" kindref="member">Log</ref>.<ref refid="struct_x_v___sdi_rx_ss___log_1a993b179ac73b296c64a86ed0a9633c80" kindref="member">TailIndex</ref>++;</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="93"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"></highlight></codeline>
+<codeline lineno="95"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="106" refid="xv__sdirxss__log_8c_1a79f6c8e124a9308ac14b02673b69d3bc" refkind="member"><highlight class="normal">u16<sp/><ref refid="xv__sdirxss_8h_1a79f6c8e124a9308ac14b02673b69d3bc" kindref="member">XV_SdiRxSs_LogRead</ref>(<ref refid="struct_x_v___sdi_rx_ss" kindref="compound">XV_SdiRxSs</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="107"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>Log;</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"></highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>argument.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"></highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Check<sp/>if<sp/>there<sp/>is<sp/>any<sp/>data<sp/>in<sp/>the<sp/>log<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_v___sdi_rx_ss_1aa8bead632dc99af35c9ab20fdd034741" kindref="member">Log</ref>.<ref refid="struct_x_v___sdi_rx_ss___log_1a993b179ac73b296c64a86ed0a9633c80" kindref="member">TailIndex</ref><sp/>==<sp/>InstancePtr-&gt;<ref refid="struct_x_v___sdi_rx_ss_1aa8bead632dc99af35c9ab20fdd034741" kindref="member">Log</ref>.<ref refid="struct_x_v___sdi_rx_ss___log_1abcbcd469377f7579be30243c760b3709" kindref="member">HeadIndex</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Log<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Log<sp/>=<sp/>InstancePtr-&gt;<ref refid="struct_x_v___sdi_rx_ss_1aa8bead632dc99af35c9ab20fdd034741" kindref="member">Log</ref>.<ref refid="struct_x_v___sdi_rx_ss___log_1a23c2cddf5a657c4e288e0866596c70de" kindref="member">DataBuffer</ref>[InstancePtr-&gt;<ref refid="struct_x_v___sdi_rx_ss_1aa8bead632dc99af35c9ab20fdd034741" kindref="member">Log</ref>.<ref refid="struct_x_v___sdi_rx_ss___log_1a993b179ac73b296c64a86ed0a9633c80" kindref="member">TailIndex</ref>];</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"></highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Increment<sp/>tail<sp/>pointer<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_v___sdi_rx_ss_1aa8bead632dc99af35c9ab20fdd034741" kindref="member">Log</ref>.<ref refid="struct_x_v___sdi_rx_ss___log_1a993b179ac73b296c64a86ed0a9633c80" kindref="member">TailIndex</ref><sp/>==</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u8)((</highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(InstancePtr-&gt;<ref refid="struct_x_v___sdi_rx_ss_1aa8bead632dc99af35c9ab20fdd034741" kindref="member">Log</ref>.<ref refid="struct_x_v___sdi_rx_ss___log_1a23c2cddf5a657c4e288e0866596c70de" kindref="member">DataBuffer</ref>)<sp/>/<sp/>2)<sp/>-<sp/>1))<sp/>{</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_v___sdi_rx_ss_1aa8bead632dc99af35c9ab20fdd034741" kindref="member">Log</ref>.<ref refid="struct_x_v___sdi_rx_ss___log_1a993b179ac73b296c64a86ed0a9633c80" kindref="member">TailIndex</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_v___sdi_rx_ss_1aa8bead632dc99af35c9ab20fdd034741" kindref="member">Log</ref>.<ref refid="struct_x_v___sdi_rx_ss___log_1a993b179ac73b296c64a86ed0a9633c80" kindref="member">TailIndex</ref>++;</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"></highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Log;</highlight></codeline>
+<codeline lineno="129"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"></highlight></codeline>
+<codeline lineno="131"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="139" refid="xv__sdirxss__log_8c_1a3b2d7ef1aa9533cbc6661da353417cbc" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__sdirxss_8h_1a3b2d7ef1aa9533cbc6661da353417cbc" kindref="member">XV_SdiRxSs_LogDisplay</ref>(<ref refid="struct_x_v___sdi_rx_ss" kindref="compound">XV_SdiRxSs</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="140"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>Log;</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Evt;</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Data;</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"></highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>argument.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"></highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;\r\n\n\nSDI<sp/>RX<sp/>log\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;------\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"></highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Read<sp/>log<sp/>data<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Log<sp/>=<sp/><ref refid="xv__sdirxss_8h_1a79f6c8e124a9308ac14b02673b69d3bc" kindref="member">XV_SdiRxSs_LogRead</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"></highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(Log<sp/>!=<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Event<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Evt<sp/>=<sp/>Log<sp/>&amp;<sp/>0xff;</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"></highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Data<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Data<sp/>=<sp/>(Log<sp/>&gt;&gt;<sp/>8)<sp/>&amp;<sp/>0xFF;</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Data<sp/>=<sp/>Data;</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"></highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">switch</highlight><highlight class="normal"><sp/>(Evt)<sp/>{</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>(<ref refid="xv__sdirxss_8h_1ade9ffd7c4cd3343a53668c77788e00baac87b23eb6dafee43b46fa934dbe65383" kindref="member">XV_SDIRXSS_LOG_EVT_NONE</ref>):</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;SDI<sp/>RXSS<sp/>log<sp/>end\r\n-------\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>(<ref refid="xv__sdirxss_8h_1ade9ffd7c4cd3343a53668c77788e00baab255967dc5490db2cd7f57f778aec61e" kindref="member">XV_SDIRXSS_LOG_EVT_SDIRX_INIT</ref>):</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Initializing<sp/>SDI<sp/>RX<sp/>core....\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>(<ref refid="xv__sdirxss_8h_1ade9ffd7c4cd3343a53668c77788e00baa97ea48bfa51c0ef66411f6ed68ab812c" kindref="member">XV_SDIRXSS_LOG_EVT_START</ref>):</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Start<sp/>SDI<sp/>RX<sp/>Subsystem....\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="172"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>(<ref refid="xv__sdirxss_8h_1ade9ffd7c4cd3343a53668c77788e00baa4da3f2426afca1983efd63a9214b6bfe" kindref="member">XV_SDIRXSS_LOG_EVT_STOP</ref>):</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Stop<sp/>SDI<sp/>RX<sp/>Subsystem....\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>(<ref refid="xv__sdirxss_8h_1ade9ffd7c4cd3343a53668c77788e00baa827f33ac2529c5f4cf3945835dcb1ce6" kindref="member">XV_SDIRXSS_LOG_EVT_RESET</ref>):</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Reset<sp/>SDI<sp/>RX<sp/>Subsystem....\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>(<ref refid="xv__sdirxss_8h_1ade9ffd7c4cd3343a53668c77788e00baa9fcf3692334b29076b633a9eb7db3fbc" kindref="member">XV_SDIRXSS_LOG_EVT_STREAMUP</ref>):</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;RX<sp/>Stream<sp/>is<sp/>Up\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>(<ref refid="xv__sdirxss_8h_1ade9ffd7c4cd3343a53668c77788e00baa1209a2edefec80b648ea7ce60d862ea9" kindref="member">XV_SDIRXSS_LOG_EVT_STREAMDOWN</ref>):</highlight></codeline>
+<codeline lineno="182"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;RX<sp/>Stream<sp/>is<sp/>Down\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="183"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="184"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>(<ref refid="xv__sdirxss_8h_1ade9ffd7c4cd3343a53668c77788e00baa6cbf56745454fffbcc6154ef9ac79225" kindref="member">XV_SDIRXSS_LOG_EVT_OVERFLOW</ref>):</highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;RX<sp/>Stream<sp/>is<sp/>Overflowed\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>(<ref refid="xv__sdirxss_8h_1ade9ffd7c4cd3343a53668c77788e00baa4dd4d4fa56c1ee97d5ace1b7c3543eb1" kindref="member">XV_SDIRXSS_LOG_EVT_UNDERFLOW</ref>):</highlight></codeline>
+<codeline lineno="188"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;RX<sp/>Stream<sp/>is<sp/>Underflowed\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>(<ref refid="xv__sdirxss_8h_1ade9ffd7c4cd3343a53668c77788e00baa3b50bef7159196dcf349504a79797a01" kindref="member">XV_SDIRXSS_LOG_EVT_STREAMSTART</ref>):</highlight></codeline>
+<codeline lineno="191"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;RX<sp/>Stream<sp/>Start\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="192"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="193"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>(<ref refid="xv__sdirxss_8h_1ade9ffd7c4cd3343a53668c77788e00baa0080e57f6d625f1dd01a1c0e2f54bc8a" kindref="member">XV_SDIRXSS_LOG_EVT_SETSTREAM</ref>):</highlight></codeline>
+<codeline lineno="194"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;RX<sp/>Set<sp/>Stream,<sp/>with<sp/>TMDS<sp/>(%0d)\r\n&quot;</highlight><highlight class="normal">,<sp/>Data);</highlight></codeline>
+<codeline lineno="195"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="196"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="197"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Unknown<sp/>event\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="198"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"></highlight></codeline>
+<codeline lineno="201"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Read<sp/>log<sp/>data<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="202"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Log<sp/>=<sp/><ref refid="xv__sdirxss_8h_1a79f6c8e124a9308ac14b02673b69d3bc" kindref="member">XV_SdiRxSs_LogRead</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="204"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/src/xv_sdirxss_log.c"/>
+  </compounddef>
+</doxygen>

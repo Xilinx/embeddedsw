@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_2e6e3ac94e312d38f263546e2c264e0d" kind="dir">
+    <compoundname>common</compoundname>
+    <innerfile refid="xasu__aes__common_8c">xasu_aes_common.c</innerfile>
+    <innerfile refid="xasu__aes__common_8h">xasu_aes_common.h</innerfile>
+    <innerfile refid="xasu__aesinfo_8h">xasu_aesinfo.h</innerfile>
+    <innerfile refid="xasu__def_8h">xasu_def.h</innerfile>
+    <innerfile refid="xasu__eccinfo_8h">xasu_eccinfo.h</innerfile>
+    <innerfile refid="xasu__ecies__common_8c">xasu_ecies_common.c</innerfile>
+    <innerfile refid="xasu__ecies__common_8h">xasu_ecies_common.h</innerfile>
+    <innerfile refid="xasu__eciesinfo_8h">xasu_eciesinfo.h</innerfile>
+    <innerfile refid="xasu__generic_8c">xasu_generic.c</innerfile>
+    <innerfile refid="xasu__generic_8h">xasu_generic.h</innerfile>
+    <innerfile refid="xasu__hmacinfo_8h">xasu_hmacinfo.h</innerfile>
+    <innerfile refid="xasu__kdf__common_8c">xasu_kdf_common.c</innerfile>
+    <innerfile refid="xasu__kdf__common_8h">xasu_kdf_common.h</innerfile>
+    <innerfile refid="xasu__kdfinfo_8h">xasu_kdfinfo.h</innerfile>
+    <innerfile refid="xasu__keymanager__common_8c">xasu_keymanager_common.c</innerfile>
+    <innerfile refid="xasu__keymanager__common_8h">xasu_keymanager_common.h</innerfile>
+    <innerfile refid="xasu__keymanagerinfo_8h">xasu_keymanagerinfo.h</innerfile>
+    <innerfile refid="xasu__keywrap__common_8c">xasu_keywrap_common.c</innerfile>
+    <innerfile refid="xasu__keywrap__common_8h">xasu_keywrap_common.h</innerfile>
+    <innerfile refid="xasu__keywrapinfo_8h">xasu_keywrapinfo.h</innerfile>
+    <innerfile refid="xasu__lms__common_8c">xasu_lms_common.c</innerfile>
+    <innerfile refid="xasu__lms__common_8h">xasu_lms_common.h</innerfile>
+    <innerfile refid="xasu__lmsinfo_8h">xasu_lmsinfo.h</innerfile>
+    <innerfile refid="xasu__ocp__common_8c">xasu_ocp_common.c</innerfile>
+    <innerfile refid="xasu__ocp__common_8h">xasu_ocp_common.h</innerfile>
+    <innerfile refid="xasu__ocpinfo_8h">xasu_ocpinfo.h</innerfile>
+    <innerfile refid="xasu__rsa__common_8c">xasu_rsa_common.c</innerfile>
+    <innerfile refid="xasu__rsa__common_8h">xasu_rsa_common.h</innerfile>
+    <innerfile refid="xasu__rsainfo_8h">xasu_rsainfo.h</innerfile>
+    <innerfile refid="xasu__shainfo_8h">xasu_shainfo.h</innerfile>
+    <innerfile refid="xasu__sharedmem_8c">xasu_sharedmem.c</innerfile>
+    <innerfile refid="xasu__sharedmem_8h">xasu_sharedmem.h</innerfile>
+    <innerfile refid="xasu__trnginfo_8h">xasu_trnginfo.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/"/>
+  </compounddef>
+</doxygen>

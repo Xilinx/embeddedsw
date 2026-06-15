@@ -1,0 +1,1714 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="hal__api_8h" kind="file">
+    <compoundname>hal_api.h</compoundname>
+    <includes local="no">stdbool.h</includes>
+    <includes local="no">xiicps.h</includes>
+    <includes local="no">xil_printf.h</includes>
+    <includes local="no">xil_types.h</includes>
+    <includes refid="dct__assert_8h" local="no">dct_assert.h</includes>
+    <includedby refid="hal__i2c_8c" local="yes">hal_i2c.c</includedby>
+    <includedby refid="hal__i2c_8h" local="yes">hal_i2c.h</includedby>
+    <includedby refid="ox03f10__priv_8h" local="no">ox03f10_priv.h</includedby>
+    <includedby refid="ox05b1s__priv_8h" local="no">ox05b1s_priv.h</includedby>
+    <includedby refid="ox08b40__priv_8h" local="no">ox08b40_priv.h</includedby>
+    <incdepgraph>
+      <node id="5323">
+        <label>hal_api.h</label>
+        <link refid="hal_api.h"/>
+        <childnode refid="5324" relation="include">
+        </childnode>
+        <childnode refid="5325" relation="include">
+        </childnode>
+        <childnode refid="5326" relation="include">
+        </childnode>
+        <childnode refid="5327" relation="include">
+        </childnode>
+        <childnode refid="5328" relation="include">
+        </childnode>
+      </node>
+      <node id="5324">
+        <label>stdbool.h</label>
+      </node>
+      <node id="5332">
+        <label>stdlib.h</label>
+      </node>
+      <node id="5334">
+        <label>stddef.h</label>
+      </node>
+      <node id="5333">
+        <label>limits.h</label>
+      </node>
+      <node id="5327">
+        <label>xil_types.h</label>
+      </node>
+      <node id="5325">
+        <label>xiicps.h</label>
+      </node>
+      <node id="5326">
+        <label>xil_printf.h</label>
+      </node>
+      <node id="5329">
+        <label>types.h</label>
+        <link refid="types_8h"/>
+        <childnode refid="5330" relation="include">
+        </childnode>
+        <childnode refid="5333" relation="include">
+        </childnode>
+        <childnode refid="5334" relation="include">
+        </childnode>
+      </node>
+      <node id="5331">
+        <label>stdio.h</label>
+      </node>
+      <node id="5328">
+        <label>dct_assert.h</label>
+        <link refid="dct__assert_8h"/>
+        <childnode refid="5329" relation="include">
+        </childnode>
+      </node>
+      <node id="5330">
+        <label>linux_compat.h</label>
+        <link refid="linux__compat_8h"/>
+        <childnode refid="5331" relation="include">
+        </childnode>
+        <childnode refid="5332" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="5335">
+        <label>hal_api.h</label>
+        <link refid="hal_api.h"/>
+        <childnode refid="5336" relation="include">
+        </childnode>
+        <childnode refid="5337" relation="include">
+        </childnode>
+        <childnode refid="5351" relation="include">
+        </childnode>
+        <childnode refid="5352" relation="include">
+        </childnode>
+        <childnode refid="5353" relation="include">
+        </childnode>
+      </node>
+      <node id="5348">
+        <label>ox05b1s.c</label>
+      </node>
+      <node id="5339">
+        <label>hal_ps_i2c.h</label>
+        <childnode refid="5336" relation="include">
+        </childnode>
+        <childnode refid="5340" relation="include">
+        </childnode>
+      </node>
+      <node id="5351">
+        <label>ox03f10_priv.h</label>
+        <childnode refid="5346" relation="include">
+        </childnode>
+        <childnode refid="5347" relation="include">
+        </childnode>
+      </node>
+      <node id="5352">
+        <label>ox05b1s_priv.h</label>
+        <link refid="ox05b1s__priv_8h"/>
+        <childnode refid="5348" relation="include">
+        </childnode>
+      </node>
+      <node id="5341">
+        <label>max9296.h</label>
+        <childnode refid="5342" relation="include">
+        </childnode>
+      </node>
+      <node id="5350">
+        <label>vvdevice.c</label>
+      </node>
+      <node id="5338">
+        <label>hal_axi_i2c.h</label>
+        <childnode refid="5336" relation="include">
+        </childnode>
+      </node>
+      <node id="5353">
+        <label>ox08b40_priv.h</label>
+        <childnode refid="5349" relation="include">
+        </childnode>
+      </node>
+      <node id="5345">
+        <label>max9295.c</label>
+      </node>
+      <node id="5349">
+        <label>ox08b40.c</label>
+      </node>
+      <node id="5336">
+        <label>hal_i2c.c</label>
+      </node>
+      <node id="5342">
+        <label>max9296.c</label>
+      </node>
+      <node id="5343">
+        <label>isi_fmc.h</label>
+        <childnode refid="5344" relation="include">
+        </childnode>
+        <childnode refid="5341" relation="include">
+        </childnode>
+        <childnode refid="5346" relation="include">
+        </childnode>
+        <childnode refid="5347" relation="include">
+        </childnode>
+        <childnode refid="5348" relation="include">
+        </childnode>
+        <childnode refid="5349" relation="include">
+        </childnode>
+      </node>
+      <node id="5340">
+        <label>hal_ps_i2c.c</label>
+      </node>
+      <node id="5347">
+        <label>ox03f10.c</label>
+      </node>
+      <node id="5346">
+        <label>ms_fw.c</label>
+      </node>
+      <node id="5344">
+        <label>max9295.h</label>
+        <childnode refid="5345" relation="include">
+        </childnode>
+      </node>
+      <node id="5337">
+        <label>hal_i2c.h</label>
+        <childnode refid="5336" relation="include">
+        </childnode>
+        <childnode refid="5338" relation="include">
+        </childnode>
+        <childnode refid="5339" relation="include">
+        </childnode>
+        <childnode refid="5341" relation="include">
+        </childnode>
+        <childnode refid="5343" relation="include">
+        </childnode>
+        <childnode refid="5350" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_hal_irq_ctx__s" prot="public">HalIrqCtx_s</innerclass>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="hal__api_8h_1a2e448326fbf563c4965b9c4a5b7a1e7a" prot="public" static="no">
+        <name>HalDevType_e</name>
+        <enumvalue id="hal__api_8h_1a2e448326fbf563c4965b9c4a5b7a1e7aadb98b557fac7edddcba40d94236022ff" prot="public">
+          <name>HAL_DEV_ISP</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="hal__api_8h_1a2e448326fbf563c4965b9c4a5b7a1e7aa4da7659625c0d1cdbd1428524042ca6d" prot="public">
+          <name>HAL_DEV_MEM</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="hal__api_8h_1a2e448326fbf563c4965b9c4a5b7a1e7aa777afe663477967422508cb88043c8ae" prot="public">
+          <name>HAL_DEV_I2C</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="hal__api_8h_1a2e448326fbf563c4965b9c4a5b7a1e7aa885c2ed1a734e21ae30be69e1c12fca5" prot="public">
+          <name>HAL_DEV_MIPI</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="hal__api_8h_1a2e448326fbf563c4965b9c4a5b7a1e7aa5603b762b52acc50a891d59284bf5e0f" prot="public">
+          <name>HAL_DEV_VIDEO_IN</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="hal__api_8h_1a2e448326fbf563c4965b9c4a5b7a1e7aa68f722cdfd41ccba20b5c309db379e73" prot="public">
+          <name>HAL_DEV_MSS</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/hal_api.h" line="19" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/hal_api.h" bodystart="19" bodyend="26"/>
+      </memberdef>
+      <memberdef kind="enum" id="hal__api_8h_1a063040ac4a59523304c947d05c56fb73" prot="public" static="no">
+        <name>HalMapMemType_s</name>
+        <enumvalue id="hal__api_8h_1a063040ac4a59523304c947d05c56fb73ae30b477f69ffdbb03e5a5820f06645fd" prot="public">
+          <name>HAL_MAPMEM_READWRITE</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="hal__api_8h_1a063040ac4a59523304c947d05c56fb73a93fe923f86121d4426f281003237e8ef" prot="public">
+          <name>HAL_MAPMEM_READONLY</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="hal__api_8h_1a063040ac4a59523304c947d05c56fb73a9c36e9848a7dcc74ab3de3b1583c1bf4" prot="public">
+          <name>HAL_MAPMEM_WRITEONLY</name>
+          <initializer>= 2</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/hal_api.h" line="28" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/hal_api.h" bodystart="28" bodyend="32"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="hal__api_8h_1a2225969c66f32e5b9e903ec654d9ecb4" prot="public" static="no">
+        <type>int</type>
+        <definition>typedef int RESULT</definition>
+        <argsstring></argsstring>
+        <name>RESULT</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/hal_api.h" line="15" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/hal_api.h" bodystart="15" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="hal__api_8h_1aaab4b8a432cf1624c32abfed5d56364b" prot="public" static="no">
+        <type>void *</type>
+        <definition>typedef void* HalHandle_t</definition>
+        <argsstring></argsstring>
+        <name>HalHandle_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/hal_api.h" line="16" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/hal_api.h" bodystart="16" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="hal__api_8h_1a83586323ab175c3dfcbd7f4704e09743" prot="public" static="no">
+        <type>uint16_t</type>
+        <definition>typedef uint16_t TickType_t</definition>
+        <argsstring></argsstring>
+        <name>TickType_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/hal_api.h" line="17" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/hal_api.h" bodystart="17" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="hal__api_8h_1a74df8dface67868a9e24854c8385184d" prot="public" static="no">
+        <type>enum HalDevType_e</type>
+        <definition>typedef enum HalDevType_e  HalDevType_t</definition>
+        <argsstring></argsstring>
+        <name>HalDevType_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/hal_api.h" line="26" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="hal__api_8h_1ac8a7de8f5d6791271aab6971a23841aa" prot="public" static="no">
+        <type>enum HalMapMemType_s</type>
+        <definition>typedef enum HalMapMemType_s  HalMapMemType_t</definition>
+        <argsstring></argsstring>
+        <name>HalMapMemType_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/hal_api.h" line="32" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="hal__api_8h_1a7bb974f185cb9c81331fe0d74263b14b" prot="public" static="no">
+        <type>struct HalIrqCtx_s</type>
+        <definition>typedef struct HalIrqCtx_s  HalIrqCtx_t</definition>
+        <argsstring></argsstring>
+        <name>HalIrqCtx_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/hal_api.h" line="38" column="1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="hal__api_8h_1ab1897b8df35fd49ccf2053d837c01674" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT HalOpen</definition>
+        <argsstring>()</argsstring>
+        <name>HalOpen</name>
+        <briefdescription>
+<para>Opens the low level driver. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>Handle of the low level driver; NULL on failure </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/hal_api.h" line="50" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="hal__api_8h_1a78397b47e6c9fad0ec412370e9584acf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT HalClose</definition>
+        <argsstring>()</argsstring>
+        <name>HalClose</name>
+        <briefdescription>
+<para>Closes the low level driver. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>Status of operation </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/hal_api.h" line="61" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="hal__api_8h_1a2272fe9c11d6a6688c43e0de69009085" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT HalAddRef</definition>
+        <argsstring>(HalHandle_t HalHandle, uint8_t devType)</argsstring>
+        <name>HalAddRef</name>
+        <param>
+          <type>HalHandle_t</type>
+          <declname>HalHandle</declname>
+        </param>
+        <param>
+          <type>uint8_t</type>
+          <declname>devType</declname>
+        </param>
+        <briefdescription>
+<para>Tell HAL about another user of the low level driver. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>Status of operation </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/hal_api.h" line="72" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="hal__api_8h_1a9709f3b996c2256ac16b7c5da435c098" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT HalDelRef</definition>
+        <argsstring>()</argsstring>
+        <name>HalDelRef</name>
+        <briefdescription>
+<para>Tell HAL about departed user of the low level driver. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>Status of operation </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/hal_api.h" line="83" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="hal__api_8h_1a102ad015f485876d599bcc84a8fb8025" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT HalNumOfCams</definition>
+        <argsstring>(u32 *no)</argsstring>
+        <name>HalNumOfCams</name>
+        <param>
+          <type>u32 *</type>
+          <declname>no</declname>
+        </param>
+        <briefdescription>
+<para>Returns the number of connected cameras. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>no</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Select negative edge of incoming PClk to sample camera data.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Status of operation </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/hal_api.h" line="96" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="hal__api_8h_1a62198b6aef2808f987680f530edbc477" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT HalSetCamConfig</definition>
+        <argsstring>(u32 dev_mask, bool power_lowact, bool reset_lowact, bool pclk_negedge)</argsstring>
+        <name>HalSetCamConfig</name>
+        <param>
+          <type>u32</type>
+          <declname>dev_mask</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>power_lowact</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>reset_lowact</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>pclk_negedge</declname>
+        </param>
+        <briefdescription>
+<para>Sets the configuration of the given CAM devices. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>dev_mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Mask of CAM devices to set the configuration for.</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>power_lowact</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>CAM power on signal is low-active</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>reset_lowact</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>CAM reset signal is low-active</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>pclk_negedge</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Select negative edge of incoming PClk to sample camera data</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Status of operation </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/hal_api.h" line="115" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="hal__api_8h_1aaebee09717d59158f3306d009b6f18cc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT HalSetCamPhyConfig</definition>
+        <argsstring>(u32 dev_mask, bool power_lowact, bool reset_lowact)</argsstring>
+        <name>HalSetCamPhyConfig</name>
+        <param>
+          <type>u32</type>
+          <declname>dev_mask</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>power_lowact</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>reset_lowact</declname>
+        </param>
+        <briefdescription>
+<para>Sets the configuration of the given CAM PHY devices. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>dev_mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Mask of CAM PHY devices to set the configuration for.</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>power_lowact</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>CAM PHY power on signal is low-active.</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>reset_lowact</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>CAM PHY reset signal is low-active.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Status of operation </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/hal_api.h" line="132" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="hal__api_8h_1a2d68aad388be0afb25695bb893746e2a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT HalSetReset</definition>
+        <argsstring>(u32 dev_mask, bool activate)</argsstring>
+        <name>HalSetReset</name>
+        <param>
+          <type>u32</type>
+          <declname>dev_mask</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>activate</declname>
+        </param>
+        <briefdescription>
+<para>Enables/Disables reset of the given devices. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>dev_mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Mask of devices to change reset state</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>activate</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Enable or disable reset of the specified devices.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Status of operation </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/hal_api.h" line="147" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="hal__api_8h_1adfab66ec666d7660f668d96c87ef2bee" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT HalSetPower</definition>
+        <argsstring>(u32 dev_mask, bool activate)</argsstring>
+        <name>HalSetPower</name>
+        <param>
+          <type>u32</type>
+          <declname>dev_mask</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>activate</declname>
+        </param>
+        <briefdescription>
+<para>Enables/Disables power of the given devices. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>dev_mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Mask of devices to change power state</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>activate</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Enable or disable power of the specified devices.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Status of operation </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/hal_api.h" line="162" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="hal__api_8h_1acdf87199edbcbbf9f84b9ba088962c93" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT HalSetClock</definition>
+        <argsstring>(u32 dev_mask, u32 frequency)</argsstring>
+        <name>HalSetClock</name>
+        <param>
+          <type>u32</type>
+          <declname>dev_mask</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>frequency</declname>
+        </param>
+        <briefdescription>
+<para>Enables and sets/disables clock of the given devices. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>dev_mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Mask of devices to change clock settings for</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>frequency</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Sets frequency of given clocks in Hz steps.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Status of operation </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/hal_api.h" line="177" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="hal__api_8h_1aa912682567890f6c86cd0761a8d85782" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 HalReadReg</definition>
+        <argsstring>(u32 reg_address)</argsstring>
+        <name>HalReadReg</name>
+        <param>
+          <type>u32</type>
+          <declname>reg_address</declname>
+        </param>
+        <briefdescription>
+<para>Reads a value from the specified address. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>reg_address</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Full address (base address + offset) of register to read</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The value read from the register </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/hal_api.h" line="190" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="hal__api_8h_1a75e8ac658b93104cd1d10b643110e323" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void HalWriteReg</definition>
+        <argsstring>(u32 reg_address, u32 value)</argsstring>
+        <name>HalWriteReg</name>
+        <param>
+          <type>u32</type>
+          <declname>reg_address</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+<para>Writes a value to a given address. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>reg_address</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Full address (base address + offset) of register to write.</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>value</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Value to write into register </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/hal_api.h" line="203" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="hal__api_8h_1a5aaba6efdff54bb91a51c0a2c743427f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 HalReadMaskedReg</definition>
+        <argsstring>(u32 reg_address, u32 reg_mask, u32 shift_mask)</argsstring>
+        <name>HalReadMaskedReg</name>
+        <param>
+          <type>u32</type>
+          <declname>reg_address</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>reg_mask</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>shift_mask</declname>
+        </param>
+        <briefdescription>
+<para>Reads a value from a specific part of the given address. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>reg_address</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Full address (base address + offset) of register to read.</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>reg_mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Mask to apply to register value after being read</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>shift_mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Amount to right shift masked register value prior to being returned</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The masked and shifted value of the specified register that is read </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/hal_api.h" line="220" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="hal__api_8h_1a1d617f75471f03fce73a58f30609e978" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void HalWriteMaskedReg</definition>
+        <argsstring>(u32 reg_address, u32 reg_mask, u32 shift_mask, u32 value)</argsstring>
+        <name>HalWriteMaskedReg</name>
+        <param>
+          <type>u32</type>
+          <declname>reg_address</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>reg_mask</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>shift_mask</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+<para>Writes a value to a specific part of the given address. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>reg_address</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Full address (base address + offset) of register to write</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>reg_mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Mask to isolate parts of the register that should be written</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>shift_mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Amount to left shift the value prior to being modified in the register</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>value</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Value to write into the specified register position </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/hal_api.h" line="237" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="hal__api_8h_1ab6e28cbd0fc7244a6d824c62e884c6f8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 HalReadSysReg</definition>
+        <argsstring>(u32 reg_address)</argsstring>
+        <name>HalReadSysReg</name>
+        <param>
+          <type>u32</type>
+          <declname>reg_address</declname>
+        </param>
+        <briefdescription>
+<para>Reads a value from a given system register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>reg_address</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Full address (base address + offset) of system register to read</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The value read from the system register </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/hal_api.h" line="250" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="hal__api_8h_1aa3e4651ada4cf2a973af2d4b5f0dbbbf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void HalWriteSysReg</definition>
+        <argsstring>(u32 reg_address, u32 value)</argsstring>
+        <name>HalWriteSysReg</name>
+        <param>
+          <type>u32</type>
+          <declname>reg_address</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+<para>Writes a value to a given system register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>reg_address</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Full address (base address + offset) of system register to write</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>value</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Value to write into the register </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/hal_api.h" line="263" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="hal__api_8h_1a2e9c8f72006026cbb1a726e506c996ba" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 HalAllocMemory</definition>
+        <argsstring>(u32 byte_size)</argsstring>
+        <name>HalAllocMemory</name>
+        <param>
+          <type>u32</type>
+          <declname>byte_size</declname>
+        </param>
+        <briefdescription>
+<para>Allocates the given amount of hardware memory. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>byte_size</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Amount of memory to allocate</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>mem_address - memory block start address in hardware memory; 0 on failure </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/hal_api.h" line="276" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="hal__api_8h_1a52ec0a411293b6344882a45906411e37" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT HalFreeMemory</definition>
+        <argsstring>(u32 mem_address)</argsstring>
+        <name>HalFreeMemory</name>
+        <param>
+          <type>u32</type>
+          <declname>mem_address</declname>
+        </param>
+        <briefdescription>
+<para>Frees the given block of hardware memory. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>mem_address</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Start address of memory block in hardware memory</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Status of operation </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/hal_api.h" line="289" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="hal__api_8h_1a6ebffcdb97518ebba9a1e01765ecc519" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT HalReadMemory</definition>
+        <argsstring>(u32 mem_address, u8 *p_read_buffer, u32 byte_size)</argsstring>
+        <name>HalReadMemory</name>
+        <param>
+          <type>u32</type>
+          <declname>mem_address</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>p_read_buffer</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>byte_size</declname>
+        </param>
+        <briefdescription>
+<para>Reads a number of data from the memory to a buffer starting at the given address. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>mem_address</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Source start address in hardware memory</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>p_read_buffer</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to local memory holding the data being read</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>byte_size</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Amount of data to read</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Status of operation </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/hal_api.h" line="306" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="hal__api_8h_1aaf2deb29aab1abe4a9af21a7a620dab0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT HalWriteMemory</definition>
+        <argsstring>(u32 mem_address, u8 *p_write_buffer, u32 byte_size)</argsstring>
+        <name>HalWriteMemory</name>
+        <param>
+          <type>u32</type>
+          <declname>mem_address</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>p_write_buffer</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>byte_size</declname>
+        </param>
+        <briefdescription>
+<para>Writes a number of data from the memory to a buffer starting at the given address. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>mem_address</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Target start address in hardware memory</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>p_write_buffer</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to local memory holding the data to be written</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>byte_size</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Amount of data to write</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Status of operation </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/hal_api.h" line="323" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="hal__api_8h_1abfdef76c0d40ec73ae7119a19ab3e3ed" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT HalMapMemory</definition>
+        <argsstring>(u32 mem_address, u32 byte_size, HalMapMemType_t mapping_type, void **pp_mapped_buf)</argsstring>
+        <name>HalMapMemory</name>
+        <param>
+          <type>u32</type>
+          <declname>mem_address</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>byte_size</declname>
+        </param>
+        <param>
+          <type>HalMapMemType_t</type>
+          <declname>mapping_type</declname>
+        </param>
+        <param>
+          <type>void **</type>
+          <declname>pp_mapped_buf</declname>
+        </param>
+        <briefdescription>
+<para>Maps a number of data from the memory into local memory starting at the given address. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>mem_address</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Source start address in hardware memory</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>byte_size</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Amount of data to map</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>mapping_type</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The way the mapping is performed</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>pp_mapped_buf</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Reference to pointer to the mapped local memory</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Status of operation </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/hal_api.h" line="342" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="hal__api_8h_1a5e35682668ac25a1434a943a32da849c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT HalUnMapMemory</definition>
+        <argsstring>(void *p_mapped_buf)</argsstring>
+        <name>HalUnMapMemory</name>
+        <param>
+          <type>void *</type>
+          <declname>p_mapped_buf</declname>
+        </param>
+        <briefdescription>
+<para>Unmaps previously mapped memory from local memory. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>p_mapped_buf</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to local memory to unmap as returned by HalMapMemory</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Status of operation </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/hal_api.h" line="356" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="hal__api_8h_1a4266d9d515c850e0674ba35136fe3a67" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT HalReadI2CMem</definition>
+        <argsstring>(u8 bus_num, u16 slave_addr, u32 reg_address, u8 reg_addr_size, u8 *p_read_buffer, u32 byte_size)</argsstring>
+        <name>HalReadI2CMem</name>
+        <param>
+          <type>u8</type>
+          <declname>bus_num</declname>
+        </param>
+        <param>
+          <type>u16</type>
+          <declname>slave_addr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>reg_address</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>reg_addr_size</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>p_read_buffer</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>byte_size</declname>
+        </param>
+        <briefdescription>
+<para>Reads a number of data from the memory to a buffer starting at the given address. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>bus_num</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of bus which is to be used</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>slave_addr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Address of slave to be accessed</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>reg_address</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Address of register to read</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>reg_addr_size</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Size of reg_address in bytes. Valid range: [0..4] bytes.</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>p_read_buffer</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to local memory holding the data being read</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>byte_size</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Amount of data to read</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Status of operation </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/hal_api.h" line="379" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="hal__api_8h_1a9ba228fe85bbb4bcb503d8d66566012e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT HalWriteI2CMem</definition>
+        <argsstring>(u8 bus_num, u16 slave_addr, u32 reg_address, u8 reg_addr_size, u8 *p_write_buffer, u32 byte_size)</argsstring>
+        <name>HalWriteI2CMem</name>
+        <param>
+          <type>u8</type>
+          <declname>bus_num</declname>
+        </param>
+        <param>
+          <type>u16</type>
+          <declname>slave_addr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>reg_address</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>reg_addr_size</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>p_write_buffer</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>byte_size</declname>
+        </param>
+        <briefdescription>
+<para>Writes a number of data from a buffer to the memory starting at the given address. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>bus_num</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of bus which is to be used</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>slave_addr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Address of slave to be accessed</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>reg_address</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Address of register to write</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>reg_addr_size</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Size of reg_address in bytes. Valid range: [0..4] bytes.</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>p_read_buffer</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to local memory holding the data being written</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>byte_size</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Amount of data to read</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Status of operation </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/hal_api.h" line="403" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="hal__api_8h_1abf93f7eabef91ad9a8e6043226facac8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT HalDisconnectIrq</definition>
+        <argsstring>(HalIrqCtx_t *pIrqCtx)</argsstring>
+        <name>HalDisconnectIrq</name>
+        <param>
+          <type>HalIrqCtx_t *</type>
+          <declname>pIrqCtx</declname>
+        </param>
+        <briefdescription>
+<para>Register an interrupt service routine with the system software. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>pIrqCtx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Reference of HAL IRQ context structure that represent this connection</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>int_src</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of the interrupt source, set to 0 if not needed</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>IsrFunction</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>First interrupt routine, (first level handler); set to NULL if not needed</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DpcFunction</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Second interrupt routine (second level handler)</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>pContext</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Context provided when the interrupt routines are called</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Status of operation Deregister an interrupt service routine from the system software</para></simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>pIrqCtx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Reference of HAL IRQ context structure that represent this connection</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Status of operation </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/hal_api.h" line="438" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="hal__api_8h_1ae629836fad1b752fbb986f0833e26f82" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT HalXilReadI2CReg</definition>
+        <argsstring>(u8 bus_num, u8 slave_addr, u32 reg_address, u8 reg_addr_size, void *preg_value, u8 reg_size)</argsstring>
+        <name>HalXilReadI2CReg</name>
+        <param>
+          <type>u8</type>
+          <declname>bus_num</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>slave_addr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>reg_address</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>reg_addr_size</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>preg_value</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>reg_size</declname>
+        </param>
+        <briefdescription>
+<para>Reads a number of data from the memory to a buffer starting at the given address. </para>        </briefdescription>
+        <detaileddescription>
+<para>References HalReadI2CMem</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>bus_num</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of bus which is to be used</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>slave_addr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Address of slave to be accessed (supports auto detection of 10bit addresses)</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>reg_address</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Address of register to read. The register data gets read starting with the least significant byte</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>reg_addr_size</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Size of reg_address in bytes. Valid range: [0..4] bytes</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>preg_value</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to local memory holding the register data being read</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>reg_size</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Size of register in bytes. Valid range: [1..4].</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Status of operation </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/hal_api.h" line="461" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="hal__api_8h_1abd73c63562e451ddc4d5d8e6a6f4fde1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT HalXilWriteI2CReg</definition>
+        <argsstring>(u8 bus_num, u8 slave_addr, u16 reg_address, u8 reg_addr_size, u8 reg_value, u32 reg_size)</argsstring>
+        <name>HalXilWriteI2CReg</name>
+        <param>
+          <type>u8</type>
+          <declname>bus_num</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>slave_addr</declname>
+        </param>
+        <param>
+          <type>u16</type>
+          <declname>reg_address</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>reg_addr_size</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>reg_value</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>reg_size</declname>
+        </param>
+        <briefdescription>
+<para>Writes a number of data from a buffer to the memory starting at the given address. </para>        </briefdescription>
+        <detaileddescription>
+<para>References HalWriteI2CMem</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>bus_num</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of bus which is to be used</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>slave_addr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Address of slave to be accessed (supports auto detection of 10bit addresses)</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>reg_address</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Address of register to write. The register data gets written starting with the least significant byte.</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>reg_addr_size</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Size of reg_address in bytes. Valid range: [0..4] bytes</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>reg_value</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to local memory holding the register data being written</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>reg_size</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Size of register in bytes. Valid range: [1..4].</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Status of operation </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/hal_api.h" line="485" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">//<sp/>Copyright<sp/>(C)<sp/>2024<sp/>-<sp/>2025<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>__HAL_API_H__</highlight></codeline>
+<codeline lineno="3"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>__HAL_API_H__</highlight></codeline>
+<codeline lineno="4"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;stdbool.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">//#include<sp/>&quot;return_codes.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;xiicps.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;xil_printf.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;xil_types.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="comment">//#include<sp/>&quot;isi.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="comment">//#include<sp/>&quot;oslayer.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="dct__assert_8h" kindref="compound">dct_assert.h</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>RESULT;</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*HalHandle_t;</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>uint16_t<sp/>TickType_t;</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>HalDevType_e<sp/>{</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>HAL_DEV_ISP<sp/>=<sp/>0,</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>HAL_DEV_MEM,</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>HAL_DEV_I2C,</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>HAL_DEV_MIPI,</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>HAL_DEV_VIDEO_IN,</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>HAL_DEV_MSS,</highlight></codeline>
+<codeline lineno="26"><highlight class="normal">}<sp/>HalDevType_t;</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>HalMapMemType_s<sp/>{</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>HAL_MAPMEM_READWRITE<sp/>=<sp/>0,</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>HAL_MAPMEM_READONLY<sp/>=<sp/>1,</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>HAL_MAPMEM_WRITEONLY<sp/>=<sp/>2</highlight></codeline>
+<codeline lineno="32"><highlight class="normal">}<sp/>HalMapMemType_t;</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">HalIrqCtx_s<sp/>{</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>misRegAddress;</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>icrRegAddress;</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>misValue;</highlight></codeline>
+<codeline lineno="38"><highlight class="normal">}<sp/>HalIrqCtx_t;</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="41"><highlight class="comment"><sp/>*<sp/>HalOpen()</highlight></codeline>
+<codeline lineno="42"><highlight class="comment"><sp/>*****************************************************************************/</highlight></codeline>
+<codeline lineno="50"><highlight class="normal">RESULT<sp/>HalOpen();</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="53"><highlight class="comment"><sp/>*<sp/>HalClose()</highlight></codeline>
+<codeline lineno="54"><highlight class="comment">******************************************************************************/</highlight></codeline>
+<codeline lineno="61"><highlight class="normal">RESULT<sp/>HalClose<sp/>();</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="64"><highlight class="comment"><sp/>*<sp/>HalAddRef()</highlight></codeline>
+<codeline lineno="65"><highlight class="comment">******************************************************************************/</highlight></codeline>
+<codeline lineno="72"><highlight class="normal">RESULT<sp/>HalAddRef<sp/>(HalHandle_t<sp/>HalHandle,<sp/>uint8_t<sp/>devType);</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="75"><highlight class="comment"><sp/>*<sp/>HalDelRef()</highlight></codeline>
+<codeline lineno="76"><highlight class="comment">******************************************************************************/</highlight></codeline>
+<codeline lineno="83"><highlight class="normal">RESULT<sp/>HalDelRef<sp/>();</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"></highlight></codeline>
+<codeline lineno="85"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="86"><highlight class="comment"><sp/>*<sp/>HalNumOfCams()</highlight></codeline>
+<codeline lineno="87"><highlight class="comment">******************************************************************************/</highlight></codeline>
+<codeline lineno="96"><highlight class="normal">RESULT<sp/>HalNumOfCams<sp/>(u32<sp/>*no);</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"></highlight></codeline>
+<codeline lineno="98"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="99"><highlight class="comment"><sp/>*<sp/>HalSetCamConfig()</highlight></codeline>
+<codeline lineno="100"><highlight class="comment">******************************************************************************/</highlight></codeline>
+<codeline lineno="115"><highlight class="normal">RESULT<sp/>HalSetCamConfig<sp/>(u32<sp/>dev_mask,<sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>power_lowact,<sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>reset_lowact,<sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>pclk_negedge);</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"></highlight></codeline>
+<codeline lineno="117"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="118"><highlight class="comment"><sp/>*<sp/>HalSetCamPhyConfig()</highlight></codeline>
+<codeline lineno="119"><highlight class="comment">******************************************************************************/</highlight></codeline>
+<codeline lineno="132"><highlight class="normal">RESULT<sp/>HalSetCamPhyConfig(u32<sp/>dev_mask,<sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>power_lowact,<sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>reset_lowact);</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"></highlight></codeline>
+<codeline lineno="134"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="135"><highlight class="comment"><sp/>*<sp/>HalSetReset()</highlight></codeline>
+<codeline lineno="136"><highlight class="comment"><sp/>******************************************************************************/</highlight></codeline>
+<codeline lineno="147"><highlight class="normal">RESULT<sp/>HalSetReset<sp/>(u32<sp/>dev_mask,<sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>activate);</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"></highlight></codeline>
+<codeline lineno="149"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="150"><highlight class="comment"><sp/>*<sp/>HalSetPower()</highlight></codeline>
+<codeline lineno="151"><highlight class="comment">******************************************************************************/</highlight></codeline>
+<codeline lineno="162"><highlight class="normal">RESULT<sp/>HalSetPower<sp/>(u32<sp/>dev_mask,<sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>activate);</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"></highlight></codeline>
+<codeline lineno="164"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="165"><highlight class="comment"><sp/>*<sp/>HalSetClock()</highlight></codeline>
+<codeline lineno="166"><highlight class="comment">******************************************************************************/</highlight></codeline>
+<codeline lineno="177"><highlight class="normal">RESULT<sp/>HalSetClock<sp/>(u32<sp/>dev_mask,<sp/>u32<sp/>frequency);</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"></highlight></codeline>
+<codeline lineno="179"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="180"><highlight class="comment"><sp/>*<sp/>HalReadReg()</highlight></codeline>
+<codeline lineno="181"><highlight class="comment">******************************************************************************/</highlight></codeline>
+<codeline lineno="190"><highlight class="normal">u32<sp/>HalReadReg<sp/>(u32<sp/>reg_address);</highlight></codeline>
+<codeline lineno="191"><highlight class="normal"></highlight></codeline>
+<codeline lineno="192"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="193"><highlight class="comment"><sp/>*<sp/>HalWriteReg()</highlight></codeline>
+<codeline lineno="194"><highlight class="comment">******************************************************************************/</highlight></codeline>
+<codeline lineno="203"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>HalWriteReg<sp/>(u32<sp/>reg_address,<sp/>u32<sp/>value);</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"></highlight></codeline>
+<codeline lineno="205"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="206"><highlight class="comment"><sp/>*<sp/>HalReadMaskedReg()</highlight></codeline>
+<codeline lineno="207"><highlight class="comment">******************************************************************************/</highlight></codeline>
+<codeline lineno="220"><highlight class="normal">u32<sp/>HalReadMaskedReg<sp/>(u32<sp/>reg_address,<sp/>u32<sp/>reg_mask,<sp/>u32<sp/>shift_mask);</highlight></codeline>
+<codeline lineno="221"><highlight class="normal"></highlight></codeline>
+<codeline lineno="222"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="223"><highlight class="comment"><sp/>*<sp/>HalWriteMaskedReg()</highlight></codeline>
+<codeline lineno="224"><highlight class="comment">******************************************************************************/</highlight></codeline>
+<codeline lineno="237"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>HalWriteMaskedReg<sp/>(u32<sp/>reg_address,<sp/>u32<sp/>reg_mask,<sp/>u32<sp/>shift_mask,<sp/>u32<sp/>value);</highlight></codeline>
+<codeline lineno="238"><highlight class="normal"></highlight></codeline>
+<codeline lineno="239"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="240"><highlight class="comment"><sp/>*<sp/>HalReadSysReg()</highlight></codeline>
+<codeline lineno="241"><highlight class="comment">******************************************************************************/</highlight></codeline>
+<codeline lineno="250"><highlight class="normal">u32<sp/>HalReadSysReg<sp/>(u32<sp/>reg_address);</highlight></codeline>
+<codeline lineno="251"><highlight class="normal"></highlight></codeline>
+<codeline lineno="252"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="253"><highlight class="comment"><sp/>*<sp/>HalWriteSysReg()</highlight></codeline>
+<codeline lineno="254"><highlight class="comment">******************************************************************************/</highlight></codeline>
+<codeline lineno="263"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>HalWriteSysReg<sp/>(u32<sp/>reg_address,<sp/>u32<sp/>value);</highlight></codeline>
+<codeline lineno="264"><highlight class="normal"></highlight></codeline>
+<codeline lineno="265"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="266"><highlight class="comment"><sp/>*<sp/>HalAllocMemory()</highlight></codeline>
+<codeline lineno="267"><highlight class="comment">******************************************************************************/</highlight></codeline>
+<codeline lineno="276"><highlight class="normal">u32<sp/>HalAllocMemory<sp/>(u32<sp/>byte_size);</highlight></codeline>
+<codeline lineno="277"><highlight class="normal"></highlight></codeline>
+<codeline lineno="278"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="279"><highlight class="comment"><sp/>*<sp/>HalFreeMemory()</highlight></codeline>
+<codeline lineno="280"><highlight class="comment">******************************************************************************/</highlight></codeline>
+<codeline lineno="289"><highlight class="normal">RESULT<sp/>HalFreeMemory<sp/>(u32<sp/>mem_address);</highlight></codeline>
+<codeline lineno="290"><highlight class="normal"></highlight></codeline>
+<codeline lineno="291"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="292"><highlight class="comment"><sp/>*<sp/>HalReadMemory()</highlight></codeline>
+<codeline lineno="293"><highlight class="comment">******************************************************************************/</highlight></codeline>
+<codeline lineno="306"><highlight class="normal">RESULT<sp/>HalReadMemory<sp/>(u32<sp/>mem_address,<sp/>u8<sp/>*p_read_buffer,<sp/>u32<sp/>byte_size);</highlight></codeline>
+<codeline lineno="307"><highlight class="normal"></highlight></codeline>
+<codeline lineno="308"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="309"><highlight class="comment"><sp/>*<sp/>HalWriteMemory()</highlight></codeline>
+<codeline lineno="310"><highlight class="comment">******************************************************************************/</highlight></codeline>
+<codeline lineno="323"><highlight class="normal">RESULT<sp/>HalWriteMemory<sp/>(u32<sp/>mem_address,<sp/>u8<sp/>*p_write_buffer,<sp/>u32<sp/>byte_size);</highlight></codeline>
+<codeline lineno="324"><highlight class="normal"></highlight></codeline>
+<codeline lineno="325"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="326"><highlight class="comment"><sp/>*<sp/>HalMapMemory()</highlight></codeline>
+<codeline lineno="327"><highlight class="comment">******************************************************************************/</highlight></codeline>
+<codeline lineno="342"><highlight class="normal">RESULT<sp/>HalMapMemory<sp/>(u32<sp/>mem_address,<sp/>u32<sp/>byte_size,<sp/>HalMapMemType_t<sp/>mapping_type,</highlight></codeline>
+<codeline lineno="343"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>**pp_mapped_buf);</highlight></codeline>
+<codeline lineno="344"><highlight class="normal"></highlight></codeline>
+<codeline lineno="345"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="346"><highlight class="comment"><sp/>*<sp/>HalUnMapMemory()</highlight></codeline>
+<codeline lineno="347"><highlight class="comment">******************************************************************************/</highlight></codeline>
+<codeline lineno="356"><highlight class="normal">RESULT<sp/>HalUnMapMemory<sp/>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*p_mapped_buf);</highlight></codeline>
+<codeline lineno="357"><highlight class="normal"></highlight></codeline>
+<codeline lineno="358"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="359"><highlight class="comment"><sp/>*<sp/>HalReadI2CMem()</highlight></codeline>
+<codeline lineno="360"><highlight class="comment">******************************************************************************/</highlight></codeline>
+<codeline lineno="379"><highlight class="normal">RESULT<sp/>HalReadI2CMem<sp/>(u8<sp/>bus_num,<sp/>u16<sp/>slave_addr,<sp/>u32<sp/>reg_address,<sp/>u8<sp/>reg_addr_size,</highlight></codeline>
+<codeline lineno="380"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>*p_read_buffer,<sp/>u32<sp/>byte_size);</highlight></codeline>
+<codeline lineno="381"><highlight class="normal"></highlight></codeline>
+<codeline lineno="382"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="383"><highlight class="comment"><sp/>*<sp/>HalWriteI2CMem()</highlight></codeline>
+<codeline lineno="384"><highlight class="comment">******************************************************************************/</highlight></codeline>
+<codeline lineno="403"><highlight class="normal">RESULT<sp/>HalWriteI2CMem<sp/>(u8<sp/>bus_num,<sp/>u16<sp/>slave_addr,<sp/>u32<sp/>reg_address,<sp/>u8<sp/>reg_addr_size,</highlight></codeline>
+<codeline lineno="404"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>*p_write_buffer,<sp/>u32<sp/>byte_size);</highlight></codeline>
+<codeline lineno="405"><highlight class="normal"></highlight></codeline>
+<codeline lineno="406"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="407"><highlight class="comment"><sp/>*<sp/>HalConnectIrq()</highlight></codeline>
+<codeline lineno="408"><highlight class="comment">******************************************************************************/</highlight></codeline>
+<codeline lineno="427"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="428"><highlight class="comment"><sp/>*<sp/>HalDisconnectIrq()</highlight></codeline>
+<codeline lineno="429"><highlight class="comment">******************************************************************************/</highlight></codeline>
+<codeline lineno="438"><highlight class="normal">RESULT<sp/>HalDisconnectIrq<sp/>(HalIrqCtx_t<sp/>*pIrqCtx);</highlight></codeline>
+<codeline lineno="439"><highlight class="normal"></highlight></codeline>
+<codeline lineno="440"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="441"><highlight class="comment"><sp/>*<sp/>HalReadI2CReg()</highlight></codeline>
+<codeline lineno="442"><highlight class="comment">******************************************************************************/</highlight></codeline>
+<codeline lineno="461"><highlight class="normal">RESULT<sp/>HalXilReadI2CReg(u8<sp/>bus_num,<sp/>u8<sp/>slave_addr,<sp/>u32<sp/>reg_address,<sp/>u8<sp/>reg_addr_size,</highlight></codeline>
+<codeline lineno="462"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*preg_value,<sp/>u8<sp/>reg_size);</highlight></codeline>
+<codeline lineno="463"><highlight class="normal"></highlight></codeline>
+<codeline lineno="464"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="465"><highlight class="comment"><sp/>*<sp/>HalWriteI2CReg()</highlight></codeline>
+<codeline lineno="466"><highlight class="comment"><sp/>*****************************************************************************/</highlight></codeline>
+<codeline lineno="485"><highlight class="normal">RESULT<sp/>HalXilWriteI2CReg(u8<sp/>bus_num,<sp/>u8<sp/>slave_addr,<sp/>u16<sp/>reg_address,<sp/>u8<sp/>reg_addr_size,<sp/>u8<sp/>reg_value,</highlight></codeline>
+<codeline lineno="486"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>reg_size);</highlight></codeline>
+<codeline lineno="487"><highlight class="normal"></highlight></codeline>
+<codeline lineno="488"><highlight class="normal"></highlight></codeline>
+<codeline lineno="489"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/hal_api.h"/>
+  </compounddef>
+</doxygen>

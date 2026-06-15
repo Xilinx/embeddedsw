@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="md__proj_xhdsswstaff1_bhawanas_patch_integration_auto_jobs_esw_github_doxy_git_2026_81_embeddeds1921dabe3f10ffdca90d50618bf371fc" kind="page">
+    <compoundname>md__proj_xhdsswstaff1_bhawanas_patch_integration_auto_jobs_esw_github_doxy_git_2026.1_embeddedsw_XilinxProcessorIPLib_drivers_rfdc_src_README</compoundname>
+    <title>README</title>
+    <detaileddescription>
+<para><heading level="1">Copyright (C) 2021 Xilinx, Inc. All rights reserved.</heading>
+</para><para><heading level="1">SPDX-License-Identifier: MIT</heading>
+</para><para># <heading level="6"></heading>
+</para><para><heading level="1">Steps to create BSP, FSBL application and Test application.</heading>
+</para><para><heading level="2">Creating the BSP:</heading>
+</para><para><orderedlist>
+<listitem><para>File &gt; New &gt; Board Support Package.</para></listitem><listitem><para>Click on &apos;Specify&apos; and Browse the design file(hdf) contains rfdc IP and Click &apos;Finish&apos;.</para></listitem><listitem><para>Rename the Project name (if required) and Click &apos;Finish&apos;.</para></listitem></orderedlist>
+<orderedlist>
+<listitem><para>Select the Libmetal library in the Supported Libraries (Libmetal library is required to compile rfdc driver) and Click &apos;OK&apos;.</para></listitem></orderedlist>
+</para><para><heading level="2">Creating the FSBL:</heading>
+</para><para><orderedlist>
+<listitem><para>File &gt; New &gt; Application Project</para></listitem><listitem><para>Give some Project name.</para></listitem><listitem><para>Under Board Support Package select Use existing and select the existing bsp in the drop down list.</para></listitem><listitem><para>Click &apos;Next&apos;, select the ZynqMP FSBL and Click &apos;Finish&apos;.</para></listitem></orderedlist>
+</para><para><heading level="2">Creating the Application:</heading>
+</para><para><orderedlist>
+<listitem><para>File &gt; New &gt; Application Project</para></listitem><listitem><para>Give some Project name.</para></listitem><listitem><para>Under Board Support Package select Use existing and select the existing bsp in the drop down list.</para></listitem><listitem><para>Click &apos;Next&apos;, select the Empty Application and Click &apos;Finish&apos;.</para></listitem><listitem><para>Copy the test application in the src directory of the application project to create the binary file(.elf) </para></listitem></orderedlist>
+</para>    </detaileddescription>
+  </compounddef>
+</doxygen>

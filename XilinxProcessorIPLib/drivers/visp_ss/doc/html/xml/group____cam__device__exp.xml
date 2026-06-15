@@ -1,0 +1,397 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group____cam__device__exp" kind="group">
+    <compoundname>_cam_device_exp</compoundname>
+    <title>VsCamDevice E01C26 Device_EXP Definitions</title>
+    <innerclass refid="struct_cam_device_exp_v2_statistics__s" prot="public">CamDeviceExpV2Statistics_s</innerclass>
+    <innerclass refid="struct_cam_device_exp_v2_config__s" prot="public">CamDeviceExpV2Config_s</innerclass>
+    <innerclass refid="struct_cam_device_exp_v2_status__s" prot="public">CamDeviceExpV2Status_s</innerclass>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="group____cam__device__exp_1gae237456ed55eb15d1b7ea16641746375" prot="public" static="no">
+        <name>CamDeviceExpV2Sel_e</name>
+        <enumvalue id="group____cam__device__exp_1ggae237456ed55eb15d1b7ea16641746375a232d55cee8d89b52da4b7383393e233f" prot="public">
+          <name>CAMDEV_EXP_INPUT_SEL_DEGAMMA</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+<para>Input select of degamma. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__exp_1ggae237456ed55eb15d1b7ea16641746375ab6eccbd84126cf5e771ee4729c02bef8" prot="public">
+          <name>CAMDEV_EXP_INPUT_SEL_AWBGAIN</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+<para>Input select of AWB gain. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__exp_1ggae237456ed55eb15d1b7ea16641746375aa9b3d47df880fba4d1e70b3b4fe14ee5" prot="public">
+          <name>CAMDEV_EXP_INPUT_SEL_WDR3</name>
+          <initializer>= 2</initializer>
+          <briefdescription>
+<para>Input select of WDR3 module. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__exp_1ggae237456ed55eb15d1b7ea16641746375a960600f80129bebcb81377b5cce81893" prot="public">
+          <name>CAMDEV_EXP_INPUT_SEL_LSC</name>
+          <initializer>= 3</initializer>
+          <briefdescription>
+<para>Input select of LSC module. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__exp_1ggae237456ed55eb15d1b7ea16641746375a51169efb579bbbfba522d9107e8a1741" prot="public">
+          <name>CAMDEV_EXP_STATE_MAX</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>VsCamDevice ISP EXP input select. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/exp_v2/cam_device_exp_api_v2.h" line="54" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/exp_v2/cam_device_exp_api_v2.h" bodystart="54" bodyend="60"/>
+      </memberdef>
+      <memberdef kind="enum" id="group____cam__device__exp_1ga65abf7322e81503767e7967eca71baf0" prot="public" static="no">
+        <name>CamDeviceExpV2StatisticsType_e</name>
+        <enumvalue id="group____cam__device__exp_1gga65abf7322e81503767e7967eca71baf0a5e38ca3b1f331f1aa991a0bddfa43259" prot="public">
+          <name>CAMDEV_EXP_8BIT_DATA</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+<para>EXP 8 bit data. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__exp_1gga65abf7322e81503767e7967eca71baf0a29fbb5f9d2347a72e8640e2c654a483d" prot="public">
+          <name>CAMDEV_EXP_16BIT_DATA</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+<para>EXP 16 bit data. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__exp_1gga65abf7322e81503767e7967eca71baf0a30294bc75e5614832108faca4fd52742" prot="public">
+          <name>CAMDEV_EXP_24BIT_DATA</name>
+          <initializer>= 2</initializer>
+          <briefdescription>
+<para>EXP 24 bit data. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__exp_1gga65abf7322e81503767e7967eca71baf0a3e3826bea829b29a8c8a320e56782f5c" prot="public">
+          <name>CAMDEV_EXP_BIT_DATA_MAX</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>VsCamDevice ISP EXP statistics data bit type. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/exp_v2/cam_device_exp_api_v2.h" line="68" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/exp_v2/cam_device_exp_api_v2.h" bodystart="67" bodyend="73"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="group____cam__device__exp_1ga6336e02254a0895d6b966f95b3817b35" prot="public" static="no">
+        <type>enum <ref refid="group____cam__device__exp_1gae237456ed55eb15d1b7ea16641746375" kindref="member">CamDeviceExpV2Sel_e</ref></type>
+        <definition>typedef enum CamDeviceExpV2Sel_e  CamDeviceExpV2Sel_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceExpV2Sel_t</name>
+        <briefdescription>
+<para>VsCamDevice ISP EXP input select. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/exp_v2/cam_device_exp_api_v2.h" line="60" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__exp_1ga48a1729e08c64206d11c782fcc396124" prot="public" static="no">
+        <type>enum <ref refid="group____cam__device__exp_1ga65abf7322e81503767e7967eca71baf0" kindref="member">CamDeviceExpV2StatisticsType_e</ref></type>
+        <definition>typedef enum CamDeviceExpV2StatisticsType_e  CamDeviceExpV2StatisticsType_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceExpV2StatisticsType_t</name>
+        <briefdescription>
+<para>VsCamDevice ISP EXP statistics data bit type. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/exp_v2/cam_device_exp_api_v2.h" line="73" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__exp_1gaba31d9f3a0b8c28f1d0ffd9612f2ab3b" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_exp_v2_statistics__s" kindref="compound">CamDeviceExpV2Statistics_s</ref></type>
+        <definition>typedef struct CamDeviceExpV2Statistics_s  CamDeviceExpV2Statistics_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceExpV2Statistics_t</name>
+        <briefdescription>
+<para>VsCamDevice EXP statistics configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/exp_v2/cam_device_exp_api_v2.h" line="85" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__exp_1ga92d503d3cd92f2eaf404ab8169bba7f8" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_exp_v2_config__s" kindref="compound">CamDeviceExpV2Config_s</ref></type>
+        <definition>typedef struct CamDeviceExpV2Config_s  CamDeviceExpV2Config_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceExpV2Config_t</name>
+        <briefdescription>
+<para>VsCamDevice EXP configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/exp_v2/cam_device_exp_api_v2.h" line="96" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__exp_1ga6ed5a0b2f9fd936c271bd66e9c3164a7" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_exp_v2_status__s" kindref="compound">CamDeviceExpV2Status_s</ref></type>
+        <definition>typedef struct CamDeviceExpV2Status_s CamDeviceExpV2Status_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceExpV2Status_t</name>
+        <briefdescription>
+<para>VsCamDevice EXP status structure. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/exp_v2/cam_device_exp_api_v2.h" line="106" column="1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group____cam__device__exp_1ga04d84241abf3e3ab920b31f60da5b1ec" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceExpV2SetConfig</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, CamDeviceExpV2Config_t *pConfig)</argsstring>
+        <name>VsiCamDeviceExpV2SetConfig</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type><ref refid="group____cam__device__exp_1ga92d503d3cd92f2eaf404ab8169bba7f8" kindref="member">CamDeviceExpV2Config_t</ref> *</type>
+          <declname>pConfig</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/exp_v2/cam_device_exp_api_v2.h" line="130" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/exp/cam_device_exp_api_v2.c" bodystart="19" bodyend="58"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__exp_1gaed2457496d9af56fde72cfaccb456e73" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceExpV2GetConfig</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, CamDeviceExpV2Config_t *pConfig)</argsstring>
+        <name>VsiCamDeviceExpV2GetConfig</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type><ref refid="group____cam__device__exp_1ga92d503d3cd92f2eaf404ab8169bba7f8" kindref="member">CamDeviceExpV2Config_t</ref> *</type>
+          <declname>pConfig</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/exp_v2/cam_device_exp_api_v2.h" line="158" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/exp/cam_device_exp_api_v2.c" bodystart="61" bodyend="100"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__exp_1ga69ef819d00971ebb5d750a95c1261389" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceExpV2Enable</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice)</argsstring>
+        <name>VsiCamDeviceExpV2Enable</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/exp_v2/cam_device_exp_api_v2.h" line="180" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/exp/cam_device_exp_api_v2.c" bodystart="103" bodyend="137"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__exp_1ga7cd0f97cbc227aac88ebc82462b0ea97" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceExpV2Disable</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice)</argsstring>
+        <name>VsiCamDeviceExpV2Disable</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/exp_v2/cam_device_exp_api_v2.h" line="201" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/exp/cam_device_exp_api_v2.c" bodystart="140" bodyend="174"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__exp_1ga66f376289b2074309239d18bcff007d0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceExpV2SetMeasureWindow</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, const CamDeviceWindow_t *pWindow)</argsstring>
+        <name>VsiCamDeviceExpV2SetMeasureWindow</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type>const <ref refid="group____cam__device__general_1ga6507b5dc7e317b5d3395ee90b3d95adc" kindref="member">CamDeviceWindow_t</ref> *</type>
+          <declname>pWindow</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/exp_v2/cam_device_exp_api_v2.h" line="228" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/exp/cam_device_exp_api_v2.c" bodystart="177" bodyend="216"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__exp_1ga15983361e6b8004968285791c53cfaa3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceExpV2GetMeasureWindow</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, CamDeviceWindow_t *pWindow)</argsstring>
+        <name>VsiCamDeviceExpV2GetMeasureWindow</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type><ref refid="group____cam__device__general_1ga6507b5dc7e317b5d3395ee90b3d95adc" kindref="member">CamDeviceWindow_t</ref> *</type>
+          <declname>pWindow</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/exp_v2/cam_device_exp_api_v2.h" line="256" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/exp/cam_device_exp_api_v2.c" bodystart="219" bodyend="258"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__exp_1ga75570bb513550be2c12ef89f6217ddd6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceExpV2GetStatistics</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, CamDeviceExpV2Statistics_t *pExpStatic)</argsstring>
+        <name>VsiCamDeviceExpV2GetStatistics</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type><ref refid="group____cam__device__exp_1gaba31d9f3a0b8c28f1d0ffd9612f2ab3b" kindref="member">CamDeviceExpV2Statistics_t</ref> *</type>
+          <declname>pExpStatic</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/exp_v2/cam_device_exp_api_v2.h" line="284" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/exp/cam_device_exp_api_v2.c" bodystart="261" bodyend="300"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__exp_1ga80ff7bb6bb9f553e3b89e8ecfd9bc1fc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceExpV2GetStatus</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, CamDeviceExpV2Status_t *pStatus)</argsstring>
+        <name>VsiCamDeviceExpV2GetStatus</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type><ref refid="group____cam__device__exp_1ga6ed5a0b2f9fd936c271bd66e9c3164a7" kindref="member">CamDeviceExpV2Status_t</ref> *</type>
+          <declname>pStatus</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/exp_v2/cam_device_exp_api_v2.h" line="312" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/exp/cam_device_exp_api_v2.c" bodystart="304" bodyend="343"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__exp_1gad5b22f4e51e222acb6a8c98ee78fa78a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceExpV2GetVersion</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, uint32_t *pVersion)</argsstring>
+        <name>VsiCamDeviceExpV2GetVersion</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type>uint32_t *</type>
+          <declname>pVersion</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/exp_v2/cam_device_exp_api_v2.h" line="334" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/exp/cam_device_exp_api_v2.c" bodystart="346" bodyend="385"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__exp_1ga7e48252b9f21c80256800921acab9dae" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceExpV2Reset</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice)</argsstring>
+        <name>VsiCamDeviceExpV2Reset</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/exp_v2/cam_device_exp_api_v2.h" line="361" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/exp/cam_device_exp_api_v2.c" bodystart="388" bodyend="422"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group____cam__device__exp_1ga1d6b45ac5d4622730dd8e8455b701d10" prot="public" static="no">
+        <name>CAMDEV_AAA_EXP_GRID_SIZE</name>
+        <initializer>32</initializer>
+        <briefdescription>
+<para>3A EXP grid size </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/exp_v2/cam_device_exp_api_v2.h" line="46" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/exp_v2/cam_device_exp_api_v2.h" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group____cam__device__exp_1ga4c68be6fba7529d99f0d9cbb71997c0b" prot="public" static="no">
+        <name>CAMDEV_AAA_PIXEL_CHANNEL</name>
+        <initializer>4</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/exp_v2/cam_device_exp_api_v2.h" line="47" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/exp_v2/cam_device_exp_api_v2.h" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Provides interfaces for controlling the auto exposure statistics module working in the ISP pipeline. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,158 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_v__hcresampler___config" kind="struct" prot="public">
+    <compoundname>XV_hcresampler_Config</compoundname>
+    <includes local="no">xv_hcresampler.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_v__hcresampler___config_1ab72478989b246bac3d13ae0267ae80f8" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* XV_hcresampler_Config::Name</definition>
+        <argsstring></argsstring>
+        <name>Name</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hcresampler/src/xv_hcresampler.h" line="54" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hcresampler/src/xv_hcresampler.h" bodystart="54" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v__hcresampler___config_1a5edcef996e150667a116cd88462ba453" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XV_hcresampler_Config::BaseAddress</definition>
+        <argsstring></argsstring>
+        <name>BaseAddress</name>
+        <briefdescription>
+<para>The base address of the core instance. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hcresampler/src/xv_hcresampler.h" line="56" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hcresampler/src/xv_hcresampler.h" bodystart="56" bodyend="-1"/>
+        <referencedby refid="xv__hcresampler_8h_1a71eaf34c1f00f4fa6e1c05fdc8559fc3" compoundref="xv__hcresampler_8c" startline="37" endline="52">XV_hcresampler_CfgInitialize</referencedby>
+        <referencedby refid="xv__hcresampler_8h_1a68cb2008cb880739abfefd576ef1f348" compoundref="xv__hcresampler_8c" startline="189" endline="194">XV_hcresampler_DisableAutoRestart</referencedby>
+        <referencedby refid="xv__hcresampler_8h_1a743973d52e0778d0f77b70069ebfbf92" compoundref="xv__hcresampler_8c" startline="165" endline="170">XV_hcresampler_EnableAutoRestart</referencedby>
+        <referencedby refid="xv__hcresampler_8h_1af73b8287ea1fe8911013d00e66c4cc38" compoundref="xv__hcresampler_8c" startline="395" endline="403">XV_hcresampler_Get_HwReg_coefs_0_0</referencedby>
+        <referencedby refid="xv__hcresampler_8h_1a14cd879456fd51925ad41c41916aece7" compoundref="xv__hcresampler_8c" startline="273" endline="281">XV_hcresampler_Get_HwReg_height</referencedby>
+        <referencedby refid="xv__hcresampler_8h_1a2fddb7e216d327da5766659ebff07ff8" compoundref="xv__hcresampler_8c" startline="315" endline="323">XV_hcresampler_Get_HwReg_input_video_format</referencedby>
+        <referencedby refid="xv__hcresampler_8h_1af79968ae80f8e5c5574356e68ba4cc2c" compoundref="xv__hcresampler_8c" startline="353" endline="361">XV_hcresampler_Get_HwReg_output_video_format</referencedby>
+        <referencedby refid="xv__hcresampler_8h_1a2c5928ded4f4861335589b1fb6d564aa" compoundref="xv__hcresampler_8c" startline="229" endline="237">XV_hcresampler_Get_HwReg_width</referencedby>
+        <referencedby refid="xv__hcresampler_8h_1afd723c75826e36b3ddd2ac942eab4ee7" compoundref="xv__hcresampler_8c" startline="498" endline="503">XV_hcresampler_InterruptClear</referencedby>
+        <referencedby refid="xv__hcresampler_8h_1a311a9dad87e3816cc36ce83e3f1c3a01" compoundref="xv__hcresampler_8c" startline="475" endline="483">XV_hcresampler_InterruptDisable</referencedby>
+        <referencedby refid="xv__hcresampler_8h_1a5924b692922faa015e46fdbc3b1d4aef" compoundref="xv__hcresampler_8c" startline="451" endline="459">XV_hcresampler_InterruptEnable</referencedby>
+        <referencedby refid="xv__hcresampler_8h_1a017d0a8f56d6547a8636189136683762" compoundref="xv__hcresampler_8c" startline="515" endline="520">XV_hcresampler_InterruptGetEnabled</referencedby>
+        <referencedby refid="xv__hcresampler_8h_1a890e0270b52678249d0c2f11b6c7616f" compoundref="xv__hcresampler_8c" startline="533" endline="538">XV_hcresampler_InterruptGetStatus</referencedby>
+        <referencedby refid="xv__hcresampler_8h_1ac8202a5dbbb3636175e77e868f33bc73" compoundref="xv__hcresampler_8c" startline="432" endline="437">XV_hcresampler_InterruptGlobalDisable</referencedby>
+        <referencedby refid="xv__hcresampler_8h_1ad121d1bcc44c08b10949e913f674a024" compoundref="xv__hcresampler_8c" startline="415" endline="420">XV_hcresampler_InterruptGlobalEnable</referencedby>
+        <referencedby refid="xv__hcresampler_8h_1a1befa18fc7f857d3320de9e9356060d1" compoundref="xv__hcresampler_8c" startline="94" endline="102">XV_hcresampler_IsDone</referencedby>
+        <referencedby refid="xv__hcresampler_8h_1a499f2c1125bfffcee9f0e344b08e6c64" compoundref="xv__hcresampler_8c" startline="116" endline="124">XV_hcresampler_IsIdle</referencedby>
+        <referencedby refid="xv__hcresampler_8h_1ad8a39527f36b581dc79374c15e3ea763" compoundref="xv__hcresampler_8c" startline="139" endline="148">XV_hcresampler_IsReady</referencedby>
+        <referencedby refid="xv__hcresampler_8h_1af662b5aa94188c8a2e46029d05098c52" compoundref="xv__hcresampler_8c" startline="376" endline="381">XV_hcresampler_Set_HwReg_coefs_0_0</referencedby>
+        <referencedby refid="xv__hcresampler_8h_1a0afdda20db791da1aa9d29e1abd270b2" compoundref="xv__hcresampler_8c" startline="250" endline="255">XV_hcresampler_Set_HwReg_height</referencedby>
+        <referencedby refid="xv__hcresampler_8h_1ab3c54aa1d732f97e6a681d561afb1460" compoundref="xv__hcresampler_8c" startline="296" endline="301">XV_hcresampler_Set_HwReg_input_video_format</referencedby>
+        <referencedby refid="xv__hcresampler_8h_1a9a3517f394c0bbf9f723b5cf5e7ed205" compoundref="xv__hcresampler_8c" startline="336" endline="341">XV_hcresampler_Set_HwReg_output_video_format</referencedby>
+        <referencedby refid="xv__hcresampler_8h_1a90fec85aa04130a25ce2013cb65d7374" compoundref="xv__hcresampler_8c" startline="210" endline="215">XV_hcresampler_Set_HwReg_width</referencedby>
+        <referencedby refid="xv__hcresampler_8h_1adc2b49a0e2c16041578b62420c9519f3" compoundref="xv__hcresampler_8c" startline="70" endline="78">XV_hcresampler_Start</referencedby>
+        <referencedby refid="group__v__hcresampler_1ga5e5c18b7117ccf1b54bea100e0c67485" compoundref="xv__hcresampler__l2_8c" startline="352" endline="420">XV_HCrsmplDbgReportStatus</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v__hcresampler___config_1a533a2edb46ac72feb13d78c876592306" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int XV_hcresampler_Config::PixPerClk</definition>
+        <argsstring></argsstring>
+        <name>PixPerClk</name>
+        <briefdescription>
+<para>Samples Per Clock supported by core instance. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hcresampler/src/xv_hcresampler.h" line="57" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hcresampler/src/xv_hcresampler.h" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v__hcresampler___config_1a45b019a9e600e29d8580d974e5a7c9cd" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XV_hcresampler_Config::MaxWidth</definition>
+        <argsstring></argsstring>
+        <name>MaxWidth</name>
+        <briefdescription>
+<para>Maximum columns supported by core instance. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hcresampler/src/xv_hcresampler.h" line="58" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hcresampler/src/xv_hcresampler.h" bodystart="58" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v__hcresampler___config_1aaf63221d466fe079c075d932e046086c" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XV_hcresampler_Config::MaxHeight</definition>
+        <argsstring></argsstring>
+        <name>MaxHeight</name>
+        <briefdescription>
+<para>Maximum rows supported by core instance. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hcresampler/src/xv_hcresampler.h" line="59" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hcresampler/src/xv_hcresampler.h" bodystart="59" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v__hcresampler___config_1a8b8ebbc646640a4c83c3054c5d3b778c" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int XV_hcresampler_Config::MaxDataWidth</definition>
+        <argsstring></argsstring>
+        <name>MaxDataWidth</name>
+        <briefdescription>
+<para>Maximum Data width of each channel. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hcresampler/src/xv_hcresampler.h" line="60" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hcresampler/src/xv_hcresampler.h" bodystart="60" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v__hcresampler___config_1a42453638babe61766681305da466ea17" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int XV_hcresampler_Config::ResamplingType</definition>
+        <argsstring></argsstring>
+        <name>ResamplingType</name>
+        <briefdescription>
+<para>Resampling Method selected. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hcresampler/src/xv_hcresampler.h" line="61" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hcresampler/src/xv_hcresampler.h" bodystart="61" bodyend="-1"/>
+        <referencedby refid="group__v__hcresampler_1ga5e5c18b7117ccf1b54bea100e0c67485" compoundref="xv__hcresampler__l2_8c" startline="352" endline="420">XV_HCrsmplDbgReportStatus</referencedby>
+        <referencedby refid="group__v__hcresampler_1gab0f5941d407f7792cd60e1e82bbb46d3" compoundref="xv__hcresampler__l2_8c" startline="272" endline="304">XV_HCrsmplSetFormat</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v__hcresampler___config_1a87d8f42750fbc34b7cbd1195acc5402a" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XV_hcresampler_Config::NumTaps</definition>
+        <argsstring></argsstring>
+        <name>NumTaps</name>
+        <briefdescription>
+<para>Number of filter taps. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hcresampler/src/xv_hcresampler.h" line="62" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hcresampler/src/xv_hcresampler.h" bodystart="62" bodyend="-1"/>
+        <referencedby refid="group__v__hcresampler_1ga5e5c18b7117ccf1b54bea100e0c67485" compoundref="xv__hcresampler__l2_8c" startline="352" endline="420">XV_HCrsmplDbgReportStatus</referencedby>
+        <referencedby refid="group__v__hcresampler_1ga9969083c920287d23a7e669049a6b0b3" compoundref="xv__hcresampler__l2_8c" startline="118" endline="157">XV_HCrsmplLoadDefaultCoeff</referencedby>
+        <referencedby refid="group__v__hcresampler_1gaa56796e25b4889da7d75dc5e6b259f01" compoundref="xv__hcresampler__l2_8c" startline="171" endline="237">XV_HCrsmplrLoadExtCoeff</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef contains configuration information for the horizontal chroma resampler core. </para>    </briefdescription>
+    <detaileddescription>
+<para>Each core instance should have a configuration structure associated. </para>    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hcresampler/src/xv_hcresampler.h" line="50" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hcresampler/src/xv_hcresampler.h" bodystart="50" bodyend="63"/>
+    <listofallmembers>
+      <member refid="struct_x_v__hcresampler___config_1a5edcef996e150667a116cd88462ba453" prot="public" virt="non-virtual"><scope>XV_hcresampler_Config</scope><name>BaseAddress</name></member>
+      <member refid="struct_x_v__hcresampler___config_1a8b8ebbc646640a4c83c3054c5d3b778c" prot="public" virt="non-virtual"><scope>XV_hcresampler_Config</scope><name>MaxDataWidth</name></member>
+      <member refid="struct_x_v__hcresampler___config_1aaf63221d466fe079c075d932e046086c" prot="public" virt="non-virtual"><scope>XV_hcresampler_Config</scope><name>MaxHeight</name></member>
+      <member refid="struct_x_v__hcresampler___config_1a45b019a9e600e29d8580d974e5a7c9cd" prot="public" virt="non-virtual"><scope>XV_hcresampler_Config</scope><name>MaxWidth</name></member>
+      <member refid="struct_x_v__hcresampler___config_1ab72478989b246bac3d13ae0267ae80f8" prot="public" virt="non-virtual"><scope>XV_hcresampler_Config</scope><name>Name</name></member>
+      <member refid="struct_x_v__hcresampler___config_1a87d8f42750fbc34b7cbd1195acc5402a" prot="public" virt="non-virtual"><scope>XV_hcresampler_Config</scope><name>NumTaps</name></member>
+      <member refid="struct_x_v__hcresampler___config_1a533a2edb46ac72feb13d78c876592306" prot="public" virt="non-virtual"><scope>XV_hcresampler_Config</scope><name>PixPerClk</name></member>
+      <member refid="struct_x_v__hcresampler___config_1a42453638babe61766681305da466ea17" prot="public" virt="non-virtual"><scope>XV_hcresampler_Config</scope><name>ResamplingType</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

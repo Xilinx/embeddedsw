@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_994e230dd95f0021b644fd8681d29195" kind="dir">
+    <compoundname>src</compoundname>
+    <innerfile refid="xrtcpsu_8c">xrtcpsu.c</innerfile>
+    <innerfile refid="xrtcpsu_8h">xrtcpsu.h</innerfile>
+    <innerfile refid="xrtcpsu__g_8c">xrtcpsu_g.c</innerfile>
+    <innerfile refid="xrtcpsu__hw_8h">xrtcpsu_hw.h</innerfile>
+    <innerfile refid="xrtcpsu__intr_8c">xrtcpsu_intr.c</innerfile>
+    <innerfile refid="xrtcpsu__selftest_8c">xrtcpsu_selftest.c</innerfile>
+    <innerfile refid="xrtcpsu__sinit_8c">xrtcpsu_sinit.c</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/"/>
+  </compounddef>
+</doxygen>

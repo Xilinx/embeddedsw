@@ -1,0 +1,123 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xv__axi4s__remap__g_8c" kind="file">
+    <compoundname>xv_axi4s_remap_g.c</compoundname>
+    <includes refid="xv__axi4s__remap_8h" local="yes">xv_axi4s_remap.h</includes>
+    <incdepgraph>
+      <node id="41">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="43">
+        <label>xil_io.h</label>
+      </node>
+      <node id="44">
+        <label>xv_axi4s_remap_hw.h</label>
+        <link refid="xv__axi4s__remap__hw_8h"/>
+      </node>
+      <node id="39">
+        <label>xv_axi4s_remap.h</label>
+        <link refid="xv__axi4s__remap_8h"/>
+        <childnode refid="40" relation="include">
+        </childnode>
+        <childnode refid="41" relation="include">
+        </childnode>
+        <childnode refid="42" relation="include">
+        </childnode>
+        <childnode refid="43" relation="include">
+        </childnode>
+        <childnode refid="44" relation="include">
+        </childnode>
+      </node>
+      <node id="42">
+        <label>xstatus.h</label>
+      </node>
+      <node id="40">
+        <label>xil_types.h</label>
+      </node>
+      <node id="38">
+        <label>xv_axi4s_remap_g.c</label>
+        <link refid="xv_axi4s_remap_g.c"/>
+        <childnode refid="39" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="xv__axi4s__remap__g_8c_1ab6b86648cd7795bc0c9ec98eb667d1b2" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_v__axi4s__remap___config" kindref="compound">XV_axi4s_remap_Config</ref></type>
+        <definition>XV_axi4s_remap_Config XV_axi4s_remap_ConfigTable[]</definition>
+        <argsstring>[]</argsstring>
+        <name>XV_axi4s_remap_ConfigTable</name>
+        <initializer>=
+{
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+}</initializer>
+        <briefdescription>
+<para>Configuration table for AXI4-Stream Remap devices. </para>        </briefdescription>
+        <detaileddescription>
+<para>Configuration table defined in xv_axi4s_remap_g.c.</para><para>This table contains the configuration information for each AXI4-Stream Remap instance in the system, including device ID, base address, video parameters, and feature support flags. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_axi4s_remap/src/xv_axi4s_remap_g.c" line="27" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_axi4s_remap/src/xv_axi4s_remap_g.c" bodystart="27" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/*******************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2010-2020<sp/>Xilinx,<sp/>Inc.<sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>2022-2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">*******************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="14"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xparameters.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="16"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xv__axi4s__remap_8h" kindref="compound">xv_axi4s_remap.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight></codeline>
+<codeline lineno="27" refid="xv__axi4s__remap__sinit_8c_1ab6b86648cd7795bc0c9ec98eb667d1b2" refkind="member"><highlight class="normal"><ref refid="struct_x_v__axi4s__remap___config" kindref="compound">XV_axi4s_remap_Config</ref><sp/><ref refid="xv__axi4s__remap__sinit_8c_1ab6b86648cd7795bc0c9ec98eb667d1b2" kindref="member">XV_axi4s_remap_ConfigTable</ref>[]<sp/>=</highlight></codeline>
+<codeline lineno="28"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>XPAR_XV_AXI4S_REMAP_NUM_INSTANCES</highlight></codeline>
+<codeline lineno="30"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_V_AXI4S_REMAP_0_DEVICE_ID,</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_V_AXI4S_REMAP_0_S_AXI_CTRL_BASEADDR,</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_V_AXI4S_REMAP_0_NUM_VIDEO_COMPONENTS,</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_V_AXI4S_REMAP_0_MAX_COLS,</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_V_AXI4S_REMAP_0_MAX_ROWS,</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_V_AXI4S_REMAP_0_IN_SAMPLES_PER_CLOCK,</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_V_AXI4S_REMAP_0_OUT_SAMPLES_PER_CLOCK,</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_V_AXI4S_REMAP_0_CONVERT_SAMPLES_PER_CLOCK,</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_V_AXI4S_REMAP_0_IN_MAX_DATA_WIDTH,</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_V_AXI4S_REMAP_0_OUT_MAX_DATA_WIDTH,</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_V_AXI4S_REMAP_0_IN_HDMI_420,</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_V_AXI4S_REMAP_0_OUT_HDMI_420,</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_V_AXI4S_REMAP_0_IN_SAMPLE_DROP,</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_V_AXI4S_REMAP_0_OUT_SAMPLE_REPEAT</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="47"><highlight class="preprocessor"></highlight><highlight class="normal">};</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_axi4s_remap/src/xv_axi4s_remap_g.c"/>
+  </compounddef>
+</doxygen>

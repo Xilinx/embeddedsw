@@ -1,0 +1,688 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xplmi__asu__cmd_8c" kind="file">
+    <compoundname>xplmi_asu_cmd.c</compoundname>
+    <includes refid="xplmi__modules_8h" local="yes">xplmi_modules.h</includes>
+    <includes refid="xplmi_8h" local="yes">xplmi.h</includes>
+    <includes refid="xplmi__debug_8h" local="yes">xplmi_debug.h</includes>
+    <includes refid="xplmi__asu__cmd_8h" local="yes">xplmi_asu_cmd.h</includes>
+    <incdepgraph>
+      <node id="228">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="223">
+        <label>xplmi_proc.h</label>
+        <link refid="xplmi__proc_8h"/>
+        <childnode refid="224" relation="include">
+        </childnode>
+        <childnode refid="225" relation="include">
+        </childnode>
+        <childnode refid="226" relation="include">
+        </childnode>
+        <childnode refid="222" relation="include">
+        </childnode>
+        <childnode refid="212" relation="include">
+        </childnode>
+      </node>
+      <node id="229">
+        <label>xil_hw.h</label>
+      </node>
+      <node id="234">
+        <label>stdlib.h</label>
+      </node>
+      <node id="221">
+        <label>xplmi_event_logging.h</label>
+        <link refid="xplmi__event__logging_8h"/>
+        <childnode refid="211" relation="include">
+        </childnode>
+        <childnode refid="222" relation="include">
+        </childnode>
+      </node>
+      <node id="209">
+        <label>xplmi_asu_cmd.c</label>
+        <link refid="xplmi_asu_cmd.c"/>
+        <childnode refid="210" relation="include">
+        </childnode>
+        <childnode refid="217" relation="include">
+        </childnode>
+        <childnode refid="219" relation="include">
+        </childnode>
+        <childnode refid="237" relation="include">
+        </childnode>
+      </node>
+      <node id="237">
+        <label>xplmi_asu_cmd.h</label>
+        <childnode refid="215" relation="include">
+        </childnode>
+      </node>
+      <node id="227">
+        <label>xplmi_ipi.h</label>
+        <link refid="xplmi__ipi_8h"/>
+        <childnode refid="215" relation="include">
+        </childnode>
+        <childnode refid="210" relation="include">
+        </childnode>
+        <childnode refid="211" relation="include">
+        </childnode>
+        <childnode refid="228" relation="include">
+        </childnode>
+        <childnode refid="229" relation="include">
+        </childnode>
+      </node>
+      <node id="230">
+        <label>xplmi_task.h</label>
+        <link refid="xplmi__task_8h"/>
+        <childnode refid="228" relation="include">
+        </childnode>
+        <childnode refid="231" relation="include">
+        </childnode>
+        <childnode refid="216" relation="include">
+        </childnode>
+        <childnode refid="232" relation="include">
+        </childnode>
+        <childnode refid="233" relation="include">
+        </childnode>
+      </node>
+      <node id="219">
+        <label>xplmi_debug.h</label>
+        <link refid="xplmi__debug_8h"/>
+        <childnode refid="220" relation="include">
+        </childnode>
+        <childnode refid="213" relation="include">
+        </childnode>
+        <childnode refid="221" relation="include">
+        </childnode>
+        <childnode refid="223" relation="include">
+        </childnode>
+      </node>
+      <node id="222">
+        <label>xplmi_util.h</label>
+        <link refid="xplmi__util_8h"/>
+        <childnode refid="216" relation="include">
+        </childnode>
+      </node>
+      <node id="217">
+        <label>xplmi.h</label>
+        <link refid="xplmi_8h"/>
+        <childnode refid="218" relation="include">
+        </childnode>
+        <childnode refid="214" relation="include">
+        </childnode>
+      </node>
+      <node id="235">
+        <label>xplmi_dma.h</label>
+        <link refid="xplmi__dma_8h"/>
+        <childnode refid="236" relation="include">
+        </childnode>
+      </node>
+      <node id="218">
+        <label>xplmi_generic.h</label>
+        <childnode refid="219" relation="include">
+        </childnode>
+        <childnode refid="235" relation="include">
+        </childnode>
+        <childnode refid="211" relation="include">
+        </childnode>
+      </node>
+      <node id="231">
+        <label>mb_interface.h</label>
+      </node>
+      <node id="210">
+        <label>xplmi_modules.h</label>
+        <link refid="xplmi__modules_8h"/>
+        <childnode refid="211" relation="include">
+        </childnode>
+        <childnode refid="214" relation="include">
+        </childnode>
+        <childnode refid="215" relation="include">
+        </childnode>
+        <childnode refid="216" relation="include">
+        </childnode>
+      </node>
+      <node id="232">
+        <label>xstatus.h</label>
+      </node>
+      <node id="213">
+        <label>xplmi_config.h</label>
+      </node>
+      <node id="225">
+        <label>xil_exception.h</label>
+      </node>
+      <node id="216">
+        <label>xil_types.h</label>
+      </node>
+      <node id="236">
+        <label>xpmcdma.h</label>
+      </node>
+      <node id="211">
+        <label>xplmi_cmd.h</label>
+        <link refid="xplmi__cmd_8h"/>
+        <childnode refid="212" relation="include">
+        </childnode>
+        <childnode refid="213" relation="include">
+        </childnode>
+      </node>
+      <node id="215">
+        <label>xparameters.h</label>
+      </node>
+      <node id="220">
+        <label>xil_printf.h</label>
+      </node>
+      <node id="233">
+        <label>list.h</label>
+        <childnode refid="234" relation="include">
+        </childnode>
+      </node>
+      <node id="226">
+        <label>xplmi_gic_interrupts.h</label>
+        <link refid="xplmi__gic__interrupts_8h"/>
+        <childnode refid="227" relation="include">
+        </childnode>
+        <childnode refid="230" relation="include">
+        </childnode>
+      </node>
+      <node id="224">
+        <label>xiomodule.h</label>
+      </node>
+      <node id="214">
+        <label>xplmi_plat.h</label>
+      </node>
+      <node id="212">
+        <label>xplmi_status.h</label>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="user-defined">
+      <memberdef kind="function" id="group__xilplmi__server__apis_1ga53cf53e90a55915af9ce2325e24fa82f" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int XPlmi_CmdAsuFeatures</definition>
+        <argsstring>(XPlmi_Cmd *Cmd)</argsstring>
+        <name>XPlmi_CmdAsuFeatures</name>
+        <param>
+          <type>XPlmi_Cmd *</type>
+          <declname>Cmd</declname>
+        </param>
+        <briefdescription>
+<para>Static function pointer which holds address of XOcp_GetOcpEventMask. </para>        </briefdescription>
+        <detaileddescription>
+<para>Contains the module ID and PLM error commands array This function is reserved to get the supported features for this module.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Cmd</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is pointer to the command structure</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS always. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_asu_cmd.c" line="114" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_asu_cmd.c" bodystart="114" bodyend="133"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xilplmi__server__apis_1ga7d311b2a1f3651f2268036801186292f" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int XPlmi_CmdAsuKeyTransfer</definition>
+        <argsstring>(XPlmi_Cmd *Cmd)</argsstring>
+        <name>XPlmi_CmdAsuKeyTransfer</name>
+        <param>
+          <type>XPlmi_Cmd *</type>
+          <declname>Cmd</declname>
+        </param>
+        <briefdescription>
+<para>This function transfers keys as prescribed by the command. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Cmd</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is pointer to the command structure</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS on success. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_asu_cmd.c" line="145" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_asu_cmd.c" bodystart="145" bodyend="172"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__xilplmi__server__apis_1ga80fd29f1a890579dbb37b1253d4236d1" prot="public" static="no">
+        <name>XPLMI_CMD_ID_ASU_FEATURES</name>
+        <initializer>(0U)</initializer>
+        <briefdescription>
+<para>Command Id of ASU module features. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_asu_cmd.c" line="44" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_asu_cmd.c" bodystart="44" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilplmi__server__apis_1ga2669f43b70900b883d68f971c351031c" prot="public" static="no">
+        <name>XPLMI_CMD_ID_ASU_KEY_TRANSFER</name>
+        <initializer>(1U)</initializer>
+        <briefdescription>
+<para>Command Id of ASU key transfer features. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_asu_cmd.c" line="46" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_asu_cmd.c" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilplmi__server__apis_1ga53174907a7e9def7a0d3265068075576" prot="public" static="no">
+        <name>XPLMI_CMD_ID_ASU_CDI_TRANSFER</name>
+        <initializer>(2U)</initializer>
+        <briefdescription>
+<para>Command Id of ASU CDI transfer features. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_asu_cmd.c" line="48" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_asu_cmd.c" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilplmi__server__apis_1gaeb6a0f5bed784f22282025b0b5cfb11d" prot="public" static="no">
+        <name>XPLMI_CMD_ID_SUBSYSTEM_HASH_TRANSFER</name>
+        <initializer>(3U)</initializer>
+        <briefdescription>
+<para>Command Id of subsystem hash transfer features. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_asu_cmd.c" line="50" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_asu_cmd.c" bodystart="50" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilplmi__server__apis_1ga7a640fd3ffa8b1a308933744b5c78ac0" prot="public" static="no">
+        <name>XPLMI_CMD_ID_GET_OCP_EVENT_MASK</name>
+        <initializer>(4U)</initializer>
+        <briefdescription>
+<para>Command Id to get OCP event mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_asu_cmd.c" line="52" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_asu_cmd.c" bodystart="52" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilplmi__server__apis_1ga5b1cc30105b02bde475eb88a903fa42e" prot="public" static="no">
+        <name>XPLMI_CMD_ID_ASU_FEATURES_INDEX</name>
+        <initializer>(0U)</initializer>
+        <briefdescription>
+<para>ASU module features index. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_asu_cmd.c" line="56" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_asu_cmd.c" bodystart="56" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilplmi__server__apis_1gabeccc453a0594417e747b58e1bace36b" prot="public" static="no">
+        <name>XPLMI_CMD_ID_ASU_RESPONSE_INDEX</name>
+        <initializer>(1U)</initializer>
+        <briefdescription>
+<para>ASU module response index. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_asu_cmd.c" line="58" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_asu_cmd.c" bodystart="58" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilplmi__server__apis_1ga7d027a2eef0dcaf669073e346bd063eb" prot="public" static="no">
+        <name>XPLMI_RESP_CMD_EXEC_STATUS_INDEX</name>
+        <initializer>(0U)</initializer>
+        <briefdescription>
+<para>Response command execution status index. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_asu_cmd.c" line="60" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_asu_cmd.c" bodystart="60" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilplmi__server__apis_1gab03f565f565cf499f06adff7c18e042b" prot="public" static="no">
+        <name>XPLMI_ASU_IPI_FULL_ACCESS</name>
+        <param><defname>ApiId</defname></param>
+        <initializer>[ApiId] = XPLMI_FULL_IPI_ACCESS</initializer>
+        <briefdescription>
+<para>Value for only ASU mask to be full access. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_asu_cmd.c" line="69" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_asu_cmd.c" bodystart="69" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__xilplmi__server__apis_1ga95ca75e173cbf2b7898b57be7f4f703c" prot="public" static="yes" mutable="no">
+        <type>int(*</type>
+        <definition>int(*  AsuGeneratePufKEK)(u8 *PufRegenStatusFlag)</definition>
+        <argsstring>)(u8 *PufRegenStatusFlag)</argsstring>
+        <name>AsuGeneratePufKEK</name>
+        <initializer>= NULL</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_asu_cmd.c" line="72" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_asu_cmd.c" bodystart="72" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xilplmi__server__apis_1gaaaefd2530e6e9317bf04d00beaa3e983" prot="public" static="yes" mutable="no">
+        <type>int(*</type>
+        <definition>int(*  AsuInitiateKeyXfer)(void)</definition>
+        <argsstring>)(void)</argsstring>
+        <name>AsuInitiateKeyXfer</name>
+        <initializer>= NULL</initializer>
+        <briefdescription>
+<para>Static function pointer which holds address of Xplmi_PufOnDemandRegeneration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_asu_cmd.c" line="74" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_asu_cmd.c" bodystart="74" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xilplmi__server__apis_1ga07bb2f4be9141a1f605ba29f6570b73c" prot="public" static="yes" mutable="no">
+        <type>int(*</type>
+        <definition>int(*  AsuGetAsuCdiSeed)(u32 CdiAddr)</definition>
+        <argsstring>)(u32 CdiAddr)</argsstring>
+        <name>AsuGetAsuCdiSeed</name>
+        <initializer>= NULL</initializer>
+        <briefdescription>
+<para>Static function pointer which holds address of XSecure_InitiateASUKeyTransfer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_asu_cmd.c" line="76" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_asu_cmd.c" bodystart="76" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xilplmi__server__apis_1ga8f0d55d6d8ad29ffeee853fd91c596a4" prot="public" static="yes" mutable="no">
+        <type>int(*</type>
+        <definition>int(*  AsuGetSubsysDigest)(u32 SubsystemId, u32 SubsysHashAddrPtr)</definition>
+        <argsstring>)(u32 SubsystemId, u32 SubsysHashAddrPtr)</argsstring>
+        <name>AsuGetSubsysDigest</name>
+        <initializer>= NULL</initializer>
+        <briefdescription>
+<para>Static function pointer which holds address of XOcp_GetAsuCdiSeed. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_asu_cmd.c" line="78" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_asu_cmd.c" bodystart="78" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xilplmi__server__apis_1ga0bbcc029c2a2cdefd04bddb7f0ecf66c" prot="public" static="yes" mutable="no">
+        <type>void(*</type>
+        <definition>void(* AsuGetOcpEventMask)(u32 *EventMask)</definition>
+        <argsstring>)(u32 *EventMask)</argsstring>
+        <name>AsuGetOcpEventMask</name>
+        <initializer>= NULL</initializer>
+        <briefdescription>
+<para>Static function pointer which holds address of XOcp_GetSubsysDigest. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_asu_cmd.c" line="80" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_asu_cmd.c" bodystart="80" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file contains asu commands code for the PLM. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date        Changes
+====  ==== ======== ======================================================
+1.00  am   02/19/25 Initial release
+      rmv  07/31/25 Add XPlmi_CmdAsuCdiTransfer() function to transfer
+              ASU CDI to provided address.
+      rmv  07/31/25 Add XPlmi_CmdAsuSubsystemHashTransfer() function to transfer
+              subsystem hash to provided address.
+      rmv  08/26/25 Use callback functions instead of xilocp library functions
+      rmv  09/11/25 Fix GCC warning when PLM_OCP_ASUFW_KEY_MGMT is disabled
+2.4     abh  11/30/25 Fixed MISRA-C violations</preformatted></para><para><preformatted></preformatted></para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date        Changes
+====  ==== ======== ======================================================
+1.00  am   02/19/25 Initial release
+      rmv  08/26/25 Update function prototype of XPlmi_AsuModuleInit</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2025<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="36"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xplmi__modules_8h" kindref="compound">xplmi_modules.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xplmi_8h" kindref="compound">xplmi.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xplmi__debug_8h" kindref="compound">xplmi_debug.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xplmi_asu_cmd.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>ASU<sp/>key<sp/>transfer<sp/>command<sp/>Ids<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44" refid="group__xilplmi__server__apis_1ga80fd29f1a890579dbb37b1253d4236d1" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_CMD_ID_ASU_FEATURES<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0U)</highlight></codeline>
+<codeline lineno="45"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="46" refid="group__xilplmi__server__apis_1ga2669f43b70900b883d68f971c351031c" refkind="member"><highlight class="preprocessor">#define<sp/>XPLMI_CMD_ID_ASU_KEY_TRANSFER<sp/><sp/><sp/>(1U)</highlight></codeline>
+<codeline lineno="47"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="48" refid="group__xilplmi__server__apis_1ga53174907a7e9def7a0d3265068075576" refkind="member"><highlight class="preprocessor">#define<sp/>XPLMI_CMD_ID_ASU_CDI_TRANSFER<sp/><sp/><sp/>(2U)</highlight></codeline>
+<codeline lineno="49"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="50" refid="group__xilplmi__server__apis_1gaeb6a0f5bed784f22282025b0b5cfb11d" refkind="member"><highlight class="preprocessor">#define<sp/>XPLMI_CMD_ID_SUBSYSTEM_HASH_TRANSFER<sp/><sp/><sp/><sp/>(3U)</highlight></codeline>
+<codeline lineno="51"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="52" refid="group__xilplmi__server__apis_1ga7a640fd3ffa8b1a308933744b5c78ac0" refkind="member"><highlight class="preprocessor">#define<sp/>XPLMI_CMD_ID_GET_OCP_EVENT_MASK<sp/>(4U)</highlight></codeline>
+<codeline lineno="53"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="55"><highlight class="comment">/*<sp/>Command<sp/>Id<sp/>index<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="56" refid="group__xilplmi__server__apis_1ga5b1cc30105b02bde475eb88a903fa42e" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_CMD_ID_ASU_FEATURES_INDEX<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0U)</highlight></codeline>
+<codeline lineno="57"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="58" refid="group__xilplmi__server__apis_1gabeccc453a0594417e747b58e1bace36b" refkind="member"><highlight class="preprocessor">#define<sp/>XPLMI_CMD_ID_ASU_RESPONSE_INDEX<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1U)</highlight></codeline>
+<codeline lineno="59"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="60" refid="group__xilplmi__server__apis_1ga7d027a2eef0dcaf669073e346bd063eb" refkind="member"><highlight class="preprocessor">#define<sp/>XPLMI_RESP_CMD_EXEC_STATUS_INDEX<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0U)</highlight></codeline>
+<codeline lineno="61"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="63"><highlight class="preprocessor">#ifdef<sp/>PLM_OCP_ASUFW_KEY_MGMT</highlight></codeline>
+<codeline lineno="64"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_CMD_ID_ASU_CDI_ADDR_INDEX<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0U)<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="65"><highlight class="preprocessor">#define<sp/>XPLMI_CMD_ID_SUBSYSTEM_ID_INDEX<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0U)<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="66"><highlight class="preprocessor">#define<sp/>XPLMI_CMD_ID_SUBSYSTEM_HASH_ADDR_INDEX<sp/><sp/>(1U)<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="67"><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="68"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="69" refid="group__xilplmi__server__apis_1gab03f565f565cf499f06adff7c18e042b" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_ASU_IPI_FULL_ACCESS(ApiId)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>[ApiId]<sp/>=<sp/>XPLMI_FULL_IPI_ACCESS<sp/></highlight></codeline>
+<codeline lineno="71"><highlight class="preprocessor"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="72"><highlight class="preprocessor"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>int<sp/>(*<sp/>AsuGeneratePufKEK)(u8*<sp/>PufRegenStatusFlag)<sp/>=<sp/>NULL;</highlight></codeline>
+<codeline lineno="74"><highlight class="keyword">static</highlight><highlight class="normal"><sp/>int<sp/>(*<sp/>AsuInitiateKeyXfer)(void)<sp/>=<sp/>NULL;</highlight></codeline>
+<codeline lineno="76"><highlight class="keyword">static</highlight><highlight class="normal"><sp/>int<sp/>(*<sp/>AsuGetAsuCdiSeed)(u32<sp/>CdiAddr)<sp/>=<sp/>NULL;</highlight></codeline>
+<codeline lineno="78"><highlight class="keyword">static</highlight><highlight class="normal"><sp/>int<sp/>(*<sp/>AsuGetSubsysDigest)(u32<sp/>SubsystemId,<sp/>u32<sp/>SubsysHashAddrPtr)<sp/>=<sp/>NULL;</highlight></codeline>
+<codeline lineno="80"><highlight class="keyword">static</highlight><highlight class="normal"><sp/>void<sp/>(*AsuGetOcpEventMask)(u32<sp/>*EventMask)<sp/>=<sp/>NULL;</highlight></codeline>
+<codeline lineno="83"><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="84"><highlight class="normal"></highlight></codeline>
+<codeline lineno="85"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="86"><highlight class="normal"></highlight></codeline>
+<codeline lineno="87"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="88"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="97"><highlight class="keyword">static</highlight><highlight class="normal"><sp/>XPlmi_Module<sp/>XPlmi_AsuModule;</highlight></codeline>
+<codeline lineno="103"><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="114"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XPlmi_CmdAsuFeatures(XPlmi_Cmd<sp/>*<sp/>Cmd)</highlight></codeline>
+<codeline lineno="115"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"></highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_Printf(DEBUG_GENERAL,<sp/></highlight><highlight class="stringliteral">&quot;%s<sp/>%p\n\r&quot;</highlight><highlight class="normal">,<sp/>__func__,<sp/>Cmd);</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"></highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Cmd-&gt;Payload[<ref refid="group__xilplmi__server__apis_1ga5b1cc30105b02bde475eb88a903fa42e" kindref="member">XPLMI_CMD_ID_ASU_FEATURES_INDEX</ref>]<sp/>&lt;</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_AsuModule.CmdCnt)<sp/>{</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Cmd-&gt;Response[<ref refid="group__xilplmi__server__apis_1gabeccc453a0594417e747b58e1bace36b" kindref="member">XPLMI_CMD_ID_ASU_RESPONSE_INDEX</ref>]<sp/>=<sp/>(u32)XST_SUCCESS;</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Cmd-&gt;Response[<ref refid="group__xilplmi__server__apis_1gabeccc453a0594417e747b58e1bace36b" kindref="member">XPLMI_CMD_ID_ASU_RESPONSE_INDEX</ref>]<sp/>=<sp/>(u32)XST_FAILURE;</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"></highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"></highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Cmd-&gt;Response[<ref refid="group__xilplmi__server__apis_1ga7d027a2eef0dcaf669073e346bd063eb" kindref="member">XPLMI_RESP_CMD_EXEC_STATUS_INDEX</ref>]<sp/>=<sp/>(u32)Status;</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"></highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="133"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"></highlight></codeline>
+<codeline lineno="135"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="145"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XPlmi_CmdAsuKeyTransfer(XPlmi_Cmd<sp/>*<sp/>Cmd)</highlight></codeline>
+<codeline lineno="146"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>PufRegenStatusFlag<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"></highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Cmd<sp/>==<sp/>NULL)<sp/>{</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>RET;</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"></highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((AsuInitiateKeyXfer<sp/>==<sp/>NULL)<sp/>||<sp/>(AsuGeneratePufKEK<sp/>==<sp/>NULL))<sp/>{</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"></highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSECURE_TEMPORAL_CHECK(END,<sp/>Status,<sp/>AsuGeneratePufKEK,<sp/>&amp;PufRegenStatusFlag);</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"></highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>AsuInitiateKeyXfer();</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"></highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Cmd-&gt;Response[<ref refid="group__xilplmi__server__apis_1gabeccc453a0594417e747b58e1bace36b" kindref="member">XPLMI_CMD_ID_ASU_RESPONSE_INDEX</ref>]<sp/>=<sp/>PufRegenStatusFlag;</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"></highlight></codeline>
+<codeline lineno="167"><highlight class="normal">END:</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Cmd-&gt;Response[<ref refid="group__xilplmi__server__apis_1ga7d027a2eef0dcaf669073e346bd063eb" kindref="member">XPLMI_RESP_CMD_EXEC_STATUS_INDEX</ref>]<sp/>=<sp/>(u32)Status;</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"></highlight></codeline>
+<codeline lineno="170"><highlight class="normal">RET:</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="172"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"></highlight></codeline>
+<codeline lineno="174"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>PLM_OCP_ASUFW_KEY_MGMT</highlight></codeline>
+<codeline lineno="175"><highlight class="preprocessor"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="186"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XPlmi_CmdAsuCdiTransfer(XPlmi_Cmd<sp/>*Cmd)</highlight></codeline>
+<codeline lineno="187"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="188"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>CdiAddr;</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"></highlight></codeline>
+<codeline lineno="191"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Validate<sp/>input<sp/>parameter.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="192"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Cmd<sp/>==<sp/>NULL)<sp/>{</highlight></codeline>
+<codeline lineno="193"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="194"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="195"><highlight class="normal"></highlight></codeline>
+<codeline lineno="196"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CdiAddr<sp/>=<sp/>Cmd-&gt;Payload[XPLMI_CMD_ID_ASU_CDI_ADDR_INDEX];</highlight></codeline>
+<codeline lineno="197"><highlight class="normal"></highlight></codeline>
+<codeline lineno="198"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Copy<sp/>ASU<sp/>CDI<sp/>to<sp/>provided<sp/>address.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(AsuGetAsuCdiSeed<sp/>!=<sp/>NULL)<sp/>{</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>AsuGetAsuCdiSeed(CdiAddr);</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="202"><highlight class="normal"></highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Cmd-&gt;Response[<ref refid="group__xilplmi__server__apis_1ga7d027a2eef0dcaf669073e346bd063eb" kindref="member">XPLMI_RESP_CMD_EXEC_STATUS_INDEX</ref>]<sp/>=<sp/>(u32)Status;</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"></highlight></codeline>
+<codeline lineno="205"><highlight class="normal">END:</highlight></codeline>
+<codeline lineno="206"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="207"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="208"><highlight class="normal"></highlight></codeline>
+<codeline lineno="209"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="220"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XPlmi_CmdAsuSubsystemHashTransfer(XPlmi_Cmd<sp/>*Cmd)</highlight></codeline>
+<codeline lineno="221"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="222"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="223"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>HashAddr;</highlight></codeline>
+<codeline lineno="224"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>SubsystemId;</highlight></codeline>
+<codeline lineno="225"><highlight class="normal"></highlight></codeline>
+<codeline lineno="226"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Validate<sp/>input<sp/>parameter.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="227"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Cmd<sp/>==<sp/>NULL)<sp/>{</highlight></codeline>
+<codeline lineno="228"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="229"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="230"><highlight class="normal"></highlight></codeline>
+<codeline lineno="231"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SubsystemId<sp/>=<sp/>Cmd-&gt;Payload[XPLMI_CMD_ID_SUBSYSTEM_ID_INDEX];</highlight></codeline>
+<codeline lineno="232"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>HashAddr<sp/>=<sp/>Cmd-&gt;Payload[XPLMI_CMD_ID_SUBSYSTEM_HASH_ADDR_INDEX];</highlight></codeline>
+<codeline lineno="233"><highlight class="normal"></highlight></codeline>
+<codeline lineno="234"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Copy<sp/>subsystem<sp/>hash<sp/>to<sp/>provided<sp/>address.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="235"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(AsuGetSubsysDigest<sp/>!=<sp/>NULL)<sp/>{</highlight></codeline>
+<codeline lineno="236"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>AsuGetSubsysDigest(SubsystemId,<sp/>HashAddr);</highlight></codeline>
+<codeline lineno="237"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="238"><highlight class="normal"></highlight></codeline>
+<codeline lineno="239"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Cmd-&gt;Response[<ref refid="group__xilplmi__server__apis_1ga7d027a2eef0dcaf669073e346bd063eb" kindref="member">XPLMI_RESP_CMD_EXEC_STATUS_INDEX</ref>]<sp/>=<sp/>(u32)Status;</highlight></codeline>
+<codeline lineno="240"><highlight class="normal"></highlight></codeline>
+<codeline lineno="241"><highlight class="normal">END:</highlight></codeline>
+<codeline lineno="242"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="243"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="244"><highlight class="normal"></highlight></codeline>
+<codeline lineno="245"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="256"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XPlmi_CmdAsuGetOcpEventMask(XPlmi_Cmd<sp/>*Cmd)</highlight></codeline>
+<codeline lineno="257"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="258"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="259"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>EventMask<sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="260"><highlight class="normal"></highlight></codeline>
+<codeline lineno="261"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Validate<sp/>input<sp/>parameter.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="262"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Cmd<sp/>==<sp/>NULL)<sp/>{</highlight></codeline>
+<codeline lineno="263"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="264"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="265"><highlight class="normal"></highlight></codeline>
+<codeline lineno="266"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(AsuGetOcpEventMask<sp/>!=<sp/>NULL)<sp/>{</highlight></codeline>
+<codeline lineno="267"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Get<sp/>OCP<sp/>event<sp/>mask.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="268"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>AsuGetOcpEventMask(&amp;EventMask);</highlight></codeline>
+<codeline lineno="269"><highlight class="normal"></highlight></codeline>
+<codeline lineno="270"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Provide<sp/>OCP<sp/>event<sp/>mask<sp/>as<sp/>command<sp/>response.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="271"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Cmd-&gt;Response[<ref refid="group__xilplmi__server__apis_1gabeccc453a0594417e747b58e1bace36b" kindref="member">XPLMI_CMD_ID_ASU_RESPONSE_INDEX</ref>]<sp/>=<sp/>EventMask;</highlight></codeline>
+<codeline lineno="272"><highlight class="normal"></highlight></codeline>
+<codeline lineno="273"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="274"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="275"><highlight class="normal"></highlight></codeline>
+<codeline lineno="276"><highlight class="normal">END:</highlight></codeline>
+<codeline lineno="277"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Cmd-&gt;Response[<ref refid="group__xilplmi__server__apis_1ga7d027a2eef0dcaf669073e346bd063eb" kindref="member">XPLMI_RESP_CMD_EXEC_STATUS_INDEX</ref>]<sp/>=<sp/>(u32)Status;</highlight></codeline>
+<codeline lineno="278"><highlight class="normal"></highlight></codeline>
+<codeline lineno="279"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="280"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="281"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="282"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="287"><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="292"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XPlmi_ModuleCmd<sp/>XPlmi_AsuCmds[]<sp/>=</highlight></codeline>
+<codeline lineno="293"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="294"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPLMI_MODULE_COMMAND(XPlmi_CmdAsuFeatures),</highlight></codeline>
+<codeline lineno="295"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPLMI_MODULE_COMMAND(XPlmi_CmdAsuKeyTransfer),</highlight></codeline>
+<codeline lineno="296"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>PLM_OCP_ASUFW_KEY_MGMT</highlight></codeline>
+<codeline lineno="297"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPLMI_MODULE_COMMAND(XPlmi_CmdAsuCdiTransfer),</highlight></codeline>
+<codeline lineno="298"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPLMI_MODULE_COMMAND(XPlmi_CmdAsuSubsystemHashTransfer),</highlight></codeline>
+<codeline lineno="299"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPLMI_MODULE_COMMAND(XPlmi_CmdAsuGetOcpEventMask),</highlight></codeline>
+<codeline lineno="300"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="301"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>NULL<sp/>},</highlight></codeline>
+<codeline lineno="302"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>NULL<sp/>},</highlight></codeline>
+<codeline lineno="303"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>NULL<sp/>},</highlight></codeline>
+<codeline lineno="304"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="305"><highlight class="preprocessor"></highlight><highlight class="normal">};</highlight></codeline>
+<codeline lineno="306"><highlight class="normal"></highlight></codeline>
+<codeline lineno="307"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="312"><highlight class="keyword">static</highlight><highlight class="normal"><sp/>XPlmi_AccessPerm_t<sp/>XPlmi_AsuAccessPermBuff[XPLMI_ARRAY_SIZE(XPlmi_AsuCmds)]<sp/>=</highlight></codeline>
+<codeline lineno="313"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="314"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilplmi__server__apis_1gab03f565f565cf499f06adff7c18e042b" kindref="member">XPLMI_ASU_IPI_FULL_ACCESS</ref>(<ref refid="group__xilplmi__server__apis_1ga80fd29f1a890579dbb37b1253d4236d1" kindref="member">XPLMI_CMD_ID_ASU_FEATURES</ref>),</highlight></codeline>
+<codeline lineno="315"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilplmi__server__apis_1gab03f565f565cf499f06adff7c18e042b" kindref="member">XPLMI_ASU_IPI_FULL_ACCESS</ref>(<ref refid="group__xilplmi__server__apis_1ga2669f43b70900b883d68f971c351031c" kindref="member">XPLMI_CMD_ID_ASU_KEY_TRANSFER</ref>),</highlight></codeline>
+<codeline lineno="316"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>PLM_OCP_ASUFW_KEY_MGMT</highlight></codeline>
+<codeline lineno="317"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilplmi__server__apis_1gab03f565f565cf499f06adff7c18e042b" kindref="member">XPLMI_ASU_IPI_FULL_ACCESS</ref>(<ref refid="group__xilplmi__server__apis_1ga53174907a7e9def7a0d3265068075576" kindref="member">XPLMI_CMD_ID_ASU_CDI_TRANSFER</ref>),</highlight></codeline>
+<codeline lineno="318"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilplmi__server__apis_1gab03f565f565cf499f06adff7c18e042b" kindref="member">XPLMI_ASU_IPI_FULL_ACCESS</ref>(<ref refid="group__xilplmi__server__apis_1gaeb6a0f5bed784f22282025b0b5cfb11d" kindref="member">XPLMI_CMD_ID_SUBSYSTEM_HASH_TRANSFER</ref>),</highlight></codeline>
+<codeline lineno="319"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilplmi__server__apis_1gab03f565f565cf499f06adff7c18e042b" kindref="member">XPLMI_ASU_IPI_FULL_ACCESS</ref>(<ref refid="group__xilplmi__server__apis_1ga7a640fd3ffa8b1a308933744b5c78ac0" kindref="member">XPLMI_CMD_ID_GET_OCP_EVENT_MASK</ref>),</highlight></codeline>
+<codeline lineno="320"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="321"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPLMI_ALL_IPI_NO_ACCESS(<ref refid="group__xilplmi__server__apis_1ga53174907a7e9def7a0d3265068075576" kindref="member">XPLMI_CMD_ID_ASU_CDI_TRANSFER</ref>),</highlight></codeline>
+<codeline lineno="322"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPLMI_ALL_IPI_NO_ACCESS(<ref refid="group__xilplmi__server__apis_1gaeb6a0f5bed784f22282025b0b5cfb11d" kindref="member">XPLMI_CMD_ID_SUBSYSTEM_HASH_TRANSFER</ref>),</highlight></codeline>
+<codeline lineno="323"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPLMI_ALL_IPI_NO_ACCESS(<ref refid="group__xilplmi__server__apis_1ga7a640fd3ffa8b1a308933744b5c78ac0" kindref="member">XPLMI_CMD_ID_GET_OCP_EVENT_MASK</ref>),</highlight></codeline>
+<codeline lineno="324"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="325"><highlight class="preprocessor"></highlight><highlight class="normal">};</highlight></codeline>
+<codeline lineno="326"><highlight class="normal"></highlight></codeline>
+<codeline lineno="327"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="332"><highlight class="keyword">static</highlight><highlight class="normal"><sp/>XPlmi_Module<sp/>XPlmi_AsuModule<sp/>=</highlight></codeline>
+<codeline lineno="333"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="334"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPLMI_MODULE_ASU_ID,</highlight></codeline>
+<codeline lineno="335"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_AsuCmds,</highlight></codeline>
+<codeline lineno="336"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPLMI_ARRAY_SIZE(XPlmi_AsuCmds),</highlight></codeline>
+<codeline lineno="337"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>NULL,</highlight></codeline>
+<codeline lineno="338"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_AsuAccessPermBuff,</highlight></codeline>
+<codeline lineno="339"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>NULL</highlight></codeline>
+<codeline lineno="340"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="341"><highlight class="normal"></highlight></codeline>
+<codeline lineno="342"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="355"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XPlmi_AsuModuleInit(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>(*<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>GeneratePufKEK)(u8*<sp/>PufRegenStatusFlag),</highlight></codeline>
+<codeline lineno="356"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>(*<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>InitiateKeyXfer)(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">),</highlight></codeline>
+<codeline lineno="357"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>(*<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>GetAsuCdiSeed)(u32<sp/>CdiAddr),</highlight></codeline>
+<codeline lineno="358"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>(*<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>GetSubsysDigest)(u32<sp/>SubsystemId,<sp/>u32<sp/>SubsysHashAddrPtr),</highlight></codeline>
+<codeline lineno="359"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>(*<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>GetOcpEventMask)(u32<sp/>*EventMask))</highlight></codeline>
+<codeline lineno="360"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="361"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilplmi__server__apis_1gad6359a75523eabd89c7f65cd2e58f850" kindref="member">XPlmi_ModuleRegister</ref>(&amp;XPlmi_AsuModule);</highlight></codeline>
+<codeline lineno="362"><highlight class="normal"></highlight></codeline>
+<codeline lineno="364"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>AsuGeneratePufKEK<sp/>=<sp/>GeneratePufKEK;</highlight></codeline>
+<codeline lineno="365"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>AsuInitiateKeyXfer<sp/>=<sp/>InitiateKeyXfer;</highlight></codeline>
+<codeline lineno="366"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>AsuGetAsuCdiSeed<sp/>=<sp/>GetAsuCdiSeed;</highlight></codeline>
+<codeline lineno="367"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>AsuGetSubsysDigest<sp/>=<sp/>GetSubsysDigest;</highlight></codeline>
+<codeline lineno="368"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>AsuGetOcpEventMask<sp/>=<sp/>GetOcpEventMask;</highlight></codeline>
+<codeline lineno="369"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_asu_cmd.c"/>
+  </compounddef>
+</doxygen>

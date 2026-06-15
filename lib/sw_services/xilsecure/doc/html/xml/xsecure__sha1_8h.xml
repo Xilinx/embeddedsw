@@ -1,0 +1,143 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xsecure__sha1_8h" kind="file">
+    <compoundname>xsecure_sha1.h</compoundname>
+    <includes local="yes">xil_types.h</includes>
+    <includedby refid="xsecure__sha1_8c" local="yes">xsecure_sha1.c</includedby>
+    <incdepgraph>
+      <node id="3917">
+        <label>xsecure_sha1.h</label>
+        <link refid="xsecure_sha1.h"/>
+        <childnode refid="3918" relation="include">
+        </childnode>
+      </node>
+      <node id="3918">
+        <label>xil_types.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="3920">
+        <label>xsecure_sha1.c</label>
+        <link refid="xsecure__sha1_8c"/>
+      </node>
+      <node id="3919">
+        <label>xsecure_sha1.h</label>
+        <link refid="xsecure_sha1.h"/>
+        <childnode refid="3920" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__xsecure__sha__server__apis_1gaa622862772be47583399226ac903ba43" prot="public" static="no">
+        <name>XSECURE_SHA1_HASH_SIZE</name>
+        <initializer>20U</initializer>
+        <briefdescription>
+<para>Size of SHA1 hash in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/softsha1/xsecure_sha1.h" line="41" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/softsha1/xsecure_sha1.h" bodystart="41" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xsecure__sha__server__apis_1gac50519b7c040efc850082fd5827a7978" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XSecure_Sha1Digest</definition>
+        <argsstring>(const u8 *const Data, u32 Len, u8 *const Hash)</argsstring>
+        <name>XSecure_Sha1Digest</name>
+        <param>
+          <type>const u8 *const</type>
+          <declname>Data</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Len</declname>
+        </param>
+        <param>
+          <type>u8 *const</type>
+          <declname>Hash</declname>
+        </param>
+        <briefdescription>
+<para>This function calculates SHA1 hash on given input data. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to input data </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Len</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Length of input data </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Hash</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to memory location where calculated hash to be stored</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_FAILURE In case of failure in SHA1 digest calculation<itemizedlist>
+<listitem><para>XST_SUCCESS In case of successful calculation of SHA1 digest</para></listitem></itemizedlist>
+</para></listitem><listitem><para>XSECURE_SHA1_TRANSFORM_ERROR In case of failure in SHA1 transform operation</para></listitem><listitem><para>XST_GLITCH_ERROR In case of glitch detected in SHA1 calculation </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Available bytes for padding in last block</para></listitem><listitem><para>Read hash </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/softsha1/xsecure_sha1.c" line="156" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/softsha1/xsecure_sha1.c" bodystart="156" bodyend="244"/>
+        <references refid="group__xsecure__sha__server__apis_1ga6932123ee1c3342aec7f4df68494ed65" compoundref="xsecure__sha1_8c" startline="37">XSECURE_SHA1_HASH_BLK_SIZE</references>
+        <references refid="group__xsecure__sha__server__apis_1ga5db9228f386ebfcb851fb4bc52770dc9" compoundref="xsecure__sha1_8c" startline="38">XSECURE_SHA1_LEN_FIELD_SIZE</references>
+        <references refid="group__xsecure__sha__server__apis_1ga292a086df7b01914e3c8f69e79a8f24b" compoundref="xsecure__sha1_8c" startline="39">XSECURE_SHA1_MIN_PADDING_LEN</references>
+        <references refid="group__xsecure__sha__server__apis_1gaa83f7256cbf406169c675432067eac5f" compoundref="xsecure__sha1_8c" startline="42">XSECURE_SHA1_PADDING_MIDDLE</references>
+        <references refid="group__xsecure__sha__server__apis_1gad81e8193e500a9c448cf79ae1878b332" compoundref="xsecure__sha1_8c" startline="41">XSECURE_SHA1_PADDING_START</references>
+        <references refid="versal__2ve__2vm_2xsecure__error_8h_1ab04a0655cd1e3bcac5e8f48c18df1a57a958932a8a60f2f0374a74111871e0636" compoundref="versal__2ve__2vm_2xsecure__error_8h" startline="90">XSECURE_SHA1_TRANSFORM_ERROR</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file contains SHA1 driver function prototype. </para>    </briefdescription>
+    <detaileddescription>
+<para>NOTE : This algorithm is tested only for little endian with data length ranging 1 byte to 8KB</para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+1.0   mmd  12/20/24 Initial release</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/***************************************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2025<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">***************************************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/**************************************************************************************************/</highlight></codeline>
+<codeline lineno="30"><highlight class="preprocessor">#ifndef<sp/>XSECURE_SHA1_H</highlight></codeline>
+<codeline lineno="31"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_SHA1_H</highlight></codeline>
+<codeline lineno="32"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="34"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="36"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>******************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>**************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41" refid="group__xsecure__sha__server__apis_1gaa622862772be47583399226ac903ba43" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_SHA1_HASH_SIZE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>20U<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="43"><highlight class="preprocessor"></highlight><highlight class="comment">/*****************************<sp/>Function<sp/>Prototypes<sp/>************************************************/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="44"><highlight class="preprocessor"></highlight><highlight class="normal">s32<sp/><ref refid="group__xsecure__sha__server__apis_1gac50519b7c040efc850082fd5827a7978" kindref="member">XSecure_Sha1Digest</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>*<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Data,<sp/>u32<sp/>Len,<sp/>u8<sp/>*<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Hash);</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="48"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="50"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/></highlight><highlight class="comment">/*<sp/>XSECURE_SHA1_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/softsha1/xsecure_sha1.h"/>
+  </compounddef>
+</doxygen>

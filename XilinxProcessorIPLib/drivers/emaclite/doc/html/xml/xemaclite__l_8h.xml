@@ -1,0 +1,1272 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xemaclite__l_8h" kind="file">
+    <compoundname>xemaclite_l.h</compoundname>
+    <includes local="yes">xil_types.h</includes>
+    <includes local="yes">xil_assert.h</includes>
+    <includes local="yes">xil_io.h</includes>
+    <includedby refid="xemaclite_8h" local="yes">xemaclite.h</includedby>
+    <includedby refid="xemaclite__l_8c" local="yes">xemaclite_l.c</includedby>
+    <incdepgraph>
+      <node id="138">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="139">
+        <label>xil_io.h</label>
+      </node>
+      <node id="136">
+        <label>xemaclite_l.h</label>
+        <link refid="xemaclite_l.h"/>
+        <childnode refid="137" relation="include">
+        </childnode>
+        <childnode refid="138" relation="include">
+        </childnode>
+        <childnode refid="139" relation="include">
+        </childnode>
+      </node>
+      <node id="137">
+        <label>xil_types.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="146">
+        <label>xemaclite_selftest.c</label>
+        <link refid="xemaclite__selftest_8c"/>
+      </node>
+      <node id="148">
+        <label>xemaclite_sinit.c</label>
+        <link refid="xemaclite__sinit_8c"/>
+      </node>
+      <node id="149">
+        <label>xemaclite_example.h</label>
+        <link refid="xemaclite__example_8h"/>
+        <childnode refid="150" relation="include">
+        </childnode>
+        <childnode refid="151" relation="include">
+        </childnode>
+        <childnode refid="152" relation="include">
+        </childnode>
+        <childnode refid="153" relation="include">
+        </childnode>
+        <childnode refid="154" relation="include">
+        </childnode>
+      </node>
+      <node id="142">
+        <label>xemaclite.c</label>
+        <link refid="xemaclite_8c"/>
+      </node>
+      <node id="155">
+        <label>xemaclite_ping_reply_example.c</label>
+        <link refid="xemaclite__ping__reply__example_8c"/>
+      </node>
+      <node id="141">
+        <label>xemaclite.h</label>
+        <link refid="xemaclite_8h"/>
+        <childnode refid="142" relation="include">
+        </childnode>
+        <childnode refid="143" relation="include">
+        </childnode>
+        <childnode refid="147" relation="include">
+        </childnode>
+        <childnode refid="144" relation="include">
+        </childnode>
+        <childnode refid="146" relation="include">
+        </childnode>
+        <childnode refid="148" relation="include">
+        </childnode>
+        <childnode refid="149" relation="include">
+        </childnode>
+        <childnode refid="155" relation="include">
+        </childnode>
+        <childnode refid="156" relation="include">
+        </childnode>
+        <childnode refid="157" relation="include">
+        </childnode>
+      </node>
+      <node id="156">
+        <label>xemaclite_ping_req_example.c</label>
+        <link refid="xemaclite__ping__req__example_8c"/>
+      </node>
+      <node id="144">
+        <label>xemaclite_intr.c</label>
+        <link refid="xemaclite__intr_8c"/>
+      </node>
+      <node id="152">
+        <label>xemaclite_intr_example.c</label>
+        <link refid="xemaclite__intr__example_8c"/>
+      </node>
+      <node id="143">
+        <label>xemaclite_i.h</label>
+        <link refid="xemaclite__i_8h"/>
+        <childnode refid="142" relation="include">
+        </childnode>
+        <childnode refid="144" relation="include">
+        </childnode>
+        <childnode refid="145" relation="include">
+        </childnode>
+        <childnode refid="146" relation="include">
+        </childnode>
+      </node>
+      <node id="145">
+        <label>xemaclite_l.c</label>
+        <link refid="xemaclite__l_8c"/>
+      </node>
+      <node id="140">
+        <label>xemaclite_l.h</label>
+        <link refid="xemaclite_l.h"/>
+        <childnode refid="141" relation="include">
+        </childnode>
+        <childnode refid="145" relation="include">
+        </childnode>
+      </node>
+      <node id="150">
+        <label>xemaclite_example_util.c</label>
+        <link refid="xemaclite__example__util_8c"/>
+      </node>
+      <node id="151">
+        <label>xemaclite_internal_loopback_example.c</label>
+        <link refid="xemaclite__internal__loopback__example_8c"/>
+      </node>
+      <node id="147">
+        <label>xemaclite_g.c</label>
+        <link refid="xemaclite__g_8c"/>
+      </node>
+      <node id="153">
+        <label>xemaclite_phy_loopback_example.c</label>
+        <link refid="xemaclite__phy__loopback__example_8c"/>
+      </node>
+      <node id="154">
+        <label>xemaclite_polled_example.c</label>
+        <link refid="xemaclite__polled__example_8c"/>
+      </node>
+      <node id="157">
+        <label>xemaclite_selftest_example.c</label>
+        <link refid="xemaclite__selftest__example_8c"/>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__emaclite_1gafe412cba5e39b05c922dde82ef216d5d" prot="public" static="no">
+        <name>XEMAC_LITE_L_H</name>
+        <initializer>/* by using protection macros */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite_l.h" line="59" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite_l.h" bodystart="59" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__emaclite_1ga4dbb708d2fea4f6a716bcf9eb0aaad66" prot="public" static="no">
+        <name>XEL_TXBUFF_OFFSET</name>
+        <initializer>(0x00000000)</initializer>
+        <briefdescription>
+<para>Register offsets for the Ethernet MAC. </para>        </briefdescription>
+        <detaileddescription>
+<para>Transmit Buffer </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite_l.h" line="75" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite_l.h" bodystart="75" bodyend="-1"/>
+        <referencedby refid="group__emaclite_1ga0ea2a0f4e13ef174477a3cf2a9f86e69" compoundref="xemaclite__selftest_8c" startline="65" endline="186">XEmacLite_SelfTest</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__emaclite_1ga507cf8cc16828061ef6fea447f5c1e44" prot="public" static="no">
+        <name>XEL_MDIOADDR_OFFSET</name>
+        <initializer>(<ref refid="group__emaclite_1ga4dbb708d2fea4f6a716bcf9eb0aaad66" kindref="member">XEL_TXBUFF_OFFSET</ref> + 0x07E4)</initializer>
+        <briefdescription>
+<para>MDIO Address offset register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite_l.h" line="77" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite_l.h" bodystart="76" bodyend="-1"/>
+        <referencedby refid="group__emaclite_1ga444ab091bdc373bf2e1a266d5febecd0" compoundref="xemaclite_8c" startline="705" endline="772">XEmacLite_PhyRead</referencedby>
+        <referencedby refid="group__emaclite_1ga63ef92abf534fcf6f41601e93efa4cc7" compoundref="xemaclite_8c" startline="794" endline="861">XEmacLite_PhyWrite</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__emaclite_1ga396812830267b25dfdaebd81f95ff00c" prot="public" static="no">
+        <name>XEL_MDIOWR_OFFSET</name>
+        <initializer>(<ref refid="group__emaclite_1ga4dbb708d2fea4f6a716bcf9eb0aaad66" kindref="member">XEL_TXBUFF_OFFSET</ref> + 0x07E8)</initializer>
+        <briefdescription>
+<para>MDIO write data register offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite_l.h" line="79" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite_l.h" bodystart="79" bodyend="-1"/>
+        <referencedby refid="group__emaclite_1ga63ef92abf534fcf6f41601e93efa4cc7" compoundref="xemaclite_8c" startline="794" endline="861">XEmacLite_PhyWrite</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__emaclite_1ga89bf4abeb9407e4c7092c19c9f4b4e7a" prot="public" static="no">
+        <name>XEL_MDIORD_OFFSET</name>
+        <initializer>(<ref refid="group__emaclite_1ga4dbb708d2fea4f6a716bcf9eb0aaad66" kindref="member">XEL_TXBUFF_OFFSET</ref> + 0x07EC)</initializer>
+        <briefdescription>
+<para>MDIO read data register offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite_l.h" line="81" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite_l.h" bodystart="82" bodyend="-1"/>
+        <referencedby refid="group__emaclite_1ga444ab091bdc373bf2e1a266d5febecd0" compoundref="xemaclite_8c" startline="705" endline="772">XEmacLite_PhyRead</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__emaclite_1gab18c59ba42e1b6aeb51a9bcf80f1436e" prot="public" static="no">
+        <name>XEL_MDIOCNTR_OFFSET</name>
+        <initializer>(<ref refid="group__emaclite_1ga4dbb708d2fea4f6a716bcf9eb0aaad66" kindref="member">XEL_TXBUFF_OFFSET</ref> + 0x07F0)</initializer>
+        <briefdescription>
+<para>MDIO Control Register offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite_l.h" line="83" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite_l.h" bodystart="85" bodyend="-1"/>
+        <referencedby refid="group__emaclite_1ga444ab091bdc373bf2e1a266d5febecd0" compoundref="xemaclite_8c" startline="705" endline="772">XEmacLite_PhyRead</referencedby>
+        <referencedby refid="group__emaclite_1ga63ef92abf534fcf6f41601e93efa4cc7" compoundref="xemaclite_8c" startline="794" endline="861">XEmacLite_PhyWrite</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__emaclite_1gae8b93ba79e75324605f0b3f4d760fbdb" prot="public" static="no">
+        <name>XEL_GIER_OFFSET</name>
+        <initializer>(<ref refid="group__emaclite_1ga4dbb708d2fea4f6a716bcf9eb0aaad66" kindref="member">XEL_TXBUFF_OFFSET</ref> + 0x07F8)</initializer>
+        <briefdescription>
+<para>Offset for the GIE Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite_l.h" line="85" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite_l.h" bodystart="88" bodyend="-1"/>
+        <referencedby refid="group__emaclite_1gacac27172503eee6a171afe1679c20f2c" compoundref="xemaclite__intr_8c" startline="134" endline="171">XEmacLite_DisableInterrupts</referencedby>
+        <referencedby refid="group__emaclite_1ga28a0b4547f8b9b8eb675123df8ab8907" compoundref="xemaclite__intr_8c" startline="72" endline="117">XEmacLite_EnableInterrupts</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__emaclite_1ga45c15f0ba6b3ef9849abfb63e47ea692" prot="public" static="no">
+        <name>XEL_TSR_OFFSET</name>
+        <initializer>(<ref refid="group__emaclite_1ga4dbb708d2fea4f6a716bcf9eb0aaad66" kindref="member">XEL_TXBUFF_OFFSET</ref> + 0x07FC)</initializer>
+        <briefdescription>
+<para>Tx status. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite_l.h" line="86" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite_l.h" bodystart="91" bodyend="-1"/>
+        <referencedby refid="group__emaclite_1ga3c9dd90e02c987b5b3a1dacdcfd057c4" compoundref="xemaclite_8c" startline="94" endline="147">XEmacLite_CfgInitialize</referencedby>
+        <referencedby refid="group__emaclite_1ga55c4a0b58c4e35dbf81c4866946f368a" compoundref="xemaclite_8c" startline="905" endline="919">XEmacLite_DisableLoopBack</referencedby>
+        <referencedby refid="group__emaclite_1ga1bd8c7361add009208f4c6778644a83c" compoundref="xemaclite_8c" startline="877" endline="891">XEmacLite_EnableLoopBack</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__emaclite_1gac1b03025a5b44d67224bbe94e5c3eaa2" prot="public" static="no">
+        <name>XEL_TPLR_OFFSET</name>
+        <initializer>(<ref refid="group__emaclite_1ga4dbb708d2fea4f6a716bcf9eb0aaad66" kindref="member">XEL_TXBUFF_OFFSET</ref> + 0x07F4)</initializer>
+        <briefdescription>
+<para>Tx packet length. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite_l.h" line="87" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite_l.h" bodystart="92" bodyend="-1"/>
+        <referencedby refid="group__emaclite_1gaa509977aea023dfeef6bddb10b2597dc" compoundref="xemaclite_8c" startline="172" endline="317">XEmacLite_Send</referencedby>
+        <referencedby refid="group__emaclite_1ga08f00fcd26d1aad5d76a1b7b0de64780" compoundref="xemaclite__l_8c" startline="90" endline="115">XEmacLite_SendFrame</referencedby>
+        <referencedby refid="group__emaclite_1gaaf404b645896f5fb74e87b4ada362809" compoundref="xemaclite_8c" startline="498" endline="538">XEmacLite_SetMacAddress</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__emaclite_1gae1278a34e211f3868d5043424c9a725a" prot="public" static="no">
+        <name>XEL_RXBUFF_OFFSET</name>
+        <initializer>(0x00001000)</initializer>
+        <briefdescription>
+<para>Receive Buffer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite_l.h" line="89" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite_l.h" bodystart="94" bodyend="-1"/>
+        <referencedby refid="group__emaclite_1ga6b771b95e193baa02186c6e106c7aefb" compoundref="xemaclite_8c" startline="346" endline="474">XEmacLite_Recv</referencedby>
+        <referencedby refid="group__emaclite_1ga6be219c4ba85e928f273845bd69bdeca" compoundref="xemaclite__l_8c" startline="145" endline="195">XEmacLite_RecvFrame</referencedby>
+        <referencedby refid="group__emaclite_1ga0ea2a0f4e13ef174477a3cf2a9f86e69" compoundref="xemaclite__selftest_8c" startline="65" endline="186">XEmacLite_SelfTest</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__emaclite_1ga0c6a339b5bf171c55b8d3ff6b758d397" prot="public" static="no">
+        <name>XEL_RSR_OFFSET</name>
+        <initializer>(<ref refid="group__emaclite_1gae1278a34e211f3868d5043424c9a725a" kindref="member">XEL_RXBUFF_OFFSET</ref> + 0x07FC)</initializer>
+        <briefdescription>
+<para>Rx status. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite_l.h" line="90" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite_l.h" bodystart="95" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__emaclite_1ga344295838c9356aa4f264f2e1eedf050" prot="public" static="no">
+        <name>XEL_RPLR_OFFSET</name>
+        <initializer>(<ref refid="group__emaclite_1gae1278a34e211f3868d5043424c9a725a" kindref="member">XEL_RXBUFF_OFFSET</ref> + 0x0C)</initializer>
+        <briefdescription>
+<para>Rx packet length. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite_l.h" line="91" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite_l.h" bodystart="96" bodyend="-1"/>
+        <referencedby refid="group__emaclite_1ga6be219c4ba85e928f273845bd69bdeca" compoundref="xemaclite__l_8c" startline="145" endline="195">XEmacLite_RecvFrame</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__emaclite_1ga18d1878c22f2d4332814e0d5ca8e8881" prot="public" static="no">
+        <name>XEL_MAC_HI_OFFSET</name>
+        <initializer>(<ref refid="group__emaclite_1ga4dbb708d2fea4f6a716bcf9eb0aaad66" kindref="member">XEL_TXBUFF_OFFSET</ref> + 0x14)</initializer>
+        <briefdescription>
+<para>MAC address hi offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite_l.h" line="94" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite_l.h" bodystart="98" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__emaclite_1ga6ac8f2cd8c3d00d23d93f31d4db91e1d" prot="public" static="no">
+        <name>XEL_MAC_LO_OFFSET</name>
+        <initializer>(<ref refid="group__emaclite_1ga4dbb708d2fea4f6a716bcf9eb0aaad66" kindref="member">XEL_TXBUFF_OFFSET</ref>)</initializer>
+        <briefdescription>
+<para>MAC address lo offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite_l.h" line="96" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite_l.h" bodystart="101" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__emaclite_1ga8f89271d7db92918eb1478566e922fce" prot="public" static="no">
+        <name>XEL_BUFFER_OFFSET</name>
+        <initializer>(0x00000800)</initializer>
+        <briefdescription>
+<para>Next buffer&apos;s offset same for both TX and RX. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite_l.h" line="100" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite_l.h" bodystart="105" bodyend="-1"/>
+        <referencedby refid="group__emaclite_1ga3c9dd90e02c987b5b3a1dacdcfd057c4" compoundref="xemaclite_8c" startline="94" endline="147">XEmacLite_CfgInitialize</referencedby>
+        <referencedby refid="group__emaclite_1gae7ced3b39bd2f06d037660e884c0706b" compoundref="xemaclite_8c" startline="630" endline="683">XEmacLite_FlushReceive</referencedby>
+        <referencedby refid="group__emaclite_1ga72db0e7e81077c3ad3947009a5299fdf" compoundref="xemaclite__intr_8c" startline="192" endline="266">XEmacLite_InterruptHandler</referencedby>
+        <referencedby refid="group__emaclite_1ga6b771b95e193baa02186c6e106c7aefb" compoundref="xemaclite_8c" startline="346" endline="474">XEmacLite_Recv</referencedby>
+        <referencedby refid="group__emaclite_1ga0ea2a0f4e13ef174477a3cf2a9f86e69" compoundref="xemaclite__selftest_8c" startline="65" endline="186">XEmacLite_SelfTest</referencedby>
+        <referencedby refid="group__emaclite_1gaa509977aea023dfeef6bddb10b2597dc" compoundref="xemaclite_8c" startline="172" endline="317">XEmacLite_Send</referencedby>
+        <referencedby refid="group__emaclite_1ga3f75e1a5a0b8d0e5e085880919ad693a" compoundref="xemaclite_8c" startline="575" endline="615">XEmacLite_TxBufferAvailable</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__emaclite_1ga393f8f9201b56413c228479a3ea976e5" prot="public" static="no">
+        <name>XEL_MDIO_ADDRESS_MASK</name>
+        <initializer>0x00003E0</initializer>
+        <briefdescription>
+<para>MDIO Address/Write Data/Read Data Register Bit Masks. </para>        </briefdescription>
+        <detaileddescription>
+<para>PHY Address mask </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite_l.h" line="104" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite_l.h" bodystart="113" bodyend="-1"/>
+        <referencedby refid="group__emaclite_1ga444ab091bdc373bf2e1a266d5febecd0" compoundref="xemaclite_8c" startline="705" endline="772">XEmacLite_PhyRead</referencedby>
+        <referencedby refid="group__emaclite_1ga63ef92abf534fcf6f41601e93efa4cc7" compoundref="xemaclite_8c" startline="794" endline="861">XEmacLite_PhyWrite</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__emaclite_1ga8dd2a4a8aeb4515fed5c9e2832b69676" prot="public" static="no">
+        <name>XEL_MDIO_ADDRESS_SHIFT</name>
+        <initializer>0x5</initializer>
+        <briefdescription>
+<para>PHY Address shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite_l.h" line="105" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite_l.h" bodystart="114" bodyend="-1"/>
+        <referencedby refid="group__emaclite_1ga444ab091bdc373bf2e1a266d5febecd0" compoundref="xemaclite_8c" startline="705" endline="772">XEmacLite_PhyRead</referencedby>
+        <referencedby refid="group__emaclite_1ga63ef92abf534fcf6f41601e93efa4cc7" compoundref="xemaclite_8c" startline="794" endline="861">XEmacLite_PhyWrite</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__emaclite_1gacd225e0c171bdd9f2e8fb2ca18fbc34c" prot="public" static="no">
+        <name>XEL_MDIO_OP_MASK</name>
+        <initializer>0x00000400</initializer>
+        <briefdescription>
+<para>PHY read access. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite_l.h" line="106" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite_l.h" bodystart="115" bodyend="-1"/>
+        <referencedby refid="group__emaclite_1ga444ab091bdc373bf2e1a266d5febecd0" compoundref="xemaclite_8c" startline="705" endline="772">XEmacLite_PhyRead</referencedby>
+        <referencedby refid="group__emaclite_1ga63ef92abf534fcf6f41601e93efa4cc7" compoundref="xemaclite_8c" startline="794" endline="861">XEmacLite_PhyWrite</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__emaclite_1ga4fc563b497e92261fb7f28db720324a6" prot="public" static="no">
+        <name>XEL_MDIOCNTR_STATUS_MASK</name>
+        <initializer>0x00000001</initializer>
+        <briefdescription>
+<para>MDIO Control Register Bit Masks. </para>        </briefdescription>
+        <detaileddescription>
+<para>MDIO transfer in Progress </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite_l.h" line="112" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite_l.h" bodystart="120" bodyend="-1"/>
+        <referencedby refid="group__emaclite_1ga444ab091bdc373bf2e1a266d5febecd0" compoundref="xemaclite_8c" startline="705" endline="772">XEmacLite_PhyRead</referencedby>
+        <referencedby refid="group__emaclite_1ga63ef92abf534fcf6f41601e93efa4cc7" compoundref="xemaclite_8c" startline="794" endline="861">XEmacLite_PhyWrite</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__emaclite_1ga62d3b9b889e7b69c4f216bb7825ee77e" prot="public" static="no">
+        <name>XEL_MDIOCNTR_ENABLE_MASK</name>
+        <initializer>0x00000008</initializer>
+        <briefdescription>
+<para>MDIO Enable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite_l.h" line="113" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite_l.h" bodystart="123" bodyend="-1"/>
+        <referencedby refid="group__emaclite_1ga444ab091bdc373bf2e1a266d5febecd0" compoundref="xemaclite_8c" startline="705" endline="772">XEmacLite_PhyRead</referencedby>
+        <referencedby refid="group__emaclite_1ga63ef92abf534fcf6f41601e93efa4cc7" compoundref="xemaclite_8c" startline="794" endline="861">XEmacLite_PhyWrite</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__emaclite_1ga5179e9952743fd9ea3056822ffe0df7d" prot="public" static="no">
+        <name>XEL_GIER_GIE_MASK</name>
+        <initializer>0x80000000</initializer>
+        <briefdescription>
+<para>Global Interrupt Enable Register (GIER) Bit Masks. </para>        </briefdescription>
+        <detaileddescription>
+<para>Global Enable </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite_l.h" line="118" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite_l.h" bodystart="128" bodyend="-1"/>
+        <referencedby refid="group__emaclite_1ga28a0b4547f8b9b8eb675123df8ab8907" compoundref="xemaclite__intr_8c" startline="72" endline="117">XEmacLite_EnableInterrupts</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__emaclite_1gabe750109f58b44cdf7c7e505c9d1acdc" prot="public" static="no">
+        <name>XEL_TSR_XMIT_BUSY_MASK</name>
+        <initializer>0x00000001</initializer>
+        <briefdescription>
+<para>Transmit Status Register (TSR) Bit Masks. </para>        </briefdescription>
+        <detaileddescription>
+<para>Xmit complete </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite_l.h" line="123" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite_l.h" bodystart="133" bodyend="-1"/>
+        <referencedby refid="group__emaclite_1ga72db0e7e81077c3ad3947009a5299fdf" compoundref="xemaclite__intr_8c" startline="192" endline="266">XEmacLite_InterruptHandler</referencedby>
+        <referencedby refid="group__emaclite_1gaa509977aea023dfeef6bddb10b2597dc" compoundref="xemaclite_8c" startline="172" endline="317">XEmacLite_Send</referencedby>
+        <referencedby refid="group__emaclite_1ga08f00fcd26d1aad5d76a1b7b0de64780" compoundref="xemaclite__l_8c" startline="90" endline="115">XEmacLite_SendFrame</referencedby>
+        <referencedby refid="group__emaclite_1ga3f75e1a5a0b8d0e5e085880919ad693a" compoundref="xemaclite_8c" startline="575" endline="615">XEmacLite_TxBufferAvailable</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__emaclite_1ga3d2433cda1ae6007050299464de9ec25" prot="public" static="no">
+        <name>XEL_TSR_PROGRAM_MASK</name>
+        <initializer>0x00000002</initializer>
+        <briefdescription>
+<para>Program the MAC address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite_l.h" line="125" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite_l.h" bodystart="134" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__emaclite_1ga648d492605893da2556845d8f0cb3dcd" prot="public" static="no">
+        <name>XEL_TSR_XMIT_IE_MASK</name>
+        <initializer>0x00000008</initializer>
+        <briefdescription>
+<para>Xmit interrupt enable bit. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite_l.h" line="127" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite_l.h" bodystart="137" bodyend="-1"/>
+        <referencedby refid="group__emaclite_1gacac27172503eee6a171afe1679c20f2c" compoundref="xemaclite__intr_8c" startline="134" endline="171">XEmacLite_DisableInterrupts</referencedby>
+        <referencedby refid="group__emaclite_1ga28a0b4547f8b9b8eb675123df8ab8907" compoundref="xemaclite__intr_8c" startline="72" endline="117">XEmacLite_EnableInterrupts</referencedby>
+        <referencedby refid="group__emaclite_1gaa509977aea023dfeef6bddb10b2597dc" compoundref="xemaclite_8c" startline="172" endline="317">XEmacLite_Send</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__emaclite_1ga9a758ea7a896175023c52bd55dc36700" prot="public" static="no">
+        <name>XEL_TSR_LOOPBACK_MASK</name>
+        <initializer>0x00000010</initializer>
+        <briefdescription>
+<para>Loop back enable bit. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite_l.h" line="129" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite_l.h" bodystart="140" bodyend="-1"/>
+        <referencedby refid="group__emaclite_1ga55c4a0b58c4e35dbf81c4866946f368a" compoundref="xemaclite_8c" startline="905" endline="919">XEmacLite_DisableLoopBack</referencedby>
+        <referencedby refid="group__emaclite_1ga1bd8c7361add009208f4c6778644a83c" compoundref="xemaclite_8c" startline="877" endline="891">XEmacLite_EnableLoopBack</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__emaclite_1ga2d037dc424649948806dad6dd9b43430" prot="public" static="no">
+        <name>XEL_TSR_XMIT_ACTIVE_MASK</name>
+        <initializer>0x80000000</initializer>
+        <briefdescription>
+<para>Buffer is active, SW bit only. </para>        </briefdescription>
+        <detaileddescription>
+<para>This is not documented in the HW spec </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite_l.h" line="133" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite_l.h" bodystart="143" bodyend="-1"/>
+        <referencedby refid="group__emaclite_1ga72db0e7e81077c3ad3947009a5299fdf" compoundref="xemaclite__intr_8c" startline="192" endline="266">XEmacLite_InterruptHandler</referencedby>
+        <referencedby refid="group__emaclite_1gaa509977aea023dfeef6bddb10b2597dc" compoundref="xemaclite_8c" startline="172" endline="317">XEmacLite_Send</referencedby>
+        <referencedby refid="group__emaclite_1ga3f75e1a5a0b8d0e5e085880919ad693a" compoundref="xemaclite_8c" startline="575" endline="615">XEmacLite_TxBufferAvailable</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__emaclite_1gae7c6d9dbf7029d564d5eb7c375025485" prot="public" static="no">
+        <name>XEL_TSR_PROG_MAC_ADDR</name>
+        <initializer>(<ref refid="group__emaclite_1gabe750109f58b44cdf7c7e505c9d1acdc" kindref="member">XEL_TSR_XMIT_BUSY_MASK</ref> | <ref refid="group__emaclite_1ga3d2433cda1ae6007050299464de9ec25" kindref="member">XEL_TSR_PROGRAM_MASK</ref>)</initializer>
+        <briefdescription>
+<para>define for programming the MAC address into the EmacLite </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite_l.h" line="138" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite_l.h" bodystart="154" bodyend="-1"/>
+        <referencedby refid="group__emaclite_1gaaf404b645896f5fb74e87b4ada362809" compoundref="xemaclite_8c" startline="498" endline="538">XEmacLite_SetMacAddress</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__emaclite_1ga5a9410492eec5f7865b664f1e4255d7b" prot="public" static="no">
+        <name>XEL_RSR_RECV_DONE_MASK</name>
+        <initializer>0x00000001</initializer>
+        <briefdescription>
+<para>Receive Status Register (RSR) </para>        </briefdescription>
+        <detaileddescription>
+<para>Recv complete </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite_l.h" line="143" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite_l.h" bodystart="159" bodyend="-1"/>
+        <referencedby refid="group__emaclite_1ga6b771b95e193baa02186c6e106c7aefb" compoundref="xemaclite_8c" startline="346" endline="474">XEmacLite_Recv</referencedby>
+        <referencedby refid="group__emaclite_1ga6be219c4ba85e928f273845bd69bdeca" compoundref="xemaclite__l_8c" startline="145" endline="195">XEmacLite_RecvFrame</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__emaclite_1ga7cc4cab2536c294d4e715310fe3fbdf0" prot="public" static="no">
+        <name>XEL_RSR_RECV_IE_MASK</name>
+        <initializer>0x00000008</initializer>
+        <briefdescription>
+<para>Recv interrupt enable bit. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite_l.h" line="145" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite_l.h" bodystart="160" bodyend="-1"/>
+        <referencedby refid="group__emaclite_1gacac27172503eee6a171afe1679c20f2c" compoundref="xemaclite__intr_8c" startline="134" endline="171">XEmacLite_DisableInterrupts</referencedby>
+        <referencedby refid="group__emaclite_1ga28a0b4547f8b9b8eb675123df8ab8907" compoundref="xemaclite__intr_8c" startline="72" endline="117">XEmacLite_EnableInterrupts</referencedby>
+        <referencedby refid="group__emaclite_1gae7ced3b39bd2f06d037660e884c0706b" compoundref="xemaclite_8c" startline="630" endline="683">XEmacLite_FlushReceive</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__emaclite_1ga12db7f4b53a73982fe53fb8b3c2648a9" prot="public" static="no">
+        <name>XEL_TPLR_LENGTH_MASK_HI</name>
+        <initializer>0x0000FF00</initializer>
+        <briefdescription>
+<para>Transmit Packet Length Register (TPLR) </para>        </briefdescription>
+        <detaileddescription>
+<para>Transmit packet length upper byte </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite_l.h" line="151" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite_l.h" bodystart="167" bodyend="-1"/>
+        <referencedby refid="group__emaclite_1gaa509977aea023dfeef6bddb10b2597dc" compoundref="xemaclite_8c" startline="172" endline="317">XEmacLite_Send</referencedby>
+        <referencedby refid="group__emaclite_1ga08f00fcd26d1aad5d76a1b7b0de64780" compoundref="xemaclite__l_8c" startline="90" endline="115">XEmacLite_SendFrame</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__emaclite_1gad57d19d58d348bd0c1d7715bad6a7e98" prot="public" static="no">
+        <name>XEL_TPLR_LENGTH_MASK_LO</name>
+        <initializer>0x000000FF</initializer>
+        <briefdescription>
+<para>Transmit packet length lower byte. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite_l.h" line="153" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite_l.h" bodystart="170" bodyend="-1"/>
+        <referencedby refid="group__emaclite_1gaa509977aea023dfeef6bddb10b2597dc" compoundref="xemaclite_8c" startline="172" endline="317">XEmacLite_Send</referencedby>
+        <referencedby refid="group__emaclite_1ga08f00fcd26d1aad5d76a1b7b0de64780" compoundref="xemaclite__l_8c" startline="90" endline="115">XEmacLite_SendFrame</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__emaclite_1ga766d628aef5fa10427ea2265dcc40e99" prot="public" static="no">
+        <name>XEL_RPLR_LENGTH_MASK_HI</name>
+        <initializer>0x0000FF00</initializer>
+        <briefdescription>
+<para>Receive Packet Length Register (RPLR) </para>        </briefdescription>
+        <detaileddescription>
+<para>Receive packet length upper byte </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite_l.h" line="159" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite_l.h" bodystart="177" bodyend="-1"/>
+        <referencedby refid="group__emaclite_1ga6b771b95e193baa02186c6e106c7aefb" compoundref="xemaclite_8c" startline="346" endline="474">XEmacLite_Recv</referencedby>
+        <referencedby refid="group__emaclite_1ga6be219c4ba85e928f273845bd69bdeca" compoundref="xemaclite__l_8c" startline="145" endline="195">XEmacLite_RecvFrame</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__emaclite_1ga688796d3e80699fb776e3bde91a8d376" prot="public" static="no">
+        <name>XEL_RPLR_LENGTH_MASK_LO</name>
+        <initializer>0x000000FF</initializer>
+        <briefdescription>
+<para>Receive packet length lower byte. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite_l.h" line="161" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite_l.h" bodystart="180" bodyend="-1"/>
+        <referencedby refid="group__emaclite_1ga6b771b95e193baa02186c6e106c7aefb" compoundref="xemaclite_8c" startline="346" endline="474">XEmacLite_Recv</referencedby>
+        <referencedby refid="group__emaclite_1ga6be219c4ba85e928f273845bd69bdeca" compoundref="xemaclite__l_8c" startline="145" endline="195">XEmacLite_RecvFrame</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__emaclite_1gace93038c04a45e17a8be70f058bbf9da" prot="public" static="no">
+        <name>XEL_HEADER_SIZE</name>
+        <initializer>14</initializer>
+        <briefdescription>
+<para>Size of header in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite_l.h" line="163" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite_l.h" bodystart="184" bodyend="-1"/>
+        <referencedby refid="group__emaclite_1ga6b771b95e193baa02186c6e106c7aefb" compoundref="xemaclite_8c" startline="346" endline="474">XEmacLite_Recv</referencedby>
+        <referencedby refid="group__emaclite_1ga6be219c4ba85e928f273845bd69bdeca" compoundref="xemaclite__l_8c" startline="145" endline="195">XEmacLite_RecvFrame</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__emaclite_1ga41c8fc68a64b6dfb418a1ac824cc9151" prot="public" static="no">
+        <name>XEL_MTU_SIZE</name>
+        <initializer>1500</initializer>
+        <briefdescription>
+<para>Max size of data in frame. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite_l.h" line="164" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite_l.h" bodystart="185" bodyend="-1"/>
+        <referencedby refid="xemaclite__internal__loopback__example_8c_1abcb2d06b54c6a59779c636ef76417519" compoundref="xemaclite__internal__loopback__example_8c" startline="162" endline="316">EmacLiteIntrLoopbackExample</referencedby>
+        <referencedby refid="xemaclite__phy__loopback__example_8c_1a402b5062f4c7679f905ec9d08ad40463" compoundref="xemaclite__phy__loopback__example_8c" startline="163" endline="340">EmacLitePhyLoopbackExample</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__emaclite_1ga8a4567a704724d25d4ddbeed59578cc9" prot="public" static="no">
+        <name>XEL_FCS_SIZE</name>
+        <initializer>4</initializer>
+        <briefdescription>
+<para>Size of CRC. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite_l.h" line="165" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite_l.h" bodystart="186" bodyend="-1"/>
+        <referencedby refid="group__emaclite_1ga6b771b95e193baa02186c6e106c7aefb" compoundref="xemaclite_8c" startline="346" endline="474">XEmacLite_Recv</referencedby>
+        <referencedby refid="group__emaclite_1ga6be219c4ba85e928f273845bd69bdeca" compoundref="xemaclite__l_8c" startline="145" endline="195">XEmacLite_RecvFrame</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__emaclite_1ga9ba60e869445837df2e23ccaf59c5a0a" prot="public" static="no">
+        <name>XEL_HEADER_OFFSET</name>
+        <initializer>12</initializer>
+        <briefdescription>
+<para>Offset to length field. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite_l.h" line="167" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite_l.h" bodystart="188" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__emaclite_1ga24da5eeb80edf023bfe5385019770ea7" prot="public" static="no">
+        <name>XEL_HEADER_SHIFT</name>
+        <initializer>16</initializer>
+        <briefdescription>
+<para>Right shift value to align length. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite_l.h" line="169" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite_l.h" bodystart="189" bodyend="-1"/>
+        <referencedby refid="group__emaclite_1ga6b771b95e193baa02186c6e106c7aefb" compoundref="xemaclite_8c" startline="346" endline="474">XEmacLite_Recv</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__emaclite_1ga0efb69007c897a0f35a57c9e50fdb469" prot="public" static="no">
+        <name>XEL_MAX_FRAME_SIZE</name>
+        <initializer>(<ref refid="group__emaclite_1gace93038c04a45e17a8be70f058bbf9da" kindref="member">XEL_HEADER_SIZE</ref>+<ref refid="group__emaclite_1ga41c8fc68a64b6dfb418a1ac824cc9151" kindref="member">XEL_MTU_SIZE</ref>+ <ref refid="group__emaclite_1ga8a4567a704724d25d4ddbeed59578cc9" kindref="member">XEL_FCS_SIZE</ref>)</initializer>
+        <briefdescription>
+<para>Max length of Rx frame used if length/type field contains the type (&gt; 1500) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite_l.h" line="175" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite_l.h" bodystart="194" bodyend="-1"/>
+        <referencedby refid="group__emaclite_1ga6b771b95e193baa02186c6e106c7aefb" compoundref="xemaclite_8c" startline="346" endline="474">XEmacLite_Recv</referencedby>
+        <referencedby refid="group__emaclite_1ga6be219c4ba85e928f273845bd69bdeca" compoundref="xemaclite__l_8c" startline="145" endline="195">XEmacLite_RecvFrame</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__emaclite_1gad1e5b828ffb7ae505719dd4f2f07bf39" prot="public" static="no">
+        <name>XEL_MAX_TX_FRAME_SIZE</name>
+        <initializer>(<ref refid="group__emaclite_1gace93038c04a45e17a8be70f058bbf9da" kindref="member">XEL_HEADER_SIZE</ref> + <ref refid="group__emaclite_1ga41c8fc68a64b6dfb418a1ac824cc9151" kindref="member">XEL_MTU_SIZE</ref>)</initializer>
+        <briefdescription>
+<para>Max length of Tx frame. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite_l.h" line="178" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite_l.h" bodystart="202" bodyend="-1"/>
+        <referencedby refid="group__emaclite_1gaa509977aea023dfeef6bddb10b2597dc" compoundref="xemaclite_8c" startline="172" endline="317">XEmacLite_Send</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__emaclite_1ga1ccc893b8efdefc7409c03c99c7719a7" prot="public" static="no">
+        <name>XEL_MAC_ADDR_SIZE</name>
+        <initializer>6</initializer>
+        <briefdescription>
+<para>length of MAC address </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite_l.h" line="181" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite_l.h" bodystart="207" bodyend="-1"/>
+        <referencedby refid="group__emaclite_1gaaf404b645896f5fb74e87b4ada362809" compoundref="xemaclite_8c" startline="498" endline="538">XEmacLite_SetMacAddress</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__emaclite_1gadd10850a396aefec8cb1b22fff3cd62b" prot="public" static="no">
+        <name>XEL_ETHER_PROTO_TYPE_IP</name>
+        <initializer>0x0800</initializer>
+        <briefdescription>
+<para>IP Protocol. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite_l.h" line="187" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite_l.h" bodystart="213" bodyend="-1"/>
+        <referencedby refid="group__emaclite_1ga6b771b95e193baa02186c6e106c7aefb" compoundref="xemaclite_8c" startline="346" endline="474">XEmacLite_Recv</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__emaclite_1ga2bc168ac37d2722b7a7d09dd68f2c2c7" prot="public" static="no">
+        <name>XEL_ETHER_PROTO_TYPE_ARP</name>
+        <initializer>0x0806</initializer>
+        <briefdescription>
+<para>ARP Protocol. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite_l.h" line="188" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite_l.h" bodystart="214" bodyend="-1"/>
+        <referencedby refid="group__emaclite_1ga6b771b95e193baa02186c6e106c7aefb" compoundref="xemaclite_8c" startline="346" endline="474">XEmacLite_Recv</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__emaclite_1ga640b8f756ad251d40c9976f1f2237029" prot="public" static="no">
+        <name>XEL_ETHER_PROTO_TYPE_VLAN</name>
+        <initializer>0x8100</initializer>
+        <briefdescription>
+<para>VLAN Tagged. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite_l.h" line="189" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite_l.h" bodystart="215" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__emaclite_1gad754bca8cbc8acdf979b885fc3950bac" prot="public" static="no">
+        <name>XEL_ARP_PACKET_SIZE</name>
+        <initializer>28</initializer>
+        <briefdescription>
+<para>Max ARP packet size. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite_l.h" line="190" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite_l.h" bodystart="216" bodyend="-1"/>
+        <referencedby refid="group__emaclite_1ga6b771b95e193baa02186c6e106c7aefb" compoundref="xemaclite_8c" startline="346" endline="474">XEmacLite_Recv</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__emaclite_1ga04dcdc4442b4c27ce924d5678a5bf872" prot="public" static="no">
+        <name>XEL_HEADER_IP_LENGTH_OFFSET</name>
+        <initializer>16</initializer>
+        <briefdescription>
+<para>IP Length Offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite_l.h" line="191" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite_l.h" bodystart="217" bodyend="-1"/>
+        <referencedby refid="group__emaclite_1ga6b771b95e193baa02186c6e106c7aefb" compoundref="xemaclite_8c" startline="346" endline="474">XEmacLite_Recv</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__emaclite_1gacdfcd5a1a11b18e51012fecd6dc9eade" prot="public" static="no">
+        <name>XEL_VLAN_TAG_SIZE</name>
+        <initializer>4</initializer>
+        <briefdescription>
+<para>VLAN Tag Size. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite_l.h" line="192" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite_l.h" bodystart="218" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__emaclite_1gae73479e6a24a45ff433c63bb679c5c0c" prot="public" static="no">
+        <name>XEmacLite_In32</name>
+        <initializer>Xil_In32</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite_l.h" line="196" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite_l.h" bodystart="222" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__emaclite_1ga167280ef2371e5a93928a61c95820dcd" prot="public" static="no">
+        <name>XEmacLite_Out32</name>
+        <initializer>Xil_Out32</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite_l.h" line="197" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite_l.h" bodystart="223" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__emaclite_1ga1242a868f45e27bd21e802f37ccc56cc" prot="public" static="no">
+        <name>XEmacLite_ReadReg</name>
+        <param><defname>BaseAddress</defname></param>
+        <param><defname>RegOffset</defname></param>
+        <initializer>XEmacLite_In32((BaseAddress) + (RegOffset))</initializer>
+        <briefdescription>
+<para>Read from the specified EmacLite device register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains the base address of the device. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegOffset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains the offset from the 1st register of the device to select the specific register.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The value read from the register.</para></simplesect>
+<simplesect kind="note"><para>C-Style signature: u32 <ref refid="group__emaclite_1ga1242a868f45e27bd21e802f37ccc56cc" kindref="member">XEmacLite_ReadReg(u32 BaseAddress, u32 RegOffset)</ref>; </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite_l.h" line="214" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite_l.h" bodystart="240" bodyend="-1"/>
+        <referencedby refid="group__emaclite_1ga55c4a0b58c4e35dbf81c4866946f368a" compoundref="xemaclite_8c" startline="905" endline="919">XEmacLite_DisableLoopBack</referencedby>
+        <referencedby refid="group__emaclite_1ga1bd8c7361add009208f4c6778644a83c" compoundref="xemaclite_8c" startline="877" endline="891">XEmacLite_EnableLoopBack</referencedby>
+        <referencedby refid="group__emaclite_1ga444ab091bdc373bf2e1a266d5febecd0" compoundref="xemaclite_8c" startline="705" endline="772">XEmacLite_PhyRead</referencedby>
+        <referencedby refid="group__emaclite_1ga63ef92abf534fcf6f41601e93efa4cc7" compoundref="xemaclite_8c" startline="794" endline="861">XEmacLite_PhyWrite</referencedby>
+        <referencedby refid="group__emaclite_1ga6b771b95e193baa02186c6e106c7aefb" compoundref="xemaclite_8c" startline="346" endline="474">XEmacLite_Recv</referencedby>
+        <referencedby refid="group__emaclite_1ga6be219c4ba85e928f273845bd69bdeca" compoundref="xemaclite__l_8c" startline="145" endline="195">XEmacLite_RecvFrame</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__emaclite_1ga96be859f6762b5de8817367548561035" prot="public" static="no">
+        <name>XEmacLite_WriteReg</name>
+        <param><defname>BaseAddress</defname></param>
+        <param><defname>RegOffset</defname></param>
+        <param><defname>RegisterValue</defname></param>
+        <initializer>XEmacLite_Out32((BaseAddress) + (RegOffset), (RegisterValue))</initializer>
+        <briefdescription>
+<para>Write to the specified EmacLite device register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains the base address of the device. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegOffset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains the offset from the 1st register of the device to select the specific register. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegisterValue</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the value to be written to the register.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>C-Style signature: void XEmacLite_WriteReg(u32 BaseAddress, u32 RegOffset, u32 RegisterValue); </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite_l.h" line="233" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite_l.h" bodystart="259" bodyend="-1"/>
+        <referencedby refid="group__emaclite_1ga3c9dd90e02c987b5b3a1dacdcfd057c4" compoundref="xemaclite_8c" startline="94" endline="147">XEmacLite_CfgInitialize</referencedby>
+        <referencedby refid="group__emaclite_1gacac27172503eee6a171afe1679c20f2c" compoundref="xemaclite__intr_8c" startline="134" endline="171">XEmacLite_DisableInterrupts</referencedby>
+        <referencedby refid="group__emaclite_1ga55c4a0b58c4e35dbf81c4866946f368a" compoundref="xemaclite_8c" startline="905" endline="919">XEmacLite_DisableLoopBack</referencedby>
+        <referencedby refid="group__emaclite_1ga28a0b4547f8b9b8eb675123df8ab8907" compoundref="xemaclite__intr_8c" startline="72" endline="117">XEmacLite_EnableInterrupts</referencedby>
+        <referencedby refid="group__emaclite_1ga1bd8c7361add009208f4c6778644a83c" compoundref="xemaclite_8c" startline="877" endline="891">XEmacLite_EnableLoopBack</referencedby>
+        <referencedby refid="group__emaclite_1ga444ab091bdc373bf2e1a266d5febecd0" compoundref="xemaclite_8c" startline="705" endline="772">XEmacLite_PhyRead</referencedby>
+        <referencedby refid="group__emaclite_1ga63ef92abf534fcf6f41601e93efa4cc7" compoundref="xemaclite_8c" startline="794" endline="861">XEmacLite_PhyWrite</referencedby>
+        <referencedby refid="group__emaclite_1gaa509977aea023dfeef6bddb10b2597dc" compoundref="xemaclite_8c" startline="172" endline="317">XEmacLite_Send</referencedby>
+        <referencedby refid="group__emaclite_1ga08f00fcd26d1aad5d76a1b7b0de64780" compoundref="xemaclite__l_8c" startline="90" endline="115">XEmacLite_SendFrame</referencedby>
+        <referencedby refid="group__emaclite_1gaaf404b645896f5fb74e87b4ada362809" compoundref="xemaclite_8c" startline="498" endline="538">XEmacLite_SetMacAddress</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__emaclite_1gad66fc12c63bb5e0a63289f63fa9d5e41" prot="public" static="no">
+        <name>XEmacLite_GetTxStatus</name>
+        <param><defname>BaseAddress</defname></param>
+        <initializer>(<ref refid="group__emaclite_1ga1242a868f45e27bd21e802f37ccc56cc" kindref="member">XEmacLite_ReadReg</ref>((BaseAddress), <ref refid="group__emaclite_1ga45c15f0ba6b3ef9849abfb63e47ea692" kindref="member">XEL_TSR_OFFSET</ref>))</initializer>
+        <briefdescription>
+<para>Get the Tx Status Register Contents. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the device</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The contents of the Tx Status Register.</para></simplesect>
+<simplesect kind="note"><para>C-Style signature: u32 <ref refid="group__emaclite_1gad66fc12c63bb5e0a63289f63fa9d5e41" kindref="member">XEmacLite_GetTxStatus(u32 BaseAddress)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite_l.h" line="250" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite_l.h" bodystart="276" bodyend="-1"/>
+        <referencedby refid="group__emaclite_1gacac27172503eee6a171afe1679c20f2c" compoundref="xemaclite__intr_8c" startline="134" endline="171">XEmacLite_DisableInterrupts</referencedby>
+        <referencedby refid="group__emaclite_1ga28a0b4547f8b9b8eb675123df8ab8907" compoundref="xemaclite__intr_8c" startline="72" endline="117">XEmacLite_EnableInterrupts</referencedby>
+        <referencedby refid="group__emaclite_1ga72db0e7e81077c3ad3947009a5299fdf" compoundref="xemaclite__intr_8c" startline="192" endline="266">XEmacLite_InterruptHandler</referencedby>
+        <referencedby refid="group__emaclite_1gaa509977aea023dfeef6bddb10b2597dc" compoundref="xemaclite_8c" startline="172" endline="317">XEmacLite_Send</referencedby>
+        <referencedby refid="group__emaclite_1ga08f00fcd26d1aad5d76a1b7b0de64780" compoundref="xemaclite__l_8c" startline="90" endline="115">XEmacLite_SendFrame</referencedby>
+        <referencedby refid="group__emaclite_1gaaf404b645896f5fb74e87b4ada362809" compoundref="xemaclite_8c" startline="498" endline="538">XEmacLite_SetMacAddress</referencedby>
+        <referencedby refid="group__emaclite_1ga3f75e1a5a0b8d0e5e085880919ad693a" compoundref="xemaclite_8c" startline="575" endline="615">XEmacLite_TxBufferAvailable</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__emaclite_1gae3bf9219fa76c0f1c10a7ebd4a64d3b8" prot="public" static="no">
+        <name>XEmacLite_SetTxStatus</name>
+        <param><defname>BaseAddress</defname></param>
+        <param><defname>Data</defname></param>
+        <initializer>(<ref refid="group__emaclite_1ga96be859f6762b5de8817367548561035" kindref="member">XEmacLite_WriteReg</ref>((BaseAddress), <ref refid="group__emaclite_1ga45c15f0ba6b3ef9849abfb63e47ea692" kindref="member">XEL_TSR_OFFSET</ref>, (Data)))</initializer>
+        <briefdescription>
+<para>Set the Tx Status Register Contents. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the device </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the value to be written to the Register.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>C-Style signature: u32 <ref refid="group__emaclite_1gae3bf9219fa76c0f1c10a7ebd4a64d3b8" kindref="member">XEmacLite_SetTxStatus(u32 BaseAddress, u32 Data)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite_l.h" line="268" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite_l.h" bodystart="294" bodyend="-1"/>
+        <referencedby refid="group__emaclite_1gacac27172503eee6a171afe1679c20f2c" compoundref="xemaclite__intr_8c" startline="134" endline="171">XEmacLite_DisableInterrupts</referencedby>
+        <referencedby refid="group__emaclite_1ga28a0b4547f8b9b8eb675123df8ab8907" compoundref="xemaclite__intr_8c" startline="72" endline="117">XEmacLite_EnableInterrupts</referencedby>
+        <referencedby refid="group__emaclite_1ga72db0e7e81077c3ad3947009a5299fdf" compoundref="xemaclite__intr_8c" startline="192" endline="266">XEmacLite_InterruptHandler</referencedby>
+        <referencedby refid="group__emaclite_1gaa509977aea023dfeef6bddb10b2597dc" compoundref="xemaclite_8c" startline="172" endline="317">XEmacLite_Send</referencedby>
+        <referencedby refid="group__emaclite_1ga08f00fcd26d1aad5d76a1b7b0de64780" compoundref="xemaclite__l_8c" startline="90" endline="115">XEmacLite_SendFrame</referencedby>
+        <referencedby refid="group__emaclite_1gaaf404b645896f5fb74e87b4ada362809" compoundref="xemaclite_8c" startline="498" endline="538">XEmacLite_SetMacAddress</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__emaclite_1ga19bae7ed135f7a70afb3b35192894d98" prot="public" static="no">
+        <name>XEmacLite_GetRxStatus</name>
+        <param><defname>BaseAddress</defname></param>
+        <initializer>(<ref refid="group__emaclite_1ga1242a868f45e27bd21e802f37ccc56cc" kindref="member">XEmacLite_ReadReg</ref>((BaseAddress), <ref refid="group__emaclite_1ga0c6a339b5bf171c55b8d3ff6b758d397" kindref="member">XEL_RSR_OFFSET</ref>))</initializer>
+        <briefdescription>
+<para>Get the Rx Status Register Contents. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the device</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The contents of the Rx Status Register.</para></simplesect>
+<simplesect kind="note"><para>C-Style signature: u32 <ref refid="group__emaclite_1ga19bae7ed135f7a70afb3b35192894d98" kindref="member">XEmacLite_GetRxStatus(u32 BaseAddress)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite_l.h" line="285" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite_l.h" bodystart="311" bodyend="-1"/>
+        <referencedby refid="group__emaclite_1gacac27172503eee6a171afe1679c20f2c" compoundref="xemaclite__intr_8c" startline="134" endline="171">XEmacLite_DisableInterrupts</referencedby>
+        <referencedby refid="group__emaclite_1ga28a0b4547f8b9b8eb675123df8ab8907" compoundref="xemaclite__intr_8c" startline="72" endline="117">XEmacLite_EnableInterrupts</referencedby>
+        <referencedby refid="group__emaclite_1gae7ced3b39bd2f06d037660e884c0706b" compoundref="xemaclite_8c" startline="630" endline="683">XEmacLite_FlushReceive</referencedby>
+        <referencedby refid="group__emaclite_1ga6b771b95e193baa02186c6e106c7aefb" compoundref="xemaclite_8c" startline="346" endline="474">XEmacLite_Recv</referencedby>
+        <referencedby refid="group__emaclite_1ga6be219c4ba85e928f273845bd69bdeca" compoundref="xemaclite__l_8c" startline="145" endline="195">XEmacLite_RecvFrame</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__emaclite_1ga837e05318ed150dbf8128e82113565c3" prot="public" static="no">
+        <name>XEmacLite_SetRxStatus</name>
+        <param><defname>BaseAddress</defname></param>
+        <param><defname>Data</defname></param>
+        <initializer>(<ref refid="group__emaclite_1ga96be859f6762b5de8817367548561035" kindref="member">XEmacLite_WriteReg</ref>((BaseAddress), <ref refid="group__emaclite_1ga0c6a339b5bf171c55b8d3ff6b758d397" kindref="member">XEL_RSR_OFFSET</ref>, (Data)))</initializer>
+        <briefdescription>
+<para>Set the Rx Status Register Contents. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the device </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the value to be written to the Register.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>C-Style signature: u32 <ref refid="group__emaclite_1ga837e05318ed150dbf8128e82113565c3" kindref="member">XEmacLite_SetRxStatus(u32 BaseAddress, u32 Data)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite_l.h" line="303" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite_l.h" bodystart="329" bodyend="-1"/>
+        <referencedby refid="group__emaclite_1gacac27172503eee6a171afe1679c20f2c" compoundref="xemaclite__intr_8c" startline="134" endline="171">XEmacLite_DisableInterrupts</referencedby>
+        <referencedby refid="group__emaclite_1ga28a0b4547f8b9b8eb675123df8ab8907" compoundref="xemaclite__intr_8c" startline="72" endline="117">XEmacLite_EnableInterrupts</referencedby>
+        <referencedby refid="group__emaclite_1gae7ced3b39bd2f06d037660e884c0706b" compoundref="xemaclite_8c" startline="630" endline="683">XEmacLite_FlushReceive</referencedby>
+        <referencedby refid="group__emaclite_1ga6b771b95e193baa02186c6e106c7aefb" compoundref="xemaclite_8c" startline="346" endline="474">XEmacLite_Recv</referencedby>
+        <referencedby refid="group__emaclite_1ga6be219c4ba85e928f273845bd69bdeca" compoundref="xemaclite__l_8c" startline="145" endline="195">XEmacLite_RecvFrame</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__emaclite_1ga8cad275766e931c598f5961d3e8bac47" prot="public" static="no">
+        <name>XEmacLite_IsTxDone</name>
+        <param><defname>BaseAddress</defname></param>
+        <initializer>((<ref refid="group__emaclite_1ga1242a868f45e27bd21e802f37ccc56cc" kindref="member">XEmacLite_ReadReg</ref>((BaseAddress), <ref refid="group__emaclite_1ga45c15f0ba6b3ef9849abfb63e47ea692" kindref="member">XEL_TSR_OFFSET</ref>) &amp; 	 \
+	  <ref refid="group__emaclite_1gabe750109f58b44cdf7c7e505c9d1acdc" kindref="member">XEL_TSR_XMIT_BUSY_MASK</ref>) != <ref refid="group__emaclite_1gabe750109f58b44cdf7c7e505c9d1acdc" kindref="member">XEL_TSR_XMIT_BUSY_MASK</ref>)</initializer>
+        <briefdescription>
+<para>Check to see if the transmission is complete. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the device</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>TRUE if it is done, or FALSE if it is not.</para></simplesect>
+<simplesect kind="note"><para>C-Style signature: int <ref refid="group__emaclite_1ga8cad275766e931c598f5961d3e8bac47" kindref="member">XEmacLite_IsTxDone(u32 BaseAddress)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite_l.h" line="320" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite_l.h" bodystart="346" bodyend="-1"/>
+        <referencedby refid="group__emaclite_1ga08f00fcd26d1aad5d76a1b7b0de64780" compoundref="xemaclite__l_8c" startline="90" endline="115">XEmacLite_SendFrame</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__emaclite_1ga0a23682af6087a70133d7f4fec504787" prot="public" static="no">
+        <name>XEmacLite_IsRxEmpty</name>
+        <param><defname>BaseAddress</defname></param>
+        <initializer>((<ref refid="group__emaclite_1ga1242a868f45e27bd21e802f37ccc56cc" kindref="member">XEmacLite_ReadReg</ref>((BaseAddress), <ref refid="group__emaclite_1ga0c6a339b5bf171c55b8d3ff6b758d397" kindref="member">XEL_RSR_OFFSET</ref>) &amp; \
+	  <ref refid="group__emaclite_1ga5a9410492eec5f7865b664f1e4255d7b" kindref="member">XEL_RSR_RECV_DONE_MASK</ref>) != <ref refid="group__emaclite_1ga5a9410492eec5f7865b664f1e4255d7b" kindref="member">XEL_RSR_RECV_DONE_MASK</ref>)</initializer>
+        <briefdescription>
+<para>Check to see if the receive is empty. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the device</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>TRUE if it is empty, or FALSE if it is not.</para></simplesect>
+<simplesect kind="note"><para>C-Style signature: int <ref refid="group__emaclite_1ga0a23682af6087a70133d7f4fec504787" kindref="member">XEmacLite_IsRxEmpty(u32 BaseAddress)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite_l.h" line="338" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite_l.h" bodystart="364" bodyend="-1"/>
+        <referencedby refid="group__emaclite_1ga72db0e7e81077c3ad3947009a5299fdf" compoundref="xemaclite__intr_8c" startline="192" endline="266">XEmacLite_InterruptHandler</referencedby>
+        <referencedby refid="group__emaclite_1ga6be219c4ba85e928f273845bd69bdeca" compoundref="xemaclite__l_8c" startline="145" endline="195">XEmacLite_RecvFrame</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__emaclite_1ga08f00fcd26d1aad5d76a1b7b0de64780" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XEmacLite_SendFrame</definition>
+        <argsstring>(UINTPTR BaseAddress, u8 *FramePtr, unsigned ByteCount)</argsstring>
+        <name>XEmacLite_SendFrame</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>FramePtr</declname>
+        </param>
+        <param>
+          <type>unsigned</type>
+          <declname>ByteCount</declname>
+        </param>
+        <briefdescription>
+<para>Send an Ethernet frame. </para>        </briefdescription>
+        <detaileddescription>
+<para>The size is the total frame size, including header. This function blocks waiting for the frame to be transmitted.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the device </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>FramePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to frame </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ByteCount</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the size, in bytes, of the frame</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para></para></simplesect>
+This function call is blocking in nature, i.e. it will wait until the frame is transmitted. This function can hang and not exit if the hardware is not configured properly.</para><para>If the ping buffer is the destination of the data, the argument should be DeviceAddress + XEL_TXBUFF_OFFSET. If the pong buffer is the destination of the data, the argument should be DeviceAddress + XEL_TXBUFF_OFFSET + XEL_BUFFER_OFFSET. The function does not take the different buffers into consideration. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite_l.c" line="90" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite_l.c" bodystart="90" bodyend="115"/>
+        <references refid="group__emaclite_1ga12db7f4b53a73982fe53fb8b3c2648a9" compoundref="xemaclite__l_8h" startline="167">XEL_TPLR_LENGTH_MASK_HI</references>
+        <references refid="group__emaclite_1gad57d19d58d348bd0c1d7715bad6a7e98" compoundref="xemaclite__l_8h" startline="170">XEL_TPLR_LENGTH_MASK_LO</references>
+        <references refid="group__emaclite_1gac1b03025a5b44d67224bbe94e5c3eaa2" compoundref="xemaclite__l_8h" startline="92">XEL_TPLR_OFFSET</references>
+        <references refid="group__emaclite_1gabe750109f58b44cdf7c7e505c9d1acdc" compoundref="xemaclite__l_8h" startline="133">XEL_TSR_XMIT_BUSY_MASK</references>
+        <references refid="group__emaclite_1gaaf4928b3a979321951032462f831ad3b" compoundref="xemaclite__l_8c" startline="212" endline="353">XEmacLite_AlignedWrite</references>
+        <references refid="group__emaclite_1gad66fc12c63bb5e0a63289f63fa9d5e41" compoundref="xemaclite__l_8h" startline="276">XEmacLite_GetTxStatus</references>
+        <references refid="group__emaclite_1ga8cad275766e931c598f5961d3e8bac47" compoundref="xemaclite__l_8h" startline="346">XEmacLite_IsTxDone</references>
+        <references refid="group__emaclite_1gae3bf9219fa76c0f1c10a7ebd4a64d3b8" compoundref="xemaclite__l_8h" startline="294">XEmacLite_SetTxStatus</references>
+        <references refid="group__emaclite_1ga96be859f6762b5de8817367548561035" compoundref="xemaclite__l_8h" startline="259">XEmacLite_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__emaclite_1ga6be219c4ba85e928f273845bd69bdeca" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u16</type>
+        <definition>u16 XEmacLite_RecvFrame</definition>
+        <argsstring>(UINTPTR BaseAddress, u8 *FramePtr)</argsstring>
+        <name>XEmacLite_RecvFrame</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>FramePtr</declname>
+        </param>
+        <briefdescription>
+<para>Receive a frame. </para>        </briefdescription>
+        <detaileddescription>
+<para>Wait for a frame to arrive.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the device </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>FramePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to a buffer where the frame will be stored.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para></para></simplesect>
+The type/length field of the frame received. When the type/length field contains the type , XEL_MAX_FRAME_SIZE bytes will be copied out of the buffer and it is up to the higher layers to sort out the frame.</para><para><simplesect kind="note"><para></para></simplesect>
+This function call is blocking in nature, i.e. it will wait until a frame arrives.</para><para>If the ping buffer is the source of the data, the argument should be DeviceAddress + XEL_RXBUFF_OFFSET. If the pong buffer is the source of the data, the argument should be DeviceAddress + XEL_RXBUFF_OFFSET + XEL_BUFFER_OFFSET. The function does not take the different buffers into consideration. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite_l.c" line="145" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite_l.c" bodystart="145" bodyend="195"/>
+        <references refid="group__emaclite_1ga8a4567a704724d25d4ddbeed59578cc9" compoundref="xemaclite__l_8h" startline="186">XEL_FCS_SIZE</references>
+        <references refid="group__emaclite_1gace93038c04a45e17a8be70f058bbf9da" compoundref="xemaclite__l_8h" startline="184">XEL_HEADER_SIZE</references>
+        <references refid="group__emaclite_1ga0efb69007c897a0f35a57c9e50fdb469" compoundref="xemaclite__l_8h" startline="194">XEL_MAX_FRAME_SIZE</references>
+        <references refid="group__emaclite_1ga766d628aef5fa10427ea2265dcc40e99" compoundref="xemaclite__l_8h" startline="177">XEL_RPLR_LENGTH_MASK_HI</references>
+        <references refid="group__emaclite_1ga688796d3e80699fb776e3bde91a8d376" compoundref="xemaclite__l_8h" startline="180">XEL_RPLR_LENGTH_MASK_LO</references>
+        <references refid="group__emaclite_1ga344295838c9356aa4f264f2e1eedf050" compoundref="xemaclite__l_8h" startline="96">XEL_RPLR_OFFSET</references>
+        <references refid="group__emaclite_1ga5a9410492eec5f7865b664f1e4255d7b" compoundref="xemaclite__l_8h" startline="159">XEL_RSR_RECV_DONE_MASK</references>
+        <references refid="group__emaclite_1gae1278a34e211f3868d5043424c9a725a" compoundref="xemaclite__l_8h" startline="94">XEL_RXBUFF_OFFSET</references>
+        <references refid="group__emaclite_1ga5a8fd0fce2b0e6f91cceb863961c3339" compoundref="xemaclite__l_8c" startline="370" endline="484">XEmacLite_AlignedRead</references>
+        <references refid="group__emaclite_1ga19bae7ed135f7a70afb3b35192894d98" compoundref="xemaclite__l_8h" startline="311">XEmacLite_GetRxStatus</references>
+        <references refid="group__emaclite_1ga0a23682af6087a70133d7f4fec504787" compoundref="xemaclite__l_8h" startline="364">XEmacLite_IsRxEmpty</references>
+        <references refid="group__emaclite_1ga1242a868f45e27bd21e802f37ccc56cc" compoundref="xemaclite__l_8h" startline="240">XEmacLite_ReadReg</references>
+        <references refid="group__emaclite_1ga837e05318ed150dbf8128e82113565c3" compoundref="xemaclite__l_8h" startline="329">XEmacLite_SetRxStatus</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2004<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022<sp/>-<sp/>2023<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved..</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="58"><highlight class="preprocessor">#ifndef<sp/>XEMAC_LITE_L_H<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>prevent<sp/>circular<sp/>inclusions<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="59"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XEMAC_LITE_L_H<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>by<sp/>using<sp/>protection<sp/>macros<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="60"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="62"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="64"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_assert.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_io.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight></codeline>
+<codeline lineno="75" refid="group__emaclite_1ga4dbb708d2fea4f6a716bcf9eb0aaad66" refkind="member"><highlight class="preprocessor">#define<sp/>XEL_TXBUFF_OFFSET<sp/>(0x00000000)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="76" refid="group__emaclite_1ga507cf8cc16828061ef6fea447f5c1e44" refkind="member"><highlight class="preprocessor">#define<sp/>XEL_MDIOADDR_OFFSET<sp/>(XEL_TXBUFF_OFFSET<sp/>+<sp/>0x07E4)</highlight></codeline>
+<codeline lineno="78"><highlight class="preprocessor">#define<sp/>XEL_MDIOWR_OFFSET<sp/><sp/>(XEL_TXBUFF_OFFSET<sp/>+<sp/>0x07E8)<sp/></highlight></codeline>
+<codeline lineno="80"><highlight class="preprocessor">#define<sp/>XEL_MDIORD_OFFSET<sp/>(XEL_TXBUFF_OFFSET<sp/>+<sp/>0x07EC)<sp/><sp/></highlight></codeline>
+<codeline lineno="82" refid="group__emaclite_1ga89bf4abeb9407e4c7092c19c9f4b4e7a" refkind="member"><highlight class="preprocessor">#define<sp/>XEL_MDIOCNTR_OFFSET<sp/>(XEL_TXBUFF_OFFSET<sp/>+<sp/>0x07F0)</highlight></codeline>
+<codeline lineno="84"><highlight class="preprocessor">#define<sp/>XEL_GIER_OFFSET<sp/><sp/><sp/>(XEL_TXBUFF_OFFSET<sp/>+<sp/>0x07F8)<sp/><sp/></highlight></codeline>
+<codeline lineno="86"><highlight class="preprocessor">#define<sp/>XEL_TSR_OFFSET<sp/><sp/><sp/><sp/>(XEL_TXBUFF_OFFSET<sp/>+<sp/>0x07FC)<sp/><sp/></highlight></codeline>
+<codeline lineno="87"><highlight class="preprocessor">#define<sp/>XEL_TPLR_OFFSET<sp/><sp/><sp/>(XEL_TXBUFF_OFFSET<sp/>+<sp/>0x07F4)<sp/><sp/></highlight></codeline>
+<codeline lineno="89"><highlight class="preprocessor">#define<sp/>XEL_RXBUFF_OFFSET<sp/>(0x00001000)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="90"><highlight class="preprocessor">#define<sp/>XEL_RSR_OFFSET<sp/><sp/><sp/><sp/>(XEL_RXBUFF_OFFSET<sp/>+<sp/>0x07FC)<sp/><sp/></highlight></codeline>
+<codeline lineno="91" refid="group__emaclite_1ga45c15f0ba6b3ef9849abfb63e47ea692" refkind="member"><highlight class="preprocessor">#define<sp/>XEL_RPLR_OFFSET<sp/><sp/><sp/>(XEL_RXBUFF_OFFSET<sp/>+<sp/>0x0C)<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="93"><highlight class="preprocessor">#define<sp/>XEL_MAC_HI_OFFSET<sp/>(XEL_TXBUFF_OFFSET<sp/>+<sp/>0x14)<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="95" refid="group__emaclite_1ga0c6a339b5bf171c55b8d3ff6b758d397" refkind="member"><highlight class="preprocessor">#define<sp/>XEL_MAC_LO_OFFSET<sp/>(XEL_TXBUFF_OFFSET)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="98" refid="group__emaclite_1ga18d1878c22f2d4332814e0d5ca8e8881" refkind="member"><highlight class="preprocessor">#define<sp/>XEL_BUFFER_OFFSET<sp/>(0x00000800)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="104"><highlight class="preprocessor">#define<sp/>XEL_MDIO_ADDRESS_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00003E0<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="105" refid="group__emaclite_1ga8f89271d7db92918eb1478566e922fce" refkind="member"><highlight class="preprocessor">#define<sp/>XEL_MDIO_ADDRESS_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x5<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="106"><highlight class="preprocessor">#define<sp/>XEL_MDIO_OP_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000400<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="111"><highlight class="preprocessor">#define<sp/>XEL_MDIOCNTR_STATUS_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000001<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="113" refid="group__emaclite_1ga393f8f9201b56413c228479a3ea976e5" refkind="member"><highlight class="preprocessor">#define<sp/>XEL_MDIOCNTR_ENABLE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000008<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="118"><highlight class="preprocessor">#define<sp/>XEL_GIER_GIE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x80000000<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="123" refid="group__emaclite_1ga62d3b9b889e7b69c4f216bb7825ee77e" refkind="member"><highlight class="preprocessor">#define<sp/>XEL_TSR_XMIT_BUSY_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000001<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="124"><highlight class="preprocessor">#define<sp/>XEL_TSR_PROGRAM_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000002<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="126"><highlight class="preprocessor">#define<sp/>XEL_TSR_XMIT_IE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000008<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="128" refid="group__emaclite_1ga5179e9952743fd9ea3056822ffe0df7d" refkind="member"><highlight class="preprocessor">#define<sp/>XEL_TSR_LOOPBACK_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000010<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="130"><highlight class="preprocessor">#define<sp/>XEL_TSR_XMIT_ACTIVE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x80000000<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="138"><highlight class="preprocessor">#define<sp/>XEL_TSR_PROG_MAC_ADDR<sp/><sp/><sp/>(XEL_TSR_XMIT_BUSY_MASK<sp/>|<sp/>XEL_TSR_PROGRAM_MASK)</highlight></codeline>
+<codeline lineno="139"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="143" refid="group__emaclite_1ga2d037dc424649948806dad6dd9b43430" refkind="member"><highlight class="preprocessor">#define<sp/>XEL_RSR_RECV_DONE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000001<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="144"><highlight class="preprocessor">#define<sp/>XEL_RSR_RECV_IE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000008<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="150"><highlight class="preprocessor">#define<sp/>XEL_TPLR_LENGTH_MASK_HI<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0000FF00<sp/></highlight></codeline>
+<codeline lineno="152"><highlight class="preprocessor">#define<sp/>XEL_TPLR_LENGTH_MASK_LO<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x000000FF<sp/></highlight></codeline>
+<codeline lineno="158"><highlight class="preprocessor">#define<sp/>XEL_RPLR_LENGTH_MASK_HI<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0000FF00<sp/></highlight></codeline>
+<codeline lineno="160" refid="group__emaclite_1ga7cc4cab2536c294d4e715310fe3fbdf0" refkind="member"><highlight class="preprocessor">#define<sp/>XEL_RPLR_LENGTH_MASK_LO<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x000000FF<sp/></highlight></codeline>
+<codeline lineno="163"><highlight class="preprocessor">#define<sp/>XEL_HEADER_SIZE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>14<sp/><sp/></highlight></codeline>
+<codeline lineno="164"><highlight class="preprocessor">#define<sp/>XEL_MTU_SIZE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1500<sp/></highlight></codeline>
+<codeline lineno="165"><highlight class="preprocessor">#define<sp/>XEL_FCS_SIZE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>4<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="167" refid="group__emaclite_1ga12db7f4b53a73982fe53fb8b3c2648a9" refkind="member"><highlight class="preprocessor">#define<sp/>XEL_HEADER_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>12<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="168"><highlight class="preprocessor">#define<sp/>XEL_HEADER_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>16<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="172"><highlight class="preprocessor">#define<sp/>XEL_MAX_FRAME_SIZE<sp/>(XEL_HEADER_SIZE+XEL_MTU_SIZE+<sp/>XEL_FCS_SIZE)<sp/></highlight></codeline>
+<codeline lineno="177" refid="group__emaclite_1ga766d628aef5fa10427ea2265dcc40e99" refkind="member"><highlight class="preprocessor">#define<sp/>XEL_MAX_TX_FRAME_SIZE<sp/>(XEL_HEADER_SIZE<sp/>+<sp/>XEL_MTU_SIZE)<sp/><sp/></highlight></codeline>
+<codeline lineno="181"><highlight class="preprocessor">#define<sp/>XEL_MAC_ADDR_SIZE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>6<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="184" refid="group__emaclite_1gace93038c04a45e17a8be70f058bbf9da" refkind="member"><highlight class="preprocessor"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="185" refid="group__emaclite_1ga41c8fc68a64b6dfb418a1ac824cc9151" refkind="member"><highlight class="comment"><sp/>*<sp/>General<sp/>Ethernet<sp/>Definitions</highlight></codeline>
+<codeline lineno="186" refid="group__emaclite_1ga8a4567a704724d25d4ddbeed59578cc9" refkind="member"><highlight class="comment"><sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="187"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XEL_ETHER_PROTO_TYPE_IP<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0800<sp/><sp/></highlight></codeline>
+<codeline lineno="188" refid="group__emaclite_1ga9ba60e869445837df2e23ccaf59c5a0a" refkind="member"><highlight class="preprocessor">#define<sp/>XEL_ETHER_PROTO_TYPE_ARP<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0806<sp/><sp/></highlight></codeline>
+<codeline lineno="189" refid="group__emaclite_1ga24da5eeb80edf023bfe5385019770ea7" refkind="member"><highlight class="preprocessor">#define<sp/>XEL_ETHER_PROTO_TYPE_VLAN<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x8100<sp/><sp/></highlight></codeline>
+<codeline lineno="190"><highlight class="preprocessor">#define<sp/>XEL_ARP_PACKET_SIZE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>28<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="191"><highlight class="preprocessor">#define<sp/>XEL_HEADER_IP_LENGTH_OFFSET<sp/><sp/><sp/><sp/><sp/>16<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="192"><highlight class="preprocessor">#define<sp/>XEL_VLAN_TAG_SIZE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>4<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="194" refid="group__emaclite_1ga0efb69007c897a0f35a57c9e50fdb469" refkind="member"><highlight class="preprocessor"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="195"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="196"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XEmacLite_In32<sp/>Xil_In32</highlight></codeline>
+<codeline lineno="197"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XEmacLite_Out32<sp/>Xil_Out32</highlight></codeline>
+<codeline lineno="198"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="199"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="214" refid="group__emaclite_1ga2bc168ac37d2722b7a7d09dd68f2c2c7" refkind="member"><highlight class="preprocessor">#define<sp/>XEmacLite_ReadReg(BaseAddress,<sp/>RegOffset)<sp/>\</highlight></codeline>
+<codeline lineno="215" refid="group__emaclite_1ga640b8f756ad251d40c9976f1f2237029" refkind="member"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XEmacLite_In32((BaseAddress)<sp/>+<sp/>(RegOffset))</highlight></codeline>
+<codeline lineno="216" refid="group__emaclite_1gad754bca8cbc8acdf979b885fc3950bac" refkind="member"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="217" refid="group__emaclite_1ga04dcdc4442b4c27ce924d5678a5bf872" refkind="member"><highlight class="normal"></highlight><highlight class="comment">/***************************************************************************/</highlight></codeline>
+<codeline lineno="233"><highlight class="preprocessor">#define<sp/>XEmacLite_WriteReg(BaseAddress,<sp/>RegOffset,<sp/>RegisterValue)<sp/>\</highlight></codeline>
+<codeline lineno="234"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XEmacLite_Out32((BaseAddress)<sp/>+<sp/>(RegOffset),<sp/>(RegisterValue))</highlight></codeline>
+<codeline lineno="235"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="236"><highlight class="normal"></highlight></codeline>
+<codeline lineno="237"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="250"><highlight class="preprocessor">#define<sp/>XEmacLite_GetTxStatus(BaseAddress)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="251"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XEmacLite_ReadReg((BaseAddress),<sp/>XEL_TSR_OFFSET))</highlight></codeline>
+<codeline lineno="252"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="253"><highlight class="normal"></highlight></codeline>
+<codeline lineno="254"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="268"><highlight class="preprocessor">#define<sp/>XEmacLite_SetTxStatus(BaseAddress,<sp/>Data)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="269"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XEmacLite_WriteReg((BaseAddress),<sp/>XEL_TSR_OFFSET,<sp/>(Data)))</highlight></codeline>
+<codeline lineno="270"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="271"><highlight class="normal"></highlight></codeline>
+<codeline lineno="272"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="285"><highlight class="preprocessor">#define<sp/>XEmacLite_GetRxStatus(BaseAddress)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="286"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XEmacLite_ReadReg((BaseAddress),<sp/>XEL_RSR_OFFSET))</highlight></codeline>
+<codeline lineno="287"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="288"><highlight class="normal"></highlight></codeline>
+<codeline lineno="289"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="303"><highlight class="preprocessor">#define<sp/>XEmacLite_SetRxStatus(BaseAddress,<sp/>Data)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="304"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XEmacLite_WriteReg((BaseAddress),<sp/>XEL_RSR_OFFSET,<sp/>(Data)))</highlight></codeline>
+<codeline lineno="305"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="306"><highlight class="normal"></highlight></codeline>
+<codeline lineno="307"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="320"><highlight class="preprocessor">#define<sp/>XEmacLite_IsTxDone(BaseAddress)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="321"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((XEmacLite_ReadReg((BaseAddress),<sp/>XEL_TSR_OFFSET)<sp/>&amp;<sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="322"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XEL_TSR_XMIT_BUSY_MASK)<sp/>!=<sp/>XEL_TSR_XMIT_BUSY_MASK)</highlight></codeline>
+<codeline lineno="323"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="324"><highlight class="normal"></highlight></codeline>
+<codeline lineno="325"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="338"><highlight class="preprocessor">#define<sp/>XEmacLite_IsRxEmpty(BaseAddress)<sp/>\</highlight></codeline>
+<codeline lineno="339"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((XEmacLite_ReadReg((BaseAddress),<sp/>XEL_RSR_OFFSET)<sp/>&amp;<sp/>\</highlight></codeline>
+<codeline lineno="340"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XEL_RSR_RECV_DONE_MASK)<sp/>!=<sp/>XEL_RSR_RECV_DONE_MASK)</highlight></codeline>
+<codeline lineno="341"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="342"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="343"><highlight class="normal"></highlight></codeline>
+<codeline lineno="344"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__emaclite_1ga08f00fcd26d1aad5d76a1b7b0de64780" kindref="member">XEmacLite_SendFrame</ref>(UINTPTR<sp/>BaseAddress,<sp/>u8<sp/>*FramePtr,<sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/>ByteCount);</highlight></codeline>
+<codeline lineno="345"><highlight class="normal">u16<sp/><ref refid="group__emaclite_1ga6be219c4ba85e928f273845bd69bdeca" kindref="member">XEmacLite_RecvFrame</ref>(UINTPTR<sp/>BaseAddress,<sp/>u8<sp/>*FramePtr);</highlight></codeline>
+<codeline lineno="346" refid="group__emaclite_1ga8cad275766e931c598f5961d3e8bac47" refkind="member"><highlight class="normal"></highlight></codeline>
+<codeline lineno="347"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="348"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="349"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="350"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="351"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>end<sp/>of<sp/>protection<sp/>macro<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="352"><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite_l.h"/>
+  </compounddef>
+</doxygen>

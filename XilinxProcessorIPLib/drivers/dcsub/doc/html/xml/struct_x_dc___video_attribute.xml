@@ -1,0 +1,141 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_dc___video_attribute" kind="struct" prot="public">
+    <compoundname>XDc_VideoAttribute</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_dc___video_attribute_1aea26bea662745255fe95dfad374fd755" prot="public" static="no" mutable="no">
+        <type><ref refid="xdc_8h_1ad45e6a818b9bcacc05e58b69ac140895" kindref="member">XDc_VideoFormat</ref></type>
+        <definition>XDc_VideoFormat XDc_VideoAttribute::VideoFormat</definition>
+        <argsstring></argsstring>
+        <name>VideoFormat</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" line="299" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" bodystart="299" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dc___video_attribute_1ad413d4b17cb753317b75f39d19861f42" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDc_VideoAttribute::Id</definition>
+        <argsstring></argsstring>
+        <name>Id</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" line="300" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" bodystart="300" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dc___video_attribute_1a147ab7e7142d0babc9707d154aa564a2" prot="public" static="no" mutable="no">
+        <type>XDc_VideoModes</type>
+        <definition>XDc_VideoModes XDc_VideoAttribute::Mode</definition>
+        <argsstring></argsstring>
+        <name>Mode</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" line="301" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" bodystart="301" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dc___video_attribute_1aa0a5adf26fd131c11c788cdd999cab51" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDc_VideoAttribute::ScaleFactors[3]</definition>
+        <argsstring>[3]</argsstring>
+        <name>ScaleFactors</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" line="302" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" bodystart="302" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dc___video_attribute_1a894bd3bccc81ec1fa891544cee810229" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDc_VideoAttribute::SubSample</definition>
+        <argsstring></argsstring>
+        <name>SubSample</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" line="303" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" bodystart="303" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dc___video_attribute_1a68272bd23e9e6ebbef9b66e19948ac78" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDc_VideoAttribute::IsRGB</definition>
+        <argsstring></argsstring>
+        <name>IsRGB</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" line="304" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" bodystart="304" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dc___video_attribute_1a97c59c61ee0eb6e75b69c3d4a8e14660" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDc_VideoAttribute::IsGraphics</definition>
+        <argsstring></argsstring>
+        <name>IsGraphics</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" line="305" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" bodystart="305" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dc___video_attribute_1acc0d261fb4c82d6bd8b3f871460d1ad4" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDc_VideoAttribute::CbFirst</definition>
+        <argsstring></argsstring>
+        <name>CbFirst</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" line="306" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" bodystart="306" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dc___video_attribute_1af479d9d2a210f0a844f068a38e896452" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDc_VideoAttribute::BPP</definition>
+        <argsstring></argsstring>
+        <name>BPP</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" line="307" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" bodystart="307" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" line="298" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" bodystart="298" bodyend="308"/>
+    <listofallmembers>
+      <member refid="struct_x_dc___video_attribute_1af479d9d2a210f0a844f068a38e896452" prot="public" virt="non-virtual"><scope>XDc_VideoAttribute</scope><name>BPP</name></member>
+      <member refid="struct_x_dc___video_attribute_1acc0d261fb4c82d6bd8b3f871460d1ad4" prot="public" virt="non-virtual"><scope>XDc_VideoAttribute</scope><name>CbFirst</name></member>
+      <member refid="struct_x_dc___video_attribute_1ad413d4b17cb753317b75f39d19861f42" prot="public" virt="non-virtual"><scope>XDc_VideoAttribute</scope><name>Id</name></member>
+      <member refid="struct_x_dc___video_attribute_1a97c59c61ee0eb6e75b69c3d4a8e14660" prot="public" virt="non-virtual"><scope>XDc_VideoAttribute</scope><name>IsGraphics</name></member>
+      <member refid="struct_x_dc___video_attribute_1a68272bd23e9e6ebbef9b66e19948ac78" prot="public" virt="non-virtual"><scope>XDc_VideoAttribute</scope><name>IsRGB</name></member>
+      <member refid="struct_x_dc___video_attribute_1a147ab7e7142d0babc9707d154aa564a2" prot="public" virt="non-virtual"><scope>XDc_VideoAttribute</scope><name>Mode</name></member>
+      <member refid="struct_x_dc___video_attribute_1aa0a5adf26fd131c11c788cdd999cab51" prot="public" virt="non-virtual"><scope>XDc_VideoAttribute</scope><name>ScaleFactors</name></member>
+      <member refid="struct_x_dc___video_attribute_1a894bd3bccc81ec1fa891544cee810229" prot="public" virt="non-virtual"><scope>XDc_VideoAttribute</scope><name>SubSample</name></member>
+      <member refid="struct_x_dc___video_attribute_1aea26bea662745255fe95dfad374fd755" prot="public" virt="non-virtual"><scope>XDc_VideoAttribute</scope><name>VideoFormat</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,69 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__xpuf__mailbox__apis" kind="group">
+    <compoundname>xpuf_mailbox_apis</compoundname>
+    <title>XilPuf Mailbox APIs</title>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xpuf__mailbox__apis_1ga2052fd116d6e086ca703c3518eafd887" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XPuf_ProcessMailbox</definition>
+        <argsstring>(XMailbox *MailboxPtr, u32 *MsgPtr, u32 MsgLen)</argsstring>
+        <name>XPuf_ProcessMailbox</name>
+        <param>
+          <type>XMailbox *</type>
+          <declname>MailboxPtr</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>MsgPtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>MsgLen</declname>
+        </param>
+        <briefdescription>
+<para>This function sends IPI request to the target module and gets the response from it. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>MailboxPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to mailbox instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>MsgPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the payload message </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>MsgLen</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Length of the message</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if the IPI send and receive is successful</para></listitem><listitem><para>XST_FAILURE if there is a failure</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>Payload consists of API ID and call arguments to be written in IPI buffer. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Send CDO to PLM through IPI. Return XST_FAILURE if sending data failed.</para></listitem><listitem><para>Wait for IPI response from PLM and return the status of the IPI response. </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/common/client/xpuf_mailbox.c" line="72" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/common/client/xpuf_mailbox.c" bodystart="72" bodyend="98"/>
+        <references refid="xpuf__mailbox_8h_1aff9dc4f696e94fbe988997c3a4ba60c3" compoundref="xpuf__mailbox_8h" startline="78">RESPONSE_ARG_CNT</references>
+        <references refid="xpuf__mailbox_8h_1afa226ba3ac92375916d303076bfa1fd5" compoundref="xpuf__mailbox_8h" startline="79">XPUF_TARGET_IPI_INT_MASK</references>
+        <referencedby refid="group__xpuf__client__api_1gad52ef96e7928d55f964e2169dfb527de" compoundref="xpuf__generic_8c" startline="67" endline="105">XPuf_SendRequest</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

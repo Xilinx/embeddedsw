@@ -1,0 +1,346 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__dfxasm" kind="group">
+    <compoundname>dfxasm</compoundname>
+    <title>Overview</title>
+    <innerclass refid="struct_x_dfxasm___config" prot="public">XDfxasm_Config</innerclass>
+    <innerclass refid="struct_x_dfxasm" prot="public">XDfxasm</innerclass>
+      <sectiondef kind="user-defined">
+      <header>Register Offset</header>
+      <memberdef kind="define" id="group__dfxasm_1gab1c260601f1123450c205d6c6a0bc308" prot="public" static="no">
+        <name>XDFX_ASM_CTRL_OFFSET</name>
+        <initializer>(0x000)</initializer>
+        <briefdescription>
+<para>Control register Offset and status register is also mapped to same address as Control register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfxasm/src/xdfxasm_hw.h" line="51" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfxasm/src/xdfxasm_hw.h" bodystart="47" bodyend="-1"/>
+        <referencedby refid="group__dfxasm_1ga71614d1412d3974e2b21d089c16c4210" compoundref="xdfxasm_8c" startline="139" endline="150">XDfxasm_GetState</referencedby>
+        <referencedby refid="group__dfxasm_1ga9ce867d2441c25c264a7ef380c819ba1" compoundref="xdfxasm_8c" startline="105" endline="114">XDfxasm_SetState</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Register Mask</header>
+      <memberdef kind="define" id="group__dfxasm_1ga6e9e6fde6fb0e9b0a4103d87fbaa5ec2" prot="public" static="no">
+        <name>XDFX_ASM_CTRL_SHUTDOWN_MASK</name>
+        <initializer>(0x0000000F)</initializer>
+        <briefdescription>
+<para>Shutdown manager state mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfxasm/src/xdfxasm_hw.h" line="58" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfxasm/src/xdfxasm_hw.h" bodystart="61" bodyend="-1"/>
+        <referencedby refid="group__dfxasm_1ga71614d1412d3974e2b21d089c16c4210" compoundref="xdfxasm_8c" startline="139" endline="150">XDfxasm_GetState</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="group__dfxasm_1gae411ce8d8656c0b2b86c41d9f0518879" prot="public" static="no">
+        <name>XDfxasm_State</name>
+        <enumvalue id="group__dfxasm_1ggae411ce8d8656c0b2b86c41d9f0518879a30eb8164856b0f61a09157bd519609e2" prot="public">
+          <name>XDFX_ASM_PASSTHROUGH_MODE</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__dfxasm_1ggae411ce8d8656c0b2b86c41d9f0518879ae5db6c200da9c33f21d241040296aff1" prot="public">
+          <name>XDFX_ASM_SHUTDOWN_MODE</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfxasm/src/xdfxasm.h" line="90" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfxasm/src/xdfxasm.h" bodystart="90" bodyend="93"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__dfxasm_1ga658097a15246061f1de348c52b061d59" prot="public" static="no" mutable="no">
+        <type>XDfxasm_Config</type>
+        <definition>XDfxasm_Config XDfxasm_ConfigTable[]</definition>
+        <argsstring>[]</argsstring>
+        <name>XDfxasm_ConfigTable</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfxasm/src/xdfxasm_sinit.c" line="50" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfxasm/src/xdfxasm_g.c" bodystart="12" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__dfxasm_1gadfe5b93b82691e4bb3318a18e9e46724" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XDfxasm_CfgInitialize</definition>
+        <argsstring>(XDfxasm *InstancePtr, XDfxasm_Config *ConfigPtr, UINTPTR EffectiveAddress)</argsstring>
+        <name>XDfxasm_CfgInitialize</name>
+        <param>
+          <type><ref refid="struct_x_dfxasm" kindref="compound">XDfxasm</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>XDfxasm_Config *</type>
+          <declname>ConfigPtr</declname>
+        </param>
+        <param>
+          <type>UINTPTR</type>
+          <declname>EffectiveAddress</declname>
+        </param>
+        <briefdescription>
+<para>This function initializes a <ref refid="struct_x_dfxasm" kindref="compound">XDfxasm</ref> instance/driver. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dfxasm" kindref="compound">XDfxasm</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ConfigPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>points to the <ref refid="struct_x_dfxasm" kindref="compound">XDfxasm</ref> device configuration structure. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>EffectiveAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the device base address in the virtual memory address space. If the address translation is not used then the physical address is passed.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if initialization was successful.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Set some default values for instance data, don&apos;t indicate the device is ready to use until everything has been initialized successfully.</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfxasm/src/xdfxasm.c" line="64" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfxasm/src/xdfxasm.c" bodystart="64" bodyend="84"/>
+        <references refid="struct_x_dfxasm_1a8e2913c94397c5c7e4246abe2060b206" compoundref="xdfxasm_8h" startline="110">XDfxasm::Config</references>
+        <references refid="struct_x_dfxasm_1a7ff8aef63ccbcb05208e98fb05d89599" compoundref="xdfxasm_8h" startline="111">XDfxasm::IsReady</references>
+        <referencedby refid="xdfxasm__example_8c_1af912ad10837e3f41d017989e080b019f" compoundref="xdfxasm__example_8c" startline="126" endline="157">XDfxasm_Example</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__dfxasm_1ga9ce867d2441c25c264a7ef380c819ba1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDfxasm_SetState</definition>
+        <argsstring>(XDfxasm *InstancePtr, XDfxasm_State ShutdownValue)</argsstring>
+        <name>XDfxasm_SetState</name>
+        <param>
+          <type><ref refid="struct_x_dfxasm" kindref="compound">XDfxasm</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>XDfxasm_State</type>
+          <declname>ShutdownValue</declname>
+        </param>
+        <briefdescription>
+<para>This function is used to set shutdown manager in shutdown or pass through mode. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dfxasm" kindref="compound">XDfxasm</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ShutdownValue</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is to set shutdown manager in shutdown or pass through mode. Value can be either 0 or 1. Values are<itemizedlist>
+<listitem><para>XDFX_ASM_PASSTHROUGH_MODE(0) if in passthrough mode<itemizedlist>
+<listitem><para>XDFX_ASM_SHUTDOWN_MODE(1) if in shutdown mode</para></listitem></itemizedlist>
+</para></listitem></itemizedlist>
+</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>When Shutdown manager is in shutdown mode it blocks the axi traffic that&apos;s going to the Reconfigurable partition from static logic while Partial Reconfiguration occurs. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfxasm/src/xdfxasm.c" line="105" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfxasm/src/xdfxasm.c" bodystart="105" bodyend="114"/>
+        <references refid="struct_x_dfxasm_1a8e2913c94397c5c7e4246abe2060b206" compoundref="xdfxasm_8h" startline="110">XDfxasm::Config</references>
+        <references refid="struct_x_dfxasm_1a7ff8aef63ccbcb05208e98fb05d89599" compoundref="xdfxasm_8h" startline="111">XDfxasm::IsReady</references>
+        <references refid="group__dfxasm_1gab1c260601f1123450c205d6c6a0bc308" compoundref="xdfxasm__hw_8h" startline="47">XDFX_ASM_CTRL_OFFSET</references>
+        <references refid="group__dfxasm_1gacb795d12bfcf138db49ba64d9c1b614e" compoundref="xdfxasm__hw_8h" startline="97">XDfxasm_WriteReg</references>
+        <referencedby refid="xdfxasm__example_8c_1a276f161582681a2b43e64e3da9ebe988" compoundref="xdfxasm__example_8c" startline="173" endline="195">XDfxasm_TestState</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__dfxasm_1ga71614d1412d3974e2b21d089c16c4210" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XDfxasm_GetState</definition>
+        <argsstring>(XDfxasm *InstancePtr)</argsstring>
+        <name>XDfxasm_GetState</name>
+        <param>
+          <type><ref refid="struct_x_dfxasm" kindref="compound">XDfxasm</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function is used to read the state of the shutdown manager. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dfxasm" kindref="compound">XDfxasm</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Returns shutdown manager state and its bit significance is as follows. -BIT0 - 0 Entry to Pass Through mode has been requested<itemizedlist>
+<listitem><para>1 Entry to Shutdown mode has been requested -BIT1 - 0 The read or the write channel (or both) are in the Pass Through mode</para></listitem><listitem><para>1 Both the read and write channels are in the Shutdown Mode -BIT2 - 0 The write channel is in the Pass Through mode</para></listitem><listitem><para>1 The write channel is in the Shutdown Mode -BIT3 - 0 The read channel is in the Pass Through mode</para></listitem><listitem><para>1 The read channel is in the Shutdown Mode</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfxasm/src/xdfxasm.c" line="139" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfxasm/src/xdfxasm.c" bodystart="139" bodyend="150"/>
+        <references refid="struct_x_dfxasm_1a8e2913c94397c5c7e4246abe2060b206" compoundref="xdfxasm_8h" startline="110">XDfxasm::Config</references>
+        <references refid="struct_x_dfxasm_1a7ff8aef63ccbcb05208e98fb05d89599" compoundref="xdfxasm_8h" startline="111">XDfxasm::IsReady</references>
+        <references refid="group__dfxasm_1gab1c260601f1123450c205d6c6a0bc308" compoundref="xdfxasm__hw_8h" startline="47">XDFX_ASM_CTRL_OFFSET</references>
+        <references refid="group__dfxasm_1ga6e9e6fde6fb0e9b0a4103d87fbaa5ec2" compoundref="xdfxasm__hw_8h" startline="61">XDFX_ASM_CTRL_SHUTDOWN_MASK</references>
+        <references refid="group__dfxasm_1ga176bab706eb493327c1ad34a47d00c44" compoundref="xdfxasm__hw_8h" startline="82">XDfxasm_ReadReg</references>
+        <referencedby refid="xdfxasm__example_8c_1a276f161582681a2b43e64e3da9ebe988" compoundref="xdfxasm__example_8c" startline="173" endline="195">XDfxasm_TestState</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__dfxasm_1ga675a9e008159dcd1c3dce0c0f7c89d7c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XDfxasm_Config *</type>
+        <definition>XDfxasm_Config * XDfxasm_LookupConfig</definition>
+        <argsstring>(UINTPTR BaseAddress)</argsstring>
+        <name>XDfxasm_LookupConfig</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <briefdescription>
+<para>This function looks for the device configuration based on the unique device ID/BaseAddress. </para>        </briefdescription>
+        <detaileddescription>
+<para>The table XDfxasm_ConfigTable[] contains the configuration information for each device in the system.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains the base address of the device</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>A pointer to the configuration table entry corresponding to the given device ID/BaseAddress, or NULL if no match is found.</para></simplesect>
+<simplesect kind="note"><para>In XSCT/classic flow, DeviceId is used to look up the device configuration. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfxasm/src/xdfxasm.h" line="122" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfxasm/src/xdfxasm_sinit.c" bodystart="89" bodyend="104"/>
+        <referencedby refid="xdfxasm__example_8c_1af912ad10837e3f41d017989e080b019f" compoundref="xdfxasm__example_8c" startline="126" endline="157">XDfxasm_Example</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__dfxasm_1ga78bb352e742614d8a8899f49a238825b" prot="public" static="no">
+        <name>XDFX_ASM_H_</name>
+        <initializer>/* by using protection macros */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfxasm/src/xdfxasm.h" line="72" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfxasm/src/xdfxasm.h" bodystart="72" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dfxasm_1ga8c3d2879db2af5d54462e2c1856f5d43" prot="public" static="no">
+        <name>XDFXASM_HW_H_</name>
+        <initializer>/* by using protection macros */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfxasm/src/xdfxasm_hw.h" line="32" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfxasm/src/xdfxasm_hw.h" bodystart="32" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dfxasm_1ga176bab706eb493327c1ad34a47d00c44" prot="public" static="no">
+        <name>XDfxasm_ReadReg</name>
+        <param><defname>Address</defname></param>
+        <initializer>Xil_In32(Address)</initializer>
+        <briefdescription>
+<para>This macro reads a value from the given register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Address</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the address of the register to read from.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The 32-bit value read from register.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfxasm/src/xdfxasm_hw.h" line="77" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfxasm/src/xdfxasm_hw.h" bodystart="82" bodyend="-1"/>
+        <referencedby refid="group__dfxasm_1ga71614d1412d3974e2b21d089c16c4210" compoundref="xdfxasm_8c" startline="139" endline="150">XDfxasm_GetState</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__dfxasm_1gacb795d12bfcf138db49ba64d9c1b614e" prot="public" static="no">
+        <name>XDfxasm_WriteReg</name>
+        <param><defname>Address</defname></param>
+        <param><defname>Data</defname></param>
+        <initializer>Xil_Out32(Address, (u32)(Data))</initializer>
+        <briefdescription>
+<para>This macro writes a value to the given register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Address</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the address of the register to write to. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 32-bit value to write to the register.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfxasm/src/xdfxasm_hw.h" line="92" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfxasm/src/xdfxasm_hw.h" bodystart="97" bodyend="-1"/>
+        <referencedby refid="group__dfxasm_1ga9ce867d2441c25c264a7ef380c819ba1" compoundref="xdfxasm_8c" startline="105" endline="114">XDfxasm_SetState</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file contains the implementation of the interface functions for the <ref refid="struct_x_dfxasm" kindref="compound">XDfxasm</ref> driver. </para>    </briefdescription>
+    <detaileddescription>
+<para>This file contains the implementation of the Xdfxasm driver&apos;s static initialization functionality.</para><para>This header file contains the identifiers and basic driver functions (or macros) that can be used to access the Xilinx Axi Shutdown manager.</para><para>}</para><para>Refer xdfxasm.h for a detailed description of the driver.</para><para><preformatted></preformatted></para><para><preformatted>MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver  Who    Date          Changes
+<hruler/>
+
+1.0  dp    07/14/2020     First release
+1.2  Nava  06/22/2023     Added support for system device-tree flow.
+1.3  Arvd  01/31/2026     Fixed codespell errors.
+</preformatted></para><para><preformatted></preformatted></para><para><preformatted>MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who      Date         Changes
+<hruler/>
+
+1.0   dp     07/14/2020    First release
+1.3   Arvd   01/31/2026    Fixed codespell errors.</preformatted></para><para><preformatted></preformatted></para><para><preformatted></preformatted></para><para><preformatted>MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who    Date          Changes
+<hruler/>
+
+1.0   dp    07/14/20      First release
+1.2   Nava  06/22/23      Added support for system device-tree flow.
+1.3   bdk   12/08/25      Updated comments to support SDT flow for Doxygen
+                          documentation.
+</preformatted> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

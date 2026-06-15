@@ -1,0 +1,85 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_m_o_d_e___s_e_n_s_e___r_e_p_l_y___s_h_o_r_t" kind="struct" prot="public">
+    <compoundname>MODE_SENSE_REPLY_SHORT</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_m_o_d_e___s_e_n_s_e___r_e_p_l_y___s_h_o_r_t_1aecc604df3b1e17a25ea27c1d2813e30a" prot="public" static="no" mutable="no">
+        <type>MODESENSE_MPL</type>
+        <definition>MODESENSE_MPL MODE_SENSE_REPLY_SHORT::mpl</definition>
+        <argsstring></argsstring>
+        <name>mpl</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" line="317" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" bodystart="317" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_m_o_d_e___s_e_n_s_e___r_e_p_l_y___s_h_o_r_t_1a18618de694f88543837ed94618c9cf05" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 MODE_SENSE_REPLY_SHORT::page1_code</definition>
+        <argsstring></argsstring>
+        <name>page1_code</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" line="318" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" bodystart="318" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_m_o_d_e___s_e_n_s_e___r_e_p_l_y___s_h_o_r_t_1a3970153d67453795f28d065de75958ac" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 MODE_SENSE_REPLY_SHORT::page1_length</definition>
+        <argsstring></argsstring>
+        <name>page1_length</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" line="319" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" bodystart="319" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_m_o_d_e___s_e_n_s_e___r_e_p_l_y___s_h_o_r_t_1a0b78d412cd1964bdf0af605ff53c1272" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 MODE_SENSE_REPLY_SHORT::page2_code</definition>
+        <argsstring></argsstring>
+        <name>page2_code</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" line="320" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" bodystart="320" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_m_o_d_e___s_e_n_s_e___r_e_p_l_y___s_h_o_r_t_1a30980f7d37659fc7d22c1bbc5570faf7" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 MODE_SENSE_REPLY_SHORT::page2_length</definition>
+        <argsstring></argsstring>
+        <name>page2_length</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" line="321" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" bodystart="321" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" line="316" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" bodystart="316" bodyend="323"/>
+    <listofallmembers>
+      <member refid="struct_m_o_d_e___s_e_n_s_e___r_e_p_l_y___s_h_o_r_t_1aecc604df3b1e17a25ea27c1d2813e30a" prot="public" virt="non-virtual"><scope>MODE_SENSE_REPLY_SHORT</scope><name>mpl</name></member>
+      <member refid="struct_m_o_d_e___s_e_n_s_e___r_e_p_l_y___s_h_o_r_t_1a18618de694f88543837ed94618c9cf05" prot="public" virt="non-virtual"><scope>MODE_SENSE_REPLY_SHORT</scope><name>page1_code</name></member>
+      <member refid="struct_m_o_d_e___s_e_n_s_e___r_e_p_l_y___s_h_o_r_t_1a3970153d67453795f28d065de75958ac" prot="public" virt="non-virtual"><scope>MODE_SENSE_REPLY_SHORT</scope><name>page1_length</name></member>
+      <member refid="struct_m_o_d_e___s_e_n_s_e___r_e_p_l_y___s_h_o_r_t_1a0b78d412cd1964bdf0af605ff53c1272" prot="public" virt="non-virtual"><scope>MODE_SENSE_REPLY_SHORT</scope><name>page2_code</name></member>
+      <member refid="struct_m_o_d_e___s_e_n_s_e___r_e_p_l_y___s_h_o_r_t_1a30980f7d37659fc7d22c1bbc5570faf7" prot="public" virt="non-virtual"><scope>MODE_SENSE_REPLY_SHORT</scope><name>page2_length</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

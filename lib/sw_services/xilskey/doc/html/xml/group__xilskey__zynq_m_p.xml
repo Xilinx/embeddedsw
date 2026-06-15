@@ -1,0 +1,75 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__xilskey__zynq_m_p" kind="group">
+    <compoundname>xilskey_zynqMP</compoundname>
+    <title>zynqmp bbram</title>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xilskey__zynq_m_p_1gaa1cc8606083a1c20933361fa4d7920c4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XilSKey_ZynqMp_Bbram_Program</definition>
+        <argsstring>(const u32 *AesKey)</argsstring>
+        <name>XilSKey_ZynqMp_Bbram_Program</name>
+        <param>
+          <type>const u32 *</type>
+          <declname>AesKey</declname>
+        </param>
+        <briefdescription>
+<para>This function implements the BBRAM programming and verifying the key written. </para>        </briefdescription>
+        <detaileddescription>
+<para>Program and verification of AES will work only together. CRC of the provided key will be calculated internally and verified after programming.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>AesKey</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the key which has to be programmed.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>Error code from XskZynqMp_Ps_Bbram_ErrorCodes enum if it fails</para></listitem><listitem><para>XST_SUCCESS if programming is done. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/include/xilskey_bbram.h" line="232" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp.c" bodystart="80" bodyend="140"/>
+        <references refid="xilskey__bbramps__zynqmp__hw_8h_1ad460c32a4f02c48d7c3cb6ea7f3e4a48" compoundref="xilskey__bbramps__zynqmp__hw_8h" startline="166">XSK_ZYNQMP_BBRAM_0_OFFSET</references>
+        <references refid="xilskey__bbramps__zynqmp__hw_8h_1a104c26f1c18fe3998ea71013bc2c0d0c" compoundref="xilskey__bbramps__zynqmp__hw_8h" startline="249">XSK_ZYNQMP_BBRAM_7_OFFSET</references>
+        <references refid="xilskey__bbramps__zynqmp__hw_8h_1ac621f36f217dcc74ee918df67cebaa5d" compoundref="xilskey__bbramps__zynqmp__hw_8h" startline="149">XSK_ZYNQMP_BBRAM_AES_CRC_OFFSET</references>
+        <references refid="xilskey__bbramps__zynqmp__hw_8h_1a7fd7c9a4f6f4012f7e4581608d9be7d4" compoundref="xilskey__bbramps__zynqmp__hw_8h" startline="48">XSK_ZYNQMP_BBRAM_BASEADDR</references>
+        <references refid="xilskey__bbramps__zynqmp__hw_8h_1ad4d9fa44c9d798cf462ce82cdddcd913" compoundref="xilskey__bbramps__zynqmp__hw_8h" startline="78">XSK_ZYNQMP_BBRAM_STS_AES_CRC_DONE_MASK</references>
+        <references refid="xilskey__bbramps__zynqmp__hw_8h_1a908f302a42c8b8c7333259b183e043c9" compoundref="xilskey__bbramps__zynqmp__hw_8h" startline="65">XSK_ZYNQMP_BBRAM_STS_AES_CRC_PASS_MASK</references>
+        <references refid="xilskey__bbramps__zynqmp__hw_8h_1a194a83c890440a26af4abfbb73dcea7d" compoundref="xilskey__bbramps__zynqmp__hw_8h" startline="54">XSK_ZYNQMP_BBRAM_STS_OFFSET</references>
+        <references refid="group__xilskey__zmpsoc__ps__error__codes_1gga43029ac3b786e9f57cc8674f065a53e6a903e134a762730cccfe345331d94c28e" compoundref="xilskey__utils_8h" startline="1061">XSK_ZYNQMP_BBRAMPS_ERROR_IN_CRC_CHECK</references>
+        <references refid="group__xilskey__zmpsoc__ps__error__codes_1gga43029ac3b786e9f57cc8674f065a53e6a1a75b454a6c9327b9d801727f45779fa" compoundref="xilskey__utils_8h" startline="1066">XSK_ZYNQMP_BBRAMPS_ERROR_IN_PRGRMG</references>
+        <references refid="group__xilskey__zmpsoc__ps__error__codes_1gga43029ac3b786e9f57cc8674f065a53e6a7bb31a479b446803f07ae3d69b093e77" compoundref="xilskey__utils_8h" startline="1069">XSK_ZYNQMP_BBRAMPS_ERROR_IN_WRITE_CRC</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xilskey__zynq_m_p_1gab6c727d0448cd7281c282300b72f6152" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XilSKey_ZynqMp_Bbram_Zeroise</definition>
+        <argsstring>(void)</argsstring>
+        <name>XilSKey_ZynqMp_Bbram_Zeroise</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function zeroize&apos;s Bbram Key. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="note"><para>BBRAM key will be zeroized. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/include/xilskey_bbram.h" line="233" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp.c" bodystart="150" bodyend="195"/>
+        <references refid="xilskey__bbramps__zynqmp__hw_8h_1ad460c32a4f02c48d7c3cb6ea7f3e4a48" compoundref="xilskey__bbramps__zynqmp__hw_8h" startline="166">XSK_ZYNQMP_BBRAM_0_OFFSET</references>
+        <references refid="xilskey__bbramps__zynqmp__hw_8h_1a104c26f1c18fe3998ea71013bc2c0d0c" compoundref="xilskey__bbramps__zynqmp__hw_8h" startline="249">XSK_ZYNQMP_BBRAM_7_OFFSET</references>
+        <references refid="xilskey__bbramps__zynqmp__hw_8h_1a7fd7c9a4f6f4012f7e4581608d9be7d4" compoundref="xilskey__bbramps__zynqmp__hw_8h" startline="48">XSK_ZYNQMP_BBRAM_BASEADDR</references>
+        <references refid="xilskey__bbramps__zynqmp__hw_8h_1a7a4d3e383cfd97b8eedcd6c5203fd51f" compoundref="xilskey__bbramps__zynqmp__hw_8h" startline="115">XSK_ZYNQMP_BBRAM_CTRL_OFFSET</references>
+        <references refid="xilskey__bbramps__zynqmp__hw_8h_1afd1d1dd32d28ba076e06ff0bcc58e2a1" compoundref="xilskey__bbramps__zynqmp__hw_8h" startline="123">XSK_ZYNQMP_BBRAM_CTRL_ZEROIZE_MASK</references>
+        <references refid="xilskey__bbramps__zynqmp__hw_8h_1a194a83c890440a26af4abfbb73dcea7d" compoundref="xilskey__bbramps__zynqmp__hw_8h" startline="54">XSK_ZYNQMP_BBRAM_STS_OFFSET</references>
+        <references refid="xilskey__bbramps__zynqmp__hw_8h_1a725e7bf31bc0af974326c225d9b78669" compoundref="xilskey__bbramps__zynqmp__hw_8h" startline="91">XSK_ZYNQMP_BBRAM_STS_ZEROIZED_MASK</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

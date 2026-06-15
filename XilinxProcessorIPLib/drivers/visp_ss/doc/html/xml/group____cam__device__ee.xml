@@ -1,0 +1,519 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group____cam__device__ee" kind="group">
+    <compoundname>_cam_device_ee</compoundname>
+    <title>VsCamDevice E01C19 Device_EE Definitions</title>
+    <innerclass refid="struct_cam_device_ee_auto_config__s" prot="public">CamDeviceEeAutoConfig_s</innerclass>
+    <innerclass refid="struct_cam_device_ee_dci_manual_config__s" prot="public">CamDeviceEeDciManualConfig_s</innerclass>
+    <innerclass refid="struct_cam_device_ee_dci_curve_config__s" prot="public">CamDeviceEeDciCurveConfig_s</innerclass>
+    <innerclass refid="struct_cam_device_ee_ca_manual_config__s" prot="public">CamDeviceEeCaManualConfig_s</innerclass>
+    <innerclass refid="struct_cam_device_ee_manual_config__s" prot="public">CamDeviceEeManualConfig_s</innerclass>
+    <innerclass refid="struct_cam_device_ee_config__s" prot="public">CamDeviceEeConfig_s</innerclass>
+    <innerclass refid="struct_cam_device_ee_status__s" prot="public">CamDeviceEeStatus_s</innerclass>
+    <innerclass refid="struct_cam_device_ee_curve_en_config__s" prot="public">CamDeviceEeCurveEnConfig_s</innerclass>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="group____cam__device__ee_1gab1a8e47ee777833500e889ee61c2489a" prot="public" static="no">
+        <name>CamDeviceEeCaMode_e</name>
+        <enumvalue id="group____cam__device__ee_1ggab1a8e47ee777833500e889ee61c2489aa8ededf93fb191ea22e431d88d99525df" prot="public">
+          <name>CAMDEV_EE_CA_MODE0</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+<para>Y mode. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__ee_1ggab1a8e47ee777833500e889ee61c2489aac0278edb9fd5f1d936d48308675eb98f" prot="public">
+          <name>CAMDEV_EE_CA_MODE1</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+<para>Saturation mode. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__ee_1ggab1a8e47ee777833500e889ee61c2489aa9d937486e8eaabffd141f9a6b5a10f46" prot="public">
+          <name>CAMDEV_EE_CA_MODE2</name>
+          <initializer>= 2</initializer>
+          <briefdescription>
+<para>Y &amp; Saturation mode. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__ee_1ggab1a8e47ee777833500e889ee61c2489aad19e3ab8237f08feb81535c82e9c6522" prot="public">
+          <name>CAMDEV_EE_CA_MODE_MAX</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>VsCamDevice EE CA mode enumeration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/ee_v2/cam_device_ee_api.h" line="55" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/ee_v2/cam_device_ee_api.h" bodystart="54" bodyend="60"/>
+      </memberdef>
+      <memberdef kind="enum" id="group____cam__device__ee_1ga35b434715e06cd7e1c871f522ea2ad38" prot="public" static="no">
+        <name>CamDeviceEeDciMode_s</name>
+        <enumvalue id="group____cam__device__ee_1gga35b434715e06cd7e1c871f522ea2ad38af93a999a0e12fd2e71cecba79e2347b6" prot="public">
+          <name>CAMDEV_EE_DCI_DCI_CURVE_MODE</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+<para>DCI curve mode. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__ee_1gga35b434715e06cd7e1c871f522ea2ad38a1094ad7a2f5d3772f5c9f24b101b59de" prot="public">
+          <name>CAMDEV_EE_DCI_CURVE_2SEC_MODE</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+<para>DCI 2-second mode. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__ee_1gga35b434715e06cd7e1c871f522ea2ad38a593401d96f7a2cb30dd501e306cd572b" prot="public">
+          <name>CAMDEV_EE_DCI_CURVE_3SEC_MODE</name>
+          <initializer>= 2</initializer>
+          <briefdescription>
+<para>DCI 3-second mode. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__ee_1gga35b434715e06cd7e1c871f522ea2ad38a297529d21e26f302729ed92fcb90ecde" prot="public">
+          <name>CAMDEV_EE_DCI_CURVE_MODE_MAX</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>EE DCI curve mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/ee_v2/cam_device_ee_api.h" line="68" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/ee_v2/cam_device_ee_api.h" bodystart="67" bodyend="73"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="group____cam__device__ee_1ga9aaaa64d7fb5b1ddbffd71be8ce7a8e9" prot="public" static="no">
+        <type>enum <ref refid="group____cam__device__ee_1gab1a8e47ee777833500e889ee61c2489a" kindref="member">CamDeviceEeCaMode_e</ref></type>
+        <definition>typedef enum CamDeviceEeCaMode_e  CamDeviceEeCaMode_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceEeCaMode_t</name>
+        <briefdescription>
+<para>VsCamDevice EE CA mode enumeration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/ee_v2/cam_device_ee_api.h" line="60" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__ee_1ga7f1f95c9fbadb663811f82418adc0796" prot="public" static="no">
+        <type>enum <ref refid="group____cam__device__ee_1ga35b434715e06cd7e1c871f522ea2ad38" kindref="member">CamDeviceEeDciMode_s</ref></type>
+        <definition>typedef enum CamDeviceEeDciMode_s  CamDeviceEeDciMode_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceEeDciMode_t</name>
+        <briefdescription>
+<para>EE DCI curve mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/ee_v2/cam_device_ee_api.h" line="73" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__ee_1ga71658a2e711b3e22ecac80265cc09cbf" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_ee_auto_config__s" kindref="compound">CamDeviceEeAutoConfig_s</ref></type>
+        <definition>typedef struct CamDeviceEeAutoConfig_s CamDeviceEeAutoConfig_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceEeAutoConfig_t</name>
+        <briefdescription>
+<para>VsCamDevice EE auto configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/ee_v2/cam_device_ee_api.h" line="95" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__ee_1gadc18ca0df7426be28d98d6b6f8ca505e" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_ee_dci_manual_config__s" kindref="compound">CamDeviceEeDciManualConfig_s</ref></type>
+        <definition>typedef struct CamDeviceEeDciManualConfig_s CamDeviceEeDciManualConfig_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceEeDciManualConfig_t</name>
+        <briefdescription>
+<para>VsCamDevice EE DCI manual configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/ee_v2/cam_device_ee_api.h" line="104" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__ee_1gac480f2e0b8664af8e57ffbe4059cffef" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_ee_dci_curve_config__s" kindref="compound">CamDeviceEeDciCurveConfig_s</ref></type>
+        <definition>typedef struct CamDeviceEeDciCurveConfig_s  CamDeviceEeDciCurveConfig_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceEeDciCurveConfig_t</name>
+        <briefdescription>
+<para>VsCamDevice EE DCI curve configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/ee_v2/cam_device_ee_api.h" line="124" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__ee_1gacf91fb8d7529910c05ad4b58df995fcf" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_ee_ca_manual_config__s" kindref="compound">CamDeviceEeCaManualConfig_s</ref></type>
+        <definition>typedef struct CamDeviceEeCaManualConfig_s CamDeviceEeCaManualConfig_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceEeCaManualConfig_t</name>
+        <briefdescription>
+<para>VsCamDevice EE CA manual configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/ee_v2/cam_device_ee_api.h" line="134" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__ee_1ga87651b1cc415f8cd3c06dedf234fd1bc" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_ee_manual_config__s" kindref="compound">CamDeviceEeManualConfig_s</ref></type>
+        <definition>typedef struct CamDeviceEeManualConfig_s CamDeviceEeManualConfig_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceEeManualConfig_t</name>
+        <briefdescription>
+<para>VsCamDevice EE current configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/ee_v2/cam_device_ee_api.h" line="151" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__ee_1ga4fae7ebb3ecf60663e46cbc1ccf229dd" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_ee_config__s" kindref="compound">CamDeviceEeConfig_s</ref></type>
+        <definition>typedef struct CamDeviceEeConfig_s CamDeviceEeConfig_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceEeConfig_t</name>
+        <briefdescription>
+<para>VsCamDevice EE configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/ee_v2/cam_device_ee_api.h" line="162" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__ee_1ga5f917d6aca7a8dc5567fdfb1c531bcbd" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_ee_status__s" kindref="compound">CamDeviceEeStatus_s</ref></type>
+        <definition>typedef struct CamDeviceEeStatus_s CamDeviceEeStatus_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceEeStatus_t</name>
+        <briefdescription>
+<para>VsCamDevice EE status structure. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/ee_v2/cam_device_ee_api.h" line="176" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__ee_1ga2721da59f217d5b995cf71bc693aa075" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_ee_curve_en_config__s" kindref="compound">CamDeviceEeCurveEnConfig_s</ref></type>
+        <definition>typedef struct CamDeviceEeCurveEnConfig_s  CamDeviceEeCurveEnConfig_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceEeCurveEnConfig_t</name>
+        <briefdescription>
+<para>VsCamDevice EE curveEn configuration structure. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/ee_v2/cam_device_ee_api.h" line="188" column="1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group____cam__device__ee_1gaf014084d604d46c5fdbbdb6b54f40921" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceEeSetConfig</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, CamDeviceEeConfig_t *pEeCfg)</argsstring>
+        <name>VsiCamDeviceEeSetConfig</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type><ref refid="group____cam__device__ee_1ga4fae7ebb3ecf60663e46cbc1ccf229dd" kindref="member">CamDeviceEeConfig_t</ref> *</type>
+          <declname>pEeCfg</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/ee_v2/cam_device_ee_api.h" line="213" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/ee/cam_device_ee_api_v2.c" bodystart="19" bodyend="58"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__ee_1ga4cff810d30f5c23b222262f77986dad6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceEeGetConfig</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, CamDeviceEeConfig_t *pEeCfg)</argsstring>
+        <name>VsiCamDeviceEeGetConfig</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type><ref refid="group____cam__device__ee_1ga4fae7ebb3ecf60663e46cbc1ccf229dd" kindref="member">CamDeviceEeConfig_t</ref> *</type>
+          <declname>pEeCfg</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/ee_v2/cam_device_ee_api.h" line="242" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/ee/cam_device_ee_api_v2.c" bodystart="62" bodyend="101"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__ee_1gae1356fa104088bb010c9c80f4fd5d734" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceEeGetCurveEnableConfig</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, CamDeviceEeCurveEnConfig_t *pEeCurveEnCfg)</argsstring>
+        <name>VsiCamDeviceEeGetCurveEnableConfig</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type><ref refid="group____cam__device__ee_1ga2721da59f217d5b995cf71bc693aa075" kindref="member">CamDeviceEeCurveEnConfig_t</ref> *</type>
+          <declname>pEeCurveEnCfg</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/ee_v2/cam_device_ee_api.h" line="270" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/ee/cam_device_ee_api_v2.c" bodystart="104" bodyend="143"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__ee_1ga7ceeed7f1d001c44fb08841eae2e249e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceEeEnable</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice)</argsstring>
+        <name>VsiCamDeviceEeEnable</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/ee_v2/cam_device_ee_api.h" line="293" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/ee/cam_device_ee_api_v2.c" bodystart="147" bodyend="181"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__ee_1gaffc706f0d2a418fabf78caee1127383b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceEeDisable</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice)</argsstring>
+        <name>VsiCamDeviceEeDisable</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/ee_v2/cam_device_ee_api.h" line="315" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/ee/cam_device_ee_api_v2.c" bodystart="185" bodyend="219"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__ee_1gae91930be59be7b95691a853a6f689bce" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceEeCurveEnable</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice)</argsstring>
+        <name>VsiCamDeviceEeCurveEnable</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/ee_v2/cam_device_ee_api.h" line="336" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/ee/cam_device_ee_api_v2.c" bodystart="223" bodyend="257"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__ee_1ga07da69969268cfbdae171df99295d578" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceEeCurveDisable</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice)</argsstring>
+        <name>VsiCamDeviceEeCurveDisable</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/ee_v2/cam_device_ee_api.h" line="357" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/ee/cam_device_ee_api_v2.c" bodystart="261" bodyend="295"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__ee_1ga24fc821eca0710a9928a7b649b1ddb80" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceEeCaEnable</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice)</argsstring>
+        <name>VsiCamDeviceEeCaEnable</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/ee_v2/cam_device_ee_api.h" line="378" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/ee/cam_device_ee_api_v2.c" bodystart="299" bodyend="333"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__ee_1ga7078d37f4cf35c47d63ecd4e598648b9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceEeCaDisable</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice)</argsstring>
+        <name>VsiCamDeviceEeCaDisable</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/ee_v2/cam_device_ee_api.h" line="399" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/ee/cam_device_ee_api_v2.c" bodystart="337" bodyend="371"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__ee_1gab91cf22a50381d659f3ff62e9bc97341" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceEeDciEnable</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice)</argsstring>
+        <name>VsiCamDeviceEeDciEnable</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/ee_v2/cam_device_ee_api.h" line="420" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/ee/cam_device_ee_api_v2.c" bodystart="375" bodyend="409"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__ee_1ga199ebba8771ab79787534f1ebf420533" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceEeDciDisable</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice)</argsstring>
+        <name>VsiCamDeviceEeDciDisable</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/ee_v2/cam_device_ee_api.h" line="441" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/ee/cam_device_ee_api_v2.c" bodystart="413" bodyend="447"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__ee_1ga4328d458278c2eb82184e8e32e0d7135" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceEeGetStatus</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, CamDeviceEeStatus_t *pStatus)</argsstring>
+        <name>VsiCamDeviceEeGetStatus</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type><ref refid="group____cam__device__ee_1ga5f917d6aca7a8dc5567fdfb1c531bcbd" kindref="member">CamDeviceEeStatus_t</ref> *</type>
+          <declname>pStatus</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/ee_v2/cam_device_ee_api.h" line="468" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/ee/cam_device_ee_api_v2.c" bodystart="451" bodyend="490"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__ee_1ga9bbe69a20d39b87d7ba51ca15a69732c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceEeReset</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice)</argsstring>
+        <name>VsiCamDeviceEeReset</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/ee_v2/cam_device_ee_api.h" line="496" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/ee/cam_device_ee_api_v2.c" bodystart="494" bodyend="528"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__ee_1ga583b528d5fb671a1cfbf48715080071f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceEeGetVersion</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, uint32_t *pVersion)</argsstring>
+        <name>VsiCamDeviceEeGetVersion</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type>uint32_t *</type>
+          <declname>pVersion</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/ee_v2/cam_device_ee_api.h" line="517" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/ee/cam_device_ee_api_v2.c" bodystart="532" bodyend="571"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group____cam__device__ee_1gab0ef9260243269d941686fbcd62d8412" prot="public" static="no">
+        <name>CAMDEV_EE_CA_CURVE_SIZE</name>
+        <initializer>65</initializer>
+        <briefdescription>
+<para>Bin number of CA curve. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/ee_v2/cam_device_ee_api.h" line="46" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/ee_v2/cam_device_ee_api.h" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group____cam__device__ee_1ga79fbc872a70e280119ada6f60275746b" prot="public" static="no">
+        <name>CAMDEV_EE_DCI_CURVE_SIZE</name>
+        <initializer>65</initializer>
+        <briefdescription>
+<para>Bin number of DCI curve. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/ee_v2/cam_device_ee_api.h" line="47" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/ee_v2/cam_device_ee_api.h" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Provides interfaces for controlling the edge enhance module working in the ISP pipeline. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_d6f864e93aaa7308397cab43e7c0798a" kind="dir">
+    <compoundname>dmaps</compoundname>
+    <innerdir refid="dir_b5140bb742a11afc0eb40185147d68e8">examples</innerdir>
+    <innerdir refid="dir_ebb317e3015a0e2f72c3740a038f41e4">src</innerdir>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dmaps/"/>
+  </compounddef>
+</doxygen>

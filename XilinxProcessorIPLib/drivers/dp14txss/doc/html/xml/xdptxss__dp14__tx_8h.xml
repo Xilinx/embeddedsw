@@ -1,0 +1,2222 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xdptxss__dp14__tx_8h" kind="file">
+    <compoundname>xdptxss_dp14_tx.h</compoundname>
+    <includes refid="xdptxss_8h" local="yes">xdptxss.h</includes>
+    <includes local="yes">xil_printf.h</includes>
+    <includes local="yes">xil_types.h</includes>
+    <includes local="yes">xparameters.h</includes>
+    <includes local="yes">xstatus.h</includes>
+    <includes local="yes">xscugic.h</includes>
+    <includes local="yes">xvphy.h</includes>
+    <includes local="yes">xvphy_i.h</includes>
+    <includes local="yes">xuartps_hw.h</includes>
+    <includes local="yes">xiicps.h</includes>
+    <includes local="yes">xiic.h</includes>
+    <includes local="yes">xiic_l.h</includes>
+    <includes local="yes">xtmrctr.h</includes>
+    <includes local="yes">xvidc_edid.h</includes>
+    <includes local="yes">sleep.h</includes>
+    <includes local="yes">stdlib.h</includes>
+    <includes refid="tx__only_2xvidframe__crc_8h" local="yes">xvidframe_crc.h</includes>
+    <includes refid="tx__only_2clk__set_8h" local="yes">clk_set.h</includes>
+    <includes refid="tx__only_2videofmc__defs_8h" local="yes">videofmc_defs.h</includes>
+    <includedby refid="tx__only_2menus_8c" local="yes">menus.c</includedby>
+    <includedby refid="tx__only_2si570_8c" local="yes">si570.c</includedby>
+    <includedby refid="xdptxss__dp14__tx_8c" local="yes">xdptxss_dp14_tx.c</includedby>
+    <includedby refid="tx__only_2xvid__clk__gen_8c" local="yes">xvid_clk_gen.c</includedby>
+    <incdepgraph>
+      <node id="2104">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="2119">
+        <label>xuartps_hw.h</label>
+      </node>
+      <node id="2103">
+        <label>xil_io.h</label>
+      </node>
+      <node id="2117">
+        <label>xvphy.h</label>
+      </node>
+      <node id="2125">
+        <label>sleep.h</label>
+      </node>
+      <node id="2112">
+        <label>xdptxss_vtc.h</label>
+        <link refid="xdptxss__vtc_8h"/>
+        <childnode refid="2113" relation="include">
+        </childnode>
+        <childnode refid="2109" relation="include">
+        </childnode>
+      </node>
+      <node id="2126">
+        <label>stdlib.h</label>
+      </node>
+      <node id="2129">
+        <label>videofmc_defs.h</label>
+      </node>
+      <node id="2110">
+        <label>xdptxss_dualsplitter.h</label>
+        <link refid="xdptxss__dualsplitter_8h"/>
+        <childnode refid="2111" relation="include">
+        </childnode>
+        <childnode refid="2109" relation="include">
+        </childnode>
+      </node>
+      <node id="2124">
+        <label>xvidc_edid.h</label>
+      </node>
+      <node id="2107">
+        <label>xdebug.h</label>
+      </node>
+      <node id="2100">
+        <label>xdptxss_dp14_tx.h</label>
+        <link refid="xdptxss_dp14_tx.h"/>
+        <childnode refid="2101" relation="include">
+        </childnode>
+        <childnode refid="2114" relation="include">
+        </childnode>
+        <childnode refid="2115" relation="include">
+        </childnode>
+        <childnode refid="2111" relation="include">
+        </childnode>
+        <childnode refid="2105" relation="include">
+        </childnode>
+        <childnode refid="2116" relation="include">
+        </childnode>
+        <childnode refid="2117" relation="include">
+        </childnode>
+        <childnode refid="2118" relation="include">
+        </childnode>
+        <childnode refid="2119" relation="include">
+        </childnode>
+        <childnode refid="2120" relation="include">
+        </childnode>
+        <childnode refid="2121" relation="include">
+        </childnode>
+        <childnode refid="2122" relation="include">
+        </childnode>
+        <childnode refid="2123" relation="include">
+        </childnode>
+        <childnode refid="2124" relation="include">
+        </childnode>
+        <childnode refid="2125" relation="include">
+        </childnode>
+        <childnode refid="2126" relation="include">
+        </childnode>
+        <childnode refid="2127" relation="include">
+        </childnode>
+        <childnode refid="2128" relation="include">
+        </childnode>
+        <childnode refid="2129" relation="include">
+        </childnode>
+      </node>
+      <node id="2109">
+        <label>xdp.h</label>
+      </node>
+      <node id="2122">
+        <label>xiic_l.h</label>
+      </node>
+      <node id="2108">
+        <label>xdptxss_dptx.h</label>
+        <link refid="xdptxss__dptx_8h"/>
+        <childnode refid="2109" relation="include">
+        </childnode>
+      </node>
+      <node id="2102">
+        <label>xdptxss_hw.h</label>
+        <link refid="xdptxss__hw_8h"/>
+        <childnode refid="2103" relation="include">
+        </childnode>
+      </node>
+      <node id="2118">
+        <label>xvphy_i.h</label>
+      </node>
+      <node id="2123">
+        <label>xtmrctr.h</label>
+      </node>
+      <node id="2105">
+        <label>xstatus.h</label>
+      </node>
+      <node id="2106">
+        <label>xvidc.h</label>
+      </node>
+      <node id="2120">
+        <label>xiicps.h</label>
+      </node>
+      <node id="2115">
+        <label>xil_types.h</label>
+      </node>
+      <node id="2128">
+        <label>clk_set.h</label>
+      </node>
+      <node id="2101">
+        <label>xdptxss.h</label>
+        <link refid="xdptxss_8h"/>
+        <childnode refid="2102" relation="include">
+        </childnode>
+        <childnode refid="2104" relation="include">
+        </childnode>
+        <childnode refid="2105" relation="include">
+        </childnode>
+        <childnode refid="2106" relation="include">
+        </childnode>
+        <childnode refid="2107" relation="include">
+        </childnode>
+        <childnode refid="2108" relation="include">
+        </childnode>
+        <childnode refid="2110" relation="include">
+        </childnode>
+        <childnode refid="2112" relation="include">
+        </childnode>
+      </node>
+      <node id="2127">
+        <label>xvidframe_crc.h</label>
+        <childnode refid="2115" relation="include">
+        </childnode>
+        <childnode refid="2104" relation="include">
+        </childnode>
+        <childnode refid="2103" relation="include">
+        </childnode>
+        <childnode refid="2111" relation="include">
+        </childnode>
+      </node>
+      <node id="2111">
+        <label>xparameters.h</label>
+      </node>
+      <node id="2114">
+        <label>xil_printf.h</label>
+      </node>
+      <node id="2121">
+        <label>xiic.h</label>
+      </node>
+      <node id="2113">
+        <label>xvtc.h</label>
+      </node>
+      <node id="2116">
+        <label>xscugic.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="2132">
+        <label>si570.c</label>
+      </node>
+      <node id="2134">
+        <label>xvid_clk_gen.c</label>
+      </node>
+      <node id="2133">
+        <label>xdptxss_dp14_tx.c</label>
+      </node>
+      <node id="2130">
+        <label>xdptxss_dp14_tx.h</label>
+        <link refid="xdptxss_dp14_tx.h"/>
+        <childnode refid="2131" relation="include">
+        </childnode>
+        <childnode refid="2132" relation="include">
+        </childnode>
+        <childnode refid="2133" relation="include">
+        </childnode>
+        <childnode refid="2134" relation="include">
+        </childnode>
+      </node>
+      <node id="2131">
+        <label>menus.c</label>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_xil_audio_ext_frame" prot="public">XilAudioExtFrame</innerclass>
+    <innerclass refid="structuser__config__struct" prot="public">user_config_struct</innerclass>
+    <innerclass refid="structlane__link__rate__struct" prot="public">lane_link_rate_struct</innerclass>
+    <innerclass refid="struct_x_vphy___user___config" prot="public">XVphy_User_Config</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xdptxss__dp14__tx_8h_1aaafc1b4297e1aac8e022debe11a21ab0" prot="public" static="no">
+        <name>XDPTXSS_DEVICE_ID</name>
+        <initializer>XPAR_DPTXSS_0_DEVICE_ID</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/tx_only/xdptxss_dp14_tx.h" line="106" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/tx_only/xdptxss_dp14_tx.h" bodystart="106" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xdptxss__dp14__tx_8h_1adfdd943d6436315a5b0d599c5fa36697" prot="public" static="no">
+        <name>VIDEO_CRC_BASEADDR</name>
+        <initializer>XPAR_VIDEO_FRAME_CRC_RX_BASEADDR</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/tx_only/xdptxss_dp14_tx.h" line="107" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/tx_only/xdptxss_dp14_tx.h" bodystart="107" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xdptxss__dp14__tx_8h_1abae8301ede48ae6a22b5644f655490fc" prot="public" static="no">
+        <name>DPTXSS_MST</name>
+        <initializer>1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/tx_only/xdptxss_dp14_tx.h" line="112" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/tx_only/xdptxss_dp14_tx.h" bodystart="112" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xdptxss__dp14__tx_8h_1a132b2318b939ddeed63196aaeb150587" prot="public" static="no">
+        <name>DPTXSS_LINK_RATE</name>
+        <initializer><ref refid="group__dptxss_1gafa05b40c0d7bb649dab0bd3ed7a68e8a" kindref="member">XDPTXSS_LINK_BW_SET_540GBPS</ref></initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/tx_only/xdptxss_dp14_tx.h" line="113" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/tx_only/xdptxss_dp14_tx.h" bodystart="113" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xdptxss__dp14__tx_8h_1ab7e0405e476f01a2585a9d2177fb7aae" prot="public" static="no">
+        <name>DPTXSS_LANE_COUNT</name>
+        <initializer><ref refid="group__dptxss_1ga02296033b28a40ffefa78d754fb5fe50" kindref="member">XDPTXSS_LANE_COUNT_SET_4</ref></initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/tx_only/xdptxss_dp14_tx.h" line="114" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/tx_only/xdptxss_dp14_tx.h" bodystart="114" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xdptxss__dp14__tx_8h_1aa78c597aca584e23e1406c5a64e974ad" prot="public" static="no">
+        <name>LINK_TRAINING_DEBUG</name>
+        <initializer>0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/tx_only/xdptxss_dp14_tx.h" line="119" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/tx_only/xdptxss_dp14_tx.h" bodystart="119" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xdptxss__dp14__tx_8h_1aefedb67ef54dfe8e0ab7eadfc4549cc8" prot="public" static="no">
+        <name>DP12_EDID_ENABLED</name>
+        <initializer>0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/tx_only/xdptxss_dp14_tx.h" line="122" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/tx_only/xdptxss_dp14_tx.h" bodystart="122" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xdptxss__dp14__tx_8h_1a8cb3a94775205153de813f97c60897d3" prot="public" static="no">
+        <name>DPTXSS_VID_MODE</name>
+        <initializer>XVIDC_VM_USE_EDID_PREFERRED</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/tx_only/xdptxss_dp14_tx.h" line="128" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/tx_only/xdptxss_dp14_tx.h" bodystart="128" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xdptxss__dp14__tx_8h_1aa73a274c1d86f401b6fb7f84ee240461" prot="public" static="no">
+        <name>DPTXSS_BPC</name>
+        <initializer>XPAR_DPTXSS_0_BITS_PER_COLOR</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/tx_only/xdptxss_dp14_tx.h" line="133" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/tx_only/xdptxss_dp14_tx.h" bodystart="133" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xdptxss__dp14__tx_8h_1aa17ef23faed652fae7f1af00d8cfa57e" prot="public" static="no">
+        <name>SET_TX_TO_2BYTE</name>
+        <initializer>(XPAR_XDP_0_GT_DATA_WIDTH/2)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/tx_only/xdptxss_dp14_tx.h" line="139" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/tx_only/xdptxss_dp14_tx.h" bodystart="139" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xdptxss__dp14__tx_8h_1a3cb13cd431d9241af9128b1bdd8a1f59" prot="public" static="no">
+        <name>TIMER_RESET_VALUE</name>
+        <initializer>1000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/tx_only/xdptxss_dp14_tx.h" line="143" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/tx_only/xdptxss_dp14_tx.h" bodystart="143" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xdptxss__dp14__tx_8h_1a51cbf2b6d7460669ba6bf60c0f6ceddd" prot="public" static="no">
+        <name>is_TX_CPLL</name>
+        <initializer>0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/tx_only/xdptxss_dp14_tx.h" line="144" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/tx_only/xdptxss_dp14_tx.h" bodystart="144" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xdptxss__dp14__tx_8h_1a8df49af2b28ab115e76fb4371d22f229" prot="public" static="no">
+        <name>CLK135MHz_DIVIDER</name>
+        <initializer>18</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/tx_only/xdptxss_dp14_tx.h" line="145" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/tx_only/xdptxss_dp14_tx.h" bodystart="145" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xdptxss__dp14__tx_8h_1a121637930e06ba9692797561f7465078" prot="public" static="no">
+        <name>CLK270MHz_DIVIDER</name>
+        <initializer>9</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/tx_only/xdptxss_dp14_tx.h" line="146" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/tx_only/xdptxss_dp14_tx.h" bodystart="146" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xdptxss__dp14__tx_8h_1ac6e77fa3e468551512f8ecf286be0659" prot="public" static="no">
+        <name>CLK162MHz_DIVIDER</name>
+        <initializer>15</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/tx_only/xdptxss_dp14_tx.h" line="147" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/tx_only/xdptxss_dp14_tx.h" bodystart="147" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xdptxss__dp14__tx_8h_1a1b3c85bade40ae1bf907fd6c0cdcc70b" prot="public" static="no">
+        <name>ENABLE_AUDIO</name>
+        <initializer>1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/tx_only/xdptxss_dp14_tx.h" line="148" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/tx_only/xdptxss_dp14_tx.h" bodystart="148" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xdptxss__dp14__tx_8h_1a6ce4924f368aed2d47270875a66812d7" prot="public" static="no">
+        <name>AV_PAT_GEN_BASE</name>
+        <initializer>XPAR_TX_SUBSYSTEM_AV_PAT_GEN_0_BASEADDR</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/tx_only/xdptxss_dp14_tx.h" line="150" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/tx_only/xdptxss_dp14_tx.h" bodystart="150" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xdptxss__dp14__tx_8h_1a8c907cc7ea08380dc3d0916f377d2fdf" prot="public" static="no">
+        <name>audio_clk_Hz</name>
+        <initializer>24.576</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/tx_only/xdptxss_dp14_tx.h" line="153" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/tx_only/xdptxss_dp14_tx.h" bodystart="153" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xdptxss__dp14__tx_8h_1a3c5640ff6004aae96a9046d3d7c0619e" prot="public" static="no">
+        <name>EEPROM_TEST_START_ADDRESS</name>
+        <initializer>0x80</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/tx_only/xdptxss_dp14_tx.h" line="154" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/tx_only/xdptxss_dp14_tx.h" bodystart="154" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xdptxss__dp14__tx_8h_1a7d467c1d283fdfa1f2081ba1e0d01b6e" prot="public" static="no">
+        <name>PAGE_SIZE</name>
+        <initializer>16</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/tx_only/xdptxss_dp14_tx.h" line="155" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/tx_only/xdptxss_dp14_tx.h" bodystart="155" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xdptxss__dp14__tx_8h_1af3bb997860af25a13ffd73e76e4ea98a" prot="public" static="no">
+        <name>NUM_MODES</name>
+        <initializer>7</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/tx_only/xdptxss_dp14_tx.h" line="156" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/tx_only/xdptxss_dp14_tx.h" bodystart="156" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xdptxss__dp14__tx_8h_1a93ba2428b31cbed320f71d03267dc83d" prot="public" static="no">
+        <name>NUM_CLOCK_REGS</name>
+        <initializer>6</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/tx_only/xdptxss_dp14_tx.h" line="157" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/tx_only/xdptxss_dp14_tx.h" bodystart="157" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xdptxss__dp14__tx_8h_1a16136319756e4257975f235e2d6ed24e" prot="public" static="no">
+        <name>XINTC_DEVICE_ID</name>
+        <initializer>XPAR_SCUGIC_SINGLE_DEVICE_ID</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/tx_only/xdptxss_dp14_tx.h" line="196" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/tx_only/xdptxss_dp14_tx.h" bodystart="196" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xdptxss__dp14__tx_8h_1a64213143cab739e53ff27281f3aacf8e" prot="public" static="no">
+        <name>XVPHY_DEVICE_ID</name>
+        <initializer>XPAR_VPHY_0_DEVICE_ID</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/tx_only/xdptxss_dp14_tx.h" line="200" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/tx_only/xdptxss_dp14_tx.h" bodystart="200" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xdptxss__dp14__tx_8h_1a6148c8b3198501518bf7b844899717a6" prot="public" static="no">
+        <name>CLK_WIZ_BASE</name>
+        <initializer>XPAR_CLK_WIZ_0_BASEADDR</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/tx_only/xdptxss_dp14_tx.h" line="201" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/tx_only/xdptxss_dp14_tx.h" bodystart="201" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xdptxss__dp14__tx_8h_1a9bf9ad61685bf56deb0a6c755c713078" prot="public" static="no">
+        <name>IIC_BASE_ADDR</name>
+        <initializer>XPAR_XIIC_0_BASEADDR</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/tx_only/xdptxss_dp14_tx.h" line="205" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/tx_only/xdptxss_dp14_tx.h" bodystart="205" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xdptxss__dp14__tx_8h_1a0e6e0ffd0c4cccde95481cdd329e887a" prot="public" static="no">
+        <name>IIC_DEVICE_ID</name>
+        <initializer>XPAR_IIC_0_DEVICE_ID</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/tx_only/xdptxss_dp14_tx.h" line="207" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/tx_only/xdptxss_dp14_tx.h" bodystart="207" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xdptxss__dp14__tx_8h_1a2ba7861441b9c5d1b06e5d488353c840" prot="public" static="no">
+        <name>PE_VS_ADJUST</name>
+        <initializer>1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/tx_only/xdptxss_dp14_tx.h" line="210" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/tx_only/xdptxss_dp14_tx.h" bodystart="210" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xdptxss__dp14__tx_8h_1a64af799273d407a42c2d25e47e793191" prot="public" static="no">
+        <name>XVPHY_DRP_CPLL_FBDIV</name>
+        <initializer>0x28</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/tx_only/xdptxss_dp14_tx.h" line="213" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/tx_only/xdptxss_dp14_tx.h" bodystart="213" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xdptxss__dp14__tx_8h_1a2eee655d374af7effd726c02a62c93a1" prot="public" static="no">
+        <name>XVPHY_DRP_CPLL_REFCLK_DIV</name>
+        <initializer>0x2A</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/tx_only/xdptxss_dp14_tx.h" line="214" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/tx_only/xdptxss_dp14_tx.h" bodystart="214" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xdptxss__dp14__tx_8h_1a54ed0cd23c952122fe7df6c3f0b6b658" prot="public" static="no">
+        <name>XVPHY_DRP_RXOUT_DIV</name>
+        <initializer>0x63</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/tx_only/xdptxss_dp14_tx.h" line="215" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/tx_only/xdptxss_dp14_tx.h" bodystart="215" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xdptxss__dp14__tx_8h_1ad680d076ef98e5cfe1ff4939bfbcb7aa" prot="public" static="no">
+        <name>XVPHY_DRP_RXCLK25</name>
+        <initializer>0x6D</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/tx_only/xdptxss_dp14_tx.h" line="216" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/tx_only/xdptxss_dp14_tx.h" bodystart="216" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xdptxss__dp14__tx_8h_1a0115bdfcbbc3c306be8b34b0f1edd35c" prot="public" static="no">
+        <name>XVPHY_DRP_TXCLK25</name>
+        <initializer>0x7A</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/tx_only/xdptxss_dp14_tx.h" line="217" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/tx_only/xdptxss_dp14_tx.h" bodystart="217" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xdptxss__dp14__tx_8h_1a1f32b26f0720e763771bbe918ffd3751" prot="public" static="no">
+        <name>XVPHY_DRP_TXOUT_DIV</name>
+        <initializer>0x7C</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/tx_only/xdptxss_dp14_tx.h" line="218" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/tx_only/xdptxss_dp14_tx.h" bodystart="218" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xdptxss__dp14__tx_8h_1a9998f7947933cd417903c3424bdd658c" prot="public" static="no">
+        <name>XVPHY_DRP_PROGDIV</name>
+        <initializer>0x3E</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/tx_only/xdptxss_dp14_tx.h" line="219" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/tx_only/xdptxss_dp14_tx.h" bodystart="219" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xdptxss__dp14__tx_8h_1a7af95f3dcaf4c5b26224f3dc6f060e8e" prot="public" static="no">
+        <name>DIVIDER_162</name>
+        <initializer>57423</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/tx_only/xdptxss_dp14_tx.h" line="223" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/tx_only/xdptxss_dp14_tx.h" bodystart="223" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xdptxss__dp14__tx_8h_1a382c96de162b499fcaa4b72281084372" prot="public" static="no">
+        <name>DIVIDER_270</name>
+        <initializer>57415</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/tx_only/xdptxss_dp14_tx.h" line="224" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/tx_only/xdptxss_dp14_tx.h" bodystart="224" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xdptxss__dp14__tx_8h_1a4a63c31e6075b04146f6e9230855d69c" prot="public" static="no">
+        <name>DIVIDER_540</name>
+        <initializer>57442</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/tx_only/xdptxss_dp14_tx.h" line="225" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/tx_only/xdptxss_dp14_tx.h" bodystart="225" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xdptxss__dp14__tx_8h_1a4db4873632d12074ce674c4c1093327d" prot="public" static="no">
+        <name>DIVIDER_810</name>
+        <initializer>57440</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/tx_only/xdptxss_dp14_tx.h" line="226" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/tx_only/xdptxss_dp14_tx.h" bodystart="226" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xdptxss__dp14__tx_8h_1a265be201a011d0585ded656e4b1a636b" prot="public" static="no">
+        <name>XVPHY_GTHE4_PREEMP_DP_L0</name>
+        <initializer>0x3</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/tx_only/xdptxss_dp14_tx.h" line="235" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/tx_only/xdptxss_dp14_tx.h" bodystart="235" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xdptxss__dp14__tx_8h_1aefe8ef7bbb49ee8b8f6f2fbb3dd2571b" prot="public" static="no">
+        <name>XVPHY_GTHE4_PREEMP_DP_L1</name>
+        <initializer>0xD</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/tx_only/xdptxss_dp14_tx.h" line="236" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/tx_only/xdptxss_dp14_tx.h" bodystart="236" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xdptxss__dp14__tx_8h_1a4f8e5e893ab02768aad7052e9844f09f" prot="public" static="no">
+        <name>XVPHY_GTHE4_PREEMP_DP_L2</name>
+        <initializer>0x16</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/tx_only/xdptxss_dp14_tx.h" line="237" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/tx_only/xdptxss_dp14_tx.h" bodystart="237" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xdptxss__dp14__tx_8h_1ad35b96a4839f9ab0c7999c0a4dc3330a" prot="public" static="no">
+        <name>XVPHY_GTHE4_PREEMP_DP_L3</name>
+        <initializer>0x1D</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/tx_only/xdptxss_dp14_tx.h" line="238" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/tx_only/xdptxss_dp14_tx.h" bodystart="238" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xdptxss__dp14__tx_8h_1a0999250b1c8e78114792e89d5496d34f" prot="public" static="no">
+        <name>XVPHY_GTHE4_DIFF_SWING_DP_V0P0</name>
+        <initializer>0x1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/tx_only/xdptxss_dp14_tx.h" line="240" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/tx_only/xdptxss_dp14_tx.h" bodystart="240" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xdptxss__dp14__tx_8h_1acdfb87625a0326080bd62d6145da7485" prot="public" static="no">
+        <name>XVPHY_GTHE4_DIFF_SWING_DP_V0P1</name>
+        <initializer>0x2</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/tx_only/xdptxss_dp14_tx.h" line="241" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/tx_only/xdptxss_dp14_tx.h" bodystart="241" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xdptxss__dp14__tx_8h_1ae542c84a5e9a3845a59ac3140f4583f9" prot="public" static="no">
+        <name>XVPHY_GTHE4_DIFF_SWING_DP_V0P2</name>
+        <initializer>0x5</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/tx_only/xdptxss_dp14_tx.h" line="242" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/tx_only/xdptxss_dp14_tx.h" bodystart="242" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xdptxss__dp14__tx_8h_1ae3ca0fca3b455f16bda8d0544c5cc869" prot="public" static="no">
+        <name>XVPHY_GTHE4_DIFF_SWING_DP_V0P3</name>
+        <initializer>0xB</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/tx_only/xdptxss_dp14_tx.h" line="243" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/tx_only/xdptxss_dp14_tx.h" bodystart="243" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xdptxss__dp14__tx_8h_1af87ef09384d1b53c8f3da6e52cb93d81" prot="public" static="no">
+        <name>XVPHY_GTHE4_DIFF_SWING_DP_V1P0</name>
+        <initializer>0x2</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/tx_only/xdptxss_dp14_tx.h" line="245" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/tx_only/xdptxss_dp14_tx.h" bodystart="245" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xdptxss__dp14__tx_8h_1a7c1363948fa2c14f8d24b1a5505fdf11" prot="public" static="no">
+        <name>XVPHY_GTHE4_DIFF_SWING_DP_V1P1</name>
+        <initializer>0x5</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/tx_only/xdptxss_dp14_tx.h" line="246" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/tx_only/xdptxss_dp14_tx.h" bodystart="246" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xdptxss__dp14__tx_8h_1a75a1c7ff06522170d5db7d7f5306ef1a" prot="public" static="no">
+        <name>XVPHY_GTHE4_DIFF_SWING_DP_V1P2</name>
+        <initializer>0x7</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/tx_only/xdptxss_dp14_tx.h" line="247" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/tx_only/xdptxss_dp14_tx.h" bodystart="247" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xdptxss__dp14__tx_8h_1a577a7f270a0b07e88b394297e922e0f7" prot="public" static="no">
+        <name>XVPHY_GTHE4_DIFF_SWING_DP_V2P0</name>
+        <initializer>0x4</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/tx_only/xdptxss_dp14_tx.h" line="249" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/tx_only/xdptxss_dp14_tx.h" bodystart="249" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xdptxss__dp14__tx_8h_1a220bb05c504945b9034df573d4d91929" prot="public" static="no">
+        <name>XVPHY_GTHE4_DIFF_SWING_DP_V2P1</name>
+        <initializer>0x7</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/tx_only/xdptxss_dp14_tx.h" line="250" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/tx_only/xdptxss_dp14_tx.h" bodystart="250" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xdptxss__dp14__tx_8h_1ada3e8f247a7d5b93ed60811a978b7da0" prot="public" static="no">
+        <name>XVPHY_GTHE4_DIFF_SWING_DP_V3P0</name>
+        <initializer>0x8</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/tx_only/xdptxss_dp14_tx.h" line="252" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/tx_only/xdptxss_dp14_tx.h" bodystart="252" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xdptxss__dp14__tx_8h_1ae500029baa9bad5e62d29b5fac38e95a" prot="public" static="no">
+        <name>TX_BUFFER_BYPASS</name>
+        <initializer>XPAR_VID_PHY_CONTROLLER_0_TX_BUFFER_BYPASS</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/tx_only/xdptxss_dp14_tx.h" line="254" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/tx_only/xdptxss_dp14_tx.h" bodystart="254" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xdptxss__dp14__tx_8h_1ab8f448ab682b09093e64a699cd02ec30" prot="public" static="no">
+        <name>PHY_COMP</name>
+        <initializer>0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/tx_only/xdptxss_dp14_tx.h" line="259" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/tx_only/xdptxss_dp14_tx.h" bodystart="259" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xdptxss__dp14__tx_8h_1a61938278f3baa90db9c37d45ee70189d" prot="public" static="no">
+        <name>COLOR_FORMAT_SHIFT</name>
+        <initializer>4</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/tx_only/xdptxss_dp14_tx.h" line="261" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/tx_only/xdptxss_dp14_tx.h" bodystart="261" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xdptxss__dp14__tx_8h_1a3b81ea18830379df0b5ceb94aaab7b9f" prot="public" static="no">
+        <name>BPC_SHIFT</name>
+        <initializer>8</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/tx_only/xdptxss_dp14_tx.h" line="262" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/tx_only/xdptxss_dp14_tx.h" bodystart="262" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xdptxss__dp14__tx_8h_1a98497157b7878c8c51180fb6c7ffa2c2" prot="public" static="no">
+        <name>DYNAMIC_RANGE_SHIFT</name>
+        <initializer>15</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/tx_only/xdptxss_dp14_tx.h" line="263" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/tx_only/xdptxss_dp14_tx.h" bodystart="263" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="xdptxss__dp14__tx_8h_1aabf59752370ff91dc84468c2f86977b4" prot="public" static="no">
+        <name>XVphy_User_GT_RefClk_Src</name>
+        <enumvalue id="xdptxss__zcu102__tx_8h_1aabf59752370ff91dc84468c2f86977b4aa76dc11ae1d347c368db45461c466d73" prot="public">
+          <name>ONBOARD_REF_CLK</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xdptxss__zcu102__tx_8h_1aabf59752370ff91dc84468c2f86977b4a3ff2af62975d31239c01cb063ff258d5" prot="public">
+          <name>DP159_FORWARDED_CLK</name>
+          <initializer>= 3</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="dppt__vid__phy__config_8h_1aabf59752370ff91dc84468c2f86977b4aa76dc11ae1d347c368db45461c466d73" prot="public">
+          <name>ONBOARD_REF_CLK</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="dppt__vid__phy__config_8h_1aabf59752370ff91dc84468c2f86977b4a3ff2af62975d31239c01cb063ff258d5" prot="public">
+          <name>DP159_FORWARDED_CLK</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="pt__only_2main_8h_1aabf59752370ff91dc84468c2f86977b4aa76dc11ae1d347c368db45461c466d73" prot="public">
+          <name>ONBOARD_REF_CLK</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="pt__only_2main_8h_1aabf59752370ff91dc84468c2f86977b4a3ff2af62975d31239c01cb063ff258d5" prot="public">
+          <name>DP159_FORWARDED_CLK</name>
+          <initializer>= 3</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xdptxss__dp14__tx_8h_1aabf59752370ff91dc84468c2f86977b4aa76dc11ae1d347c368db45461c466d73" prot="public">
+          <name>ONBOARD_REF_CLK</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xdptxss__dp14__tx_8h_1aabf59752370ff91dc84468c2f86977b4a3ff2af62975d31239c01cb063ff258d5" prot="public">
+          <name>DP159_FORWARDED_CLK</name>
+          <initializer>= 3</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="zcu__pt__dp14__hdcp_2main_8h_1aabf59752370ff91dc84468c2f86977b4aa76dc11ae1d347c368db45461c466d73" prot="public">
+          <name>ONBOARD_REF_CLK</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="zcu__pt__dp14__hdcp_2main_8h_1aabf59752370ff91dc84468c2f86977b4a3ff2af62975d31239c01cb063ff258d5" prot="public">
+          <name>DP159_FORWARDED_CLK</name>
+          <initializer>= 3</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xdptxss__zcu102__mst__pt_8h_1aabf59752370ff91dc84468c2f86977b4aa76dc11ae1d347c368db45461c466d73" prot="public">
+          <name>ONBOARD_REF_CLK</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xdptxss__zcu102__mst__pt_8h_1aabf59752370ff91dc84468c2f86977b4a3ff2af62975d31239c01cb063ff258d5" prot="public">
+          <name>DP159_FORWARDED_CLK</name>
+          <initializer>= 3</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/tx_only/xdptxss_dp14_tx.h" line="329" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/tx_only/xdptxss_dp14_tx.h" bodystart="329" bodyend="332"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xdptxss__dp14__tx_8h_1a7444574d5e7ee48e58bcd851b8a3da9d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void hpd_con</definition>
+        <argsstring>(XDpTxSs *InstancePtr, u8 Edid_org[128], u8 Edid1_org[128], u16 res_update)</argsstring>
+        <name>hpd_con</name>
+        <param>
+          <type><ref refid="struct_x_dp_tx_ss" kindref="compound">XDpTxSs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Edid_org</declname>
+          <array>[128]</array>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Edid1_org</declname>
+          <array>[128]</array>
+        </param>
+        <param>
+          <type>u16</type>
+          <declname>res_update</declname>
+        </param>
+        <briefdescription>
+<para>This function is called when a Hot-Plug-Detect (HPD) event is received by the DisplayPort TX Subsystem core. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dp_tx_ss" kindref="compound">XDpTxSs</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>Use the XDpTxSs_SetCallback driver function to set this function as the handler for HPD event. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/tx_only/xdptxss_dp14_tx.h" line="302" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/dats_dp14/xdptxss_zcu102_tx.c" bodystart="1129" bodyend="1288"/>
+      </memberdef>
+      <memberdef kind="function" id="xdptxss__dp14__tx_8h_1a7dadc9e5bc73c77fe35d1f21a6ee8184" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void hpd_pulse_con</definition>
+        <argsstring>(XDpTxSs *InstancePtr)</argsstring>
+        <name>hpd_pulse_con</name>
+        <param>
+          <type><ref refid="struct_x_dp_tx_ss" kindref="compound">XDpTxSs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function is the main hpd pulse process. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/tx_only/xdptxss_dp14_tx.h" line="304" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/dats_dp14/xdptxss_zcu102_tx.c" bodystart="687" bodyend="782"/>
+      </memberdef>
+      <memberdef kind="function" id="xdptxss__dp14__tx_8h_1ad673f235f7cfedfa92f5e7b76e1dc6c8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>char</type>
+        <definition>char xil_getc</definition>
+        <argsstring>(u32 timeout_ms)</argsstring>
+        <name>xil_getc</name>
+        <param>
+          <type>u32</type>
+          <declname>timeout_ms</declname>
+        </param>
+        <briefdescription>
+<para>This function to get uart input from user. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>timeout_ms</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>received character</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None.</para></simplesect>
+This function to get uart input from user.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>None.</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None.</para></simplesect>
+This function to get uart input from user</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>timeout_ms</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>received character</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/tx_only/xdptxss_dp14_tx.h" line="305" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/dats_dp14/menus.c" bodystart="1532" bodyend="1562"/>
+      </memberdef>
+      <memberdef kind="function" id="xdptxss__dp14__tx_8h_1a306e207aa67909d2660b4d99c74d6518" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Vpg_Audio_start</definition>
+        <argsstring>(void)</argsstring>
+        <name>Vpg_Audio_start</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function starts audio pattern generator. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/tx_only/xdptxss_dp14_tx.h" line="306" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/dats_dp14/xvid_pat_gen.c" bodystart="338" bodyend="359"/>
+      </memberdef>
+      <memberdef kind="function" id="xdptxss__dp14__tx_8h_1a7a23d7ce2380ce84a5b92fbeb9c1c565" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Vpg_Audio_stop</definition>
+        <argsstring>(void)</argsstring>
+        <name>Vpg_Audio_stop</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function stops audio pattern generator. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/tx_only/xdptxss_dp14_tx.h" line="307" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/dats_dp14/xvid_pat_gen.c" bodystart="371" bodyend="374"/>
+      </memberdef>
+      <memberdef kind="function" id="xdptxss__dp14__tx_8h_1a940bd70f2323c6575857991066c366ce" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 start_tx</definition>
+        <argsstring>(u8 line_rate, u8 lane_count, user_config_struct user_config)</argsstring>
+        <name>start_tx</name>
+        <param>
+          <type>u8</type>
+          <declname>line_rate</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>lane_count</declname>
+        </param>
+        <param>
+          <type>user_config_struct</type>
+          <declname>user_config</declname>
+        </param>
+        <briefdescription>
+<para>This function starts tx process. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>line</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>rate </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>lane</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>counts </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>pointer</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>to resolution table </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>bit</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>per components </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>video</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>pattern to output</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if interrupt setup was successful.</para></listitem><listitem><para>A specific error code defined in &quot;xstatus.h&quot; if an error occurs.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/tx_only/xdptxss_dp14_tx.h" line="308" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/dats_dp14/xdptxss_zcu102_tx.c" bodystart="981" bodyend="1081"/>
+      </memberdef>
+      <memberdef kind="function" id="xdptxss__dp14__tx_8h_1abc3b5b8be57b7512acb3aefb43ea5f42" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 config_phy</definition>
+        <argsstring>(int LineRate_init_tx)</argsstring>
+        <name>config_phy</name>
+        <param>
+          <type>int</type>
+          <declname>LineRate_init_tx</declname>
+        </param>
+        <briefdescription>
+<para>This function sets VPHY based on the linerate. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>user_config_struct.</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Status.</para></simplesect>
+<simplesect kind="note"><para>None.</para></simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>LineRate_init_tx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Linerate LaneCount_init_tx - Lanecount</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Status.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/tx_only/xdptxss_dp14_tx.h" line="309" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/pt_only/tx.c" bodystart="1325" bodyend="1448"/>
+      </memberdef>
+      <memberdef kind="function" id="xdptxss__dp14__tx_8h_1aae950e5381749a4972645f73cfa8c478" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Vpg_VidgenSetUserPattern</definition>
+        <argsstring>(XDp *InstancePtr, u8 Pattern)</argsstring>
+        <name>Vpg_VidgenSetUserPattern</name>
+        <param>
+          <type>XDp *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Pattern</declname>
+        </param>
+        <briefdescription>
+<para>This function sets user pattern. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the XDp instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Pattern</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>number to set with</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/tx_only/xdptxss_dp14_tx.h" line="311" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/dats_dp14/xvid_pat_gen.c" bodystart="307" bodyend="326"/>
+      </memberdef>
+      <memberdef kind="function" id="xdptxss__dp14__tx_8h_1ac7df1d249ca29194a87b16e0922f7a5d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void sink_power_down</definition>
+        <argsstring>(void)</argsstring>
+        <name>sink_power_down</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function powers down sink. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>None.</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/tx_only/xdptxss_dp14_tx.h" line="312" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/dats_dp14/xdptxss_zcu102_tx.c" bodystart="1559" bodyend="1564"/>
+      </memberdef>
+      <memberdef kind="function" id="xdptxss__dp14__tx_8h_1aadab97509f846fd10287979165eaf663" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void sink_power_up</definition>
+        <argsstring>(void)</argsstring>
+        <name>sink_power_up</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function powers down sink. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>None.</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/tx_only/xdptxss_dp14_tx.h" line="313" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/dats_dp14/xdptxss_zcu102_tx.c" bodystart="1578" bodyend="1583"/>
+      </memberdef>
+      <memberdef kind="function" id="xdptxss__dp14__tx_8h_1a4f08b7f747aa871c3bf0347e7a97a014" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u8</type>
+        <definition>u8 get_LineRate</definition>
+        <argsstring>(void)</argsstring>
+        <name>get_LineRate</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function returns current line rate. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>None.</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/tx_only/xdptxss_dp14_tx.h" line="314" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/dats_dp14/xdptxss_zcu102_tx.c" bodystart="1597" bodyend="1599"/>
+      </memberdef>
+      <memberdef kind="function" id="xdptxss__dp14__tx_8h_1abf092dfbac92af19a16428c3ce5f0a4d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u8</type>
+        <definition>u8 get_Lanecounts</definition>
+        <argsstring>(void)</argsstring>
+        <name>get_Lanecounts</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function returns current lane counts. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>None.</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/tx_only/xdptxss_dp14_tx.h" line="315" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/dats_dp14/xdptxss_zcu102_tx.c" bodystart="1613" bodyend="1615"/>
+      </memberdef>
+      <memberdef kind="function" id="xdptxss__dp14__tx_8h_1af834b5959f0311b1c88078b11c5c07bf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void sink_power_cycle</definition>
+        <argsstring>(void)</argsstring>
+        <name>sink_power_cycle</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function power cycle the sink. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>user_config_struct.</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Status.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/tx_only/xdptxss_dp14_tx.h" line="316" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/dats_dp14/xdptxss_zcu102_tx.c" bodystart="1716" bodyend="1726"/>
+      </memberdef>
+      <memberdef kind="function" id="xdptxss__dp14__tx_8h_1a67d727b1ed7c92197430901fb85a0f3d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int i2c_write_dp141</definition>
+        <argsstring>(u32 I2CBaseAddress, u8 I2CSlaveAddress, u16 RegisterAddress, u8 Value)</argsstring>
+        <name>i2c_write_dp141</name>
+        <param>
+          <type>u32</type>
+          <declname>I2CBaseAddress</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>I2CSlaveAddress</declname>
+        </param>
+        <param>
+          <type>u16</type>
+          <declname>RegisterAddress</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/tx_only/xdptxss_dp14_tx.h" line="317" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/dats_dp14/xdptxss_zcu102_tx.c" bodystart="1880" bodyend="1907"/>
+      </memberdef>
+      <memberdef kind="function" id="xdptxss__dp14__tx_8h_1a2e73cbc8487361aa394bcaff21eddb37" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void DpPt_pe_vs_adjustHandler</definition>
+        <argsstring>(void *InstancePtr)</argsstring>
+        <name>DpPt_pe_vs_adjustHandler</name>
+        <param>
+          <type>void *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/tx_only/xdptxss_dp14_tx.h" line="319" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/kcu_dp14/xdptxss_kcu105_dp14.c" bodystart="3800" bodyend="3906"/>
+      </memberdef>
+      <memberdef kind="function" id="xdptxss__dp14__tx_8h_1a83b1170da398be3c53b87955c0a5b6a3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int VideoFMC_Init</definition>
+        <argsstring>(void)</argsstring>
+        <name>VideoFMC_Init</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function will detect video resolution/frequency change Many GPUs won&apos;t re-train when only video res/freq change. </para>        </briefdescription>
+        <detaileddescription>
+<para>Application needs to know if it changed and need to detect new parameter. Based on the parameter, re-set and re-start VDAM and Tx</para><para><simplesect kind="return"><para>None</para></simplesect>
+This function will detect video resolution/frequency change Many GPUs won&apos;t re-train when only video res/freq change.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>None.</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None.</para></simplesect>
+Application needs to know if it changed and need to detect new parameter. Based on the parameter, re-set and re-start VDAM and Tx</para><para><simplesect kind="return"><para>None</para></simplesect>
+This function will detect video resolution/frequency change Many GPUs won&apos;t re-train when only video res/freq change.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>None.</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/tx_only/xdptxss_dp14_tx.h" line="320" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/dats_dp14/xdptxss_zcu102_tx.c" bodystart="1729" bodyend="1805"/>
+      </memberdef>
+      <memberdef kind="function" id="group___i_d_t__8_t49_n24x_1ga0c56d8545c64ae78a3423b7ce782676f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int IDT_8T49N24x_SetClock</definition>
+        <argsstring>(u32 I2CBaseAddress, u8 I2CSlaveAddress, int FIn, int FOut, u8 FreeRun)</argsstring>
+        <name>IDT_8T49N24x_SetClock</name>
+        <param>
+          <type>u32</type>
+          <declname>I2CBaseAddress</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>I2CSlaveAddress</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>FIn</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>FOut</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>FreeRun</declname>
+        </param>
+        <briefdescription>
+<para>This function calculates and sets the IDT 8TN49N24x device with the given clock configuration. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>I2CBaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the baseaddress of the I2C core. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>I2CSlaveAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 7-bit I2C slave address. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>FIn</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>specifies the input frequency. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>FOut</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>specifies the output frequency. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>FreeRun</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>specifies if the operation mode is locked/synthesizer mode.<itemizedlist>
+<listitem><para>TRUE Synthesizer mode (Fout only)</para></listitem><listitem><para>FALSE Locked mode (Fout locked to Fin)</para></listitem></itemizedlist>
+</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS Initialization was successful.</para></listitem><listitem><para>XST_FAILURE I2C write error or incorrect parameters detected.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para></para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/tx_only/xdptxss_dp14_tx.h" line="321" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/dats_dp14/idt_8t49n24x.c" bodystart="551" bodyend="644"/>
+      </memberdef>
+      <memberdef kind="function" id="group___i_d_t__8_t49_n24x_1ga8682f371519c86ef2e8880298dd12e54" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int IDT_8T49N24x_Init</definition>
+        <argsstring>(u32 I2CBaseAddress, u8 I2CSlaveAddress)</argsstring>
+        <name>IDT_8T49N24x_Init</name>
+        <param>
+          <type>u32</type>
+          <declname>I2CBaseAddress</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>I2CSlaveAddress</declname>
+        </param>
+        <briefdescription>
+<para>This function initializes the IDT 8TN49N24x with default values for use with the Video FMC. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function set the GPIO outputs.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>I2CBaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the baseaddress of the I2C core. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>I2CSlaveAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 7-bit I2C slave address.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS Initialization was successful.</para></listitem><listitem><para>XST_FAILURE I2C write error.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None.</para></simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>I2CBaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the baseaddress of the I2C core. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>I2CSlaveAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 7-bit I2C slave address.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS</para></listitem><listitem><para>XST_FAILURE</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None.</para></simplesect>
+This function set the input reference</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>I2CBaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the baseaddress of the I2C core. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>I2CSlaveAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 7-bit I2C slave address.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS</para></listitem><listitem><para>XST_FAILURE</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None.</para></simplesect>
+This function set the output drivers</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>I2CBaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the baseaddress of the I2C core. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>I2CSlaveAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 7-bit I2C slave address.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS</para></listitem><listitem><para>XST_FAILURE</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None.</para></simplesect>
+This function sets the lock mode</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>I2CBaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the baseaddress of the I2C core. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>I2CSlaveAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 7-bit I2C slave address.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS</para></listitem><listitem><para>XST_FAILURE</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None.</para></simplesect>
+This function initializes the IDT 8TN49N24x with default values for use with the Video FMC.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>I2CBaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the baseaddress of the I2C core. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>I2CSlaveAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 7-bit I2C slave address.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS Initialization was successful.</para></listitem><listitem><para>XST_FAILURE I2C write error.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None.</para></simplesect>
+This function initializes the IDT 8TN49N24x with default values for use with the Video FMC.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>I2CBaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the baseaddress of the I2C core. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>I2CSlaveAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 7-bit I2C slave address.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS</para></listitem><listitem><para>XST_FAILURE</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None.</para></simplesect>
+This function set the input reference</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>I2CBaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the baseaddress of the I2C core. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>I2CSlaveAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 7-bit I2C slave address.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS</para></listitem><listitem><para>XST_FAILURE</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None.</para></simplesect>
+This function set the output drivers</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>I2CBaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the baseaddress of the I2C core. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>I2CSlaveAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 7-bit I2C slave address.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS</para></listitem><listitem><para>XST_FAILURE</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None.</para></simplesect>
+This function sets the lock mode</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>I2CBaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the baseaddress of the I2C core. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>I2CSlaveAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 7-bit I2C slave address.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS</para></listitem><listitem><para>XST_FAILURE</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None.</para></simplesect>
+This function initializes the IDT 8TN49N24x with default values for use with the Video FMC.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>I2CBaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the baseaddress of the I2C core. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>I2CSlaveAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 7-bit I2C slave address.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS Initialization was successful.</para></listitem><listitem><para>XST_FAILURE I2C write error.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem></listitem><listitem></listitem><listitem></listitem><listitem></listitem><listitem></listitem><listitem></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/tx_only/xdptxss_dp14_tx.h" line="323" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/dats_dp14/idt_8t49n24x.c" bodystart="1409" bodyend="1468"/>
+      </memberdef>
+      <memberdef kind="function" id="group___t_i___l_m_k03318_1gad23a875ad2640e133b3c60b9b2614854" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int TI_LMK03318_PowerDown</definition>
+        <argsstring>(u32 I2CBaseAddress, u8 I2CSlaveAddress)</argsstring>
+        <name>TI_LMK03318_PowerDown</name>
+        <param>
+          <type>u32</type>
+          <declname>I2CBaseAddress</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>I2CSlaveAddress</declname>
+        </param>
+        <briefdescription>
+<para>This function puts the TI LMK03318 into sleep. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>I2CBaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the baseaddress of the I2C core. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>I2CSlaveAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 7-bit I2C slave address.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS Initialization was successful.</para></listitem><listitem><para>XST_FAILURE I2C write error.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/tx_only/xdptxss_dp14_tx.h" line="324" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/dats_dp14/ti_lmk03318.c" bodystart="315" bodyend="355"/>
+      </memberdef>
+      <memberdef kind="function" id="xdptxss__dp14__tx_8h_1a677a29cae75ee8a62aba28151fbdd327" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 PHY_Configuration_Tx</definition>
+        <argsstring>(XVphy *InstancePtr, XVphy_User_Config PHY_User_Config_Table)</argsstring>
+        <name>PHY_Configuration_Tx</name>
+        <param>
+          <type>XVphy *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>XVphy_User_Config</type>
+          <declname>PHY_User_Config_Table</declname>
+        </param>
+        <briefdescription>
+<para>This function sets up PHY. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>pointer</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>to VideoPHY </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>User</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Config table</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if interrupt setup was successful.</para></listitem><listitem><para>A specific error code defined in &quot;xstatus.h&quot; if an error occurs.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/tx_only/xdptxss_dp14_tx.h" line="347" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/dats_dp14/xdptxss_zcu102_tx.c" bodystart="893" bodyend="959"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2020<sp/>-<sp/>2021<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>2022-2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="22"><highlight class="preprocessor">#ifndef<sp/>SRC_XDPTXSS_ZCU102_TX_H_</highlight></codeline>
+<codeline lineno="23"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SRC_XDPTXSS_ZCU102_TX_H_</highlight></codeline>
+<codeline lineno="24"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="26"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="28"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xdptxss_8h" kindref="compound">xdptxss.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_printf.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xparameters.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xstatus.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>PLATFORM_MB</highlight></codeline>
+<codeline lineno="38"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xscugic.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="40"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xintc.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="42"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>versal</highlight></codeline>
+<codeline lineno="44"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xuartpsv_hw.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;xdp.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;xdp_hw.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xiicps.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xclk_wiz.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xgpio.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="51"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xvphy.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xvphy_i.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>PLATFORM_MB</highlight></codeline>
+<codeline lineno="54"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xuartps_hw.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xiicps.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="57"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xuartlite.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xuartlite_l.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="60"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xiic.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xiic_l.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="63"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xtmrctr.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xvidc_edid.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;sleep.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;stdlib.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xvidframe_crc.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;clk_set.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;videofmc_defs.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xvidframe_crc.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="76"><highlight class="normal"></highlight></codeline>
+<codeline lineno="77"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight></codeline>
+<codeline lineno="79"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="80"><highlight class="comment">*<sp/>The<sp/>following<sp/>constants<sp/>map<sp/>to<sp/>the<sp/>names<sp/>of<sp/>the<sp/>hardware<sp/>instances.</highlight></codeline>
+<codeline lineno="81"><highlight class="comment">*<sp/>They<sp/>are<sp/>only<sp/>defined<sp/>here<sp/>such<sp/>that<sp/>a<sp/>user<sp/>can<sp/>easily<sp/>change<sp/>all<sp/>the</highlight></codeline>
+<codeline lineno="82"><highlight class="comment">*<sp/>needed<sp/>device<sp/>IDs<sp/>in<sp/>one<sp/>place.</highlight></codeline>
+<codeline lineno="83"><highlight class="comment">*<sp/>There<sp/>is<sp/>only<sp/>one<sp/>interrupt<sp/>controlled<sp/>to<sp/>be<sp/>selected<sp/>from<sp/>SCUGIC<sp/>and<sp/>GPIO</highlight></codeline>
+<codeline lineno="84"><highlight class="comment">*<sp/>INTC.<sp/>INTC<sp/>selection<sp/>is<sp/>based<sp/>on<sp/>INTC<sp/>parameters<sp/>defined<sp/>xparameters.h<sp/>file.</highlight></codeline>
+<codeline lineno="85"><highlight class="comment">*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="86"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>PLATFORM_MB</highlight></codeline>
+<codeline lineno="87"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="88"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XINTC_DPTXSS_DP_INTERRUPT_ID<sp/>\</highlight></codeline>
+<codeline lineno="89"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_FABRIC_DP14TXSS_0_VEC_ID</highlight></codeline>
+<codeline lineno="90"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="91"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XINTC<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XScuGic</highlight></codeline>
+<codeline lineno="92"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XINTC_HANDLER<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XScuGic_InterruptHandler</highlight></codeline>
+<codeline lineno="93"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="94"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="95"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="96"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XINTC_DPTXSS_DP_INTERRUPT_ID<sp/>\</highlight></codeline>
+<codeline lineno="97"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_INTC_0_DP14TXSS_0_VEC_ID</highlight></codeline>
+<codeline lineno="98"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="99"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XINTC_HANDLER<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XIntc_InterruptHandler</highlight></codeline>
+<codeline lineno="100"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="101"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="102"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="103"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>The<sp/>unique<sp/>device<sp/>ID<sp/>of<sp/>the<sp/>DisplayPort<sp/>Transmitter<sp/>Subsystem<sp/>HIP<sp/>instance</highlight></codeline>
+<codeline lineno="104"><highlight class="comment"><sp/>*<sp/>to<sp/>be<sp/>used</highlight></codeline>
+<codeline lineno="105"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="106"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XDPTXSS_DEVICE_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_DPTXSS_0_DEVICE_ID</highlight></codeline>
+<codeline lineno="107"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>VIDEO_CRC_BASEADDR<sp/><sp/><sp/><sp/><sp/><sp/>XPAR_VIDEO_FRAME_CRC_RX_BASEADDR</highlight></codeline>
+<codeline lineno="108"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>If<sp/>set<sp/>to<sp/>1,<sp/>example<sp/>will<sp/>run<sp/>in<sp/>MST<sp/>mode.<sp/>Otherwise,<sp/>in<sp/>SST<sp/>mode.</highlight></codeline>
+<codeline lineno="109"><highlight class="comment"><sp/>*<sp/>In<sp/>MST<sp/>mode,<sp/>this<sp/>example<sp/>reads<sp/>the<sp/>EDID<sp/>of<sp/>RX<sp/>devices<sp/>if<sp/>connected<sp/>in</highlight></codeline>
+<codeline lineno="110"><highlight class="comment"><sp/>*<sp/>daisy-chain.</highlight></codeline>
+<codeline lineno="111"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="112"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>DPTXSS_MST<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1</highlight></codeline>
+<codeline lineno="113"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>DPTXSS_LINK_RATE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDPTXSS_LINK_BW_SET_540GBPS</highlight></codeline>
+<codeline lineno="114"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>DPTXSS_LANE_COUNT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDPTXSS_LANE_COUNT_SET_4</highlight></codeline>
+<codeline lineno="115"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="116"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>DEFAULT<sp/>VALUE=0.<sp/>Enabled<sp/>programming<sp/>of</highlight></codeline>
+<codeline lineno="117"><highlight class="comment"><sp/>*<sp/><sp/>*Rx<sp/>Training<sp/>Algo<sp/>Register<sp/>for<sp/>Debugging<sp/>Purpose</highlight></codeline>
+<codeline lineno="118"><highlight class="comment"><sp/>*<sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="119"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>LINK_TRAINING_DEBUG<sp/><sp/><sp/><sp/><sp/>0</highlight></codeline>
+<codeline lineno="120"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="121"><highlight class="normal"></highlight><highlight class="comment">/*EDID<sp/>Selection*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="122"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>DP12_EDID_ENABLED<sp/>0</highlight></codeline>
+<codeline lineno="123"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="124"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>The<sp/>video<sp/>resolution<sp/>from<sp/>the<sp/>display<sp/>mode<sp/>timings<sp/>(DMT)<sp/>table<sp/>to<sp/>use<sp/>for</highlight></codeline>
+<codeline lineno="125"><highlight class="comment"><sp/>*<sp/>DisplayPort<sp/>TX<sp/>Subsystem.<sp/>It<sp/>can<sp/>be<sp/>set<sp/>to<sp/>use<sp/>preferred<sp/>video<sp/>mode<sp/>for</highlight></codeline>
+<codeline lineno="126"><highlight class="comment"><sp/>*<sp/>EDID<sp/>of<sp/>RX<sp/>device.</highlight></codeline>
+<codeline lineno="127"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="128"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>DPTXSS_VID_MODE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XVIDC_VM_USE_EDID_PREFERRED</highlight></codeline>
+<codeline lineno="129"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="130"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>The<sp/>color<sp/>depth<sp/>(bits<sp/>per<sp/>color<sp/>component)<sp/>to<sp/>use<sp/>DisplayPort<sp/>TX</highlight></codeline>
+<codeline lineno="131"><highlight class="comment"><sp/>*<sp/>Subsystem.</highlight></codeline>
+<codeline lineno="132"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="133"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>DPTXSS_BPC<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_DPTXSS_0_BITS_PER_COLOR</highlight></codeline>
+<codeline lineno="134"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="135"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="136"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SET_TX_TO_2BYTE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="137"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XPAR_XDP_0_GT_DATAWIDTH/2)</highlight></codeline>
+<codeline lineno="138"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="139"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SET_TX_TO_2BYTE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="140"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XPAR_XDP_0_GT_DATA_WIDTH/2)</highlight></codeline>
+<codeline lineno="141"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="142"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="143"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>TIMER_RESET_VALUE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1000</highlight></codeline>
+<codeline lineno="144"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>is_TX_CPLL<sp/>0</highlight></codeline>
+<codeline lineno="145"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CLK135MHz_DIVIDER<sp/>18</highlight></codeline>
+<codeline lineno="146"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CLK270MHz_DIVIDER<sp/>9</highlight></codeline>
+<codeline lineno="147"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CLK162MHz_DIVIDER<sp/>15</highlight></codeline>
+<codeline lineno="148"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>ENABLE_AUDIO<sp/>1</highlight></codeline>
+<codeline lineno="149"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#if<sp/>(ENABLE_AUDIO<sp/>==<sp/>1)</highlight></codeline>
+<codeline lineno="150"><highlight class="preprocessor"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#define<sp/>AV_PAT_GEN_BASE<sp/><sp/>XPAR_TX_SUBSYSTEM_AV_PAT_GEN_0_BASEADDR</highlight></codeline>
+<codeline lineno="151"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="152"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="153"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>audio_clk_Hz<sp/>24.576</highlight></codeline>
+<codeline lineno="154"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>EEPROM_TEST_START_ADDRESS<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x80</highlight></codeline>
+<codeline lineno="155"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PAGE_SIZE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>16</highlight></codeline>
+<codeline lineno="156"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>NUM_MODES<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>7</highlight></codeline>
+<codeline lineno="157"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>NUM_CLOCK_REGS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>6</highlight></codeline>
+<codeline lineno="158"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="159"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>versal</highlight></codeline>
+<codeline lineno="160"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>GT_QUAD_BASE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_GT_QUAD_HIER_0_GTWIZ_VERSAL_0_BASEADDR</highlight></codeline>
+<codeline lineno="161"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>TXCLKDIV_REG<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x3694</highlight></codeline>
+<codeline lineno="162"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>DIV3<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000278</highlight></codeline>
+<codeline lineno="163"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>DIV<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000260</highlight></codeline>
+<codeline lineno="164"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>DIV_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x000003FF</highlight></codeline>
+<codeline lineno="165"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="166"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="167"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XINTC_DEVICE_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_SCUGIC_0_DEVICE_ID</highlight></codeline>
+<codeline lineno="168"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CLK_WIZ_BASE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_CLK_WIZARD_1_BASEADDR</highlight></codeline>
+<codeline lineno="169"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="170"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CLK_WIZ_BASE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_XCLK_WIZ_0_BASEADDR</highlight></codeline>
+<codeline lineno="171"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="172"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XVPHY_DEVICE_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0</highlight></codeline>
+<codeline lineno="173"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>IIC_BASE_ADDR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0</highlight></codeline>
+<codeline lineno="174"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>IIC_DEVICE_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0</highlight></codeline>
+<codeline lineno="175"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SINGLE_LANE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000011</highlight></codeline>
+<codeline lineno="176"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>ALL_LANE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0000003F</highlight></codeline>
+<codeline lineno="177"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>VERSAL_810G<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>3</highlight></codeline>
+<codeline lineno="178"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>VERSAL_540G<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>2</highlight></codeline>
+<codeline lineno="179"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>VERSAL_270G<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1</highlight></codeline>
+<codeline lineno="180"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>VERSAL_162G<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0</highlight></codeline>
+<codeline lineno="181"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>For<sp/>Versal<sp/>the<sp/>DP<sp/>and<sp/>GT<sp/>are<sp/>interfaced<sp/>in<sp/>RAW16<sp/>mode</highlight></codeline>
+<codeline lineno="182"><highlight class="comment"><sp/>*<sp/>8b10b<sp/>is<sp/>implemented<sp/>in<sp/>Fabric.<sp/>This<sp/>requires<sp/>two<sp/>clocks<sp/>to<sp/>be</highlight></codeline>
+<codeline lineno="183"><highlight class="comment"><sp/>*<sp/>generated<sp/>from<sp/>GT,<sp/>/16<sp/>clock<sp/>and<sp/>/20<sp/>clock,</highlight></codeline>
+<codeline lineno="184"><highlight class="comment"><sp/>*<sp/>ch0txoutclk<sp/>generates<sp/>/16<sp/>clk</highlight></codeline>
+<codeline lineno="185"><highlight class="comment"><sp/>*<sp/>ch1tcoutclk<sp/>is<sp/>used<sp/>to<sp/>generate<sp/>/20<sp/>clk</highlight></codeline>
+<codeline lineno="186"><highlight class="comment"><sp/>*<sp/>In<sp/>case<sp/>if<sp/>the<sp/>hardware<sp/>is<sp/>built<sp/>for<sp/>1<sp/>lane,<sp/>then<sp/>a<sp/>MMCM<sp/>is<sp/>to<sp/>be</highlight></codeline>
+<codeline lineno="187"><highlight class="comment"><sp/>*<sp/>used<sp/>to<sp/>generate<sp/>the<sp/>/20<sp/>clock</highlight></codeline>
+<codeline lineno="188"><highlight class="comment"><sp/>*<sp/>Refer<sp/>to<sp/>the<sp/>PassThrough<sp/>design<sp/>to<sp/>see<sp/>generation<sp/>of<sp/>/20<sp/>clk<sp/>on<sp/>RX<sp/>side</highlight></codeline>
+<codeline lineno="189"><highlight class="comment"><sp/>*<sp/>Similarly,<sp/>the<sp/>/20<sp/>clk<sp/>for<sp/>TX<sp/>be<sp/>generated<sp/>for<sp/>1<sp/>lane<sp/>design.</highlight></codeline>
+<codeline lineno="190"><highlight class="comment"><sp/>*<sp/>if<sp/>the<sp/>hardware<sp/>is<sp/>generated<sp/>for<sp/>2<sp/>or<sp/>4<sp/>lanes,<sp/>then<sp/>there<sp/>is<sp/>no<sp/>need<sp/>of</highlight></codeline>
+<codeline lineno="191"><highlight class="comment"><sp/>*<sp/>MMCM.</highlight></codeline>
+<codeline lineno="192"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="193"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>VERSAL_FABRIC_8B10B<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1</highlight></codeline>
+<codeline lineno="194"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="195"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#ifndef<sp/>PLATFORM_MB</highlight></codeline>
+<codeline lineno="196"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XINTC_DEVICE_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_SCUGIC_SINGLE_DEVICE_ID</highlight></codeline>
+<codeline lineno="197"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="198"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XINTC_DEVICE_ID<sp/>XPAR_INTC_0_DEVICE_ID</highlight></codeline>
+<codeline lineno="199"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="200"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XVPHY_DEVICE_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_VPHY_0_DEVICE_ID</highlight></codeline>
+<codeline lineno="201"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CLK_WIZ_BASE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_CLK_WIZ_0_BASEADDR</highlight></codeline>
+<codeline lineno="202"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="203"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>IIC_BASE_ADDR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_IIC_0_BASEADDR</highlight></codeline>
+<codeline lineno="204"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="205"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>IIC_BASE_ADDR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_XIIC_0_BASEADDR</highlight></codeline>
+<codeline lineno="206"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="207"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>IIC_DEVICE_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_IIC_0_DEVICE_ID</highlight></codeline>
+<codeline lineno="208"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="209"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="210"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>PE_VS_ADJUST<sp/>1</highlight></codeline>
+<codeline lineno="211"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="212"><highlight class="normal"></highlight></codeline>
+<codeline lineno="213"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XVPHY_DRP_CPLL_FBDIV<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x28</highlight></codeline>
+<codeline lineno="214"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XVPHY_DRP_CPLL_REFCLK_DIV<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x2A</highlight></codeline>
+<codeline lineno="215"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XVPHY_DRP_RXOUT_DIV<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x63</highlight></codeline>
+<codeline lineno="216"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XVPHY_DRP_RXCLK25<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x6D</highlight></codeline>
+<codeline lineno="217"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XVPHY_DRP_TXCLK25<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x7A</highlight></codeline>
+<codeline lineno="218"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XVPHY_DRP_TXOUT_DIV<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x7C</highlight></codeline>
+<codeline lineno="219"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XVPHY_DRP_PROGDIV<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x3E</highlight></codeline>
+<codeline lineno="220"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="221"><highlight class="normal"></highlight><highlight class="comment">//<sp/>The<sp/>following<sp/>are<sp/>the<sp/>PROGDIVCLK<sp/>divider<sp/>values<sp/>when<sp/>BufferBypass<sp/>is</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="222"><highlight class="normal"></highlight><highlight class="comment">//<sp/>enabled</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="223"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>DIVIDER_162<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>57423</highlight></codeline>
+<codeline lineno="224"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>DIVIDER_270<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>57415</highlight></codeline>
+<codeline lineno="225"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>DIVIDER_540<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>57442</highlight></codeline>
+<codeline lineno="226"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>DIVIDER_810<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>57440</highlight></codeline>
+<codeline lineno="227"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="228"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Following<sp/>values<sp/>of<sp/>VSwing<sp/>and<sp/>Pre-emphasis<sp/>have<sp/>been<sp/>identified</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="229"><highlight class="normal"></highlight><highlight class="comment">//<sp/>for<sp/>GTHE4.<sp/>These<sp/>have<sp/>been<sp/>tweaked<sp/>for<sp/>ZCU102<sp/>and<sp/>VFMC<sp/>card<sp/>&amp;<sp/>have<sp/>been</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="230"><highlight class="normal"></highlight><highlight class="comment">//<sp/>found<sp/>to<sp/>be<sp/>passing<sp/>the<sp/>PHY<sp/>compliance<sp/>requirements</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="231"><highlight class="normal"></highlight><highlight class="comment">//<sp/>It<sp/>is<sp/>not<sp/>necessary<sp/>that<sp/>these<sp/>values<sp/>would<sp/>work<sp/>across<sp/>any<sp/>design</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="232"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Users<sp/>should<sp/>update<sp/>these<sp/>values<sp/>to<sp/>get<sp/>the<sp/>PHY<sp/>compliance<sp/>working</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="233"><highlight class="normal"></highlight><highlight class="comment">//<sp/>on<sp/>custom<sp/>setups.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="234"><highlight class="normal"></highlight></codeline>
+<codeline lineno="235"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XVPHY_GTHE4_PREEMP_DP_L0<sp/><sp/><sp/><sp/>0x3</highlight></codeline>
+<codeline lineno="236"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XVPHY_GTHE4_PREEMP_DP_L1<sp/><sp/><sp/><sp/>0xD</highlight></codeline>
+<codeline lineno="237"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XVPHY_GTHE4_PREEMP_DP_L2<sp/><sp/><sp/><sp/>0x16</highlight></codeline>
+<codeline lineno="238"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XVPHY_GTHE4_PREEMP_DP_L3<sp/><sp/><sp/><sp/>0x1D</highlight></codeline>
+<codeline lineno="239"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="240"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XVPHY_GTHE4_DIFF_SWING_DP_V0P0<sp/>0x1</highlight></codeline>
+<codeline lineno="241"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XVPHY_GTHE4_DIFF_SWING_DP_V0P1<sp/>0x2</highlight></codeline>
+<codeline lineno="242"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XVPHY_GTHE4_DIFF_SWING_DP_V0P2<sp/>0x5</highlight></codeline>
+<codeline lineno="243"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XVPHY_GTHE4_DIFF_SWING_DP_V0P3<sp/>0xB</highlight></codeline>
+<codeline lineno="244"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="245"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XVPHY_GTHE4_DIFF_SWING_DP_V1P0<sp/>0x2</highlight></codeline>
+<codeline lineno="246"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XVPHY_GTHE4_DIFF_SWING_DP_V1P1<sp/>0x5</highlight></codeline>
+<codeline lineno="247"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XVPHY_GTHE4_DIFF_SWING_DP_V1P2<sp/>0x7</highlight></codeline>
+<codeline lineno="248"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="249"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XVPHY_GTHE4_DIFF_SWING_DP_V2P0<sp/>0x4</highlight></codeline>
+<codeline lineno="250"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XVPHY_GTHE4_DIFF_SWING_DP_V2P1<sp/>0x7</highlight></codeline>
+<codeline lineno="251"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="252"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XVPHY_GTHE4_DIFF_SWING_DP_V3P0<sp/>0x8</highlight></codeline>
+<codeline lineno="253"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="254"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>TX_BUFFER_BYPASS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_VID_PHY_CONTROLLER_0_TX_BUFFER_BYPASS</highlight></codeline>
+<codeline lineno="255"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="256"><highlight class="normal"></highlight></codeline>
+<codeline lineno="257"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>This<sp/>switch<sp/>is<sp/>used<sp/>to<sp/>enable<sp/>PHY<sp/>compliance<sp/>mode.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="258"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Compliance<sp/>mode<sp/>only<sp/>supported<sp/>for<sp/>ZCU102</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="259"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>PHY_COMP<sp/>0</highlight></codeline>
+<codeline lineno="260"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="261"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>COLOR_FORMAT_SHIFT<sp/>4</highlight></codeline>
+<codeline lineno="262"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>BPC_SHIFT<sp/>8</highlight></codeline>
+<codeline lineno="263"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>DYNAMIC_RANGE_SHIFT<sp/>15</highlight></codeline>
+<codeline lineno="264"><highlight class="preprocessor"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="265"><highlight class="normal"></highlight></codeline>
+<codeline lineno="266"><highlight class="normal"></highlight></codeline>
+<codeline lineno="267"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="268"><highlight class="normal"></highlight></codeline>
+<codeline lineno="269"><highlight class="normal"></highlight><highlight class="comment">/*The<sp/>structure<sp/>defines<sp/>Generic<sp/>Frame<sp/>Packet<sp/>fields*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="270"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="271"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="272"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>frame_count;</highlight></codeline>
+<codeline lineno="273"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>frame_count_q;</highlight></codeline>
+<codeline lineno="274"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Header[4];</highlight></codeline>
+<codeline lineno="275"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Payload[32];</highlight></codeline>
+<codeline lineno="276"><highlight class="normal">}<sp/>XilAudioExtFrame;</highlight></codeline>
+<codeline lineno="277"><highlight class="normal"></highlight></codeline>
+<codeline lineno="278"><highlight class="normal"></highlight><highlight class="comment">//XilAudioExtFrame<sp/><sp/>SdpExtFrame;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="279"><highlight class="normal"></highlight><highlight class="comment">//XilAudioExtFrame<sp/><sp/>SdpExtFrame_q;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="280"><highlight class="normal"></highlight></codeline>
+<codeline lineno="281"><highlight class="normal"></highlight></codeline>
+<codeline lineno="282"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="283"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="284"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XVidC_VideoMode<sp/>VideoMode_local;</highlight></codeline>
+<codeline lineno="285"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>user_bpc;</highlight></codeline>
+<codeline lineno="286"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>user_pattern;</highlight></codeline>
+<codeline lineno="287"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>user_format;</highlight></codeline>
+<codeline lineno="288"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>user_numStreams;</highlight></codeline>
+<codeline lineno="289"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>user_stream_number;</highlight></codeline>
+<codeline lineno="290"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>mst_check_flag;</highlight></codeline>
+<codeline lineno="291"><highlight class="normal">}user_config_struct;</highlight></codeline>
+<codeline lineno="292"><highlight class="normal"></highlight></codeline>
+<codeline lineno="293"><highlight class="normal"></highlight></codeline>
+<codeline lineno="294"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="295"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="296"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>lane_count;</highlight></codeline>
+<codeline lineno="297"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>link_rate;</highlight></codeline>
+<codeline lineno="298"><highlight class="normal">}lane_link_rate_struct;</highlight></codeline>
+<codeline lineno="299"><highlight class="normal"></highlight></codeline>
+<codeline lineno="300"><highlight class="normal"></highlight></codeline>
+<codeline lineno="301"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="302"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xdptxss__zcu102__tx_8h_1a7444574d5e7ee48e58bcd851b8a3da9d" kindref="member">hpd_con</ref>(<ref refid="struct_x_dp_tx_ss" kindref="compound">XDpTxSs</ref><sp/>*InstancePtr,<sp/>u8<sp/>Edid_org[128],<sp/>u8<sp/>Edid1_org[128],</highlight></codeline>
+<codeline lineno="303"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>res_update);</highlight></codeline>
+<codeline lineno="304"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xdptxss__zcu102__tx_8h_1a7dadc9e5bc73c77fe35d1f21a6ee8184" kindref="member">hpd_pulse_con</ref>(<ref refid="struct_x_dp_tx_ss" kindref="compound">XDpTxSs</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="305"><highlight class="normal"></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><ref refid="xdptxss__zcu102__tx_8h_1ad673f235f7cfedfa92f5e7b76e1dc6c8" kindref="member">xil_getc</ref>(u32<sp/>timeout_ms);</highlight></codeline>
+<codeline lineno="306"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xdptxss__zcu102__tx_8h_1a306e207aa67909d2660b4d99c74d6518" kindref="member">Vpg_Audio_start</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="307"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xdptxss__zcu102__tx_8h_1a7a23d7ce2380ce84a5b92fbeb9c1c565" kindref="member">Vpg_Audio_stop</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="308"><highlight class="normal">u32<sp/><ref refid="xdptxss__zcu102__tx_8h_1a940bd70f2323c6575857991066c366ce" kindref="member">start_tx</ref>(u8<sp/>line_rate,<sp/>u8<sp/>lane_count,<sp/>user_config_struct<sp/>user_config);</highlight></codeline>
+<codeline lineno="309"><highlight class="normal">u32<sp/>config_phy(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>LineRate_init_tx);</highlight></codeline>
+<codeline lineno="310"><highlight class="normal"></highlight></codeline>
+<codeline lineno="311"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xdptxss__zcu102__tx_8h_1aae950e5381749a4972645f73cfa8c478" kindref="member">Vpg_VidgenSetUserPattern</ref>(XDp<sp/>*InstancePtr,<sp/>u8<sp/>Pattern);</highlight></codeline>
+<codeline lineno="312"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xdptxss__zcu102__tx_8h_1ac7df1d249ca29194a87b16e0922f7a5d" kindref="member">sink_power_down</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="313"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xdptxss__zcu102__tx_8h_1aadab97509f846fd10287979165eaf663" kindref="member">sink_power_up</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="314"><highlight class="normal">u8<sp/><ref refid="xdptxss__zcu102__tx_8h_1a4f08b7f747aa871c3bf0347e7a97a014" kindref="member">get_LineRate</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="315"><highlight class="normal">u8<sp/><ref refid="xdptxss__zcu102__tx_8h_1abf092dfbac92af19a16428c3ce5f0a4d" kindref="member">get_Lanecounts</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="316"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xdptxss__zcu102__tx_8h_1af834b5959f0311b1c88078b11c5c07bf" kindref="member">sink_power_cycle</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="317"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i2c_write_dp141(u32<sp/>I2CBaseAddress,<sp/>u8<sp/>I2CSlaveAddress,<sp/>u16<sp/>RegisterAddress,</highlight></codeline>
+<codeline lineno="318"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Value);</highlight></codeline>
+<codeline lineno="319"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>DpPt_pe_vs_adjustHandler(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="320"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xdptxss__zcu102__tx_8h_1a83b1170da398be3c53b87955c0a5b6a3" kindref="member">VideoFMC_Init</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="321"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group___i_d_t__8_t49_n24x_1ga0c56d8545c64ae78a3423b7ce782676f" kindref="member">IDT_8T49N24x_SetClock</ref>(u32<sp/>I2CBaseAddress,<sp/>u8<sp/>I2CSlaveAddress,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>FIn,</highlight></codeline>
+<codeline lineno="322"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>FOut,<sp/>u8<sp/>FreeRun);</highlight></codeline>
+<codeline lineno="323"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group___i_d_t__8_t49_n24x_1ga8682f371519c86ef2e8880298dd12e54" kindref="member">IDT_8T49N24x_Init</ref>(u32<sp/>I2CBaseAddress,<sp/>u8<sp/>I2CSlaveAddress);</highlight></codeline>
+<codeline lineno="324"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group___t_i___l_m_k03318_1gad23a875ad2640e133b3c60b9b2614854" kindref="member">TI_LMK03318_PowerDown</ref>(u32<sp/>I2CBaseAddress,<sp/>u8<sp/>I2CSlaveAddress);</highlight></codeline>
+<codeline lineno="325"><highlight class="normal"></highlight></codeline>
+<codeline lineno="326"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="327"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>versal</highlight></codeline>
+<codeline lineno="328"><highlight class="preprocessor"></highlight><highlight class="comment">//XVphy<sp/>VPhyInst;<sp/><sp/><sp/><sp/><sp/><sp/><sp/>/*<sp/>The<sp/>DPRX<sp/>Subsystem<sp/>instance.*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="329"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="330"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ONBOARD_REF_CLK<sp/>=<sp/>1,</highlight></codeline>
+<codeline lineno="331"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DP159_FORWARDED_CLK<sp/>=<sp/>3,</highlight></codeline>
+<codeline lineno="332"><highlight class="normal">}<sp/>XVphy_User_GT_RefClk_Src;</highlight></codeline>
+<codeline lineno="333"><highlight class="normal"></highlight></codeline>
+<codeline lineno="334"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="335"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Index;</highlight></codeline>
+<codeline lineno="336"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XVphy_PllType<sp/><sp/>TxPLL;</highlight></codeline>
+<codeline lineno="337"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XVphy_PllType<sp/><sp/>RxPLL;</highlight></codeline>
+<codeline lineno="338"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XVphy_ChannelId<sp/>TxChId;</highlight></codeline>
+<codeline lineno="339"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XVphy_ChannelId<sp/>RxChId;</highlight></codeline>
+<codeline lineno="340"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>LineRate;</highlight></codeline>
+<codeline lineno="341"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>LineRateHz;</highlight></codeline>
+<codeline lineno="342"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XVphy_User_GT_RefClk_Src<sp/>QPLLRefClkSrc;</highlight></codeline>
+<codeline lineno="343"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XVphy_User_GT_RefClk_Src<sp/>CPLLRefClkSrc;</highlight></codeline>
+<codeline lineno="344"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>QPLLRefClkFreqHz;</highlight></codeline>
+<codeline lineno="345"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>CPLLRefClkFreqHz;</highlight></codeline>
+<codeline lineno="346"><highlight class="normal">}<sp/>XVphy_User_Config;</highlight></codeline>
+<codeline lineno="347"><highlight class="normal">u32<sp/><ref refid="xdptxss__zcu102__tx_8h_1a677a29cae75ee8a62aba28151fbdd327" kindref="member">PHY_Configuration_Tx</ref>(XVphy<sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="348"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XVphy_User_Config<sp/>PHY_User_Config_Table);</highlight></codeline>
+<codeline lineno="349"><highlight class="normal"></highlight></codeline>
+<codeline lineno="350"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="351"><highlight class="preprocessor"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>ReadModifyWrite(u32<sp/>MaskValue,<sp/>u32<sp/>data);</highlight></codeline>
+<codeline lineno="352"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="353"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="354"><highlight class="normal"></highlight><highlight class="comment">//XTmrCtr<sp/>TmrCtr;<sp/>/*<sp/>Timer<sp/>instance.*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="355"><highlight class="normal"></highlight></codeline>
+<codeline lineno="356"><highlight class="normal"></highlight></codeline>
+<codeline lineno="357"><highlight class="normal"></highlight><highlight class="comment">//int<sp/>tx_is_reconnected;<sp/>/*This<sp/>variable<sp/>to<sp/>keep<sp/>track<sp/>of<sp/>the<sp/>status<sp/>of<sp/>Tx<sp/>link*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="358"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="359"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="360"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="361"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>SRC_XDPTXSS_ZCU102_TX_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/tx_only/xdptxss_dp14_tx.h"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,156 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_asu___rsa_padding_params" kind="struct" prot="public">
+    <compoundname>XAsu_RsaPaddingParams</compoundname>
+    <includes local="no">xasu_rsainfo.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_asu___rsa_padding_params_1a001cec06d90f3e3b8eca87c24a1c7ea7" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_asu___rsa_params" kindref="compound">XAsu_RsaParams</ref></type>
+        <definition>XAsu_RsaParams XAsu_RsaPaddingParams::XAsu_RsaOpComp</definition>
+        <argsstring></argsstring>
+        <name>XAsu_RsaOpComp</name>
+        <briefdescription>
+<para>RSA parameters. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_rsainfo.h" line="160" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_rsainfo.h" bodystart="160" bodyend="-1"/>
+        <referencedby refid="group__xasu__rsa__client__apis_1gaceff65cb28ac22b56121a047dbb53aa9" compoundref="xasu__rsa_8c" startline="518" endline="601">XAsu_RsaPssSignGen</referencedby>
+        <referencedby refid="group__xasu__rsa__client__apis_1ga3a33eba68b96c49e0dcb8ca6abfd7b89" compoundref="xasu__rsa_8c" startline="620" endline="701">XAsu_RsaPssSignVer</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___rsa_padding_params_1adcdbd318ffffe4d16dd53a354d64b510" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XAsu_RsaPaddingParams::SignatureDataAddr</definition>
+        <argsstring></argsstring>
+        <name>SignatureDataAddr</name>
+        <briefdescription>
+<para>Address of RSA signature which acts as : </para>        </briefdescription>
+        <detaileddescription>
+<para><itemizedlist>
+<listitem><para>input - For signature verification and</para></listitem><listitem><para>output - For signature generation </para></listitem></itemizedlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_rsainfo.h" line="161" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_rsainfo.h" bodystart="161" bodyend="-1"/>
+        <referencedby refid="group__xasu__rsa__client__apis_1ga3a33eba68b96c49e0dcb8ca6abfd7b89" compoundref="xasu__rsa_8c" startline="620" endline="701">XAsu_RsaPssSignVer</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___rsa_padding_params_1a835f488b95ca9c9ae8cc9ae3e8732c5d" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAsu_RsaPaddingParams::SignatureLen</definition>
+        <argsstring></argsstring>
+        <name>SignatureLen</name>
+        <briefdescription>
+<para>RSA signature data length. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_rsainfo.h" line="164" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_rsainfo.h" bodystart="164" bodyend="-1"/>
+        <referencedby refid="group__xasu__rsa__client__apis_1ga3a33eba68b96c49e0dcb8ca6abfd7b89" compoundref="xasu__rsa_8c" startline="620" endline="701">XAsu_RsaPssSignVer</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___rsa_padding_params_1a5fd9b8d42bd99b409b469c3cf43e9f9a" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAsu_RsaPaddingParams::SaltLen</definition>
+        <argsstring></argsstring>
+        <name>SaltLen</name>
+        <briefdescription>
+<para>RSA salt len for PSS padding. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_rsainfo.h" line="165" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_rsainfo.h" bodystart="165" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___rsa_padding_params_1a4b962e1d08fb88965e9dcb6805769c34" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAsu_RsaPaddingParams::ShaType</definition>
+        <argsstring></argsstring>
+        <name>ShaType</name>
+        <briefdescription>
+<para>Hash family type (XASU_SHA2_TYPE / XASU_SHA3_TYPE) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_rsainfo.h" line="166" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_rsainfo.h" bodystart="166" bodyend="-1"/>
+        <referencedby refid="group__xasu__rsa__client__apis_1gaceff65cb28ac22b56121a047dbb53aa9" compoundref="xasu__rsa_8c" startline="518" endline="601">XAsu_RsaPssSignGen</referencedby>
+        <referencedby refid="group__xasu__rsa__client__apis_1ga3a33eba68b96c49e0dcb8ca6abfd7b89" compoundref="xasu__rsa_8c" startline="620" endline="701">XAsu_RsaPssSignVer</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___rsa_padding_params_1a1c007736fb6e25858b9dcfaf2f952369" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAsu_RsaPaddingParams::ShaMode</definition>
+        <argsstring></argsstring>
+        <name>ShaMode</name>
+        <briefdescription>
+<para><verbatim>   SHA Mode, where XASU_SHA_MODE_SHAKE256 is valid only for SHA3 Type
+</verbatim> (XASU_SHA_MODE_256 / XASU_SHA_MODE_384 / XASU_SHA_MODE_512 / XASU_SHA_MODE_SHAKE256) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_rsainfo.h" line="167" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_rsainfo.h" bodystart="167" bodyend="-1"/>
+        <referencedby refid="group__xasu__rsa__client__apis_1gaceff65cb28ac22b56121a047dbb53aa9" compoundref="xasu__rsa_8c" startline="518" endline="601">XAsu_RsaPssSignGen</referencedby>
+        <referencedby refid="group__xasu__rsa__client__apis_1ga3a33eba68b96c49e0dcb8ca6abfd7b89" compoundref="xasu__rsa_8c" startline="620" endline="701">XAsu_RsaPssSignVer</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___rsa_padding_params_1afa1caad52128e98d9e481af3fc96626c" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAsu_RsaPaddingParams::InputDataType</definition>
+        <argsstring></argsstring>
+        <name>InputDataType</name>
+        <briefdescription>
+<para>Input data type. </para>        </briefdescription>
+        <detaileddescription>
+<para><itemizedlist>
+<listitem><para>0: Plain data where Hash has to be calculated</para></listitem><listitem><para>1: Hashed data </para></listitem></itemizedlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_rsainfo.h" line="170" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_rsainfo.h" bodystart="170" bodyend="-1"/>
+        <referencedby refid="group__xasu__rsa__client__apis_1gaceff65cb28ac22b56121a047dbb53aa9" compoundref="xasu__rsa_8c" startline="518" endline="601">XAsu_RsaPssSignGen</referencedby>
+        <referencedby refid="group__xasu__rsa__client__apis_1ga3a33eba68b96c49e0dcb8ca6abfd7b89" compoundref="xasu__rsa_8c" startline="620" endline="701">XAsu_RsaPssSignVer</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___rsa_padding_params_1af3cac970f043e807fef9f0387d72bbf1" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAsu_RsaPaddingParams::Reserved[5]</definition>
+        <argsstring>[5]</argsstring>
+        <name>Reserved</name>
+        <briefdescription>
+<para>Explicit padding to ensure consistent struct size across architectures. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_rsainfo.h" line="173" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_rsainfo.h" bodystart="173" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This structure contains RSA PSS padding params info. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="123">
+        <label>XAsu_RsaParams</label>
+        <link refid="struct_x_asu___rsa_params"/>
+      </node>
+      <node id="122">
+        <label>XAsu_RsaPaddingParams</label>
+        <link refid="struct_x_asu___rsa_padding_params"/>
+        <childnode refid="123" relation="usage">
+          <edgelabel>XAsu_RsaOpComp</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_rsainfo.h" line="159" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_rsainfo.h" bodystart="159" bodyend="174"/>
+    <listofallmembers>
+      <member refid="struct_x_asu___rsa_padding_params_1afa1caad52128e98d9e481af3fc96626c" prot="public" virt="non-virtual"><scope>XAsu_RsaPaddingParams</scope><name>InputDataType</name></member>
+      <member refid="struct_x_asu___rsa_padding_params_1af3cac970f043e807fef9f0387d72bbf1" prot="public" virt="non-virtual"><scope>XAsu_RsaPaddingParams</scope><name>Reserved</name></member>
+      <member refid="struct_x_asu___rsa_padding_params_1a5fd9b8d42bd99b409b469c3cf43e9f9a" prot="public" virt="non-virtual"><scope>XAsu_RsaPaddingParams</scope><name>SaltLen</name></member>
+      <member refid="struct_x_asu___rsa_padding_params_1a1c007736fb6e25858b9dcfaf2f952369" prot="public" virt="non-virtual"><scope>XAsu_RsaPaddingParams</scope><name>ShaMode</name></member>
+      <member refid="struct_x_asu___rsa_padding_params_1a4b962e1d08fb88965e9dcb6805769c34" prot="public" virt="non-virtual"><scope>XAsu_RsaPaddingParams</scope><name>ShaType</name></member>
+      <member refid="struct_x_asu___rsa_padding_params_1adcdbd318ffffe4d16dd53a354d64b510" prot="public" virt="non-virtual"><scope>XAsu_RsaPaddingParams</scope><name>SignatureDataAddr</name></member>
+      <member refid="struct_x_asu___rsa_padding_params_1a835f488b95ca9c9ae8cc9ae3e8732c5d" prot="public" virt="non-virtual"><scope>XAsu_RsaPaddingParams</scope><name>SignatureLen</name></member>
+      <member refid="struct_x_asu___rsa_padding_params_1a001cec06d90f3e3b8eca87c24a1c7ea7" prot="public" virt="non-virtual"><scope>XAsu_RsaPaddingParams</scope><name>XAsu_RsaOpComp</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_fa2dc71aad13b636a1f36eb864a98f12" kind="dir">
+    <compoundname>common</compoundname>
+    <innerdir refid="dir_ea3389478c8cd6773e7027da58a59da5">client</innerdir>
+    <innerdir refid="dir_07a135784e55ccf09b8d7807d3ba08d9">server</innerdir>
+    <innerfile refid="xnvm__common__defs_8h">xnvm_common_defs.h</innerfile>
+    <innerfile refid="xnvm__efuse__common__hw_8h">xnvm_efuse_common_hw.h</innerfile>
+    <innerfile refid="xnvm__efuse__error_8h">xnvm_efuse_error.h</innerfile>
+    <innerfile refid="versal__gen_2common_2xnvm__utils_8c">versal_gen/common/xnvm_utils.c</innerfile>
+    <innerfile refid="versal__gen_2common_2xnvm__utils_8h">versal_gen/common/xnvm_utils.h</innerfile>
+    <innerfile refid="xnvm__ver_8h">xnvm_ver.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/"/>
+  </compounddef>
+</doxygen>

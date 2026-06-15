@@ -1,0 +1,407 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xtpm__client_8h" kind="file">
+    <compoundname>xtpm_client.h</compoundname>
+    <includes local="yes">xil_types.h</includes>
+    <includes refid="xtpm__mailbox_8h" local="yes">xtpm_mailbox.h</includes>
+    <includes refid="xtpm__defs_8h" local="yes">xtpm_defs.h</includes>
+    <includedby refid="xtpm__client_8c" local="yes">xtpm_client.c</includedby>
+    <includedby refid="xiltpm__example_8c" local="yes">xiltpm_example.c</includedby>
+    <incdepgraph>
+      <node id="40">
+        <label>xtpm_mailbox.h</label>
+        <link refid="xtpm__mailbox_8h"/>
+        <childnode refid="41" relation="include">
+        </childnode>
+        <childnode refid="42" relation="include">
+        </childnode>
+      </node>
+      <node id="43">
+        <label>xtpm_defs.h</label>
+        <link refid="xtpm__defs_8h"/>
+        <childnode refid="44" relation="include">
+        </childnode>
+        <childnode refid="39" relation="include">
+        </childnode>
+        <childnode refid="45" relation="include">
+        </childnode>
+      </node>
+      <node id="41">
+        <label>xilmailbox.h</label>
+      </node>
+      <node id="45">
+        <label>xiltpm_bsp_config.h</label>
+      </node>
+      <node id="39">
+        <label>xil_types.h</label>
+      </node>
+      <node id="38">
+        <label>xtpm_client.h</label>
+        <link refid="xtpm_client.h"/>
+        <childnode refid="39" relation="include">
+        </childnode>
+        <childnode refid="40" relation="include">
+        </childnode>
+        <childnode refid="43" relation="include">
+        </childnode>
+      </node>
+      <node id="42">
+        <label>xparameters.h</label>
+      </node>
+      <node id="44">
+        <label>xil_printf.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="48">
+        <label>xiltpm_example.c</label>
+        <link refid="xiltpm__example_8c"/>
+      </node>
+      <node id="47">
+        <label>xtpm_client.c</label>
+        <link refid="xtpm__client_8c"/>
+      </node>
+      <node id="46">
+        <label>xtpm_client.h</label>
+        <link refid="xtpm_client.h"/>
+        <childnode refid="47" relation="include">
+        </childnode>
+        <childnode refid="48" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xtpm__client__apis_1ga9142864b29219b369059fa0dbefd8e80" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XTpm_Init</definition>
+        <argsstring>(XTpm_ClientInstance *InstancePtr)</argsstring>
+        <name>XTpm_Init</name>
+        <param>
+          <type>XTpm_ClientInstance *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function sends TPM initialization command to PLM and initializes the TPM for further operations. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the client instance </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS If TPM gets initialized successfully</para></listitem><listitem><para>XST_FAILURE If there is a failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Perform input parameter validation on InstancePtr. Return XST_FAILURE if input parameters are invalid</para><para>Send an IPI request to the PLM by using the CDO command to call TPM initialization API and returns the status of the IPI response.</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltpm/src/client/xtpm_client.h" line="44" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltpm/src/client/xtpm_client.c" bodystart="54" bodyend="78"/>
+        <references refid="xtpm__defs_8h_1a06fc87d81c62e9abb8790b6e5713c55bac6e563f064bd5f231faf62772d767796" compoundref="xtpm__defs_8h" startline="70">XTPM_API_ID_INIT</references>
+        <references refid="group__xtpm__mailbox__apis_1ga1bd7ad7627dbfdd66c4f631af346b044" compoundref="xtpm__mailbox_8c" startline="59" endline="88">XTpm_ProcessMailbox</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xtpm__client__apis_1ga4630b1f402569684365c28b10342df99" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XTpm_Startup</definition>
+        <argsstring>(XTpm_ClientInstance *InstancePtr)</argsstring>
+        <name>XTpm_Startup</name>
+        <param>
+          <type>XTpm_ClientInstance *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function sends TPM startup command to PLM to start the TPM. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the client instance</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>- XST_SUCCESS If TPM startup command is successful<itemizedlist>
+<listitem><para>XST_FAILURE If there is a failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Perform input parameter validation on InstancePtr. Return XST_FAILURE if input parameters are invalid</para><para>Send an IPI request to the PLM by using the CDO command to call TPM startup API and returns the status of the IPI response.</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltpm/src/client/xtpm_client.h" line="45" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltpm/src/client/xtpm_client.c" bodystart="90" bodyend="114"/>
+        <references refid="xtpm__defs_8h_1a06fc87d81c62e9abb8790b6e5713c55ba3c101cd298fb8677a59e6b6ce61dfb93" compoundref="xtpm__defs_8h" startline="71">XTPM_API_ID_STARTUP</references>
+        <references refid="group__xtpm__mailbox__apis_1ga1bd7ad7627dbfdd66c4f631af346b044" compoundref="xtpm__mailbox_8c" startline="59" endline="88">XTpm_ProcessMailbox</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xtpm__client__apis_1ga8343d3b91849066e61965c101fb2789e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XTpm_SelfTest</definition>
+        <argsstring>(XTpm_ClientInstance *InstancePtr)</argsstring>
+        <name>XTpm_SelfTest</name>
+        <param>
+          <type>XTpm_ClientInstance *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function sends TPM self-test command to PLM to perform a self-test on the TPM. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the client instance</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>- XST_SUCCESS If TPM self-test command is successful<itemizedlist>
+<listitem><para>XST_FAILURE If there is a failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Perform input parameter validation on InstancePtr. Return XST_FAILURE if input parameters are invalid</para><para>Send an IPI request to the PLM by using the CDO command to call TPM self-test API and returns the status of the IPI response.</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltpm/src/client/xtpm_client.h" line="46" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltpm/src/client/xtpm_client.c" bodystart="126" bodyend="150"/>
+        <references refid="xtpm__defs_8h_1a06fc87d81c62e9abb8790b6e5713c55baa5fcee7d26278de35cd37059ca169eba" compoundref="xtpm__defs_8h" startline="72">XTPM_API_ID_SELFTEST</references>
+        <references refid="group__xtpm__mailbox__apis_1ga1bd7ad7627dbfdd66c4f631af346b044" compoundref="xtpm__mailbox_8c" startline="59" endline="88">XTpm_ProcessMailbox</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xtpm__client__apis_1ga26b8c02a6af5e48c9b5bfcfab3d1fcc2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XTpm_PcrEvent</definition>
+        <argsstring>(XTpm_ClientInstance *InstancePtr, u32 PcrIndex, u64 DataAddr, u32 DataLength)</argsstring>
+        <name>XTpm_PcrEvent</name>
+        <param>
+          <type>XTpm_ClientInstance *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>PcrIndex</declname>
+        </param>
+        <param>
+          <type>u64</type>
+          <declname>DataAddr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>DataLength</declname>
+        </param>
+        <briefdescription>
+<para>This function sends PCR event command to PLM to extend the data to PCR specified in the input. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the client instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>PcrIndex</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>PCR index to which the data will be extended </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DataAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Address of the data to be extended to PCR </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DataLength</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Length of the data to be extended to PCR</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if successful</para></listitem><listitem><para>Error code on failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Perform input parameter validation on InstancePtr. Return XST_FAILURE if input parameters are invalid</para><para>Send an IPI request to the PLM by using the CDO command to call TPM PCR event API and returns the status of the IPI response.</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltpm/src/client/xtpm_client.h" line="47" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltpm/src/client/xtpm_client.c" bodystart="167" bodyend="194"/>
+        <references refid="xtpm__defs_8h_1a06fc87d81c62e9abb8790b6e5713c55bad040eba934283bd3e4f6752cb15c2858" compoundref="xtpm__defs_8h" startline="73">XTPM_API_ID_PCR_EVENT</references>
+        <references refid="group__xtpm__mailbox__apis_1ga1bd7ad7627dbfdd66c4f631af346b044" compoundref="xtpm__mailbox_8c" startline="59" endline="88">XTpm_ProcessMailbox</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xtpm__client__apis_1ga3d699f51467cb6df1d9d3254b9f35fb2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XTpm_PcrRead</definition>
+        <argsstring>(XTpm_ClientInstance *InstancePtr, u32 PcrIndex, u8 HashAlgo, u64 RespBufferAddr)</argsstring>
+        <name>XTpm_PcrRead</name>
+        <param>
+          <type>XTpm_ClientInstance *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>PcrIndex</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>HashAlgo</declname>
+        </param>
+        <param>
+          <type>u64</type>
+          <declname>RespBufferAddr</declname>
+        </param>
+        <briefdescription>
+<para>This function sends PCR read command to PLM to read the PCR value for the specified PCR index and hash algorithm. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the client instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>PcrIndex</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>PCR index to be read </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>HashAlgo</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Hash algorithm identifier for which PCR value needs to be read </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RespBufferAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Address of the buffer to store the PCR read response (PCR value)</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if successful</para></listitem><listitem><para>Error code on failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Perform input parameter validation on InstancePtr. Return XST_FAILURE if input parameters are invalid</para><para>Send an IPI request to the PLM by using the CDO command to call TPM PCR read API and returns the status of the IPI response.</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltpm/src/client/xtpm_client.h" line="48" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltpm/src/client/xtpm_client.c" bodystart="211" bodyend="238"/>
+        <references refid="xtpm__defs_8h_1a06fc87d81c62e9abb8790b6e5713c55ba02c9333e1fbebe1f62e85c900780dfaf" compoundref="xtpm__defs_8h" startline="74">XTPM_API_ID_PCR_READ</references>
+        <references refid="group__xtpm__mailbox__apis_1ga1bd7ad7627dbfdd66c4f631af346b044" compoundref="xtpm__mailbox_8c" startline="59" endline="88">XTpm_ProcessMailbox</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xtpm__client__apis_1ga3fd111e4ad35260687349558a83ce99a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XTpm_GetPcrLog</definition>
+        <argsstring>(XTpm_ClientInstance *InstancePtr, u64 TpmPcrEventAddr, u64 TpmPcrLogInfoAddr, u32 NumOfLogEntries)</argsstring>
+        <name>XTpm_GetPcrLog</name>
+        <param>
+          <type>XTpm_ClientInstance *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u64</type>
+          <declname>TpmPcrEventAddr</declname>
+        </param>
+        <param>
+          <type>u64</type>
+          <declname>TpmPcrLogInfoAddr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>NumOfLogEntries</declname>
+        </param>
+        <briefdescription>
+<para>This function sends IPI request to get the log and status of PCR info from PLM. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Pointer to the client instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>TpmPcrEventAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Pointer to the PCR events structure </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>TpmPcrLogInfoAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Pointer to the PCR log info structure </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>NumOfLogEntries</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Number of log entries to read</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - If PCR contents are copied</para></listitem><listitem><para>XST_FAILURE - Upon any failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Send an IPI request to the PLM by using the CDO command to call TPM Get PCR log API and returns the status of the IPI response.</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltpm/src/client/xtpm_client.h" line="49" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltpm/src/client/xtpm_client.c" bodystart="254" bodyend="277"/>
+        <references refid="xtpm__defs_8h_1a06fc87d81c62e9abb8790b6e5713c55ba5dc35f1572c52e1b4a7fbefdb89c7845" compoundref="xtpm__defs_8h" startline="75">XTPM_API_ID_GET_PCR_LOG</references>
+        <references refid="group__xtpm__mailbox__apis_1ga1bd7ad7627dbfdd66c4f631af346b044" compoundref="xtpm__mailbox_8c" startline="59" endline="88">XTpm_ProcessMailbox</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file Contains the client function prototypes, defines and macros for the TPM hardware module. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+1.0   pre  03/09/26 Initial release
+      pre  03/21/26 Added GetPcrLog client API</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="25"><highlight class="preprocessor">#ifndef<sp/>XTPM_CLIENT_H</highlight></codeline>
+<codeline lineno="26"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XTPM_CLIENT_H</highlight></codeline>
+<codeline lineno="27"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="29"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="31"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xtpm__mailbox_8h" kindref="compound">xtpm_mailbox.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xtpm__defs_8h" kindref="compound">xtpm_defs.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xtpm__client__apis_1ga9142864b29219b369059fa0dbefd8e80" kindref="member">XTpm_Init</ref>(XTpm_ClientInstance<sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xtpm__client__apis_1ga4630b1f402569684365c28b10342df99" kindref="member">XTpm_Startup</ref>(XTpm_ClientInstance<sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xtpm__client__apis_1ga8343d3b91849066e61965c101fb2789e" kindref="member">XTpm_SelfTest</ref>(XTpm_ClientInstance<sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xtpm__client__apis_1ga26b8c02a6af5e48c9b5bfcfab3d1fcc2" kindref="member">XTpm_PcrEvent</ref>(XTpm_ClientInstance<sp/>*InstancePtr,<sp/>u32<sp/>PcrIndex,<sp/>u64<sp/>DataAddr,<sp/>u32<sp/>DataLength);</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xtpm__client__apis_1ga3d699f51467cb6df1d9d3254b9f35fb2" kindref="member">XTpm_PcrRead</ref>(XTpm_ClientInstance<sp/>*InstancePtr,<sp/>u32<sp/>PcrIndex,<sp/>u8<sp/>HashAlgo,<sp/>u64<sp/>RespBufferAddr);</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xtpm__client__apis_1ga3fd111e4ad35260687349558a83ce99a" kindref="member">XTpm_GetPcrLog</ref>(XTpm_ClientInstance<sp/>*InstancePtr,<sp/>u64<sp/>TpmPcrEventAddr,<sp/>u64<sp/>TpmPcrLogInfoAddr,</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>NumOfLogEntries);</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="55"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="57"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/></highlight><highlight class="comment">/*<sp/>XTPM_CLIENT_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltpm/src/client/xtpm_client.h"/>
+  </compounddef>
+</doxygen>

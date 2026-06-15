@@ -1,0 +1,208 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_rtc_psu" kind="struct" prot="public">
+    <compoundname>XRtcPsu</compoundname>
+    <includes local="no">xrtcpsu.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_rtc_psu_1a510539ab390fac74a4e6f7d8a837e20c" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_rtc_psu___config" kindref="compound">XRtcPsu_Config</ref></type>
+        <definition>XRtcPsu_Config XRtcPsu::RtcConfig</definition>
+        <argsstring></argsstring>
+        <name>RtcConfig</name>
+        <briefdescription>
+<para>Device configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu.h" line="185" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu.h" bodystart="185" bodyend="-1"/>
+        <referencedby refid="group__rtcpsu_1ga04fcc0a1ae6b27f2a3e0f1ba723c48e3" compoundref="xrtcpsu_8c" startline="97" endline="159">XRtcPsu_CfgInitialize</referencedby>
+        <referencedby refid="group__rtcpsu_1gaefced00316539320411829b4d701fe3c" compoundref="xrtcpsu__intr_8c" startline="102" endline="113">XRtcPsu_ClearInterruptMask</referencedby>
+        <referencedby refid="group__rtcpsu_1gad47ac1cadbbe8dd0e67588d1fc658cc2" compoundref="xrtcpsu_8c" startline="226" endline="269">XRtcPsu_GetCurrentTime</referencedby>
+        <referencedby refid="group__rtcpsu_1ga01ca03d23194687c8026dc2f38da6ff7" compoundref="xrtcpsu__intr_8c" startline="163" endline="225">XRtcPsu_InterruptHandler</referencedby>
+        <referencedby refid="group__rtcpsu_1ga75de01e02970e25ccbbeb1af33d0e808" compoundref="xrtcpsu_8c" startline="562" endline="577">XRtcPsu_IsAlarmEventGenerated</referencedby>
+        <referencedby refid="group__rtcpsu_1gafe9ec3849cca99b5d67f76ffafcc3ab2" compoundref="xrtcpsu_8c" startline="531" endline="546">XRtcPsu_IsSecondsEventGenerated</referencedby>
+        <referencedby refid="group__rtcpsu_1ga1c969c089715ea9a86cec887c09f9b92" compoundref="xrtcpsu__selftest_8c" startline="71" endline="94">XRtcPsu_SelfTest</referencedby>
+        <referencedby refid="group__rtcpsu_1ga201537801ac896c73018a8719e8637d8" compoundref="xrtcpsu_8c" startline="286" endline="300">XRtcPsu_SetAlarm</referencedby>
+        <referencedby refid="group__rtcpsu_1ga645920d3519722e8dc815d07db527367" compoundref="xrtcpsu__intr_8c" startline="67" endline="86">XRtcPsu_SetInterruptMask</referencedby>
+        <referencedby refid="group__rtcpsu_1ga71a08172e9403add8c6ec37842b49512" compoundref="xrtcpsu_8c" startline="199" endline="212">XRtcPsu_SetTime</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_rtc_psu_1a944bb7e04321463dcfde5e2eac03d271" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XRtcPsu::IsReady</definition>
+        <argsstring></argsstring>
+        <name>IsReady</name>
+        <briefdescription>
+<para>Device is initialized and ready. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu.h" line="186" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu.h" bodystart="186" bodyend="-1"/>
+        <referencedby refid="group__rtcpsu_1ga04fcc0a1ae6b27f2a3e0f1ba723c48e3" compoundref="xrtcpsu_8c" startline="97" endline="159">XRtcPsu_CfgInitialize</referencedby>
+        <referencedby refid="group__rtcpsu_1ga01ca03d23194687c8026dc2f38da6ff7" compoundref="xrtcpsu__intr_8c" startline="163" endline="225">XRtcPsu_InterruptHandler</referencedby>
+        <referencedby refid="group__rtcpsu_1ga1c969c089715ea9a86cec887c09f9b92" compoundref="xrtcpsu__selftest_8c" startline="71" endline="94">XRtcPsu_SelfTest</referencedby>
+        <referencedby refid="group__rtcpsu_1ga201537801ac896c73018a8719e8637d8" compoundref="xrtcpsu_8c" startline="286" endline="300">XRtcPsu_SetAlarm</referencedby>
+        <referencedby refid="group__rtcpsu_1ga40b45bedf590e3e65eb525f1827768e4" compoundref="xrtcpsu__intr_8c" startline="134" endline="147">XRtcPsu_SetHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_rtc_psu_1ae5d67d1d0e93c88735e9fa550b91b280" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XRtcPsu::PeriodicAlarmTime</definition>
+        <argsstring></argsstring>
+        <name>PeriodicAlarmTime</name>
+        <briefdescription>
+<para>Alarm timer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu.h" line="187" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu.h" bodystart="187" bodyend="-1"/>
+        <referencedby refid="group__rtcpsu_1ga01ca03d23194687c8026dc2f38da6ff7" compoundref="xrtcpsu__intr_8c" startline="163" endline="225">XRtcPsu_InterruptHandler</referencedby>
+        <referencedby refid="group__rtcpsu_1ga201537801ac896c73018a8719e8637d8" compoundref="xrtcpsu_8c" startline="286" endline="300">XRtcPsu_SetAlarm</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_rtc_psu_1a77b2fe94d941fd85130aecaf8b5a4f8d" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XRtcPsu::IsPeriodicAlarm</definition>
+        <argsstring></argsstring>
+        <name>IsPeriodicAlarm</name>
+        <briefdescription>
+<para>Alarm Interrupt Information. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu.h" line="188" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu.h" bodystart="188" bodyend="-1"/>
+        <referencedby refid="group__rtcpsu_1ga04fcc0a1ae6b27f2a3e0f1ba723c48e3" compoundref="xrtcpsu_8c" startline="97" endline="159">XRtcPsu_CfgInitialize</referencedby>
+        <referencedby refid="group__rtcpsu_1ga01ca03d23194687c8026dc2f38da6ff7" compoundref="xrtcpsu__intr_8c" startline="163" endline="225">XRtcPsu_InterruptHandler</referencedby>
+        <referencedby refid="group__rtcpsu_1ga201537801ac896c73018a8719e8637d8" compoundref="xrtcpsu_8c" startline="286" endline="300">XRtcPsu_SetAlarm</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_rtc_psu_1a435c6e39ea7caad737c3ab01193144e0" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XRtcPsu::OscillatorFreq</definition>
+        <argsstring></argsstring>
+        <name>OscillatorFreq</name>
+        <briefdescription>
+<para>Device Oscillator Freq. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu.h" line="189" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu.h" bodystart="189" bodyend="-1"/>
+        <referencedby refid="xrtcpsu__set__calibration__example_8c_1a120cb273455f9b3ac137ec30f7af45bf" compoundref="xrtcpsu__set__calibration__example_8c" startline="126" endline="203">RtcPsuSetCalibrationExample</referencedby>
+        <referencedby refid="group__rtcpsu_1ga33633f27f8155128cc6815d883f9e22c" compoundref="xrtcpsu_8c" startline="467" endline="515">XRtcPsu_CalculateCalibration</referencedby>
+        <referencedby refid="group__rtcpsu_1ga04fcc0a1ae6b27f2a3e0f1ba723c48e3" compoundref="xrtcpsu_8c" startline="97" endline="159">XRtcPsu_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_rtc_psu_1a4b7486e6c28ee7d980fa315362fefd75" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XRtcPsu::CalibrationValue</definition>
+        <argsstring></argsstring>
+        <name>CalibrationValue</name>
+        <briefdescription>
+<para>Device Calibration Value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu.h" line="190" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu.h" bodystart="190" bodyend="-1"/>
+        <referencedby refid="xrtcpsu__set__calibration__example_8c_1a120cb273455f9b3ac137ec30f7af45bf" compoundref="xrtcpsu__set__calibration__example_8c" startline="126" endline="203">RtcPsuSetCalibrationExample</referencedby>
+        <referencedby refid="group__rtcpsu_1ga33633f27f8155128cc6815d883f9e22c" compoundref="xrtcpsu_8c" startline="467" endline="515">XRtcPsu_CalculateCalibration</referencedby>
+        <referencedby refid="group__rtcpsu_1ga04fcc0a1ae6b27f2a3e0f1ba723c48e3" compoundref="xrtcpsu_8c" startline="97" endline="159">XRtcPsu_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_rtc_psu_1a78494428d54e782b45aa81cb473ad3c8" prot="public" static="no" mutable="no">
+        <type><ref refid="group__rtcpsu_1ga275e074ddd4db57dfbcfb362c41c9af0" kindref="member">XRtcPsu_Handler</ref></type>
+        <definition>XRtcPsu_Handler XRtcPsu::Handler</definition>
+        <argsstring></argsstring>
+        <name>Handler</name>
+        <briefdescription>
+<para>Handler Information. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu.h" line="191" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu.h" bodystart="191" bodyend="-1"/>
+        <referencedby refid="group__rtcpsu_1ga04fcc0a1ae6b27f2a3e0f1ba723c48e3" compoundref="xrtcpsu_8c" startline="97" endline="159">XRtcPsu_CfgInitialize</referencedby>
+        <referencedby refid="group__rtcpsu_1ga01ca03d23194687c8026dc2f38da6ff7" compoundref="xrtcpsu__intr_8c" startline="163" endline="225">XRtcPsu_InterruptHandler</referencedby>
+        <referencedby refid="group__rtcpsu_1ga40b45bedf590e3e65eb525f1827768e4" compoundref="xrtcpsu__intr_8c" startline="134" endline="147">XRtcPsu_SetHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_rtc_psu_1a97e33e1583f9887c05e7af23d633e4b5" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XRtcPsu::CallBackRef</definition>
+        <argsstring></argsstring>
+        <name>CallBackRef</name>
+        <briefdescription>
+<para>Callback reference for event handler. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu.h" line="192" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu.h" bodystart="192" bodyend="-1"/>
+        <referencedby refid="group__rtcpsu_1ga01ca03d23194687c8026dc2f38da6ff7" compoundref="xrtcpsu__intr_8c" startline="163" endline="225">XRtcPsu_InterruptHandler</referencedby>
+        <referencedby refid="group__rtcpsu_1ga40b45bedf590e3e65eb525f1827768e4" compoundref="xrtcpsu__intr_8c" startline="134" endline="147">XRtcPsu_SetHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_rtc_psu_1afacea0bb9d86fd587cac2040b30c1cfb" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XRtcPsu::TimeUpdated</definition>
+        <argsstring></argsstring>
+        <name>TimeUpdated</name>
+        <briefdescription>
+<para>Time. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu.h" line="195" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu.h" bodystart="195" bodyend="-1"/>
+        <referencedby refid="group__rtcpsu_1ga04fcc0a1ae6b27f2a3e0f1ba723c48e3" compoundref="xrtcpsu_8c" startline="97" endline="159">XRtcPsu_CfgInitialize</referencedby>
+        <referencedby refid="group__rtcpsu_1gad47ac1cadbbe8dd0e67588d1fc658cc2" compoundref="xrtcpsu_8c" startline="226" endline="269">XRtcPsu_GetCurrentTime</referencedby>
+        <referencedby refid="group__rtcpsu_1ga01ca03d23194687c8026dc2f38da6ff7" compoundref="xrtcpsu__intr_8c" startline="163" endline="225">XRtcPsu_InterruptHandler</referencedby>
+        <referencedby refid="group__rtcpsu_1ga71a08172e9403add8c6ec37842b49512" compoundref="xrtcpsu_8c" startline="199" endline="212">XRtcPsu_SetTime</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_rtc_psu_1ad5a686b703aa9e5e9a64adff1a66a1e3" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XRtcPsu::CurrTimeUpdated</definition>
+        <argsstring></argsstring>
+        <name>CurrTimeUpdated</name>
+        <briefdescription>
+<para>Current Time. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu.h" line="196" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu.h" bodystart="196" bodyend="-1"/>
+        <referencedby refid="group__rtcpsu_1ga04fcc0a1ae6b27f2a3e0f1ba723c48e3" compoundref="xrtcpsu_8c" startline="97" endline="159">XRtcPsu_CfgInitialize</referencedby>
+        <referencedby refid="group__rtcpsu_1gad47ac1cadbbe8dd0e67588d1fc658cc2" compoundref="xrtcpsu_8c" startline="226" endline="269">XRtcPsu_GetCurrentTime</referencedby>
+        <referencedby refid="group__rtcpsu_1ga01ca03d23194687c8026dc2f38da6ff7" compoundref="xrtcpsu__intr_8c" startline="163" endline="225">XRtcPsu_InterruptHandler</referencedby>
+        <referencedby refid="group__rtcpsu_1ga71a08172e9403add8c6ec37842b49512" compoundref="xrtcpsu_8c" startline="199" endline="212">XRtcPsu_SetTime</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>The <ref refid="struct_x_rtc_psu" kindref="compound">XRtcPsu</ref> driver instance data. </para>    </briefdescription>
+    <detaileddescription>
+<para>The user is required to allocate a variable of this type for the RTC device in the system. A pointer to a variable of this type is then passed to the driver API functions. </para>    </detaileddescription>
+    <collaborationgraph>
+      <node id="1">
+        <label>XRtcPsu</label>
+        <link refid="struct_x_rtc_psu"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>RtcConfig</edgelabel>
+        </childnode>
+      </node>
+      <node id="2">
+        <label>XRtcPsu_Config</label>
+        <link refid="struct_x_rtc_psu___config"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu.h" line="184" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu.h" bodystart="184" bodyend="197"/>
+    <listofallmembers>
+      <member refid="struct_x_rtc_psu_1a4b7486e6c28ee7d980fa315362fefd75" prot="public" virt="non-virtual"><scope>XRtcPsu</scope><name>CalibrationValue</name></member>
+      <member refid="struct_x_rtc_psu_1a97e33e1583f9887c05e7af23d633e4b5" prot="public" virt="non-virtual"><scope>XRtcPsu</scope><name>CallBackRef</name></member>
+      <member refid="struct_x_rtc_psu_1ad5a686b703aa9e5e9a64adff1a66a1e3" prot="public" virt="non-virtual"><scope>XRtcPsu</scope><name>CurrTimeUpdated</name></member>
+      <member refid="struct_x_rtc_psu_1a78494428d54e782b45aa81cb473ad3c8" prot="public" virt="non-virtual"><scope>XRtcPsu</scope><name>Handler</name></member>
+      <member refid="struct_x_rtc_psu_1a77b2fe94d941fd85130aecaf8b5a4f8d" prot="public" virt="non-virtual"><scope>XRtcPsu</scope><name>IsPeriodicAlarm</name></member>
+      <member refid="struct_x_rtc_psu_1a944bb7e04321463dcfde5e2eac03d271" prot="public" virt="non-virtual"><scope>XRtcPsu</scope><name>IsReady</name></member>
+      <member refid="struct_x_rtc_psu_1a435c6e39ea7caad737c3ab01193144e0" prot="public" virt="non-virtual"><scope>XRtcPsu</scope><name>OscillatorFreq</name></member>
+      <member refid="struct_x_rtc_psu_1ae5d67d1d0e93c88735e9fa550b91b280" prot="public" virt="non-virtual"><scope>XRtcPsu</scope><name>PeriodicAlarmTime</name></member>
+      <member refid="struct_x_rtc_psu_1a510539ab390fac74a4e6f7d8a837e20c" prot="public" virt="non-virtual"><scope>XRtcPsu</scope><name>RtcConfig</name></member>
+      <member refid="struct_x_rtc_psu_1afacea0bb9d86fd587cac2040b30c1cfb" prot="public" virt="non-virtual"><scope>XRtcPsu</scope><name>TimeUpdated</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

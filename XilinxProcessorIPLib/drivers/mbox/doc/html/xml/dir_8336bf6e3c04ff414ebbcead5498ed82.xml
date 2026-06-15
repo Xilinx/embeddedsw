@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_8336bf6e3c04ff414ebbcead5498ed82" kind="dir">
+    <compoundname>examples</compoundname>
+    <innerfile refid="data_8c">data.c</innerfile>
+    <innerfile refid="xmbox__example_8c">xmbox_example.c</innerfile>
+    <innerfile refid="xmbox__intr__example_8c">xmbox_intr_example.c</innerfile>
+    <innerfile refid="xmbox__tapp__example_8c">xmbox_tapp_example.c</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mbox/examples/"/>
+  </compounddef>
+</doxygen>

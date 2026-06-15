@@ -1,0 +1,86 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_cam_device_gc_manual_config__s" kind="struct" prot="public">
+    <compoundname>CamDeviceGcManualConfig_s</compoundname>
+    <includes local="no">cam_device_gc_api.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_cam_device_gc_manual_config__s_1a0424550fbee863450396c10104d95fec" prot="public" static="no" mutable="no">
+        <type>bool_t</type>
+        <definition>bool_t CamDeviceGcManualConfig_s::standard</definition>
+        <argsstring></argsstring>
+        <name>standard</name>
+        <briefdescription>
+<para>True/false: true for standard_val, false for curve. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gc_v2/cam_device_gc_api.h" line="66" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gc_v2/cam_device_gc_api.h" bodystart="66" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_gc_manual_config__s_1ad6f0ba4d8b2ba4a163648d56732eaa8d" prot="public" static="no" mutable="no">
+        <type>float32_t</type>
+        <definition>float32_t CamDeviceGcManualConfig_s::standardVal</definition>
+        <argsstring></argsstring>
+        <name>standardVal</name>
+        <briefdescription>
+<para>Generate uniform curve with gamma formula. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gc_v2/cam_device_gc_api.h" line="67" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gc_v2/cam_device_gc_api.h" bodystart="67" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_gc_manual_config__s_1aaa8f6d29421a2516a3d497d7a8749982" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t CamDeviceGcManualConfig_s::curve[CAMDEV_GC_CURVE_SIZE]</definition>
+        <argsstring>[CAMDEV_GC_CURVE_SIZE]</argsstring>
+        <name>curve</name>
+        <briefdescription>
+<para>Gamma curve. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gc_v2/cam_device_gc_api.h" line="68" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gc_v2/cam_device_gc_api.h" bodystart="68" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_gc_manual_config__s_1af878448d0df72e1479e1adbcbbcbfe04" prot="public" static="no" mutable="no">
+        <type>bool_t</type>
+        <definition>bool_t CamDeviceGcManualConfig_s::userCurveX</definition>
+        <argsstring></argsstring>
+        <name>userCurveX</name>
+        <briefdescription>
+<para>User curve on X axis. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gc_v2/cam_device_gc_api.h" line="69" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gc_v2/cam_device_gc_api.h" bodystart="69" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_gc_manual_config__s_1a9d2e5223c483c71e917fbe0e1647eca4" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t CamDeviceGcManualConfig_s::curvePx[CAMDEV_GC_CURVE_SIZE]</definition>
+        <argsstring>[CAMDEV_GC_CURVE_SIZE]</argsstring>
+        <name>curvePx</name>
+        <briefdescription>
+<para>Gamma curve Px. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gc_v2/cam_device_gc_api.h" line="70" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gc_v2/cam_device_gc_api.h" bodystart="70" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>VsCamDevice GC current configuration. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gc_v2/cam_device_gc_api.h" line="65" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gc_v2/cam_device_gc_api.h" bodystart="65" bodyend="71"/>
+    <listofallmembers>
+      <member refid="struct_cam_device_gc_manual_config__s_1aaa8f6d29421a2516a3d497d7a8749982" prot="public" virt="non-virtual"><scope>CamDeviceGcManualConfig_s</scope><name>curve</name></member>
+      <member refid="struct_cam_device_gc_manual_config__s_1a9d2e5223c483c71e917fbe0e1647eca4" prot="public" virt="non-virtual"><scope>CamDeviceGcManualConfig_s</scope><name>curvePx</name></member>
+      <member refid="struct_cam_device_gc_manual_config__s_1a0424550fbee863450396c10104d95fec" prot="public" virt="non-virtual"><scope>CamDeviceGcManualConfig_s</scope><name>standard</name></member>
+      <member refid="struct_cam_device_gc_manual_config__s_1ad6f0ba4d8b2ba4a163648d56732eaa8d" prot="public" virt="non-virtual"><scope>CamDeviceGcManualConfig_s</scope><name>standardVal</name></member>
+      <member refid="struct_cam_device_gc_manual_config__s_1af878448d0df72e1479e1adbcbbcbfe04" prot="public" virt="non-virtual"><scope>CamDeviceGcManualConfig_s</scope><name>userCurveX</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

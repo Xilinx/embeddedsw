@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_hdcp22___rx___cert_rx" kind="struct" prot="public">
+    <compoundname>XHdcp22_Rx_CertRx</compoundname>
+    <includes local="no">xhdcp22_rx_dp_i.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_hdcp22___rx___cert_rx_1a08bfba7f6702cfd8bdff7872b055773c" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHdcp22_Rx_CertRx::ReceiverId[5]</definition>
+        <argsstring>[5]</argsstring>
+        <name>ReceiverId</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp_i.h" line="288" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp_i.h" bodystart="288" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___rx___cert_rx_1a472b8253467b8a453c61845b4daa9c12" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHdcp22_Rx_CertRx::KpubRx[131]</definition>
+        <argsstring>[131]</argsstring>
+        <name>KpubRx</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp_i.h" line="289" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp_i.h" bodystart="289" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___rx___cert_rx_1a0a30497ae01127560da0ebfda9474be4" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHdcp22_Rx_CertRx::Reserved[2]</definition>
+        <argsstring>[2]</argsstring>
+        <name>Reserved</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp_i.h" line="290" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp_i.h" bodystart="290" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___rx___cert_rx_1a06cb8d81196f9b46b11024f896e215d2" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHdcp22_Rx_CertRx::Signature[384]</definition>
+        <argsstring>[384]</argsstring>
+        <name>Signature</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp_i.h" line="291" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp_i.h" bodystart="291" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef is the DCP public certificate definition. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp_i.h" line="287" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp_i.h" bodystart="286" bodyend="292"/>
+    <listofallmembers>
+      <member refid="struct_x_hdcp22___rx___cert_rx_1a472b8253467b8a453c61845b4daa9c12" prot="public" virt="non-virtual"><scope>XHdcp22_Rx_CertRx</scope><name>KpubRx</name></member>
+      <member refid="struct_x_hdcp22___rx___cert_rx_1a08bfba7f6702cfd8bdff7872b055773c" prot="public" virt="non-virtual"><scope>XHdcp22_Rx_CertRx</scope><name>ReceiverId</name></member>
+      <member refid="struct_x_hdcp22___rx___cert_rx_1a0a30497ae01127560da0ebfda9474be4" prot="public" virt="non-virtual"><scope>XHdcp22_Rx_CertRx</scope><name>Reserved</name></member>
+      <member refid="struct_x_hdcp22___rx___cert_rx_1a06cb8d81196f9b46b11024f896e215d2" prot="public" virt="non-virtual"><scope>XHdcp22_Rx_CertRx</scope><name>Signature</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

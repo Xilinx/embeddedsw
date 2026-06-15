@@ -1,0 +1,176 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_dfe_mix___c_c_cfg" kind="struct" prot="public">
+    <compoundname>XDfeMix_CCCfg</compoundname>
+    <includes local="no">xdfemix.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_dfe_mix___c_c_cfg_1a801a3059962d42445f61d81967b9817b" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_dfe_mix___c_c_sequence" kindref="compound">XDfeMix_CCSequence</ref></type>
+        <definition>XDfeMix_CCSequence XDfeMix_CCCfg::Sequence</definition>
+        <argsstring></argsstring>
+        <name>Sequence</name>
+        <briefdescription>
+<para>CCID sequence. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" line="445" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" bodystart="445" bodyend="-1"/>
+        <referencedby refid="group__dfemix_1ga85f60b156f5de8fd8b2ef6b182966d70" compoundref="xdfemix_8c" startline="2816" endline="2880">XDfeMix_AddCC</referencedby>
+        <referencedby refid="group__dfemix_1ga1aaa2f28256b404ea1626f18ba1f2552" compoundref="xdfemix_8c" startline="2444" endline="2485">XDfeMix_AddCCtoCCCfg</referencedby>
+        <referencedby refid="group__dfemix_1ga83fb621d29c58d22bb1078e1cb43f16a" compoundref="xdfemix_8c" startline="2362" endline="2388">XDfeMix_GetCarrierCfgAndNCO</referencedby>
+        <referencedby refid="group__dfemix_1ga55eacf5f171e7530a27abfd12d2caf0d" compoundref="xdfemix_8c" startline="2156" endline="2164">XDfeMix_GetCurrentCCCfg</referencedby>
+        <referencedby refid="group__dfemix_1gafe3362f64442004a66fe7d081d7cb556" compoundref="xdfemix_8c" startline="2290" endline="2318">XDfeMix_GetCurrentCCCfgSwitchable</referencedby>
+        <referencedby refid="group__dfemix_1gad22be272891dfb491c35e4ee7d6f543b" compoundref="xdfemix_8c" startline="2331" endline="2345">XDfeMix_GetEmptyCCCfg</referencedby>
+        <referencedby refid="group__dfemix_1ga75ed6eb3b9b4e21b150473f09f8f0283" compoundref="xdfemix_8c" startline="2963" endline="3038">XDfeMix_MoveCC</referencedby>
+        <referencedby refid="group__dfemix_1gae90385e9162730111e9f19d29c18e68a" compoundref="xdfemix_8c" startline="2905" endline="2933">XDfeMix_RemoveCC</referencedby>
+        <referencedby refid="group__dfemix_1ga4156eaf9d772037fcf6b51ef6703f32b" compoundref="xdfemix_8c" startline="2500" endline="2511">XDfeMix_RemoveCCfromCCCfg</referencedby>
+        <referencedby refid="group__dfemix_1ga3fc0d6657fbed9b7f1baf1552c6ae316" compoundref="xdfemix_8c" startline="2624" endline="2645">XDfeMix_SetNextCCCfgAndTrigger</referencedby>
+        <referencedby refid="group__dfemix_1ga97dede152c6db53539bb7e3d1f0b9ca9" compoundref="xdfemix_8c" startline="2728" endline="2778">XDfeMix_SetNextCCCfgAndTriggerSwitchable</referencedby>
+        <referencedby refid="group__dfemix_1ga5a3170046f6a8e1669f14053119569a2" compoundref="xdfemix_8c" startline="3066" endline="3111">XDfeMix_UpdateCC</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_mix___c_c_cfg_1accf21aaf93f66c4e0abd1efcbec676be" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_dfe_mix___internal_d_u_c_d_d_c_cfg" kindref="compound">XDfeMix_InternalDUCDDCCfg</ref></type>
+        <definition>XDfeMix_InternalDUCDDCCfg XDfeMix_CCCfg::DUCDDCCfg[XDFEMIX_CC_NUM]</definition>
+        <argsstring>[XDFEMIX_CC_NUM]</argsstring>
+        <name>DUCDDCCfg</name>
+        <briefdescription>
+<para><verbatim>                              DUC/DDC
+</verbatim> configurations for all CCs </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" line="446" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" bodystart="446" bodyend="-1"/>
+        <referencedby refid="group__dfemix_1ga1aaa2f28256b404ea1626f18ba1f2552" compoundref="xdfemix_8c" startline="2444" endline="2485">XDfeMix_AddCCtoCCCfg</referencedby>
+        <referencedby refid="group__dfemix_1ga83fb621d29c58d22bb1078e1cb43f16a" compoundref="xdfemix_8c" startline="2362" endline="2388">XDfeMix_GetCarrierCfgAndNCO</referencedby>
+        <referencedby refid="group__dfemix_1gae90385e9162730111e9f19d29c18e68a" compoundref="xdfemix_8c" startline="2905" endline="2933">XDfeMix_RemoveCC</referencedby>
+        <referencedby refid="group__dfemix_1ga4156eaf9d772037fcf6b51ef6703f32b" compoundref="xdfemix_8c" startline="2500" endline="2511">XDfeMix_RemoveCCfromCCCfg</referencedby>
+        <referencedby refid="group__dfemix_1ga5a3170046f6a8e1669f14053119569a2" compoundref="xdfemix_8c" startline="3066" endline="3111">XDfeMix_UpdateCC</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_mix___c_c_cfg_1a4b590739c81d44f11bc8ddc66192e5b3" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_dfe_mix___n_c_o" kindref="compound">XDfeMix_NCO</ref></type>
+        <definition>XDfeMix_NCO XDfeMix_CCCfg::NCO[XDFEMIX_NCO_MAX]</definition>
+        <argsstring>[XDFEMIX_NCO_MAX]</argsstring>
+        <name>NCO</name>
+        <briefdescription>
+<para><verbatim>          Defines settings for all
+</verbatim> CC&apos;s and Auxiliary&apos;s NCO </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" line="448" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" bodystart="448" bodyend="-1"/>
+        <referencedby refid="group__dfemix_1ga6cb045c6a175b6abff6d62f26878b8cd" compoundref="xdfemix_8c" startline="2525" endline="2539">XDfeMix_AddAuxNCOtoCCCfg</referencedby>
+        <referencedby refid="group__dfemix_1ga1aaa2f28256b404ea1626f18ba1f2552" compoundref="xdfemix_8c" startline="2444" endline="2485">XDfeMix_AddCCtoCCCfg</referencedby>
+        <referencedby refid="group__dfemix_1ga83fb621d29c58d22bb1078e1cb43f16a" compoundref="xdfemix_8c" startline="2362" endline="2388">XDfeMix_GetCarrierCfgAndNCO</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_mix___c_c_cfg_1a4a10266aa4d88c160966242236d164e8" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_dfe_mix___auxiliary_cfg" kindref="compound">XDfeMix_AuxiliaryCfg</ref></type>
+        <definition>XDfeMix_AuxiliaryCfg XDfeMix_CCCfg::AuxiliaryCfg[XDFEMIX_AUX_NCO_MAX]</definition>
+        <argsstring>[XDFEMIX_AUX_NCO_MAX]</argsstring>
+        <name>AuxiliaryCfg</name>
+        <briefdescription>
+<para><verbatim>                            Auxiliary
+</verbatim> NCO configuration </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" line="450" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" bodystart="450" bodyend="-1"/>
+        <referencedby refid="group__dfemix_1ga6cb045c6a175b6abff6d62f26878b8cd" compoundref="xdfemix_8c" startline="2525" endline="2539">XDfeMix_AddAuxNCOtoCCCfg</referencedby>
+        <referencedby refid="group__dfemix_1ga861ba105a9fb814f3da6ed415baa765e" compoundref="xdfemix_8c" startline="2553" endline="2562">XDfeMix_RemoveAuxNCOfromCCCfg</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_mix___c_c_cfg_1a7d5ad0330bbb6a6dff7bfbce0615e1d5" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_dfe_mix___antenna_cfg" kindref="compound">XDfeMix_AntennaCfg</ref></type>
+        <definition>XDfeMix_AntennaCfg XDfeMix_CCCfg::AntennaCfg</definition>
+        <argsstring></argsstring>
+        <name>AntennaCfg</name>
+        <briefdescription>
+<para>Antenna configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" line="452" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" bodystart="452" bodyend="-1"/>
+        <referencedby refid="group__dfemix_1ga6dd243530104df426427c9a6fe82f3a9" compoundref="xdfemix_8c" startline="2401" endline="2410">XDfeMix_SetAntennaCfgInCCCfg</referencedby>
+        <referencedby refid="group__dfemix_1gae0a135411942e1b9a7c8b0f564b8fee9" compoundref="xdfemix_8c" startline="3131" endline="3155">XDfeMix_SetAntennaGain</referencedby>
+        <referencedby refid="group__dfemix_1gaae9fc185dcc63dc0256b5e7ec802764b" compoundref="xdfemix_8c" startline="3175" endline="3199">XDfeMix_UpdateAntennaCfg</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Full CC configuration. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="17">
+        <label>XDfeMix_Phase</label>
+        <link refid="struct_x_dfe_mix___phase"/>
+      </node>
+      <node id="19">
+        <label>XDfeMix_AuxiliaryCfg</label>
+        <link refid="struct_x_dfe_mix___auxiliary_cfg"/>
+      </node>
+      <node id="13">
+        <label>XDfeMix_AntennaCfg</label>
+        <link refid="struct_x_dfe_mix___antenna_cfg"/>
+      </node>
+      <node id="12">
+        <label>XDfeMix_InternalDUCDDCCfg</label>
+        <link refid="struct_x_dfe_mix___internal_d_u_c_d_d_c_cfg"/>
+      </node>
+      <node id="15">
+        <label>XDfeMix_Frequency</label>
+        <link refid="struct_x_dfe_mix___frequency"/>
+        <childnode refid="16" relation="usage">
+          <edgelabel>PhaseOffset</edgelabel>
+        </childnode>
+      </node>
+      <node id="14">
+        <label>XDfeMix_NCO</label>
+        <link refid="struct_x_dfe_mix___n_c_o"/>
+        <childnode refid="15" relation="usage">
+          <edgelabel>FrequencyCfg</edgelabel>
+        </childnode>
+        <childnode refid="17" relation="usage">
+          <edgelabel>PhaseCfg</edgelabel>
+        </childnode>
+      </node>
+      <node id="16">
+        <label>XDfeMix_PhaseOffset</label>
+        <link refid="struct_x_dfe_mix___phase_offset"/>
+      </node>
+      <node id="11">
+        <label>XDfeMix_CCCfg</label>
+        <link refid="struct_x_dfe_mix___c_c_cfg"/>
+        <childnode refid="12" relation="usage">
+          <edgelabel>DUCDDCCfg</edgelabel>
+        </childnode>
+        <childnode refid="13" relation="usage">
+          <edgelabel>AntennaCfg</edgelabel>
+        </childnode>
+        <childnode refid="14" relation="usage">
+          <edgelabel>NCO</edgelabel>
+        </childnode>
+        <childnode refid="18" relation="usage">
+          <edgelabel>Sequence</edgelabel>
+        </childnode>
+        <childnode refid="19" relation="usage">
+          <edgelabel>AuxiliaryCfg</edgelabel>
+        </childnode>
+      </node>
+      <node id="18">
+        <label>XDfeMix_CCSequence</label>
+        <link refid="struct_x_dfe_mix___c_c_sequence"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" line="444" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" bodystart="444" bodyend="453"/>
+    <listofallmembers>
+      <member refid="struct_x_dfe_mix___c_c_cfg_1a7d5ad0330bbb6a6dff7bfbce0615e1d5" prot="public" virt="non-virtual"><scope>XDfeMix_CCCfg</scope><name>AntennaCfg</name></member>
+      <member refid="struct_x_dfe_mix___c_c_cfg_1a4a10266aa4d88c160966242236d164e8" prot="public" virt="non-virtual"><scope>XDfeMix_CCCfg</scope><name>AuxiliaryCfg</name></member>
+      <member refid="struct_x_dfe_mix___c_c_cfg_1accf21aaf93f66c4e0abd1efcbec676be" prot="public" virt="non-virtual"><scope>XDfeMix_CCCfg</scope><name>DUCDDCCfg</name></member>
+      <member refid="struct_x_dfe_mix___c_c_cfg_1a4b590739c81d44f11bc8ddc66192e5b3" prot="public" virt="non-virtual"><scope>XDfeMix_CCCfg</scope><name>NCO</name></member>
+      <member refid="struct_x_dfe_mix___c_c_cfg_1a801a3059962d42445f61d81967b9817b" prot="public" virt="non-virtual"><scope>XDfeMix_CCCfg</scope><name>Sequence</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

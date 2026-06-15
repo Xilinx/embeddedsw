@@ -1,0 +1,373 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_xil_pdi" kind="struct" prot="public">
+    <compoundname>XilPdi</compoundname>
+    <includes local="no">xloader.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_xil_pdi_1abfb2bdf4aada2ee8b70475e9dc179edc" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XilPdi::PdiType</definition>
+        <argsstring></argsstring>
+        <name>PdiType</name>
+        <briefdescription>
+<para>Indicates PDI Type, full PDI, partial PDI. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader.h" line="363" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader.h" bodystart="363" bodyend="-1"/>
+        <referencedby refid="group__xloader__kat__apis_1ga43a415ea9b49abb198cae9ba6f9eb0b5" compoundref="xloader__kat_8c" startline="105" endline="110">XLoader_ClearKatOnPPDI</referencedby>
+        <referencedby refid="group__xloader__server__apis_1ga00abb3a6ba0436f171b8a00656d93057" compoundref="xloader_8c" startline="2367" endline="2520">XLoader_InitPdiInstanceForExtractMHAndOptData</referencedby>
+        <referencedby refid="group__xloader__server__apis_1ga8ceadff6112bda923ba5f400913f04d0" compoundref="2ve__2vm_2server_2xloader__plat_8c" startline="1874" endline="1918">XLoader_LoadAsuImage</referencedby>
+        <referencedby refid="group__xloader__server__apis_1ga443aaeef586ee9cefe8509092d99ca17" compoundref="xloader_8c" startline="1653" endline="1751">XLoader_LoadImage</referencedby>
+        <referencedby refid="group__xloader__server__apis_1ga3ceca49125b11c6e3a58844b216886fa" compoundref="net_2server_2xloader__plat_8c" startline="1850" endline="1893">XLoader_LoadLpdAndPsmElf</referencedby>
+        <referencedby refid="group__xloader__server__apis_1gaadc121bcc59feb4ece3c40802d81987b" compoundref="xloader_8c" startline="420" endline="594">XLoader_PdiInit</referencedby>
+        <referencedby refid="group__xloader__server__apis_1ga3dbbecc3b2545a3e076d421f086715e6" compoundref="xloader_8c" startline="1767" endline="1861">XLoader_RestartImage</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_pdi_1a56c64692843059077285ed7f5354d80c" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XilPdi::DiscardUartLogs</definition>
+        <argsstring></argsstring>
+        <name>DiscardUartLogs</name>
+        <briefdescription>
+<para>Used to control uart logs. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader.h" line="364" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader.h" bodystart="364" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_pdi_1a4fb19c13e2c03590de9f45d4c337ddeb" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XilPdi::PdiIndex</definition>
+        <argsstring></argsstring>
+        <name>PdiIndex</name>
+        <briefdescription>
+<para>Index in DeviceOps array. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader.h" line="365" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader.h" bodystart="365" bodyend="-1"/>
+        <referencedby refid="group__xloader__server__apis_1gaadc121bcc59feb4ece3c40802d81987b" compoundref="xloader_8c" startline="420" endline="594">XLoader_PdiInit</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_pdi_1a0ed0d013dfe7183a5682359838aeb884" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XilPdi::SlrType</definition>
+        <argsstring></argsstring>
+        <name>SlrType</name>
+        <briefdescription>
+<para>SLR Type. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader.h" line="366" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader.h" bodystart="366" bodyend="-1"/>
+        <referencedby refid="group__xloader__server__apis_1gaadc121bcc59feb4ece3c40802d81987b" compoundref="xloader_8c" startline="420" endline="594">XLoader_PdiInit</referencedby>
+        <referencedby refid="group__xloader__server__apis_1ga56a9ce1c4ab7abdcba0759e1165c8e57" compoundref="server_2xloader__plat_8c" startline="1662" endline="1697">Xloader_SsitEoPdiSync</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_pdi_1a6f5494fdd92850c6a2564cc5427b5984" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XilPdi::PdiSrc</definition>
+        <argsstring></argsstring>
+        <name>PdiSrc</name>
+        <briefdescription>
+<para>PDI source. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader.h" line="367" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader.h" bodystart="367" bodyend="-1"/>
+        <referencedby refid="group__xloader__server__apis_1ga443aaeef586ee9cefe8509092d99ca17" compoundref="xloader_8c" startline="1653" endline="1751">XLoader_LoadImage</referencedby>
+        <referencedby refid="group__xloader__server__apis_1gaadc121bcc59feb4ece3c40802d81987b" compoundref="xloader_8c" startline="420" endline="594">XLoader_PdiInit</referencedby>
+        <referencedby refid="group__xloader__server__apis_1ga3dbbecc3b2545a3e076d421f086715e6" compoundref="xloader_8c" startline="1767" endline="1861">XLoader_RestartImage</referencedby>
+        <referencedby refid="group__xloader__server__apis_1ga7be2984f0912856671c01e2132da604d" compoundref="xloader_8c" startline="2293" endline="2310">Xloader_SaveBootPdiInfo</referencedby>
+        <referencedby refid="group__xloader__plat__apis_1ga98700d17bfbbf3cf29e418a784745169" compoundref="server_2xloader__plat_8c" startline="1543" endline="1564">XLoader_SkipMJtagWorkAround</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_pdi_1a97b41fa32e374d83d1dd6fde4a6255e7" prot="public" static="no" mutable="no">
+        <type>XilPdi_MetaHdr *</type>
+        <definition>XilPdi_MetaHdr* XilPdi::MetaHdr</definition>
+        <argsstring></argsstring>
+        <name>MetaHdr</name>
+        <briefdescription>
+<para>Metaheader of the PDI. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader.h" line="368" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader.h" bodystart="368" bodyend="-1"/>
+        <referencedby refid="group__xloader__server__apis_1ga3ea4300bb5e4bd5116c3d2bf72902824" compoundref="xloader_8c" startline="2562" endline="2586">XLoader_GetImageAndPrtnInfo</referencedby>
+        <referencedby refid="group__xloader__server__apis_1gaf53860991287c550d874547a0ca021bb" compoundref="server_2xloader__plat_8c" startline="943" endline="1004">XLoader_GetSDPdiSrcNAddr</referencedby>
+        <referencedby refid="group__xloader__server__apis_1ga610d38218f6d60c5d6ad9880efa6ad35" compoundref="2ve__2vm_2server_2xloader__plat_8c" startline="1289" endline="1356">XLoader_HdrMeasurement</referencedby>
+        <referencedby refid="group__xloader__server__apis_1ga00abb3a6ba0436f171b8a00656d93057" compoundref="xloader_8c" startline="2367" endline="2520">XLoader_InitPdiInstanceForExtractMHAndOptData</referencedby>
+        <referencedby refid="group__xloader__server__apis_1ga443aaeef586ee9cefe8509092d99ca17" compoundref="xloader_8c" startline="1653" endline="1751">XLoader_LoadImage</referencedby>
+        <referencedby refid="group__xloader__server__apis_1gacb74ee2f2a0e0dcce9bfdae7750bbc14" compoundref="xloader__prtn__load_8c" startline="179" endline="306">XLoader_LoadImagePrtns</referencedby>
+        <referencedby refid="group__xloader__server__apis_1ga165b8b9d58043ef922abac0188d45373" compoundref="server_2xloader__plat_8c" startline="479" endline="597">XLoader_MeasureNLoad</referencedby>
+        <referencedby refid="group__xloader__server__apis_1gaadc121bcc59feb4ece3c40802d81987b" compoundref="xloader_8c" startline="420" endline="594">XLoader_PdiInit</referencedby>
+        <referencedby refid="group__xloader__server__apis_1ga629ebb0c55462b5cde87f7e91037b8c0" compoundref="xloader__prtn__load_8c" startline="392" endline="486">XLoader_PrtnCopy</referencedby>
+        <referencedby refid="group__xloader__server__apis_1ga7be2984f0912856671c01e2132da604d" compoundref="xloader_8c" startline="2293" endline="2310">Xloader_SaveBootPdiInfo</referencedby>
+        <referencedby refid="group__xloader__server__apis_1ga5054d79a7dcc052ae83d997f183c8779" compoundref="xloader__secure_8c" startline="885" endline="928">XLoader_SecureChunkCopy</referencedby>
+        <referencedby refid="group__xloader__server__apis_1ga9410756c2dbe4b6bd6cdfce81a5bd7fa" compoundref="xloader__secure_8c" startline="243" endline="384">XLoader_SecureInit</referencedby>
+        <referencedby refid="group__xloader__plat__apis_1ga98700d17bfbbf3cf29e418a784745169" compoundref="server_2xloader__plat_8c" startline="1543" endline="1564">XLoader_SkipMJtagWorkAround</referencedby>
+        <referencedby refid="group__xloader__server__apis_1ga56a9ce1c4ab7abdcba0759e1165c8e57" compoundref="server_2xloader__plat_8c" startline="1662" endline="1697">Xloader_SsitEoPdiSync</referencedby>
+        <referencedby refid="group__xloader__server__apis_1gabdd3f08598453e93f5b6ce59411c1824" compoundref="server_2xloader__plat_8c" startline="366" endline="466">XLoader_StartImage</referencedby>
+        <referencedby refid="group__xloader__server__apis_1ga6f79f561d049e76c070c6d139aa1ce80" compoundref="server_2xloader__plat_8c" startline="173" endline="277">XLoader_UpdateDataMeasurement</referencedby>
+        <referencedby refid="group__xloader__server__apis_1gaafe5cd1245a7aaf54eb6c3d1a1146578" compoundref="server_2xloader__plat_8c" startline="1330" endline="1373">XLoader_UpdateHandoffParam</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_pdi_1a9e3e8fecd11ddf65a458280c887481a6" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_loader___handoff_param" kindref="compound">XLoader_HandoffParam</ref></type>
+        <definition>XLoader_HandoffParam XilPdi::HandoffParam[XLOADER_MAX_HANDOFF_CPUS]</definition>
+        <argsstring>[XLOADER_MAX_HANDOFF_CPUS]</argsstring>
+        <name>HandoffParam</name>
+        <briefdescription>
+<para>Handoff Param for each CPU. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader.h" line="369" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader.h" bodystart="369" bodyend="-1"/>
+        <referencedby refid="group__xloader__server__apis_1gabdd3f08598453e93f5b6ce59411c1824" compoundref="server_2xloader__plat_8c" startline="366" endline="466">XLoader_StartImage</referencedby>
+        <referencedby refid="group__xloader__server__apis_1gaafe5cd1245a7aaf54eb6c3d1a1146578" compoundref="server_2xloader__plat_8c" startline="1330" endline="1373">XLoader_UpdateHandoffParam</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_pdi_1ae0400461901a256c60b9ad3435261114" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XilPdi::IpiMask</definition>
+        <argsstring></argsstring>
+        <name>IpiMask</name>
+        <briefdescription>
+<para>Info about which master has sent the request. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader.h" line="370" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader.h" bodystart="370" bodyend="-1"/>
+        <referencedby refid="group__xloader__server__apis_1ga00abb3a6ba0436f171b8a00656d93057" compoundref="xloader_8c" startline="2367" endline="2520">XLoader_InitPdiInstanceForExtractMHAndOptData</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_pdi_1a9f2f873c8e90b2ba5d2985f542166f2f" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XilPdi::ClearAtfHandoff</definition>
+        <argsstring></argsstring>
+        <name>ClearAtfHandoff</name>
+        <briefdescription>
+<para>Flag to clear ATF Handoff params before loading APU Subsystem Partition. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader.h" line="371" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader.h" bodystart="371" bodyend="-1"/>
+        <referencedby refid="group__xloader__server__apis_1gaadc121bcc59feb4ece3c40802d81987b" compoundref="xloader_8c" startline="420" endline="594">XLoader_PdiInit</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_pdi_1a392033a0a2152e664ce5b671f851c1ff" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XilPdi::NoOfHandoffCpus</definition>
+        <argsstring></argsstring>
+        <name>NoOfHandoffCpus</name>
+        <briefdescription>
+<para>Number of CPU&apos;s loader will handoff to. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader.h" line="373" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader.h" bodystart="373" bodyend="-1"/>
+        <referencedby refid="group__xloader__server__apis_1ga8ceadff6112bda923ba5f400913f04d0" compoundref="2ve__2vm_2server_2xloader__plat_8c" startline="1874" endline="1918">XLoader_LoadAsuImage</referencedby>
+        <referencedby refid="group__xloader__server__apis_1ga3ceca49125b11c6e3a58844b216886fa" compoundref="net_2server_2xloader__plat_8c" startline="1850" endline="1893">XLoader_LoadLpdAndPsmElf</referencedby>
+        <referencedby refid="group__xloader__server__apis_1gabdd3f08598453e93f5b6ce59411c1824" compoundref="server_2xloader__plat_8c" startline="366" endline="466">XLoader_StartImage</referencedby>
+        <referencedby refid="group__xloader__server__apis_1gaafe5cd1245a7aaf54eb6c3d1a1146578" compoundref="server_2xloader__plat_8c" startline="1330" endline="1373">XLoader_UpdateHandoffParam</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_pdi_1a5c1c3a68a8f24232d6a24ad64e3c1f4e" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XilPdi::ImageNum</definition>
+        <argsstring></argsstring>
+        <name>ImageNum</name>
+        <briefdescription>
+<para>Image number in the PDI. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader.h" line="374" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader.h" bodystart="374" bodyend="-1"/>
+        <referencedby refid="group__xloader__server__apis_1ga3ea4300bb5e4bd5116c3d2bf72902824" compoundref="xloader_8c" startline="2562" endline="2586">XLoader_GetImageAndPrtnInfo</referencedby>
+        <referencedby refid="group__xloader__server__apis_1ga443aaeef586ee9cefe8509092d99ca17" compoundref="xloader_8c" startline="1653" endline="1751">XLoader_LoadImage</referencedby>
+        <referencedby refid="group__xloader__server__apis_1gacb74ee2f2a0e0dcce9bfdae7750bbc14" compoundref="xloader__prtn__load_8c" startline="179" endline="306">XLoader_LoadImagePrtns</referencedby>
+        <referencedby refid="group__xloader__server__apis_1ga165b8b9d58043ef922abac0188d45373" compoundref="server_2xloader__plat_8c" startline="479" endline="597">XLoader_MeasureNLoad</referencedby>
+        <referencedby refid="group__xloader__plat__apis_1ga98700d17bfbbf3cf29e418a784745169" compoundref="server_2xloader__plat_8c" startline="1543" endline="1564">XLoader_SkipMJtagWorkAround</referencedby>
+        <referencedby refid="group__xloader__server__apis_1gabdd3f08598453e93f5b6ce59411c1824" compoundref="server_2xloader__plat_8c" startline="366" endline="466">XLoader_StartImage</referencedby>
+        <referencedby refid="group__xloader__server__apis_1ga6f79f561d049e76c070c6d139aa1ce80" compoundref="server_2xloader__plat_8c" startline="173" endline="277">XLoader_UpdateDataMeasurement</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_pdi_1ad42f5bc76853fd4d615db46648a91110" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XilPdi::PrtnNum</definition>
+        <argsstring></argsstring>
+        <name>PrtnNum</name>
+        <briefdescription>
+<para>Partition number in the PDI. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader.h" line="375" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader.h" bodystart="375" bodyend="-1"/>
+        <referencedby refid="group__xloader__server__apis_1ga3ea4300bb5e4bd5116c3d2bf72902824" compoundref="xloader_8c" startline="2562" endline="2586">XLoader_GetImageAndPrtnInfo</referencedby>
+        <referencedby refid="group__xloader__server__apis_1gacb74ee2f2a0e0dcce9bfdae7750bbc14" compoundref="xloader__prtn__load_8c" startline="179" endline="306">XLoader_LoadImagePrtns</referencedby>
+        <referencedby refid="group__xloader__server__apis_1ga165b8b9d58043ef922abac0188d45373" compoundref="server_2xloader__plat_8c" startline="479" endline="597">XLoader_MeasureNLoad</referencedby>
+        <referencedby refid="group__xloader__server__apis_1ga629ebb0c55462b5cde87f7e91037b8c0" compoundref="xloader__prtn__load_8c" startline="392" endline="486">XLoader_PrtnCopy</referencedby>
+        <referencedby refid="group__xloader__server__apis_1ga6f79f561d049e76c070c6d139aa1ce80" compoundref="server_2xloader__plat_8c" startline="173" endline="277">XLoader_UpdateDataMeasurement</referencedby>
+        <referencedby refid="group__xloader__server__apis_1gaafe5cd1245a7aaf54eb6c3d1a1146578" compoundref="server_2xloader__plat_8c" startline="1330" endline="1373">XLoader_UpdateHandoffParam</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_pdi_1a08125a8f994572c26600dbf487048633" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XilPdi::DelayHandoff</definition>
+        <argsstring></argsstring>
+        <name>DelayHandoff</name>
+        <briefdescription>
+<para>Delay handoff is enabled if set. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader.h" line="376" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader.h" bodystart="376" bodyend="-1"/>
+        <referencedby refid="group__xloader__server__apis_1ga4ee480ef9152cd51e9aabb49fd0515fd" compoundref="server_2xloader__plat_8c" startline="1034" endline="1223">XLoader_ProcessElf</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_pdi_1a06ce3a51615d7686895e4b702de31082" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XilPdi::DelayLoad</definition>
+        <argsstring></argsstring>
+        <name>DelayLoad</name>
+        <briefdescription>
+<para>Delay Load is enabled if set. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader.h" line="377" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader.h" bodystart="377" bodyend="-1"/>
+        <referencedby refid="group__xloader__server__apis_1ga443aaeef586ee9cefe8509092d99ca17" compoundref="xloader_8c" startline="1653" endline="1751">XLoader_LoadImage</referencedby>
+        <referencedby refid="group__xloader__server__apis_1gacb74ee2f2a0e0dcce9bfdae7750bbc14" compoundref="xloader__prtn__load_8c" startline="179" endline="306">XLoader_LoadImagePrtns</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_pdi_1a8589c96e92ce06b95451a4cd5c1ae895" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XilPdi::IsSubsystemRestart</definition>
+        <argsstring></argsstring>
+        <name>IsSubsystemRestart</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader.h" line="378" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader.h" bodystart="378" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_pdi_1a8ed51e3954f76687de0b4e0528598dcf" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XilPdi::PlmKatStatus</definition>
+        <argsstring></argsstring>
+        <name>PlmKatStatus</name>
+        <briefdescription>
+<para>TRUE if Subsystem restart when triggered from ImageStore or IPI. </para>        </briefdescription>
+        <detaileddescription>
+<para>PLM Known Answer Test Status </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader.h" line="379" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader.h" bodystart="379" bodyend="-1"/>
+        <referencedby refid="group__xloader__kat__apis_1ga70adfd9ae96a869e8adbbc1d01f70916" compoundref="xloader__kat_8c" startline="155" endline="215">XLoader_AesKatTest</referencedby>
+        <referencedby refid="group__xloader__server__apis_1ga7be2984f0912856671c01e2132da604d" compoundref="xloader_8c" startline="2293" endline="2310">Xloader_SaveBootPdiInfo</referencedby>
+        <referencedby refid="group__xloader__kat__apis_1ga4fdf03478ad3c8bf86deac1e28d4ddda" compoundref="xloader__kat_8c" startline="60" endline="95">XLoader_Sha3Kat</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_pdi_1ae48ea514b24f2c20df0fb59c2b64b7d4" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XilPdi::PpdiKatStatus</definition>
+        <argsstring></argsstring>
+        <name>PpdiKatStatus</name>
+        <briefdescription>
+<para>PPDI Known Answer Test Status. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader.h" line="380" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader.h" bodystart="380" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_pdi_1ade800283f502294c8d3d902bd1fbe0ba" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XilPdi::DecKeySrc</definition>
+        <argsstring></argsstring>
+        <name>DecKeySrc</name>
+        <briefdescription>
+<para>Decryption Key Source. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader.h" line="382" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader.h" bodystart="382" bodyend="-1"/>
+        <referencedby refid="group__xloader__server__apis_1ga7be2984f0912856671c01e2132da604d" compoundref="xloader_8c" startline="2293" endline="2310">Xloader_SaveBootPdiInfo</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_pdi_1a140713c00d9a24248bf5235e8b15b056" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XilPdi::DigestIndex</definition>
+        <argsstring></argsstring>
+        <name>DigestIndex</name>
+        <briefdescription>
+<para>Digest index for data measurement. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader.h" line="384" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader.h" bodystart="384" bodyend="-1"/>
+        <referencedby refid="group__xloader__server__apis_1ga165b8b9d58043ef922abac0188d45373" compoundref="server_2xloader__plat_8c" startline="479" endline="597">XLoader_MeasureNLoad</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_pdi_1a2a42cd776cf3b5b4bcb422e651c9619d" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XilPdi::ImagePrtnId</definition>
+        <argsstring></argsstring>
+        <name>ImagePrtnId</name>
+        <briefdescription>
+<para>Partition number in the Image. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader.h" line="385" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader.h" bodystart="385" bodyend="-1"/>
+        <referencedby refid="group__xloader__server__apis_1gacb74ee2f2a0e0dcce9bfdae7750bbc14" compoundref="xloader__prtn__load_8c" startline="179" endline="306">XLoader_LoadImagePrtns</referencedby>
+        <referencedby refid="group__xloader__server__apis_1ga6f79f561d049e76c070c6d139aa1ce80" compoundref="server_2xloader__plat_8c" startline="173" endline="277">XLoader_UpdateDataMeasurement</referencedby>
+        <referencedby refid="group__xloader__server__apis_1ga88fdae4e3fe98e871dd93c7cb31ce387" compoundref="xloader__secure_8c" startline="555" endline="670">XLoader_VerifyHashNUpdateNext</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This is PDI instance pointer. </para>    </briefdescription>
+    <detaileddescription>
+<para>This stores all the information required for PDI </para>    </detaileddescription>
+    <collaborationgraph>
+      <node id="20">
+        <label>XLoader_HandoffParam</label>
+        <link refid="struct_x_loader___handoff_param"/>
+      </node>
+      <node id="19">
+        <label>XilPdi</label>
+        <link refid="struct_xil_pdi"/>
+        <childnode refid="20" relation="usage">
+          <edgelabel>HandoffParam</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader.h" line="362" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader.h" bodystart="362" bodyend="386"/>
+    <listofallmembers>
+      <member refid="struct_xil_pdi_1a9f2f873c8e90b2ba5d2985f542166f2f" prot="public" virt="non-virtual"><scope>XilPdi</scope><name>ClearAtfHandoff</name></member>
+      <member refid="struct_xil_pdi_1ade800283f502294c8d3d902bd1fbe0ba" prot="public" virt="non-virtual"><scope>XilPdi</scope><name>DecKeySrc</name></member>
+      <member refid="struct_xil_pdi_1a08125a8f994572c26600dbf487048633" prot="public" virt="non-virtual"><scope>XilPdi</scope><name>DelayHandoff</name></member>
+      <member refid="struct_xil_pdi_1a06ce3a51615d7686895e4b702de31082" prot="public" virt="non-virtual"><scope>XilPdi</scope><name>DelayLoad</name></member>
+      <member refid="struct_xil_pdi_1a140713c00d9a24248bf5235e8b15b056" prot="public" virt="non-virtual"><scope>XilPdi</scope><name>DigestIndex</name></member>
+      <member refid="struct_xil_pdi_1a56c64692843059077285ed7f5354d80c" prot="public" virt="non-virtual"><scope>XilPdi</scope><name>DiscardUartLogs</name></member>
+      <member refid="struct_xil_pdi_1a9e3e8fecd11ddf65a458280c887481a6" prot="public" virt="non-virtual"><scope>XilPdi</scope><name>HandoffParam</name></member>
+      <member refid="struct_xil_pdi_1a5c1c3a68a8f24232d6a24ad64e3c1f4e" prot="public" virt="non-virtual"><scope>XilPdi</scope><name>ImageNum</name></member>
+      <member refid="struct_xil_pdi_1a2a42cd776cf3b5b4bcb422e651c9619d" prot="public" virt="non-virtual"><scope>XilPdi</scope><name>ImagePrtnId</name></member>
+      <member refid="struct_xil_pdi_1ae0400461901a256c60b9ad3435261114" prot="public" virt="non-virtual"><scope>XilPdi</scope><name>IpiMask</name></member>
+      <member refid="struct_xil_pdi_1a8589c96e92ce06b95451a4cd5c1ae895" prot="public" virt="non-virtual"><scope>XilPdi</scope><name>IsSubsystemRestart</name></member>
+      <member refid="struct_xil_pdi_1a97b41fa32e374d83d1dd6fde4a6255e7" prot="public" virt="non-virtual"><scope>XilPdi</scope><name>MetaHdr</name></member>
+      <member refid="struct_xil_pdi_1a392033a0a2152e664ce5b671f851c1ff" prot="public" virt="non-virtual"><scope>XilPdi</scope><name>NoOfHandoffCpus</name></member>
+      <member refid="struct_xil_pdi_1a4fb19c13e2c03590de9f45d4c337ddeb" prot="public" virt="non-virtual"><scope>XilPdi</scope><name>PdiIndex</name></member>
+      <member refid="struct_xil_pdi_1a6f5494fdd92850c6a2564cc5427b5984" prot="public" virt="non-virtual"><scope>XilPdi</scope><name>PdiSrc</name></member>
+      <member refid="struct_xil_pdi_1abfb2bdf4aada2ee8b70475e9dc179edc" prot="public" virt="non-virtual"><scope>XilPdi</scope><name>PdiType</name></member>
+      <member refid="struct_xil_pdi_1a8ed51e3954f76687de0b4e0528598dcf" prot="public" virt="non-virtual"><scope>XilPdi</scope><name>PlmKatStatus</name></member>
+      <member refid="struct_xil_pdi_1ae48ea514b24f2c20df0fb59c2b64b7d4" prot="public" virt="non-virtual"><scope>XilPdi</scope><name>PpdiKatStatus</name></member>
+      <member refid="struct_xil_pdi_1ad42f5bc76853fd4d615db46648a91110" prot="public" virt="non-virtual"><scope>XilPdi</scope><name>PrtnNum</name></member>
+      <member refid="struct_xil_pdi_1a0ed0d013dfe7183a5682359838aeb884" prot="public" virt="non-virtual"><scope>XilPdi</scope><name>SlrType</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,70 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="src_2server_2core_2_c_make_lists_8txt" kind="file">
+    <compoundname>src/server/core/CMakeLists.txt</compoundname>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#<sp/>Copyright<sp/>(C)<sp/>2024<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="2"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="3"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal">add_subdirectory(aes)</highlight></codeline>
+<codeline lineno="5"><highlight class="normal">add_subdirectory(sha)</highlight></codeline>
+<codeline lineno="6"><highlight class="normal">if(&quot;spartanuplusaes1&quot;<sp/>IN_LIST<sp/>VARIANT)</highlight></codeline>
+<codeline lineno="7"><highlight class="normal"><sp/><sp/>add_subdirectory(trng)</highlight></codeline>
+<codeline lineno="8"><highlight class="normal"><sp/><sp/>add_subdirectory(ecdsa)</highlight></codeline>
+<codeline lineno="9"><highlight class="normal">endif()</highlight></codeline>
+<codeline lineno="10"><highlight class="normal">if<sp/>(NOT((&quot;${CMAKE_MACHINE}</highlight><highlight class="stringliteral">&quot;<sp/>STREQUAL<sp/>&quot;</highlight><highlight class="normal">spartanuplus</highlight><highlight class="stringliteral">&quot;)))</highlight></codeline>
+<codeline lineno="11"><highlight class="stringliteral"><sp/><sp/>add_subdirectory(rsa)</highlight></codeline>
+<codeline lineno="12"><highlight class="stringliteral"><sp/><sp/>add_subdirectory(ecdsa)</highlight></codeline>
+<codeline lineno="13"><highlight class="stringliteral"><sp/><sp/>add_subdirectory(crypto_kat)</highlight></codeline>
+<codeline lineno="14"><highlight class="stringliteral"><sp/><sp/>add_subdirectory(generic)</highlight></codeline>
+<codeline lineno="15"><highlight class="stringliteral"><sp/><sp/>add_subdirectory(util)</highlight></codeline>
+<codeline lineno="16"><highlight class="stringliteral">endif()</highlight></codeline>
+<codeline lineno="17"><highlight class="stringliteral">if((&quot;</highlight><highlight class="normal">${CMAKE_SUBMACHINE}</highlight><highlight class="stringliteral">&quot;<sp/>STREQUAL<sp/>&quot;</highlight><highlight class="normal">VersalNet</highlight><highlight class="stringliteral">&quot;))</highlight></codeline>
+<codeline lineno="18"><highlight class="stringliteral"><sp/><sp/>add_subdirectory(hmac)</highlight></codeline>
+<codeline lineno="19"><highlight class="stringliteral"><sp/><sp/>add_subdirectory(ecc_keypair)</highlight></codeline>
+<codeline lineno="20"><highlight class="stringliteral"><sp/><sp/>add_subdirectory(key_zeroize)</highlight></codeline>
+<codeline lineno="21"><highlight class="stringliteral"><sp/><sp/>add_subdirectory(key_unwrap)</highlight></codeline>
+<codeline lineno="22"><highlight class="stringliteral"><sp/><sp/>add_subdirectory(trng)</highlight></codeline>
+<codeline lineno="23"><highlight class="stringliteral"><sp/><sp/>add_subdirectory(softsha2-384)</highlight></codeline>
+<codeline lineno="24"><highlight class="stringliteral"><sp/><sp/>add_subdirectory(softsha1)</highlight></codeline>
+<codeline lineno="25"><highlight class="stringliteral">endif()</highlight></codeline>
+<codeline lineno="26"><highlight class="stringliteral">if((&quot;</highlight><highlight class="normal">${CMAKE_SUBMACHINE}</highlight><highlight class="stringliteral">&quot;<sp/>STREQUAL<sp/>&quot;</highlight><highlight class="normal">Versal_2VE_2VM</highlight><highlight class="stringliteral">&quot;))</highlight></codeline>
+<codeline lineno="27"><highlight class="stringliteral"><sp/><sp/>add_subdirectory(hmac)</highlight></codeline>
+<codeline lineno="28"><highlight class="stringliteral"><sp/><sp/>add_subdirectory(ecc_keypair)</highlight></codeline>
+<codeline lineno="29"><highlight class="stringliteral"><sp/><sp/>add_subdirectory(key_zeroize)</highlight></codeline>
+<codeline lineno="30"><highlight class="stringliteral"><sp/><sp/>add_subdirectory(trng)</highlight></codeline>
+<codeline lineno="31"><highlight class="stringliteral"><sp/><sp/>add_subdirectory(softsha1)</highlight></codeline>
+<codeline lineno="32"><highlight class="stringliteral"><sp/><sp/>add_subdirectory(lms_hss)</highlight></codeline>
+<codeline lineno="33"><highlight class="stringliteral">endif()</highlight></codeline>
+<codeline lineno="34"><highlight class="stringliteral">if((&quot;</highlight><highlight class="normal">${CMAKE_MACHINE}</highlight><highlight class="stringliteral">&quot;<sp/>STREQUAL<sp/>&quot;</highlight><highlight class="normal">Versal</highlight><highlight class="stringliteral">&quot;))</highlight></codeline>
+<codeline lineno="35"><highlight class="stringliteral"><sp/><sp/>if(&quot;</highlight><highlight class="normal">Versal_2VP</highlight><highlight class="stringliteral">&quot;<sp/>IN_LIST<sp/>VARIANT)</highlight></codeline>
+<codeline lineno="36"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>add_subdirectory(hmac)</highlight></codeline>
+<codeline lineno="37"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>add_subdirectory(kdf)</highlight></codeline>
+<codeline lineno="38"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>add_subdirectory(ecc_keypair)</highlight></codeline>
+<codeline lineno="39"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>add_subdirectory(trng)</highlight></codeline>
+<codeline lineno="40"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>add_subdirectory(softsha2-384)</highlight></codeline>
+<codeline lineno="41"><highlight class="stringliteral"><sp/><sp/>elseif(&quot;</highlight><highlight class="normal">Versal_2VP_P</highlight><highlight class="stringliteral">&quot;<sp/>IN_LIST<sp/>VARIANT)</highlight></codeline>
+<codeline lineno="42"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>add_subdirectory(hmac)</highlight></codeline>
+<codeline lineno="43"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>add_subdirectory(ecc_keypair)</highlight></codeline>
+<codeline lineno="44"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>add_subdirectory(key_zeroize)</highlight></codeline>
+<codeline lineno="45"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>add_subdirectory(trng)</highlight></codeline>
+<codeline lineno="46"><highlight class="stringliteral"><sp/><sp/>endif()</highlight></codeline>
+<codeline lineno="47"><highlight class="stringliteral">endif()</highlight></codeline>
+<codeline lineno="48"><highlight class="stringliteral">if((&quot;</highlight><highlight class="normal">${CMAKE_MACHINE}</highlight><highlight class="stringliteral">&quot;<sp/>STREQUAL<sp/>&quot;</highlight><highlight class="normal">Versal</highlight><highlight class="stringliteral">&quot;))</highlight></codeline>
+<codeline lineno="49"><highlight class="stringliteral"><sp/><sp/>if(&quot;</highlight><highlight class="normal">Versal_2VP_P</highlight><highlight class="stringliteral">&quot;<sp/>IN_LIST<sp/>VARIANT)</highlight></codeline>
+<codeline lineno="50"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>add_subdirectory(lms_hss)</highlight></codeline>
+<codeline lineno="51"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>add_subdirectory(mldsa)</highlight></codeline>
+<codeline lineno="52"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>add_subdirectory(slhdsa)</highlight></codeline>
+<codeline lineno="53"><highlight class="stringliteral"><sp/><sp/>endif()</highlight></codeline>
+<codeline lineno="54"><highlight class="stringliteral">endif()</highlight></codeline>
+<codeline lineno="55"><highlight class="stringliteral">if((&quot;</highlight><highlight class="normal">${CMAKE_MACHINE}</highlight><highlight class="stringliteral">&quot;<sp/>STREQUAL<sp/>&quot;</highlight><highlight class="normal">spartanuplus</highlight><highlight class="stringliteral">&quot;))</highlight></codeline>
+<codeline lineno="56"><highlight class="stringliteral"><sp/><sp/>add_subdirectory(lms_hss)</highlight></codeline>
+<codeline lineno="57"><highlight class="stringliteral">endif()</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/CMakeLists.txt"/>
+  </compounddef>
+</doxygen>

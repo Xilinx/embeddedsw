@@ -1,0 +1,91 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_loader___optional_data_info" kind="struct" prot="public">
+    <compoundname>XLoader_OptionalDataInfo</compoundname>
+    <includes local="no">xloader_defs.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_loader___optional_data_info_1a0e20785ce19e07778921a7c6bac03915" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XLoader_OptionalDataInfo::PdiSrc</definition>
+        <argsstring></argsstring>
+        <name>PdiSrc</name>
+        <briefdescription>
+<para>Source where PDI is present - DDR or Image Store. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader_defs.h" line="127" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader_defs.h" bodystart="127" bodyend="-1"/>
+        <referencedby refid="group__xloader__client__apis_1ga8960e12865539b0b9a6c2e5f6a705ed7" compoundref="xloader__client_8c" startline="456" endline="492">XLoader_GetOptionalData</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_loader___optional_data_info_1a0092f8adfca951f360f264297732acff" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XLoader_OptionalDataInfo::PdiAddrLow</definition>
+        <argsstring></argsstring>
+        <name>PdiAddrLow</name>
+        <briefdescription>
+<para>Lower address of PDI when present in DDR. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader_defs.h" line="128" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader_defs.h" bodystart="128" bodyend="-1"/>
+        <referencedby refid="group__xloader__client__apis_1ga8960e12865539b0b9a6c2e5f6a705ed7" compoundref="xloader__client_8c" startline="456" endline="492">XLoader_GetOptionalData</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_loader___optional_data_info_1ac69c1742ff22dd1d167c1d310ac13bcb" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XLoader_OptionalDataInfo::PdiAddrHigh</definition>
+        <argsstring></argsstring>
+        <name>PdiAddrHigh</name>
+        <briefdescription>
+<para>Higher address of PDI when present in DDR. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader_defs.h" line="129" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader_defs.h" bodystart="129" bodyend="-1"/>
+        <referencedby refid="group__xloader__client__apis_1ga8960e12865539b0b9a6c2e5f6a705ed7" compoundref="xloader__client_8c" startline="456" endline="492">XLoader_GetOptionalData</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_loader___optional_data_info_1a488545c629c3a5a10f4bd741f3403e1f" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XLoader_OptionalDataInfo::DataId</definition>
+        <argsstring></argsstring>
+        <name>DataId</name>
+        <briefdescription>
+<para>Data ID of the requested optional data. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader_defs.h" line="130" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader_defs.h" bodystart="130" bodyend="-1"/>
+        <referencedby refid="group__xloader__client__apis_1ga8960e12865539b0b9a6c2e5f6a705ed7" compoundref="xloader__client_8c" startline="456" endline="492">XLoader_GetOptionalData</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_loader___optional_data_info_1a5083a680af3e731db8af73f2722ebaa7" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XLoader_OptionalDataInfo::PdiId</definition>
+        <argsstring></argsstring>
+        <name>PdiId</name>
+        <briefdescription>
+<para>PDI ID of the PDI in Image Store. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader_defs.h" line="131" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader_defs.h" bodystart="131" bodyend="-1"/>
+        <referencedby refid="group__xloader__client__apis_1ga8960e12865539b0b9a6c2e5f6a705ed7" compoundref="xloader__client_8c" startline="456" endline="492">XLoader_GetOptionalData</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Structure to hold optional data information. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader_defs.h" line="126" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader_defs.h" bodystart="126" bodyend="132"/>
+    <listofallmembers>
+      <member refid="struct_x_loader___optional_data_info_1a488545c629c3a5a10f4bd741f3403e1f" prot="public" virt="non-virtual"><scope>XLoader_OptionalDataInfo</scope><name>DataId</name></member>
+      <member refid="struct_x_loader___optional_data_info_1ac69c1742ff22dd1d167c1d310ac13bcb" prot="public" virt="non-virtual"><scope>XLoader_OptionalDataInfo</scope><name>PdiAddrHigh</name></member>
+      <member refid="struct_x_loader___optional_data_info_1a0092f8adfca951f360f264297732acff" prot="public" virt="non-virtual"><scope>XLoader_OptionalDataInfo</scope><name>PdiAddrLow</name></member>
+      <member refid="struct_x_loader___optional_data_info_1a5083a680af3e731db8af73f2722ebaa7" prot="public" virt="non-virtual"><scope>XLoader_OptionalDataInfo</scope><name>PdiId</name></member>
+      <member refid="struct_x_loader___optional_data_info_1a0e20785ce19e07778921a7c6bac03915" prot="public" virt="non-virtual"><scope>XLoader_OptionalDataInfo</scope><name>PdiSrc</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

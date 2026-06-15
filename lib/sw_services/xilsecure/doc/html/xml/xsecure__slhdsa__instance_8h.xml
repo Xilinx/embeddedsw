@@ -1,0 +1,912 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xsecure__slhdsa__instance_8h" kind="file">
+    <compoundname>xsecure_slhdsa_instance.h</compoundname>
+    <includes refid="xsecure__slhdsa__addr_8h" local="yes">xsecure_slhdsa_addr.h</includes>
+    <includes local="yes">xil_types.h</includes>
+    <includes local="yes">xsecure_sha.h</includes>
+    <includedby refid="xsecure__slhdsa__fors_8h" local="yes">xsecure_slhdsa_fors.h</includedby>
+    <includedby refid="xsecure__slhdsa__ht_8h" local="yes">xsecure_slhdsa_ht.h</includedby>
+    <includedby refid="xsecure__slhdsa__hash_8h" local="yes">xsecure_slhdsa_hash.h</includedby>
+    <includedby refid="xsecure__slhdsa_8h" local="yes">xsecure_slhdsa.h</includedby>
+    <includedby refid="xsecure__slhdsa__xmss_8h" local="yes">xsecure_slhdsa_xmss.h</includedby>
+    <includedby refid="xsecure__slhdsa__instance_8c" local="yes">xsecure_slhdsa_instance.c</includedby>
+    <includedby refid="xsecure__slhdsa__wots_8h" local="yes">xsecure_slhdsa_wots.h</includedby>
+    <incdepgraph>
+      <node id="4477">
+        <label>xsecure_slhdsa_addr.h</label>
+        <link refid="xsecure__slhdsa__addr_8h"/>
+        <childnode refid="4478" relation="include">
+        </childnode>
+        <childnode refid="4479" relation="include">
+        </childnode>
+        <childnode refid="4480" relation="include">
+        </childnode>
+      </node>
+      <node id="4479">
+        <label>xil_io.h</label>
+      </node>
+      <node id="4476">
+        <label>xsecure_slhdsa_instance.h</label>
+        <link refid="xsecure_slhdsa_instance.h"/>
+        <childnode refid="4477" relation="include">
+        </childnode>
+        <childnode refid="4478" relation="include">
+        </childnode>
+        <childnode refid="4481" relation="include">
+        </childnode>
+      </node>
+      <node id="4481">
+        <label>xsecure_sha.h</label>
+      </node>
+      <node id="4480">
+        <label>xsecure_utils.h</label>
+      </node>
+      <node id="4478">
+        <label>xil_types.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="4495">
+        <label>xsecure_slhdsa_instance.c</label>
+        <link refid="xsecure__slhdsa__instance_8c"/>
+      </node>
+      <node id="4482">
+        <label>xsecure_slhdsa_instance.h</label>
+        <link refid="xsecure_slhdsa_instance.h"/>
+        <childnode refid="4483" relation="include">
+        </childnode>
+        <childnode refid="4487" relation="include">
+        </childnode>
+        <childnode refid="4489" relation="include">
+        </childnode>
+        <childnode refid="4492" relation="include">
+        </childnode>
+        <childnode refid="4494" relation="include">
+        </childnode>
+        <childnode refid="4495" relation="include">
+        </childnode>
+        <childnode refid="4496" relation="include">
+        </childnode>
+      </node>
+      <node id="4484">
+        <label>xsecure_slhdsa.c</label>
+        <link refid="xsecure__slhdsa_8c"/>
+      </node>
+      <node id="4492">
+        <label>xsecure_slhdsa.h</label>
+        <link refid="xsecure__slhdsa_8h"/>
+        <childnode refid="4484" relation="include">
+        </childnode>
+        <childnode refid="4493" relation="include">
+        </childnode>
+      </node>
+      <node id="4486">
+        <label>xsecure_slhdsa_wots.c</label>
+        <link refid="xsecure__slhdsa__wots_8c"/>
+      </node>
+      <node id="4496">
+        <label>xsecure_slhdsa_wots.h</label>
+        <link refid="xsecure__slhdsa__wots_8h"/>
+        <childnode refid="4486" relation="include">
+        </childnode>
+        <childnode refid="4491" relation="include">
+        </childnode>
+      </node>
+      <node id="4493">
+        <label>xsecure_slhdsa_ipihandler.c</label>
+        <link refid="xsecure__slhdsa__ipihandler_8c"/>
+      </node>
+      <node id="4485">
+        <label>xsecure_slhdsa_fors.c</label>
+        <link refid="xsecure__slhdsa__fors_8c"/>
+      </node>
+      <node id="4483">
+        <label>xsecure_slhdsa_fors.h</label>
+        <link refid="xsecure__slhdsa__fors_8h"/>
+        <childnode refid="4484" relation="include">
+        </childnode>
+        <childnode refid="4485" relation="include">
+        </childnode>
+        <childnode refid="4486" relation="include">
+        </childnode>
+      </node>
+      <node id="4488">
+        <label>xsecure_slhdsa_ht.c</label>
+        <link refid="xsecure__slhdsa__ht_8c"/>
+      </node>
+      <node id="4487">
+        <label>xsecure_slhdsa_ht.h</label>
+        <link refid="xsecure__slhdsa__ht_8h"/>
+        <childnode refid="4484" relation="include">
+        </childnode>
+        <childnode refid="4488" relation="include">
+        </childnode>
+      </node>
+      <node id="4491">
+        <label>xsecure_slhdsa_xmss.c</label>
+        <link refid="xsecure__slhdsa__xmss_8c"/>
+      </node>
+      <node id="4494">
+        <label>xsecure_slhdsa_xmss.h</label>
+        <link refid="xsecure__slhdsa__xmss_8h"/>
+        <childnode refid="4488" relation="include">
+        </childnode>
+        <childnode refid="4491" relation="include">
+        </childnode>
+      </node>
+      <node id="4490">
+        <label>xsecure_slhdsa_hash.c</label>
+        <link refid="xsecure__slhdsa__hash_8c"/>
+      </node>
+      <node id="4489">
+        <label>xsecure_slhdsa_hash.h</label>
+        <link refid="xsecure__slhdsa__hash_8h"/>
+        <childnode refid="4484" relation="include">
+        </childnode>
+        <childnode refid="4485" relation="include">
+        </childnode>
+        <childnode refid="4490" relation="include">
+        </childnode>
+        <childnode refid="4488" relation="include">
+        </childnode>
+        <childnode refid="4486" relation="include">
+        </childnode>
+        <childnode refid="4491" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_x_secure___checksum_param" prot="public">XSecure_ChecksumParam</innerclass>
+    <innerclass refid="struct_x_secure___slhdsa_param" prot="public">XSecure_SlhdsaParam</innerclass>
+    <innerclass refid="struct_x_secure___slhdsa_instance" prot="public">XSecure_SlhdsaInstance</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__xsecure__slhdsa__server__apis_1gaf0df66e81f5e98461b7c26d092324788" prot="public" static="no">
+        <name>XSECURE_SLHDSA_N_LEN</name>
+        <initializer>32U</initializer>
+        <briefdescription>
+<para>Output length in bytes for SLH-DSA-SHAKE-256s. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/slhdsa/xsecure_slhdsa_instance.h" line="43" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/slhdsa/xsecure_slhdsa_instance.h" bodystart="42" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__slhdsa__server__apis_1gabb9e6e9af58cc35f07a4e60eed1ce209" prot="public" static="no">
+        <name>XSECURE_SLHDSA_SHAKE_256S_SIGN_LEN</name>
+        <initializer>29792U</initializer>
+        <briefdescription>
+<para>Total signature length in bytes for SLH-DSA-SHAKE-256s. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/slhdsa/xsecure_slhdsa_instance.h" line="45" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/slhdsa/xsecure_slhdsa_instance.h" bodystart="45" bodyend="-1"/>
+        <referencedby refid="group__xsecure__slhdsa__server__apis_1ga97d1800f2a4746b7cdce71d41fb704fe" compoundref="xsecure__slhdsa__instance_8c" startline="51" endline="102">XSecure_SlhdsaGetInstance</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__slhdsa__server__apis_1gaaf65631ff91ab1de2a47d3558fab6b56" prot="public" static="no">
+        <name>XSECURE_SLHDSA_MAX_DATA1_LEN_IN_BYTES</name>
+        <initializer>(2144U)</initializer>
+        <briefdescription>
+<para>Maximum length of Data1 buffer in bytes (for WOTS+ chain values) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/slhdsa/xsecure_slhdsa_instance.h" line="47" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/slhdsa/xsecure_slhdsa_instance.h" bodystart="48" bodyend="-1"/>
+        <referencedby refid="group__xsecure__slhdsa__server__apis_1ga97d1800f2a4746b7cdce71d41fb704fe" compoundref="xsecure__slhdsa__instance_8c" startline="51" endline="102">XSecure_SlhdsaGetInstance</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__slhdsa__server__apis_1ga5ec93596fb8e65b66a673a500e3bcc8b" prot="public" static="no">
+        <name>XSECURE_SLHDSA_MAX_DATA2_LEN_IN_BYTES</name>
+        <initializer>(99U)</initializer>
+        <briefdescription>
+<para>Maximum length of Data2 buffer in bytes (for hash outputs and base conversions) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/slhdsa/xsecure_slhdsa_instance.h" line="50" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/slhdsa/xsecure_slhdsa_instance.h" bodystart="51" bodyend="-1"/>
+        <referencedby refid="group__xsecure__slhdsa__server__apis_1ga97d1800f2a4746b7cdce71d41fb704fe" compoundref="xsecure__slhdsa__instance_8c" startline="51" endline="102">XSecure_SlhdsaGetInstance</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__slhdsa__server__apis_1gabfbc1d0990069ad6a9d13119187c38d7" prot="public" static="no">
+        <name>XSECURE_SLHDSA_MAX_DATA3_LEN_IN_BYTES</name>
+        <initializer>(32U)</initializer>
+        <briefdescription>
+<para>Maximum length of Data3 buffer in bytes (for single hash outputs) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/slhdsa/xsecure_slhdsa_instance.h" line="52" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/slhdsa/xsecure_slhdsa_instance.h" bodystart="56" bodyend="-1"/>
+        <referencedby refid="group__xsecure__slhdsa__server__apis_1ga97d1800f2a4746b7cdce71d41fb704fe" compoundref="xsecure__slhdsa__instance_8c" startline="51" endline="102">XSecure_SlhdsaGetInstance</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__slhdsa__server__apis_1gaa6519e474c56ea50140174b2c36921c0" prot="public" static="no">
+        <name>XSECURE_SLHDSA_MAX_DATA4_LEN_IN_WORDS</name>
+        <initializer>(67U)</initializer>
+        <briefdescription>
+<para>Maximum length of Data4 buffer in words (for storing digits) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/slhdsa/xsecure_slhdsa_instance.h" line="54" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/slhdsa/xsecure_slhdsa_instance.h" bodystart="59" bodyend="-1"/>
+        <referencedby refid="group__xsecure__slhdsa__server__apis_1ga97d1800f2a4746b7cdce71d41fb704fe" compoundref="xsecure__slhdsa__instance_8c" startline="51" endline="102">XSecure_SlhdsaGetInstance</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__slhdsa__server__apis_1ga7d67eac690ca94571d12bbbbb3abaf28" prot="public" static="no">
+        <name>XSECURE_SLHDSA_NO_OF_INV_SIGN</name>
+        <initializer>(15U)</initializer>
+        <briefdescription>
+<para>Number of invalid signature invocations allowed. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/slhdsa/xsecure_slhdsa_instance.h" line="56" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/slhdsa/xsecure_slhdsa_instance.h" bodystart="62" bodyend="-1"/>
+        <referencedby refid="group__xsecure__slhdsa__server__apis_1ga97d1800f2a4746b7cdce71d41fb704fe" compoundref="xsecure__slhdsa__instance_8c" startline="51" endline="102">XSecure_SlhdsaGetInstance</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__slhdsa__server__apis_1gac3de3e86c3e56cdc553cf73bce3ddc18" prot="public" static="no">
+        <name>XSECURE_SLHDSA_CSUM_INPUT_LEN_IN_DIGITS</name>
+        <initializer>(64U)</initializer>
+        <briefdescription>
+<para>Length of checksum input in digits for WOTS+. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/slhdsa/xsecure_slhdsa_instance.h" line="58" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/slhdsa/xsecure_slhdsa_instance.h" bodystart="65" bodyend="-1"/>
+        <referencedby refid="group__xsecure__slhdsa__server__apis_1ga97d1800f2a4746b7cdce71d41fb704fe" compoundref="xsecure__slhdsa__instance_8c" startline="51" endline="102">XSecure_SlhdsaGetInstance</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__slhdsa__server__apis_1ga6f76b367b581d124a309992f938ee8e1" prot="public" static="no">
+        <name>XSECURE_SLHDSA_CSUM_LEN_IN_DIGITS</name>
+        <initializer>(3U)</initializer>
+        <briefdescription>
+<para>Length of checksum in digits. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/slhdsa/xsecure_slhdsa_instance.h" line="59" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/slhdsa/xsecure_slhdsa_instance.h" bodystart="68" bodyend="-1"/>
+        <referencedby refid="group__xsecure__slhdsa__server__apis_1ga97d1800f2a4746b7cdce71d41fb704fe" compoundref="xsecure__slhdsa__instance_8c" startline="51" endline="102">XSecure_SlhdsaGetInstance</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__slhdsa__server__apis_1gaa6c6b804332f9e02bdc225cf0fbbea4d" prot="public" static="no">
+        <name>XSECURE_SLHDSA_CSUM_SHIFT</name>
+        <initializer>(4U)</initializer>
+        <briefdescription>
+<para>Shift value for checksum calculation. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/slhdsa/xsecure_slhdsa_instance.h" line="61" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/slhdsa/xsecure_slhdsa_instance.h" bodystart="69" bodyend="-1"/>
+        <referencedby refid="group__xsecure__slhdsa__server__apis_1ga97d1800f2a4746b7cdce71d41fb704fe" compoundref="xsecure__slhdsa__instance_8c" startline="51" endline="102">XSecure_SlhdsaGetInstance</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__slhdsa__server__apis_1gae1d8d2f28f1f4a2aaabccc66e372386a" prot="public" static="no">
+        <name>XSECURE_SLHDSA_CSUM_SIZE_IN_BYTES</name>
+        <initializer>(2U)</initializer>
+        <briefdescription>
+<para>Size of checksum in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/slhdsa/xsecure_slhdsa_instance.h" line="62" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/slhdsa/xsecure_slhdsa_instance.h" bodystart="72" bodyend="-1"/>
+        <referencedby refid="group__xsecure__slhdsa__server__apis_1ga97d1800f2a4746b7cdce71d41fb704fe" compoundref="xsecure__slhdsa__instance_8c" startline="51" endline="102">XSecure_SlhdsaGetInstance</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="group__xsecure__slhdsa__server__apis_1ga577de7b051a32a570ede765a8cacf613" prot="public" static="no">
+        <name>XSecure_Slhdsa_n</name>
+        <enumvalue id="group__xsecure__slhdsa__server__apis_1gga577de7b051a32a570ede765a8cacf613a134a34471535b3533af4cd4be1c998ee" prot="public">
+          <name>XSECURE_SLH_DSA_N_16</name>
+          <initializer>= 16U</initializer>
+          <briefdescription>
+<para>16 bytes </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__slhdsa__server__apis_1gga577de7b051a32a570ede765a8cacf613ac9b7a128bad457ee74977b193fd81d66" prot="public">
+          <name>XSECURE_SLH_DSA_N_24</name>
+          <initializer>= 24U</initializer>
+          <briefdescription>
+<para>24 bytes </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__slhdsa__server__apis_1gga577de7b051a32a570ede765a8cacf613a66fc19936b5ea0f12ba99763e79f9a61" prot="public">
+          <name>XSECURE_SLH_DSA_N_32</name>
+          <initializer>= XSECURE_SLHDSA_N_LEN</initializer>
+          <briefdescription>
+<para>32 bytes </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__slhdsa__server__apis_1gga577de7b051a32a570ede765a8cacf613ae2a7c6ce1af824bd1e83bd37706a5677" prot="public">
+          <name>XSECURE_SLH_DSA_N_UNSUPPORTED</name>
+          <initializer>= 0U</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>Output length in bytes (n). </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/slhdsa/xsecure_slhdsa_instance.h" line="79" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/slhdsa/xsecure_slhdsa_instance.h" bodystart="79" bodyend="84"/>
+      </memberdef>
+      <memberdef kind="enum" id="group__xsecure__slhdsa__server__apis_1gafbe8c1cc0e5df2d23d4819c0b1aaaa41" prot="public" static="no">
+        <name>XSecure_Slhdsa_h</name>
+        <enumvalue id="group__xsecure__slhdsa__server__apis_1ggafbe8c1cc0e5df2d23d4819c0b1aaaa41a07a921917b75bf2cc6aa2b63a1af568b" prot="public">
+          <name>XSECURE_SLH_DSA_H_63</name>
+          <initializer>= 63U</initializer>
+          <briefdescription>
+<para>63 </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__slhdsa__server__apis_1ggafbe8c1cc0e5df2d23d4819c0b1aaaa41a2c1c9e7e750082fe4ea92a48c42744f7" prot="public">
+          <name>XSECURE_SLH_DSA_H_64</name>
+          <initializer>= 64U</initializer>
+          <briefdescription>
+<para>64 </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__slhdsa__server__apis_1ggafbe8c1cc0e5df2d23d4819c0b1aaaa41afbd4bb27345898d20abf1f6bf0d171eb" prot="public">
+          <name>XSECURE_SLH_DSA_H_66</name>
+          <initializer>= 66U</initializer>
+          <briefdescription>
+<para>66 </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__slhdsa__server__apis_1ggafbe8c1cc0e5df2d23d4819c0b1aaaa41a63d655cc92ed524f4d5b44f158711554" prot="public">
+          <name>XSECURE_SLH_DSA_H_68</name>
+          <initializer>= 68U</initializer>
+          <briefdescription>
+<para>68 </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__slhdsa__server__apis_1ggafbe8c1cc0e5df2d23d4819c0b1aaaa41a16256a91f324cb47e45d879607796192" prot="public">
+          <name>XSECURE_SLH_DSA_H_UNSUPPORTED</name>
+          <initializer>= 0U</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>Merkle tree height (h). </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/slhdsa/xsecure_slhdsa_instance.h" line="90" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/slhdsa/xsecure_slhdsa_instance.h" bodystart="90" bodyend="96"/>
+      </memberdef>
+      <memberdef kind="enum" id="group__xsecure__slhdsa__server__apis_1gaca12cb90b0c2bf4e677a3a9485ee5dba" prot="public" static="no">
+        <name>XSecure_Slhdsa_d</name>
+        <enumvalue id="group__xsecure__slhdsa__server__apis_1ggaca12cb90b0c2bf4e677a3a9485ee5dbaa403c1d0a940bb453afa635387c10217f" prot="public">
+          <name>XSECURE_SLH_DSA_D_7</name>
+          <initializer>= 7U</initializer>
+          <briefdescription>
+<para>7 </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__slhdsa__server__apis_1ggaca12cb90b0c2bf4e677a3a9485ee5dbaa6e7471e2c05d66549f4f3e964cd0b83b" prot="public">
+          <name>XSECURE_SLH_DSA_D_8</name>
+          <initializer>= 8U</initializer>
+          <briefdescription>
+<para>8 </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__slhdsa__server__apis_1ggaca12cb90b0c2bf4e677a3a9485ee5dbaaf0d2281fb0a2c1a9ac35dea8bc39bf28" prot="public">
+          <name>XSECURE_SLH_DSA_D_17</name>
+          <initializer>= 17U</initializer>
+          <briefdescription>
+<para>17 </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__slhdsa__server__apis_1ggaca12cb90b0c2bf4e677a3a9485ee5dbaaaf683fe75daf4a826b487f6087cd5278" prot="public">
+          <name>XSECURE_SLH_DSA_D_22</name>
+          <initializer>= 22U</initializer>
+          <briefdescription>
+<para>22 </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__slhdsa__server__apis_1ggaca12cb90b0c2bf4e677a3a9485ee5dbaadf788b0d420fde19ac21b9388f2998ab" prot="public">
+          <name>XSECURE_SLH_DSA_D_UNSUPPORTED</name>
+          <initializer>= 0U</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>Number of subtrees (d). </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/slhdsa/xsecure_slhdsa_instance.h" line="102" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/slhdsa/xsecure_slhdsa_instance.h" bodystart="102" bodyend="108"/>
+      </memberdef>
+      <memberdef kind="enum" id="group__xsecure__slhdsa__server__apis_1ga0f4d1ae2ae80977fcc484c36f3d98c86" prot="public" static="no">
+        <name>XSecure_Slhdsa_hprime</name>
+        <enumvalue id="group__xsecure__slhdsa__server__apis_1gga0f4d1ae2ae80977fcc484c36f3d98c86a9de097bbdd47469012d053faa927b627" prot="public">
+          <name>XSECURE_SLH_DSA_HPRIME_3</name>
+          <initializer>= 3U</initializer>
+          <briefdescription>
+<para>3 </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__slhdsa__server__apis_1gga0f4d1ae2ae80977fcc484c36f3d98c86a3cb75696e8048c5712f7a61441556b9d" prot="public">
+          <name>XSECURE_SLH_DSA_HPRIME_4</name>
+          <initializer>= 4U</initializer>
+          <briefdescription>
+<para>4 </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__slhdsa__server__apis_1gga0f4d1ae2ae80977fcc484c36f3d98c86a9a916b01ad4b0ee8cf7e4bdfebf1c5b4" prot="public">
+          <name>XSECURE_SLH_DSA_HPRIME_8</name>
+          <initializer>= 8U</initializer>
+          <briefdescription>
+<para>8 </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__slhdsa__server__apis_1gga0f4d1ae2ae80977fcc484c36f3d98c86a3f404d3dc0980c51a06bd05086b0045b" prot="public">
+          <name>XSECURE_SLH_DSA_HPRIME_9</name>
+          <initializer>= 9U</initializer>
+          <briefdescription>
+<para>9 </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__slhdsa__server__apis_1gga0f4d1ae2ae80977fcc484c36f3d98c86a38da00e2817c3699cb1de04fac5857b8" prot="public">
+          <name>XSECURE_SLH_DSA_HPRIME_UNSUPPORTED</name>
+          <initializer>= 0U</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>Subtree height (h&apos;). </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/slhdsa/xsecure_slhdsa_instance.h" line="114" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/slhdsa/xsecure_slhdsa_instance.h" bodystart="114" bodyend="120"/>
+      </memberdef>
+      <memberdef kind="enum" id="group__xsecure__slhdsa__server__apis_1ga9480f45d7128284fbe9ab0ff7fd3ae16" prot="public" static="no">
+        <name>XSecure_Slhdsa_a</name>
+        <enumvalue id="group__xsecure__slhdsa__server__apis_1gga9480f45d7128284fbe9ab0ff7fd3ae16a75bbbe0bd44c3c1df76ae87290f5351f" prot="public">
+          <name>XSECURE_SLH_DSA_A_6</name>
+          <initializer>= 6U</initializer>
+          <briefdescription>
+<para>6 </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__slhdsa__server__apis_1gga9480f45d7128284fbe9ab0ff7fd3ae16a5e9fbab74e55f6e62d64636423cfbf15" prot="public">
+          <name>XSECURE_SLH_DSA_A_8</name>
+          <initializer>= 8U</initializer>
+          <briefdescription>
+<para>8 </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__slhdsa__server__apis_1gga9480f45d7128284fbe9ab0ff7fd3ae16aaa6639778f94509cd7faa8ee92e05643" prot="public">
+          <name>XSECURE_SLH_DSA_A_9</name>
+          <initializer>= 9U</initializer>
+          <briefdescription>
+<para>9 </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__slhdsa__server__apis_1gga9480f45d7128284fbe9ab0ff7fd3ae16ab51eddb9dd56b7045d3db9c2a3f65ea1" prot="public">
+          <name>XSECURE_SLH_DSA_A_12</name>
+          <initializer>= 12U</initializer>
+          <briefdescription>
+<para>12 </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__slhdsa__server__apis_1gga9480f45d7128284fbe9ab0ff7fd3ae16af6b847b88cddbd17a1163bc1b06faac1" prot="public">
+          <name>XSECURE_SLH_DSA_A_14</name>
+          <initializer>= 14U</initializer>
+          <briefdescription>
+<para>14 </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__slhdsa__server__apis_1gga9480f45d7128284fbe9ab0ff7fd3ae16ad604dcf98cb9a8868c19585eab2f7e7f" prot="public">
+          <name>XSECURE_SLH_DSA_A_UNSUPPORTED</name>
+          <initializer>= 0U</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>Winternitz parameter (a). </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/slhdsa/xsecure_slhdsa_instance.h" line="126" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/slhdsa/xsecure_slhdsa_instance.h" bodystart="126" bodyend="133"/>
+      </memberdef>
+      <memberdef kind="enum" id="group__xsecure__slhdsa__server__apis_1ga8685516b23771b590f176cb8737d88cf" prot="public" static="no">
+        <name>XSecure_Slhdsa_k</name>
+        <enumvalue id="group__xsecure__slhdsa__server__apis_1gga8685516b23771b590f176cb8737d88cfa7860c9ec0965ab3dfccf4e9ae1ab4944" prot="public">
+          <name>XSECURE_SLH_DSA_K_14</name>
+          <initializer>= 14U</initializer>
+          <briefdescription>
+<para>14 </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__slhdsa__server__apis_1gga8685516b23771b590f176cb8737d88cfad488ab0adbf665352203631f936ce286" prot="public">
+          <name>XSECURE_SLH_DSA_K_17</name>
+          <initializer>= 17U</initializer>
+          <briefdescription>
+<para>17 </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__slhdsa__server__apis_1gga8685516b23771b590f176cb8737d88cfaa738fb9dca0b5b23b51a9a1b43a23c33" prot="public">
+          <name>XSECURE_SLH_DSA_K_22</name>
+          <initializer>= 22U</initializer>
+          <briefdescription>
+<para>22 </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__slhdsa__server__apis_1gga8685516b23771b590f176cb8737d88cfaf63bd753c12d5788e63ed548663ef363" prot="public">
+          <name>XSECURE_SLH_DSA_K_33</name>
+          <initializer>= 33U</initializer>
+          <briefdescription>
+<para>33 </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__slhdsa__server__apis_1gga8685516b23771b590f176cb8737d88cfab73fd21c95e1ad0c1c32fdd861236597" prot="public">
+          <name>XSECURE_SLH_DSA_K_35</name>
+          <initializer>= 35U</initializer>
+          <briefdescription>
+<para>35 </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__slhdsa__server__apis_1gga8685516b23771b590f176cb8737d88cfa26b223a2ab97e469b72bd48b31667d5f" prot="public">
+          <name>XSECURE_SLH_DSA_K_UNSUPPORTED</name>
+          <initializer>= 0U</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>Number of layers (k). </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/slhdsa/xsecure_slhdsa_instance.h" line="139" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/slhdsa/xsecure_slhdsa_instance.h" bodystart="139" bodyend="146"/>
+      </memberdef>
+      <memberdef kind="enum" id="group__xsecure__slhdsa__server__apis_1gac1178bf0ba5c167db9cf54b41b18efa6" prot="public" static="no">
+        <name>XSecure_Slhdsa_lgw</name>
+        <enumvalue id="group__xsecure__slhdsa__server__apis_1ggac1178bf0ba5c167db9cf54b41b18efa6acb25afa597b4d50824f26edcd956a854" prot="public">
+          <name>XSECURE_SLH_DSA_LGW_4</name>
+          <initializer>= 4U</initializer>
+          <briefdescription>
+<para>4 </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__slhdsa__server__apis_1ggac1178bf0ba5c167db9cf54b41b18efa6af7998436a5f929d3a263f172b8f00fd9" prot="public">
+          <name>XSECURE_SLH_DSA_LGW_UNSUPPORTED</name>
+          <initializer>= 0U</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>log2(Winternitz parameter) (lgw). </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/slhdsa/xsecure_slhdsa_instance.h" line="152" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/slhdsa/xsecure_slhdsa_instance.h" bodystart="152" bodyend="155"/>
+      </memberdef>
+      <memberdef kind="enum" id="group__xsecure__slhdsa__server__apis_1ga0c6ef89a82b4f4ee9231cd92d132d276" prot="public" static="no">
+        <name>XSecure_Slhdsa_m</name>
+        <enumvalue id="group__xsecure__slhdsa__server__apis_1gga0c6ef89a82b4f4ee9231cd92d132d276a648a5f83fc30f2bfa4a8a4329e762874" prot="public">
+          <name>XSECURE_SLH_DSA_M_30</name>
+          <initializer>= 30U</initializer>
+          <briefdescription>
+<para>30 </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__slhdsa__server__apis_1gga0c6ef89a82b4f4ee9231cd92d132d276a92ddd743415a6c04ae23e483a9b91ab7" prot="public">
+          <name>XSECURE_SLH_DSA_M_34</name>
+          <initializer>= 34U</initializer>
+          <briefdescription>
+<para>34 </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__slhdsa__server__apis_1gga0c6ef89a82b4f4ee9231cd92d132d276a4114acc56c07685fa8ae7ba4741c4921" prot="public">
+          <name>XSECURE_SLH_DSA_M_39</name>
+          <initializer>= 39U</initializer>
+          <briefdescription>
+<para>39 </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__slhdsa__server__apis_1gga0c6ef89a82b4f4ee9231cd92d132d276a10635c079555188d07347355270ba13c" prot="public">
+          <name>XSECURE_SLH_DSA_M_42</name>
+          <initializer>= 42U</initializer>
+          <briefdescription>
+<para>42 </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__slhdsa__server__apis_1gga0c6ef89a82b4f4ee9231cd92d132d276a327708bddcff3c26b390156bfe1cdb91" prot="public">
+          <name>XSECURE_SLH_DSA_M_47</name>
+          <initializer>= 47U</initializer>
+          <briefdescription>
+<para>47 </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__slhdsa__server__apis_1gga0c6ef89a82b4f4ee9231cd92d132d276a9342b49b47ae5b414070c505be79c18a" prot="public">
+          <name>XSECURE_SLH_DSA_M_49</name>
+          <initializer>= 49U</initializer>
+          <briefdescription>
+<para>49 </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__slhdsa__server__apis_1gga0c6ef89a82b4f4ee9231cd92d132d276ad778f9382f29ea5987ebf6af1d8573ee" prot="public">
+          <name>XSECURE_SLH_DSA_M_UNSUPPORTED</name>
+          <initializer>= 0U</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>Message digest length (m). </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/slhdsa/xsecure_slhdsa_instance.h" line="161" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/slhdsa/xsecure_slhdsa_instance.h" bodystart="161" bodyend="169"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xsecure__slhdsa__server__apis_1ga97d1800f2a4746b7cdce71d41fb704fe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="struct_x_secure___slhdsa_instance" kindref="compound">XSecure_SlhdsaInstance</ref> *</type>
+        <definition>XSecure_SlhdsaInstance * XSecure_SlhdsaGetInstance</definition>
+        <argsstring>(void)</argsstring>
+        <name>XSecure_SlhdsaGetInstance</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function returns the <ref refid="struct_x_secure___slhdsa_instance" kindref="compound">XSecure_SlhdsaInstance</ref> instance. </para>        </briefdescription>
+        <detaileddescription>
+<para><verbatim>            SlhdsaInstance stores all required components for SLH-DSA signature verification.
+</verbatim></para><para><simplesect kind="return"><para>Returns pointer to <ref refid="struct_x_secure___slhdsa_instance" kindref="compound">XSecure_SlhdsaInstance</ref> instance </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>SLH-DSA-SHAKE-256s (see FIPS 205 Table 2) Formula calculations: n=32, lgw=4, len1=ceil(8*32/4)=64, len2=3, len=67</para></listitem><listitem><para>len1 = ceil(8*n/lgw) = ceil(8*32/4) = 64</para></listitem><listitem><para>len2 = 3 checksum digits</para></listitem><listitem><para>ceil((len2*lgw)/8) = ceil(12/8) = 2 bytes</para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/slhdsa/xsecure_slhdsa_instance.c" line="51" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/slhdsa/xsecure_slhdsa_instance.c" bodystart="51" bodyend="102"/>
+        <references refid="struct_x_secure___slhdsa_instance_1ab63a47abcc83e7c80c42544c729e204e" compoundref="xsecure__slhdsa__instance_8h" startline="222">XSecure_SlhdsaInstance::Addr</references>
+        <references refid="struct_x_secure___slhdsa_instance_1a9e8012429ea8cd259bcd4b67a106fb62" compoundref="xsecure__slhdsa__instance_8h" startline="247">XSecure_SlhdsaInstance::Data1</references>
+        <references refid="struct_x_secure___slhdsa_instance_1a9e6922723973aa1dd51c704f92c54c18" compoundref="xsecure__slhdsa__instance_8h" startline="258">XSecure_SlhdsaInstance::Data2</references>
+        <references refid="struct_x_secure___slhdsa_instance_1aaf8104f2de7cb18b6f93286705f3d172" compoundref="xsecure__slhdsa__instance_8h" startline="270">XSecure_SlhdsaInstance::Data3</references>
+        <references refid="struct_x_secure___slhdsa_instance_1a73299ad6a573bb74f7247581a6a0c4cf" compoundref="xsecure__slhdsa__instance_8h" startline="280">XSecure_SlhdsaInstance::Data4</references>
+        <references refid="struct_x_secure___slhdsa_param_1adf0e83ff47d247fa29935dcbf4bd089d" compoundref="xsecure__slhdsa__instance_8h" startline="187">XSecure_SlhdsaParam::n</references>
+        <references refid="struct_x_secure___slhdsa_instance_1aac6e97312cdbf94f5082041f6c3b88a3" compoundref="xsecure__slhdsa__instance_8h" startline="225">XSecure_SlhdsaInstance::Param</references>
+        <references refid="group__xsecure__slhdsa__server__apis_1gga9480f45d7128284fbe9ab0ff7fd3ae16af6b847b88cddbd17a1163bc1b06faac1" compoundref="xsecure__slhdsa__instance_8h" startline="131">XSECURE_SLH_DSA_A_14</references>
+        <references refid="group__xsecure__slhdsa__server__apis_1ggaca12cb90b0c2bf4e677a3a9485ee5dbaa6e7471e2c05d66549f4f3e964cd0b83b" compoundref="xsecure__slhdsa__instance_8h" startline="104">XSECURE_SLH_DSA_D_8</references>
+        <references refid="group__xsecure__slhdsa__server__apis_1ggafbe8c1cc0e5df2d23d4819c0b1aaaa41a2c1c9e7e750082fe4ea92a48c42744f7" compoundref="xsecure__slhdsa__instance_8h" startline="92">XSECURE_SLH_DSA_H_64</references>
+        <references refid="group__xsecure__slhdsa__server__apis_1gga0f4d1ae2ae80977fcc484c36f3d98c86a9a916b01ad4b0ee8cf7e4bdfebf1c5b4" compoundref="xsecure__slhdsa__instance_8h" startline="117">XSECURE_SLH_DSA_HPRIME_8</references>
+        <references refid="group__xsecure__slhdsa__server__apis_1gga8685516b23771b590f176cb8737d88cfaa738fb9dca0b5b23b51a9a1b43a23c33" compoundref="xsecure__slhdsa__instance_8h" startline="142">XSECURE_SLH_DSA_K_22</references>
+        <references refid="group__xsecure__slhdsa__server__apis_1ggac1178bf0ba5c167db9cf54b41b18efa6acb25afa597b4d50824f26edcd956a854" compoundref="xsecure__slhdsa__instance_8h" startline="153">XSECURE_SLH_DSA_LGW_4</references>
+        <references refid="group__xsecure__slhdsa__server__apis_1gga0c6ef89a82b4f4ee9231cd92d132d276a327708bddcff3c26b390156bfe1cdb91" compoundref="xsecure__slhdsa__instance_8h" startline="166">XSECURE_SLH_DSA_M_47</references>
+        <references refid="group__xsecure__slhdsa__server__apis_1gga577de7b051a32a570ede765a8cacf613a66fc19936b5ea0f12ba99763e79f9a61" compoundref="xsecure__slhdsa__instance_8h" startline="82">XSECURE_SLH_DSA_N_32</references>
+        <references refid="group__xsecure__slhdsa__server__apis_1gac3de3e86c3e56cdc553cf73bce3ddc18" compoundref="xsecure__slhdsa__instance_8h" startline="65">XSECURE_SLHDSA_CSUM_INPUT_LEN_IN_DIGITS</references>
+        <references refid="group__xsecure__slhdsa__server__apis_1ga6f76b367b581d124a309992f938ee8e1" compoundref="xsecure__slhdsa__instance_8h" startline="68">XSECURE_SLHDSA_CSUM_LEN_IN_DIGITS</references>
+        <references refid="group__xsecure__slhdsa__server__apis_1gaa6c6b804332f9e02bdc225cf0fbbea4d" compoundref="xsecure__slhdsa__instance_8h" startline="69">XSECURE_SLHDSA_CSUM_SHIFT</references>
+        <references refid="group__xsecure__slhdsa__server__apis_1gae1d8d2f28f1f4a2aaabccc66e372386a" compoundref="xsecure__slhdsa__instance_8h" startline="72">XSECURE_SLHDSA_CSUM_SIZE_IN_BYTES</references>
+        <references refid="group__xsecure__slhdsa__server__apis_1gaaf65631ff91ab1de2a47d3558fab6b56" compoundref="xsecure__slhdsa__instance_8h" startline="48">XSECURE_SLHDSA_MAX_DATA1_LEN_IN_BYTES</references>
+        <references refid="group__xsecure__slhdsa__server__apis_1ga5ec93596fb8e65b66a673a500e3bcc8b" compoundref="xsecure__slhdsa__instance_8h" startline="51">XSECURE_SLHDSA_MAX_DATA2_LEN_IN_BYTES</references>
+        <references refid="group__xsecure__slhdsa__server__apis_1gabfbc1d0990069ad6a9d13119187c38d7" compoundref="xsecure__slhdsa__instance_8h" startline="56">XSECURE_SLHDSA_MAX_DATA3_LEN_IN_BYTES</references>
+        <references refid="group__xsecure__slhdsa__server__apis_1gaa6519e474c56ea50140174b2c36921c0" compoundref="xsecure__slhdsa__instance_8h" startline="59">XSECURE_SLHDSA_MAX_DATA4_LEN_IN_WORDS</references>
+        <references refid="group__xsecure__slhdsa__server__apis_1ga7d67eac690ca94571d12bbbbb3abaf28" compoundref="xsecure__slhdsa__instance_8h" startline="62">XSECURE_SLHDSA_NO_OF_INV_SIGN</references>
+        <references refid="group__xsecure__slhdsa__server__apis_1gabb9e6e9af58cc35f07a4e60eed1ce209" compoundref="xsecure__slhdsa__instance_8h" startline="45">XSECURE_SLHDSA_SHAKE_256S_SIGN_LEN</references>
+        <referencedby refid="group__xsecure__slhdsa__server__apis_1ga6586ad2f5162ae29b200089cc571ba8e" compoundref="xsecure__slhdsa__fors_8c" startline="221" endline="324">XSecure_SlhdsaForsPkFromSig</referencedby>
+        <referencedby refid="group__xsecure__slhdsa__server__apis_1ga63a83a36cf727551fc0e1f69fef4e9b6" compoundref="xsecure__slhdsa__ht_8c" startline="194" endline="290">XSecure_SlhdsaHtVerify</referencedby>
+        <referencedby refid="group__xsecure__slhdsa__server__apis_1gaaa866ce6d1c865f26afda73bc6a2003b" compoundref="xsecure__slhdsa__hash_8c" startline="197" endline="258">XSecure_SlhdsaShake256sChain</referencedby>
+        <referencedby refid="group__xsecure__slhdsa__server__apis_1ga2ff07fcdbe3cb7ae4dbb53308394c080" compoundref="xsecure__slhdsa__hash_8c" startline="131" endline="178">XSecure_SlhdsaShake256sHashF</referencedby>
+        <referencedby refid="group__xsecure__slhdsa__server__apis_1gad836abaf83f14c844a4b30fcca05992b" compoundref="xsecure__slhdsa__hash_8c" startline="341" endline="395">XSecure_SlhdsaShake256sHashH</referencedby>
+        <referencedby refid="group__xsecure__slhdsa__server__apis_1ga4f9fb47928190c4aaf68df51efac1382" compoundref="xsecure__slhdsa__hash_8c" startline="53" endline="114">XSecure_SlhdsaShake256sHashMsg</referencedby>
+        <referencedby refid="group__xsecure__slhdsa__server__apis_1ga97c714ead98479888556f73faf3d1dfb" compoundref="xsecure__slhdsa__hash_8c" startline="276" endline="323">XSecure_SlhdsaShake256sHashTl</referencedby>
+        <referencedby refid="group__xsecure__slhdsa__server__apis_1gad8b325c7b6c17a9c088bd30b04027423" compoundref="xsecure__slhdsa_8c" startline="250" endline="322">XSecure_SlhdsaVerify</referencedby>
+        <referencedby refid="group__xsecure__slhdsa__server__apis_1gaf6e4f612fb9bedd0adc25a5e5d6828c1" compoundref="xsecure__slhdsa__wots_8c" startline="214" endline="282">XSecure_SlhdsaWotsPkFromSign</referencedby>
+        <referencedby refid="group__xsecure__slhdsa__server__apis_1gae2f63765bb0a4b550407c200d2715a1c" compoundref="xsecure__slhdsa__xmss_8c" startline="189" endline="287">XSecure_SlhdsaXmssPkFromSign</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file contains structures, constants and declarations used in SLH-DSA instance management and provides interface to SLH-DSA verification operations. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+5.7   tvp  02/19/26 Initial release</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/***************************************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">***************************************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/**************************************************************************************************/</highlight></codeline>
+<codeline lineno="29"><highlight class="preprocessor">#ifndef<sp/>XSECURE_SLH_DSA_INSTANCE_H_</highlight></codeline>
+<codeline lineno="30"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_SLH_DSA_INSTANCE_H_</highlight></codeline>
+<codeline lineno="31"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="33"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="35"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="comment">/****************************************<sp/>Include<sp/>Files<sp/>*******************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xsecure__slhdsa__addr_8h" kindref="compound">xsecure_slhdsa_addr.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xsecure_sha.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="comment">/*****************************************<sp/>Constant<sp/>Definitions<sp/>***********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42" refid="group__xsecure__slhdsa__server__apis_1gaf0df66e81f5e98461b7c26d092324788" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_SLHDSA_N_LEN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>32U<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="44"><highlight class="preprocessor">#define<sp/>XSECURE_SLHDSA_SHAKE_256S_SIGN_LEN<sp/><sp/><sp/><sp/><sp/><sp/>29792U<sp/><sp/></highlight></codeline>
+<codeline lineno="46"><highlight class="preprocessor">#define<sp/>XSECURE_SLHDSA_MAX_DATA1_LEN_IN_BYTES<sp/><sp/><sp/>(2144U)<sp/></highlight></codeline>
+<codeline lineno="48" refid="group__xsecure__slhdsa__server__apis_1gaaf65631ff91ab1de2a47d3558fab6b56" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_SLHDSA_MAX_DATA2_LEN_IN_BYTES<sp/><sp/><sp/>(99U)<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="51" refid="group__xsecure__slhdsa__server__apis_1ga5ec93596fb8e65b66a673a500e3bcc8b" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_SLHDSA_MAX_DATA3_LEN_IN_BYTES<sp/><sp/><sp/>(32U)<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="53"><highlight class="preprocessor">#define<sp/>XSECURE_SLHDSA_MAX_DATA4_LEN_IN_WORDS<sp/><sp/><sp/>(67U)<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="55"><highlight class="preprocessor">#define<sp/>XSECURE_SLHDSA_NO_OF_INV_SIGN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(15U)<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="57"><highlight class="preprocessor">#define<sp/>XSECURE_SLHDSA_CSUM_INPUT_LEN_IN_DIGITS<sp/>(64U)<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="59" refid="group__xsecure__slhdsa__server__apis_1gaa6519e474c56ea50140174b2c36921c0" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_SLHDSA_CSUM_LEN_IN_DIGITS<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(3U)<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="60"><highlight class="preprocessor">#define<sp/>XSECURE_SLHDSA_CSUM_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(4U)<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="62" refid="group__xsecure__slhdsa__server__apis_1ga7d67eac690ca94571d12bbbbb3abaf28" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_SLHDSA_CSUM_SIZE_IN_BYTES<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(2U)<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="64"><highlight class="preprocessor"></highlight><highlight class="comment">/*******************************************<sp/>Type<sp/>Definitions<sp/>*************************************/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="65" refid="group__xsecure__slhdsa__server__apis_1gac3de3e86c3e56cdc553cf73bce3ddc18" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="69" refid="group__xsecure__slhdsa__server__apis_1gaa6c6b804332f9e02bdc225cf0fbbea4d" refkind="member"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__slhdsa__server__apis_1gga577de7b051a32a570ede765a8cacf613a134a34471535b3533af4cd4be1c998ee" kindref="member">XSECURE_SLH_DSA_N_16</ref><sp/>=<sp/>16U,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__slhdsa__server__apis_1gga577de7b051a32a570ede765a8cacf613ac9b7a128bad457ee74977b193fd81d66" kindref="member">XSECURE_SLH_DSA_N_24</ref><sp/>=<sp/>24U,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="72" refid="group__xsecure__slhdsa__server__apis_1gae1d8d2f28f1f4a2aaabccc66e372386a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__slhdsa__server__apis_1gga577de7b051a32a570ede765a8cacf613a66fc19936b5ea0f12ba99763e79f9a61" kindref="member">XSECURE_SLH_DSA_N_32</ref><sp/>=<sp/><ref refid="group__xsecure__slhdsa__server__apis_1gaf0df66e81f5e98461b7c26d092324788" kindref="member">XSECURE_SLHDSA_N_LEN</ref>,<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSECURE_SLH_DSA_N_UNSUPPORTED<sp/>=<sp/>0U</highlight></codeline>
+<codeline lineno="74"><highlight class="normal">}<sp/><ref refid="group__xsecure__slhdsa__server__apis_1ga577de7b051a32a570ede765a8cacf613" kindref="member">XSecure_Slhdsa_n</ref>;</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight></codeline>
+<codeline lineno="80" refid="group__xsecure__slhdsa__server__apis_1gga577de7b051a32a570ede765a8cacf613a134a34471535b3533af4cd4be1c998ee" refkind="member"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="81" refid="group__xsecure__slhdsa__server__apis_1gga577de7b051a32a570ede765a8cacf613ac9b7a128bad457ee74977b193fd81d66" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__slhdsa__server__apis_1ggafbe8c1cc0e5df2d23d4819c0b1aaaa41a07a921917b75bf2cc6aa2b63a1af568b" kindref="member">XSECURE_SLH_DSA_H_63</ref><sp/>=<sp/>63U,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="82" refid="group__xsecure__slhdsa__server__apis_1gga577de7b051a32a570ede765a8cacf613a66fc19936b5ea0f12ba99763e79f9a61" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__slhdsa__server__apis_1ggafbe8c1cc0e5df2d23d4819c0b1aaaa41a2c1c9e7e750082fe4ea92a48c42744f7" kindref="member">XSECURE_SLH_DSA_H_64</ref><sp/>=<sp/>64U,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__slhdsa__server__apis_1ggafbe8c1cc0e5df2d23d4819c0b1aaaa41afbd4bb27345898d20abf1f6bf0d171eb" kindref="member">XSECURE_SLH_DSA_H_66</ref><sp/>=<sp/>66U,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__slhdsa__server__apis_1ggafbe8c1cc0e5df2d23d4819c0b1aaaa41a63d655cc92ed524f4d5b44f158711554" kindref="member">XSECURE_SLH_DSA_H_68</ref><sp/>=<sp/>68U,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSECURE_SLH_DSA_H_UNSUPPORTED<sp/>=<sp/>0U</highlight></codeline>
+<codeline lineno="86"><highlight class="normal">}<sp/><ref refid="group__xsecure__slhdsa__server__apis_1gafbe8c1cc0e5df2d23d4819c0b1aaaa41" kindref="member">XSecure_Slhdsa_h</ref>;</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"></highlight></codeline>
+<codeline lineno="92" refid="group__xsecure__slhdsa__server__apis_1ggafbe8c1cc0e5df2d23d4819c0b1aaaa41a2c1c9e7e750082fe4ea92a48c42744f7" refkind="member"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="93" refid="group__xsecure__slhdsa__server__apis_1ggafbe8c1cc0e5df2d23d4819c0b1aaaa41afbd4bb27345898d20abf1f6bf0d171eb" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__slhdsa__server__apis_1ggaca12cb90b0c2bf4e677a3a9485ee5dbaa403c1d0a940bb453afa635387c10217f" kindref="member">XSECURE_SLH_DSA_D_7</ref><sp/>=<sp/>7U,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="94" refid="group__xsecure__slhdsa__server__apis_1ggafbe8c1cc0e5df2d23d4819c0b1aaaa41a63d655cc92ed524f4d5b44f158711554" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__slhdsa__server__apis_1ggaca12cb90b0c2bf4e677a3a9485ee5dbaa6e7471e2c05d66549f4f3e964cd0b83b" kindref="member">XSECURE_SLH_DSA_D_8</ref><sp/>=<sp/>8U,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__slhdsa__server__apis_1ggaca12cb90b0c2bf4e677a3a9485ee5dbaaf0d2281fb0a2c1a9ac35dea8bc39bf28" kindref="member">XSECURE_SLH_DSA_D_17</ref><sp/>=<sp/>17U,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__slhdsa__server__apis_1ggaca12cb90b0c2bf4e677a3a9485ee5dbaaaf683fe75daf4a826b487f6087cd5278" kindref="member">XSECURE_SLH_DSA_D_22</ref><sp/>=<sp/>22U,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSECURE_SLH_DSA_D_UNSUPPORTED<sp/>=<sp/>0U</highlight></codeline>
+<codeline lineno="98"><highlight class="normal">}<sp/><ref refid="group__xsecure__slhdsa__server__apis_1gaca12cb90b0c2bf4e677a3a9485ee5dba" kindref="member">XSecure_Slhdsa_d</ref>;</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"></highlight></codeline>
+<codeline lineno="104" refid="group__xsecure__slhdsa__server__apis_1ggaca12cb90b0c2bf4e677a3a9485ee5dbaa6e7471e2c05d66549f4f3e964cd0b83b" refkind="member"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="105" refid="group__xsecure__slhdsa__server__apis_1ggaca12cb90b0c2bf4e677a3a9485ee5dbaaf0d2281fb0a2c1a9ac35dea8bc39bf28" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__slhdsa__server__apis_1gga0f4d1ae2ae80977fcc484c36f3d98c86a9de097bbdd47469012d053faa927b627" kindref="member">XSECURE_SLH_DSA_HPRIME_3</ref><sp/>=<sp/>3U,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="106" refid="group__xsecure__slhdsa__server__apis_1ggaca12cb90b0c2bf4e677a3a9485ee5dbaaaf683fe75daf4a826b487f6087cd5278" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__slhdsa__server__apis_1gga0f4d1ae2ae80977fcc484c36f3d98c86a3cb75696e8048c5712f7a61441556b9d" kindref="member">XSECURE_SLH_DSA_HPRIME_4</ref><sp/>=<sp/>4U,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__slhdsa__server__apis_1gga0f4d1ae2ae80977fcc484c36f3d98c86a9a916b01ad4b0ee8cf7e4bdfebf1c5b4" kindref="member">XSECURE_SLH_DSA_HPRIME_8</ref><sp/>=<sp/>8U,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__slhdsa__server__apis_1gga0f4d1ae2ae80977fcc484c36f3d98c86a3f404d3dc0980c51a06bd05086b0045b" kindref="member">XSECURE_SLH_DSA_HPRIME_9</ref><sp/>=<sp/>9U,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSECURE_SLH_DSA_HPRIME_UNSUPPORTED<sp/>=<sp/>0U</highlight></codeline>
+<codeline lineno="110"><highlight class="normal">}<sp/><ref refid="group__xsecure__slhdsa__server__apis_1ga0f4d1ae2ae80977fcc484c36f3d98c86" kindref="member">XSecure_Slhdsa_hprime</ref>;</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"></highlight></codeline>
+<codeline lineno="116" refid="group__xsecure__slhdsa__server__apis_1gga0f4d1ae2ae80977fcc484c36f3d98c86a3cb75696e8048c5712f7a61441556b9d" refkind="member"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="117" refid="group__xsecure__slhdsa__server__apis_1gga0f4d1ae2ae80977fcc484c36f3d98c86a9a916b01ad4b0ee8cf7e4bdfebf1c5b4" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__slhdsa__server__apis_1gga9480f45d7128284fbe9ab0ff7fd3ae16a75bbbe0bd44c3c1df76ae87290f5351f" kindref="member">XSECURE_SLH_DSA_A_6</ref><sp/>=<sp/>6U,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="118" refid="group__xsecure__slhdsa__server__apis_1gga0f4d1ae2ae80977fcc484c36f3d98c86a3f404d3dc0980c51a06bd05086b0045b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__slhdsa__server__apis_1gga9480f45d7128284fbe9ab0ff7fd3ae16a5e9fbab74e55f6e62d64636423cfbf15" kindref="member">XSECURE_SLH_DSA_A_8</ref><sp/>=<sp/>8U,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__slhdsa__server__apis_1gga9480f45d7128284fbe9ab0ff7fd3ae16aaa6639778f94509cd7faa8ee92e05643" kindref="member">XSECURE_SLH_DSA_A_9</ref><sp/>=<sp/>9U,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__slhdsa__server__apis_1gga9480f45d7128284fbe9ab0ff7fd3ae16ab51eddb9dd56b7045d3db9c2a3f65ea1" kindref="member">XSECURE_SLH_DSA_A_12</ref><sp/>=<sp/>12U,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__slhdsa__server__apis_1gga9480f45d7128284fbe9ab0ff7fd3ae16af6b847b88cddbd17a1163bc1b06faac1" kindref="member">XSECURE_SLH_DSA_A_14</ref><sp/>=<sp/>14U,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSECURE_SLH_DSA_A_UNSUPPORTED<sp/>=<sp/>0U</highlight></codeline>
+<codeline lineno="123"><highlight class="normal">}<sp/><ref refid="group__xsecure__slhdsa__server__apis_1ga9480f45d7128284fbe9ab0ff7fd3ae16" kindref="member">XSecure_Slhdsa_a</ref>;</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"></highlight></codeline>
+<codeline lineno="129" refid="group__xsecure__slhdsa__server__apis_1gga9480f45d7128284fbe9ab0ff7fd3ae16aaa6639778f94509cd7faa8ee92e05643" refkind="member"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="130" refid="group__xsecure__slhdsa__server__apis_1gga9480f45d7128284fbe9ab0ff7fd3ae16ab51eddb9dd56b7045d3db9c2a3f65ea1" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__slhdsa__server__apis_1gga8685516b23771b590f176cb8737d88cfa7860c9ec0965ab3dfccf4e9ae1ab4944" kindref="member">XSECURE_SLH_DSA_K_14</ref><sp/>=<sp/>14U,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="131" refid="group__xsecure__slhdsa__server__apis_1gga9480f45d7128284fbe9ab0ff7fd3ae16af6b847b88cddbd17a1163bc1b06faac1" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__slhdsa__server__apis_1gga8685516b23771b590f176cb8737d88cfad488ab0adbf665352203631f936ce286" kindref="member">XSECURE_SLH_DSA_K_17</ref><sp/>=<sp/>17U,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__slhdsa__server__apis_1gga8685516b23771b590f176cb8737d88cfaa738fb9dca0b5b23b51a9a1b43a23c33" kindref="member">XSECURE_SLH_DSA_K_22</ref><sp/>=<sp/>22U,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__slhdsa__server__apis_1gga8685516b23771b590f176cb8737d88cfaf63bd753c12d5788e63ed548663ef363" kindref="member">XSECURE_SLH_DSA_K_33</ref><sp/>=<sp/>33U,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__slhdsa__server__apis_1gga8685516b23771b590f176cb8737d88cfab73fd21c95e1ad0c1c32fdd861236597" kindref="member">XSECURE_SLH_DSA_K_35</ref><sp/>=<sp/>35U,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSECURE_SLH_DSA_K_UNSUPPORTED<sp/>=<sp/>0U</highlight></codeline>
+<codeline lineno="136"><highlight class="normal">}<sp/><ref refid="group__xsecure__slhdsa__server__apis_1ga8685516b23771b590f176cb8737d88cf" kindref="member">XSecure_Slhdsa_k</ref>;</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"></highlight></codeline>
+<codeline lineno="142" refid="group__xsecure__slhdsa__server__apis_1gga8685516b23771b590f176cb8737d88cfaa738fb9dca0b5b23b51a9a1b43a23c33" refkind="member"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="143" refid="group__xsecure__slhdsa__server__apis_1gga8685516b23771b590f176cb8737d88cfaf63bd753c12d5788e63ed548663ef363" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__slhdsa__server__apis_1ggac1178bf0ba5c167db9cf54b41b18efa6acb25afa597b4d50824f26edcd956a854" kindref="member">XSECURE_SLH_DSA_LGW_4</ref><sp/>=<sp/>4U,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="144" refid="group__xsecure__slhdsa__server__apis_1gga8685516b23771b590f176cb8737d88cfab73fd21c95e1ad0c1c32fdd861236597" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSECURE_SLH_DSA_LGW_UNSUPPORTED<sp/>=<sp/>0U</highlight></codeline>
+<codeline lineno="145"><highlight class="normal">}<sp/><ref refid="group__xsecure__slhdsa__server__apis_1gac1178bf0ba5c167db9cf54b41b18efa6" kindref="member">XSecure_Slhdsa_lgw</ref>;</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"></highlight></codeline>
+<codeline lineno="151"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="152" refid="group__xsecure__slhdsa__server__apis_1gac1178bf0ba5c167db9cf54b41b18efa6" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__slhdsa__server__apis_1gga0c6ef89a82b4f4ee9231cd92d132d276a648a5f83fc30f2bfa4a8a4329e762874" kindref="member">XSECURE_SLH_DSA_M_30</ref><sp/>=<sp/>30U,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="153" refid="group__xsecure__slhdsa__server__apis_1ggac1178bf0ba5c167db9cf54b41b18efa6acb25afa597b4d50824f26edcd956a854" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__slhdsa__server__apis_1gga0c6ef89a82b4f4ee9231cd92d132d276a92ddd743415a6c04ae23e483a9b91ab7" kindref="member">XSECURE_SLH_DSA_M_34</ref><sp/>=<sp/>34U,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__slhdsa__server__apis_1gga0c6ef89a82b4f4ee9231cd92d132d276a4114acc56c07685fa8ae7ba4741c4921" kindref="member">XSECURE_SLH_DSA_M_39</ref><sp/>=<sp/>39U,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__slhdsa__server__apis_1gga0c6ef89a82b4f4ee9231cd92d132d276a10635c079555188d07347355270ba13c" kindref="member">XSECURE_SLH_DSA_M_42</ref><sp/>=<sp/>42U,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__slhdsa__server__apis_1gga0c6ef89a82b4f4ee9231cd92d132d276a327708bddcff3c26b390156bfe1cdb91" kindref="member">XSECURE_SLH_DSA_M_47</ref><sp/>=<sp/>47U,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__slhdsa__server__apis_1gga0c6ef89a82b4f4ee9231cd92d132d276a9342b49b47ae5b414070c505be79c18a" kindref="member">XSECURE_SLH_DSA_M_49</ref><sp/>=<sp/>49U,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSECURE_SLH_DSA_M_UNSUPPORTED<sp/>=<sp/>0U</highlight></codeline>
+<codeline lineno="159"><highlight class="normal">}<sp/><ref refid="group__xsecure__slhdsa__server__apis_1ga0c6ef89a82b4f4ee9231cd92d132d276" kindref="member">XSecure_Slhdsa_m</ref>;</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"></highlight></codeline>
+<codeline lineno="164" refid="group__xsecure__slhdsa__server__apis_1gga0c6ef89a82b4f4ee9231cd92d132d276a4114acc56c07685fa8ae7ba4741c4921" refkind="member"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="165" refid="group__xsecure__slhdsa__server__apis_1gga0c6ef89a82b4f4ee9231cd92d132d276a10635c079555188d07347355270ba13c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>DigitWidth;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="166" refid="group__xsecure__slhdsa__server__apis_1gga0c6ef89a82b4f4ee9231cd92d132d276a327708bddcff3c26b390156bfe1cdb91" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>InputLenInDigits;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="167" refid="group__xsecure__slhdsa__server__apis_1gga0c6ef89a82b4f4ee9231cd92d132d276a9342b49b47ae5b414070c505be79c18a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>ChecksumLenInDigits;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>ChecksumShift;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>ChecksumSizeInBytes;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="170"><highlight class="normal">}<sp/><ref refid="struct_x_secure___checksum_param" kindref="compound">XSecure_ChecksumParam</ref>;</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"></highlight></codeline>
+<codeline lineno="176" refid="struct_x_secure___checksum_param_1a622729b6c957e154dbd17d4c1909c522" refkind="member"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="177" refid="struct_x_secure___checksum_param_1add5d7a87ec82f389e013cb54061879e3" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__slhdsa__server__apis_1ga577de7b051a32a570ede765a8cacf613" kindref="member">XSecure_Slhdsa_n</ref><sp/>n;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__slhdsa__server__apis_1gafbe8c1cc0e5df2d23d4819c0b1aaaa41" kindref="member">XSecure_Slhdsa_h</ref><sp/>h;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="182"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__slhdsa__server__apis_1gaca12cb90b0c2bf4e677a3a9485ee5dba" kindref="member">XSecure_Slhdsa_d</ref><sp/>d;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="184"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__slhdsa__server__apis_1ga0f4d1ae2ae80977fcc484c36f3d98c86" kindref="member">XSecure_Slhdsa_hprime</ref><sp/>hprime;<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="186" refid="struct_x_secure___slhdsa_param" refkind="compound"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__slhdsa__server__apis_1ga9480f45d7128284fbe9ab0ff7fd3ae16" kindref="member">XSecure_Slhdsa_a</ref><sp/>a;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="188"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__slhdsa__server__apis_1ga8685516b23771b590f176cb8737d88cf" kindref="member">XSecure_Slhdsa_k</ref><sp/>k;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="190" refid="struct_x_secure___slhdsa_param_1a63a9ccfd3068b60acf66bb2879c5e87a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__slhdsa__server__apis_1gac1178bf0ba5c167db9cf54b41b18efa6" kindref="member">XSecure_Slhdsa_lgw</ref><sp/>lgw;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="192" refid="struct_x_secure___slhdsa_param_1aad06830c8e1238722fe82f97cf0a7768" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__slhdsa__server__apis_1ga0c6ef89a82b4f4ee9231cd92d132d276" kindref="member">XSecure_Slhdsa_m</ref><sp/>m;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="195"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>NoOfInvSign;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="197"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>SignLen;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="200" refid="struct_x_secure___slhdsa_param_1a42d4ea267d7c3a1567cfc01c6358e534" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_secure___checksum_param" kindref="compound">XSecure_ChecksumParam</ref><sp/>ChecksumParams;<sp/><sp/></highlight></codeline>
+<codeline lineno="203"><highlight class="normal">}<sp/><ref refid="struct_x_secure___slhdsa_param" kindref="compound">XSecure_SlhdsaParam</ref>;</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"></highlight></codeline>
+<codeline lineno="210" refid="struct_x_secure___slhdsa_param_1a14a066a9a67f5df8f300e0e25464a31a" refkind="member"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="212"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ADRS*<sp/>Addr;</highlight></codeline>
+<codeline lineno="213"><highlight class="normal"></highlight></codeline>
+<codeline lineno="215"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_secure___slhdsa_param" kindref="compound">XSecure_SlhdsaParam</ref>*<sp/>Param;</highlight></codeline>
+<codeline lineno="216"><highlight class="normal"></highlight></codeline>
+<codeline lineno="218"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSecure_Sha*<sp/>ShaInstance;</highlight></codeline>
+<codeline lineno="219"><highlight class="normal"></highlight></codeline>
+<codeline lineno="221"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>DataAddr;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="222" refid="struct_x_secure___slhdsa_instance_1ab63a47abcc83e7c80c42544c729e204e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>DataLen;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="223"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>SignatureAddr;<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="224"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>SignatureLen;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="225" refid="struct_x_secure___slhdsa_instance_1aac6e97312cdbf94f5082041f6c3b88a3" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>PublicKeyAddr;<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="237"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8*<sp/>Data1;</highlight></codeline>
+<codeline lineno="238"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Data1Len;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="248" refid="struct_x_secure___slhdsa_instance_1acda367f1dbceb62bbbf0e7aa62a40ff2" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8*<sp/>Data2;</highlight></codeline>
+<codeline lineno="260"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8*<sp/>Data3;</highlight></codeline>
+<codeline lineno="270" refid="struct_x_secure___slhdsa_instance_1aaf8104f2de7cb18b6f93286705f3d172" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32*<sp/>Data4;</highlight></codeline>
+<codeline lineno="271"><highlight class="normal"></highlight></codeline>
+<codeline lineno="272"><highlight class="normal">}<sp/><ref refid="struct_x_secure___slhdsa_instance" kindref="compound">XSecure_SlhdsaInstance</ref>;</highlight></codeline>
+<codeline lineno="273"><highlight class="normal"></highlight></codeline>
+<codeline lineno="274"><highlight class="normal"></highlight><highlight class="comment">/****************************************<sp/>Function<sp/>Prototypes<sp/>*************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="275"><highlight class="normal"><ref refid="struct_x_secure___slhdsa_instance" kindref="compound">XSecure_SlhdsaInstance</ref>*<sp/><ref refid="group__xsecure__slhdsa__server__apis_1ga97d1800f2a4746b7cdce71d41fb704fe" kindref="member">XSecure_SlhdsaGetInstance</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="276"><highlight class="normal"></highlight></codeline>
+<codeline lineno="278"><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="279"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="280" refid="struct_x_secure___slhdsa_instance_1a73299ad6a573bb74f7247581a6a0c4cf" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="281"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="282"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XSECURE_SLH_DSA_INSTANCE_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/slhdsa/xsecure_slhdsa_instance.h"/>
+  </compounddef>
+</doxygen>

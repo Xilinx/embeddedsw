@@ -1,0 +1,355 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xpmcdma_8h" kind="file">
+    <compoundname>xpmcdma.h</compoundname>
+    <includes refid="xcsudma_8h" local="yes">xcsudma.h</includes>
+    <incdepgraph>
+      <node id="151">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="149">
+        <label>xil_io.h</label>
+      </node>
+      <node id="154">
+        <label>sleep.h</label>
+      </node>
+      <node id="153">
+        <label>xil_cache.h</label>
+      </node>
+      <node id="146">
+        <label>xpmcdma.h</label>
+        <link refid="xpmcdma.h"/>
+        <childnode refid="147" relation="include">
+        </childnode>
+      </node>
+      <node id="155">
+        <label>xil_util.h</label>
+      </node>
+      <node id="148">
+        <label>xcsudma_hw.h</label>
+        <link refid="xcsudma__hw_8h"/>
+        <childnode refid="149" relation="include">
+        </childnode>
+      </node>
+      <node id="152">
+        <label>xstatus.h</label>
+      </node>
+      <node id="150">
+        <label>xil_types.h</label>
+      </node>
+      <node id="147">
+        <label>xcsudma.h</label>
+        <link refid="xcsudma_8h"/>
+        <childnode refid="148" relation="include">
+        </childnode>
+        <childnode refid="150" relation="include">
+        </childnode>
+        <childnode refid="151" relation="include">
+        </childnode>
+        <childnode refid="152" relation="include">
+        </childnode>
+        <childnode refid="153" relation="include">
+        </childnode>
+        <childnode refid="154" relation="include">
+        </childnode>
+        <childnode refid="155" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2020<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="95"><highlight class="preprocessor">#ifndef<sp/>XPMCDMA_H_</highlight></codeline>
+<codeline lineno="96"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPMCDMA_H_</highlight></codeline>
+<codeline lineno="97"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="98"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="99"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="101"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="102"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="103"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xcsudma_8h" kindref="compound">xcsudma.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="104"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined<sp/>(versal)<sp/>||<sp/>defined(SPARTANUP)</highlight></codeline>
+<codeline lineno="105"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="106"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight></codeline>
+<codeline lineno="108"><highlight class="preprocessor">#if<sp/>defined(SPARTANUP)</highlight></codeline>
+<codeline lineno="109"><highlight class="preprocessor"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="110"><highlight class="preprocessor"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#define<sp/>PMCDMA_0_DEVICE_ID<sp/><sp/><sp/><sp/><sp/><sp/>XPAR_XCSUDMA_0_DEVICE_ID<sp/></highlight><highlight class="comment">/*<sp/>PMCDMA<sp/>device<sp/>Id<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="111"><highlight class="preprocessor"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#else</highlight></codeline>
+<codeline lineno="112"><highlight class="preprocessor"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#define<sp/>PMCDMA_0_DEVICE_ID<sp/><sp/><sp/><sp/><sp/><sp/>XPAR_XCSUDMA_0_BASEADDR<sp/></highlight><highlight class="comment">/*<sp/>PMCDMA<sp/>device<sp/>Id<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="113"><highlight class="preprocessor"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#endif</highlight></codeline>
+<codeline lineno="114"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="115"><highlight class="preprocessor"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="116"><highlight class="preprocessor"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#define<sp/>PMCDMA_0_DEVICE_ID<sp/><sp/><sp/><sp/><sp/><sp/>XPAR_XCSUDMA_0_DEVICE_ID<sp/></highlight><highlight class="comment">/*<sp/>PMCDMA<sp/>device<sp/>Id<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="117"><highlight class="preprocessor"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#define<sp/>PMCDMA_1_DEVICE_ID<sp/><sp/><sp/><sp/><sp/><sp/>XPAR_XCSUDMA_1_DEVICE_ID<sp/></highlight><highlight class="comment">/*<sp/>PMCDMA<sp/>device<sp/>Id<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="118"><highlight class="preprocessor"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#else</highlight></codeline>
+<codeline lineno="119"><highlight class="preprocessor"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#define<sp/>PMCDMA_0_DEVICE_ID<sp/><sp/><sp/><sp/><sp/><sp/>XPAR_XCSUDMA_0_BASEADDR<sp/></highlight><highlight class="comment">/*<sp/>PMCDMA<sp/>device<sp/>Id<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="120"><highlight class="preprocessor"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#define<sp/>PMCDMA_1_DEVICE_ID<sp/><sp/><sp/><sp/><sp/><sp/>XPAR_XCSUDMA_1_BASEADDR<sp/></highlight><highlight class="comment">/*<sp/>PMCDMA<sp/>device<sp/>Id<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="121"><highlight class="preprocessor"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#endif</highlight></codeline>
+<codeline lineno="122"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="123"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PMCDMA_LOOPBACK_CFG<sp/><sp/><sp/><sp/><sp/>(0x0000000FU)<sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>LOOP<sp/>BACK<sp/>configuration<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="124"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="125"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XPMCDMA_SIZE_MAX<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XCSUDMA_SIZE_MAX<sp/></highlight><highlight class="comment">/*<sp/>Maximum<sp/>allowed<sp/>no<sp/>of<sp/>words<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="126"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPMCDMA_ADDR_LSB_MASK<sp/><sp/><sp/>XCSUDMA_ADDR_LSB_MASK</highlight></codeline>
+<codeline lineno="127"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="128"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XPMCDMA_DMATYPEIS_INVALID<sp/><sp/><sp/><sp/><sp/><sp/><sp/>XCSUDMA_DMATYPEIS_CSUDMA</highlight></codeline>
+<codeline lineno="129"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPMCDMA_DMATYPEIS_DMA0<sp/><sp/>XCSUDMA_DMATYPEIS_PMCDMA0</highlight></codeline>
+<codeline lineno="130"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPMCDMA_DMATYPEIS_DMA1<sp/><sp/>XCSUDMA_DMATYPEIS_PMCDMA1</highlight></codeline>
+<codeline lineno="131"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="132"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XPMCDMA_SRC_CHANNEL<sp/><sp/><sp/><sp/><sp/>XCSUDMA_SRC_CHANNEL</highlight></codeline>
+<codeline lineno="133"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPMCDMA_DST_CHANNEL<sp/><sp/><sp/><sp/><sp/>XCSUDMA_DST_CHANNEL</highlight></codeline>
+<codeline lineno="134"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="135"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XPMCDMA_PAUSE_MEMORY<sp/><sp/><sp/><sp/>XCSUDMA_PAUSE_MEMORY</highlight></codeline>
+<codeline lineno="136"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPMCDMA_PAUSE_STREAM<sp/><sp/><sp/><sp/>XCSUDMA_PAUSE_STREAM</highlight></codeline>
+<codeline lineno="137"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="139"><highlight class="preprocessor">#define<sp/>XPMCDMA_IXR_FIFO_OVERFLOW_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XCSUDMA_IXR_FIFO_OVERFLOW_MASK</highlight></codeline>
+<codeline lineno="140"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="141"><highlight class="preprocessor">#define<sp/>XPMCDMA_IXR_INVALID_APB_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XCSUDMA_IXR_INVALID_APB_MASK</highlight></codeline>
+<codeline lineno="142"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="143"><highlight class="preprocessor">#define<sp/>XPMCDMA_IXR_FIFO_THRESHHIT_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XCSUDMA_IXR_FIFO_THRESHHIT_MASK</highlight></codeline>
+<codeline lineno="144"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="145"><highlight class="preprocessor">#define<sp/>XPMCDMA_IXR_TIMEOUT_MEM_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XCSUDMA_IXR_TIMEOUT_MEM_MASK</highlight></codeline>
+<codeline lineno="146"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="147"><highlight class="preprocessor">#define<sp/>XPMCDMA_IXR_TIMEOUT_STRM_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XCSUDMA_IXR_TIMEOUT_STRM_MASK</highlight></codeline>
+<codeline lineno="148"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="149"><highlight class="preprocessor">#define<sp/>XPMCDMA_IXR_AXI_WRERR_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XCSUDMA_IXR_AXI_WRERR_MASK</highlight></codeline>
+<codeline lineno="150"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="151"><highlight class="preprocessor">#define<sp/>XPMCDMA_IXR_DONE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XCSUDMA_IXR_DONE_MASK</highlight></codeline>
+<codeline lineno="152"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="153"><highlight class="preprocessor">#define<sp/>XPMCDMA_IXR_MEM_DONE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XCSUDMA_IXR_MEM_DONE_MASK</highlight></codeline>
+<codeline lineno="154"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="155"><highlight class="preprocessor">#define<sp/>XPMCDMA_IXR_SRC_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XCSUDMA_IXR_SRC_MASK</highlight></codeline>
+<codeline lineno="156"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="157"><highlight class="preprocessor">#define<sp/>XPMCDMA_IXR_DST_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XCSUDMA_IXR_DST_MASK</highlight></codeline>
+<codeline lineno="158"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="160"><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight></codeline>
+<codeline lineno="168"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/><ref refid="group__csuma__api_1ga46008337fdd632f2650b8727c305eba5" kindref="member">XCsuDma_Channel</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPmcDma_Channel;</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"></highlight></codeline>
+<codeline lineno="177"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/><ref refid="xcsudma_8h_1ad5ce08d197288cbdfb06941f1d46df87" kindref="member">XCsuDma_PauseType</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPmcDma_PauseType;</highlight></codeline>
+<codeline lineno="182"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/><ref refid="struct_x_csu_dma___config" kindref="compound">XCsuDma_Config</ref><sp/><sp/>XPmcDma_Config;</highlight></codeline>
+<codeline lineno="183"><highlight class="normal"></highlight></codeline>
+<codeline lineno="184"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="191"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/><ref refid="struct_x_csu_dma" kindref="compound">XCsuDma</ref><sp/>XPmcDma;</highlight></codeline>
+<codeline lineno="192"><highlight class="normal"></highlight></codeline>
+<codeline lineno="193"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="199"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/><ref refid="struct_x_csu_dma___configure" kindref="compound">XCsuDma_Configure</ref><sp/>XPmcDma_Configure;</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"></highlight></codeline>
+<codeline lineno="201"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="202"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>SPARTANUP</highlight></codeline>
+<codeline lineno="203"><highlight class="preprocessor"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="211"><highlight class="keyword">static</highlight><highlight class="normal"><sp/>INLINE<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XPmcDma_Reset(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="212"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="213"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_Out32(((u32)PMC_GLOBAL_RST_DMA),<sp/>(u32)(PMC_GLOBAL_RST_DMA_RESET_SET_MASK));</highlight></codeline>
+<codeline lineno="214"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_Out32(((u32)PMC_GLOBAL_RST_DMA),<sp/>(u32)(PMC_GLOBAL_RST_DMA_RESET_UNSET_MASK));</highlight></codeline>
+<codeline lineno="215"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="216"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="217"><highlight class="preprocessor"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="228"><highlight class="keyword">static</highlight><highlight class="normal"><sp/>INLINE<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XPmcDma_Reset(u32<sp/>DmaType)</highlight></codeline>
+<codeline lineno="229"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="230"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XCsuDma_PmcReset(DmaType);</highlight></codeline>
+<codeline lineno="231"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="232"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="233"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="234"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="249"><highlight class="keyword">static</highlight><highlight class="normal"><sp/>INLINE<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XPmcDma_WaitForDone(XPmcDma<sp/>*InstancePtr,<sp/>XPmcDma_Channel<sp/>Channel)</highlight></codeline>
+<codeline lineno="250"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="251"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xcsudma_8h_1a97adf45a00577175416617745ddae9b8" kindref="member">XCsuDma_WaitForDone</ref>(InstancePtr,<sp/>Channel);</highlight></codeline>
+<codeline lineno="252"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="253"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="254"><highlight class="normal"></highlight></codeline>
+<codeline lineno="255"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="274"><highlight class="keyword">static</highlight><highlight class="normal"><sp/>INLINE<sp/>u32<sp/>XPmcDma_GetDoneCount(XPmcDma<sp/>*InstancePtr,<sp/>XPmcDma_Channel<sp/>Channel)</highlight></codeline>
+<codeline lineno="275"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="276"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="xcsudma_8h_1adf6f5fdbd1556eecafa2ecf802b88e73" kindref="member">XCsuDma_GetDoneCount</ref>(InstancePtr,<sp/>Channel);</highlight></codeline>
+<codeline lineno="277"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="278"><highlight class="normal"></highlight></codeline>
+<codeline lineno="279"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="295"><highlight class="keyword">static</highlight><highlight class="normal"><sp/>INLINE<sp/>u32<sp/>XPmcDma_GetFIFOLevel(XPmcDma<sp/>*InstancePtr,<sp/>XPmcDma_Channel<sp/>Channel)</highlight></codeline>
+<codeline lineno="296"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="297"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="xcsudma_8h_1a055148e26de969504f6b826af3fe9279" kindref="member">XCsuDma_GetFIFOLevel</ref>(InstancePtr,<sp/>Channel);</highlight></codeline>
+<codeline lineno="298"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="299"><highlight class="normal"></highlight></codeline>
+<codeline lineno="300"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="315"><highlight class="keyword">static</highlight><highlight class="normal"><sp/>INLINE<sp/>u32<sp/>XPmcDma_GetWROutstandCount(XPmcDma<sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="316"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPmcDma_Channel<sp/>Channel)</highlight></codeline>
+<codeline lineno="317"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="318"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="xcsudma_8h_1a8b3c3d44a05b300dd2b60a1f15bc9a60" kindref="member">XCsuDma_GetWROutstandCount</ref>(InstancePtr,<sp/>Channel);</highlight></codeline>
+<codeline lineno="319"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="320"><highlight class="normal"></highlight></codeline>
+<codeline lineno="321"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="337"><highlight class="keyword">static</highlight><highlight class="normal"><sp/>INLINE<sp/>u32<sp/>XPmcDma_IsBusy(XPmcDma<sp/>*InstancePtr,<sp/>XPmcDma_Channel<sp/>Channel)</highlight></codeline>
+<codeline lineno="338"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="339"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="xcsudma_8h_1af15d6d8d487734165214850984ac00f2" kindref="member">XCsuDma_IsBusy</ref>(InstancePtr,<sp/>Channel);</highlight></codeline>
+<codeline lineno="340"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="341"><highlight class="normal"></highlight></codeline>
+<codeline lineno="342"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="358"><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="359"><highlight class="preprocessor"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>INLINE<sp/>XPmcDma_Config<sp/>*<sp/>XPmcDma_LookupConfig(u16<sp/>DeviceId)</highlight></codeline>
+<codeline lineno="360"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="361"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="group__csuma__api_1ga2420bd1fdfb8f4fb151aef5b4b6ee8ba" kindref="member">XCsuDma_LookupConfig</ref>(DeviceId);</highlight></codeline>
+<codeline lineno="362"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="363"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="364"><highlight class="preprocessor"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>INLINE<sp/>XPmcDma_Config<sp/>*<sp/>XPmcDma_LookupConfig(UINTPTR<sp/>BaseAddress)</highlight></codeline>
+<codeline lineno="365"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="366"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="group__csuma__api_1ga2420bd1fdfb8f4fb151aef5b4b6ee8ba" kindref="member">XCsuDma_LookupConfig</ref>(BaseAddress);</highlight></codeline>
+<codeline lineno="367"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="368"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="369"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="370"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="392"><highlight class="keyword">static</highlight><highlight class="normal"><sp/>INLINE<sp/>s32<sp/>XPmcDma_CfgInitialize(XPmcDma<sp/>*InstancePtr,<sp/>XPmcDma_Config<sp/>*CfgPtr,</highlight></codeline>
+<codeline lineno="393"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>EffectiveAddr)</highlight></codeline>
+<codeline lineno="394"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="395"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="group__csuma__api_1gad0f7217bd295de82623179efb34adb96" kindref="member">XCsuDma_CfgInitialize</ref>(InstancePtr,<sp/>CfgPtr,<sp/>EffectiveAddr);</highlight></codeline>
+<codeline lineno="396"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="397"><highlight class="normal"></highlight></codeline>
+<codeline lineno="398"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="428"><highlight class="keyword">static</highlight><highlight class="normal"><sp/>INLINE<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XPmcDma_Transfer(XPmcDma<sp/>*InstancePtr,<sp/>XPmcDma_Channel<sp/>Channel,</highlight></codeline>
+<codeline lineno="429"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>Addr,<sp/>u32<sp/>Size,<sp/>u8<sp/>EnDataLast)</highlight></codeline>
+<codeline lineno="430"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="431"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__csuma__api_1gacf79144df19e9cd4116dd9f507037ff1" kindref="member">XCsuDma_Transfer</ref>(InstancePtr,<sp/>Channel,<sp/>Addr,<sp/>Size,<sp/>EnDataLast);</highlight></codeline>
+<codeline lineno="432"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="433"><highlight class="normal"></highlight></codeline>
+<codeline lineno="434"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="471"><highlight class="keyword">static</highlight><highlight class="normal"><sp/>INLINE<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XPmcDma_64BitTransfer(XPmcDma<sp/>*InstancePtr,<sp/>XPmcDma_Channel<sp/>Channel,</highlight></codeline>
+<codeline lineno="472"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>AddrLow,<sp/>u32<sp/>AddrHigh,<sp/>u32<sp/>Size,<sp/>u8<sp/>EnDataLast)</highlight></codeline>
+<codeline lineno="473"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="474"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__csuma__api_1ga83a1043112b6067b1901d2bdcb29563d" kindref="member">XCsuDma_64BitTransfer</ref>(InstancePtr,<sp/>Channel,<sp/>AddrLow,<sp/>AddrHigh,</highlight></codeline>
+<codeline lineno="475"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Size,<sp/>EnDataLast);</highlight></codeline>
+<codeline lineno="476"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="477"><highlight class="normal"></highlight></codeline>
+<codeline lineno="478"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="496"><highlight class="keyword">static</highlight><highlight class="normal"><sp/>INLINE<sp/>u64<sp/>XPmcDma_GetAddr(XPmcDma<sp/>*InstancePtr,<sp/>XPmcDma_Channel<sp/>Channel)</highlight></codeline>
+<codeline lineno="497"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="498"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="group__csuma__api_1ga25049be545d8ec6eae2426b6248a8e4f" kindref="member">XCsuDma_GetAddr</ref>(InstancePtr,<sp/>Channel);</highlight></codeline>
+<codeline lineno="499"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="500"><highlight class="normal"></highlight></codeline>
+<codeline lineno="501"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="516"><highlight class="keyword">static</highlight><highlight class="normal"><sp/>INLINE<sp/>u32<sp/>XPmcDma_GetSize(XPmcDma<sp/>*InstancePtr,<sp/>XPmcDma_Channel<sp/>Channel)</highlight></codeline>
+<codeline lineno="517"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="518"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="group__csuma__api_1gad5fd579fb9c166e59ee1f9d3b39250c7" kindref="member">XCsuDma_GetSize</ref>(InstancePtr,<sp/>Channel);</highlight></codeline>
+<codeline lineno="519"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="520"><highlight class="normal"></highlight></codeline>
+<codeline lineno="521"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="543"><highlight class="keyword">static</highlight><highlight class="normal"><sp/>INLINE<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XPmcDma_Pause(XPmcDma<sp/>*InstancePtr,<sp/>XPmcDma_Channel<sp/>Channel,</highlight></codeline>
+<codeline lineno="544"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPmcDma_PauseType<sp/>Type)</highlight></codeline>
+<codeline lineno="545"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="546"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__csuma__api_1ga00b5080126710866186d0bfafd26e9b6" kindref="member">XCsuDma_Pause</ref>(InstancePtr,<sp/>Channel,Type);</highlight></codeline>
+<codeline lineno="547"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="548"><highlight class="normal"></highlight></codeline>
+<codeline lineno="549"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="573"><highlight class="keyword">static</highlight><highlight class="normal"><sp/>INLINE<sp/>s32<sp/>XPmcDma_IsPaused(XPmcDma<sp/>*InstancePtr,<sp/>XPmcDma_Channel<sp/>Channel,</highlight></codeline>
+<codeline lineno="574"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPmcDma_PauseType<sp/>Type)</highlight></codeline>
+<codeline lineno="575"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="576"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="group__csuma__api_1gaa3450f812658f927f289b997b12a4174" kindref="member">XCsuDma_IsPaused</ref>(InstancePtr,<sp/>Channel,<sp/>Type);</highlight></codeline>
+<codeline lineno="577"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="578"><highlight class="normal"></highlight></codeline>
+<codeline lineno="579"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="603"><highlight class="keyword">static</highlight><highlight class="normal"><sp/>INLINE<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XPmcDma_Resume(XPmcDma<sp/>*InstancePtr,<sp/>XPmcDma_Channel<sp/>Channel,</highlight></codeline>
+<codeline lineno="604"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPmcDma_PauseType<sp/>Type)</highlight></codeline>
+<codeline lineno="605"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="606"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__csuma__api_1gaeee3f2d5bcf265b57c9f214f2bc15a28" kindref="member">XCsuDma_Resume</ref>(InstancePtr,<sp/>Channel,<sp/>Type);</highlight></codeline>
+<codeline lineno="607"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="608"><highlight class="normal"></highlight></codeline>
+<codeline lineno="609"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="625"><highlight class="keyword">static</highlight><highlight class="normal"><sp/>INLINE<sp/>u32<sp/>XPmcDma_GetCheckSum(XPmcDma<sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="626"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="627"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="group__csuma__api_1ga17f1a7ba935f4bf3626050e0b0e0142b" kindref="member">XCsuDma_GetCheckSum</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="628"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="629"><highlight class="normal"></highlight></codeline>
+<codeline lineno="630"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="645"><highlight class="keyword">static</highlight><highlight class="normal"><sp/>INLINE<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XPmcDma_ClearCheckSum(XPmcDma<sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="646"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="647"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__csuma__api_1ga78bdd79674e2b5c92b9701cacfde1fe1" kindref="member">XCsuDma_ClearCheckSum</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="648"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="649"><highlight class="normal"></highlight></codeline>
+<codeline lineno="650"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="725"><highlight class="keyword">static</highlight><highlight class="normal"><sp/>INLINE<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XPmcDma_SetConfig(XPmcDma<sp/>*InstancePtr,<sp/>XPmcDma_Channel<sp/>Channel,</highlight></codeline>
+<codeline lineno="726"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPmcDma_Configure<sp/>*ConfigurValues)</highlight></codeline>
+<codeline lineno="727"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="728"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__csuma__api_1gac9b6265e467b03cc903cd66781e95e63" kindref="member">XCsuDma_SetConfig</ref>(InstancePtr,<sp/>Channel,<sp/>ConfigurValues);</highlight></codeline>
+<codeline lineno="729"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="730"><highlight class="normal"></highlight></codeline>
+<codeline lineno="731"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="804"><highlight class="keyword">static</highlight><highlight class="normal"><sp/>INLINE<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XPmcDma_GetConfig(XPmcDma<sp/>*InstancePtr,<sp/>XPmcDma_Channel<sp/>Channel,</highlight></codeline>
+<codeline lineno="805"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPmcDma_Configure<sp/>*ConfigurValues)</highlight></codeline>
+<codeline lineno="806"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="807"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__csuma__api_1gaab0b66bca3f38d26d38ff47544fa6b11" kindref="member">XCsuDma_GetConfig</ref>(InstancePtr,<sp/>Channel,ConfigurValues);</highlight></codeline>
+<codeline lineno="808"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="809"><highlight class="normal"></highlight></codeline>
+<codeline lineno="810"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="825"><highlight class="keyword">static</highlight><highlight class="normal"><sp/>INLINE<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XPmcDma_WaitForDoneTimeout(XPmcDma<sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="826"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPmcDma_Channel<sp/>Channel)</highlight></codeline>
+<codeline lineno="827"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="828"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal">)<ref refid="group__csuma__api_1ga73867b4acb189982642e4c1ae4f92fb9" kindref="member">XCsuDma_WaitForDoneTimeout</ref>(InstancePtr,<sp/>Channel);</highlight></codeline>
+<codeline lineno="829"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="830"><highlight class="normal"></highlight></codeline>
+<codeline lineno="831"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Interrupt<sp/>related<sp/>APIs<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="832"><highlight class="normal"></highlight></codeline>
+<codeline lineno="833"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="852"><highlight class="keyword">static</highlight><highlight class="normal"><sp/>INLINE<sp/>u32<sp/>XPmcDma_IntrGetStatus(XPmcDma<sp/>*InstancePtr,<sp/>XPmcDma_Channel<sp/>Channel)</highlight></codeline>
+<codeline lineno="853"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="854"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="group__csuma__api_1ga6169fa380a4d55e41d7ab96589372e8f" kindref="member">XCsuDma_IntrGetStatus</ref>(InstancePtr,<sp/>Channel);</highlight></codeline>
+<codeline lineno="855"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="856"><highlight class="normal"></highlight></codeline>
+<codeline lineno="857"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="876"><highlight class="keyword">static</highlight><highlight class="normal"><sp/>INLINE<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XPmcDma_IntrClear(XPmcDma<sp/>*InstancePtr,<sp/>XPmcDma_Channel<sp/>Channel,</highlight></codeline>
+<codeline lineno="877"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Mask)</highlight></codeline>
+<codeline lineno="878"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="879"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__csuma__api_1ga1db5eabd96920efb06fb03c919420601" kindref="member">XCsuDma_IntrClear</ref>(InstancePtr,<sp/>Channel,<sp/>Mask);</highlight></codeline>
+<codeline lineno="880"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="881"><highlight class="normal"></highlight></codeline>
+<codeline lineno="882"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="901"><highlight class="keyword">static</highlight><highlight class="normal"><sp/>INLINE<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XPmcDma_EnableIntr(XPmcDma<sp/>*InstancePtr,<sp/>XPmcDma_Channel<sp/>Channel,</highlight></codeline>
+<codeline lineno="902"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Mask)</highlight></codeline>
+<codeline lineno="903"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="904"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__csuma__api_1gad892a65e65ac14f48f7d7f53020511cf" kindref="member">XCsuDma_EnableIntr</ref>(InstancePtr,<sp/>Channel,<sp/>Mask);</highlight></codeline>
+<codeline lineno="905"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="906"><highlight class="normal"></highlight></codeline>
+<codeline lineno="907"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="926"><highlight class="keyword">static</highlight><highlight class="normal"><sp/>INLINE<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XPmcDma_DisableIntr(XPmcDma<sp/>*InstancePtr,<sp/>XPmcDma_Channel<sp/>Channel,</highlight></codeline>
+<codeline lineno="927"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Mask)</highlight></codeline>
+<codeline lineno="928"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="929"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__csuma__api_1gadf3599e4d07ef05586a217ebbbd02999" kindref="member">XCsuDma_DisableIntr</ref>(InstancePtr,<sp/>Channel,<sp/>Mask);</highlight></codeline>
+<codeline lineno="930"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="931"><highlight class="normal"></highlight></codeline>
+<codeline lineno="932"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="953"><highlight class="keyword">static</highlight><highlight class="normal"><sp/>INLINE<sp/>u32<sp/>XPmcDma_GetIntrMask(XPmcDma<sp/>*InstancePtr,<sp/>XPmcDma_Channel<sp/>Channel)</highlight></codeline>
+<codeline lineno="954"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="955"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="group__csuma__api_1ga6ed420e8bfd9ab489a2d2c3e984ca7a2" kindref="member">XCsuDma_GetIntrMask</ref>(InstancePtr,<sp/>Channel);</highlight></codeline>
+<codeline lineno="956"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="957"><highlight class="normal"></highlight></codeline>
+<codeline lineno="958"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="972"><highlight class="keyword">static</highlight><highlight class="normal"><sp/>INLINE<sp/>s32<sp/>XPmcDma_SelfTest(XPmcDma<sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="973"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="974"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="group__csuma__api_1ga774ab551d0ef59fd880ff834f2d83804" kindref="member">XCsuDma_SelfTest</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="975"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="976"><highlight class="normal"></highlight></codeline>
+<codeline lineno="977"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>(defined(VERSAL_NET)<sp/>||<sp/>defined(VERSAL_2VP_P))</highlight></codeline>
+<codeline lineno="978"><highlight class="preprocessor"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="1008"><highlight class="keyword">static</highlight><highlight class="normal"><sp/>INLINE<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XPmcDma_ByteAlignedTransfer(<ref refid="struct_x_csu_dma" kindref="compound">XCsuDma</ref><sp/>*InstancePtr,<sp/><ref refid="group__csuma__api_1ga46008337fdd632f2650b8727c305eba5" kindref="member">XCsuDma_Channel</ref><sp/>Channel,</highlight></codeline>
+<codeline lineno="1009"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>Addr,<sp/>u32<sp/>Size,<sp/>u8<sp/>EnDataLast)</highlight></codeline>
+<codeline lineno="1010"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="1011"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XCsuDma_ByteAlignedTransfer(InstancePtr,<sp/>Channel,<sp/>Addr,<sp/>Size,<sp/>EnDataLast);</highlight></codeline>
+<codeline lineno="1012"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="1013"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="1014"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="1015"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="1016"><highlight class="normal"></highlight></codeline>
+<codeline lineno="1017"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="1018"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="1019"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="1020"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="1021"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="1022"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="1023"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csudma/src/xpmcdma.h"/>
+  </compounddef>
+</doxygen>

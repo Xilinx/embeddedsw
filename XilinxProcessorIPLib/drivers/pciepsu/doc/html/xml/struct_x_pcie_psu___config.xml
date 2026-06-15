@@ -1,0 +1,155 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_pcie_psu___config" kind="struct" prot="public">
+    <compoundname>XPciePsu_Config</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_pcie_psu___config_1a710b36bd8da66ff7fdb6706c4ec881a4" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* XPciePsu_Config::Name</definition>
+        <argsstring></argsstring>
+        <name>Name</name>
+        <briefdescription>
+<para>Compatible string. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.h" line="74" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.h" bodystart="74" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pcie_psu___config_1a1735ac0ef5da364f621b0d24aaf864e9" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XPciePsu_Config::BrigReg</definition>
+        <argsstring></argsstring>
+        <name>BrigReg</name>
+        <briefdescription>
+<para>Bridge Register base address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.h" line="77" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.h" bodystart="77" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pcie_psu___config_1a874dd8a7177c1ff027e03cffb3a2c30a" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XPciePsu_Config::PciReg</definition>
+        <argsstring></argsstring>
+        <name>PciReg</name>
+        <briefdescription>
+<para>pcie Register base address </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.h" line="78" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.h" bodystart="78" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pcie_psu___config_1a2f56bfe07652de411c5da3544a16685b" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XPciePsu_Config::Ecam</definition>
+        <argsstring></argsstring>
+        <name>Ecam</name>
+        <briefdescription>
+<para>Ecam space base address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.h" line="79" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.h" bodystart="79" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pcie_psu___config_1a71b37e8cae141ada2b5bcb37d8d5edd9" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPciePsu_Config::NpMemBaseAddr</definition>
+        <argsstring></argsstring>
+        <name>NpMemBaseAddr</name>
+        <briefdescription>
+<para>non prefetchable memory base address </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.h" line="84" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.h" bodystart="84" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pcie_psu___config_1a4b6b64146817f6676d25a70968df346c" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPciePsu_Config::NpMemMaxAddr</definition>
+        <argsstring></argsstring>
+        <name>NpMemMaxAddr</name>
+        <briefdescription>
+<para>non prefetchable memory max base address </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.h" line="85" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.h" bodystart="85" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pcie_psu___config_1a9c57c1d7e35648aa42f69329b92fcde8" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XPciePsu_Config::PMemBaseAddr</definition>
+        <argsstring></argsstring>
+        <name>PMemBaseAddr</name>
+        <briefdescription>
+<para>prefetchable memory base address </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.h" line="86" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.h" bodystart="86" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pcie_psu___config_1abf258a113d892c5ef4a3d0e28a024d24" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XPciePsu_Config::PMemMaxAddr</definition>
+        <argsstring></argsstring>
+        <name>PMemMaxAddr</name>
+        <briefdescription>
+<para>prefetchable memory max base address </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.h" line="87" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.h" bodystart="87" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pcie_psu___config_1af7a21690e71145978a3339035cdf1622" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPciePsu_Config::DmaBaseAddr</definition>
+        <argsstring></argsstring>
+        <name>DmaBaseAddr</name>
+        <briefdescription>
+<para>DMA base address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.h" line="103" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.h" bodystart="103" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pcie_psu___config_1abc8b4b2db087b17ddd65982b8dc475ca" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XPciePsu_Config::PcieMode</definition>
+        <argsstring></argsstring>
+        <name>PcieMode</name>
+        <briefdescription>
+<para>pcie mode rc or endpoint </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.h" line="104" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.h" bodystart="104" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.h" line="70" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.h" bodystart="70" bodyend="105"/>
+    <listofallmembers>
+      <member refid="struct_x_pcie_psu___config_1a1735ac0ef5da364f621b0d24aaf864e9" prot="public" virt="non-virtual"><scope>XPciePsu_Config</scope><name>BrigReg</name></member>
+      <member refid="struct_x_pcie_psu___config_1af7a21690e71145978a3339035cdf1622" prot="public" virt="non-virtual"><scope>XPciePsu_Config</scope><name>DmaBaseAddr</name></member>
+      <member refid="struct_x_pcie_psu___config_1a2f56bfe07652de411c5da3544a16685b" prot="public" virt="non-virtual"><scope>XPciePsu_Config</scope><name>Ecam</name></member>
+      <member refid="struct_x_pcie_psu___config_1a710b36bd8da66ff7fdb6706c4ec881a4" prot="public" virt="non-virtual"><scope>XPciePsu_Config</scope><name>Name</name></member>
+      <member refid="struct_x_pcie_psu___config_1a71b37e8cae141ada2b5bcb37d8d5edd9" prot="public" virt="non-virtual"><scope>XPciePsu_Config</scope><name>NpMemBaseAddr</name></member>
+      <member refid="struct_x_pcie_psu___config_1a4b6b64146817f6676d25a70968df346c" prot="public" virt="non-virtual"><scope>XPciePsu_Config</scope><name>NpMemMaxAddr</name></member>
+      <member refid="struct_x_pcie_psu___config_1abc8b4b2db087b17ddd65982b8dc475ca" prot="public" virt="non-virtual"><scope>XPciePsu_Config</scope><name>PcieMode</name></member>
+      <member refid="struct_x_pcie_psu___config_1a874dd8a7177c1ff027e03cffb3a2c30a" prot="public" virt="non-virtual"><scope>XPciePsu_Config</scope><name>PciReg</name></member>
+      <member refid="struct_x_pcie_psu___config_1a9c57c1d7e35648aa42f69329b92fcde8" prot="public" virt="non-virtual"><scope>XPciePsu_Config</scope><name>PMemBaseAddr</name></member>
+      <member refid="struct_x_pcie_psu___config_1abf258a113d892c5ef4a3d0e28a024d24" prot="public" virt="non-virtual"><scope>XPciePsu_Config</scope><name>PMemMaxAddr</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

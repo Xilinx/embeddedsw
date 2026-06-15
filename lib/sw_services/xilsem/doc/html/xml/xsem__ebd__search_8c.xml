@@ -1,0 +1,168 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xsem__ebd__search_8c" kind="file">
+    <compoundname>xsem_ebd_search.c</compoundname>
+    <includes local="yes">xil_printf.h</includes>
+    <incdepgraph>
+      <node id="77">
+        <label>xsem_ebd_search.c</label>
+        <link refid="xsem_ebd_search.c"/>
+        <childnode refid="78" relation="include">
+        </childnode>
+      </node>
+      <node id="78">
+        <label>xil_printf.h</label>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="xsem__ebd__search_8c_1a992d566b9dcf1355f2a8ca3ce5ce855d" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 FrameOffset[6][4]</definition>
+        <argsstring>[6][4]</argsstring>
+        <name>FrameOffset</name>
+        <initializer>= {{3, 5, 7, 9},
+					  {11, 13, 15, 17},
+					  {19, 21, 23, 25},
+					  {27, 29, 31, 33},
+					  {35, 37, 39, 41},
+					  {43, 45, 47, 49}}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/xsem_ebd_search.c" line="29" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/xsem_ebd_search.c" bodystart="29" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xsem__ebd__search_8c_1a3d3ee9197f6186a62b2ed71f17120627" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XSem_EbdLookUp</definition>
+        <argsstring>(u8 BtIndex, u8 RowIndex, u32 FAddr, u32 QwordIndex, u32 BitIndex, volatile int *XSem_EbdBuffer)</argsstring>
+        <name>XSem_EbdLookUp</name>
+        <param>
+          <type>u8</type>
+          <declname>BtIndex</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>RowIndex</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>FAddr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>QwordIndex</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>BitIndex</declname>
+        </param>
+        <param>
+          <type>volatile int *</type>
+          <declname>XSem_EbdBuffer</declname>
+        </param>
+        <briefdescription>
+<para>This API can be used to check whether a particular bit is an Essential bit or not. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BtIndex[In]</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>: Block type (Valid Inputs: 0, 3, 4, 5) RowIndex[In] : Row (Valid Inputs: 0 to 3) FAddr[In] : Frame Address (Valid Inputs: Refer note) QwordIndex[In] : Qword (Valid Inputs: 0 to 24) BitIndex[In] : Bit (Valid Inputs: 0 to 127) XSem_EbdBuffer : Pointer to golden EBD data buffer</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>0U : Input Bit is essential 1U : Input Bit is not essential 2U : Invalid Input</para></simplesect>
+<simplesect kind="note"><para><itemizedlist>
+<listitem><para>Total number of frames in a row is not same for all rows.</para></listitem><listitem><para>XSem_CmdCfrGetTotalFrames API is provided to know the total number of frames in a row for each block. Output param (FrameCntPtr) of XSem_CmdCfrGetTotalFrames API is updated with total number of frames of each block type for the input row. If a particular block in a row has 0 frames, then error injection shall not be performed. Range of Frame number: 0 to (FrameCntPtr[n] - 1) where n is block type with range 0 to 6. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Check if Input bit is set or not, If Set, then the bit is essential, else, not essential</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/xsem_ebd_search.c" line="63" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/xsem_ebd_search.c" bodystart="63" bodyend="111"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file contains API that can be used to check whether a particular Bit is Essential or not. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver     Who  Date         Changes
+<hruler/>
+
+0.1   hv   05/17/2022   Initial creation
+0.2   anv  02/24/2025   Updated XSem_EbdLookUp function arguments
+                        to make it useful for both mono and ssit.
+</preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>(c)<sp/>Copyright<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>(c)<sp/>Copyright<sp/>2022-2025<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="24"><highlight class="comment">/*****************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_printf.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal">u8<sp/>FrameOffset[6][4]<sp/>=<sp/>{{3,<sp/>5,<sp/>7,<sp/>9},</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{11,<sp/>13,<sp/>15,<sp/>17},</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{19,<sp/>21,<sp/>23,<sp/>25},</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{27,<sp/>29,<sp/>31,<sp/>33},</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{35,<sp/>37,<sp/>39,<sp/>41},</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{43,<sp/>45,<sp/>47,<sp/>49}};</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="63" refid="xsem__ebd__search_8h_1a3d3ee9197f6186a62b2ed71f17120627" refkind="member"><highlight class="normal">u32<sp/><ref refid="xsem__ebd__search_8c_1a3d3ee9197f6186a62b2ed71f17120627" kindref="member">XSem_EbdLookUp</ref>(u8<sp/>BtIndex,<sp/>u8<sp/>RowIndex,\</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>FAddr,<sp/>u32<sp/>QwordIndex,<sp/>u32<sp/>BitIndex,<sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>*<ref refid="xsem__ebd__example_8c_1a6566c89e845a1cda5fb6c72b74d043e3" kindref="member">XSem_EbdBuffer</ref>)</highlight></codeline>
+<codeline lineno="65"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>RetValue<sp/>=<sp/>0u;</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>WordIndex<sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>InputMask<sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>FrameMap<sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>FrameMask<sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>LastFrame<sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Searching<sp/>for<sp/>Block<sp/>type<sp/>=<sp/>0x%08x<sp/><sp/>Row<sp/>=<sp/>0x%08x<sp/><sp/>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;FAddr<sp/>=<sp/>0x%08x<sp/><sp/>Qword<sp/>=<sp/>0x%08x<sp/>Bit<sp/>=<sp/>0x%08x\n&quot;</highlight><highlight class="normal">,<sp/>\</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BtIndex,<sp/>RowIndex,<sp/>FAddr,<sp/>QwordIndex,<sp/>BitIndex);</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"></highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LastFrame<sp/>=<sp/>XSem_EbdBuffer[FrameOffset[BtIndex][RowIndex]<sp/>-<sp/>1];</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Validate<sp/>Inputs<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((BtIndex<sp/>&gt;<sp/>5U)<sp/>||<sp/>(RowIndex<sp/>&gt;<sp/>3U)<sp/>||<sp/>(FAddr<sp/>&gt;=<sp/>LastFrame)<sp/>||</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(QwordIndex<sp/>&gt;<sp/>24U)<sp/>||<sp/>(BitIndex<sp/>&gt;<sp/>127U)){</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Invalid<sp/>Input\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RetValue<sp/>=<sp/>2U;</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"></highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Convert<sp/>Qword/bit<sp/>to<sp/>Word/bit<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>WordIndex<sp/>=<sp/>BitIndex/32;</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Prepare<sp/>Input<sp/>mask<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InputMask<sp/>=<sp/>(1<sp/>&lt;&lt;<sp/>(BitIndex<sp/>-<sp/>WordIndex*32));</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"></highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FrameMap<sp/>=<sp/>XSem_EbdBuffer[FrameOffset[BtIndex][RowIndex]]<sp/>+<sp/>FAddr;</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FrameMask<sp/>=<sp/>XSem_EbdBuffer[XSem_EbdBuffer[FrameMap]<sp/>+<sp/>QwordIndex*4<sp/>+<sp/>WordIndex];</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"></highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;InputMask<sp/>=<sp/>0x%08x\n&quot;</highlight><highlight class="normal">,<sp/>InputMask);</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;FrameMask<sp/>=<sp/>0x%08x\n&quot;</highlight><highlight class="normal">,<sp/>FrameMask);</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(<sp/>(FrameMask<sp/>&amp;<sp/>InputMask)<sp/>!=<sp/>0U){</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*Return<sp/>1<sp/>if<sp/>bit<sp/>is<sp/>essential<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RetValue<sp/>=<sp/>1U;</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*Return<sp/>0<sp/>if<sp/>bit<sp/>is<sp/>not<sp/>essential<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RetValue<sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="109"><highlight class="normal">END:</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>RetValue;</highlight></codeline>
+<codeline lineno="111"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/xsem_ebd_search.c"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="structsha2__context" kind="struct" prot="public">
+    <compoundname>sha2_context</compoundname>
+    <includes local="no">SoftSHA.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structsha2__context_1a7be024a296a3376695ed08bd6fb9091f" prot="public" static="no" mutable="no">
+        <type>SHA32</type>
+        <definition>SHA32 sha2_context::state[8]</definition>
+        <argsstring>[8]</argsstring>
+        <name>state</name>
+        <briefdescription>
+<para>SHA-256 state. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/softsha2-384/SoftSHA.h" line="43" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/softsha2-384/SoftSHA.h" bodystart="43" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structsha2__context_1abd5aeb42f26bcf71de394ab2b96bae86" prot="public" static="no" mutable="no">
+        <type>unsigned char</type>
+        <definition>unsigned char sha2_context::buffer[SHA_BLKBYTES]</definition>
+        <argsstring>[SHA_BLKBYTES]</argsstring>
+        <name>buffer</name>
+        <briefdescription>
+<para>Buffer for input data. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/softsha2-384/SoftSHA.h" line="44" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/softsha2-384/SoftSHA.h" bodystart="44" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structsha2__context_1af2ab0f4492324bb00016b3ebdb664ff7" prot="public" static="no" mutable="no">
+        <type>unsigned long long</type>
+        <definition>unsigned long long sha2_context::bytes</definition>
+        <argsstring></argsstring>
+        <name>bytes</name>
+        <briefdescription>
+<para>Total number of bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/softsha2-384/SoftSHA.h" line="45" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/softsha2-384/SoftSHA.h" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>SHA-256 context structure Includes SHA-256 state, coalescing buffer to collect the processed strings, and total byte length counter (used both to manage the buffer and for padding) </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/softsha2-384/SoftSHA.h" line="42" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/softsha2-384/SoftSHA.h" bodystart="41" bodyend="46"/>
+    <listofallmembers>
+      <member refid="structsha2__context_1abd5aeb42f26bcf71de394ab2b96bae86" prot="public" virt="non-virtual"><scope>sha2_context</scope><name>buffer</name></member>
+      <member refid="structsha2__context_1af2ab0f4492324bb00016b3ebdb664ff7" prot="public" virt="non-virtual"><scope>sha2_context</scope><name>bytes</name></member>
+      <member refid="structsha2__context_1a7be024a296a3376695ed08bd6fb9091f" prot="public" virt="non-virtual"><scope>sha2_context</scope><name>state</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

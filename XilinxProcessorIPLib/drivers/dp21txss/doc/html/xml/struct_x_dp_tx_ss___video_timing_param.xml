@@ -1,0 +1,312 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_dp_tx_ss___video_timing_param" kind="struct" prot="public">
+    <compoundname>XDpTxSs_VideoTimingParam</compoundname>
+    <includes local="no">xdptxss_edid_parser.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_dp_tx_ss___video_timing_param_1a7d9616359216d6594cf79c7929bca564" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XDpTxSs_VideoTimingParam::HActive</definition>
+        <argsstring></argsstring>
+        <name>HActive</name>
+        <briefdescription>
+<para>Horizontal active pixels. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" line="121" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" bodystart="121" bodyend="-1"/>
+        <referencedby refid="group__dptxss_1ga755fe6f81ae9b7db9504b6eb99b538ba" compoundref="xdptxss__edid__parser_8c" startline="894" endline="909">XDpTxSs_PrintVideoTiming</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp_tx_ss___video_timing_param_1af7f47fd3b7c45a9a14194167c6f9179a" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XDpTxSs_VideoTimingParam::HFrontPorch</definition>
+        <argsstring></argsstring>
+        <name>HFrontPorch</name>
+        <briefdescription>
+<para>Horizontal front porch pixels. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" line="122" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" bodystart="122" bodyend="-1"/>
+        <referencedby refid="group__dptxss_1ga755fe6f81ae9b7db9504b6eb99b538ba" compoundref="xdptxss__edid__parser_8c" startline="894" endline="909">XDpTxSs_PrintVideoTiming</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp_tx_ss___video_timing_param_1aaa295103f7a18bcb2c77ed28aacd1f55" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XDpTxSs_VideoTimingParam::HSyncWidth</definition>
+        <argsstring></argsstring>
+        <name>HSyncWidth</name>
+        <briefdescription>
+<para>Horizontal sync width pixels. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" line="123" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" bodystart="123" bodyend="-1"/>
+        <referencedby refid="group__dptxss_1ga755fe6f81ae9b7db9504b6eb99b538ba" compoundref="xdptxss__edid__parser_8c" startline="894" endline="909">XDpTxSs_PrintVideoTiming</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp_tx_ss___video_timing_param_1a4ff9f111fcf44f2d8b9937a6b56647c9" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XDpTxSs_VideoTimingParam::HBackPorch</definition>
+        <argsstring></argsstring>
+        <name>HBackPorch</name>
+        <briefdescription>
+<para>Horizontal back porch pixels. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" line="124" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" bodystart="124" bodyend="-1"/>
+        <referencedby refid="group__dptxss_1ga755fe6f81ae9b7db9504b6eb99b538ba" compoundref="xdptxss__edid__parser_8c" startline="894" endline="909">XDpTxSs_PrintVideoTiming</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp_tx_ss___video_timing_param_1aadeebfa9051f56d8360b7c6f15cf31ed" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XDpTxSs_VideoTimingParam::HTotal</definition>
+        <argsstring></argsstring>
+        <name>HTotal</name>
+        <briefdescription>
+<para>Horizontal total pixels. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" line="125" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" bodystart="125" bodyend="-1"/>
+        <referencedby refid="group__dptxss_1ga755fe6f81ae9b7db9504b6eb99b538ba" compoundref="xdptxss__edid__parser_8c" startline="894" endline="909">XDpTxSs_PrintVideoTiming</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp_tx_ss___video_timing_param_1a5cbb4a7d6ea188363dd9ebefddb2d56c" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDpTxSs_VideoTimingParam::HSyncPolarity</definition>
+        <argsstring></argsstring>
+        <name>HSyncPolarity</name>
+        <briefdescription>
+<para>Horizontal sync polarity (0=negative, 1=positive) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" line="126" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" bodystart="126" bodyend="-1"/>
+        <referencedby refid="group__dptxss_1ga755fe6f81ae9b7db9504b6eb99b538ba" compoundref="xdptxss__edid__parser_8c" startline="894" endline="909">XDpTxSs_PrintVideoTiming</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp_tx_ss___video_timing_param_1a4ef8e89dcbe4699c1a04c0dcf265f695" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XDpTxSs_VideoTimingParam::VActive</definition>
+        <argsstring></argsstring>
+        <name>VActive</name>
+        <briefdescription>
+<para>Vertical active lines. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" line="127" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" bodystart="127" bodyend="-1"/>
+        <referencedby refid="group__dptxss_1ga755fe6f81ae9b7db9504b6eb99b538ba" compoundref="xdptxss__edid__parser_8c" startline="894" endline="909">XDpTxSs_PrintVideoTiming</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp_tx_ss___video_timing_param_1af56b406007bc5b68c185aa222b9ecaee" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XDpTxSs_VideoTimingParam::F0PVFrontPorch</definition>
+        <argsstring></argsstring>
+        <name>F0PVFrontPorch</name>
+        <briefdescription>
+<para>Field 0/Progressive vertical front porch lines. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" line="128" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" bodystart="128" bodyend="-1"/>
+        <referencedby refid="group__dptxss_1ga755fe6f81ae9b7db9504b6eb99b538ba" compoundref="xdptxss__edid__parser_8c" startline="894" endline="909">XDpTxSs_PrintVideoTiming</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp_tx_ss___video_timing_param_1a55de4df65077480a7a8b71c208e18af0" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XDpTxSs_VideoTimingParam::F0PVSyncWidth</definition>
+        <argsstring></argsstring>
+        <name>F0PVSyncWidth</name>
+        <briefdescription>
+<para>Field 0/Progressive vertical sync width lines. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" line="129" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" bodystart="129" bodyend="-1"/>
+        <referencedby refid="group__dptxss_1ga755fe6f81ae9b7db9504b6eb99b538ba" compoundref="xdptxss__edid__parser_8c" startline="894" endline="909">XDpTxSs_PrintVideoTiming</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp_tx_ss___video_timing_param_1ace6fa5f428804751a9a95a62ab9bd431" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XDpTxSs_VideoTimingParam::F0PVBackPorch</definition>
+        <argsstring></argsstring>
+        <name>F0PVBackPorch</name>
+        <briefdescription>
+<para>Field 0/Progressive vertical back porch lines. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" line="130" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" bodystart="130" bodyend="-1"/>
+        <referencedby refid="group__dptxss_1ga755fe6f81ae9b7db9504b6eb99b538ba" compoundref="xdptxss__edid__parser_8c" startline="894" endline="909">XDpTxSs_PrintVideoTiming</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp_tx_ss___video_timing_param_1a06cc7d7bcea4d32f272d01d6bf0d038b" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XDpTxSs_VideoTimingParam::F0PVTotal</definition>
+        <argsstring></argsstring>
+        <name>F0PVTotal</name>
+        <briefdescription>
+<para>Field 0/Progressive vertical total lines. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" line="131" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" bodystart="131" bodyend="-1"/>
+        <referencedby refid="group__dptxss_1ga755fe6f81ae9b7db9504b6eb99b538ba" compoundref="xdptxss__edid__parser_8c" startline="894" endline="909">XDpTxSs_PrintVideoTiming</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp_tx_ss___video_timing_param_1a1d5a08ed7ab1b869f33333a21cb0a786" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XDpTxSs_VideoTimingParam::F1VFrontPorch</definition>
+        <argsstring></argsstring>
+        <name>F1VFrontPorch</name>
+        <briefdescription>
+<para>Field 1 vertical front porch lines. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" line="132" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" bodystart="132" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp_tx_ss___video_timing_param_1a66da5b4b09e72a7712d2ab48d9c2ded7" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XDpTxSs_VideoTimingParam::F1VSyncWidth</definition>
+        <argsstring></argsstring>
+        <name>F1VSyncWidth</name>
+        <briefdescription>
+<para>Field 1 vertical sync width lines. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" line="133" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" bodystart="133" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp_tx_ss___video_timing_param_1aa6930e26af330079a57c185d8419d499" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XDpTxSs_VideoTimingParam::F1VBackPorch</definition>
+        <argsstring></argsstring>
+        <name>F1VBackPorch</name>
+        <briefdescription>
+<para>Field 1 vertical back porch lines. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" line="134" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" bodystart="134" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp_tx_ss___video_timing_param_1af6f8d23ef0c3f6bd45b65e0f74174965" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XDpTxSs_VideoTimingParam::F1VTotal</definition>
+        <argsstring></argsstring>
+        <name>F1VTotal</name>
+        <briefdescription>
+<para>Field 1 vertical total lines. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" line="135" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" bodystart="135" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp_tx_ss___video_timing_param_1a399355c0f936e6c55fcf6667a2517a25" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDpTxSs_VideoTimingParam::VSyncPolarity</definition>
+        <argsstring></argsstring>
+        <name>VSyncPolarity</name>
+        <briefdescription>
+<para>Vertical sync polarity (0=negative, 1=positive) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" line="136" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" bodystart="136" bodyend="-1"/>
+        <referencedby refid="group__dptxss_1ga755fe6f81ae9b7db9504b6eb99b538ba" compoundref="xdptxss__edid__parser_8c" startline="894" endline="909">XDpTxSs_PrintVideoTiming</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp_tx_ss___video_timing_param_1a59a94b0fba07e96a9f42b6a2c96565bd" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XDpTxSs_VideoTimingParam::PixelClockHz</definition>
+        <argsstring></argsstring>
+        <name>PixelClockHz</name>
+        <briefdescription>
+<para>Pixel clock in Hz (u64 to support high clocks &gt; 4.29 GHz) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" line="137" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" bodystart="137" bodyend="-1"/>
+        <referencedby refid="group__dptxss_1ga755fe6f81ae9b7db9504b6eb99b538ba" compoundref="xdptxss__edid__parser_8c" startline="894" endline="909">XDpTxSs_PrintVideoTiming</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp_tx_ss___video_timing_param_1aa80b5e5fa389d71675179a8130786062" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDpTxSs_VideoTimingParam::TimingSource</definition>
+        <argsstring></argsstring>
+        <name>TimingSource</name>
+        <briefdescription>
+<para>Timing source: 0=DTD, 1=Standard, 2=Established. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" line="138" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" bodystart="138" bodyend="-1"/>
+        <referencedby refid="group__dptxss_1ga755fe6f81ae9b7db9504b6eb99b538ba" compoundref="xdptxss__edid__parser_8c" startline="894" endline="909">XDpTxSs_PrintVideoTiming</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp_tx_ss___video_timing_param_1a6746a8334958ba3a072ca0d5ac5e2113" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDpTxSs_VideoTimingParam::AspectRatio</definition>
+        <argsstring></argsstring>
+        <name>AspectRatio</name>
+        <briefdescription>
+<para>Aspect ratio (for Standard timings: 0=16:10, 1=4:3, 2=5:4, 3=16:9) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" line="139" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" bodystart="139" bodyend="-1"/>
+        <referencedby refid="group__dptxss_1ga755fe6f81ae9b7db9504b6eb99b538ba" compoundref="xdptxss__edid__parser_8c" startline="894" endline="909">XDpTxSs_PrintVideoTiming</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp_tx_ss___video_timing_param_1a28a789ce67ac9f98112625d4e91c3acf" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDpTxSs_VideoTimingParam::RefreshRate</definition>
+        <argsstring></argsstring>
+        <name>RefreshRate</name>
+        <briefdescription>
+<para>Refresh rate in Hz. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" line="140" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" bodystart="140" bodyend="-1"/>
+        <referencedby refid="group__dptxss_1ga755fe6f81ae9b7db9504b6eb99b538ba" compoundref="xdptxss__edid__parser_8c" startline="894" endline="909">XDpTxSs_PrintVideoTiming</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Structure to store video timing parameters with pixel clock. </para>    </briefdescription>
+    <detaileddescription>
+<para>This includes all timing fields </para>    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" line="120" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" bodystart="120" bodyend="141"/>
+    <listofallmembers>
+      <member refid="struct_x_dp_tx_ss___video_timing_param_1a6746a8334958ba3a072ca0d5ac5e2113" prot="public" virt="non-virtual"><scope>XDpTxSs_VideoTimingParam</scope><name>AspectRatio</name></member>
+      <member refid="struct_x_dp_tx_ss___video_timing_param_1ace6fa5f428804751a9a95a62ab9bd431" prot="public" virt="non-virtual"><scope>XDpTxSs_VideoTimingParam</scope><name>F0PVBackPorch</name></member>
+      <member refid="struct_x_dp_tx_ss___video_timing_param_1af56b406007bc5b68c185aa222b9ecaee" prot="public" virt="non-virtual"><scope>XDpTxSs_VideoTimingParam</scope><name>F0PVFrontPorch</name></member>
+      <member refid="struct_x_dp_tx_ss___video_timing_param_1a55de4df65077480a7a8b71c208e18af0" prot="public" virt="non-virtual"><scope>XDpTxSs_VideoTimingParam</scope><name>F0PVSyncWidth</name></member>
+      <member refid="struct_x_dp_tx_ss___video_timing_param_1a06cc7d7bcea4d32f272d01d6bf0d038b" prot="public" virt="non-virtual"><scope>XDpTxSs_VideoTimingParam</scope><name>F0PVTotal</name></member>
+      <member refid="struct_x_dp_tx_ss___video_timing_param_1aa6930e26af330079a57c185d8419d499" prot="public" virt="non-virtual"><scope>XDpTxSs_VideoTimingParam</scope><name>F1VBackPorch</name></member>
+      <member refid="struct_x_dp_tx_ss___video_timing_param_1a1d5a08ed7ab1b869f33333a21cb0a786" prot="public" virt="non-virtual"><scope>XDpTxSs_VideoTimingParam</scope><name>F1VFrontPorch</name></member>
+      <member refid="struct_x_dp_tx_ss___video_timing_param_1a66da5b4b09e72a7712d2ab48d9c2ded7" prot="public" virt="non-virtual"><scope>XDpTxSs_VideoTimingParam</scope><name>F1VSyncWidth</name></member>
+      <member refid="struct_x_dp_tx_ss___video_timing_param_1af6f8d23ef0c3f6bd45b65e0f74174965" prot="public" virt="non-virtual"><scope>XDpTxSs_VideoTimingParam</scope><name>F1VTotal</name></member>
+      <member refid="struct_x_dp_tx_ss___video_timing_param_1a7d9616359216d6594cf79c7929bca564" prot="public" virt="non-virtual"><scope>XDpTxSs_VideoTimingParam</scope><name>HActive</name></member>
+      <member refid="struct_x_dp_tx_ss___video_timing_param_1a4ff9f111fcf44f2d8b9937a6b56647c9" prot="public" virt="non-virtual"><scope>XDpTxSs_VideoTimingParam</scope><name>HBackPorch</name></member>
+      <member refid="struct_x_dp_tx_ss___video_timing_param_1af7f47fd3b7c45a9a14194167c6f9179a" prot="public" virt="non-virtual"><scope>XDpTxSs_VideoTimingParam</scope><name>HFrontPorch</name></member>
+      <member refid="struct_x_dp_tx_ss___video_timing_param_1a5cbb4a7d6ea188363dd9ebefddb2d56c" prot="public" virt="non-virtual"><scope>XDpTxSs_VideoTimingParam</scope><name>HSyncPolarity</name></member>
+      <member refid="struct_x_dp_tx_ss___video_timing_param_1aaa295103f7a18bcb2c77ed28aacd1f55" prot="public" virt="non-virtual"><scope>XDpTxSs_VideoTimingParam</scope><name>HSyncWidth</name></member>
+      <member refid="struct_x_dp_tx_ss___video_timing_param_1aadeebfa9051f56d8360b7c6f15cf31ed" prot="public" virt="non-virtual"><scope>XDpTxSs_VideoTimingParam</scope><name>HTotal</name></member>
+      <member refid="struct_x_dp_tx_ss___video_timing_param_1a59a94b0fba07e96a9f42b6a2c96565bd" prot="public" virt="non-virtual"><scope>XDpTxSs_VideoTimingParam</scope><name>PixelClockHz</name></member>
+      <member refid="struct_x_dp_tx_ss___video_timing_param_1a28a789ce67ac9f98112625d4e91c3acf" prot="public" virt="non-virtual"><scope>XDpTxSs_VideoTimingParam</scope><name>RefreshRate</name></member>
+      <member refid="struct_x_dp_tx_ss___video_timing_param_1aa80b5e5fa389d71675179a8130786062" prot="public" virt="non-virtual"><scope>XDpTxSs_VideoTimingParam</scope><name>TimingSource</name></member>
+      <member refid="struct_x_dp_tx_ss___video_timing_param_1a4ef8e89dcbe4699c1a04c0dcf265f695" prot="public" virt="non-virtual"><scope>XDpTxSs_VideoTimingParam</scope><name>VActive</name></member>
+      <member refid="struct_x_dp_tx_ss___video_timing_param_1a399355c0f936e6c55fcf6667a2517a25" prot="public" virt="non-virtual"><scope>XDpTxSs_VideoTimingParam</scope><name>VSyncPolarity</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

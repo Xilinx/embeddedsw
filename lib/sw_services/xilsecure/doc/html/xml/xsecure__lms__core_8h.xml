@@ -1,0 +1,722 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xsecure__lms__core_8h" kind="file">
+    <compoundname>xsecure_lms_core.h</compoundname>
+    <includes local="yes">xil_types.h</includes>
+    <includes refid="xsecure__lms__ots_8h" local="yes">xsecure_lms_ots.h</includes>
+    <includes refid="xsecure__lms_8h" local="yes">xsecure_lms.h</includes>
+    <includes refid="xsecure__lms__hss_8h" local="yes">xsecure_lms_hss.h</includes>
+    <includes local="yes">xsecure_sha.h</includes>
+    <includedby refid="xsecure__lms__core_8c" local="yes">xsecure_lms_core.c</includedby>
+    <includedby refid="xsecure__lms__ipihandler_8c" local="yes">xsecure_lms_ipihandler.c</includedby>
+    <includedby refid="2ve__2vm_2xsecure__plat__kat_8c" local="yes">xsecure_plat_kat.c</includedby>
+    <includedby refid="2vp__p_2xsecure__plat__kat_8c" local="yes">xsecure_plat_kat.c</includedby>
+    <includedby refid="xilsecure__spartanup__lms__hss__server__example_8c" local="yes">xilsecure_spartanup_lms_hss_server_example.c</includedby>
+    <incdepgraph>
+      <node id="1963">
+        <label>xsecure_sha.h</label>
+      </node>
+      <node id="1964">
+        <label>xsecure_lms.h</label>
+        <link refid="xsecure__lms_8h"/>
+        <childnode refid="1961" relation="include">
+        </childnode>
+        <childnode refid="1962" relation="include">
+        </childnode>
+      </node>
+      <node id="1960">
+        <label>xsecure_lms_core.h</label>
+        <link refid="xsecure_lms_core.h"/>
+        <childnode refid="1961" relation="include">
+        </childnode>
+        <childnode refid="1962" relation="include">
+        </childnode>
+        <childnode refid="1964" relation="include">
+        </childnode>
+        <childnode refid="1965" relation="include">
+        </childnode>
+        <childnode refid="1963" relation="include">
+        </childnode>
+      </node>
+      <node id="1962">
+        <label>xsecure_lms_ots.h</label>
+        <link refid="xsecure__lms__ots_8h"/>
+        <childnode refid="1961" relation="include">
+        </childnode>
+        <childnode refid="1963" relation="include">
+        </childnode>
+      </node>
+      <node id="1961">
+        <label>xil_types.h</label>
+      </node>
+      <node id="1965">
+        <label>xsecure_lms_hss.h</label>
+        <link refid="xsecure__lms__hss_8h"/>
+        <childnode refid="1961" relation="include">
+        </childnode>
+        <childnode refid="1964" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="1971">
+        <label>xilsecure_spartanup_lms_hss_server_example.c</label>
+        <link refid="xilsecure__spartanup__lms__hss__server__example_8c"/>
+      </node>
+      <node id="1968">
+        <label>xsecure_lms_ipihandler.c</label>
+        <link refid="xsecure__lms__ipihandler_8c"/>
+      </node>
+      <node id="1970">
+        <label>xsecure_plat_kat.c</label>
+        <link refid="2vp__p_2xsecure__plat__kat_8c"/>
+      </node>
+      <node id="1967">
+        <label>xsecure_lms_core.c</label>
+        <link refid="xsecure__lms__core_8c"/>
+      </node>
+      <node id="1966">
+        <label>xsecure_lms_core.h</label>
+        <link refid="xsecure_lms_core.h"/>
+        <childnode refid="1967" relation="include">
+        </childnode>
+        <childnode refid="1968" relation="include">
+        </childnode>
+        <childnode refid="1969" relation="include">
+        </childnode>
+        <childnode refid="1970" relation="include">
+        </childnode>
+        <childnode refid="1971" relation="include">
+        </childnode>
+      </node>
+      <node id="1969">
+        <label>xsecure_plat_kat.c</label>
+        <link refid="2ve__2vm_2xsecure__plat__kat_8c"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_x_secure___hss_init_params" prot="public">XSecure_HssInitParams</innerclass>
+    <innerclass refid="struct_x_secure___lms_sign_verify_params" prot="public">XSecure_LmsSignVerifyParams</innerclass>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xsecure__lms__server__apis_1ga981b22fbc50d9cd6f91c16604754f078" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XSecure_HssInit</definition>
+        <argsstring>(XSecure_Sha *ShaInstPtr, XPmcDma *DmaPtr, XSecure_HssInitParams *HssInitParams)</argsstring>
+        <name>XSecure_HssInit</name>
+        <param>
+          <type>XSecure_Sha *</type>
+          <declname>ShaInstPtr</declname>
+        </param>
+        <param>
+          <type>XPmcDma *</type>
+          <declname>DmaPtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_secure___hss_init_params" kindref="compound">XSecure_HssInitParams</ref> *</type>
+          <declname>HssInitParams</declname>
+        </param>
+        <briefdescription>
+<para>This function Initiates LMS Signature verification process. </para>        </briefdescription>
+        <detaileddescription>
+<para><verbatim>            Completes all upper level Merkle trees verification and prepares
+            for data&apos;s Digest calculation
+</verbatim></para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ShaInstPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to SHA instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DmaPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to DMA instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>HssInitParams</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to HSS initialization parameters</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - On success</para></listitem><listitem><para>XSECURE_LMS_INVALID_PARAM - Invalid parameter provided</para></listitem><listitem><para>XSECURE_LMS_HSS_PUB_KEY_INVALID_LEN_2_ERROR - HSS public key length is invalid</para></listitem><listitem><para>XSECURE_LMS_HSS_SIGN_LEVEL_UNSUPPORTED_ERROR - HSS signature level is not supported</para></listitem><listitem><para>XSECURE_LMS_HSS_SIGN_PUB_KEY_LEVEL_MISMATCH_ERROR - HSS signature and public key level mismatch</para></listitem><listitem><para>XSECURE_LMS_HSS_L0_PUB_KEY_LMS_TYPE_UNSUPPORTED_ERROR - Level 0 public key LMS type is unsupported</para></listitem><listitem><para>XSECURE_LMS_HSS_L0_PUB_KEY_LMS_OTS_TYPE_UNSUPPORTED_ERROR - Level 0 public key LMS OTS type is unsupported</para></listitem><listitem><para>XSECURE_LMS_SIGN_VERIFY_BH_AND_TYPE_SHA_ALGO_MISMATCH_L0_ERROR - SHA algorithm mismatch at level 0</para></listitem><listitem><para>XSECURE_LMS_HSS_L0_SIGN_INVALID_LEN_2_ERROR - Level 0 signature length is invalid</para></listitem><listitem><para>XSECURE_LMS_HSS_L0_PUB_KEY_AUTH_FAILED_ERROR - Level 0 public key authentication failed</para></listitem><listitem><para>XSECURE_LMS_PUB_OP_FAILED_ERROR - Public key operation failed</para></listitem><listitem><para>XSECURE_LMS_PUB_OP_FAILED_1_ERROR - Public key operation failed</para></listitem><listitem><para>XSECURE_LMS_HSS_L1_PUB_KEY_LMS_TYPE_1_UNSUPPORTED_ERROR - Level 1 public key LMS type is unsupported</para></listitem><listitem><para>XST_FAILURE - On any other failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Public key processing - sequence</para></listitem><listitem><para>Length should have at least levels information</para></listitem><listitem><para>Extracting Levels information from HSS public key, Big Endian to Little Endian</para></listitem><listitem><para>Length check - excluding levels field, it should match the Length of LMS public key of that size</para></listitem><listitem><para>Signature processing - sequence</para></listitem><listitem><para>Length should have at least levels mentioned</para></listitem><listitem><para>Tracking signature usage location in pointer</para></listitem><listitem><para>HSS levels mentioned in signature list, Big Endian to Little Endian</para></listitem><listitem><para>Track usage</para></listitem><listitem><para>Now we have to parse through 0 to (Levels - 1) and verify the public keys using signatures at each level, but PLM only supports 2 levels, so need to run the verification only once</para></listitem><listitem><para>Signature structure u32str(Nspk) || signed_pub_key[0] || ... || signed_pub_key[Nspk-1] || sig[Nspk] u32str(Nspk) || sig[0] || pub[1] || ... || sig[Nspk-1] || pub[Nspk] || sig[Nspk] Public key of lower level is used as a message to be authenticated, and signature of that level to back calculate the public key at that level. if this is happening for top most tree then value will be HSS public key saved as PPK or SPK, in turn all the levels above [levels - 1] are verified, so when the actual message is verified using lowest tree&apos;s leaf node, as the public key for that tree (lowest) is already verified, message is authenticated. PLM Supports two levels trees, level-0 &amp; 1 namely. For KAT, only 1 levels is required, which is level-0. for KAT the following condition is skipped</para></listitem><listitem><para>Extracting Current level Public key&apos;s LMS Type &amp; LMS OTS Type, Big Endian to Little Endian</para></listitem><listitem><para>Parse HSS/Current level&apos;s public key provided, determine the expected signature length of sig[0]</para></listitem><listitem><para>Fetch the type of public key, if not a valid/supported type return error</para></listitem><listitem><para>Fetch the Type of public key, if not a valid/supported Type return error</para></listitem><listitem><para>Before we proceed to LMS OTS, we also need to check if SHA algo selected in BH matches the type selected in signature, currently we do not support combinations of HASH algorithm</para></listitem><listitem><para>Signature Length should be equal or more than required, should have at least sig[0] + pub[1] Length</para></listitem><listitem><para>Now that we have checked if signature has sig[0] &amp; pub[1] contents verify pub[1] as data to be authenticated, with sig[0], output of operation should match with HSS public key (either spk or ppk in case of ROM)</para></listitem><listitem><para>At this point the signature has a valid Length signature for a valid Length public key for a lower level tree, which is all verified</para></listitem><listitem><para>Updating signature pointer for next loop, current signature length + public key length</para></listitem><listitem><para>Copy authenticated key If Incrementing Index is glitched, we re-copy same location or if copy fails, read back and check will catch it</para></listitem><listitem><para>As T field of pub[1]/pub[Npsk] is authenticated, now let&apos;s copy rest of pub[1] contents for further use. Pre-set Status to failure so that a glitch on the inner copy mismatch check still results in failure when goto END is taken. Status will be overwritten by subsequent operations once both the copy loop and glitch counter check pass.</para></listitem><listitem><para>Extract &apos;q&apos; from lowest level Signature Npsk, for use in Data&apos;s pre-processing before authentication, Big Endian to Little Endian</para></listitem><listitem><para>Extract &apos;I&apos; from latest authenticated public key, for use in Data&apos;s pre-processing before authentication</para></listitem><listitem><para>Extract &apos;C&apos; from lowest level Signature Npsk, for use in Data&apos;s pre-processing before authentication</para></listitem><listitem><para>Extracting LMS &amp; LMS OTS Type from Public key, Big Endian to Little Endian</para></listitem><listitem><para>Fetch the Type of public key, if not a valid/supported Type return error</para></listitem><listitem><para>Fetch the Type of public key, if not a valid/supported Type return error</para></listitem><listitem><para>Initialize HASH to calculate digest </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_core.c" line="884" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_core.c" bodystart="884" bodyend="1215"/>
+        <references refid="union_x_secure___lms_data_digest_fixed_fields___1a47f35181622252a6c7fbe981d2287fb5" compoundref="xsecure__lms__ots_8h" startline="470">XSecure_LmsDataDigestFixedFields_::C</references>
+        <references refid="struct_x_secure___lms_sign_verify_params_1ac306c446ade9fc59d2565cc5943a80e2" compoundref="xsecure__lms__core_8h" startline="54">XSecure_LmsSignVerifyParams::Data</references>
+        <references refid="struct_x_secure___lms_sign_verify_params_1a349c020041cf28df186676b9d7f18cca" compoundref="xsecure__lms__core_8h" startline="55">XSecure_LmsSignVerifyParams::DataLen</references>
+        <references refid="struct_x_secure___lms_sign_verify_params_1a71d8c484d7c9e79fd4991e319fff004c" compoundref="xsecure__lms__core_8h" startline="59">XSecure_LmsSignVerifyParams::ExpectedPubKey</references>
+        <references refid="union_x_secure___lms_public_key___1a2844318b3e2566ba08b34a308b75c5a6">XSecure_LmsPublicKey_::Fields</references>
+        <references refid="union_x_secure___lms_data_digest_fixed_fields___1a38ae34046c478595b442ef95fdc313d0">XSecure_LmsDataDigestFixedFields_::Fields</references>
+        <references refid="struct_x_secure___lms_param_1a8ac67f54252e30e78f07b20bca4903b5" compoundref="xsecure__lms_8h" startline="142">XSecure_LmsParam::H</references>
+        <references refid="struct_x_secure___lms_ots_param_1a78766f2ec7e3d0cd4124fd25d9ba7dc1" compoundref="xsecure__lms__ots_8h" startline="288">XSecure_LmsOtsParam::H</references>
+        <references refid="struct_x_secure___sha_plat_config_1ade16cec2869a9f44274030a759eb71bc" compoundref="core_2sha_2sha__pmxc_2xsecure__sha_8h" startline="76">XSecure_ShaPlatConfig::HashAlgo</references>
+        <references refid="union_x_secure___lms_public_key___1ac6ae68c15b5e75b23152118487ef1760" compoundref="xsecure__lms_8h" startline="170">XSecure_LmsPublicKey_::I</references>
+        <references refid="union_x_secure___lms_data_digest_fixed_fields___1aaa6fe65d46b47201f9c1759148669987" compoundref="xsecure__lms__ots_8h" startline="455">XSecure_LmsDataDigestFixedFields_::I</references>
+        <references refid="struct_x_secure___lms_sign_verify_params_1a06dab3925f496872c17c0b9675c8e91e" compoundref="xsecure__lms__core_8h" startline="57">XSecure_LmsSignVerifyParams::LmsSign</references>
+        <references refid="struct_x_secure___lms_sign_verify_params_1a2d59068b0ac06c8b635ea004d069040c" compoundref="xsecure__lms__core_8h" startline="58">XSecure_LmsSignVerifyParams::LmsSignLen</references>
+        <references refid="struct_x_secure___lms_param_1a42a5db17d1cf707af99fddeb1a50315e" compoundref="xsecure__lms_8h" startline="145">XSecure_LmsParam::mh</references>
+        <references refid="struct_x_secure___lms_sign_verify_params_1af2e0341c0e60e8c82b3c34aee9ecb51a" compoundref="xsecure__lms__core_8h" startline="56">XSecure_LmsSignVerifyParams::PreHashedMsg</references>
+        <references refid="struct_x_secure___lms_sign_verify_params_1aa246d73bd61f8c713633d8b15ffc97e4" compoundref="xsecure__lms__core_8h" startline="60">XSecure_LmsSignVerifyParams::PubKeyLen</references>
+        <references refid="struct_x_secure___hss_init_params_1a3ec412122508c8cf3b156711ea8c1442" compoundref="xsecure__lms__core_8h" startline="48">XSecure_HssInitParams::PublicKey</references>
+        <references refid="struct_x_secure___hss_init_params_1a693270e85f64de465bb255ec1d25dd27" compoundref="xsecure__lms__core_8h" startline="49">XSecure_HssInitParams::PublicKeyLen</references>
+        <references refid="union_x_secure___lms_data_digest_fixed_fields___1aba71ec3514983a2b92250d07d56441fb" compoundref="xsecure__lms__ots_8h" startline="460">XSecure_LmsDataDigestFixedFields_::q</references>
+        <references refid="struct_x_secure___hss_init_params_1a51289eea48f4daf2e728546e9ab89c6e" compoundref="xsecure__lms__core_8h" startline="47">XSecure_HssInitParams::SignatureLen</references>
+        <references refid="struct_x_secure___hss_init_params_1a7ff8fbb4e514ade197218872a6880e1c" compoundref="xsecure__lms__core_8h" startline="46">XSecure_HssInitParams::SignBuff</references>
+        <references refid="struct_x_secure___lms_ots_param_1ae58fb8e49f86da9600152bf763da2757" compoundref="xsecure__lms__ots_8h" startline="301">XSecure_LmsOtsParam::SignLen</references>
+        <references refid="group__xsecure__lms__server__apis_1gad627bf4f124e3ee746059ffc7ff202ed" compoundref="xsecure__lms__ots_8h" startline="45">XSECURE_ALLFS</references>
+        <references refid="group__xsecure__utils__apis_1gad317bd5f7cf522c602b9f00246d34d97" compoundref="spartanup_2xsecure__utils_8h" startline="70">XSECURE_DEBUG_GENERAL</references>
+        <references refid="spartanup_2xsecure__error_8h_1a0411cd49bb5b71852cecd93bcbf0ca2daa27fd6a5d2b1ea311379e7f39dc8fbcb" compoundref="spartanup_2xsecure__error_8h" startline="249">XSECURE_ERR_GLITCH_DETECTED</references>
+        <references refid="xsecure__lms__hss_8h_1ab2de8c49f8d9ca07deb6af37ee6e50e8" compoundref="xsecure__lms__hss_8h" startline="56">XSECURE_HSS_PUBLIC_KEY_LEVEL_FIELD_OFFSET</references>
+        <references refid="xsecure__lms__hss_8h_1a199dc0496a0cbfdfd170327b221a9b21" compoundref="xsecure__lms__hss_8h" startline="59">XSECURE_HSS_PUBLIC_KEY_LMS_FIELD_OFFSET</references>
+        <references refid="xsecure__lms__hss_8h_1a46fcdbeb8c2bcadbe7d087915c3eefd3" compoundref="xsecure__lms__hss_8h" startline="42">XSECURE_HSS_PUBLIC_KEY_TOTAL_SIZE</references>
+        <references refid="xsecure__lms__hss_8h_1abec1603be20f35c205417ebdb200a91d" compoundref="xsecure__lms__hss_8h" startline="45">XSECURE_HSS_SIGN_LIST_LEVEL_FIELD_OFFSET</references>
+        <references refid="group__xsecure__lms__server__apis_1gac602654bd86888ea8c55a41b075466a3" compoundref="xsecure__lms__ots_8h" startline="56">XSECURE_LMS_C_FIELD_SIZE</references>
+        <references refid="spartanup_2xsecure__error_8h_1a0411cd49bb5b71852cecd93bcbf0ca2da78bf5b8f8b158337aa879149df9d7a0c" compoundref="spartanup_2xsecure__error_8h" startline="193">XSECURE_LMS_HSS_L0_PUB_KEY_LMS_OTS_TYPE_UNSUPPORTED_ERROR</references>
+        <references refid="spartanup_2xsecure__error_8h_1a0411cd49bb5b71852cecd93bcbf0ca2da6dea4359a1cea07a02d4a26c5acc848b" compoundref="spartanup_2xsecure__error_8h" startline="184">XSECURE_LMS_HSS_L0_PUB_KEY_LMS_TYPE_UNSUPPORTED_ERROR</references>
+        <references refid="spartanup_2xsecure__error_8h_1a0411cd49bb5b71852cecd93bcbf0ca2daa43c6fd9a4e0fdf95b4fe6ae9bd0de6d" compoundref="spartanup_2xsecure__error_8h" startline="202">XSECURE_LMS_HSS_L0_SIGN_INVALID_LEN_2_ERROR</references>
+        <references refid="spartanup_2xsecure__error_8h_1a0411cd49bb5b71852cecd93bcbf0ca2daa8d2dfa0aff23197491bff52bcbf0916" compoundref="spartanup_2xsecure__error_8h" startline="187">XSECURE_LMS_HSS_L1_PUB_KEY_LMS_TYPE_1_UNSUPPORTED_ERROR</references>
+        <references refid="xsecure__lms__hss_8h_1ac9fb31cc5b7015ebe6048c3d36e294ca" compoundref="xsecure__lms__hss_8h" startline="40">XSECURE_LMS_HSS_LEVELS_FIELD_SIZE</references>
+        <references refid="xsecure__lms__hss_8h_1a4fd6c0cb9921c16deb2d40e0d524a8b8" compoundref="xsecure__lms__hss_8h" startline="39">XSECURE_LMS_HSS_MAX_LEVELS_SUPPORTED</references>
+        <references refid="xsecure__lms__hss_8h_1a6cb54a299293871f5c5d9a5a2534f5a8" compoundref="xsecure__lms__hss_8h" startline="38">XSECURE_LMS_HSS_MIN_LEVELS_SUPPORTED</references>
+        <references refid="spartanup_2xsecure__error_8h_1a0411cd49bb5b71852cecd93bcbf0ca2dacf8252635e76d70b0536fa4b33d8317a" compoundref="spartanup_2xsecure__error_8h" startline="180">XSECURE_LMS_HSS_PUB_KEY_INVALID_LEN_2_ERROR</references>
+        <references refid="spartanup_2xsecure__error_8h_1a0411cd49bb5b71852cecd93bcbf0ca2da5dc988f13f1f51c4c3e28ed3fee3cb69" compoundref="spartanup_2xsecure__error_8h" startline="182">XSECURE_LMS_HSS_SIGN_LEVEL_UNSUPPORTED_ERROR</references>
+        <references refid="spartanup_2xsecure__error_8h_1a0411cd49bb5b71852cecd93bcbf0ca2daf5c31047d3007a3c183c1f784f3aa5b6" compoundref="spartanup_2xsecure__error_8h" startline="206">XSECURE_LMS_HSS_SIGN_PUB_KEY_LEVEL_MISMATCH_ERROR</references>
+        <references refid="group__xsecure__lms__server__apis_1gafcdce570f5a0f46e23bc4993015be56b" compoundref="xsecure__lms__ots_8h" startline="51">XSECURE_LMS_I_FIELD_SIZE</references>
+        <references refid="spartanup_2xsecure__error_8h_1a0411cd49bb5b71852cecd93bcbf0ca2dacc4cea3870255f81c6afc5b0af4c7112" compoundref="spartanup_2xsecure__error_8h" startline="109">XSECURE_LMS_INVALID_PARAM</references>
+        <references refid="spartanup_2xsecure__error_8h_1a0411cd49bb5b71852cecd93bcbf0ca2da8671fb5c337fdafd4371858e46e6c945" compoundref="spartanup_2xsecure__error_8h" startline="225">XSECURE_LMS_MEM_COPY_ERROR</references>
+        <references refid="group__xsecure__lms__server__apis_1gga87557e3db575e6dc9ad6ddfc596a554aa2c49e5b42557925b34b58f162bb3fc31" compoundref="xsecure__lms_8h" startline="124">XSECURE_LMS_NOT_SUPPORTED</references>
+        <references refid="group__xsecure__lms__server__apis_1ggac44fed4428b1bce22f588c3c913818fdab0be342315c7753f9987ad7d713b6fbd" compoundref="xsecure__lms__ots_8h" startline="226">XSECURE_LMS_OTS_NOT_SUPPORTED</references>
+        <references refid="group__xsecure__lms__server__apis_1gadf5b0f6845109ee4715a5f00c732c0b5" compoundref="xsecure__lms__ots_8h" startline="150">XSECURE_LMS_OTS_SIGN_C_FIELD_OFFSET</references>
+        <references refid="group__xsecure__lms__server__apis_1gaf8c6ec189af7ebc8fec1f678d95a7559" compoundref="xsecure__lms__ots_8h" startline="50">XSECURE_LMS_OTS_TYPE_SIZE</references>
+        <references refid="group__xsecure__lms__server__apis_1ga1ef119798d9b40af162c698f7bff1b11" compoundref="xsecure__lms_8h" startline="90">XSECURE_LMS_PUB_KEY_OTS_TYPE_OFFSET</references>
+        <references refid="group__xsecure__lms__server__apis_1ga341d86a79ae638b27351c4f88c02d7dc" compoundref="xsecure__lms_8h" startline="60">XSECURE_LMS_PUB_KEY_TOTAL_SIZE</references>
+        <references refid="group__xsecure__lms__server__apis_1gac8b042c74aded13b7feb0e6aed48eab7" compoundref="xsecure__lms_8h" startline="89">XSECURE_LMS_PUB_KEY_TYPE_OFFSET</references>
+        <references refid="spartanup_2xsecure__error_8h_1a0411cd49bb5b71852cecd93bcbf0ca2da02868afd108384a2fb0ada70a7e5e66c" compoundref="spartanup_2xsecure__error_8h" startline="216">XSECURE_LMS_PUB_OP_FAILED_1_ERROR</references>
+        <references refid="spartanup_2xsecure__error_8h_1a0411cd49bb5b71852cecd93bcbf0ca2da83a91144eee447ba46ba68d051d8875c" compoundref="spartanup_2xsecure__error_8h" startline="214">XSECURE_LMS_PUB_OP_FAILED_ERROR</references>
+        <references refid="group__xsecure__lms__server__apis_1ga9a55509c96c18e9b5edc5512e05af4f4" compoundref="xsecure__lms__ots_8h" startline="52">XSECURE_LMS_Q_FIELD_SIZE</references>
+        <references refid="spartanup_2xsecure__error_8h_1a0411cd49bb5b71852cecd93bcbf0ca2dac0142a99044b248cf9de44cd80563c52" compoundref="spartanup_2xsecure__error_8h" startline="172">XSECURE_LMS_SIGN_VERIFY_BH_AND_TYPE_SHA_ALGO_MISMATCH_L0_ERROR</references>
+        <references refid="group__xsecure__lms__server__apis_1ga0ed135e1c8cd81e733d5300850e5fdd7" compoundref="xsecure__lms_8h" startline="99">XSECURE_LMS_SIGNATURE_OTS_FIELD_OFFSET</references>
+        <references refid="group__xsecure__lms__server__apis_1ga2696eb12a99587429f944f26d8b50e96" compoundref="xsecure__lms_8h" startline="98">XSECURE_LMS_SIGNATURE_Q_FIELD_OFFSET</references>
+        <references refid="group__xsecure__lms__server__apis_1gab420d167379fca0db7906aa096b8ec75" compoundref="xsecure__lms_8h" startline="50">XSECURE_LMS_TYPE_SIZE</references>
+        <references refid="group__xsecure__lms__server__apis_1ga292e1e3bc9bd3759b76c98cfd8196deb" compoundref="xsecure__lms_8c" startline="58" endline="216">XSecure_LmsLookupParamSet</references>
+        <references refid="group__xsecure__lms__server__apis_1ga48db68f8b63048019c35a756e58d9181" compoundref="xsecure__lms__ots_8c" startline="170" endline="339">XSecure_LmsOtsLookupParamSet</references>
+        <references refid="group__xsecure__lms__server__apis_1ga6b50f9fb052dd231c50ea15138f17ff7" compoundref="xsecure__lms__core_8c" startline="421" endline="856">XSecure_LmsSignatureVerification</references>
+        <references refid="group__xsecure__common__apis_1ga693c54d224d1fa8ca68b215023b2b359" compoundref="xsecure__defs_8h" startline="85">XSecure_Printf</references>
+        <references refid="group__xsecure__sha__server__apis_1gafeb87542b7de2a6f5e62c5fa6c84ff8b" compoundref="core_2sha_2sha__pmx_2xsecure__sha_8c" startline="789" endline="792">XSecure_ShaInitialize</references>
+        <referencedby refid="group__xsecure__kat__server__apis_1gacd410c8890a3160304bf000bf0af2031" compoundref="2ve__2vm_2xsecure__plat__kat_8c" startline="1673" endline="1705">XSecure_HssSha2256Kat</referencedby>
+        <referencedby refid="group__xsecure__kat__server__apis_1ga75f8f635a7d2a99f8b2011b8365a7c46" compoundref="2ve__2vm_2xsecure__plat__kat_8c" startline="1718" endline="1751">XSecure_HssShake256Kat</referencedby>
+        <referencedby refid="group__xsecure__lms__server__apis_1gaf587dc47c7f636cb574154e79ae31f0a" compoundref="xsecure__lms__core_8c" startline="1424" endline="1476">XSecure_HssSignatureVerification</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__lms__server__apis_1ga20f145ad946cac0682c7428afe35dc8f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XSecure_LmsHashMessage</definition>
+        <argsstring>(XSecure_Sha *ShaInstPtr, u8 *Data, u32 DataLen, XSecure_ShaMode Mode)</argsstring>
+        <name>XSecure_LmsHashMessage</name>
+        <param>
+          <type>XSecure_Sha *</type>
+          <declname>ShaInstPtr</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>Data</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>DataLen</declname>
+        </param>
+        <param>
+          <type>XSecure_ShaMode</type>
+          <declname>Mode</declname>
+        </param>
+        <briefdescription>
+<para>This function calculates the Digest of data to authenticate to initiate the process of LMS verification. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ShaInstPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the SHA instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the data to be authenticated </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DataLen</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Length of data to be authenticated </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Mode</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Mode of the SHA operation</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - On success</para></listitem><listitem><para>XSECURE_LMS_HSS_L1_PUB_KEY_LMS_TYPE_1_UNSUPPORTED_ERROR - Level 1 public key LMS type is unsupported</para></listitem><listitem><para>XSECURE_LMS_HSS_L0_PUB_KEY_LMS_OTS_TYPE_UNSUPPORTED_ERROR - Level 0 public key LMS OTS type is unsupported</para></listitem><listitem><para>XST_FAILURE - On SHA operation failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Process XSECURE_D_MESG, to be sent in Big Endian - XSECURE_D_MESG value is same</para></listitem><listitem><para>Start SHA to calculate digest</para></listitem><listitem><para>Process prefix</para></listitem><listitem><para>Process data now </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_core.c" line="1233" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_core.c" bodystart="1233" bodyend="1286"/>
+        <references refid="union_x_secure___lms_data_digest_fixed_fields___1a82907f08e81b5bdbe459153d407b898b" compoundref="xsecure__lms__ots_8h" startline="465">XSecure_LmsDataDigestFixedFields_::D_MESG</references>
+        <references refid="union_x_secure___lms_data_digest_fixed_fields___1a38ae34046c478595b442ef95fdc313d0">XSecure_LmsDataDigestFixedFields_::Fields</references>
+        <references refid="group__xsecure__lms__server__apis_1ga1a34947f51bffe3c3aada7d9e34f2541" compoundref="xsecure__lms__ots_8h" startline="63">XSECURE_LMS_DIGEST_SIZE</references>
+        <references refid="group__xsecure__lms__server__apis_1ga434d38a2acb11f42b7fed781844eb3ee" compoundref="xsecure__lms__ots_8h" startline="72">XSECURE_LMS_MESSAGE_TO_DIGEST_PREFIX_SIZE</references>
+        <references refid="group__xsecure__sha__server__apis_1ga681f3c347149b5d4254611f833ab93cf" compoundref="core_2sha_2sha__pmx_2xsecure__sha_8c" startline="874" endline="879">XSecure_ShaFinish</references>
+        <references refid="group__xsecure__sha__server__apis_1ga7eb62ddb5d303871b0ca86c77a668d4b" compoundref="core_2sha_2sha__pmx_2xsecure__sha_8c" startline="851" endline="854">XSecure_ShaLastUpdate</references>
+        <references refid="group__xsecure__sha__server__apis_1ga4ab55c7a66ee2aff3891fb58c6a8c728" compoundref="core_2sha_2sha__pmx_2xsecure__sha_8c" startline="808" endline="813">XSecure_ShaStart</references>
+        <references refid="group__xsecure__sha__server__apis_1gabb79b8c3a70ce2451a66133bbf18fcc4" compoundref="core_2sha_2sha__pmx_2xsecure__sha_8c" startline="832" endline="835">XSecure_ShaUpdate</references>
+        <referencedby refid="group__xsecure__kat__server__apis_1gacd410c8890a3160304bf000bf0af2031" compoundref="2ve__2vm_2xsecure__plat__kat_8c" startline="1673" endline="1705">XSecure_HssSha2256Kat</referencedby>
+        <referencedby refid="group__xsecure__kat__server__apis_1ga75f8f635a7d2a99f8b2011b8365a7c46" compoundref="2ve__2vm_2xsecure__plat__kat_8c" startline="1718" endline="1751">XSecure_HssShake256Kat</referencedby>
+        <referencedby refid="group__xsecure__lms__server__apis_1gaf587dc47c7f636cb574154e79ae31f0a" compoundref="xsecure__lms__core_8c" startline="1424" endline="1476">XSecure_HssSignatureVerification</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__lms__server__apis_1ga112da8c38a140d02852bd8f93ab78e2f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XSecure_HssFinish</definition>
+        <argsstring>(XSecure_Sha *ShaInstPtr, XPmcDma *DmaPtr, u8 *SignBuff, u32 SignatureLen)</argsstring>
+        <name>XSecure_HssFinish</name>
+        <param>
+          <type>XSecure_Sha *</type>
+          <declname>ShaInstPtr</declname>
+        </param>
+        <param>
+          <type>XPmcDma *</type>
+          <declname>DmaPtr</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>SignBuff</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>SignatureLen</declname>
+        </param>
+        <briefdescription>
+<para>This function Completes LMS Signature verification process. </para>        </briefdescription>
+        <detaileddescription>
+<para><verbatim>    Data should have been pre-processed before calling this function, by
+    calling @ref XSecure_HssInit &amp; @ref XSecure_LmsHashMessage in sequence
+</verbatim></para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ShaInstPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the SHA instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DmaPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the DMA instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>SignBuff</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to Signature buffer </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>SignatureLen</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Length of signature buffer</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - On success</para></listitem><listitem><para>XSECURE_LMS_HSS_L1_PUB_KEY_LMS_TYPE_2_UNSUPPORTED_ERROR - Level 1 public key LMS type is unsupported</para></listitem><listitem><para>XSECURE_LMS_HSS_L1_PUB_KEY_LMS_OTS_TYPE_UNSUPPORTED_ERROR - Level 1 public key LMS OTS type is unsupported</para></listitem><listitem><para>XSECURE_LMS_HSS_OTS_SIGN_INVALID_LEN_1_ERROR - OTS signature length is invalid</para></listitem><listitem><para>XSECURE_LMS_HSS_L1_SIGN_INVALID_LEN_2_ERROR - Level 1 signature length is invalid</para></listitem><listitem><para>XSECURE_LMS_HSS_L0_PUB_KEY_AUTH_FAILED_ERROR - Level 0 public key authentication failed</para></listitem><listitem><para>XST_FAILURE - On signature verification failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Fetch the Type of public key, if not a valid/supported Type return error</para></listitem><listitem><para>Fetch the Type of public key OTS, if not a valid/supported Type return error</para></listitem><listitem><para>Signature Length should be at least 4 bytes</para></listitem><listitem><para>Signature checks</para></listitem><listitem><para>After pub[Npsk], sig[Npsk] fields start, from there the following is check for length required</para></listitem><listitem><para>Signature Length should be equal to sig[0] + pub[Npsk] Length + sig[Npsk]</para></listitem><listitem><para>Now that we have checked if signature has sig[Npsk], verify the already authenticated and stored public key and data</para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_core.c" line="1308" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_core.c" bodystart="1308" bodyend="1403"/>
+        <references refid="struct_x_secure___lms_sign_verify_params_1ac306c446ade9fc59d2565cc5943a80e2" compoundref="xsecure__lms__core_8h" startline="54">XSecure_LmsSignVerifyParams::Data</references>
+        <references refid="struct_x_secure___lms_sign_verify_params_1a349c020041cf28df186676b9d7f18cca" compoundref="xsecure__lms__core_8h" startline="55">XSecure_LmsSignVerifyParams::DataLen</references>
+        <references refid="struct_x_secure___lms_sign_verify_params_1a71d8c484d7c9e79fd4991e319fff004c" compoundref="xsecure__lms__core_8h" startline="59">XSecure_LmsSignVerifyParams::ExpectedPubKey</references>
+        <references refid="struct_x_secure___lms_sign_verify_params_1a06dab3925f496872c17c0b9675c8e91e" compoundref="xsecure__lms__core_8h" startline="57">XSecure_LmsSignVerifyParams::LmsSign</references>
+        <references refid="struct_x_secure___lms_sign_verify_params_1a2d59068b0ac06c8b635ea004d069040c" compoundref="xsecure__lms__core_8h" startline="58">XSecure_LmsSignVerifyParams::LmsSignLen</references>
+        <references refid="struct_x_secure___lms_param_1a42a5db17d1cf707af99fddeb1a50315e" compoundref="xsecure__lms_8h" startline="145">XSecure_LmsParam::mh</references>
+        <references refid="struct_x_secure___lms_sign_verify_params_1af2e0341c0e60e8c82b3c34aee9ecb51a" compoundref="xsecure__lms__core_8h" startline="56">XSecure_LmsSignVerifyParams::PreHashedMsg</references>
+        <references refid="struct_x_secure___lms_sign_verify_params_1aa246d73bd61f8c713633d8b15ffc97e4" compoundref="xsecure__lms__core_8h" startline="60">XSecure_LmsSignVerifyParams::PubKeyLen</references>
+        <references refid="struct_x_secure___lms_ots_param_1ae58fb8e49f86da9600152bf763da2757" compoundref="xsecure__lms__ots_8h" startline="301">XSecure_LmsOtsParam::SignLen</references>
+        <references refid="group__xsecure__utils__apis_1gad317bd5f7cf522c602b9f00246d34d97" compoundref="spartanup_2xsecure__utils_8h" startline="70">XSECURE_DEBUG_GENERAL</references>
+        <references refid="spartanup_2xsecure__error_8h_1a0411cd49bb5b71852cecd93bcbf0ca2dadfc7f0aec695048344c249c41e2c978a" compoundref="spartanup_2xsecure__error_8h" startline="196">XSECURE_LMS_HSS_L1_PUB_KEY_LMS_OTS_TYPE_UNSUPPORTED_ERROR</references>
+        <references refid="spartanup_2xsecure__error_8h_1a0411cd49bb5b71852cecd93bcbf0ca2da1a9aa90f5ad11fbbd676f0924422f8f3" compoundref="spartanup_2xsecure__error_8h" startline="190">XSECURE_LMS_HSS_L1_PUB_KEY_LMS_TYPE_2_UNSUPPORTED_ERROR</references>
+        <references refid="spartanup_2xsecure__error_8h_1a0411cd49bb5b71852cecd93bcbf0ca2da52cea29488d9d09504cc25b98ba237a7" compoundref="spartanup_2xsecure__error_8h" startline="204">XSECURE_LMS_HSS_L1_SIGN_INVALID_LEN_2_ERROR</references>
+        <references refid="spartanup_2xsecure__error_8h_1a0411cd49bb5b71852cecd93bcbf0ca2da958288d2bb37e171f3218ccd44da3e94" compoundref="spartanup_2xsecure__error_8h" startline="212">XSECURE_LMS_HSS_OTS_SIGN_INVALID_LEN_1_ERROR</references>
+        <references refid="group__xsecure__lms__server__apis_1gga87557e3db575e6dc9ad6ddfc596a554aa2c49e5b42557925b34b58f162bb3fc31" compoundref="xsecure__lms_8h" startline="124">XSECURE_LMS_NOT_SUPPORTED</references>
+        <references refid="group__xsecure__lms__server__apis_1ggac44fed4428b1bce22f588c3c913818fdab0be342315c7753f9987ad7d713b6fbd" compoundref="xsecure__lms__ots_8h" startline="226">XSECURE_LMS_OTS_NOT_SUPPORTED</references>
+        <references refid="group__xsecure__lms__server__apis_1gaf8c6ec189af7ebc8fec1f678d95a7559" compoundref="xsecure__lms__ots_8h" startline="50">XSECURE_LMS_OTS_TYPE_SIZE</references>
+        <references refid="group__xsecure__lms__server__apis_1ga1ef119798d9b40af162c698f7bff1b11" compoundref="xsecure__lms_8h" startline="90">XSECURE_LMS_PUB_KEY_OTS_TYPE_OFFSET</references>
+        <references refid="group__xsecure__lms__server__apis_1ga341d86a79ae638b27351c4f88c02d7dc" compoundref="xsecure__lms_8h" startline="60">XSECURE_LMS_PUB_KEY_TOTAL_SIZE</references>
+        <references refid="group__xsecure__lms__server__apis_1gac8b042c74aded13b7feb0e6aed48eab7" compoundref="xsecure__lms_8h" startline="89">XSECURE_LMS_PUB_KEY_TYPE_OFFSET</references>
+        <references refid="group__xsecure__lms__server__apis_1ga9a55509c96c18e9b5edc5512e05af4f4" compoundref="xsecure__lms__ots_8h" startline="52">XSECURE_LMS_Q_FIELD_SIZE</references>
+        <references refid="group__xsecure__lms__server__apis_1gab420d167379fca0db7906aa096b8ec75" compoundref="xsecure__lms_8h" startline="50">XSECURE_LMS_TYPE_SIZE</references>
+        <references refid="group__xsecure__lms__server__apis_1ga292e1e3bc9bd3759b76c98cfd8196deb" compoundref="xsecure__lms_8c" startline="58" endline="216">XSecure_LmsLookupParamSet</references>
+        <references refid="group__xsecure__lms__server__apis_1ga48db68f8b63048019c35a756e58d9181" compoundref="xsecure__lms__ots_8c" startline="170" endline="339">XSecure_LmsOtsLookupParamSet</references>
+        <references refid="group__xsecure__lms__server__apis_1ga6b50f9fb052dd231c50ea15138f17ff7" compoundref="xsecure__lms__core_8c" startline="421" endline="856">XSecure_LmsSignatureVerification</references>
+        <references refid="group__xsecure__common__apis_1ga693c54d224d1fa8ca68b215023b2b359" compoundref="xsecure__defs_8h" startline="85">XSecure_Printf</references>
+        <referencedby refid="group__xsecure__kat__server__apis_1gacd410c8890a3160304bf000bf0af2031" compoundref="2ve__2vm_2xsecure__plat__kat_8c" startline="1673" endline="1705">XSecure_HssSha2256Kat</referencedby>
+        <referencedby refid="group__xsecure__kat__server__apis_1ga75f8f635a7d2a99f8b2011b8365a7c46" compoundref="2ve__2vm_2xsecure__plat__kat_8c" startline="1718" endline="1751">XSecure_HssShake256Kat</referencedby>
+        <referencedby refid="group__xsecure__lms__server__apis_1gaf587dc47c7f636cb574154e79ae31f0a" compoundref="xsecure__lms__core_8c" startline="1424" endline="1476">XSecure_HssSignatureVerification</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__lms__server__apis_1ga6b50f9fb052dd231c50ea15138f17ff7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XSecure_LmsSignatureVerification</definition>
+        <argsstring>(XSecure_Sha *ShaInstPtr, XPmcDma *DmaPtr, XSecure_LmsSignVerifyParams *LmsSignVerifyParams)</argsstring>
+        <name>XSecure_LmsSignatureVerification</name>
+        <param>
+          <type>XSecure_Sha *</type>
+          <declname>ShaInstPtr</declname>
+        </param>
+        <param>
+          <type>XPmcDma *</type>
+          <declname>DmaPtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_secure___lms_sign_verify_params" kindref="compound">XSecure_LmsSignVerifyParams</ref> *</type>
+          <declname>LmsSignVerifyParams</declname>
+        </param>
+        <briefdescription>
+<para>This function performs LMS level signature verification. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ShaInstPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to SHA instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DmaPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to DMA instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>LmsSignVerifyParams</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to LMS signature verification parameters</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - On success</para></listitem><listitem><para>XSECURE_LMS_INVALID_PARAM - Invalid parameter provided</para></listitem><listitem><para>XSECURE_LMS_PUB_KEY_UNSUPPORTED_TYPE_1_ERROR - Public key LMS type is unsupported</para></listitem><listitem><para>XSECURE_LMS_SIGN_EXPECTED_PUB_KEY_LEN_2_ERROR - Expected public key length mismatch</para></listitem><listitem><para>XSECURE_LMS_SIGN_LEN_1_ERROR - Signature length is insufficient</para></listitem><listitem><para>XSECURE_LMS_OTS_PUB_KEY_LMS_OTS_SIGN_TYPE_MISMATCH_ERROR - OTS signature type mismatch with public key</para></listitem><listitem><para>XSECURE_LMS_SIGN_UNSUPPORTED_OTS_TYPE_1_ERROR - OTS signature type is unsupported</para></listitem><listitem><para>XSECURE_LMS_SIGN_LEN_2_ERROR - Signature length error for OTS component</para></listitem><listitem><para>XSECURE_LMS_PUB_KEY_LMS_SIGN_TYPE_MISMATCH_ERROR - LMS signature type mismatch with public key</para></listitem><listitem><para>XSECURE_LMS_SIGN_UNSUPPORTED_TYPE_1_ERROR - LMS signature type is unsupported</para></listitem><listitem><para>XSECURE_LMS_SIGN_INVALID_NODE_NUMBER_ERROR - Invalid node number in signature</para></listitem><listitem><para>XSECURE_LMS_SIGN_LEN_3_ERROR - Total signature length mismatch</para></listitem><listitem><para>XSECURE_LMS_SIGN_OTS_OP_ERROR - OTS signature computation operation failed</para></listitem><listitem><para>XSECURE_LMS_SIGN_VERIF_SHA_DIGEST_LEAF_FAILED_ERROR - SHA digest failed for leaf node</para></listitem><listitem><para>XSECURE_LMS_PUB_KEY_AUTHENTICATION_FAILED_ERROR - Public key authentication failed</para></listitem><listitem><para>XSECURE_LMS_PUB_KEY_AUTHENTICATION_GLITCH_ERROR - Public key authentication glitch detected</para></listitem><listitem><para>XST_FAILURE - On any other failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Expected public key processing - sequence - 1</para></listitem><listitem><para>- Public key checks Length should be at least 8 bytes to be able to fetch Type of algo used for LMS &amp; LMS OTS. Once Type is extracted, set m. Public key should be == 24 + m otherwise stop process and raise error.</para></listitem><listitem><para>Standard recommends less than 8 is not valid</para></listitem><listitem><para>Extracting Public key LMS Type, Big Endian to Little Endian</para></listitem><listitem><para>Extracting Public key LMS OTS Type, Big Endian to Little Endian</para></listitem><listitem><para>Fetch the Type of public key, if not a valid/supported Type return error</para></listitem><listitem><para>Length of key check, should be equal to 24 + m</para></listitem><listitem><para>Signature processing - sequence - 1</para></listitem><listitem><para>Signature checks Length should be at least 8 bytes long Parse &apos;q&apos;, OTS &apos;Type&apos; OTS &apos;Type&apos; should match with pub key OTS &apos;Type&apos; Set &apos;n&apos;, &apos;p&apos; from signature OTS &apos;Type&apos;, Length should be AT LEAST (12 + n * (p + 1)), this is to check if signature has enough for OTS signature component. OTS signature [4 to (7 + n (p + 1))] Set LMS signature Type [(8 + n (p + 1)) to (11 + n (p + 1)) bytes], LMS signature Type should match with LMS public &apos;Type&apos; Set &apos;m&apos;, &apos;h&apos; according to LMS signature Type &apos;q&apos; &gt;= 2^h or LMS signature Length != 12 + n * (p + 1) + m * h) then error</para></listitem><listitem><para>Length should be at least 8 bytes</para></listitem><listitem><para>If a message is not pre-hashed, we need to compute the digest for authentication, prefetch q, I before</para></listitem><listitem><para>Parse q from LMS signature, Big Endian to Little Endian</para></listitem><listitem><para>Parse I from LMS Public key</para></listitem><listitem><para>Read LMS OTS type, Big Endian to Little Endian</para></listitem><listitem><para>Extract LMS OTS signature from buffer</para></listitem><listitem><para>Covers 6a.2c in standard, If LMS OTS signature Type doesn&apos;t match with LMS pub key Type, both are in Little Endian c</para></listitem><listitem><para>Total signature length check, should have at least LMS OTS signature required Length to proceed</para></listitem><listitem><para>Extract LMS signature Type from buffer, Big Endian to Little Endian</para></listitem><listitem><para>Comparing Public key&apos;s LMS type &amp; Signature&apos;s LMS type, both are in Little Endian</para></listitem><listitem><para>Fetch the params for LMS signature from Type of signature, if not a valid/supported type return error</para></listitem><listitem><para>Leaf nodes for a tree range from [0 to (2^h - 1)], to be a valid node number LMS signature length should be 12 + (n * (p + 1)) + (m * h) bytes</para></listitem><listitem><para>Size of &apos;q&apos; + size of LMS OTS signature + LMS signature Type size + (m * h)</para></listitem><listitem><para>LMS OTS candidate public key &apos;Kc&apos;</para></listitem><listitem><para>Extract LMS signature from buffer</para></listitem><listitem><para>Copy I, Big Endian to Big Endian</para></listitem><listitem><para>Node number = (2 ^ h) + q</para></listitem><listitem><para>Copy node number - Little Endian to Big Endian</para></listitem><listitem><para>Copy constant - Big Endian to Big Endian</para></listitem><listitem><para>Copy LMS OTS output to buffer - Big Endian to Big Endian</para></listitem><listitem><para>Now a total of 16 + 4 + 2 + 56 bytes are in buffer, which needs to be processed, During LMS OTS HASH hw has been used, need to start again for public key calculation</para></listitem><listitem><para>Start till finish HASH to calculate digest</para></listitem><listitem><para>For preparing for loop, we need I (which is already copied), node numbers needs to be copied inside loop, D_INTR (to be copied before loop), then hashes according to odd or even nodes</para></listitem><listitem><para>Copy constant - Big Endian to Big Endian</para></listitem><listitem><para>Copy node number - Little Endian to Big Endian</para></listitem><listitem><para>Odd: H(I||u32str(node_num/2)||u16str(D_INTR)||path[i]||tmp)</para></listitem><listitem><para>Copy path[i], then output of previous HASH - Big Endian to Big Endian</para></listitem><listitem><para>Even: H(I||u32str(node_num/2)||u16str(D_INTR)||tmp||path[i])</para></listitem><listitem><para>Copy output of previous HASH then path[i] - Big Endian to Big Endian</para></listitem><listitem><para>Start till finish HASH to calculate digest</para></listitem><listitem><para>If following operation is glitched, we will end up with wrong root value which can be detected</para></listitem><listitem><para>Now that we have arrived at root value, compare with expected to see if it matches, comparison should be single glitch resistant. Status is pre-set to failure to guard against glitches on the inner assignment.</para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_core.c" line="421" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_core.c" bodystart="421" bodyend="856"/>
+        <references refid="union_x_secure___lms_pub_key_tmp___1ac4436f40127798b3bb9261cc09f0a912" compoundref="xsecure__lms_8h" startline="208">XSecure_LmsPubKeyTmp_::D</references>
+        <references refid="struct_x_secure___lms_sign_verify_params_1ac306c446ade9fc59d2565cc5943a80e2" compoundref="xsecure__lms__core_8h" startline="54">XSecure_LmsSignVerifyParams::Data</references>
+        <references refid="struct_x_secure___lms_sign_verify_params_1a349c020041cf28df186676b9d7f18cca" compoundref="xsecure__lms__core_8h" startline="55">XSecure_LmsSignVerifyParams::DataLen</references>
+        <references refid="struct_x_secure___lms_sign_verify_params_1a71d8c484d7c9e79fd4991e319fff004c" compoundref="xsecure__lms__core_8h" startline="59">XSecure_LmsSignVerifyParams::ExpectedPubKey</references>
+        <references refid="union_x_secure___lms_pub_key_tmp___1a0843f0a293f342b4b3a7c2dc02547bf4">XSecure_LmsPubKeyTmp_::Fields</references>
+        <references refid="union_x_secure___lms_data_digest_fixed_fields___1a38ae34046c478595b442ef95fdc313d0">XSecure_LmsDataDigestFixedFields_::Fields</references>
+        <references refid="struct_x_secure___lms_param_1a1fb9b3a0d2a2674d9f5cc1bb386d6eb0" compoundref="xsecure__lms_8h" startline="144">XSecure_LmsParam::h</references>
+        <references refid="struct_x_secure___lms_ots_param_1a78766f2ec7e3d0cd4124fd25d9ba7dc1" compoundref="xsecure__lms__ots_8h" startline="288">XSecure_LmsOtsParam::H</references>
+        <references refid="union_x_secure___lms_pub_key_tmp___1a92de8c48812ac0eb7b43562f44dfae5c" compoundref="xsecure__lms_8h" startline="203">XSecure_LmsPubKeyTmp_::half_node_number</references>
+        <references refid="union_x_secure___lms_pub_key_tmp___1a062cfe1349c7e202d086a4bfad9c3867" compoundref="xsecure__lms_8h" startline="198">XSecure_LmsPubKeyTmp_::I</references>
+        <references refid="union_x_secure___lms_data_digest_fixed_fields___1aaa6fe65d46b47201f9c1759148669987" compoundref="xsecure__lms__ots_8h" startline="455">XSecure_LmsDataDigestFixedFields_::I</references>
+        <references refid="struct_x_secure___lms_sign_verify_params_1a06dab3925f496872c17c0b9675c8e91e" compoundref="xsecure__lms__core_8h" startline="57">XSecure_LmsSignVerifyParams::LmsSign</references>
+        <references refid="struct_x_secure___lms_sign_verify_params_1a2d59068b0ac06c8b635ea004d069040c" compoundref="xsecure__lms__core_8h" startline="58">XSecure_LmsSignVerifyParams::LmsSignLen</references>
+        <references refid="struct_x_secure___lms_param_1a87a19a975a59e9fc7fa8d10fd4ac6ab4" compoundref="xsecure__lms_8h" startline="143">XSecure_LmsParam::m</references>
+        <references refid="struct_x_secure___lms_param_1a42a5db17d1cf707af99fddeb1a50315e" compoundref="xsecure__lms_8h" startline="145">XSecure_LmsParam::mh</references>
+        <references refid="struct_x_secure___lms_sign_verify_params_1af2e0341c0e60e8c82b3c34aee9ecb51a" compoundref="xsecure__lms__core_8h" startline="56">XSecure_LmsSignVerifyParams::PreHashedMsg</references>
+        <references refid="struct_x_secure___lms_sign_verify_params_1aa246d73bd61f8c713633d8b15ffc97e4" compoundref="xsecure__lms__core_8h" startline="60">XSecure_LmsSignVerifyParams::PubKeyLen</references>
+        <references refid="union_x_secure___lms_data_digest_fixed_fields___1aba71ec3514983a2b92250d07d56441fb" compoundref="xsecure__lms__ots_8h" startline="460">XSecure_LmsDataDigestFixedFields_::q</references>
+        <references refid="struct_x_secure___lms_ots_param_1ae58fb8e49f86da9600152bf763da2757" compoundref="xsecure__lms__ots_8h" startline="301">XSecure_LmsOtsParam::SignLen</references>
+        <references refid="union_x_secure___lms_pub_key_tmp___1ac708ae7db6633d104bd8e6d19b0c2ed4" compoundref="xsecure__lms_8h" startline="214">XSecure_LmsPubKeyTmp_::Tmp</references>
+        <references refid="group__xsecure__utils__apis_1gad317bd5f7cf522c602b9f00246d34d97" compoundref="spartanup_2xsecure__utils_8h" startline="70">XSECURE_DEBUG_GENERAL</references>
+        <references refid="group__xsecure__lms__server__apis_1gae8d8240f98a33ee9d0f751ccb14aae42" compoundref="xsecure__lms_8h" startline="36">XSECURE_IS_ODD</references>
+        <references refid="group__xsecure__lms__server__apis_1gafcdce570f5a0f46e23bc4993015be56b" compoundref="xsecure__lms__ots_8h" startline="51">XSECURE_LMS_I_FIELD_SIZE</references>
+        <references refid="spartanup_2xsecure__error_8h_1a0411cd49bb5b71852cecd93bcbf0ca2dacc4cea3870255f81c6afc5b0af4c7112" compoundref="spartanup_2xsecure__error_8h" startline="109">XSECURE_LMS_INVALID_PARAM</references>
+        <references refid="group__xsecure__lms__server__apis_1ga7dd09e2d40a00f33bd6153f782bebd42" compoundref="xsecure__lms_8h" startline="51">XSECURE_LMS_M_BYTE_FIELD_SIZE</references>
+        <references refid="spartanup_2xsecure__error_8h_1a0411cd49bb5b71852cecd93bcbf0ca2da8671fb5c337fdafd4371858e46e6c945" compoundref="spartanup_2xsecure__error_8h" startline="225">XSECURE_LMS_MEM_COPY_ERROR</references>
+        <references refid="group__xsecure__lms__server__apis_1gga87557e3db575e6dc9ad6ddfc596a554aa2c49e5b42557925b34b58f162bb3fc31" compoundref="xsecure__lms_8h" startline="124">XSECURE_LMS_NOT_SUPPORTED</references>
+        <references refid="group__xsecure__lms__server__apis_1ggac44fed4428b1bce22f588c3c913818fdab0be342315c7753f9987ad7d713b6fbd" compoundref="xsecure__lms__ots_8h" startline="226">XSECURE_LMS_OTS_NOT_SUPPORTED</references>
+        <references refid="group__xsecure__lms__server__apis_1gaa531d809f053cd3604b535575e174027" compoundref="xsecure__lms__ots_8h" startline="81">XSECURE_LMS_OTS_PUB_KEY_K_FIELD_SIZE</references>
+        <references refid="spartanup_2xsecure__error_8h_1a0411cd49bb5b71852cecd93bcbf0ca2da3222b24cc7e8f18f476ee02b2bb7ba5e" compoundref="spartanup_2xsecure__error_8h" startline="141">XSECURE_LMS_OTS_PUB_KEY_LMS_OTS_SIGN_TYPE_MISMATCH_ERROR</references>
+        <references refid="group__xsecure__lms__server__apis_1ga57cc8baa8a82a27f721b46f46a21b159" compoundref="xsecure__lms__ots_8h" startline="148">XSECURE_LMS_OTS_SIGN_TYPE_FIELD_OFFSET</references>
+        <references refid="group__xsecure__lms__server__apis_1gaf8c6ec189af7ebc8fec1f678d95a7559" compoundref="xsecure__lms__ots_8h" startline="50">XSECURE_LMS_OTS_TYPE_SIZE</references>
+        <references refid="spartanup_2xsecure__error_8h_1a0411cd49bb5b71852cecd93bcbf0ca2da37b05f89e934ac2aa17d94e35f8dd41b" compoundref="spartanup_2xsecure__error_8h" startline="157">XSECURE_LMS_PUB_KEY_AUTHENTICATION_FAILED_ERROR</references>
+        <references refid="spartanup_2xsecure__error_8h_1a0411cd49bb5b71852cecd93bcbf0ca2daebb63f40baaa306c4a9893bf6a870768" compoundref="spartanup_2xsecure__error_8h" startline="160">XSECURE_LMS_PUB_KEY_AUTHENTICATION_GLITCH_ERROR</references>
+        <references refid="group__xsecure__lms__server__apis_1ga49600d44c208fecaefbad23df7b62592" compoundref="xsecure__lms_8h" startline="54">XSECURE_LMS_PUB_KEY_FIXED_FIELD_SIZE</references>
+        <references refid="group__xsecure__lms__server__apis_1ga1bcf9280ea408fb0c3bfaba3f4037a6d" compoundref="xsecure__lms_8h" startline="92">XSECURE_LMS_PUB_KEY_I_OFFSET</references>
+        <references refid="spartanup_2xsecure__error_8h_1a0411cd49bb5b71852cecd93bcbf0ca2da81f1e66a1def2c74088c6379ebb1dec0" compoundref="spartanup_2xsecure__error_8h" startline="138">XSECURE_LMS_PUB_KEY_LMS_SIGN_TYPE_MISMATCH_ERROR</references>
+        <references refid="group__xsecure__lms__server__apis_1ga1ef119798d9b40af162c698f7bff1b11" compoundref="xsecure__lms_8h" startline="90">XSECURE_LMS_PUB_KEY_OTS_TYPE_OFFSET</references>
+        <references refid="group__xsecure__lms__server__apis_1gaf4b9b85e3ee4c72233b7daac6c8124be" compoundref="xsecure__lms_8h" startline="58">XSECURE_LMS_PUB_KEY_T_FIELD_SIZE</references>
+        <references refid="group__xsecure__lms__server__apis_1ga98f5042870ba61449ee4cafcfb941f3a" compoundref="xsecure__lms_8h" startline="94">XSECURE_LMS_PUB_KEY_T_OFFSET</references>
+        <references refid="group__xsecure__lms__server__apis_1gafa3bc5af44c2e8e70811fe3e0831b8d9" compoundref="xsecure__lms__core_8c" startline="64">XSECURE_LMS_PUB_KEY_TMP_BUF_ADJ_NODE_VAL_INDEX</references>
+        <references refid="group__xsecure__lms__server__apis_1ga1773523b99233e6c2c2713ef42e27e58" compoundref="xsecure__lms_8h" startline="80">XSECURE_LMS_PUB_KEY_TMP_BUFFER_INTR_TOTAL_SIZE</references>
+        <references refid="group__xsecure__lms__server__apis_1gaaa423b4d7665b1bd34caa541ddb2385c" compoundref="xsecure__lms_8h" startline="74">XSECURE_LMS_PUB_KEY_TMP_BUFFER_LEAF_TOTAL_SIZE</references>
+        <references refid="group__xsecure__lms__server__apis_1gac8b042c74aded13b7feb0e6aed48eab7" compoundref="xsecure__lms_8h" startline="89">XSECURE_LMS_PUB_KEY_TYPE_OFFSET</references>
+        <references refid="spartanup_2xsecure__error_8h_1a0411cd49bb5b71852cecd93bcbf0ca2da7f5d9c0c614cfee7db08b6f2055ba01c" compoundref="spartanup_2xsecure__error_8h" startline="136">XSECURE_LMS_PUB_KEY_UNSUPPORTED_TYPE_1_ERROR</references>
+        <references refid="group__xsecure__lms__server__apis_1ga9a55509c96c18e9b5edc5512e05af4f4" compoundref="xsecure__lms__ots_8h" startline="52">XSECURE_LMS_Q_FIELD_SIZE</references>
+        <references refid="spartanup_2xsecure__error_8h_1a0411cd49bb5b71852cecd93bcbf0ca2da2c7f67cb007825061cea0a8122d147ec" compoundref="spartanup_2xsecure__error_8h" startline="133">XSECURE_LMS_SIGN_EXPECTED_PUB_KEY_LEN_2_ERROR</references>
+        <references refid="spartanup_2xsecure__error_8h_1a0411cd49bb5b71852cecd93bcbf0ca2daa21082e86fb0821385f0008058ae4d2d" compoundref="spartanup_2xsecure__error_8h" startline="153">XSECURE_LMS_SIGN_INVALID_NODE_NUMBER_ERROR</references>
+        <references refid="spartanup_2xsecure__error_8h_1a0411cd49bb5b71852cecd93bcbf0ca2da98a27e16a848106c4ab8d9ebb79bd4c0" compoundref="spartanup_2xsecure__error_8h" startline="143">XSECURE_LMS_SIGN_LEN_1_ERROR</references>
+        <references refid="spartanup_2xsecure__error_8h_1a0411cd49bb5b71852cecd93bcbf0ca2dae6754836b479318194650d53a7c9365d" compoundref="spartanup_2xsecure__error_8h" startline="145">XSECURE_LMS_SIGN_LEN_2_ERROR</references>
+        <references refid="spartanup_2xsecure__error_8h_1a0411cd49bb5b71852cecd93bcbf0ca2da471748e6250c24aceb61a32058dd3b90" compoundref="spartanup_2xsecure__error_8h" startline="147">XSECURE_LMS_SIGN_LEN_3_ERROR</references>
+        <references refid="spartanup_2xsecure__error_8h_1a0411cd49bb5b71852cecd93bcbf0ca2da3838867affba78273af36014f0b9760e" compoundref="spartanup_2xsecure__error_8h" startline="149">XSECURE_LMS_SIGN_UNSUPPORTED_OTS_TYPE_1_ERROR</references>
+        <references refid="spartanup_2xsecure__error_8h_1a0411cd49bb5b71852cecd93bcbf0ca2da9ea2747433f1e061789903601a1cf051" compoundref="spartanup_2xsecure__error_8h" startline="151">XSECURE_LMS_SIGN_UNSUPPORTED_TYPE_1_ERROR</references>
+        <references refid="spartanup_2xsecure__error_8h_1a0411cd49bb5b71852cecd93bcbf0ca2da9d64d3ba385e778eb5c2311152ffd191" compoundref="spartanup_2xsecure__error_8h" startline="169">XSECURE_LMS_SIGN_VERIF_SHA_DIGEST_INTR_EVEN_FAILED_ERROR</references>
+        <references refid="spartanup_2xsecure__error_8h_1a0411cd49bb5b71852cecd93bcbf0ca2da564d39418f8c35c24e44b43c54d757aa" compoundref="spartanup_2xsecure__error_8h" startline="166">XSECURE_LMS_SIGN_VERIF_SHA_DIGEST_INTR_ODD_FAILED_ERROR</references>
+        <references refid="group__xsecure__lms__server__apis_1ga0ed135e1c8cd81e733d5300850e5fdd7" compoundref="xsecure__lms_8h" startline="99">XSECURE_LMS_SIGNATURE_OTS_FIELD_OFFSET</references>
+        <references refid="group__xsecure__lms__server__apis_1ga2696eb12a99587429f944f26d8b50e96" compoundref="xsecure__lms_8h" startline="98">XSECURE_LMS_SIGNATURE_Q_FIELD_OFFSET</references>
+        <references refid="group__xsecure__lms__server__apis_1gab420d167379fca0db7906aa096b8ec75" compoundref="xsecure__lms_8h" startline="50">XSECURE_LMS_TYPE_SIZE</references>
+        <references refid="group__xsecure__lms__server__apis_1ga292e1e3bc9bd3759b76c98cfd8196deb" compoundref="xsecure__lms_8c" startline="58" endline="216">XSecure_LmsLookupParamSet</references>
+        <references refid="group__xsecure__lms__server__apis_1ga48db68f8b63048019c35a756e58d9181" compoundref="xsecure__lms__ots_8c" startline="170" endline="339">XSecure_LmsOtsLookupParamSet</references>
+        <references refid="group__xsecure__common__apis_1ga693c54d224d1fa8ca68b215023b2b359" compoundref="xsecure__defs_8h" startline="85">XSecure_Printf</references>
+        <references refid="group__xsecure__sha__server__apis_1gacbd073de84e1cdf375ea6d140db14c6e" compoundref="core_2sha_2sha__pmx_2xsecure__sha_8c" startline="900" endline="909">XSecure_ShaDigest</references>
+        <referencedby refid="group__xsecure__lms__server__apis_1ga112da8c38a140d02852bd8f93ab78e2f" compoundref="xsecure__lms__core_8c" startline="1308" endline="1403">XSecure_HssFinish</referencedby>
+        <referencedby refid="group__xsecure__lms__server__apis_1ga981b22fbc50d9cd6f91c16604754f078" compoundref="xsecure__lms__core_8c" startline="884" endline="1215">XSecure_HssInit</referencedby>
+        <referencedby refid="group__xsecure__kat__server__apis_1gad7b08bfc183e838bb6d65a94b96ea218" compoundref="2ve__2vm_2xsecure__plat__kat_8c" startline="1763" endline="1776">XSecure_LmsSha2256Kat</referencedby>
+        <referencedby refid="group__xsecure__kat__server__apis_1gafc77ae5d3ebc5c665ee997c554612390" compoundref="2ve__2vm_2xsecure__plat__kat_8c" startline="1789" endline="1802">XSecure_LmsShake256Kat</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__lms__server__apis_1gaf587dc47c7f636cb574154e79ae31f0a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XSecure_HssSignatureVerification</definition>
+        <argsstring>(XSecure_Sha *ShaInstPtr, XPmcDma *DmaPtr, XSecure_HssInitParams *HssInitParams, u8 *Data, u32 DataLen)</argsstring>
+        <name>XSecure_HssSignatureVerification</name>
+        <param>
+          <type>XSecure_Sha *</type>
+          <declname>ShaInstPtr</declname>
+        </param>
+        <param>
+          <type>XPmcDma *</type>
+          <declname>DmaPtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_secure___hss_init_params" kindref="compound">XSecure_HssInitParams</ref> *</type>
+          <declname>HssInitParams</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>Data</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>DataLen</declname>
+        </param>
+        <briefdescription>
+<para>This function performs complete HSS signature verification in a single call. </para>        </briefdescription>
+        <detaileddescription>
+<para>It internally calls HssInit, LmsHashMessage, and HssFinish in sequence. The hash algorithm mode is automatically determined from the authenticated public key.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ShaInstPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to SHA instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DmaPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to DMA instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>HssInitParams</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to HSS initialization parameters (signature buffer, public key, and their lengths) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the data to be verified </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DataLen</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Length of data to be verified</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - On success</para></listitem><listitem><para>Error codes from XSecure_HssInit, XSecure_LmsHashMessage, or XSecure_HssFinish on failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Validate public key and signature structure; authenticate upper-level tree public keys for multi-level HSS</para></listitem><listitem><para>Determine the hash algorithm from the authenticated bottom-level public key&apos;s LMS type</para></listitem><listitem><para>Compute the message digest to be verified against the LMS signature</para></listitem><listitem><para>Verify the bottom-level LMS signature against the message digest </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_core.c" line="1424" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_core.c" bodystart="1424" bodyend="1476"/>
+        <references refid="struct_x_secure___lms_param_1a8ac67f54252e30e78f07b20bca4903b5" compoundref="xsecure__lms_8h" startline="142">XSecure_LmsParam::H</references>
+        <references refid="struct_x_secure___hss_init_params_1a51289eea48f4daf2e728546e9ab89c6e" compoundref="xsecure__lms__core_8h" startline="47">XSecure_HssInitParams::SignatureLen</references>
+        <references refid="struct_x_secure___hss_init_params_1a7ff8fbb4e514ade197218872a6880e1c" compoundref="xsecure__lms__core_8h" startline="46">XSecure_HssInitParams::SignBuff</references>
+        <references refid="group__xsecure__lms__server__apis_1ga112da8c38a140d02852bd8f93ab78e2f" compoundref="xsecure__lms__core_8c" startline="1308" endline="1403">XSecure_HssFinish</references>
+        <references refid="group__xsecure__lms__server__apis_1ga981b22fbc50d9cd6f91c16604754f078" compoundref="xsecure__lms__core_8c" startline="884" endline="1215">XSecure_HssInit</references>
+        <references refid="spartanup_2xsecure__error_8h_1a0411cd49bb5b71852cecd93bcbf0ca2dacc4cea3870255f81c6afc5b0af4c7112" compoundref="spartanup_2xsecure__error_8h" startline="109">XSECURE_LMS_INVALID_PARAM</references>
+        <references refid="group__xsecure__lms__server__apis_1gac8b042c74aded13b7feb0e6aed48eab7" compoundref="xsecure__lms_8h" startline="89">XSECURE_LMS_PUB_KEY_TYPE_OFFSET</references>
+        <references refid="group__xsecure__lms__server__apis_1gab420d167379fca0db7906aa096b8ec75" compoundref="xsecure__lms_8h" startline="50">XSECURE_LMS_TYPE_SIZE</references>
+        <references refid="group__xsecure__lms__server__apis_1ga20f145ad946cac0682c7428afe35dc8f" compoundref="xsecure__lms__core_8c" startline="1233" endline="1286">XSecure_LmsHashMessage</references>
+        <references refid="group__xsecure__lms__server__apis_1ga292e1e3bc9bd3759b76c98cfd8196deb" compoundref="xsecure__lms_8c" startline="58" endline="216">XSecure_LmsLookupParamSet</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__lms__server__apis_1ga4fe7fa250fbd0908fb92b6f65becf08e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XSecure_GetLmsHashAlgo</definition>
+        <argsstring>(u32 PubAlgo, const u8 *const PubKey, XSecure_ShaMode *SignAlgo)</argsstring>
+        <name>XSecure_GetLmsHashAlgo</name>
+        <param>
+          <type>u32</type>
+          <declname>PubAlgo</declname>
+        </param>
+        <param>
+          <type>const u8 *const</type>
+          <declname>PubKey</declname>
+        </param>
+        <param>
+          <type>XSecure_ShaMode *</type>
+          <declname>SignAlgo</declname>
+        </param>
+        <briefdescription>
+<para>This function returns public key LMS type. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>PubAlgo</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Algorithm selected by current PDI </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>PubKey</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to PPK location, PPK is used to detect the variant of LMS selected </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>SignAlgo</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to store the extracted LMS hash algorithm</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - On success</para></listitem><listitem><para>XSECURE_LMS_HSS_L0_PUB_KEY_LMS_TYPE_UNSUPPORTED_ERROR - Level 0 public key LMS type is unsupported</para></listitem><listitem><para>XSECURE_LMS_INVALID_PARAM - Invalid public algorithm provided</para></listitem><listitem><para>XST_FAILURE - On parameter lookup failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Public key&apos;s LMS type</para></listitem><listitem><para>LMS Parameters extracted from Public Key</para></listitem><listitem><para>Fetch the Type of public key, if not a valid/supported Type return error </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_core.c" line="1517" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_core.c" bodystart="1517" bodyend="1553"/>
+        <references refid="struct_x_secure___lms_param_1a8ac67f54252e30e78f07b20bca4903b5" compoundref="xsecure__lms_8h" startline="142">XSecure_LmsParam::H</references>
+        <references refid="group__xsecure__utils__apis_1gad317bd5f7cf522c602b9f00246d34d97" compoundref="spartanup_2xsecure__utils_8h" startline="70">XSECURE_DEBUG_GENERAL</references>
+        <references refid="xsecure__lms__hss_8h_1a199dc0496a0cbfdfd170327b221a9b21" compoundref="xsecure__lms__hss_8h" startline="59">XSECURE_HSS_PUBLIC_KEY_LMS_FIELD_OFFSET</references>
+        <references refid="spartanup_2xsecure__error_8h_1a0411cd49bb5b71852cecd93bcbf0ca2da6dea4359a1cea07a02d4a26c5acc848b" compoundref="spartanup_2xsecure__error_8h" startline="184">XSECURE_LMS_HSS_L0_PUB_KEY_LMS_TYPE_UNSUPPORTED_ERROR</references>
+        <references refid="spartanup_2xsecure__error_8h_1a0411cd49bb5b71852cecd93bcbf0ca2dacc4cea3870255f81c6afc5b0af4c7112" compoundref="spartanup_2xsecure__error_8h" startline="109">XSECURE_LMS_INVALID_PARAM</references>
+        <references refid="group__xsecure__lms__server__apis_1gga87557e3db575e6dc9ad6ddfc596a554aa2c49e5b42557925b34b58f162bb3fc31" compoundref="xsecure__lms_8h" startline="124">XSECURE_LMS_NOT_SUPPORTED</references>
+        <references refid="group__xsecure__lms__server__apis_1gac8b042c74aded13b7feb0e6aed48eab7" compoundref="xsecure__lms_8h" startline="89">XSECURE_LMS_PUB_KEY_TYPE_OFFSET</references>
+        <references refid="group__xsecure__lms__server__apis_1gab420d167379fca0db7906aa096b8ec75" compoundref="xsecure__lms_8h" startline="50">XSECURE_LMS_TYPE_SIZE</references>
+        <references refid="group__xsecure__lms__server__apis_1ga292e1e3bc9bd3759b76c98cfd8196deb" compoundref="xsecure__lms_8c" startline="58" endline="216">XSecure_LmsLookupParamSet</references>
+        <references refid="group__xsecure__common__apis_1ga693c54d224d1fa8ca68b215023b2b359" compoundref="xsecure__defs_8h" startline="85">XSecure_Printf</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file contains the interface for LMS authentication methods. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date        Changes
+----- ---- -------- -------------------------------------------------------
+5.4   kal  07/24/24 Initial release
+5.7   tvp  11/20/25  Code refactoring for platform specific LMS functionality</preformatted></para><para><preformatted></preformatted></para><para><simplesect kind="note"><para></para></simplesect>
+</para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2024<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="29"><highlight class="preprocessor">#ifndef<sp/>XSECURE_LMS_CORE_H_</highlight></codeline>
+<codeline lineno="30"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_LMS_CORE_H_</highlight></codeline>
+<codeline lineno="31"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="33"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="35"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>**********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xsecure__lms__ots_8h" kindref="compound">xsecure_lms_ots.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xsecure__lms_8h" kindref="compound">xsecure_lms.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xsecure__lms__hss_8h" kindref="compound">xsecure_lms_hss.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xsecure_sha.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>******************************/</highlight></codeline>
+<codeline lineno="45" refid="struct_x_secure___hss_init_params" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="46" refid="struct_x_secure___hss_init_params_1a7ff8fbb4e514ade197218872a6880e1c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8*<sp/><ref refid="struct_x_secure___hss_init_params_1a7ff8fbb4e514ade197218872a6880e1c" kindref="member">SignBuff</ref>;<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="47" refid="struct_x_secure___hss_init_params_1a51289eea48f4daf2e728546e9ab89c6e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_secure___hss_init_params_1a51289eea48f4daf2e728546e9ab89c6e" kindref="member">SignatureLen</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="48" refid="struct_x_secure___hss_init_params_1a3ec412122508c8cf3b156711ea8c1442" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8*<sp/><ref refid="struct_x_secure___hss_init_params_1a3ec412122508c8cf3b156711ea8c1442" kindref="member">PublicKey</ref>;<sp/><sp/></highlight></codeline>
+<codeline lineno="49" refid="struct_x_secure___hss_init_params_1a693270e85f64de465bb255ec1d25dd27" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_secure___hss_init_params_1a693270e85f64de465bb255ec1d25dd27" kindref="member">PublicKeyLen</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="50"><highlight class="normal">}<sp/><ref refid="struct_x_secure___hss_init_params" kindref="compound">XSecure_HssInitParams</ref>;</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight></codeline>
+<codeline lineno="53" refid="struct_x_secure___lms_sign_verify_params" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="54" refid="struct_x_secure___lms_sign_verify_params_1ac306c446ade9fc59d2565cc5943a80e2" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8*<sp/><ref refid="struct_x_secure___lms_sign_verify_params_1ac306c446ade9fc59d2565cc5943a80e2" kindref="member">Data</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="55" refid="struct_x_secure___lms_sign_verify_params_1a349c020041cf28df186676b9d7f18cca" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_secure___lms_sign_verify_params_1a349c020041cf28df186676b9d7f18cca" kindref="member">DataLen</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="56" refid="struct_x_secure___lms_sign_verify_params_1af2e0341c0e60e8c82b3c34aee9ecb51a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_secure___lms_sign_verify_params_1af2e0341c0e60e8c82b3c34aee9ecb51a" kindref="member">PreHashedMsg</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="57" refid="struct_x_secure___lms_sign_verify_params_1a06dab3925f496872c17c0b9675c8e91e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8*<sp/><ref refid="struct_x_secure___lms_sign_verify_params_1a06dab3925f496872c17c0b9675c8e91e" kindref="member">LmsSign</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="58" refid="struct_x_secure___lms_sign_verify_params_1a2d59068b0ac06c8b635ea004d069040c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_secure___lms_sign_verify_params_1a2d59068b0ac06c8b635ea004d069040c" kindref="member">LmsSignLen</ref>;<sp/></highlight></codeline>
+<codeline lineno="59" refid="struct_x_secure___lms_sign_verify_params_1a71d8c484d7c9e79fd4991e319fff004c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8*<sp/><ref refid="struct_x_secure___lms_sign_verify_params_1a71d8c484d7c9e79fd4991e319fff004c" kindref="member">ExpectedPubKey</ref>;<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="60" refid="struct_x_secure___lms_sign_verify_params_1aa246d73bd61f8c713633d8b15ffc97e4" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_secure___lms_sign_verify_params_1aa246d73bd61f8c713633d8b15ffc97e4" kindref="member">PubKeyLen</ref>;<sp/><sp/></highlight></codeline>
+<codeline lineno="61"><highlight class="normal">}<sp/><ref refid="struct_x_secure___lms_sign_verify_params" kindref="compound">XSecure_LmsSignVerifyParams</ref>;</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Type<sp/>Definitions********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Function<sp/>Prototypes<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__lms__server__apis_1ga981b22fbc50d9cd6f91c16604754f078" kindref="member">XSecure_HssInit</ref>(XSecure_Sha<sp/>*ShaInstPtr,<sp/>XPmcDma<sp/>*DmaPtr,</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_secure___hss_init_params" kindref="compound">XSecure_HssInitParams</ref><sp/>*HssInitParams);</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__lms__server__apis_1ga20f145ad946cac0682c7428afe35dc8f" kindref="member">XSecure_LmsHashMessage</ref>(XSecure_Sha<sp/>*ShaInstPtr,<sp/>u8*<sp/>Data,<sp/>u32<sp/>DataLen,</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSecure_ShaMode<sp/>Mode);</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__lms__server__apis_1ga112da8c38a140d02852bd8f93ab78e2f" kindref="member">XSecure_HssFinish</ref>(XSecure_Sha<sp/>*ShaInstPtr,<sp/>XPmcDma<sp/>*DmaPtr,<sp/>u8*<sp/>SignBuff,</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>SignatureLen);</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__lms__server__apis_1ga6b50f9fb052dd231c50ea15138f17ff7" kindref="member">XSecure_LmsSignatureVerification</ref>(XSecure_Sha<sp/>*ShaInstPtr,<sp/>XPmcDma<sp/>*DmaPtr,</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_secure___lms_sign_verify_params" kindref="compound">XSecure_LmsSignVerifyParams</ref><sp/>*LmsSignVerifyParams);</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__lms__server__apis_1gaf587dc47c7f636cb574154e79ae31f0a" kindref="member">XSecure_HssSignatureVerification</ref>(XSecure_Sha<sp/>*ShaInstPtr,<sp/>XPmcDma<sp/>*DmaPtr,</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_secure___hss_init_params" kindref="compound">XSecure_HssInitParams</ref><sp/>*HssInitParams,<sp/>u8<sp/>*Data,<sp/>u32<sp/>DataLen);</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__lms__server__apis_1ga4fe7fa250fbd0908fb92b6f65becf08e" kindref="member">XSecure_GetLmsHashAlgo</ref>(u32<sp/>PubAlgo,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8*<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>PubKey,<sp/>XSecure_ShaMode<sp/>*SignAlgo);</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"></highlight></codeline>
+<codeline lineno="79"><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="80"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="82"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="83"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XSECURE_LMS_CORE_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_core.h"/>
+  </compounddef>
+</doxygen>

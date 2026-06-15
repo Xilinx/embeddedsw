@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_dsi_tx_ss___sub_cores" kind="struct" prot="public">
+    <compoundname>XDsiTxSs_SubCores</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="group__dsitxss_1ga5f2c2cd6085cf17a12e719a9744ce222" prot="public" static="no" mutable="no">
+        <type>XDsi</type>
+        <definition>XDsi XDsiTxSs_SubCores::DsiInst</definition>
+        <argsstring></argsstring>
+        <name>DsiInst</name>
+        <briefdescription>
+<para>DSI controller driver instance. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.c" line="56" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.c" bodystart="56" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>DSI TX Subsystem sub-core driver instances container. </para>    </briefdescription>
+    <detaileddescription>
+<para>This structure aggregates all driver instances for sub-cores included in the MIPI DSI TX Subsystem, including the DSI controller core, optional MIPI TX PHY, and optional DPHY core. </para>    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.c" line="55" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.c" bodystart="55" bodyend="63"/>
+    <listofallmembers>
+      <member refid="group__dsitxss_1ga5f2c2cd6085cf17a12e719a9744ce222" prot="public" virt="non-virtual"><scope>XDsiTxSs_SubCores</scope><name>DsiInst</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

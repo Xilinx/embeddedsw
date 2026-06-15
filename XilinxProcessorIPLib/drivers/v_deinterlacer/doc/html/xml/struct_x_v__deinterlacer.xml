@@ -1,0 +1,115 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_v__deinterlacer" kind="struct" prot="public">
+    <compoundname>XV_deinterlacer</compoundname>
+    <includes local="no">xv_deinterlacer.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_v__deinterlacer_1a769b52e3f8636ce72d9cec39b4706daa" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_v__deinterlacer___config" kindref="compound">XV_deinterlacer_Config</ref></type>
+        <definition>XV_deinterlacer_Config XV_deinterlacer::Config</definition>
+        <argsstring></argsstring>
+        <name>Config</name>
+        <briefdescription>
+<para>Hardware Configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_deinterlacer/src/xv_deinterlacer.h" line="64" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_deinterlacer/src/xv_deinterlacer.h" bodystart="64" bodyend="-1"/>
+        <referencedby refid="group__v__deinterlacer_1ga53dc58946156cbfe489bd8d71f0aaaa2" compoundref="xv__deinterlacer__l2_8c" startline="163" endline="199">XV_DeintDbgReportStatus</referencedby>
+        <referencedby refid="xv__deinterlacer_8h_1aba716198a3a400fffc53d076ddcc2286" compoundref="xv__deinterlacer_8c" startline="33" endline="48">XV_deinterlacer_CfgInitialize</referencedby>
+        <referencedby refid="xv__deinterlacer_8h_1a09a9f28fe1c7b560a8e50ab5874ee43a" compoundref="xv__deinterlacer_8c" startline="178" endline="183">XV_deinterlacer_DisableAutoRestart</referencedby>
+        <referencedby refid="xv__deinterlacer_8h_1aa92d622fc50414f543575970547d7b26" compoundref="xv__deinterlacer_8c" startline="159" endline="164">XV_deinterlacer_EnableAutoRestart</referencedby>
+        <referencedby refid="xv__deinterlacer_8h_1a767bdf009b6ae631640624dfe9024ce3" compoundref="xv__deinterlacer_8c" startline="418" endline="426">XV_deinterlacer_Get_algo</referencedby>
+        <referencedby refid="xv__deinterlacer_8h_1adac6d3bbf44fc7233f8404b6613173dc" compoundref="xv__deinterlacer_8c" startline="377" endline="385">XV_deinterlacer_Get_colorFormat</referencedby>
+        <referencedby refid="xv__deinterlacer_8h_1aa063f8811616f76d8320c7b807aeb466" compoundref="xv__deinterlacer_8c" startline="252" endline="260">XV_deinterlacer_Get_height</referencedby>
+        <referencedby refid="xv__deinterlacer_8h_1ada15c4f099b0aff8b0a2c4a62aa24052" compoundref="xv__deinterlacer_8c" startline="460" endline="468">XV_deinterlacer_Get_invert_field_id</referencedby>
+        <referencedby refid="xv__deinterlacer_8h_1a2ccd27a3ca7b565a789447fbc5a2f807" compoundref="xv__deinterlacer_8c" startline="295" endline="304">XV_deinterlacer_Get_read_fb</referencedby>
+        <referencedby refid="xv__deinterlacer_8h_1a89d22682aaceb56492dddd96a4c00af1" compoundref="xv__deinterlacer_8c" startline="214" endline="222">XV_deinterlacer_Get_width</referencedby>
+        <referencedby refid="xv__deinterlacer_8h_1a67258a4557d505336c185e682154c068" compoundref="xv__deinterlacer_8c" startline="337" endline="346">XV_deinterlacer_Get_write_fb</referencedby>
+        <referencedby refid="xv__deinterlacer_8h_1a590ce0f9deab3f295a1298df4c12f1c9" compoundref="xv__deinterlacer_8c" startline="565" endline="570">XV_deinterlacer_InterruptClear</referencedby>
+        <referencedby refid="xv__deinterlacer_8h_1ac10ecfd74fbe1d61dda63e3d7b1dcb4c" compoundref="xv__deinterlacer_8c" startline="543" endline="551">XV_deinterlacer_InterruptDisable</referencedby>
+        <referencedby refid="xv__deinterlacer_8h_1a61923c738e8034d7b0626cb6a9d309ba" compoundref="xv__deinterlacer_8c" startline="520" endline="528">XV_deinterlacer_InterruptEnable</referencedby>
+        <referencedby refid="xv__deinterlacer_8h_1a379c535dd304676ef2d5967b2fe3fe4f" compoundref="xv__deinterlacer_8c" startline="583" endline="588">XV_deinterlacer_InterruptGetEnabled</referencedby>
+        <referencedby refid="xv__deinterlacer_8h_1a30aadf2e1917d990069d8c862e0f438f" compoundref="xv__deinterlacer_8c" startline="601" endline="606">XV_deinterlacer_InterruptGetStatus</referencedby>
+        <referencedby refid="xv__deinterlacer_8h_1afa7cda57d36c40fb637ab3b4880a4a44" compoundref="xv__deinterlacer_8c" startline="502" endline="507">XV_deinterlacer_InterruptGlobalDisable</referencedby>
+        <referencedby refid="xv__deinterlacer_8h_1aaade7af706e761bac26360c19f7a1879" compoundref="xv__deinterlacer_8c" startline="484" endline="489">XV_deinterlacer_InterruptGlobalEnable</referencedby>
+        <referencedby refid="xv__deinterlacer_8h_1a6d5b0ce48fe965fc0aba39444dc79b03" compoundref="xv__deinterlacer_8c" startline="89" endline="97">XV_deinterlacer_IsDone</referencedby>
+        <referencedby refid="xv__deinterlacer_8h_1a8320b0d217c5ac7ea5e17080f61786aa" compoundref="xv__deinterlacer_8c" startline="110" endline="118">XV_deinterlacer_IsIdle</referencedby>
+        <referencedby refid="xv__deinterlacer_8h_1a0b324dfad81cc4e11b5c908dc02d3836" compoundref="xv__deinterlacer_8c" startline="132" endline="141">XV_deinterlacer_IsReady</referencedby>
+        <referencedby refid="xv__deinterlacer_8h_1af77544743089447778e6c6ceeccdaa9b" compoundref="xv__deinterlacer_8c" startline="398" endline="403">XV_deinterlacer_Set_algo</referencedby>
+        <referencedby refid="xv__deinterlacer_8h_1a491f0136ebc5fd77f01c9d56739833e2" compoundref="xv__deinterlacer_8c" startline="360" endline="365">XV_deinterlacer_Set_colorFormat</referencedby>
+        <referencedby refid="xv__deinterlacer_8h_1a57bc304fe804aa1ea520526d9ab78515" compoundref="xv__deinterlacer_8c" startline="235" endline="240">XV_deinterlacer_Set_height</referencedby>
+        <referencedby refid="xv__deinterlacer_8h_1a431bc4b49d5f23514dac9e99d0477b56" compoundref="xv__deinterlacer_8c" startline="442" endline="447">XV_deinterlacer_Set_invert_field_id</referencedby>
+        <referencedby refid="xv__deinterlacer_8h_1afdb65796a78f33d8913f4c472c01efe9" compoundref="xv__deinterlacer_8c" startline="277" endline="283">XV_deinterlacer_Set_read_fb</referencedby>
+        <referencedby refid="xv__deinterlacer_8h_1aaeb8ee15bba9ae69cf28ddfe722ec1bb" compoundref="xv__deinterlacer_8c" startline="196" endline="201">XV_deinterlacer_Set_width</referencedby>
+        <referencedby refid="xv__deinterlacer_8h_1a8562b421c0fdd85d6219f7f0ac4dc840" compoundref="xv__deinterlacer_8c" startline="319" endline="325">XV_deinterlacer_Set_write_fb</referencedby>
+        <referencedby refid="xv__deinterlacer_8h_1a2593a137e66fa7fa4e13263e2b8ba50c" compoundref="xv__deinterlacer_8c" startline="64" endline="72">XV_deinterlacer_Start</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v__deinterlacer_1a85add16a85f0d2e1ac97f5a09b632ba8" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XV_deinterlacer::IsReady</definition>
+        <argsstring></argsstring>
+        <name>IsReady</name>
+        <briefdescription>
+<para>Device is initialized and ready. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_deinterlacer/src/xv_deinterlacer.h" line="65" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_deinterlacer/src/xv_deinterlacer.h" bodystart="65" bodyend="-1"/>
+        <referencedby refid="xv__deinterlacer_8h_1aba716198a3a400fffc53d076ddcc2286" compoundref="xv__deinterlacer_8c" startline="33" endline="48">XV_deinterlacer_CfgInitialize</referencedby>
+        <referencedby refid="xv__deinterlacer_8h_1a09a9f28fe1c7b560a8e50ab5874ee43a" compoundref="xv__deinterlacer_8c" startline="178" endline="183">XV_deinterlacer_DisableAutoRestart</referencedby>
+        <referencedby refid="xv__deinterlacer_8h_1aa92d622fc50414f543575970547d7b26" compoundref="xv__deinterlacer_8c" startline="159" endline="164">XV_deinterlacer_EnableAutoRestart</referencedby>
+        <referencedby refid="xv__deinterlacer_8h_1a767bdf009b6ae631640624dfe9024ce3" compoundref="xv__deinterlacer_8c" startline="418" endline="426">XV_deinterlacer_Get_algo</referencedby>
+        <referencedby refid="xv__deinterlacer_8h_1adac6d3bbf44fc7233f8404b6613173dc" compoundref="xv__deinterlacer_8c" startline="377" endline="385">XV_deinterlacer_Get_colorFormat</referencedby>
+        <referencedby refid="xv__deinterlacer_8h_1aa063f8811616f76d8320c7b807aeb466" compoundref="xv__deinterlacer_8c" startline="252" endline="260">XV_deinterlacer_Get_height</referencedby>
+        <referencedby refid="xv__deinterlacer_8h_1ada15c4f099b0aff8b0a2c4a62aa24052" compoundref="xv__deinterlacer_8c" startline="460" endline="468">XV_deinterlacer_Get_invert_field_id</referencedby>
+        <referencedby refid="xv__deinterlacer_8h_1a2ccd27a3ca7b565a789447fbc5a2f807" compoundref="xv__deinterlacer_8c" startline="295" endline="304">XV_deinterlacer_Get_read_fb</referencedby>
+        <referencedby refid="xv__deinterlacer_8h_1a89d22682aaceb56492dddd96a4c00af1" compoundref="xv__deinterlacer_8c" startline="214" endline="222">XV_deinterlacer_Get_width</referencedby>
+        <referencedby refid="xv__deinterlacer_8h_1a67258a4557d505336c185e682154c068" compoundref="xv__deinterlacer_8c" startline="337" endline="346">XV_deinterlacer_Get_write_fb</referencedby>
+        <referencedby refid="xv__deinterlacer__sinit_8c_1acdc43fe44806621d066175e912f5432a" compoundref="xv__deinterlacer__sinit_8c" startline="133" endline="147">XV_deinterlacer_Initialize</referencedby>
+        <referencedby refid="xv__deinterlacer_8h_1a590ce0f9deab3f295a1298df4c12f1c9" compoundref="xv__deinterlacer_8c" startline="565" endline="570">XV_deinterlacer_InterruptClear</referencedby>
+        <referencedby refid="xv__deinterlacer_8h_1ac10ecfd74fbe1d61dda63e3d7b1dcb4c" compoundref="xv__deinterlacer_8c" startline="543" endline="551">XV_deinterlacer_InterruptDisable</referencedby>
+        <referencedby refid="xv__deinterlacer_8h_1a61923c738e8034d7b0626cb6a9d309ba" compoundref="xv__deinterlacer_8c" startline="520" endline="528">XV_deinterlacer_InterruptEnable</referencedby>
+        <referencedby refid="xv__deinterlacer_8h_1a379c535dd304676ef2d5967b2fe3fe4f" compoundref="xv__deinterlacer_8c" startline="583" endline="588">XV_deinterlacer_InterruptGetEnabled</referencedby>
+        <referencedby refid="xv__deinterlacer_8h_1a30aadf2e1917d990069d8c862e0f438f" compoundref="xv__deinterlacer_8c" startline="601" endline="606">XV_deinterlacer_InterruptGetStatus</referencedby>
+        <referencedby refid="xv__deinterlacer_8h_1afa7cda57d36c40fb637ab3b4880a4a44" compoundref="xv__deinterlacer_8c" startline="502" endline="507">XV_deinterlacer_InterruptGlobalDisable</referencedby>
+        <referencedby refid="xv__deinterlacer_8h_1aaade7af706e761bac26360c19f7a1879" compoundref="xv__deinterlacer_8c" startline="484" endline="489">XV_deinterlacer_InterruptGlobalEnable</referencedby>
+        <referencedby refid="xv__deinterlacer_8h_1a6d5b0ce48fe965fc0aba39444dc79b03" compoundref="xv__deinterlacer_8c" startline="89" endline="97">XV_deinterlacer_IsDone</referencedby>
+        <referencedby refid="xv__deinterlacer_8h_1a8320b0d217c5ac7ea5e17080f61786aa" compoundref="xv__deinterlacer_8c" startline="110" endline="118">XV_deinterlacer_IsIdle</referencedby>
+        <referencedby refid="xv__deinterlacer_8h_1a0b324dfad81cc4e11b5c908dc02d3836" compoundref="xv__deinterlacer_8c" startline="132" endline="141">XV_deinterlacer_IsReady</referencedby>
+        <referencedby refid="xv__deinterlacer_8h_1af77544743089447778e6c6ceeccdaa9b" compoundref="xv__deinterlacer_8c" startline="398" endline="403">XV_deinterlacer_Set_algo</referencedby>
+        <referencedby refid="xv__deinterlacer_8h_1a491f0136ebc5fd77f01c9d56739833e2" compoundref="xv__deinterlacer_8c" startline="360" endline="365">XV_deinterlacer_Set_colorFormat</referencedby>
+        <referencedby refid="xv__deinterlacer_8h_1a57bc304fe804aa1ea520526d9ab78515" compoundref="xv__deinterlacer_8c" startline="235" endline="240">XV_deinterlacer_Set_height</referencedby>
+        <referencedby refid="xv__deinterlacer_8h_1a431bc4b49d5f23514dac9e99d0477b56" compoundref="xv__deinterlacer_8c" startline="442" endline="447">XV_deinterlacer_Set_invert_field_id</referencedby>
+        <referencedby refid="xv__deinterlacer_8h_1afdb65796a78f33d8913f4c472c01efe9" compoundref="xv__deinterlacer_8c" startline="277" endline="283">XV_deinterlacer_Set_read_fb</referencedby>
+        <referencedby refid="xv__deinterlacer_8h_1aaeb8ee15bba9ae69cf28ddfe722ec1bb" compoundref="xv__deinterlacer_8c" startline="196" endline="201">XV_deinterlacer_Set_width</referencedby>
+        <referencedby refid="xv__deinterlacer_8h_1a8562b421c0fdd85d6219f7f0ac4dc840" compoundref="xv__deinterlacer_8c" startline="319" endline="325">XV_deinterlacer_Set_write_fb</referencedby>
+        <referencedby refid="xv__deinterlacer_8h_1a2593a137e66fa7fa4e13263e2b8ba50c" compoundref="xv__deinterlacer_8c" startline="64" endline="72">XV_deinterlacer_Start</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Driver instance data. </para>    </briefdescription>
+    <detaileddescription>
+<para>An instance must be allocated for each core in use. </para>    </detaileddescription>
+    <collaborationgraph>
+      <node id="5">
+        <label>XV_deinterlacer</label>
+        <link refid="struct_x_v__deinterlacer"/>
+        <childnode refid="6" relation="usage">
+          <edgelabel>Config</edgelabel>
+        </childnode>
+      </node>
+      <node id="6">
+        <label>XV_deinterlacer_Config</label>
+        <link refid="struct_x_v__deinterlacer___config"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_deinterlacer/src/xv_deinterlacer.h" line="63" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_deinterlacer/src/xv_deinterlacer.h" bodystart="63" bodyend="66"/>
+    <listofallmembers>
+      <member refid="struct_x_v__deinterlacer_1a769b52e3f8636ce72d9cec39b4706daa" prot="public" virt="non-virtual"><scope>XV_deinterlacer</scope><name>Config</name></member>
+      <member refid="struct_x_v__deinterlacer_1a85add16a85f0d2e1ac97f5a09b632ba8" prot="public" virt="non-virtual"><scope>XV_deinterlacer</scope><name>IsReady</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,1702 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xilskey__bbramps__zynqmp__hw_8h" kind="file">
+    <compoundname>xilskey_bbramps_zynqmp_hw.h</compoundname>
+    <includes refid="xilskey__utils_8h" local="yes">xilskey_utils.h</includes>
+    <includes local="yes">xil_io.h</includes>
+    <includes refid="xilskey__bbram_8h" local="yes">xilskey_bbram.h</includes>
+    <includedby refid="xilskey__bbramps__zynqmp_8c" local="yes">xilskey_bbramps_zynqmp.c</includedby>
+    <incdepgraph>
+      <node id="62">
+        <label>xil_io.h</label>
+      </node>
+      <node id="60">
+        <label>xilskey_bbramps_zynqmp_hw.h</label>
+        <link refid="xilskey_bbramps_zynqmp_hw.h"/>
+        <childnode refid="61" relation="include">
+        </childnode>
+        <childnode refid="62" relation="include">
+        </childnode>
+        <childnode refid="63" relation="include">
+        </childnode>
+      </node>
+      <node id="63">
+        <label>xilskey_bbram.h</label>
+        <link refid="xilskey__bbram_8h"/>
+      </node>
+      <node id="61">
+        <label>xilskey_utils.h</label>
+        <link refid="xilskey__utils_8h"/>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="65">
+        <label>xilskey_bbramps_zynqmp.c</label>
+        <link refid="xilskey__bbramps__zynqmp_8c"/>
+      </node>
+      <node id="64">
+        <label>xilskey_bbramps_zynqmp_hw.h</label>
+        <link refid="xilskey_bbramps_zynqmp_hw.h"/>
+        <childnode refid="65" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="user-defined">
+      <header>Bbram Base Address</header>
+      <memberdef kind="define" id="xilskey__bbramps__zynqmp__hw_8h_1a7fd7c9a4f6f4012f7e4581608d9be7d4" prot="public" static="no">
+        <name>XSK_ZYNQMP_BBRAM_BASEADDR</name>
+        <initializer>0xFFCD0000U</initializer>
+        <briefdescription>
+<para>Bbram base address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" line="48" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" bodystart="48" bodyend="-1"/>
+        <referencedby refid="group__xilskey__zynq_m_p_1gaa1cc8606083a1c20933361fa4d7920c4" compoundref="xilskey__bbramps__zynqmp_8c" startline="80" endline="140">XilSKey_ZynqMp_Bbram_Program</referencedby>
+        <referencedby refid="group__xilskey__zynq_m_p_1gab6c727d0448cd7281c282300b72f6152" compoundref="xilskey__bbramps__zynqmp_8c" startline="150" endline="195">XilSKey_ZynqMp_Bbram_Zeroise</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Register: BbramSts</header>
+      <memberdef kind="define" id="xilskey__bbramps__zynqmp__hw_8h_1a194a83c890440a26af4abfbb73dcea7d" prot="public" static="no">
+        <name>XSK_ZYNQMP_BBRAM_STS_OFFSET</name>
+        <initializer>0x00000000U</initializer>
+        <briefdescription>
+<para>Status register offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" line="55" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" bodystart="54" bodyend="-1"/>
+        <referencedby refid="group__xilskey__zynq_m_p_1gaa1cc8606083a1c20933361fa4d7920c4" compoundref="xilskey__bbramps__zynqmp_8c" startline="80" endline="140">XilSKey_ZynqMp_Bbram_Program</referencedby>
+        <referencedby refid="group__xilskey__zynq_m_p_1gab6c727d0448cd7281c282300b72f6152" compoundref="xilskey__bbramps__zynqmp_8c" startline="150" endline="195">XilSKey_ZynqMp_Bbram_Zeroise</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__bbramps__zynqmp__hw_8h_1a25a6e9f931e4512cfaea28d30c364f7b" prot="public" static="no">
+        <name>XSK_ZYNQMP_BBRAM_STS_RSTVAL</name>
+        <initializer>0x00000000U</initializer>
+        <briefdescription>
+<para>Reset value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" line="56" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__bbramps__zynqmp__hw_8h_1adcad5cdca90f1c85e84662e1f5650419" prot="public" static="no">
+        <name>XSK_ZYNQMP_BBRAM_STS_AES_CRC_PASS_SHIFT</name>
+        <initializer>9U</initializer>
+        <briefdescription>
+<para>AES crc pass shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" line="58" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" bodystart="59" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__bbramps__zynqmp__hw_8h_1aaf22a880f89f570f780c8b223eddd2e4" prot="public" static="no">
+        <name>XSK_ZYNQMP_BBRAM_STS_AES_CRC_PASS_WIDTH</name>
+        <initializer>1U</initializer>
+        <briefdescription>
+<para>AES crc pass width. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" line="61" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" bodystart="62" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__bbramps__zynqmp__hw_8h_1a908f302a42c8b8c7333259b183e043c9" prot="public" static="no">
+        <name>XSK_ZYNQMP_BBRAM_STS_AES_CRC_PASS_MASK</name>
+        <initializer>0x00000200U</initializer>
+        <briefdescription>
+<para>AES crc pass mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" line="64" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" bodystart="65" bodyend="-1"/>
+        <referencedby refid="group__xilskey__zynq_m_p_1gaa1cc8606083a1c20933361fa4d7920c4" compoundref="xilskey__bbramps__zynqmp_8c" startline="80" endline="140">XilSKey_ZynqMp_Bbram_Program</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__bbramps__zynqmp__hw_8h_1a3e19ac1f3a0680d618c94b49f4f6da45" prot="public" static="no">
+        <name>XSK_ZYNQMP_BBRAM_STS_AES_CRC_PASS_DEFVAL</name>
+        <initializer>0x0U</initializer>
+        <briefdescription>
+<para>AES crc pass default value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" line="67" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" bodystart="68" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__bbramps__zynqmp__hw_8h_1a30c0a8092493871cda13709a5d2c9b2e" prot="public" static="no">
+        <name>XSK_ZYNQMP_BBRAM_STS_AES_CRC_DONE_SHIFT</name>
+        <initializer>8U</initializer>
+        <briefdescription>
+<para>AES CRC done shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" line="71" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" bodystart="72" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__bbramps__zynqmp__hw_8h_1ad47abe20b8d6739d4434dcfe7d23efe8" prot="public" static="no">
+        <name>XSK_ZYNQMP_BBRAM_STS_AES_CRC_DONE_WIDTH</name>
+        <initializer>1U</initializer>
+        <briefdescription>
+<para>AES CRC done width. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" line="74" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" bodystart="75" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__bbramps__zynqmp__hw_8h_1ad4d9fa44c9d798cf462ce82cdddcd913" prot="public" static="no">
+        <name>XSK_ZYNQMP_BBRAM_STS_AES_CRC_DONE_MASK</name>
+        <initializer>0x00000100U</initializer>
+        <briefdescription>
+<para>AES CRC done mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" line="77" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" bodystart="78" bodyend="-1"/>
+        <referencedby refid="group__xilskey__zynq_m_p_1gaa1cc8606083a1c20933361fa4d7920c4" compoundref="xilskey__bbramps__zynqmp_8c" startline="80" endline="140">XilSKey_ZynqMp_Bbram_Program</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__bbramps__zynqmp__hw_8h_1a6f48ba7bba9e08c04c3e0e1d77f6a252" prot="public" static="no">
+        <name>XSK_ZYNQMP_BBRAM_STS_AES_CRC_DONE_DEFVAL</name>
+        <initializer>0x0U</initializer>
+        <briefdescription>
+<para>AES CRC done default value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" line="80" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" bodystart="81" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__bbramps__zynqmp__hw_8h_1a186eeb37c7a851431de3f948bfd17b6b" prot="public" static="no">
+        <name>XSK_ZYNQMP_BBRAM_STS_ZEROIZED_SHIFT</name>
+        <initializer>4U</initializer>
+        <briefdescription>
+<para>Bbram zeroised shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" line="84" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" bodystart="85" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__bbramps__zynqmp__hw_8h_1ab8bf714b0d730ea2a797adac1cd2b894" prot="public" static="no">
+        <name>XSK_ZYNQMP_BBRAM_STS_ZEROIZED_WIDTH</name>
+        <initializer>1U</initializer>
+        <briefdescription>
+<para>Bbram zeroised width. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" line="87" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" bodystart="88" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__bbramps__zynqmp__hw_8h_1a725e7bf31bc0af974326c225d9b78669" prot="public" static="no">
+        <name>XSK_ZYNQMP_BBRAM_STS_ZEROIZED_MASK</name>
+        <initializer>0x00000010U</initializer>
+        <briefdescription>
+<para>Bbram zeroised mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" line="90" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" bodystart="91" bodyend="-1"/>
+        <referencedby refid="group__xilskey__zynq_m_p_1gab6c727d0448cd7281c282300b72f6152" compoundref="xilskey__bbramps__zynqmp_8c" startline="150" endline="195">XilSKey_ZynqMp_Bbram_Zeroise</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__bbramps__zynqmp__hw_8h_1aa88849e69a2a5fdd78ecb3c360d86743" prot="public" static="no">
+        <name>XSK_ZYNQMP_BBRAM_STS_ZEROIZED_DEFVAL</name>
+        <initializer>0x0U</initializer>
+        <briefdescription>
+<para>Bbram zeroised default value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" line="93" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" bodystart="94" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__bbramps__zynqmp__hw_8h_1afc0760add8787f1fc925a47a1c7ffd40" prot="public" static="no">
+        <name>XSK_ZYNQMP_BBRAM_STS_PGM_MODE_SHIFT</name>
+        <initializer>0U</initializer>
+        <briefdescription>
+<para>Bbram prgrmg mode shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" line="97" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" bodystart="98" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__bbramps__zynqmp__hw_8h_1a917e0fae62693679c8e78b7f670b267c" prot="public" static="no">
+        <name>XSK_ZYNQMP_BBRAM_STS_PGM_MODE_WIDTH</name>
+        <initializer>1U</initializer>
+        <briefdescription>
+<para>Bbram prgrmg mode width. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" line="100" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" bodystart="101" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__bbramps__zynqmp__hw_8h_1a400a6b1a0f9339e17dac049190d2bc1f" prot="public" static="no">
+        <name>XSK_ZYNQMP_BBRAM_STS_PGM_MODE_MASK</name>
+        <initializer>0x00000001U</initializer>
+        <briefdescription>
+<para>Bbram prgrmg mode mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" line="103" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" bodystart="104" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__bbramps__zynqmp__hw_8h_1af928f7bf54f5f3c4284c164748df87b8" prot="public" static="no">
+        <name>XSK_ZYNQMP_BBRAM_STS_PGM_MODE_DEFVAL</name>
+        <initializer>0x0U</initializer>
+        <briefdescription>
+<para>Bbram prgrmg mode default value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" line="106" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" bodystart="107" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Register: BbramCtrl</header>
+      <memberdef kind="define" id="xilskey__bbramps__zynqmp__hw_8h_1a7a4d3e383cfd97b8eedcd6c5203fd51f" prot="public" static="no">
+        <name>XSK_ZYNQMP_BBRAM_CTRL_OFFSET</name>
+        <initializer>0x00000004U</initializer>
+        <briefdescription>
+<para>Control reg offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" line="114" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" bodystart="115" bodyend="-1"/>
+        <referencedby refid="group__xilskey__zynq_m_p_1gab6c727d0448cd7281c282300b72f6152" compoundref="xilskey__bbramps__zynqmp_8c" startline="150" endline="195">XilSKey_ZynqMp_Bbram_Zeroise</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__bbramps__zynqmp__hw_8h_1a30f33df92e560f2c9ef9148df1d2605e" prot="public" static="no">
+        <name>XSK_ZYNQMP_BBRAM_CTRL_RSTVAL</name>
+        <initializer>0x00000000U</initializer>
+        <briefdescription>
+<para>Control reg reset value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" line="116" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" bodystart="117" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__bbramps__zynqmp__hw_8h_1a63893a15d2e83e47d92cf00181d815bf" prot="public" static="no">
+        <name>XSK_ZYNQMP_BBRAM_CTRL_ZEROIZE_SHIFT</name>
+        <initializer>0U</initializer>
+        <briefdescription>
+<para>Control reg zeroise shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" line="118" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" bodystart="119" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__bbramps__zynqmp__hw_8h_1ae09c9a5cd0e8f6bbf98643ebc51daf1b" prot="public" static="no">
+        <name>XSK_ZYNQMP_BBRAM_CTRL_ZEROIZE_WIDTH</name>
+        <initializer>1U</initializer>
+        <briefdescription>
+<para>Control reg zeroise width. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" line="120" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" bodystart="121" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__bbramps__zynqmp__hw_8h_1afd1d1dd32d28ba076e06ff0bcc58e2a1" prot="public" static="no">
+        <name>XSK_ZYNQMP_BBRAM_CTRL_ZEROIZE_MASK</name>
+        <initializer>0x00000001U</initializer>
+        <briefdescription>
+<para>Control reg zeroise mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" line="122" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" bodystart="123" bodyend="-1"/>
+        <referencedby refid="group__xilskey__zynq_m_p_1gab6c727d0448cd7281c282300b72f6152" compoundref="xilskey__bbramps__zynqmp_8c" startline="150" endline="195">XilSKey_ZynqMp_Bbram_Zeroise</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__bbramps__zynqmp__hw_8h_1a058fb86f0018fda151dfd4bf08249433" prot="public" static="no">
+        <name>XSK_ZYNQMP_BBRAM_CTRL_ZEROIZE_DEFVAL</name>
+        <initializer>0x0U</initializer>
+        <briefdescription>
+<para>Control reg default value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" line="124" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" bodystart="125" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Register: BbramPgmMode</header>
+      <memberdef kind="define" id="xilskey__bbramps__zynqmp__hw_8h_1ad722d1afb6174e35fcfbdb9ae300df0e" prot="public" static="no">
+        <name>XSK_ZYNQMP_BBRAM_PGM_MODE_OFFSET</name>
+        <initializer>0x00000008U</initializer>
+        <briefdescription>
+<para>Programming mode offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" line="131" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" bodystart="132" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__bbramps__zynqmp__hw_8h_1a980b2953cd45a8eba225a7d93148a917" prot="public" static="no">
+        <name>XSK_ZYNQMP_BBRAM_PGM_MODE_RSTVAL</name>
+        <initializer>0x00000000U</initializer>
+        <briefdescription>
+<para>prgrmg mode reset value </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" line="133" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" bodystart="134" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__bbramps__zynqmp__hw_8h_1aaf3b410eadba33b2657815e5147fc8b5" prot="public" static="no">
+        <name>XSK_ZYNQMP_BBRAM_PGM_MODE_VAL_WIDTH</name>
+        <initializer>32U</initializer>
+        <briefdescription>
+<para>prgrmg mode value width </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" line="135" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" bodystart="136" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__bbramps__zynqmp__hw_8h_1a8a4c1c15125431ce644f77fa659ae129" prot="public" static="no">
+        <name>XSK_ZYNQMP_BBRAM_PGM_MODE_VAL_MASK</name>
+        <initializer>0xffffffffU</initializer>
+        <briefdescription>
+<para>prgrmg mode value mask </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" line="137" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" bodystart="138" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__bbramps__zynqmp__hw_8h_1a10064ca1e54b10d9e03dbe512abbedd4" prot="public" static="no">
+        <name>XSK_ZYNQMP_BBRAM_PGM_MODE_VAL_DEFVAL</name>
+        <initializer>0x0U</initializer>
+        <briefdescription>
+<para>prgrmg mode default val </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" line="139" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" bodystart="140" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__bbramps__zynqmp__hw_8h_1a3b573bf1e810cf08d12736fe4e5f3d58" prot="public" static="no">
+        <name>XSK_ZYNQMP_BBRAM_PGM_MODE_SET_VAL</name>
+        <initializer>0x757BDF0D</initializer>
+        <briefdescription>
+<para>prgrmg mode set value </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" line="141" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" bodystart="142" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Register: BbramAesCrc</header>
+      <memberdef kind="define" id="xilskey__bbramps__zynqmp__hw_8h_1ac621f36f217dcc74ee918df67cebaa5d" prot="public" static="no">
+        <name>XSK_ZYNQMP_BBRAM_AES_CRC_OFFSET</name>
+        <initializer>0x0000000CU</initializer>
+        <briefdescription>
+<para>AES&apos;s CRC offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" line="148" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" bodystart="149" bodyend="-1"/>
+        <referencedby refid="group__xilskey__zynq_m_p_1gaa1cc8606083a1c20933361fa4d7920c4" compoundref="xilskey__bbramps__zynqmp_8c" startline="80" endline="140">XilSKey_ZynqMp_Bbram_Program</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__bbramps__zynqmp__hw_8h_1a2a36856422f64782d5063b48fbef705a" prot="public" static="no">
+        <name>XSK_ZYNQMP_BBRAM_AES_CRC_RSTVAL</name>
+        <initializer>0x00000000U</initializer>
+        <briefdescription>
+<para>AES&apos;s CRC reset val. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" line="150" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" bodystart="151" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__bbramps__zynqmp__hw_8h_1aa75d876d93bc03dbf275ee178ba42de5" prot="public" static="no">
+        <name>XSK_ZYNQMP_BBRAM_AES_CRC_VAL_SHIFT</name>
+        <initializer>0U</initializer>
+        <briefdescription>
+<para>AES&apos;s CRC val shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" line="152" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" bodystart="153" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__bbramps__zynqmp__hw_8h_1a149f011d00bd2e39a7c23bd7c7e10b9a" prot="public" static="no">
+        <name>XSK_ZYNQMP_BBRAM_AES_CRC_VAL_WIDTH</name>
+        <initializer>32U</initializer>
+        <briefdescription>
+<para>AES&apos;s CRC val width. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" line="154" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" bodystart="155" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__bbramps__zynqmp__hw_8h_1a4dbb0f050b41ca0e666f8a0a3a115755" prot="public" static="no">
+        <name>XSK_ZYNQMP_BBRAM_AES_CRC_VAL_MASK</name>
+        <initializer>0xffffffffU</initializer>
+        <briefdescription>
+<para>AES&apos;s CRC val mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" line="156" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" bodystart="157" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__bbramps__zynqmp__hw_8h_1a1cf3a0c0754aba8d0afaca5aeff6e1cd" prot="public" static="no">
+        <name>XSK_ZYNQMP_BBRAM_AES_CRC_VAL_DEFVAL</name>
+        <initializer>0x0U</initializer>
+        <briefdescription>
+<para>AES&apos;s CRC default val. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" line="158" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" bodystart="159" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Register: Bbram0</header>
+      <memberdef kind="define" id="xilskey__bbramps__zynqmp__hw_8h_1ad460c32a4f02c48d7c3cb6ea7f3e4a48" prot="public" static="no">
+        <name>XSK_ZYNQMP_BBRAM_0_OFFSET</name>
+        <initializer>0x00000010U</initializer>
+        <briefdescription>
+<para>Bbram0 offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" line="165" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" bodystart="166" bodyend="-1"/>
+        <referencedby refid="group__xilskey__zynq_m_p_1gaa1cc8606083a1c20933361fa4d7920c4" compoundref="xilskey__bbramps__zynqmp_8c" startline="80" endline="140">XilSKey_ZynqMp_Bbram_Program</referencedby>
+        <referencedby refid="group__xilskey__zynq_m_p_1gab6c727d0448cd7281c282300b72f6152" compoundref="xilskey__bbramps__zynqmp_8c" startline="150" endline="195">XilSKey_ZynqMp_Bbram_Zeroise</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__bbramps__zynqmp__hw_8h_1acc3c3fe65199134213fa4531fc6d1126" prot="public" static="no">
+        <name>XSK_ZYNQMP_BBRAM_0_RSTVAL</name>
+        <initializer>0x00000000U</initializer>
+        <briefdescription>
+<para>Bbram0 rst value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" line="166" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" bodystart="167" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__bbramps__zynqmp__hw_8h_1a0ffb2d4928c9d5ab0516ce929a159369" prot="public" static="no">
+        <name>XSK_ZYNQMP_BBRAM_0_DATA_SHIFT</name>
+        <initializer>0U</initializer>
+        <briefdescription>
+<para>Bbram0 data shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" line="167" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" bodystart="168" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__bbramps__zynqmp__hw_8h_1a11623f825d7339026b7f5d55a3765f4e" prot="public" static="no">
+        <name>XSK_ZYNQMP_BBRAM_0_DATA_WIDTH</name>
+        <initializer>32U</initializer>
+        <briefdescription>
+<para>Bbram0 data width. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" line="168" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" bodystart="169" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__bbramps__zynqmp__hw_8h_1a74fda341dd9311998180e41c827cc152" prot="public" static="no">
+        <name>XSK_ZYNQMP_BBRAM_0_DATA_MASK</name>
+        <initializer>0xffffffffU</initializer>
+        <briefdescription>
+<para>Bbram0 data mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" line="169" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" bodystart="170" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__bbramps__zynqmp__hw_8h_1ad6bd357b697dc144a0ae2f304821e153" prot="public" static="no">
+        <name>XSK_ZYNQMP_BBRAM_0_DATA_DEFVAL</name>
+        <initializer>0x0U</initializer>
+        <briefdescription>
+<para>Bbram0 def value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" line="170" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" bodystart="171" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Register: Bbram1</header>
+      <memberdef kind="define" id="xilskey__bbramps__zynqmp__hw_8h_1a41caec0602a233c39f3a8643b74fff2d" prot="public" static="no">
+        <name>XSK_ZYNQMP_BBRAM_1_OFFSET</name>
+        <initializer>0x00000014U</initializer>
+        <briefdescription>
+<para>Bbram1 offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" line="176" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" bodystart="177" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__bbramps__zynqmp__hw_8h_1aee3c2615870bc7eef2e685c1f7905da9" prot="public" static="no">
+        <name>XSK_ZYNQMP_BBRAM_1_RSTVAL</name>
+        <initializer>0x00000000U</initializer>
+        <briefdescription>
+<para>Bbram1 rst value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" line="177" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" bodystart="178" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__bbramps__zynqmp__hw_8h_1ab59e6969d86300491ae440efe55821db" prot="public" static="no">
+        <name>XSK_ZYNQMP_BBRAM_1_DATA_SHIFT</name>
+        <initializer>0U</initializer>
+        <briefdescription>
+<para>Bbram1 data shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" line="179" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" bodystart="180" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__bbramps__zynqmp__hw_8h_1ac4abdacb741258392ddd2b3810180a81" prot="public" static="no">
+        <name>XSK_ZYNQMP_BBRAM_1_DATA_WIDTH</name>
+        <initializer>32U</initializer>
+        <briefdescription>
+<para>Bbram1 data width. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" line="180" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" bodystart="181" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__bbramps__zynqmp__hw_8h_1a6191dfe242250e4c763c5b1d847af078" prot="public" static="no">
+        <name>XSK_ZYNQMP_BBRAM_1_DATA_MASK</name>
+        <initializer>0xffffffffU</initializer>
+        <briefdescription>
+<para>Bbram1 data mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" line="181" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" bodystart="182" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__bbramps__zynqmp__hw_8h_1afc794e1f982b9842fc52dd1928ae0984" prot="public" static="no">
+        <name>XSK_ZYNQMP_BBRAM_1_DATA_DEFVAL</name>
+        <initializer>0x0U</initializer>
+        <briefdescription>
+<para>Bbram1 def value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" line="182" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" bodystart="183" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Register: Bbram2</header>
+      <memberdef kind="define" id="xilskey__bbramps__zynqmp__hw_8h_1a98ba579a2659e9a481b803c25822a21c" prot="public" static="no">
+        <name>XSK_ZYNQMP_BBRAM_2_OFFSET</name>
+        <initializer>0x00000018U</initializer>
+        <briefdescription>
+<para>Bbram2 offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" line="188" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" bodystart="189" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__bbramps__zynqmp__hw_8h_1a732e7de242c67e11bc946aff831e7231" prot="public" static="no">
+        <name>XSK_ZYNQMP_BBRAM_2_RSTVAL</name>
+        <initializer>0x00000000U</initializer>
+        <briefdescription>
+<para>Bbram2 rst value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" line="189" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" bodystart="190" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__bbramps__zynqmp__hw_8h_1aa28aba7601bb2b1cc1b41cfad76dacef" prot="public" static="no">
+        <name>XSK_ZYNQMP_BBRAM_2_DATA_SHIFT</name>
+        <initializer>0U</initializer>
+        <briefdescription>
+<para>Bbram2 data shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" line="191" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" bodystart="192" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__bbramps__zynqmp__hw_8h_1a8ee8025ae4862282276bc090e83783ae" prot="public" static="no">
+        <name>XSK_ZYNQMP_BBRAM_2_DATA_WIDTH</name>
+        <initializer>32U</initializer>
+        <briefdescription>
+<para>Bbram2 data width. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" line="192" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" bodystart="193" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__bbramps__zynqmp__hw_8h_1a1757e2c925916f5c95abec6600d6b5fe" prot="public" static="no">
+        <name>XSK_ZYNQMP_BBRAM_2_DATA_MASK</name>
+        <initializer>0xffffffffU</initializer>
+        <briefdescription>
+<para>Bbram2 data mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" line="193" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" bodystart="194" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__bbramps__zynqmp__hw_8h_1a5b905bc6a190a9f819667c8e848f60ab" prot="public" static="no">
+        <name>XSK_ZYNQMP_BBRAM_2_DATA_DEFVAL</name>
+        <initializer>0x0U</initializer>
+        <briefdescription>
+<para>Bbram2 def value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" line="194" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" bodystart="195" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Register: Bbram3</header>
+      <memberdef kind="define" id="xilskey__bbramps__zynqmp__hw_8h_1a98d6a9d66919bec690ef73408e71e796" prot="public" static="no">
+        <name>XSK_ZYNQMP_BBRAM_3_OFFSET</name>
+        <initializer>0x0000001CU</initializer>
+        <briefdescription>
+<para>Bbram3 offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" line="200" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" bodystart="201" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__bbramps__zynqmp__hw_8h_1a08951bd2ca39cde01443c097edc90568" prot="public" static="no">
+        <name>XSK_ZYNQMP_BBRAM_3_RSTVAL</name>
+        <initializer>0x00000000U</initializer>
+        <briefdescription>
+<para>Bbram3 rst value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" line="201" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" bodystart="202" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__bbramps__zynqmp__hw_8h_1a4b1b3c318f92beeec53d274101078f65" prot="public" static="no">
+        <name>XSK_ZYNQMP_BBRAM_3_DATA_SHIFT</name>
+        <initializer>0U</initializer>
+        <briefdescription>
+<para>Bbram3 data shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" line="203" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" bodystart="204" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__bbramps__zynqmp__hw_8h_1af2f4a7c1a4ce0eb0928bacc07a7f3e35" prot="public" static="no">
+        <name>XSK_ZYNQMP_BBRAM_3_DATA_WIDTH</name>
+        <initializer>32U</initializer>
+        <briefdescription>
+<para>Bbram3 data width. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" line="204" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" bodystart="205" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__bbramps__zynqmp__hw_8h_1aac4bf210f9ce9b91265877ad5644c471" prot="public" static="no">
+        <name>XSK_ZYNQMP_BBRAM_3_DATA_MASK</name>
+        <initializer>0xffffffffU</initializer>
+        <briefdescription>
+<para>Bbram3 data mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" line="205" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" bodystart="206" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__bbramps__zynqmp__hw_8h_1a9bfc8a23c9bdff522e64fd049699480d" prot="public" static="no">
+        <name>XSK_ZYNQMP_BBRAM_3_DATA_DEFVAL</name>
+        <initializer>0x0U</initializer>
+        <briefdescription>
+<para>Bbram3 def value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" line="206" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" bodystart="207" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Register: Bbram4</header>
+      <memberdef kind="define" id="xilskey__bbramps__zynqmp__hw_8h_1a54f9ca03c4a48cc20b0163607155e41d" prot="public" static="no">
+        <name>XSK_ZYNQMP_BBRAM_4_OFFSET</name>
+        <initializer>0x00000020U</initializer>
+        <briefdescription>
+<para>Bbram4 offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" line="212" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" bodystart="213" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__bbramps__zynqmp__hw_8h_1a88df593ea5fc9ad78b052a61561495a0" prot="public" static="no">
+        <name>XSK_ZYNQMP_BBRAM_4_RSTVAL</name>
+        <initializer>0x00000000U</initializer>
+        <briefdescription>
+<para>Bbram4 rst value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" line="213" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" bodystart="214" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__bbramps__zynqmp__hw_8h_1aaefb691669f39d176bc6a83acd306a86" prot="public" static="no">
+        <name>XSK_ZYNQMP_BBRAM_4_DATA_SHIFT</name>
+        <initializer>0U</initializer>
+        <briefdescription>
+<para>Bbram4 data shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" line="215" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" bodystart="216" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__bbramps__zynqmp__hw_8h_1a79349dfaf60622adee8f9333d48c05ea" prot="public" static="no">
+        <name>XSK_ZYNQMP_BBRAM_4_DATA_WIDTH</name>
+        <initializer>32U</initializer>
+        <briefdescription>
+<para>Bbram4 data width. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" line="216" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" bodystart="217" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__bbramps__zynqmp__hw_8h_1af5ca5b2a7342666acb0d771ef9920eb9" prot="public" static="no">
+        <name>XSK_ZYNQMP_BBRAM_4_DATA_MASK</name>
+        <initializer>0xffffffffU</initializer>
+        <briefdescription>
+<para>Bbram4 data mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" line="217" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" bodystart="218" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__bbramps__zynqmp__hw_8h_1af4c53b34c44f6c4789c82068e3c66a2c" prot="public" static="no">
+        <name>XSK_ZYNQMP_BBRAM_4_DATA_DEFVAL</name>
+        <initializer>0x0U</initializer>
+        <briefdescription>
+<para>Bbram4 def value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" line="218" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" bodystart="219" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Register: Bbram5</header>
+      <memberdef kind="define" id="xilskey__bbramps__zynqmp__hw_8h_1a5d8c96557b219b9cb43053941253f27d" prot="public" static="no">
+        <name>XSK_ZYNQMP_BBRAM_5_OFFSET</name>
+        <initializer>0x00000024U</initializer>
+        <briefdescription>
+<para>Bbram5 offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" line="224" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" bodystart="225" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__bbramps__zynqmp__hw_8h_1a47031de893c06febd7f536e4bbd9e2ec" prot="public" static="no">
+        <name>XSK_ZYNQMP_BBRAM_5_RSTVAL</name>
+        <initializer>0x00000000U</initializer>
+        <briefdescription>
+<para>Bbram5 rst value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" line="225" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" bodystart="226" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__bbramps__zynqmp__hw_8h_1aa7cdbf63c6c0ef9df9666f50a8775b69" prot="public" static="no">
+        <name>XSK_ZYNQMP_BBRAM_5_DATA_SHIFT</name>
+        <initializer>0U</initializer>
+        <briefdescription>
+<para>Bbram5 data shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" line="227" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" bodystart="228" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__bbramps__zynqmp__hw_8h_1a60aa9072e7190a4a291ee49d7ab76d89" prot="public" static="no">
+        <name>XSK_ZYNQMP_BBRAM_5_DATA_WIDTH</name>
+        <initializer>32U</initializer>
+        <briefdescription>
+<para>Bbram5 data width. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" line="228" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" bodystart="229" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__bbramps__zynqmp__hw_8h_1a0d3435efb26c4265a0cb046a570f2e5c" prot="public" static="no">
+        <name>XSK_ZYNQMP_BBRAM_5_DATA_MASK</name>
+        <initializer>0xffffffffU</initializer>
+        <briefdescription>
+<para>Bbram5 data mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" line="229" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" bodystart="230" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__bbramps__zynqmp__hw_8h_1a47163e40e792846e21aed8e42f22c777" prot="public" static="no">
+        <name>XSK_ZYNQMP_BBRAM_5_DATA_DEFVAL</name>
+        <initializer>0x0U</initializer>
+        <briefdescription>
+<para>Bbram5 def value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" line="230" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" bodystart="231" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Register: Bbram6</header>
+      <memberdef kind="define" id="xilskey__bbramps__zynqmp__hw_8h_1a6f05ddde499e63300108c6831d0282b4" prot="public" static="no">
+        <name>XSK_ZYNQMP_BBRAM_6_OFFSET</name>
+        <initializer>0x00000028U</initializer>
+        <briefdescription>
+<para>Bbram6 offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" line="236" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" bodystart="237" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__bbramps__zynqmp__hw_8h_1a67dcb0aac3414c9588bfeca985fdb031" prot="public" static="no">
+        <name>XSK_ZYNQMP_BBRAM_6_RSTVAL</name>
+        <initializer>0x00000000U</initializer>
+        <briefdescription>
+<para>Bbram6 rst value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" line="237" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" bodystart="238" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__bbramps__zynqmp__hw_8h_1aea5f96619ba66d674cfbf679c7845397" prot="public" static="no">
+        <name>XSK_ZYNQMP_BBRAM_6_DATA_SHIFT</name>
+        <initializer>0U</initializer>
+        <briefdescription>
+<para>Bbram6 data shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" line="239" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" bodystart="240" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__bbramps__zynqmp__hw_8h_1a8bf6fb280763ab44e18785cd8db6f1e8" prot="public" static="no">
+        <name>XSK_ZYNQMP_BBRAM_6_DATA_WIDTH</name>
+        <initializer>32U</initializer>
+        <briefdescription>
+<para>Bbram6 data width. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" line="240" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" bodystart="241" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__bbramps__zynqmp__hw_8h_1a530216603123bf6f77b8a96d04117560" prot="public" static="no">
+        <name>XSK_ZYNQMP_BBRAM_6_DATA_MASK</name>
+        <initializer>0xffffffffU</initializer>
+        <briefdescription>
+<para>Bbram6 data mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" line="241" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" bodystart="242" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__bbramps__zynqmp__hw_8h_1a150b8efb7d1faef1e5c0b3a3a603eb57" prot="public" static="no">
+        <name>XSK_ZYNQMP_BBRAM_6_DATA_DEFVAL</name>
+        <initializer>0x0U</initializer>
+        <briefdescription>
+<para>Bbram6 def value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" line="242" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" bodystart="243" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Register: Bbram7</header>
+      <memberdef kind="define" id="xilskey__bbramps__zynqmp__hw_8h_1a104c26f1c18fe3998ea71013bc2c0d0c" prot="public" static="no">
+        <name>XSK_ZYNQMP_BBRAM_7_OFFSET</name>
+        <initializer>0x0000002CU</initializer>
+        <briefdescription>
+<para>Bbram7 offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" line="248" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" bodystart="249" bodyend="-1"/>
+        <referencedby refid="group__xilskey__zynq_m_p_1gaa1cc8606083a1c20933361fa4d7920c4" compoundref="xilskey__bbramps__zynqmp_8c" startline="80" endline="140">XilSKey_ZynqMp_Bbram_Program</referencedby>
+        <referencedby refid="group__xilskey__zynq_m_p_1gab6c727d0448cd7281c282300b72f6152" compoundref="xilskey__bbramps__zynqmp_8c" startline="150" endline="195">XilSKey_ZynqMp_Bbram_Zeroise</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__bbramps__zynqmp__hw_8h_1a8a70bb8a138eedee639a3893887d300b" prot="public" static="no">
+        <name>XSK_ZYNQMP_BBRAM_7_RSTVAL</name>
+        <initializer>0x00000000U</initializer>
+        <briefdescription>
+<para>Bbram7 rst value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" line="249" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" bodystart="250" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__bbramps__zynqmp__hw_8h_1a7947b21000db9d783c3831377d0fe258" prot="public" static="no">
+        <name>XSK_ZYNQMP_BBRAM_7_DATA_SHIFT</name>
+        <initializer>0U</initializer>
+        <briefdescription>
+<para>Bbram7 data shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" line="251" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" bodystart="252" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__bbramps__zynqmp__hw_8h_1aebd454ba45a8f6e020712ab01cb4fd39" prot="public" static="no">
+        <name>XSK_ZYNQMP_BBRAM_7_DATA_WIDTH</name>
+        <initializer>32U</initializer>
+        <briefdescription>
+<para>Bbram7 data width. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" line="252" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" bodystart="253" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__bbramps__zynqmp__hw_8h_1a2366117d6b840b41f1e761d51fb59eba" prot="public" static="no">
+        <name>XSK_ZYNQMP_BBRAM_7_DATA_MASK</name>
+        <initializer>0xffffffffU</initializer>
+        <briefdescription>
+<para>Bbram7 data mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" line="253" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" bodystart="254" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__bbramps__zynqmp__hw_8h_1ad480638a8b88424977b49fc65db9aaab" prot="public" static="no">
+        <name>XSK_ZYNQMP_BBRAM_7_DATA_DEFVAL</name>
+        <initializer>0x0U</initializer>
+        <briefdescription>
+<para>Bbram7 def value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" line="254" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" bodystart="255" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Register: Bbram8</header>
+      <memberdef kind="define" id="xilskey__bbramps__zynqmp__hw_8h_1a1756da00ecf19227f45782ba90c92720" prot="public" static="no">
+        <name>XSK_ZYNQMP_BBRAM_8_OFFSET</name>
+        <initializer>0x00000030U</initializer>
+        <briefdescription>
+<para>Bbram8 offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" line="260" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" bodystart="261" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__bbramps__zynqmp__hw_8h_1aa51650917301d5075e69a75f656e070b" prot="public" static="no">
+        <name>XSK_ZYNQMP_BBRAM_8_RSTVAL</name>
+        <initializer>0x00000000U</initializer>
+        <briefdescription>
+<para>Bbram8 rst value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" line="261" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" bodystart="262" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__bbramps__zynqmp__hw_8h_1a787c2e96d39391b6b5ec17f17ec744aa" prot="public" static="no">
+        <name>XSK_ZYNQMP_BBRAM_8_DATA_SHIFT</name>
+        <initializer>0U</initializer>
+        <briefdescription>
+<para>Bbram8 data shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" line="263" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" bodystart="264" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__bbramps__zynqmp__hw_8h_1a2ff26da8e2f74b59907ebe71bba2787a" prot="public" static="no">
+        <name>XSK_ZYNQMP_BBRAM_8_DATA_WIDTH</name>
+        <initializer>32U</initializer>
+        <briefdescription>
+<para>Bbram8 data width. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" line="264" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" bodystart="265" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__bbramps__zynqmp__hw_8h_1a41633001e2b6402b42a07d8f2c925c85" prot="public" static="no">
+        <name>XSK_ZYNQMP_BBRAM_8_DATA_MASK</name>
+        <initializer>0xffffffffU</initializer>
+        <briefdescription>
+<para>Bbram8 data mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" line="265" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" bodystart="266" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__bbramps__zynqmp__hw_8h_1af8ba8ad9dee0a50b3d3f7529554fc2ac" prot="public" static="no">
+        <name>XSK_ZYNQMP_BBRAM_8_DATA_DEFVAL</name>
+        <initializer>0x0U</initializer>
+        <briefdescription>
+<para>Bbram8 def value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" line="266" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" bodystart="267" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Register: BbramSlverr</header>
+      <memberdef kind="define" id="xilskey__bbramps__zynqmp__hw_8h_1a6c3ef5bdd86ee7f80d6372426bc51278" prot="public" static="no">
+        <name>XSK_ZYNQMP_BBRAM_SLVERR_OFFSET</name>
+        <initializer>0x00000034U</initializer>
+        <briefdescription>
+<para>Slave error control offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" line="273" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" bodystart="273" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__bbramps__zynqmp__hw_8h_1a66654fd125b8cc8c5aa9c025a7188e97" prot="public" static="no">
+        <name>XSK_ZYNQMP_BBRAM_SLVERR_RSTVAL</name>
+        <initializer>0x00000000U</initializer>
+        <briefdescription>
+<para>Slave error reg reset value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" line="275" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" bodystart="276" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__bbramps__zynqmp__hw_8h_1a63c9a7e2f011449c2265153b8c205f7a" prot="public" static="no">
+        <name>XSK_ZYNQMP_BBRAM_SLVERR_EN_SHIFT</name>
+        <initializer>0x0U</initializer>
+        <briefdescription>
+<para>Slave error enable shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" line="278" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" bodystart="280" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__bbramps__zynqmp__hw_8h_1abfd6d26cb757075ead651ff0b089a8e6" prot="public" static="no">
+        <name>XSK_ZYNQMP_BBRAM_SLVERR_EN_WIDTH</name>
+        <initializer>0x1U</initializer>
+        <briefdescription>
+<para>Slave error enable width. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" line="280" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" bodystart="283" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__bbramps__zynqmp__hw_8h_1af1227c12a73652e71786e499a4353334" prot="public" static="no">
+        <name>XSK_ZYNQMP_BBRAM_SLVERR_EN_MASK</name>
+        <initializer>0x00000001U</initializer>
+        <briefdescription>
+<para>Slave error enable mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" line="282" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" bodystart="286" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__bbramps__zynqmp__hw_8h_1a58929dc4c519a033e124c6ee55d2f5b6" prot="public" static="no">
+        <name>XSK_ZYNQMP_BBRAM_SLVERR_EN_DEFVAL</name>
+        <initializer>0x0U</initializer>
+        <briefdescription>
+<para>Slave error enable def value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" line="284" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" bodystart="289" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Register: BbramIsr</header>
+      <memberdef kind="define" id="xilskey__bbramps__zynqmp__hw_8h_1ac06d9b3b520da0d281896fa0f058ad81" prot="public" static="no">
+        <name>XSK_ZYNQMP_BBRAM_ISR_OFFSET</name>
+        <initializer>0x00000038U</initializer>
+        <briefdescription>
+<para>ISR offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" line="290" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" bodystart="297" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__bbramps__zynqmp__hw_8h_1abb790e52417eae878e090a1697aa508c" prot="public" static="no">
+        <name>XSK_ZYNQMP_BBRAM_ISR_RSTVAL</name>
+        <initializer>0x00000000U</initializer>
+        <briefdescription>
+<para>ISR reset value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" line="292" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" bodystart="299" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__bbramps__zynqmp__hw_8h_1a5c2065cbef65a8cf1fe616f3c3abc4c2" prot="public" static="no">
+        <name>XSK_ZYNQMP_BBRAM_ISR_APB_SLVERR_SHIFT</name>
+        <initializer>0x0U</initializer>
+        <briefdescription>
+<para>ISR APB slave err shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" line="295" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" bodystart="302" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__bbramps__zynqmp__hw_8h_1ae4eb8244de3ee77dcf0813bda2a1fc6f" prot="public" static="no">
+        <name>XSK_ZYNQMP_BBRAM_ISR_APB_SLVERR_WIDTH</name>
+        <initializer>0x1U</initializer>
+        <briefdescription>
+<para>ISR APB slave err width. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" line="298" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" bodystart="305" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__bbramps__zynqmp__hw_8h_1a9eeb6fc5af71fbc75bf3e3ae62b56ffa" prot="public" static="no">
+        <name>XSK_ZYNQMP_BBRAM_ISR_APB_SLVERR_MASK</name>
+        <initializer>0x00000001U</initializer>
+        <briefdescription>
+<para>ISR APB slave err mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" line="301" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" bodystart="308" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__bbramps__zynqmp__hw_8h_1afb64624e76299bbb58896f6e9b30c36d" prot="public" static="no">
+        <name>XSK_ZYNQMP_BBRAM_ISR_APB_SLVERR_DEFVAL</name>
+        <initializer>0x0U</initializer>
+        <briefdescription>
+<para>ISR APB slave err def value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" line="304" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" bodystart="311" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Register: BbramImr</header>
+      <memberdef kind="define" id="xilskey__bbramps__zynqmp__hw_8h_1acf3a881c3f29a2dd4c71f91fb5fe68b3" prot="public" static="no">
+        <name>XSK_ZYNQMP_BBRAM_IMR_OFFSET</name>
+        <initializer>0x0000003CU</initializer>
+        <briefdescription>
+<para>IMR offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" line="312" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" bodystart="319" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__bbramps__zynqmp__hw_8h_1a788a80cf3cdd6f33aa26fc1a428349c8" prot="public" static="no">
+        <name>XSK_ZYNQMP_BBRAM_IMR_RSTVAL</name>
+        <initializer>0x00000001U</initializer>
+        <briefdescription>
+<para>IMR reset value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" line="314" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" bodystart="321" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__bbramps__zynqmp__hw_8h_1a30e7774a676a99b4e4b2cb32ba0101e7" prot="public" static="no">
+        <name>XSK_ZYNQMP_BBRAM_IMR_APB_SLVERR_SHIFT</name>
+        <initializer>0x0U</initializer>
+        <briefdescription>
+<para>IMR APB slave err shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" line="316" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" bodystart="323" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__bbramps__zynqmp__hw_8h_1a950e93b31ed3efe32af173f2ae63d302" prot="public" static="no">
+        <name>XSK_ZYNQMP_BBRAM_IMR_APB_SLVERR_WIDTH</name>
+        <initializer>0x1U</initializer>
+        <briefdescription>
+<para>IMR APB slave err width. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" line="319" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" bodystart="326" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__bbramps__zynqmp__hw_8h_1a5851a193025b48e9edab84886e6f57d3" prot="public" static="no">
+        <name>XSK_ZYNQMP_BBRAM_IMR_APB_SLVERR_MASK</name>
+        <initializer>0x00000001U</initializer>
+        <briefdescription>
+<para>IMR APB slave err mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" line="322" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" bodystart="329" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__bbramps__zynqmp__hw_8h_1a25534e3a95c38fca41f9039b248f7189" prot="public" static="no">
+        <name>XSK_ZYNQMP_BBRAM_IMR_APB_SLVERR_DEFVAL</name>
+        <initializer>0x1U</initializer>
+        <briefdescription>
+<para>IMR APB slave err def value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" line="325" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" bodystart="332" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Register: BbramIer</header>
+      <memberdef kind="define" id="xilskey__bbramps__zynqmp__hw_8h_1a2e5654fa0766b8702ae8c252de2d0a48" prot="public" static="no">
+        <name>XSK_ZYNQMP_BBRAM_IER_OFFSET</name>
+        <initializer>0x00000040U</initializer>
+        <briefdescription>
+<para>IER offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" line="333" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" bodystart="340" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__bbramps__zynqmp__hw_8h_1ada88927b3261136aa9b1aeb1ea102248" prot="public" static="no">
+        <name>XSK_ZYNQMP_BBRAM_IER_RSTVAL</name>
+        <initializer>0x00000000U</initializer>
+        <briefdescription>
+<para>IER reset value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" line="335" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" bodystart="342" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__bbramps__zynqmp__hw_8h_1ad8ba5d7659f8118f7943cbb83eb74b42" prot="public" static="no">
+        <name>XSK_ZYNQMP_BBRAM_IER_APB_SLVERR_SHIFT</name>
+        <initializer>0U</initializer>
+        <briefdescription>
+<para>IER APB slave err shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" line="337" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" bodystart="344" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__bbramps__zynqmp__hw_8h_1ae9edc1c43313a768c36ac01eb08e9129" prot="public" static="no">
+        <name>XSK_ZYNQMP_BBRAM_IER_APB_SLVERR_WIDTH</name>
+        <initializer>1U</initializer>
+        <briefdescription>
+<para>IER APB slave err width. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" line="340" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" bodystart="347" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__bbramps__zynqmp__hw_8h_1a8f149616e2770c373145f13074fe6214" prot="public" static="no">
+        <name>XSK_ZYNQMP_BBRAM_IER_APB_SLVERR_MASK</name>
+        <initializer>0x00000001U</initializer>
+        <briefdescription>
+<para>IER APB slave err mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" line="343" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" bodystart="350" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__bbramps__zynqmp__hw_8h_1a7de42f7a79592f321094580e254d421c" prot="public" static="no">
+        <name>XSK_ZYNQMP_BBRAM_IER_APB_SLVERR_DEFVAL</name>
+        <initializer>0x0U</initializer>
+        <briefdescription>
+<para>IER APB slave err def value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" line="346" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" bodystart="353" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Register: BbramIdr</header>
+      <memberdef kind="define" id="xilskey__bbramps__zynqmp__hw_8h_1a60da4f57e1e0bd75afdc33e482283d53" prot="public" static="no">
+        <name>XSK_ZYNQMP_BBRAM_IDR_OFFSET</name>
+        <initializer>0x00000044U</initializer>
+        <briefdescription>
+<para>IDR offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" line="354" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" bodystart="361" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__bbramps__zynqmp__hw_8h_1a27ebef5de68b6060a200c26dfa9ab128" prot="public" static="no">
+        <name>XSK_ZYNQMP_BBRAM_IDR_RSTVAL</name>
+        <initializer>0x00000000U</initializer>
+        <briefdescription>
+<para>IDR reset value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" line="356" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" bodystart="363" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__bbramps__zynqmp__hw_8h_1af8f091dc9a4d1bfa8d430f65c077beb5" prot="public" static="no">
+        <name>XSK_ZYNQMP_BBRAM_IDR_APB_SLVERR_SHIFT</name>
+        <initializer>0x0U</initializer>
+        <briefdescription>
+<para>IDR APB slave err shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" line="358" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" bodystart="365" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__bbramps__zynqmp__hw_8h_1aa4531150e4353154d28903ad28717787" prot="public" static="no">
+        <name>XSK_ZYNQMP_BBRAM_IDR_APB_SLVERR_WIDTH</name>
+        <initializer>0x1U</initializer>
+        <briefdescription>
+<para>IDR APB slave err width. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" line="361" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" bodystart="368" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__bbramps__zynqmp__hw_8h_1a1c7a902985b0f51764c1b12de6a049f2" prot="public" static="no">
+        <name>XSK_ZYNQMP_BBRAM_IDR_APB_SLVERR_MASK</name>
+        <initializer>0x00000001U</initializer>
+        <briefdescription>
+<para>IDR APB slave err mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" line="364" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" bodystart="371" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__bbramps__zynqmp__hw_8h_1a47b46f9f6aa363eb096e76ef1bb46521" prot="public" static="no">
+        <name>XSK_ZYNQMP_BBRAM_IDR_APB_SLVERR_DEFVAL</name>
+        <initializer>0x0U</initializer>
+        <briefdescription>
+<para>IDR APB slave err def value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" line="367" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h" bodystart="374" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This header file contains identifiers and register-level driver functions (or macros) that can be used to access the Xilinx ZynqMp BBRAM controller. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who     Date     Changes
+<hruler/>
+
+4.0   vns     10/08/15 First release
+</preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2015<sp/>-<sp/>2020<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="26"><highlight class="preprocessor">#ifndef<sp/>__XSK_BBRAMPS_ZYNQMP_HW_H__</highlight></codeline>
+<codeline lineno="27"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>__XSK_BBRAMPS_ZYNQMP_HW_H__</highlight></codeline>
+<codeline lineno="28"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="30"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="32"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xilskey__utils_8h" kindref="compound">xilskey_utils.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_io.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xilskey__bbram_8h" kindref="compound">xilskey_bbram.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight></codeline>
+<codeline lineno="48" refid="xilskey__bbramps__zynqmp__hw_8h_1a7fd7c9a4f6f4012f7e4581608d9be7d4" refkind="member"><highlight class="preprocessor">#define<sp/>XSK_ZYNQMP_BBRAM_BASEADDR<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xFFCD0000U<sp/></highlight></codeline>
+<codeline lineno="50"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="51"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="54" refid="xilskey__bbramps__zynqmp__hw_8h_1a194a83c890440a26af4abfbb73dcea7d" refkind="member"><highlight class="preprocessor">#define<sp/>XSK_ZYNQMP_BBRAM_STS_OFFSET<sp/><sp/><sp/><sp/><sp/>0x00000000U<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="56"><highlight class="preprocessor">#define<sp/>XSK_ZYNQMP_BBRAM_STS_RSTVAL<sp/><sp/><sp/><sp/><sp/>0x00000000U<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="58"><highlight class="preprocessor">#define<sp/>XSK_ZYNQMP_BBRAM_STS_AES_CRC_PASS_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>9U</highlight></codeline>
+<codeline lineno="59" refid="xilskey__bbramps__zynqmp__hw_8h_1adcad5cdca90f1c85e84662e1f5650419" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="61"><highlight class="preprocessor">#define<sp/>XSK_ZYNQMP_BBRAM_STS_AES_CRC_PASS_WIDTH<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1U</highlight></codeline>
+<codeline lineno="62" refid="xilskey__bbramps__zynqmp__hw_8h_1aaf22a880f89f570f780c8b223eddd2e4" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="64"><highlight class="preprocessor">#define<sp/>XSK_ZYNQMP_BBRAM_STS_AES_CRC_PASS_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000200U</highlight></codeline>
+<codeline lineno="65" refid="xilskey__bbramps__zynqmp__hw_8h_1a908f302a42c8b8c7333259b183e043c9" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="67"><highlight class="preprocessor">#define<sp/>XSK_ZYNQMP_BBRAM_STS_AES_CRC_PASS_DEFVAL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0U</highlight></codeline>
+<codeline lineno="68" refid="xilskey__bbramps__zynqmp__hw_8h_1a3e19ac1f3a0680d618c94b49f4f6da45" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="71"><highlight class="preprocessor">#define<sp/>XSK_ZYNQMP_BBRAM_STS_AES_CRC_DONE_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>8U</highlight></codeline>
+<codeline lineno="72" refid="xilskey__bbramps__zynqmp__hw_8h_1a30c0a8092493871cda13709a5d2c9b2e" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="74"><highlight class="preprocessor">#define<sp/>XSK_ZYNQMP_BBRAM_STS_AES_CRC_DONE_WIDTH<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1U</highlight></codeline>
+<codeline lineno="75" refid="xilskey__bbramps__zynqmp__hw_8h_1ad47abe20b8d6739d4434dcfe7d23efe8" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="77"><highlight class="preprocessor">#define<sp/>XSK_ZYNQMP_BBRAM_STS_AES_CRC_DONE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000100U</highlight></codeline>
+<codeline lineno="78" refid="xilskey__bbramps__zynqmp__hw_8h_1ad4d9fa44c9d798cf462ce82cdddcd913" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="80"><highlight class="preprocessor">#define<sp/>XSK_ZYNQMP_BBRAM_STS_AES_CRC_DONE_DEFVAL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0U</highlight></codeline>
+<codeline lineno="81" refid="xilskey__bbramps__zynqmp__hw_8h_1a6f48ba7bba9e08c04c3e0e1d77f6a252" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="84"><highlight class="preprocessor">#define<sp/>XSK_ZYNQMP_BBRAM_STS_ZEROIZED_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>4U</highlight></codeline>
+<codeline lineno="85" refid="xilskey__bbramps__zynqmp__hw_8h_1a186eeb37c7a851431de3f948bfd17b6b" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="87"><highlight class="preprocessor">#define<sp/>XSK_ZYNQMP_BBRAM_STS_ZEROIZED_WIDTH<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1U</highlight></codeline>
+<codeline lineno="88" refid="xilskey__bbramps__zynqmp__hw_8h_1ab8bf714b0d730ea2a797adac1cd2b894" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="90"><highlight class="preprocessor">#define<sp/>XSK_ZYNQMP_BBRAM_STS_ZEROIZED_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000010U</highlight></codeline>
+<codeline lineno="91" refid="xilskey__bbramps__zynqmp__hw_8h_1a725e7bf31bc0af974326c225d9b78669" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="93"><highlight class="preprocessor">#define<sp/>XSK_ZYNQMP_BBRAM_STS_ZEROIZED_DEFVAL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0U</highlight></codeline>
+<codeline lineno="94" refid="xilskey__bbramps__zynqmp__hw_8h_1aa88849e69a2a5fdd78ecb3c360d86743" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="97"><highlight class="preprocessor">#define<sp/>XSK_ZYNQMP_BBRAM_STS_PGM_MODE_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0U</highlight></codeline>
+<codeline lineno="98" refid="xilskey__bbramps__zynqmp__hw_8h_1afc0760add8787f1fc925a47a1c7ffd40" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="100"><highlight class="preprocessor">#define<sp/>XSK_ZYNQMP_BBRAM_STS_PGM_MODE_WIDTH<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1U</highlight></codeline>
+<codeline lineno="101" refid="xilskey__bbramps__zynqmp__hw_8h_1a917e0fae62693679c8e78b7f670b267c" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="103"><highlight class="preprocessor">#define<sp/>XSK_ZYNQMP_BBRAM_STS_PGM_MODE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000001U</highlight></codeline>
+<codeline lineno="104" refid="xilskey__bbramps__zynqmp__hw_8h_1a400a6b1a0f9339e17dac049190d2bc1f" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="106"><highlight class="preprocessor">#define<sp/>XSK_ZYNQMP_BBRAM_STS_PGM_MODE_DEFVAL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0U</highlight></codeline>
+<codeline lineno="107" refid="xilskey__bbramps__zynqmp__hw_8h_1af928f7bf54f5f3c4284c164748df87b8" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="110"></codeline>
+<codeline lineno="114"><highlight class="preprocessor">#define<sp/>XSK_ZYNQMP_BBRAM_CTRL_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000004U</highlight></codeline>
+<codeline lineno="115" refid="xilskey__bbramps__zynqmp__hw_8h_1a7a4d3e383cfd97b8eedcd6c5203fd51f" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="116"><highlight class="preprocessor">#define<sp/>XSK_ZYNQMP_BBRAM_CTRL_RSTVAL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000000U</highlight></codeline>
+<codeline lineno="117" refid="xilskey__bbramps__zynqmp__hw_8h_1a30f33df92e560f2c9ef9148df1d2605e" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="118"><highlight class="preprocessor">#define<sp/>XSK_ZYNQMP_BBRAM_CTRL_ZEROIZE_SHIFT<sp/><sp/><sp/><sp/><sp/>0U</highlight></codeline>
+<codeline lineno="119" refid="xilskey__bbramps__zynqmp__hw_8h_1a63893a15d2e83e47d92cf00181d815bf" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="120"><highlight class="preprocessor">#define<sp/>XSK_ZYNQMP_BBRAM_CTRL_ZEROIZE_WIDTH<sp/><sp/><sp/><sp/><sp/>1U</highlight></codeline>
+<codeline lineno="121" refid="xilskey__bbramps__zynqmp__hw_8h_1ae09c9a5cd0e8f6bbf98643ebc51daf1b" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="122"><highlight class="preprocessor">#define<sp/>XSK_ZYNQMP_BBRAM_CTRL_ZEROIZE_MASK<sp/><sp/><sp/><sp/><sp/><sp/>0x00000001U</highlight></codeline>
+<codeline lineno="123" refid="xilskey__bbramps__zynqmp__hw_8h_1afd1d1dd32d28ba076e06ff0bcc58e2a1" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="124"><highlight class="preprocessor">#define<sp/>XSK_ZYNQMP_BBRAM_CTRL_ZEROIZE_DEFVAL<sp/><sp/><sp/><sp/>0x0U</highlight></codeline>
+<codeline lineno="125" refid="xilskey__bbramps__zynqmp__hw_8h_1a058fb86f0018fda151dfd4bf08249433" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="127"></codeline>
+<codeline lineno="131"><highlight class="preprocessor">#define<sp/>XSK_ZYNQMP_BBRAM_PGM_MODE_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000008U</highlight></codeline>
+<codeline lineno="132" refid="xilskey__bbramps__zynqmp__hw_8h_1ad722d1afb6174e35fcfbdb9ae300df0e" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="133"><highlight class="preprocessor">#define<sp/>XSK_ZYNQMP_BBRAM_PGM_MODE_RSTVAL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000000U</highlight></codeline>
+<codeline lineno="134" refid="xilskey__bbramps__zynqmp__hw_8h_1a980b2953cd45a8eba225a7d93148a917" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="135"><highlight class="preprocessor">#define<sp/>XSK_ZYNQMP_BBRAM_PGM_MODE_VAL_WIDTH<sp/><sp/><sp/><sp/><sp/>32U</highlight></codeline>
+<codeline lineno="136" refid="xilskey__bbramps__zynqmp__hw_8h_1aaf3b410eadba33b2657815e5147fc8b5" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="137"><highlight class="preprocessor">#define<sp/>XSK_ZYNQMP_BBRAM_PGM_MODE_VAL_MASK<sp/><sp/><sp/><sp/><sp/><sp/>0xffffffffU</highlight></codeline>
+<codeline lineno="138" refid="xilskey__bbramps__zynqmp__hw_8h_1a8a4c1c15125431ce644f77fa659ae129" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="139"><highlight class="preprocessor">#define<sp/>XSK_ZYNQMP_BBRAM_PGM_MODE_VAL_DEFVAL<sp/><sp/><sp/><sp/>0x0U</highlight></codeline>
+<codeline lineno="140" refid="xilskey__bbramps__zynqmp__hw_8h_1a10064ca1e54b10d9e03dbe512abbedd4" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="141"><highlight class="preprocessor">#define<sp/>XSK_ZYNQMP_BBRAM_PGM_MODE_SET_VAL<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x757BDF0D</highlight></codeline>
+<codeline lineno="142" refid="xilskey__bbramps__zynqmp__hw_8h_1a3b573bf1e810cf08d12736fe4e5f3d58" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="144"></codeline>
+<codeline lineno="148"><highlight class="preprocessor">#define<sp/>XSK_ZYNQMP_BBRAM_AES_CRC_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0000000CU</highlight></codeline>
+<codeline lineno="149" refid="xilskey__bbramps__zynqmp__hw_8h_1ac621f36f217dcc74ee918df67cebaa5d" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="150"><highlight class="preprocessor">#define<sp/>XSK_ZYNQMP_BBRAM_AES_CRC_RSTVAL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000000U</highlight></codeline>
+<codeline lineno="151" refid="xilskey__bbramps__zynqmp__hw_8h_1a2a36856422f64782d5063b48fbef705a" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="152"><highlight class="preprocessor">#define<sp/>XSK_ZYNQMP_BBRAM_AES_CRC_VAL_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/>0U</highlight></codeline>
+<codeline lineno="153" refid="xilskey__bbramps__zynqmp__hw_8h_1aa75d876d93bc03dbf275ee178ba42de5" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="154"><highlight class="preprocessor">#define<sp/>XSK_ZYNQMP_BBRAM_AES_CRC_VAL_WIDTH<sp/><sp/><sp/><sp/><sp/><sp/>32U</highlight></codeline>
+<codeline lineno="155" refid="xilskey__bbramps__zynqmp__hw_8h_1a149f011d00bd2e39a7c23bd7c7e10b9a" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="156"><highlight class="preprocessor">#define<sp/>XSK_ZYNQMP_BBRAM_AES_CRC_VAL_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xffffffffU</highlight></codeline>
+<codeline lineno="157" refid="xilskey__bbramps__zynqmp__hw_8h_1a4dbb0f050b41ca0e666f8a0a3a115755" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="158"><highlight class="preprocessor">#define<sp/>XSK_ZYNQMP_BBRAM_AES_CRC_VAL_DEFVAL<sp/><sp/><sp/><sp/><sp/>0x0U</highlight></codeline>
+<codeline lineno="159" refid="xilskey__bbramps__zynqmp__hw_8h_1a1cf3a0c0754aba8d0afaca5aeff6e1cd" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="161"></codeline>
+<codeline lineno="165"><highlight class="preprocessor">#define<sp/>XSK_ZYNQMP_BBRAM_0_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000010U<sp/></highlight></codeline>
+<codeline lineno="166" refid="xilskey__bbramps__zynqmp__hw_8h_1ad460c32a4f02c48d7c3cb6ea7f3e4a48" refkind="member"><highlight class="preprocessor">#define<sp/>XSK_ZYNQMP_BBRAM_0_RSTVAL<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000000U<sp/></highlight></codeline>
+<codeline lineno="167" refid="xilskey__bbramps__zynqmp__hw_8h_1acc3c3fe65199134213fa4531fc6d1126" refkind="member"><highlight class="preprocessor">#define<sp/>XSK_ZYNQMP_BBRAM_0_DATA_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0U<sp/><sp/></highlight></codeline>
+<codeline lineno="168" refid="xilskey__bbramps__zynqmp__hw_8h_1a0ffb2d4928c9d5ab0516ce929a159369" refkind="member"><highlight class="preprocessor">#define<sp/>XSK_ZYNQMP_BBRAM_0_DATA_WIDTH<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>32U<sp/></highlight></codeline>
+<codeline lineno="169" refid="xilskey__bbramps__zynqmp__hw_8h_1a11623f825d7339026b7f5d55a3765f4e" refkind="member"><highlight class="preprocessor">#define<sp/>XSK_ZYNQMP_BBRAM_0_DATA_MASK<sp/><sp/><sp/><sp/>0xffffffffU<sp/></highlight></codeline>
+<codeline lineno="170" refid="xilskey__bbramps__zynqmp__hw_8h_1a74fda341dd9311998180e41c827cc152" refkind="member"><highlight class="preprocessor">#define<sp/>XSK_ZYNQMP_BBRAM_0_DATA_DEFVAL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0U</highlight></codeline>
+<codeline lineno="172"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="173"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="176"><highlight class="preprocessor">#define<sp/>XSK_ZYNQMP_BBRAM_1_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000014U<sp/></highlight></codeline>
+<codeline lineno="177" refid="xilskey__bbramps__zynqmp__hw_8h_1a41caec0602a233c39f3a8643b74fff2d" refkind="member"><highlight class="preprocessor">#define<sp/>XSK_ZYNQMP_BBRAM_1_RSTVAL<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000000U<sp/></highlight></codeline>
+<codeline lineno="179"><highlight class="preprocessor">#define<sp/>XSK_ZYNQMP_BBRAM_1_DATA_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0U<sp/></highlight></codeline>
+<codeline lineno="180" refid="xilskey__bbramps__zynqmp__hw_8h_1ab59e6969d86300491ae440efe55821db" refkind="member"><highlight class="preprocessor">#define<sp/>XSK_ZYNQMP_BBRAM_1_DATA_WIDTH<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>32U<sp/></highlight></codeline>
+<codeline lineno="181" refid="xilskey__bbramps__zynqmp__hw_8h_1ac4abdacb741258392ddd2b3810180a81" refkind="member"><highlight class="preprocessor">#define<sp/>XSK_ZYNQMP_BBRAM_1_DATA_MASK<sp/><sp/><sp/><sp/>0xffffffffU<sp/></highlight></codeline>
+<codeline lineno="182" refid="xilskey__bbramps__zynqmp__hw_8h_1a6191dfe242250e4c763c5b1d847af078" refkind="member"><highlight class="preprocessor">#define<sp/>XSK_ZYNQMP_BBRAM_1_DATA_DEFVAL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0U</highlight></codeline>
+<codeline lineno="184"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="185"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="188"><highlight class="preprocessor">#define<sp/>XSK_ZYNQMP_BBRAM_2_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000018U<sp/></highlight></codeline>
+<codeline lineno="189" refid="xilskey__bbramps__zynqmp__hw_8h_1a98ba579a2659e9a481b803c25822a21c" refkind="member"><highlight class="preprocessor">#define<sp/>XSK_ZYNQMP_BBRAM_2_RSTVAL<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000000U<sp/></highlight></codeline>
+<codeline lineno="191"><highlight class="preprocessor">#define<sp/>XSK_ZYNQMP_BBRAM_2_DATA_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0U<sp/><sp/></highlight></codeline>
+<codeline lineno="192" refid="xilskey__bbramps__zynqmp__hw_8h_1aa28aba7601bb2b1cc1b41cfad76dacef" refkind="member"><highlight class="preprocessor">#define<sp/>XSK_ZYNQMP_BBRAM_2_DATA_WIDTH<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>32U<sp/></highlight></codeline>
+<codeline lineno="193" refid="xilskey__bbramps__zynqmp__hw_8h_1a8ee8025ae4862282276bc090e83783ae" refkind="member"><highlight class="preprocessor">#define<sp/>XSK_ZYNQMP_BBRAM_2_DATA_MASK<sp/><sp/><sp/><sp/>0xffffffffU<sp/></highlight></codeline>
+<codeline lineno="194" refid="xilskey__bbramps__zynqmp__hw_8h_1a1757e2c925916f5c95abec6600d6b5fe" refkind="member"><highlight class="preprocessor">#define<sp/>XSK_ZYNQMP_BBRAM_2_DATA_DEFVAL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0U</highlight></codeline>
+<codeline lineno="196"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="197"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="200"><highlight class="preprocessor">#define<sp/>XSK_ZYNQMP_BBRAM_3_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0000001CU</highlight></codeline>
+<codeline lineno="201" refid="xilskey__bbramps__zynqmp__hw_8h_1a98d6a9d66919bec690ef73408e71e796" refkind="member"><highlight class="preprocessor">#define<sp/>XSK_ZYNQMP_BBRAM_3_RSTVAL<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000000U</highlight></codeline>
+<codeline lineno="203"><highlight class="preprocessor">#define<sp/>XSK_ZYNQMP_BBRAM_3_DATA_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0U<sp/></highlight></codeline>
+<codeline lineno="204" refid="xilskey__bbramps__zynqmp__hw_8h_1a4b1b3c318f92beeec53d274101078f65" refkind="member"><highlight class="preprocessor">#define<sp/>XSK_ZYNQMP_BBRAM_3_DATA_WIDTH<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>32U</highlight></codeline>
+<codeline lineno="205" refid="xilskey__bbramps__zynqmp__hw_8h_1af2f4a7c1a4ce0eb0928bacc07a7f3e35" refkind="member"><highlight class="preprocessor">#define<sp/>XSK_ZYNQMP_BBRAM_3_DATA_MASK<sp/><sp/><sp/><sp/>0xffffffffU</highlight></codeline>
+<codeline lineno="206" refid="xilskey__bbramps__zynqmp__hw_8h_1aac4bf210f9ce9b91265877ad5644c471" refkind="member"><highlight class="preprocessor">#define<sp/>XSK_ZYNQMP_BBRAM_3_DATA_DEFVAL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0U</highlight></codeline>
+<codeline lineno="208"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="209"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="212"><highlight class="preprocessor">#define<sp/>XSK_ZYNQMP_BBRAM_4_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000020U</highlight></codeline>
+<codeline lineno="213" refid="xilskey__bbramps__zynqmp__hw_8h_1a54f9ca03c4a48cc20b0163607155e41d" refkind="member"><highlight class="preprocessor">#define<sp/>XSK_ZYNQMP_BBRAM_4_RSTVAL<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000000U</highlight></codeline>
+<codeline lineno="215"><highlight class="preprocessor">#define<sp/>XSK_ZYNQMP_BBRAM_4_DATA_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0U<sp/></highlight></codeline>
+<codeline lineno="216" refid="xilskey__bbramps__zynqmp__hw_8h_1aaefb691669f39d176bc6a83acd306a86" refkind="member"><highlight class="preprocessor">#define<sp/>XSK_ZYNQMP_BBRAM_4_DATA_WIDTH<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>32U</highlight></codeline>
+<codeline lineno="217" refid="xilskey__bbramps__zynqmp__hw_8h_1a79349dfaf60622adee8f9333d48c05ea" refkind="member"><highlight class="preprocessor">#define<sp/>XSK_ZYNQMP_BBRAM_4_DATA_MASK<sp/><sp/><sp/><sp/>0xffffffffU</highlight></codeline>
+<codeline lineno="218" refid="xilskey__bbramps__zynqmp__hw_8h_1af5ca5b2a7342666acb0d771ef9920eb9" refkind="member"><highlight class="preprocessor">#define<sp/>XSK_ZYNQMP_BBRAM_4_DATA_DEFVAL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0U</highlight></codeline>
+<codeline lineno="220"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="221"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="224"><highlight class="preprocessor">#define<sp/>XSK_ZYNQMP_BBRAM_5_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000024U</highlight></codeline>
+<codeline lineno="225" refid="xilskey__bbramps__zynqmp__hw_8h_1a5d8c96557b219b9cb43053941253f27d" refkind="member"><highlight class="preprocessor">#define<sp/>XSK_ZYNQMP_BBRAM_5_RSTVAL<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000000U</highlight></codeline>
+<codeline lineno="227"><highlight class="preprocessor">#define<sp/>XSK_ZYNQMP_BBRAM_5_DATA_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0U<sp/></highlight></codeline>
+<codeline lineno="228" refid="xilskey__bbramps__zynqmp__hw_8h_1aa7cdbf63c6c0ef9df9666f50a8775b69" refkind="member"><highlight class="preprocessor">#define<sp/>XSK_ZYNQMP_BBRAM_5_DATA_WIDTH<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>32U</highlight></codeline>
+<codeline lineno="229" refid="xilskey__bbramps__zynqmp__hw_8h_1a60aa9072e7190a4a291ee49d7ab76d89" refkind="member"><highlight class="preprocessor">#define<sp/>XSK_ZYNQMP_BBRAM_5_DATA_MASK<sp/><sp/><sp/><sp/>0xffffffffU</highlight></codeline>
+<codeline lineno="230" refid="xilskey__bbramps__zynqmp__hw_8h_1a0d3435efb26c4265a0cb046a570f2e5c" refkind="member"><highlight class="preprocessor">#define<sp/>XSK_ZYNQMP_BBRAM_5_DATA_DEFVAL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0U</highlight></codeline>
+<codeline lineno="232"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="233"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="236"><highlight class="preprocessor">#define<sp/>XSK_ZYNQMP_BBRAM_6_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000028U</highlight></codeline>
+<codeline lineno="237" refid="xilskey__bbramps__zynqmp__hw_8h_1a6f05ddde499e63300108c6831d0282b4" refkind="member"><highlight class="preprocessor">#define<sp/>XSK_ZYNQMP_BBRAM_6_RSTVAL<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000000U</highlight></codeline>
+<codeline lineno="239"><highlight class="preprocessor">#define<sp/>XSK_ZYNQMP_BBRAM_6_DATA_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0U<sp/></highlight></codeline>
+<codeline lineno="240" refid="xilskey__bbramps__zynqmp__hw_8h_1aea5f96619ba66d674cfbf679c7845397" refkind="member"><highlight class="preprocessor">#define<sp/>XSK_ZYNQMP_BBRAM_6_DATA_WIDTH<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>32U</highlight></codeline>
+<codeline lineno="241" refid="xilskey__bbramps__zynqmp__hw_8h_1a8bf6fb280763ab44e18785cd8db6f1e8" refkind="member"><highlight class="preprocessor">#define<sp/>XSK_ZYNQMP_BBRAM_6_DATA_MASK<sp/><sp/><sp/><sp/>0xffffffffU</highlight></codeline>
+<codeline lineno="242" refid="xilskey__bbramps__zynqmp__hw_8h_1a530216603123bf6f77b8a96d04117560" refkind="member"><highlight class="preprocessor">#define<sp/>XSK_ZYNQMP_BBRAM_6_DATA_DEFVAL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0U</highlight></codeline>
+<codeline lineno="244"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="245"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="248"><highlight class="preprocessor">#define<sp/>XSK_ZYNQMP_BBRAM_7_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0000002CU</highlight></codeline>
+<codeline lineno="249" refid="xilskey__bbramps__zynqmp__hw_8h_1a104c26f1c18fe3998ea71013bc2c0d0c" refkind="member"><highlight class="preprocessor">#define<sp/>XSK_ZYNQMP_BBRAM_7_RSTVAL<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000000U</highlight></codeline>
+<codeline lineno="251"><highlight class="preprocessor">#define<sp/>XSK_ZYNQMP_BBRAM_7_DATA_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0U<sp/></highlight></codeline>
+<codeline lineno="252" refid="xilskey__bbramps__zynqmp__hw_8h_1a7947b21000db9d783c3831377d0fe258" refkind="member"><highlight class="preprocessor">#define<sp/>XSK_ZYNQMP_BBRAM_7_DATA_WIDTH<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>32U</highlight></codeline>
+<codeline lineno="253" refid="xilskey__bbramps__zynqmp__hw_8h_1aebd454ba45a8f6e020712ab01cb4fd39" refkind="member"><highlight class="preprocessor">#define<sp/>XSK_ZYNQMP_BBRAM_7_DATA_MASK<sp/><sp/><sp/><sp/>0xffffffffU</highlight></codeline>
+<codeline lineno="254" refid="xilskey__bbramps__zynqmp__hw_8h_1a2366117d6b840b41f1e761d51fb59eba" refkind="member"><highlight class="preprocessor">#define<sp/>XSK_ZYNQMP_BBRAM_7_DATA_DEFVAL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0U<sp/></highlight></codeline>
+<codeline lineno="256"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="257"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="260"><highlight class="preprocessor">#define<sp/>XSK_ZYNQMP_BBRAM_8_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000030U</highlight></codeline>
+<codeline lineno="261" refid="xilskey__bbramps__zynqmp__hw_8h_1a1756da00ecf19227f45782ba90c92720" refkind="member"><highlight class="preprocessor">#define<sp/>XSK_ZYNQMP_BBRAM_8_RSTVAL<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000000U</highlight></codeline>
+<codeline lineno="263"><highlight class="preprocessor">#define<sp/>XSK_ZYNQMP_BBRAM_8_DATA_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0U<sp/></highlight></codeline>
+<codeline lineno="264" refid="xilskey__bbramps__zynqmp__hw_8h_1a787c2e96d39391b6b5ec17f17ec744aa" refkind="member"><highlight class="preprocessor">#define<sp/>XSK_ZYNQMP_BBRAM_8_DATA_WIDTH<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>32U</highlight></codeline>
+<codeline lineno="265" refid="xilskey__bbramps__zynqmp__hw_8h_1a2ff26da8e2f74b59907ebe71bba2787a" refkind="member"><highlight class="preprocessor">#define<sp/>XSK_ZYNQMP_BBRAM_8_DATA_MASK<sp/><sp/><sp/><sp/>0xffffffffU</highlight></codeline>
+<codeline lineno="266" refid="xilskey__bbramps__zynqmp__hw_8h_1a41633001e2b6402b42a07d8f2c925c85" refkind="member"><highlight class="preprocessor">#define<sp/>XSK_ZYNQMP_BBRAM_8_DATA_DEFVAL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0U</highlight></codeline>
+<codeline lineno="268"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="269"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="272"><highlight class="preprocessor">#define<sp/>XSK_ZYNQMP_BBRAM_SLVERR_OFFSET<sp/><sp/>0x00000034U<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="274"><highlight class="preprocessor">#define<sp/>XSK_ZYNQMP_BBRAM_SLVERR_RSTVAL<sp/><sp/>0x00000000U<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="277"><highlight class="preprocessor">#define<sp/>XSK_ZYNQMP_BBRAM_SLVERR_EN_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0U<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="279"><highlight class="preprocessor">#define<sp/>XSK_ZYNQMP_BBRAM_SLVERR_EN_WIDTH<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x1U<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="281"><highlight class="preprocessor">#define<sp/>XSK_ZYNQMP_BBRAM_SLVERR_EN_MASK<sp/>0x00000001U<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="283" refid="xilskey__bbramps__zynqmp__hw_8h_1abfd6d26cb757075ead651ff0b089a8e6" refkind="member"><highlight class="preprocessor">#define<sp/>XSK_ZYNQMP_BBRAM_SLVERR_EN_DEFVAL<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0U<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="286" refid="xilskey__bbramps__zynqmp__hw_8h_1af1227c12a73652e71786e499a4353334" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="287"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="290"><highlight class="preprocessor">#define<sp/>XSK_ZYNQMP_BBRAM_ISR_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000038U</highlight></codeline>
+<codeline lineno="291"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="292"><highlight class="preprocessor">#define<sp/>XSK_ZYNQMP_BBRAM_ISR_RSTVAL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000000U</highlight></codeline>
+<codeline lineno="293"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="295"><highlight class="preprocessor">#define<sp/>XSK_ZYNQMP_BBRAM_ISR_APB_SLVERR_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0U</highlight></codeline>
+<codeline lineno="296"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="298"><highlight class="preprocessor">#define<sp/>XSK_ZYNQMP_BBRAM_ISR_APB_SLVERR_WIDTH<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x1U</highlight></codeline>
+<codeline lineno="299" refid="xilskey__bbramps__zynqmp__hw_8h_1abb790e52417eae878e090a1697aa508c" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="301"><highlight class="preprocessor">#define<sp/>XSK_ZYNQMP_BBRAM_ISR_APB_SLVERR_MASK<sp/><sp/><sp/><sp/>0x00000001U</highlight></codeline>
+<codeline lineno="302" refid="xilskey__bbramps__zynqmp__hw_8h_1a5c2065cbef65a8cf1fe616f3c3abc4c2" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="304"><highlight class="preprocessor">#define<sp/>XSK_ZYNQMP_BBRAM_ISR_APB_SLVERR_DEFVAL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0U</highlight></codeline>
+<codeline lineno="305" refid="xilskey__bbramps__zynqmp__hw_8h_1ae4eb8244de3ee77dcf0813bda2a1fc6f" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="308" refid="xilskey__bbramps__zynqmp__hw_8h_1a9eeb6fc5af71fbc75bf3e3ae62b56ffa" refkind="member"></codeline>
+<codeline lineno="312"><highlight class="preprocessor">#define<sp/>XSK_ZYNQMP_BBRAM_IMR_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0000003CU</highlight></codeline>
+<codeline lineno="313"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="314"><highlight class="preprocessor">#define<sp/>XSK_ZYNQMP_BBRAM_IMR_RSTVAL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000001U</highlight></codeline>
+<codeline lineno="315"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="316"><highlight class="preprocessor">#define<sp/>XSK_ZYNQMP_BBRAM_IMR_APB_SLVERR_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0U</highlight></codeline>
+<codeline lineno="317"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="319" refid="xilskey__bbramps__zynqmp__hw_8h_1acf3a881c3f29a2dd4c71f91fb5fe68b3" refkind="member"><highlight class="preprocessor">#define<sp/>XSK_ZYNQMP_BBRAM_IMR_APB_SLVERR_WIDTH<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x1U</highlight></codeline>
+<codeline lineno="320"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="322"><highlight class="preprocessor">#define<sp/>XSK_ZYNQMP_BBRAM_IMR_APB_SLVERR_MASK<sp/><sp/><sp/><sp/>0x00000001U</highlight></codeline>
+<codeline lineno="323" refid="xilskey__bbramps__zynqmp__hw_8h_1a30e7774a676a99b4e4b2cb32ba0101e7" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="325"><highlight class="preprocessor">#define<sp/>XSK_ZYNQMP_BBRAM_IMR_APB_SLVERR_DEFVAL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x1U</highlight></codeline>
+<codeline lineno="326" refid="xilskey__bbramps__zynqmp__hw_8h_1a950e93b31ed3efe32af173f2ae63d302" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="329" refid="xilskey__bbramps__zynqmp__hw_8h_1a5851a193025b48e9edab84886e6f57d3" refkind="member"></codeline>
+<codeline lineno="333"><highlight class="preprocessor">#define<sp/>XSK_ZYNQMP_BBRAM_IER_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000040U</highlight></codeline>
+<codeline lineno="334"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="335"><highlight class="preprocessor">#define<sp/>XSK_ZYNQMP_BBRAM_IER_RSTVAL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000000U</highlight></codeline>
+<codeline lineno="336"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="337"><highlight class="preprocessor">#define<sp/>XSK_ZYNQMP_BBRAM_IER_APB_SLVERR_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0U</highlight></codeline>
+<codeline lineno="338"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="340" refid="xilskey__bbramps__zynqmp__hw_8h_1a2e5654fa0766b8702ae8c252de2d0a48" refkind="member"><highlight class="preprocessor">#define<sp/>XSK_ZYNQMP_BBRAM_IER_APB_SLVERR_WIDTH<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1U</highlight></codeline>
+<codeline lineno="341"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="343"><highlight class="preprocessor">#define<sp/>XSK_ZYNQMP_BBRAM_IER_APB_SLVERR_MASK<sp/><sp/><sp/><sp/>0x00000001U</highlight></codeline>
+<codeline lineno="344" refid="xilskey__bbramps__zynqmp__hw_8h_1ad8ba5d7659f8118f7943cbb83eb74b42" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="346"><highlight class="preprocessor">#define<sp/>XSK_ZYNQMP_BBRAM_IER_APB_SLVERR_DEFVAL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0U</highlight></codeline>
+<codeline lineno="347" refid="xilskey__bbramps__zynqmp__hw_8h_1ae9edc1c43313a768c36ac01eb08e9129" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="350" refid="xilskey__bbramps__zynqmp__hw_8h_1a8f149616e2770c373145f13074fe6214" refkind="member"></codeline>
+<codeline lineno="354"><highlight class="preprocessor">#define<sp/>XSK_ZYNQMP_BBRAM_IDR_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000044U</highlight></codeline>
+<codeline lineno="355"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="356"><highlight class="preprocessor">#define<sp/>XSK_ZYNQMP_BBRAM_IDR_RSTVAL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000000U</highlight></codeline>
+<codeline lineno="357"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="358"><highlight class="preprocessor">#define<sp/>XSK_ZYNQMP_BBRAM_IDR_APB_SLVERR_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0U</highlight></codeline>
+<codeline lineno="359"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="361" refid="xilskey__bbramps__zynqmp__hw_8h_1a60da4f57e1e0bd75afdc33e482283d53" refkind="member"><highlight class="preprocessor">#define<sp/>XSK_ZYNQMP_BBRAM_IDR_APB_SLVERR_WIDTH<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x1U</highlight></codeline>
+<codeline lineno="362"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="364"><highlight class="preprocessor">#define<sp/>XSK_ZYNQMP_BBRAM_IDR_APB_SLVERR_MASK<sp/><sp/><sp/><sp/>0x00000001U</highlight></codeline>
+<codeline lineno="365" refid="xilskey__bbramps__zynqmp__hw_8h_1af8f091dc9a4d1bfa8d430f65c077beb5" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="367"><highlight class="preprocessor">#define<sp/>XSK_ZYNQMP_BBRAM_IDR_APB_SLVERR_DEFVAL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0U</highlight></codeline>
+<codeline lineno="368" refid="xilskey__bbramps__zynqmp__hw_8h_1aa4531150e4353154d28903ad28717787" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="371" refid="xilskey__bbramps__zynqmp__hw_8h_1a1c7a902985b0f51764c1b12de6a049f2" refkind="member"><highlight class="normal"></highlight></codeline>
+<codeline lineno="372"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="373"><highlight class="normal"></highlight></codeline>
+<codeline lineno="374" refid="xilskey__bbramps__zynqmp__hw_8h_1a47b46f9f6aa363eb096e76ef1bb46521" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="375"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="376"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="377"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="378"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>__XSK_BBRAMPS_ZYNQMP_HW__<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp_hw.h"/>
+  </compounddef>
+</doxygen>
