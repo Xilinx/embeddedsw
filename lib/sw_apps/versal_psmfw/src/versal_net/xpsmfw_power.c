@@ -1150,7 +1150,7 @@ static XStatus XPsmFw_ApuCoreBisrRepair(u32 CoreIdx)
 	u32 PassMask;
 
 	if (CoreIdx >= FPX_SLCR_BISR_ACPU_NUM_CORES) {
-		XPsmFw_Printf(DEBUG_ERROR, "%s: Invalid CoreIdx %lu\n",
+		XPsmFw_Printf(DEBUG_PRINT_ALWAYS, "%s: Invalid CoreIdx %lu\n",
 			       __func__, CoreIdx);
 		goto done;
 	}
@@ -1197,7 +1197,7 @@ static XStatus XPsmFw_ApuCoreBisrRepair(u32 CoreIdx)
 	Status = XPsmFw_UtilPollForMask(StatusReg, DoneMask,
 					FPX_SLCR_BISR_POLL_TIMEOUT);
 	if (XST_SUCCESS != Status) {
-		XPsmFw_Printf(DEBUG_ERROR, "%s: BISR DONE timeout for "
+		XPsmFw_Printf(DEBUG_PRINT_ALWAYS, "%s: BISR DONE timeout for "
 			       "ACPU%lu (StatusReg=0x%08lx)\n",
 			       __func__, CoreIdx,
 			       XPsmFw_Read32(StatusReg));
@@ -1206,7 +1206,7 @@ static XStatus XPsmFw_ApuCoreBisrRepair(u32 CoreIdx)
 
 	/* Check PASS */
 	if (0U == (XPsmFw_Read32(StatusReg) & PassMask)) {
-		XPsmFw_Printf(DEBUG_ERROR, "%s: BISR PASS failed for "
+		XPsmFw_Printf(DEBUG_PRINT_ALWAYS, "%s: BISR PASS failed for "
 			       "ACPU%lu (StatusReg=0x%08lx)\n",
 			       __func__, CoreIdx,
 			       XPsmFw_Read32(StatusReg));
@@ -1267,6 +1267,7 @@ static XStatus XPsmFw_Core3BisrRepair(struct XPsmFwPwrCtrl_t *Args)
 					((u32)1U << Bit),
 					Args->PwrUpAckTimeout[Idx]);
 			if (XST_SUCCESS != Status) {
+				XPsmFw_Printf(DEBUG_PRINT_ALWAYS, "%s: Power up Core 2 island failed for Core 3..\n", __func__);
 				goto done;
 			}
 			XPsmFw_UtilWait(Args->PwrUpWaitTime[Idx]);
@@ -1281,22 +1282,26 @@ static XStatus XPsmFw_Core3BisrRepair(struct XPsmFwPwrCtrl_t *Args)
 		Status = XPsmFw_UtilPollForZero(Cpu2CorePreq,
 				Args->CorePreqMask, ACPU_PACCEPT_TIMEOUT);
 		if (XST_SUCCESS != Status) {
+			XPsmFw_Printf(DEBUG_PRINT_ALWAYS, "%s: Core 2 PREQ timeout for Core 3..\n", __func__);
 			goto done;
 		}
 		Status = XPsmFw_UtilPollForZero(Cpu2CorePactive,
 				Args->CorePacceptMask, ACPU_PACCEPT_TIMEOUT);
 		if (XST_SUCCESS != Status) {
+			XPsmFw_Printf(DEBUG_PRINT_ALWAYS, "%s: Core 2 PACCEPT timeout for Core 3..\n", __func__);
 			goto done;
 		}
 		Status = XPsmFw_UtilPollForZero(Cpu2CorePactive,
 				APU_PCIL_CORE_PDENY_MASK, ACPU_PACCEPT_TIMEOUT);
 		if (XST_SUCCESS != Status) {
+			XPsmFw_Printf(DEBUG_PRINT_ALWAYS, "%s: Core 2 PDENY not cleared for Core 3..\n", __func__);
 			goto done;
 		}
 
 		/* Reload BISR for Core 3 */
 		Status = XPsmFw_ApuCoreBisrRepair((u32)Args->Id);
 		if (XST_SUCCESS != Status) {
+			XPsmFw_Printf(DEBUG_PRINT_ALWAYS, "%s: BISR re-repair failed for Core 3..\n", __func__);
 			goto done;
 		}
 
@@ -1314,6 +1319,7 @@ static XStatus XPsmFw_Core3BisrRepair(struct XPsmFwPwrCtrl_t *Args)
 				PSM_LOCAL_PWR_CTRL_GATES_MASK,
 				Args->PwrDwnAckTimeout);
 		if (XST_SUCCESS != Status) {
+			XPsmFw_Printf(DEBUG_PRINT_ALWAYS, "%s: Core 2 power down timeout for Core 3..\n", __func__);
 			goto done;
 		}
 	}
