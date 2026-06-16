@@ -52,6 +52,7 @@
 * 4.9   ht   04/17/25 Update Canonical definition to be inline with xsct flow.
 * 4.10  vlt  12/14/25 Update Doxygen comments to include SDT flow details.
 * 4.10  ht   02/17/26 Fix GCC warnings for unused parameter.
+* 4.10  vn   06/16/26 Fix non-FSL use case in SDT flow.
 * </pre>
 *******************************************************************************/
 
@@ -262,6 +263,16 @@ int MailboxExample(UINTPTR BaseAddress)
 				       ConfigPtr->IntrId,
 				       ConfigPtr->IntrParent,
 				       XINTERRUPT_DEFAULT_PRIORITY);
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
+
+	if (Mbox.Config.UseFSL == 0) {
+		XMbox_SetSendThreshold(&Mbox, MAILBOX_SIT);
+		XMbox_SetReceiveThreshold(&Mbox, MAILBOX_RIT);
+		XMbox_SetInterruptEnable(&Mbox,
+					 XMB_IX_STA | XMB_IX_RTA | XMB_IX_ERR);
+	}
 #endif
 	/* Send the hello */
 	Status = MailboxExample_Send(&Mbox, MY_CPU_ID, 0);
