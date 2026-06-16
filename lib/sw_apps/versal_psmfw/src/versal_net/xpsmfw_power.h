@@ -122,6 +122,8 @@ extern "C" {
 #define XPSMFW_PWRUP_ACPU_CHN2_WAIT_TM               NANOSECOND_TO_TICKS(25U)
 #define XPSMFW_PWRUP_ACPU_CHN3_WAIT_TM               NANOSECOND_TO_TICKS(0U)
 #define XPSMFW_PWRDWN_ACPU_TO                        MICROSECOND_TO_TICKS(5U)
+/** Wait between PGEN steps for BISR (microsecond ticks). */
+#define XPSMFW_PGEN_WAIT_TIME                        MICROSECOND_TO_TICKS(50U)
 
 #define ACPU_CLUSTER_COLD_WARM_RST_MASK                        ((u32)0x00000300U)
 #define ACPU_PACCEPT_TIMEOUT			MICROSECOND_TO_TICKS(1000U)
@@ -300,6 +302,59 @@ typedef struct {
 	u32 StlEvent;	/**< This indicates STL event from PSM to PLM */
 } PsmToPlmEventInfo_t;
 
+/**
+ * @name FPX_SLCR BISR Registers (for per-core BISR re-repair)
+ * @ingroup versalnet_regs
+ * @{
+ */
+/** FPX SLCR base address */
+#define FPX_SLCR_BASEADDR                             ((u32)0xEC8C0000U)
+/** FPX SLCR write protect register offset */
+#define FPX_SLCR_WPROT0                               (FPX_SLCR_BASEADDR + (u32)0x00000000U)
+/** BISR cache control register 0 */
+#define FPX_SLCR_BISR_CACHE_CTRL_0                    (FPX_SLCR_BASEADDR + (u32)0x00000400U)
+/** BISR cache control 0 trigger bit mask */
+#define FPX_SLCR_BISR_CACHE_CTRL_0_TRIGGER_MASK       ((u32)0x00000001U)
+/** BISR cache control register 1 (PGEN) */
+#define FPX_SLCR_BISR_CACHE_CTRL_1                    (FPX_SLCR_BASEADDR + (u32)0x00000404U)
+/** All PGEN bits valid in BISR cache control 1 */
+#define FPX_SLCR_BISR_CACHE_CTRL_1_FULLMASK           ((u32)0x001FFFFFU)
+/** BISR status for chains 0-14 */
+#define FPX_SLCR_BISR_CACHE_STATUS0                   (FPX_SLCR_BASEADDR + (u32)0x00000408U)
+/** BISR status for chains 15-20 */
+#define FPX_SLCR_BISR_CACHE_STATUS1                   (FPX_SLCR_BASEADDR + (u32)0x0000040CU)
+
+/**
+ * First ACPU PGEN bit index; bits 1-16 are cores 0-15, bits 17-20 are
+ * shared L3 in the PGEN map.
+ */
+#define FPX_SLCR_BISR_ACPU_PGEN_BASE_BIT              (1U)
+/** ACPU core count in PGEN map */
+#define FPX_SLCR_BISR_ACPU_NUM_CORES                  (16U)
+/** PGEN mask for ACPU core index */
+#define FPX_SLCR_BISR_ACPU_PGEN_MASK(CoreIdx)         ((u32)1U << ((CoreIdx) + FPX_SLCR_BISR_ACPU_PGEN_BASE_BIT))
+
+/** STATUS0 covers chains 0-14: DONE at bit 2*(chain+1) */
+#define FPX_SLCR_BISR_STATUS0_DONE(Chain)             ((u32)1U << (2U * ((Chain) + 1U)))
+/** PASS at bit 2*(chain+1)+1 */
+#define FPX_SLCR_BISR_STATUS0_PASS(Chain)             ((u32)1U << (2U * ((Chain) + 1U) + 1U))
+/** STATUS1 covers chains 15-20: DONE at bit 2*(chain-15) */
+#define FPX_SLCR_BISR_STATUS1_DONE(Chain)             ((u32)1U << (2U * ((Chain) - 15U)))
+/** PASS at bit 2*(chain-15)+1 */
+#define FPX_SLCR_BISR_STATUS1_PASS(Chain)             ((u32)1U << (2U * ((Chain) - 15U) + 1U))
+
+/** Timeout polling BISR DONE/PASS (microsecond ticks) */
+#define FPX_SLCR_BISR_POLL_TIMEOUT                    MICROSECOND_TO_TICKS(100U)
+/** @} */
+
+/**
+ * @name BISR Bitmask defines for PsmToPlmEvent_t.BisrBitmask
+ * @{
+ */
+#define BISR_BITMASK_FPX                              ((u32)0x1U) /**< FPX/FPD BISR data loaded */
+#define BISR_BITMASK_LPX                              ((u32)0x2U) /**< LPX/LPD BISR data loaded */
+/** @} */
+
 struct PsmToPlmEvent_t {
 	u32 Version;	/**< Version of the event structure */
 	PsmToPlmEventInfo_t EventInfo;	/**< PSM to PLM event info */
@@ -307,6 +362,7 @@ struct PsmToPlmEvent_t {
 	u32 Event[PROC_DEV_MAX];
 	u32 CpuIdleFlag[PROC_DEV_MAX];
 	u64 ResumeAddress[PROC_DEV_MAX];
+	u32 BisrBitmask;	/**< BISR domain flags for per-core re-repair */
 };
 extern volatile struct PsmToPlmEvent_t PsmToPlmEvent;
 

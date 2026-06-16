@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -52,6 +52,7 @@ volatile struct PsmToPlmEvent_t PsmToPlmEvent = {
 	.Event		= {0x0},
 	.CpuIdleFlag 	= {0x0},
 	.ResumeAddress 	= {0x0},
+	.BisrBitmask	= 0U,
 };
 #define NUM_CLUSTER 4U /**< Total number of clusters */
 static u8  ApuClusterState[NUM_CLUSTER]  = {0U};
@@ -1131,6 +1132,98 @@ done:
 
 /****************************************************************************/
 /**
+ * @brief	   Re-apply per-core BISR repair for a single APU core.
+ *
+ * @param CoreIdx  Core index (0-15) from Args->Id
+ *
+ * @return	   XST_SUCCESS if BISR done and passed, else XST_FAILURE
+ *
+ * @note	   Only called when PsmToPlmEvent.BisrBitmask has BISR_BITMASK_FPX set
+ *
+ ****************************************************************************/
+static XStatus XPsmFw_ApuCoreBisrRepair(u32 CoreIdx)
+{
+	XStatus Status = XST_FAILURE;
+	u32 PgenBit;
+	u32 StatusReg;
+	u32 DoneMask;
+	u32 PassMask;
+
+	if (CoreIdx >= FPX_SLCR_BISR_ACPU_NUM_CORES) {
+		XPsmFw_Printf(DEBUG_ERROR, "%s: Invalid CoreIdx %lu\n",
+			       __func__, CoreIdx);
+		goto done;
+	}
+
+	PgenBit = CoreIdx + FPX_SLCR_BISR_ACPU_PGEN_BASE_BIT;
+
+	/* Determine DONE/PASS masks and status register for this chain */
+	if (PgenBit <= 14U) {
+		StatusReg = FPX_SLCR_BISR_CACHE_STATUS0;
+		DoneMask = FPX_SLCR_BISR_STATUS0_DONE(PgenBit);
+		PassMask = FPX_SLCR_BISR_STATUS0_PASS(PgenBit);
+	} else {
+		StatusReg = FPX_SLCR_BISR_CACHE_STATUS1;
+		DoneMask = FPX_SLCR_BISR_STATUS1_DONE(PgenBit);
+		PassMask = FPX_SLCR_BISR_STATUS1_PASS(PgenBit);
+	}
+
+	XPsmFw_Printf(DEBUG_DETAILED, "%s: BISR re-repair for ACPU%lu "
+		       "(PgenBit=%lu)\n", __func__, CoreIdx, PgenBit);
+
+	/* Enable writes to FPX_SLCR */
+	XPsmFw_Write32(FPX_SLCR_WPROT0, 0U);
+
+	/* De-assert all PGEN bits */
+	XPsmFw_Write32(FPX_SLCR_BISR_CACHE_CTRL_1, 0U);
+
+	/* wait for 50us */
+	XPsmFw_UtilWait(XPSMFW_PGEN_WAIT_TIME);
+
+	/* De-assert trigger */
+	XPsmFw_RMW32(FPX_SLCR_BISR_CACHE_CTRL_0,
+		     FPX_SLCR_BISR_CACHE_CTRL_0_TRIGGER_MASK, 0U);
+
+	/* Set PGEN for this core only */
+	XPsmFw_Write32(FPX_SLCR_BISR_CACHE_CTRL_1,
+		       FPX_SLCR_BISR_ACPU_PGEN_MASK(CoreIdx));
+
+	/* Trigger BISR */
+	XPsmFw_RMW32(FPX_SLCR_BISR_CACHE_CTRL_0,
+		     FPX_SLCR_BISR_CACHE_CTRL_0_TRIGGER_MASK,
+		     FPX_SLCR_BISR_CACHE_CTRL_0_TRIGGER_MASK);
+
+	/* Poll for DONE */
+	Status = XPsmFw_UtilPollForMask(StatusReg, DoneMask,
+					FPX_SLCR_BISR_POLL_TIMEOUT);
+	if (XST_SUCCESS != Status) {
+		XPsmFw_Printf(DEBUG_ERROR, "%s: BISR DONE timeout for "
+			       "ACPU%lu (StatusReg=0x%08lx)\n",
+			       __func__, CoreIdx,
+			       XPsmFw_Read32(StatusReg));
+		goto done;
+	}
+
+	/* Check PASS */
+	if (0U == (XPsmFw_Read32(StatusReg) & PassMask)) {
+		XPsmFw_Printf(DEBUG_ERROR, "%s: BISR PASS failed for "
+			       "ACPU%lu (StatusReg=0x%08lx)\n",
+			       __func__, CoreIdx,
+			       XPsmFw_Read32(StatusReg));
+		Status = XST_FAILURE;
+		goto done;
+	}
+
+	XPsmFw_Printf(DEBUG_DETAILED, "%s: BISR re-repair passed for ACPU%lu\n",
+		       __func__, CoreIdx);
+	Status = XST_SUCCESS;
+
+done:
+	return Status;
+}
+
+/****************************************************************************/
+/**
  * @brief	Executes power-up sequence for ACPUx core
  *
  * @param Args	Node specific arguments
@@ -1192,6 +1285,17 @@ static XStatus XPsmFwACPUxPwrUp(struct XPsmFwPwrCtrl_t *Args)
 	Status = XPsmFwACPUxWaitForPstable(Args);
 	if (XST_SUCCESS != Status) {
 		goto done;
+	}
+
+	/*
+	 * Re-apply per-core BISR if FPX domain BISR was loaded at boot.
+	 * Note: Per-core memclear/mbist should not be done here.
+	 */
+	if (0U != (PsmToPlmEvent.BisrBitmask & BISR_BITMASK_FPX)) {
+		Status = XPsmFw_ApuCoreBisrRepair((u32)Args->Id);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
 	}
 
 	XPsmFw_Write32(Args->CorePstate, Args->CorePstateVal);

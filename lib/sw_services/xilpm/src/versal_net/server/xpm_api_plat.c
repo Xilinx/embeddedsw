@@ -243,6 +243,13 @@ int XPm_PlatProcessCmd(XPlmi_Cmd *Cmd)
 		}else{
 			Status =  XPmBisr_Repair(Pload[0]);
 		}
+		/* After successful FPX domain BISR, set shared memory flag
+		 * so PSM can re-trigger per-core BISR on hot-swap */
+		if ((XST_SUCCESS == Status) &&
+		    ((u32)FPX_TAG_ID == Pload[0]) &&
+		    (NULL != PsmToPlmEvent)) {
+			PsmToPlmEvent->BisrBitmask |= BISR_BITMASK_FPX;
+		}
 		break;
 	case PM_API(PM_INIT_NODE):
 		Status = XPm_InitNode(Pload[0], Pload[1], &Pload[2], Len-2U);

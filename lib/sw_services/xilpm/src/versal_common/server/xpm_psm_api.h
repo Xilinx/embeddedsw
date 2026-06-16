@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -33,6 +33,9 @@ extern "C" {
 
 #define DVSEC_PCSR_START_ADDR			(0x644U)
 
+#define BISR_BITMASK_FPX			(0x1U)
+#define BISR_BITMASK_LPX			(0x2U)
+
 struct PsmToPlmEvent_t {
 	u32 Version;	/* Version of the event structure */
 #ifdef XPLMI_IPI_DEVICE_ID
@@ -42,6 +45,7 @@ struct PsmToPlmEvent_t {
 	u32 Event[PROC_DEV_MAX];
 	u32 CpuIdleFlag[PROC_DEV_MAX];
 	u64 ResumeAddress[PROC_DEV_MAX];
+	u32 BisrBitmask; /**< BISR domain flags for per-core re-repair (PSM/PLM shared) */
 	u32 ProcDataAddress;
 	u16 ProcDataLen;
 };

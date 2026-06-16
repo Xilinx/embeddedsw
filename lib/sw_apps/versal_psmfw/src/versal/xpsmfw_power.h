@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -297,6 +297,7 @@ struct PsmToPlmEvent_t {
 	u32 Event[PROC_DEV_MAX]; /**< Array of events for each processor device */
 	u32 CpuIdleFlag[PROC_DEV_MAX]; /**< Array of CPU idle flags for each processor device */
 	u64 ResumeAddress[PROC_DEV_MAX]; /**< Array of resume addresses for each processor device */
+	u32 BisrBitmask; /**< Bitmask for the BISR */
 	u32 ProcDataAddress; /**< Address of the processor data */
 	u16 ProcDataLen; /**< Length of the processor data */
 };
