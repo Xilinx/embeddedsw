@@ -1224,6 +1224,108 @@ done:
 
 /****************************************************************************/
 /**
+ * @brief  Handle BISR re-repair for Core 3 with CPU2 dependency workaround.
+ *
+ * In each APU cluster, Core 3's BISR isolation is tied to
+ * Core 2's isolation.  Core 2 must be powered up and de-isolated before
+ * Core 3's BISR chain can be triggered.  If Core 2 is already running,
+ * BISR is reloaded directly.  Otherwise this helper temporarily powers up
+ * Core 2, removes its isolation, triggers BISR for Core 3, then powers
+ * Core 2 back down.
+ *
+ * @param Args  Power-control struct of the Core 3 being powered up
+ *
+ * @return      XST_SUCCESS if BISR passed, else XST_FAILURE
+ *
+ * @note        Only called for core 3 in a cluster.
+ *
+ ****************************************************************************/
+static XStatus XPsmFw_Core3BisrRepair(struct XPsmFwPwrCtrl_t *Args)
+{
+	XStatus Status = XST_FAILURE;
+	u32 Cpu2PwrState = XPsmFw_Read32(PSMX_GLOBAL_REG_PWR_STATE0);
+	u32 Cpu2Mask = Args->PwrStateMask >> 1U; /* Core 2 is one bit below Core 3 */
+
+	if (CHECK_BIT(Cpu2PwrState, Cpu2Mask)) {
+		/* Core 2 already powered -- reload Core 3 BISR directly */
+		Status = XPsmFw_ApuCoreBisrRepair((u32)Args->Id);
+	} else {
+		/* Core 2 is down -- temporarily bring it up for BISR */
+		u32 Cpu2PwrCtrlAddr   = Args->PwrCtrlAddr   - 0x8U;
+		u32 Cpu2PwrStatusAddr = Args->PwrStatusAddr  - 0x8U;
+		u32 Cpu2CorePreq      = Args->CorePreq       - 0x30U;
+		u32 Cpu2CorePactive   = Args->CorePactive    - 0x30U;
+		u32 Cpu2CorePstate    = Args->CorePstate     - 0x30U;
+		u32 Bit = PSM_LOCAL_PWR_CTRL_GATES_SHIFT;
+		u32 Idx;
+
+		/* Power up Core 2 island */
+		for (Idx = 0U; Idx < PSM_LOCAL_PWR_CTRL_GATES_WIDTH; Idx++) {
+			XPsmFw_RMW32(Cpu2PwrCtrlAddr,
+				     ((u32)1U << Bit), ((u32)1U << Bit));
+			Status = XPsmFw_UtilPollForMask(Cpu2PwrCtrlAddr,
+					((u32)1U << Bit),
+					Args->PwrUpAckTimeout[Idx]);
+			if (XST_SUCCESS != Status) {
+				goto done;
+			}
+			XPsmFw_UtilWait(Args->PwrUpWaitTime[Idx]);
+			Bit++;
+		}
+
+		/* Remove isolation from Core 2 */
+		XPsmFw_RMW32(Cpu2PwrCtrlAddr,
+			     PSMX_LOCAL_REG_APU0_CORE0_PWR_CNTRL_ISOLATION_MASK,
+			     ~PSMX_LOCAL_REG_APU0_CORE0_PWR_CNTRL_ISOLATION_MASK);
+
+		Status = XPsmFw_UtilPollForZero(Cpu2CorePreq,
+				Args->CorePreqMask, ACPU_PACCEPT_TIMEOUT);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+		Status = XPsmFw_UtilPollForZero(Cpu2CorePactive,
+				Args->CorePacceptMask, ACPU_PACCEPT_TIMEOUT);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+		Status = XPsmFw_UtilPollForZero(Cpu2CorePactive,
+				APU_PCIL_CORE_PDENY_MASK, ACPU_PACCEPT_TIMEOUT);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+
+		/* Reload BISR for Core 3 */
+		Status = XPsmFw_ApuCoreBisrRepair((u32)Args->Id);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+
+		/* Re-isolate Core 2 */
+		XPsmFw_Write32(Cpu2CorePstate + APU_PCIL_CORE_IDS_POWER_OFFSET,
+			       Args->CorePreqMask);
+		XPsmFw_RMW32(Cpu2PwrCtrlAddr,
+			     PSM_LOCAL_PWR_CTRL_ISO_MASK, PSM_LOCAL_PWR_CTRL_ISO_MASK);
+
+		/* Power down Core 2 */
+		XPsmFw_RMW32(Cpu2PwrCtrlAddr,
+			     PSM_LOCAL_PWR_CTRL_GATES_MASK,
+			     ~PSM_LOCAL_PWR_CTRL_GATES_MASK);
+		Status = XPsmFw_UtilPollForZero(Cpu2PwrStatusAddr,
+				PSM_LOCAL_PWR_CTRL_GATES_MASK,
+				Args->PwrDwnAckTimeout);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+	}
+
+	Status = XST_SUCCESS;
+
+done:
+	return Status;
+}
+
+/****************************************************************************/
+/**
  * @brief	Executes power-up sequence for ACPUx core
  *
  * @param Args	Node specific arguments
@@ -1292,7 +1394,11 @@ static XStatus XPsmFwACPUxPwrUp(struct XPsmFwPwrCtrl_t *Args)
 	 * Note: Per-core memclear/mbist should not be done here.
 	 */
 	if (0U != (PsmToPlmEvent.BisrBitmask & BISR_BITMASK_FPX)) {
-		Status = XPsmFw_ApuCoreBisrRepair((u32)Args->Id);
+		if (((u32)Args->Id % 4U) == 3U) {
+			Status = XPsmFw_Core3BisrRepair(Args);
+		} else {
+			Status = XPsmFw_ApuCoreBisrRepair((u32)Args->Id);
+		}
 		if (XST_SUCCESS != Status) {
 			goto done;
 		}
