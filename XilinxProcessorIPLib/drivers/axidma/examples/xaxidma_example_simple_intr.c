@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -88,31 +88,6 @@
 
 #ifndef SDT
 #define DMA_DEV_ID		XPAR_AXIDMA_0_DEVICE_ID
-
-#ifdef XPAR_AXI_7SDDR_0_S_AXI_BASEADDR
-#define DDR_BASE_ADDR		XPAR_AXI_7SDDR_0_S_AXI_BASEADDR
-#elif defined (XPAR_MIG7SERIES_0_BASEADDR)
-#define DDR_BASE_ADDR	XPAR_MIG7SERIES_0_BASEADDR
-#elif defined (XPAR_MIG_0_C0_DDR4_MEMORY_MAP_BASEADDR)
-#define DDR_BASE_ADDR	XPAR_MIG_0_C0_DDR4_MEMORY_MAP_BASEADDR
-#elif defined (XPAR_PSU_DDR_0_S_AXI_BASEADDR)
-#define DDR_BASE_ADDR	XPAR_PSU_DDR_0_S_AXI_BASEADDR
-#endif
-
-#else
-
-#ifdef XPAR_MEM0_BASEADDRESS
-#define DDR_BASE_ADDR		XPAR_MEM0_BASEADDRESS
-#endif
-
-#endif
-
-#ifndef DDR_BASE_ADDR
-#warning CHECK FOR THE VALID DDR ADDRESS IN XPARAMETERS.H, \
-DEFAULT SET TO 0x01000000
-#define MEM_BASE_ADDR		0x01000000
-#else
-#define MEM_BASE_ADDR		(DDR_BASE_ADDR + 0x1000000)
 #endif
 
 #ifndef SDT
@@ -124,10 +99,6 @@ DEFAULT SET TO 0x01000000
 #define TX_INTR_ID		XPAR_FABRIC_AXIDMA_0_MM2S_INTROUT_VEC_ID
 #endif
 #endif
-
-#define TX_BUFFER_BASE		(MEM_BASE_ADDR + 0x00100000)
-#define RX_BUFFER_BASE		(MEM_BASE_ADDR + 0x00300000)
-#define RX_BUFFER_HIGH		(MEM_BASE_ADDR + 0x004FFFFF)
 
 #ifndef SDT
 #ifdef XPAR_INTC_0_DEVICE_ID
@@ -212,6 +183,11 @@ volatile u32 TxDone;
 volatile u32 RxDone;
 volatile u32 Error;
 
+/** @cond INTERNAL */
+static u8 TxBuffer[MAX_PKT_LEN] __attribute__ ((aligned(64)));
+static u8 RxBuffer[MAX_PKT_LEN] __attribute__ ((aligned(64)));
+/** @endcond */
+
 /*****************************************************************************/
 /**
 *
@@ -247,8 +223,8 @@ int main(void)
 	u8 *RxBufferPtr;
 	u8 Value;
 
-	TxBufferPtr = (u8 *)TX_BUFFER_BASE ;
-	RxBufferPtr = (u8 *)RX_BUFFER_BASE;
+	TxBufferPtr = (u8 *)TxBuffer;
+	RxBufferPtr = (u8 *)RxBuffer;
 	/* Initial setup for Uart16550 */
 #ifdef XPAR_UARTNS550_0_BASEADDR
 
@@ -472,7 +448,7 @@ static int CheckData(int Length, u8 StartValue)
 	int Index = 0;
 	u8 Value;
 
-	RxPacket = (u8 *) RX_BUFFER_BASE;
+	RxPacket = (u8 *) RxBuffer;
 	Value = StartValue;
 
 	/* Invalidate the DestBuffer before receiving the data, in case the

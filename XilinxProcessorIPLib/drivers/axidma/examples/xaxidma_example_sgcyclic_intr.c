@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -59,7 +59,7 @@
 #include "xinterrupt_wrap.h"
 #endif
 
-#ifdef __aarch64__
+#ifndef __MICROBLAZE__
 #include "xil_mmu.h"
 #endif
 
@@ -86,30 +86,6 @@ extern void xil_printf(const char *format, ...);
 
 #ifndef SDT
 #define DMA_DEV_ID		XPAR_AXIDMA_0_DEVICE_ID
-
-#ifdef XPAR_AXI_7SDDR_0_S_AXI_BASEADDR
-#define DDR_BASE_ADDR		XPAR_AXI_7SDDR_0_S_AXI_BASEADDR
-#elif defined (XPAR_MIG7SERIES_0_BASEADDR)
-#define DDR_BASE_ADDR	XPAR_MIG7SERIES_0_BASEADDR
-#elif defined (XPAR_MIG_0_C0_DDR4_MEMORY_MAP_BASEADDR)
-#define DDR_BASE_ADDR	XPAR_MIG_0_C0_DDR4_MEMORY_MAP_BASEADDR
-#elif defined (XPAR_PSU_DDR_0_S_AXI_BASEADDR)
-#define DDR_BASE_ADDR	XPAR_PSU_DDR_0_S_AXI_BASEADDR
-#endif
-
-#else
-
-#ifdef XPAR_MEM0_BASEADDRESS
-#define DDR_BASE_ADDR		XPAR_MEM0_BASEADDRESS
-#endif
-#endif
-
-#ifndef DDR_BASE_ADDR
-#warning CHECK FOR THE VALID DDR ADDRESS IN XPARAMETERS.H, \
-DEFAULT SET TO 0x01000000
-#define MEM_BASE_ADDR		0x01000000
-#else
-#define MEM_BASE_ADDR		(DDR_BASE_ADDR + 0x1000000)
 #endif
 
 #ifndef SDT
@@ -121,14 +97,6 @@ DEFAULT SET TO 0x01000000
 #define TX_INTR_ID		XPAR_FABRIC_AXIDMA_0_MM2S_INTROUT_VEC_ID
 #endif
 #endif
-
-#define RX_BD_SPACE_BASE	(MEM_BASE_ADDR)
-#define RX_BD_SPACE_HIGH	(MEM_BASE_ADDR + 0x0000FFFF)
-#define TX_BD_SPACE_BASE	(MEM_BASE_ADDR + 0x00010000)
-#define TX_BD_SPACE_HIGH	(MEM_BASE_ADDR + 0x0001FFFF)
-#define TX_BUFFER_BASE		(MEM_BASE_ADDR + 0x00100000)
-#define RX_BUFFER_BASE		(MEM_BASE_ADDR + 0x00300000)
-#define RX_BUFFER_HIGH		(MEM_BASE_ADDR + 0x004FFFFF)
 
 #ifndef SDT
 #ifdef XPAR_INTC_0_DEVICE_ID
@@ -145,8 +113,9 @@ DEFAULT SET TO 0x01000000
 /*
  * Buffer and Buffer Descriptor related constant definition
  */
+/** @cond */
 #define MAX_PKT_LEN		0x100
-#define MARK_UNCACHEABLE        0x701
+#define BLOCK_SIZE_2MB		0x200000U
 
 /*
  * Number of BDs in the transfer example
@@ -159,6 +128,14 @@ DEFAULT SET TO 0x01000000
 		NUMBER_OF_BDS_PER_PKT)
 
 #define NUMBER_OF_CYCLIC_TRANSFERS	100
+
+#define NUMBER_OF_BDS_IN_RX_RING	1024
+
+#define TX_BD_SPACE_SIZE	(NUMBER_OF_BDS_TO_TRANSFER * XAXIDMA_BD_MINIMUM_ALIGNMENT)
+#define RX_BD_SPACE_SIZE	(NUMBER_OF_BDS_IN_RX_RING * XAXIDMA_BD_MINIMUM_ALIGNMENT)
+#define TX_BUFFER_SIZE		(NUMBER_OF_BDS_TO_TRANSFER * MAX_PKT_LEN)
+#define RX_BUFFER_SIZE		(NUMBER_OF_BDS_IN_RX_RING * MAX_PKT_LEN)
+/** @endcond */
 
 /* The interrupt coalescing threshold and delay timer threshold
  * Valid range is 1 to 255
@@ -227,10 +204,20 @@ volatile u32 TxDone;
 volatile u32 RxDone;
 volatile u32 Error;
 
-/*
- * Buffer for transmit packet. Must be 32-bit aligned to be used by DMA.
- */
-u32 *Packet = (u32 *) TX_BUFFER_BASE;
+/** @cond INTERNAL */
+static u8 TxBuffer[TX_BUFFER_SIZE] __attribute__ ((aligned(64)));
+static u8 RxBuffer[RX_BUFFER_SIZE] __attribute__ ((aligned(64)));
+
+#ifdef __aarch64__
+static u8 TxBdSpace[TX_BD_SPACE_SIZE] __attribute__ ((aligned(BLOCK_SIZE_2MB)));
+static u8 RxBdSpace[RX_BD_SPACE_SIZE] __attribute__ ((aligned(BLOCK_SIZE_2MB)));
+#else
+static u8 TxBdSpace[TX_BD_SPACE_SIZE] __attribute__ ((aligned(XAXIDMA_BD_MINIMUM_ALIGNMENT)));
+static u8 RxBdSpace[RX_BD_SPACE_SIZE] __attribute__ ((aligned(XAXIDMA_BD_MINIMUM_ALIGNMENT)));
+#endif
+
+u32 *Packet;
+/** @endcond */
 
 /*****************************************************************************/
 /**
@@ -274,9 +261,17 @@ int main(void)
 #endif
 
 	xil_printf("\r\n--- Entering main() --- \r\n");
+
+	Packet = (u32 *)TxBuffer;
+
 #ifdef __aarch64__
-	Xil_SetTlbAttributes(TX_BD_SPACE_BASE, MARK_UNCACHEABLE);
-	Xil_SetTlbAttributes(RX_BD_SPACE_BASE, MARK_UNCACHEABLE);
+	Xil_SetTlbAttributes((UINTPTR)TxBdSpace & ~(BLOCK_SIZE_2MB - 1),
+			     NORM_NONCACHE);
+	Xil_SetTlbAttributes((UINTPTR)RxBdSpace & ~(BLOCK_SIZE_2MB - 1),
+			     NORM_NONCACHE);
+#elif !defined(__MICROBLAZE__) && !defined(ARMR5)
+	Xil_SetTlbAttributes((UINTPTR)TxBdSpace, DEVICE_MEMORY);
+	Xil_SetTlbAttributes((UINTPTR)RxBdSpace, DEVICE_MEMORY);
 #endif
 
 #ifndef SDT
@@ -464,7 +459,7 @@ static int CheckData(int Length, u8 StartValue)
 	int Index = 0;
 	u8 Value;
 
-	RxPacket = (u8 *) RX_BUFFER_BASE;
+	RxPacket = (u8 *) RxBuffer;
 	Value = StartValue;
 
 	/* Invalidate the DestBuffer before receiving the data, in case the
@@ -879,10 +874,10 @@ static int RxSetup(XAxiDma *AxiDmaInstPtr)
 
 	/* Setup Rx BD space */
 	BdCount = XAxiDma_BdRingCntCalc(XAXIDMA_BD_MINIMUM_ALIGNMENT,
-					RX_BD_SPACE_HIGH - RX_BD_SPACE_BASE + 1);
+					RX_BD_SPACE_SIZE);
 
-	Status = XAxiDma_BdRingCreate(RxRingPtr, RX_BD_SPACE_BASE,
-				      RX_BD_SPACE_BASE,
+	Status = XAxiDma_BdRingCreate(RxRingPtr, (UINTPTR)RxBdSpace,
+				      (UINTPTR)RxBdSpace,
 				      XAXIDMA_BD_MINIMUM_ALIGNMENT, BdCount);
 	if (Status != XST_SUCCESS) {
 		xil_printf("Rx bd create failed with %d\r\n", Status);
@@ -909,7 +904,7 @@ static int RxSetup(XAxiDma *AxiDmaInstPtr)
 	}
 
 	BdCurPtr = BdPtr;
-	RxBufferPtr = RX_BUFFER_BASE;
+	RxBufferPtr = (UINTPTR)RxBuffer;
 
 	for (Index = 0; Index < FreeBdCount; Index++) {
 
@@ -1000,8 +995,8 @@ static int TxSetup(XAxiDma *AxiDmaInstPtr)
 	/* Disable all TX interrupts before TxBD space setup */
 	XAxiDma_BdRingIntDisable(TxRingPtr, XAXIDMA_IRQ_ALL_MASK);
 
-	Status = XAxiDma_BdRingCreate(TxRingPtr, TX_BD_SPACE_BASE,
-				      TX_BD_SPACE_BASE,
+	Status = XAxiDma_BdRingCreate(TxRingPtr, (UINTPTR)TxBdSpace,
+				      (UINTPTR)TxBdSpace,
 				      XAXIDMA_BD_MINIMUM_ALIGNMENT, NUMBER_OF_BDS_TO_TRANSFER);
 	if (Status != XST_SUCCESS) {
 
@@ -1111,7 +1106,7 @@ static int SendPacket(XAxiDma *AxiDmaInstPtr)
 	 */
 	Xil_DCacheFlushRange((UINTPTR)TxPacket, MAX_PKT_LEN *
 			     NUMBER_OF_BDS_TO_TRANSFER);
-	Xil_DCacheFlushRange((UINTPTR)RX_BUFFER_BASE, MAX_PKT_LEN *
+	Xil_DCacheFlushRange((UINTPTR)RxBuffer, MAX_PKT_LEN *
 			     NUMBER_OF_BDS_TO_TRANSFER);
 
 	Status = XAxiDma_BdRingAlloc(TxRingPtr, NUMBER_OF_BDS_TO_TRANSFER,

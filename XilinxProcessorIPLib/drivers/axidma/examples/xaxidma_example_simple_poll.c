@@ -74,35 +74,7 @@
 
 #ifndef SDT
 #define DMA_DEV_ID		XPAR_AXIDMA_0_DEVICE_ID
-
-#ifdef XPAR_AXI_7SDDR_0_S_AXI_BASEADDR
-#define DDR_BASE_ADDR		XPAR_AXI_7SDDR_0_S_AXI_BASEADDR
-#elif defined (XPAR_MIG7SERIES_0_BASEADDR)
-#define DDR_BASE_ADDR	XPAR_MIG7SERIES_0_BASEADDR
-#elif defined (XPAR_MIG_0_C0_DDR4_MEMORY_MAP_BASEADDR)
-#define DDR_BASE_ADDR	XPAR_MIG_0_C0_DDR4_MEMORY_MAP_BASEADDR
-#elif defined (XPAR_PSU_DDR_0_S_AXI_BASEADDR)
-#define DDR_BASE_ADDR	XPAR_PSU_DDR_0_S_AXI_BASEADDR
 #endif
-
-#else
-
-#ifdef XPAR_MEM0_BASEADDRESS
-#define DDR_BASE_ADDR		XPAR_MEM0_BASEADDRESS
-#endif
-#endif
-
-#ifndef DDR_BASE_ADDR
-#warning CHECK FOR THE VALID DDR ADDRESS IN XPARAMETERS.H, \
-DEFAULT SET TO 0x01000000
-#define MEM_BASE_ADDR		0x01000000
-#else
-#define MEM_BASE_ADDR		(DDR_BASE_ADDR + 0x1000000)
-#endif
-
-#define TX_BUFFER_BASE		(MEM_BASE_ADDR + 0x00100000)
-#define RX_BUFFER_BASE		(MEM_BASE_ADDR + 0x00300000)
-#define RX_BUFFER_HIGH		(MEM_BASE_ADDR + 0x004FFFFF)
 
 #define MAX_PKT_LEN		0x20
 
@@ -135,6 +107,11 @@ static int CheckData(void);
  * Device instance definitions
  */
 XAxiDma AxiDma;
+
+/** @cond INTERNAL */
+static u8 TxBuffer[MAX_PKT_LEN] __attribute__ ((aligned(64)));
+static u8 RxBuffer[MAX_PKT_LEN] __attribute__ ((aligned(64)));
+/** @endcond */
 
 
 /*****************************************************************************/
@@ -238,8 +215,8 @@ int XAxiDma_SimplePollExample(UINTPTR BaseAddress)
 	u8 Value;
 	int TimeOut = POLL_TIMEOUT_COUNTER;
 
-	TxBufferPtr = (u8 *)TX_BUFFER_BASE ;
-	RxBufferPtr = (u8 *)RX_BUFFER_BASE;
+	TxBufferPtr = (u8 *)TxBuffer;
+	RxBufferPtr = (u8 *)RxBuffer;
 
 	/* Initialize the XAxiDma device.
 	 */
@@ -349,7 +326,7 @@ static int CheckData(void)
 	int Index = 0;
 	u8 Value;
 
-	RxPacket = (u8 *) RX_BUFFER_BASE;
+	RxPacket = (u8 *) RxBuffer;
 	Value = TEST_START_VALUE;
 
 	/* Invalidate the DestBuffer before receiving the data, in case the
