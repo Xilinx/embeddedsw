@@ -1,6 +1,6 @@
 /*******************************************************************
 * Copyright (C) 2010-2020 Xilinx, Inc. All rights reserved.
-* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 /**
@@ -11,9 +11,6 @@
 #ifndef __linux__
 
 #include "xstatus.h"
-#ifndef SDT
-#include "xparameters.h"
-#endif
 #include "xv_deinterlacer.h"
 
 #ifndef XPAR_XV_DEINTERLACER_NUM_INSTANCES
@@ -22,67 +19,6 @@
 
 extern XV_deinterlacer_Config XV_deinterlacer_ConfigTable[];
 
-#ifndef SDT
-/**
- * XV_deinterlacer_LookupConfig - Looks up the configuration for a specific device ID.
- *
- * This function searches the XV_deinterlacer_ConfigTable for a configuration
- * structure that matches the provided DeviceId. If a match is found, a pointer
- * to the corresponding configuration structure is returned. If no match is found,
- * NULL is returned.
- *
- * @param DeviceId: The unique identifier for the device whose configuration is to be found.
- *
- * @return
- *   - Pointer to the XV_deinterlacer_Config structure if a match is found.
- *   - NULL if no matching configuration is found.
- */
-XV_deinterlacer_Config *XV_deinterlacer_LookupConfig(u16 DeviceId) {
-    XV_deinterlacer_Config *ConfigPtr = NULL;
-
-    int Index;
-
-    for (Index = 0; Index < XPAR_XV_DEINTERLACER_NUM_INSTANCES; Index++) {
-        if (XV_deinterlacer_ConfigTable[Index].DeviceId == DeviceId) {
-            ConfigPtr = &XV_deinterlacer_ConfigTable[Index];
-            break;
-        }
-    }
-
-    return ConfigPtr;
-}
-
-/**
- * XV_deinterlacer_Initialize - Initializes the XV_deinterlacer instance.
- *
- * This function looks up the configuration for the specified device ID and
- * initializes the XV_deinterlacer instance with the configuration data.
- * If the configuration cannot be found, the function sets the instance as
- * not ready and returns an error code.
- *
- * @param InstancePtr Pointer to the XV_deinterlacer instance to be initialized.
- * @param DeviceId    Device ID of the XV_deinterlacer core to look up.
- *
- * @return
- *   - XST_SUCCESS if initialization is successful.
- *   - XST_DEVICE_NOT_FOUND if the device configuration is not found.
- */
-int XV_deinterlacer_Initialize(XV_deinterlacer *InstancePtr, u16 DeviceId) {
-    XV_deinterlacer_Config *ConfigPtr;
-
-    Xil_AssertNonvoid(InstancePtr != NULL);
-
-    ConfigPtr = XV_deinterlacer_LookupConfig(DeviceId);
-    if (ConfigPtr == NULL) {
-        InstancePtr->IsReady = 0;
-        return (XST_DEVICE_NOT_FOUND);
-    }
-
-    return XV_deinterlacer_CfgInitialize(InstancePtr,
-                                         ConfigPtr,
-                                         ConfigPtr->BaseAddress);
-}
-#else
 /**
  * XV_deinterlacer_LookupConfig - Looks up the configuration for a deinterlacer instance.
  *
@@ -145,5 +81,4 @@ int XV_deinterlacer_Initialize(XV_deinterlacer *InstancePtr, UINTPTR BaseAddress
                                          ConfigPtr,
                                          ConfigPtr->BaseAddress);
 }
-#endif
 #endif

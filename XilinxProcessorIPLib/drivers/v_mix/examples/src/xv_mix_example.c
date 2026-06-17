@@ -53,22 +53,10 @@
 #include "xvtc.h"
 #include "xgpio.h"
 
-#ifndef SDT
-#if defined (__MICROBLAZE__) || defined(__riscv)
-#include "xintc.h"
-#else
-#include "xscugic.h"
-#endif
-#else
 #include "xinterrupt_wrap.h"
-#endif
 
 #if defined(__MICROBLAZE__)
-  #ifndef  SDT
-  #define DDR_BASEADDR XPAR_MIG7SERIES_0_BASEADDR
-  #else
   #define DDR_BASEADDR XPAR_MIG_0_BASEADDRESS
-  #endif
 #elif defined(__riscv)
   #define DDR_BASEADDR XPAR_LPDDRMC_0_BASEADDR
 #else
@@ -128,11 +116,7 @@ u32 volatile *gpio_hlsIpReset;
 #ifdef XPAR_XV_FRMBUFRD_NUM_INSTANCES
 typedef struct {
   XV_FrmbufRd_l2 Inst;
-#ifndef SDT
-  u32            DeviceId;
-#else
   UINTPTR        BaseAddress;
-#endif
 } FrmbufInst;
 
 FrmbufInst FBLayer[XPAR_XV_FRMBUFRD_NUM_INSTANCES];
@@ -170,10 +154,6 @@ static const XVidC_VideoWindow MixLayerConfig_4K[4] =
 
 void resetIp(void);
 static int DriverInit(void);
-#ifndef SDT
-static int SetupInterrupts(void);
-#endif
-
 static void ConfigTpg(XVidC_VideoStream *StreamPtr);
 static void ConfigMixer(XVidC_VideoStream *StreamPtr);
 #ifdef XPAR_XV_FRMBUFRD_NUM_INSTANCES
@@ -190,108 +170,6 @@ static void ConfigVtc(XVidC_VideoStream *StreamPtr);
 static int RunMixerFeatureTests(XVidC_VideoStream *StreamPtr);
 static int CheckVidoutLock(void);
 
-#ifndef SDT
-/**
- * @brief Sets up the interrupt controller and connects the V_MIX interrupt handler.
- *
- * This function initializes the interrupt controller and connects the interrupt
- * service routine for the V_MIX hardware block. It supports both MicroBlaze and
- * ARM Cortex-A (Zynq/Versal) architectures by using the appropriate interrupt
- * controller APIs:
- *   - For MicroBlaze, it uses the XIntc driver.
- *   - For ARM Cortex-A, it uses the XScuGic driver.
- *
- * Steps performed:
- *   1. Initializes the interrupt controller.
- *   2. Connects the V_MIX interrupt handler to the controller.
- *   3. Enables the interrupt in the controller.
- *   4. Starts the interrupt controller (if required by architecture).
- *   5. Registers the exception handler (for ARM Cortex-A).
- *
- * @return
- *   - XST_SUCCESS if the setup is successful.
- *   - XST_FAILURE or XST_DEVICE_NOT_FOUND if any step fails.
- */
-static int SetupInterrupts(void)
-{
-#if defined(__MICROBLAZE__) || defined(__riscv)
-  int Status;
-  XIntc *IntcPtr = &intc;
-
-  /* Initialize the Interrupt controller */
-  Status = XIntc_Initialize(IntcPtr,
-                            XPAR_PROCESSOR_SS_PROCESSOR_AXI_INTC_DEVICE_ID);
-  if(Status != XST_SUCCESS) {
-    xil_printf("ERROR:: Interrupt controller device not found\r\n");
-    return(XST_FAILURE);
-  }
-
-  /* Hook up interrupt service routine */
-  Status = XIntc_Connect(IntcPtr,
-                         XPAR_PROCESSOR_SS_PROCESSOR_AXI_INTC_V_MIX_0_INTERRUPT_INTR,
-                         (XInterruptHandler)XVMix_InterruptHandler,
-                         &mix);
-  if (Status != XST_SUCCESS) {
-    xil_printf("ERROR:: Mixer interrupt connect failed!\r\n");
-    return XST_FAILURE;
-  }
-
-  /* Enable the interrupt vector at the interrupt controller */
-  XIntc_Enable(IntcPtr,
-               XPAR_PROCESSOR_SS_PROCESSOR_AXI_INTC_V_MIX_0_INTERRUPT_INTR);
-
-  /*
-   * Start the interrupt controller such that interrupts are recognized
-   * and handled by the processor
-   */
-  Status = XIntc_Start(IntcPtr, XIN_REAL_MODE);
-  if (Status != XST_SUCCESS) {
-    xil_printf("ERROR:: Failed to start interrupt controller\r\n");
-    return XST_FAILURE;
-  }
-
-#else
-  int Status;
-  XScuGic *IntcPtr = &intc;
-
-  /* Initialize the Interrupt controller */
-  XScuGic_Config *IntcCfgPtr;
-  IntcCfgPtr = XScuGic_LookupConfig(PS_ACPU_GIC_DEVICE_ID);
-  if(IntcCfgPtr == NULL)
-  {
-    print("ERR:: Interrupt Controller not found");
-    return (XST_DEVICE_NOT_FOUND);
-  }
-  Status = XScuGic_CfgInitialize(IntcPtr,
-                                 IntcCfgPtr,
-                                 IntcCfgPtr->CpuBaseAddress);
-  if (Status != XST_SUCCESS) {
-    xil_printf("Intc initialization failed!\r\n");
-    return XST_FAILURE;
-  }
-
-  /* Hook up interrupt service routine */
-  Status |= XScuGic_Connect(IntcPtr,
-                            XPAR_FABRIC_V_MIX_0_INTERRUPT_INTR,
-                            (XInterruptHandler)XVMix_InterruptHandler,
-                            (void *)&mix);
-  Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT,
-                               (Xil_ExceptionHandler) XScuGic_InterruptHandler,
-                               IntcPtr);
-  if (Status != XST_SUCCESS) {
-    xil_printf("ERR:: Mixer interrupt connect failed!\r\n");
-    return XST_FAILURE;
-  }
-
-  /* Enable the interrupt vector at the interrupt controller */
-  XScuGic_Enable(IntcPtr, XPAR_FABRIC_V_MIX_0_INTERRUPT_INTR);
-
-#endif
-
-  return(XST_SUCCESS);
-}
-#endif
-
 /**
  * @brief Initializes all required video processing drivers and peripherals.
  *
@@ -302,8 +180,8 @@ static int SetupInterrupts(void)
  * - Video Mixer
  * - Video Lock Monitor GPIO
  *
- * The function uses conditional compilation to support both SDT and non-SDT
- * environments for device lookup and initialization.
+ * The function uses conditional compilation to support SDT
+ * environment for device lookup and initialization.
  *
  * @return
  *   - XST_SUCCESS if all components are initialized successfully.
@@ -316,11 +194,7 @@ static int DriverInit(void)
   XVtc_Config *vtc_Config;
   XGpio_Config *GpioCfgPtr;
 
-#ifndef SDT
-  vtc_Config = XVtc_LookupConfig(XPAR_V_TC_0_DEVICE_ID);
-#else
   vtc_Config = XVtc_LookupConfig(XPAR_XVTC_0_BASEADDR);
-#endif
   if(vtc_Config == NULL) {
     xil_printf("ERROR:: VTC device not found\r\n");
     return(XST_FAILURE);
@@ -332,11 +206,7 @@ static int DriverInit(void)
     return(XST_FAILURE);
   }
 
-#ifndef SDT
-  Status = XV_tpg_Initialize(&tpg, XPAR_V_TPG_0_DEVICE_ID);
-#else
   Status = XV_tpg_Initialize(&tpg, XPAR_XV_TPG_0_BASEADDR);
-#endif
   if(Status != XST_SUCCESS) {
     xil_printf("ERROR:: TPG device not found\r\n");
     return(XST_FAILURE);
@@ -345,13 +215,8 @@ static int DriverInit(void)
 #ifdef XPAR_XV_FRMBUFRD_NUM_INSTANCES
   for(int count=0; count < XPAR_XV_FRMBUFRD_NUM_INSTANCES; ++count)
   {
-#ifndef SDT
-    FBLayer[count].DeviceId = XV_frmbufrd_ConfigTable[count].DeviceId;
-    Status = XVFrmbufRd_Initialize(&FBLayer[count].Inst, FBLayer[count].DeviceId);
-#else
     FBLayer[count].BaseAddress = XV_frmbufrd_ConfigTable[count].BaseAddress;
     Status = XVFrmbufRd_Initialize(&FBLayer[count].Inst, FBLayer[count].BaseAddress);
-#endif
     if(Status != XST_SUCCESS) {
         xil_printf("ERROR:: Frame Buffer Read initialization failed\r\n");
     return(XST_FAILURE);
@@ -359,22 +224,14 @@ static int DriverInit(void)
   }
 #endif
 
-#ifndef SDT
-  Status  = XVMix_Initialize(&mix, XPAR_V_MIX_0_DEVICE_ID);
-#else
   Status  = XVMix_Initialize(&mix, XPAR_XV_MIX_0_BASEADDR);
-#endif
   if(Status != XST_SUCCESS) {
     xil_printf("ERROR:: Mixer device not found\r\n");
     return(XST_FAILURE);
   }
 
   //Video Lock Monitor
-#ifndef SDT
-  GpioCfgPtr = XGpio_LookupConfig(XPAR_VIDEO_LOCK_MONITOR_DEVICE_ID);
-#else
   GpioCfgPtr = XGpio_LookupConfig(XPAR_VIDEO_LOCK_MONITOR_BASEADDR);
-#endif
   if(GpioCfgPtr == NULL) {
     xil_printf("ERROR:: Video Lock Monitor GPIO device not found\r\n");
     return(XST_FAILURE);
@@ -1098,16 +955,12 @@ int main(void)
   }
 
   /* Initialize IRQ */
-#ifndef SDT
-    Status = SetupInterrupts();
-#else
     xil_printf("mix.Mix.Config.IntrId : 0x%x\r\n",mix.Mix.Config.IntrId);
     xil_printf("mix.Mix.Config.Intrparent : 0x%x\r\n",mix.Mix.Config.IntrParent);
   Status = XSetupInterruptSystem(&mix,&XVMix_InterruptHandler,
 				       mix.Mix.Config.IntrId,
 				       mix.Mix.Config.IntrParent,
 				       XINTERRUPT_DEFAULT_PRIORITY);
-#endif
   if (Status == XST_FAILURE) {
     xil_printf("ERROR:: Interrupt Setup Failed\r\n");
     xil_printf("ERROR:: Test could not be completed\r\n");

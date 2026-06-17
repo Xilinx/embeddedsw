@@ -29,11 +29,7 @@
 
 /************************** Constant Definitions *****************************/
 #if defined(__MICROBLAZE__)
-  #ifndef  SDT
-  #define DDR_BASEADDR XPAR_MIG7SERIES_0_BASEADDR
-  #else
   #define DDR_BASEADDR XPAR_MIG_0_BASEADDRESS
-  #endif
 #elif defined(__riscv)
   #define DDR_BASEADDR XPAR_LPDDRMC_0_BASEADDR
 #else
@@ -81,11 +77,7 @@ int XSys_Init(XPeriph  *pPeriph, XVprocSs *pVprocss)
   memset(pPeriph,  0, sizeof(XPeriph));
   memset(pVprocss, 0, sizeof(XVprocSs));
 
-#ifndef SDT
-  VprocSsConfigPtr = XVprocSs_LookupConfig(XPAR_V_PROC_SS_0_DEVICE_ID);
-#else
   VprocSsConfigPtr = XVprocSs_LookupConfig(XPAR_XVPROCSS_0_BASEADDR);
-#endif
   if(VprocSsConfigPtr == NULL)
   {
 	xil_printf("ERR:: VprocSs device not found\r\n");

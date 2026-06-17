@@ -40,11 +40,7 @@
 #include "xil_cache.h"
 #include "sleep.h"
 #include "xv_scenechange.h"
-#ifndef SDT
-#include "xscugic.h"
-#else
 #include "xinterrupt_wrap.h"
-#endif
 
 /************************** Constant Definitions *****************************/
 
@@ -81,9 +77,6 @@
 
 /************************** Function Prototypes ******************************/
 void SceneChangeDetectedCallback(void *CallbackRef);
-#ifndef SDT
-static int SetupInterruptSystem(void);
-#endif
 int XV_SceneChange_init(void);
 void reset_pipe(void);
 
@@ -129,52 +122,6 @@ void ClearScreen(void)
 	xil_printf("%c\033[0;0H", 27);
 }
 
-#ifndef SDT
-/*****************************************************************************/
-/**
- * @brief Setup the interrupt system for SceneChange
- *
- * This function initializes the GIC (Generic Interrupt Controller) and
- * registers the exception handler. It configures the interrupt controller
- * to handle interrupts from the SceneChange IP.
- *
- * @return XST_SUCCESS if interrupt system setup succeeds
- *         XST_DEVICE_NOT_FOUND if interrupt controller not found
- *         XST_FAILURE if initialization fails
- *
- * @note This function is only used in non-SDT builds.
- *
- *******************************************************************************/
-static int SetupInterruptSystem(void)
-{
-	int Status;
-	XScuGic *IntcInstPtr = &Intc;
-
-	XScuGic_Config *IntcCfgPtr;
-	IntcCfgPtr = XScuGic_LookupConfig(PS_ACPU_GIC_DEVICE_ID);
-	if (!IntcCfgPtr) {
-		xil_printf("ERR:: Interrupt Controller not found");
-		return XST_DEVICE_NOT_FOUND;
-	}
-	Status = XScuGic_CfgInitialize(IntcInstPtr,
-			IntcCfgPtr,
-			IntcCfgPtr->CpuBaseAddress);
-
-	if (Status != XST_SUCCESS) {
-		xil_printf("Intc initialization failed!\r\n");
-		return XST_FAILURE;
-	}
-
-	Xil_ExceptionInit();
-
-	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT,
-			(Xil_ExceptionHandler)XScuGic_InterruptHandler,
-			(XScuGic *)IntcInstPtr);
-
-	return XST_SUCCESS;
-}
-#endif
-
 /*****************************************************************************/
 /**
  * @brief Callback function for scene change detection
@@ -218,20 +165,12 @@ int XV_SceneChange_init()
 	int Status = 0;
 	u32 streams = 0;
 
-#ifndef SDT
-	ScdConfig = XV_scenechange_LookupConfig(XPAR_XV_SCENECHANGE_0_DEVICE_ID);
-#else
 	ScdConfig = XV_scenechange_LookupConfig(XPAR_XV_SCENECHANGE_0_BASEADDR);
-#endif
 	if (ScdConfig == NULL)
 		return XST_FAILURE;
 
 	/* Initialize top level and all included sub-cores */
-#ifndef SDT
-	Status = XV_scenechange_Initialize(&ScdPtr, XPAR_XV_SCENECHANGE_0_DEVICE_ID);
-#else
 	Status = XV_scenechange_Initialize(&ScdPtr, XPAR_XV_SCENECHANGE_0_BASEADDR);
-#endif
 	if (Status != XST_SUCCESS)
 		return XST_FAILURE;
 
@@ -262,23 +201,6 @@ int XV_SceneChange_init()
 		}
 	}
 
-#ifndef SDT
-	Status = SetupInterruptSystem();
-	if (Status != XST_SUCCESS) {
-		xil_printf("SetupInterruptSystem() is Failed.\r\n");
-		return XST_FAILURE;
-	}
-	Status |= XScuGic_Connect(&Intc,
-			XPAR_FABRIC_V_SCENECHANGE_0_VEC_ID,
-			(XInterruptHandler)XV_scenechange_InterruptHandler,
-			(void *)&ScdPtr);
-	if (Status == XST_SUCCESS) {
-		XScuGic_Enable(&Intc, XPAR_FABRIC_V_SCENECHANGE_0_VEC_ID);
-	} else {
-		xil_printf("ERR:: Unable to register SD interrupt handler");
-		return XST_FAILURE;
-	}
-#else
 	Status = XSetupInterruptSystem(&ScdPtr,&XV_scenechange_InterruptHandler,
 				       ScdPtr.ScdConfig->IntrId,
 				       ScdPtr.ScdConfig->IntrParent,
@@ -287,7 +209,6 @@ int XV_SceneChange_init()
 		xil_printf("XSetupInterruptSystem() is Failed.\r\n");
 		return XST_FAILURE;
 	}
-#endif
 
 	XV_scenechange_SetCallback(&ScdPtr, SceneChangeDetectedCallback,
 			(void *) &ScdPtr);

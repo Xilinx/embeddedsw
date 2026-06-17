@@ -107,11 +107,7 @@ typedef uint32_t u32;
  *       both legacy and device tree based configurations.
  */
 typedef struct {
-#ifndef SDT
-    u16 DeviceId;		/**< Unique ID of device */
-#else
     char *Name;			/**< Unique Name of device */
-#endif
     UINTPTR Ctrl_BaseAddress;	/**< Base address of the control registers */
     u8	MemoryBased;		/**< Memory-based mode flag (1=memory, 0=stream) */
     u8	NumStreams;		/**< Number of streams supported by the IP */
@@ -120,10 +116,8 @@ typedef struct {
     u8  EnableY10;		/**< Y10 format support enabled flag */
     u32 Cols;			/**< Maximum number of columns supported */
     u32	Rows;			/**< Maximum number of rows supported */
-#ifdef SDT
     u16 IntrId; 		    /**< Interrupt ID */
     UINTPTR IntrParent; 	    /**< Bit[0] Interrupt parent type Bit[64/32:1] Parent base address */
-#endif
 } XV_scenechange_Config;
 #endif
 
@@ -232,13 +226,8 @@ typedef struct {
 
 /************************** Function Prototypes *****************************/
 #ifndef __linux__
-#ifndef SDT
-int XV_scenechange_Initialize(XV_scenechange *InstancePtr, u16 DeviceId);
-XV_scenechange_Config* XV_scenechange_LookupConfig(u16 DeviceId);
-#else
 int XV_scenechange_Initialize(XV_scenechange *InstancePtr, UINTPTR BaseAddress);
 XV_scenechange_Config* XV_scenechange_LookupConfig(UINTPTR BaseAddress);
-#endif
 int XV_scenechange_CfgInitialize(XV_scenechange *InstancePtr, XV_scenechange_Config *ConfigPtr);
 #else
 int XV_scenechange_Initialize(XV_scenechange *InstancePtr, const char* InstanceName);

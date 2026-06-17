@@ -103,11 +103,7 @@ typedef enum {
 * Each core instance should have a configuration structure associated.
 */
 typedef struct {
-#ifndef SDT
-    u16 DeviceId;          /**< Unique ID  of device */
-#else
     char *Name;
-#endif
     UINTPTR BaseAddress;   /**< The base address of the core instance. */
     u16 HasAxi4sSlave;     /**< Axi4s Slave capability indicator */
     u16 PixPerClk;         /**< Samples Per Clock supported by core instance */
@@ -122,10 +118,8 @@ typedef struct {
 	u16 ColorSweepEnable;  /**< Axi4s Slave capability indicator */
 	u16 ZoneplateEnable;   /**< Axi4s Slave capability indicator */
 	u16 ForegroundEnable;  /**< Axi4s Slave capability indicator */
-#ifdef SDT
     u16 IntrId; 		    /**< Interrupt ID */
     UINTPTR IntrParent; 	/**< Bit[0] Interrupt parent type Bit[64/32:1] Parent base address */
-#endif
 } XV_tpg_Config;
 #endif
 
@@ -176,13 +170,8 @@ typedef struct {
 
 /************************** Function Prototypes *****************************/
 #ifndef __linux__
-#ifndef SDT
-int XV_tpg_Initialize(XV_tpg *InstancePtr, u16 DeviceId);
-XV_tpg_Config* XV_tpg_LookupConfig(u16 DeviceId);
-#else
 int XV_tpg_Initialize(XV_tpg *InstancePtr, UINTPTR BaseAddress);
 XV_tpg_Config* XV_tpg_LookupConfig(UINTPTR BaseAddress);
-#endif
 int XV_tpg_CfgInitialize(XV_tpg *InstancePtr,
                          XV_tpg_Config *ConfigPtr,
                          UINTPTR EffectiveAddr);

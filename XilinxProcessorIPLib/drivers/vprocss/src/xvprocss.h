@@ -320,12 +320,7 @@ typedef struct
 typedef struct
 {
   u16 IsPresent;  /**< Flag to indicate if sub-core is present in the design*/
-#ifndef SDT
-  u16 DeviceId;   /**< Device ID of the sub-core */
-  u32 AddrOffset; /**< sub-core offset from subsystem base address */
-#else
   UINTPTR AddrOffset;
-#endif
 }XSubCore;
 
 /**
@@ -336,11 +331,7 @@ typedef struct
 
 typedef struct
 {
-#ifndef SDT
-  u16 DeviceId;	         /**< DeviceId is the unique ID  of the device */
-#else
   char *Name;
-#endif
   UINTPTR BaseAddress;   /**< BaseAddress is the physical base address of the
                               subsystem address range */
   UINTPTR HighAddress;   /**< HighAddress is the physical MAX address of the
@@ -606,12 +597,8 @@ int XVprocSs_CfgInitialize(XVprocSs *InstancePtr,
                            XVprocSs_Config *CfgPtr,
 						   UINTPTR EffectiveAddr);
 int XVprocSs_SetSubsystemConfig(XVprocSs *InstancePtr);
-#ifndef SDT
-XVprocSs_Config* XVprocSs_LookupConfig(u32 DeviceId);
-#else
 XVprocSs_Config* XVprocSs_LookupConfig(UINTPTR BaseAddress);
 u32 XVprocSs_GetDrvIndex(UINTPTR BaseAddress);
-#endif
 
 void XVprocSs_Start(XVprocSs *InstancePtr);
 void XVprocSs_Stop(XVprocSs *InstancePtr);

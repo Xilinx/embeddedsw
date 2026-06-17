@@ -229,10 +229,8 @@ int XVtc_CfgInitialize(XVtc *InstancePtr, XVtc_Config *CfgPtr,
 	memcpy((void *)&(InstancePtr->Config), (const void *)CfgPtr,
 			   sizeof(XVtc_Config));
 	InstancePtr->Config.BaseAddress = EffectiveAddr;
-#ifdef SDT
     InstancePtr->Config.IntrId = CfgPtr->IntrId;
     InstancePtr->Config.IntrParent = CfgPtr->IntrParent;
-#endif
 
 	/* Set all handlers to stub values, let user configure this data later */
 	InstancePtr->FrameSyncCallBack = (XVtc_CallBack) StubCallBack;

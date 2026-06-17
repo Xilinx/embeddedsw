@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2008 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -37,9 +37,6 @@
 /***************************** Include Files *********************************/
 
 #include "xvtc.h"
-#ifndef SDT
-#include "xparameters.h"
-#endif
 
 /************************** Constant Definitions *****************************/
 
@@ -78,27 +75,6 @@
 * @note		None.
 *
 ******************************************************************************/
-#ifndef SDT
-XVtc_Config *XVtc_LookupConfig(u16 DeviceId)
-{
-	extern XVtc_Config XVtc_ConfigTable[];
-	XVtc_Config *CfgPtr = NULL;
-	int i;
-
-	/* Checking for device id for which instance it is matching */
-	for (i = 0; i < XPAR_XVTC_NUM_INSTANCES; i++) {
-		/* Assigning address of config table if both device ids
-		 * are matched
-		 */
-		if (XVtc_ConfigTable[i].DeviceId == DeviceId) {
-			CfgPtr = &XVtc_ConfigTable[i];
-			break;
-		}
-	}
-
-	return CfgPtr;
-}
-#else
 XVtc_Config *XVtc_LookupConfig(UINTPTR BaseAddress)
 {
 	extern XVtc_Config XVtc_ConfigTable[];
@@ -116,5 +92,4 @@ XVtc_Config *XVtc_LookupConfig(UINTPTR BaseAddress)
 
 	return CfgPtr;
 }
-#endif
 /** @} */

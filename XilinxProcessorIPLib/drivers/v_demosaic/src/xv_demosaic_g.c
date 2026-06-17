@@ -10,9 +10,6 @@
  */
 
 /***************************** Include Files *********************************/
-#ifndef SDT
-#include "xparameters.h"
-#endif
 #include "xv_demosaic.h"
 
 /************************** Variable Definitions *****************************/

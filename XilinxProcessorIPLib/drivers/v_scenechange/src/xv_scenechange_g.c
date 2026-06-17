@@ -11,9 +11,6 @@
  */
 
 /***************************** Include Files *********************************/
-#ifndef SDT
-#include "xparameters.h"
-#endif
 #include "xv_scenechange.h"
 
 

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -28,9 +28,6 @@
 
 /***************************** Include Files *********************************/
 
-#ifndef SDT
-#include "xparameters.h"
-#endif
 #include "xvprocss.h"
 
 /************************** Constant Definitions *****************************/
@@ -59,23 +56,6 @@ extern XVprocSs_Config XVprocSs_ConfigTable[];
 *         given device ID, or NULL if no match is found
 *
 *******************************************************************************/
-#ifndef SDT
-XVprocSs_Config* XVprocSs_LookupConfig(u32 DeviceId)
-{
-  XVprocSs_Config *CfgPtr = NULL;
-  u32 index;
-
-  for (index = 0U; index < (u32)XPAR_XVPROCSS_NUM_INSTANCES; index++)
-  {
-    if (XVprocSs_ConfigTable[index].DeviceId == DeviceId)
-    {
-      CfgPtr = &XVprocSs_ConfigTable[index];
-      break;
-    }
-  }
-  return (CfgPtr);
-}
-#else
 /**
  * This function searches for and returns a pointer to the XVprocSs_Config
  * structure that matches the specified BaseAddress. If BaseAddress is zero,
@@ -130,6 +110,4 @@ u32 XVprocSs_GetDrvIndex(UINTPTR BaseAddress)
  }
  return Index;
 }
-
-#endif
 /** @} */

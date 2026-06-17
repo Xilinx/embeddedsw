@@ -47,11 +47,7 @@ typedef uint64_t u64;
  * Configuration structure for warp init IP core
  */
 typedef struct {
-#ifndef SDT
-    u16 DeviceId;             /**< Unique ID of device */
-#else
     char *Name;               /**< Device name string */
-#endif
     UINTPTR Ctrl_BaseAddress; /**< Control interface base address */
     u16 max_width;            /**< Maximum supported width */
     u16 max_height;           /**< Maximum supported height */
@@ -59,10 +55,8 @@ typedef struct {
     u16 axi_mm_data_width;    /**< AXI MM port data width */
     u16 bpc;                  /**< Maximum bits per component supported */
     u16 max_control_pts;      /**< Maximum supported control points for arbitrary warp */
-#ifdef SDT
     u16 IntrId;               /**< Interrupt ID */
     UINTPTR IntrParent;       /**< Bit[0] Interrupt parent type Bit[64/32:1] Parent base address */
-#endif
 } XV_warp_init_Config;
 #endif
 
@@ -132,13 +126,8 @@ typedef enum {
 
 /************************** Function Prototypes *****************************/
 #ifndef __linux__
-#ifndef SDT
-int XV_warp_init_Initialize(XV_warp_init *InstancePtr, u16 DeviceId);
-XV_warp_init_Config* XV_warp_init_LookupConfig(u16 DeviceId);
-#else
 int XV_warp_init_Initialize(XV_warp_init *InstancePtr, UINTPTR BaseAddress);
 XV_warp_init_Config* XV_warp_init_LookupConfig(UINTPTR BaseAddress);
-#endif
 int XV_warp_init_CfgInitialize(XV_warp_init *InstancePtr, XV_warp_init_Config *ConfigPtr);
 #else
 int XV_warp_init_Initialize(XV_warp_init *InstancePtr, const char* InstanceName);

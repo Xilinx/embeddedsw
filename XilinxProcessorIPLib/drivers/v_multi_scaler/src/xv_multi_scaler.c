@@ -60,10 +60,8 @@ int XV_multi_scaler_CfgInitialize(XV_multi_scaler *InstancePtr,
 	InstancePtr->Config.ScaleMode = ConfigPtr->ScaleMode;
 	InstancePtr->Config.NumTaps = ConfigPtr->NumTaps;
 	InstancePtr->Config.MaxOuts = ConfigPtr->MaxOuts;
-#ifdef SDT
 	InstancePtr->Config.IntrId = ConfigPtr->IntrId;
 	InstancePtr->Config.IntrParent = ConfigPtr->IntrParent;
-#endif
 	return XST_SUCCESS;
 }
 #endif

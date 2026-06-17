@@ -118,11 +118,7 @@ typedef uint32_t u32;
  * Multi Scaler device configuration structure
  */
 typedef struct {
-#ifndef SDT
-    u16 DeviceId;                /**< Unique device ID from xparameters.h */
-#else
     char *Name;                  /**< Device name string */
-#endif
     u32 Ctrl_BaseAddress;        /**< Control register base address */
     u32 SamplesPerClock;         /**< Samples per clock (pixels processed per cycle) */
     u32 MaxDataWidth;            /**< Maximum bit width of video data */
@@ -132,10 +128,8 @@ typedef struct {
     u32 ScaleMode;               /**< Scaling mode (bilinear, bicubic, polyphase) */
     u32 NumTaps;                 /**< Number of filter taps */
     u32 MaxOuts;                 /**< Maximum number of output channels */
-#ifdef SDT
     u16 IntrId;                  /**< Interrupt ID */
     UINTPTR IntrParent;          /**< Bit[0] Interrupt parent type Bit[64/32:1] Parent base address */
-#endif
 } XV_multi_scaler_Config;
 #endif
 
@@ -203,13 +197,8 @@ extern XV_multi_scaler_Config XV_multi_scaler_ConfigTable[];
 
 /* Initialization and Configuration Functions */
 #ifndef __linux__
-#ifndef SDT
-int XV_multi_scaler_Initialize(XV_multi_scaler *InstancePtr, u16 DeviceId);
-XV_multi_scaler_Config* XV_multi_scaler_LookupConfig(u16 DeviceId);
-#else
 int XV_multi_scaler_Initialize(XV_multi_scaler *InstancePtr, UINTPTR BaseAddress);
 XV_multi_scaler_Config* XV_multi_scaler_LookupConfig(UINTPTR BaseAddress);
-#endif
 int XV_multi_scaler_CfgInitialize(XV_multi_scaler *InstancePtr,
 	XV_multi_scaler_Config *ConfigPtr);
 #else

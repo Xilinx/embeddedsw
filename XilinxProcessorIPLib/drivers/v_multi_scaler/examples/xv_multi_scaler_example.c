@@ -37,11 +37,7 @@
 #include "xil_cache.h"
 #include "xparameters.h"
 #include "xv_multi_scaler_l2.h"
-#ifndef SDT
-#include "xscugic.h"
-#else
 #include "xinterrupt_wrap.h"
-#endif
 
 /************************** Constant Definitions *****************************/
 /** MultiScaler software version */
@@ -91,29 +87,18 @@
 #define GPIO_BASE XPAR_XGPIO_0_BASEADDR
 #endif
 
-/** SDT GPIO base address mapping */
-#ifdef SDT
 #define XPAR_PSU_GPIO_0_BASEADDR XPAR_GPIO_BASEADDR
-#endif
 
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
-#ifndef SDT
-static int SetupInterruptSystem(void);
-#endif
 void XV_Reset_MultiScaler(void);
 void *XVMultiScalerCallback(void *data);
 static u32 CalcStride(u16 Cfmt, u16 AXIMMDataWidth, u32 width);
 
 /************************** Variable Definitions *****************************/
-/** Global interrupt controller instance */
-#ifndef SDT
-XScuGic Intc;
-#endif
-
 /** MultiScaler instance */
 XV_multi_scaler MultiScalerInst;
 
@@ -171,60 +156,6 @@ XV_multi_scaler_Video_Config useCase[USECASE_COUNT][XNUM_OUTPUTS] = {
 /*****************************************************************************/
 /*                       Function Implementations                            */
 /*****************************************************************************/
-
-#ifndef SDT
-/*****************************************************************************/
-/**
- * @brief Setup the interrupt system for the MultiScaler core
- *
- * This function initializes the interrupt controller driver and registers
- * the interrupt handler for the MultiScaler core. It configures the GIC
- * (Generic Interrupt Controller) and sets up exception handling.
- *
- * @return
- *	- XST_SUCCESS if interrupt setup was successful.
- *	- A specific error code defined in "xstatus.h" if an error
- *	occurs.
- *
- * @note   This function assumes a Microblaze or ARM system and no operating
- *         system is used.
- *
- *******************************************************************************/
-static int SetupInterruptSystem(void)
-{
-	int Status;
-	XScuGic *IntcInstPtr = &Intc;
-
-	/*
-	* Initialize the interrupt controller driver so that it's ready to
-	* use, specify the device ID that was generated in xparameters.h
-	*/
-	XScuGic_Config *IntcCfgPtr;
-	IntcCfgPtr = XScuGic_LookupConfig(PS_ACPU_GIC_DEVICE_ID);
-	if (!IntcCfgPtr) {
-		xil_printf("ERR:: Interrupt Controller not found");
-		return XST_DEVICE_NOT_FOUND;
-	}
-	Status = XScuGic_CfgInitialize(IntcInstPtr, IntcCfgPtr,
-		IntcCfgPtr->CpuBaseAddress);
-
-	if (Status != XST_SUCCESS) {
-		xil_printf("Intc initialization failed!\r\n");
-		return XST_FAILURE;
-	}
-
-	Xil_ExceptionInit();
-
-	/*
-	* Register the interrupt controller handler with the exception table.
-	*/
-	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT,
-		(Xil_ExceptionHandler) XScuGic_InterruptHandler,
-		(XScuGic *)IntcInstPtr);
-
-	return XST_SUCCESS;
-}
-#endif
 
 /*****************************************************************************/
 /**
@@ -408,13 +339,8 @@ int main(void)
 		XMULTISCALER_SW_VER);
 	xil_printf("	(c) 2018 by Xilinx Inc.\r\n");
 
-#ifndef SDT
-	status = XV_multi_scaler_Initialize(MultiScalerPtr,
-		XPAR_V_MULTI_SCALER_0_DEVICE_ID);
-#else
 	status = XV_multi_scaler_Initialize(MultiScalerPtr,
 		XPAR_XV_MULTI_SCALER_0_BASEADDR);
-#endif
 	if (status != XST_SUCCESS) {
 		xil_printf("CRITICAL ERROR:: System Init Failed.\n\r");
 		return XST_FAILURE;
@@ -423,29 +349,12 @@ int main(void)
 	XVMultiScaler_SetCallback(MultiScalerPtr, XVMultiScalerCallback,
 		(void *)MultiScalerPtr);
 
-#ifndef SDT
-	/* Initialize IRQ */
-	status = SetupInterruptSystem();
-	if (status == XST_FAILURE) {
-		xil_printf("IRQ init failed.\n\r\r");
-		return XST_FAILURE;
-	}
-	status = XScuGic_Connect(&Intc,
-		XPAR_FABRIC_V_MULTI_SCALER_0_INTERRUPT_INTR,
-		(XInterruptHandler)XV_MultiScalerIntrHandler,
-		(void *)MultiScalerPtr);
-#else
 	status = XSetupInterruptSystem(MultiScalerPtr,&XV_MultiScalerIntrHandler,
 				       MultiScalerInst.Config.IntrId,
 				       MultiScalerInst.Config.IntrParent,
 				       XINTERRUPT_DEFAULT_PRIORITY);
-#endif
 
 	if (status == XST_SUCCESS) {
-#ifndef SDT
-		XScuGic_Enable(&Intc,
-			XPAR_FABRIC_V_MULTI_SCALER_0_INTERRUPT_INTR);
-#endif
 	} else {
 		xil_printf("ERR:: Unable to register interrupt handler");
 		return XST_FAILURE;

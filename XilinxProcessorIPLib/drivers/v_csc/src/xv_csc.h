@@ -1,6 +1,6 @@
 // ==============================================================
 // Copyright (c) 2015 - 2020 Xilinx Inc. All rights reserved.
-// Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+// Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 // SPDX-License-Identifier: MIT
 // ==============================================================
 
@@ -47,11 +47,7 @@ typedef uint32_t u32;
 * associated.
 */
 typedef struct {
-#ifndef SDT
-    u16 DeviceId;            /**< Unique ID  of device */
-#else
     char *Name;
-#endif
     UINTPTR BaseAddress;     /**< The base address of the core instance. */
     u16 PixPerClk;           /**< Samples Per Clock supported by core instance */
     u16 MaxWidth;            /**< Maximum columns supported by core instance */
@@ -94,13 +90,8 @@ typedef struct {
 
 /************************** Function Prototypes *****************************/
 #ifndef __linux__
-#ifndef SDT
-int XV_csc_Initialize(XV_csc *InstancePtr, u16 DeviceId);
-XV_csc_Config* XV_csc_LookupConfig(u16 DeviceId);
-#else
 int XV_csc_Initialize(XV_csc *InstancePtr, UINTPTR BaseAddress);
 XV_csc_Config* XV_csc_LookupConfig(UINTPTR BaseAddress);
-#endif
 int XV_csc_CfgInitialize(XV_csc *InstancePtr,
                          XV_csc_Config *ConfigPtr,
 						 UINTPTR EffectiveAddr);

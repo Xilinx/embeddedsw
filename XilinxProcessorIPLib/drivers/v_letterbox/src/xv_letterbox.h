@@ -1,6 +1,6 @@
 // ==============================================================
 // Copyright (c) 2015 - 2020 Xilinx Inc. All rights reserved.
-// Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+// Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 // SPDX-License-Identifier: MIT
 // ==============================================================
 
@@ -46,11 +46,7 @@ typedef uint32_t u32;
 * Each core instance should have a configuration structure associated.
 */
 typedef struct {
-#ifndef SDT
-    u16 DeviceId;          /**< Unique ID  of device */
-#else
     char *Name;
-#endif
     UINTPTR BaseAddress;   /**< The base address of the core instance. */
     u16 PixPerClk;         /**< Samples Per Clock supported by core instance */
     u16 NumVidComponents;  /**< Number of Video Components */
@@ -91,13 +87,8 @@ typedef struct {
 
 /************************** Function Prototypes *****************************/
 #ifndef __linux__
-#ifndef SDT
-int XV_letterbox_Initialize(XV_letterbox *InstancePtr, u16 DeviceId);
-XV_letterbox_Config* XV_letterbox_LookupConfig(u16 DeviceId);
-#else
 int XV_letterbox_Initialize(XV_letterbox *InstancePtr, UINTPTR BaseAddress);
 XV_letterbox_Config* XV_letterbox_LookupConfig(UINTPTR BaseAddress);
-#endif
 int XV_letterbox_CfgInitialize(XV_letterbox *InstancePtr,
                                XV_letterbox_Config *ConfigPtr,
 							   UINTPTR EffectiveAddr);

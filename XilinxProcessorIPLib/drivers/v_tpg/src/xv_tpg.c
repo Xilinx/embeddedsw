@@ -42,10 +42,8 @@ int XV_tpg_CfgInitialize(XV_tpg *InstancePtr,
     /* Setup the instance */
     InstancePtr->Config = *ConfigPtr;
     InstancePtr->Config.BaseAddress = EffectiveAddr;
-#ifdef SDT
     InstancePtr->Config.IntrId = ConfigPtr->IntrId;
     InstancePtr->Config.IntrParent = ConfigPtr->IntrParent;
-#endif
 
     /* Set the flag to indicate the driver is ready */
     InstancePtr->IsReady = XIL_COMPONENT_IS_READY;

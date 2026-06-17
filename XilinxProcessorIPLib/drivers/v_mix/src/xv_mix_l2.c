@@ -96,38 +96,6 @@ static int IsWindowValid(XVidC_VideoStream *Strm,
                          XVidC_VideoWindow *Win,
                          XVMix_Scalefactor ScaleFactor);
 
-#ifndef SDT
-/**
- * XVMix_Initialize - Initialize the XV_Mix_l2 instance.
- *
- * This function initializes the XV_Mix_l2 instance specified by InstancePtr
- * using the hardware configuration identified by DeviceId. It first asserts
- * that the provided pointer is not NULL, clears the instance memory, and then
- * calls the lower-level XV_mix_Initialize function. If initialization is
- * successful, it sets the instance to its power-on default state.
- *
- * @param InstancePtr Pointer to the XV_Mix_l2 instance to be initialized.
- * @param DeviceId    Device ID of the hardware configuration to use.
- *
- * @return
- *   - XST_SUCCESS if initialization was successful.
- *   - Error code defined by XV_mix_Initialize otherwise.
- */
-int XVMix_Initialize(XV_Mix_l2 *InstancePtr, u16 DeviceId)
-{
-  int Status;
-  Xil_AssertNonvoid(InstancePtr != NULL);
-
-  /* Setup the instance */
-  memset(InstancePtr, 0, sizeof(XV_Mix_l2));
-  Status = XV_mix_Initialize(&InstancePtr->Mix, DeviceId);
-
-  if(Status == XST_SUCCESS) {
-    SetPowerOnDefaultState(InstancePtr);
-  }
-  return(Status);
-}
-#else
 /**
  * XVMix_Initialize - Initialize the XV_Mix_l2 instance for SDT flow.
  *
@@ -158,7 +126,6 @@ int XVMix_Initialize(XV_Mix_l2 *InstancePtr, UINTPTR BaseAddress)
   }
   return(Status);
 }
-#endif
 
 /**
  * @brief Sets the XV_Mix_l2 instance to its power-on default state.

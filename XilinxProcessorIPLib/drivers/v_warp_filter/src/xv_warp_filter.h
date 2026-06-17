@@ -54,21 +54,15 @@ typedef uint64_t u64;
  * Warp Filter IP instance.
  */
 typedef struct {
-#ifndef SDT
-    u16 DeviceId;             /**< Unique ID of device */
-#else
     char *Name;               /**< Device name string */
-#endif
     UINTPTR Control_BaseAddress;  /**< Base address of control registers */
     u16 max_width;            /**< Maximum width supported */
     u16 max_height;           /**< Maximum height supported */
     u16 axi_mm_data_width;    /**< AXI MM port data width in bits */
     u16 perf_level;           /**< Performance level configuration */
     u16 bpc;                  /**< Maximum bits per component supported */
-#ifdef SDT
     u16 IntrId;               /**< Interrupt ID */
     UINTPTR IntrParent;       /**< Bit[0] Interrupt parent type Bit[64/32:1] Parent base address */
-#endif
 } XV_warp_filter_Config;
 #endif
 
@@ -127,13 +121,8 @@ typedef u32 word_type;
 
 /************************** Function Prototypes *****************************/
 #ifndef __linux__
-#ifndef SDT
-s32 XV_warp_filter_Initialize(XV_warp_filter *InstancePtr, u16 DeviceId);
-XV_warp_filter_Config* XV_warp_filter_LookupConfig(u16 DeviceId);
-#else
 s32 XV_warp_filter_Initialize(XV_warp_filter *InstancePtr, UINTPTR BaseAddress);
 XV_warp_filter_Config* XV_warp_filter_LookupConfig(UINTPTR BaseAddress);
-#endif
 s32 XV_warp_filter_CfgInitialize(XV_warp_filter *InstancePtr, XV_warp_filter_Config *ConfigPtr);
 #else
 int XV_warp_filter_Initialize(XV_warp_filter *InstancePtr, const char* InstanceName);

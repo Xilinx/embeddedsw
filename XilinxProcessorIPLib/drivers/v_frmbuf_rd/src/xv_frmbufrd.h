@@ -48,11 +48,7 @@ typedef uint32_t u32;
 * Each core instance should have a configuration structure associated.
 */
 typedef struct {
-#ifndef SDT
-  u16 DeviceId;             /**< Unique ID of device */
-#else
   char *Name;		    /**< Unique Name of device */
-#endif
   UINTPTR BaseAddress;      /**< The base address of the core instance. */
   u16 PixPerClk;            /**< Samples Per Clock */
   u16 MaxWidth;             /**< Maximum columns supported by core instance */
@@ -111,10 +107,8 @@ typedef struct {
   u16 Y12_M16LEEn;          /**< Y12_M16LE support */
   u16 Interlaced;           /**< Interlaced support */
   u16 IsTileFormat;         /**< Tile format support */
-#ifdef SDT
   u16 IntrId; 		    /**< Interrupt ID */
   UINTPTR IntrParent; 	    /**< Bit[0] Interrupt parent type Bit[64/32:1] Parent base address */
-#endif
 } XV_frmbufrd_Config;
 #endif
 
@@ -149,13 +143,8 @@ typedef struct {
 
 /************************** Function Prototypes *****************************/
 #ifndef __linux__
-#ifndef SDT
-int XV_frmbufrd_Initialize(XV_frmbufrd *InstancePtr, u16 DeviceId);
-XV_frmbufrd_Config* XV_frmbufrd_LookupConfig(u16 DeviceId);
-#else
 int XV_frmbufrd_Initialize(XV_frmbufrd *InstancePtr, UINTPTR BaseAddress);
 XV_frmbufrd_Config* XV_frmbufrd_LookupConfig(UINTPTR BaseAddress);
-#endif
 int XV_frmbufrd_CfgInitialize(XV_frmbufrd *InstancePtr,
                                XV_frmbufrd_Config *ConfigPtr,
                                UINTPTR EffectiveAddr);

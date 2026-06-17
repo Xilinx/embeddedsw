@@ -25,11 +25,7 @@
 #include "xwarp_input_configs.h"
 #include "inputs.h"
 #include "xgpio.h"
-#ifndef SDT
-#include "xscugic.h"
-#else
 #include "xinterrupt_wrap.h"
-#endif
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
@@ -50,7 +46,7 @@ static void XBInterruptHandler(void *CallbackRef);
 static int SetupInterruptSystem(void);
 static void XWarpInit_callback(void *CallbackRef);
 static void start_timer(void);
-static void stop_timer(void)
+static void stop_timer(void);
 
 /************************** Variable Definitions *****************************/
 XGpio              Gpio_WarpInit_resetn;
@@ -69,10 +65,10 @@ volatile u8 			gen_remap_vec_int = 0;
 
 warp_driver_Configs warp_drv_configs;
 
-u32 *tmrctr_tcsr0_ptr =	(u32 *)0xA0000000;
-u32 *tmrctr_tlr0_ptr =	(u32 *)0xA0000004;
-u32 *tmrctr_tcr0_ptr =	(u32 *)0xA0000008;
-u32 *tmrctr_tcr1_ptr =	(u32 *)0xA0000018;
+u32 *tmrctr_tcsr0_ptr =	(u32 *)(XPAR_AXI_TIMER_0_BASEADDR + 0x00);
+u32 *tmrctr_tlr0_ptr =	(u32 *)(XPAR_AXI_TIMER_0_BASEADDR + 0x04);
+u32 *tmrctr_tcr0_ptr =	(u32 *)(XPAR_AXI_TIMER_0_BASEADDR + 0x08);
+u32 *tmrctr_tcr1_ptr =	(u32 *)(XPAR_AXI_TIMER_0_BASEADDR + 0x18);
 u32 tmrctr_value, tmrctr_1_value;
 
 /*****************************************************************************/
@@ -158,13 +154,8 @@ int main(void)
 	xil_printf("\n\rWarp exdes test is started\n\r");
 	/**************V_WARP_REMAP_GEN*************************/
 	/* Initialize GPIO for WarpInit Reset */
-#ifndef SDT
-	Gpio_WarpInit_resetn_ConfigPtr =
-		XGpio_LookupConfig(XPAR_AXI_GPIO_1_DEVICE_ID);
-#else
 	Gpio_WarpInit_resetn_ConfigPtr =
 		XGpio_LookupConfig(XPAR_AXI_GPIO_1_BASEADDR);
-#endif
 	if(Gpio_WarpInit_resetn_ConfigPtr == NULL) {
 		Gpio_WarpInit_resetn.IsReady = 0;
 		return (XST_DEVICE_NOT_FOUND);
@@ -179,13 +170,8 @@ int main(void)
 		return(XST_FAILURE);
 	}
 
-#ifndef SDT
-	status = XV_warp_init_Initialize(&WarpInitInst,
-			XPAR_V_WARP_INIT_0_DEVICE_ID);
-#else
 	status = XV_warp_init_Initialize(&WarpInitInst,
 			XPAR_V_WARP_INIT_0_BASEADDR);
-#endif
 	if (status != XST_SUCCESS) {
 		xil_printf("Warp Initializer IP initialization failed.\n\r");
 		return XST_FAILURE;
@@ -196,13 +182,8 @@ int main(void)
 
 	/**************V_WARP_FILTER*************************/
 	/* Initialize GPIO for WarpFilter Reset */
-#ifndef SDT
-	Gpio_Filter_resetn_ConfigPtr =
-		XGpio_LookupConfig(XPAR_AXI_GPIO_0_DEVICE_ID);
-#else
 	Gpio_Filter_resetn_ConfigPtr =
 		XGpio_LookupConfig(XPAR_AXI_GPIO_0_BASEADDR);
-#endif
 
 	if(Gpio_Filter_resetn_ConfigPtr == NULL) {
 		Gpio_Filter_resetn.IsReady = 0;
@@ -218,11 +199,7 @@ int main(void)
 		return(XST_FAILURE);
 	}
 
-#ifndef SDT
-	status = XV_warp_filter_Initialize(&WarpInst, XPAR_V_WARP_FILTER_0_DEVICE_ID);
-#else
 	status = XV_warp_filter_Initialize(&WarpInst, XPAR_V_WARP_FILTER_0_BASEADDR);
-#endif
 	if (status != XST_SUCCESS) {
 		xil_printf("Warp Filter initialization failed.\n\r");
 		return XST_FAILURE;
@@ -232,13 +209,6 @@ int main(void)
 
 
 	/* Initialize IRQ */
-#ifndef SDT
-	status = SetupInterruptSystem();
-	if (status == XST_FAILURE) {
-		xil_printf("IRQ init failed.\n\r\r");
-		return XST_FAILURE;
-	}
-#else
     status = XSetupInterruptSystem(&WarpInst,&XVWarpFilter_IntrHandler,
 				       WarpInst.config->IntrId,
 				       WarpInst.config->IntrParent,
@@ -255,7 +225,6 @@ int main(void)
 		xil_printf("WarpInitInst IRQ init failed.\n\r\r");
 		return XST_FAILURE;
 	}
-#endif
 
 	Xil_ExceptionEnable();
 
@@ -412,81 +381,4 @@ static void XBInterruptHandler(void *CallbackRef)
 }
 
 
-#ifndef SDT
-/*****************************************************************************/
-/**
- *
- * This function setups the interrupt system so interrupts can occur for the
- * Warp core.
- *
- * @return
- *	- XST_SUCCESS if interrupt setup was successful.
- *	- A specific error code defined in "xstatus.h" if an error
- *	occurs.
- *
- * @note	This function assumes a Microblaze or ARM system and no
- *	operating system is used.
- *
- ******************************************************************************/
-static int SetupInterruptSystem(void)
-{
-	int Status;
-	XScuGic *IntcInstPtr = &Intc;
-
-	/*
-	* Initialize the interrupt controller driver so that it's ready to
-	* use, specify the device ID that was generated in xparameters.h
-	*/
-	XScuGic_Config *IntcCfgPtr;
-	IntcCfgPtr = XScuGic_LookupConfig(XPAR_PSU_ACPU_GIC_DEVICE_ID);
-	if (!IntcCfgPtr) {
-		xil_printf("ERR:: Interrupt Controller not found");
-		return XST_DEVICE_NOT_FOUND;
-	}
-	Status = XScuGic_CfgInitialize(IntcInstPtr, IntcCfgPtr,
-		IntcCfgPtr->CpuBaseAddress);
-
-	if (Status != XST_SUCCESS) {
-		xil_printf("Intc initialization failed!\r\n");
-		return XST_FAILURE;
-	}
-
-	Xil_ExceptionInit();
-
-	/*
-	* Register the interrupt controller handler with the exception table.
-	*/
-	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT,
-		(Xil_ExceptionHandler) XScuGic_InterruptHandler,
-		(XScuGic *)IntcInstPtr);
-
-	Status = XScuGic_Connect(&Intc,
-			XPAR_FABRIC_V_WARP_INIT_0_INTERRUPT_INTR,
-			(XV_warp_init_Callback)XVWarpInit_IntrHandler,
-			(void *)&WarpInitInst);
-	if (Status == XST_SUCCESS) {
-		XScuGic_Enable(&Intc,
-				XPAR_FABRIC_V_WARP_INIT_0_INTERRUPT_INTR);
-	} else {
-		xil_printf("ERR:: Unable to register Remap vector generator interrupt handler");
-		return XST_FAILURE;
-	}
-
-	Status = XScuGic_Connect(&Intc,
-			XPAR_FABRIC_V_WARP_FILTER_0_INTERRUPT_INTR,
-			(XV_warp_filter_Callback)XVWarpFilter_IntrHandler,
-			(void *)&WarpInst);
-	if (Status == XST_SUCCESS) {
-		XScuGic_Enable(&Intc,
-				XPAR_FABRIC_V_WARP_FILTER_0_INTERRUPT_INTR);
-	} else {
-		xil_printf("ERR:: Unable to register Warp Filter interrupt handler");
-		return XST_FAILURE;
-	}
-
-	Xil_ExceptionEnable();
-
-	return XST_SUCCESS;
-}
-#endif
 

@@ -75,20 +75,14 @@ typedef enum {
 * Each core instance should have a configuration structure associated.
 */
 typedef struct {
-#ifndef SDT
-    u16 DeviceId;          /**< Unique ID of device */
-#else
   char *Name;              /**< Device name string */
-#endif
     UINTPTR BaseAddress;   /**< The base address of the core instance */
     u16 PixPerClk;         /**< Samples Per Clock supported by core instance */
     u16 MaxWidth;          /**< Maximum columns supported by core instance */
     u16 MaxHeight;         /**< Maximum rows supported by core instance */
     u16 MaxDataWidth;      /**< Maximum Data width of each channel */
-#ifdef SDT
   u16 IntrId; 		       /**< Interrupt ID */
   UINTPTR IntrParent; 	   /**< Bit[0] Interrupt parent type Bit[64/32:1] Parent base address */
-#endif
 } XV_gamma_lut_Config;
 #endif
 
@@ -170,13 +164,8 @@ typedef struct {
 /* Section contains global variable definitions, if any */
 
 #ifndef __linux__
-#ifndef SDT
-int XV_gamma_lut_Initialize(XV_gamma_lut *InstancePtr, u16 DeviceId);
-XV_gamma_lut_Config* XV_gamma_lut_LookupConfig(u16 DeviceId);
-#else
 int XV_gamma_lut_Initialize(XV_gamma_lut *InstancePtr, UINTPTR BaseAddress);
 XV_gamma_lut_Config* XV_gamma_lut_LookupConfig(UINTPTR BaseAddress);
-#endif
 int XV_gamma_lut_CfgInitialize(XV_gamma_lut *InstancePtr,
                                XV_gamma_lut_Config *ConfigPtr,
                                UINTPTR EffectiveAddr);

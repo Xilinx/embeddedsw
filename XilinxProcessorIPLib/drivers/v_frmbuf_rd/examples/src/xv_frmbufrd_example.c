@@ -38,26 +38,14 @@
 #include "xparameters.h"
 #include "platform.h"
 #include "sleep.h"
-#ifndef SDT
-#if defined(__MICROBLAZE__) || defined(__riscv)
-#include "xintc.h"
-#else
-#include "xscugic.h"
-#endif
-#else
 #include "xinterrupt_wrap.h"
-#endif
 #include "xv_frmbufrd_l2.h"
 #include "xvidc.h"
 #include "xvtc.h"
 #include "xgpio.h"
 
 #if defined(__MICROBLAZE__)
-  #ifndef  SDT
-  #define DDR_BASEADDR XPAR_MIG7SERIES_0_BASEADDR
-  #else
   #define DDR_BASEADDR XPAR_MIG_0_BASEADDRESS
-  #endif
 #elif defined(__riscv)
   #define DDR_BASEADDR XPAR_LPDDRMC_0_BASEADDR
 #else
@@ -155,97 +143,6 @@ static int ValidateTestCase(u16 PixPerClk,
                             VideoFormats Format);
 static int CheckVidoutLock(void);
 
-#ifndef SDT
-/*****************************************************************************/
-/**
- * This function initializes and configures the system interrupt controller
- * for both MicroBlaze and ARM (Zynq) architectures. It sets up the interrupt
- * controller, connects the Frame Buffer Read interrupt handler, enables the
- * interrupt, and starts the controller.
- *
- * @return XST_SUCCESS if initialization is successful, else XST_FAILURE
- *
- *****************************************************************************/
-static int SetupInterrupts(void)
-{
-#if defined(__MICROBLAZE__) || defined(__riscv)
-  int Status;
-  XIntc *IntcPtr = &intc;
-
-  /* Initialize the Interrupt controller */
-  Status = XIntc_Initialize(IntcPtr,
-                            XPAR_PROCESSOR_SS_PROCESSOR_AXI_INTC_DEVICE_ID);
-  if (Status != XST_SUCCESS) {
-    xil_printf("ERROR:: Interrupt controller device not found\r\n");
-    return(XST_FAILURE);
-  }
-
-  /* Hook up interrupt service routine */
-  Status = XIntc_Connect(IntcPtr,
-                         XPAR_PROCESSOR_SS_PROCESSOR_AXI_INTC_V_FRMBUF_RD_0_INTERRUPT_INTR,
-                         (XInterruptHandler)XVFrmbufRd_InterruptHandler,
-                         &frmbufrd);
-  if (Status != XST_SUCCESS) {
-    xil_printf("ERROR:: FRMBUF RD interrupt connect failed!\r\n");
-    return XST_FAILURE;
-  }
-
-  /* Enable the interrupt vector at the interrupt controller */
-  XIntc_Enable(IntcPtr,
-               XPAR_PROCESSOR_SS_PROCESSOR_AXI_INTC_V_FRMBUF_RD_0_INTERRUPT_INTR);
-
-  /*
-   * Start the interrupt controller such that interrupts are recognized
-   * and handled by the processor
-   */
-  Status = XIntc_Start(IntcPtr, XIN_REAL_MODE);
-  if (Status != XST_SUCCESS) {
-    xil_printf("ERROR:: Failed to start interrupt controller\r\n");
-    return XST_FAILURE;
-  }
-
-#else
-  int Status;
-  XScuGic *IntcPtr = &intc;
-
-  /* Initialize the Interrupt controller */
-  XScuGic_Config *IntcCfgPtr;
-  IntcCfgPtr = XScuGic_LookupConfig(XPAR_SCUGIC_0_DEVICE_ID);
-  if (IntcCfgPtr == NULL)
-  {
-    print("ERR:: Interrupt Controller not found");
-    return (XST_DEVICE_NOT_FOUND);
-  }
-  Status = XScuGic_CfgInitialize(IntcPtr,
-                                 IntcCfgPtr,
-                                 IntcCfgPtr->CpuBaseAddress);
-  if (Status != XST_SUCCESS) {
-    xil_printf("Intc initialization failed!\r\n");
-    return XST_FAILURE;
-  }
-
-  /* Hook up interrupt service routine */
-  Status |= XScuGic_Connect(IntcPtr,
-                            XPAR_FABRIC_V_FRMBUF_RD_0_INTERRUPT_INTR,
-                            (XInterruptHandler)XVFrmbufRd_InterruptHandler,
-                            (void *)&frmbufrd);
-  Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT,
-                               (Xil_ExceptionHandler) XScuGic_InterruptHandler,
-                               IntcPtr);
-  if (Status != XST_SUCCESS) {
-    xil_printf("ERR:: Frame Buffer Read interrupt connect failed!\r\n");
-    return XST_FAILURE;
-  }
-
-  /* Enable the interrupt vector at the interrupt controller */
-  XScuGic_Enable(IntcPtr, XPAR_FABRIC_V_FRMBUF_RD_0_INTERRUPT_INTR);
-
-#endif
-
-  return(XST_SUCCESS);
-}
-#endif
-
 /**
  * @brief Initializes the required drivers for the video frame buffer read example.
  *
@@ -268,11 +165,7 @@ static int DriverInit(void)
   XVtc_Config *vtc_Config;
   XGpio_Config *GpioCfgPtr;
 
-#ifndef SDT
-  vtc_Config = XVtc_LookupConfig(XPAR_V_TC_0_DEVICE_ID);
-#else
   vtc_Config = XVtc_LookupConfig(XPAR_V_TC_0_BASEADDR);
-#endif
   if (vtc_Config == NULL) {
     xil_printf("ERROR:: VTC device not found\r\n");
     return(XST_FAILURE);
@@ -284,22 +177,14 @@ static int DriverInit(void)
     return(XST_FAILURE);
   }
 
-#ifndef SDT
-  Status = XVFrmbufRd_Initialize(&frmbufrd, XPAR_V_FRMBUF_RD_0_DEVICE_ID);
-#else
   Status = XVFrmbufRd_Initialize(&frmbufrd, XPAR_V_FRMBUF_RD_0_BASEADDR);
-#endif
   if (Status != XST_SUCCESS) {
     xil_printf("ERROR:: Frame Buffer Read initialization failed\r\n");
     return(XST_FAILURE);
   }
 
   //Video Lock Monitor
-#ifndef SDT
-  GpioCfgPtr = XGpio_LookupConfig(XPAR_VIDEO_LOCK_MONITOR_DEVICE_ID);
-#else
   GpioCfgPtr = XGpio_LookupConfig(XPAR_VIDEO_LOCK_MONITOR_BASEADDR);
-#endif
   if (GpioCfgPtr == NULL) {
     xil_printf("ERROR:: Video Lock Monitor GPIO device not found\r\n");
     return(XST_FAILURE);
@@ -687,14 +572,6 @@ int main(void)
   }
 
   /* Initialize IRQ */
-#ifndef SDT
-  Status = SetupInterrupts();
-  if (Status == XST_FAILURE) {
-    xil_printf("ERROR:: Interrupt Setup Failed\r\n");
-    xil_printf("ERROR:: Test could not be completed\r\n");
-    return(1);
-  }
-#else
   Status = XSetupInterruptSystem(&frmbufrd,&XVFrmbufRd_InterruptHandler,
 				       frmbufrd.FrmbufRd.Config.IntrId,
 				       frmbufrd.FrmbufRd.Config.IntrParent,
@@ -704,7 +581,6 @@ int main(void)
     xil_printf("ERROR:: Test could not be completed\r\n");
     return(1);
   }
-#endif
 
   /* Enable exceptions. */
   Xil_ExceptionEnable();

@@ -1,6 +1,6 @@
 /*******************************************************************
 * Copyright (C) 2015 - 2022 Xilinx, Inc. All rights reserved.
-* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************/
 
@@ -9,116 +9,8 @@
 * @addtogroup vprocss Overview
 */
 
-#ifndef SDT
-#include "xparameters.h"
-#endif
 #include "xvprocss.h"
 
-#ifndef SDT
-/**
-* Subsystem Instance:
-*   - List of sub-cores included in the subsystem
-*/
-
-#define XPAR_V_PROC_SS_0_AXI_VDMA_PRESENT	 1
-#define XPAR_V_PROC_SS_0_CSC_PRESENT	 1
-#define XPAR_V_PROC_SS_0_DINT_PRESENT	 1
-#define XPAR_V_PROC_SS_0_HCR_PRESENT	 1
-#define XPAR_V_PROC_SS_0_HSC_PRESENT	 1
-#define XPAR_V_PROC_SS_0_LTR_PRESENT	 1
-#define XPAR_V_PROC_SS_0_RESET_SEL_AXI_MM_PRESENT	 1
-#define XPAR_V_PROC_SS_0_RESET_SEL_AXIS_PRESENT	 1
-#define XPAR_V_PROC_SS_0_VCR_I_PRESENT	 1
-#define XPAR_V_PROC_SS_0_VCR_O_PRESENT	 1
-#define XPAR_V_PROC_SS_0_VIDEO_ROUTER_XBAR_PRESENT	 1
-#define XPAR_V_PROC_SS_0_VSC_PRESENT	 1
-
-
-/*
-* List of sub-cores excluded from the subsystem <v_proc_ss_0>
-*   - Excluded sub-core device id is set to 255
-*   - Excluded sub-core base address is set to 0
-*/
-
-
-
-
-XVprocSs_Config XVprocSs_ConfigTable[] =
-{
-	{
-		XPAR_V_PROC_SS_0_DEVICE_ID,
-		XPAR_V_PROC_SS_0_BASEADDR,
-		XPAR_V_PROC_SS_0_HIGHADDR,
-		XPAR_V_PROC_SS_0_TOPOLOGY,
-		XPAR_V_PROC_SS_0_SAMPLES_PER_CLK,
-		XPAR_V_PROC_SS_0_MAX_DATA_WIDTH,
-		XPAR_V_PROC_SS_0_NUM_VIDEO_COMPONENTS,
-		XPAR_V_PROC_SS_0_MAX_COLS,
-		XPAR_V_PROC_SS_0_MAX_ROWS,
-
-		{
-			XPAR_V_PROC_SS_0_RESET_SEL_AXI_MM_PRESENT,
-			XPAR_V_PROC_SS_0_RESET_SEL_AXI_MM_DEVICE_ID,
-			XPAR_V_PROC_SS_0_RESET_SEL_AXI_MM_BASEADDR
-		},
-		{
-			XPAR_V_PROC_SS_0_RESET_SEL_AXIS_PRESENT,
-			XPAR_V_PROC_SS_0_RESET_SEL_AXIS_DEVICE_ID,
-			XPAR_V_PROC_SS_0_RESET_SEL_AXIS_BASEADDR
-		},
-		{
-			XPAR_V_PROC_SS_0_AXI_VDMA_PRESENT,
-			XPAR_V_PROC_SS_0_AXI_VDMA_DEVICE_ID,
-			XPAR_V_PROC_SS_0_AXI_VDMA_BASEADDR
-		},
-		{
-			XPAR_V_PROC_SS_0_VIDEO_ROUTER_XBAR_PRESENT,
-			XPAR_V_PROC_SS_0_VIDEO_ROUTER_XBAR_DEVICE_ID,
-			XPAR_V_PROC_SS_0_VIDEO_ROUTER_XBAR_BASEADDR
-		},
-		{
-			XPAR_V_PROC_SS_0_CSC_PRESENT,
-			XPAR_V_PROC_SS_0_CSC_DEVICE_ID,
-			XPAR_V_PROC_SS_0_CSC_S_AXI_CTRL_BASEADDR
-		},
-		{
-			XPAR_V_PROC_SS_0_DINT_PRESENT,
-			XPAR_V_PROC_SS_0_DINT_DEVICE_ID,
-			XPAR_V_PROC_SS_0_DINT_S_AXI_CTRL_BASEADDR
-		},
-		{
-			XPAR_V_PROC_SS_0_HCR_PRESENT,
-			XPAR_V_PROC_SS_0_HCR_DEVICE_ID,
-			XPAR_V_PROC_SS_0_HCR_S_AXI_CTRL_BASEADDR
-		},
-		{
-			XPAR_V_PROC_SS_0_HSC_PRESENT,
-			XPAR_V_PROC_SS_0_HSC_DEVICE_ID,
-			XPAR_V_PROC_SS_0_HSC_S_AXI_CTRL_BASEADDR
-		},
-		{
-			XPAR_V_PROC_SS_0_LTR_PRESENT,
-			XPAR_V_PROC_SS_0_LTR_DEVICE_ID,
-			XPAR_V_PROC_SS_0_LTR_S_AXI_CTRL_BASEADDR
-		},
-		{
-			XPAR_V_PROC_SS_0_VCR_I_PRESENT,
-			XPAR_V_PROC_SS_0_VCR_I_DEVICE_ID,
-			XPAR_V_PROC_SS_0_VCR_I_S_AXI_CTRL_BASEADDR
-		},
-		{
-			XPAR_V_PROC_SS_0_VCR_O_PRESENT,
-			XPAR_V_PROC_SS_0_VCR_O_DEVICE_ID,
-			XPAR_V_PROC_SS_0_VCR_O_S_AXI_CTRL_BASEADDR
-		},
-		{
-			XPAR_V_PROC_SS_0_VSC_PRESENT,
-			XPAR_V_PROC_SS_0_VSC_DEVICE_ID,
-			XPAR_V_PROC_SS_0_VSC_S_AXI_CTRL_BASEADDR
-		},
-	}
-};
-#else
 XVprocSs_Config XVprocSs_ConfigTable[] __attribute__ ((section (".drvcfg_sec"))) = {
 
 	{
@@ -161,4 +53,3 @@ XVprocSs_Config XVprocSs_ConfigTable[] __attribute__ ((section (".drvcfg_sec")))
 		 NULL
 	}
 };
-#endif

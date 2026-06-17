@@ -276,32 +276,6 @@ void XVprocSs_SetUserTimerHandler(XVprocSs *InstancePtr,
 *\n*\n******************************************************************************/
 static void GetIncludedSubcores(XVprocSs *XVprocSsPtr)
 {
-#ifndef SDT
-  XVprocSsPtr->HcrsmplrPtr    = ((XVprocSsPtr->Config.HCrsmplr.IsPresent)   \
-                              ? (&subcoreRepo[XVprocSsPtr->Config.DeviceId].Hcrsmplr)    : NULL);
-  XVprocSsPtr->VcrsmplrInPtr  = ((XVprocSsPtr->Config.VCrsmplrIn.IsPresent)  \
-                              ? (&subcoreRepo[XVprocSsPtr->Config.DeviceId].VcrsmplrIn)  : NULL);
-  XVprocSsPtr->VcrsmplrOutPtr = ((XVprocSsPtr->Config.VCrsmplrOut.IsPresent) \
-                              ? (&subcoreRepo[XVprocSsPtr->Config.DeviceId].VcrsmplrOut) : NULL);
-  XVprocSsPtr->VscalerPtr     = ((XVprocSsPtr->Config.Vscale.IsPresent)      \
-                              ? (&subcoreRepo[XVprocSsPtr->Config.DeviceId].Vscaler)     : NULL);
-  XVprocSsPtr->HscalerPtr     = ((XVprocSsPtr->Config.Hscale.IsPresent)      \
-                              ? (&subcoreRepo[XVprocSsPtr->Config.DeviceId].Hscaler)     : NULL);
-  XVprocSsPtr->VdmaPtr        = ((XVprocSsPtr->Config.Vdma.IsPresent)        \
-                              ? (&subcoreRepo[XVprocSsPtr->Config.DeviceId].Vdma)        : NULL);
-  XVprocSsPtr->LboxPtr        = ((XVprocSsPtr->Config.Lbox.IsPresent)        \
-                              ? (&subcoreRepo[XVprocSsPtr->Config.DeviceId].Lbox)        : NULL);
-  XVprocSsPtr->CscPtr         = ((XVprocSsPtr->Config.Csc.IsPresent)         \
-                              ? (&subcoreRepo[XVprocSsPtr->Config.DeviceId].Csc)         : NULL);
-  XVprocSsPtr->DeintPtr       = ((XVprocSsPtr->Config.Deint.IsPresent)       \
-                              ? (&subcoreRepo[XVprocSsPtr->Config.DeviceId].Deint)       : NULL);
-  XVprocSsPtr->RouterPtr      = ((XVprocSsPtr->Config.Router.IsPresent)      \
-                              ? (&subcoreRepo[XVprocSsPtr->Config.DeviceId].Router)      : NULL);
-  XVprocSsPtr->RstAxisPtr     = ((XVprocSsPtr->Config.RstAxis.IsPresent)     \
-                              ? (&subcoreRepo[XVprocSsPtr->Config.DeviceId].RstAxis)     : NULL);
-  XVprocSsPtr->RstAximmPtr    = ((XVprocSsPtr->Config.RstAximm.IsPresent)    \
-                              ? (&subcoreRepo[XVprocSsPtr->Config.DeviceId].RstAximm)    : NULL);
-#else
   u32 Index = 0;
 
   Index = XVprocSs_GetDrvIndex(XVprocSsPtr->Config.BaseAddress);
@@ -330,7 +304,6 @@ static void GetIncludedSubcores(XVprocSs *XVprocSsPtr)
                               ? (&subcoreRepo[Index].RstAxis)     : NULL);
   XVprocSsPtr->RstAximmPtr    = ((XVprocSsPtr->Config.RstAximm.IsPresent)    \
                               ? (&subcoreRepo[Index].RstAximm)    : NULL);
-#endif
 }
 
 /*****************************************************************************/

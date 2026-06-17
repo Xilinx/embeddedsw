@@ -72,21 +72,15 @@ typedef enum {
  * Each core instance should have a configuration structure associated with it.
  */
 typedef struct {
-#ifndef SDT
-  u16 DeviceId;             /**< Unique device ID of the Demosaic instance */
-#else
   char *Name;               /**< Device name string for SDT builds */
-#endif
   UINTPTR BaseAddress;      /**< Base address of the core instance registers */
   u16 PixPerClk;            /**< Number of pixels processed per clock cycle */
   u16 MaxWidth;             /**< Maximum frame width in pixels supported by hardware */
   u16 MaxHeight;            /**< Maximum frame height in lines supported by hardware */
   u16 MaxDataWidth;         /**< Maximum data width in bits for each color channel */
   u16 Algorithm;            /**< Demosaicing interpolation algorithm used */
-#ifdef SDT
   u16 IntrId;               /**< Interrupt ID for SDT builds */
   UINTPTR IntrParent;       /**< Interrupt parent: Bit[0]=type, Bit[64/32:1]=base address */
-#endif
 } XV_demosaic_Config;
 #endif
 
@@ -144,13 +138,8 @@ typedef struct {
 
 /************************** Function Prototypes *****************************/
 #ifndef __linux__
-#ifndef SDT
-int XV_demosaic_Initialize(XV_demosaic *InstancePtr, u16 DeviceId);
-XV_demosaic_Config* XV_demosaic_LookupConfig(u16 DeviceId);
-#else
 int XV_demosaic_Initialize(XV_demosaic *InstancePtr, UINTPTR BaseAddress);
 XV_demosaic_Config* XV_demosaic_LookupConfig(UINTPTR BaseAddress);
-#endif
 int XV_demosaic_CfgInitialize(XV_demosaic *InstancePtr,
                               XV_demosaic_Config *ConfigPtr,
                               UINTPTR EffectiveAddr);

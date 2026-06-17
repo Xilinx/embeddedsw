@@ -232,7 +232,6 @@ XVidC_ColorFormat RdMemory2Live(XVidC_ColorFormat MemFmt)
  * to perform the initialization.
  *
  * @param InstancePtr Pointer to the XV_FrmbufRd_l2 instance to be initialized.
- * @param DeviceId Device ID of the XV_frmbufrd hardware (used if SDT is not defined).
  *
  * @return
  *   - XST_SUCCESS if initialization was successful.
@@ -242,11 +241,7 @@ XVidC_ColorFormat RdMemory2Live(XVidC_ColorFormat MemFmt)
  *   - The function asserts that InstancePtr is not NULL.
  *   - After successful initialization, the instance is set to its power-on default state.
  */
-#ifndef SDT
-int XVFrmbufRd_Initialize(XV_FrmbufRd_l2 *InstancePtr, u16 DeviceId)
-#else
 int XVFrmbufRd_Initialize(XV_FrmbufRd_l2 *InstancePtr, UINTPTR BaseAddress)
-#endif
 {
 	int Status;
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -254,11 +249,7 @@ int XVFrmbufRd_Initialize(XV_FrmbufRd_l2 *InstancePtr, UINTPTR BaseAddress)
 	/*Initialising frmbufrd structure to 0*/
 	memset(InstancePtr, 0, sizeof(XV_FrmbufRd_l2));
 	/* Setup the instance */
-#ifndef SDT
-	Status = XV_frmbufrd_Initialize(&InstancePtr->FrmbufRd, DeviceId);
-#else
 	Status = XV_frmbufrd_Initialize(&InstancePtr->FrmbufRd, BaseAddress);
-#endif
 	/*Programming frmbufrd structure with default values*/
 	if (Status == XST_SUCCESS) {
 		SetPowerOnDefaultState(InstancePtr);

@@ -53,18 +53,13 @@ u32 volatile        *gpio_videoLockMonitor;
  * @return XST_SUCCESS on successful initialization, XST_DEVICE_NOT_FOUND if
  *         any device is not found, or XST_FAILURE if initialization fails.
  *
- * @note This function supports both SDT and non-SDT build configurations.
  *
  *******************************************************************************/
 int driverInit()
 {
 	int status;
 
-#ifndef SDT
-	vtc_Config = XVtc_LookupConfig(XPAR_V_TC_0_DEVICE_ID);
-#else
     vtc_Config = XVtc_LookupConfig(XPAR_XVTC_0_BASEADDR);
-#endif
 	if(vtc_Config == NULL)
 	{
 		xil_printf("ERROR:: VTC device not found\r\n");
@@ -77,11 +72,7 @@ int driverInit()
 		return(XST_FAILURE);
 	}
 
-#ifndef SDT
-	tpg_Config = XV_tpg_LookupConfig(XPAR_V_TPG_0_DEVICE_ID);
-#else
     tpg_Config = XV_tpg_LookupConfig(XPAR_XV_TPG_0_BASEADDR);
-#endif
 	if(tpg_Config == NULL)
 	{
 		xil_printf("ERROR:: TPG device not found\r\n");
@@ -94,11 +85,7 @@ int driverInit()
 		return(XST_FAILURE);
 	}
 
-#ifndef SDT
-	gamma_lut_Config = XV_gamma_lut_LookupConfig(XPAR_V_GAMMA_LUT_0_DEVICE_ID);
-#else
     gamma_lut_Config = XV_gamma_lut_LookupConfig(XPAR_XV_GAMMA_LUT_0_BASEADDR);
-#endif
 	if(gamma_lut_Config == NULL)
 	{
 		xil_printf("ERROR:: Gamma LUT device not found\r\n");

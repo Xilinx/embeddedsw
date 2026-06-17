@@ -10,11 +10,7 @@
 
 /***************************** Include Files *********************************/
 #include "xparameters.h"
-#ifndef SDT
-#include "microblaze_sleep.h"
-#else
 #include "sleep.h"
-#endif
 #include "xv_tpg.h"
 #include "xv_axi4s_remap.h"
 #include "xvtc.h"
@@ -74,11 +70,7 @@ int driverInit()
 {
     int status;
 
-#ifndef SDT
-    vtc_Config = XVtc_LookupConfig(XPAR_V_TC_0_DEVICE_ID);
-#else
     vtc_Config = XVtc_LookupConfig(XPAR_V_TC_0_BASEADDR);
-#endif
     if(vtc_Config == NULL)
     {
         xil_printf("ERROR:: VTC device not found\r\n");
@@ -91,11 +83,7 @@ int driverInit()
         return(XST_FAILURE);
     }
 
-#ifndef SDT
-    tpg_Config = XV_tpg_LookupConfig(XPAR_V_TPG_0_DEVICE_ID);
-#else
     tpg_Config = XV_tpg_LookupConfig(XPAR_V_TPG_0_BASEADDR);
-#endif
     if(tpg_Config == NULL)
     {
         xil_printf("ERROR:: TPG device not found\r\n");
@@ -108,11 +96,7 @@ int driverInit()
         return(XST_FAILURE);
     }
 
-#ifndef SDT
-    remap_Config = XV_axi4s_remap_LookupConfig(XPAR_V_AXI4S_REMAP_0_DEVICE_ID);
-#else
     remap_Config = XV_axi4s_remap_LookupConfig(XPAR_V_AXI4S_REMAP_0_BASEADDR);
-#endif
     if(remap_Config == NULL)
     {
         xil_printf("ERROR:: AXI4S_REMAP device not found\r\n");
@@ -270,11 +254,7 @@ int videoClockConfig(XVidC_VideoMode videoMode)
     VideoClockGen_WriteReg(0x200, clock_config_reg_0);
     VideoClockGen_WriteReg(0x208, clock_config_reg_2);
 
-#ifndef SDT
-    MB_Sleep(300);
-#else
     msleep(300);
-#endif
 
     lock = VideoClockGen_ReadReg(0x4) & 0x1;
     if(!lock) //check for lock
@@ -316,19 +296,11 @@ void resetIp(void)
 {
     *gpio_hlsIpReset = 0; //reset IPs
 
-#ifndef SDT
-    MB_Sleep(300);
-#else
     msleep(300);
-#endif
 
     *gpio_hlsIpReset = 1; // release reset
 
-#ifndef SDT
-    MB_Sleep(300);
-#else
     msleep(300);
-#endif
 }
 
 /*****************************************************************************/
@@ -378,11 +350,7 @@ int main()
     }
     videoIpConfig(TestMode);
 
-#ifndef SDT
-    MB_Sleep(300);
-#else
     msleep(300);
-#endif
 
     if(!(*gpio_videoLockMonitor)) {
         xil_printf("ERROR:: Video Lock failed for 1080P60\r\n");
@@ -402,11 +370,7 @@ int main()
     }
     videoIpConfig(TestMode);
 
-#ifndef SDT
-    MB_Sleep(300);
-#else
     msleep(300);
-#endif
 
     if(!(*gpio_videoLockMonitor)) {
         xil_printf("ERROR:: Video Lock failed for 4KP30\r\n");
@@ -433,11 +397,7 @@ int main()
       }
       videoIpConfig(TestMode);
 
-    #ifndef SDT
-        MB_Sleep(300);
-    #else
-        msleep(300);
-    #endif
+      msleep(300);
 
       if(!(*gpio_videoLockMonitor)) {
         xil_printf("ERROR:: Video Lock failed for 4KP60\r\n");

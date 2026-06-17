@@ -1,7 +1,7 @@
 
 /*******************************************************************
 * Copyright (c) 2010-2023 Xilinx, Inc. All rights reserved.
-* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************/
 
@@ -11,9 +11,6 @@
 * @addtogroup v_frmbuf_rd Overview
 */
 
-#ifndef SDT
-#include "xparameters.h"
-#endif
 #include "xv_frmbufrd.h"
 
 /*

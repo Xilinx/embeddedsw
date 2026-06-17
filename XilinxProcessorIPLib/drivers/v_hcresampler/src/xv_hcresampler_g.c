@@ -1,6 +1,6 @@
 /*******************************************************************
 * Copyright (C) 2010-2020 Xilinx, Inc. All rights reserved.
-* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ********************************************************************/
 /**
@@ -8,45 +8,8 @@
  * @addtogroup v_hcresampler Overview
  */
 
-#ifndef SDT
-#include "xparameters.h"
-#endif
 #include "xv_hcresampler.h"
 
-#ifndef SDT
-/**
- * XV_hcresampler_ConfigTable
- *
- * This table contains configuration structures for the XV_hcresampler driver.
- * Each entry represents the configuration parameters for a specific instance
- * of the v-hcresampler hardware core.
- *
- * Fields:
- * - Device ID: Unique identifier for the hardware instance.
- * - Base Addr: Base address of the hardware core.
- * - Samples/Clk: Number of samples processed per clock cycle.
- * - Max Columns: Maximum number of columns supported.
- * - Max Rows: Maximum number of rows supported.
- * - Max Data Width: Maximum data width supported.
- * - Convert Type: Type of conversion performed by the core.
- * - Num H Taps: Number of horizontal filter taps.
- */
-XV_hcresampler_Config XV_hcresampler_ConfigTable[] =
-{
-	{
-#ifdef XPAR_XV_HCRESAMPLER_NUM_INSTANCES
-		XPAR_V_PROC_SS_0_V_HCRESAMPLER_DEVICE_ID, /* Device ID */
-		XPAR_V_PROC_SS_0_V_HCRESAMPLER_S_AXI_CTRL_BASEADDR, /* Base Addr */
-		XPAR_V_PROC_SS_0_V_HCRESAMPLER_SAMPLES_PER_CLOCK, /* Samples/Clk */
-		XPAR_V_PROC_SS_0_V_HCRESAMPLER_MAX_COLS, /* Max Columns */
-		XPAR_V_PROC_SS_0_V_HCRESAMPLER_MAX_ROWS, /* Max Rows */
-		XPAR_V_PROC_SS_0_V_HCRESAMPLER_MAX_DATA_WIDTH, /* Max Data Width */
-		XPAR_V_PROC_SS_0_V_HCRESAMPLER_CONVERT_TYPE, /* Convert Type */
-		XPAR_V_PROC_SS_0_V_HCRESAMPLER_NUM_H_TAPS /* Num H Taps */
-#endif
-	}
-};
-#else
 /**
  * XV_hcresampler_ConfigTable
  *
@@ -82,4 +45,3 @@ XV_hcresampler_Config XV_hcresampler_ConfigTable[] __attribute__ ((section (".dr
 		 NULL
 	}
 };
-#endif

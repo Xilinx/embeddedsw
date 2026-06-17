@@ -20,9 +20,6 @@
  */
 
 /***************************** Include Files *********************************/
-#ifndef SDT
-#include "xparameters.h"
-#endif
 #include "xv_warp_filter.h"
 
 /************************** Variable Definitions *****************************/
