@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -84,6 +84,7 @@
 
 #ifndef __MICROBLAZE__
 #include "xpseudo_asm.h"
+#include "xil_mmu.h"
 #endif
 
 #ifdef XPAR_UARTNS550_0_BASEADDR
@@ -113,35 +114,10 @@ extern void xil_printf(const char *format, ...);
 #endif
 
 
-#ifdef XPAR_AXI_7SDDR_0_S_AXI_BASEADDR
-#define MEMORY_BASE		XPAR_AXI_7SDDR_0_S_AXI_BASEADDR
-#elif XPAR_MIG7SERIES_0_BASEADDR
-#define MEMORY_BASE	XPAR_MIG7SERIES_0_BASEADDR
-#elif XPAR_MIG_0_C0_DDR4_MEMORY_MAP_BASEADDR
-#define MEMORY_BASE	XPAR_MIG_0_C0_DDR4_MEMORY_MAP_BASEADDR
-#elif XPAR_PSU_DDR_0_S_AXI_BASEADDR
-#define MEMORY_BASE	XPAR_PSU_DDR_0_S_AXI_BASEADDR
-#endif
-
 #else
 
-#ifdef XPAR_MEM0_BASEADDRESS
-#define MEMORY_BASE		XPAR_MEM0_BASEADDRESS
-#endif
 #define AXICDMA_BASE_ADDR	XPAR_XAXICDMA_0_BASEADDR
 #endif
-
-#ifndef MEMORY_BASE
-#warning CHECK FOR THE VALID DDR ADDRESS IN XPARAMETERS.H, \
-DEFAULT SET TO 0x01000000
-#define MEMORY_BASE		0x01000000
-#endif
-
-#define BD_SPACE_BASE       (MEMORY_BASE + 0x03000000)
-#define BD_SPACE_HIGH       (MEMORY_BASE + 0x03001FFF)
-#define TX_BUFFER_BASE      (MEMORY_BASE + 0x00630000)
-#define RX_BUFFER_BASE      (MEMORY_BASE + 0x00660000)
-#define RX_BUFFER_HIGH      (MEMORY_BASE + 0x0068FFFF)
 
 
 #define BUFFER_BYTESIZE 128 	/* Length of the buffers for DMA transfer */
@@ -227,13 +203,35 @@ static XScuGic IntcController;	/* Instance of the Interrupt Controller */
 /*
  * Source and Destination buffer for DMA transfer.
  */
+/** @cond INTERNAL */
 volatile static u8 SrcBuffer[BUFFER_BYTESIZE] __attribute__ ((aligned (64)));
 volatile static u8 DestBuffer[BUFFER_BYTESIZE] __attribute__ ((aligned (64)));
+/** @endcond */
 
-/* Transmit buffer for scatter gather transfer.
+#define BD_SPACE_SIZE	(64 * sizeof(XAxiCdma_Bd)) /**< BD space size */
+
+/** @cond INTERNAL */
+#ifdef ARMR5
+#define BD_SPACE_ALIGN 0x100000U
+#else
+#define BD_SPACE_ALIGN sizeof(XAxiCdma_Bd)
+#endif
+/** @endcond */
+
+/** @cond INTERNAL */
+static u8 BdSpace[BD_SPACE_SIZE] __attribute__ ((aligned (BD_SPACE_ALIGN)));
+/** @endcond */
+
+/* Transmit and Receive buffers for scatter gather transfer.
  */
-u32 *TransmitBufferPtr = (u32 *) TX_BUFFER_BASE;
-u32 *ReceiveBufferPtr = (u32 *) RX_BUFFER_BASE;
+#define SG_BUFFER_SIZE	(MAX_PKT_LEN * NUMBER_OF_BDS_TO_TRANSFER) /**< SG buffer size */
+/** @cond INTERNAL */
+static u8 SgTxBuffer[SG_BUFFER_SIZE] __attribute__ ((aligned (64)));
+static u8 SgRxBuffer[SG_BUFFER_SIZE] __attribute__ ((aligned (64)));
+/** @endcond */
+
+u32 *TransmitBufferPtr; /**< Pointer to transmit buffer */
+u32 *ReceiveBufferPtr; /**< Pointer to receive buffer */
 
 /* Shared variables used to test the callbacks.
  */
@@ -266,6 +264,11 @@ int main(void)
 #endif
 
 	xil_printf("\r\n--- Entering main() --- \r\n");
+	xil_printf("Using global buffer allocation\r\n");
+
+	/* Initialize SG buffer pointers */
+	TransmitBufferPtr = (u32 *)SgTxBuffer;
+	ReceiveBufferPtr = (u32 *)SgRxBuffer;
 
 	/* Run the interrupt example for simple transfer
 	 */
@@ -334,13 +337,10 @@ static int SetupSgTransfer(XAxiCdma *InstancePtr)
 	u8 *SrcBufferPtr;
 	int Index;
 
-	/* Setup BD ring */
-	BdCount = XAxiCdma_BdRingCntCalc(XAXICDMA_BD_MINIMUM_ALIGNMENT,
-					 BD_SPACE_HIGH - BD_SPACE_BASE + 1,
-					 (UINTPTR)BD_SPACE_BASE);
+	BdCount = BD_SPACE_SIZE / sizeof(XAxiCdma_Bd);
 
-	Status = XAxiCdma_BdRingCreate(InstancePtr, BD_SPACE_BASE,
-				       BD_SPACE_BASE, XAXICDMA_BD_MINIMUM_ALIGNMENT, BdCount);
+	Status = XAxiCdma_BdRingCreate(InstancePtr, (UINTPTR)BdSpace,
+				       (UINTPTR)BdSpace, XAXICDMA_BD_MINIMUM_ALIGNMENT, BdCount);
 	if (Status != XST_SUCCESS) {
 		xdbg_printf(XDBG_DEBUG_ERROR, "Create BD ring failed %d\r\n",
 			    Status);
@@ -931,7 +931,11 @@ static int DoSgTransfer(XAxiCdma *InstancePtr)
 	DstPtr = (u8 *)ReceiveBufferPtr;
 
 #ifdef __aarch64__
-	Xil_SetTlbAttributes(BD_SPACE_BASE, MARK_UNCACHEABLE);
+	Xil_SetTlbAttributes((UINTPTR)BdSpace, MARK_UNCACHEABLE);
+#elif defined(ARMR5)
+	Xil_SetTlbAttributes((UINTPTR)BdSpace, STRONG_ORDERD_SHARED | PRIV_RW_USER_RW);
+#elif !defined(__MICROBLAZE__)
+	Xil_SetTlbAttributes((UINTPTR)BdSpace, DEVICE_MEMORY);
 #endif
 	/* Setup the BD ring
 	 */
@@ -1146,7 +1150,3 @@ int XAxiCdma_HybridIntrExample(XAxiCdma *InstancePtr, UINTPTR BaseAddress)
 
 	return XST_SUCCESS;
 }
-
-
-
-
