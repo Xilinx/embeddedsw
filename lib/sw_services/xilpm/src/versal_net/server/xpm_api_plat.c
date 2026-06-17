@@ -235,6 +235,7 @@ int XPm_PlatProcessCmd(XPlmi_Cmd *Cmd)
 	u32 CmdId = Cmd->CmdId & 0xFFU;
 	const u32 *Pload = Cmd->Payload;
 	u32 Len = Cmd->Len;
+	static u32 BisrBitmask = 0U;
 
 	switch (CmdId) {
 	case PM_API(PM_BISR):
@@ -243,12 +244,19 @@ int XPm_PlatProcessCmd(XPlmi_Cmd *Cmd)
 		}else{
 			Status =  XPmBisr_Repair(Pload[0]);
 		}
-		/* After successful FPX domain BISR, set shared memory flag
+		/* After successful domain BISR, set shared memory flags
 		 * so PSM can re-trigger per-core BISR on hot-swap */
-		if ((XST_SUCCESS == Status) &&
-		    ((u32)FPX_TAG_ID == Pload[0]) &&
-		    (NULL != PsmToPlmEvent)) {
-			PsmToPlmEvent->BisrBitmask |= BISR_BITMASK_FPX;
+		if (XST_SUCCESS == Status) {
+			if ((u32)FPX_TAG_ID == Pload[0]) {
+				BisrBitmask |= BISR_BITMASK_FPX;
+			} else if ((u32)LPX_TAG_ID == Pload[0]) {
+				BisrBitmask |= BISR_BITMASK_LPX;
+			} else {
+				/* No bitmask update for other domains */
+			}
+		}
+		if (NULL != PsmToPlmEvent) {
+			PsmToPlmEvent->BisrBitmask = BisrBitmask;
 		}
 		break;
 	case PM_API(PM_INIT_NODE):

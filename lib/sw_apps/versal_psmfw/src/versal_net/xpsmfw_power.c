@@ -1730,6 +1730,88 @@ done:
 
 /****************************************************************************/
 /**
+ * @brief	   Re-apply per-core BISR repair for a single RPU core.
+ *
+ * @param CoreIdx  RPU core index (0-3), derived from Args->Id - RPU0_0
+ *
+ * @return	   XST_SUCCESS if BISR done and passed, else XST_FAILURE
+ *
+ * @note	   Only called when PsmToPlmEvent.BisrBitmask has BISR_BITMASK_LPX set
+ *
+ ****************************************************************************/
+static XStatus XPsmFw_RpuCoreBisrRepair(u32 CoreIdx)
+{
+	XStatus Status = XST_FAILURE;
+	u32 PgenBit;
+	u32 DoneMask;
+	u32 PassMask;
+
+	if (CoreIdx >= LPX_SLCR_BISR_RPU_NUM_CORES) {
+		XPsmFw_Printf(DEBUG_PRINT_ALWAYS, "%s: Invalid CoreIdx %lu\n",
+			       __func__, CoreIdx);
+		goto done;
+	}
+
+	PgenBit = CoreIdx + LPX_SLCR_BISR_RPU_PGEN_BASE_BIT;
+	DoneMask = LPX_SLCR_BISR_STATUS_DONE(PgenBit);
+	PassMask = LPX_SLCR_BISR_STATUS_PASS(PgenBit);
+
+	XPsmFw_Printf(DEBUG_DETAILED, "%s: BISR re-repair for RPU%lu\n",
+		       __func__, CoreIdx);
+
+	/* Enable writes to LPX_SLCR */
+	XPsmFw_Write32(LPX_SLCR_WPROT0, 0U);
+
+	/* De-assert all PGEN bits */
+	XPsmFw_Write32(LPX_SLCR_BISR_CACHE_CTRL_1, 0U);
+
+	/* wait for 50us */
+	XPsmFw_UtilWait(XPSMFW_PGEN_WAIT_TIME);
+
+	/* De-assert trigger */
+	XPsmFw_RMW32(LPX_SLCR_BISR_CACHE_CTRL_0,
+		     LPX_SLCR_BISR_CACHE_CTRL_0_TRIGGER_MASK, 0U);
+
+	/* Set PGEN for this core only */
+	XPsmFw_Write32(LPX_SLCR_BISR_CACHE_CTRL_1,
+		       LPX_SLCR_BISR_RPU_PGEN_MASK(CoreIdx));
+
+	/* Trigger BISR */
+	XPsmFw_RMW32(LPX_SLCR_BISR_CACHE_CTRL_0,
+		     LPX_SLCR_BISR_CACHE_CTRL_0_TRIGGER_MASK,
+		     LPX_SLCR_BISR_CACHE_CTRL_0_TRIGGER_MASK);
+
+	/* Poll for DONE */
+	Status = XPsmFw_UtilPollForMask(LPX_SLCR_BISR_CACHE_STATUS, DoneMask,
+					LPX_SLCR_BISR_POLL_TIMEOUT);
+	if (XST_SUCCESS != Status) {
+		XPsmFw_Printf(DEBUG_PRINT_ALWAYS, "%s: BISR DONE timeout for "
+			       "RPU%lu (StatusReg=0x%08lx)\n",
+			       __func__, CoreIdx,
+			       XPsmFw_Read32(LPX_SLCR_BISR_CACHE_STATUS));
+		goto done;
+	}
+
+	/* Check PASS */
+	if (0U == (XPsmFw_Read32(LPX_SLCR_BISR_CACHE_STATUS) & PassMask)) {
+		XPsmFw_Printf(DEBUG_PRINT_ALWAYS, "%s: BISR PASS failed for "
+			       "RPU%lu (StatusReg=0x%08lx)\n",
+			       __func__, CoreIdx,
+			       XPsmFw_Read32(LPX_SLCR_BISR_CACHE_STATUS));
+		Status = XST_FAILURE;
+		goto done;
+	}
+
+	XPsmFw_Printf(DEBUG_DETAILED, "%s: BISR re-repair passed for RPU%lu\n",
+		       __func__, CoreIdx);
+	Status = XST_SUCCESS;
+
+done:
+	return Status;
+}
+
+/****************************************************************************/
+/**
  * @brief	Executes power-up sequence for RPUx core
  *
  * @param Args	Node specific arguments
@@ -1758,10 +1840,19 @@ static XStatus XPsmFwRPUxPwrUp(struct XPsmFwPwrCtrl_t *Args){
 	/* Enable the caches */
     XPsmFw_RMW32(PSMX_LOCAL_REG_RPU_CACHE_CE_CNTRL,Args->PwrStateMask >> 16,Args->PwrStateMask >> 16);
 
+	/* Re-apply per-core BISR if LPX domain BISR was loaded at boot */
+	if (0U != (PsmToPlmEvent.BisrBitmask & BISR_BITMASK_LPX)) {
+		Status = XPsmFw_RpuCoreBisrRepair((u32)Args->Id - (u32)RPU0_0);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+	}
+
 	/*Mark RPUx powered up in LOCAL_PWR_STATE register */
     XPsmFw_RMW32(PSMX_LOCAL_REG_LOC_PWR_STATE0,Args->PwrStateMask,Args->PwrStateMask);
 	Status = XST_SUCCESS;
 
+done:
 	return Status;
 }
 

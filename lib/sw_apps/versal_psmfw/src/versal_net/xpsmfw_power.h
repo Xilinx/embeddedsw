@@ -353,6 +353,32 @@ typedef struct {
  */
 #define BISR_BITMASK_FPX                              ((u32)0x1U) /**< FPX/FPD BISR data loaded */
 #define BISR_BITMASK_LPX                              ((u32)0x2U) /**< LPX/LPD BISR data loaded */
+
+/** @} */
+
+/**
+ * @name LPX_SLCR BISR Registers (for per-core RPU BISR re-repair)
+ * @ingroup versalnet_regs
+ * @{
+ */
+#define LPX_SLCR_BASEADDR                             ((u32)0xEB410000U) /**< LPX SLCR base address */
+#define LPX_SLCR_WPROT0                               (LPX_SLCR_BASEADDR + (u32)0x00000000U) /**< Write protect register */
+#define LPX_SLCR_BISR_CACHE_CTRL_0                    (LPX_SLCR_BASEADDR + (u32)0x00000100U) /**< BISR cache control 0 */
+#define LPX_SLCR_BISR_CACHE_CTRL_0_TRIGGER_MASK       ((u32)0x00000001U) /**< BISR trigger bit */
+#define LPX_SLCR_BISR_CACHE_CTRL_1                    (LPX_SLCR_BASEADDR + (u32)0x00000104U) /**< BISR cache control 1 (PGEN) */
+#define LPX_SLCR_BISR_CACHE_CTRL_1_FULLMASK           ((u32)0x0000001FU) /**< All 5 PGEN bits */
+#define LPX_SLCR_BISR_CACHE_STATUS                    (LPX_SLCR_BASEADDR + (u32)0x00000108U) /**< BISR cache status */
+
+/* PGEN bit mapping: bit 0 = shared, bits 1-4 = RPU cores (RPU0_0..RPU1_1) */
+#define LPX_SLCR_BISR_RPU_PGEN_BASE_BIT               (1U) /**< First RPU core PGEN bit */
+#define LPX_SLCR_BISR_RPU_NUM_CORES                   (4U) /**< Number of RPU cores */
+#define LPX_SLCR_BISR_RPU_PGEN_MASK(CoreIdx)          ((u32)1U << ((CoreIdx) + LPX_SLCR_BISR_RPU_PGEN_BASE_BIT)) /**< PGEN mask for RPU core */
+
+/* STATUS register: DONE at bit 2*chain, PASS at bit 2*chain+1 */
+#define LPX_SLCR_BISR_STATUS_DONE(Chain)              ((u32)1U << (2U * (Chain))) /**< DONE mask for chain */
+#define LPX_SLCR_BISR_STATUS_PASS(Chain)              ((u32)1U << (2U * (Chain) + 1U)) /**< PASS mask for chain */
+
+#define LPX_SLCR_BISR_POLL_TIMEOUT                    MICROSECOND_TO_TICKS(100U) /**< BISR poll timeout */
 /** @} */
 
 struct PsmToPlmEvent_t {
