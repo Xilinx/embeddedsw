@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2023 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (c) 2023 - 2026 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /******************************************************************************
@@ -32,14 +32,16 @@
 
 riscv_invalidate_dcache_range:
 #if XPAR_MICROBLAZE_RISCV_USE_DCACHE==1
-        beqz    a0, L_done            /* Skip loop if size is zero */
-        add	t0, a0, a1            /* Compute end address */
-        andi    t0, t0, -(INCREMENT)  /* Align end down to cache line */
+        beqz    a1, L_done            /* Skip loop if len is zero */
+        add     t0, a0, a1            /* Compute end address */
+        addi    t0, t0, -1            /* Move to last byte */
+        andi    t0, t0, -(INCREMENT)  /* Align end down to last cacheline */
         andi    a0, a0, -(INCREMENT)  /* Align start down to cache line */
 L_start:
         cbo.inval (a0)                /* Invalidate the cache block (line) */
-        addi    a0, a0, (INCREMENT)   /* Increment the address by smallest line length in bytes */
-        bltu    a0, t0, L_start       /* Are we at the end? */
+        beq     a0, t0, L_done        /* Exit after processing last cacheline */
+        addi    a0, a0, (INCREMENT)   /* Increment the address by line length in bytes */
+        j       L_start
 #endif
 L_done:
 	ret

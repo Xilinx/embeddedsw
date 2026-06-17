@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2008 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /******************************************************************************
@@ -55,18 +56,15 @@ microblaze_flush_dcache_range:
 
 #if MB_HAS_WRITEBACK_SET == 0                                   /* Use a different scheme for MB version < v7.20 or when caches are write-through */
 
+        RSUBK   r6, r5, r6
 L_start:
-	CMPU	r18, r5, r6                                     /* Are we at the end? */
-	BLTI	r18, L_done
-
-	wdc     r5, r0                                          /* Invalidate the cache line */
-
+        wdc     r5, r6                                          /* Invalidate the cache line */
 #if defined (__arch64__ )
-	addlik	r5, r5, (XPAR_MICROBLAZE_DCACHE_LINE_LEN * 4)   /* Increment the address by 4 */
-	breai	L_start                                         /* Branch to the beginning of the loop */
+        addlik  r6, r6, -(XPAR_MICROBLAZE_DCACHE_LINE_LEN * 4)
+        beagei  r6, L_start
 #else
-	brid	L_start                                         /* Branch to the beginning of the loop */
-	addik	r5, r5, (XPAR_MICROBLAZE_DCACHE_LINE_LEN * 4)   /* Increment the address by 4 (delay slot) */
+        bneid   r6, L_start
+        addik   r6, r6, -(XPAR_MICROBLAZE_DCACHE_LINE_LEN * 4)
 #endif
 #else
         RSUBK   r6, r5, r6

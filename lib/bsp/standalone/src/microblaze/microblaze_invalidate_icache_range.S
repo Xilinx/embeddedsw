@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2008 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /******************************************************************************
@@ -52,18 +53,15 @@ microblaze_invalidate_icache_range:
         ANDI    r6, r6, -(4 * XPAR_MICROBLAZE_ICACHE_LINE_LEN)  /* Align end down to cache line */
         ANDI    r5, r5, -(4 * XPAR_MICROBLAZE_ICACHE_LINE_LEN)  /* Align start down to cache line */
 
+        RSUBK   r6, r5, r6
 L_start:
-	CMPU	r18, r5, r6                                     /* Are we at the end? */
-	BLTI	r18, L_done
-
-	wic	r5, r0                                          /* Invalidate the cache line */
-
+        wic     r5, r6                                          /* Invalidate the cache line */
 #if defined (__arch64__ )
-	addlik	r5, r5, (XPAR_MICROBLAZE_ICACHE_LINE_LEN * 4)   /* Increment the address by 4 */
-        breai	L_start                                         /* Branch to the beginning of the loop */
+        addlik  r6, r6, -(XPAR_MICROBLAZE_ICACHE_LINE_LEN * 4)
+        beagei  r6, L_start
 #else
-	brid	L_start                                         /* Branch to the beginning of the loop */
-	addik	r5, r5, (XPAR_MICROBLAZE_ICACHE_LINE_LEN * 4)   /* Increment the address by 4 (delay slot) */
+        bneid   r6, L_start
+        addik   r6, r6, -(XPAR_MICROBLAZE_ICACHE_LINE_LEN * 4)
 #endif
 L_done:
 	rtsd	r15, 8                                          /* Return */
