@@ -110,34 +110,8 @@
 #define READ_INTR_ID		XPAR_FABRIC_AXIVDMA_0_MM2S_INTROUT_VEC_ID
 #endif
 
-#ifdef XPAR_AXI_7SDDR_0_S_AXI_BASEADDR
-#define DDR_BASE_ADDR		XPAR_AXI_7SDDR_0_S_AXI_BASEADDR
-#define DDR_HIGH_ADDR		XPAR_AXI_7SDDR_0_S_AXI_HIGHADDR
-#elif XPAR_MIG7SERIES_0_BASEADDR
-#define DDR_BASE_ADDR		XPAR_MIG7SERIES_0_BASEADDR
-#define DDR_HIGH_ADDR	 	XPAR_MIG7SERIES_0_HIGHADDR
-#elif XPAR_MIG_0_C0_DDR4_MEMORY_MAP_BASEADDR
-#define DDR_BASE_ADDR		XPAR_MIG_0_C0_DDR4_MEMORY_MAP_BASEADDR
-#define DDR_HIGH_ADDR	 	XPAR_MIG_0_C0_DDR4_MEMORY_MAP_HIGHADDR
-#endif
 #else
 
-#ifdef XPAR_MEM0_BASEADDRESS
-#define DDR_BASE_ADDR		XPAR_MEM0_BASEADDRESS
-#define DDR_HIGH_ADDR		XPAR_MEM0_HIGHADDRESS
-#endif
-
-#ifdef XPAR_PSU_DDR_1_BASEADDRESS
-#define DDR_BASE_ADDR		XPAR_PSU_DDR_1_BASEADDRESS
-#define DDR_HIGH_ADDR		XPAR_PSU_DDR_1_HIGHADDRESS
-#endif
-#endif
-
-#ifndef DDR_BASE_ADDR
-#warning CHECK FOR THE VALID DDR ADDRESS IN XPARAMETERS.H, \
-DEFAULT SET TO 0x01000000
-#define DDR_BASE_ADDR		0x10000000
-#define DDR_HIGH_ADDR		0x20000000
 #endif
 
 /* Memory space for the frame buffers
@@ -148,19 +122,18 @@ DEFAULT SET TO 0x01000000
  *
  * For 16 frames of 1080p, it needs 0x07E90000 memory for frame buffers
  */
-#define MEM_BASE_ADDR		(DDR_BASE_ADDR + 0x01000000)
-#define MEM_HIGH_ADDR		DDR_HIGH_ADDR
-#define MEM_SPACE		(MEM_HIGH_ADDR - MEM_BASE_ADDR)
-
-/* Read channel and write channel addresses
- */
-#define READ_ADDRESS_BASE	MEM_BASE_ADDR
-#define WRITE_ADDRESS_BASE	(MEM_BASE_ADDR + 0x02000000)
-
-/* Frame size related constants
- */
 #define FRAME_HORIZONTAL_LEN  0x1E00   /* 1920 pixels, each pixel 4 bytes */
 #define FRAME_VERTICAL_LEN    0x438    /* 1080 pixels */
+#define FRAME_SIZE            (FRAME_HORIZONTAL_LEN * FRAME_VERTICAL_LEN) /**< Frame size */
+#define MAX_FRAME_STORE       XAXIVDMA_MAX_FRAMESTORE /**< Max frame store */
+
+#define READ_BUFFER_SIZE      (MAX_FRAME_STORE * FRAME_SIZE) /**< Read buffer size */
+#define WRITE_BUFFER_SIZE     (MAX_FRAME_STORE * FRAME_SIZE) /**< Write buffer size */
+
+/** @cond INTERNAL */
+static u8 ReadFrameBuffer[READ_BUFFER_SIZE] __attribute__ ((aligned (64)));
+static u8 WriteFrameBuffer[WRITE_BUFFER_SIZE] __attribute__ ((aligned (64)));
+/** @endcond */
 
 /* Subframe to be transferred by Video DMA
  *
@@ -333,8 +306,8 @@ int main(void)
 	WriteError = 0;
 	ReadError = 0;
 
-	ReadFrameAddr = READ_ADDRESS_BASE;
-	WriteFrameAddr = WRITE_ADDRESS_BASE;
+	ReadFrameAddr = (UINTPTR)ReadFrameBuffer;
+	WriteFrameAddr = (UINTPTR)WriteFrameBuffer;
 	BlockStartOffset = SUBFRAME_START_OFFSET;
 	BlockHoriz = SUBFRAME_HORIZONTAL_SIZE;
 	BlockVert = SUBFRAME_VERTICAL_SIZE;
@@ -685,7 +658,7 @@ static int ReadSetup(XAxiVdma *InstancePtr)
 	 *
 	 * These addresses are physical addresses
 	 */
-	Addr = READ_ADDRESS_BASE + BlockStartOffset;
+	Addr = ReadFrameAddr + BlockStartOffset;
 	for (Index = 0; Index < ReadCount; Index++) {
 		ReadCfg.FrameStoreStartAddr[Index] = Addr;
 
@@ -755,7 +728,7 @@ static int WriteSetup(XAxiVdma *InstancePtr)
 	 *
 	 * Use physical addresses
 	 */
-	Addr = WRITE_ADDRESS_BASE + BlockStartOffset;
+	Addr = WriteFrameAddr + BlockStartOffset;
 	for (Index = 0; Index < WriteCount; Index++) {
 		WriteCfg.FrameStoreStartAddr[Index] = Addr;
 
@@ -1097,7 +1070,10 @@ static int CheckFrame(int FrameIndex)
 	Hsize_Max = ReadCfg.HoriSizeInput;
 	Vsize_Max = ReadCfg.VertSizeInput;
 
-	Xil_DCacheInvalidateRange((UINTPTR)RdAddr, Vsize_Max * Hsize_Max * ReadCount);
+	Xil_DCacheInvalidateRange((UINTPTR)RdAddr,
+				  FRAME_HORIZONTAL_LEN * FRAME_VERTICAL_LEN);
+	Xil_DCacheInvalidateRange((UINTPTR)WrAddr,
+				  FRAME_HORIZONTAL_LEN * FRAME_VERTICAL_LEN);
 #if 1
 	xdbg_printf(XDBG_DEBUG_GENERAL, "Check frame %d/%d with hsize %d vsize %d\n\r",
 		    RdFrame, WrFrame, Hsize_Max, Vsize_Max);
