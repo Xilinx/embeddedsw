@@ -96,14 +96,23 @@ static void XTmrCtr_StubCallback(void *CallBackRef, u8 TmrCtrNumber);
 void XTmrCtr_CfgInitialize(XTmrCtr *InstancePtr, XTmrCtr_Config *ConfigPtr,
 			   UINTPTR EffectiveAddr)
 {
+	u32 WasReady;
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(ConfigPtr != NULL);
 	Xil_AssertVoid(EffectiveAddr != 0x0);
 
+	WasReady = InstancePtr->IsReady;
 	InstancePtr->IsReady = 0;
 	InstancePtr->Config = *ConfigPtr;
 
+	/* Initialize state flags on first use or when re-binding to a different device. */
+	if ((WasReady != XIL_COMPONENT_IS_READY) ||
+	    (InstancePtr->BaseAddress != EffectiveAddr)) {
+		InstancePtr->IsStartedTmrCtr0 = 0U;
+		InstancePtr->IsStartedTmrCtr1 = 0U;
+		InstancePtr->IsPwmEnabled = FALSE;
+	}
 	InstancePtr->Config.BaseAddress = EffectiveAddr;
 	InstancePtr->BaseAddress = EffectiveAddr;
 
