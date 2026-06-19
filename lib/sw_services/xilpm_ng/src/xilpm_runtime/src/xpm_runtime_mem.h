@@ -91,7 +91,7 @@ typedef enum {
  *************************************************************************************
  */
 static inline AddrRangeStatus checkAddrRangeContainment(u64 *RegionStart, u64 *RegionSize, u64 StartAddr, u64 EndAddr) {
-	volatile AddrRangeStatus Range = ADDR_NOT_IN_RANGE;
+	AddrRangeStatus Range = ADDR_NOT_IN_RANGE;
 	u64 RegionEnd = *RegionStart + *RegionSize - 1ULL;
 
 	/**

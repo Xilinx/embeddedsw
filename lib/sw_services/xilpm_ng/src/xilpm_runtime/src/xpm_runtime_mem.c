@@ -29,7 +29,7 @@ struct XPm_ExclusionRegion {
  *********************************************************************************/
 XStatus __attribute__((weak, noinline)) XPm_IsMemRegnAddressValid(u32 SubsystemId, u64 RegionAddr, u64 RegionSize, u8 *IsPLMem) {
 
-	volatile XStatus Status = XPM_FAILURE;
+	XStatus Status = XPM_FAILURE;
 	(void)(RegionAddr);
 	(void)(RegionSize);
 	(void)(IsPLMem);
@@ -70,7 +70,7 @@ done:
  *         Default initializer is ADDR_IN_RANGE for fail-safe (deny by default).
  */
 static inline AddrRangeStatus checkRangeOverlapExclusion(u64 RegionStart, u64 RegionEnd, u64 ExclStart, u64 ExclEnd) {
-	volatile AddrRangeStatus Range = ADDR_IN_RANGE;
+	AddrRangeStatus Range = ADDR_IN_RANGE;
 
 	if (((RegionStart >= ExclStart) && (RegionStart <= ExclEnd)) ||
 	    ((RegionEnd >= ExclStart) && (RegionEnd <= ExclEnd))) {
@@ -101,8 +101,8 @@ static inline AddrRangeStatus checkRangeOverlapExclusion(u64 RegionStart, u64 Re
  */
 static inline XStatus checkExclusionList(u64 RegionStartAddr, u64 RegionEndAddr,
 							struct XPm_ExclusionRegion *XPm_ExcludedList, u32 ExcludedListSize) {
-	volatile XStatus Status = XPM_FAILURE;
-	volatile u32 index = 0U;
+	XStatus Status = XPM_FAILURE;
+	u32 index = 0U;
 
 	for (index=0U; index<ExcludedListSize; index++) {
 		u64 excludedStartAddress = XPm_ExcludedList[index].StartAddress;
@@ -114,37 +114,16 @@ static inline XStatus checkExclusionList(u64 RegionStartAddr, u64 RegionEndAddr,
 			continue;
 		}
 
-		volatile AddrRangeStatus isRangeOverlapExclusion = ADDR_NOT_IN_RANGE;
-		volatile AddrRangeStatus isRangeOverlapExclusionTmp = ADDR_NOT_IN_RANGE;
-		volatile AddrRangeStatus isExclusionInRange = ADDR_NOT_IN_RANGE;
-		volatile AddrRangeStatus isExclusionInRangeTmp = ADDR_NOT_IN_RANGE;
+		AddrRangeStatus isRangeOverlapExclusion = ADDR_NOT_IN_RANGE;
+		AddrRangeStatus isExclusionInRange = ADDR_NOT_IN_RANGE;
 
-		/* condition to check whether there is any overlap of given address range (address + size) with excluded range */
-		/* redundancy in checker to address security concerns */
-		XSECURE_REDUNDANT_CALL(isRangeOverlapExclusion, isRangeOverlapExclusionTmp, checkRangeOverlapExclusion,\
-		RegionStartAddr, RegionEndAddr, excludedStartAddress, excludedEndAddress);
-		if (isRangeOverlapExclusion != isRangeOverlapExclusionTmp) {
-			Status = XPM_FAILURE;
-			goto done;
-		}
+		/* whether the given address range overlaps the excluded range */
+		isRangeOverlapExclusion = checkRangeOverlapExclusion(RegionStartAddr, RegionEndAddr,
+								excludedStartAddress, excludedEndAddress);
 
-		/* condition to check whether entire excluded range falls in given address range (address + size) */
-		/* redundancy in checker to address security concerns */
-		/**
-		 * NOTE: checkRangeOverlapExclusion above also handles all four overlap geometries
-		 * directly; this second check is intentional redundancy for fault-injection protection.
-		 */
-		isExclusionInRange = checkAddrRangeContainment(&excludedStartAddress, &excludedSize,\
+		/* whether the entire excluded range falls within the given address range */
+		isExclusionInRange = checkAddrRangeContainment(&excludedStartAddress, &excludedSize,
 								RegionStartAddr, RegionEndAddr);
-		/* restore the excluded range values ( as they might be modified by checkAddrRangeContainment()) */
-		excludedStartAddress = XPm_ExcludedList[index].StartAddress;
-		excludedSize = XPm_ExcludedList[index].EndAddress - XPm_ExcludedList[index].StartAddress + 1ULL;
-		isExclusionInRangeTmp = checkAddrRangeContainment(&excludedStartAddress, &excludedSize,\
-								RegionStartAddr, RegionEndAddr);
-		if (isExclusionInRange != isExclusionInRangeTmp) {
-			Status = XPM_FAILURE;
-			goto done;
-		}
 
 		/* If there is any overlap of provided range and excluded range, not allowed to access! */
 		/**
@@ -161,11 +140,6 @@ static inline XStatus checkExclusionList(u64 RegionStartAddr, u64 RegionEndAddr,
 		}
 	}
 
-	/* check whether entire loop was consumed or not ( to address security concerns ) */
-	if (index != ExcludedListSize) {
-		Status = XPM_FAILURE;
-		goto done;
-	}
 	Status = XPM_SUCCESS;
 
 done:
@@ -181,8 +155,7 @@ done:
  * @return ==XPM_FAILURE (if range in exclusion list), ==XPM_SUCCESS (if range not in exclusion list)
  *************************************************************************************/
 static XStatus IsRangeOutsideExclusionList(u64 RegionAddr, u64 RegionSize) {
-	volatile XStatus Status = XPM_FAILURE;
-	volatile XStatus StatusTmp = XPM_FAILURE;
+	XStatus Status = XPM_FAILURE;
 	u64 imgStoreRegionAddress = 0x0ULL;
 	u64 imgStoreRegionSize    = 0x0ULL;
 
@@ -230,9 +203,8 @@ static XStatus IsRangeOutsideExclusionList(u64 RegionAddr, u64 RegionSize) {
 		}
 	}
 
-	/* redundancy iteration check to address security concerns */
-	XSECURE_REDUNDANT_CALL(Status, StatusTmp, checkExclusionList, RegionStartAddr, RegionEndAddr, XPm_ExcludedList, ARRAY_SIZE(XPm_ExcludedList));
-	if ((XST_SUCCESS != Status) || (XST_SUCCESS != StatusTmp)) {
+	Status = checkExclusionList(RegionStartAddr, RegionEndAddr, XPm_ExcludedList, ARRAY_SIZE(XPm_ExcludedList));
+	if (XST_SUCCESS != Status) {
 		Status = XPM_FAILURE;
 		goto done;
 	}
@@ -255,7 +227,7 @@ done:
  *
  ****************************************************************************/
 XStatus XPm_IsMemAddressValid(u32 SubsystemId, u64 RegionAddr, u64 RegionSize) {
-	volatile XStatus Status = XPM_FAILURE;
+	XStatus Status = XPM_FAILURE;
 	const XPm_MemDevice *MemDevice = NULL;
 	const XPm_MemCtrlrDevice *MCDev = NULL;
 	/* store the provided region address in a local variable */

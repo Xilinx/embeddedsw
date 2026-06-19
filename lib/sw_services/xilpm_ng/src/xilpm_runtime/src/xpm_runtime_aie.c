@@ -10,6 +10,7 @@
 #include "xpm_debug.h"
 #include "xpm_regs.h"
 #include "xpm_mem.h"
+#include "xplmi_plat.h"
 #define AIE2PS_COL_SHIFT 25U
 #define AIE2PS_ROW_SHIFT 20U
 #define AIE2PS_TILE_BADDR(NocAddr, col, row)	\
@@ -984,13 +985,7 @@ static XStatus Aie2ps_HandShake(u32 SubsystemId, u32 StartCol, u32 EndCol, const
 	/* Validate caller-supplied DDR source range against the requesting
 	 * subsystem's allowed memory regions before pulling bytes into the
 	 * per-column AIE UC Core Private Data Memory via PMC DMA. */
-	Status = XPm_IsMemAddressValid(SubsystemId, DdrAddr, (u64)Len);
-	if (XPM_SUCCESS != Status) {
-		PmErr("AIE handshake DDR src 0x%x_%08x len %u not allowed for subsystem 0x%x (Status=0x%x)\r\n",
-		      HighAddr, LowAddr, Len, SubsystemId, Status);
-		DbgErr = XPM_INT_ERR_INVALID_PARAM;
-		goto done;
-	}
+	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, DdrAddr, (u64)Len, Status, XPM_PM_NO_ACCESS, done);
 
 	for (Col = StartCol; Col <= EndCol; Col++) {
 		BaseAddress = AIE2PS_TILE_BADDR(NocAddress, Col, 0U);
@@ -1120,13 +1115,7 @@ static XStatus Aie2ps_Operation(u32 SubsystemId, u32 Size, u32 HighAddr, u32 Low
 	 * into the local Buffer[] via PMC DMA. The helper rejects size==0,
 	 * (Addr+Size) overflow, and addresses outside the subsystem's allowed
 	 * MemRegn list, which subsumes the previous (0,0) null check. */
-	Status = XPm_IsMemAddressValid(SubsystemId, DdrAddr, (u64)Size);
-	if (XPM_SUCCESS != Status) {
-		PmErr("AIE op buffer DDR src 0x%x_%08x size %u not allowed for subsystem 0x%x (Status=0x%x)\r\n",
-		      HighAddr, LowAddr, Size, SubsystemId, Status);
-		DbgErr = XPM_INT_ERR_INVALID_PARAM;
-		goto done;
-	}
+	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, DdrAddr, (u64)Size, Status, XPM_PM_NO_ACCESS, done);
 
 	/* Copy the buffer shared by Linux driver from DDR to RAM */
         Status = XPlmi_DmaXfr(DdrAddr, DestAddr, Size/4U, XPLMI_PMCDMA_0);

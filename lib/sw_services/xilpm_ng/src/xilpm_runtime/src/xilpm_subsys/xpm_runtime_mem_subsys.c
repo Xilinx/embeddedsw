@@ -153,7 +153,7 @@ done:
  *
  ****************************************************************************/
 XStatus XPm_IsMemRegnAddressValid(u32 SubsystemId, u64 RegionAddr, u64 RegionSize, u8 *IsPLMem) {
-	volatile XStatus Status = XPM_FAILURE;
+	XStatus Status = XPM_FAILURE;
 	const XPm_MemRegnDevice *MemRegnDevice = NULL;
 	const XPm_Subsystem *Subsystem = NULL;
 	XPm_Requirement *Reqm = NULL;
