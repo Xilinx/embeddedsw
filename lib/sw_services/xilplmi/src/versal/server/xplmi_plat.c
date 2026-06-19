@@ -71,6 +71,9 @@
 #endif
 #include "xplmi_err_common.h"
 #include "xplmi_generic.h"
+#ifdef PLM_ENABLE_ADDR_RANGE_VALIDATION
+#include "xil_sutil.h"	/* for XSECURE_REDUNDANT_CALL */
+#endif
 
 /************************** Constant Definitions *****************************/
 #define XPLMI_DIGEST_PMC_1_0_ROM_1_0	(0x2B004AC7U) /**< PMC1 ROM version 1
@@ -767,4 +770,43 @@ void XPlmi_CheckSlaveErrors(void)
 
 #endif
 
+#ifdef PLM_ENABLE_ADDR_RANGE_VALIDATION
+/*****************************************************************************/
+/**
+ * @brief	Out-of-line redundant wrapper around the registered address-range
+ *		validation handler. The redundant (double) call keeps the glitch
+ *		protection while avoiding the per-site code-size blow-up.
+ *
+ * @param	SubsystemId is the subsystem requesting access
+ * @param	Addr is the start address of the range to validate
+ * @param	Size is the size of the range to validate
+ *
+ * @return	XST_SUCCESS if both calls report the range valid, XST_FAILURE
+ *		otherwise
+ *
+ *****************************************************************************/
+__attribute__((noinline)) int XPlmi_VerifyAddrRangeRedundant(u32 SubsystemId, u64 Addr, u64 Size)
+{
+	volatile int Status = (int)XST_FAILURE;
+	volatile int StatusTmp = (int)XST_FAILURE;
+
+	/* Redundancy to guard against glitches skipping/altering the check */
+	XSECURE_REDUNDANT_CALL(Status, StatusTmp, XPlmi_IsAddrRangeValid,
+			       SubsystemId, Addr, Size);
+	if ((Status != (int)XST_SUCCESS) || (StatusTmp != (int)XST_SUCCESS)) {
+		Status = (int)XST_FAILURE;
+	}
+
+	return Status;
+}
+#else
+int XPlmi_VerifyAddrRangeRedundant(u32 SubsystemId, u64 Addr, u64 Size)
+{
+	(void)SubsystemId;
+	(void)Addr;
+	(void)Size;
+
+	return (int)XST_SUCCESS;
+}
+#endif
 /** @} end of xilplmi_server_apis */
