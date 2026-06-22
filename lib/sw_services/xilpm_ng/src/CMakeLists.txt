@@ -1,4 +1,4 @@
-# Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 
 cmake_minimum_required(VERSION 3.15)
@@ -21,11 +21,9 @@ if("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "plm_microblaze")
   if(XILPM_NG_EEMI_ENABLE OR XILPM_NG_SUBSYS_ENABLE)
     add_subdirectory(xilpm_runtime)
   endif()
-elseif(("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexa78") OR
-	("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexr52"))
-  # Add client code
-  add_subdirectory(xilpm_client)
 else()
+  # The Versal_2VE_2VM client is provided by the xilpm library
+  # (versal_common/client + versal_2ve_2vm/client); xilpm_ng is server-only.
   message(FATAL_ERROR "Wrong processor name ${CMAKE_SYSTEM_PROCESSOR}")
 endif()
 

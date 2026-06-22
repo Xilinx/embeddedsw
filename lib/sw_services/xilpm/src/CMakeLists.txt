@@ -1,5 +1,5 @@
 # Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
-# Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 
 cmake_minimum_required(VERSION 3.15)
@@ -18,7 +18,13 @@ endif()
 if("${CMAKE_MACHINE}" STREQUAL "Versal")
         add_subdirectory(versal)
 elseif("${CMAKE_MACHINE}" STREQUAL "VersalNet")
-        add_subdirectory(versal_net)
+        # Versal_2VE_2VM shares this CMAKE_MACHINE value and is
+        # distinguished by CMAKE_SUBMACHINE.
+        if("${CMAKE_SUBMACHINE}" STREQUAL "Versal_2VE_2VM")
+                add_subdirectory(versal_2ve_2vm)
+        else()
+                add_subdirectory(versal_net)
+        endif()
 elseif("${CMAKE_MACHINE}" STREQUAL "ZynqMP")
         add_subdirectory(zynqmp/client)
 else()

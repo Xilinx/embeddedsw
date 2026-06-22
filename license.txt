@@ -6267,6 +6267,8 @@ lib/sw_services/xilplmi/src/common/client/xplmi_smc.h
 lib/sw_services/xilplmi/src/versal_2ve_2vm/client/CMakeLists.txt
 lib/sw_services/xilplmi/src/versal_2ve_2vm/client/xplmi_plat_client.h
 lib/sw_services/xilplmi/src/versal_2ve_2vm/server/CMakeLists.txt
+lib/sw_services/xilpm/src/versal_2ve_2vm/CMakeLists.txt
+lib/sw_services/xilpm/src/versal_2ve_2vm/client/CMakeLists.txt
 lib/sw_services/xilpuf/src/common/CMakeLists.txt
 lib/sw_services/xilpuf/src/common/client/xpuf_generic.c
 lib/sw_services/xilpuf/src/common/client/xpuf_generic.h
@@ -7589,7 +7591,7 @@ lib/bsp/standalone/src/microblaze/_exit.c
 COPYRIGHT TEXT:
 ---------------
 
-Copyright (C) 2025 Advanced Micro Devices, Inc. All rights reserved.
+Copyright (C) 2026 Advanced Micro Devices, Inc. All rights reserved.
 SPDX-License-Identifier: MIT
 
 FILES:
@@ -7621,7 +7623,6 @@ lib/sw_services/xilplmi/src/versal_2vp_p/CMakeLists.txt
 lib/sw_services/xilplmi/src/versal_2vp_p/common/CMakeLists.txt
 lib/sw_services/xilplmi/src/versal_2vp_p/server/CMakeLists.txt
 lib/sw_services/xilplmi/src/versal_net/server/CMakeLists.txt
-lib/sw_services/xilpm_ng/src/xilpm_client/CMakeLists.txt
 lib/sw_services/xilpm_ng/src/xilpm_common/CMakeLists.txt
 lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xilpm_subsys/xpm_runtime_hbmon_subsys.c
 lib/sw_services/xilsecure/src/client/versal_2ve_2vm/CMakeLists.txt
@@ -14416,7 +14417,7 @@ lib/sw_services/xilasu/src/Makefile
 COPYRIGHT TEXT:
 ---------------
 
-Copyright (C) 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+Copyright (C) 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 SPDX-License-Identifier: MIT
 
 FILES:
@@ -14429,8 +14430,6 @@ lib/sw_apps/asufw/src/xasufw_kdfhandler.h
 lib/sw_apps/srec_spi_bootloader/src/bootloader_ospi.c
 lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_ssit_client_example.c
 lib/sw_services/xilpm_ng/src/util/xpm_update.h
-lib/sw_services/xilpm_ng/src/xilpm_client/pm_api_sys.c
-lib/sw_services/xilpm_ng/src/xilpm_client/pm_api_sys.h
 --------------------------------------------------------------------------------
 
 
@@ -16655,7 +16654,7 @@ XilinxProcessorIPLib/drivers/wdttb/examples/xwdttb_gwdt_intr_example.c
 COPYRIGHT TEXT:
 ---------------
 
-Copyright (c) 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+Copyright (c) 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 SPDX-License-Identifier: MIT
 
 FILES:
@@ -16690,10 +16689,9 @@ lib/sw_services/xilplmi/src/versal_2vp_p/server/xplmi_err.h
 lib/sw_services/xilplmi/src/versal_2vp_p/server/xplmi_ssit.h
 lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_repair_bram_uram.c
 lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_repair_hardblock.c
-lib/sw_services/xilpm_ng/src/xilpm_client/pm_callbacks.c
-lib/sw_services/xilpm_ng/src/xilpm_client/pm_callbacks.h
-lib/sw_services/xilpm_ng/src/xilpm_client/pm_client.c
-lib/sw_services/xilpm_ng/src/xilpm_client/pm_client.h
+lib/sw_services/xilpm/src/versal_2ve_2vm/client/pm_client.c
+lib/sw_services/xilpm/src/versal_2ve_2vm/client/pm_client.h
+lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_ver.h
 lib/sw_services/xilpm_ng/src/xilpm_common/xpm_ver.h
 lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_pin_groups.c
 --------------------------------------------------------------------------------
@@ -23982,8 +23980,11 @@ lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_pll.h
 lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power.c
 lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_rpucore.c
 lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_rpucore.h
+lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_defs.h
 lib/sw_services/xilpm_ng/src/xilpm_common/xpm_defs.h
+lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h
 lib/sw_services/xilpm_ng/src/xilpm_common/xpm_error_node.h
+lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_nodeid.h
 lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h
 lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_access.c
 lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_access.h
@@ -32971,6 +32972,7 @@ lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_pldomain.c
 lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_pmcdomain.c
 lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_powerdomain.c
 lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_powerdomain.h
+lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_err.h
 lib/sw_services/xilpm_ng/src/xilpm_common/xpm_err.h
 --------------------------------------------------------------------------------
 

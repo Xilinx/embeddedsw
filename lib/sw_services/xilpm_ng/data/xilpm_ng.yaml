@@ -17,8 +17,6 @@ description: Platform Management API Library for Versal_2VE_2VM.
 
 supported_processors:
   - pmc
-  - cortexa78
-  - cortexr52
 
 
 supported_os:

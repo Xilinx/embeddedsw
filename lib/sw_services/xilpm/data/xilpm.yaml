@@ -14,7 +14,7 @@ type: library
 
 version: 5.0
 
-description: Platform Management API Library for ZynqMP and Versal.
+description: Platform Management API Library for ZynqMP, Versal and Versal_2VE_2VM.
 
 supported_processors:
   - psu_cortexa53
@@ -28,6 +28,8 @@ supported_processors:
   - psx_psm
   - psm
   - psx_cortexr52
+  - cortexa78
+  - cortexr52
 
 
 supported_os:
