@@ -54,11 +54,7 @@ typedef struct {
 /**************************** Local Global ***********************************/
 
 /* Define Driver instance of all sub-core included in the design */
-#ifndef SDT
-XCsi2TxSs_SubCores Csi2TxSsSubCores[XPAR_XCSI2TXSS_NUM_INSTANCES];
-#else
 XCsi2TxSs_SubCores Csi2TxSsSubCores[];
-#endif
 /***************** Macros (Inline Functions) Definitions *********************/
 
 
@@ -69,9 +65,6 @@ static u32 Csi2TxSs_SubCoreInitCsi(XCsi2TxSs *Csi2TxSsPtr);
 #if (XPAR_XDPHY_NUM_INSTANCES > 0)
 static u32 Csi2TxSs_SubCoreInitDphy(XCsi2TxSs *Csi2TxSsPtr);
 #endif
-static u32 Csi2TxSs_ComputeSubCoreAbsAddr(UINTPTR SsBaseAddr,
-					UINTPTR SsHighAddr,
-					u32 Offset, UINTPTR *BaseAddr);
 
 /************************** Variable Definitions *****************************/
 
@@ -154,15 +147,6 @@ u32 XCsi2TxSs_CfgInitialize(XCsi2TxSs *InstancePtr, XCsi2TxSs_Config *CfgPtr,
 ******************************************************************************/
 static void Csi2TxSs_GetIncludedSubCores(XCsi2TxSs *Csi2TxSsPtr)
 {
-#ifndef SDT
-	Csi2TxSsPtr->CsiPtr = ((Csi2TxSsPtr->Config.CsiInfo.IsPresent) ?
-	(&Csi2TxSsSubCores[Csi2TxSsPtr->Config.DeviceId].CsiInst) : NULL);
-
-#if (XPAR_XDPHY_NUM_INSTANCES > 0)
-	Csi2TxSsPtr->DphyPtr = ((Csi2TxSsPtr->Config.DphyInfo.IsPresent) ?
-		(&Csi2TxSsSubCores[Csi2TxSsPtr->Config.DeviceId].DphyInst) : NULL);
-#endif
-#else
 	u32 Index = 0;
 	Index = XCsi2TxSs_GetDrvIndex(Csi2TxSsPtr, Csi2TxSsPtr->Config.BaseAddr);
 
@@ -172,7 +156,6 @@ static void Csi2TxSs_GetIncludedSubCores(XCsi2TxSs *Csi2TxSsPtr)
 #if (XPAR_XDPHY_NUM_INSTANCES > 0)
 	Csi2TxSsPtr->DphyPtr = ((Csi2TxSsPtr->Config.DphyInfo.IsPresent) ?
 		(&Csi2TxSsSubCores[Index].DphyInst) : NULL);
-#endif
 #endif
 }
 
@@ -377,32 +360,14 @@ static u32 Csi2TxSs_SubCoreInitCsi(XCsi2TxSs *CsiSsPtr)
 
 	/* Get core configuration */
 	xdbg_printf(XDBG_DEBUG_GENERAL, "->Initializing CSI2 Tx Controller.\n\r");
-#ifndef SDT
-	ConfigPtr = XCsi2Tx_LookupConfig(CsiSsPtr->Config.CsiInfo.DeviceId);
-#else
 	ConfigPtr = XCsi2Tx_LookupConfig(CsiSsPtr->Config.CsiInfo.AddrOffset);
-#endif
 	if (ConfigPtr == NULL) {
 		xdbg_printf(XDBG_DEBUG_ERROR,
 			"CSISS2TX ERR:: CSI not found\n\r");
 		return XST_FAILURE;
 	}
 
-#ifndef SDT
-	/* Compute absolute base address */
-	AbsAddr = 0;
-	Status = Csi2TxSs_ComputeSubCoreAbsAddr(CsiSsPtr->Config.BaseAddr,
-					CsiSsPtr->Config.HighAddr,
-					CsiSsPtr->Config.CsiInfo.AddrOffset,
-					&AbsAddr);
-	if (Status != XST_SUCCESS) {
-		xdbg_printf(XDBG_DEBUG_ERROR, "CSISS2TX ERR:: CSI core"
-			"base address (0x%x) invalid %d\n\r", AbsAddr);
-		return XST_FAILURE;
-	}
-#else
 	AbsAddr = ConfigPtr->BaseAddr;
-#endif
 
 	/* Initialize core */
 	Status = XCsi2Tx_CfgInitialize(CsiSsPtr->CsiPtr, ConfigPtr, AbsAddr);
@@ -438,32 +403,14 @@ static u32 Csi2TxSs_SubCoreInitDphy(XCsi2TxSs *CsiSsPtr)
 
 	/* Get core configuration */
 	xdbg_printf(XDBG_DEBUG_GENERAL, "->Initializing DPHY ...\n\r");
-#ifndef SDT
-	ConfigPtr = XDphy_LookupConfig(CsiSsPtr->Config.DphyInfo.DeviceId);
-#else
 	ConfigPtr = XDphy_LookupConfig(CsiSsPtr->Config.DphyInfo.AddrOffset);
-#endif
 	if (!ConfigPtr) {
 		xdbg_printf(XDBG_DEBUG_ERROR,
 				"CSISS2TX ERR:: DPHY not found\n\r");
 		return XST_FAILURE;
 	}
 
-#ifndef SDT
-	/* Compute absolute base address */
-	AbsAddr = 0;
-	Status = Csi2TxSs_ComputeSubCoreAbsAddr(CsiSsPtr->Config.BaseAddr,
-					CsiSsPtr->Config.HighAddr,
-					CsiSsPtr->Config.DphyInfo.AddrOffset,
-					&AbsAddr);
-	if (Status != XST_SUCCESS) {
-		xdbg_printf(XDBG_DEBUG_ERROR,"CSISS2TX ERR:: DPHY core base"
-			"address (0x%x) invalid %d\n\r", AbsAddr);
-		return XST_FAILURE;
-	}
-#else
 	AbsAddr = ConfigPtr->BaseAddr;
-#endif
 
 	/* Initialize core */
 	Status = XDphy_CfgInitialize(CsiSsPtr->DphyPtr, ConfigPtr, AbsAddr);
@@ -476,50 +423,6 @@ static u32 Csi2TxSs_SubCoreInitDphy(XCsi2TxSs *CsiSsPtr)
 	return XST_SUCCESS;
 }
 #endif
-
-
-/*****************************************************************************/
-/**
-* This function computes the subcore absolute address on axi-lite interface
-* Subsystem is mapped at an absolute address and all included sub-cores are
-* at pre-defined offset from the subsystem base address. To access the subcore
-* register map from host CPU an absolute address is required.
-* The subsystem is aligned to 4K address and has address range of max 8K
-* (0x00000-0x2000). By default, CSI is at offset 0x0_0000, and DPHY is at
-* offset 0x0_1000.
-* @param	SsBaseAddr is the base address of the the Subsystem instance
-* @param	SsHighAddr is the max address of the Subsystem instance
-* @param	Offset is the offset of the specified core
-* @param	BaseAddr is the computed absolute base address of the subcore
-*
-* @return
-*		- XST_SUCCESS if base address computation is successful and
-*		within subsystem address range
-*		- XST_FAILURE Otherwise
-*
-* @note		None
-*
-******************************************************************************/
-static u32 Csi2TxSs_ComputeSubCoreAbsAddr(UINTPTR SsBaseAddr,
-					UINTPTR SsHighAddr,
-					u32 Offset, UINTPTR *BaseAddr)
-{
-	u32 Status;
-	UINTPTR AbsAddr;
-
-	AbsAddr = SsBaseAddr + Offset;
-
-	if ((AbsAddr >= SsBaseAddr) && (AbsAddr < SsHighAddr)) {
-		*BaseAddr = AbsAddr;
-		Status = XST_SUCCESS;
-	}
-	else {
-		*BaseAddr = 0;
-		Status = XST_FAILURE;
-	}
-
-	return Status;
-}
 
 /****************************************************************************/
 /**

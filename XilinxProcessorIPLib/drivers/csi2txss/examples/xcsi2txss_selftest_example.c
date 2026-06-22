@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2016 - 2020 Xilinx, Inc. All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -38,15 +38,9 @@
 
 /************************** Constant Definitions *****************************/
 
-/* The unique device ID of the MIPI CSI2 Tx Subsystem instance to be used */
-#ifndef SDT
-#ifndef TESTAPP_GEN
-#define XCSI2TXSS_DEVICE_ID	XPAR_CSI2TXSS_0_DEVICE_ID
-#endif
-#else
+/* The base address of the MIPI CSI2 Tx Subsystem instance to be used */
 #ifndef TESTAPP_GEN
 #define XCSI2TXSS_BASE	XPAR_XCSI2TXSS_0_BASEADDR
-#endif
 #endif
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -86,11 +80,7 @@ int main()
 	xil_printf("---------------------------------\n\r");
 	xil_printf("MIPI CSI2 TX Subsystem self test example\n\r");
 	xil_printf("---------------------------------\n\r\n\r");
-#ifndef SDT
-	Status = Csi2TxSs_SelfTestExample(XCSI2TXSS_DEVICE_ID);
-#else
 	Status = Csi2TxSs_SelfTestExample(XCSI2TXSS_BASE);
-#endif
 	if (Status != XST_SUCCESS) {
 		xil_printf("MIPI CSI2 TX Subsystem self test example "
 			"failed\n\r");
@@ -109,7 +99,7 @@ int main()
 * XCsi2TxSs driver. This function check whether or not its sub-core drivers
 * self test functions are in working state.
 *
-* @param	DeviceId is the unique device ID of the MIPI CSI2 TX
+* @param	DeviceId is the base address of the MIPI CSI2 TX
 *		Subsystem core.
 *
 * @return

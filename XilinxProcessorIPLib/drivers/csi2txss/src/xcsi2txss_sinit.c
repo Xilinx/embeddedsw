@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2016 - 2020 Xilinx, Inc. All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -48,34 +48,18 @@ extern XCsi2TxSs_Config XCsi2TxSs_ConfigTable[];
 
 /*****************************************************************************/
 /**
-* This function looks for the device configuration based on the unique device
-* ID. The table XCsi2TxSs_ConfigTable[] contains the configuration information
-* for each instance of the device in the system.
+* This function looks for the device configuration based on the base
+* address. The table XCsi2TxSs_ConfigTable[] contains the configuration
+* information for each instance of the device in the system.
 *
-* @param	DeviceId is the unique device ID of the device being looked up
+* @param	BaseAddress is the base address of the device being looked up
 *
 * @return	A pointer to the configuration table entry corresponding to the
-*		given device ID, or NULL if no match is found
+*		given base address, or NULL if no match is found
 *
 * @note		None.
 *
 ******************************************************************************/
-#ifndef SDT
-XCsi2TxSs_Config* XCsi2TxSs_LookupConfig(u32 DeviceId)
-{
-	XCsi2TxSs_Config *CfgPtr = NULL;
-	u32 Index;
-
-	for (Index = 0; Index < (u32)XPAR_XCSI2TXSS_NUM_INSTANCES; Index++) {
-		if (XCsi2TxSs_ConfigTable[Index].DeviceId == DeviceId) {
-			CfgPtr = &XCsi2TxSs_ConfigTable[Index];
-			break;
-		}
-	}
-
-	return CfgPtr;
-}
-#else
 XCsi2TxSs_Config* XCsi2TxSs_LookupConfig(UINTPTR BaseAddress)
 {
 	XCsi2TxSs_Config *CfgPtr = NULL;
@@ -115,5 +99,4 @@ u32 XCsi2TxSs_GetDrvIndex(XCsi2TxSs *InstancePtr, UINTPTR BaseAddress)
  return Index;
 }
 
-#endif
 /** @} */
