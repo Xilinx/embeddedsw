@@ -189,12 +189,7 @@ typedef void (*XCsiSs_Callback)(void *CallbackRef, u32 Mask);
 typedef struct {
 	u32 IsPresent;	/**< Flag to indicate if sub-core is present in
 			  *  design */
-#ifndef SDT
-	u32 DeviceId;	/**< Device ID of the sub-core */
-	u32 AddrOffset;	/**< Sub-core offset from subsystem base address */
-#else
 	UINTPTR AddrOffset;	/**< Sub-core offset from subsystem base address */
-#endif
 } CsiRxSsSubCore;
 
 /**
@@ -205,11 +200,7 @@ typedef struct {
  * associated that defines the MAX supported sub-cores within subsystem.
  */
 typedef struct {
-#ifndef SDT
-	u32 DeviceId;	/**< DeviceId is the unique ID  of the device */
-#else
 	char *Name;
-#endif
 	UINTPTR BaseAddr;	/**< BaseAddress is the physical base address
 				of the subsystem address range */
 	UINTPTR HighAddr;	/**< HighAddress is the physical MAX address
@@ -235,10 +226,8 @@ typedef struct {
 	CsiRxSsSubCore CsiInfo;	/**< CSI sub-core configuration */
 	CsiRxSsSubCore DphyInfo;	/**< DPHY sub-core configuration */
 	CsiRxSsSubCore MipiRxPhyInfo;	/**< MIPI RX PHY sub-core configuration */
-#ifdef SDT
 	u16 IntrId;		/**< Interrupt ID */
 	UINTPTR IntrParent;	/**< Bit[0] Interrupt Parent */
-#endif
 } XCsiSs_Config;
 
 /**
@@ -268,24 +257,6 @@ typedef struct {
 /************************** Function Prototypes ******************************/
 
 /* Initialization function in xcsiss_sinit.c */
-#ifndef SDT
-/**
- * @brief Lookup the device configuration based on the unique device ID
- *
- * This function returns a reference to an XCsiSs_Config structure based on
- * the unique device ID. This function will return a NULL pointer if the
- * device ID is not found.
- *
- * @param	DeviceId is the unique device ID of the device for the lookup
- *		operation.
- *
- * @return	XCsiSs_Config reference if DeviceId is found, NULL otherwise.
- *
- * @note	None.
- *
- ******************************************************************************/
-XCsiSs_Config* XCsiSs_LookupConfig(u32 DeviceId);
-#else
 /**
  * @brief Lookup the device configuration based on the base address
  *
@@ -315,7 +286,6 @@ XCsiSs_Config* XCsiSs_LookupConfig(UINTPTR BaseAddress);
  *
  ******************************************************************************/
 u32 XCsiSs_GetDrvIndex(UINTPTR BaseAddress);
-#endif
 
 /* Initialization and control functions xcsiss.c */
 /**

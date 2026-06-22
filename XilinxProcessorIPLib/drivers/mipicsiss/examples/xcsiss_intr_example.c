@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * Copyright (C) 2015 - 2020 Xilinx, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
@@ -51,33 +51,13 @@
 #include "xil_printf.h"
 #include "xparameters.h"
 #include "xstatus.h"
-#ifndef SDT
- #include "xintc.h"
-#else
 #include "xinterrupt_wrap.h"
-#endif
 
 /************************** Constant Definitions *****************************/
-#ifndef SDT
-/*
-* The following constants map to the names of the hardware instances.
-* They are only defined here such that a user can easily change all the
-* needed device IDs in one place.
-*/
-#define XINTC_CSISS_CSI_INTERRUPT_ID	XPAR_INTC_0_MIPICSISS_0_VEC_ID
-#define XINTC_DEVICE_ID			XPAR_INTC_0_DEVICE_ID
-#define XINTC				XIntc
-#define XINTC_HANDLER			XIntc_InterruptHandler
 
-#endif
-
-/* The unique device ID of the MIPI CSI Rx Subsystem instance to be used
+/* The base address of the MIPI CSI Rx Subsystem instance to be used
  */
-#ifndef SDT
-#define XCSISS_DEVICE_ID		XPAR_CSISS_0_DEVICE_ID
-#else
 #define XCSISS_BASE			XPAR_XMIPICSISS_0_BASEADDR
-#endif
 #define MAX_INTERRUPT_COUNT 	1
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -182,11 +162,7 @@ int main()
 	xil_printf("------------------------------------------\n\r");
 	xil_printf("MIPI CSI Rx Subsystem interrupt example\n\r");
 	xil_printf("-------------------------------------------\n\r");
-#ifndef SDT
-	Status = CsiSs_IntrExample(XCSISS_DEVICE_ID);
-#else
 	Status = CsiSs_IntrExample(XCSISS_BASE);
-#endif
 	if (Status != XST_SUCCESS) {
 		xil_printf("MIPI CSI Rx Subsystem interrupt example failed.");
 		return XST_FAILURE;
@@ -204,7 +180,7 @@ int main()
 * This function is the main entry point for the interrupt example using the
 * XCsiSs driver. This function will set up the system with interrupts handlers.
 *
-* @param	DeviceId is the unique device ID of the MIPI CSI Rx
+* @param	DeviceId is the base address of the MIPI CSI Rx
 *		Subsystem core.
 *
 * @return
@@ -248,7 +224,6 @@ u32 CsiSs_IntrExample(u32 DeviceId)
 			   "failed.\n\r");
 		return XST_FAILURE;
 	}
-#ifdef SDT
 	/* Set the HPD interrupt handlers. */
 	XCsiSs_SetCallBack(&CsiSsInst, XCSISS_HANDLER_DPHY,
 			   CsiSs_DphyEventHandler, &CsiSsInst);
@@ -272,7 +247,6 @@ u32 CsiSs_IntrExample(u32 DeviceId)
 		xil_printf("ERROR:: Test could not be completed\r\n");
 		return(1);
 	}
-#endif
 	/* Dump the configuration */
 	XCsiSs_ReportCoreInfo(&CsiSsInst);
 
@@ -321,15 +295,6 @@ u32 CsiSs_IntrExample(u32 DeviceId)
 	}
 	xil_printf("Camera Control Interface "
 		   "initialization done.\n\r");
-#ifndef SDT
-	/* Setup the interrupts and call back handlers */
-	Status = CsiSs_SetupIntrSystem();
-	if (Status != XST_SUCCESS) {
-		xil_printf("ERR: Interrupt system "
-			   "setup failed.\n\r");
-		return XST_FAILURE;
-	}
-#endif
 	/* Enable the cores */
 	XCsiSs_Activate(&CsiSsInst, 1);
 
@@ -415,97 +380,6 @@ u32 CsiSs_CciSetupIntrSystem(void)
 	return XST_SUCCESS;
 }
 
-#ifndef SDT
-/*****************************************************************************/
-/**
-*
-* This function sets up the interrupt system so interrupts can occur for the
-* MIPI CSI Rx Subsystem core. The function is application-specific since
-* the actual system may or may not have an interrupt controller. The MIPI CSI
-* Subsystem core could be directly connected to a processor without an
-* interrupt controller. The user should modify this function to fit the
-* application.
-*
-* @param	None
-*
-* @return
-*		- XST_SUCCESS if interrupt setup was successful.
-*		- A specific error code defined in "xstatus.h" if an error
-*		occurs.
-*
-* @note		None.
-*
-******************************************************************************/
-u32 CsiSs_SetupIntrSystem(void)
-{
-	u32 Status;
-	XINTC *IntcInstPtr = &IntcInst;
-
-	/* Set the HPD interrupt handlers. */
-	XCsiSs_SetCallBack(&CsiSsInst, XCSISS_HANDLER_DPHY,
-			   CsiSs_DphyEventHandler, &CsiSsInst);
-	XCsiSs_SetCallBack(&CsiSsInst, XCSISS_HANDLER_PKTLVL,
-			   CsiSs_PktLvlEventHandler, &CsiSsInst);
-	XCsiSs_SetCallBack(&CsiSsInst, XCSISS_HANDLER_PROTLVL,
-			   CsiSs_ProtLvlEventHandler, &CsiSsInst);
-	XCsiSs_SetCallBack(&CsiSsInst, XCSISS_HANDLER_SHORTPACKET,
-			   CsiSs_SPktEventHandler, &CsiSsInst);
-	XCsiSs_SetCallBack(&CsiSsInst, XCSISS_HANDLER_FRAMERECVD,
-			   CsiSs_FrameRcvdEventHandler, &CsiSsInst);
-	XCsiSs_SetCallBack(&CsiSsInst, XCSISS_HANDLER_OTHERERROR,
-			   CsiSs_ErrEventHandler, &CsiSsInst);
-
-	/* Initialize the interrupt controller driver so that it's ready to
-	 * use, specify the device ID that was generated in xparameters.h
-	 */
-	Status = XIntc_Initialize(IntcInstPtr, XINTC_DEVICE_ID);
-	if (Status != XST_SUCCESS) {
-		xil_printf("Intc initialization failed\n\r");
-		return XST_FAILURE;
-	}
-
-	/* Hook up interrupt service routine */
-	Status = XIntc_Connect(IntcInstPtr, XINTC_CSISS_CSI_INTERRUPT_ID,
-			       (XInterruptHandler)XCsiSs_IntrHandler,
-			       &CsiSsInst);
-	if (Status != XST_SUCCESS) {
-		xil_printf("ERR: MIPI CSI RX SS CSI "
-			   "interrupt connect  failed!\n\r");
-		return XST_FAILURE;
-	}
-
-	/* Enable the interrupt vector at the interrupt controller */
-	XIntc_Enable(IntcInstPtr, XINTC_CSISS_CSI_INTERRUPT_ID);
-
-	/* Need to hookup the ISR for IIC. This is user implemented system
-	 * in case application needs to use IIC in interrupt mode instead
-	 * of polling mode. */
-	CsiSs_CciSetupIntrSystem();
-
-	/* Start the interrupt controller such that interrupts are recognized
-	 * and handled by the processor
-	 */
-	Status = XIntc_Start(IntcInstPtr, XIN_REAL_MODE);
-	if (Status != XST_SUCCESS) {
-		return XST_FAILURE;
-	}
-
-	/* Initialize the exception table. */
-	Xil_ExceptionInit();
-
-	/* Register the interrupt controller handler with the exception
-	 * table.
-	 */
-	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT,
-				     (Xil_ExceptionHandler)XINTC_HANDLER, IntcInstPtr);
-
-	/* Enable exceptions. */
-	Xil_ExceptionEnable();
-
-	return XST_SUCCESS;
-}
-
-#endif
 /*****************************************************************************/
 /**
 *

@@ -112,9 +112,7 @@
 #include <xstatus.h>
 #include "xhdmi_menu.h"
 #include "xhdmi_example.h"
-#ifdef SDT
 #include "xinterrupt_wrap.h"
-#endif
 /***************** Macros (Inline Functions) Definitions *********************/
 /* These macro values need to changed whenever there is a change in version */
 #define APP_MAJ_VERSION 5
@@ -620,28 +618,15 @@ int I2cClk(u32 InFreq, u32 OutFreq)
 	 * This is required torecover the IIC controller in case a previous
 	 * transaction is pending.
 	 */
-#ifndef SDT
-	XIic_WriteReg(XPAR_IIC_0_BASEADDR, XIIC_RESETR_OFFSET,
-				  XIIC_RESET_MASK);
-#else
 	XIic_WriteReg(XPAR_XIIC_0_BASEADDR, XIIC_RESETR_OFFSET,
 				  XIIC_RESET_MASK);
-#endif
 	/* Free running mode */
 	if (InFreq == 0) {
-#ifndef SDT
-		Status = IDT_8T49N24x_SetClock((XPAR_IIC_0_BASEADDR),
-					       (I2C_CLK_ADDR),
-					       (IDT_8T49N24X_XTAL_FREQ),
-					       OutFreq,
-					       TRUE);
-#else
 		Status = IDT_8T49N24x_SetClock((XPAR_XIIC_0_BASEADDR),
 					       (I2C_CLK_ADDR),
 					       (IDT_8T49N24X_XTAL_FREQ),
 					       OutFreq,
 					       TRUE);
-#endif
 		if (Status != (XST_SUCCESS)) {
 			print("Error programming IDT_8T49N241\r\n");
 			return 0;
@@ -650,19 +635,11 @@ int I2cClk(u32 InFreq, u32 OutFreq)
 
 	/* Locked mode */
 	else {
-#ifndef SDT
-		Status = IDT_8T49N24x_SetClock((XPAR_IIC_0_BASEADDR),
-					       (I2C_CLK_ADDR),
-					       InFreq,
-					       OutFreq,
-					       FALSE);
-#else
 		Status = IDT_8T49N24x_SetClock((XPAR_XIIC_0_BASEADDR),
 					       (I2C_CLK_ADDR),
 					       InFreq,
 					       OutFreq,
 					       FALSE);
-#endif
 		if (Status != (XST_SUCCESS)) {
 			print("Error programming SI5324\n\r");
 			return 0;
@@ -1561,7 +1538,6 @@ void EnableColorBar(XHdmiphy1                *Hdmiphy1Ptr,
 #endif
 
 
-#ifdef SDT
 /*****************************************************************************/
 /**
 * Function to enable HDMI Interrupts.
@@ -1594,7 +1570,6 @@ XDisableIntrId(XV_HdmiTxSs_ConfigPtr->IntrId[0],
 				XV_HdmiTxSs_ConfigPtr->IntrParent);
     xil_printf("Disable HDMI TX interrupt handler");
 }
-#endif
 
 /*****************************************************************************/
 /**
@@ -1649,11 +1624,7 @@ int config_hdmi() {
 	/* Initialize IIC */
 #if (defined (ARMR5) || (__aarch64__)) && (!defined XPS_BOARD_ZCU104)
 	/* Initialize PS IIC0 */
-#ifndef SDT
-	XIic0Ps_ConfigPtr = XIicPs_LookupConfig(XPAR_XIICPS_0_DEVICE_ID);
-#else
 	XIic0Ps_ConfigPtr = XIicPs_LookupConfig(XPAR_XIICPS_0_BASEADDR);
-#endif
 	if (NULL == XIic0Ps_ConfigPtr) {
 		return XST_FAILURE;
 	}
@@ -1720,11 +1691,7 @@ int config_hdmi() {
 	/*
 	 * Initialize the IIC driver so that it is ready to use.
 	 */
-#ifndef SDT
-	ConfigPtr = XIic_LookupConfig(XPAR_HDMI_TX_PIPE_FMCH_AXI_IIC_DEVICE_ID);
-#else
 	ConfigPtr = XIic_LookupConfig(XPAR_XIIC_0_BASEADDR);
-#endif
 	if (ConfigPtr == NULL) {
 		return XST_FAILURE;
 	}
@@ -1743,11 +1710,7 @@ int config_hdmi() {
 	Si5324_Init(XPAR_IIC_0_BASEADDR, I2C_CLK_ADDR);
 #else
 	usleep(200000);
-#ifndef SDT
-	Status = IDT_8T49N24x_Init(XPAR_IIC_0_BASEADDR, I2C_CLK_ADDR);
-#else
 	Status = IDT_8T49N24x_Init(XPAR_XIIC_0_BASEADDR, I2C_CLK_ADDR);
-#endif
 	if (Status == XST_FAILURE) {
              xil_printf("IDT_8T49N24x Initialization Error Addr: 0x%08x! \r\n",
                          I2C_CLK_ADDR);
@@ -1770,13 +1733,8 @@ int config_hdmi() {
 #ifdef XPAR_XV_HDMITXSS_NUM_INSTANCES
 
 	/* Initialize HDMI TX Subsystem */
-#ifndef SDT
-	XV_HdmiTxSs_ConfigPtr =
-		XV_HdmiTxSs_LookupConfig(XPAR_XV_HDMITX_0_DEVICE_ID);
-#else
 	XV_HdmiTxSs_ConfigPtr =
 		XV_HdmiTxSs_LookupConfig(XPAR_XV_HDMITX_0_BASEADDR);
-#endif
 	if(XV_HdmiTxSs_ConfigPtr == NULL) {
 		HdmiTxSs.IsReady = 0;
 	}
@@ -1794,66 +1752,7 @@ int config_hdmi() {
 	XV_HdmiTxSS_SetAppVersion(&HdmiTxSs, APP_MAJ_VERSION, APP_MIN_VERSION);
 
 	/* Register HDMI TX SS Interrupt Handler with Interrupt Controller */
-#ifndef SDT
-#if defined(__arm__) || (__aarch64__)
-#ifndef USE_HDCP
-#if USE_INTERRUPT
-	Status |= XScuGic_Connect(&Intc,
-			XPAR_FABRIC_V_HDMITXSS_0_VEC_ID,
-			(XInterruptHandler)XV_HdmiTxSS_HdmiTxIntrHandler,
-			(void *)&HdmiTxSs);
-#endif
-#else
-	Status |= XScuGic_Connect(&Intc,
-			XPAR_FABRIC_V_HDMITXSS_0_IRQ_VEC_ID,
-			(XInterruptHandler)XV_HdmiTxSS_HdmiTxIntrHandler,
-			(void *)&HdmiTxSs);
-#endif
 
-#else
-	/* Register HDMI TX SS Interrupt Handler with Interrupt Controller */
-	Status |= XIntc_Connect(&Intc,
-#if defined(USE_HDCP)
-			XPAR_INTC_0_V_HDMITXSS_0_IRQ_VEC_ID,
-#else
-			XPAR_INTC_0_V_HDMITXSS_0_VEC_ID,
-#endif
-			(XInterruptHandler)XV_HdmiTxSS_HdmiTxIntrHandler,
-			(void *)&HdmiTxSs);
-#endif
-#endif
-
-#ifndef SDT
-	if (Status == XST_SUCCESS) {
-#if defined(__arm__) || (__aarch64__)
-#ifndef USE_HDCP
-#if USE_INTERRUPT
-		XScuGic_Enable(&Intc,
-			XPAR_FABRIC_V_HDMITXSS_0_VEC_ID);
-#endif
-#else
-		XScuGic_Enable(&Intc,
-			XPAR_FABRIC_V_HDMITXSS_0_IRQ_VEC_ID);
-#endif
-
-#else
-		XIntc_Enable(&Intc,
-#if defined(USE_HDCP)
-			XPAR_INTC_0_V_HDMITXSS_0_IRQ_VEC_ID
-#else
-			XPAR_INTC_0_V_HDMITXSS_0_VEC_ID
-#endif
-			);
-
-#endif
-
-	} else {
-		xil_printf
-			("ERR:: Unable to register HDMI TX interrupt handler");
-		xil_printf("HDMI TX SS initialization error\r\n");
-		return XST_FAILURE;
-	}
-#endif
 
 
 
@@ -1906,11 +1805,7 @@ int config_hdmi() {
 	 *  calls the RX stream down callback.
 	 *
          */
-#ifndef SDT
-	XHdmiphy1CfgPtr = XHdmiphy1_LookupConfig(XPAR_HDMIPHY1_0_DEVICE_ID);
-#else
 	XHdmiphy1CfgPtr = XHdmiphy1_LookupConfig(XPAR_XV_HDMIPHY1_0_BASEADDR);
-#endif
 	if (XHdmiphy1CfgPtr == NULL) {
 		xil_printf("Video PHY device not found\r\n\r\n");
 		return XST_FAILURE;
@@ -1924,7 +1819,6 @@ int config_hdmi() {
 		return XST_FAILURE;
 	}
 
-#ifdef SDT
 	Status = XSetupInterruptSystem(&Hdmiphy1,
 				       (XInterruptHandler)XHdmiphy1_InterruptHandler,
 				        XHdmiphy1CfgPtr->IntrId,
@@ -1934,41 +1828,9 @@ int config_hdmi() {
         xil_printf("ERR:: Unable to register HDMI PHY interrupt handler");
 		xil_printf("ERR:: HDMI PHY initialization error\r\n");
 		return XST_FAILURE; }
-#endif
 
 	/* Register VPHY Interrupt Handler */
-#ifndef SDT
-#if defined(__arm__) || (__aarch64__)
-#if USE_INTERRUPT
-	Status = XScuGic_Connect(&Intc,
-				XPAR_FABRIC_V_HDMIPHY1_0_VEC_ID,
-				(XInterruptHandler)XHdmiphy1_InterruptHandler,
-				(void *)&Hdmiphy1);
-#endif
-#else
-	Status = XIntc_Connect(&Intc,
-				XPAR_INTC_0_V_HDMIPHY1_0_VEC_ID,
-				(XInterruptHandler)XHdmiphy1_InterruptHandler,
-				(void *)&Hdmiphy1);
-#endif
-	if (Status != XST_SUCCESS) {
-		xil_printf("HDMI VPHY Interrupt Vec ID not found!\r\n");
-		return XST_FAILURE;
-	}
-#endif
 
-#ifndef SDT
-	/* Enable VPHY Interrupt */
-#if defined(__arm__) || (__aarch64__)
-#if USE_INTERRUPT
-	XScuGic_Enable(&Intc,
-			XPAR_FABRIC_V_HDMIPHY1_0_VEC_ID);
-#endif.
-#else
-	XIntc_Enable(&Intc,
-			XPAR_INTC_0_V_HDMIPHY1_0_VEC_ID);
-#endif
-#endif
 
 #ifdef XPAR_XV_HDMITXSS_NUM_INSTANCES
 	/* VPHY callback setup */
@@ -1985,7 +1847,6 @@ int config_hdmi() {
 				(void *)Hdmiphy1ErrorCallback,
 				(void *)&Hdmiphy1);
 
-#ifdef SDT
 	Status = XSetupInterruptSystem(&HdmiTxSs,
 				XV_HdmiTxSS_HdmiTxIntrHandler,
 				XV_HdmiTxSs_ConfigPtr->IntrId[0],
@@ -1997,7 +1858,6 @@ int config_hdmi() {
 		return XST_FAILURE; }
     /* disable interrupt. enable only if switched to HDMI */
     disable_hdmi_interrupt();
-#endif
 	xil_printf("---------------------------------\r\n");
 
     return 0 ;

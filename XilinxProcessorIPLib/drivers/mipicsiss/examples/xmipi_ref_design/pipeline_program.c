@@ -30,11 +30,7 @@
 #include "xil_exception.h"
 #include "xil_cache.h"
 #include "sensor_cfgs.h"
-#ifndef SDT
-#include "xscugic.h"
-#else
 #include "xinterrupt_wrap.h"
-#endif
 
 #include "xdsitxss.h"
 #include "xgpio.h"
@@ -44,27 +40,13 @@
 #include "xv_frmbufwr_l2.h"
 #include "xv_frmbufrd_l2.h"
 
-#ifndef SDT
-#define IIC_SENSOR_DEV_ID	XPAR_AXI_IIC_1_SENSOR_DEVICE_ID
-#else
 #define IIC_SENSOR_BASE	XPAR_XIIC_0_BASEADDR
-#endif
 
 #define VPROCSSCSC_BASE	XPAR_XVPROCSS_1_BASEADDR
-#ifndef SDT
-#define DEMOSAIC_BASE	XPAR_XV_DEMOSAIC_0_S_AXI_CTRL_BASEADDR
-#define VGAMMALUT_BASE	XPAR_XV_GAMMA_LUT_0_S_AXI_CTRL_BASEADDR
-#else
 #define DEMOSAIC_BASE	XPAR_XV_DEMOSAIC_0_BASEADDR
 #define VGAMMALUT_BASE	XPAR_XV_GAMMA_LUT_0_BASEADDR
-#endif
-#ifndef SDT
-#define XCSIRXSS_DEVICE_ID	XPAR_CSISS_0_DEVICE_ID
-#define XGPIO_STREAM_MUX_GPIO_DEVICE_ID	XPAR_GPIO_5_DEVICE_ID
-#else
 #define XCSIRXSS_BASE	XPAR_XMIPICSISS_0_BASEADDR
 #define XGPIO_STREAM_MUX_GPIO_BASE	XPAR_XGPIO_5_BASEADDR
-#endif
 
 #define PAGE_SIZE	16
 
@@ -74,14 +56,8 @@
 #define CSIFrame	0x20000000
 #define ScalerFrame	0x30000000
 
-#ifndef SDT
-#define XVPROCSS_DEVICE_ID	XPAR_XVPROCSS_0_DEVICE_ID
-#define XDSITXSS_DEVICE_ID	XPAR_DSITXSS_0_DEVICE_ID
-#define XDSITXSS_INTR_ID	XPAR_FABRIC_MIPI_DSI_TX_SUBSYSTEM_0_INTERRUPT_INTR
-#else
 #define XVPROCSS_BASE	XPAR_XVPROCSS_0_BASEADDR
 #define XDSITXSS_BASE	XPAR_XDSITXSS_0_BASEADDR
-#endif
 
 #define DSI_BYTES_PER_PIXEL	(3)
 #define DSI_H_RES		(1920)
@@ -544,11 +520,7 @@ int InitIIC(void) {
 	/*
 	 * Initialize the IIC driver so that it is ready to use.
 	 */
-#ifndef SDT
-	ConfigPtr = XIic_LookupConfig(IIC_SENSOR_DEV_ID);
-#else
 	ConfigPtr = XIic_LookupConfig(IIC_SENSOR_BASE);
-#endif
 	if (ConfigPtr == NULL) {
 		return XST_FAILURE;
 	}
@@ -560,7 +532,6 @@ int InitIIC(void) {
 		return XST_FAILURE;
 	}
 
-#ifdef SDT
 	Status = XSetupInterruptSystem(&IicSensor,&XIic_InterruptHandler,
 			       ConfigPtr->IntrId,
 			       ConfigPtr->IntrParent,
@@ -570,7 +541,6 @@ int InitIIC(void) {
 		xil_printf("ERROR:: Test could not be completed\r\n");
 		return(1);
 	}
-#endif
 	return Status;
 }
 
@@ -950,11 +920,7 @@ int config_csi_cap_path(){
 	u32 Status;
 
 	/* Initialize Frame Buffer Write */
-#ifndef SDT
-	Status =  XVFrmbufWr_Initialize(&frmbufwr, XPAR_XV_FRMBUFWR_0_DEVICE_ID);
-#else
 	 Status =  XVFrmbufWr_Initialize(&frmbufwr, XPAR_XV_FRMBUF_WR_0_BASEADDR);
-#endif
 	if (Status != XST_SUCCESS) {
 		xil_printf(TXT_RED "Frame Buffer Write Init failed status = %x.\r\n"
 				 TXT_RST, Status);
@@ -963,11 +929,7 @@ int config_csi_cap_path(){
 
 
 	/* Initialize Frame Buffer Read */
-#ifndef SDT
-	Status =  XVFrmbufRd_Initialize(&frmbufrd, XPAR_XV_FRMBUFRD_0_DEVICE_ID);
-#else
 	Status =  XVFrmbufRd_Initialize(&frmbufrd, XPAR_XV_FRMBUF_RD_0_BASEADDR);
-#endif
 	if (Status != XST_SUCCESS) {
 		xil_printf(TXT_RED "Frame Buffer Read Init failed status = %x.\r\n"
 				 TXT_RST, Status);
@@ -1188,11 +1150,7 @@ void InitVprocSs_Scaler(int count)
 	}
 
 	if (count) {
-#ifndef SDT
-		p_vpss_cfg = XVprocSs_LookupConfig(XVPROCSS_DEVICE_ID);
-#else
 		p_vpss_cfg = XVprocSs_LookupConfig(XVPROCSS_BASE);
-#endif
 		if (p_vpss_cfg == NULL) {
 			xil_printf("ERROR! Failed to find VPSS-based scaler.");
 			xil_printf("\n\r");
@@ -1368,11 +1326,7 @@ u32 SetupDSI(void)
 	u32 Status;
 	u32 PixelFmt;
 
-#ifndef SDT
-	DsiTxSsCfgPtr = XDsiTxSs_LookupConfig(XDSITXSS_DEVICE_ID);
-#else
 	DsiTxSsCfgPtr = XDsiTxSs_LookupConfig(XDSITXSS_BASE);
-#endif
 	if (!DsiTxSsCfgPtr) {
 		xil_printf(TXT_RED "DSI Tx SS Device Id not found\r\n" TXT_RST);
 		return XST_FAILURE;
@@ -1477,11 +1431,7 @@ u32 InitStreamMuxGpio(void)
 	u32 Status = 0;
 	XGpio_Config *GpioStreamMuxCfgPtr = NULL;
 
-#ifndef SDT
-	GpioStreamMuxCfgPtr = XGpio_LookupConfig(XGPIO_STREAM_MUX_GPIO_DEVICE_ID);
-#else
 	GpioStreamMuxCfgPtr = XGpio_LookupConfig(XGPIO_STREAM_MUX_GPIO_BASE);
-#endif
 	if (!GpioStreamMuxCfgPtr) {
 		xil_printf("Stream Mux GPIO LookupCfg failed\r\n");
 		return XST_FAILURE;
@@ -1512,11 +1462,7 @@ u32 InitializeCsiRxSs(void)
 	u32 Status = 0;
 	XCsiSs_Config *CsiRxSsCfgPtr = NULL;
 
-#ifndef SDT
-	CsiRxSsCfgPtr = XCsiSs_LookupConfig(XCSIRXSS_DEVICE_ID);
-#else
 	CsiRxSsCfgPtr = XCsiSs_LookupConfig(XCSIRXSS_BASE);
-#endif
 	if (!CsiRxSsCfgPtr) {
 		xil_printf("CSI2RxSs LookupCfg failed\r\n");
 		return XST_FAILURE;

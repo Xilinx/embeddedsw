@@ -69,11 +69,7 @@ typedef struct {
  * This array holds the driver instances for all MIPI CSI Rx Subsystem
  * instances in the system.
  */
-#ifndef SDT
-XCsiSs_SubCores CsiSsSubCores[XPAR_XCSISS_NUM_INSTANCES];
-#else
 XCsiSs_SubCores CsiSsSubCores[XPAR_XMIPICSISS_NUM_INSTANCES];
-#endif
 /***************** Macros (Inline Functions) Definitions *********************/
 
 
@@ -87,11 +83,6 @@ static u32 CsiSs_SubCoreInitDphy(XCsiSs *CsiSsPtr);
 #endif
 #if (XPAR_XMIPI_RX_PHY_NUM_INSTANCES > 0)
 static u32 CsiSs_SubCoreInitMipiRxPhy(XCsiSs *CsiSsPtr);
-#endif
-
-#ifndef SDT
-static u32 CsiSs_ComputeSubCoreAbsAddr(UINTPTR SsBaseAddr, UINTPTR SsHighAddr,
-					u32 Offset, UINTPTR *BaseAddr);
 #endif
 
 /************************** Variable Definitions *****************************/
@@ -503,16 +494,6 @@ void XCsiSs_GetVCInfo(XCsiSs *InstancePtr)
 
 static void CsiSs_GetIncludedSubCores(XCsiSs *CsiSsPtr)
 {
-#ifndef SDT
-	CsiSsPtr->CsiPtr = ((CsiSsPtr->Config.CsiInfo.IsPresent) ?
-		(&CsiSsSubCores[CsiSsPtr->Config.DeviceId].CsiInst) : NULL);
-
-#if (XPAR_XDPHY_NUM_INSTANCES > 0)
-	CsiSsPtr->DphyPtr = ((CsiSsPtr->Config.DphyInfo.IsPresent) ?
-		(&CsiSsSubCores[CsiSsPtr->Config.DeviceId].DphyInst) : NULL);
-#endif
-
-#else
 	u32 Index = 0;
 	Index = XCsiSs_GetDrvIndex(CsiSsPtr->Config.BaseAddr);
 
@@ -526,8 +507,6 @@ static void CsiSs_GetIncludedSubCores(XCsiSs *CsiSsPtr)
 #if (XPAR_XDPHY_NUM_INSTANCES > 0)
 	CsiSsPtr->DphyPtr = ((CsiSsPtr->Config.DphyInfo.IsPresent) ?
 		(&CsiSsSubCores[Index].DphyInst) : NULL);
-#endif
-
 #endif
 }
 
@@ -553,31 +532,14 @@ static u32 CsiSs_SubCoreInitCsi(XCsiSs *CsiSsPtr)
 
 	/* Get core configuration */
 	xdbg_printf(XDBG_DEBUG_GENERAL, "->Initializing CSI Rx Controller...\n\r");
-#ifndef SDT
-	ConfigPtr = XCsi_LookupConfig(CsiSsPtr->Config.CsiInfo.DeviceId);
-#else
 	ConfigPtr = XCsi_LookupConfig(CsiSsPtr->Config.CsiInfo.AddrOffset);
-#endif
 	if (ConfigPtr == NULL) {
 		xdbg_printf(XDBG_DEBUG_ERROR,"CSISS ERR:: CSI not found\n\r");
 		return XST_FAILURE;
 	}
 
 	/* Compute absolute base address */
-#ifndef SDT
-	AbsAddr = 0;
-	Status = CsiSs_ComputeSubCoreAbsAddr(CsiSsPtr->Config.BaseAddr,
-					CsiSsPtr->Config.HighAddr,
-					CsiSsPtr->Config.CsiInfo.AddrOffset,
-					&AbsAddr);
-	if (Status != XST_SUCCESS) {
-		xdbg_printf(XDBG_DEBUG_ERROR, "CSISS ERR:: CSI core base "
-			"address (0x%x) invalid %d\n\r", AbsAddr);
-		return XST_FAILURE;
-	}
-#else
 	AbsAddr = ConfigPtr->BaseAddr;
-#endif
 
 	/* Initialize core */
 	Status = XCsi_CfgInitialize(CsiSsPtr->CsiPtr, ConfigPtr, AbsAddr);
@@ -612,31 +574,14 @@ static u32 CsiSs_SubCoreInitDphy(XCsiSs *CsiSsPtr)
 
 	/* Get core configuration */
 	xdbg_printf(XDBG_DEBUG_GENERAL, "->Initializing DPHY ...\n\r");
-#ifndef SDT
-	ConfigPtr = XDphy_LookupConfig(CsiSsPtr->Config.DphyInfo.DeviceId);
-#else
 	ConfigPtr = XDphy_LookupConfig(CsiSsPtr->Config.DphyInfo.AddrOffset);
-#endif
 	if (!ConfigPtr) {
 		xdbg_printf(XDBG_DEBUG_ERROR,"CSISS ERR:: DPHY not found\n\r");
 		return XST_FAILURE;
 	}
 
 	/* Compute absolute base address */
-#ifndef SDT
-	AbsAddr = 0;
-	Status = CsiSs_ComputeSubCoreAbsAddr(CsiSsPtr->Config.BaseAddr,
-					CsiSsPtr->Config.HighAddr,
-					CsiSsPtr->Config.DphyInfo.AddrOffset,
-					&AbsAddr);
-	if (Status != XST_SUCCESS) {
-		xdbg_printf(XDBG_DEBUG_ERROR,"CSISS ERR:: DPHY core base "
-			"address (0x%x) invalid %d\n\r", AbsAddr);
-		return XST_FAILURE;
-	}
-#else
 	AbsAddr = ConfigPtr->BaseAddr;
-#endif
 
 	/* Initialize core */
 	Status = XDphy_CfgInitialize(CsiSsPtr->DphyPtr, ConfigPtr, AbsAddr);
@@ -682,20 +627,7 @@ static u32 CsiSs_SubCoreInitMipiRxPhy(XCsiSs *CsiSsPtr)
 	}
 
 	/* Compute absolute base address */
-#ifndef SDT
-	AbsAddr = 0;
-	Status = CsiSs_ComputeSubCoreAbsAddr(CsiSsPtr->Config.BaseAddr,
-					CsiSsPtr->Config.HighAddr,
-					CsiSsPtr->Config.MipiRxPhyInfo.AddrOffset,
-					&AbsAddr);
-	if (Status != XST_SUCCESS) {
-		xdbg_printf(XDBG_DEBUG_ERROR,"CSISS ERR:: MIPI RX PHY core base "
-			"address (0x%x) invalid %d\n\r", AbsAddr);
-		return XST_FAILURE;
-	}
-#else
 	AbsAddr = ConfigPtr->BaseAddr;
-#endif
 
 	/* Initialize core */
 	Status = XMipi_Rx_Phy_CfgInitialize(CsiSsPtr->MipiRxPhyPtr, ConfigPtr, AbsAddr);
@@ -744,57 +676,6 @@ u32 XCsiSs_DynamicLineRateConfig(XCsiSs *InstancePtr, UINTPTR PllBaseAddr,
 	}
 
 	return XST_SUCCESS;
-}
-#endif
-
-#ifndef SDT
-/*****************************************************************************/
-/**
-* This function computes the subcore absolute address on axi-lite interface.
-* Subsystem is mapped at an absolute address and all included sub-cores are
-* at pre-defined offset from the subsystem base address. To access the subcore
-* register map from host CPU an absolute address is required.
-* The subsystem is aligned to 64K address and has address range of max 192K
-* (0x00000-0x2FFFF) in case IIC is present and DPHY register interface is
-* selected. By default, CSI is at offset 0x0_0000, IIC is at offset 0x1_0000
-* and DPHY is at offset 0x2_0000.
-* In case of IIC being absent and DPHY has register interface, the address
-* range shrinks to 128K (0x00000 - 0x1FFFF) with DPHY moving to offset
-* 0x1_0000. In case DPHY register interface is also absent then the address
-* range shrinks to 64K with only the CSI subcore at offset 0x0_0000.
-*
-* @param	SsBaseAddr is the base address of the the Subsystem instance.
-* @param	SsHighAddr is the max address of the Subsystem instance.
-* @param	Offset is the offset of the specified core.
-* @param	BaseAddr is the computed absolute base address of the subcore.
-*
-* @return
-*		- XST_SUCCESS if base address computation is successful and
-*		  within subsystem address range.
-*		- XST_FAILURE Otherwise.
-*
-* @note		None.
-*
-******************************************************************************/
-
-static u32 CsiSs_ComputeSubCoreAbsAddr(UINTPTR SsBaseAddr, UINTPTR SsHighAddr,
-					u32 Offset, UINTPTR *BaseAddr)
-{
-	u32 Status;
-	UINTPTR AbsAddr;
-
-	AbsAddr = SsBaseAddr + Offset;
-
-	if ((AbsAddr >= SsBaseAddr) && (AbsAddr < SsHighAddr)) {
-		*BaseAddr = AbsAddr;
-		Status = XST_SUCCESS;
-	}
-	else {
-		*BaseAddr = 0;
-		Status = XST_FAILURE;
-	}
-
-	return Status;
 }
 #endif
 /** @} */

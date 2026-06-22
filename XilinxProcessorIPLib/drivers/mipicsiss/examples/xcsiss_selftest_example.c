@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * Copyright (C) 2015 - 2020 Xilinx, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
@@ -39,13 +39,9 @@
 
 /************************** Constant Definitions *****************************/
 
-/* The unique device ID of the MIPI CSI Rx Subsystem instance to be used */
+/* The base address of the MIPI CSI Rx Subsystem instance to be used */
 #ifndef TESTAPP_GEN
-#ifndef SDT
-#define XCSISS_DEVICE_ID	XPAR_CSISS_0_DEVICE_ID
-#else
 #define XCSISS_BASE		XPAR_XMIPICSISS_0_BASEADDR
-#endif
 #endif
 /***************** Macros (Inline Functions) Definitions *********************/
 
@@ -84,11 +80,7 @@ int main()
 	xil_printf("---------------------------------\n\r");
 	xil_printf("MIPI CSI RX Subsystem self test example\n\r");
 	xil_printf("---------------------------------\n\r\n\r");
-#ifndef SDT
-	Status = CsiSs_SelfTestExample(XCSISS_DEVICE_ID);
-#else
 	Status = CsiSs_SelfTestExample(XCSISS_BASE);
-#endif
 	if (Status != XST_SUCCESS) {
 		xil_printf("MIPI CSI RX Subsystem self test example failed\n\r");
 		return XST_FAILURE;
@@ -106,7 +98,7 @@ int main()
 * XCsiSs driver. This function check whether or not its sub-core drivers
 * self test functions are in working state.
 *
-* @param	DeviceId is the unique device ID of the MIPI CSI RX
+* @param	DeviceId is the base address of the MIPI CSI RX
 *		Subsystem core.
 *
 * @return

@@ -47,9 +47,7 @@
 #include "xhdmi_example.h"
 #include <xil_io.h>
 #include <xil_printf.h>
-#ifdef SDT
 #include "xinterrupt_wrap.h"
-#endif
 /***************** Macros (Inline Functions) Definitions *********************/
 #define AUX_FIFO_CLEAR 1
 
@@ -134,12 +132,7 @@ void XV_ConfigVidFrameBuf_rd(XV_FrmbufRd_l2 *FrmBufRdPtr);
 #endif
 
 u32 Exdes_LoadHdcpKeys(void *IicPtr);
-#ifndef SDT
-u32 Exdes_SysTmrInitialize(XHdmi_Exdes *InstancePtr, u32 TmrId,
-		u32 TmrIntrId);
-#else
 u32 Exdes_SysTmrInitialize(XHdmi_Exdes *InstancePtr, u32 TmrBaseAddr);
-#endif
 u32 Exdes_UsToTicks(u32 TimeInUs, u32 TmrCtrClkFreq);
 void Exdes_StartSysTmr(XHdmi_Exdes *InstancePtr, u32 IntervalInMs);
 void Exdes_SysTmrCallback(void *CallbackRef, u8 TmrCtrNumber);
@@ -310,13 +303,8 @@ void Exdes_SetHdcpDebugPrintf(Exdes_Debug_Printf PrintFunc)
 * @note
 *
 ******************************************************************************/
-#ifndef SDT
-u32 XV_Tx_InitController(XV_Tx *InstancePtr, u32 HdmiTxSsDevId,
-		u32 VPhyDevId)
-#else
 u32 XV_Tx_InitController(XV_Tx *InstancePtr, u32 HdmiTxSsBaseAddr,
 		u32 VPhyBaseAddr)
-#endif
 {
 	u32 Status = XST_SUCCESS;
 
@@ -324,63 +312,9 @@ u32 XV_Tx_InitController(XV_Tx *InstancePtr, u32 HdmiTxSsBaseAddr,
 	InstancePtr->HdmiTxSs = &HdmiTxSs;
 	InstancePtr->VidPhy = &Hdmiphy1;
 	InstancePtr->Intc = &Intc;
-#ifndef SDT
-	/* Setup the System Interrupt vector Id references. */
-	XV_Tx_IntrVecId IntrVecIds;
-#if defined(__arm__) || (__aarch64__)
-#if defined(USE_HDCP_HDMI_TX)
-	IntrVecIds.IntrVecId_HdmiTxSs = XPAR_FABRIC_V_HDMITXSS1_0_IRQ_VEC_ID;
-#else
-	IntrVecIds.IntrVecId_HdmiTxSs = XPAR_FABRIC_V_HDMITXSS1_0_VEC_ID;
-#endif /* USE_HDCP_HDMI_TX */
-#ifdef XPAR_XHDCP_NUM_INSTANCES
-	IntrVecIds.IntrVecId_Hdcp14 =
-			XPAR_FABRIC_V_HDMITXSS1_0_HDCP14_IRQ_VEC_ID;
-	IntrVecIds.IntrVecId_Hdcp14Timer =
-			XPAR_FABRIC_V_HDMITXSS1_0_HDCP14_TIMER_IRQ_VEC_ID;
-#else
-	IntrVecIds.IntrVecId_Hdcp14 = (UINTPTR)(NULL);
-	IntrVecIds.IntrVecId_Hdcp14Timer = (UINTPTR)NULL;
-#endif
-#if (XPAR_XHDCP22_TX_NUM_INSTANCES)
-	IntrVecIds.IntrVecId_Hdcp22Timer =
-			XPAR_FABRIC_V_HDMITXSS1_0_HDCP22_TIMER_IRQ_VEC_ID;
-#else
-	IntrVecIds.IntrVecId_Hdcp22Timer = (UINTPTR)NULL;
-#endif
-	IntrVecIds.IntrVecId_VPhy = XPAR_FABRIC_V_HDMIPHY1_0_VEC_ID;
-#else /* microblaze */
-#if defined(USE_HDCP_HDMI_TX)
-	IntrVecIds.IntrVecId_HdmiTxSs = XPAR_INTC_0_V_HDMITXSS1_0_IRQ_VEC_ID;
-#else
-	IntrVecIds.IntrVecId_HdmiTxSs = XPAR_INTC_0_V_HDMITXSS1_0_VEC_ID;
-#endif /* USE_HDCP_HDMI_TX */
-#ifdef XPAR_XHDCP_NUM_INSTANCES
-	IntrVecIds.IntrVecId_Hdcp14 =
-			XPAR_INTC_0_V_HDMITXSS1_0_HDCP14_IRQ_VEC_ID;
-	IntrVecIds.IntrVecId_Hdcp14Timer =
-			XPAR_INTC_0_V_HDMITXSS1_0_HDCP14_TIMER_IRQ_VEC_ID;
-#else
-	IntrVecIds.IntrVecId_Hdcp14 = (UINTPTR)NULL;
-	IntrVecIds.IntrVecId_Hdcp14Timer = (UINTPTR)NULL;
-#endif
-#if (XPAR_XHDCP22_TX_NUM_INSTANCES)
-	IntrVecIds.IntrVecId_Hdcp22Timer =
-			XPAR_INTC_0_V_HDMITXSS1_0_HDCP22_TIMER_IRQ_VEC_ID;
-#else
-	IntrVecIds.IntrVecId_Hdcp22Timer = (UINTPTR)NULL;
-#endif
-	IntrVecIds.IntrVecId_VPhy = XPAR_INTC_0_V_HDMIPHY1_0_VEC_ID;
-#endif /* defined(__arm__) || (__aarch64__) */
-#endif /* SDT */
 	/* Initialize the Video Transmitter for HDMI. */
-#ifndef SDT
-        Status = XV_Tx_Hdmi_Initialize(InstancePtr, HdmiTxSsDevId,
-		VPhyDevId, IntrVecIds);
-#else
         Status = XV_Tx_Hdmi_Initialize(InstancePtr, HdmiTxSsBaseAddr,
 			     VPhyBaseAddr);
-#endif
 	if (Status != XST_SUCCESS) {
 		xil_printf("Initialization of Video "
 		           "Transmitter for HDMI failed !!\r\n");
@@ -497,41 +431,12 @@ void Exdes_InitController(XHdmi_Exdes *InstancePtr)
 * @note	    None.
 *
 ******************************************************************************/
-#ifndef SDT
-u32 Exdes_SysTmrInitialize(XHdmi_Exdes *InstancePtr, u32 TmrId,
-		u32 TmrIntrId)
-#else
 u32 Exdes_SysTmrInitialize(XHdmi_Exdes *InstancePtr, u32 TmrBaseAddr)
-#endif
 {
 	u32 Status = XST_SUCCESS;
 
 	/* Initialize the system timer */
-#ifndef SDT
-	Status = XTmrCtr_Initialize(&InstancePtr->SysTmrInst, TmrId);
-#else
 	Status = XTmrCtr_Initialize(&InstancePtr->SysTmrInst, TmrBaseAddr);
-#endif
-#ifndef SDT
-#if defined(XPAR_XV_HDMITXSS1_NUM_INSTANCES)
-	/* Setup the timer interrupt */
-#if defined(__arm__) || (__aarch64__)
-	Status |= XScuGic_Connect(InstancePtr->hdmi_tx_ctlr->Intc,
-			TmrIntrId,
-			(XInterruptHandler)Exdes_SysTimerIntrHandler,
-			(void *)InstancePtr);
-
-	XScuGic_Enable(InstancePtr->hdmi_tx_ctlr->Intc, TmrIntrId);
-#else
-	Status |= XIntc_Connect(InstancePtr->hdmi_tx_ctlr->Intc,
-			TmrIntrId,
-			(XInterruptHandler)Exdes_SysTimerIntrHandler,
-			(void *)&xhdmi_exdes_ctrlr);
-
-	XIntc_Enable(InstancePtr->hdmi_tx_ctlr->Intc, TmrIntrId);
-#endif
-#endif
-#endif
 	return Status;
 }
 
@@ -2820,11 +2725,7 @@ void UpdateFrameRate(XHdmiphy1       *Hdmiphy1Ptr,
 * @note   None.
 *
 ******************************************************************************/
-#ifndef SDT
-u32 Exdes_SetupClkSrc(u32 ps_iic0_deviceid, u32 ps_iic1_deviceid)
-#else
 u32 Exdes_SetupClkSrc(u32 ps_iic0_baseaddr, u32 ps_iic1_baseaddr)
-#endif
 {
 	u32 Status = XST_SUCCESS;
 	u8 Buffer;
@@ -2850,89 +2751,6 @@ u32 Exdes_SetupClkSrc(u32 ps_iic0_baseaddr, u32 ps_iic1_baseaddr)
 	return Status;
 }
 
-#ifndef SDT
-/*****************************************************************************/
-/**
-*
-* This function setups the interrupt system so interrupts can occur for the
-* HDMI cores. The function is application-specific since the actual system
-* may or may not have an interrupt controller. The HDMI cores could be
-* directly connected to a processor without an interrupt controller.
-* The user should modify this function to fit the application.
-*
-* @param  None.
-*
-* @return
-*   - XST_SUCCESS if interrupt setup was successful.
-*   - A specific error code defined in "xstatus.h" if an error
-*   occurs.
-*
-* @note   This function assumes a Microblaze system and no operating
-*   system is used.
-*
-******************************************************************************/
-int SetupInterruptSystem(void)
-{
-	int Status;
-#if defined (ARMR5) || (__aarch64__) || (__arm__)
-	XScuGic *IntcInstPtr = &Intc;
-#else
-	XIntc *IntcInstPtr = &Intc;
-#endif
-
-	/*
-	 * Initialize the interrupt controller driver so that it's ready to
-	 * use, specify the device ID that was generated in xparameters.h
-	 */
-#if defined (ARMR5) || (__aarch64__) || (__arm__)
-	XScuGic_Config *IntcCfgPtr;
-	IntcCfgPtr = XScuGic_LookupConfig(XPAR_SCUGIC_0_DEVICE_ID);
-	if (IntcCfgPtr == NULL) {
-		xil_printf("ERR:: Interrupt Controller not found");
-		return (XST_DEVICE_NOT_FOUND);
-	}
-	Status = XScuGic_CfgInitialize(IntcInstPtr,
-				IntcCfgPtr,
-				IntcCfgPtr->CpuBaseAddress);
-#else
-	Status = XIntc_Initialize(IntcInstPtr, XPAR_INTC_0_DEVICE_ID);
-#endif
-	if (Status != XST_SUCCESS) {
-		xil_printf("Intc initialization failed!\r\n");
-		return XST_FAILURE;
-	}
-
-
-	/*
-	 * Start the interrupt controller such that interrupts are recognized
-	 * and handled by the processor
-	 */
-#if defined (__MICROBLAZE__)
-	Status = XIntc_Start(IntcInstPtr, XIN_REAL_MODE);
-        /* Status = XIntc_Start(IntcInstPtr, XIN_SIMULATION_MODE); */
-	if (Status != XST_SUCCESS) {
-		return XST_FAILURE;
-	}
-#endif
-
-	Xil_ExceptionInit();
-
-	/*
-	 * Register the interrupt controller handler with the exception table.
-	 */
-#if defined (ARMR5) || (__aarch64__) || (__arm__)
-	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT,
-				(Xil_ExceptionHandler)XScuGic_InterruptHandler,
-				(XScuGic *)IntcInstPtr);
-#else
-	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT,
-				(Xil_ExceptionHandler)XIntc_InterruptHandler,
-				(XIntc *)IntcInstPtr);
-#endif
-
-	return (XST_SUCCESS);
-}
-#endif
 
 #ifdef XPAR_XV_HDMITXSS1_NUM_INSTANCES
 
@@ -3094,18 +2912,6 @@ u32 Exdes_AxisSwitchInitialize(XAxis_Switch *AxisSwitchPtr,u32 deviceid)
 int config_hdmi()
 {
 	u32 Status = XST_FAILURE;
-#ifndef SDT
-#ifdef XPAR_XV_HDMITXSS1_NUM_INSTANCES
-	TxInputSourceType TxInputSrc;
-	XVidC_VideoStream *HdmiTxSsVidStreamPtr;
-
-	/**
-	 * Reset the Fifo buffer which will be used for holding
-	 * incoming auxiliary packets.
-	 */
-	ResetAuxFifo();
-#endif
-#else
 #ifdef XPAR_XV_HDMITX1_NUM_INSTANCES
 	TxInputSourceType TxInputSrc;
 	XVidC_VideoStream *HdmiTxSsVidStreamPtr;
@@ -3116,17 +2922,7 @@ int config_hdmi()
 	 */
 	ResetAuxFifo();
 #endif
-#endif
 
-#ifndef SDT
-#if (!defined XPAR_XVTC_NUM_INSTANCES) || (defined (XPAR_XV_FRMBUFWR_NUM_INSTANCES) && \
-                      (XPAR_XV_FRMBUFRD_NUM_INSTANCES))
-#if defined (VTEM2FSYNC)
-	XV_HdmiC_VrrInfoFrame  *HdmiRxVrrInfoFrameVRRPtr;
-	XVidC_VideoStream      *HdmiRxSsVidStreamVRRPtr;
-#endif
-#endif
-#else
 #if (!defined XPAR_XVTC_NUM_INSTANCES) || (defined (XPAR_XV_FRMBUF_WR_NUM_INSTANCES) && \
                       (XPAR_XV_FRMBUF_RD_NUM_INSTANCES))
 #if defined (VTEM2FSYNC)
@@ -3134,20 +2930,9 @@ int config_hdmi()
 	XVidC_VideoStream      *HdmiRxSsVidStreamVRRPtr;
 #endif
 #endif
-#endif
 
 	xil_printf("\r\n\r\n");
 	xil_printf("------------------------------------------\r\n");
-#ifndef SDT
-#if defined (XPAR_XV_FRMBUFRD_NUM_INSTANCES) && \
-                      (XPAR_XV_FRMBUFWR_NUM_INSTANCES)
-	xil_printf("--- HDMI 2.1 SS + HdmiPhy VRR Example v%d.%d ---\r\n",
-			APP_MAJ_VERSION, APP_MIN_VERSION);
-#else
-	xil_printf("--- HDMI 2.1 SS + HdmiPhy Example v%d.%d---\r\n",
-			APP_MAJ_VERSION, APP_MIN_VERSION);
-#endif
-#else
 #if defined (XPAR_XV_FRMBUF_RD_NUM_INSTANCES) && \
                       (XPAR_XV_FRMBUF_WR_NUM_INSTANCES)
 	xil_printf("--- HDMI 2.1 SS + HdmiPhy VRR Example v%d.%d ---\r\n",
@@ -3155,7 +2940,6 @@ int config_hdmi()
 #else
 	xil_printf("--- HDMI 2.1 SS + HdmiPhy Example v%d.%d---\r\n",
 			APP_MAJ_VERSION, APP_MIN_VERSION);
-#endif
 #endif
 	xil_printf("---    (c) 2019 by Xilinx, Inc.        ---\r\n");
 	xil_printf("------------------------------------------\r\n");
@@ -3181,16 +2965,11 @@ int config_hdmi()
 	xil_printf("Initializing IIC and clock sources. \r\n");
 #if (defined (ARMR5) || (__aarch64__)) && (!defined XPS_BOARD_ZCU104)
 	/* Initialize the PS_I2C and Initialize the clocks */
-#ifndef SDT
-	Status = Exdes_SetupClkSrc(XPAR_XIICPS_0_DEVICE_ID,
-			XPAR_XIICPS_1_DEVICE_ID);
-#else
 #ifndef XPS_BOARD_VEK385_1
 	Status = Exdes_SetupClkSrc(XPAR_XIICPS_0_BASEADDR,
 			XPAR_XIICPS_1_BASEADDR);
 #else
 	Status = Exdes_SetupClkSrc((u32)NULL, (u32)NULL);
-#endif
 #endif
 	if (Status != XST_SUCCESS) {
 		xil_printf("PS IIC initialization failed. \r\n");
@@ -3211,15 +2990,9 @@ int config_hdmi()
 	xil_printf("Initializing HDMI Video Transmitter. \r\n");
 
 	/* Initialize the controller for the Video TX for HDMI */
-#ifndef SDT
-	Status = XV_Tx_InitController(&xhdmi_example_tx_controller,
-			XPAR_XV_HDMITXSS1_0_DEVICE_ID,
-			XPAR_HDMIPHY1_0_DEVICE_ID);
-#else
 	Status = XV_Tx_InitController(&xhdmi_example_tx_controller,
 			XPAR_XV_HDMITXSS1_0_BASEADDR,
 			XPAR_XV_HDMIPHY1_0_BASEADDR);
-#endif
 	if (Status != XST_SUCCESS) {
 		xil_printf("HDMI Video Transmitter system setup failed !!\r\n");
 	} else {
@@ -3244,13 +3017,8 @@ int config_hdmi()
 #endif
 	
 	/* Initialize Video FMC and GT TX output*/
-#ifndef SDT
-	Status = Vfmc_HdmiInit(&Vfmc[0], XPAR_HDMI_HIER_0_AXI_GPIO_0_DEVICE_ID,
-						&Iic, VFMC_HPC0);
-#else
 	Status = Vfmc_HdmiInit(&Vfmc[0], XPAR_VFMC_CTLR_SS_0_VFMC_GPIO_BASEADDR,
                  &Iic, VFMC_HPC0);
-#endif
 
 	if (Status == XST_FAILURE) {
 		xil_printf("VFMC Initialization Error! Exiting Program...\r\n");
@@ -3361,18 +3129,8 @@ int config_hdmi()
 //	Xil_ExceptionEnable();
 
 	/* Initialize the system timer */
-#ifndef SDT
-	Exdes_SysTmrInitialize(&xhdmi_exdes_ctrlr,
-					XPAR_TMRCTR_1_DEVICE_ID,
-#if defined(__arm__) || (__aarch64__)
-					XPAR_FABRIC_TMRCTR_1_VEC_ID);
-#else
-					XPAR_INTC_0_TMRCTR_1_VEC_ID);
-#endif
-#else
     Exdes_SysTmrInitialize(&xhdmi_exdes_ctrlr,
 					XPAR_XTMRCTR_1_BASEADDR);
-#endif
 
 
 #if defined(XPAR_XV_HDMITXSS1_NUM_INSTANCES)

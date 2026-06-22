@@ -44,11 +44,7 @@
 
 #define PAGE_SIZE   16
 
-#ifndef SDT
-#define IIC_BASE_ADDRESS	XPAR_IIC_2_BASEADDR
-#else
 #define IIC_BASE_ADDRESS	XPAR_XIIC_2_BASEADDR
-#endif
 
 #define EEPROM_TEST_START_ADDRESS	0x80
 
@@ -290,11 +286,6 @@ int main() {
 	return XST_FAILURE;
   }
   xil_printf("IIC Initialization Done \n\r");
-#ifndef SDT
-  //Initialize FMC Interrupt System
-  Status = SetupFmcInterruptSystem(&IicFmc);
-
-#endif
 
   if (Status != XST_SUCCESS) {
     xil_printf("\n\rInterrupt System Initialization Failed \n\r");
@@ -313,11 +304,6 @@ int main() {
   }
   xil_printf("Fmc IIC Address Set\n\r");
 
-#ifndef SDT
-  //Initialize Adapter Interrupt System
-  Status = SetupAdapterInterruptSystem(&IicAdapter);
-
-#endif
 
   if (Status != XST_SUCCESS) {
     xil_printf("\n\rInterrupt System Initialization Failed \n\r");

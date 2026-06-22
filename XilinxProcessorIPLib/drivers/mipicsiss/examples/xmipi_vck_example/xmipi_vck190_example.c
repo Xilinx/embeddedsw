@@ -1,6 +1,6 @@
  /******************************************************************************
 * Copyright (C) 2014 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -24,11 +24,7 @@
 #include "xil_cache.h"
 #include "xgpio_l.h"
 #include "xiic.h"
-#ifndef SDT
-#include "xscugic.h"
-#else
 #include "xinterrupt_wrap.h"
-#endif
 #include "xuartpsv.h"
 #include "xvidc.h"
 #include "platform.h"
@@ -67,19 +63,10 @@ extern u8   			  IsStreamUp;
 extern u8                        SinkReady;
 
 #define VPROCSSCSC_BASE	XPAR_XVPROCSS_1_BASEADDR
-#ifndef SDT
-#define DEMOSAIC_BASE	XPAR_XV_DEMOSAIC_0_S_AXI_CTRL_BASEADDR
-#define VGAMMALUT_BASE	XPAR_XV_GAMMA_LUT_0_S_AXI_CTRL_BASEADDR
-#else
 #define DEMOSAIC_BASE_1		XPAR_XV_DEMOSAIC_0_BASEADDR
 #define VGAMMALUT_BASE_1	XPAR_XV_GAMMA_LUT_0_BASEADDR
-#endif
 
-#ifndef SDT
-#define XDSITXSS_DEVICE_ID	XPAR_DSITXSS_0_DEVICE_ID
-#else
 #define XDSITXSS_BASE	XPAR_XDSITXSS_0_BASEADDR
-#endif
 
 #define XDSITXSS_INTR_ID	XPAR_FABRIC_MIPI_DSI_TX_SUBSYSTEM_0_INTERRUPT_INTR
 #define DSI_BYTES_PER_PIXEL	(3)
@@ -100,11 +87,7 @@ extern u8                        SinkReady;
 
 XDsiTxSs DsiTxSs;
 
-#ifndef SDT
-#define XGPIO_TREADY_DEVICE_ID	XPAR_GPIO_2_DEVICE_ID
-#else
 #define XGPIO_TREADY_BASE	XPAR_XGPIO_2_BASEADDR
-#endif
 XGpio Gpio_Tready;
 
 extern	XV_HdmiTxSs  HdmiTxSs;
@@ -120,13 +103,8 @@ extern	XV_HdmiTxSs  HdmiTxSs;
  *****************************************************************************/
 void DisableImageProcessingPipe(void)
 {
-#ifndef SDT
-	Xil_Out32((DEMOSAIC_BASE + 0x00), 0x0   );
-	Xil_Out32((VGAMMALUT_BASE + 0x00), 0x0   );
-#else
 	Xil_Out32((DEMOSAIC_BASE_1 + 0x00), 0x0   );
 	Xil_Out32((VGAMMALUT_BASE_1 + 0x00), 0x0   );
-#endif
 	Xil_Out32((VPROCSSCSC_BASE + 0x00), 0x0  );
 
 }
@@ -255,11 +233,7 @@ u32 SetupDSI(void)
 	u32 Status;
 	u32 PixelFmt;
 
-#ifndef SDT
-	DsiTxSsCfgPtr = XDsiTxSs_LookupConfig(XDSITXSS_DEVICE_ID);
-#else
 	DsiTxSsCfgPtr = XDsiTxSs_LookupConfig(XDSITXSS_BASE);
-#endif
 	if (!DsiTxSsCfgPtr) {
 		xil_printf("DSI Tx SS Device Id not found\r\n");
 		return XST_FAILURE;
@@ -272,7 +246,6 @@ u32 SetupDSI(void)
 				\r\n",Status);
 		return Status;
 	}
-#ifdef SDT
 	Status = XSetupInterruptSystem(&DsiTxSs,&XDsiTxSs_IntrHandler,
 				       DsiTxSs.Config.IntrId,
 				       DsiTxSs.Config.IntrParent,
@@ -282,7 +255,6 @@ u32 SetupDSI(void)
 		xil_printf("ERROR:: Test could not be completed\r\n");
 		return(1);
 	}
-#endif
 
 	PixelFmt = XDsiTxSs_GetPixelFormat(&DsiTxSs);
 
@@ -342,64 +314,6 @@ void SelectHDMIOutput(void) {
 	XGpio_DiscreteWrite(&Gpio_Tready, 1, 0);
 }
 
-#ifndef SDT
-/*****************************************************************************/
-/**
-*
-* This function setups the interrupt system so interrupts can occur for the
-* IP cores. The function is application-specific since the actual system
-* may or may not have an interrupt controller. The HDMI cores could be
-* directly connected to a processor without an interrupt controller.
-* The user should modify this function to fit the application.
-*
-* @param  None.
-*
-* @return
-*   - XST_SUCCESS if interrupt setup was successful.
-*   - A specific error code defined in "xstatus.h" if an error
-*   occurs.
-*
-* @note   This function assumes a Microblaze system and no operating
-*   system is used.
-*
-******************************************************************************/
-int SetupInterruptSystem(void) {
-	int Status;
-
-	XScuGic *IntcInstPtr = &Intc;
-
-	/*
-	 * Initialize the interrupt controller driver so that it's ready to
-	 * use, specify the device ID that was generated in xparameters.h
-	 */
-	XScuGic_Config *IntcCfgPtr;
-	IntcCfgPtr = XScuGic_LookupConfig(XPAR_SCUGIC_0_DEVICE_ID);
-	if(IntcCfgPtr == NULL) {
-		xil_printf("ERR:: Interrupt Controller not found");
-		return (XST_DEVICE_NOT_FOUND);
-	}
-	Status = XScuGic_CfgInitialize(IntcInstPtr,
-				IntcCfgPtr,
-				IntcCfgPtr->CpuBaseAddress);
-
-	if (Status != XST_SUCCESS) {
-		xil_printf("Intc initialization failed!\r\n");
-		return XST_FAILURE;
-	}
-
-
-	Xil_ExceptionInit();
-
-	/*
-	 * Register the interrupt controller handler with the exception table.
-	 */
-	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT,
-				(Xil_ExceptionHandler)XScuGic_InterruptHandler,
-				(XScuGic *)IntcInstPtr);
-
-	return (XST_SUCCESS);
-}
-#endif
 
 void Xil_AssertCallbackRoutine(u8 *File, s32 Line) {
 	xil_printf("Assertion in File %s, on line %0d\r\n", File, Line);
@@ -739,11 +653,7 @@ int main() {
 	Pipeline_Cfg.VideoDestn = New_Cfg.VideoDestn ;
 	Pipeline_Cfg.VideoMode = New_Cfg.VideoMode ;
 
-#ifndef SDT
-	XGpio_Initialize(&Gpio_Tready,XGPIO_TREADY_DEVICE_ID);
-#else
 	XGpio_Initialize(&Gpio_Tready,XPAR_XGPIO_2_BASEADDR);
-#endif
 	SelectHDMIOutput();
 
 	Reset_IP_Pipe();
@@ -754,14 +664,6 @@ int main() {
 		  return XST_FAILURE;
 		}
 	}
-#ifndef SDT
-	/* Initialize IRQ */
-	Status = SetupInterruptSystem();
-	if (Status == XST_FAILURE) {
-		xil_printf("IRQ Configuration failed.\r\n");
-		return XST_FAILURE;
-	}
-#endif
 
 	Status = config_csi_cap_path();
 	if (Status == XST_FAILURE) {
@@ -802,46 +704,10 @@ int main() {
 	if(Pipeline_Cfg.VideoDestn == XVIDDES_DSI){
 		EnableDSI();
 	}
-#ifdef SDT
 	else {
 		enable_hdmi_interrupt();
 	}
-#endif
 
-#ifndef SDT
-		/* Main loop */
-			do {
-				XMipi_DisplayMainMenu();
-				Pipeline_Cfg.VideoDestn = New_Cfg.VideoDestn ;
-				Pipeline_Cfg.VideoMode = New_Cfg.VideoMode ;
-				if (Pipeline_Cfg.VideoDestn == XVIDDES_HDMI) {
-					xil_printf("Set HDMI as destination \r\n");
-					TxBusy            = (FALSE);
-					TxRestartColorbar = (TRUE);
-					config_csi_cap_path( );
-					SelectHDMIOutput();
-					start_csi_cap_pipe(Pipeline_Cfg.VideoMode);
-				}
-
-				if (Pipeline_Cfg.VideoDestn == XVIDDES_DSI) {
-					xil_printf("Set DSI as destination \r\n");
-					XGpio_Initialize(&Gpio_Tready,XGPIO_TREADY_DEVICE_ID);
-					Reset_IP_Pipe();
-					SetupDSI();
-					TxRestartColorbar = (FALSE);
-					TxBusy            = (TRUE);
-					IsStreamUp        = (FALSE);
-					config_csi_cap_path();
-					SelectDSIOutput();
-					InitDSI();
-
-					start_csi_cap_pipe(Pipeline_Cfg.VideoMode);
-
-					EnableDSI();
-				}
-
-            } while (1);
-#else
             /* Main loop */
 			prev_VideoDestn = Pipeline_Cfg.VideoDestn;
             prev_VideoMode = Pipeline_Cfg.VideoMode;
@@ -901,6 +767,5 @@ int main() {
 						EnableDSI();
 					}
 	    } while (1);
-#endif
   return 0;
 }

@@ -1,6 +1,6 @@
  /******************************************************************************
 * Copyright (C) 2014 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -24,11 +24,7 @@
 #include "xil_cache.h"
 #include "xgpio_l.h"
 #include "xiic.h"
-#ifndef SDT
-#include "xscugic.h"
-#else
 #include "xinterrupt_wrap.h"
-#endif
 #include "xuartlite_l.h"
 #include "xvidc.h"
 #include "platform.h"
@@ -74,18 +70,9 @@ extern XHdmi_Exdes xhdmi_exdes_ctrlr;
 extern XHdmi_Menu_ExDes_Ctrlr ExDesCtrlr;
 
 #define VPROCSSCSC_BASE	XPAR_XVPROCSS_1_BASEADDR
-#ifndef SDT
-#define DEMOSAIC_BASE	XPAR_XV_DEMOSAIC_0_S_AXI_CTRL_BASEADDR
-#define VGAMMALUT_BASE	XPAR_XV_GAMMA_LUT_0_S_AXI_CTRL_BASEADDR
-#else
 #define DEMOSAIC_BASE_1		XPAR_XV_DEMOSAIC_0_BASEADDR
 #define VGAMMALUT_BASE_1	XPAR_XV_GAMMA_LUT_0_BASEADDR
-#endif
 
-#ifndef SDT
-#define XDSITXSS_DEVICE_ID	XPAR_DSITXSS_0_DEVICE_ID
-#define XDSITXSS_INTR_ID	XPAR_FABRIC_MIPI_DSI_TX_SUBSYSTEM_0_INTERRUPT_INTR
-#endif
 
 #define DSI_BYTES_PER_PIXEL	(3)
 #define DSI_H_RES		(1920)
@@ -106,11 +93,7 @@ extern XHdmi_Menu_ExDes_Ctrlr ExDesCtrlr;
 XCsiSs CsiSs;
 XCsiSs_Config XCsiSs_ConfigPtr;
 
-#ifndef SDT
-#define XGPIO_TREADY_DEVICE_ID	XPAR_GPIO_0_DEVICE_ID
-#else
 #define XGPIO_TREADY_BASE XPAR_XGPIO_0_BASEADDR
-#endif
 XGpio Gpio_Tready;
 
 extern	XV_HdmiTxSs1  HdmiTxSs;
@@ -132,15 +115,9 @@ extern u8   			  IsTxPresent;
  *****************************************************************************/
 void DisableImageProcessingPipe(void)
 {
-#ifndef SDT
-	Xil_Out32((DEMOSAIC_BASE + 0x00), 0x0   );
-	Xil_Out32((VGAMMALUT_BASE + 0x00), 0x0   );
-	Xil_Out32((VPROCSSCSC_BASE + 0x00), 0x0  );
-#else
 	Xil_Out32((DEMOSAIC_BASE_1 + 0x00), 0x0   );
 	Xil_Out32((VGAMMALUT_BASE_1 + 0x00), 0x0   );
 	//Xil_Out32((VPROCSSCSC_BASE + 0x00), 0x0  );
-#endif
 }
 
 
@@ -493,20 +470,8 @@ int main() {
 	/* Initialize platform */
 	init_platform();
 
-	#ifndef SDT
-	XGpio_Initialize(&Gpio_Tready,XGPIO_TREADY_DEVICE_ID);
-	#else
 	XGpio_Initialize(&Gpio_Tready,XGPIO_TREADY_BASE);
-	#endif
 
-#ifndef SDT
-	/* Initialize IRQ */
-	Status = SetupInterruptSystem();
-	if (Status == XST_FAILURE) {
-		xil_printf("IRQ Configuration failed.\r\n");
-		return XST_FAILURE;
-	}
-#endif
 
 	Status = config_csi_cap_path();
 	if (Status == XST_FAILURE) {
