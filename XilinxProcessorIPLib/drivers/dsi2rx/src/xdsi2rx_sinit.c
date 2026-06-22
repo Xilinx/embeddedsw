@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2024-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -25,7 +25,6 @@
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
-#include "xparameters.h"
 #include "xdsi2rx.h"
 
 /************************** Function Definitions ******************************/
@@ -34,7 +33,7 @@
 /**
  * Look up the hardware configuration for a device instance
  *
- * @param	BaseAddress is the unique device ID of the device to lookup for
+ * @param	BaseAddress is the base address of the device to lookup for
  *
  * @return	The reference to the configuration record in the configuration
  * 		table (in xdsi2rx_g.c) corresponding to the BaseAddress or if
