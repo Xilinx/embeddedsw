@@ -283,13 +283,8 @@ static inline void XDphy_SetBitField(UINTPTR BaseAddress, u32 RegisterOffset,
 *
 */
 typedef struct {
-#ifndef SDT
-	u32 DeviceId; /**< Device Id */
-#else
 	char *Name;
-#endif
 	UINTPTR BaseAddr; /**< Base address of DPHY */
-
 	u32 IsRx; /**< TX or RX Mode */
 	u32 IsRegisterPresent; /**< Is register access allowed */
 	u32 MaxLanesPresent; /**< Number of Lanes. Range 1 - 4 */
@@ -319,11 +314,7 @@ typedef struct {
 /************************** Function Prototypes ******************************/
 
 /* Initialization function in xdphy_sinit.c */
-#ifndef SDT
-XDphy_Config *XDphy_LookupConfig(u32 DeviceId);
-#else
 XDphy_Config *XDphy_LookupConfig(UINTPTR BaseAddress);
-#endif
 
 /* Initialization and control functions xdphy.c */
 u32 XDphy_CfgInitialize(XDphy *InstancePtr, XDphy_Config *Config,
