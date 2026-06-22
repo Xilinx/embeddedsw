@@ -20,18 +20,19 @@ collect(PROJECT_LIB_DEPS c)
 collector_list (_deps PROJECT_LIB_DEPS)
 
 if("${CMAKE_MACHINE}" STREQUAL "Versal")
-    if("${XILSECURE_mode}" STREQUAL "server")
-        SET(COMMON_EXAMPLES xilsecure_versal_aes_server_example.c;xilsecure_versal_ecdsa_server_example.c;xilsecure_versal_rsa_server_example.c;xilsecure_versal_sha_server_example.c;)
-    else()
+    if("${XILSECURE_mode}" STREQUAL "client")
         if("Versal_2VP" IN_LIST VARIANT)
-	    SET(COMMON_EXAMPLES xilsecure_versal_aes_client_example.c;xilsecure_versal_ecdsa_client_example.c;xilsecure_versal_rsa_client_example.c;xilsecure_versal_sha_client_example.c;
-            xilsecure_versal_net_ecdh_client_example.c; xilsecure_versal_net_trng_client_example.c)
+            SET(COMMON_EXAMPLES xilsecure_versal_aes_client_example.c;xilsecure_versal_ecdsa_client_example.c;xilsecure_versal_rsa_client_example.c;xilsecure_versal_sha_client_example.c;
+            xilsecure_versal_net_ecdh_client_example.c;xilsecure_versal_net_trng_client_example.c)
+        elseif("Versal_2VP_P" IN_LIST VARIANT)
+            SET(COMMON_EXAMPLES xilsecure_versal_aes_client_example.c;xilsecure_versal_ecdsa_client_example.c;xilsecure_versal_rsa_client_example.c;xilsecure_versal_2ve_2vm_sha_client_example.c;
+            xilsecure_mldsa_client_example.c;xilsecure_versal_net_rsa_client_example.c;xilsecure_slhdsa_client_example.c;
+            xilsecure_versal_net_ecdh_client_example.c;xilsecure_versal_net_trng_client_example.c)
         else()
 	    SET(COMMON_EXAMPLES xilsecure_versal_aes_client_example.c;xilsecure_versal_ecdsa_client_example.c;xilsecure_versal_rsa_client_example.c;xilsecure_versal_sha_client_example.c;)
         endif()
-	if("Versal_2VP_P" IN_LIST VARIANT)
-	    list(APPEND COMMON_EXAMPLES xilsecure_mldsa_client_example.c;xilsecure_versal_net_rsa_client_example.c;xilsecure_slhdsa_client_example.c;)
-	endif()
+    else()
+        SET(COMMON_EXAMPLES xilsecure_versal_aes_server_example.c;xilsecure_versal_ecdsa_server_example.c;xilsecure_versal_rsa_server_example.c;xilsecure_versal_sha_server_example.c;)
     endif()
 elseif("${CMAKE_MACHINE}" STREQUAL "VersalNet")
     SET(COMMON_EXAMPLES xilsecure_versal_aes_client_example.c;xilsecure_versal_ecdsa_client_example.c;xilsecure_versal_rsa_client_example.c;xilsecure_versal_sha_client_example.c;

@@ -79,7 +79,7 @@ examples:
     if ((platform == "Versal" and proc in versal_procs) or (platform == "VersalNet" and proc in versalnet_procs)) and ("Versal_2VP_P" not in variant):
       examples += ["xilsecure_versal_sha_client_example.c"]
 
-    if platform in ["Versal"] and proc in versal_procs:
+    if platform in ["Versal"] and proc in versal_procs and ("Versal_2VP" not in variant) and ("Versal_2VP_P" not in variant):
       examples += ["xilsecure_versal_ecdsa_server_example.c", "xilsecure_versal_rsa_server_example.c", "xilsecure_versal_sha_server_example.c",
                      "xilsecure_versal_aes_server_example.c"]
 
@@ -99,10 +99,9 @@ examples:
     if "spartanuplusaes1" in variant and proc in spartanuplus_procs:
       examples += ["xilsecure_versal_ecdsa_server_example.c"]
 
-    if "Versal_2VP" in variant and proc in versal_procs:
+    if ("Versal_2VP" in variant and proc in versal_procs) or ("Versal_2VP_P" in variant and proc in versal_procs):
         examples += ["xilsecure_versal_net_ecdh_client_example.c", "xilsecure_versal_net_trng_client_example.c"]
 
     if "Versal_2VP_P" in variant and proc in versal_procs:
         examples += ["xilsecure_mldsa_client_example.c", "xilsecure_versal_net_rsa_client_example.c",
-                      "xilsecure_versal_net_ecdh_client_example.c", "xilsecure_versal_net_trng_client_example.c",
                       "xilsecure_slhdsa_client_example.c"]
