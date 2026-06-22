@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -11,7 +11,7 @@
 * @addtogroup mipi_tx_phy Overview
 * @{
 *
-* Look up the hardware settings using device ID. The hardware setting is inside
+* Look up the hardware settings using base address. The hardware setting is inside
 * the configuration table in xmipi_tx_phy_g.c, generated automatically by XPS or
 * manually by the user.
 *

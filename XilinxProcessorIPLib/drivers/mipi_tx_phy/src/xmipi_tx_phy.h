@@ -50,7 +50,7 @@
 * The application needs to do following steps in order for preparing the
 * MIPI mipi_tx_phy core to be ready.
 *
-* - Call XMipi_Tx_Phy_LookupConfig using a device ID to find the core
+* - Call XMipi_Tx_Phy_LookupConfig using a base address to find the core
 *   configuration.
 * - Call XMipi_Tx_Phy_CfgInitialize to initialize the device and the driver
 *   instance associated with it.
