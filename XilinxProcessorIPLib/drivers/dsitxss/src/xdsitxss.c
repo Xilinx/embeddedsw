@@ -68,11 +68,7 @@ typedef struct {
  * contains the driver instances for all sub-cores (DSI, MIPI TX PHY, DPHY)
  * associated with an instance of the DSI TX Subsystem.
  */
-#ifndef SDT
 XDsiTxSs_SubCores DsiTxSsSubCores[XPAR_XDSITXSS_NUM_INSTANCES];
-#else
-XDsiTxSs_SubCores DsiTxSsSubCores[XPAR_XDSITXSS_NUM_INSTANCES];
-#endif
 /***************** Macros (Inline Functions) Definitions *********************/
 
 
@@ -87,10 +83,6 @@ static s32 XDsiTxSs_SubCoreInitDphy(XDsiTxSs *DsiTxSsPtr);
 static u32 DsiTxSs_SubCoreInitMipiTxPhy(XDsiTxSs *DsiTxSsPtr);
 #endif
 
-#ifndef SDT
-static s32 ComputeSubCoreAbsAddr(UINTPTR SsBaseAddr, UINTPTR SsHighAddr,
-					u32 Offset, UINTPTR *BaseAddr);
-#endif
 
 /************************** Function Definitions ******************************/
 
@@ -542,14 +534,6 @@ static void XDsiTxSs_GetIncludedSubCores(XDsiTxSs *DsiTxSsPtr)
 {
 	/* Verify argument */
 	Xil_AssertVoid(DsiTxSsPtr != NULL);
-#ifndef SDT
-	DsiTxSsPtr->DsiPtr = ((DsiTxSsPtr->Config.DsiInfo.IsPresent) ?
-				(&DsiTxSsSubCores[DsiTxSsPtr->Config.DeviceId].DsiInst) : NULL);
-#if (XPAR_XDPHY_NUM_INSTANCES > 0)
-	DsiTxSsPtr->DphyPtr = ((DsiTxSsPtr->Config.DphyInfo.IsPresent) ?
-				(&DsiTxSsSubCores[DsiTxSsPtr->Config.DeviceId].DphyInst) : NULL);
-#endif
-#else
 	u32 Index = 0;
 	Index = XDsiTxSs_GetDrvIndex(DsiTxSsPtr, DsiTxSsPtr->Config.BaseAddr);
 	DsiTxSsPtr->DsiPtr = ((DsiTxSsPtr->Config.DsiInfo.IsPresent) ?
@@ -561,7 +545,6 @@ static void XDsiTxSs_GetIncludedSubCores(XDsiTxSs *DsiTxSsPtr)
 #if (XPAR_XDPHY_NUM_INSTANCES > 0)
 	DsiTxSsPtr->DphyPtr = ((DsiTxSsPtr->Config.DphyInfo.IsPresent) ?
 				(&DsiTxSsSubCores[Index].DphyInst) : NULL);
-#endif
 #endif
 }
 
@@ -590,31 +573,14 @@ static s32 XDsiTxSs_SubCoreInitDsi(XDsiTxSs *DsiTxSsPtr)
 
 	/* Get core configuration */
 	xdbg_printf(XDBG_DEBUG_GENERAL, ">Initializing DSI Tx Controller...\n\r");
-#ifndef SDT
-	ConfigPtr = XDsi_LookupConfig(DsiTxSsPtr->Config.DsiInfo.DeviceId);
-#else
 	ConfigPtr = XDsi_LookupConfig(DsiTxSsPtr->Config.DsiInfo.AddrOffset);
-#endif
 	if (ConfigPtr == NULL) {
 		xdbg_printf(XDBG_DEBUG_ERROR, "DSITXSS ERR:: DSI not found\n\r");
 		return XST_FAILURE;
 	}
 
 	/* Compute absolute base address */
-#ifndef SDT
-	AbsAddr = 0;
-	Status = ComputeSubCoreAbsAddr(DsiTxSsPtr->Config.BaseAddr,
-					DsiTxSsPtr->Config.HighAddr,
-					DsiTxSsPtr->Config.DsiInfo.AddrOffset,
-					&AbsAddr);
-	if (Status != XST_SUCCESS) {
-		xdbg_printf(XDBG_DEBUG_ERROR, "DSITXSS ERR:: DSI core base"
-			"address (0x%x) invalid \n\r", AbsAddr);
-		return XST_FAILURE;
-	}
-#else
     AbsAddr = ConfigPtr->BaseAddr;
-#endif
 
 	/* Initialize core */
 	Status = XDsi_CfgInitialize(DsiTxSsPtr->DsiPtr, ConfigPtr, AbsAddr);
@@ -654,11 +620,7 @@ static s32 XDsiTxSs_SubCoreInitDphy(XDsiTxSs *DsiTxSsPtr)
 
 	/* Get core configuration */
 	xdbg_printf(XDBG_DEBUG_GENERAL, "->Initializing DPHY ...\n\r");
-#ifndef SDT
-	ConfigPtr = XDphy_LookupConfig(DsiTxSsPtr->Config.DphyInfo.DeviceId);
-#else
 	ConfigPtr = XDphy_LookupConfig(DsiTxSsPtr->Config.DphyInfo.AddrOffset);
-#endif
 
 	if (!ConfigPtr) {
 		xdbg_printf(XDBG_DEBUG_ERROR, "DSITXSS ERR:: DPHY not found \n\r");
@@ -666,20 +628,7 @@ static s32 XDsiTxSs_SubCoreInitDphy(XDsiTxSs *DsiTxSsPtr)
 	}
 
 	/* Compute absolute base address */
-#ifndef SDT
-	AbsAddr = 0;
-	Status = ComputeSubCoreAbsAddr(DsiTxSsPtr->Config.BaseAddr,
-					DsiTxSsPtr->Config.HighAddr,
-					DsiTxSsPtr->Config.DphyInfo.AddrOffset,
-					&AbsAddr);
-	if (Status != XST_SUCCESS) {
-		xdbg_printf(XDBG_DEBUG_ERROR, "DSITXSS ERR:: DPHY core base address "
-				"(0x%x) invalid \n\r", AbsAddr);
-		return XST_FAILURE;
-	}
-#else
     AbsAddr = ConfigPtr->BaseAddr;
-#endif
 
 	/* Initialize core */
 	Status = XDphy_CfgInitialize(DsiTxSsPtr->DphyPtr, ConfigPtr, AbsAddr);
@@ -724,20 +673,7 @@ static u32 DsiTxSs_SubCoreInitMipiTxPhy(XDsiTxSs *DsiTxSsPtr)
 	}
 
 	/* Compute absolute base address */
-#ifndef SDT
-	AbsAddr = 0;
-	Status = ComputeSubCoreAbsAddr(DsiTxSsPtr->Config.BaseAddr,
-					DsiTxSsPtr->Config.HighAddr,
-					DsiTxSsPtr->Config.MipiTxPhyInfo.AddrOffset,
-					&AbsAddr);
-	if (Status != XST_SUCCESS) {
-		xdbg_printf(XDBG_DEBUG_ERROR,"CSISS ERR:: MIPI RX PHY core base "
-			"address (0x%x) invalid %d\n\r", AbsAddr);
-		return XST_FAILURE;
-	}
-#else
     AbsAddr = ConfigPtr->BaseAddr;
-#endif
 
 	/* Initialize core */
 	Status = XMipi_Tx_Phy_CfgInitialize(DsiTxSsPtr->MipiTxPhyPtr, ConfigPtr, AbsAddr);
@@ -751,51 +687,3 @@ static u32 DsiTxSs_SubCoreInitMipiTxPhy(XDsiTxSs *DsiTxSsPtr)
 }
 #endif
 
-#ifndef SDT
-/*****************************************************************************/
-/**
-* This function computes the subcore absolute address on axi-lite interface
-* Subsystem is mapped at an absolute address and all included sub-cores are
-* at pre-defined offset from the subsystem base address. To access the subcore
-* register map from host CPU an absolute address is required.
-* The subsystem is aligned to 128K address and has address range of max 192K
-* By default, DSI is at offset 0x0_0000 and DPHY is at offset 0x1_0000.
-* In case DPHY register interface is also absent then the address
-* range shrinks to 64K with only the DSI subcore at offset 0x0_0000.
-*
-* @param	SsBaseAddr is the base address of the the Subsystem instance
-* @param	SsHighAddr is the max address of the Subsystem instance
-* @param	Offset is the offset of the specified core
-* @param	BaseAddr is the computed absolute base address of the subcore
-*
-* @return
-*		- XST_SUCCESS if base address computation is successful
-*		  and within subsystem address range
-*		- XST_FAILURE on address out of range
-*
-* @note		None
-*
-******************************************************************************/
-static s32 ComputeSubCoreAbsAddr(UINTPTR SsBaseAddr,
-				UINTPTR SsHighAddr,
-				u32 Offset,
-				UINTPTR *BaseAddr)
-{
-	s32 Status;
-	UINTPTR AbsAddr;
-
-	AbsAddr = SsBaseAddr + Offset;
-
-	if ((AbsAddr >= SsBaseAddr) && (AbsAddr < SsHighAddr)) {
-		*BaseAddr = AbsAddr;
-		Status = XST_SUCCESS;
-	}
-	else {
-		*BaseAddr = 0;
-		Status = XST_FAILURE;
-	}
-
-	return Status;
-}
-/** @} */
-#endif

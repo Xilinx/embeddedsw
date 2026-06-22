@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * Copyright (C) 2016 - 2020 Xilinx, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
@@ -38,14 +38,10 @@
 
 /************************** Constant Definitions *****************************/
 
-/* The unique device ID of the MIPI DSI Rx Subsystem instance
+/* The base address of the MIPI DSI Rx Subsystem instance
  * to be used
  */
-#ifndef SDT
- #define XDSITXSS_DEVICE_ID		XPAR_DSITXSS_0_DEVICE_ID
-#else
  #define XDSITXSS_BASE			XPAR_XDSITXSS_0_BASEADDR
-#endif
 /***************** Macros (Inline Functions) Definitions *********************/
 
 
@@ -85,11 +81,7 @@ s32 main()
 	xil_printf("MIPI DSI TX Subsystem self test example\n\r");
 	xil_printf("---------------------------------------\n\r\n\r");
 
-#ifndef SDT
-	Status = DsiTxSs_SelfTestExample(XDSITXSS_DEVICE_ID);
-#else
 	Status = DsiTxSs_SelfTestExample(XDSITXSS_BASE);
-#endif
 	if (Status != XST_SUCCESS) {
 		xil_printf("MIPI DSI TX Subsystem self test example failed\n\r");
 		return XST_FAILURE;
@@ -108,7 +100,7 @@ s32 main()
 * XDsiTxSs driver. This function check whether or not its sub-core drivers
 * self test functions are in working state.
 *
-* @param	DeviceId is the unique device ID of the MIPI DSI TX
+* @param	DeviceId is the base address of the MIPI DSI TX
 *.		Subsystem core.
 *
 * @return

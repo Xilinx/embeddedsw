@@ -47,7 +47,7 @@
 * board support package (BSP).
 * A table is defined where each entry contains configuration information
 * for the instances of the subsystem in the design. This information includes
-* the elected configuration, sub-cores used and their device ID, base addresses
+* the elected configuration, sub-cores used and base addresses
 * of memory mapped devices and address range available for subsystem
 * frame/field buffers.
 *
@@ -143,17 +143,12 @@ extern "C" {
  * @brief Sub-core configuration information structure.
  *
  * Contains configuration details for a sub-core (DSI, DPHY, or MIPI TX PHY)
- * including its presence in the design, device ID, and memory offset.
+ * including its presence in the design and memory offset.
  */
 typedef struct {
 	u32 IsPresent;  /**< Flag indicating if sub-core is present
 				*  in the design */
-#ifndef SDT
-	u32 DeviceId;   /**< Device ID of the sub-core */
-	u32 AddrOffset;	/**< Sub-core offset from subsystem base address */
-#else
 	UINTPTR AddrOffset; /**< Sub-core address offset (SDT mode) */
-#endif
 } DsiTxSsSubCore;
 
 /**
@@ -182,12 +177,7 @@ typedef enum {
  * that defines the MAX supported sub-cores within subsystem
  */
 typedef struct {
-#ifndef SDT
-	u32 DeviceId;	/**< DeviceId is the unique ID
-			  *  of the device */
-#else
 	char *Name;
-#endif
 	UINTPTR BaseAddr;	/**< BaseAddress is the physical
 			  *  base address of the subsystem
 			  *  address range */
@@ -204,7 +194,6 @@ typedef struct {
 				 *  interface presence */
 	DsiTxSsSubCore DphyInfo;	/**< Sub-core instance configuration */
 	DsiTxSsSubCore DsiInfo;	/**< Sub-core instance configuration */
-#ifdef SDT
 	u16 IntrId;		/* Interrupt ID */
 	UINTPTR IntrParent; 	/* Bit[0] Interrupt Parent */
 #if (XPAR_XMIPI_TX_PHY_NUM_INSTANCES > 0)
@@ -213,7 +202,6 @@ typedef struct {
 	u32 MipiTxPhyLineRate;	/**< DPHY Line Rate ranging from
 				  *  80-1500 Mbps */
 	DsiTxSsSubCore MipiTxPhyInfo; /* MIPI TX PHY sub-core configuration */
-#endif
 #endif
 } XDsiTxSs_Config;
 
@@ -266,12 +254,8 @@ typedef struct {
 } XDsiTxSs;
 
 /************************** Function Prototypes ******************************/
-#ifndef SDT
-XDsiTxSs_Config* XDsiTxSs_LookupConfig(u32 DeviceId);
-#else
 XDsiTxSs_Config* XDsiTxSs_LookupConfig(UINTPTR BaseAddress);
 u32 XDsiTxSs_GetDrvIndex(XDsiTxSs *InstancePtr, UINTPTR BaseAddress);
-#endif
 
 s32 XDsiTxSs_CfgInitialize(XDsiTxSs *InstancePtr, XDsiTxSs_Config *CfgPtr,
 							UINTPTR EffectiveAddr);

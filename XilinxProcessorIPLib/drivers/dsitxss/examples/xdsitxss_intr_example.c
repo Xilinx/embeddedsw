@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * Copyright (C) 2016 - 2020 Xilinx, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
@@ -37,23 +37,11 @@
 #include "xil_printf.h"
 #include "xil_types.h"
 #include "xstatus.h"
-#ifndef SDT
- #include "xintc.h"
-#else
- #include "xinterrupt_wrap.h"
-#endif
+#include "xinterrupt_wrap.h"
 
-/* The unique device ID of the MIPI DSI Tx Subsystem instance to be used
+/* The base address of the MIPI DSI Tx Subsystem instance to be used
  */
-#ifndef SDT
- #define XDSITXSS_DEVICE_ID		XPAR_DSITXSS_0_DEVICE_ID
-#else
 #define XDSITXSS_BASE			XPAR_XDSITXSS_0_BASEADDR
-#endif
-#ifndef SDT
- #define XINTC_DSITXSS_INTERRUPT_ID	XPAR_INTC_0_DSITXSS_0_VEC_ID
- #define XINTC_DEVICE_ID			XPAR_INTC_0_DEVICE_ID
-#endif
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
@@ -114,11 +102,7 @@ s32 main()
 	xil_printf("MIPI DSITXSS interrupt example\n\r");
 	xil_printf("------------------------------------------\n\r\n\r");
 
-#ifndef SDT
-	Status = DsiTxSs_IntrExample(XDSITXSS_DEVICE_ID);
-#else
 	Status = DsiTxSs_IntrExample(XDSITXSS_BASE);
-#endif
 	if (Status != XST_SUCCESS) {
 		xil_printf("MIPI DSITXSS interrupt example failed.");
 		return XST_FAILURE;
@@ -174,92 +158,13 @@ void Delay(u32 Seconds)
 #endif
 }
 
-#ifndef SDT
-/****************************************************************************/
-/**
-*
-* This function setups the interrupt system such that interrupts can occur
-* for the DSI device. This function is application specific since the
-* actual system may or may not have an interrupt controller. The DSI
-* could be directly connected to a processor without an interrupt controller.
-* The user should modify this function to fit the application.
-*
-* @param	DsiTxSsPtr contains a pointer to the instance of the DSI
-*		component which is going to be connected to the interrupt
-*		controller.
-*
-* @return
-*		- XST_SUCCESS if successfully setup the interrupt
-*		- XST_FAILURE.failure to setup the interrupt
-*
-* @note		None.
-*
-****************************************************************************/
-s32 SetupInterruptSystem(XDsiTxSs *DsiTxSsPtr)
-{
-	s32 Status;
-
-	/* Setup call back handlers */
-	XDsiTxSs_SetCallback(DsiTxSsPtr, XDSITXSS_HANDLER_UNSUPPORT_DATATYPE,
-			     DsiTxSs_UnSupportDataEventHandler, DsiTxSsPtr);
-	XDsiTxSs_SetCallback(DsiTxSsPtr, XDSITXSS_HANDLER_PIXELDATA_UNDERRUN,
-			     DsiTxSs_PixelUnderrunEventHandler, DsiTxSsPtr);
-	XDsiTxSs_SetCallback(DsiTxSsPtr, XDSITXSS_HANDLER_CMDQ_FIFOFULL,
-			     DsiTxSs_CmdQFIFOFullEventHandler, DsiTxSsPtr);
-
-	/*
-	 * Initialize the interrupt controller driver so that it is ready to
-	 * use.
-	 */
-	Status = XIntc_Initialize(&InterruptController, XINTC_DEVICE_ID);
-	if (Status != XST_SUCCESS) {
-		return XST_FAILURE;
-	}
-
-	/*
-	 * Connect a device driver handler that will be called when an interrupt
-	 * for the device occurs, the device driver handler performs the
-	 * specific interrupt processing for the device.
-	 */
-	Status = XIntc_Connect(&InterruptController, XINTC_DSITXSS_INTERRUPT_ID,
-			       (XInterruptHandler)XDsiTxSs_IntrHandler,
-			       (void *)DsiTxSsPtr);
-	if (Status != XST_SUCCESS) {
-		return XST_FAILURE;
-	}
-
-	/*
-	 * Start the interrupt controller such that interrupts are enabled for
-	 * all devices that cause interrupts, specific real mode so that
-	 * the DSI can cause interrupts through the interrupt controller.
-	 */
-	Status = XIntc_Start(&InterruptController, XIN_REAL_MODE);
-	if (Status != XST_SUCCESS) {
-		return XST_FAILURE;
-	}
-
-	XIntc_Enable(&InterruptController, XINTC_DSITXSS_INTERRUPT_ID);
-
-	Xil_ExceptionInit();
-
-	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT,
-				     (Xil_ExceptionHandler)XIntc_InterruptHandler,
-				     &InterruptController);
-
-	Xil_ExceptionEnable();
-
-	XDsiTxSs_SetGlobalInterrupt(DsiTxSsPtr);
-
-	return XST_SUCCESS;
-}
-#endif
 /*****************************************************************************/
 /**
 *
 * This function is the main entry point for the interrupt example using the
 * DsiTxSs driver. This function will set up the system with interrupts handlers.
 *
-* @param	DeviceId is the unique device ID of the MIPI DSI
+* @param	DeviceId is the base address of the MIPI DSI
 *		Subsystem core.
 *
 * @return
@@ -291,7 +196,6 @@ u32 DsiTxSs_IntrExample(u32 DeviceId)
 		return XST_FAILURE;
 	}
 
-#ifdef SDT
 	/* Setup call back handlers */
 	XDsiTxSs_SetCallback(DsiTxSsPtr, XDSITXSS_HANDLER_UNSUPPORT_DATATYPE,
 			     DsiTxSs_UnSupportDataEventHandler, DsiTxSsPtr);
@@ -309,7 +213,6 @@ u32 DsiTxSs_IntrExample(u32 DeviceId)
 		xil_printf("ERROR:: Test could not be completed \r \n");
 		return(1);
 	}
-#endif
 	/*
 	 * Perform self test to ensure the hardware built correctly
 	 */
@@ -322,12 +225,6 @@ u32 DsiTxSs_IntrExample(u32 DeviceId)
 	 * Connect the DSI to the interrupt subsystem such that interrupts can
 	 * occur. This function is application specific.
 	 */
-#ifndef SDT
-	Status = SetupInterruptSystem(&DsiTxSs);
-	if (Status != XST_SUCCESS) {
-		return XST_FAILURE;
-	}
-#endif
 	XDsiTxSs_InterruptEnable(&DsiTxSs, XDSITXSS_IER_ALLINTR_MASK);
 
 	/*
