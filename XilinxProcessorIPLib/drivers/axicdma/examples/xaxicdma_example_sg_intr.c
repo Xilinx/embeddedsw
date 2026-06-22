@@ -249,7 +249,6 @@ int main()
 #endif
 
 	xil_printf("\r\n--- Entering main() --- \r\n");
-	S
 	/* Initialize SG buffer pointers */
 	TransmitBufferPtr = (u32 *)SgTxBuffer;
 	ReceiveBufferPtr = (u32 *)SgRxBuffer;
