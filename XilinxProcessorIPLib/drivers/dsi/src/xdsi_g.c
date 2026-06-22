@@ -1,34 +1,11 @@
 /*******************************************************************
 * Copyright (C) 2010-2020 Xilinx, Inc. All rights reserved.*
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************/
 
-#ifndef SDT
-#include "xparameters.h"
-#else
 #include "xdsi.h"
-#endif
 
-#ifndef SDT
-/*
-* The configuration table for devices
-*/
-
-XDsi_Config XDsi_ConfigTable[] =
-{
-	{
-		XPAR_MIPI_DSI_TX_SUBSYSTEM_0_MIPI_DSI_TX_CTRL_0_DEVICE_ID,
-		XPAR_MIPI_DSI_TX_SUBSYSTEM_0_MIPI_DSI_TX_CTRL_0_BASEADDR,
-		XPAR_MIPI_DSI_TX_SUBSYSTEM_0_MIPI_DSI_TX_CTRL_0_DSI_LANES,
-		XPAR_MIPI_DSI_TX_SUBSYSTEM_0_MIPI_DSI_TX_CTRL_0_DSI_DATATYPE,
-		XPAR_MIPI_DSI_TX_SUBSYSTEM_0_MIPI_DSI_TX_CTRL_0_DSI_BYTE_FIFO,
-		XPAR_MIPI_DSI_TX_SUBSYSTEM_0_MIPI_DSI_TX_CTRL_0_DSI_CRC_GEN,
-		XPAR_MIPI_DSI_TX_SUBSYSTEM_0_MIPI_DSI_TX_CTRL_0_DSI_PIXELS
-	}
-};
-
-#else
 XDsi_Config XDsi_ConfigTable[] __attribute__ ((section (".drvcfg_sec"))) = {
 
 	{
@@ -44,4 +21,3 @@ XDsi_Config XDsi_ConfigTable[] __attribute__ ((section (".drvcfg_sec"))) = {
 		 NULL
 	}
 };
-#endif
