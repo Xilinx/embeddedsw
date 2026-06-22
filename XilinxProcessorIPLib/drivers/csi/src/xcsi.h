@@ -191,11 +191,7 @@ typedef struct {
  * This structure passes the hardware building information to the driver.
  */
 typedef struct {
-#ifndef SDT
-	u32 DeviceId;		/**< Device Id */
-#else
 	char *Name;
-#endif
 	UINTPTR BaseAddr;	/**< Base address of CSI2 Rx Controller */
 	u32 MaxLanesPresent;	/**< Number of Lanes. Range 1 - 4 */
 	u32 HasOffloadNonImageSupport;	/**< Offload non image data
@@ -670,24 +666,6 @@ static inline void XCsi_ResetGlobalInterrupt(XCsi *InstancePtr)
 /************************** Function Prototypes ******************************/
 
 /* Initialization function in xcsi_sinit.c */
-#ifndef SDT
-/**
- * @brief Lookup the device configuration based on the unique device ID.
- *
- * This function returns a reference to an XCsi_Config structure based on
- * the unique device ID. This function will return a NULL pointer if the
- * device ID is not found.
- *
- * @param	DeviceId is the unique device ID of the device for the lookup
- *		operation.
- *
- * @return	XCsi_Config reference if DeviceId is found, NULL otherwise.
- *
- * @note		None.
- *
- ******************************************************************************/
-XCsi_Config *XCsi_LookupConfig(u32 DeviceId);
-#else
 /**
  * @brief Lookup the device configuration based on the base address.
  *
@@ -703,7 +681,6 @@ XCsi_Config *XCsi_LookupConfig(u32 DeviceId);
  *
  ******************************************************************************/
 XCsi_Config *XCsi_LookupConfig(UINTPTR BaseAddress);
-#endif
 
 /* Initialization and control functions in xcsi.c */
 /**

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc. All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -26,41 +26,21 @@
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
-#ifndef SDT
-#include "xparameters.h"
-#endif
 #include "xcsi.h"
 
 /*****************************************************************************/
 /**
  * Look up the hardware configuration for a device instance
  *
- * @param	DeviceId is the unique device ID of the device to lookup for
+ * @param	BaseAddress is the base address of the device to lookup for
  *
  * @return	The reference to the configuration record in the configuration
- * 		table (in xcsi_g.c) corresponding to the Device ID or if
+ * 		table (in xcsi_g.c) corresponding to the Base Address or if
  *		not found,a NULL pointer is returned.
  *
  * @note	None
  *
  *****************************************************************************/
-#ifndef SDT
-XCsi_Config *XCsi_LookupConfig(u32 DeviceId)
-{
-	extern XCsi_Config XCsi_ConfigTable[];
-	XCsi_Config *CfgPtr = NULL;
-	u32 Index;
-
-	for (Index = 0; Index < XPAR_XCSI_NUM_INSTANCES; Index++) {
-		if (XCsi_ConfigTable[Index].DeviceId == DeviceId) {
-			CfgPtr = &XCsi_ConfigTable[Index];
-			break;
-		}
-	}
-
-	return CfgPtr;
-}
-#else
 XCsi_Config *XCsi_LookupConfig(UINTPTR BaseAddress)
 {
 	extern XCsi_Config XCsi_ConfigTable[];
@@ -76,5 +56,4 @@ XCsi_Config *XCsi_LookupConfig(UINTPTR BaseAddress)
 
 	return CfgPtr;
 }
-#endif
 /** @} */
