@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 – 2022 Xilinx, Inc.  All rights reserved.
-* Copyright 2023-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2023-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -57,16 +57,6 @@
 #define ANSI_COLOR_BG_RED       "\x1b[41m"
 #define ANSI_COLOR_BG_RESET     "\x1b[0m"
 
-#ifndef SDT
-#if defined (XPAR_V_HDMI_TX_SS_HDCP_1_4_DEVICE_ID) || \
-	defined (XPAR_XHDCP22_TX_NUM_INSTANCES)
-
-/* If HDCP 1.4 or HDCP 2.2 is in the system
- * then use the HDCP abstraction layer */
-#define USE_HDCP_HDMI_TX
-
-#endif
-#else
 #if (XPAR_V_HDMI_TXSS1_HDCP14_PRESENT > 0) || \
 	(XPAR_XHDCP22_TX_NUM_INSTANCES > 0)
 
@@ -76,7 +66,6 @@
  */
 #define USE_HDCP_HDMI_TX
 
-#endif
 #endif
 
 #if defined (XPS_BOARD_VEK280_ES) || \
@@ -322,13 +311,8 @@ typedef struct {
 /************************** Variable Definitions ****************************/
 
 /************************** Function Prototypes *****************************/
-#ifndef SDT
-u32 XV_Tx_Hdmi_Initialize(XV_Tx *InstancePtr, u32 HdmiTxSsDevId,
-		u32 VPhyDevId, XV_Tx_IntrVecId IntrVecIds);
-#else
 u32 XV_Tx_Hdmi_Initialize(XV_Tx *InstancePtr, u32 HdmiTxSsBaseAddr,
 		u32 VPhyBaseAddr);
-#endif
 
 void XV_Tx_SetDebugPrints(XV_Tx_Debug_Printf PrintFunc);
 void XV_Tx_SetDebugStateMachinePrints(XV_Tx_Debug_Printf PrintFunc);
